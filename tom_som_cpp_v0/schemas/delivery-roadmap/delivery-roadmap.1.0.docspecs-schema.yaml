@@ -3,47 +3,14 @@
 
 title-format: "# <!--[DRM]--> Delivery Roadmap"
 section-types:
-  deopen-opti-lst:
-    prefix: DEOPEN_OPTI_LST
+  phgareen-item-lst:
+    prefix: PHGAREEN_ITEM_LST
     subsection-types:
-      deopen-opti:
+      phgareen-item:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: Add one entry per decision option.
-  depoen-item-lst:
-    prefix: DEPOEN_ITEM_LST
-    subsection-types:
-      depoen-item:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per decision point.
-  fedeen-item-lst:
-    prefix: FEDEEN_ITEM_LST
-    subsection-types:
-      fedeen-item:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per feature dependency.
-  fepren-item-lst:
-    prefix: FEPREN_ITEM_LST
-    subsection-types:
-      fepren-item:
-        max-count: infinite
-        min-count: 1
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per prioritized feature.
-  festm1-item-lst:
-    prefix: FESTM1_ITEM_LST
-    subsection-types:
-      festm1-item:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per feature-stage mapping.
+    description: Add one entry per phase gate review.
   miphre-reso-lst:
     prefix: MIPHRE_RESO_LST
     subsection-types:
@@ -77,6 +44,22 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per stage summary.
+  stagst-cons-lst:
+    prefix: STAGST_CONS_LST
+    subsection-types:
+      stagst-cons:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per staging constraint.
+  stagst-keya-lst:
+    prefix: STAGST_KEYA_LST
+    subsection-types:
+      stagst-keya:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per key assumption.
   stgmrs-item-lst:
     prefix: STGMRS_ITEM_LST
     subsection-types:
@@ -118,14 +101,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Resources and budget.
-  keyas-keya-lst:
-    prefix: KEYAS_KEYA_LST
-    subsection-types:
-      keyas-keya:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per key assumption.
   mgphs-item-lst:
     prefix: MGPHS_ITEM_LST
     subsection-types:
@@ -135,6 +110,27 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per migration phase.
+  phgareen-item:
+    prefix: PHGAREEN_ITEM_
+    subsection-types:
+      phgaid:
+        max-count: 1
+      phgaau:
+        max-count: 1
+      phgasc:
+        max-count: 1
+      phgaen:
+        max-count: 1
+      phgaev:
+        max-count: 1
+      phgaex:
+        max-count: 1
+      rvcri-revi-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PHGAREEN-ITEM-.+$
+      error-message: IDs of this section must match PHGAREEN-ITEM-xxx
+    description: Add one entry per phase gate review.
   rvcri-revi-lst:
     prefix: RVCRI_REVI_LST
     subsection-types:
@@ -152,14 +148,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Stages (list).
-  stagi-cons-lst:
-    prefix: STAGI_CONS_LST
-    subsection-types:
-      stagi-cons:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per staging constraint.
   susst-subs-lst:
     prefix: SUSST_SUBS_LST
     subsection-types:
@@ -200,14 +188,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per source system.
-  moen-item-lst:
-    prefix: MOEN_ITEM_LST
-    subsection-types:
-      moen-item:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per MoSCoW-classified feature.
   mpdr-dryr-lst:
     prefix: MPDR_DRYR_LST
     subsection-types:
@@ -216,14 +196,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per migration dry run.
-  pgre-item-lst:
-    prefix: PGRE_ITEM_LST
-    subsection-types:
-      pgre-item:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per phase gate review.
   stde-depe-lst:
     prefix: STDE_DEPE_LST
     subsection-types:
@@ -248,81 +220,46 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Stakeholders and communication.
-  deopen-opti:
-    prefix: DEOPEN_OPTI_
+  doe-opti-lst:
+    prefix: DOE_OPTI_LST
     subsection-types:
-      does:
-        max-count: 1
-      doei:
-        max-count: 1
-      doef:
-        max-count: 1
-      doeto:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^DEOPEN-OPTI-.+$
-      error-message: IDs of this section must match DEOPEN-OPTI-xxx
+      doe-opti:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per decision option.
-  depoen-item:
-    prefix: DEPOEN_ITEM_
+  dpe-item-lst:
+    prefix: DPE_ITEM_LST
     subsection-types:
-      dpec:
-        max-count: 1
-      dpes:
-        max-count: 1
-      depoencr:
-        max-count: 1
-      dper:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^DEPOEN-ITEM-.+$
-      error-message: IDs of this section must match DEPOEN-ITEM-xxx
+      dpe-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per decision point.
-  fedeen-item:
-    prefix: FEDEEN_ITEM_
-    pattern-check-id:
-      pattern: ^FEDEEN-ITEM-.+$
-      error-message: IDs of this section must match FEDEEN-ITEM-xxx
+  fde-item-lst:
+    prefix: FDE_ITEM_LST
+    subsection-types:
+      fde-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per feature dependency.
-  fepren-item:
-    prefix: FEPREN_ITEM_
+  fpe-item-lst:
+    prefix: FPE_ITEM_LST
     subsection-types:
-      feid:
-        max-count: 1
-      febuva:
-        max-count: 1
-      feef:
-        max-count: 1
-      feprsc:
-        max-count: 1
-      festas:
-        max-count: 1
-      fedein:
-        max-count: 1
-      fest-stak-lst:
-        max-count: 1
-      fetr:
-        max-count: 1
-      fs:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^FEPREN-ITEM-.+$
-      error-message: IDs of this section must match FEPREN-ITEM-xxx
+      fpe-item:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per prioritized feature.
-  festm1-item:
-    prefix: FESTM1_ITEM_
+  fsm-item-lst:
+    prefix: FSM_ITEM_LST
     subsection-types:
-      fsma:
-        max-count: 1
-      fsmr:
-        max-count: 1
-      fsmd:
-        max-count: 1
-      festmaac:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^FESTM1-ITEM-.+$
-      error-message: IDs of this section must match FESTM1-ITEM-xxx
+      fsm-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per feature-stage mapping.
   miphre-reso:
     prefix: MIPHRE_RESO_
@@ -363,6 +300,18 @@ section-types:
       pattern: ^STAGSE-STAG-.+$
       error-message: IDs of this section must match STAGSE-STAG-xxx
     description: Add one entry per stage summary.
+  stagst-cons:
+    prefix: STAGST_CONS_
+    pattern-check-id:
+      pattern: ^STAGST-CONS-.+$
+      error-message: IDs of this section must match STAGST-CONS-xxx
+    description: Add one entry per staging constraint.
+  stagst-keya:
+    prefix: STAGST_KEYA_
+    pattern-check-id:
+      pattern: ^STAGST-KEYA-.+$
+      error-message: IDs of this section must match STAGST-KEYA-xxx
+    description: Add one entry per key assumption.
   stgmrs-item:
     prefix: STGMRS_ITEM_
     subsection-types:
@@ -417,12 +366,14 @@ section-types:
       pattern: ^STSURE-RESO-.+$
       error-message: IDs of this section must match STSURE-RESO-xxx
     description: Resources for stage summary.
-  keyas-keya:
-    prefix: KEYAS_KEYA_
-    pattern-check-id:
-      pattern: ^KEYAS-KEYA-.+$
-      error-message: IDs of this section must match KEYAS-KEYA-xxx
-    description: Add one entry per key assumption.
+  me-item-lst:
+    prefix: ME_ITEM_LST
+    subsection-types:
+      me-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per MoSCoW-classified feature.
   mgphs-item:
     prefix: MGPHS_ITEM_
     subsection-types:
@@ -494,12 +445,6 @@ section-types:
       pattern: ^STAGE-STAG-.+$
       error-message: IDs of this section must match STAGE-STAG-xxx
     description: A stage entry (form) with description subsections.
-  stagi-cons:
-    prefix: STAGI_CONS_
-    pattern-check-id:
-      pattern: ^STAGI-CONS-.+$
-      error-message: IDs of this section must match STAGI-CONS-xxx
-    description: Add one entry per staging constraint.
   susst-subs:
     prefix: SUSST_SUBS_
     subsection-types:
@@ -541,48 +486,12 @@ section-types:
       pattern: ^MISY-SYST-.+$
       error-message: IDs of this section must match MISY-SYST-xxx
     description: Add one entry per source system.
-  moen-item:
-    prefix: MOEN_ITEM_
-    subsection-types:
-      moencl:
-        max-count: 1
-      moenva:
-        max-count: 1
-      mesa:
-        max-count: 1
-      moentr:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^MOEN-ITEM-.+$
-      error-message: IDs of this section must match MOEN-ITEM-xxx
-    description: Add one entry per MoSCoW-classified feature.
   mpdr-dryr:
     prefix: MPDR_DRYR_
     pattern-check-id:
       pattern: ^MPDR-DRYR-.+$
       error-message: IDs of this section must match MPDR-DRYR-xxx
     description: Add one entry per migration dry run.
-  pgre-item:
-    prefix: PGRE_ITEM_
-    subsection-types:
-      phgaid:
-        max-count: 1
-      phgaau:
-        max-count: 1
-      phgasc:
-        max-count: 1
-      phgaen:
-        max-count: 1
-      phgaev:
-        max-count: 1
-      phgaex:
-        max-count: 1
-      rvcri-revi-lst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^PGRE-ITEM-.+$
-      error-message: IDs of this section must match PGRE-ITEM-xxx
-    description: Add one entry per phase gate review.
   stde-depe:
     prefix: STDE_DEPE_
     pattern-check-id:
@@ -601,6 +510,82 @@ section-types:
       pattern: ^STST-STAK-.+$
       error-message: IDs of this section must match STST-STAK-xxx
     description: Stakeholders and communication for a stage entry.
+  doe-opti:
+    prefix: DOE_OPTI_
+    subsection-types:
+      does:
+        max-count: 1
+      doei:
+        max-count: 1
+      doef:
+        max-count: 1
+      doeto:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^DOE-OPTI-.+$
+      error-message: IDs of this section must match DOE-OPTI-xxx
+    description: Add one entry per decision option.
+  dpe-item:
+    prefix: DPE_ITEM_
+    subsection-types:
+      dpec:
+        max-count: 1
+      dpes:
+        max-count: 1
+      depoencr:
+        max-count: 1
+      dper:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^DPE-ITEM-.+$
+      error-message: IDs of this section must match DPE-ITEM-xxx
+    description: Add one entry per decision point.
+  fde-item:
+    prefix: FDE_ITEM_
+    pattern-check-id:
+      pattern: ^FDE-ITEM-.+$
+      error-message: IDs of this section must match FDE-ITEM-xxx
+    description: Add one entry per feature dependency.
+  fpe-item:
+    prefix: FPE_ITEM_
+    subsection-types:
+      feid:
+        max-count: 1
+      febuva:
+        max-count: 1
+      feef:
+        max-count: 1
+      feprsc:
+        max-count: 1
+      festas:
+        max-count: 1
+      fedein:
+        max-count: 1
+      fest-stak-lst:
+        max-count: 1
+      fetr:
+        max-count: 1
+      fs:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^FPE-ITEM-.+$
+      error-message: IDs of this section must match FPE-ITEM-xxx
+    description: Add one entry per prioritized feature.
+  fsm-item:
+    prefix: FSM_ITEM_
+    subsection-types:
+      fsma:
+        max-count: 1
+      fsmr:
+        max-count: 1
+      fsmd:
+        max-count: 1
+      festmaac:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^FSM-ITEM-.+$
+      error-message: IDs of this section must match FSM-ITEM-xxx
+    description: Add one entry per feature-stage mapping.
   depoencr:
     prefix: DEPOENCR
     format: depoencr-form
@@ -609,6 +594,21 @@ section-types:
     prefix: FESTMAAC
     format: festmaac-form
     description: Acceptance and notes.
+  me-item:
+    prefix: ME_ITEM_
+    subsection-types:
+      moencl:
+        max-count: 1
+      moenva:
+        max-count: 1
+      mesa:
+        max-count: 1
+      moentr:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^ME-ITEM-.+$
+      error-message: IDs of this section must match ME-ITEM-xxx
+    description: Add one entry per MoSCoW-classified feature.
   stmirimo:
     prefix: STMIRIMO
     format: stmirimo-form
@@ -678,7 +678,7 @@ section-types:
   feprre:
     prefix: FEPRRE
     subsection-types:
-      fepren-item-lst:
+      fpe-item-lst:
         max-count: 1
         min-count: 1
     description: 13.4.3. Feature Priority Register.
@@ -701,7 +701,7 @@ section-types:
   festma:
     prefix: FESTMA
     subsection-types:
-      festm1-item-lst:
+      fsm-item-lst:
         max-count: 1
     description: 13.4.2. Feature-Stage Matrix.
   indefl:
@@ -782,7 +782,7 @@ section-types:
         max-count: 1
       pgro:
         max-count: 1
-      pgre-item-lst:
+      phgareen-item-lst:
         max-count: 1
     description: Gate criteria (promoted from GOV).
   phgasc:
@@ -905,9 +905,9 @@ section-types:
         max-count: 1
       staggv:
         max-count: 1
-      keyas-keya-lst:
+      stagst-keya-lst:
         max-count: 1
-      stagi-cons-lst:
+      stagst-cons-lst:
         max-count: 1
     description: Staging strategy.
   stmiri:
@@ -990,7 +990,7 @@ section-types:
   depo:
     prefix: DEPO
     subsection-types:
-      depoen-item-lst:
+      dpe-item-lst:
         max-count: 1
     description: Decision processes (promoted from GOV).
   doef:
@@ -1012,7 +1012,7 @@ section-types:
   dper:
     prefix: DPER
     subsection-types:
-      deopen-opti-lst:
+      doe-opti-lst:
         max-count: 1
     description: Resolution details (filled when decided).
   dpes:
@@ -1022,7 +1022,7 @@ section-types:
   fede:
     prefix: FEDE
     subsection-types:
-      fedeen-item-lst:
+      fde-item-lst:
         max-count: 1
     description: 13.4.4. Feature Dependencies.
   feef:
@@ -1115,7 +1115,7 @@ section-types:
   moan:
     prefix: MOAN
     subsection-types:
-      moen-item-lst:
+      me-item-lst:
         max-count: 1
     description: 13.4.1. MoSCoW Analysis.
   mpds:

@@ -443,8 +443,8 @@ that all stakeholders can refer to.
     'BABOK v3 §10.43 — stakeholder list/map/personas',
     'ISO/IEC/IEEE 29148 §6 — stakeholders',
   ], 'The set of distinct user categories that interact with the system.')
-  @SectionId('USCA-USER-LST')
-  @SectionIdPattern('USCA-USER-xxx')
+  @SectionId('UCE-USER-LST')
+  @SectionIdPattern('UCE-USER-xxx')
   @Min(1)
   @ContentHelp(
     'Add one entry per distinct category of user, distinguished by '
@@ -622,8 +622,8 @@ class ProblemStatement extends DocSpecsSection {
     'The set of related pain points drawn from the Current State Analysis that '
     'this problem connects to.',
   )
-  @SectionId('RPPE-RELA-LST')
-  @SectionIdPattern('RPPE-RELA-xxx')
+  @SectionId('PS-RELA-LST')
+  @SectionIdPattern('PS-RELA-xxx')
   @ContentHelp(
     'Add one entry per related pain point identified in the Current '
     'State Analysis that this problem statement connects to.',
@@ -945,8 +945,8 @@ class ValueProposition extends DocSpecsSection {
     'The set of key performance indicators by which the system\'s delivered '
     'value will be measured.',
   )
-  @SectionId('KPIEN-KPIS-LST')
-  @SectionIdPattern('KPIEN-KPIS-xxx')
+  @SectionId('VALPX-KPIS-LST')
+  @SectionIdPattern('VALPX-KPIS-xxx')
   @ContentHelp(
     'Add one entry per KPI used to measure delivered value. '
     'Include the metric, its baseline, and its target.',
@@ -1063,8 +1063,8 @@ class ScopeBoundaries extends DocSpecsSection {
   @StandardReferences([
     'ISO/IEC/IEEE 29148 §6 — system scope & boundaries',
   ], 'The set of items explicitly included within the scope of this project.')
-  @SectionId('SCITE-INSC-LST')
-  @SectionIdPattern('SCITE-INSC-xxx')
+  @SectionId('SIE-INSC-LST')
+  @SectionIdPattern('SIE-INSC-xxx')
   @Min(1)
   @ContentHelp(
     'List all items that are explicitly in scope for this project. '
@@ -1077,8 +1077,8 @@ class ScopeBoundaries extends DocSpecsSection {
   @StandardReferences([
     'ISO/IEC/IEEE 29148 §6 — system scope & boundaries',
   ], 'The set of items explicitly excluded from the scope of this project.')
-  @SectionId('SCITE-OUTO-LST')
-  @SectionIdPattern('SCITE-OUTO-xxx')
+  @SectionId('SIE-OUTO-LST')
+  @SectionIdPattern('SIE-OUTO-xxx')
   @ContentHelp(
     'List items explicitly excluded. This is as important as '
     'in-scope items to prevent misunderstandings and scope creep.',
@@ -1102,8 +1102,8 @@ class ScopeBoundaries extends DocSpecsSection {
   @StandardReferences([
     'ISO/IEC/IEEE 29148 §6 — system scope & boundaries',
   ], 'The set of assumptions on which the defined scope boundaries depend.')
-  @SectionId('SCOPE-SCOP-LST')
-  @SectionIdPattern('SCOPE-SCOP-xxx')
+  @SectionId('SCBND-SCOP-LST')
+  @SectionIdPattern('SCBND-SCOP-xxx')
   @ContentHelp(
     'Add one entry per assumption that underpins the scope '
     'boundaries. State what is assumed and the impact if it proves false.',
@@ -1574,8 +1574,8 @@ class ExternalActorEntry extends DocSpecsSection {
   @StandardReferences([
     'ISO/IEC/IEEE 29148 §6 — external interfaces & actors',
   ], 'The set of interaction-scenario entries for this actor.')
-  @SectionId('INTER-INTE-LST')
-  @SectionIdPattern('INTER-INTE-xxx')
+  @SectionId('EAE-INTE-LST')
+  @SectionIdPattern('EAE-INTE-xxx')
   @ContentHelp(
     'Add one entry per interaction scenario between this actor '
     'and the system.',
@@ -2214,8 +2214,8 @@ class ApplicableRegulationEntry extends DocSpecsSection {
   @StandardReferences([
     'ISO/IEC 27001 — compliance with legal & contractual requirements',
   ], 'The set of specific compliance-measure entries for this regulation.')
-  @SectionId('COMPL-COMP-LST')
-  @SectionIdPattern('COMPL-COMP-xxx')
+  @SectionId('ARE-COMP-LST')
+  @SectionIdPattern('ARE-COMP-xxx')
   @ContentHelp(
     'Add one entry per compliance measure taken to satisfy '
     'this regulation.',
@@ -2802,8 +2802,8 @@ class DomainBusinessRules extends DocSpecsSection {
     'BABOK v3 §10.9 — business rules analysis',
     'ISO/IEC/IEEE 29148 §6 — business rules',
   ], 'The set of individual business-rule entries for this domain.')
-  @SectionId('DOBIRU-RULE-LST')
-  @SectionIdPattern('DOBIRU-RULE-xxx')
+  @SectionId('DBRE-RULE-LST')
+  @SectionIdPattern('DBRE-RULE-xxx')
   @ContentHelp('Add one entry per business rule. Be specific and unambiguous.')
   @SerializationOrder(1)
   List<DomainBusinessRuleEntry> rules = [];
@@ -2977,8 +2977,8 @@ class DomainProcesses extends DocSpecsSection {
     'BABOK v3 §10.35 — process modelling',
     'ISO/IEC/IEEE 29148 §6 — business process context',
   ], 'The set of individual domain-process entries.')
-  @SectionId('DOPR-PROC-LST')
-  @SectionIdPattern('DOPR-PROC-xxx')
+  @SectionId('DOPREN-PROC-LST')
+  @SectionIdPattern('DOPREN-PROC-xxx')
   @ContentHelp('Add one entry per major business process in this domain.')
   @SerializationOrder(2)
   List<DomainProcessEntry> processes = [];
@@ -4717,8 +4717,8 @@ class UserCategories extends DocSpecsSection {
     'ISO 9241-210 — user characteristics & context of use',
     'BABOK v3 §10.43 — stakeholder/user analysis',
   ], 'The set of individual user-category entries defined for this system.')
-  @SectionId('USCA-CATE-LST')
-  @SectionIdPattern('USCA-CATE-xxx')
+  @SectionId('UCE-CATE-LST')
+  @SectionIdPattern('UCE-CATE-xxx')
   @Min(1)
   @ContentHelp(
     'Add one entry per distinct user category. Categories should '
@@ -5127,8 +5127,8 @@ class UserPersonaDetails extends DocSpecsSection {
     'ISO 9241-210 — personas & context of use',
     'BABOK v3 §10.43 — personas',
   ], 'The set of representative quotes capturing this persona\'s mindset.')
-  @SectionId('REPRE-REPR-LST')
-  @SectionIdPattern('REPRE-REPR-xxx')
+  @SectionId('UPD-REPR-LST')
+  @SectionIdPattern('UPD-REPR-xxx')
   @ContentHelp(
     'Add quotes that capture how this persona thinks and speaks, '
     'to make the persona vivid for designers.',
@@ -5292,8 +5292,8 @@ class SystemTaskEntry extends DocSpecsSection {
     'ISO 9241-11 — tasks & goals (usability)',
     'ISO/IEC/IEEE 29148 §6 — user tasks/use cases',
   ], 'The ordered set of workflow steps that make up this task.')
-  @SectionId('SYSTE-WORK-LST')
-  @SectionIdPattern('SYSTE-WORK-xxx')
+  @SectionId('SYTS-WORK-LST')
+  @SectionIdPattern('SYTS-WORK-xxx')
   @ContentHelp(
     'Add one entry per step in the task workflow, in the order the '
     'user performs them.',
@@ -5306,8 +5306,8 @@ class SystemTaskEntry extends DocSpecsSection {
     'ISO 9241-11 — tasks & goals (usability)',
     'ISO/IEC/IEEE 29148 §6 — user tasks/use cases',
   ], 'The set of alternative flows and exceptions for this task.')
-  @SectionId('VARIA-VARI-LST')
-  @SectionIdPattern('VARIA-VARI-xxx')
+  @SectionId('SYTS-VARI-LST')
+  @SectionIdPattern('SYTS-VARI-xxx')
   @ContentHelp(
     'Add one entry per variation or exception to the normal task '
     'flow.',
@@ -5767,8 +5767,8 @@ class UserJourney extends DocSpecsSection {
     'The set of key touchpoints where this user category interacts with the '
     'system across the journey.',
   )
-  @SectionId('KEYTO-KEYT-LST')
-  @SectionIdPattern('KEYTO-KEYT-xxx')
+  @SectionId('UJ-KEYT-LST')
+  @SectionIdPattern('UJ-KEYT-xxx')
   @ContentHelp('Add one entry per key touchpoint in the user journey.')
   @SerializationOrder(3)
   List<DocSpecsSection> keyTouchpoints = [];
@@ -5778,8 +5778,8 @@ class UserJourney extends DocSpecsSection {
     'ISO 9241-210 — user journey & experience',
     'BABOK v3 §10 — customer journey mapping',
   ], 'The set of pain points this user category encounters during the journey.')
-  @SectionId('USERJ-PAIN-LST')
-  @SectionIdPattern('USERJ-PAIN-xxx')
+  @SectionId('UJ-PAIN-LST')
+  @SectionIdPattern('UJ-PAIN-xxx')
   @ContentHelp('Add one entry per pain point or friction in the user journey.')
   @SerializationOrder(4)
   List<DocSpecsSection> painPoints = [];
@@ -8709,8 +8709,8 @@ class RequirementAcceptanceCriteria extends DocSpecsSection {
     'The list of individual acceptance-criterion entries, one per testable '
     'condition for the requirement.',
   )
-  @SectionId('ACCR-CRIT-LST')
-  @SectionIdPattern('ACCR-CRIT-xxx')
+  @SectionId('ACE-CRIT-LST')
+  @SectionIdPattern('ACE-CRIT-xxx')
   @ContentHelp('Add one criterion per testable condition.')
   @SerializationOrder(1)
   List<AcceptanceCriterionEntry> criteria = [];
@@ -9131,8 +9131,8 @@ class RequirementUiSpecification extends DocSpecsSection {
     'ISO 9241-110 — dialogue principles',
     'ISO/IEC/IEEE 29148 §9.5 — UI functional requirements',
   ], 'The list of individual screen-field entries that make up this UI.')
-  @SectionId('SCFLD-FIEL-LST')
-  @SectionIdPattern('SCFLD-FIEL-xxx')
+  @SectionId('SFE-FIEL-LST')
+  @SectionIdPattern('SFE-FIEL-xxx')
   @ContentHelp('Define each field in the UI.')
   @SerializationOrder(4)
   List<ScreenFieldEntry> fields = [];
@@ -10983,8 +10983,8 @@ class SecurityControls extends DocSpecsSection {
     'The set of individual security control entries implementing or supporting '
     'this security requirement.',
   )
-  @SectionId('SECCT-CONT-LST')
-  @SectionIdPattern('SECCT-CONT-xxx')
+  @SectionId('SECOEN-CONT-LST')
+  @SectionIdPattern('SECOEN-CONT-xxx')
   @ContentHelp(
     'Add one entry per security control implementing this '
     'requirement.',
@@ -12010,8 +12010,8 @@ class SystemTechnicalAssessment extends DocSpecsSection {
     'Lists known technical issues and deficiencies that strengthen the case '
     'for replacement and inform migration risk.',
   )
-  @SectionId('KIE-KNOW-LST')
-  @SectionIdPattern('KIE-KNOW-xxx')
+  @SectionId('SYTEAS-KNOW-LST')
+  @SectionIdPattern('SYTEAS-KNOW-xxx')
   @ContentHelp(
     'Add one entry per significant known technical issue, defect, '
     'or deficiency affecting the system.',
@@ -12027,8 +12027,8 @@ class SystemTechnicalAssessment extends DocSpecsSection {
     'Lists security vulnerabilities and compliance gaps in the system that '
     'raise replacement urgency and shape migration controls.',
   )
-  @SectionId('SECUR-SECU-LST')
-  @SectionIdPattern('SECUR-SECU-xxx')
+  @SectionId('SYTEAS-SECU-LST')
+  @SectionIdPattern('SYTEAS-SECU-xxx')
   @ContentHelp(
     'Add one entry per security vulnerability or compliance gap; '
     'note severity and remediation status.',
@@ -12156,8 +12156,8 @@ class SystemBusinessCriticality extends DocSpecsSection {
     'Lists the business units and departments that depend on the system, '
     'quantifying organizational reach for impact planning.',
   )
-  @SectionId('SBUE-BUSI-LST')
-  @SectionIdPattern('SBUE-BUSI-xxx')
+  @SectionId('SYBUUNEN-BUSI-LST')
+  @SectionIdPattern('SYBUUNEN-BUSI-xxx')
   @ContentHelp(
     'Add one entry per business unit using the system; note user '
     'count and dependency level.',
@@ -12171,8 +12171,8 @@ class SystemBusinessCriticality extends DocSpecsSection {
     'Lists the business processes the system supports, establishing the '
     'functional footprint that the replacement must preserve.',
   )
-  @SectionId('SBPE-SUPP-LST')
-  @SectionIdPattern('SBPE-SUPP-xxx')
+  @SectionId('SYBUPREN-SUPP-LST')
+  @SectionIdPattern('SYBUPREN-SUPP-xxx')
   @ContentHelp(
     'Add one entry per business process the system supports; note '
     'its role and execution frequency.',
@@ -12400,8 +12400,8 @@ class SystemReplacementStrategy extends DocSpecsSection {
     'Lists predecessor systems that must be addressed before this one, '
     'capturing sequencing constraints in the replacement roadmap.',
   )
-  @SectionId('PREDE-PRED-LST')
-  @SectionIdPattern('PREDE-PRED-xxx')
+  @SectionId('SYREST-PRED-LST')
+  @SectionIdPattern('SYREST-PRED-xxx')
   @ContentHelp(
     'Add one entry per predecessor system that must be replaced or '
     'addressed before this system can proceed.',
@@ -12575,8 +12575,8 @@ class SystemDataScope extends DocSpecsSection {
     'Lists the data entities to migrate, with target mappings and '
     'transformation notes that drive the data-migration work.',
   )
-  @SectionId('DEME-ENTI-LST')
-  @SectionIdPattern('DEME-ENTI-xxx')
+  @SectionId('DAENMIEN-ENTI-LST')
+  @SectionIdPattern('DAENMIEN-ENTI-xxx')
   @ContentHelp(
     'Add one entry per data entity to migrate; capture record count, '
     'target mapping, and transformation rules.',
@@ -12590,8 +12590,8 @@ class SystemDataScope extends DocSpecsSection {
     'Lists known data-quality issues that must be cleansed or resolved before '
     'or during migration to the replacement system.',
   )
-  @SectionId('KNOWN-KNOW-LST')
-  @SectionIdPattern('KNOWN-KNOW-xxx')
+  @SectionId('SYDASC-KNOW-LST')
+  @SectionIdPattern('SYDASC-KNOW-xxx')
   @ContentHelp(
     'Add one entry per data-quality issue to address; note severity '
     'and remediation approach.',
@@ -12881,8 +12881,8 @@ class SystemUserImpact extends DocSpecsSection {
     'Lists user groups that require specific handling during replacement, '
     'capturing impact level and tailored change considerations.',
   )
-  @SectionId('UGIE-USER-LST')
-  @SectionIdPattern('UGIE-USER-xxx')
+  @SectionId('USGRIMEN-USER-LST')
+  @SectionIdPattern('USGRIMEN-USER-xxx')
   @ContentHelp(
     'Add one entry per user group needing special handling; note '
     'impact level and special considerations.',
@@ -13080,8 +13080,8 @@ class SystemCostAnalysis extends DocSpecsSection {
     'Lists non-financial benefits of the replacement that complement the '
     'monetary ROI in the investment decision.',
   )
-  @SectionId('NONFI-NONF-LST')
-  @SectionIdPattern('NONFI-NONF-xxx')
+  @SectionId('SYCOAN-NONF-LST')
+  @SectionIdPattern('SYCOAN-NONF-xxx')
   @ContentHelp(
     'Add one entry per non-financial benefit (e.g. risk reduction, '
     'agility) to weigh in the ROI case.',
@@ -13206,8 +13206,8 @@ class SystemMigrationPlan extends DocSpecsSection {
     'Lists the migration risks specific to this system, with probability, '
     'impact, mitigation, and contingency for each.',
   )
-  @SectionId('SMRE-RISK-LST')
-  @SectionIdPattern('SMRE-RISK-xxx')
+  @SectionId('SYMIRIEN-RISK-LST')
+  @SectionIdPattern('SYMIRIEN-RISK-xxx')
   @ContentHelp(
     'Add one entry per migration risk; capture probability, impact, '
     'mitigation, and contingency.',
@@ -13374,8 +13374,8 @@ class SystemKnowledgeTransfer extends DocSpecsSection {
     'Lists the critical knowledge areas that must be preserved before the '
     'system is decommissioned and its experts disperse.',
   )
-  @SectionId('CRITI-CRIT-LST')
-  @SectionIdPattern('CRITI-CRIT-xxx')
+  @SectionId('SYKNTR-CRIT-LST')
+  @SectionIdPattern('SYKNTR-CRIT-xxx')
   @ContentHelp(
     'Add one entry per critical knowledge area at risk of being '
     'lost when the system is retired.',
@@ -13519,8 +13519,8 @@ class MigrationConsiderations extends DocSpecsSection {
     'The defined escalation paths and triggers used to raise migration issues '
     'to the appropriate authority during the transition.',
   )
-  @SectionId('ESCAL-ESCA-LST')
-  @SectionIdPattern('ESCAL-ESCA-xxx')
+  @SectionId('MIGCON-ESCA-LST')
+  @SectionIdPattern('MIGCON-ESCA-xxx')
   @ContentHelp(
     'Add one entry per escalation procedure, describing the trigger '
     'condition, the escalation path, and the responsible decision authority.',
@@ -13882,8 +13882,8 @@ class MigrationRisks extends DocSpecsSection {
     'The taxonomy of migration risk categories used to classify and organize '
     'risks across the program.',
   )
-  @SectionId('RISKC-RISK-LST')
-  @SectionIdPattern('RISKC-RISK-xxx')
+  @SectionId('MIRI-RISK-LST')
+  @SectionIdPattern('MIRI-RISK-xxx')
   @ContentHelp(
     'Add one entry per risk category, naming the category and the '
     'kinds of migration risks it groups.',
@@ -13900,8 +13900,8 @@ class MigrationRisks extends DocSpecsSection {
     'The decision criteria that govern how migration risks drive go/no-go and '
     'acceptance choices.',
   )
-  @SectionId('RISKB-RISK-LST')
-  @SectionIdPattern('RISKB-RISK-xxx')
+  @SectionId('MIRI-RBDE-LST')
+  @SectionIdPattern('MIRI-RBDE-xxx')
   @ContentHelp(
     'Add one entry per risk-based decision rule, describing the '
     'threshold or criterion and the decision it triggers.',
@@ -13918,8 +13918,8 @@ class MigrationRisks extends DocSpecsSection {
     'The procedures used to monitor and control migration risks throughout the '
     'transition.',
   )
-  @SectionId('MONIT-MONI-LST')
-  @SectionIdPattern('MONIT-MONI-xxx')
+  @SectionId('MIRI-MONI-LST')
+  @SectionIdPattern('MIRI-MONI-xxx')
   @ContentHelp(
     'Add one entry per monitoring procedure, describing what is '
     'tracked, how often, and the control action taken.',
@@ -13936,8 +13936,8 @@ class MigrationRisks extends DocSpecsSection {
     'The response strategies — avoid, mitigate, transfer, accept — applied per '
     'category of migration risk.',
   )
-  @SectionId('RESPO-RESP-LST')
-  @SectionIdPattern('RESPO-RESP-xxx')
+  @SectionId('MIRI-RESP-LST')
+  @SectionIdPattern('MIRI-RESP-xxx')
   @ContentHelp(
     'Add one entry per response strategy, mapping a risk category to '
     'its chosen response approach and rationale.',
@@ -14777,8 +14777,8 @@ class ExternalInterfaces extends DocSpecsSection {
     ],
     'Holds one entry per external interface, the core inventory from which integration specifications are derived.',
   )
-  @SectionId('EXINEN-INTE-LST')
-  @SectionIdPattern('EXINEN-INTE-xxx')
+  @SectionId('EIE-INTE-LST')
+  @SectionIdPattern('EIE-INTE-xxx')
   @ContentHelp(
     'Add one entry per external system interface, each '
     'documenting identification, technical, data, security, and governance details.',
@@ -14998,8 +14998,8 @@ class InterfaceBusinessContext extends DocSpecsSection {
     ['TOGAF — system context & boundary definition'],
     'Lists the business processes that rely on this interface so dependency and fallback impact can be assessed.',
   )
-  @SectionId('IBPE-DEPE-LST')
-  @SectionIdPattern('IBPE-DEPE-xxx')
+  @SectionId('INBUPREN-DEPE-LST')
+  @SectionIdPattern('INBUPREN-DEPE-xxx')
   @ContentHelp(
     'List business processes that depend on this interface, '
     'noting dependency type and fallback if the interface is unavailable.',
@@ -15163,8 +15163,8 @@ class InterfaceTechnicalSpec extends DocSpecsSection {
     ['OpenAPI / AsyncAPI — API specification'],
     'Enumerates the API operations exposed or consumed across this interface, the basis for contract documentation.',
   )
-  @SectionId('INOPEN-OPER-LST')
-  @SectionIdPattern('INOPEN-OPER-xxx')
+  @SectionId('IOE-OPER-LST')
+  @SectionIdPattern('IOE-OPER-xxx')
   @ContentHelp(
     'List the API operations or methods used: each with method, '
     'path, purpose, and request/response formats.',
@@ -15397,8 +15397,8 @@ class InterfaceDataSpec extends DocSpecsSection {
     ['OpenAPI / AsyncAPI — API specification'],
     'Lists the data entities exchanged with their direction, required and sensitive fields, and internal mapping.',
   )
-  @SectionId('IDEE-DATA-LST')
-  @SectionIdPattern('IDEE-DATA-xxx')
+  @SectionId('INDAENEN-DATA-LST')
+  @SectionIdPattern('INDAENEN-DATA-xxx')
   @ContentHelp(
     'List each data entity exchanged, noting direction, field '
     'count, sensitive fields, and the internal entity it maps to.',
@@ -15411,8 +15411,8 @@ class InterfaceDataSpec extends DocSpecsSection {
     ['Enterprise Integration Patterns (EIP) — integration styles'],
     'Captures the mapping and transformation rules applied between external and internal data representations.',
   )
-  @SectionId('MAPPI-MAPP-LST')
-  @SectionIdPattern('MAPPI-MAPP-xxx')
+  @SectionId('INDASP-MAPP-LST')
+  @SectionIdPattern('INDASP-MAPP-xxx')
   @ContentHelp(
     'List data mapping and transformation rules between external '
     'and internal representations.',
@@ -15425,8 +15425,8 @@ class InterfaceDataSpec extends DocSpecsSection {
     ['ISO/IEC/IEEE 29148 §6 — scope & external interfaces'],
     'Captures the validation rules applied to exchanged data to ensure integrity at the boundary.',
   )
-  @SectionId('VALID-VALI-LST')
-  @SectionIdPattern('VALID-VALI-xxx')
+  @SectionId('INDASP-VALI-LST')
+  @SectionIdPattern('INDASP-VALI-xxx')
   @ContentHelp(
     'List data validation rules applied to inbound and outbound '
     'payloads at the interface boundary.',
@@ -15765,8 +15765,8 @@ class InterfaceOperational extends DocSpecsSection {
     ['ISO/IEC 25010 — product quality (operational/performance)'],
     'Lists the operational dependencies the interface relies on, so availability and failure impact can be reasoned about.',
   )
-  @SectionId('DEPEN-DEPE-LST')
-  @SectionIdPattern('DEPEN-DEPE-xxx')
+  @SectionId('INOP-DEPE-LST')
+  @SectionIdPattern('INOP-DEPE-xxx')
   @ContentHelp(
     'List operational dependencies of the interface, such as '
     'upstream services, network paths, and shared infrastructure.',
@@ -15922,8 +15922,8 @@ class InterfaceErrorHandling extends DocSpecsSection {
     ['Enterprise Integration Patterns (EIP) — integration styles'],
     'Lists concrete error-handling procedures so operators know how to respond to each failure mode of the interface.',
   )
-  @SectionId('ERROR-ERRO-LST')
-  @SectionIdPattern('ERROR-ERRO-xxx')
+  @SectionId('INERHA-ERRO-LST')
+  @SectionIdPattern('INERHA-ERRO-xxx')
   @ContentHelp(
     'List error-handling procedures for the interface, mapping '
     'error conditions to detection and recovery steps.',
@@ -16168,8 +16168,8 @@ class InterfaceTesting extends DocSpecsSection {
     ['ISO/IEC/IEEE 29119 — software testing'],
     'Lists the concrete test scenarios that validate the interface across happy-path, error, and edge cases.',
   )
-  @SectionId('ITSE1-TEST-LST')
-  @SectionIdPattern('ITSE1-TEST-xxx')
+  @SectionId('INTESCEN-TEST-LST')
+  @SectionIdPattern('INTESCEN-TEST-xxx')
   @ContentHelp(
     'List test scenarios for the interface, each with type, '
     'preconditions, steps, and expected result.',
@@ -16272,8 +16272,8 @@ class OutOfScope extends DocSpecsSection {
     ],
     'Lists each individually excluded item so every out-of-scope decision is recorded and traceable.',
   )
-  @SectionId('OOSE-ITEM-LST')
-  @SectionIdPattern('OOSE-ITEM-xxx')
+  @SectionId('OUOFSCEN-ITEM-LST')
+  @SectionIdPattern('OUOFSCEN-ITEM-xxx')
   @ContentHelp(
     'Each entry records one excluded feature, system, or '
     'integration along with its exclusion rationale.',
@@ -16431,8 +16431,8 @@ class BoundaryAssumptions extends DocSpecsSection {
     ],
     'Lists each individual assumption so it can be owned, validated, and risk-assessed.',
   )
-  @SectionId('BOASEN-ITEM-LST')
-  @SectionIdPattern('BOASEN-ITEM-xxx')
+  @SectionId('BAE-ITEM-LST')
+  @SectionIdPattern('BAE-ITEM-xxx')
   @ContentHelp(
     'Each entry records one assumption with its category, '
     'validation status, and risk if proven incorrect.',
@@ -16795,8 +16795,8 @@ class OrganizationalEnvironment extends DocSpecsSection {
     ],
     'Lists the departments and business units affected by the project so their roles and impact levels are captured.',
   )
-  @SectionId('AFDEEN-AFFE-LST')
-  @SectionIdPattern('AFDEEN-AFFE-xxx')
+  @SectionId('ADE-AFFE-LST')
+  @SectionIdPattern('ADE-AFFE-xxx')
   @ContentHelp(
     'List each affected department with its role, impact level, '
     'and key contacts so organizational reach is fully documented.',
@@ -16825,8 +16825,8 @@ class OrganizationalEnvironment extends DocSpecsSection {
     ],
     'Identifies the key decision makers and their authority so governance and approval paths are clear.',
   )
-  @SectionId('DEMAEN-DECI-LST')
-  @SectionIdPattern('DEMAEN-DECI-xxx')
+  @SectionId('DME-DECI-LST')
+  @SectionIdPattern('DME-DECI-xxx')
   @ContentHelp(
     'List each decision maker with their decision authority, '
     'domains, and influence level to map governance and approval paths.',
@@ -16846,8 +16846,8 @@ class OrganizationalEnvironment extends DocSpecsSection {
     ],
     'Captures cultural considerations and organizational dynamics that may influence adoption and change.',
   )
-  @SectionId('CULTU-CULT-LST')
-  @SectionIdPattern('CULTU-CULT-xxx')
+  @SectionId('OREN-CULT-LST')
+  @SectionIdPattern('OREN-CULT-xxx')
   @ContentHelp(
     'List cultural factors and organizational dynamics that could '
     'affect project adoption, collaboration, or change readiness.',
@@ -16863,8 +16863,8 @@ class OrganizationalEnvironment extends DocSpecsSection {
     ],
     'Records stakeholder communication preferences so engagement and reporting fit the organizational context.',
   )
-  @SectionId('COMMU-COMM-LST')
-  @SectionIdPattern('COMMU-COMM-xxx')
+  @SectionId('OREN-COMM-LST')
+  @SectionIdPattern('OREN-COMM-xxx')
   @ContentHelp(
     'List communication preferences per stakeholder group to guide '
     'engagement channels, frequency, and reporting style.',
@@ -16892,8 +16892,8 @@ class OrganizationalEnvironment extends DocSpecsSection {
     ],
     'Identifies change champions and sponsors who can drive adoption and overcome organizational resistance.',
   )
-  @SectionId('CHANG-CHAN-LST')
-  @SectionIdPattern('CHANG-CHAN-xxx')
+  @SectionId('OREN-CHAN-LST')
+  @SectionIdPattern('OREN-CHAN-xxx')
   @ContentHelp(
     'List change champions and sponsors, noting their influence and '
     'role in driving adoption across the organization.',
@@ -17130,8 +17130,8 @@ class FunctionalResponsibilities extends DocSpecsSection {
     ],
     'Holds the per-function responsibility entries that make up the overall responsibility matrix.',
   )
-  @SectionId('REEN1-ITEM-LST')
-  @SectionIdPattern('REEN1-ITEM-xxx')
+  @SectionId('RE-ITEM-LST')
+  @SectionIdPattern('RE-ITEM-xxx')
   @ContentHelp(
     'Add one entry per functional area, capturing its RACI '
     'assignment, contacts, and related systems.',
@@ -17631,8 +17631,8 @@ class TechnicalEnvironment extends DocSpecsSection {
     ],
     'Enumerates data center and hosting environments the solution must run on or integrate with.',
   )
-  @SectionId('DATAC-DATA-LST')
-  @SectionIdPattern('DATAC-DATA-xxx')
+  @SectionId('TEEN-DATA-LST')
+  @SectionIdPattern('TEEN-DATA-xxx')
   @ContentHelp(
     'List data centers and hosting environments: location, '
     'ownership, capacity, and any reuse or integration constraints.',
@@ -17668,8 +17668,8 @@ class TechnicalEnvironment extends DocSpecsSection {
     ],
     'Lists mandated or preferred technology standards the solution must adhere to.',
   )
-  @SectionId('TESTEN-TECH-LST')
-  @SectionIdPattern('TESTEN-TECH-xxx')
+  @SectionId('TSE-TECH-LST')
+  @SectionIdPattern('TSE-TECH-xxx')
   @ContentHelp(
     'List technology standards the solution must follow, with '
     'their scope, mandate level, and compliance expectations.',
@@ -17698,8 +17698,8 @@ class TechnicalEnvironment extends DocSpecsSection {
     ],
     'Lists technical constraints on integration — protocols, formats, and platform mandates the solution must respect.',
   )
-  @SectionId('INCOE1-INTE-LST')
-  @SectionIdPattern('INCOE1-INTE-xxx')
+  @SectionId('INTCONENT-INTE-LST')
+  @SectionIdPattern('INTCONENT-INTE-xxx')
   @ContentHelp(
     'List integration constraints: protocol and format '
     'requirements, platform mandates, and the interfaces they affect.',
@@ -17766,8 +17766,8 @@ class TechnicalEnvironmentNetwork extends DocSpecsSection {
     ],
     'Lists mandated DevOps and deployment standards the delivery pipeline must follow.',
   )
-  @SectionId('DEVOP-DEVO-LST')
-  @SectionIdPattern('DEVOP-DEVO-xxx')
+  @SectionId('TEENNE-DEVO-LST')
+  @SectionIdPattern('TEENNE-DEVO-xxx')
   @ContentHelp(
     'List DevOps and deployment standards: CI/CD tooling, '
     'release process, and environment promotion rules.',
@@ -17783,8 +17783,8 @@ class TechnicalEnvironmentNetwork extends DocSpecsSection {
     ],
     'Lists monitoring and observability requirements the solution must meet for operational visibility.',
   )
-  @SectionId('OBSER-OBSE-LST')
-  @SectionIdPattern('OBSER-OBSE-xxx')
+  @SectionId('TEENNE-OBSE-LST')
+  @SectionIdPattern('TEENNE-OBSE-xxx')
   @ContentHelp(
     'List observability requirements: metrics, logging, tracing, '
     'alerting standards, and required monitoring platforms.',
@@ -18253,8 +18253,8 @@ class RisksAndAssumptions extends DocSpecsSection {
     ['ISO 31000:2018 — risk management', 'PMBOK — project risk management'],
     'This list holds the individual risk entries that make up the project risk register and drive prioritization and response planning.',
   )
-  @SectionId('RIEN-KEYR-LST')
-  @SectionIdPattern('RIEN-KEYR-xxx')
+  @SectionId('RISENT-KEYR-LST')
+  @SectionIdPattern('RISENT-KEYR-xxx')
   @ContentHelp(
     'List of identified project risks, each capturing analysis, response, ownership, and monitoring detail.',
   )

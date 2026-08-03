@@ -1189,7 +1189,7 @@ public final class TomSomV0 {
 
     // Alert rules catalog.
     public SomList<AlertRuleEntry> alertRules() {
-      return new SomList<>(doc, path + "/ALRUEN-ALER-LST", (d, p) -> new AlertRuleEntry(d, p), "ALRUEN-ALER-xxx");
+      return new SomList<>(doc, path + "/ALERULENT-ALER-LST", (d, p) -> new AlertRuleEntry(d, p), "ALERULENT-ALER-xxx");
     }
 
     // Escalation policies.
@@ -1609,7 +1609,7 @@ public final class TomSomV0 {
 
     // Specific compliance measures for this regulation.
     public SomList<SomScalar> complianceMeasures() {
-      return new SomList<>(doc, path + "/COMPL-COMP-LST", (d, p) -> new SomScalar(d, p), "COMPL-COMP-xxx");
+      return new SomList<>(doc, path + "/ARE-COMP-LST", (d, p) -> new SomScalar(d, p), "ARE-COMP-xxx");
     }
   }
 
@@ -1949,18 +1949,18 @@ public final class TomSomV0 {
 
     // Assumptions the solution depends on being true.
     public SomList<AssumptionRegisterEntry> assumptions() {
-      return new SomList<>(doc, path + "/ACRG-ASMP-LST", (d, p) -> new AssumptionRegisterEntry(d, p), "ACRG-ASMP-xxx");
+      return new SomList<>(doc, path + "/ASMRE-ASMP-LST", (d, p) -> new AssumptionRegisterEntry(d, p), "ASMRE-ASMP-xxx");
     }
 
     // Constraints the solution must operate within.
     public SomList<ConstraintRegisterEntry> constraints() {
-      return new SomList<>(doc, path + "/ACRG-CONS-LST", (d, p) -> new ConstraintRegisterEntry(d, p), "ACRG-CONS-xxx");
+      return new SomList<>(doc, path + "/CONRE-CONS-LST", (d, p) -> new ConstraintRegisterEntry(d, p), "CONRE-CONS-xxx");
     }
 
     // Dependencies the solution relies on (external systems, teams, vendors,
     // prerequisite deliverables, framework conditions).
     public SomList<DependencyRegisterEntry> dependencies() {
-      return new SomList<>(doc, path + "/ACRG-DEPS-LST", (d, p) -> new DependencyRegisterEntry(d, p), "ACRG-DEPS-xxx");
+      return new SomList<>(doc, path + "/DEPRE-DEPS-LST", (d, p) -> new DependencyRegisterEntry(d, p), "DEPRE-DEPS-xxx");
     }
   }
 
@@ -2703,7 +2703,7 @@ public final class TomSomV0 {
 
     // Backup policies by data type.
     public SomList<BackupPolicyEntry> backupPolicies() {
-      return new SomList<>(doc, path + "/BAPOEN-BACK-LST", (d, p) -> new BackupPolicyEntry(d, p), "BAPOEN-BACK-xxx");
+      return new SomList<>(doc, path + "/BPE-BACK-LST", (d, p) -> new BackupPolicyEntry(d, p), "BPE-BACK-xxx");
     }
 
     // RPO and RTO requirements.
@@ -3150,7 +3150,7 @@ public final class TomSomV0 {
 
     // Contains 0+× BoundaryAssumptionEntry.
     public SomList<BoundaryAssumptionEntry> items() {
-      return new SomList<>(doc, path + "/BOASEN-ITEM-LST", (d, p) -> new BoundaryAssumptionEntry(d, p), "BOASEN-ITEM-xxx");
+      return new SomList<>(doc, path + "/BAE-ITEM-LST", (d, p) -> new BoundaryAssumptionEntry(d, p), "BAE-ITEM-xxx");
     }
   }
 
@@ -3224,7 +3224,7 @@ public final class TomSomV0 {
 
     // Breakpoint entries.
     public SomList<BreakpointEntry> breakpoints() {
-      return new SomList<>(doc, path + "/BRE-BREA-LST", (d, p) -> new BreakpointEntry(d, p), "BRE-BREA-xxx");
+      return new SomList<>(doc, path + "/BE-BREA-LST", (d, p) -> new BreakpointEntry(d, p), "BE-BREA-xxx");
     }
   }
 
@@ -3752,7 +3752,7 @@ public final class TomSomV0 {
 
     // Contains 0+× PainPoint.
     public SomList<PainPointEntry> items() {
-      return new SomList<>(doc, path + "/BUPAPO-ITEM-LST", (d, p) -> new PainPointEntry(d, p), "BUPAPO-ITEM-xxx");
+      return new SomList<>(doc, path + "/PAPE-ITEM-LST", (d, p) -> new PainPointEntry(d, p), "PAPE-ITEM-xxx");
     }
   }
 
@@ -4688,17 +4688,17 @@ public final class TomSomV0 {
 
     // Pipeline stages.
     public SomList<PipelineStageEntry> stages() {
-      return new SomList<>(doc, path + "/PISTEN-STAG-LST", (d, p) -> new PipelineStageEntry(d, p), "PISTEN-STAG-xxx");
+      return new SomList<>(doc, path + "/PSE-STAG-LST", (d, p) -> new PipelineStageEntry(d, p), "PSE-STAG-xxx");
     }
 
     // Build jobs.
     public SomList<PipelineJobEntry> jobs() {
-      return new SomList<>(doc, path + "/PIJOEN-JOBS-LST", (d, p) -> new PipelineJobEntry(d, p), "PIJOEN-JOBS-xxx");
+      return new SomList<>(doc, path + "/PJE-JOBS-LST", (d, p) -> new PipelineJobEntry(d, p), "PJE-JOBS-xxx");
     }
 
     // Deployment environments.
     public SomList<DeploymentEnvironmentEntry> environments() {
-      return new SomList<>(doc, path + "/DEENEN-ENVI-LST", (d, p) -> new DeploymentEnvironmentEntry(d, p), "DEENEN-ENVI-xxx");
+      return new SomList<>(doc, path + "/DEE-ENVI-LST", (d, p) -> new DeploymentEnvironmentEntry(d, p), "DEE-ENVI-xxx");
     }
   }
 
@@ -4950,17 +4950,17 @@ public final class TomSomV0 {
 
     // Web browser requirements.
     public SomList<BrowserRequirementEntry> browserRequirements() {
-      return new SomList<>(doc, path + "/BRREEN-BROW-LST", (d, p) -> new BrowserRequirementEntry(d, p), "BRREEN-BROW-xxx");
+      return new SomList<>(doc, path + "/BROREQENT-BROW-LST", (d, p) -> new BrowserRequirementEntry(d, p), "BROREQENT-BROW-xxx");
     }
 
     // Desktop operating system requirements.
     public SomList<DesktopOsRequirementEntry> desktopOsRequirements() {
-      return new SomList<>(doc, path + "/DORE1-DESK-LST", (d, p) -> new DesktopOsRequirementEntry(d, p), "DORE1-DESK-xxx");
+      return new SomList<>(doc, path + "/DEOSREEN-DESK-LST", (d, p) -> new DesktopOsRequirementEntry(d, p), "DEOSREEN-DESK-xxx");
     }
 
     // Mobile device requirements.
     public SomList<MobileDeviceRequirementEntry> mobileRequirements() {
-      return new SomList<>(doc, path + "/MDRE-MOBI-LST", (d, p) -> new MobileDeviceRequirementEntry(d, p), "MDRE-MOBI-xxx");
+      return new SomList<>(doc, path + "/MODEREEN-MOBI-LST", (d, p) -> new MobileDeviceRequirementEntry(d, p), "MODEREEN-MOBI-xxx");
     }
 
     // Display and screen requirements.
@@ -5514,22 +5514,22 @@ public final class TomSomV0 {
 
     // Operating system compatibility requirements.
     public SomList<OsCompatibilityEntry> osCompatibility() {
-      return new SomList<>(doc, path + "/OSCOEN-OSCO-LST", (d, p) -> new OsCompatibilityEntry(d, p), "OSCOEN-OSCO-xxx");
+      return new SomList<>(doc, path + "/OCE-OSCO-LST", (d, p) -> new OsCompatibilityEntry(d, p), "OCE-OSCO-xxx");
     }
 
     // Browser compatibility requirements.
     public SomList<BrowserCompatibilityEntry> browserCompatibility() {
-      return new SomList<>(doc, path + "/BRCOEN-BROW-LST", (d, p) -> new BrowserCompatibilityEntry(d, p), "BRCOEN-BROW-xxx");
+      return new SomList<>(doc, path + "/BROCOMENT-BROW-LST", (d, p) -> new BrowserCompatibilityEntry(d, p), "BROCOMENT-BROW-xxx");
     }
 
     // Database compatibility requirements.
     public SomList<DatabaseCompatibilityEntry> databaseCompatibility() {
-      return new SomList<>(doc, path + "/DACOEN-DATA-LST", (d, p) -> new DatabaseCompatibilityEntry(d, p), "DACOEN-DATA-xxx");
+      return new SomList<>(doc, path + "/DATCOMENT-DATA-LST", (d, p) -> new DatabaseCompatibilityEntry(d, p), "DATCOMENT-DATA-xxx");
     }
 
     // Enterprise system compatibility requirements.
     public SomList<EnterpriseSystemCompatibilityEntry> enterpriseSystemCompatibility() {
-      return new SomList<>(doc, path + "/ESCE-ENTE-LST", (d, p) -> new EnterpriseSystemCompatibilityEntry(d, p), "ESCE-ENTE-xxx");
+      return new SomList<>(doc, path + "/ENSYCOEN-ENTE-LST", (d, p) -> new EnterpriseSystemCompatibilityEntry(d, p), "ENSYCOEN-ENTE-xxx");
     }
 
     // API and protocol compatibility requirements.
@@ -5539,17 +5539,17 @@ public final class TomSomV0 {
 
     // Legacy system compatibility requirements.
     public SomList<LegacyCompatibilityEntry> legacyCompatibility() {
-      return new SomList<>(doc, path + "/LECOEN-LEGA-LST", (d, p) -> new LegacyCompatibilityEntry(d, p), "LECOEN-LEGA-xxx");
+      return new SomList<>(doc, path + "/LCE-LEGA-LST", (d, p) -> new LegacyCompatibilityEntry(d, p), "LCE-LEGA-xxx");
     }
 
     // Mobile device compatibility requirements.
     public SomList<MobileCompatibilityEntry> mobileCompatibility() {
-      return new SomList<>(doc, path + "/MOCOEN-MOBI-LST", (d, p) -> new MobileCompatibilityEntry(d, p), "MOCOEN-MOBI-xxx");
+      return new SomList<>(doc, path + "/MOBCOMENT-MOBI-LST", (d, p) -> new MobileCompatibilityEntry(d, p), "MOBCOMENT-MOBI-xxx");
     }
 
     // Third-party software compatibility requirements.
     public SomList<ThirdPartyCompatibilityEntry> thirdPartyCompatibility() {
-      return new SomList<>(doc, path + "/TPCE-THIR-LST", (d, p) -> new ThirdPartyCompatibilityEntry(d, p), "TPCE-THIR-xxx");
+      return new SomList<>(doc, path + "/THPACOEN-THIR-LST", (d, p) -> new ThirdPartyCompatibilityEntry(d, p), "THPACOEN-THIR-xxx");
     }
 
     // Data format and encoding compatibility.
@@ -7132,12 +7132,12 @@ public final class TomSomV0 {
 
     // Integration patterns used.
     public SomList<SomScalar> integrationPatterns() {
-      return new SomList<>(doc, path + "/IPE-INTE-LST", (d, p) -> new SomScalar(d, p), "IPE-INTE-xxx");
+      return new SomList<>(doc, path + "/CARCH-INTE-LST", (d, p) -> new SomScalar(d, p), "CARCH-INTE-xxx");
     }
 
     // Shared services inventory.
     public SomList<SomScalar> sharedServices() {
-      return new SomList<>(doc, path + "/SHARE-SHAR-LST", (d, p) -> new SomScalar(d, p), "SHARE-SHAR-xxx");
+      return new SomList<>(doc, path + "/CARCH-SHAR-LST", (d, p) -> new SomScalar(d, p), "CARCH-SHAR-xxx");
     }
   }
 
@@ -7519,7 +7519,7 @@ public final class TomSomV0 {
 
     // Workflow actors and responsibilities.
     public SomList<WorkflowActorEntry> actors() {
-      return new SomList<>(doc, path + "/WFAC-ACTO-LST", (d, p) -> new WorkflowActorEntry(d, p), "WFAC-ACTO-xxx");
+      return new SomList<>(doc, path + "/WAE-ACTO-LST", (d, p) -> new WorkflowActorEntry(d, p), "WAE-ACTO-xxx");
     }
 
     // Workflow inputs.
@@ -11285,7 +11285,7 @@ public final class TomSomV0 {
 
     // Contains 0+× DecisionOptionEntry.
     public SomList<DecisionOptionEntry> options() {
-      return new SomList<>(doc, path + "/DEOPEN-OPTI-LST", (d, p) -> new DecisionOptionEntry(d, p), "DEOPEN-OPTI-xxx");
+      return new SomList<>(doc, path + "/DOE-OPTI-LST", (d, p) -> new DecisionOptionEntry(d, p), "DOE-OPTI-xxx");
     }
   }
 
@@ -11309,7 +11309,7 @@ public final class TomSomV0 {
 
     // Contains 0+× DecisionPointEntry.
     public SomList<DecisionPointEntry> items() {
-      return new SomList<>(doc, path + "/DEPOEN-ITEM-LST", (d, p) -> new DecisionPointEntry(d, p), "DEPOEN-ITEM-xxx");
+      return new SomList<>(doc, path + "/DPE-ITEM-LST", (d, p) -> new DecisionPointEntry(d, p), "DPE-ITEM-xxx");
     }
   }
 
@@ -12216,17 +12216,17 @@ public final class TomSomV0 {
 
     // Coding standards and style guidelines.
     public SomList<CodingStandardEntry> codingStandards() {
-      return new SomList<>(doc, path + "/COSTEN-CODI-LST", (d, p) -> new CodingStandardEntry(d, p), "COSTEN-CODI-xxx");
+      return new SomList<>(doc, path + "/CSE-CODI-LST", (d, p) -> new CodingStandardEntry(d, p), "CSE-CODI-xxx");
     }
 
     // Development conventions and best practices.
     public SomList<DevelopmentConventionEntry> developmentConventions() {
-      return new SomList<>(doc, path + "/DECOEN-DEVE-LST", (d, p) -> new DevelopmentConventionEntry(d, p), "DECOEN-DEVE-xxx");
+      return new SomList<>(doc, path + "/DCE-DEVE-LST", (d, p) -> new DevelopmentConventionEntry(d, p), "DCE-DEVE-xxx");
     }
 
     // Industry standards compliance requirements.
     public SomList<IndustryStandardEntry> industryStandards() {
-      return new SomList<>(doc, path + "/INSTEN-INDU-LST", (d, p) -> new IndustryStandardEntry(d, p), "INSTEN-INDU-xxx");
+      return new SomList<>(doc, path + "/ISE-INDU-LST", (d, p) -> new IndustryStandardEntry(d, p), "ISE-INDU-xxx");
     }
 
     // Code quality metrics and thresholds.
@@ -12489,7 +12489,7 @@ public final class TomSomV0 {
 
     // IDE and editor requirements.
     public SomList<IdeRequirementEntry> ideRequirements() {
-      return new SomList<>(doc, path + "/IDREEN-IDER-LST", (d, p) -> new IdeRequirementEntry(d, p), "IDREEN-IDER-xxx");
+      return new SomList<>(doc, path + "/IRE-IDER-LST", (d, p) -> new IdeRequirementEntry(d, p), "IRE-IDER-xxx");
     }
 
     // Build tools and automation.
@@ -12988,12 +12988,12 @@ public final class TomSomV0 {
 
     // Chronological revision history of this document.
     public SomList<RevisionEntry> revisionHistory() {
-      return new SomList<>(doc, path + "/RVHST-REVS-LST", (d, p) -> new RevisionEntry(d, p), "RVHST-REVS-xxx");
+      return new SomList<>(doc, path + "/RVENT-REVS-LST", (d, p) -> new RevisionEntry(d, p), "RVENT-REVS-xxx");
     }
 
     // Formal approvals (sign-offs) recorded for this document.
     public SomList<ApprovalRecord> approvals() {
-      return new SomList<>(doc, path + "/DOCTL-APRV-LST", (d, p) -> new ApprovalRecord(d, p), "DOCTL-APRV-xxx");
+      return new SomList<>(doc, path + "/APREC-APRV-LST", (d, p) -> new ApprovalRecord(d, p), "APREC-APRV-xxx");
     }
 
     // Reference documents — the catalogue of documents this specification draws
@@ -13085,7 +13085,7 @@ public final class TomSomV0 {
 
     // Contains 0+× Deliverable.
     public SomList<DeliverableEntry> items() {
-      return new SomList<>(doc, path + "/DCDLV-ITEM-LST", (d, p) -> new DeliverableEntry(d, p), "DCDLV-ITEM-xxx");
+      return new SomList<>(doc, path + "/DLVEN-ITEM-LST", (d, p) -> new DeliverableEntry(d, p), "DLVEN-ITEM-xxx");
     }
   }
 
@@ -13303,7 +13303,7 @@ public final class TomSomV0 {
 
     // Business rule entries — contains 0+× BusinessRuleEntry.
     public SomList<DomainBusinessRuleEntry> rules() {
-      return new SomList<>(doc, path + "/DOBIRU-RULE-LST", (d, p) -> new DomainBusinessRuleEntry(d, p), "DOBIRU-RULE-xxx");
+      return new SomList<>(doc, path + "/DBRE-RULE-LST", (d, p) -> new DomainBusinessRuleEntry(d, p), "DBRE-RULE-xxx");
     }
   }
 
@@ -13532,7 +13532,7 @@ public final class TomSomV0 {
 
     // Domain process entries — contains 0+× DomainProcessEntry.
     public SomList<DomainProcessEntry> processes() {
-      return new SomList<>(doc, path + "/DOPR-PROC-LST", (d, p) -> new DomainProcessEntry(d, p), "DOPR-PROC-xxx");
+      return new SomList<>(doc, path + "/DOPREN-PROC-LST", (d, p) -> new DomainProcessEntry(d, p), "DOPREN-PROC-xxx");
     }
   }
 
@@ -14211,7 +14211,7 @@ public final class TomSomV0 {
 
     // Input devices.
     public SomList<InputDeviceEntry> inputDevices() {
-      return new SomList<>(doc, path + "/INPDE-INPU-LST", (d, p) -> new InputDeviceEntry(d, p), "INPDE-INPU-xxx");
+      return new SomList<>(doc, path + "/IDE-INPU-LST", (d, p) -> new InputDeviceEntry(d, p), "IDE-INPU-xxx");
     }
 
     // Peripheral equipment.
@@ -14444,7 +14444,7 @@ public final class TomSomV0 {
 
     // Recovery flow diagrams.
     public SomList<SomScalar> recoveryFlows() {
-      return new SomList<>(doc, path + "/RECOV-RECO-LST", (d, p) -> new SomScalar(d, p), "RECOV-RECO-xxx");
+      return new SomList<>(doc, path + "/ERRE-RECO-LST", (d, p) -> new SomScalar(d, p), "ERRE-RECO-xxx");
     }
 
     // Common recovery scenarios.
@@ -14991,7 +14991,7 @@ public final class TomSomV0 {
 
     // Contains 0+× Export Field Mapping.
     public SomList<ExportFieldMappingEntry> fieldMappings() {
-      return new SomList<>(doc, path + "/EFME-FIEL-LST", (d, p) -> new ExportFieldMappingEntry(d, p), "EFME-FIEL-xxx");
+      return new SomList<>(doc, path + "/EXFIMAEN-FIEL-LST", (d, p) -> new ExportFieldMappingEntry(d, p), "EXFIMAEN-FIEL-xxx");
     }
   }
 
@@ -15093,7 +15093,7 @@ public final class TomSomV0 {
 
     // Interaction scenarios for this actor.
     public SomList<SomScalar> interactionScenarios() {
-      return new SomList<>(doc, path + "/INTER-INTE-LST", (d, p) -> new SomScalar(d, p), "INTER-INTE-xxx");
+      return new SomList<>(doc, path + "/EAE-INTE-LST", (d, p) -> new SomScalar(d, p), "EAE-INTE-xxx");
     }
   }
 
@@ -15151,7 +15151,7 @@ public final class TomSomV0 {
 
     // External partner connections — contains 0+× ExternalPartnerConnection.
     public SomList<ExternalPartnerConnectionEntry> partnerConnections() {
-      return new SomList<>(doc, path + "/EPCE-PART-LST", (d, p) -> new ExternalPartnerConnectionEntry(d, p), "EPCE-PART-xxx");
+      return new SomList<>(doc, path + "/EXPACOEN-PART-LST", (d, p) -> new ExternalPartnerConnectionEntry(d, p), "EXPACOEN-PART-xxx");
     }
 
     // Cloud service integrations.
@@ -15260,7 +15260,7 @@ public final class TomSomV0 {
 
     // Contains 0+× ExternalInterfaceEntry.
     public SomList<ExternalInterfaceEntry> interfaces() {
-      return new SomList<>(doc, path + "/EXINEN-INTE-LST", (d, p) -> new ExternalInterfaceEntry(d, p), "EXINEN-INTE-xxx");
+      return new SomList<>(doc, path + "/EIE-INTE-LST", (d, p) -> new ExternalInterfaceEntry(d, p), "EIE-INTE-xxx");
     }
   }
 
@@ -15502,7 +15502,7 @@ public final class TomSomV0 {
 
     // Contains 0+× FeatureDependencyEntry.
     public SomList<FeatureDependencyEntry> items() {
-      return new SomList<>(doc, path + "/FEDEEN-ITEM-LST", (d, p) -> new FeatureDependencyEntry(d, p), "FEDEEN-ITEM-xxx");
+      return new SomList<>(doc, path + "/FDE-ITEM-LST", (d, p) -> new FeatureDependencyEntry(d, p), "FDE-ITEM-xxx");
     }
   }
 
@@ -15702,7 +15702,7 @@ public final class TomSomV0 {
 
     // Contains 1+× FeaturePriorityEntry.
     public SomList<FeaturePriorityEntry> items() {
-      return new SomList<>(doc, path + "/FEPREN-ITEM-LST", (d, p) -> new FeaturePriorityEntry(d, p), "FEPREN-ITEM-xxx");
+      return new SomList<>(doc, path + "/FPE-ITEM-LST", (d, p) -> new FeaturePriorityEntry(d, p), "FPE-ITEM-xxx");
     }
   }
 
@@ -15758,7 +15758,7 @@ public final class TomSomV0 {
 
     // Contains 0+× FeatureStageMapping.
     public SomList<FeatureStageMapping> items() {
-      return new SomList<>(doc, path + "/FESTM1-ITEM-LST", (d, p) -> new FeatureStageMapping(d, p), "FESTM1-ITEM-xxx");
+      return new SomList<>(doc, path + "/FSM-ITEM-LST", (d, p) -> new FeatureStageMapping(d, p), "FSM-ITEM-xxx");
     }
   }
 
@@ -16385,7 +16385,7 @@ public final class TomSomV0 {
 
     // Contains 0+× Responsibility.
     public SomList<ResponsibilityEntry> items() {
-      return new SomList<>(doc, path + "/REEN1-ITEM-LST", (d, p) -> new ResponsibilityEntry(d, p), "REEN1-ITEM-xxx");
+      return new SomList<>(doc, path + "/RE-ITEM-LST", (d, p) -> new ResponsibilityEntry(d, p), "RE-ITEM-xxx");
     }
   }
 
@@ -16519,7 +16519,7 @@ public final class TomSomV0 {
 
     // The set of defined terms and abbreviations.
     public SomList<GlossaryEntry> glossary() {
-      return new SomList<>(doc, path + "/GLOSS-ENTR-LST", (d, p) -> new GlossaryEntry(d, p), "GLOSS-ENTR-xxx");
+      return new SomList<>(doc, path + "/GLENT-ENTR-LST", (d, p) -> new GlossaryEntry(d, p), "GLENT-ENTR-xxx");
     }
   }
 
@@ -17549,7 +17549,7 @@ public final class TomSomV0 {
 
     // Global entry points.
     public SomList<SomScalar> globalEntryPoints() {
-      return new SomList<>(doc, path + "/GLOBA-GLOB-LST", (d, p) -> new SomScalar(d, p), "GLOBA-GLOB-xxx");
+      return new SomList<>(doc, path + "/IA-GLOB-LST", (d, p) -> new SomScalar(d, p), "IA-GLOB-xxx");
     }
 
     // 10.2.2.5. Information Architecture Diagram.
@@ -17908,7 +17908,7 @@ public final class TomSomV0 {
 
     // Fragile integration points requiring attention.
     public SomList<SomScalar> fragilePoints() {
-      return new SomList<>(doc, path + "/FRAGI-FRAG-LST", (d, p) -> new SomScalar(d, p), "FRAGI-FRAG-xxx");
+      return new SomList<>(doc, path + "/INHESU-FRAG-LST", (d, p) -> new SomScalar(d, p), "INHESU-FRAG-xxx");
     }
   }
 
@@ -18316,7 +18316,7 @@ public final class TomSomV0 {
 
     // Business processes that depend on this interface.
     public SomList<InterfaceBusinessProcessEntry> dependentProcesses() {
-      return new SomList<>(doc, path + "/IBPE-DEPE-LST", (d, p) -> new InterfaceBusinessProcessEntry(d, p), "IBPE-DEPE-xxx");
+      return new SomList<>(doc, path + "/INBUPREN-DEPE-LST", (d, p) -> new InterfaceBusinessProcessEntry(d, p), "INBUPREN-DEPE-xxx");
     }
   }
 
@@ -18354,17 +18354,17 @@ public final class TomSomV0 {
 
     // Data entities exchanged.
     public SomList<InterfaceDataEntityEntry> dataEntities() {
-      return new SomList<>(doc, path + "/IDEE-DATA-LST", (d, p) -> new InterfaceDataEntityEntry(d, p), "IDEE-DATA-xxx");
+      return new SomList<>(doc, path + "/INDAENEN-DATA-LST", (d, p) -> new InterfaceDataEntityEntry(d, p), "INDAENEN-DATA-xxx");
     }
 
     // Data mapping and transformation rules.
     public SomList<SomScalar> mappingRules() {
-      return new SomList<>(doc, path + "/MAPPI-MAPP-LST", (d, p) -> new SomScalar(d, p), "MAPPI-MAPP-xxx");
+      return new SomList<>(doc, path + "/INDASP-MAPP-LST", (d, p) -> new SomScalar(d, p), "INDASP-MAPP-xxx");
     }
 
     // Data validation rules.
     public SomList<SomScalar> validationRules() {
-      return new SomList<>(doc, path + "/VALID-VALI-LST", (d, p) -> new SomScalar(d, p), "VALID-VALI-xxx");
+      return new SomList<>(doc, path + "/INDASP-VALI-LST", (d, p) -> new SomScalar(d, p), "INDASP-VALI-xxx");
     }
   }
 
@@ -18395,7 +18395,7 @@ public final class TomSomV0 {
 
     // Error handling procedures.
     public SomList<SomScalar> errorProcedures() {
-      return new SomList<>(doc, path + "/ERROR-ERRO-LST", (d, p) -> new SomScalar(d, p), "ERROR-ERRO-xxx");
+      return new SomList<>(doc, path + "/INERHA-ERRO-LST", (d, p) -> new SomScalar(d, p), "INERHA-ERRO-xxx");
     }
   }
 
@@ -18470,7 +18470,7 @@ public final class TomSomV0 {
 
     // Operational dependencies.
     public SomList<SomScalar> dependencies() {
-      return new SomList<>(doc, path + "/DEPEN-DEPE-LST", (d, p) -> new SomScalar(d, p), "DEPEN-DEPE-xxx");
+      return new SomList<>(doc, path + "/INOP-DEPE-LST", (d, p) -> new SomScalar(d, p), "INOP-DEPE-xxx");
     }
   }
 
@@ -18556,7 +18556,7 @@ public final class TomSomV0 {
 
     // API operations/methods exposed or consumed.
     public SomList<InterfaceOperationEntry> operations() {
-      return new SomList<>(doc, path + "/INOPEN-OPER-LST", (d, p) -> new InterfaceOperationEntry(d, p), "INOPEN-OPER-xxx");
+      return new SomList<>(doc, path + "/IOE-OPER-LST", (d, p) -> new InterfaceOperationEntry(d, p), "IOE-OPER-xxx");
     }
 
     // Webhook/callback configurations if applicable.
@@ -18598,7 +18598,7 @@ public final class TomSomV0 {
 
     // Test scenarios.
     public SomList<InterfaceTestScenarioEntry> testScenarios() {
-      return new SomList<>(doc, path + "/ITSE1-TEST-LST", (d, p) -> new InterfaceTestScenarioEntry(d, p), "ITSE1-TEST-xxx");
+      return new SomList<>(doc, path + "/INTESCEN-TEST-LST", (d, p) -> new InterfaceTestScenarioEntry(d, p), "INTESCEN-TEST-xxx");
     }
   }
 
@@ -18808,7 +18808,7 @@ public final class TomSomV0 {
 
     // One entry per ISO/IEC 25010:2023 characteristic addressed.
     public SomList<Iso25010CoverageEntry> characteristics() {
-      return new SomList<>(doc, path + "/I25CV-CHAR-LST", (d, p) -> new Iso25010CoverageEntry(d, p), "I25CV-CHAR-xxx");
+      return new SomList<>(doc, path + "/I25CE-CHAR-LST", (d, p) -> new Iso25010CoverageEntry(d, p), "I25CE-CHAR-xxx");
     }
   }
 
@@ -18911,7 +18911,7 @@ public final class TomSomV0 {
 
     // Security standards and frameworks — contains 0+× SecurityStandard.
     public SomList<SecurityStandardEntry> standards() {
-      return new SomList<>(doc, path + "/SESTEN-STAN-LST", (d, p) -> new SecurityStandardEntry(d, p), "SESTEN-STAN-xxx");
+      return new SomList<>(doc, path + "/SSE-STAN-LST", (d, p) -> new SecurityStandardEntry(d, p), "SSE-STAN-xxx");
     }
 
     // Application security requirements (OWASP).
@@ -18993,7 +18993,7 @@ public final class TomSomV0 {
 
     // 5.2.1. New Roles — contains 0+× New Role.
     public SomList<NewRoleEntry> newRoles() {
-      return new SomList<>(doc, path + "/NWROL-NEWR-LST", (d, p) -> new NewRoleEntry(d, p), "NWROL-NEWR-xxx");
+      return new SomList<>(doc, path + "/NRE-NEWR-LST", (d, p) -> new NewRoleEntry(d, p), "NRE-NEWR-xxx");
     }
 
     // 5.2.2. Changed Roles — contains 0+× Changed Role.
@@ -19438,7 +19438,7 @@ public final class TomSomV0 {
 
     // Software layer definitions.
     public SomList<SoftwareLayerEntry> softwareLayers() {
-      return new SomList<>(doc, path + "/SOLAEN-SOFT-LST", (d, p) -> new SoftwareLayerEntry(d, p), "SOLAEN-SOFT-xxx");
+      return new SomList<>(doc, path + "/SLE-SOFT-LST", (d, p) -> new SoftwareLayerEntry(d, p), "SLE-SOFT-xxx");
     }
 
     // Layer communication rules and constraints.
@@ -19448,7 +19448,7 @@ public final class TomSomV0 {
 
     // Bounded contexts (DDD) definitions.
     public SomList<BoundedContextEntry> boundedContexts() {
-      return new SomList<>(doc, path + "/BOCOEN-BOUN-LST", (d, p) -> new BoundedContextEntry(d, p), "BOCOEN-BOUN-xxx");
+      return new SomList<>(doc, path + "/BCE-BOUN-LST", (d, p) -> new BoundedContextEntry(d, p), "BCE-BOUN-xxx");
     }
 
     // Package organization and structure.
@@ -19458,12 +19458,12 @@ public final class TomSomV0 {
 
     // Module catalog with dependency information.
     public SomList<ModuleEntry> modules() {
-      return new SomList<>(doc, path + "/MOEN1-MODU-LST", (d, p) -> new ModuleEntry(d, p), "MOEN1-MODU-xxx");
+      return new SomList<>(doc, path + "/MODENT-MODU-LST", (d, p) -> new ModuleEntry(d, p), "MODENT-MODU-xxx");
     }
 
     // Shared libraries and common code.
     public SomList<SharedLibraryEntry> sharedLibraries() {
-      return new SomList<>(doc, path + "/SHLIB-SHAR-LST", (d, p) -> new SharedLibraryEntry(d, p), "SHLIB-SHAR-xxx");
+      return new SomList<>(doc, path + "/SHLIEN-SHAR-LST", (d, p) -> new SharedLibraryEntry(d, p), "SHLIEN-SHAR-xxx");
     }
 
     // Dependency injection configuration.
@@ -20224,7 +20224,7 @@ public final class TomSomV0 {
 
     // Maintenance window definitions.
     public SomList<MaintenanceWindowEntry> maintenanceWindows() {
-      return new SomList<>(doc, path + "/MAWIEN-MAIN-LST", (d, p) -> new MaintenanceWindowEntry(d, p), "MAWIEN-MAIN-xxx");
+      return new SomList<>(doc, path + "/MWE-MAIN-LST", (d, p) -> new MaintenanceWindowEntry(d, p), "MWE-MAIN-xxx");
     }
 
     // Emergency maintenance procedures.
@@ -20462,7 +20462,7 @@ public final class TomSomV0 {
 
     // Custom metrics catalog.
     public SomList<CustomMetricEntry> customMetrics() {
-      return new SomList<>(doc, path + "/CUMEEN-CUST-LST", (d, p) -> new CustomMetricEntry(d, p), "CUMEEN-CUST-xxx");
+      return new SomList<>(doc, path + "/CUSMETENT-CUST-LST", (d, p) -> new CustomMetricEntry(d, p), "CUSMETENT-CUST-xxx");
     }
   }
 
@@ -20599,7 +20599,7 @@ public final class TomSomV0 {
 
     // MFA Implementation Details (text).
     public SomList<SomScalar> mfaDetails() {
-      return new SomList<>(doc, path + "/MFADE-MFAD-LST", (d, p) -> new SomScalar(d, p), "MFADE-MFAD-xxx");
+      return new SomList<>(doc, path + "/MC-MFAD-LST", (d, p) -> new SomScalar(d, p), "MC-MFAD-xxx");
     }
   }
 
@@ -20655,7 +20655,7 @@ public final class TomSomV0 {
 
     // Escalation procedures during migration.
     public SomList<SomScalar> escalationProcedures() {
-      return new SomList<>(doc, path + "/ESCAL-ESCA-LST", (d, p) -> new SomScalar(d, p), "ESCAL-ESCA-xxx");
+      return new SomList<>(doc, path + "/MIGCON-ESCA-LST", (d, p) -> new SomScalar(d, p), "MIGCON-ESCA-xxx");
     }
   }
 
@@ -21006,22 +21006,22 @@ public final class TomSomV0 {
 
     // Risk categories and taxonomy.
     public SomList<SomScalar> riskCategories() {
-      return new SomList<>(doc, path + "/RISKC-RISK-LST", (d, p) -> new SomScalar(d, p), "RISKC-RISK-xxx");
+      return new SomList<>(doc, path + "/MIRI-RISK-LST", (d, p) -> new SomScalar(d, p), "MIRI-RISK-xxx");
     }
 
     // Risk-based decision making criteria.
     public SomList<SomScalar> riskBasedDecisions() {
-      return new SomList<>(doc, path + "/RISKB-RISK-LST", (d, p) -> new SomScalar(d, p), "RISKB-RISK-xxx");
+      return new SomList<>(doc, path + "/MIRI-RBDE-LST", (d, p) -> new SomScalar(d, p), "MIRI-RBDE-xxx");
     }
 
     // Risk monitoring and control procedures.
     public SomList<SomScalar> monitoringProcedures() {
-      return new SomList<>(doc, path + "/MONIT-MONI-LST", (d, p) -> new SomScalar(d, p), "MONIT-MONI-xxx");
+      return new SomList<>(doc, path + "/MIRI-MONI-LST", (d, p) -> new SomScalar(d, p), "MIRI-MONI-xxx");
     }
 
     // Risk response strategies by category.
     public SomList<SomScalar> responseStrategies() {
-      return new SomList<>(doc, path + "/RESPO-RESP-LST", (d, p) -> new SomScalar(d, p), "RESPO-RESP-xxx");
+      return new SomList<>(doc, path + "/MIRI-RESP-LST", (d, p) -> new SomScalar(d, p), "MIRI-RESP-xxx");
     }
 
     // Risk aggregation and portfolio view.
@@ -21322,7 +21322,7 @@ public final class TomSomV0 {
 
     // Alert definitions.
     public SomList<AlertDefinitionEntry> alertDefinitions() {
-      return new SomList<>(doc, path + "/ALDEEN-ALER-LST", (d, p) -> new AlertDefinitionEntry(d, p), "ALDEEN-ALER-xxx");
+      return new SomList<>(doc, path + "/ALEDEFENT-ALER-LST", (d, p) -> new AlertDefinitionEntry(d, p), "ALEDEFENT-ALER-xxx");
     }
 
     // Dashboard requirements.
@@ -21363,7 +21363,7 @@ public final class TomSomV0 {
 
     // Dashboard catalog.
     public SomList<DashboardEntry> dashboards() {
-      return new SomList<>(doc, path + "/DAEN-DASH-LST", (d, p) -> new DashboardEntry(d, p), "DAEN-DASH-xxx");
+      return new SomList<>(doc, path + "/DASENT-DASH-LST", (d, p) -> new DashboardEntry(d, p), "DASENT-DASH-xxx");
     }
 
     // Dashboard template specifications.
@@ -21416,7 +21416,7 @@ public final class TomSomV0 {
 
     // Contains 0+× MoscowEntry.
     public SomList<MoscowEntry> items() {
-      return new SomList<>(doc, path + "/MOEN-ITEM-LST", (d, p) -> new MoscowEntry(d, p), "MOEN-ITEM-xxx");
+      return new SomList<>(doc, path + "/ME-ITEM-LST", (d, p) -> new MoscowEntry(d, p), "ME-ITEM-xxx");
     }
   }
 
@@ -21509,7 +21509,7 @@ public final class TomSomV0 {
 
     // Supported locale entries.
     public SomList<SupportedLocaleEntry> supportedLocales() {
-      return new SomList<>(doc, path + "/SULOEN-SUPP-LST", (d, p) -> new SupportedLocaleEntry(d, p), "SULOEN-SUPP-xxx");
+      return new SomList<>(doc, path + "/SUPLOCENT-SUPP-LST", (d, p) -> new SupportedLocaleEntry(d, p), "SUPLOCENT-SUPP-xxx");
     }
   }
 
@@ -22024,7 +22024,7 @@ public final class TomSomV0 {
 
     // VPN requirements.
     public SomList<VpnRequirementEntry> vpnRequirements() {
-      return new SomList<>(doc, path + "/VPREEN-VPNR-LST", (d, p) -> new VpnRequirementEntry(d, p), "VPREEN-VPNR-xxx");
+      return new SomList<>(doc, path + "/VRE-VPNR-LST", (d, p) -> new VpnRequirementEntry(d, p), "VRE-VPNR-xxx");
     }
 
     // Firewall rules and policies.
@@ -22579,7 +22579,7 @@ public final class TomSomV0 {
 
     // Contains 0+× PainPoint.
     public SomList<PainPointEntry> items() {
-      return new SomList<>(doc, path + "/OPPAPO-ITEM-LST", (d, p) -> new PainPointEntry(d, p), "OPPAPO-ITEM-xxx");
+      return new SomList<>(doc, path + "/PAPE-ITEM-LST", (d, p) -> new PainPointEntry(d, p), "PAPE-ITEM-xxx");
     }
   }
 
@@ -22893,7 +22893,7 @@ public final class TomSomV0 {
 
     // Departments and business units affected.
     public SomList<AffectedDepartmentEntry> affectedDepartments() {
-      return new SomList<>(doc, path + "/AFDEEN-AFFE-LST", (d, p) -> new AffectedDepartmentEntry(d, p), "AFDEEN-AFFE-xxx");
+      return new SomList<>(doc, path + "/ADE-AFFE-LST", (d, p) -> new AffectedDepartmentEntry(d, p), "ADE-AFFE-xxx");
     }
 
     // Decision making processes and authority.
@@ -22901,17 +22901,17 @@ public final class TomSomV0 {
 
     // Key decision makers and their roles.
     public SomList<DecisionMakerEntry> decisionMakers() {
-      return new SomList<>(doc, path + "/DEMAEN-DECI-LST", (d, p) -> new DecisionMakerEntry(d, p), "DEMAEN-DECI-xxx");
+      return new SomList<>(doc, path + "/DME-DECI-LST", (d, p) -> new DecisionMakerEntry(d, p), "DME-DECI-xxx");
     }
 
     // Cultural considerations and organizational dynamics.
     public SomList<SomScalar> culturalConsiderations() {
-      return new SomList<>(doc, path + "/CULTU-CULT-LST", (d, p) -> new SomScalar(d, p), "CULTU-CULT-xxx");
+      return new SomList<>(doc, path + "/OREN-CULT-LST", (d, p) -> new SomScalar(d, p), "OREN-CULT-xxx");
     }
 
     // Stakeholder communication preferences.
     public SomList<SomScalar> communicationPreferences() {
-      return new SomList<>(doc, path + "/COMMU-COMM-LST", (d, p) -> new SomScalar(d, p), "COMMU-COMM-xxx");
+      return new SomList<>(doc, path + "/OREN-COMM-LST", (d, p) -> new SomScalar(d, p), "OREN-COMM-xxx");
     }
 
     // Political dynamics and influence patterns.
@@ -22919,7 +22919,7 @@ public final class TomSomV0 {
 
     // Change champions and sponsors.
     public SomList<SomScalar> changeAdvocates() {
-      return new SomList<>(doc, path + "/CHANG-CHAN-LST", (d, p) -> new SomScalar(d, p), "CHANG-CHAN-xxx");
+      return new SomList<>(doc, path + "/OREN-CHAN-LST", (d, p) -> new SomScalar(d, p), "OREN-CHAN-xxx");
     }
   }
 
@@ -23157,7 +23157,7 @@ public final class TomSomV0 {
 
     // Contains 0+× OutOfScopeEntry.
     public SomList<OutOfScopeEntry> items() {
-      return new SomList<>(doc, path + "/OOSE-ITEM-LST", (d, p) -> new OutOfScopeEntry(d, p), "OOSE-ITEM-xxx");
+      return new SomList<>(doc, path + "/OUOFSCEN-ITEM-LST", (d, p) -> new OutOfScopeEntry(d, p), "OUOFSCEN-ITEM-xxx");
     }
   }
 
@@ -23991,7 +23991,7 @@ public final class TomSomV0 {
 
     // Contains 0+× PhaseGateReviewEntry.
     public SomList<PhaseGateReviewEntry> items() {
-      return new SomList<>(doc, path + "/PGRE-ITEM-LST", (d, p) -> new PhaseGateReviewEntry(d, p), "PGRE-ITEM-xxx");
+      return new SomList<>(doc, path + "/PHGAREEN-ITEM-LST", (d, p) -> new PhaseGateReviewEntry(d, p), "PHGAREEN-ITEM-xxx");
     }
   }
 
@@ -24139,7 +24139,7 @@ public final class TomSomV0 {
 
     // Framework and library requirements.
     public SomList<FrameworkRequirementEntry> frameworks() {
-      return new SomList<>(doc, path + "/FWREN-FRAM-LST", (d, p) -> new FrameworkRequirementEntry(d, p), "FWREN-FRAM-xxx");
+      return new SomList<>(doc, path + "/FRREEN-FRAM-LST", (d, p) -> new FrameworkRequirementEntry(d, p), "FRREEN-FRAM-xxx");
     }
 
     // Build toolchain requirements.
@@ -24149,7 +24149,7 @@ public final class TomSomV0 {
 
     // Deployment target specifications.
     public SomList<DeploymentTargetEntry> deploymentTargets() {
-      return new SomList<>(doc, path + "/DETAEN-DEPL-LST", (d, p) -> new DeploymentTargetEntry(d, p), "DETAEN-DEPL-xxx");
+      return new SomList<>(doc, path + "/DEPTARENT-DEPL-LST", (d, p) -> new DeploymentTargetEntry(d, p), "DEPTARENT-DEPL-xxx");
     }
 
     // Dependency management requirements.
@@ -24288,13 +24288,13 @@ public final class TomSomV0 {
 
     // 10.4.1. Export Formats — contains 0+× Export Format.
     public SomList<ExportFormatEntry> exportFormats() {
-      return new SomList<>(doc, path + "/EXFOEN-EXPO-LST", (d, p) -> new ExportFormatEntry(d, p), "EXFOEN-EXPO-xxx");
+      return new SomList<>(doc, path + "/EFE-EXPO-LST", (d, p) -> new ExportFormatEntry(d, p), "EFE-EXPO-xxx");
     }
 
     // 10.4.2. Export Templates — contains 0+× Export
     // Template.
     public SomList<ExportTemplateEntry> exportTemplates() {
-      return new SomList<>(doc, path + "/EXTEEN-EXPO-LST", (d, p) -> new ExportTemplateEntry(d, p), "EXTEEN-EXPO-xxx");
+      return new SomList<>(doc, path + "/ETE-EXPO-LST", (d, p) -> new ExportTemplateEntry(d, p), "ETE-EXPO-xxx");
     }
   }
 
@@ -24401,7 +24401,7 @@ public final class TomSomV0 {
 
     // Related pain points from Current State Analysis.
     public SomList<SomScalar> relatedPainPoints() {
-      return new SomList<>(doc, path + "/RPPE-RELA-LST", (d, p) -> new SomScalar(d, p), "RPPE-RELA-xxx");
+      return new SomList<>(doc, path + "/PS-RELA-LST", (d, p) -> new SomScalar(d, p), "PS-RELA-xxx");
     }
   }
 
@@ -25599,7 +25599,7 @@ public final class TomSomV0 {
 
     // Protocol catalog — contains 0+× Protocol.
     public SomList<ProtocolEntry> protocols() {
-      return new SomList<>(doc, path + "/PREN-PROT-LST", (d, p) -> new ProtocolEntry(d, p), "PREN-PROT-xxx");
+      return new SomList<>(doc, path + "/PE-PROT-LST", (d, p) -> new ProtocolEntry(d, p), "PE-PROT-xxx");
     }
 
     // TLS/SSL requirements.
@@ -25721,7 +25721,7 @@ public final class TomSomV0 {
 
     // Prototype feature entries.
     public SomList<PrototypeFeatureEntry> features() {
-      return new SomList<>(doc, path + "/PRFEEN-FEAT-LST", (d, p) -> new PrototypeFeatureEntry(d, p), "PRFEEN-FEAT-xxx");
+      return new SomList<>(doc, path + "/PFE-FEAT-LST", (d, p) -> new PrototypeFeatureEntry(d, p), "PFE-FEAT-xxx");
     }
   }
 
@@ -25763,7 +25763,7 @@ public final class TomSomV0 {
 
     // Individual goal entries.
     public SomList<PrototypeGoalEntry> goals() {
-      return new SomList<>(doc, path + "/PRGOEN-GOAL-LST", (d, p) -> new PrototypeGoalEntry(d, p), "PRGOEN-GOAL-xxx");
+      return new SomList<>(doc, path + "/PGE-GOAL-LST", (d, p) -> new PrototypeGoalEntry(d, p), "PGE-GOAL-xxx");
     }
   }
 
@@ -25940,7 +25940,7 @@ public final class TomSomV0 {
 
     // Quality dependencies map.
     public SomList<SomScalar> categoryDependencies() {
-      return new SomList<>(doc, path + "/CATEG-CATE-LST", (d, p) -> new SomScalar(d, p), "CATEG-CATE-xxx");
+      return new SomList<>(doc, path + "/QLFWK-CATE-LST", (d, p) -> new SomScalar(d, p), "QLFWK-CATE-xxx");
     }
   }
 
@@ -26927,7 +26927,7 @@ public final class TomSomV0 {
 
     // 10.2.1. Reports — contains 0+× Report.
     public SomList<ReportEntry> reports() {
-      return new SomList<>(doc, path + "/REEN-REPO-LST", (d, p) -> new ReportEntry(d, p), "REEN-REPO-xxx");
+      return new SomList<>(doc, path + "/REPENT-REPO-LST", (d, p) -> new ReportEntry(d, p), "REPENT-REPO-xxx");
     }
   }
 
@@ -27031,27 +27031,27 @@ public final class TomSomV0 {
 
     // Contains 0+× Report Section.
     public SomList<ReportSectionEntry> sections() {
-      return new SomList<>(doc, path + "/RESEE1-SECT-LST", (d, p) -> new ReportSectionEntry(d, p), "RESEE1-SECT-xxx");
+      return new SomList<>(doc, path + "/RSE-SECT-LST", (d, p) -> new ReportSectionEntry(d, p), "RSE-SECT-xxx");
     }
 
     // Contains 0+× Report Filter.
     public SomList<ReportFilterEntry> filters() {
-      return new SomList<>(doc, path + "/REFIEN-FILT-LST", (d, p) -> new ReportFilterEntry(d, p), "REFIEN-FILT-xxx");
+      return new SomList<>(doc, path + "/RFE-FILT-LST", (d, p) -> new ReportFilterEntry(d, p), "RFE-FILT-xxx");
     }
 
     // Contains 0+× Report Schedule.
     public SomList<ReportScheduleEntry> schedules() {
-      return new SomList<>(doc, path + "/RESCEN-SCHE-LST", (d, p) -> new ReportScheduleEntry(d, p), "RESCEN-SCHE-xxx");
+      return new SomList<>(doc, path + "/REPSCHENT-SCHE-LST", (d, p) -> new ReportScheduleEntry(d, p), "REPSCHENT-SCHE-xxx");
     }
 
     // Contains 0+× Report Distribution.
     public SomList<ReportDistributionEntry> distributions() {
-      return new SomList<>(doc, path + "/REDIEN-DIST-LST", (d, p) -> new ReportDistributionEntry(d, p), "REDIEN-DIST-xxx");
+      return new SomList<>(doc, path + "/RDE-DIST-LST", (d, p) -> new ReportDistributionEntry(d, p), "RDE-DIST-xxx");
     }
 
     // Contains 0+× Recipient.
     public SomList<ReportRecipientEntry> recipients() {
-      return new SomList<>(doc, path + "/REREEN-RECI-LST", (d, p) -> new ReportRecipientEntry(d, p), "REREEN-RECI-xxx");
+      return new SomList<>(doc, path + "/RRE-RECI-LST", (d, p) -> new ReportRecipientEntry(d, p), "RRE-RECI-xxx");
     }
   }
 
@@ -27221,12 +27221,12 @@ public final class TomSomV0 {
 
     // Contains 0+× Report Column.
     public SomList<ReportColumnEntry> columns() {
-      return new SomList<>(doc, path + "/RECOE1-COLU-LST", (d, p) -> new ReportColumnEntry(d, p), "RECOE1-COLU-xxx");
+      return new SomList<>(doc, path + "/REPCOLENT-COLU-LST", (d, p) -> new ReportColumnEntry(d, p), "REPCOLENT-COLU-xxx");
     }
 
     // Contains 0+× Report Chart.
     public SomList<ReportChartEntry> charts() {
-      return new SomList<>(doc, path + "/RECHEN-CHAR-LST", (d, p) -> new ReportChartEntry(d, p), "RECHEN-CHAR-xxx");
+      return new SomList<>(doc, path + "/REPCHAENT-CHAR-LST", (d, p) -> new ReportChartEntry(d, p), "REPCHAENT-CHAR-xxx");
     }
   }
 
@@ -27255,7 +27255,7 @@ public final class TomSomV0 {
 
     // Acceptance criterion entries — contains 0+× AcceptanceCriterionEntry.
     public SomList<AcceptanceCriterionEntry> criteria() {
-      return new SomList<>(doc, path + "/ACCR-CRIT-LST", (d, p) -> new AcceptanceCriterionEntry(d, p), "ACCR-CRIT-xxx");
+      return new SomList<>(doc, path + "/ACE-CRIT-LST", (d, p) -> new AcceptanceCriterionEntry(d, p), "ACE-CRIT-xxx");
     }
   }
 
@@ -27585,7 +27585,7 @@ public final class TomSomV0 {
 
     // Screen field entries — contains 0+× ScreenFieldEntry.
     public SomList<ScreenFieldEntry> fields() {
-      return new SomList<>(doc, path + "/SCFLD-FIEL-LST", (d, p) -> new ScreenFieldEntry(d, p), "SCFLD-FIEL-xxx");
+      return new SomList<>(doc, path + "/SFE-FIEL-LST", (d, p) -> new ScreenFieldEntry(d, p), "SFE-FIEL-xxx");
     }
 
     // Screen action entries — contains 0+× RequirementScreenActionEntry.
@@ -28192,17 +28192,17 @@ public final class TomSomV0 {
 
     // UI component library entries.
     public SomList<ReusableUiComponentEntry> uiComponents() {
-      return new SomList<>(doc, path + "/RUICMP-UICO-LST", (d, p) -> new ReusableUiComponentEntry(d, p), "RUICMP-UICO-xxx");
+      return new SomList<>(doc, path + "/RUCE-UICO-LST", (d, p) -> new ReusableUiComponentEntry(d, p), "RUCE-UICO-xxx");
     }
 
     // Business logic components.
     public SomList<BusinessComponentEntry> businessComponents() {
-      return new SomList<>(doc, path + "/BUCOEN-BUSI-LST", (d, p) -> new BusinessComponentEntry(d, p), "BUCOEN-BUSI-xxx");
+      return new SomList<>(doc, path + "/BUSCOMENT-BUSI-LST", (d, p) -> new BusinessComponentEntry(d, p), "BUSCOMENT-BUSI-xxx");
     }
 
     // Infrastructure components.
     public SomList<InfrastructureComponentEntry> infrastructureComponents() {
-      return new SomList<>(doc, path + "/INCOEN-INFR-LST", (d, p) -> new InfrastructureComponentEntry(d, p), "INCOEN-INFR-xxx");
+      return new SomList<>(doc, path + "/INFCOMENT-INFR-LST", (d, p) -> new InfrastructureComponentEntry(d, p), "INFCOMENT-INFR-xxx");
     }
 
     // Third-party frameworks and libraries.
@@ -28517,7 +28517,7 @@ public final class TomSomV0 {
 
     // 4.7.1. Key Risks — contains 0+× Risk.
     public SomList<RiskEntry> keyRisks() {
-      return new SomList<>(doc, path + "/RIEN-KEYR-LST", (d, p) -> new RiskEntry(d, p), "RIEN-KEYR-xxx");
+      return new SomList<>(doc, path + "/RISENT-KEYR-LST", (d, p) -> new RiskEntry(d, p), "RISENT-KEYR-xxx");
     }
   }
 
@@ -29489,12 +29489,12 @@ public final class TomSomV0 {
 
     // In-Scope Items — contains 1+× ScopeItem.
     public SomList<ScopeItemEntry> inScopeItems() {
-      return new SomList<>(doc, path + "/SCITE-INSC-LST", (d, p) -> new ScopeItemEntry(d, p), "SCITE-INSC-xxx");
+      return new SomList<>(doc, path + "/SIE-INSC-LST", (d, p) -> new ScopeItemEntry(d, p), "SIE-INSC-xxx");
     }
 
     // Out-of-Scope Items — contains 0+× ScopeItem.
     public SomList<ScopeItemEntry> outOfScopeItems() {
-      return new SomList<>(doc, path + "/SCITE-OUTO-LST", (d, p) -> new ScopeItemEntry(d, p), "SCITE-OUTO-xxx");
+      return new SomList<>(doc, path + "/SIE-OUTO-LST", (d, p) -> new ScopeItemEntry(d, p), "SIE-OUTO-xxx");
     }
 
     // Deferred Items — contains 0+× ScopeItem.
@@ -29504,7 +29504,7 @@ public final class TomSomV0 {
 
     // Scope Assumptions.
     public SomList<SomScalar> scopeAssumptions() {
-      return new SomList<>(doc, path + "/SCOPE-SCOP-LST", (d, p) -> new SomScalar(d, p), "SCOPE-SCOP-xxx");
+      return new SomList<>(doc, path + "/SCBND-SCOP-LST", (d, p) -> new SomScalar(d, p), "SCBND-SCOP-xxx");
     }
   }
 
@@ -29735,7 +29735,7 @@ public final class TomSomV0 {
 
     // Contains 0+× ElementValidationRule.
     public SomList<ElementValidationRuleEntry> validationRules() {
-      return new SomList<>(doc, path + "/EVRE-VALI-LST", (d, p) -> new ElementValidationRuleEntry(d, p), "EVRE-VALI-xxx");
+      return new SomList<>(doc, path + "/ELVARUEN-VALI-LST", (d, p) -> new ElementValidationRuleEntry(d, p), "ELVARUEN-VALI-xxx");
     }
   }
 
@@ -29863,7 +29863,7 @@ public final class TomSomV0 {
 
     // Contains 0+× ScreenUserCategory.
     public SomList<ScreenUserCategoryEntry> userCategories() {
-      return new SomList<>(doc, path + "/SCRUSC-USER-LST", (d, p) -> new ScreenUserCategoryEntry(d, p), "SCRUSC-USER-xxx");
+      return new SomList<>(doc, path + "/SUCE-USER-LST", (d, p) -> new ScreenUserCategoryEntry(d, p), "SUCE-USER-xxx");
     }
 
     // Contains 0+× EntryPoint.
@@ -29873,7 +29873,7 @@ public final class TomSomV0 {
 
     // Contains 0+× ScreenResponsiveRule.
     public SomList<ScreenResponsiveRuleEntry> responsiveRules() {
-      return new SomList<>(doc, path + "/SRRE-RESP-LST", (d, p) -> new ScreenResponsiveRuleEntry(d, p), "SRRE-RESP-xxx");
+      return new SomList<>(doc, path + "/SCRERUEN-RESP-LST", (d, p) -> new ScreenResponsiveRuleEntry(d, p), "SCRERUEN-RESP-xxx");
     }
   }
 
@@ -30235,7 +30235,7 @@ public final class TomSomV0 {
 
     // Contains 0+× TabBarDefinition.
     public SomList<TabBarDefinitionEntry> tabBars() {
-      return new SomList<>(doc, path + "/TBDE-TABB-LST", (d, p) -> new TabBarDefinitionEntry(d, p), "TBDE-TABB-xxx");
+      return new SomList<>(doc, path + "/TABADEEN-TABB-LST", (d, p) -> new TabBarDefinitionEntry(d, p), "TABADEEN-TABB-xxx");
     }
   }
 
@@ -30399,7 +30399,7 @@ public final class TomSomV0 {
 
     // Individual security audit requirement entries — contains 0+× SecurityAudit.
     public SomList<SecurityAuditEntry> auditEntries() {
-      return new SomList<>(doc, path + "/SEAUEN-AUDI-LST", (d, p) -> new SecurityAuditEntry(d, p), "SEAUEN-AUDI-xxx");
+      return new SomList<>(doc, path + "/SAE-AUDI-LST", (d, p) -> new SecurityAuditEntry(d, p), "SAE-AUDI-xxx");
     }
   }
 
@@ -30568,7 +30568,7 @@ public final class TomSomV0 {
 
     // Security control entries — contains 0+× SecurityControlEntry.
     public SomList<SecurityControlEntry> controls() {
-      return new SomList<>(doc, path + "/SECCT-CONT-LST", (d, p) -> new SecurityControlEntry(d, p), "SECCT-CONT-xxx");
+      return new SomList<>(doc, path + "/SECOEN-CONT-LST", (d, p) -> new SecurityControlEntry(d, p), "SECOEN-CONT-xxx");
     }
   }
 
@@ -31245,12 +31245,12 @@ public final class TomSomV0 {
 
     // Server environment tiers (dev, staging, production, DR).
     public SomList<ServerEnvironmentEntry> environments() {
-      return new SomList<>(doc, path + "/SEENEN-ENVI-LST", (d, p) -> new ServerEnvironmentEntry(d, p), "SEENEN-ENVI-xxx");
+      return new SomList<>(doc, path + "/SEE-ENVI-LST", (d, p) -> new ServerEnvironmentEntry(d, p), "SEE-ENVI-xxx");
     }
 
     // Server role definitions (app server, db server, web server).
     public SomList<ServerRoleEntry> serverRoles() {
-      return new SomList<>(doc, path + "/SEROEN-SERV-LST", (d, p) -> new ServerRoleEntry(d, p), "SEROEN-SERV-xxx");
+      return new SomList<>(doc, path + "/SRE-SERV-LST", (d, p) -> new ServerRoleEntry(d, p), "SRE-SERV-xxx");
     }
 
     // Compute resource requirements.
@@ -31966,7 +31966,7 @@ public final class TomSomV0 {
 
     // SLO catalog.
     public SomList<SloEntry> slos() {
-      return new SomList<>(doc, path + "/SLEN-SLOS-LST", (d, p) -> new SloEntry(d, p), "SLEN-SLOS-xxx");
+      return new SomList<>(doc, path + "/SE-SLOS-LST", (d, p) -> new SloEntry(d, p), "SE-SLOS-xxx");
     }
 
     // Error budget tracking.
@@ -32049,7 +32049,7 @@ public final class TomSomV0 {
 
     // Contains 0+× Deliverable.
     public SomList<DeliverableEntry> items() {
-      return new SomList<>(doc, path + "/SWDLV-ITEM-LST", (d, p) -> new DeliverableEntry(d, p), "SWDLV-ITEM-xxx");
+      return new SomList<>(doc, path + "/DLVEN-ITEM-LST", (d, p) -> new DeliverableEntry(d, p), "DLVEN-ITEM-xxx");
     }
   }
 
@@ -32898,12 +32898,12 @@ public final class TomSomV0 {
 
     // 13.1.3. Key Assumptions.
     public SomList<SomScalar> keyAssumptions() {
-      return new SomList<>(doc, path + "/KEYAS-KEYA-LST", (d, p) -> new SomScalar(d, p), "KEYAS-KEYA-xxx");
+      return new SomList<>(doc, path + "/STAGST-KEYA-LST", (d, p) -> new SomScalar(d, p), "STAGST-KEYA-xxx");
     }
 
     // 13.1.4. Constraints.
     public SomList<SomScalar> constraints() {
-      return new SomList<>(doc, path + "/STAGI-CONS-LST", (d, p) -> new SomScalar(d, p), "STAGI-CONS-xxx");
+      return new SomList<>(doc, path + "/STAGST-CONS-LST", (d, p) -> new SomScalar(d, p), "STAGST-CONS-xxx");
     }
   }
 
@@ -33032,7 +33032,7 @@ public final class TomSomV0 {
 
     // Stakeholder register.
     public SomList<StakeholderRegisterEntry> stakeholderRegister() {
-      return new SomList<>(doc, path + "/STKRG-STAK-LST", (d, p) -> new StakeholderRegisterEntry(d, p), "STKRG-STAK-xxx");
+      return new SomList<>(doc, path + "/STKRE-STAK-LST", (d, p) -> new StakeholderRegisterEntry(d, p), "STKRE-STAK-xxx");
     }
   }
 
@@ -33106,27 +33106,27 @@ public final class TomSomV0 {
 
     // IT standards compliance (ISO, IEEE, NIST).
     public SomList<ItStandardComplianceEntry> itStandards() {
-      return new SomList<>(doc, path + "/ISCE-ITST-LST", (d, p) -> new ItStandardComplianceEntry(d, p), "ISCE-ITST-xxx");
+      return new SomList<>(doc, path + "/ITSTCOEN-ITST-LST", (d, p) -> new ItStandardComplianceEntry(d, p), "ITSTCOEN-ITST-xxx");
     }
 
     // Industry protocols compliance.
     public SomList<IndustryProtocolComplianceEntry> industryProtocols() {
-      return new SomList<>(doc, path + "/IPCE-INDU-LST", (d, p) -> new IndustryProtocolComplianceEntry(d, p), "IPCE-INDU-xxx");
+      return new SomList<>(doc, path + "/INPRCOEN-INDU-LST", (d, p) -> new IndustryProtocolComplianceEntry(d, p), "INPRCOEN-INDU-xxx");
     }
 
     // Interface specification standards.
     public SomList<InterfaceSpecificationEntry> interfaceSpecifications() {
-      return new SomList<>(doc, path + "/INSPEN-INTE-LST", (d, p) -> new InterfaceSpecificationEntry(d, p), "INSPEN-INTE-xxx");
+      return new SomList<>(doc, path + "/INTSPEENT-INTE-LST", (d, p) -> new InterfaceSpecificationEntry(d, p), "INTSPEENT-INTE-xxx");
     }
 
     // Regulatory compliance requirements.
     public SomList<RegulatoryComplianceEntry> regulatoryCompliance() {
-      return new SomList<>(doc, path + "/RECOEN-REGU-LST", (d, p) -> new RegulatoryComplianceEntry(d, p), "RECOEN-REGU-xxx");
+      return new SomList<>(doc, path + "/RCE-REGU-LST", (d, p) -> new RegulatoryComplianceEntry(d, p), "RCE-REGU-xxx");
     }
 
     // Security standards compliance.
     public SomList<SecurityStandardComplianceEntry> securityStandards() {
-      return new SomList<>(doc, path + "/SSCE-SECU-LST", (d, p) -> new SecurityStandardComplianceEntry(d, p), "SSCE-SECU-xxx");
+      return new SomList<>(doc, path + "/SESTCOEN-SECU-LST", (d, p) -> new SecurityStandardComplianceEntry(d, p), "SESTCOEN-SECU-xxx");
     }
 
     // Accessibility standards compliance.
@@ -33189,7 +33189,7 @@ public final class TomSomV0 {
 
     // Steering committee members — contains 1+× Committee Member.
     public SomList<CommitteeMemberEntry> members() {
-      return new SomList<>(doc, path + "/COMMB-MEMB-LST", (d, p) -> new CommitteeMemberEntry(d, p), "COMMB-MEMB-xxx");
+      return new SomList<>(doc, path + "/CME-MEMB-LST", (d, p) -> new CommitteeMemberEntry(d, p), "CME-MEMB-xxx");
     }
   }
 
@@ -33218,7 +33218,7 @@ public final class TomSomV0 {
 
     // Step-Up Authentication Details (text).
     public SomList<SomScalar> stepUpDetails() {
-      return new SomList<>(doc, path + "/STEPU-STEP-LST", (d, p) -> new SomScalar(d, p), "STEPU-STEP-xxx");
+      return new SomList<>(doc, path + "/SUAP-STEP-LST", (d, p) -> new SomScalar(d, p), "SUAP-STEP-xxx");
     }
   }
 
@@ -33594,7 +33594,7 @@ public final class TomSomV0 {
 
     // Contains 0+× Deliverable.
     public SomList<DeliverableEntry> items() {
-      return new SomList<>(doc, path + "/SPDLV-ITEM-LST", (d, p) -> new DeliverableEntry(d, p), "SPDLV-ITEM-xxx");
+      return new SomList<>(doc, path + "/DLVEN-ITEM-LST", (d, p) -> new DeliverableEntry(d, p), "DLVEN-ITEM-xxx");
     }
   }
 
@@ -33733,12 +33733,12 @@ public final class TomSomV0 {
 
     // Business units and departments using this system.
     public SomList<SystemBusinessUnitEntry> businessUnits() {
-      return new SomList<>(doc, path + "/SBUE-BUSI-LST", (d, p) -> new SystemBusinessUnitEntry(d, p), "SBUE-BUSI-xxx");
+      return new SomList<>(doc, path + "/SYBUUNEN-BUSI-LST", (d, p) -> new SystemBusinessUnitEntry(d, p), "SYBUUNEN-BUSI-xxx");
     }
 
     // Business processes supported by this system.
     public SomList<SystemBusinessProcessEntry> supportedProcesses() {
-      return new SomList<>(doc, path + "/SBPE-SUPP-LST", (d, p) -> new SystemBusinessProcessEntry(d, p), "SBPE-SUPP-xxx");
+      return new SomList<>(doc, path + "/SYBUPREN-SUPP-LST", (d, p) -> new SystemBusinessProcessEntry(d, p), "SYBUPREN-SUPP-xxx");
     }
   }
 
@@ -33890,7 +33890,7 @@ public final class TomSomV0 {
 
     // Non-financial benefits to include in ROI.
     public SomList<SomScalar> nonFinancialBenefits() {
-      return new SomList<>(doc, path + "/NONFI-NONF-LST", (d, p) -> new SomScalar(d, p), "NONFI-NONF-xxx");
+      return new SomList<>(doc, path + "/SYCOAN-NONF-LST", (d, p) -> new SomScalar(d, p), "SYCOAN-NONF-xxx");
     }
   }
 
@@ -33916,12 +33916,12 @@ public final class TomSomV0 {
 
     // Data entities to migrate.
     public SomList<DataEntityMigrationEntry> entities() {
-      return new SomList<>(doc, path + "/DEME-ENTI-LST", (d, p) -> new DataEntityMigrationEntry(d, p), "DEME-ENTI-xxx");
+      return new SomList<>(doc, path + "/DAENMIEN-ENTI-LST", (d, p) -> new DataEntityMigrationEntry(d, p), "DAENMIEN-ENTI-xxx");
     }
 
     // Data quality issues to address.
     public SomList<SomScalar> knownQualityIssues() {
-      return new SomList<>(doc, path + "/KNOWN-KNOW-LST", (d, p) -> new SomScalar(d, p), "KNOWN-KNOW-xxx");
+      return new SomList<>(doc, path + "/SYDASC-KNOW-LST", (d, p) -> new SomScalar(d, p), "SYDASC-KNOW-xxx");
     }
   }
 
@@ -34014,7 +34014,7 @@ public final class TomSomV0 {
 
     // 4.1.4. User Categories — contains 1+× User Category.
     public SomList<UserCategoryEntry> userCategories() {
-      return new SomList<>(doc, path + "/USCA-USER-LST", (d, p) -> new UserCategoryEntry(d, p), "USCA-USER-xxx");
+      return new SomList<>(doc, path + "/UCE-USER-LST", (d, p) -> new UserCategoryEntry(d, p), "UCE-USER-xxx");
     }
 
     // 4.1.5. User Interaction Model.
@@ -34108,12 +34108,12 @@ public final class TomSomV0 {
 
     // Error page designs.
     public SomList<SomScalar> errorPageDesigns() {
-      return new SomList<>(doc, path + "/EPDE-ERRO-LST", (d, p) -> new SomScalar(d, p), "EPDE-ERRO-xxx");
+      return new SomList<>(doc, path + "/SYERDI-ERRO-LST", (d, p) -> new SomScalar(d, p), "SYERDI-ERRO-xxx");
     }
 
     // Error codes catalog.
     public SomList<SystemErrorCodeEntry> errorCodes() {
-      return new SomList<>(doc, path + "/SECE-ERRO-LST", (d, p) -> new SystemErrorCodeEntry(d, p), "SECE-ERRO-xxx");
+      return new SomList<>(doc, path + "/SYERCOEN-ERRO-LST", (d, p) -> new SystemErrorCodeEntry(d, p), "SYERCOEN-ERRO-xxx");
     }
   }
 
@@ -34211,7 +34211,7 @@ public final class TomSomV0 {
 
     // Critical knowledge areas to preserve.
     public SomList<SomScalar> criticalKnowledgeAreas() {
-      return new SomList<>(doc, path + "/CRITI-CRIT-LST", (d, p) -> new SomScalar(d, p), "CRITI-CRIT-xxx");
+      return new SomList<>(doc, path + "/SYKNTR-CRIT-LST", (d, p) -> new SomScalar(d, p), "SYKNTR-CRIT-xxx");
     }
 
     // Knowledge transfer plan if SME risk is high.
@@ -34263,7 +34263,7 @@ public final class TomSomV0 {
 
     // Contains 0+× MigrationRiskEntry — per-system migration risks.
     public SomList<SystemMigrationRiskEntry> risks() {
-      return new SomList<>(doc, path + "/SMRE-RISK-LST", (d, p) -> new SystemMigrationRiskEntry(d, p), "SMRE-RISK-xxx");
+      return new SomList<>(doc, path + "/SYMIRIEN-RISK-LST", (d, p) -> new SystemMigrationRiskEntry(d, p), "SYMIRIEN-RISK-xxx");
     }
 
     // Rollback strategy and procedures.
@@ -34311,7 +34311,7 @@ public final class TomSomV0 {
 
     // Maintenance Procedures.
     public SomList<SomScalar> maintenanceProcedures() {
-      return new SomList<>(doc, path + "/MAINT-MAIN-LST", (d, p) -> new SomScalar(d, p), "MAINT-MAIN-xxx");
+      return new SomList<>(doc, path + "/SO-MAIN-LST", (d, p) -> new SomScalar(d, p), "SO-MAIN-xxx");
     }
   }
 
@@ -34463,7 +34463,7 @@ public final class TomSomV0 {
 
     // Quality attribute interdependencies.
     public SomList<SomScalar> attributeInterdependencies() {
-      return new SomList<>(doc, path + "/ATTRI-ATTR-LST", (d, p) -> new SomScalar(d, p), "ATTRI-ATTR-xxx");
+      return new SomList<>(doc, path + "/SYQG-ATTR-LST", (d, p) -> new SomScalar(d, p), "SYQG-ATTR-xxx");
     }
 
     // Quality attribute priority radar.
@@ -34564,7 +34564,7 @@ public final class TomSomV0 {
 
     // Predecessor systems that must be addressed first.
     public SomList<SomScalar> predecessorDependencies() {
-      return new SomList<>(doc, path + "/PREDE-PRED-LST", (d, p) -> new SomScalar(d, p), "PREDE-PRED-xxx");
+      return new SomList<>(doc, path + "/SYREST-PRED-LST", (d, p) -> new SomScalar(d, p), "SYREST-PRED-xxx");
     }
 
     // Success criteria for replacement completion.
@@ -34785,12 +34785,12 @@ public final class TomSomV0 {
 
     // Task workflow steps.
     public SomList<SomScalar> workflowSteps() {
-      return new SomList<>(doc, path + "/SYSTE-WORK-LST", (d, p) -> new SomScalar(d, p), "SYSTE-WORK-xxx");
+      return new SomList<>(doc, path + "/SYTS-WORK-LST", (d, p) -> new SomScalar(d, p), "SYTS-WORK-xxx");
     }
 
     // Variations and exceptions.
     public SomList<SomScalar> variationsAndExceptions() {
-      return new SomList<>(doc, path + "/VARIA-VARI-LST", (d, p) -> new SomScalar(d, p), "VARIA-VARI-xxx");
+      return new SomList<>(doc, path + "/SYTS-VARI-LST", (d, p) -> new SomScalar(d, p), "SYTS-VARI-xxx");
     }
   }
 
@@ -34821,12 +34821,12 @@ public final class TomSomV0 {
 
     // Known technical issues and deficiencies.
     public SomList<SomScalar> knownIssues() {
-      return new SomList<>(doc, path + "/KIE-KNOW-LST", (d, p) -> new SomScalar(d, p), "KIE-KNOW-xxx");
+      return new SomList<>(doc, path + "/SYTEAS-KNOW-LST", (d, p) -> new SomScalar(d, p), "SYTEAS-KNOW-xxx");
     }
 
     // Security vulnerabilities and compliance gaps.
     public SomList<SomScalar> securityConcerns() {
-      return new SomList<>(doc, path + "/SECUR-SECU-LST", (d, p) -> new SomScalar(d, p), "SECUR-SECU-xxx");
+      return new SomList<>(doc, path + "/SYTEAS-SECU-LST", (d, p) -> new SomScalar(d, p), "SYTEAS-SECU-xxx");
     }
   }
 
@@ -34954,7 +34954,7 @@ public final class TomSomV0 {
 
     // User groups requiring specific handling.
     public SomList<UserGroupImpactEntry> userGroups() {
-      return new SomList<>(doc, path + "/UGIE-USER-LST", (d, p) -> new UserGroupImpactEntry(d, p), "UGIE-USER-xxx");
+      return new SomList<>(doc, path + "/USGRIMEN-USER-LST", (d, p) -> new UserGroupImpactEntry(d, p), "USGRIMEN-USER-xxx");
     }
   }
 
@@ -35007,7 +35007,7 @@ public final class TomSomV0 {
 
     // Contains 1+× TabItem.
     public SomList<TabItemEntry> tabs() {
-      return new SomList<>(doc, path + "/TAITEN-TABS-LST", (d, p) -> new TabItemEntry(d, p), "TAITEN-TABS-xxx");
+      return new SomList<>(doc, path + "/TIE-TABS-LST", (d, p) -> new TabItemEntry(d, p), "TIE-TABS-xxx");
     }
   }
 
@@ -35266,7 +35266,7 @@ public final class TomSomV0 {
 
     // Data center and hosting environment details.
     public SomList<SomScalar> datacenters() {
-      return new SomList<>(doc, path + "/DATAC-DATA-LST", (d, p) -> new SomScalar(d, p), "DATAC-DATA-xxx");
+      return new SomList<>(doc, path + "/TEEN-DATA-LST", (d, p) -> new SomScalar(d, p), "TEEN-DATA-xxx");
     }
 
     // Network topology and connectivity constraints.
@@ -35277,7 +35277,7 @@ public final class TomSomV0 {
 
     // Technology standards — contains 0+× TechnologyStandard.
     public SomList<TechnologyStandardEntry> technologyStandards() {
-      return new SomList<>(doc, path + "/TESTEN-TECH-LST", (d, p) -> new TechnologyStandardEntry(d, p), "TESTEN-TECH-xxx");
+      return new SomList<>(doc, path + "/TSE-TECH-LST", (d, p) -> new TechnologyStandardEntry(d, p), "TSE-TECH-xxx");
     }
 
     // Integration constraints overview.
@@ -35285,7 +35285,7 @@ public final class TomSomV0 {
 
     // Integration constraints — contains 0+× IntegrationConstraint.
     public SomList<IntegrationConstraintEntry> integrationConstraints() {
-      return new SomList<>(doc, path + "/INCOE1-INTE-LST", (d, p) -> new IntegrationConstraintEntry(d, p), "INCOE1-INTE-xxx");
+      return new SomList<>(doc, path + "/INTCONENT-INTE-LST", (d, p) -> new IntegrationConstraintEntry(d, p), "INTCONENT-INTE-xxx");
     }
   }
 
@@ -35301,12 +35301,12 @@ public final class TomSomV0 {
 
     // DevOps and deployment standards.
     public SomList<SomScalar> devopsStandards() {
-      return new SomList<>(doc, path + "/DEVOP-DEVO-LST", (d, p) -> new SomScalar(d, p), "DEVOP-DEVO-xxx");
+      return new SomList<>(doc, path + "/TEENNE-DEVO-LST", (d, p) -> new SomScalar(d, p), "TEENNE-DEVO-xxx");
     }
 
     // Monitoring and observability requirements.
     public SomList<SomScalar> observabilityRequirements() {
-      return new SomList<>(doc, path + "/OBSER-OBSE-LST", (d, p) -> new SomScalar(d, p), "OBSER-OBSE-xxx");
+      return new SomList<>(doc, path + "/TEENNE-OBSE-LST", (d, p) -> new SomScalar(d, p), "TEENNE-OBSE-xxx");
     }
 
     // Disaster recovery and business continuity requirements.
@@ -35611,7 +35611,7 @@ public final class TomSomV0 {
 
     // Contains 0+× PainPoint.
     public SomList<PainPointEntry> items() {
-      return new SomList<>(doc, path + "/TEPAPO-ITEM-LST", (d, p) -> new PainPointEntry(d, p), "TEPAPO-ITEM-xxx");
+      return new SomList<>(doc, path + "/PAPE-ITEM-LST", (d, p) -> new PainPointEntry(d, p), "PAPE-ITEM-xxx");
     }
   }
 
@@ -36599,7 +36599,7 @@ public final class TomSomV0 {
 
     // Training module entries.
     public SomList<TrainingModuleEntry> trainingModules() {
-      return new SomList<>(doc, path + "/TRMOEN-TRAI-LST", (d, p) -> new TrainingModuleEntry(d, p), "TRMOEN-TRAI-xxx");
+      return new SomList<>(doc, path + "/TME-TRAI-LST", (d, p) -> new TrainingModuleEntry(d, p), "TME-TRAI-xxx");
     }
   }
 
@@ -36625,7 +36625,7 @@ public final class TomSomV0 {
 
     // Contains 0+× Deliverable.
     public SomList<DeliverableEntry> items() {
-      return new SomList<>(doc, path + "/TRDLV-ITEM-LST", (d, p) -> new DeliverableEntry(d, p), "TRDLV-ITEM-xxx");
+      return new SomList<>(doc, path + "/DLVEN-ITEM-LST", (d, p) -> new DeliverableEntry(d, p), "DLVEN-ITEM-xxx");
     }
   }
 
@@ -36730,7 +36730,7 @@ public final class TomSomV0 {
 
     // Initial/onboarding training.
     public SomList<InitialTrainingEntry> initialTraining() {
-      return new SomList<>(doc, path + "/INITR-INIT-LST", (d, p) -> new InitialTrainingEntry(d, p), "INITR-INIT-xxx");
+      return new SomList<>(doc, path + "/ITE-INIT-LST", (d, p) -> new InitialTrainingEntry(d, p), "ITE-INIT-xxx");
     }
 
     // Ongoing/refresher training.
@@ -37062,7 +37062,7 @@ public final class TomSomV0 {
 
     // Translation vendor entries.
     public SomList<TranslationVendorEntry> vendors() {
-      return new SomList<>(doc, path + "/TRVEEN-VEND-LST", (d, p) -> new TranslationVendorEntry(d, p), "TRVEEN-VEND-xxx");
+      return new SomList<>(doc, path + "/TVE-VEND-LST", (d, p) -> new TranslationVendorEntry(d, p), "TVE-VEND-xxx");
     }
   }
 
@@ -37362,12 +37362,12 @@ public final class TomSomV0 {
 
     // Contains 0+× ComponentState.
     public SomList<ComponentStateEntry> states() {
-      return new SomList<>(doc, path + "/CMST-STAT-LST", (d, p) -> new ComponentStateEntry(d, p), "CMST-STAT-xxx");
+      return new SomList<>(doc, path + "/COMSTAENT-STAT-LST", (d, p) -> new ComponentStateEntry(d, p), "COMSTAENT-STAT-xxx");
     }
 
     // Contains 0+× ComponentVariant.
     public SomList<ComponentVariantEntry> variants() {
-      return new SomList<>(doc, path + "/CMVN-VARI-LST", (d, p) -> new ComponentVariantEntry(d, p), "CMVN-VARI-xxx");
+      return new SomList<>(doc, path + "/CVE-VARI-LST", (d, p) -> new ComponentVariantEntry(d, p), "CVE-VARI-xxx");
     }
 
     // Contains 0+× ComponentAction.
@@ -37422,7 +37422,7 @@ public final class TomSomV0 {
 
     // 10.11.2. Component Specifications — contains 0+×.
     public SomList<UiComponentEntry> componentSpecs() {
-      return new SomList<>(doc, path + "/UICOEN-COMP-LST", (d, p) -> new UiComponentEntry(d, p), "UICOEN-COMP-xxx");
+      return new SomList<>(doc, path + "/UICOMENT-COMP-LST", (d, p) -> new UiComponentEntry(d, p), "UICOMENT-COMP-xxx");
     }
 
     // 10.11.3. Component Families — contains 0+×.
@@ -38115,12 +38115,12 @@ public final class TomSomV0 {
 
     // Key touchpoints.
     public SomList<SomScalar> keyTouchpoints() {
-      return new SomList<>(doc, path + "/KEYTO-KEYT-LST", (d, p) -> new SomScalar(d, p), "KEYTO-KEYT-xxx");
+      return new SomList<>(doc, path + "/UJ-KEYT-LST", (d, p) -> new SomScalar(d, p), "UJ-KEYT-xxx");
     }
 
     // Pain points in the journey.
     public SomList<SomScalar> painPoints() {
-      return new SomList<>(doc, path + "/USERJ-PAIN-LST", (d, p) -> new SomScalar(d, p), "USERJ-PAIN-xxx");
+      return new SomList<>(doc, path + "/UJ-PAIN-LST", (d, p) -> new SomScalar(d, p), "UJ-PAIN-xxx");
     }
 
     // Opportunities for delight.
@@ -38413,7 +38413,7 @@ public final class TomSomV0 {
 
     // Key quotes that represent this persona's mindset.
     public SomList<SomScalar> representativeQuotes() {
-      return new SomList<>(doc, path + "/REPRE-REPR-LST", (d, p) -> new SomScalar(d, p), "REPRE-REPR-xxx");
+      return new SomList<>(doc, path + "/UPD-REPR-LST", (d, p) -> new SomScalar(d, p), "UPD-REPR-xxx");
     }
   }
 
@@ -38644,7 +38644,7 @@ public final class TomSomV0 {
 
     // Contains 0+× UtilityNavigationItem.
     public SomList<UtilityNavigationItemEntry> items() {
-      return new SomList<>(doc, path + "/UNIE-ITEM-LST", (d, p) -> new UtilityNavigationItemEntry(d, p), "UNIE-ITEM-xxx");
+      return new SomList<>(doc, path + "/UTNAITEN-ITEM-LST", (d, p) -> new UtilityNavigationItemEntry(d, p), "UTNAITEN-ITEM-xxx");
     }
   }
 
@@ -38680,7 +38680,7 @@ public final class TomSomV0 {
 
     // Contains 0+× UtilityMenuItem.
     public SomList<UtilityMenuItemEntry> menuItems() {
-      return new SomList<>(doc, path + "/UMIE-MENU-LST", (d, p) -> new UtilityMenuItemEntry(d, p), "UMIE-MENU-xxx");
+      return new SomList<>(doc, path + "/UTMEITEN-MENU-LST", (d, p) -> new UtilityMenuItemEntry(d, p), "UTMEITEN-MENU-xxx");
     }
   }
 
@@ -38746,12 +38746,12 @@ public final class TomSomV0 {
 
     // Validation message templates.
     public SomList<ValidationMessageTemplate> messageTemplates() {
-      return new SomList<>(doc, path + "/VAMETE-MESS-LST", (d, p) -> new ValidationMessageTemplate(d, p), "VAMETE-MESS-xxx");
+      return new SomList<>(doc, path + "/VMT-MESS-LST", (d, p) -> new ValidationMessageTemplate(d, p), "VMT-MESS-xxx");
     }
 
     // Field validation rules by type.
     public SomList<SomScalar> fieldValidationRules() {
-      return new SomList<>(doc, path + "/FIELD-FIEL-LST", (d, p) -> new SomScalar(d, p), "FIELD-FIEL-xxx");
+      return new SomList<>(doc, path + "/VAFE-FIEL-LST", (d, p) -> new SomScalar(d, p), "VAFE-FIEL-xxx");
     }
   }
 
@@ -38806,7 +38806,7 @@ public final class TomSomV0 {
 
     // Key Performance Indicators for value measurement.
     public SomList<SomScalar> kpis() {
-      return new SomList<>(doc, path + "/KPIEN-KPIS-LST", (d, p) -> new SomScalar(d, p), "KPIEN-KPIS-xxx");
+      return new SomList<>(doc, path + "/VALPX-KPIS-LST", (d, p) -> new SomScalar(d, p), "VALPX-KPIS-xxx");
     }
   }
 
@@ -39052,7 +39052,7 @@ public final class TomSomV0 {
 
     // WCAG success criteria mapping.
     public SomList<WcagSuccessCriterionEntry> successCriteria() {
-      return new SomList<>(doc, path + "/WSCE-SUCC-LST", (d, p) -> new WcagSuccessCriterionEntry(d, p), "WSCE-SUCC-xxx");
+      return new SomList<>(doc, path + "/WCSUCREN-SUCC-LST", (d, p) -> new WcagSuccessCriterionEntry(d, p), "WCSUCREN-SUCC-xxx");
     }
   }
 

@@ -500,13 +500,26 @@ void _validateStructuralInvariants(
 
   // --- 2b. Field-level @SectionId ("-LST") checks --------------------------
   //
-  // Container IDs follow `<E>-<FIELDSUFFIX>-LST`. Enforced invariants:
+  // Container IDs follow `<elementId>-<FIELDSUFFIX>-LST`. Enforced invariants:
   //   (i)   type-consistency  — a container ID maps to exactly one element type.
   //   (ii)  per-class unique   — within one class, list fields have distinct
   //                              container IDs (field-name suffix guarantees it).
   //   (iii) pattern pairing    — @SectionIdPattern mirrors the container ID.
+  //   (iv)  prefix derivation  — `<elementId>` IS the element type's class-level
+  //                              @SectionId; for a `List<DocSpecsSection>` (no
+  //                              element class) it is the OWNING class's. §7.2.
   // Cross-class sharing of a container ID is allowed (same element type AND
   // same field name) — interpretation X, parent-path addressing.
+
+  // className → its class-level @SectionId. Built over ALL classes, not only
+  // the ones already walked: a list's element type is reached through the
+  // field, so it need not have been visited when the container id is checked.
+  final classSectionId = <String, String>{};
+  for (final entry in classes.entries) {
+    final id =
+        entry.value.getAnnotation('SectionId')?.arguments['id'] as String?;
+    if (id != null && id.isNotEmpty) classSectionId[entry.key] = id;
+  }
 
   // container id → element type name (first field seen wins)
   final lstIdToElementType = <String, String>{};
@@ -517,12 +530,41 @@ void _validateStructuralInvariants(
     // container id → field name, scoped to this class (for per-class uniqueness)
     final seenInClass = <String, String>{};
     for (final field in cls.fields) {
-      if (!field.isList || !field.listElementIsComplex) continue;
+      if (!field.isList) continue;
+      if (!field.listElementIsComplex && !field.listElementIsContentSection) {
+        continue;
+      }
       final fieldSectionIdAnno = field.getAnnotation('SectionId');
       if (fieldSectionIdAnno == null) continue;
       final lstId = fieldSectionIdAnno.arguments['id'] as String? ?? '';
       if (lstId.isEmpty) continue;
       final elementType = field.listElementTypeName ?? '';
+
+      // (iv) prefix derivation — the `<elementId>` token is not a free
+      // mnemonic: it is read back as "which class this list holds", so it must
+      // BE that class's id rather than merely resemble it. @Reference lists sit
+      // outside the container scheme entirely (§7.2): they carry a §7.3 inline
+      // `<OWNER>-<FIELD4>-REF` id, not an `<elementId>`-prefixed container id.
+      final String? expectedPrefix;
+      if (field.getAnnotation('Reference') != null) {
+        expectedPrefix = null;
+      } else if (field.listElementIsComplex) {
+        expectedPrefix = classSectionId[elementType];
+      } else {
+        expectedPrefix = classSectionId[className];
+      }
+      final actualPrefix = lstId.split('-').first;
+      if (expectedPrefix != null && actualPrefix != expectedPrefix) {
+        final source = field.listElementIsComplex
+            ? 'element class $elementType'
+            : 'owning class $className (a List<DocSpecsSection> has no '
+                'element class)';
+        errors.add(
+          '$_invariants @SectionId container prefix: $className.${field.name} '
+          'has container id "$lstId", but its prefix must be the @SectionId of '
+          'its $source — expected "$expectedPrefix-…", found "$actualPrefix-…"',
+        );
+      }
 
       // (i) type-consistency (global)
       if (lstIdToElementType.containsKey(lstId)) {
@@ -568,10 +610,11 @@ void _validateStructuralInvariants(
 
   // --- 2c. @SectionIdPattern list-coverage check ---------------------------
   //
-  // Every reachable complex `List<T>` field must carry @SectionIdPattern so its
-  // elements receive per-instance section IDs under the flat-ID scheme. The
-  // only exemption is @Reference fields, which point at sections owned
-  // elsewhere and therefore do not introduce repeated sections of their own.
+  // Every reachable `List<T>` field of section elements — a complex `T` or the
+  // untyped `DocSpecsSection` — must carry @SectionIdPattern so its elements
+  // receive per-instance section IDs under the flat-ID scheme. The only
+  // exemption is @Reference fields, which point at sections owned elsewhere and
+  // therefore do not introduce repeated sections of their own.
   // The check walks the real reachable type graph via the analyzer, so unlike a
   // textual scan of the sources it cannot produce line-proximity false
   // negatives.
@@ -579,7 +622,10 @@ void _validateStructuralInvariants(
     final cls = classes[className];
     if (cls == null) continue;
     for (final field in cls.fields) {
-      if (!field.isList || !field.listElementIsComplex) continue;
+      if (!field.isList) continue;
+      if (!field.listElementIsComplex && !field.listElementIsContentSection) {
+        continue;
+      }
       if (field.getAnnotation('Reference') != null) continue;
       if (field.getAnnotation('SectionIdPattern') == null) {
         errors.add(
@@ -810,8 +856,9 @@ void _validateStructuralInvariants(
   // list field, so its instance id is a pure function of the field position.
   // The field-suffixed scheme deliberately lets the same element type appear
   // under several list fields — and the element's class-level @SectionId is the
-  // mnemonic `<E>` prefix of every such container/pattern id (e.g. `STKNT` →
-  // `STKNT-PRIM-LST` / `STKNT-PRIM-xxx`); that is NOT a conflict.
+  // `<elementId>` prefix of every such container/pattern id (e.g. `STKNT` →
+  // `STKNT-PRIM-LST` / `STKNT-PRIM-xxx`, enforced by check 2b(iv)); that is NOT
+  // a conflict.
   //
   // The one genuine cross-root divergence is a class reached in TWO different
   // STRUCTURAL modes: as a direct @SectionIdPattern list element (→ resolves to

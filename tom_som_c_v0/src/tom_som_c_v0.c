@@ -1425,9 +1425,9 @@ AlertNotificationChannels alerting_configuration_notification_channels(const Ale
   return out;
 }
 SomList alerting_configuration_alert_rules(const AlertingConfiguration *self) {
-  char *path = spec_path_join(self->node.path, "ALRUEN-ALER-LST");
+  char *path = spec_path_join(self->node.path, "ALERULENT-ALER-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "ALRUEN-ALER-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "ALERULENT-ALER-xxx");
   free(path);
   return out;
 }
@@ -1889,9 +1889,9 @@ ApplicableRegulationEntryContentForm applicable_regulation_entry_content(const A
   return out;
 }
 SomList applicable_regulation_entry_compliance_measures(const ApplicableRegulationEntry *self) {
-  char *path = spec_path_join(self->node.path, "COMPL-COMP-LST");
+  char *path = spec_path_join(self->node.path, "ARE-COMP-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "COMPL-COMP-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "ARE-COMP-xxx");
   free(path);
   return out;
 }
@@ -2370,23 +2370,23 @@ void assumption_constraint_dependency_register_set_content(AssumptionConstraintD
   free(path);
 }
 SomList assumption_constraint_dependency_register_assumptions(const AssumptionConstraintDependencyRegister *self) {
-  char *path = spec_path_join(self->node.path, "ACRG-ASMP-LST");
+  char *path = spec_path_join(self->node.path, "ASMRE-ASMP-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "ACRG-ASMP-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "ASMRE-ASMP-xxx");
   free(path);
   return out;
 }
 SomList assumption_constraint_dependency_register_constraints(const AssumptionConstraintDependencyRegister *self) {
-  char *path = spec_path_join(self->node.path, "ACRG-CONS-LST");
+  char *path = spec_path_join(self->node.path, "CONRE-CONS-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "ACRG-CONS-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "CONRE-CONS-xxx");
   free(path);
   return out;
 }
 SomList assumption_constraint_dependency_register_dependencies(const AssumptionConstraintDependencyRegister *self) {
-  char *path = spec_path_join(self->node.path, "ACRG-DEPS-LST");
+  char *path = spec_path_join(self->node.path, "DEPRE-DEPS-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "ACRG-DEPS-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "DEPRE-DEPS-xxx");
   free(path);
   return out;
 }
@@ -3248,9 +3248,9 @@ BackupDataClassification backup_and_recovery_section_data_classification(const B
   return out;
 }
 SomList backup_and_recovery_section_backup_policies(const BackupAndRecoverySection *self) {
-  char *path = spec_path_join(self->node.path, "BAPOEN-BACK-LST");
+  char *path = spec_path_join(self->node.path, "BPE-BACK-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "BAPOEN-BACK-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "BPE-BACK-xxx");
   free(path);
   return out;
 }
@@ -3793,9 +3793,9 @@ int boundary_assumptions_can_have_content(const BoundaryAssumptions *self) {
   return 0;
 }
 SomList boundary_assumptions_items(const BoundaryAssumptions *self) {
-  char *path = spec_path_join(self->node.path, "BOASEN-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "BAE-ITEM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "BOASEN-ITEM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "BAE-ITEM-xxx");
   free(path);
   return out;
 }
@@ -3887,9 +3887,9 @@ BreakpointConfigurationBreakpointOverviewForm breakpoint_configuration_breakpoin
   return out;
 }
 SomList breakpoint_configuration_breakpoints(const BreakpointConfiguration *self) {
-  char *path = spec_path_join(self->node.path, "BRE-BREA-LST");
+  char *path = spec_path_join(self->node.path, "BE-BREA-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "BRE-BREA-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "BE-BREA-xxx");
   free(path);
   return out;
 }
@@ -4600,9 +4600,9 @@ BusinessPainPointsCategorySummaryForm business_pain_points_category_summary(cons
   return out;
 }
 SomList business_pain_points_items(const BusinessPainPoints *self) {
-  char *path = spec_path_join(self->node.path, "BUPAPO-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "PAPE-ITEM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "BUPAPO-ITEM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "PAPE-ITEM-xxx");
   free(path);
   return out;
 }
@@ -5831,23 +5831,23 @@ CiCdPipelineConfigurationContentForm ci_cd_pipeline_configuration_content(const 
   return out;
 }
 SomList ci_cd_pipeline_configuration_stages(const CiCdPipelineConfiguration *self) {
-  char *path = spec_path_join(self->node.path, "PISTEN-STAG-LST");
+  char *path = spec_path_join(self->node.path, "PSE-STAG-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "PISTEN-STAG-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "PSE-STAG-xxx");
   free(path);
   return out;
 }
 SomList ci_cd_pipeline_configuration_jobs(const CiCdPipelineConfiguration *self) {
-  char *path = spec_path_join(self->node.path, "PIJOEN-JOBS-LST");
+  char *path = spec_path_join(self->node.path, "PJE-JOBS-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "PIJOEN-JOBS-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "PJE-JOBS-xxx");
   free(path);
   return out;
 }
 SomList ci_cd_pipeline_configuration_environments(const CiCdPipelineConfiguration *self) {
-  char *path = spec_path_join(self->node.path, "DEENEN-ENVI-LST");
+  char *path = spec_path_join(self->node.path, "DEE-ENVI-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "DEENEN-ENVI-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "DEE-ENVI-xxx");
   free(path);
   return out;
 }
@@ -6132,23 +6132,23 @@ SomList client_requirements_section_client_applications(const ClientRequirements
   return out;
 }
 SomList client_requirements_section_browser_requirements(const ClientRequirementsSection *self) {
-  char *path = spec_path_join(self->node.path, "BRREEN-BROW-LST");
+  char *path = spec_path_join(self->node.path, "BROREQENT-BROW-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "BRREEN-BROW-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "BROREQENT-BROW-xxx");
   free(path);
   return out;
 }
 SomList client_requirements_section_desktop_os_requirements(const ClientRequirementsSection *self) {
-  char *path = spec_path_join(self->node.path, "DORE1-DESK-LST");
+  char *path = spec_path_join(self->node.path, "DEOSREEN-DESK-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "DORE1-DESK-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "DEOSREEN-DESK-xxx");
   free(path);
   return out;
 }
 SomList client_requirements_section_mobile_requirements(const ClientRequirementsSection *self) {
-  char *path = spec_path_join(self->node.path, "MDRE-MOBI-LST");
+  char *path = spec_path_join(self->node.path, "MODEREEN-MOBI-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "MDRE-MOBI-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "MODEREEN-MOBI-xxx");
   free(path);
   return out;
 }
@@ -6908,30 +6908,30 @@ void compatibility_requirements_section_set_content(CompatibilityRequirementsSec
   free(path);
 }
 SomList compatibility_requirements_section_os_compatibility(const CompatibilityRequirementsSection *self) {
-  char *path = spec_path_join(self->node.path, "OSCOEN-OSCO-LST");
+  char *path = spec_path_join(self->node.path, "OCE-OSCO-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "OSCOEN-OSCO-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "OCE-OSCO-xxx");
   free(path);
   return out;
 }
 SomList compatibility_requirements_section_browser_compatibility(const CompatibilityRequirementsSection *self) {
-  char *path = spec_path_join(self->node.path, "BRCOEN-BROW-LST");
+  char *path = spec_path_join(self->node.path, "BROCOMENT-BROW-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "BRCOEN-BROW-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "BROCOMENT-BROW-xxx");
   free(path);
   return out;
 }
 SomList compatibility_requirements_section_database_compatibility(const CompatibilityRequirementsSection *self) {
-  char *path = spec_path_join(self->node.path, "DACOEN-DATA-LST");
+  char *path = spec_path_join(self->node.path, "DATCOMENT-DATA-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "DACOEN-DATA-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "DATCOMENT-DATA-xxx");
   free(path);
   return out;
 }
 SomList compatibility_requirements_section_enterprise_system_compatibility(const CompatibilityRequirementsSection *self) {
-  char *path = spec_path_join(self->node.path, "ESCE-ENTE-LST");
+  char *path = spec_path_join(self->node.path, "ENSYCOEN-ENTE-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "ESCE-ENTE-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "ENSYCOEN-ENTE-xxx");
   free(path);
   return out;
 }
@@ -6943,23 +6943,23 @@ SomList compatibility_requirements_section_api_compatibility(const Compatibility
   return out;
 }
 SomList compatibility_requirements_section_legacy_compatibility(const CompatibilityRequirementsSection *self) {
-  char *path = spec_path_join(self->node.path, "LECOEN-LEGA-LST");
+  char *path = spec_path_join(self->node.path, "LCE-LEGA-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "LECOEN-LEGA-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "LCE-LEGA-xxx");
   free(path);
   return out;
 }
 SomList compatibility_requirements_section_mobile_compatibility(const CompatibilityRequirementsSection *self) {
-  char *path = spec_path_join(self->node.path, "MOCOEN-MOBI-LST");
+  char *path = spec_path_join(self->node.path, "MOBCOMENT-MOBI-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "MOCOEN-MOBI-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "MOBCOMENT-MOBI-xxx");
   free(path);
   return out;
 }
 SomList compatibility_requirements_section_third_party_compatibility(const CompatibilityRequirementsSection *self) {
-  char *path = spec_path_join(self->node.path, "TPCE-THIR-LST");
+  char *path = spec_path_join(self->node.path, "THPACOEN-THIR-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "TPCE-THIR-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "THPACOEN-THIR-xxx");
   free(path);
   return out;
 }
@@ -8938,16 +8938,16 @@ void current_architecture_set_deployment_topology(CurrentArchitecture *self, con
   free(path);
 }
 SomList current_architecture_integration_patterns(const CurrentArchitecture *self) {
-  char *path = spec_path_join(self->node.path, "IPE-INTE-LST");
+  char *path = spec_path_join(self->node.path, "CARCH-INTE-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "IPE-INTE-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "CARCH-INTE-xxx");
   free(path);
   return out;
 }
 SomList current_architecture_shared_services(const CurrentArchitecture *self) {
-  char *path = spec_path_join(self->node.path, "SHARE-SHAR-LST");
+  char *path = spec_path_join(self->node.path, "CARCH-SHAR-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SHARE-SHAR-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "CARCH-SHAR-xxx");
   free(path);
   return out;
 }
@@ -9402,9 +9402,9 @@ SomList current_workflow_entry_steps(const CurrentWorkflowEntry *self) {
   return out;
 }
 SomList current_workflow_entry_actors(const CurrentWorkflowEntry *self) {
-  char *path = spec_path_join(self->node.path, "WFAC-ACTO-LST");
+  char *path = spec_path_join(self->node.path, "WAE-ACTO-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "WFAC-ACTO-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "WAE-ACTO-xxx");
   free(path);
   return out;
 }
@@ -13829,9 +13829,9 @@ DecisionPointEntryResolutionContentForm decision_point_entry_resolution_content(
   return out;
 }
 SomList decision_point_entry_resolution_options(const DecisionPointEntryResolution *self) {
-  char *path = spec_path_join(self->node.path, "DEOPEN-OPTI-LST");
+  char *path = spec_path_join(self->node.path, "DOE-OPTI-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "DEOPEN-OPTI-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "DOE-OPTI-xxx");
   free(path);
   return out;
 }
@@ -13854,9 +13854,9 @@ DecisionPointsContentForm decision_points_content(const DecisionPoints *self) {
   return out;
 }
 SomList decision_points_items(const DecisionPoints *self) {
-  char *path = spec_path_join(self->node.path, "DEPOEN-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "DPE-ITEM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "DEPOEN-ITEM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "DPE-ITEM-xxx");
   free(path);
   return out;
 }
@@ -15031,23 +15031,23 @@ SomList design_patterns_and_standards_design_patterns(const DesignPatternsAndSta
   return out;
 }
 SomList design_patterns_and_standards_coding_standards(const DesignPatternsAndStandards *self) {
-  char *path = spec_path_join(self->node.path, "COSTEN-CODI-LST");
+  char *path = spec_path_join(self->node.path, "CSE-CODI-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "COSTEN-CODI-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "CSE-CODI-xxx");
   free(path);
   return out;
 }
 SomList design_patterns_and_standards_development_conventions(const DesignPatternsAndStandards *self) {
-  char *path = spec_path_join(self->node.path, "DECOEN-DEVE-LST");
+  char *path = spec_path_join(self->node.path, "DCE-DEVE-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "DECOEN-DEVE-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "DCE-DEVE-xxx");
   free(path);
   return out;
 }
 SomList design_patterns_and_standards_industry_standards(const DesignPatternsAndStandards *self) {
-  char *path = spec_path_join(self->node.path, "INSTEN-INDU-LST");
+  char *path = spec_path_join(self->node.path, "ISE-INDU-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "INSTEN-INDU-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "ISE-INDU-xxx");
   free(path);
   return out;
 }
@@ -15370,9 +15370,9 @@ void development_environment_set_content(DevelopmentEnvironment *self, const cha
   free(path);
 }
 SomList development_environment_ide_requirements(const DevelopmentEnvironment *self) {
-  char *path = spec_path_join(self->node.path, "IDREEN-IDER-LST");
+  char *path = spec_path_join(self->node.path, "IRE-IDER-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "IDREEN-IDER-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "IRE-IDER-xxx");
   free(path);
   return out;
 }
@@ -16034,16 +16034,16 @@ DocumentHeader document_control_header(const DocumentControl *self) {
   return out;
 }
 SomList document_control_revision_history(const DocumentControl *self) {
-  char *path = spec_path_join(self->node.path, "RVHST-REVS-LST");
+  char *path = spec_path_join(self->node.path, "RVENT-REVS-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "RVHST-REVS-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "RVENT-REVS-xxx");
   free(path);
   return out;
 }
 SomList document_control_approvals(const DocumentControl *self) {
-  char *path = spec_path_join(self->node.path, "DOCTL-APRV-LST");
+  char *path = spec_path_join(self->node.path, "APREC-APRV-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "DOCTL-APRV-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "APREC-APRV-xxx");
   free(path);
   return out;
 }
@@ -16151,9 +16151,9 @@ void documentation_deliverables_set_content(DocumentationDeliverables *self, con
   free(path);
 }
 SomList documentation_deliverables_items(const DocumentationDeliverables *self) {
-  char *path = spec_path_join(self->node.path, "DCDLV-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "DLVEN-ITEM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "DCDLV-ITEM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "DLVEN-ITEM-xxx");
   free(path);
   return out;
 }
@@ -16424,9 +16424,9 @@ void domain_business_rules_set_content(DomainBusinessRules *self, const char *va
   free(path);
 }
 SomList domain_business_rules_rules(const DomainBusinessRules *self) {
-  char *path = spec_path_join(self->node.path, "DOBIRU-RULE-LST");
+  char *path = spec_path_join(self->node.path, "DBRE-RULE-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "DOBIRU-RULE-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "DBRE-RULE-xxx");
   free(path);
   return out;
 }
@@ -16667,9 +16667,9 @@ void domain_processes_set_process_overview_diagram(DomainProcesses *self, const 
   free(path);
 }
 SomList domain_processes_processes(const DomainProcesses *self) {
-  char *path = spec_path_join(self->node.path, "DOPR-PROC-LST");
+  char *path = spec_path_join(self->node.path, "DOPREN-PROC-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "DOPR-PROC-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "DOPREN-PROC-xxx");
   free(path);
   return out;
 }
@@ -17552,9 +17552,9 @@ SomList equipment_requirements_displays(const EquipmentRequirements *self) {
   return out;
 }
 SomList equipment_requirements_input_devices(const EquipmentRequirements *self) {
-  char *path = spec_path_join(self->node.path, "INPDE-INPU-LST");
+  char *path = spec_path_join(self->node.path, "IDE-INPU-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "INPDE-INPU-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "IDE-INPU-xxx");
   free(path);
   return out;
 }
@@ -17826,9 +17826,9 @@ ErrorRecoverySessionHandlingForm error_recovery_session_handling(const ErrorReco
   return out;
 }
 SomList error_recovery_recovery_flows(const ErrorRecovery *self) {
-  char *path = spec_path_join(self->node.path, "RECOV-RECO-LST");
+  char *path = spec_path_join(self->node.path, "ERRE-RECO-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "RECOV-RECO-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "ERRE-RECO-xxx");
   free(path);
   return out;
 }
@@ -18473,9 +18473,9 @@ AuthorizationRequirementSpec export_format_entry_access(const ExportFormatEntry 
   return out;
 }
 SomList export_format_entry_field_mappings(const ExportFormatEntry *self) {
-  char *path = spec_path_join(self->node.path, "EFME-FIEL-LST");
+  char *path = spec_path_join(self->node.path, "EXFIMAEN-FIEL-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "EFME-FIEL-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "EXFIMAEN-FIEL-xxx");
   free(path);
   return out;
 }
@@ -18626,9 +18626,9 @@ ExternalActorEntryContextForm external_actor_entry_context(const ExternalActorEn
   return out;
 }
 SomList external_actor_entry_interaction_scenarios(const ExternalActorEntry *self) {
-  char *path = spec_path_join(self->node.path, "INTER-INTE-LST");
+  char *path = spec_path_join(self->node.path, "EAE-INTE-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "INTER-INTE-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "EAE-INTE-xxx");
   free(path);
   return out;
 }
@@ -18686,9 +18686,9 @@ void external_connectivity_section_set_content(ExternalConnectivitySection *self
   free(path);
 }
 SomList external_connectivity_section_partner_connections(const ExternalConnectivitySection *self) {
-  char *path = spec_path_join(self->node.path, "EPCE-PART-LST");
+  char *path = spec_path_join(self->node.path, "EXPACOEN-PART-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "EPCE-PART-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "EXPACOEN-PART-xxx");
   free(path);
   return out;
 }
@@ -18813,9 +18813,9 @@ int external_interfaces_can_have_content(const ExternalInterfaces *self) {
   return 0;
 }
 SomList external_interfaces_interfaces(const ExternalInterfaces *self) {
-  char *path = spec_path_join(self->node.path, "EXINEN-INTE-LST");
+  char *path = spec_path_join(self->node.path, "EIE-INTE-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "EXINEN-INTE-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "EIE-INTE-xxx");
   free(path);
   return out;
 }
@@ -19137,9 +19137,9 @@ FeatureDependenciesContentForm feature_dependencies_content(const FeatureDepende
   return out;
 }
 SomList feature_dependencies_items(const FeatureDependencies *self) {
-  char *path = spec_path_join(self->node.path, "FEDEEN-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "FDE-ITEM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "FEDEEN-ITEM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "FDE-ITEM-xxx");
   free(path);
   return out;
 }
@@ -19402,9 +19402,9 @@ FeaturePriorityRegisterContentForm feature_priority_register_content(const Featu
   return out;
 }
 SomList feature_priority_register_items(const FeaturePriorityRegister *self) {
-  char *path = spec_path_join(self->node.path, "FEPREN-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "FPE-ITEM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "FEPREN-ITEM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "FPE-ITEM-xxx");
   free(path);
   return out;
 }
@@ -19473,9 +19473,9 @@ FeatureStageMatrixContentForm feature_stage_matrix_content(const FeatureStageMat
   return out;
 }
 SomList feature_stage_matrix_items(const FeatureStageMatrix *self) {
-  char *path = spec_path_join(self->node.path, "FESTM1-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "FSM-ITEM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "FESTM1-ITEM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "FSM-ITEM-xxx");
   free(path);
   return out;
 }
@@ -20240,9 +20240,9 @@ FunctionalResponsibilitiesContentForm functional_responsibilities_content(const 
   return out;
 }
 SomList functional_responsibilities_items(const FunctionalResponsibilities *self) {
-  char *path = spec_path_join(self->node.path, "REEN1-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "RE-ITEM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "REEN1-ITEM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "RE-ITEM-xxx");
   free(path);
   return out;
 }
@@ -20412,9 +20412,9 @@ void glossary_and_abbreviations_set_content(GlossaryAndAbbreviations *self, cons
   free(path);
 }
 SomList glossary_and_abbreviations_glossary(const GlossaryAndAbbreviations *self) {
-  char *path = spec_path_join(self->node.path, "GLOSS-ENTR-LST");
+  char *path = spec_path_join(self->node.path, "GLENT-ENTR-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "GLOSS-ENTR-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "GLENT-ENTR-xxx");
   free(path);
   return out;
 }
@@ -21719,9 +21719,9 @@ void information_architecture_set_content(InformationArchitecture *self, const c
   free(path);
 }
 SomList information_architecture_global_entry_points(const InformationArchitecture *self) {
-  char *path = spec_path_join(self->node.path, "GLOBA-GLOB-LST");
+  char *path = spec_path_join(self->node.path, "IA-GLOB-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "GLOBA-GLOB-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "IA-GLOB-xxx");
   free(path);
   return out;
 }
@@ -22199,9 +22199,9 @@ IntegrationHealthSummaryContentForm integration_health_summary_content(const Int
   return out;
 }
 SomList integration_health_summary_fragile_points(const IntegrationHealthSummary *self) {
-  char *path = spec_path_join(self->node.path, "FRAGI-FRAG-LST");
+  char *path = spec_path_join(self->node.path, "INHESU-FRAG-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "FRAGI-FRAG-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "INHESU-FRAG-xxx");
   free(path);
   return out;
 }
@@ -22691,9 +22691,9 @@ InterfaceBusinessContextContentForm interface_business_context_content(const Int
   return out;
 }
 SomList interface_business_context_dependent_processes(const InterfaceBusinessContext *self) {
-  char *path = spec_path_join(self->node.path, "IBPE-DEPE-LST");
+  char *path = spec_path_join(self->node.path, "INBUPREN-DEPE-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "IBPE-DEPE-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "INBUPREN-DEPE-xxx");
   free(path);
   return out;
 }
@@ -22752,23 +22752,23 @@ InterfaceDataSpecContentForm interface_data_spec_content(const InterfaceDataSpec
   return out;
 }
 SomList interface_data_spec_data_entities(const InterfaceDataSpec *self) {
-  char *path = spec_path_join(self->node.path, "IDEE-DATA-LST");
+  char *path = spec_path_join(self->node.path, "INDAENEN-DATA-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "IDEE-DATA-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "INDAENEN-DATA-xxx");
   free(path);
   return out;
 }
 SomList interface_data_spec_mapping_rules(const InterfaceDataSpec *self) {
-  char *path = spec_path_join(self->node.path, "MAPPI-MAPP-LST");
+  char *path = spec_path_join(self->node.path, "INDASP-MAPP-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "MAPPI-MAPP-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "INDASP-MAPP-xxx");
   free(path);
   return out;
 }
 SomList interface_data_spec_validation_rules(const InterfaceDataSpec *self) {
-  char *path = spec_path_join(self->node.path, "VALID-VALI-LST");
+  char *path = spec_path_join(self->node.path, "INDASP-VALI-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "VALID-VALI-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "INDASP-VALI-xxx");
   free(path);
   return out;
 }
@@ -22812,9 +22812,9 @@ InterfaceErrorHandlingTimeoutForm interface_error_handling_timeout(const Interfa
   return out;
 }
 SomList interface_error_handling_error_procedures(const InterfaceErrorHandling *self) {
-  char *path = spec_path_join(self->node.path, "ERROR-ERRO-LST");
+  char *path = spec_path_join(self->node.path, "INERHA-ERRO-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "ERROR-ERRO-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "INERHA-ERRO-xxx");
   free(path);
   return out;
 }
@@ -22908,9 +22908,9 @@ InterfaceOperationalSupportForm interface_operational_support(const InterfaceOpe
   return out;
 }
 SomList interface_operational_dependencies(const InterfaceOperational *self) {
-  char *path = spec_path_join(self->node.path, "DEPEN-DEPE-LST");
+  char *path = spec_path_join(self->node.path, "INOP-DEPE-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "DEPEN-DEPE-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "INOP-DEPE-xxx");
   free(path);
   return out;
 }
@@ -23032,9 +23032,9 @@ InterfaceTechnicalSpecEndpointsForm interface_technical_spec_endpoints(const Int
   return out;
 }
 SomList interface_technical_spec_operations(const InterfaceTechnicalSpec *self) {
-  char *path = spec_path_join(self->node.path, "INOPEN-OPER-LST");
+  char *path = spec_path_join(self->node.path, "IOE-OPER-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "INOPEN-OPER-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "IOE-OPER-xxx");
   free(path);
   return out;
 }
@@ -23096,9 +23096,9 @@ InterfaceTestingStrategyForm interface_testing_strategy(const InterfaceTesting *
   return out;
 }
 SomList interface_testing_test_scenarios(const InterfaceTesting *self) {
-  char *path = spec_path_join(self->node.path, "ITSE1-TEST-LST");
+  char *path = spec_path_join(self->node.path, "INTESCEN-TEST-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "ITSE1-TEST-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "INTESCEN-TEST-xxx");
   free(path);
   return out;
 }
@@ -23357,9 +23357,9 @@ void iso25010_coverage_set_content(Iso25010Coverage *self, const char *value) {
   free(path);
 }
 SomList iso25010_coverage_characteristics(const Iso25010Coverage *self) {
-  char *path = spec_path_join(self->node.path, "I25CV-CHAR-LST");
+  char *path = spec_path_join(self->node.path, "I25CE-CHAR-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "I25CV-CHAR-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "I25CE-CHAR-xxx");
   free(path);
   return out;
 }
@@ -23481,9 +23481,9 @@ void it_security_standards_section_set_content(ItSecurityStandardsSection *self,
   free(path);
 }
 SomList it_security_standards_section_standards(const ItSecurityStandardsSection *self) {
-  char *path = spec_path_join(self->node.path, "SESTEN-STAN-LST");
+  char *path = spec_path_join(self->node.path, "SSE-STAN-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SESTEN-STAN-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SSE-STAN-xxx");
   free(path);
   return out;
 }
@@ -23594,9 +23594,9 @@ JobDescriptionsAndStaffingOverviewForm job_descriptions_and_staffing_overview(co
   return out;
 }
 SomList job_descriptions_and_staffing_new_roles(const JobDescriptionsAndStaffing *self) {
-  char *path = spec_path_join(self->node.path, "NWROL-NEWR-LST");
+  char *path = spec_path_join(self->node.path, "NRE-NEWR-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "NWROL-NEWR-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "NRE-NEWR-xxx");
   free(path);
   return out;
 }
@@ -24092,9 +24092,9 @@ void layering_and_module_structure_set_content(LayeringAndModuleStructure *self,
   free(path);
 }
 SomList layering_and_module_structure_software_layers(const LayeringAndModuleStructure *self) {
-  char *path = spec_path_join(self->node.path, "SOLAEN-SOFT-LST");
+  char *path = spec_path_join(self->node.path, "SLE-SOFT-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SOLAEN-SOFT-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SLE-SOFT-xxx");
   free(path);
   return out;
 }
@@ -24106,9 +24106,9 @@ LayerCommunicationRules layering_and_module_structure_layer_communication_rules(
   return out;
 }
 SomList layering_and_module_structure_bounded_contexts(const LayeringAndModuleStructure *self) {
-  char *path = spec_path_join(self->node.path, "BOCOEN-BOUN-LST");
+  char *path = spec_path_join(self->node.path, "BCE-BOUN-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "BOCOEN-BOUN-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "BCE-BOUN-xxx");
   free(path);
   return out;
 }
@@ -24120,16 +24120,16 @@ PackageOrganization layering_and_module_structure_package_organization(const Lay
   return out;
 }
 SomList layering_and_module_structure_modules(const LayeringAndModuleStructure *self) {
-  char *path = spec_path_join(self->node.path, "MOEN1-MODU-LST");
+  char *path = spec_path_join(self->node.path, "MODENT-MODU-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "MOEN1-MODU-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "MODENT-MODU-xxx");
   free(path);
   return out;
 }
 SomList layering_and_module_structure_shared_libraries(const LayeringAndModuleStructure *self) {
-  char *path = spec_path_join(self->node.path, "SHLIB-SHAR-LST");
+  char *path = spec_path_join(self->node.path, "SHLIEN-SHAR-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SHLIB-SHAR-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SHLIEN-SHAR-xxx");
   free(path);
   return out;
 }
@@ -25116,9 +25116,9 @@ ScheduledMaintenancePolicy maintenance_windows_section_scheduled_maintenance(con
   return out;
 }
 SomList maintenance_windows_section_maintenance_windows(const MaintenanceWindowsSection *self) {
-  char *path = spec_path_join(self->node.path, "MAWIEN-MAIN-LST");
+  char *path = spec_path_join(self->node.path, "MWE-MAIN-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "MAWIEN-MAIN-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "MWE-MAIN-xxx");
   free(path);
   return out;
 }
@@ -25392,9 +25392,9 @@ DistributedTracingSpec metrics_and_observability_distributed_tracing(const Metri
   return out;
 }
 SomList metrics_and_observability_custom_metrics(const MetricsAndObservability *self) {
-  char *path = spec_path_join(self->node.path, "CUMEEN-CUST-LST");
+  char *path = spec_path_join(self->node.path, "CUSMETENT-CUST-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "CUMEEN-CUST-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "CUSMETENT-CUST-xxx");
   free(path);
   return out;
 }
@@ -25573,9 +25573,9 @@ void mfa_configuration_set_content(MfaConfiguration *self, const char *value) {
   free(path);
 }
 SomList mfa_configuration_mfa_details(const MfaConfiguration *self) {
-  char *path = spec_path_join(self->node.path, "MFADE-MFAD-LST");
+  char *path = spec_path_join(self->node.path, "MC-MFAD-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "MFADE-MFAD-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "MC-MFAD-xxx");
   free(path);
   return out;
 }
@@ -25619,9 +25619,9 @@ SomList migration_considerations_milestones(const MigrationConsiderations *self)
   return out;
 }
 SomList migration_considerations_escalation_procedures(const MigrationConsiderations *self) {
-  char *path = spec_path_join(self->node.path, "ESCAL-ESCA-LST");
+  char *path = spec_path_join(self->node.path, "MIGCON-ESCA-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "ESCAL-ESCA-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "MIGCON-ESCA-xxx");
   free(path);
   return out;
 }
@@ -26052,30 +26052,30 @@ MigrationRisksReportingForm migration_risks_reporting(const MigrationRisks *self
   return out;
 }
 SomList migration_risks_risk_categories(const MigrationRisks *self) {
-  char *path = spec_path_join(self->node.path, "RISKC-RISK-LST");
+  char *path = spec_path_join(self->node.path, "MIRI-RISK-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "RISKC-RISK-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "MIRI-RISK-xxx");
   free(path);
   return out;
 }
 SomList migration_risks_risk_based_decisions(const MigrationRisks *self) {
-  char *path = spec_path_join(self->node.path, "RISKB-RISK-LST");
+  char *path = spec_path_join(self->node.path, "MIRI-RBDE-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "RISKB-RISK-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "MIRI-RBDE-xxx");
   free(path);
   return out;
 }
 SomList migration_risks_monitoring_procedures(const MigrationRisks *self) {
-  char *path = spec_path_join(self->node.path, "MONIT-MONI-LST");
+  char *path = spec_path_join(self->node.path, "MIRI-MONI-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "MONIT-MONI-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "MIRI-MONI-xxx");
   free(path);
   return out;
 }
 SomList migration_risks_response_strategies(const MigrationRisks *self) {
-  char *path = spec_path_join(self->node.path, "RESPO-RESP-LST");
+  char *path = spec_path_join(self->node.path, "MIRI-RESP-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "RESPO-RESP-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "MIRI-RESP-xxx");
   free(path);
   return out;
 }
@@ -26475,9 +26475,9 @@ AlertingRequirements monitoring_and_alerting_section_alerting(const MonitoringAn
   return out;
 }
 SomList monitoring_and_alerting_section_alert_definitions(const MonitoringAndAlertingSection *self) {
-  char *path = spec_path_join(self->node.path, "ALDEEN-ALER-LST");
+  char *path = spec_path_join(self->node.path, "ALEDEFENT-ALER-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "ALDEEN-ALER-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "ALEDEFENT-ALER-xxx");
   free(path);
   return out;
 }
@@ -26528,9 +26528,9 @@ MonitoringDashboardsDashboardOverviewForm monitoring_dashboards_dashboard_overvi
   return out;
 }
 SomList monitoring_dashboards_dashboards(const MonitoringDashboards *self) {
-  char *path = spec_path_join(self->node.path, "DAEN-DASH-LST");
+  char *path = spec_path_join(self->node.path, "DASENT-DASH-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "DAEN-DASH-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "DASENT-DASH-xxx");
   free(path);
   return out;
 }
@@ -26599,9 +26599,9 @@ MoscowAnalysisContentForm moscow_analysis_content(const MoscowAnalysis *self) {
   return out;
 }
 SomList moscow_analysis_items(const MoscowAnalysis *self) {
-  char *path = spec_path_join(self->node.path, "MOEN-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "ME-ITEM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "MOEN-ITEM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "ME-ITEM-xxx");
   free(path);
   return out;
 }
@@ -26707,9 +26707,9 @@ LanguageCountrySelection multi_language_support_language_country_selection(const
   return out;
 }
 SomList multi_language_support_supported_locales(const MultiLanguageSupport *self) {
-  char *path = spec_path_join(self->node.path, "SULOEN-SUPP-LST");
+  char *path = spec_path_join(self->node.path, "SUPLOCENT-SUPP-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SULOEN-SUPP-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SUPLOCENT-SUPP-xxx");
   free(path);
   return out;
 }
@@ -27345,9 +27345,9 @@ NetworkAvailabilityRequirements network_requirements_section_availability_requir
   return out;
 }
 SomList network_requirements_section_vpn_requirements(const NetworkRequirementsSection *self) {
-  char *path = spec_path_join(self->node.path, "VPREEN-VPNR-LST");
+  char *path = spec_path_join(self->node.path, "VRE-VPNR-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "VPREEN-VPNR-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "VRE-VPNR-xxx");
   free(path);
   return out;
 }
@@ -28094,9 +28094,9 @@ OperationalPainPointsCategorySummaryForm operational_pain_points_category_summar
   return out;
 }
 SomList operational_pain_points_items(const OperationalPainPoints *self) {
-  char *path = spec_path_join(self->node.path, "OPPAPO-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "PAPE-ITEM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "OPPAPO-ITEM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "PAPE-ITEM-xxx");
   free(path);
   return out;
 }
@@ -28463,37 +28463,37 @@ OrganizationalEnvironmentDecisionMakingContextForm organizational_environment_de
   return out;
 }
 SomList organizational_environment_affected_departments(const OrganizationalEnvironment *self) {
-  char *path = spec_path_join(self->node.path, "AFDEEN-AFFE-LST");
+  char *path = spec_path_join(self->node.path, "ADE-AFFE-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "AFDEEN-AFFE-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "ADE-AFFE-xxx");
   free(path);
   return out;
 }
 SomList organizational_environment_decision_makers(const OrganizationalEnvironment *self) {
-  char *path = spec_path_join(self->node.path, "DEMAEN-DECI-LST");
+  char *path = spec_path_join(self->node.path, "DME-DECI-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "DEMAEN-DECI-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "DME-DECI-xxx");
   free(path);
   return out;
 }
 SomList organizational_environment_cultural_considerations(const OrganizationalEnvironment *self) {
-  char *path = spec_path_join(self->node.path, "CULTU-CULT-LST");
+  char *path = spec_path_join(self->node.path, "OREN-CULT-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "CULTU-CULT-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "OREN-CULT-xxx");
   free(path);
   return out;
 }
 SomList organizational_environment_communication_preferences(const OrganizationalEnvironment *self) {
-  char *path = spec_path_join(self->node.path, "COMMU-COMM-LST");
+  char *path = spec_path_join(self->node.path, "OREN-COMM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "COMMU-COMM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "OREN-COMM-xxx");
   free(path);
   return out;
 }
 SomList organizational_environment_change_advocates(const OrganizationalEnvironment *self) {
-  char *path = spec_path_join(self->node.path, "CHANG-CHAN-LST");
+  char *path = spec_path_join(self->node.path, "OREN-CHAN-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "CHANG-CHAN-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "OREN-CHAN-xxx");
   free(path);
   return out;
 }
@@ -28787,9 +28787,9 @@ int out_of_scope_can_have_content(const OutOfScope *self) {
   return 0;
 }
 SomList out_of_scope_items(const OutOfScope *self) {
-  char *path = spec_path_join(self->node.path, "OOSE-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "OUOFSCEN-ITEM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "OOSE-ITEM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "OUOFSCEN-ITEM-xxx");
   free(path);
   return out;
 }
@@ -29801,9 +29801,9 @@ PhaseGateReviewsOutcomesForm phase_gate_reviews_outcomes(const PhaseGateReviews 
   return out;
 }
 SomList phase_gate_reviews_items(const PhaseGateReviews *self) {
-  char *path = spec_path_join(self->node.path, "PGRE-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "PHGAREEN-ITEM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "PGRE-ITEM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "PHGAREEN-ITEM-xxx");
   free(path);
   return out;
 }
@@ -29992,9 +29992,9 @@ SomList platform_and_language_programming_languages(const PlatformAndLanguage *s
   return out;
 }
 SomList platform_and_language_frameworks(const PlatformAndLanguage *self) {
-  char *path = spec_path_join(self->node.path, "FWREN-FRAM-LST");
+  char *path = spec_path_join(self->node.path, "FRREEN-FRAM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "FWREN-FRAM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "FRREEN-FRAM-xxx");
   free(path);
   return out;
 }
@@ -30006,9 +30006,9 @@ SomList platform_and_language_build_toolchain(const PlatformAndLanguage *self) {
   return out;
 }
 SomList platform_and_language_deployment_targets(const PlatformAndLanguage *self) {
-  char *path = spec_path_join(self->node.path, "DETAEN-DEPL-LST");
+  char *path = spec_path_join(self->node.path, "DEPTARENT-DEPL-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "DETAEN-DEPL-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "DEPTARENT-DEPL-xxx");
   free(path);
   return out;
 }
@@ -30205,16 +30205,16 @@ PrintAndExportLayoutArchiveForm print_and_export_layout_archive(const PrintAndEx
   return out;
 }
 SomList print_and_export_layout_export_formats(const PrintAndExportLayout *self) {
-  char *path = spec_path_join(self->node.path, "EXFOEN-EXPO-LST");
+  char *path = spec_path_join(self->node.path, "EFE-EXPO-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "EXFOEN-EXPO-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "EFE-EXPO-xxx");
   free(path);
   return out;
 }
 SomList print_and_export_layout_export_templates(const PrintAndExportLayout *self) {
-  char *path = spec_path_join(self->node.path, "EXTEEN-EXPO-LST");
+  char *path = spec_path_join(self->node.path, "ETE-EXPO-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "EXTEEN-EXPO-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "ETE-EXPO-xxx");
   free(path);
   return out;
 }
@@ -30352,9 +30352,9 @@ ProblemStatementProblemDetailsForm problem_statement_problem_details(const Probl
   return out;
 }
 SomList problem_statement_related_pain_points(const ProblemStatement *self) {
-  char *path = spec_path_join(self->node.path, "RPPE-RELA-LST");
+  char *path = spec_path_join(self->node.path, "PS-RELA-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "RPPE-RELA-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "PS-RELA-xxx");
   free(path);
   return out;
 }
@@ -31948,9 +31948,9 @@ void protocols_and_standards_section_set_content(ProtocolsAndStandardsSection *s
   free(path);
 }
 SomList protocols_and_standards_section_protocols(const ProtocolsAndStandardsSection *self) {
-  char *path = spec_path_join(self->node.path, "PREN-PROT-LST");
+  char *path = spec_path_join(self->node.path, "PE-PROT-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "PREN-PROT-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "PE-PROT-xxx");
   free(path);
   return out;
 }
@@ -32107,9 +32107,9 @@ PrototypeFeatureSubsetFidelityForm prototype_feature_subset_fidelity(const Proto
   return out;
 }
 SomList prototype_feature_subset_features(const PrototypeFeatureSubset *self) {
-  char *path = spec_path_join(self->node.path, "PRFEEN-FEAT-LST");
+  char *path = spec_path_join(self->node.path, "PFE-FEAT-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "PRFEEN-FEAT-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "PFE-FEAT-xxx");
   free(path);
   return out;
 }
@@ -32164,9 +32164,9 @@ PrototypeGoalsFeedbackProfileForm prototype_goals_feedback_profile(const Prototy
   return out;
 }
 SomList prototype_goals_goals(const PrototypeGoals *self) {
-  char *path = spec_path_join(self->node.path, "PRGOEN-GOAL-LST");
+  char *path = spec_path_join(self->node.path, "PGE-GOAL-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "PRGOEN-GOAL-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "PGE-GOAL-xxx");
   free(path);
   return out;
 }
@@ -32392,9 +32392,9 @@ SomList quality_framework_quality_categories(const QualityFramework *self) {
   return out;
 }
 SomList quality_framework_category_dependencies(const QualityFramework *self) {
-  char *path = spec_path_join(self->node.path, "CATEG-CATE-LST");
+  char *path = spec_path_join(self->node.path, "QLFWK-CATE-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "CATEG-CATE-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "QLFWK-CATE-xxx");
   free(path);
   return out;
 }
@@ -33646,9 +33646,9 @@ void report_definitions_set_content(ReportDefinitions *self, const char *value) 
   free(path);
 }
 SomList report_definitions_reports(const ReportDefinitions *self) {
-  char *path = spec_path_join(self->node.path, "REEN-REPO-LST");
+  char *path = spec_path_join(self->node.path, "REPENT-REPO-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "REEN-REPO-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "REPENT-REPO-xxx");
   free(path);
   return out;
 }
@@ -33794,37 +33794,37 @@ ReportEntryLifecycleForm report_entry_lifecycle(const ReportEntry *self) {
   return out;
 }
 SomList report_entry_sections(const ReportEntry *self) {
-  char *path = spec_path_join(self->node.path, "RESEE1-SECT-LST");
+  char *path = spec_path_join(self->node.path, "RSE-SECT-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "RESEE1-SECT-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "RSE-SECT-xxx");
   free(path);
   return out;
 }
 SomList report_entry_filters(const ReportEntry *self) {
-  char *path = spec_path_join(self->node.path, "REFIEN-FILT-LST");
+  char *path = spec_path_join(self->node.path, "RFE-FILT-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "REFIEN-FILT-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "RFE-FILT-xxx");
   free(path);
   return out;
 }
 SomList report_entry_schedules(const ReportEntry *self) {
-  char *path = spec_path_join(self->node.path, "RESCEN-SCHE-LST");
+  char *path = spec_path_join(self->node.path, "REPSCHENT-SCHE-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "RESCEN-SCHE-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "REPSCHENT-SCHE-xxx");
   free(path);
   return out;
 }
 SomList report_entry_distributions(const ReportEntry *self) {
-  char *path = spec_path_join(self->node.path, "REDIEN-DIST-LST");
+  char *path = spec_path_join(self->node.path, "RDE-DIST-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "REDIEN-DIST-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "RDE-DIST-xxx");
   free(path);
   return out;
 }
 SomList report_entry_recipients(const ReportEntry *self) {
-  char *path = spec_path_join(self->node.path, "REREEN-RECI-LST");
+  char *path = spec_path_join(self->node.path, "RRE-RECI-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "REREEN-RECI-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "RRE-RECI-xxx");
   free(path);
   return out;
 }
@@ -34041,16 +34041,16 @@ ReportSectionEntryAggregationForm report_section_entry_aggregation(const ReportS
   return out;
 }
 SomList report_section_entry_columns(const ReportSectionEntry *self) {
-  char *path = spec_path_join(self->node.path, "RECOE1-COLU-LST");
+  char *path = spec_path_join(self->node.path, "REPCOLENT-COLU-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "RECOE1-COLU-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "REPCOLENT-COLU-xxx");
   free(path);
   return out;
 }
 SomList report_section_entry_charts(const ReportSectionEntry *self) {
-  char *path = spec_path_join(self->node.path, "RECHEN-CHAR-LST");
+  char *path = spec_path_join(self->node.path, "REPCHAENT-CHAR-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "RECHEN-CHAR-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "REPCHAENT-CHAR-xxx");
   free(path);
   return out;
 }
@@ -34078,9 +34078,9 @@ void requirement_acceptance_criteria_set_content(RequirementAcceptanceCriteria *
   free(path);
 }
 SomList requirement_acceptance_criteria_criteria(const RequirementAcceptanceCriteria *self) {
-  char *path = spec_path_join(self->node.path, "ACCR-CRIT-LST");
+  char *path = spec_path_join(self->node.path, "ACE-CRIT-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "ACCR-CRIT-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "ACE-CRIT-xxx");
   free(path);
   return out;
 }
@@ -34466,9 +34466,9 @@ void requirement_ui_specification_set_mockup_description(RequirementUiSpecificat
   free(path);
 }
 SomList requirement_ui_specification_fields(const RequirementUiSpecification *self) {
-  char *path = spec_path_join(self->node.path, "SCFLD-FIEL-LST");
+  char *path = spec_path_join(self->node.path, "SFE-FIEL-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SCFLD-FIEL-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SFE-FIEL-xxx");
   free(path);
   return out;
 }
@@ -35236,23 +35236,23 @@ SomList reusable_components_section_shared_libraries(const ReusableComponentsSec
   return out;
 }
 SomList reusable_components_section_ui_components(const ReusableComponentsSection *self) {
-  char *path = spec_path_join(self->node.path, "RUICMP-UICO-LST");
+  char *path = spec_path_join(self->node.path, "RUCE-UICO-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "RUICMP-UICO-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "RUCE-UICO-xxx");
   free(path);
   return out;
 }
 SomList reusable_components_section_business_components(const ReusableComponentsSection *self) {
-  char *path = spec_path_join(self->node.path, "BUCOEN-BUSI-LST");
+  char *path = spec_path_join(self->node.path, "BUSCOMENT-BUSI-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "BUCOEN-BUSI-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "BUSCOMENT-BUSI-xxx");
   free(path);
   return out;
 }
 SomList reusable_components_section_infrastructure_components(const ReusableComponentsSection *self) {
-  char *path = spec_path_join(self->node.path, "INCOEN-INFR-LST");
+  char *path = spec_path_join(self->node.path, "INFCOMENT-INFR-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "INCOEN-INFR-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "INFCOMENT-INFR-xxx");
   free(path);
   return out;
 }
@@ -35683,9 +35683,9 @@ RisksAndAssumptionsOverviewForm risks_and_assumptions_overview(const RisksAndAss
   return out;
 }
 SomList risks_and_assumptions_key_risks(const RisksAndAssumptions *self) {
-  char *path = spec_path_join(self->node.path, "RIEN-KEYR-LST");
+  char *path = spec_path_join(self->node.path, "RISENT-KEYR-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "RIEN-KEYR-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "RISENT-KEYR-xxx");
   free(path);
   return out;
 }
@@ -36829,16 +36829,16 @@ void scope_boundaries_set_content(ScopeBoundaries *self, const char *value) {
   free(path);
 }
 SomList scope_boundaries_in_scope_items(const ScopeBoundaries *self) {
-  char *path = spec_path_join(self->node.path, "SCITE-INSC-LST");
+  char *path = spec_path_join(self->node.path, "SIE-INSC-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SCITE-INSC-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SIE-INSC-xxx");
   free(path);
   return out;
 }
 SomList scope_boundaries_out_of_scope_items(const ScopeBoundaries *self) {
-  char *path = spec_path_join(self->node.path, "SCITE-OUTO-LST");
+  char *path = spec_path_join(self->node.path, "SIE-OUTO-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SCITE-OUTO-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SIE-OUTO-xxx");
   free(path);
   return out;
 }
@@ -36850,9 +36850,9 @@ SomList scope_boundaries_deferred_items(const ScopeBoundaries *self) {
   return out;
 }
 SomList scope_boundaries_scope_assumptions(const ScopeBoundaries *self) {
-  char *path = spec_path_join(self->node.path, "SCOPE-SCOP-LST");
+  char *path = spec_path_join(self->node.path, "SCBND-SCOP-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SCOPE-SCOP-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SCBND-SCOP-xxx");
   free(path);
   return out;
 }
@@ -37137,9 +37137,9 @@ ScreenElementDataDisplay screen_element_entry_data_display(const ScreenElementEn
   return out;
 }
 SomList screen_element_entry_validation_rules(const ScreenElementEntry *self) {
-  char *path = spec_path_join(self->node.path, "EVRE-VALI-LST");
+  char *path = spec_path_join(self->node.path, "ELVARUEN-VALI-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "EVRE-VALI-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "ELVARUEN-VALI-xxx");
   free(path);
   return out;
 }
@@ -37278,9 +37278,9 @@ ScreenStates screen_entry_states(const ScreenEntry *self) {
   return out;
 }
 SomList screen_entry_user_categories(const ScreenEntry *self) {
-  char *path = spec_path_join(self->node.path, "SCRUSC-USER-LST");
+  char *path = spec_path_join(self->node.path, "SUCE-USER-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SCRUSC-USER-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SUCE-USER-xxx");
   free(path);
   return out;
 }
@@ -37292,9 +37292,9 @@ SomList screen_entry_entry_points(const ScreenEntry *self) {
   return out;
 }
 SomList screen_entry_responsive_rules(const ScreenEntry *self) {
-  char *path = spec_path_join(self->node.path, "SRRE-RESP-LST");
+  char *path = spec_path_join(self->node.path, "SCRERUEN-RESP-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SRRE-RESP-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SCRERUEN-RESP-xxx");
   free(path);
   return out;
 }
@@ -37710,9 +37710,9 @@ void secondary_navigation_set_content(SecondaryNavigation *self, const char *val
   free(path);
 }
 SomList secondary_navigation_tab_bars(const SecondaryNavigation *self) {
-  char *path = spec_path_join(self->node.path, "TBDE-TABB-LST");
+  char *path = spec_path_join(self->node.path, "TABADEEN-TABB-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "TBDE-TABB-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "TABADEEN-TABB-xxx");
   free(path);
   return out;
 }
@@ -37918,9 +37918,9 @@ SecurityTestingAutomation security_audit_requirements_section_security_testing_a
   return out;
 }
 SomList security_audit_requirements_section_audit_entries(const SecurityAuditRequirementsSection *self) {
-  char *path = spec_path_join(self->node.path, "SEAUEN-AUDI-LST");
+  char *path = spec_path_join(self->node.path, "SAE-AUDI-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SEAUEN-AUDI-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SAE-AUDI-xxx");
   free(path);
   return out;
 }
@@ -38127,9 +38127,9 @@ void security_controls_set_content(SecurityControls *self, const char *value) {
   free(path);
 }
 SomList security_controls_controls(const SecurityControls *self) {
-  char *path = spec_path_join(self->node.path, "SECCT-CONT-LST");
+  char *path = spec_path_join(self->node.path, "SECOEN-CONT-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SECCT-CONT-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SECOEN-CONT-xxx");
   free(path);
   return out;
 }
@@ -38900,16 +38900,16 @@ void server_requirements_section_set_content(ServerRequirementsSection *self, co
   free(path);
 }
 SomList server_requirements_section_environments(const ServerRequirementsSection *self) {
-  char *path = spec_path_join(self->node.path, "SEENEN-ENVI-LST");
+  char *path = spec_path_join(self->node.path, "SEE-ENVI-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SEENEN-ENVI-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SEE-ENVI-xxx");
   free(path);
   return out;
 }
 SomList server_requirements_section_server_roles(const ServerRequirementsSection *self) {
-  char *path = spec_path_join(self->node.path, "SEROEN-SERV-LST");
+  char *path = spec_path_join(self->node.path, "SRE-SERV-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SEROEN-SERV-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SRE-SERV-xxx");
   free(path);
   return out;
 }
@@ -39759,9 +39759,9 @@ ServiceLevelIndicators sla_and_slo_monitoring_slis(const SlaAndSloMonitoring *se
   return out;
 }
 SomList sla_and_slo_monitoring_slos(const SlaAndSloMonitoring *self) {
-  char *path = spec_path_join(self->node.path, "SLEN-SLOS-LST");
+  char *path = spec_path_join(self->node.path, "SE-SLOS-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SLEN-SLOS-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SE-SLOS-xxx");
   free(path);
   return out;
 }
@@ -39874,9 +39874,9 @@ void software_deliverables_set_content(SoftwareDeliverables *self, const char *v
   free(path);
 }
 SomList software_deliverables_items(const SoftwareDeliverables *self) {
-  char *path = spec_path_join(self->node.path, "SWDLV-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "DLVEN-ITEM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SWDLV-ITEM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "DLVEN-ITEM-xxx");
   free(path);
   return out;
 }
@@ -40946,16 +40946,16 @@ StagingStrategyGovernanceForm staging_strategy_governance(const StagingStrategy 
   return out;
 }
 SomList staging_strategy_key_assumptions(const StagingStrategy *self) {
-  char *path = spec_path_join(self->node.path, "KEYAS-KEYA-LST");
+  char *path = spec_path_join(self->node.path, "STAGST-KEYA-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "KEYAS-KEYA-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "STAGST-KEYA-xxx");
   free(path);
   return out;
 }
 SomList staging_strategy_constraints(const StagingStrategy *self) {
-  char *path = spec_path_join(self->node.path, "STAGI-CONS-LST");
+  char *path = spec_path_join(self->node.path, "STAGST-CONS-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "STAGI-CONS-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "STAGST-CONS-xxx");
   free(path);
   return out;
 }
@@ -41105,9 +41105,9 @@ LegalAndContractualRequirements stakeholders_and_governance_legal_and_contractua
   return out;
 }
 SomList stakeholders_and_governance_stakeholder_register(const StakeholdersAndGovernance *self) {
-  char *path = spec_path_join(self->node.path, "STKRG-STAK-LST");
+  char *path = spec_path_join(self->node.path, "STKRE-STAK-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "STKRG-STAK-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "STKRE-STAK-xxx");
   free(path);
   return out;
 }
@@ -41190,37 +41190,37 @@ void standards_compliance_section_set_content(StandardsComplianceSection *self, 
   free(path);
 }
 SomList standards_compliance_section_it_standards(const StandardsComplianceSection *self) {
-  char *path = spec_path_join(self->node.path, "ISCE-ITST-LST");
+  char *path = spec_path_join(self->node.path, "ITSTCOEN-ITST-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "ISCE-ITST-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "ITSTCOEN-ITST-xxx");
   free(path);
   return out;
 }
 SomList standards_compliance_section_industry_protocols(const StandardsComplianceSection *self) {
-  char *path = spec_path_join(self->node.path, "IPCE-INDU-LST");
+  char *path = spec_path_join(self->node.path, "INPRCOEN-INDU-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "IPCE-INDU-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "INPRCOEN-INDU-xxx");
   free(path);
   return out;
 }
 SomList standards_compliance_section_interface_specifications(const StandardsComplianceSection *self) {
-  char *path = spec_path_join(self->node.path, "INSPEN-INTE-LST");
+  char *path = spec_path_join(self->node.path, "INTSPEENT-INTE-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "INSPEN-INTE-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "INTSPEENT-INTE-xxx");
   free(path);
   return out;
 }
 SomList standards_compliance_section_regulatory_compliance(const StandardsComplianceSection *self) {
-  char *path = spec_path_join(self->node.path, "RECOEN-REGU-LST");
+  char *path = spec_path_join(self->node.path, "RCE-REGU-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "RECOEN-REGU-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "RCE-REGU-xxx");
   free(path);
   return out;
 }
 SomList standards_compliance_section_security_standards(const StandardsComplianceSection *self) {
-  char *path = spec_path_join(self->node.path, "SSCE-SECU-LST");
+  char *path = spec_path_join(self->node.path, "SESTCOEN-SECU-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SSCE-SECU-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SESTCOEN-SECU-xxx");
   free(path);
   return out;
 }
@@ -41297,9 +41297,9 @@ CommitteeCharter steering_committee_charter(const SteeringCommittee *self) {
   return out;
 }
 SomList steering_committee_members(const SteeringCommittee *self) {
-  char *path = spec_path_join(self->node.path, "COMMB-MEMB-LST");
+  char *path = spec_path_join(self->node.path, "CME-MEMB-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "COMMB-MEMB-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "CME-MEMB-xxx");
   free(path);
   return out;
 }
@@ -41327,9 +41327,9 @@ void step_up_authentication_policy_set_content(StepUpAuthenticationPolicy *self,
   free(path);
 }
 SomList step_up_authentication_policy_step_up_details(const StepUpAuthenticationPolicy *self) {
-  char *path = spec_path_join(self->node.path, "STEPU-STEP-LST");
+  char *path = spec_path_join(self->node.path, "SUAP-STEP-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "STEPU-STEP-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SUAP-STEP-xxx");
   free(path);
   return out;
 }
@@ -41776,9 +41776,9 @@ void support_deliverables_set_content(SupportDeliverables *self, const char *val
   free(path);
 }
 SomList support_deliverables_items(const SupportDeliverables *self) {
-  char *path = spec_path_join(self->node.path, "SPDLV-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "DLVEN-ITEM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SPDLV-ITEM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "DLVEN-ITEM-xxx");
   free(path);
   return out;
 }
@@ -41951,16 +41951,16 @@ SystemBusinessCriticalityGovernanceForm system_business_criticality_governance(c
   return out;
 }
 SomList system_business_criticality_business_units(const SystemBusinessCriticality *self) {
-  char *path = spec_path_join(self->node.path, "SBUE-BUSI-LST");
+  char *path = spec_path_join(self->node.path, "SYBUUNEN-BUSI-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SBUE-BUSI-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SYBUUNEN-BUSI-xxx");
   free(path);
   return out;
 }
 SomList system_business_criticality_supported_processes(const SystemBusinessCriticality *self) {
-  char *path = spec_path_join(self->node.path, "SBPE-SUPP-LST");
+  char *path = spec_path_join(self->node.path, "SYBUPREN-SUPP-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SBPE-SUPP-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SYBUPREN-SUPP-xxx");
   free(path);
   return out;
 }
@@ -42165,9 +42165,9 @@ SystemCostAnalysisBenefitsForm system_cost_analysis_benefits(const SystemCostAna
   return out;
 }
 SomList system_cost_analysis_non_financial_benefits(const SystemCostAnalysis *self) {
-  char *path = spec_path_join(self->node.path, "NONFI-NONF-LST");
+  char *path = spec_path_join(self->node.path, "SYCOAN-NONF-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "NONFI-NONF-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SYCOAN-NONF-xxx");
   free(path);
   return out;
 }
@@ -42204,16 +42204,16 @@ SystemDataScopeMigrationForm system_data_scope_migration(const SystemDataScope *
   return out;
 }
 SomList system_data_scope_entities(const SystemDataScope *self) {
-  char *path = spec_path_join(self->node.path, "DEME-ENTI-LST");
+  char *path = spec_path_join(self->node.path, "DAENMIEN-ENTI-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "DEME-ENTI-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "DAENMIEN-ENTI-xxx");
   free(path);
   return out;
 }
 SomList system_data_scope_known_quality_issues(const SystemDataScope *self) {
-  char *path = spec_path_join(self->node.path, "KNOWN-KNOW-LST");
+  char *path = spec_path_join(self->node.path, "SYDASC-KNOW-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "KNOWN-KNOW-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SYDASC-KNOW-xxx");
   free(path);
   return out;
 }
@@ -42329,9 +42329,9 @@ BusinessDomain system_description_business_domain(const SystemDescription *self)
   return out;
 }
 SomList system_description_user_categories(const SystemDescription *self) {
-  char *path = spec_path_join(self->node.path, "USCA-USER-LST");
+  char *path = spec_path_join(self->node.path, "UCE-USER-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "USCA-USER-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "UCE-USER-xxx");
   free(path);
   return out;
 }
@@ -42460,16 +42460,16 @@ SystemErrorDisplayFallbackForm system_error_display_fallback(const SystemErrorDi
   return out;
 }
 SomList system_error_display_error_page_designs(const SystemErrorDisplay *self) {
-  char *path = spec_path_join(self->node.path, "EPDE-ERRO-LST");
+  char *path = spec_path_join(self->node.path, "SYERDI-ERRO-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "EPDE-ERRO-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SYERDI-ERRO-xxx");
   free(path);
   return out;
 }
 SomList system_error_display_error_codes(const SystemErrorDisplay *self) {
-  char *path = spec_path_join(self->node.path, "SECE-ERRO-LST");
+  char *path = spec_path_join(self->node.path, "SYERCOEN-ERRO-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SECE-ERRO-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SYERCOEN-ERRO-xxx");
   free(path);
   return out;
 }
@@ -42596,9 +42596,9 @@ SystemKnowledgeTransferContentForm system_knowledge_transfer_content(const Syste
   return out;
 }
 SomList system_knowledge_transfer_critical_knowledge_areas(const SystemKnowledgeTransfer *self) {
-  char *path = spec_path_join(self->node.path, "CRITI-CRIT-LST");
+  char *path = spec_path_join(self->node.path, "SYKNTR-CRIT-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "CRITI-CRIT-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SYKNTR-CRIT-xxx");
   free(path);
   return out;
 }
@@ -42658,9 +42658,9 @@ SystemMigrationPlanCutoverForm system_migration_plan_cutover(const SystemMigrati
   return out;
 }
 SomList system_migration_plan_risks(const SystemMigrationPlan *self) {
-  char *path = spec_path_join(self->node.path, "SMRE-RISK-LST");
+  char *path = spec_path_join(self->node.path, "SYMIRIEN-RISK-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SMRE-RISK-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SYMIRIEN-RISK-xxx");
   free(path);
   return out;
 }
@@ -42713,9 +42713,9 @@ AdministrationRequirementsSection system_operation_administration_requirements(c
   return out;
 }
 SomList system_operation_maintenance_procedures(const SystemOperation *self) {
-  char *path = spec_path_join(self->node.path, "MAINT-MAIN-LST");
+  char *path = spec_path_join(self->node.path, "SO-MAIN-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "MAINT-MAIN-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SO-MAIN-xxx");
   free(path);
   return out;
 }
@@ -42887,9 +42887,9 @@ SystemQualityGoalsResourcesForm system_quality_goals_resources(const SystemQuali
   return out;
 }
 SomList system_quality_goals_attribute_interdependencies(const SystemQualityGoals *self) {
-  char *path = spec_path_join(self->node.path, "ATTRI-ATTR-LST");
+  char *path = spec_path_join(self->node.path, "SYQG-ATTR-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "ATTRI-ATTR-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SYQG-ATTR-xxx");
   free(path);
   return out;
 }
@@ -43024,9 +43024,9 @@ SomList system_replacement_strategy_phases(const SystemReplacementStrategy *self
   return out;
 }
 SomList system_replacement_strategy_predecessor_dependencies(const SystemReplacementStrategy *self) {
-  char *path = spec_path_join(self->node.path, "PREDE-PRED-LST");
+  char *path = spec_path_join(self->node.path, "SYREST-PRED-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "PREDE-PRED-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SYREST-PRED-xxx");
   free(path);
   return out;
 }
@@ -43302,16 +43302,16 @@ void system_task_entry_set_related_use_case(SystemTaskEntry *self, const char *v
   free(path);
 }
 SomList system_task_entry_workflow_steps(const SystemTaskEntry *self) {
-  char *path = spec_path_join(self->node.path, "SYSTE-WORK-LST");
+  char *path = spec_path_join(self->node.path, "SYTS-WORK-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SYSTE-WORK-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SYTS-WORK-xxx");
   free(path);
   return out;
 }
 SomList system_task_entry_variations_and_exceptions(const SystemTaskEntry *self) {
-  char *path = spec_path_join(self->node.path, "VARIA-VARI-LST");
+  char *path = spec_path_join(self->node.path, "SYTS-VARI-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "VARIA-VARI-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SYTS-VARI-xxx");
   free(path);
   return out;
 }
@@ -43355,16 +43355,16 @@ SystemTechnicalAssessmentQualityForm system_technical_assessment_quality(const S
   return out;
 }
 SomList system_technical_assessment_known_issues(const SystemTechnicalAssessment *self) {
-  char *path = spec_path_join(self->node.path, "KIE-KNOW-LST");
+  char *path = spec_path_join(self->node.path, "SYTEAS-KNOW-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "KIE-KNOW-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SYTEAS-KNOW-xxx");
   free(path);
   return out;
 }
 SomList system_technical_assessment_security_concerns(const SystemTechnicalAssessment *self) {
-  char *path = spec_path_join(self->node.path, "SECUR-SECU-LST");
+  char *path = spec_path_join(self->node.path, "SYTEAS-SECU-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "SECUR-SECU-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "SYTEAS-SECU-xxx");
   free(path);
   return out;
 }
@@ -43542,9 +43542,9 @@ SystemUserImpactAdoptionForm system_user_impact_adoption(const SystemUserImpact 
   return out;
 }
 SomList system_user_impact_user_groups(const SystemUserImpact *self) {
-  char *path = spec_path_join(self->node.path, "UGIE-USER-LST");
+  char *path = spec_path_join(self->node.path, "USGRIMEN-USER-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "UGIE-USER-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "USGRIMEN-USER-xxx");
   free(path);
   return out;
 }
@@ -43606,9 +43606,9 @@ TabBarDefinitionEntryLoadingForm tab_bar_definition_entry_loading(const TabBarDe
   return out;
 }
 SomList tab_bar_definition_entry_tabs(const TabBarDefinitionEntry *self) {
-  char *path = spec_path_join(self->node.path, "TAITEN-TABS-LST");
+  char *path = spec_path_join(self->node.path, "TIE-TABS-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "TAITEN-TABS-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "TIE-TABS-xxx");
   free(path);
   return out;
 }
@@ -43960,23 +43960,23 @@ TechnicalEnvironmentNetwork technical_environment_network(const TechnicalEnviron
   return out;
 }
 SomList technical_environment_datacenters(const TechnicalEnvironment *self) {
-  char *path = spec_path_join(self->node.path, "DATAC-DATA-LST");
+  char *path = spec_path_join(self->node.path, "TEEN-DATA-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "DATAC-DATA-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "TEEN-DATA-xxx");
   free(path);
   return out;
 }
 SomList technical_environment_technology_standards(const TechnicalEnvironment *self) {
-  char *path = spec_path_join(self->node.path, "TESTEN-TECH-LST");
+  char *path = spec_path_join(self->node.path, "TSE-TECH-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "TESTEN-TECH-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "TSE-TECH-xxx");
   free(path);
   return out;
 }
 SomList technical_environment_integration_constraints(const TechnicalEnvironment *self) {
-  char *path = spec_path_join(self->node.path, "INCOE1-INTE-LST");
+  char *path = spec_path_join(self->node.path, "INTCONENT-INTE-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "INCOE1-INTE-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "INTCONENT-INTE-xxx");
   free(path);
   return out;
 }
@@ -43999,16 +43999,16 @@ TechnicalEnvironmentNetworkContentForm technical_environment_network_content(con
   return out;
 }
 SomList technical_environment_network_devops_standards(const TechnicalEnvironmentNetwork *self) {
-  char *path = spec_path_join(self->node.path, "DEVOP-DEVO-LST");
+  char *path = spec_path_join(self->node.path, "TEENNE-DEVO-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "DEVOP-DEVO-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "TEENNE-DEVO-xxx");
   free(path);
   return out;
 }
 SomList technical_environment_network_observability_requirements(const TechnicalEnvironmentNetwork *self) {
-  char *path = spec_path_join(self->node.path, "OBSER-OBSE-LST");
+  char *path = spec_path_join(self->node.path, "TEENNE-OBSE-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "OBSER-OBSE-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "TEENNE-OBSE-xxx");
   free(path);
   return out;
 }
@@ -44373,9 +44373,9 @@ TechnicalPainPointsCategorySummaryForm technical_pain_points_category_summary(co
   return out;
 }
 SomList technical_pain_points_items(const TechnicalPainPoints *self) {
-  char *path = spec_path_join(self->node.path, "TEPAPO-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "PAPE-ITEM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "TEPAPO-ITEM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "PAPE-ITEM-xxx");
   free(path);
   return out;
 }
@@ -45570,9 +45570,9 @@ TrainingDeliverableRequirementsTrainingContentForm training_deliverable_requirem
   return out;
 }
 SomList training_deliverable_requirements_training_modules(const TrainingDeliverableRequirements *self) {
-  char *path = spec_path_join(self->node.path, "TRMOEN-TRAI-LST");
+  char *path = spec_path_join(self->node.path, "TME-TRAI-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "TRMOEN-TRAI-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "TME-TRAI-xxx");
   free(path);
   return out;
 }
@@ -45600,9 +45600,9 @@ void training_deliverables_set_content(TrainingDeliverables *self, const char *v
   free(path);
 }
 SomList training_deliverables_items(const TrainingDeliverables *self) {
-  char *path = spec_path_join(self->node.path, "TRDLV-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "DLVEN-ITEM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "TRDLV-ITEM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "DLVEN-ITEM-xxx");
   free(path);
   return out;
 }
@@ -45739,9 +45739,9 @@ TrainingRequirementsOverviewForm training_requirements_overview(const TrainingRe
   return out;
 }
 SomList training_requirements_initial_training(const TrainingRequirements *self) {
-  char *path = spec_path_join(self->node.path, "INITR-INIT-LST");
+  char *path = spec_path_join(self->node.path, "ITE-INIT-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "INITR-INIT-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "ITE-INIT-xxx");
   free(path);
   return out;
 }
@@ -46230,9 +46230,9 @@ TranslationProcessOngoingForm translation_process_ongoing(const TranslationProce
   return out;
 }
 SomList translation_process_vendors(const TranslationProcess *self) {
-  char *path = spec_path_join(self->node.path, "TRVEEN-VEND-LST");
+  char *path = spec_path_join(self->node.path, "TVE-VEND-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "TRVEEN-VEND-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "TVE-VEND-xxx");
   free(path);
   return out;
 }
@@ -46620,16 +46620,16 @@ UiComponentEntryDataBindingForm ui_component_entry_data_binding(const UiComponen
   return out;
 }
 SomList ui_component_entry_states(const UiComponentEntry *self) {
-  char *path = spec_path_join(self->node.path, "CMST-STAT-LST");
+  char *path = spec_path_join(self->node.path, "COMSTAENT-STAT-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "CMST-STAT-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "COMSTAENT-STAT-xxx");
   free(path);
   return out;
 }
 SomList ui_component_entry_variants(const UiComponentEntry *self) {
-  char *path = spec_path_join(self->node.path, "CMVN-VARI-LST");
+  char *path = spec_path_join(self->node.path, "CVE-VARI-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "CMVN-VARI-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "CVE-VARI-xxx");
   free(path);
   return out;
 }
@@ -46701,9 +46701,9 @@ ComponentLibrary ui_components_component_library(const UiComponents *self) {
   return out;
 }
 SomList ui_components_component_specs(const UiComponents *self) {
-  char *path = spec_path_join(self->node.path, "UICOEN-COMP-LST");
+  char *path = spec_path_join(self->node.path, "UICOMENT-COMP-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "UICOEN-COMP-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "UICOMENT-COMP-xxx");
   free(path);
   return out;
 }
@@ -47550,16 +47550,16 @@ SomList user_journey_stages(const UserJourney *self) {
   return out;
 }
 SomList user_journey_key_touchpoints(const UserJourney *self) {
-  char *path = spec_path_join(self->node.path, "KEYTO-KEYT-LST");
+  char *path = spec_path_join(self->node.path, "UJ-KEYT-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "KEYTO-KEYT-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "UJ-KEYT-xxx");
   free(path);
   return out;
 }
 SomList user_journey_pain_points(const UserJourney *self) {
-  char *path = spec_path_join(self->node.path, "USERJ-PAIN-LST");
+  char *path = spec_path_join(self->node.path, "UJ-PAIN-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "USERJ-PAIN-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "UJ-PAIN-xxx");
   free(path);
   return out;
 }
@@ -47884,9 +47884,9 @@ void user_persona_details_set_visual_representation(UserPersonaDetails *self, co
   free(path);
 }
 SomList user_persona_details_representative_quotes(const UserPersonaDetails *self) {
-  char *path = spec_path_join(self->node.path, "REPRE-REPR-LST");
+  char *path = spec_path_join(self->node.path, "UPD-REPR-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "REPRE-REPR-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "UPD-REPR-xxx");
   free(path);
   return out;
 }
@@ -48130,9 +48130,9 @@ void utility_navigation_set_content(UtilityNavigation *self, const char *value) 
   free(path);
 }
 SomList utility_navigation_items(const UtilityNavigation *self) {
-  char *path = spec_path_join(self->node.path, "UNIE-ITEM-LST");
+  char *path = spec_path_join(self->node.path, "UTNAITEN-ITEM-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "UNIE-ITEM-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "UTNAITEN-ITEM-xxx");
   free(path);
   return out;
 }
@@ -48176,9 +48176,9 @@ UtilityNavigationItemEntryBehaviorForm utility_navigation_item_entry_behavior(co
   return out;
 }
 SomList utility_navigation_item_entry_menu_items(const UtilityNavigationItemEntry *self) {
-  char *path = spec_path_join(self->node.path, "UMIE-MENU-LST");
+  char *path = spec_path_join(self->node.path, "UTMEITEN-MENU-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "UMIE-MENU-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "UTMEITEN-MENU-xxx");
   free(path);
   return out;
 }
@@ -48252,16 +48252,16 @@ ValidationFeedbackBehaviorForm validation_feedback_behavior(const ValidationFeed
   return out;
 }
 SomList validation_feedback_message_templates(const ValidationFeedback *self) {
-  char *path = spec_path_join(self->node.path, "VAMETE-MESS-LST");
+  char *path = spec_path_join(self->node.path, "VMT-MESS-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "VAMETE-MESS-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "VMT-MESS-xxx");
   free(path);
   return out;
 }
 SomList validation_feedback_field_validation_rules(const ValidationFeedback *self) {
-  char *path = spec_path_join(self->node.path, "FIELD-FIEL-LST");
+  char *path = spec_path_join(self->node.path, "VAFE-FIEL-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "FIELD-FIEL-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "VAFE-FIEL-xxx");
   free(path);
   return out;
 }
@@ -48328,9 +48328,9 @@ ValuePropositionReturnProfileForm value_proposition_return_profile(const ValuePr
   return out;
 }
 SomList value_proposition_kpis(const ValueProposition *self) {
-  char *path = spec_path_join(self->node.path, "KPIEN-KPIS-LST");
+  char *path = spec_path_join(self->node.path, "VALPX-KPIS-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "KPIEN-KPIS-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "VALPX-KPIS-xxx");
   free(path);
   return out;
 }
@@ -48670,9 +48670,9 @@ WcagComplianceRobustForm wcag_compliance_robust(const WcagCompliance *self) {
   return out;
 }
 SomList wcag_compliance_success_criteria(const WcagCompliance *self) {
-  char *path = spec_path_join(self->node.path, "WSCE-SUCC-LST");
+  char *path = spec_path_join(self->node.path, "WCSUCREN-SUCC-LST");
   SomList out;
-  som_list_init_pattern(&out, self->node.doc, path, "WSCE-SUCC-xxx");
+  som_list_init_pattern(&out, self->node.doc, path, "WCSUCREN-SUCC-xxx");
   free(path);
   return out;
 }

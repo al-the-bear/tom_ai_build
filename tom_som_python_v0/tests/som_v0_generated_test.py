@@ -379,7 +379,7 @@ def test_live_document_case() -> None:
            nav_ref.path == "SBP/currentLandscape/CUOPME-OPER-LST", nav_ref.path)
     _check("live.node.nav-identity", nav_ref.meta is list_by_path)
 
-    id_ref = m.SBP.RVHST_REVS_LST.item(0)
+    id_ref = m.SBP.RVENT_REVS_LST.item(0)
     nav_item = m.d00SolutionBlueprint.documentControl.revisionHistory.item(0)
     _check("live.node.id-path", id_ref.path == nav_item.path)
     _check("live.node.id-identity", id_ref.meta is nav_item.meta)

@@ -1597,8 +1597,8 @@ def _mc_AlertingConfiguration(s):
          SomMetaNode(
             class_name="AlertingConfiguration",
             member_name="alertRules",
-            section_id="ALRUEN-ALER-LST",
-            section_id_pattern="ALRUEN-ALER-xxx",
+            section_id="ALERULENT-ALER-LST",
+            section_id_pattern="ALERULENT-ALER-xxx",
             kind=SomMetaKind.LIST,
             type_name="AlertRuleEntry",
             serialization_order=3,
@@ -2092,8 +2092,8 @@ def _mc_ApplicableRegulationEntry(s):
          SomMetaNode(
             class_name="ApplicableRegulationEntry",
             member_name="complianceMeasures",
-            section_id="COMPL-COMP-LST",
-            section_id_pattern="COMPL-COMP-xxx",
+            section_id="ARE-COMP-LST",
+            section_id_pattern="ARE-COMP-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=1,
@@ -2637,8 +2637,8 @@ def _mc_AssumptionConstraintDependencyRegister(s):
          SomMetaNode(
             class_name="AssumptionConstraintDependencyRegister",
             member_name="assumptions",
-            section_id="ACRG-ASMP-LST",
-            section_id_pattern="ACRG-ASMP-xxx",
+            section_id="ASMRE-ASMP-LST",
+            section_id_pattern="ASMRE-ASMP-xxx",
             kind=SomMetaKind.LIST,
             type_name="AssumptionRegisterEntry",
             serialization_order=1,
@@ -2648,8 +2648,8 @@ def _mc_AssumptionConstraintDependencyRegister(s):
          SomMetaNode(
             class_name="AssumptionConstraintDependencyRegister",
             member_name="constraints",
-            section_id="ACRG-CONS-LST",
-            section_id_pattern="ACRG-CONS-xxx",
+            section_id="CONRE-CONS-LST",
+            section_id_pattern="CONRE-CONS-xxx",
             kind=SomMetaKind.LIST,
             type_name="ConstraintRegisterEntry",
             serialization_order=2,
@@ -2659,8 +2659,8 @@ def _mc_AssumptionConstraintDependencyRegister(s):
          SomMetaNode(
             class_name="AssumptionConstraintDependencyRegister",
             member_name="dependencies",
-            section_id="ACRG-DEPS-LST",
-            section_id_pattern="ACRG-DEPS-xxx",
+            section_id="DEPRE-DEPS-LST",
+            section_id_pattern="DEPRE-DEPS-xxx",
             kind=SomMetaKind.LIST,
             type_name="DependencyRegisterEntry",
             serialization_order=3,
@@ -3693,8 +3693,8 @@ def _mc_BackupAndRecoverySection(s):
          SomMetaNode(
             class_name="BackupAndRecoverySection",
             member_name="backupPolicies",
-            section_id="BAPOEN-BACK-LST",
-            section_id_pattern="BAPOEN-BACK-xxx",
+            section_id="BPE-BACK-LST",
+            section_id_pattern="BPE-BACK-xxx",
             kind=SomMetaKind.LIST,
             type_name="BackupPolicyEntry",
             serialization_order=3,
@@ -4305,8 +4305,8 @@ def _mc_BoundaryAssumptions(s):
          SomMetaNode(
             class_name="BoundaryAssumptions",
             member_name="items",
-            section_id="BOASEN-ITEM-LST",
-            section_id_pattern="BOASEN-ITEM-xxx",
+            section_id="BAE-ITEM-LST",
+            section_id_pattern="BAE-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="BoundaryAssumptionEntry",
             serialization_order=1,
@@ -4395,8 +4395,8 @@ def _mc_BreakpointConfiguration(s):
          SomMetaNode(
             class_name="BreakpointConfiguration",
             member_name="breakpoints",
-            section_id="BRE-BREA-LST",
-            section_id_pattern="BRE-BREA-xxx",
+            section_id="BE-BREA-LST",
+            section_id_pattern="BE-BREA-xxx",
             kind=SomMetaKind.LIST,
             type_name="BreakpointEntry",
             serialization_order=1,
@@ -5245,8 +5245,8 @@ def _mc_BusinessPainPoints(s):
          SomMetaNode(
             class_name="BusinessPainPoints",
             member_name="items",
-            section_id="BUPAPO-ITEM-LST",
-            section_id_pattern="BUPAPO-ITEM-xxx",
+            section_id="PAPE-ITEM-LST",
+            section_id_pattern="PAPE-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="PainPointEntry",
             serialization_order=2,
@@ -6720,8 +6720,8 @@ def _mc_CiCdPipelineConfiguration(s):
          SomMetaNode(
             class_name="CiCdPipelineConfiguration",
             member_name="stages",
-            section_id="PISTEN-STAG-LST",
-            section_id_pattern="PISTEN-STAG-xxx",
+            section_id="PSE-STAG-LST",
+            section_id_pattern="PSE-STAG-xxx",
             kind=SomMetaKind.LIST,
             type_name="PipelineStageEntry",
             serialization_order=1,
@@ -6732,8 +6732,8 @@ def _mc_CiCdPipelineConfiguration(s):
          SomMetaNode(
             class_name="CiCdPipelineConfiguration",
             member_name="jobs",
-            section_id="PIJOEN-JOBS-LST",
-            section_id_pattern="PIJOEN-JOBS-xxx",
+            section_id="PJE-JOBS-LST",
+            section_id_pattern="PJE-JOBS-xxx",
             kind=SomMetaKind.LIST,
             type_name="PipelineJobEntry",
             serialization_order=2,
@@ -6744,8 +6744,8 @@ def _mc_CiCdPipelineConfiguration(s):
          SomMetaNode(
             class_name="CiCdPipelineConfiguration",
             member_name="environments",
-            section_id="DEENEN-ENVI-LST",
-            section_id_pattern="DEENEN-ENVI-xxx",
+            section_id="DEE-ENVI-LST",
+            section_id_pattern="DEE-ENVI-xxx",
             kind=SomMetaKind.LIST,
             type_name="DeploymentEnvironmentEntry",
             serialization_order=3,
@@ -7047,8 +7047,8 @@ def _mc_ClientRequirementsSection(s):
          SomMetaNode(
             class_name="ClientRequirementsSection",
             member_name="browserRequirements",
-            section_id="BRREEN-BROW-LST",
-            section_id_pattern="BRREEN-BROW-xxx",
+            section_id="BROREQENT-BROW-LST",
+            section_id_pattern="BROREQENT-BROW-xxx",
             kind=SomMetaKind.LIST,
             type_name="BrowserRequirementEntry",
             serialization_order=3,
@@ -7059,8 +7059,8 @@ def _mc_ClientRequirementsSection(s):
          SomMetaNode(
             class_name="ClientRequirementsSection",
             member_name="desktopOsRequirements",
-            section_id="DORE1-DESK-LST",
-            section_id_pattern="DORE1-DESK-xxx",
+            section_id="DEOSREEN-DESK-LST",
+            section_id_pattern="DEOSREEN-DESK-xxx",
             kind=SomMetaKind.LIST,
             type_name="DesktopOsRequirementEntry",
             serialization_order=4,
@@ -7071,8 +7071,8 @@ def _mc_ClientRequirementsSection(s):
          SomMetaNode(
             class_name="ClientRequirementsSection",
             member_name="mobileRequirements",
-            section_id="MDRE-MOBI-LST",
-            section_id_pattern="MDRE-MOBI-xxx",
+            section_id="MODEREEN-MOBI-LST",
+            section_id_pattern="MODEREEN-MOBI-xxx",
             kind=SomMetaKind.LIST,
             type_name="MobileDeviceRequirementEntry",
             serialization_order=5,
@@ -7900,8 +7900,8 @@ def _mc_CompatibilityRequirementsSection(s):
          SomMetaNode(
             class_name="CompatibilityRequirementsSection",
             member_name="osCompatibility",
-            section_id="OSCOEN-OSCO-LST",
-            section_id_pattern="OSCOEN-OSCO-xxx",
+            section_id="OCE-OSCO-LST",
+            section_id_pattern="OCE-OSCO-xxx",
             kind=SomMetaKind.LIST,
             type_name="OsCompatibilityEntry",
             serialization_order=2,
@@ -7912,8 +7912,8 @@ def _mc_CompatibilityRequirementsSection(s):
          SomMetaNode(
             class_name="CompatibilityRequirementsSection",
             member_name="browserCompatibility",
-            section_id="BRCOEN-BROW-LST",
-            section_id_pattern="BRCOEN-BROW-xxx",
+            section_id="BROCOMENT-BROW-LST",
+            section_id_pattern="BROCOMENT-BROW-xxx",
             kind=SomMetaKind.LIST,
             type_name="BrowserCompatibilityEntry",
             serialization_order=3,
@@ -7924,8 +7924,8 @@ def _mc_CompatibilityRequirementsSection(s):
          SomMetaNode(
             class_name="CompatibilityRequirementsSection",
             member_name="databaseCompatibility",
-            section_id="DACOEN-DATA-LST",
-            section_id_pattern="DACOEN-DATA-xxx",
+            section_id="DATCOMENT-DATA-LST",
+            section_id_pattern="DATCOMENT-DATA-xxx",
             kind=SomMetaKind.LIST,
             type_name="DatabaseCompatibilityEntry",
             serialization_order=4,
@@ -7936,8 +7936,8 @@ def _mc_CompatibilityRequirementsSection(s):
          SomMetaNode(
             class_name="CompatibilityRequirementsSection",
             member_name="enterpriseSystemCompatibility",
-            section_id="ESCE-ENTE-LST",
-            section_id_pattern="ESCE-ENTE-xxx",
+            section_id="ENSYCOEN-ENTE-LST",
+            section_id_pattern="ENSYCOEN-ENTE-xxx",
             kind=SomMetaKind.LIST,
             type_name="EnterpriseSystemCompatibilityEntry",
             serialization_order=5,
@@ -7960,8 +7960,8 @@ def _mc_CompatibilityRequirementsSection(s):
          SomMetaNode(
             class_name="CompatibilityRequirementsSection",
             member_name="legacyCompatibility",
-            section_id="LECOEN-LEGA-LST",
-            section_id_pattern="LECOEN-LEGA-xxx",
+            section_id="LCE-LEGA-LST",
+            section_id_pattern="LCE-LEGA-xxx",
             kind=SomMetaKind.LIST,
             type_name="LegacyCompatibilityEntry",
             serialization_order=7,
@@ -7972,8 +7972,8 @@ def _mc_CompatibilityRequirementsSection(s):
          SomMetaNode(
             class_name="CompatibilityRequirementsSection",
             member_name="mobileCompatibility",
-            section_id="MOCOEN-MOBI-LST",
-            section_id_pattern="MOCOEN-MOBI-xxx",
+            section_id="MOBCOMENT-MOBI-LST",
+            section_id_pattern="MOBCOMENT-MOBI-xxx",
             kind=SomMetaKind.LIST,
             type_name="MobileCompatibilityEntry",
             serialization_order=8,
@@ -7984,8 +7984,8 @@ def _mc_CompatibilityRequirementsSection(s):
          SomMetaNode(
             class_name="CompatibilityRequirementsSection",
             member_name="thirdPartyCompatibility",
-            section_id="TPCE-THIR-LST",
-            section_id_pattern="TPCE-THIR-xxx",
+            section_id="THPACOEN-THIR-LST",
+            section_id_pattern="THPACOEN-THIR-xxx",
             kind=SomMetaKind.LIST,
             type_name="ThirdPartyCompatibilityEntry",
             serialization_order=9,
@@ -10169,8 +10169,8 @@ def _mc_CurrentArchitecture(s):
          SomMetaNode(
             class_name="CurrentArchitecture",
             member_name="integrationPatterns",
-            section_id="IPE-INTE-LST",
-            section_id_pattern="IPE-INTE-xxx",
+            section_id="CARCH-INTE-LST",
+            section_id_pattern="CARCH-INTE-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=3,
@@ -10180,8 +10180,8 @@ def _mc_CurrentArchitecture(s):
          SomMetaNode(
             class_name="CurrentArchitecture",
             member_name="sharedServices",
-            section_id="SHARE-SHAR-LST",
-            section_id_pattern="SHARE-SHAR-xxx",
+            section_id="CARCH-SHAR-LST",
+            section_id_pattern="CARCH-SHAR-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=4,
@@ -10707,8 +10707,8 @@ def _mc_CurrentWorkflowEntry(s):
          SomMetaNode(
             class_name="CurrentWorkflowEntry",
             member_name="actors",
-            section_id="WFAC-ACTO-LST",
-            section_id_pattern="WFAC-ACTO-xxx",
+            section_id="WAE-ACTO-LST",
+            section_id_pattern="WAE-ACTO-xxx",
             kind=SomMetaKind.LIST,
             type_name="WorkflowActorEntry",
             serialization_order=4,
@@ -15698,8 +15698,8 @@ def _mc_DecisionPointEntryResolution(s):
          SomMetaNode(
             class_name="DecisionPointEntryResolution",
             member_name="options",
-            section_id="DEOPEN-OPTI-LST",
-            section_id_pattern="DEOPEN-OPTI-xxx",
+            section_id="DOE-OPTI-LST",
+            section_id_pattern="DOE-OPTI-xxx",
             kind=SomMetaKind.LIST,
             type_name="DecisionOptionEntry",
             serialization_order=2,
@@ -15731,8 +15731,8 @@ def _mc_DecisionPoints(s):
          SomMetaNode(
             class_name="DecisionPoints",
             member_name="items",
-            section_id="DEPOEN-ITEM-LST",
-            section_id_pattern="DEPOEN-ITEM-xxx",
+            section_id="DPE-ITEM-LST",
+            section_id_pattern="DPE-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="DecisionPointEntry",
             serialization_order=2,
@@ -17069,8 +17069,8 @@ def _mc_DesignPatternsAndStandards(s):
          SomMetaNode(
             class_name="DesignPatternsAndStandards",
             member_name="codingStandards",
-            section_id="COSTEN-CODI-LST",
-            section_id_pattern="COSTEN-CODI-xxx",
+            section_id="CSE-CODI-LST",
+            section_id_pattern="CSE-CODI-xxx",
             kind=SomMetaKind.LIST,
             type_name="CodingStandardEntry",
             serialization_order=3,
@@ -17081,8 +17081,8 @@ def _mc_DesignPatternsAndStandards(s):
          SomMetaNode(
             class_name="DesignPatternsAndStandards",
             member_name="developmentConventions",
-            section_id="DECOEN-DEVE-LST",
-            section_id_pattern="DECOEN-DEVE-xxx",
+            section_id="DCE-DEVE-LST",
+            section_id_pattern="DCE-DEVE-xxx",
             kind=SomMetaKind.LIST,
             type_name="DevelopmentConventionEntry",
             serialization_order=4,
@@ -17093,8 +17093,8 @@ def _mc_DesignPatternsAndStandards(s):
          SomMetaNode(
             class_name="DesignPatternsAndStandards",
             member_name="industryStandards",
-            section_id="INSTEN-INDU-LST",
-            section_id_pattern="INSTEN-INDU-xxx",
+            section_id="ISE-INDU-LST",
+            section_id_pattern="ISE-INDU-xxx",
             kind=SomMetaKind.LIST,
             type_name="IndustryStandardEntry",
             serialization_order=5,
@@ -17457,8 +17457,8 @@ def _mc_DevelopmentEnvironment(s):
          SomMetaNode(
             class_name="DevelopmentEnvironment",
             member_name="ideRequirements",
-            section_id="IDREEN-IDER-LST",
-            section_id_pattern="IDREEN-IDER-xxx",
+            section_id="IRE-IDER-LST",
+            section_id_pattern="IRE-IDER-xxx",
             kind=SomMetaKind.LIST,
             type_name="IdeRequirementEntry",
             serialization_order=2,
@@ -18382,8 +18382,8 @@ def _mc_DocumentControl(s):
          SomMetaNode(
             class_name="DocumentControl",
             member_name="revisionHistory",
-            section_id="RVHST-REVS-LST",
-            section_id_pattern="RVHST-REVS-xxx",
+            section_id="RVENT-REVS-LST",
+            section_id_pattern="RVENT-REVS-xxx",
             kind=SomMetaKind.LIST,
             type_name="RevisionEntry",
             serialization_order=2,
@@ -18394,8 +18394,8 @@ def _mc_DocumentControl(s):
          SomMetaNode(
             class_name="DocumentControl",
             member_name="approvals",
-            section_id="DOCTL-APRV-LST",
-            section_id_pattern="DOCTL-APRV-xxx",
+            section_id="APREC-APRV-LST",
+            section_id_pattern="APREC-APRV-xxx",
             kind=SomMetaKind.LIST,
             type_name="ApprovalRecord",
             serialization_order=3,
@@ -18491,8 +18491,8 @@ def _mc_DocumentationDeliverables(s):
          SomMetaNode(
             class_name="DocumentationDeliverables",
             member_name="items",
-            section_id="DCDLV-ITEM-LST",
-            section_id_pattern="DCDLV-ITEM-xxx",
+            section_id="DLVEN-ITEM-LST",
+            section_id_pattern="DLVEN-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="DeliverableEntry",
             serialization_order=1,
@@ -18783,8 +18783,8 @@ def _mc_DomainBusinessRules(s):
          SomMetaNode(
             class_name="DomainBusinessRules",
             member_name="rules",
-            section_id="DOBIRU-RULE-LST",
-            section_id_pattern="DOBIRU-RULE-xxx",
+            section_id="DBRE-RULE-LST",
+            section_id_pattern="DBRE-RULE-xxx",
             kind=SomMetaKind.LIST,
             type_name="DomainBusinessRuleEntry",
             serialization_order=1,
@@ -18987,8 +18987,8 @@ def _mc_DomainProcesses(s):
          SomMetaNode(
             class_name="DomainProcesses",
             member_name="processes",
-            section_id="DOPR-PROC-LST",
-            section_id_pattern="DOPR-PROC-xxx",
+            section_id="DOPREN-PROC-LST",
+            section_id_pattern="DOPREN-PROC-xxx",
             kind=SomMetaKind.LIST,
             type_name="DomainProcessEntry",
             serialization_order=2,
@@ -19934,8 +19934,8 @@ def _mc_EquipmentRequirements(s):
          SomMetaNode(
             class_name="EquipmentRequirements",
             member_name="inputDevices",
-            section_id="INPDE-INPU-LST",
-            section_id_pattern="INPDE-INPU-xxx",
+            section_id="IDE-INPU-LST",
+            section_id_pattern="IDE-INPU-xxx",
             kind=SomMetaKind.LIST,
             type_name="InputDeviceEntry",
             serialization_order=3,
@@ -20283,8 +20283,8 @@ def _mc_ErrorRecovery(s):
          SomMetaNode(
             class_name="ErrorRecovery",
             member_name="recoveryFlows",
-            section_id="RECOV-RECO-LST",
-            section_id_pattern="RECOV-RECO-xxx",
+            section_id="ERRE-RECO-LST",
+            section_id_pattern="ERRE-RECO-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=7,
@@ -21082,8 +21082,8 @@ def _mc_ExportFormatEntry(s):
          SomMetaNode(
             class_name="ExportFormatEntry",
             member_name="fieldMappings",
-            section_id="EFME-FIEL-LST",
-            section_id_pattern="EFME-FIEL-xxx",
+            section_id="EXFIMAEN-FIEL-LST",
+            section_id_pattern="EXFIMAEN-FIEL-xxx",
             kind=SomMetaKind.LIST,
             type_name="ExportFieldMappingEntry",
             serialization_order=10,
@@ -21238,8 +21238,8 @@ def _mc_ExternalActorEntry(s):
          SomMetaNode(
             class_name="ExternalActorEntry",
             member_name="interactionScenarios",
-            section_id="INTER-INTE-LST",
-            section_id_pattern="INTER-INTE-xxx",
+            section_id="EAE-INTE-LST",
+            section_id_pattern="EAE-INTE-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=3,
@@ -21295,8 +21295,8 @@ def _mc_ExternalConnectivitySection(s):
          SomMetaNode(
             class_name="ExternalConnectivitySection",
             member_name="partnerConnections",
-            section_id="EPCE-PART-LST",
-            section_id_pattern="EPCE-PART-xxx",
+            section_id="EXPACOEN-PART-LST",
+            section_id_pattern="EXPACOEN-PART-xxx",
             kind=SomMetaKind.LIST,
             type_name="ExternalPartnerConnectionEntry",
             serialization_order=2,
@@ -21508,8 +21508,8 @@ def _mc_ExternalInterfaces(s):
          SomMetaNode(
             class_name="ExternalInterfaces",
             member_name="interfaces",
-            section_id="EXINEN-INTE-LST",
-            section_id_pattern="EXINEN-INTE-xxx",
+            section_id="EIE-INTE-LST",
+            section_id_pattern="EIE-INTE-xxx",
             kind=SomMetaKind.LIST,
             type_name="ExternalInterfaceEntry",
             serialization_order=3,
@@ -21847,8 +21847,8 @@ def _mc_FeatureDependencies(s):
          SomMetaNode(
             class_name="FeatureDependencies",
             member_name="items",
-            section_id="FEDEEN-ITEM-LST",
-            section_id_pattern="FEDEEN-ITEM-xxx",
+            section_id="FDE-ITEM-LST",
+            section_id_pattern="FDE-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="FeatureDependencyEntry",
             serialization_order=2,
@@ -22178,8 +22178,8 @@ def _mc_FeaturePriorityRegister(s):
          SomMetaNode(
             class_name="FeaturePriorityRegister",
             member_name="items",
-            section_id="FEPREN-ITEM-LST",
-            section_id_pattern="FEPREN-ITEM-xxx",
+            section_id="FPE-ITEM-LST",
+            section_id_pattern="FPE-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="FeaturePriorityEntry",
             serialization_order=1,
@@ -22264,8 +22264,8 @@ def _mc_FeatureStageMatrix(s):
          SomMetaNode(
             class_name="FeatureStageMatrix",
             member_name="items",
-            section_id="FESTM1-ITEM-LST",
-            section_id_pattern="FESTM1-ITEM-xxx",
+            section_id="FSM-ITEM-LST",
+            section_id_pattern="FSM-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="FeatureStageMapping",
             serialization_order=2,
@@ -23133,8 +23133,8 @@ def _mc_FunctionalResponsibilities(s):
          SomMetaNode(
             class_name="FunctionalResponsibilities",
             member_name="items",
-            section_id="REEN1-ITEM-LST",
-            section_id_pattern="REEN1-ITEM-xxx",
+            section_id="RE-ITEM-LST",
+            section_id_pattern="RE-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="ResponsibilityEntry",
             serialization_order=2,
@@ -23319,8 +23319,8 @@ def _mc_GlossaryAndAbbreviations(s):
          SomMetaNode(
             class_name="GlossaryAndAbbreviations",
             member_name="glossary",
-            section_id="GLOSS-ENTR-LST",
-            section_id_pattern="GLOSS-ENTR-xxx",
+            section_id="GLENT-ENTR-LST",
+            section_id_pattern="GLENT-ENTR-xxx",
             kind=SomMetaKind.LIST,
             type_name="GlossaryEntry",
             serialization_order=1,
@@ -24754,8 +24754,8 @@ def _mc_InformationArchitecture(s):
          SomMetaNode(
             class_name="InformationArchitecture",
             member_name="globalEntryPoints",
-            section_id="GLOBA-GLOB-LST",
-            section_id_pattern="GLOBA-GLOB-xxx",
+            section_id="IA-GLOB-LST",
+            section_id_pattern="IA-GLOB-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=4,
@@ -25253,8 +25253,8 @@ def _mc_IntegrationHealthSummary(s):
          SomMetaNode(
             class_name="IntegrationHealthSummary",
             member_name="fragilePoints",
-            section_id="FRAGI-FRAG-LST",
-            section_id_pattern="FRAGI-FRAG-xxx",
+            section_id="INHESU-FRAG-LST",
+            section_id_pattern="INHESU-FRAG-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=1,
@@ -25770,8 +25770,8 @@ def _mc_InterfaceBusinessContext(s):
          SomMetaNode(
             class_name="InterfaceBusinessContext",
             member_name="dependentProcesses",
-            section_id="IBPE-DEPE-LST",
-            section_id_pattern="IBPE-DEPE-xxx",
+            section_id="INBUPREN-DEPE-LST",
+            section_id_pattern="INBUPREN-DEPE-xxx",
             kind=SomMetaKind.LIST,
             type_name="InterfaceBusinessProcessEntry",
             serialization_order=1,
@@ -25818,8 +25818,8 @@ def _mc_InterfaceDataSpec(s):
          SomMetaNode(
             class_name="InterfaceDataSpec",
             member_name="dataEntities",
-            section_id="IDEE-DATA-LST",
-            section_id_pattern="IDEE-DATA-xxx",
+            section_id="INDAENEN-DATA-LST",
+            section_id_pattern="INDAENEN-DATA-xxx",
             kind=SomMetaKind.LIST,
             type_name="InterfaceDataEntityEntry",
             serialization_order=1,
@@ -25830,8 +25830,8 @@ def _mc_InterfaceDataSpec(s):
          SomMetaNode(
             class_name="InterfaceDataSpec",
             member_name="mappingRules",
-            section_id="MAPPI-MAPP-LST",
-            section_id_pattern="MAPPI-MAPP-xxx",
+            section_id="INDASP-MAPP-LST",
+            section_id_pattern="INDASP-MAPP-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=2,
@@ -25841,8 +25841,8 @@ def _mc_InterfaceDataSpec(s):
          SomMetaNode(
             class_name="InterfaceDataSpec",
             member_name="validationRules",
-            section_id="VALID-VALI-LST",
-            section_id_pattern="VALID-VALI-xxx",
+            section_id="INDASP-VALI-LST",
+            section_id_pattern="INDASP-VALI-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=3,
@@ -25894,8 +25894,8 @@ def _mc_InterfaceErrorHandling(s):
          SomMetaNode(
             class_name="InterfaceErrorHandling",
             member_name="errorProcedures",
-            section_id="ERROR-ERRO-LST",
-            section_id_pattern="ERROR-ERRO-xxx",
+            section_id="INERHA-ERRO-LST",
+            section_id_pattern="INERHA-ERRO-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=4,
@@ -25999,8 +25999,8 @@ def _mc_InterfaceOperational(s):
          SomMetaNode(
             class_name="InterfaceOperational",
             member_name="dependencies",
-            section_id="DEPEN-DEPE-LST",
-            section_id_pattern="DEPEN-DEPE-xxx",
+            section_id="INOP-DEPE-LST",
+            section_id_pattern="INOP-DEPE-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=4,
@@ -26144,8 +26144,8 @@ def _mc_InterfaceTechnicalSpec(s):
          SomMetaNode(
             class_name="InterfaceTechnicalSpec",
             member_name="operations",
-            section_id="INOPEN-OPER-LST",
-            section_id_pattern="INOPEN-OPER-xxx",
+            section_id="IOE-OPER-LST",
+            section_id_pattern="IOE-OPER-xxx",
             kind=SomMetaKind.LIST,
             type_name="InterfaceOperationEntry",
             serialization_order=3,
@@ -26210,8 +26210,8 @@ def _mc_InterfaceTesting(s):
          SomMetaNode(
             class_name="InterfaceTesting",
             member_name="testScenarios",
-            section_id="ITSE1-TEST-LST",
-            section_id_pattern="ITSE1-TEST-xxx",
+            section_id="INTESCEN-TEST-LST",
+            section_id_pattern="INTESCEN-TEST-xxx",
             kind=SomMetaKind.LIST,
             type_name="InterfaceTestScenarioEntry",
             serialization_order=3,
@@ -26500,8 +26500,8 @@ def _mc_Iso25010Coverage(s):
          SomMetaNode(
             class_name="Iso25010Coverage",
             member_name="characteristics",
-            section_id="I25CV-CHAR-LST",
-            section_id_pattern="I25CV-CHAR-xxx",
+            section_id="I25CE-CHAR-LST",
+            section_id_pattern="I25CE-CHAR-xxx",
             kind=SomMetaKind.LIST,
             type_name="Iso25010CoverageEntry",
             serialization_order=1,
@@ -26625,8 +26625,8 @@ def _mc_ItSecurityStandardsSection(s):
          SomMetaNode(
             class_name="ItSecurityStandardsSection",
             member_name="standards",
-            section_id="SESTEN-STAN-LST",
-            section_id_pattern="SESTEN-STAN-xxx",
+            section_id="SSE-STAN-LST",
+            section_id_pattern="SSE-STAN-xxx",
             kind=SomMetaKind.LIST,
             type_name="SecurityStandardEntry",
             serialization_order=2,
@@ -26774,8 +26774,8 @@ def _mc_JobDescriptionsAndStaffing(s):
          SomMetaNode(
             class_name="JobDescriptionsAndStaffing",
             member_name="newRoles",
-            section_id="NWROL-NEWR-LST",
-            section_id_pattern="NWROL-NEWR-xxx",
+            section_id="NRE-NEWR-LST",
+            section_id_pattern="NRE-NEWR-xxx",
             kind=SomMetaKind.LIST,
             type_name="NewRoleEntry",
             serialization_order=1,
@@ -27334,8 +27334,8 @@ def _mc_LayeringAndModuleStructure(s):
          SomMetaNode(
             class_name="LayeringAndModuleStructure",
             member_name="softwareLayers",
-            section_id="SOLAEN-SOFT-LST",
-            section_id_pattern="SOLAEN-SOFT-xxx",
+            section_id="SLE-SOFT-LST",
+            section_id_pattern="SLE-SOFT-xxx",
             kind=SomMetaKind.LIST,
             type_name="SoftwareLayerEntry",
             serialization_order=2,
@@ -27358,8 +27358,8 @@ def _mc_LayeringAndModuleStructure(s):
          SomMetaNode(
             class_name="LayeringAndModuleStructure",
             member_name="boundedContexts",
-            section_id="BOCOEN-BOUN-LST",
-            section_id_pattern="BOCOEN-BOUN-xxx",
+            section_id="BCE-BOUN-LST",
+            section_id_pattern="BCE-BOUN-xxx",
             kind=SomMetaKind.LIST,
             type_name="BoundedContextEntry",
             serialization_order=4,
@@ -27382,8 +27382,8 @@ def _mc_LayeringAndModuleStructure(s):
          SomMetaNode(
             class_name="LayeringAndModuleStructure",
             member_name="modules",
-            section_id="MOEN1-MODU-LST",
-            section_id_pattern="MOEN1-MODU-xxx",
+            section_id="MODENT-MODU-LST",
+            section_id_pattern="MODENT-MODU-xxx",
             kind=SomMetaKind.LIST,
             type_name="ModuleEntry",
             serialization_order=6,
@@ -27394,8 +27394,8 @@ def _mc_LayeringAndModuleStructure(s):
          SomMetaNode(
             class_name="LayeringAndModuleStructure",
             member_name="sharedLibraries",
-            section_id="SHLIB-SHAR-LST",
-            section_id_pattern="SHLIB-SHAR-xxx",
+            section_id="SHLIEN-SHAR-LST",
+            section_id_pattern="SHLIEN-SHAR-xxx",
             kind=SomMetaKind.LIST,
             type_name="SharedLibraryEntry",
             serialization_order=7,
@@ -28503,8 +28503,8 @@ def _mc_MaintenanceWindowsSection(s):
          SomMetaNode(
             class_name="MaintenanceWindowsSection",
             member_name="maintenanceWindows",
-            section_id="MAWIEN-MAIN-LST",
-            section_id_pattern="MAWIEN-MAIN-xxx",
+            section_id="MWE-MAIN-LST",
+            section_id_pattern="MWE-MAIN-xxx",
             kind=SomMetaKind.LIST,
             type_name="MaintenanceWindowEntry",
             serialization_order=3,
@@ -28823,8 +28823,8 @@ def _mc_MetricsAndObservability(s):
          SomMetaNode(
             class_name="MetricsAndObservability",
             member_name="customMetrics",
-            section_id="CUMEEN-CUST-LST",
-            section_id_pattern="CUMEEN-CUST-xxx",
+            section_id="CUSMETENT-CUST-LST",
+            section_id_pattern="CUSMETENT-CUST-xxx",
             kind=SomMetaKind.LIST,
             type_name="CustomMetricEntry",
             serialization_order=6,
@@ -28990,8 +28990,8 @@ def _mc_MfaConfiguration(s):
          SomMetaNode(
             class_name="MfaConfiguration",
             member_name="mfaDetails",
-            section_id="MFADE-MFAD-LST",
-            section_id_pattern="MFADE-MFAD-xxx",
+            section_id="MC-MFAD-LST",
+            section_id_pattern="MC-MFAD-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=1,
@@ -29106,8 +29106,8 @@ def _mc_MigrationConsiderations(s):
          SomMetaNode(
             class_name="MigrationConsiderations",
             member_name="escalationProcedures",
-            section_id="ESCAL-ESCA-LST",
-            section_id_pattern="ESCAL-ESCA-xxx",
+            section_id="MIGCON-ESCA-LST",
+            section_id_pattern="MIGCON-ESCA-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=11,
@@ -29598,8 +29598,8 @@ def _mc_MigrationRisks(s):
          SomMetaNode(
             class_name="MigrationRisks",
             member_name="riskCategories",
-            section_id="RISKC-RISK-LST",
-            section_id_pattern="RISKC-RISK-xxx",
+            section_id="MIRI-RISK-LST",
+            section_id_pattern="MIRI-RISK-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=7,
@@ -29609,8 +29609,8 @@ def _mc_MigrationRisks(s):
          SomMetaNode(
             class_name="MigrationRisks",
             member_name="riskBasedDecisions",
-            section_id="RISKB-RISK-LST",
-            section_id_pattern="RISKB-RISK-xxx",
+            section_id="MIRI-RBDE-LST",
+            section_id_pattern="MIRI-RBDE-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=8,
@@ -29620,8 +29620,8 @@ def _mc_MigrationRisks(s):
          SomMetaNode(
             class_name="MigrationRisks",
             member_name="monitoringProcedures",
-            section_id="MONIT-MONI-LST",
-            section_id_pattern="MONIT-MONI-xxx",
+            section_id="MIRI-MONI-LST",
+            section_id_pattern="MIRI-MONI-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=9,
@@ -29631,8 +29631,8 @@ def _mc_MigrationRisks(s):
          SomMetaNode(
             class_name="MigrationRisks",
             member_name="responseStrategies",
-            section_id="RESPO-RESP-LST",
-            section_id_pattern="RESPO-RESP-xxx",
+            section_id="MIRI-RESP-LST",
+            section_id_pattern="MIRI-RESP-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=10,
@@ -30128,8 +30128,8 @@ def _mc_MonitoringAndAlertingSection(s):
          SomMetaNode(
             class_name="MonitoringAndAlertingSection",
             member_name="alertDefinitions",
-            section_id="ALDEEN-ALER-LST",
-            section_id_pattern="ALDEEN-ALER-xxx",
+            section_id="ALEDEFENT-ALER-LST",
+            section_id_pattern="ALEDEFENT-ALER-xxx",
             kind=SomMetaKind.LIST,
             type_name="AlertDefinitionEntry",
             serialization_order=7,
@@ -30209,8 +30209,8 @@ def _mc_MonitoringDashboards(s):
          SomMetaNode(
             class_name="MonitoringDashboards",
             member_name="dashboards",
-            section_id="DAEN-DASH-LST",
-            section_id_pattern="DAEN-DASH-xxx",
+            section_id="DASENT-DASH-LST",
+            section_id_pattern="DASENT-DASH-xxx",
             kind=SomMetaKind.LIST,
             type_name="DashboardEntry",
             serialization_order=2,
@@ -30296,8 +30296,8 @@ def _mc_MoscowAnalysis(s):
          SomMetaNode(
             class_name="MoscowAnalysis",
             member_name="items",
-            section_id="MOEN-ITEM-LST",
-            section_id_pattern="MOEN-ITEM-xxx",
+            section_id="ME-ITEM-LST",
+            section_id_pattern="ME-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="MoscowEntry",
             serialization_order=2,
@@ -30418,8 +30418,8 @@ def _mc_MultiLanguageSupport(s):
          SomMetaNode(
             class_name="MultiLanguageSupport",
             member_name="supportedLocales",
-            section_id="SULOEN-SUPP-LST",
-            section_id_pattern="SULOEN-SUPP-xxx",
+            section_id="SUPLOCENT-SUPP-LST",
+            section_id_pattern="SUPLOCENT-SUPP-xxx",
             kind=SomMetaKind.LIST,
             type_name="SupportedLocaleEntry",
             serialization_order=3,
@@ -31191,8 +31191,8 @@ def _mc_NetworkRequirementsSection(s):
          SomMetaNode(
             class_name="NetworkRequirementsSection",
             member_name="vpnRequirements",
-            section_id="VPREEN-VPNR-LST",
-            section_id_pattern="VPREEN-VPNR-xxx",
+            section_id="VRE-VPNR-LST",
+            section_id_pattern="VRE-VPNR-xxx",
             kind=SomMetaKind.LIST,
             type_name="VpnRequirementEntry",
             serialization_order=7,
@@ -32069,8 +32069,8 @@ def _mc_OperationalPainPoints(s):
          SomMetaNode(
             class_name="OperationalPainPoints",
             member_name="items",
-            section_id="OPPAPO-ITEM-LST",
-            section_id_pattern="OPPAPO-ITEM-xxx",
+            section_id="PAPE-ITEM-LST",
+            section_id_pattern="PAPE-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="PainPointEntry",
             serialization_order=2,
@@ -32451,8 +32451,8 @@ def _mc_OrganizationalEnvironment(s):
          SomMetaNode(
             class_name="OrganizationalEnvironment",
             member_name="affectedDepartments",
-            section_id="AFDEEN-AFFE-LST",
-            section_id_pattern="AFDEEN-AFFE-xxx",
+            section_id="ADE-AFFE-LST",
+            section_id_pattern="ADE-AFFE-xxx",
             kind=SomMetaKind.LIST,
             type_name="AffectedDepartmentEntry",
             serialization_order=4,
@@ -32472,8 +32472,8 @@ def _mc_OrganizationalEnvironment(s):
          SomMetaNode(
             class_name="OrganizationalEnvironment",
             member_name="decisionMakers",
-            section_id="DEMAEN-DECI-LST",
-            section_id_pattern="DEMAEN-DECI-xxx",
+            section_id="DME-DECI-LST",
+            section_id_pattern="DME-DECI-xxx",
             kind=SomMetaKind.LIST,
             type_name="DecisionMakerEntry",
             serialization_order=6,
@@ -32484,8 +32484,8 @@ def _mc_OrganizationalEnvironment(s):
          SomMetaNode(
             class_name="OrganizationalEnvironment",
             member_name="culturalConsiderations",
-            section_id="CULTU-CULT-LST",
-            section_id_pattern="CULTU-CULT-xxx",
+            section_id="OREN-CULT-LST",
+            section_id_pattern="OREN-CULT-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=7,
@@ -32495,8 +32495,8 @@ def _mc_OrganizationalEnvironment(s):
          SomMetaNode(
             class_name="OrganizationalEnvironment",
             member_name="communicationPreferences",
-            section_id="COMMU-COMM-LST",
-            section_id_pattern="COMMU-COMM-xxx",
+            section_id="OREN-COMM-LST",
+            section_id_pattern="OREN-COMM-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=8,
@@ -32515,8 +32515,8 @@ def _mc_OrganizationalEnvironment(s):
          SomMetaNode(
             class_name="OrganizationalEnvironment",
             member_name="changeAdvocates",
-            section_id="CHANG-CHAN-LST",
-            section_id_pattern="CHANG-CHAN-xxx",
+            section_id="OREN-CHAN-LST",
+            section_id_pattern="OREN-CHAN-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=10,
@@ -32878,8 +32878,8 @@ def _mc_OutOfScope(s):
          SomMetaNode(
             class_name="OutOfScope",
             member_name="items",
-            section_id="OOSE-ITEM-LST",
-            section_id_pattern="OOSE-ITEM-xxx",
+            section_id="OUOFSCEN-ITEM-LST",
+            section_id_pattern="OUOFSCEN-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="OutOfScopeEntry",
             serialization_order=1,
@@ -33953,8 +33953,8 @@ def _mc_PhaseGateReviews(s):
          SomMetaNode(
             class_name="PhaseGateReviews",
             member_name="items",
-            section_id="PGRE-ITEM-LST",
-            section_id_pattern="PGRE-ITEM-xxx",
+            section_id="PHGAREEN-ITEM-LST",
+            section_id_pattern="PHGAREEN-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="PhaseGateReviewEntry",
             serialization_order=4,
@@ -34157,8 +34157,8 @@ def _mc_PlatformAndLanguage(s):
          SomMetaNode(
             class_name="PlatformAndLanguage",
             member_name="frameworks",
-            section_id="FWREN-FRAM-LST",
-            section_id_pattern="FWREN-FRAM-xxx",
+            section_id="FRREEN-FRAM-LST",
+            section_id_pattern="FRREEN-FRAM-xxx",
             kind=SomMetaKind.LIST,
             type_name="FrameworkRequirementEntry",
             serialization_order=4,
@@ -34181,8 +34181,8 @@ def _mc_PlatformAndLanguage(s):
          SomMetaNode(
             class_name="PlatformAndLanguage",
             member_name="deploymentTargets",
-            section_id="DETAEN-DEPL-LST",
-            section_id_pattern="DETAEN-DEPL-xxx",
+            section_id="DEPTARENT-DEPL-LST",
+            section_id_pattern="DEPTARENT-DEPL-xxx",
             kind=SomMetaKind.LIST,
             type_name="DeploymentTargetEntry",
             serialization_order=6,
@@ -34405,8 +34405,8 @@ def _mc_PrintAndExportLayout(s):
          SomMetaNode(
             class_name="PrintAndExportLayout",
             member_name="exportFormats",
-            section_id="EXFOEN-EXPO-LST",
-            section_id_pattern="EXFOEN-EXPO-xxx",
+            section_id="EFE-EXPO-LST",
+            section_id_pattern="EFE-EXPO-xxx",
             kind=SomMetaKind.LIST,
             type_name="ExportFormatEntry",
             serialization_order=6,
@@ -34417,8 +34417,8 @@ def _mc_PrintAndExportLayout(s):
          SomMetaNode(
             class_name="PrintAndExportLayout",
             member_name="exportTemplates",
-            section_id="EXTEEN-EXPO-LST",
-            section_id_pattern="EXTEEN-EXPO-xxx",
+            section_id="ETE-EXPO-LST",
+            section_id_pattern="ETE-EXPO-xxx",
             kind=SomMetaKind.LIST,
             type_name="ExportTemplateEntry",
             serialization_order=7,
@@ -34563,8 +34563,8 @@ def _mc_ProblemStatement(s):
          SomMetaNode(
             class_name="ProblemStatement",
             member_name="relatedPainPoints",
-            section_id="RPPE-RELA-LST",
-            section_id_pattern="RPPE-RELA-xxx",
+            section_id="PS-RELA-LST",
+            section_id_pattern="PS-RELA-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=2,
@@ -36285,8 +36285,8 @@ def _mc_ProtocolsAndStandardsSection(s):
          SomMetaNode(
             class_name="ProtocolsAndStandardsSection",
             member_name="protocols",
-            section_id="PREN-PROT-LST",
-            section_id_pattern="PREN-PROT-xxx",
+            section_id="PE-PROT-LST",
+            section_id_pattern="PE-PROT-xxx",
             kind=SomMetaKind.LIST,
             type_name="ProtocolEntry",
             serialization_order=2,
@@ -36519,8 +36519,8 @@ def _mc_PrototypeFeatureSubset(s):
          SomMetaNode(
             class_name="PrototypeFeatureSubset",
             member_name="features",
-            section_id="PRFEEN-FEAT-LST",
-            section_id_pattern="PRFEEN-FEAT-xxx",
+            section_id="PFE-FEAT-LST",
+            section_id_pattern="PFE-FEAT-xxx",
             kind=SomMetaKind.LIST,
             type_name="PrototypeFeatureEntry",
             serialization_order=4,
@@ -36584,8 +36584,8 @@ def _mc_PrototypeGoals(s):
          SomMetaNode(
             class_name="PrototypeGoals",
             member_name="goals",
-            section_id="PRGOEN-GOAL-LST",
-            section_id_pattern="PRGOEN-GOAL-xxx",
+            section_id="PGE-GOAL-LST",
+            section_id_pattern="PGE-GOAL-xxx",
             kind=SomMetaKind.LIST,
             type_name="PrototypeGoalEntry",
             serialization_order=4,
@@ -36881,8 +36881,8 @@ def _mc_QualityFramework(s):
          SomMetaNode(
             class_name="QualityFramework",
             member_name="categoryDependencies",
-            section_id="CATEG-CATE-LST",
-            section_id_pattern="CATEG-CATE-xxx",
+            section_id="QLFWK-CATE-LST",
+            section_id_pattern="QLFWK-CATE-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=7,
@@ -38224,8 +38224,8 @@ def _mc_ReportDefinitions(s):
          SomMetaNode(
             class_name="ReportDefinitions",
             member_name="reports",
-            section_id="REEN-REPO-LST",
-            section_id_pattern="REEN-REPO-xxx",
+            section_id="REPENT-REPO-LST",
+            section_id_pattern="REPENT-REPO-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReportEntry",
             serialization_order=1,
@@ -38412,8 +38412,8 @@ def _mc_ReportEntry(s):
          SomMetaNode(
             class_name="ReportEntry",
             member_name="sections",
-            section_id="RESEE1-SECT-LST",
-            section_id_pattern="RESEE1-SECT-xxx",
+            section_id="RSE-SECT-LST",
+            section_id_pattern="RSE-SECT-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReportSectionEntry",
             serialization_order=13,
@@ -38424,8 +38424,8 @@ def _mc_ReportEntry(s):
          SomMetaNode(
             class_name="ReportEntry",
             member_name="filters",
-            section_id="REFIEN-FILT-LST",
-            section_id_pattern="REFIEN-FILT-xxx",
+            section_id="RFE-FILT-LST",
+            section_id_pattern="RFE-FILT-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReportFilterEntry",
             serialization_order=14,
@@ -38436,8 +38436,8 @@ def _mc_ReportEntry(s):
          SomMetaNode(
             class_name="ReportEntry",
             member_name="schedules",
-            section_id="RESCEN-SCHE-LST",
-            section_id_pattern="RESCEN-SCHE-xxx",
+            section_id="REPSCHENT-SCHE-LST",
+            section_id_pattern="REPSCHENT-SCHE-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReportScheduleEntry",
             serialization_order=15,
@@ -38448,8 +38448,8 @@ def _mc_ReportEntry(s):
          SomMetaNode(
             class_name="ReportEntry",
             member_name="distributions",
-            section_id="REDIEN-DIST-LST",
-            section_id_pattern="REDIEN-DIST-xxx",
+            section_id="RDE-DIST-LST",
+            section_id_pattern="RDE-DIST-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReportDistributionEntry",
             serialization_order=16,
@@ -38460,8 +38460,8 @@ def _mc_ReportEntry(s):
          SomMetaNode(
             class_name="ReportEntry",
             member_name="recipients",
-            section_id="REREEN-RECI-LST",
-            section_id_pattern="REREEN-RECI-xxx",
+            section_id="RRE-RECI-LST",
+            section_id_pattern="RRE-RECI-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReportRecipientEntry",
             serialization_order=17,
@@ -38720,8 +38720,8 @@ def _mc_ReportSectionEntry(s):
          SomMetaNode(
             class_name="ReportSectionEntry",
             member_name="columns",
-            section_id="RECOE1-COLU-LST",
-            section_id_pattern="RECOE1-COLU-xxx",
+            section_id="REPCOLENT-COLU-LST",
+            section_id_pattern="REPCOLENT-COLU-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReportColumnEntry",
             serialization_order=5,
@@ -38732,8 +38732,8 @@ def _mc_ReportSectionEntry(s):
          SomMetaNode(
             class_name="ReportSectionEntry",
             member_name="charts",
-            section_id="RECHEN-CHAR-LST",
-            section_id_pattern="RECHEN-CHAR-xxx",
+            section_id="REPCHAENT-CHAR-LST",
+            section_id_pattern="REPCHAENT-CHAR-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReportChartEntry",
             serialization_order=6,
@@ -38768,8 +38768,8 @@ def _mc_RequirementAcceptanceCriteria(s):
          SomMetaNode(
             class_name="RequirementAcceptanceCriteria",
             member_name="criteria",
-            section_id="ACCR-CRIT-LST",
-            section_id_pattern="ACCR-CRIT-xxx",
+            section_id="ACE-CRIT-LST",
+            section_id_pattern="ACE-CRIT-xxx",
             kind=SomMetaKind.LIST,
             type_name="AcceptanceCriterionEntry",
             serialization_order=1,
@@ -39081,8 +39081,8 @@ def _mc_RequirementUiSpecification(s):
          SomMetaNode(
             class_name="RequirementUiSpecification",
             member_name="fields",
-            section_id="SCFLD-FIEL-LST",
-            section_id_pattern="SCFLD-FIEL-xxx",
+            section_id="SFE-FIEL-LST",
+            section_id_pattern="SFE-FIEL-xxx",
             kind=SomMetaKind.LIST,
             type_name="ScreenFieldEntry",
             serialization_order=4,
@@ -39893,8 +39893,8 @@ def _mc_ReusableComponentsSection(s):
          SomMetaNode(
             class_name="ReusableComponentsSection",
             member_name="uiComponents",
-            section_id="RUICMP-UICO-LST",
-            section_id_pattern="RUICMP-UICO-xxx",
+            section_id="RUCE-UICO-LST",
+            section_id_pattern="RUCE-UICO-xxx",
             kind=SomMetaKind.LIST,
             type_name="ReusableUiComponentEntry",
             serialization_order=4,
@@ -39905,8 +39905,8 @@ def _mc_ReusableComponentsSection(s):
          SomMetaNode(
             class_name="ReusableComponentsSection",
             member_name="businessComponents",
-            section_id="BUCOEN-BUSI-LST",
-            section_id_pattern="BUCOEN-BUSI-xxx",
+            section_id="BUSCOMENT-BUSI-LST",
+            section_id_pattern="BUSCOMENT-BUSI-xxx",
             kind=SomMetaKind.LIST,
             type_name="BusinessComponentEntry",
             serialization_order=5,
@@ -39917,8 +39917,8 @@ def _mc_ReusableComponentsSection(s):
          SomMetaNode(
             class_name="ReusableComponentsSection",
             member_name="infrastructureComponents",
-            section_id="INCOEN-INFR-LST",
-            section_id_pattern="INCOEN-INFR-xxx",
+            section_id="INFCOMENT-INFR-LST",
+            section_id_pattern="INFCOMENT-INFR-xxx",
             kind=SomMetaKind.LIST,
             type_name="InfrastructureComponentEntry",
             serialization_order=6,
@@ -40416,8 +40416,8 @@ def _mc_RisksAndAssumptions(s):
          SomMetaNode(
             class_name="RisksAndAssumptions",
             member_name="keyRisks",
-            section_id="RIEN-KEYR-LST",
-            section_id_pattern="RIEN-KEYR-xxx",
+            section_id="RISENT-KEYR-LST",
+            section_id_pattern="RISENT-KEYR-xxx",
             kind=SomMetaKind.LIST,
             type_name="RiskEntry",
             serialization_order=1,
@@ -41604,8 +41604,8 @@ def _mc_ScopeBoundaries(s):
          SomMetaNode(
             class_name="ScopeBoundaries",
             member_name="inScopeItems",
-            section_id="SCITE-INSC-LST",
-            section_id_pattern="SCITE-INSC-xxx",
+            section_id="SIE-INSC-LST",
+            section_id_pattern="SIE-INSC-xxx",
             kind=SomMetaKind.LIST,
             type_name="ScopeItemEntry",
             serialization_order=1,
@@ -41617,8 +41617,8 @@ def _mc_ScopeBoundaries(s):
          SomMetaNode(
             class_name="ScopeBoundaries",
             member_name="outOfScopeItems",
-            section_id="SCITE-OUTO-LST",
-            section_id_pattern="SCITE-OUTO-xxx",
+            section_id="SIE-OUTO-LST",
+            section_id_pattern="SIE-OUTO-xxx",
             kind=SomMetaKind.LIST,
             type_name="ScopeItemEntry",
             serialization_order=2,
@@ -41641,8 +41641,8 @@ def _mc_ScopeBoundaries(s):
          SomMetaNode(
             class_name="ScopeBoundaries",
             member_name="scopeAssumptions",
-            section_id="SCOPE-SCOP-LST",
-            section_id_pattern="SCOPE-SCOP-xxx",
+            section_id="SCBND-SCOP-LST",
+            section_id_pattern="SCBND-SCOP-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=4,
@@ -41947,8 +41947,8 @@ def _mc_ScreenElementEntry(s):
          SomMetaNode(
             class_name="ScreenElementEntry",
             member_name="validationRules",
-            section_id="EVRE-VALI-LST",
-            section_id_pattern="EVRE-VALI-xxx",
+            section_id="ELVARUEN-VALI-LST",
+            section_id_pattern="ELVARUEN-VALI-xxx",
             kind=SomMetaKind.LIST,
             type_name="ElementValidationRuleEntry",
             serialization_order=9,
@@ -42139,8 +42139,8 @@ def _mc_ScreenEntry(s):
          SomMetaNode(
             class_name="ScreenEntry",
             member_name="userCategories",
-            section_id="SCRUSC-USER-LST",
-            section_id_pattern="SCRUSC-USER-xxx",
+            section_id="SUCE-USER-LST",
+            section_id_pattern="SUCE-USER-xxx",
             kind=SomMetaKind.LIST,
             type_name="ScreenUserCategoryEntry",
             serialization_order=9,
@@ -42163,8 +42163,8 @@ def _mc_ScreenEntry(s):
          SomMetaNode(
             class_name="ScreenEntry",
             member_name="responsiveRules",
-            section_id="SRRE-RESP-LST",
-            section_id_pattern="SRRE-RESP-xxx",
+            section_id="SCRERUEN-RESP-LST",
+            section_id_pattern="SCRERUEN-RESP-xxx",
             kind=SomMetaKind.LIST,
             type_name="ScreenResponsiveRuleEntry",
             serialization_order=11,
@@ -42600,8 +42600,8 @@ def _mc_SecondaryNavigation(s):
          SomMetaNode(
             class_name="SecondaryNavigation",
             member_name="tabBars",
-            section_id="TBDE-TABB-LST",
-            section_id_pattern="TBDE-TABB-xxx",
+            section_id="TABADEEN-TABB-LST",
+            section_id_pattern="TABADEEN-TABB-xxx",
             kind=SomMetaKind.LIST,
             type_name="TabBarDefinitionEntry",
             serialization_order=2,
@@ -42881,8 +42881,8 @@ def _mc_SecurityAuditRequirementsSection(s):
          SomMetaNode(
             class_name="SecurityAuditRequirementsSection",
             member_name="auditEntries",
-            section_id="SEAUEN-AUDI-LST",
-            section_id_pattern="SEAUEN-AUDI-xxx",
+            section_id="SAE-AUDI-LST",
+            section_id_pattern="SAE-AUDI-xxx",
             kind=SomMetaKind.LIST,
             type_name="SecurityAuditEntry",
             serialization_order=8,
@@ -43102,8 +43102,8 @@ def _mc_SecurityControls(s):
          SomMetaNode(
             class_name="SecurityControls",
             member_name="controls",
-            section_id="SECCT-CONT-LST",
-            section_id_pattern="SECCT-CONT-xxx",
+            section_id="SECOEN-CONT-LST",
+            section_id_pattern="SECOEN-CONT-xxx",
             kind=SomMetaKind.LIST,
             type_name="SecurityControlEntry",
             serialization_order=1,
@@ -43960,8 +43960,8 @@ def _mc_ServerRequirementsSection(s):
          SomMetaNode(
             class_name="ServerRequirementsSection",
             member_name="environments",
-            section_id="SEENEN-ENVI-LST",
-            section_id_pattern="SEENEN-ENVI-xxx",
+            section_id="SEE-ENVI-LST",
+            section_id_pattern="SEE-ENVI-xxx",
             kind=SomMetaKind.LIST,
             type_name="ServerEnvironmentEntry",
             serialization_order=2,
@@ -43972,8 +43972,8 @@ def _mc_ServerRequirementsSection(s):
          SomMetaNode(
             class_name="ServerRequirementsSection",
             member_name="serverRoles",
-            section_id="SEROEN-SERV-LST",
-            section_id_pattern="SEROEN-SERV-xxx",
+            section_id="SRE-SERV-LST",
+            section_id_pattern="SRE-SERV-xxx",
             kind=SomMetaKind.LIST,
             type_name="ServerRoleEntry",
             serialization_order=3,
@@ -44964,8 +44964,8 @@ def _mc_SlaAndSloMonitoring(s):
          SomMetaNode(
             class_name="SlaAndSloMonitoring",
             member_name="slos",
-            section_id="SLEN-SLOS-LST",
-            section_id_pattern="SLEN-SLOS-xxx",
+            section_id="SE-SLOS-LST",
+            section_id_pattern="SE-SLOS-xxx",
             kind=SomMetaKind.LIST,
             type_name="SloEntry",
             serialization_order=3,
@@ -45085,8 +45085,8 @@ def _mc_SoftwareDeliverables(s):
          SomMetaNode(
             class_name="SoftwareDeliverables",
             member_name="items",
-            section_id="SWDLV-ITEM-LST",
-            section_id_pattern="SWDLV-ITEM-xxx",
+            section_id="DLVEN-ITEM-LST",
+            section_id_pattern="DLVEN-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="DeliverableEntry",
             serialization_order=1,
@@ -46386,8 +46386,8 @@ def _mc_StagingStrategy(s):
          SomMetaNode(
             class_name="StagingStrategy",
             member_name="keyAssumptions",
-            section_id="KEYAS-KEYA-LST",
-            section_id_pattern="KEYAS-KEYA-xxx",
+            section_id="STAGST-KEYA-LST",
+            section_id_pattern="STAGST-KEYA-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=15,
@@ -46397,8 +46397,8 @@ def _mc_StagingStrategy(s):
          SomMetaNode(
             class_name="StagingStrategy",
             member_name="constraints",
-            section_id="STAGI-CONS-LST",
-            section_id_pattern="STAGI-CONS-xxx",
+            section_id="STAGST-CONS-LST",
+            section_id_pattern="STAGST-CONS-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=16,
@@ -46564,8 +46564,8 @@ def _mc_StakeholdersAndGovernance(s):
          SomMetaNode(
             class_name="StakeholdersAndGovernance",
             member_name="stakeholderRegister",
-            section_id="STKRG-STAK-LST",
-            section_id_pattern="STKRG-STAK-xxx",
+            section_id="STKRE-STAK-LST",
+            section_id_pattern="STKRE-STAK-xxx",
             kind=SomMetaKind.LIST,
             type_name="StakeholderRegisterEntry",
             serialization_order=8,
@@ -46646,8 +46646,8 @@ def _mc_StandardsComplianceSection(s):
          SomMetaNode(
             class_name="StandardsComplianceSection",
             member_name="itStandards",
-            section_id="ISCE-ITST-LST",
-            section_id_pattern="ISCE-ITST-xxx",
+            section_id="ITSTCOEN-ITST-LST",
+            section_id_pattern="ITSTCOEN-ITST-xxx",
             kind=SomMetaKind.LIST,
             type_name="ItStandardComplianceEntry",
             serialization_order=2,
@@ -46658,8 +46658,8 @@ def _mc_StandardsComplianceSection(s):
          SomMetaNode(
             class_name="StandardsComplianceSection",
             member_name="industryProtocols",
-            section_id="IPCE-INDU-LST",
-            section_id_pattern="IPCE-INDU-xxx",
+            section_id="INPRCOEN-INDU-LST",
+            section_id_pattern="INPRCOEN-INDU-xxx",
             kind=SomMetaKind.LIST,
             type_name="IndustryProtocolComplianceEntry",
             serialization_order=3,
@@ -46670,8 +46670,8 @@ def _mc_StandardsComplianceSection(s):
          SomMetaNode(
             class_name="StandardsComplianceSection",
             member_name="interfaceSpecifications",
-            section_id="INSPEN-INTE-LST",
-            section_id_pattern="INSPEN-INTE-xxx",
+            section_id="INTSPEENT-INTE-LST",
+            section_id_pattern="INTSPEENT-INTE-xxx",
             kind=SomMetaKind.LIST,
             type_name="InterfaceSpecificationEntry",
             serialization_order=4,
@@ -46682,8 +46682,8 @@ def _mc_StandardsComplianceSection(s):
          SomMetaNode(
             class_name="StandardsComplianceSection",
             member_name="regulatoryCompliance",
-            section_id="RECOEN-REGU-LST",
-            section_id_pattern="RECOEN-REGU-xxx",
+            section_id="RCE-REGU-LST",
+            section_id_pattern="RCE-REGU-xxx",
             kind=SomMetaKind.LIST,
             type_name="RegulatoryComplianceEntry",
             serialization_order=5,
@@ -46694,8 +46694,8 @@ def _mc_StandardsComplianceSection(s):
          SomMetaNode(
             class_name="StandardsComplianceSection",
             member_name="securityStandards",
-            section_id="SSCE-SECU-LST",
-            section_id_pattern="SSCE-SECU-xxx",
+            section_id="SESTCOEN-SECU-LST",
+            section_id_pattern="SESTCOEN-SECU-xxx",
             kind=SomMetaKind.LIST,
             type_name="SecurityStandardComplianceEntry",
             serialization_order=6,
@@ -46802,8 +46802,8 @@ def _mc_SteeringCommittee(s):
          SomMetaNode(
             class_name="SteeringCommittee",
             member_name="members",
-            section_id="COMMB-MEMB-LST",
-            section_id_pattern="COMMB-MEMB-xxx",
+            section_id="CME-MEMB-LST",
+            section_id_pattern="CME-MEMB-xxx",
             kind=SomMetaKind.LIST,
             type_name="CommitteeMemberEntry",
             serialization_order=2,
@@ -46827,8 +46827,8 @@ def _mc_StepUpAuthenticationPolicy(s):
          SomMetaNode(
             class_name="StepUpAuthenticationPolicy",
             member_name="stepUpDetails",
-            section_id="STEPU-STEP-LST",
-            section_id_pattern="STEPU-STEP-xxx",
+            section_id="SUAP-STEP-LST",
+            section_id_pattern="SUAP-STEP-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=1,
@@ -47270,8 +47270,8 @@ def _mc_SupportDeliverables(s):
          SomMetaNode(
             class_name="SupportDeliverables",
             member_name="items",
-            section_id="SPDLV-ITEM-LST",
-            section_id_pattern="SPDLV-ITEM-xxx",
+            section_id="DLVEN-ITEM-LST",
+            section_id_pattern="DLVEN-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="DeliverableEntry",
             serialization_order=1,
@@ -47500,8 +47500,8 @@ def _mc_SystemBusinessCriticality(s):
          SomMetaNode(
             class_name="SystemBusinessCriticality",
             member_name="businessUnits",
-            section_id="SBUE-BUSI-LST",
-            section_id_pattern="SBUE-BUSI-xxx",
+            section_id="SYBUUNEN-BUSI-LST",
+            section_id_pattern="SYBUUNEN-BUSI-xxx",
             kind=SomMetaKind.LIST,
             type_name="SystemBusinessUnitEntry",
             serialization_order=3,
@@ -47512,8 +47512,8 @@ def _mc_SystemBusinessCriticality(s):
          SomMetaNode(
             class_name="SystemBusinessCriticality",
             member_name="supportedProcesses",
-            section_id="SBPE-SUPP-LST",
-            section_id_pattern="SBPE-SUPP-xxx",
+            section_id="SYBUPREN-SUPP-LST",
+            section_id_pattern="SYBUPREN-SUPP-xxx",
             kind=SomMetaKind.LIST,
             type_name="SystemBusinessProcessEntry",
             serialization_order=4,
@@ -47761,8 +47761,8 @@ def _mc_SystemCostAnalysis(s):
          SomMetaNode(
             class_name="SystemCostAnalysis",
             member_name="nonFinancialBenefits",
-            section_id="NONFI-NONF-LST",
-            section_id_pattern="NONFI-NONF-xxx",
+            section_id="SYCOAN-NONF-LST",
+            section_id_pattern="SYCOAN-NONF-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=5,
@@ -47804,8 +47804,8 @@ def _mc_SystemDataScope(s):
          SomMetaNode(
             class_name="SystemDataScope",
             member_name="entities",
-            section_id="DEME-ENTI-LST",
-            section_id_pattern="DEME-ENTI-xxx",
+            section_id="DAENMIEN-ENTI-LST",
+            section_id_pattern="DAENMIEN-ENTI-xxx",
             kind=SomMetaKind.LIST,
             type_name="DataEntityMigrationEntry",
             serialization_order=3,
@@ -47816,8 +47816,8 @@ def _mc_SystemDataScope(s):
          SomMetaNode(
             class_name="SystemDataScope",
             member_name="knownQualityIssues",
-            section_id="KNOWN-KNOW-LST",
-            section_id_pattern="KNOWN-KNOW-xxx",
+            section_id="SYDASC-KNOW-LST",
+            section_id_pattern="SYDASC-KNOW-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=4,
@@ -47966,8 +47966,8 @@ def _mc_SystemDescription(s):
          SomMetaNode(
             class_name="SystemDescription",
             member_name="userCategories",
-            section_id="USCA-USER-LST",
-            section_id_pattern="USCA-USER-xxx",
+            section_id="UCE-USER-LST",
+            section_id_pattern="UCE-USER-xxx",
             kind=SomMetaKind.LIST,
             type_name="UserCategoryEntry",
             serialization_order=5,
@@ -48127,8 +48127,8 @@ def _mc_SystemErrorDisplay(s):
          SomMetaNode(
             class_name="SystemErrorDisplay",
             member_name="errorPageDesigns",
-            section_id="EPDE-ERRO-LST",
-            section_id_pattern="EPDE-ERRO-xxx",
+            section_id="SYERDI-ERRO-LST",
+            section_id_pattern="SYERDI-ERRO-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=6,
@@ -48138,8 +48138,8 @@ def _mc_SystemErrorDisplay(s):
          SomMetaNode(
             class_name="SystemErrorDisplay",
             member_name="errorCodes",
-            section_id="SECE-ERRO-LST",
-            section_id_pattern="SECE-ERRO-xxx",
+            section_id="SYERCOEN-ERRO-LST",
+            section_id_pattern="SYERCOEN-ERRO-xxx",
             kind=SomMetaKind.LIST,
             type_name="SystemErrorCodeEntry",
             serialization_order=7,
@@ -48287,8 +48287,8 @@ def _mc_SystemKnowledgeTransfer(s):
          SomMetaNode(
             class_name="SystemKnowledgeTransfer",
             member_name="criticalKnowledgeAreas",
-            section_id="CRITI-CRIT-LST",
-            section_id_pattern="CRITI-CRIT-xxx",
+            section_id="SYKNTR-CRIT-LST",
+            section_id_pattern="SYKNTR-CRIT-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=1,
@@ -48352,8 +48352,8 @@ def _mc_SystemMigrationPlan(s):
          SomMetaNode(
             class_name="SystemMigrationPlan",
             member_name="risks",
-            section_id="SMRE-RISK-LST",
-            section_id_pattern="SMRE-RISK-xxx",
+            section_id="SYMIRIEN-RISK-LST",
+            section_id_pattern="SYMIRIEN-RISK-xxx",
             kind=SomMetaKind.LIST,
             type_name="SystemMigrationRiskEntry",
             serialization_order=3,
@@ -48419,8 +48419,8 @@ def _mc_SystemOperation(s):
          SomMetaNode(
             class_name="SystemOperation",
             member_name="maintenanceProcedures",
-            section_id="MAINT-MAIN-LST",
-            section_id_pattern="MAINT-MAIN-xxx",
+            section_id="SO-MAIN-LST",
+            section_id_pattern="SO-MAIN-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=2,
@@ -48653,8 +48653,8 @@ def _mc_SystemQualityGoals(s):
          SomMetaNode(
             class_name="SystemQualityGoals",
             member_name="attributeInterdependencies",
-            section_id="ATTRI-ATTR-LST",
-            section_id_pattern="ATTRI-ATTR-xxx",
+            section_id="SYQG-ATTR-LST",
+            section_id_pattern="SYQG-ATTR-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=8,
@@ -48886,8 +48886,8 @@ def _mc_SystemReplacementStrategy(s):
          SomMetaNode(
             class_name="SystemReplacementStrategy",
             member_name="predecessorDependencies",
-            section_id="PREDE-PRED-LST",
-            section_id_pattern="PREDE-PRED-xxx",
+            section_id="SYREST-PRED-LST",
+            section_id_pattern="SYREST-PRED-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=4,
@@ -49263,8 +49263,8 @@ def _mc_SystemTaskEntry(s):
          SomMetaNode(
             class_name="SystemTaskEntry",
             member_name="workflowSteps",
-            section_id="SYSTE-WORK-LST",
-            section_id_pattern="SYSTE-WORK-xxx",
+            section_id="SYTS-WORK-LST",
+            section_id_pattern="SYTS-WORK-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=5,
@@ -49274,8 +49274,8 @@ def _mc_SystemTaskEntry(s):
          SomMetaNode(
             class_name="SystemTaskEntry",
             member_name="variationsAndExceptions",
-            section_id="VARIA-VARI-LST",
-            section_id_pattern="VARIA-VARI-xxx",
+            section_id="SYTS-VARI-LST",
+            section_id_pattern="SYTS-VARI-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=6,
@@ -49327,8 +49327,8 @@ def _mc_SystemTechnicalAssessment(s):
          SomMetaNode(
             class_name="SystemTechnicalAssessment",
             member_name="knownIssues",
-            section_id="KIE-KNOW-LST",
-            section_id_pattern="KIE-KNOW-xxx",
+            section_id="SYTEAS-KNOW-LST",
+            section_id_pattern="SYTEAS-KNOW-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=4,
@@ -49338,8 +49338,8 @@ def _mc_SystemTechnicalAssessment(s):
          SomMetaNode(
             class_name="SystemTechnicalAssessment",
             member_name="securityConcerns",
-            section_id="SECUR-SECU-LST",
-            section_id_pattern="SECUR-SECU-xxx",
+            section_id="SYTEAS-SECU-LST",
+            section_id_pattern="SYTEAS-SECU-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=5,
@@ -49571,8 +49571,8 @@ def _mc_SystemUserImpact(s):
          SomMetaNode(
             class_name="SystemUserImpact",
             member_name="userGroups",
-            section_id="UGIE-USER-LST",
-            section_id_pattern="UGIE-USER-xxx",
+            section_id="USGRIMEN-USER-LST",
+            section_id_pattern="USGRIMEN-USER-xxx",
             kind=SomMetaKind.LIST,
             type_name="UserGroupImpactEntry",
             serialization_order=4,
@@ -49655,8 +49655,8 @@ def _mc_TabBarDefinitionEntry(s):
          SomMetaNode(
             class_name="TabBarDefinitionEntry",
             member_name="tabs",
-            section_id="TAITEN-TABS-LST",
-            section_id_pattern="TAITEN-TABS-xxx",
+            section_id="TIE-TABS-LST",
+            section_id_pattern="TIE-TABS-xxx",
             kind=SomMetaKind.LIST,
             type_name="TabItemEntry",
             serialization_order=3,
@@ -50027,8 +50027,8 @@ def _mc_TechnicalEnvironment(s):
          SomMetaNode(
             class_name="TechnicalEnvironment",
             member_name="datacenters",
-            section_id="DATAC-DATA-LST",
-            section_id_pattern="DATAC-DATA-xxx",
+            section_id="TEEN-DATA-LST",
+            section_id_pattern="TEEN-DATA-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=6,
@@ -50056,8 +50056,8 @@ def _mc_TechnicalEnvironment(s):
          SomMetaNode(
             class_name="TechnicalEnvironment",
             member_name="technologyStandards",
-            section_id="TESTEN-TECH-LST",
-            section_id_pattern="TESTEN-TECH-xxx",
+            section_id="TSE-TECH-LST",
+            section_id_pattern="TSE-TECH-xxx",
             kind=SomMetaKind.LIST,
             type_name="TechnologyStandardEntry",
             serialization_order=9,
@@ -50077,8 +50077,8 @@ def _mc_TechnicalEnvironment(s):
          SomMetaNode(
             class_name="TechnicalEnvironment",
             member_name="integrationConstraints",
-            section_id="INCOE1-INTE-LST",
-            section_id_pattern="INCOE1-INTE-xxx",
+            section_id="INTCONENT-INTE-LST",
+            section_id_pattern="INTCONENT-INTE-xxx",
             kind=SomMetaKind.LIST,
             type_name="IntegrationConstraintEntry",
             serialization_order=11,
@@ -50101,8 +50101,8 @@ def _mc_TechnicalEnvironmentNetwork(s):
          SomMetaNode(
             class_name="TechnicalEnvironmentNetwork",
             member_name="devopsStandards",
-            section_id="DEVOP-DEVO-LST",
-            section_id_pattern="DEVOP-DEVO-xxx",
+            section_id="TEENNE-DEVO-LST",
+            section_id_pattern="TEENNE-DEVO-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=1,
@@ -50112,8 +50112,8 @@ def _mc_TechnicalEnvironmentNetwork(s):
          SomMetaNode(
             class_name="TechnicalEnvironmentNetwork",
             member_name="observabilityRequirements",
-            section_id="OBSER-OBSE-LST",
-            section_id_pattern="OBSER-OBSE-xxx",
+            section_id="TEENNE-OBSE-LST",
+            section_id_pattern="TEENNE-OBSE-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=2,
@@ -50530,8 +50530,8 @@ def _mc_TechnicalPainPoints(s):
          SomMetaNode(
             class_name="TechnicalPainPoints",
             member_name="items",
-            section_id="TEPAPO-ITEM-LST",
-            section_id_pattern="TEPAPO-ITEM-xxx",
+            section_id="PAPE-ITEM-LST",
+            section_id_pattern="PAPE-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="PainPointEntry",
             serialization_order=2,
@@ -51897,8 +51897,8 @@ def _mc_TrainingDeliverableRequirements(s):
          SomMetaNode(
             class_name="TrainingDeliverableRequirements",
             member_name="trainingModules",
-            section_id="TRMOEN-TRAI-LST",
-            section_id_pattern="TRMOEN-TRAI-xxx",
+            section_id="TME-TRAI-LST",
+            section_id_pattern="TME-TRAI-xxx",
             kind=SomMetaKind.LIST,
             type_name="TrainingModuleEntry",
             serialization_order=2,
@@ -51922,8 +51922,8 @@ def _mc_TrainingDeliverables(s):
          SomMetaNode(
             class_name="TrainingDeliverables",
             member_name="items",
-            section_id="TRDLV-ITEM-LST",
-            section_id_pattern="TRDLV-ITEM-xxx",
+            section_id="DLVEN-ITEM-LST",
+            section_id_pattern="DLVEN-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="DeliverableEntry",
             serialization_order=1,
@@ -52067,8 +52067,8 @@ def _mc_TrainingRequirements(s):
          SomMetaNode(
             class_name="TrainingRequirements",
             member_name="initialTraining",
-            section_id="INITR-INIT-LST",
-            section_id_pattern="INITR-INIT-xxx",
+            section_id="ITE-INIT-LST",
+            section_id_pattern="ITE-INIT-xxx",
             kind=SomMetaKind.LIST,
             type_name="InitialTrainingEntry",
             serialization_order=1,
@@ -52590,8 +52590,8 @@ def _mc_TranslationProcess(s):
          SomMetaNode(
             class_name="TranslationProcess",
             member_name="vendors",
-            section_id="TRVEEN-VEND-LST",
-            section_id_pattern="TRVEEN-VEND-xxx",
+            section_id="TVE-VEND-LST",
+            section_id_pattern="TVE-VEND-xxx",
             kind=SomMetaKind.LIST,
             type_name="TranslationVendorEntry",
             serialization_order=6,
@@ -53016,8 +53016,8 @@ def _mc_UiComponentEntry(s):
          SomMetaNode(
             class_name="UiComponentEntry",
             member_name="states",
-            section_id="CMST-STAT-LST",
-            section_id_pattern="CMST-STAT-xxx",
+            section_id="COMSTAENT-STAT-LST",
+            section_id_pattern="COMSTAENT-STAT-xxx",
             kind=SomMetaKind.LIST,
             type_name="ComponentStateEntry",
             serialization_order=18,
@@ -53028,8 +53028,8 @@ def _mc_UiComponentEntry(s):
          SomMetaNode(
             class_name="UiComponentEntry",
             member_name="variants",
-            section_id="CMVN-VARI-LST",
-            section_id_pattern="CMVN-VARI-xxx",
+            section_id="CVE-VARI-LST",
+            section_id_pattern="CVE-VARI-xxx",
             kind=SomMetaKind.LIST,
             type_name="ComponentVariantEntry",
             serialization_order=19,
@@ -53131,8 +53131,8 @@ def _mc_UiComponents(s):
          SomMetaNode(
             class_name="UiComponents",
             member_name="componentSpecs",
-            section_id="UICOEN-COMP-LST",
-            section_id_pattern="UICOEN-COMP-xxx",
+            section_id="UICOMENT-COMP-LST",
+            section_id_pattern="UICOMENT-COMP-xxx",
             kind=SomMetaKind.LIST,
             type_name="UiComponentEntry",
             serialization_order=5,
@@ -53768,8 +53768,8 @@ def _mc_UserCategories(s):
          SomMetaNode(
             class_name="UserCategories",
             member_name="categories",
-            section_id="USCA-CATE-LST",
-            section_id_pattern="USCA-CATE-xxx",
+            section_id="UCE-CATE-LST",
+            section_id_pattern="UCE-CATE-xxx",
             kind=SomMetaKind.LIST,
             type_name="UserCategoryEntry",
             serialization_order=2,
@@ -54146,8 +54146,8 @@ def _mc_UserJourney(s):
          SomMetaNode(
             class_name="UserJourney",
             member_name="keyTouchpoints",
-            section_id="KEYTO-KEYT-LST",
-            section_id_pattern="KEYTO-KEYT-xxx",
+            section_id="UJ-KEYT-LST",
+            section_id_pattern="UJ-KEYT-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=3,
@@ -54157,8 +54157,8 @@ def _mc_UserJourney(s):
          SomMetaNode(
             class_name="UserJourney",
             member_name="painPoints",
-            section_id="USERJ-PAIN-LST",
-            section_id_pattern="USERJ-PAIN-xxx",
+            section_id="UJ-PAIN-LST",
+            section_id_pattern="UJ-PAIN-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=4,
@@ -54523,8 +54523,8 @@ def _mc_UserPersonaDetails(s):
          SomMetaNode(
             class_name="UserPersonaDetails",
             member_name="representativeQuotes",
-            section_id="REPRE-REPR-LST",
-            section_id_pattern="REPRE-REPR-xxx",
+            section_id="UPD-REPR-LST",
+            section_id_pattern="UPD-REPR-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=6,
@@ -54765,8 +54765,8 @@ def _mc_UtilityNavigation(s):
          SomMetaNode(
             class_name="UtilityNavigation",
             member_name="items",
-            section_id="UNIE-ITEM-LST",
-            section_id_pattern="UNIE-ITEM-xxx",
+            section_id="UTNAITEN-ITEM-LST",
+            section_id_pattern="UTNAITEN-ITEM-xxx",
             kind=SomMetaKind.LIST,
             type_name="UtilityNavigationItemEntry",
             serialization_order=1,
@@ -54821,8 +54821,8 @@ def _mc_UtilityNavigationItemEntry(s):
          SomMetaNode(
             class_name="UtilityNavigationItemEntry",
             member_name="menuItems",
-            section_id="UMIE-MENU-LST",
-            section_id_pattern="UMIE-MENU-xxx",
+            section_id="UTMEITEN-MENU-LST",
+            section_id_pattern="UTMEITEN-MENU-xxx",
             kind=SomMetaKind.LIST,
             type_name="UtilityMenuItemEntry",
             serialization_order=4,
@@ -54908,8 +54908,8 @@ def _mc_ValidationFeedback(s):
          SomMetaNode(
             class_name="ValidationFeedback",
             member_name="messageTemplates",
-            section_id="VAMETE-MESS-LST",
-            section_id_pattern="VAMETE-MESS-xxx",
+            section_id="VMT-MESS-LST",
+            section_id_pattern="VMT-MESS-xxx",
             kind=SomMetaKind.LIST,
             type_name="ValidationMessageTemplate",
             serialization_order=6,
@@ -54920,8 +54920,8 @@ def _mc_ValidationFeedback(s):
          SomMetaNode(
             class_name="ValidationFeedback",
             member_name="fieldValidationRules",
-            section_id="FIELD-FIEL-LST",
-            section_id_pattern="FIELD-FIEL-xxx",
+            section_id="VAFE-FIEL-LST",
+            section_id_pattern="VAFE-FIEL-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=7,
@@ -54983,8 +54983,8 @@ def _mc_ValueProposition(s):
          SomMetaNode(
             class_name="ValueProposition",
             member_name="kpis",
-            section_id="KPIEN-KPIS-LST",
-            section_id_pattern="KPIEN-KPIS-xxx",
+            section_id="VALPX-KPIS-LST",
+            section_id_pattern="VALPX-KPIS-xxx",
             kind=SomMetaKind.LIST,
             type_name="String",
             serialization_order=4,
@@ -55363,8 +55363,8 @@ def _mc_WcagCompliance(s):
          SomMetaNode(
             class_name="WcagCompliance",
             member_name="successCriteria",
-            section_id="WSCE-SUCC-LST",
-            section_id_pattern="WSCE-SUCC-xxx",
+            section_id="WCSUCREN-SUCC-LST",
+            section_id_pattern="WCSUCREN-SUCC-xxx",
             kind=SomMetaKind.LIST,
             type_name="WcagSuccessCriterionEntry",
             serialization_order=5,
@@ -56775,7 +56775,7 @@ class AlertingConfigurationNav(SomMetaRef):
 
     @property
     def alertRules(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ALRUEN-ALER-LST", AlertRuleEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/ALERULENT-ALER-LST", AlertRuleEntryNav)
 
     @property
     def escalationPolicies(self):
@@ -57064,7 +57064,7 @@ class ApplicableRegulationEntryNav(SomMetaRef):
 
     @property
     def complianceMeasures(self):
-        return SomListMetaRef(self.tree, f"{self.path}/COMPL-COMP-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/ARE-COMP-LST", SomMetaRef)
 
 
 class ApplicationDiagnosticsNav(SomMetaRef):
@@ -57341,15 +57341,15 @@ class AssumptionConstraintDependencyRegisterNav(SomMetaRef):
 
     @property
     def assumptions(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ACRG-ASMP-LST", AssumptionRegisterEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/ASMRE-ASMP-LST", AssumptionRegisterEntryNav)
 
     @property
     def constraints(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ACRG-CONS-LST", ConstraintRegisterEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/CONRE-CONS-LST", ConstraintRegisterEntryNav)
 
     @property
     def dependencies(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ACRG-DEPS-LST", DependencyRegisterEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DEPRE-DEPS-LST", DependencyRegisterEntryNav)
 
 
 class AssumptionRegisterEntryNav(SomMetaRef):
@@ -57871,7 +57871,7 @@ class BackupAndRecoverySectionNav(SomMetaRef):
 
     @property
     def backupPolicies(self):
-        return SomListMetaRef(self.tree, f"{self.path}/BAPOEN-BACK-LST", BackupPolicyEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/BPE-BACK-LST", BackupPolicyEntryNav)
 
     @property
     def rpoRtoRequirements(self):
@@ -58193,7 +58193,7 @@ class BoundaryAssumptionsNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/BOASEN-ITEM-LST", BoundaryAssumptionEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/BAE-ITEM-LST", BoundaryAssumptionEntryNav)
 
 
 class BoundaryInteractionPatternsNav(SomMetaRef):
@@ -58246,7 +58246,7 @@ class BreakpointConfigurationNav(SomMetaRef):
 
     @property
     def breakpoints(self):
-        return SomListMetaRef(self.tree, f"{self.path}/BRE-BREA-LST", BreakpointEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/BE-BREA-LST", BreakpointEntryNav)
 
 
 class BreakpointEntryNav(SomMetaRef):
@@ -58656,7 +58656,7 @@ class BusinessPainPointsNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/BUPAPO-ITEM-LST", PainPointEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/PAPE-ITEM-LST", PainPointEntryNav)
 
 
 class BusinessProcessDescriptionsNav(SomMetaRef):
@@ -59390,15 +59390,15 @@ class CiCdPipelineConfigurationNav(SomMetaRef):
 
     @property
     def stages(self):
-        return SomListMetaRef(self.tree, f"{self.path}/PISTEN-STAG-LST", PipelineStageEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/PSE-STAG-LST", PipelineStageEntryNav)
 
     @property
     def jobs(self):
-        return SomListMetaRef(self.tree, f"{self.path}/PIJOEN-JOBS-LST", PipelineJobEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/PJE-JOBS-LST", PipelineJobEntryNav)
 
     @property
     def environments(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DEENEN-ENVI-LST", DeploymentEnvironmentEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DEE-ENVI-LST", DeploymentEnvironmentEntryNav)
 
 
 class CiCdPipelineRequirementsNav(SomMetaRef):
@@ -59566,15 +59566,15 @@ class ClientRequirementsSectionNav(SomMetaRef):
 
     @property
     def browserRequirements(self):
-        return SomListMetaRef(self.tree, f"{self.path}/BRREEN-BROW-LST", BrowserRequirementEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/BROREQENT-BROW-LST", BrowserRequirementEntryNav)
 
     @property
     def desktopOsRequirements(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DORE1-DESK-LST", DesktopOsRequirementEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DEOSREEN-DESK-LST", DesktopOsRequirementEntryNav)
 
     @property
     def mobileRequirements(self):
-        return SomListMetaRef(self.tree, f"{self.path}/MDRE-MOBI-LST", MobileDeviceRequirementEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/MODEREEN-MOBI-LST", MobileDeviceRequirementEntryNav)
 
     @property
     def displayRequirements(self):
@@ -60025,19 +60025,19 @@ class CompatibilityRequirementsSectionNav(SomMetaRef):
 
     @property
     def osCompatibility(self):
-        return SomListMetaRef(self.tree, f"{self.path}/OSCOEN-OSCO-LST", OsCompatibilityEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/OCE-OSCO-LST", OsCompatibilityEntryNav)
 
     @property
     def browserCompatibility(self):
-        return SomListMetaRef(self.tree, f"{self.path}/BRCOEN-BROW-LST", BrowserCompatibilityEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/BROCOMENT-BROW-LST", BrowserCompatibilityEntryNav)
 
     @property
     def databaseCompatibility(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DACOEN-DATA-LST", DatabaseCompatibilityEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DATCOMENT-DATA-LST", DatabaseCompatibilityEntryNav)
 
     @property
     def enterpriseSystemCompatibility(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ESCE-ENTE-LST", EnterpriseSystemCompatibilityEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/ENSYCOEN-ENTE-LST", EnterpriseSystemCompatibilityEntryNav)
 
     @property
     def apiCompatibility(self):
@@ -60045,15 +60045,15 @@ class CompatibilityRequirementsSectionNav(SomMetaRef):
 
     @property
     def legacyCompatibility(self):
-        return SomListMetaRef(self.tree, f"{self.path}/LECOEN-LEGA-LST", LegacyCompatibilityEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/LCE-LEGA-LST", LegacyCompatibilityEntryNav)
 
     @property
     def mobileCompatibility(self):
-        return SomListMetaRef(self.tree, f"{self.path}/MOCOEN-MOBI-LST", MobileCompatibilityEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/MOBCOMENT-MOBI-LST", MobileCompatibilityEntryNav)
 
     @property
     def thirdPartyCompatibility(self):
-        return SomListMetaRef(self.tree, f"{self.path}/TPCE-THIR-LST", ThirdPartyCompatibilityEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/THPACOEN-THIR-LST", ThirdPartyCompatibilityEntryNav)
 
     @property
     def dataFormatCompatibility(self):
@@ -61233,11 +61233,11 @@ class CurrentArchitectureNav(SomMetaRef):
 
     @property
     def integrationPatterns(self):
-        return SomListMetaRef(self.tree, f"{self.path}/IPE-INTE-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/CARCH-INTE-LST", SomMetaRef)
 
     @property
     def sharedServices(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SHARE-SHAR-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/CARCH-SHAR-LST", SomMetaRef)
 
 
 class CurrentBusinessProcessNav(SomMetaRef):
@@ -61476,7 +61476,7 @@ class CurrentWorkflowEntryNav(SomMetaRef):
 
     @property
     def actors(self):
-        return SomListMetaRef(self.tree, f"{self.path}/WFAC-ACTO-LST", WorkflowActorEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/WAE-ACTO-LST", WorkflowActorEntryNav)
 
     @property
     def inputs(self):
@@ -63692,7 +63692,7 @@ class DecisionPointEntryResolutionNav(SomMetaRef):
 
     @property
     def options(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DEOPEN-OPTI-LST", DecisionOptionEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DOE-OPTI-LST", DecisionOptionEntryNav)
 
 
 class DecisionPointsNav(SomMetaRef):
@@ -63711,7 +63711,7 @@ class DecisionPointsNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DEPOEN-ITEM-LST", DecisionPointEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DPE-ITEM-LST", DecisionPointEntryNav)
 
 
 class DeepLinkPatternEntryNav(SomMetaRef):
@@ -64395,15 +64395,15 @@ class DesignPatternsAndStandardsNav(SomMetaRef):
 
     @property
     def codingStandards(self):
-        return SomListMetaRef(self.tree, f"{self.path}/COSTEN-CODI-LST", CodingStandardEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/CSE-CODI-LST", CodingStandardEntryNav)
 
     @property
     def developmentConventions(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DECOEN-DEVE-LST", DevelopmentConventionEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DCE-DEVE-LST", DevelopmentConventionEntryNav)
 
     @property
     def industryStandards(self):
-        return SomListMetaRef(self.tree, f"{self.path}/INSTEN-INDU-LST", IndustryStandardEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/ISE-INDU-LST", IndustryStandardEntryNav)
 
     @property
     def codeQualityMetrics(self):
@@ -64591,7 +64591,7 @@ class DevelopmentEnvironmentNav(SomMetaRef):
 
     @property
     def ideRequirements(self):
-        return SomListMetaRef(self.tree, f"{self.path}/IDREEN-IDER-LST", IdeRequirementEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/IRE-IDER-LST", IdeRequirementEntryNav)
 
     @property
     def buildTools(self):
@@ -65049,11 +65049,11 @@ class DocumentControlNav(SomMetaRef):
 
     @property
     def revisionHistory(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RVHST-REVS-LST", RevisionEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/RVENT-REVS-LST", RevisionEntryNav)
 
     @property
     def approvals(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DOCTL-APRV-LST", ApprovalRecordNav)
+        return SomListMetaRef(self.tree, f"{self.path}/APREC-APRV-LST", ApprovalRecordNav)
 
     @property
     def referenceDocuments(self):
@@ -65113,7 +65113,7 @@ class DocumentationDeliverablesNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DCDLV-ITEM-LST", DeliverableEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DLVEN-ITEM-LST", DeliverableEntryNav)
 
 
 class DocumentationQualityCriteriaNav(SomMetaRef):
@@ -65263,7 +65263,7 @@ class DomainBusinessRulesNav(SomMetaRef):
 
     @property
     def rules(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DOBIRU-RULE-LST", DomainBusinessRuleEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DBRE-RULE-LST", DomainBusinessRuleEntryNav)
 
 
 class DomainEnumEntryNav(SomMetaRef):
@@ -65398,7 +65398,7 @@ class DomainProcessesNav(SomMetaRef):
 
     @property
     def processes(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DOPR-PROC-LST", DomainProcessEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DOPREN-PROC-LST", DomainProcessEntryNav)
 
 
 class DomainTermEntryNav(SomMetaRef):
@@ -65914,7 +65914,7 @@ class EquipmentRequirementsNav(SomMetaRef):
 
     @property
     def inputDevices(self):
-        return SomListMetaRef(self.tree, f"{self.path}/INPDE-INPU-LST", InputDeviceEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/IDE-INPU-LST", InputDeviceEntryNav)
 
     @property
     def peripherals(self):
@@ -66088,7 +66088,7 @@ class ErrorRecoveryNav(SomMetaRef):
 
     @property
     def recoveryFlows(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RECOV-RECO-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/ERRE-RECO-LST", SomMetaRef)
 
     @property
     def recoveryScenarios(self):
@@ -66455,7 +66455,7 @@ class ExportFormatEntryNav(SomMetaRef):
 
     @property
     def fieldMappings(self):
-        return SomListMetaRef(self.tree, f"{self.path}/EFME-FIEL-LST", ExportFieldMappingEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/EXFIMAEN-FIEL-LST", ExportFieldMappingEntryNav)
 
 
 class ExportSizeSettingsNav(SomMetaRef):
@@ -66546,7 +66546,7 @@ class ExternalActorEntryNav(SomMetaRef):
 
     @property
     def interactionScenarios(self):
-        return SomListMetaRef(self.tree, f"{self.path}/INTER-INTE-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/EAE-INTE-LST", SomMetaRef)
 
 
 class ExternalActorsNav(SomMetaRef):
@@ -66580,7 +66580,7 @@ class ExternalConnectivitySectionNav(SomMetaRef):
 
     @property
     def partnerConnections(self):
-        return SomListMetaRef(self.tree, f"{self.path}/EPCE-PART-LST", ExternalPartnerConnectionEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/EXPACOEN-PART-LST", ExternalPartnerConnectionEntryNav)
 
     @property
     def cloudServices(self):
@@ -66666,7 +66666,7 @@ class ExternalInterfacesNav(SomMetaRef):
 
     @property
     def interfaces(self):
-        return SomListMetaRef(self.tree, f"{self.path}/EXINEN-INTE-LST", ExternalInterfaceEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/EIE-INTE-LST", ExternalInterfaceEntryNav)
 
 
 class ExternalNetworkRequirementsNav(SomMetaRef):
@@ -66853,7 +66853,7 @@ class FeatureDependenciesNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/FEDEEN-ITEM-LST", FeatureDependencyEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/FDE-ITEM-LST", FeatureDependencyEntryNav)
 
 
 class FeatureDependencyEntryNav(SomMetaRef):
@@ -67012,7 +67012,7 @@ class FeaturePriorityRegisterNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/FEPREN-ITEM-LST", FeaturePriorityEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/FPE-ITEM-LST", FeaturePriorityEntryNav)
 
 
 class FeatureStageMappingNav(SomMetaRef):
@@ -67058,7 +67058,7 @@ class FeatureStageMatrixNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/FESTM1-ITEM-LST", FeatureStageMappingNav)
+        return SomListMetaRef(self.tree, f"{self.path}/FSM-ITEM-LST", FeatureStageMappingNav)
 
 
 class FeatureStakeholdersNav(SomMetaRef):
@@ -67528,7 +67528,7 @@ class FunctionalResponsibilitiesNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/REEN1-ITEM-LST", ResponsibilityEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/RE-ITEM-LST", ResponsibilityEntryNav)
 
 
 class FunctionalSuitabilityCharacteristicNav(SomMetaRef):
@@ -67631,7 +67631,7 @@ class GlossaryAndAbbreviationsNav(SomMetaRef):
 
     @property
     def glossary(self):
-        return SomListMetaRef(self.tree, f"{self.path}/GLOSS-ENTR-LST", GlossaryEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/GLENT-ENTR-LST", GlossaryEntryNav)
 
 
 class GlossaryEntryNav(SomMetaRef):
@@ -68385,7 +68385,7 @@ class InformationArchitectureNav(SomMetaRef):
 
     @property
     def globalEntryPoints(self):
-        return SomListMetaRef(self.tree, f"{self.path}/GLOBA-GLOB-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/IA-GLOB-LST", SomMetaRef)
 
     @property
     def architectureDiagram(self):
@@ -68664,7 +68664,7 @@ class IntegrationHealthSummaryNav(SomMetaRef):
 
     @property
     def fragilePoints(self):
-        return SomListMetaRef(self.tree, f"{self.path}/FRAGI-FRAG-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/INHESU-FRAG-LST", SomMetaRef)
 
 
 class IntegrationPointEntryNav(SomMetaRef):
@@ -68942,7 +68942,7 @@ class InterfaceBusinessContextNav(SomMetaRef):
 
     @property
     def dependentProcesses(self):
-        return SomListMetaRef(self.tree, f"{self.path}/IBPE-DEPE-LST", InterfaceBusinessProcessEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/INBUPREN-DEPE-LST", InterfaceBusinessProcessEntryNav)
 
 
 class InterfaceBusinessProcessEntryNav(SomMetaRef):
@@ -68979,15 +68979,15 @@ class InterfaceDataSpecNav(SomMetaRef):
 
     @property
     def dataEntities(self):
-        return SomListMetaRef(self.tree, f"{self.path}/IDEE-DATA-LST", InterfaceDataEntityEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/INDAENEN-DATA-LST", InterfaceDataEntityEntryNav)
 
     @property
     def mappingRules(self):
-        return SomListMetaRef(self.tree, f"{self.path}/MAPPI-MAPP-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/INDASP-MAPP-LST", SomMetaRef)
 
     @property
     def validationRules(self):
-        return SomListMetaRef(self.tree, f"{self.path}/VALID-VALI-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/INDASP-VALI-LST", SomMetaRef)
 
 
 class InterfaceErrorHandlingNav(SomMetaRef):
@@ -69014,7 +69014,7 @@ class InterfaceErrorHandlingNav(SomMetaRef):
 
     @property
     def errorProcedures(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ERROR-ERRO-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/INERHA-ERRO-LST", SomMetaRef)
 
 
 class InterfaceGovernanceNav(SomMetaRef):
@@ -69075,7 +69075,7 @@ class InterfaceOperationalNav(SomMetaRef):
 
     @property
     def dependencies(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DEPEN-DEPE-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/INOP-DEPE-LST", SomMetaRef)
 
 
 class InterfaceSecurityNav(SomMetaRef):
@@ -69152,7 +69152,7 @@ class InterfaceTechnicalSpecNav(SomMetaRef):
 
     @property
     def operations(self):
-        return SomListMetaRef(self.tree, f"{self.path}/INOPEN-OPER-LST", InterfaceOperationEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/IOE-OPER-LST", InterfaceOperationEntryNav)
 
     @property
     def webhookSpec(self):
@@ -69190,7 +69190,7 @@ class InterfaceTestingNav(SomMetaRef):
 
     @property
     def testScenarios(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ITSE1-TEST-LST", InterfaceTestScenarioEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/INTESCEN-TEST-LST", InterfaceTestScenarioEntryNav)
 
 
 class InternalDependenciesNav(SomMetaRef):
@@ -69332,7 +69332,7 @@ class Iso25010CoverageNav(SomMetaRef):
 
     @property
     def characteristics(self):
-        return SomListMetaRef(self.tree, f"{self.path}/I25CV-CHAR-LST", Iso25010CoverageEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/I25CE-CHAR-LST", Iso25010CoverageEntryNav)
 
 
 class Iso25010CoverageEntryNav(SomMetaRef):
@@ -69408,7 +69408,7 @@ class ItSecurityStandardsSectionNav(SomMetaRef):
 
     @property
     def standards(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SESTEN-STAN-LST", SecurityStandardEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SSE-STAN-LST", SecurityStandardEntryNav)
 
     @property
     def applicationSecurity(self):
@@ -69474,7 +69474,7 @@ class JobDescriptionsAndStaffingNav(SomMetaRef):
 
     @property
     def newRoles(self):
-        return SomListMetaRef(self.tree, f"{self.path}/NWROL-NEWR-LST", NewRoleEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/NRE-NEWR-LST", NewRoleEntryNav)
 
     @property
     def changedRoles(self):
@@ -69794,7 +69794,7 @@ class LayeringAndModuleStructureNav(SomMetaRef):
 
     @property
     def softwareLayers(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SOLAEN-SOFT-LST", SoftwareLayerEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SLE-SOFT-LST", SoftwareLayerEntryNav)
 
     @property
     def layerCommunicationRules(self):
@@ -69802,7 +69802,7 @@ class LayeringAndModuleStructureNav(SomMetaRef):
 
     @property
     def boundedContexts(self):
-        return SomListMetaRef(self.tree, f"{self.path}/BOCOEN-BOUN-LST", BoundedContextEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/BCE-BOUN-LST", BoundedContextEntryNav)
 
     @property
     def packageOrganization(self):
@@ -69810,11 +69810,11 @@ class LayeringAndModuleStructureNav(SomMetaRef):
 
     @property
     def modules(self):
-        return SomListMetaRef(self.tree, f"{self.path}/MOEN1-MODU-LST", ModuleEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/MODENT-MODU-LST", ModuleEntryNav)
 
     @property
     def sharedLibraries(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SHLIB-SHAR-LST", SharedLibraryEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SHLIEN-SHAR-LST", SharedLibraryEntryNav)
 
     @property
     def dependencyInjection(self):
@@ -70418,7 +70418,7 @@ class MaintenanceWindowsSectionNav(SomMetaRef):
 
     @property
     def maintenanceWindows(self):
-        return SomListMetaRef(self.tree, f"{self.path}/MAWIEN-MAIN-LST", MaintenanceWindowEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/MWE-MAIN-LST", MaintenanceWindowEntryNav)
 
     @property
     def emergencyMaintenance(self):
@@ -70579,7 +70579,7 @@ class MetricsAndObservabilityNav(SomMetaRef):
 
     @property
     def customMetrics(self):
-        return SomListMetaRef(self.tree, f"{self.path}/CUMEEN-CUST-LST", CustomMetricEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/CUSMETENT-CUST-LST", CustomMetricEntryNav)
 
 
 class MetricsBaselineEntryNav(SomMetaRef):
@@ -70681,7 +70681,7 @@ class MfaConfigurationNav(SomMetaRef):
 
     @property
     def mfaDetails(self):
-        return SomListMetaRef(self.tree, f"{self.path}/MFADE-MFAD-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/MC-MFAD-LST", SomMetaRef)
 
 
 class MigrationConsiderationsNav(SomMetaRef):
@@ -70736,7 +70736,7 @@ class MigrationConsiderationsNav(SomMetaRef):
 
     @property
     def escalationProcedures(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ESCAL-ESCA-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/MIGCON-ESCA-LST", SomMetaRef)
 
 
 class MigrationEnvironmentsNav(SomMetaRef):
@@ -71011,19 +71011,19 @@ class MigrationRisksNav(SomMetaRef):
 
     @property
     def riskCategories(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RISKC-RISK-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/MIRI-RISK-LST", SomMetaRef)
 
     @property
     def riskBasedDecisions(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RISKB-RISK-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/MIRI-RBDE-LST", SomMetaRef)
 
     @property
     def monitoringProcedures(self):
-        return SomListMetaRef(self.tree, f"{self.path}/MONIT-MONI-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/MIRI-MONI-LST", SomMetaRef)
 
     @property
     def responseStrategies(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RESPO-RESP-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/MIRI-RESP-LST", SomMetaRef)
 
     @property
     def riskAggregation(self):
@@ -71277,7 +71277,7 @@ class MonitoringAndAlertingSectionNav(SomMetaRef):
 
     @property
     def alertDefinitions(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ALDEEN-ALER-LST", AlertDefinitionEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/ALEDEFENT-ALER-LST", AlertDefinitionEntryNav)
 
     @property
     def dashboards(self):
@@ -71312,7 +71312,7 @@ class MonitoringDashboardsNav(SomMetaRef):
 
     @property
     def dashboards(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DAEN-DASH-LST", DashboardEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DASENT-DASH-LST", DashboardEntryNav)
 
     @property
     def dashboardTemplates(self):
@@ -71358,7 +71358,7 @@ class MoscowAnalysisNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/MOEN-ITEM-LST", MoscowEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/ME-ITEM-LST", MoscowEntryNav)
 
 
 class MoscowEntryNav(SomMetaRef):
@@ -71423,7 +71423,7 @@ class MultiLanguageSupportNav(SomMetaRef):
 
     @property
     def supportedLocales(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SULOEN-SUPP-LST", SupportedLocaleEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SUPLOCENT-SUPP-LST", SupportedLocaleEntryNav)
 
 
 class MustPassCriteriaNav(SomMetaRef):
@@ -71812,7 +71812,7 @@ class NetworkRequirementsSectionNav(SomMetaRef):
 
     @property
     def vpnRequirements(self):
-        return SomListMetaRef(self.tree, f"{self.path}/VPREEN-VPNR-LST", VpnRequirementEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/VRE-VPNR-LST", VpnRequirementEntryNav)
 
     @property
     def firewallRequirements(self):
@@ -72261,7 +72261,7 @@ class OperationalPainPointsNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/OPPAPO-ITEM-LST", PainPointEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/PAPE-ITEM-LST", PainPointEntryNav)
 
 
 class OperationsRequirementsNav(SomMetaRef):
@@ -72467,7 +72467,7 @@ class OrganizationalEnvironmentNav(SomMetaRef):
 
     @property
     def affectedDepartments(self):
-        return SomListMetaRef(self.tree, f"{self.path}/AFDEEN-AFFE-LST", AffectedDepartmentEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/ADE-AFFE-LST", AffectedDepartmentEntryNav)
 
     @property
     def decisionMaking(self):
@@ -72475,15 +72475,15 @@ class OrganizationalEnvironmentNav(SomMetaRef):
 
     @property
     def decisionMakers(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DEMAEN-DECI-LST", DecisionMakerEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DME-DECI-LST", DecisionMakerEntryNav)
 
     @property
     def culturalConsiderations(self):
-        return SomListMetaRef(self.tree, f"{self.path}/CULTU-CULT-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/OREN-CULT-LST", SomMetaRef)
 
     @property
     def communicationPreferences(self):
-        return SomListMetaRef(self.tree, f"{self.path}/COMMU-COMM-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/OREN-COMM-LST", SomMetaRef)
 
     @property
     def politicalLandscape(self):
@@ -72491,7 +72491,7 @@ class OrganizationalEnvironmentNav(SomMetaRef):
 
     @property
     def changeAdvocates(self):
-        return SomListMetaRef(self.tree, f"{self.path}/CHANG-CHAN-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/OREN-CHAN-LST", SomMetaRef)
 
 
 class OrganizationalFrameworkNav(SomMetaRef):
@@ -72671,7 +72671,7 @@ class OutOfScopeNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/OOSE-ITEM-LST", OutOfScopeEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/OUOFSCEN-ITEM-LST", OutOfScopeEntryNav)
 
 
 class OutOfScopeEntryNav(SomMetaRef):
@@ -73273,7 +73273,7 @@ class PhaseGateReviewsNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/PGRE-ITEM-LST", PhaseGateReviewEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/PHGAREEN-ITEM-LST", PhaseGateReviewEntryNav)
 
 
 class PhysicalWorkplaceRequirementsNav(SomMetaRef):
@@ -73384,7 +73384,7 @@ class PlatformAndLanguageNav(SomMetaRef):
 
     @property
     def frameworks(self):
-        return SomListMetaRef(self.tree, f"{self.path}/FWREN-FRAM-LST", FrameworkRequirementEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/FRREEN-FRAM-LST", FrameworkRequirementEntryNav)
 
     @property
     def buildToolchain(self):
@@ -73392,7 +73392,7 @@ class PlatformAndLanguageNav(SomMetaRef):
 
     @property
     def deploymentTargets(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DETAEN-DEPL-LST", DeploymentTargetEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DEPTARENT-DEPL-LST", DeploymentTargetEntryNav)
 
     @property
     def dependencyManagement(self):
@@ -73518,11 +73518,11 @@ class PrintAndExportLayoutNav(SomMetaRef):
 
     @property
     def exportFormats(self):
-        return SomListMetaRef(self.tree, f"{self.path}/EXFOEN-EXPO-LST", ExportFormatEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/EFE-EXPO-LST", ExportFormatEntryNav)
 
     @property
     def exportTemplates(self):
-        return SomListMetaRef(self.tree, f"{self.path}/EXTEEN-EXPO-LST", ExportTemplateEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/ETE-EXPO-LST", ExportTemplateEntryNav)
 
 
 class PrivacyImpactAssessmentProcessNav(SomMetaRef):
@@ -73606,7 +73606,7 @@ class ProblemStatementNav(SomMetaRef):
 
     @property
     def relatedPainPoints(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RPPE-RELA-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/PS-RELA-LST", SomMetaRef)
 
 
 class ProcessAdjustmentDetailsNav(SomMetaRef):
@@ -74572,7 +74572,7 @@ class ProtocolsAndStandardsSectionNav(SomMetaRef):
 
     @property
     def protocols(self):
-        return SomListMetaRef(self.tree, f"{self.path}/PREN-PROT-LST", ProtocolEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/PE-PROT-LST", ProtocolEntryNav)
 
     @property
     def tlsRequirements(self):
@@ -74677,7 +74677,7 @@ class PrototypeFeatureSubsetNav(SomMetaRef):
 
     @property
     def features(self):
-        return SomListMetaRef(self.tree, f"{self.path}/PRFEEN-FEAT-LST", PrototypeFeatureEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/PFE-FEAT-LST", PrototypeFeatureEntryNav)
 
 
 class PrototypeGoalEntryNav(SomMetaRef):
@@ -74715,7 +74715,7 @@ class PrototypeGoalsNav(SomMetaRef):
 
     @property
     def goals(self):
-        return SomListMetaRef(self.tree, f"{self.path}/PRGOEN-GOAL-LST", PrototypeGoalEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/PGE-GOAL-LST", PrototypeGoalEntryNav)
 
 
 class PrototypeTypeNav(SomMetaRef):
@@ -74858,7 +74858,7 @@ class QualityFrameworkNav(SomMetaRef):
 
     @property
     def categoryDependencies(self):
-        return SomListMetaRef(self.tree, f"{self.path}/CATEG-CATE-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/QLFWK-CATE-LST", SomMetaRef)
 
 
 class QualityGateAdjustmentDetailsNav(SomMetaRef):
@@ -75620,7 +75620,7 @@ class ReportDefinitionsNav(SomMetaRef):
 
     @property
     def reports(self):
-        return SomListMetaRef(self.tree, f"{self.path}/REEN-REPO-LST", ReportEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/REPENT-REPO-LST", ReportEntryNav)
 
 
 class ReportDistributionEntryNav(SomMetaRef):
@@ -75706,23 +75706,23 @@ class ReportEntryNav(SomMetaRef):
 
     @property
     def sections(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RESEE1-SECT-LST", ReportSectionEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/RSE-SECT-LST", ReportSectionEntryNav)
 
     @property
     def filters(self):
-        return SomListMetaRef(self.tree, f"{self.path}/REFIEN-FILT-LST", ReportFilterEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/RFE-FILT-LST", ReportFilterEntryNav)
 
     @property
     def schedules(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RESCEN-SCHE-LST", ReportScheduleEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/REPSCHENT-SCHE-LST", ReportScheduleEntryNav)
 
     @property
     def distributions(self):
-        return SomListMetaRef(self.tree, f"{self.path}/REDIEN-DIST-LST", ReportDistributionEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/RDE-DIST-LST", ReportDistributionEntryNav)
 
     @property
     def recipients(self):
-        return SomListMetaRef(self.tree, f"{self.path}/REREEN-RECI-LST", ReportRecipientEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/RRE-RECI-LST", ReportRecipientEntryNav)
 
 
 class ReportFilterEntryNav(SomMetaRef):
@@ -75850,11 +75850,11 @@ class ReportSectionEntryNav(SomMetaRef):
 
     @property
     def columns(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RECOE1-COLU-LST", ReportColumnEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/REPCOLENT-COLU-LST", ReportColumnEntryNav)
 
     @property
     def charts(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RECHEN-CHAR-LST", ReportChartEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/REPCHAENT-CHAR-LST", ReportChartEntryNav)
 
 
 class RequirementNav(SomMetaRef):
@@ -75880,7 +75880,7 @@ class RequirementAcceptanceCriteriaNav(SomMetaRef):
 
     @property
     def criteria(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ACCR-CRIT-LST", AcceptanceCriterionEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/ACE-CRIT-LST", AcceptanceCriterionEntryNav)
 
 
 class RequirementBusinessRuleEntryNav(SomMetaRef):
@@ -76076,7 +76076,7 @@ class RequirementUiSpecificationNav(SomMetaRef):
 
     @property
     def fields(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SCFLD-FIEL-LST", ScreenFieldEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SFE-FIEL-LST", ScreenFieldEntryNav)
 
     @property
     def actions(self):
@@ -76528,15 +76528,15 @@ class ReusableComponentsSectionNav(SomMetaRef):
 
     @property
     def uiComponents(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RUICMP-UICO-LST", ReusableUiComponentEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/RUCE-UICO-LST", ReusableUiComponentEntryNav)
 
     @property
     def businessComponents(self):
-        return SomListMetaRef(self.tree, f"{self.path}/BUCOEN-BUSI-LST", BusinessComponentEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/BUSCOMENT-BUSI-LST", BusinessComponentEntryNav)
 
     @property
     def infrastructureComponents(self):
-        return SomListMetaRef(self.tree, f"{self.path}/INCOEN-INFR-LST", InfrastructureComponentEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/INFCOMENT-INFR-LST", InfrastructureComponentEntryNav)
 
     @property
     def thirdPartyLibraries(self):
@@ -76807,7 +76807,7 @@ class RisksAndAssumptionsNav(SomMetaRef):
 
     @property
     def keyRisks(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RIEN-KEYR-LST", RiskEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/RISENT-KEYR-LST", RiskEntryNav)
 
 
 class RoleAdjustmentEntryNav(SomMetaRef):
@@ -77481,11 +77481,11 @@ class ScopeBoundariesNav(SomMetaRef):
 
     @property
     def inScopeItems(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SCITE-INSC-LST", ScopeItemEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SIE-INSC-LST", ScopeItemEntryNav)
 
     @property
     def outOfScopeItems(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SCITE-OUTO-LST", ScopeItemEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SIE-OUTO-LST", ScopeItemEntryNav)
 
     @property
     def deferredItems(self):
@@ -77493,7 +77493,7 @@ class ScopeBoundariesNav(SomMetaRef):
 
     @property
     def scopeAssumptions(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SCOPE-SCOP-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/SCBND-SCOP-LST", SomMetaRef)
 
 
 class ScopeItemEntryNav(SomMetaRef):
@@ -77657,7 +77657,7 @@ class ScreenElementEntryNav(SomMetaRef):
 
     @property
     def validationRules(self):
-        return SomListMetaRef(self.tree, f"{self.path}/EVRE-VALI-LST", ElementValidationRuleEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/ELVARUEN-VALI-LST", ElementValidationRuleEntryNav)
 
 
 class ScreenElementFieldSpecNav(SomMetaRef):
@@ -77743,7 +77743,7 @@ class ScreenEntryNav(SomMetaRef):
 
     @property
     def userCategories(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SCRUSC-USER-LST", ScreenUserCategoryEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SUCE-USER-LST", ScreenUserCategoryEntryNav)
 
     @property
     def entryPoints(self):
@@ -77751,7 +77751,7 @@ class ScreenEntryNav(SomMetaRef):
 
     @property
     def responsiveRules(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SRRE-RESP-LST", ScreenResponsiveRuleEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SCRERUEN-RESP-LST", ScreenResponsiveRuleEntryNav)
 
 
 class ScreenFieldEntryNav(SomMetaRef):
@@ -77998,7 +77998,7 @@ class SecondaryNavigationNav(SomMetaRef):
 
     @property
     def tabBars(self):
-        return SomListMetaRef(self.tree, f"{self.path}/TBDE-TABB-LST", TabBarDefinitionEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/TABADEEN-TABB-LST", TabBarDefinitionEntryNav)
 
 
 class SectionMetaNav(SomMetaRef):
@@ -78133,7 +78133,7 @@ class SecurityAuditRequirementsSectionNav(SomMetaRef):
 
     @property
     def auditEntries(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SEAUEN-AUDI-LST", SecurityAuditEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SAE-AUDI-LST", SecurityAuditEntryNav)
 
 
 class SecurityCertificationRequirementsNav(SomMetaRef):
@@ -78255,7 +78255,7 @@ class SecurityControlsNav(SomMetaRef):
 
     @property
     def controls(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SECCT-CONT-LST", SecurityControlEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SECOEN-CONT-LST", SecurityControlEntryNav)
 
 
 class SecurityDevelopmentLifecycleNav(SomMetaRef):
@@ -78707,11 +78707,11 @@ class ServerRequirementsSectionNav(SomMetaRef):
 
     @property
     def environments(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SEENEN-ENVI-LST", ServerEnvironmentEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SEE-ENVI-LST", ServerEnvironmentEntryNav)
 
     @property
     def serverRoles(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SEROEN-SERV-LST", ServerRoleEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SRE-SERV-LST", ServerRoleEntryNav)
 
     @property
     def computeResources(self):
@@ -79244,7 +79244,7 @@ class SlaAndSloMonitoringNav(SomMetaRef):
 
     @property
     def slos(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SLEN-SLOS-LST", SloEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SE-SLOS-LST", SloEntryNav)
 
     @property
     def errorBudget(self):
@@ -79309,7 +79309,7 @@ class SoftwareDeliverablesNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SWDLV-ITEM-LST", DeliverableEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DLVEN-ITEM-LST", DeliverableEntryNav)
 
 
 class SoftwareDesignRequirementsNav(SomMetaRef):
@@ -79980,11 +79980,11 @@ class StagingStrategyNav(SomMetaRef):
 
     @property
     def keyAssumptions(self):
-        return SomListMetaRef(self.tree, f"{self.path}/KEYAS-KEYA-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/STAGST-KEYA-LST", SomMetaRef)
 
     @property
     def constraints(self):
-        return SomListMetaRef(self.tree, f"{self.path}/STAGI-CONS-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/STAGST-CONS-LST", SomMetaRef)
 
 
 class StakeholderEntryNav(SomMetaRef):
@@ -80068,7 +80068,7 @@ class StakeholdersAndGovernanceNav(SomMetaRef):
 
     @property
     def stakeholderRegister(self):
-        return SomListMetaRef(self.tree, f"{self.path}/STKRG-STAK-LST", StakeholderRegisterEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/STKRE-STAK-LST", StakeholderRegisterEntryNav)
 
 
 class StakeholdersAndInterestsNav(SomMetaRef):
@@ -80117,23 +80117,23 @@ class StandardsComplianceSectionNav(SomMetaRef):
 
     @property
     def itStandards(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ISCE-ITST-LST", ItStandardComplianceEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/ITSTCOEN-ITST-LST", ItStandardComplianceEntryNav)
 
     @property
     def industryProtocols(self):
-        return SomListMetaRef(self.tree, f"{self.path}/IPCE-INDU-LST", IndustryProtocolComplianceEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/INPRCOEN-INDU-LST", IndustryProtocolComplianceEntryNav)
 
     @property
     def interfaceSpecifications(self):
-        return SomListMetaRef(self.tree, f"{self.path}/INSPEN-INTE-LST", InterfaceSpecificationEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/INTSPEENT-INTE-LST", InterfaceSpecificationEntryNav)
 
     @property
     def regulatoryCompliance(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RECOEN-REGU-LST", RegulatoryComplianceEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/RCE-REGU-LST", RegulatoryComplianceEntryNav)
 
     @property
     def securityStandards(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SSCE-SECU-LST", SecurityStandardComplianceEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SESTCOEN-SECU-LST", SecurityStandardComplianceEntryNav)
 
     @property
     def accessibilityStandards(self):
@@ -80176,7 +80176,7 @@ class SteeringCommitteeNav(SomMetaRef):
 
     @property
     def members(self):
-        return SomListMetaRef(self.tree, f"{self.path}/COMMB-MEMB-LST", CommitteeMemberEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/CME-MEMB-LST", CommitteeMemberEntryNav)
 
 
 class StepUpAuthenticationPolicyNav(SomMetaRef):
@@ -80191,7 +80191,7 @@ class StepUpAuthenticationPolicyNav(SomMetaRef):
 
     @property
     def stepUpDetails(self):
-        return SomListMetaRef(self.tree, f"{self.path}/STEPU-STEP-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/SUAP-STEP-LST", SomMetaRef)
 
 
 class StorageEncryptionPolicyNav(SomMetaRef):
@@ -80436,7 +80436,7 @@ class SupportDeliverablesNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SPDLV-ITEM-LST", DeliverableEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DLVEN-ITEM-LST", DeliverableEntryNav)
 
 
 class SupportedLocaleEntryNav(SomMetaRef):
@@ -80540,11 +80540,11 @@ class SystemBusinessCriticalityNav(SomMetaRef):
 
     @property
     def businessUnits(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SBUE-BUSI-LST", SystemBusinessUnitEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SYBUUNEN-BUSI-LST", SystemBusinessUnitEntryNav)
 
     @property
     def supportedProcesses(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SBPE-SUPP-LST", SystemBusinessProcessEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SYBUPREN-SUPP-LST", SystemBusinessProcessEntryNav)
 
 
 class SystemBusinessProcessEntryNav(SomMetaRef):
@@ -80667,7 +80667,7 @@ class SystemCostAnalysisNav(SomMetaRef):
 
     @property
     def nonFinancialBenefits(self):
-        return SomListMetaRef(self.tree, f"{self.path}/NONFI-NONF-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/SYCOAN-NONF-LST", SomMetaRef)
 
 
 class SystemDataScopeNav(SomMetaRef):
@@ -80690,11 +80690,11 @@ class SystemDataScopeNav(SomMetaRef):
 
     @property
     def entities(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DEME-ENTI-LST", DataEntityMigrationEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DAENMIEN-ENTI-LST", DataEntityMigrationEntryNav)
 
     @property
     def knownQualityIssues(self):
-        return SomListMetaRef(self.tree, f"{self.path}/KNOWN-KNOW-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/SYDASC-KNOW-LST", SomMetaRef)
 
 
 class SystemDependencyEntryNav(SomMetaRef):
@@ -80760,7 +80760,7 @@ class SystemDescriptionNav(SomMetaRef):
 
     @property
     def userCategories(self):
-        return SomListMetaRef(self.tree, f"{self.path}/USCA-USER-LST", UserCategoryEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/UCE-USER-LST", UserCategoryEntryNav)
 
     @property
     def userInteractionModel(self):
@@ -80841,11 +80841,11 @@ class SystemErrorDisplayNav(SomMetaRef):
 
     @property
     def errorPageDesigns(self):
-        return SomListMetaRef(self.tree, f"{self.path}/EPDE-ERRO-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/SYERDI-ERRO-LST", SomMetaRef)
 
     @property
     def errorCodes(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SECE-ERRO-LST", SystemErrorCodeEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SYERCOEN-ERRO-LST", SystemErrorCodeEntryNav)
 
 
 class SystemIntegrationEntryNav(SomMetaRef):
@@ -80918,7 +80918,7 @@ class SystemKnowledgeTransferNav(SomMetaRef):
 
     @property
     def criticalKnowledgeAreas(self):
-        return SomListMetaRef(self.tree, f"{self.path}/CRITI-CRIT-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/SYKNTR-CRIT-LST", SomMetaRef)
 
     @property
     def knowledgeTransferPlan(self):
@@ -80956,7 +80956,7 @@ class SystemMigrationPlanNav(SomMetaRef):
 
     @property
     def risks(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SMRE-RISK-LST", SystemMigrationRiskEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/SYMIRIEN-RISK-LST", SystemMigrationRiskEntryNav)
 
     @property
     def rollbackStrategy(self):
@@ -80994,7 +80994,7 @@ class SystemOperationNav(SomMetaRef):
 
     @property
     def maintenanceProcedures(self):
-        return SomListMetaRef(self.tree, f"{self.path}/MAINT-MAIN-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/SO-MAIN-LST", SomMetaRef)
 
 
 class SystemOperationAndMonitoringNav(SomMetaRef):
@@ -81099,7 +81099,7 @@ class SystemQualityGoalsNav(SomMetaRef):
 
     @property
     def attributeInterdependencies(self):
-        return SomListMetaRef(self.tree, f"{self.path}/ATTRI-ATTR-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/SYQG-ATTR-LST", SomMetaRef)
 
     @property
     def qualityRadar(self):
@@ -81182,7 +81182,7 @@ class SystemReplacementStrategyNav(SomMetaRef):
 
     @property
     def predecessorDependencies(self):
-        return SomListMetaRef(self.tree, f"{self.path}/PREDE-PRED-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/SYREST-PRED-LST", SomMetaRef)
 
     @property
     def successCriteria(self):
@@ -81342,11 +81342,11 @@ class SystemTaskEntryNav(SomMetaRef):
 
     @property
     def workflowSteps(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SYSTE-WORK-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/SYTS-WORK-LST", SomMetaRef)
 
     @property
     def variationsAndExceptions(self):
-        return SomListMetaRef(self.tree, f"{self.path}/VARIA-VARI-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/SYTS-VARI-LST", SomMetaRef)
 
 
 class SystemTechnicalAssessmentNav(SomMetaRef):
@@ -81373,11 +81373,11 @@ class SystemTechnicalAssessmentNav(SomMetaRef):
 
     @property
     def knownIssues(self):
-        return SomListMetaRef(self.tree, f"{self.path}/KIE-KNOW-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/SYTEAS-KNOW-LST", SomMetaRef)
 
     @property
     def securityConcerns(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SECUR-SECU-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/SYTEAS-SECU-LST", SomMetaRef)
 
 
 class SystemToReplaceEntryNav(SomMetaRef):
@@ -81482,7 +81482,7 @@ class SystemUserImpactNav(SomMetaRef):
 
     @property
     def userGroups(self):
-        return SomListMetaRef(self.tree, f"{self.path}/UGIE-USER-LST", UserGroupImpactEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/USGRIMEN-USER-LST", UserGroupImpactEntryNav)
 
 
 class SystemsToReplaceNav(SomMetaRef):
@@ -81524,7 +81524,7 @@ class TabBarDefinitionEntryNav(SomMetaRef):
 
     @property
     def tabs(self):
-        return SomListMetaRef(self.tree, f"{self.path}/TAITEN-TABS-LST", TabItemEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/TIE-TABS-LST", TabItemEntryNav)
 
 
 class TabItemEntryNav(SomMetaRef):
@@ -81740,7 +81740,7 @@ class TechnicalEnvironmentNav(SomMetaRef):
 
     @property
     def datacenters(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DATAC-DATA-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/TEEN-DATA-LST", SomMetaRef)
 
     @property
     def networkTopology(self):
@@ -81752,7 +81752,7 @@ class TechnicalEnvironmentNav(SomMetaRef):
 
     @property
     def technologyStandards(self):
-        return SomListMetaRef(self.tree, f"{self.path}/TESTEN-TECH-LST", TechnologyStandardEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/TSE-TECH-LST", TechnologyStandardEntryNav)
 
     @property
     def integrationOverview(self):
@@ -81760,7 +81760,7 @@ class TechnicalEnvironmentNav(SomMetaRef):
 
     @property
     def integrationConstraints(self):
-        return SomListMetaRef(self.tree, f"{self.path}/INCOE1-INTE-LST", IntegrationConstraintEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/INTCONENT-INTE-LST", IntegrationConstraintEntryNav)
 
 
 class TechnicalEnvironmentNetworkNav(SomMetaRef):
@@ -81775,11 +81775,11 @@ class TechnicalEnvironmentNetworkNav(SomMetaRef):
 
     @property
     def devopsStandards(self):
-        return SomListMetaRef(self.tree, f"{self.path}/DEVOP-DEVO-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/TEENNE-DEVO-LST", SomMetaRef)
 
     @property
     def observabilityRequirements(self):
-        return SomListMetaRef(self.tree, f"{self.path}/OBSER-OBSE-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/TEENNE-OBSE-LST", SomMetaRef)
 
     @property
     def disasterRecovery(self):
@@ -81982,7 +81982,7 @@ class TechnicalPainPointsNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/TEPAPO-ITEM-LST", PainPointEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/PAPE-ITEM-LST", PainPointEntryNav)
 
 
 class TechnicalRequirementEntryNav(SomMetaRef):
@@ -82708,7 +82708,7 @@ class TrainingDeliverableRequirementsNav(SomMetaRef):
 
     @property
     def trainingModules(self):
-        return SomListMetaRef(self.tree, f"{self.path}/TRMOEN-TRAI-LST", TrainingModuleEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/TME-TRAI-LST", TrainingModuleEntryNav)
 
 
 class TrainingDeliverablesNav(SomMetaRef):
@@ -82723,7 +82723,7 @@ class TrainingDeliverablesNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/TRDLV-ITEM-LST", DeliverableEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/DLVEN-ITEM-LST", DeliverableEntryNav)
 
 
 class TrainingEnablementRequirementsNav(SomMetaRef):
@@ -82810,7 +82810,7 @@ class TrainingRequirementsNav(SomMetaRef):
 
     @property
     def initialTraining(self):
-        return SomListMetaRef(self.tree, f"{self.path}/INITR-INIT-LST", InitialTrainingEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/ITE-INIT-LST", InitialTrainingEntryNav)
 
     @property
     def ongoingTraining(self):
@@ -83106,7 +83106,7 @@ class TranslationProcessNav(SomMetaRef):
 
     @property
     def vendors(self):
-        return SomListMetaRef(self.tree, f"{self.path}/TRVEEN-VEND-LST", TranslationVendorEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/TVE-VEND-LST", TranslationVendorEntryNav)
 
 
 class TranslationRequirementsNav(SomMetaRef):
@@ -83351,11 +83351,11 @@ class UiComponentEntryNav(SomMetaRef):
 
     @property
     def states(self):
-        return SomListMetaRef(self.tree, f"{self.path}/CMST-STAT-LST", ComponentStateEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/COMSTAENT-STAT-LST", ComponentStateEntryNav)
 
     @property
     def variants(self):
-        return SomListMetaRef(self.tree, f"{self.path}/CMVN-VARI-LST", ComponentVariantEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/CVE-VARI-LST", ComponentVariantEntryNav)
 
     @property
     def actions(self):
@@ -83398,7 +83398,7 @@ class UiComponentsNav(SomMetaRef):
 
     @property
     def componentSpecs(self):
-        return SomListMetaRef(self.tree, f"{self.path}/UICOEN-COMP-LST", UiComponentEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/UICOMENT-COMP-LST", UiComponentEntryNav)
 
     @property
     def componentFamilies(self):
@@ -83721,7 +83721,7 @@ class UserCategoriesNav(SomMetaRef):
 
     @property
     def categories(self):
-        return SomListMetaRef(self.tree, f"{self.path}/USCA-CATE-LST", UserCategoryEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/UCE-CATE-LST", UserCategoryEntryNav)
 
 
 class UserCategoryDefinitionNav(SomMetaRef):
@@ -83909,11 +83909,11 @@ class UserJourneyNav(SomMetaRef):
 
     @property
     def keyTouchpoints(self):
-        return SomListMetaRef(self.tree, f"{self.path}/KEYTO-KEYT-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/UJ-KEYT-LST", SomMetaRef)
 
     @property
     def painPoints(self):
-        return SomListMetaRef(self.tree, f"{self.path}/USERJ-PAIN-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/UJ-PAIN-LST", SomMetaRef)
 
     @property
     def opportunitiesForDelight(self):
@@ -84094,7 +84094,7 @@ class UserPersonaDetailsNav(SomMetaRef):
 
     @property
     def representativeQuotes(self):
-        return SomListMetaRef(self.tree, f"{self.path}/REPRE-REPR-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/UPD-REPR-LST", SomMetaRef)
 
 
 class UserPersonasNav(SomMetaRef):
@@ -84238,7 +84238,7 @@ class UtilityNavigationNav(SomMetaRef):
 
     @property
     def items(self):
-        return SomListMetaRef(self.tree, f"{self.path}/UNIE-ITEM-LST", UtilityNavigationItemEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/UTNAITEN-ITEM-LST", UtilityNavigationItemEntryNav)
 
 
 class UtilityNavigationItemEntryNav(SomMetaRef):
@@ -84265,7 +84265,7 @@ class UtilityNavigationItemEntryNav(SomMetaRef):
 
     @property
     def menuItems(self):
-        return SomListMetaRef(self.tree, f"{self.path}/UMIE-MENU-LST", UtilityMenuItemEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/UTMEITEN-MENU-LST", UtilityMenuItemEntryNav)
 
 
 class ValidationConstraintsNav(SomMetaRef):
@@ -84311,11 +84311,11 @@ class ValidationFeedbackNav(SomMetaRef):
 
     @property
     def messageTemplates(self):
-        return SomListMetaRef(self.tree, f"{self.path}/VAMETE-MESS-LST", ValidationMessageTemplateNav)
+        return SomListMetaRef(self.tree, f"{self.path}/VMT-MESS-LST", ValidationMessageTemplateNav)
 
     @property
     def fieldValidationRules(self):
-        return SomListMetaRef(self.tree, f"{self.path}/FIELD-FIEL-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/VAFE-FIEL-LST", SomMetaRef)
 
 
 class ValidationMessageTemplateNav(SomMetaRef):
@@ -84353,7 +84353,7 @@ class ValuePropositionNav(SomMetaRef):
 
     @property
     def kpis(self):
-        return SomListMetaRef(self.tree, f"{self.path}/KPIEN-KPIS-LST", SomMetaRef)
+        return SomListMetaRef(self.tree, f"{self.path}/VALPX-KPIS-LST", SomMetaRef)
 
 
 class VersionControlConfigurationNav(SomMetaRef):
@@ -84560,7 +84560,7 @@ class WcagComplianceNav(SomMetaRef):
 
     @property
     def successCriteria(self):
-        return SomListMetaRef(self.tree, f"{self.path}/WSCE-SUCC-LST", WcagSuccessCriterionEntryNav)
+        return SomListMetaRef(self.tree, f"{self.path}/WCSUCREN-SUCC-LST", WcagSuccessCriterionEntryNav)
 
 
 class WcagSuccessCriterionEntryNav(SomMetaRef):
@@ -85164,8 +85164,8 @@ class ApplicableRegulationEntryId(SomMetaRef):
     dot-notation surface."""
 
     @property
-    def COMPL_COMP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/COMPL-COMP-LST", SomMetaRef)
+    def ARE_COMP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/ARE-COMP-LST", SomMetaRef)
 
 
 class ApprovalRecordId(SomMetaRef):
@@ -86499,8 +86499,8 @@ class CurrentWorkflowEntryId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/WSE-STEP-LST", WorkflowStepEntryId)
 
     @property
-    def WFAC_ACTO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/WFAC-ACTO-LST", WorkflowActorEntryId)
+    def WAE_ACTO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/WAE-ACTO-LST", WorkflowActorEntryId)
 
     @property
     def WOINEN_INPU_LST(self):
@@ -86552,12 +86552,12 @@ class D00SolutionBlueprintId(SomMetaRef):
     dot-notation surface."""
 
     @property
-    def RVHST_REVS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/documentControl/RVHST-REVS-LST", RevisionEntryId)
+    def RVENT_REVS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/documentControl/RVENT-REVS-LST", RevisionEntryId)
 
     @property
-    def DOCTL_APRV_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/documentControl/DOCTL-APRV-LST", ApprovalRecordId)
+    def APREC_APRV_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/documentControl/APREC-APRV-LST", ApprovalRecordId)
 
     @property
     def RFDOC_DOCU_LST(self):
@@ -86592,8 +86592,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/systemPurpose/SYPUP-VISI")
 
     @property
-    def RPPE_RELA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/systemPurpose/problemStatement/RPPE-RELA-LST", SomMetaRef)
+    def PS_RELA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/systemPurpose/problemStatement/PS-RELA-LST", SomMetaRef)
 
     @property
     def STKNT_PRIM_LST(self):
@@ -86612,24 +86612,24 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/systemPurpose/valueProposition/VALRP")
 
     @property
-    def KPIEN_KPIS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/systemPurpose/valueProposition/KPIEN-KPIS-LST", SomMetaRef)
+    def VALPX_KPIS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/systemPurpose/valueProposition/VALPX-KPIS-LST", SomMetaRef)
 
     @property
-    def SCITE_INSC_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCITE-INSC-LST", ScopeItemEntryId)
+    def SIE_INSC_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SIE-INSC-LST", ScopeItemEntryId)
 
     @property
-    def SCITE_OUTO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCITE-OUTO-LST", ScopeItemEntryId)
+    def SIE_OUTO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SIE-OUTO-LST", ScopeItemEntryId)
 
     @property
     def DFSCP_DEFE_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/DFSCP-DEFE-LST", DeferredScopeItemEntryId)
 
     @property
-    def SCOPE_SCOP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCOPE-SCOP-LST", SomMetaRef)
+    def SCBND_SCOP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCBND-SCOP-LST", SomMetaRef)
 
     @property
     def CD_DIAG(self):
@@ -86692,24 +86692,24 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/businessDomain/domainBoundaries/DIE-INTE-LST", DomainInterfaceEntryId)
 
     @property
-    def DOBIRU_RULE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/businessDomain/businessRules/DOBIRU-RULE-LST", DomainBusinessRuleEntryId)
+    def DBRE_RULE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/businessDomain/businessRules/DBRE-RULE-LST", DomainBusinessRuleEntryId)
 
     @property
     def DP_PROC(self):
         return SomMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/businessDomain/domainProcesses/DP-PROC")
 
     @property
-    def DOPR_PROC_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/businessDomain/domainProcesses/DOPR-PROC-LST", DomainProcessEntryId)
+    def DOPREN_PROC_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/businessDomain/domainProcesses/DOPREN-PROC-LST", DomainProcessEntryId)
 
     @property
     def DOEV_EVEN_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/businessDomain/domainEvents/DOEV-EVEN-LST", DomainEventEntryId)
 
     @property
-    def USCA_USER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/USCA-USER-LST", UserCategoryEntryId)
+    def UCE_USER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemDescription/UCE-USER-LST", UserCategoryEntryId)
 
     @property
     def AC1_CHAN(self):
@@ -86888,20 +86888,20 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRIRE")
 
     @property
-    def RISKC_RISK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKC-RISK-LST", SomMetaRef)
+    def MIRI_RISK_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-RISK-LST", SomMetaRef)
 
     @property
-    def RISKB_RISK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKB-RISK-LST", SomMetaRef)
+    def MIRI_RBDE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-RBDE-LST", SomMetaRef)
 
     @property
-    def MONIT_MONI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MONIT-MONI-LST", SomMetaRef)
+    def MIRI_MONI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-MONI-LST", SomMetaRef)
 
     @property
-    def RESPO_RESP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RESPO-RESP-LST", SomMetaRef)
+    def MIRI_RESP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-RESP-LST", SomMetaRef)
 
     @property
     def MGRSK_ITEM_LST(self):
@@ -86912,20 +86912,20 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemsToReplace/migrationConsiderations/MGMLS-MILE-LST", MigrationMilestoneEntryId)
 
     @property
-    def ESCAL_ESCA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemsToReplace/migrationConsiderations/ESCAL-ESCA-LST", SomMetaRef)
+    def MIGCON_ESCA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemsToReplace/migrationConsiderations/MIGCON-ESCA-LST", SomMetaRef)
 
     @property
-    def EXINEN_INTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemBoundaries/externalInterfaces/EXINEN-INTE-LST", ExternalInterfaceEntryId)
+    def EIE_INTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemBoundaries/externalInterfaces/EIE-INTE-LST", ExternalInterfaceEntryId)
 
     @property
-    def OOSE_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemBoundaries/outOfScope/OOSE-ITEM-LST", OutOfScopeEntryId)
+    def OUOFSCEN_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemBoundaries/outOfScope/OUOFSCEN-ITEM-LST", OutOfScopeEntryId)
 
     @property
-    def BOASEN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemBoundaries/assumptions/BOASEN-ITEM-LST", BoundaryAssumptionEntryId)
+    def BAE_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/systemBoundaries/assumptions/BAE-ITEM-LST", BoundaryAssumptionEntryId)
 
     @property
     def BOINPA_BOUN_LST(self):
@@ -86952,28 +86952,28 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/organizationalEnvironment/OEDM")
 
     @property
-    def AFDEEN_AFFE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/organizationalEnvironment/AFDEEN-AFFE-LST", AffectedDepartmentEntryId)
+    def ADE_AFFE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/organizationalEnvironment/ADE-AFFE-LST", AffectedDepartmentEntryId)
 
     @property
-    def DEMAEN_DECI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/organizationalEnvironment/DEMAEN-DECI-LST", DecisionMakerEntryId)
+    def DME_DECI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/organizationalEnvironment/DME-DECI-LST", DecisionMakerEntryId)
 
     @property
-    def CULTU_CULT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/organizationalEnvironment/CULTU-CULT-LST", SomMetaRef)
+    def OREN_CULT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-CULT-LST", SomMetaRef)
 
     @property
-    def COMMU_COMM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/organizationalEnvironment/COMMU-COMM-LST", SomMetaRef)
+    def OREN_COMM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-COMM-LST", SomMetaRef)
 
     @property
-    def CHANG_CHAN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/organizationalEnvironment/CHANG-CHAN-LST", SomMetaRef)
+    def OREN_CHAN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-CHAN-LST", SomMetaRef)
 
     @property
-    def REEN1_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/functionalResponsibilities/REEN1-ITEM-LST", ResponsibilityEntryId)
+    def RE_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/functionalResponsibilities/RE-ITEM-LST", ResponsibilityEntryId)
 
     @property
     def TEEN_TECH(self):
@@ -86992,24 +86992,24 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/technicalEnvironment/TES")
 
     @property
-    def DEVOP_DEVO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/technicalEnvironment/network/DEVOP-DEVO-LST", SomMetaRef)
+    def TEENNE_DEVO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/technicalEnvironment/network/TEENNE-DEVO-LST", SomMetaRef)
 
     @property
-    def OBSER_OBSE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/technicalEnvironment/network/OBSER-OBSE-LST", SomMetaRef)
+    def TEENNE_OBSE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/technicalEnvironment/network/TEENNE-OBSE-LST", SomMetaRef)
 
     @property
-    def DATAC_DATA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/technicalEnvironment/DATAC-DATA-LST", SomMetaRef)
+    def TEEN_DATA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/technicalEnvironment/TEEN-DATA-LST", SomMetaRef)
 
     @property
-    def TESTEN_TECH_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/technicalEnvironment/TESTEN-TECH-LST", TechnologyStandardEntryId)
+    def TSE_TECH_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/technicalEnvironment/TSE-TECH-LST", TechnologyStandardEntryId)
 
     @property
-    def INCOE1_INTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/technicalEnvironment/INCOE1-INTE-LST", IntegrationConstraintEntryId)
+    def INTCONENT_INTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/operatingEnvironment/technicalEnvironment/INTCONENT-INTE-LST", IntegrationConstraintEntryId)
 
     @property
     def COANDE(self):
@@ -87020,12 +87020,12 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/introductionAndScope/risksAndAssumptions/RIOV")
 
     @property
-    def RIEN_KEYR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/risksAndAssumptions/RIEN-KEYR-LST", RiskEntryId)
+    def RISENT_KEYR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/introductionAndScope/risksAndAssumptions/RISENT-KEYR-LST", RiskEntryId)
 
     @property
-    def GLOSS_ENTR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/glossaryAndAbbreviations/GLOSS-ENTR-LST", GlossaryEntryId)
+    def GLENT_ENTR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/glossaryAndAbbreviations/GLENT-ENTR-LST", GlossaryEntryId)
 
     @property
     def ADMSM(self):
@@ -87100,8 +87100,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/stakeholdersAndGovernance/projectOrganization/organizationStructure/governanceModel/DCAUT-DECI-LST", DecisionAuthorityEntryId)
 
     @property
-    def COMMB_MEMB_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/stakeholdersAndGovernance/projectOrganization/steeringCommittee/COMMB-MEMB-LST", CommitteeMemberEntryId)
+    def CME_MEMB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/stakeholdersAndGovernance/projectOrganization/steeringCommittee/CME-MEMB-LST", CommitteeMemberEntryId)
 
     @property
     def TMMBE_MEMB_LST(self):
@@ -87220,8 +87220,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/stakeholdersAndGovernance/legalAndContractual/OTAGR-OTHE-LST", OtherAgreementEntryId)
 
     @property
-    def STKRG_STAK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/stakeholdersAndGovernance/STKRG-STAK-LST", StakeholderRegisterEntryId)
+    def STKRE_STAK_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/stakeholdersAndGovernance/STKRE-STAK-LST", StakeholderRegisterEntryId)
 
     @property
     def ESENT_SYST_LST(self):
@@ -87236,12 +87236,12 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-DEPL")
 
     @property
-    def IPE_INTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/currentLandscape/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST", SomMetaRef)
+    def CARCH_INTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-INTE-LST", SomMetaRef)
 
     @property
-    def SHARE_SHAR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/currentLandscape/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST", SomMetaRef)
+    def CARCH_SHAR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-SHAR-LST", SomMetaRef)
 
     @property
     def DEPNT_DEPE(self):
@@ -87264,8 +87264,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/integrations/SYIN-ITEM-LST", SystemIntegrationEntryId)
 
     @property
-    def FRAGI_FRAG_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST", SomMetaRef)
+    def INHESU_FRAG_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/INHESU-FRAG-LST", SomMetaRef)
 
     @property
     def CUBUPR_PROC(self):
@@ -87312,24 +87312,24 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/currentLandscape/painPointsAndGaps/operationalPainPoints/OPPS")
 
     @property
-    def OPPAPO_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/currentLandscape/painPointsAndGaps/operationalPainPoints/OPPAPO-ITEM-LST", PainPointEntryId)
+    def PAPE_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/currentLandscape/painPointsAndGaps/operationalPainPoints/PAPE-ITEM-LST", PainPointEntryId)
 
     @property
     def BPPS(self):
         return SomMetaRef(self.tree, f"{self.path}/currentLandscape/painPointsAndGaps/businessPainPoints/BPPS")
 
     @property
-    def BUPAPO_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/currentLandscape/painPointsAndGaps/businessPainPoints/BUPAPO-ITEM-LST", PainPointEntryId)
+    def PAPE_ITEM_LST_2(self):
+        return SomListMetaRef(self.tree, f"{self.path}/currentLandscape/painPointsAndGaps/businessPainPoints/PAPE-ITEM-LST", PainPointEntryId)
 
     @property
     def TPPS(self):
         return SomMetaRef(self.tree, f"{self.path}/currentLandscape/painPointsAndGaps/technicalPainPoints/TPPS")
 
     @property
-    def TEPAPO_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/currentLandscape/painPointsAndGaps/technicalPainPoints/TEPAPO-ITEM-LST", PainPointEntryId)
+    def PAPE_ITEM_LST_3(self):
+        return SomListMetaRef(self.tree, f"{self.path}/currentLandscape/painPointsAndGaps/technicalPainPoints/PAPE-ITEM-LST", PainPointEntryId)
 
     @property
     def GAPE_ITEM_LST(self):
@@ -87480,16 +87480,16 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/currentLandscape/CUOPME-OPER-LST", CurrentOperationalMetricId)
 
     @property
-    def ACRG_ASMP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/assumptionsConstraintsDependencies/register/ACRG-ASMP-LST", AssumptionRegisterEntryId)
+    def ASMRE_ASMP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/assumptionsConstraintsDependencies/register/ASMRE-ASMP-LST", AssumptionRegisterEntryId)
 
     @property
-    def ACRG_CONS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/assumptionsConstraintsDependencies/register/ACRG-CONS-LST", ConstraintRegisterEntryId)
+    def CONRE_CONS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/assumptionsConstraintsDependencies/register/CONRE-CONS-LST", ConstraintRegisterEntryId)
 
     @property
-    def ACRG_DEPS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/assumptionsConstraintsDependencies/register/ACRG-DEPS-LST", DependencyRegisterEntryId)
+    def DEPRE_DEPS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/assumptionsConstraintsDependencies/register/DEPRE-DEPS-LST", DependencyRegisterEntryId)
 
     @property
     def OCCHG_OVER(self):
@@ -87564,8 +87564,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/JODEOV")
 
     @property
-    def NWROL_NEWR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/NWROL-NEWR-LST", NewRoleEntryId)
+    def NRE_NEWR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/NRE-NEWR-LST", NewRoleEntryId)
 
     @property
     def CHAROL_CHAN_LST(self):
@@ -87824,8 +87824,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TRMAT-TRAI")
 
     @property
-    def TRMOEN_TRAI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TRMOEN-TRAI-LST", TrainingModuleEntryId)
+    def TME_TRAI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TME-TRAI-LST", TrainingModuleEntryId)
 
     @property
     def TGPLT_TARG_LST(self):
@@ -87836,16 +87836,16 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/PLGEN-PROG-LST", ProgrammingLanguageEntryId)
 
     @property
-    def FWREN_FRAM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/FWREN-FRAM-LST", FrameworkRequirementEntryId)
+    def FRREEN_FRAM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/FRREEN-FRAM-LST", FrameworkRequirementEntryId)
 
     @property
     def BTCEN_BUIL_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/BTCEN-BUIL-LST", BuildToolchainEntryId)
 
     @property
-    def DETAEN_DEPL_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/DETAEN-DEPL-LST", DeploymentTargetEntryId)
+    def DEPTARENT_DEPL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/DEPTARENT-DEPL-LST", DeploymentTargetEntryId)
 
     @property
     def DEMAVE(self):
@@ -88044,16 +88044,16 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/DSPT-DESI-LST", DesignPatternEntryId)
 
     @property
-    def COSTEN_CODI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/COSTEN-CODI-LST", CodingStandardEntryId)
+    def CSE_CODI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/CSE-CODI-LST", CodingStandardEntryId)
 
     @property
-    def DECOEN_DEVE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/DECOEN-DEVE-LST", DevelopmentConventionEntryId)
+    def DCE_DEVE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/DCE-DEVE-LST", DevelopmentConventionEntryId)
 
     @property
-    def INSTEN_INDU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/INSTEN-INDU-LST", IndustryStandardEntryId)
+    def ISE_INDU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/ISE-INDU-LST", IndustryStandardEntryId)
 
     @property
     def CQMC(self):
@@ -88132,8 +88132,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTTO")
 
     @property
-    def SOLAEN_SOFT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SOLAEN-SOFT-LST", SoftwareLayerEntryId)
+    def SLE_SOFT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SLE-SOFT-LST", SoftwareLayerEntryId)
 
     @property
     def LCRI(self):
@@ -88148,8 +88148,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRG")
 
     @property
-    def BOCOEN_BOUN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/BOCOEN-BOUN-LST", BoundedContextEntryId)
+    def BCE_BOUN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/BCE-BOUN-LST", BoundedContextEntryId)
 
     @property
     def PAORST(self):
@@ -88168,12 +88168,12 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDO")
 
     @property
-    def MOEN1_MODU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/MOEN1-MODU-LST", ModuleEntryId)
+    def MODENT_MODU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/MODENT-MODU-LST", ModuleEntryId)
 
     @property
-    def SHLIB_SHAR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIB-SHAR-LST", SharedLibraryEntryId)
+    def SHLIEN_SHAR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIEN-SHAR-LST", SharedLibraryEntryId)
 
     @property
     def DISR(self):
@@ -88232,8 +88232,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO")
 
     @property
-    def IDREEN_IDER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/IDREEN-IDER-LST", IdeRequirementEntryId)
+    def IRE_IDER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/IRE-IDER-LST", IdeRequirementEntryId)
 
     @property
     def BTCBS(self):
@@ -88268,16 +88268,16 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCM")
 
     @property
-    def PISTEN_STAG_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST", PipelineStageEntryId)
+    def PSE_STAG_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PSE-STAG-LST", PipelineStageEntryId)
 
     @property
-    def PIJOEN_JOBS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST", PipelineJobEntryId)
+    def PJE_JOBS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PJE-JOBS-LST", PipelineJobEntryId)
 
     @property
-    def DEENEN_ENVI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST", DeploymentEnvironmentEntryId)
+    def DEE_ENVI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEE-ENVI-LST", DeploymentEnvironmentEntryId)
 
     @property
     def CRPR(self):
@@ -88412,16 +88412,16 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/SHLCP-SHAR-LST", SharedLibraryComponentEntryId)
 
     @property
-    def RUICMP_UICO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/RUICMP-UICO-LST", ReusableUiComponentEntryId)
+    def RUCE_UICO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/RUCE-UICO-LST", ReusableUiComponentEntryId)
 
     @property
-    def BUCOEN_BUSI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/BUCOEN-BUSI-LST", BusinessComponentEntryId)
+    def BUSCOMENT_BUSI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/BUSCOMENT-BUSI-LST", BusinessComponentEntryId)
 
     @property
-    def INCOEN_INFR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/INCOEN-INFR-LST", InfrastructureComponentEntryId)
+    def INFCOMENT_INFR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/INFCOMENT-INFR-LST", InfrastructureComponentEntryId)
 
     @property
     def THPALI_THIR_LST(self):
@@ -88460,36 +88460,36 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/registry/COREUP")
 
     @property
-    def OSCOEN_OSCO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/OSCOEN-OSCO-LST", OsCompatibilityEntryId)
+    def OCE_OSCO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST", OsCompatibilityEntryId)
 
     @property
-    def BRCOEN_BROW_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/BRCOEN-BROW-LST", BrowserCompatibilityEntryId)
+    def BROCOMENT_BROW_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/BROCOMENT-BROW-LST", BrowserCompatibilityEntryId)
 
     @property
-    def DACOEN_DATA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/DACOEN-DATA-LST", DatabaseCompatibilityEntryId)
+    def DATCOMENT_DATA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/DATCOMENT-DATA-LST", DatabaseCompatibilityEntryId)
 
     @property
-    def ESCE_ENTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/ESCE-ENTE-LST", EnterpriseSystemCompatibilityEntryId)
+    def ENSYCOEN_ENTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/ENSYCOEN-ENTE-LST", EnterpriseSystemCompatibilityEntryId)
 
     @property
     def APCP_APIC_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/APCP-APIC-LST", ApiCompatibilityEntryId)
 
     @property
-    def LECOEN_LEGA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/LECOEN-LEGA-LST", LegacyCompatibilityEntryId)
+    def LCE_LEGA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/LCE-LEGA-LST", LegacyCompatibilityEntryId)
 
     @property
-    def MOCOEN_MOBI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/MOCOEN-MOBI-LST", MobileCompatibilityEntryId)
+    def MOBCOMENT_MOBI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/MOBCOMENT-MOBI-LST", MobileCompatibilityEntryId)
 
     @property
-    def TPCE_THIR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/TPCE-THIR-LST", ThirdPartyCompatibilityEntryId)
+    def THPACOEN_THIR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/THPACOEN-THIR-LST", ThirdPartyCompatibilityEntryId)
 
     @property
     def DFCF(self):
@@ -88540,24 +88540,24 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREGO")
 
     @property
-    def ISCE_ITST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/ISCE-ITST-LST", ItStandardComplianceEntryId)
+    def ITSTCOEN_ITST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/ITSTCOEN-ITST-LST", ItStandardComplianceEntryId)
 
     @property
-    def IPCE_INDU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/IPCE-INDU-LST", IndustryProtocolComplianceEntryId)
+    def INPRCOEN_INDU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INPRCOEN-INDU-LST", IndustryProtocolComplianceEntryId)
 
     @property
-    def INSPEN_INTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INSPEN-INTE-LST", InterfaceSpecificationEntryId)
+    def INTSPEENT_INTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INTSPEENT-INTE-LST", InterfaceSpecificationEntryId)
 
     @property
-    def RECOEN_REGU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/RECOEN-REGU-LST", RegulatoryComplianceEntryId)
+    def RCE_REGU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/RCE-REGU-LST", RegulatoryComplianceEntryId)
 
     @property
-    def SSCE_SECU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/SSCE-SECU-LST", SecurityStandardComplianceEntryId)
+    def SESTCOEN_SECU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/SESTCOEN-SECU-LST", SecurityStandardComplianceEntryId)
 
     @property
     def ACCSTD_ACCE_LST(self):
@@ -88640,12 +88640,12 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSC")
 
     @property
-    def SEENEN_ENVI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SEENEN-ENVI-LST", ServerEnvironmentEntryId)
+    def SEE_ENVI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SEE-ENVI-LST", ServerEnvironmentEntryId)
 
     @property
-    def SEROEN_SERV_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SEROEN-SERV-LST", ServerRoleEntryId)
+    def SRE_SERV_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SRE-SERV-LST", ServerRoleEntryId)
 
     @property
     def CRRM(self):
@@ -88772,16 +88772,16 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST", ClientApplicationEntryId)
 
     @property
-    def BRREEN_BROW_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST", BrowserRequirementEntryId)
+    def BROREQENT_BROW_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BROREQENT-BROW-LST", BrowserRequirementEntryId)
 
     @property
-    def DORE1_DESK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/DORE1-DESK-LST", DesktopOsRequirementEntryId)
+    def DEOSREEN_DESK_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/DEOSREEN-DESK-LST", DesktopOsRequirementEntryId)
 
     @property
-    def MDRE_MOBI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/MDRE-MOBI-LST", MobileDeviceRequirementEntryId)
+    def MODEREEN_MOBI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/MODEREEN-MOBI-LST", MobileDeviceRequirementEntryId)
 
     @property
     def DIRELA(self):
@@ -88988,8 +88988,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/availabilityRequirements/NART")
 
     @property
-    def VPREEN_VPNR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/VPREEN-VPNR-LST", VpnRequirementEntryId)
+    def VRE_VPNR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/VRE-VPNR-LST", VpnRequirementEntryId)
 
     @property
     def FIRERU(self):
@@ -89080,8 +89080,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/dataClassification/BDCE")
 
     @property
-    def BAPOEN_BACK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/BAPOEN-BACK-LST", BackupPolicyEntryId)
+    def BPE_BACK_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/BPE-BACK-LST", BackupPolicyEntryId)
 
     @property
     def RRRBT(self):
@@ -89376,8 +89376,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/alerting/ALRERE")
 
     @property
-    def ALDEEN_ALER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/ALDEEN-ALER-LST", AlertDefinitionEntryId)
+    def ALEDEFENT_ALER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/ALEDEFENT-ALER-LST", AlertDefinitionEntryId)
 
     @property
     def DAREST(self):
@@ -89460,8 +89460,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPA")
 
     @property
-    def MAWIEN_MAIN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/MAWIEN-MAIN-LST", MaintenanceWindowEntryId)
+    def MWE_MAIN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/MWE-MAIN-LST", MaintenanceWindowEntryId)
 
     @property
     def EMPG(self):
@@ -89512,8 +89512,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/postMaintenance/PMVC")
 
     @property
-    def PREN_PROT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/PREN-PROT-LST", ProtocolEntryId)
+    def PE_PROT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/PE-PROT-LST", ProtocolEntryId)
 
     @property
     def TRCS(self):
@@ -89600,8 +89600,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/compliance/PCRE")
 
     @property
-    def EPCE_PART_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/EPCE-PART-LST", ExternalPartnerConnectionEntryId)
+    def EXPACOEN_PART_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/EXPACOEN-PART-LST", ExternalPartnerConnectionEntryId)
 
     @property
     def CSIS(self):
@@ -89752,8 +89752,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS")
 
     @property
-    def MAINT_MAIN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST", SomMetaRef)
+    def SO_MAIN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/SO-MAIN-LST", SomMetaRef)
 
     @property
     def MONITO_MONI(self):
@@ -89840,8 +89840,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCF")
 
     @property
-    def ALRUEN_ALER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALRUEN-ALER-LST", AlertRuleEntryId)
+    def ALERULENT_ALER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERULENT-ALER-LST", AlertRuleEntryId)
 
     @property
     def AEPT(self):
@@ -89924,16 +89924,16 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSO")
 
     @property
-    def CUMEEN_CUST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUMEEN-CUST-LST", CustomMetricEntryId)
+    def CUSMETENT_CUST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMETENT-CUST-LST", CustomMetricEntryId)
 
     @property
     def MODA_DASH(self):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH")
 
     @property
-    def DAEN_DASH_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/DAEN-DASH-LST", DashboardEntryId)
+    def DASENT_DASH_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/DASENT-DASH-LST", DashboardEntryId)
 
     @property
     def DATE_DASH_LST(self):
@@ -89956,8 +89956,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIM")
 
     @property
-    def SLEN_SLOS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST", SloEntryId)
+    def SE_SLOS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SE-SLOS-LST", SloEntryId)
 
     @property
     def EBTM(self):
@@ -90052,8 +90052,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPP")
 
     @property
-    def SESTEN_STAN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/security/itSecurityStandards/SESTEN-STAN-LST", SecurityStandardEntryId)
+    def SSE_STAN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/security/itSecurityStandards/SSE-STAN-LST", SecurityStandardEntryId)
 
     @property
     def ASRC(self):
@@ -90320,8 +90320,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAG")
 
     @property
-    def SEAUEN_AUDI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/SEAUEN-AUDI-LST", SecurityAuditEntryId)
+    def SAE_AUDI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/SAE-AUDI-LST", SecurityAuditEntryId)
 
     @property
     def CSVND(self):
@@ -90456,16 +90456,16 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/identification/IDTAM-ATTR-LST", IdentityAttributeMappingEntryId)
 
     @property
-    def MFADE_MFAD_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", SomMetaRef)
+    def MC_MFAD_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MC-MFAD-LST", SomMetaRef)
 
     @property
     def ATME_ITEM_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/ATME-ITEM-LST", AuthenticationMethodEntryId)
 
     @property
-    def STEPU_STEP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", SomMetaRef)
+    def SUAP_STEP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/SUAP-STEP-LST", SomMetaRef)
 
     @property
     def LGFLS_LOGI_LST(self):
@@ -90524,8 +90524,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST", ScreenEntryId)
 
     @property
-    def GLOBA_GLOB_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/GLOBA-GLOB-LST", SomMetaRef)
+    def IA_GLOB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST", SomMetaRef)
 
     @property
     def NAVGRP_GROU_LST(self):
@@ -90544,12 +90544,12 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI")
 
     @property
-    def TBDE_TABB_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST", TabBarDefinitionEntryId)
+    def TABADEEN_TABB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST", TabBarDefinitionEntryId)
 
     @property
-    def UNIE_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST", UtilityNavigationItemEntryId)
+    def UTNAITEN_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST", UtilityNavigationItemEntryId)
 
     @property
     def BRCO(self):
@@ -90612,12 +90612,12 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEBE")
 
     @property
-    def VAMETE_MESS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAMETE-MESS-LST", ValidationMessageTemplateId)
+    def VMT_MESS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VMT-MESS-LST", ValidationMessageTemplateId)
 
     @property
-    def FIELD_FIEL_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/FIELD-FIEL-LST", SomMetaRef)
+    def VAFE_FIEL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFE-FIEL-LST", SomMetaRef)
 
     @property
     def SYERDI_SYST(self):
@@ -90640,12 +90640,12 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF")
 
     @property
-    def EPDE_ERRO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", SomMetaRef)
+    def SYERDI_ERRO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST", SomMetaRef)
 
     @property
-    def SECE_ERRO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SECE-ERRO-LST", SystemErrorCodeEntryId)
+    def SYERCOEN_ERRO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST", SystemErrorCodeEntryId)
 
     @property
     def ERRE_RECO(self):
@@ -90672,8 +90672,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERSH")
 
     @property
-    def RECOV_RECO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/RECOV-RECO-LST", SomMetaRef)
+    def ERRE_RECO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO-LST", SomMetaRef)
 
     @property
     def RCVSCN_RECO_LST(self):
@@ -90688,8 +90688,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BC-BREA")
 
     @property
-    def BRE_BREA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BRE-BREA-LST", BreakpointEntryId)
+    def BE_BREA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BE-BREA-LST", BreakpointEntryId)
 
     @property
     def REBE_LAYO(self):
@@ -90764,16 +90764,16 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST", TypographyStyleEntryId)
 
     @property
-    def UICOEN_COMP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOEN-COMP-LST", UiComponentEntryId)
+    def UICOMENT_COMP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOMENT-COMP-LST", UiComponentEntryId)
 
     @property
     def CMFA_COMP_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/CMFA-COMP-LST", ComponentFamilyEntryId)
 
     @property
-    def REEN_REPO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/reportDefinitions/REEN-REPO-LST", ReportEntryId)
+    def REPENT_REPO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/reportDefinitions/REPENT-REPO-LST", ReportEntryId)
 
     @property
     def DGOEN_ITEM_LST(self):
@@ -90808,12 +90808,12 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAAR")
 
     @property
-    def EXFOEN_EXPO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/printLayout/EXFOEN-EXPO-LST", ExportFormatEntryId)
+    def EFE_EXPO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/printLayout/EFE-EXPO-LST", ExportFormatEntryId)
 
     @property
-    def EXTEEN_EXPO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/printLayout/EXTEEN-EXPO-LST", ExportTemplateEntryId)
+    def ETE_EXPO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/printLayout/ETE-EXPO-LST", ExportTemplateEntryId)
 
     @property
     def USAS_HELP(self):
@@ -90936,8 +90936,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCORO")
 
     @property
-    def WSCE_SUCC_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WSCE-SUCC-LST", WcagSuccessCriterionEntryId)
+    def WCSUCREN_SUCC_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCSUCREN-SUCC-LST", WcagSuccessCriterionEntryId)
 
     @property
     def ACCHLS_CHEC(self):
@@ -90976,8 +90976,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGOFE")
 
     @property
-    def PRGOEN_GOAL_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGOEN-GOAL-LST", PrototypeGoalEntryId)
+    def PGE_GOAL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PGE-GOAL-LST", PrototypeGoalEntryId)
 
     @property
     def PRFESU_FEAT(self):
@@ -90992,8 +90992,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFSF")
 
     @property
-    def PRFEEN_FEAT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PRFEEN-FEAT-LST", PrototypeFeatureEntryId)
+    def PFE_FEAT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFE-FEAT-LST", PrototypeFeatureEntryId)
 
     @property
     def PRTYSE_PROT(self):
@@ -91068,8 +91068,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSU")
 
     @property
-    def SULOEN_SUPP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SULOEN-SUPP-LST", SupportedLocaleEntryId)
+    def SUPLOCENT_SUPP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SUPLOCENT-SUPP-LST", SupportedLocaleEntryId)
 
     @property
     def SYQG_GOVE(self):
@@ -91092,8 +91092,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/qualityAndAcceptanceModel/systemQualityGoals/SQGRS")
 
     @property
-    def ATTRI_ATTR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/qualityAndAcceptanceModel/systemQualityGoals/ATTRI-ATTR-LST", SomMetaRef)
+    def SYQG_ATTR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/qualityAndAcceptanceModel/systemQualityGoals/SYQG-ATTR-LST", SomMetaRef)
 
     @property
     def QLFWK_FRAM(self):
@@ -91116,8 +91116,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/qualityAndAcceptanceModel/systemQualityGoals/framework/QCATE-QUAL-LST", QualityCategoryEntryId)
 
     @property
-    def CATEG_CATE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/qualityAndAcceptanceModel/systemQualityGoals/framework/CATEG-CATE-LST", SomMetaRef)
+    def QLFWK_CATE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/qualityAndAcceptanceModel/systemQualityGoals/framework/QLFWK-CATE-LST", SomMetaRef)
 
     @property
     def FNSU_FUNC(self):
@@ -91412,20 +91412,20 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/detailedCriteria/DACEN-ITEM-LST", DeliveryAcceptanceCriterionEntryId)
 
     @property
-    def SWDLV_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/softwareDeliverables/SWDLV-ITEM-LST", DeliverableEntryId)
+    def DLVEN_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/softwareDeliverables/DLVEN-ITEM-LST", DeliverableEntryId)
 
     @property
-    def DCDLV_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/documentationDeliverables/DCDLV-ITEM-LST", DeliverableEntryId)
+    def DLVEN_ITEM_LST_2(self):
+        return SomListMetaRef(self.tree, f"{self.path}/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/documentationDeliverables/DLVEN-ITEM-LST", DeliverableEntryId)
 
     @property
-    def TRDLV_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/trainingDeliverables/TRDLV-ITEM-LST", DeliverableEntryId)
+    def DLVEN_ITEM_LST_3(self):
+        return SomListMetaRef(self.tree, f"{self.path}/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/trainingDeliverables/DLVEN-ITEM-LST", DeliverableEntryId)
 
     @property
-    def SPDLV_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/supportDeliverables/SPDLV-ITEM-LST", DeliverableEntryId)
+    def DLVEN_ITEM_LST_4(self):
+        return SomListMetaRef(self.tree, f"{self.path}/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/supportDeliverables/DLVEN-ITEM-LST", DeliverableEntryId)
 
     @property
     def DACEN_ITEM_LST_2(self):
@@ -91572,8 +91572,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/qualityAndAcceptanceModel/deliveryAcceptance/acceptancePlan/warranty/WAFI")
 
     @property
-    def I25CV_CHAR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST", Iso25010CoverageEntryId)
+    def I25CE_CHAR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/qualityAndAcceptanceModel/iso25010Coverage/I25CE-CHAR-LST", Iso25010CoverageEntryId)
 
     @property
     def SSPTM(self):
@@ -91636,12 +91636,12 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGGV")
 
     @property
-    def KEYAS_KEYA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/strategy/KEYAS-KEYA-LST", SomMetaRef)
+    def STAGST_KEYA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGST-KEYA-LST", SomMetaRef)
 
     @property
-    def STAGI_CONS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGI-CONS-LST", SomMetaRef)
+    def STAGST_CONS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGST-CONS-LST", SomMetaRef)
 
     @property
     def SGOVM(self):
@@ -91720,20 +91720,20 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/FEPRTR")
 
     @property
-    def MOEN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/moscowAnalysis/MOEN-ITEM-LST", MoscowEntryId)
+    def ME_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/moscowAnalysis/ME-ITEM-LST", MoscowEntryId)
 
     @property
-    def FESTM1_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureStageMatrix/FESTM1-ITEM-LST", FeatureStageMappingId)
+    def FSM_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureStageMatrix/FSM-ITEM-LST", FeatureStageMappingId)
 
     @property
-    def FEPREN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featurePriorityRegister/FEPREN-ITEM-LST", FeaturePriorityEntryId)
+    def FPE_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST", FeaturePriorityEntryId)
 
     @property
-    def FEDEEN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureDependencies/FEDEEN-ITEM-LST", FeatureDependencyEntryId)
+    def FDE_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureDependencies/FDE-ITEM-LST", FeatureDependencyEntryId)
 
     @property
     def MIAP(self):
@@ -91832,12 +91832,12 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PGRO")
 
     @property
-    def PGRE_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PGRE-ITEM-LST", PhaseGateReviewEntryId)
+    def PHGAREEN_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PHGAREEN-ITEM-LST", PhaseGateReviewEntryId)
 
     @property
-    def DEPOEN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/governance/decisionPoints/DEPOEN-ITEM-LST", DecisionPointEntryId)
+    def DPE_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/systemStagePlan/governance/decisionPoints/DPE-ITEM-LST", DecisionPointEntryId)
 
     @property
     def LOPR_LOCA(self):
@@ -91876,8 +91876,8 @@ class D00SolutionBlueprintId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TRPRON")
 
     @property
-    def TRVEEN_VEND_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TRVEEN-VEND-LST", TranslationVendorEntryId)
+    def TVE_VEND_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TVE-VEND-LST", TranslationVendorEntryId)
 
     @property
     def LOCRP(self):
@@ -91903,12 +91903,12 @@ class D01CurrentLandscapeAssessmentId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/existingSystemsLandscape/currentArchitecture/CARCH-DEPL")
 
     @property
-    def IPE_INTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST", SomMetaRef)
+    def CARCH_INTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/existingSystemsLandscape/currentArchitecture/CARCH-INTE-LST", SomMetaRef)
 
     @property
-    def SHARE_SHAR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST", SomMetaRef)
+    def CARCH_SHAR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/existingSystemsLandscape/currentArchitecture/CARCH-SHAR-LST", SomMetaRef)
 
     @property
     def DEPNT_DEPE(self):
@@ -91931,8 +91931,8 @@ class D01CurrentLandscapeAssessmentId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/existingSystemsLandscape/dependenciesAndIntegrations/integrations/SYIN-ITEM-LST", SystemIntegrationEntryId)
 
     @property
-    def FRAGI_FRAG_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST", SomMetaRef)
+    def INHESU_FRAG_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/INHESU-FRAG-LST", SomMetaRef)
 
     @property
     def CUBUPR_PROC(self):
@@ -91979,24 +91979,24 @@ class D01CurrentLandscapeAssessmentId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/painPointsAndGaps/operationalPainPoints/OPPS")
 
     @property
-    def OPPAPO_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/painPointsAndGaps/operationalPainPoints/OPPAPO-ITEM-LST", PainPointEntryId)
+    def PAPE_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/painPointsAndGaps/operationalPainPoints/PAPE-ITEM-LST", PainPointEntryId)
 
     @property
     def BPPS(self):
         return SomMetaRef(self.tree, f"{self.path}/painPointsAndGaps/businessPainPoints/BPPS")
 
     @property
-    def BUPAPO_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/painPointsAndGaps/businessPainPoints/BUPAPO-ITEM-LST", PainPointEntryId)
+    def PAPE_ITEM_LST_2(self):
+        return SomListMetaRef(self.tree, f"{self.path}/painPointsAndGaps/businessPainPoints/PAPE-ITEM-LST", PainPointEntryId)
 
     @property
     def TPPS(self):
         return SomMetaRef(self.tree, f"{self.path}/painPointsAndGaps/technicalPainPoints/TPPS")
 
     @property
-    def TEPAPO_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/painPointsAndGaps/technicalPainPoints/TEPAPO-ITEM-LST", PainPointEntryId)
+    def PAPE_ITEM_LST_3(self):
+        return SomListMetaRef(self.tree, f"{self.path}/painPointsAndGaps/technicalPainPoints/PAPE-ITEM-LST", PainPointEntryId)
 
     @property
     def GAPE_ITEM_LST(self):
@@ -92175,20 +92175,20 @@ class D01CurrentLandscapeAssessmentId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/migrationConsiderations/migrationRisks/MIRIRE")
 
     @property
-    def RISKC_RISK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/migrationConsiderations/migrationRisks/RISKC-RISK-LST", SomMetaRef)
+    def MIRI_RISK_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/migrationConsiderations/migrationRisks/MIRI-RISK-LST", SomMetaRef)
 
     @property
-    def RISKB_RISK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/migrationConsiderations/migrationRisks/RISKB-RISK-LST", SomMetaRef)
+    def MIRI_RBDE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/migrationConsiderations/migrationRisks/MIRI-RBDE-LST", SomMetaRef)
 
     @property
-    def MONIT_MONI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/migrationConsiderations/migrationRisks/MONIT-MONI-LST", SomMetaRef)
+    def MIRI_MONI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/migrationConsiderations/migrationRisks/MIRI-MONI-LST", SomMetaRef)
 
     @property
-    def RESPO_RESP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/migrationConsiderations/migrationRisks/RESPO-RESP-LST", SomMetaRef)
+    def MIRI_RESP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/migrationConsiderations/migrationRisks/MIRI-RESP-LST", SomMetaRef)
 
     @property
     def MGRSK_ITEM_LST(self):
@@ -92199,8 +92199,8 @@ class D01CurrentLandscapeAssessmentId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/migrationConsiderations/MGMLS-MILE-LST", MigrationMilestoneEntryId)
 
     @property
-    def ESCAL_ESCA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/migrationConsiderations/ESCAL-ESCA-LST", SomMetaRef)
+    def MIGCON_ESCA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/migrationConsiderations/MIGCON-ESCA-LST", SomMetaRef)
 
 
 class D02TargetOperatingModelId(SomMetaRef):
@@ -92446,16 +92446,16 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/basicTechnicalRequirements/platformAndLanguage/PLGEN-PROG-LST", ProgrammingLanguageEntryId)
 
     @property
-    def FWREN_FRAM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/basicTechnicalRequirements/platformAndLanguage/FWREN-FRAM-LST", FrameworkRequirementEntryId)
+    def FRREEN_FRAM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/basicTechnicalRequirements/platformAndLanguage/FRREEN-FRAM-LST", FrameworkRequirementEntryId)
 
     @property
     def BTCEN_BUIL_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/basicTechnicalRequirements/platformAndLanguage/BTCEN-BUIL-LST", BuildToolchainEntryId)
 
     @property
-    def DETAEN_DEPL_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/basicTechnicalRequirements/platformAndLanguage/DETAEN-DEPL-LST", DeploymentTargetEntryId)
+    def DEPTARENT_DEPL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/basicTechnicalRequirements/platformAndLanguage/DEPTARENT-DEPL-LST", DeploymentTargetEntryId)
 
     @property
     def DEMAVE(self):
@@ -92654,16 +92654,16 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/basicTechnicalRequirements/designPatternsAndStandards/DSPT-DESI-LST", DesignPatternEntryId)
 
     @property
-    def COSTEN_CODI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/basicTechnicalRequirements/designPatternsAndStandards/COSTEN-CODI-LST", CodingStandardEntryId)
+    def CSE_CODI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/basicTechnicalRequirements/designPatternsAndStandards/CSE-CODI-LST", CodingStandardEntryId)
 
     @property
-    def DECOEN_DEVE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/basicTechnicalRequirements/designPatternsAndStandards/DECOEN-DEVE-LST", DevelopmentConventionEntryId)
+    def DCE_DEVE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/basicTechnicalRequirements/designPatternsAndStandards/DCE-DEVE-LST", DevelopmentConventionEntryId)
 
     @property
-    def INSTEN_INDU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/basicTechnicalRequirements/designPatternsAndStandards/INSTEN-INDU-LST", IndustryStandardEntryId)
+    def ISE_INDU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/basicTechnicalRequirements/designPatternsAndStandards/ISE-INDU-LST", IndustryStandardEntryId)
 
     @property
     def CQMC(self):
@@ -92742,8 +92742,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/basicTechnicalRequirements/designPatternsAndStandards/testingStandards/TESTTO")
 
     @property
-    def SOLAEN_SOFT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/layeringAndModuleStructure/SOLAEN-SOFT-LST", SoftwareLayerEntryId)
+    def SLE_SOFT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/layeringAndModuleStructure/SLE-SOFT-LST", SoftwareLayerEntryId)
 
     @property
     def LCRI(self):
@@ -92758,8 +92758,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/layeringAndModuleStructure/layerCommunicationRules/LCRG")
 
     @property
-    def BOCOEN_BOUN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/layeringAndModuleStructure/BOCOEN-BOUN-LST", BoundedContextEntryId)
+    def BCE_BOUN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/layeringAndModuleStructure/BCE-BOUN-LST", BoundedContextEntryId)
 
     @property
     def PAORST(self):
@@ -92778,12 +92778,12 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/layeringAndModuleStructure/packageOrganization/PAORDO")
 
     @property
-    def MOEN1_MODU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/layeringAndModuleStructure/MOEN1-MODU-LST", ModuleEntryId)
+    def MODENT_MODU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/layeringAndModuleStructure/MODENT-MODU-LST", ModuleEntryId)
 
     @property
-    def SHLIB_SHAR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/layeringAndModuleStructure/SHLIB-SHAR-LST", SharedLibraryEntryId)
+    def SHLIEN_SHAR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/layeringAndModuleStructure/SHLIEN-SHAR-LST", SharedLibraryEntryId)
 
     @property
     def DISR(self):
@@ -92842,8 +92842,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO")
 
     @property
-    def IDREEN_IDER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/developmentEnvironment/IDREEN-IDER-LST", IdeRequirementEntryId)
+    def IRE_IDER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/developmentEnvironment/IRE-IDER-LST", IdeRequirementEntryId)
 
     @property
     def BTCBS(self):
@@ -92878,16 +92878,16 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/developmentEnvironment/versionControl/VCCM")
 
     @property
-    def PISTEN_STAG_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST", PipelineStageEntryId)
+    def PSE_STAG_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/developmentEnvironment/cicdPipeline/PSE-STAG-LST", PipelineStageEntryId)
 
     @property
-    def PIJOEN_JOBS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST", PipelineJobEntryId)
+    def PJE_JOBS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/developmentEnvironment/cicdPipeline/PJE-JOBS-LST", PipelineJobEntryId)
 
     @property
-    def DEENEN_ENVI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST", DeploymentEnvironmentEntryId)
+    def DEE_ENVI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/developmentEnvironment/cicdPipeline/DEE-ENVI-LST", DeploymentEnvironmentEntryId)
 
     @property
     def CRPR(self):
@@ -93022,16 +93022,16 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/reusableComponents/SHLCP-SHAR-LST", SharedLibraryComponentEntryId)
 
     @property
-    def RUICMP_UICO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/reusableComponents/RUICMP-UICO-LST", ReusableUiComponentEntryId)
+    def RUCE_UICO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/reusableComponents/RUCE-UICO-LST", ReusableUiComponentEntryId)
 
     @property
-    def BUCOEN_BUSI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/reusableComponents/BUCOEN-BUSI-LST", BusinessComponentEntryId)
+    def BUSCOMENT_BUSI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/reusableComponents/BUSCOMENT-BUSI-LST", BusinessComponentEntryId)
 
     @property
-    def INCOEN_INFR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/reusableComponents/INCOEN-INFR-LST", InfrastructureComponentEntryId)
+    def INFCOMENT_INFR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/reusableComponents/INFCOMENT-INFR-LST", InfrastructureComponentEntryId)
 
     @property
     def THPALI_THIR_LST(self):
@@ -93070,36 +93070,36 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/softwareDesignRequirements/reusableComponents/registry/COREUP")
 
     @property
-    def OSCOEN_OSCO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/OSCOEN-OSCO-LST", OsCompatibilityEntryId)
+    def OCE_OSCO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/OCE-OSCO-LST", OsCompatibilityEntryId)
 
     @property
-    def BRCOEN_BROW_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/BRCOEN-BROW-LST", BrowserCompatibilityEntryId)
+    def BROCOMENT_BROW_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/BROCOMENT-BROW-LST", BrowserCompatibilityEntryId)
 
     @property
-    def DACOEN_DATA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/DACOEN-DATA-LST", DatabaseCompatibilityEntryId)
+    def DATCOMENT_DATA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/DATCOMENT-DATA-LST", DatabaseCompatibilityEntryId)
 
     @property
-    def ESCE_ENTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/ESCE-ENTE-LST", EnterpriseSystemCompatibilityEntryId)
+    def ENSYCOEN_ENTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/ENSYCOEN-ENTE-LST", EnterpriseSystemCompatibilityEntryId)
 
     @property
     def APCP_APIC_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/APCP-APIC-LST", ApiCompatibilityEntryId)
 
     @property
-    def LECOEN_LEGA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/LECOEN-LEGA-LST", LegacyCompatibilityEntryId)
+    def LCE_LEGA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/LCE-LEGA-LST", LegacyCompatibilityEntryId)
 
     @property
-    def MOCOEN_MOBI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/MOCOEN-MOBI-LST", MobileCompatibilityEntryId)
+    def MOBCOMENT_MOBI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/MOBCOMENT-MOBI-LST", MobileCompatibilityEntryId)
 
     @property
-    def TPCE_THIR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/TPCE-THIR-LST", ThirdPartyCompatibilityEntryId)
+    def THPACOEN_THIR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/THPACOEN-THIR-LST", ThirdPartyCompatibilityEntryId)
 
     @property
     def DFCF(self):
@@ -93150,24 +93150,24 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/compatibilityRequirements/interoperability/INREGO")
 
     @property
-    def ISCE_ITST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/ISCE-ITST-LST", ItStandardComplianceEntryId)
+    def ITSTCOEN_ITST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/ITSTCOEN-ITST-LST", ItStandardComplianceEntryId)
 
     @property
-    def IPCE_INDU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/IPCE-INDU-LST", IndustryProtocolComplianceEntryId)
+    def INPRCOEN_INDU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/INPRCOEN-INDU-LST", IndustryProtocolComplianceEntryId)
 
     @property
-    def INSPEN_INTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/INSPEN-INTE-LST", InterfaceSpecificationEntryId)
+    def INTSPEENT_INTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/INTSPEENT-INTE-LST", InterfaceSpecificationEntryId)
 
     @property
-    def RECOEN_REGU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/RECOEN-REGU-LST", RegulatoryComplianceEntryId)
+    def RCE_REGU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/RCE-REGU-LST", RegulatoryComplianceEntryId)
 
     @property
-    def SSCE_SECU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/SSCE-SECU-LST", SecurityStandardComplianceEntryId)
+    def SESTCOEN_SECU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/SESTCOEN-SECU-LST", SecurityStandardComplianceEntryId)
 
     @property
     def ACCSTD_ACCE_LST(self):
@@ -93250,12 +93250,12 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/standardSoftwareRequirements/standardsCompliance/complianceVerification/CVSC")
 
     @property
-    def SEENEN_ENVI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/serverRequirements/SEENEN-ENVI-LST", ServerEnvironmentEntryId)
+    def SEE_ENVI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/serverRequirements/SEE-ENVI-LST", ServerEnvironmentEntryId)
 
     @property
-    def SEROEN_SERV_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/serverRequirements/SEROEN-SERV-LST", ServerRoleEntryId)
+    def SRE_SERV_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/serverRequirements/SRE-SERV-LST", ServerRoleEntryId)
 
     @property
     def CRRM(self):
@@ -93382,16 +93382,16 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/clientRequirements/CLIAPP-CLIE-LST", ClientApplicationEntryId)
 
     @property
-    def BRREEN_BROW_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/clientRequirements/BRREEN-BROW-LST", BrowserRequirementEntryId)
+    def BROREQENT_BROW_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/clientRequirements/BROREQENT-BROW-LST", BrowserRequirementEntryId)
 
     @property
-    def DORE1_DESK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/clientRequirements/DORE1-DESK-LST", DesktopOsRequirementEntryId)
+    def DEOSREEN_DESK_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/clientRequirements/DEOSREEN-DESK-LST", DesktopOsRequirementEntryId)
 
     @property
-    def MDRE_MOBI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/clientRequirements/MDRE-MOBI-LST", MobileDeviceRequirementEntryId)
+    def MODEREEN_MOBI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/clientRequirements/MODEREEN-MOBI-LST", MobileDeviceRequirementEntryId)
 
     @property
     def DIRELA(self):
@@ -93598,8 +93598,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/hardwareRequirements/networkRequirements/availabilityRequirements/NART")
 
     @property
-    def VPREEN_VPNR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/networkRequirements/VPREEN-VPNR-LST", VpnRequirementEntryId)
+    def VRE_VPNR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/hardwareRequirements/networkRequirements/VRE-VPNR-LST", VpnRequirementEntryId)
 
     @property
     def FIRERU(self):
@@ -93690,8 +93690,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/operationsRequirements/backupAndRecovery/dataClassification/BDCE")
 
     @property
-    def BAPOEN_BACK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/operationsRequirements/backupAndRecovery/BAPOEN-BACK-LST", BackupPolicyEntryId)
+    def BPE_BACK_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/operationsRequirements/backupAndRecovery/BPE-BACK-LST", BackupPolicyEntryId)
 
     @property
     def RRRBT(self):
@@ -93986,8 +93986,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/operationsRequirements/monitoringAndAlerting/alerting/ALRERE")
 
     @property
-    def ALDEEN_ALER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/operationsRequirements/monitoringAndAlerting/ALDEEN-ALER-LST", AlertDefinitionEntryId)
+    def ALEDEFENT_ALER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/operationsRequirements/monitoringAndAlerting/ALEDEFENT-ALER-LST", AlertDefinitionEntryId)
 
     @property
     def DAREST(self):
@@ -94070,8 +94070,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/operationsRequirements/maintenanceWindows/scheduledMaintenance/SMPA")
 
     @property
-    def MAWIEN_MAIN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/operationsRequirements/maintenanceWindows/MAWIEN-MAIN-LST", MaintenanceWindowEntryId)
+    def MWE_MAIN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/operationsRequirements/maintenanceWindows/MWE-MAIN-LST", MaintenanceWindowEntryId)
 
     @property
     def EMPG(self):
@@ -94122,8 +94122,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/operationsRequirements/maintenanceWindows/postMaintenance/PMVC")
 
     @property
-    def PREN_PROT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/communicationRequirements/protocolsAndStandards/PREN-PROT-LST", ProtocolEntryId)
+    def PE_PROT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/communicationRequirements/protocolsAndStandards/PE-PROT-LST", ProtocolEntryId)
 
     @property
     def TRCS(self):
@@ -94210,8 +94210,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/communicationRequirements/protocolsAndStandards/compliance/PCRE")
 
     @property
-    def EPCE_PART_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/communicationRequirements/externalConnectivity/EPCE-PART-LST", ExternalPartnerConnectionEntryId)
+    def EXPACOEN_PART_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/communicationRequirements/externalConnectivity/EXPACOEN-PART-LST", ExternalPartnerConnectionEntryId)
 
     @property
     def CSIS(self):
@@ -94362,8 +94362,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/systemOperation/administrationRequirements/diagnosticTools/SDTSS")
 
     @property
-    def MAINT_MAIN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/systemOperation/MAINT-MAIN-LST", SomMetaRef)
+    def SO_MAIN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/systemOperation/SO-MAIN-LST", SomMetaRef)
 
     @property
     def MONITO_MONI(self):
@@ -94450,8 +94450,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/monitoring/alertingConfiguration/notificationChannels/ANCF")
 
     @property
-    def ALRUEN_ALER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/monitoring/alertingConfiguration/ALRUEN-ALER-LST", AlertRuleEntryId)
+    def ALERULENT_ALER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/monitoring/alertingConfiguration/ALERULENT-ALER-LST", AlertRuleEntryId)
 
     @property
     def AEPT(self):
@@ -94534,16 +94534,16 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/monitoring/metricsAndObservability/distributedTracing/DTSO")
 
     @property
-    def CUMEEN_CUST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/monitoring/metricsAndObservability/CUMEEN-CUST-LST", CustomMetricEntryId)
+    def CUSMETENT_CUST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/monitoring/metricsAndObservability/CUSMETENT-CUST-LST", CustomMetricEntryId)
 
     @property
     def MODA_DASH(self):
         return SomMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/monitoring/dashboards/MODA-DASH")
 
     @property
-    def DAEN_DASH_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/monitoring/dashboards/DAEN-DASH-LST", DashboardEntryId)
+    def DASENT_DASH_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/monitoring/dashboards/DASENT-DASH-LST", DashboardEntryId)
 
     @property
     def DATE_DASH_LST(self):
@@ -94566,8 +94566,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/slis/SLIM")
 
     @property
-    def SLEN_SLOS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST", SloEntryId)
+    def SE_SLOS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/SE-SLOS-LST", SloEntryId)
 
     @property
     def EBTM(self):
@@ -94662,8 +94662,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/systemOperationAndMonitoring/capacityPlanning/capacityReview/CRPP")
 
     @property
-    def SESTEN_STAN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalSecurityRequirements/itSecurityStandards/SESTEN-STAN-LST", SecurityStandardEntryId)
+    def SSE_STAN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalSecurityRequirements/itSecurityStandards/SSE-STAN-LST", SecurityStandardEntryId)
 
     @property
     def ASRC(self):
@@ -94930,8 +94930,8 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalSecurityRequirements/securityAuditRequirements/securityTestingAutomation/STAG")
 
     @property
-    def SEAUEN_AUDI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalSecurityRequirements/securityAuditRequirements/SEAUEN-AUDI-LST", SecurityAuditEntryId)
+    def SAE_AUDI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalSecurityRequirements/securityAuditRequirements/SAE-AUDI-LST", SecurityAuditEntryId)
 
     @property
     def CSVND(self):
@@ -94998,24 +94998,24 @@ class D06ArchitectureTechnologySpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalEnvironment/TES")
 
     @property
-    def DEVOP_DEVO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalEnvironment/network/DEVOP-DEVO-LST", SomMetaRef)
+    def TEENNE_DEVO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalEnvironment/network/TEENNE-DEVO-LST", SomMetaRef)
 
     @property
-    def OBSER_OBSE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalEnvironment/network/OBSER-OBSE-LST", SomMetaRef)
+    def TEENNE_OBSE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalEnvironment/network/TEENNE-OBSE-LST", SomMetaRef)
 
     @property
-    def DATAC_DATA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalEnvironment/DATAC-DATA-LST", SomMetaRef)
+    def TEEN_DATA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalEnvironment/TEEN-DATA-LST", SomMetaRef)
 
     @property
-    def TESTEN_TECH_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalEnvironment/TESTEN-TECH-LST", TechnologyStandardEntryId)
+    def TSE_TECH_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalEnvironment/TSE-TECH-LST", TechnologyStandardEntryId)
 
     @property
-    def INCOE1_INTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalEnvironment/INCOE1-INTE-LST", IntegrationConstraintEntryId)
+    def INTCONENT_INTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalEnvironment/INTCONENT-INTE-LST", IntegrationConstraintEntryId)
 
     @property
     def TRAREQ_TRAN(self):
@@ -95045,16 +95045,16 @@ class D07IntegrationInterfaceSpecificationId(SomMetaRef):
     dot-notation surface."""
 
     @property
-    def EXINEN_INTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/externalInterfaces/EXINEN-INTE-LST", ExternalInterfaceEntryId)
+    def EIE_INTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/externalInterfaces/EIE-INTE-LST", ExternalInterfaceEntryId)
 
     @property
-    def OOSE_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/outOfScope/OOSE-ITEM-LST", OutOfScopeEntryId)
+    def OUOFSCEN_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/outOfScope/OUOFSCEN-ITEM-LST", OutOfScopeEntryId)
 
     @property
-    def BOASEN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/boundaryAssumptions/BOASEN-ITEM-LST", BoundaryAssumptionEntryId)
+    def BAE_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/boundaryAssumptions/BAE-ITEM-LST", BoundaryAssumptionEntryId)
 
     @property
     def BOINPA_INTE_LST(self):
@@ -95160,16 +95160,16 @@ class D08SecurityAccessSpecificationId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/identificationAndAuthentication/identification/IDTAM-ATTR-LST", IdentityAttributeMappingEntryId)
 
     @property
-    def MFADE_MFAD_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/identificationAndAuthentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", SomMetaRef)
+    def MC_MFAD_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/identificationAndAuthentication/authentication/authenticationMethods/mfaConfiguration/MC-MFAD-LST", SomMetaRef)
 
     @property
     def ATME_ITEM_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/identificationAndAuthentication/authentication/authenticationMethods/ATME-ITEM-LST", AuthenticationMethodEntryId)
 
     @property
-    def STEPU_STEP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/identificationAndAuthentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", SomMetaRef)
+    def SUAP_STEP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/identificationAndAuthentication/authentication/authenticationFlow/stepUpAuthentication/SUAP-STEP-LST", SomMetaRef)
 
     @property
     def LGFLS_LOGI_LST(self):
@@ -95247,8 +95247,8 @@ class D09ExperienceDesignSpecificationId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/screens/screenInventory/SCREN-ITEM-LST", ScreenEntryId)
 
     @property
-    def GLOBA_GLOB_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/screens/informationArchitecture/GLOBA-GLOB-LST", SomMetaRef)
+    def IA_GLOB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/screens/informationArchitecture/IA-GLOB-LST", SomMetaRef)
 
     @property
     def NAVGRP_GROU_LST(self):
@@ -95267,12 +95267,12 @@ class D09ExperienceDesignSpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/screenFlow/navigationModel/primaryNavigation/PRNASI")
 
     @property
-    def TBDE_TABB_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST", TabBarDefinitionEntryId)
+    def TABADEEN_TABB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST", TabBarDefinitionEntryId)
 
     @property
-    def UNIE_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST", UtilityNavigationItemEntryId)
+    def UTNAITEN_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST", UtilityNavigationItemEntryId)
 
     @property
     def BRCO(self):
@@ -95319,16 +95319,16 @@ class D09ExperienceDesignSpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/printLayout/PRLAAR")
 
     @property
-    def EXFOEN_EXPO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/printLayout/EXFOEN-EXPO-LST", ExportFormatEntryId)
+    def EFE_EXPO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/printLayout/EFE-EXPO-LST", ExportFormatEntryId)
 
     @property
-    def EXTEEN_EXPO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/printLayout/EXTEEN-EXPO-LST", ExportTemplateEntryId)
+    def ETE_EXPO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/printLayout/ETE-EXPO-LST", ExportTemplateEntryId)
 
     @property
-    def REEN_REPO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/reportDefinitions/REEN-REPO-LST", ReportEntryId)
+    def REPENT_REPO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/reportDefinitions/REPENT-REPO-LST", ReportEntryId)
 
     @property
     def ERHACO_ERRO(self):
@@ -95367,12 +95367,12 @@ class D09ExperienceDesignSpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/errorHandling/validationFeedback/VAFEBE")
 
     @property
-    def VAMETE_MESS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/errorHandling/validationFeedback/VAMETE-MESS-LST", ValidationMessageTemplateId)
+    def VMT_MESS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/errorHandling/validationFeedback/VMT-MESS-LST", ValidationMessageTemplateId)
 
     @property
-    def FIELD_FIEL_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/errorHandling/validationFeedback/FIELD-FIEL-LST", SomMetaRef)
+    def VAFE_FIEL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/errorHandling/validationFeedback/VAFE-FIEL-LST", SomMetaRef)
 
     @property
     def SYERDI_SYST(self):
@@ -95395,12 +95395,12 @@ class D09ExperienceDesignSpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/errorHandling/systemErrorDisplay/SEDF")
 
     @property
-    def EPDE_ERRO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", SomMetaRef)
+    def SYERDI_ERRO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST", SomMetaRef)
 
     @property
-    def SECE_ERRO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/errorHandling/systemErrorDisplay/SECE-ERRO-LST", SystemErrorCodeEntryId)
+    def SYERCOEN_ERRO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST", SystemErrorCodeEntryId)
 
     @property
     def ERRE_RECO(self):
@@ -95427,8 +95427,8 @@ class D09ExperienceDesignSpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/errorHandling/errorRecovery/ERSH")
 
     @property
-    def RECOV_RECO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/errorHandling/errorRecovery/RECOV-RECO-LST", SomMetaRef)
+    def ERRE_RECO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/errorHandling/errorRecovery/ERRE-RECO-LST", SomMetaRef)
 
     @property
     def RCVSCN_RECO_LST(self):
@@ -95555,8 +95555,8 @@ class D09ExperienceDesignSpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/accessibility/wcagComplianceLevel/WCCORO")
 
     @property
-    def WSCE_SUCC_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/accessibility/wcagComplianceLevel/WSCE-SUCC-LST", WcagSuccessCriterionEntryId)
+    def WCSUCREN_SUCC_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessibility/wcagComplianceLevel/WCSUCREN-SUCC-LST", WcagSuccessCriterionEntryId)
 
     @property
     def ACCHLS_CHEC(self):
@@ -95575,8 +95575,8 @@ class D09ExperienceDesignSpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/responsiveDesign/breakpointConfig/BC-BREA")
 
     @property
-    def BRE_BREA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/responsiveDesign/breakpointConfig/BRE-BREA-LST", BreakpointEntryId)
+    def BE_BREA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/responsiveDesign/breakpointConfig/BE-BREA-LST", BreakpointEntryId)
 
     @property
     def REBE_LAYO(self):
@@ -95651,8 +95651,8 @@ class D09ExperienceDesignSpecificationId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/uiComponents/componentLibrary/TYST-TYPO-LST", TypographyStyleEntryId)
 
     @property
-    def UICOEN_COMP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/uiComponents/UICOEN-COMP-LST", UiComponentEntryId)
+    def UICOMENT_COMP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/uiComponents/UICOMENT-COMP-LST", UiComponentEntryId)
 
     @property
     def CMFA_COMP_LST(self):
@@ -95707,8 +95707,8 @@ class D09ExperienceDesignSpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/prototype/prototypeGoals/PRGOFE")
 
     @property
-    def PRGOEN_GOAL_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/prototype/prototypeGoals/PRGOEN-GOAL-LST", PrototypeGoalEntryId)
+    def PGE_GOAL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/prototype/prototypeGoals/PGE-GOAL-LST", PrototypeGoalEntryId)
 
     @property
     def PRFESU_FEAT(self):
@@ -95723,8 +95723,8 @@ class D09ExperienceDesignSpecificationId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/prototype/featureSubset/PFSF")
 
     @property
-    def PRFEEN_FEAT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/prototype/featureSubset/PRFEEN-FEAT-LST", PrototypeFeatureEntryId)
+    def PFE_FEAT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/prototype/featureSubset/PFE-FEAT-LST", PrototypeFeatureEntryId)
 
     @property
     def PRTYSE_PROT(self):
@@ -95802,8 +95802,8 @@ class D10QualityAcceptancePlanId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/qualityFramework/QCATE-QUAL-LST", QualityCategoryEntryId)
 
     @property
-    def CATEG_CATE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/qualityFramework/CATEG-CATE-LST", SomMetaRef)
+    def QLFWK_CATE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/qualityFramework/QLFWK-CATE-LST", SomMetaRef)
 
     @property
     def FNSU_FUNC(self):
@@ -96297,12 +96297,12 @@ class D11DeliveryRoadmapId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/stagingStrategy/STAGGV")
 
     @property
-    def KEYAS_KEYA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/stagingStrategy/KEYAS-KEYA-LST", SomMetaRef)
+    def STAGST_KEYA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/stagingStrategy/STAGST-KEYA-LST", SomMetaRef)
 
     @property
-    def STAGI_CONS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/stagingStrategy/STAGI-CONS-LST", SomMetaRef)
+    def STAGST_CONS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/stagingStrategy/STAGST-CONS-LST", SomMetaRef)
 
     @property
     def SGOVM(self):
@@ -96381,20 +96381,20 @@ class D11DeliveryRoadmapId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/featurePrioritization/FEPRTR")
 
     @property
-    def MOEN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/featurePrioritization/moscowAnalysis/MOEN-ITEM-LST", MoscowEntryId)
+    def ME_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/featurePrioritization/moscowAnalysis/ME-ITEM-LST", MoscowEntryId)
 
     @property
-    def FESTM1_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/featurePrioritization/featureStageMatrix/FESTM1-ITEM-LST", FeatureStageMappingId)
+    def FSM_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/featurePrioritization/featureStageMatrix/FSM-ITEM-LST", FeatureStageMappingId)
 
     @property
-    def FEPREN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/featurePrioritization/featurePriorityRegister/FEPREN-ITEM-LST", FeaturePriorityEntryId)
+    def FPE_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST", FeaturePriorityEntryId)
 
     @property
-    def FEDEEN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/featurePrioritization/featureDependencies/FEDEEN-ITEM-LST", FeatureDependencyEntryId)
+    def FDE_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/featurePrioritization/featureDependencies/FDE-ITEM-LST", FeatureDependencyEntryId)
 
     @property
     def MIAP(self):
@@ -96465,12 +96465,12 @@ class D11DeliveryRoadmapId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/gateCriteria/PGRO")
 
     @property
-    def PGRE_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/gateCriteria/PGRE-ITEM-LST", PhaseGateReviewEntryId)
+    def PHGAREEN_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/gateCriteria/PHGAREEN-ITEM-LST", PhaseGateReviewEntryId)
 
     @property
-    def DEPOEN_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/decisionProcesses/DEPOEN-ITEM-LST", DecisionPointEntryId)
+    def DPE_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/decisionProcesses/DPE-ITEM-LST", DecisionPointEntryId)
 
 
 class D12TransitionRolloutPlanId(SomMetaRef):
@@ -96516,8 +96516,8 @@ class D12TransitionRolloutPlanId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/translationProcess/TRPRON")
 
     @property
-    def TRVEEN_VEND_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/translationProcess/TRVEEN-VEND-LST", TranslationVendorEntryId)
+    def TVE_VEND_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/translationProcess/TVE-VEND-LST", TranslationVendorEntryId)
 
     @property
     def DOANTR_DOCU(self):
@@ -96536,8 +96536,8 @@ class D12TransitionRolloutPlanId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/trainingDeliverables/TRMAT-TRAI")
 
     @property
-    def TRMOEN_TRAI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/trainingDeliverables/TRMOEN-TRAI-LST", TrainingModuleEntryId)
+    def TME_TRAI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/trainingDeliverables/TME-TRAI-LST", TrainingModuleEntryId)
 
 
 class D13CodeSpecsProjectionId(SomMetaRef):
@@ -96599,16 +96599,16 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/PLGEN-PROG-LST", ProgrammingLanguageEntryId)
 
     @property
-    def FWREN_FRAM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/FWREN-FRAM-LST", FrameworkRequirementEntryId)
+    def FRREEN_FRAM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/FRREEN-FRAM-LST", FrameworkRequirementEntryId)
 
     @property
     def BTCEN_BUIL_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/BTCEN-BUIL-LST", BuildToolchainEntryId)
 
     @property
-    def DETAEN_DEPL_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/DETAEN-DEPL-LST", DeploymentTargetEntryId)
+    def DEPTARENT_DEPL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/platformAndLanguage/DEPTARENT-DEPL-LST", DeploymentTargetEntryId)
 
     @property
     def DEMAVE(self):
@@ -96807,16 +96807,16 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/DSPT-DESI-LST", DesignPatternEntryId)
 
     @property
-    def COSTEN_CODI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/COSTEN-CODI-LST", CodingStandardEntryId)
+    def CSE_CODI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/CSE-CODI-LST", CodingStandardEntryId)
 
     @property
-    def DECOEN_DEVE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/DECOEN-DEVE-LST", DevelopmentConventionEntryId)
+    def DCE_DEVE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/DCE-DEVE-LST", DevelopmentConventionEntryId)
 
     @property
-    def INSTEN_INDU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/INSTEN-INDU-LST", IndustryStandardEntryId)
+    def ISE_INDU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/ISE-INDU-LST", IndustryStandardEntryId)
 
     @property
     def CQMC(self):
@@ -96895,8 +96895,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTTO")
 
     @property
-    def SOLAEN_SOFT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/SOLAEN-SOFT-LST", SoftwareLayerEntryId)
+    def SLE_SOFT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/SLE-SOFT-LST", SoftwareLayerEntryId)
 
     @property
     def LCRI(self):
@@ -96911,8 +96911,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRG")
 
     @property
-    def BOCOEN_BOUN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/BOCOEN-BOUN-LST", BoundedContextEntryId)
+    def BCE_BOUN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/BCE-BOUN-LST", BoundedContextEntryId)
 
     @property
     def PAORST(self):
@@ -96931,12 +96931,12 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDO")
 
     @property
-    def MOEN1_MODU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/MOEN1-MODU-LST", ModuleEntryId)
+    def MODENT_MODU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/MODENT-MODU-LST", ModuleEntryId)
 
     @property
-    def SHLIB_SHAR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIB-SHAR-LST", SharedLibraryEntryId)
+    def SHLIEN_SHAR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIEN-SHAR-LST", SharedLibraryEntryId)
 
     @property
     def DISR(self):
@@ -96995,8 +96995,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO")
 
     @property
-    def IDREEN_IDER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/IDREEN-IDER-LST", IdeRequirementEntryId)
+    def IRE_IDER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/IRE-IDER-LST", IdeRequirementEntryId)
 
     @property
     def BTCBS(self):
@@ -97031,16 +97031,16 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCM")
 
     @property
-    def PISTEN_STAG_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST", PipelineStageEntryId)
+    def PSE_STAG_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PSE-STAG-LST", PipelineStageEntryId)
 
     @property
-    def PIJOEN_JOBS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST", PipelineJobEntryId)
+    def PJE_JOBS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PJE-JOBS-LST", PipelineJobEntryId)
 
     @property
-    def DEENEN_ENVI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST", DeploymentEnvironmentEntryId)
+    def DEE_ENVI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEE-ENVI-LST", DeploymentEnvironmentEntryId)
 
     @property
     def CRPR(self):
@@ -97175,16 +97175,16 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/SHLCP-SHAR-LST", SharedLibraryComponentEntryId)
 
     @property
-    def RUICMP_UICO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/RUICMP-UICO-LST", ReusableUiComponentEntryId)
+    def RUCE_UICO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/RUCE-UICO-LST", ReusableUiComponentEntryId)
 
     @property
-    def BUCOEN_BUSI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/BUCOEN-BUSI-LST", BusinessComponentEntryId)
+    def BUSCOMENT_BUSI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/BUSCOMENT-BUSI-LST", BusinessComponentEntryId)
 
     @property
-    def INCOEN_INFR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/INCOEN-INFR-LST", InfrastructureComponentEntryId)
+    def INFCOMENT_INFR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/INFCOMENT-INFR-LST", InfrastructureComponentEntryId)
 
     @property
     def THPALI_THIR_LST(self):
@@ -97223,36 +97223,36 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/softwareDesign/reusableComponents/registry/COREUP")
 
     @property
-    def OSCOEN_OSCO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/OSCOEN-OSCO-LST", OsCompatibilityEntryId)
+    def OCE_OSCO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST", OsCompatibilityEntryId)
 
     @property
-    def BRCOEN_BROW_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/BRCOEN-BROW-LST", BrowserCompatibilityEntryId)
+    def BROCOMENT_BROW_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/BROCOMENT-BROW-LST", BrowserCompatibilityEntryId)
 
     @property
-    def DACOEN_DATA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/DACOEN-DATA-LST", DatabaseCompatibilityEntryId)
+    def DATCOMENT_DATA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/DATCOMENT-DATA-LST", DatabaseCompatibilityEntryId)
 
     @property
-    def ESCE_ENTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/ESCE-ENTE-LST", EnterpriseSystemCompatibilityEntryId)
+    def ENSYCOEN_ENTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/ENSYCOEN-ENTE-LST", EnterpriseSystemCompatibilityEntryId)
 
     @property
     def APCP_APIC_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/APCP-APIC-LST", ApiCompatibilityEntryId)
 
     @property
-    def LECOEN_LEGA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/LECOEN-LEGA-LST", LegacyCompatibilityEntryId)
+    def LCE_LEGA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/LCE-LEGA-LST", LegacyCompatibilityEntryId)
 
     @property
-    def MOCOEN_MOBI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/MOCOEN-MOBI-LST", MobileCompatibilityEntryId)
+    def MOBCOMENT_MOBI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/MOBCOMENT-MOBI-LST", MobileCompatibilityEntryId)
 
     @property
-    def TPCE_THIR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/TPCE-THIR-LST", ThirdPartyCompatibilityEntryId)
+    def THPACOEN_THIR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/THPACOEN-THIR-LST", ThirdPartyCompatibilityEntryId)
 
     @property
     def DFCF(self):
@@ -97303,24 +97303,24 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREGO")
 
     @property
-    def ISCE_ITST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/ISCE-ITST-LST", ItStandardComplianceEntryId)
+    def ITSTCOEN_ITST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/ITSTCOEN-ITST-LST", ItStandardComplianceEntryId)
 
     @property
-    def IPCE_INDU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/IPCE-INDU-LST", IndustryProtocolComplianceEntryId)
+    def INPRCOEN_INDU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/INPRCOEN-INDU-LST", IndustryProtocolComplianceEntryId)
 
     @property
-    def INSPEN_INTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/INSPEN-INTE-LST", InterfaceSpecificationEntryId)
+    def INTSPEENT_INTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/INTSPEENT-INTE-LST", InterfaceSpecificationEntryId)
 
     @property
-    def RECOEN_REGU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/RECOEN-REGU-LST", RegulatoryComplianceEntryId)
+    def RCE_REGU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/RCE-REGU-LST", RegulatoryComplianceEntryId)
 
     @property
-    def SSCE_SECU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/SSCE-SECU-LST", SecurityStandardComplianceEntryId)
+    def SESTCOEN_SECU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/SESTCOEN-SECU-LST", SecurityStandardComplianceEntryId)
 
     @property
     def ACCSTD_ACCE_LST(self):
@@ -97403,12 +97403,12 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSC")
 
     @property
-    def SEENEN_ENVI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/SEENEN-ENVI-LST", ServerEnvironmentEntryId)
+    def SEE_ENVI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/SEE-ENVI-LST", ServerEnvironmentEntryId)
 
     @property
-    def SEROEN_SERV_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/SEROEN-SERV-LST", ServerRoleEntryId)
+    def SRE_SERV_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/serverRequirements/SRE-SERV-LST", ServerRoleEntryId)
 
     @property
     def CRRM(self):
@@ -97535,16 +97535,16 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST", ClientApplicationEntryId)
 
     @property
-    def BRREEN_BROW_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST", BrowserRequirementEntryId)
+    def BROREQENT_BROW_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/BROREQENT-BROW-LST", BrowserRequirementEntryId)
 
     @property
-    def DORE1_DESK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/DORE1-DESK-LST", DesktopOsRequirementEntryId)
+    def DEOSREEN_DESK_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/DEOSREEN-DESK-LST", DesktopOsRequirementEntryId)
 
     @property
-    def MDRE_MOBI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/MDRE-MOBI-LST", MobileDeviceRequirementEntryId)
+    def MODEREEN_MOBI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/clientRequirements/MODEREEN-MOBI-LST", MobileDeviceRequirementEntryId)
 
     @property
     def DIRELA(self):
@@ -97751,8 +97751,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/availabilityRequirements/NART")
 
     @property
-    def VPREEN_VPNR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/VPREEN-VPNR-LST", VpnRequirementEntryId)
+    def VRE_VPNR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/hardware/networkRequirements/VRE-VPNR-LST", VpnRequirementEntryId)
 
     @property
     def FIRERU(self):
@@ -97843,8 +97843,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/dataClassification/BDCE")
 
     @property
-    def BAPOEN_BACK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/BAPOEN-BACK-LST", BackupPolicyEntryId)
+    def BPE_BACK_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/operations/backupAndRecovery/BPE-BACK-LST", BackupPolicyEntryId)
 
     @property
     def RRRBT(self):
@@ -98139,8 +98139,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/alerting/ALRERE")
 
     @property
-    def ALDEEN_ALER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/ALDEEN-ALER-LST", AlertDefinitionEntryId)
+    def ALEDEFENT_ALER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/operations/monitoringAndAlerting/ALEDEFENT-ALER-LST", AlertDefinitionEntryId)
 
     @property
     def DAREST(self):
@@ -98223,8 +98223,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPA")
 
     @property
-    def MAWIEN_MAIN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/MAWIEN-MAIN-LST", MaintenanceWindowEntryId)
+    def MWE_MAIN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/MWE-MAIN-LST", MaintenanceWindowEntryId)
 
     @property
     def EMPG(self):
@@ -98275,8 +98275,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/operations/maintenanceWindows/postMaintenance/PMVC")
 
     @property
-    def PREN_PROT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/PREN-PROT-LST", ProtocolEntryId)
+    def PE_PROT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/PE-PROT-LST", ProtocolEntryId)
 
     @property
     def TRCS(self):
@@ -98363,8 +98363,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/communication/protocolsAndStandards/compliance/PCRE")
 
     @property
-    def EPCE_PART_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/EPCE-PART-LST", ExternalPartnerConnectionEntryId)
+    def EXPACOEN_PART_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/communication/externalConnectivity/EXPACOEN-PART-LST", ExternalPartnerConnectionEntryId)
 
     @property
     def CSIS(self):
@@ -98515,8 +98515,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS")
 
     @property
-    def MAINT_MAIN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST", SomMetaRef)
+    def SO_MAIN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/systemOperation/SO-MAIN-LST", SomMetaRef)
 
     @property
     def MONITO_MONI(self):
@@ -98603,8 +98603,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCF")
 
     @property
-    def ALRUEN_ALER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALRUEN-ALER-LST", AlertRuleEntryId)
+    def ALERULENT_ALER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERULENT-ALER-LST", AlertRuleEntryId)
 
     @property
     def AEPT(self):
@@ -98687,16 +98687,16 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSO")
 
     @property
-    def CUMEEN_CUST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUMEEN-CUST-LST", CustomMetricEntryId)
+    def CUSMETENT_CUST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMETENT-CUST-LST", CustomMetricEntryId)
 
     @property
     def MODA_DASH(self):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH")
 
     @property
-    def DAEN_DASH_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/dashboards/DAEN-DASH-LST", DashboardEntryId)
+    def DASENT_DASH_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/dashboards/DASENT-DASH-LST", DashboardEntryId)
 
     @property
     def DATE_DASH_LST(self):
@@ -98719,8 +98719,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIM")
 
     @property
-    def SLEN_SLOS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST", SloEntryId)
+    def SE_SLOS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SE-SLOS-LST", SloEntryId)
 
     @property
     def EBTM(self):
@@ -98815,8 +98815,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPP")
 
     @property
-    def SESTEN_STAN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/security/itSecurityStandards/SESTEN-STAN-LST", SecurityStandardEntryId)
+    def SSE_STAN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/security/itSecurityStandards/SSE-STAN-LST", SecurityStandardEntryId)
 
     @property
     def ASRC(self):
@@ -99083,8 +99083,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAG")
 
     @property
-    def SEAUEN_AUDI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/SEAUEN-AUDI-LST", SecurityAuditEntryId)
+    def SAE_AUDI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalFramework/security/securityAuditRequirements/SAE-AUDI-LST", SecurityAuditEntryId)
 
     @property
     def USCDF_ITEM_LST(self):
@@ -99171,16 +99171,16 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/accessControl/authentication/identification/IDTAM-ATTR-LST", IdentityAttributeMappingEntryId)
 
     @property
-    def MFADE_MFAD_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", SomMetaRef)
+    def MC_MFAD_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MC-MFAD-LST", SomMetaRef)
 
     @property
     def ATME_ITEM_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/accessControl/authentication/authentication/authenticationMethods/ATME-ITEM-LST", AuthenticationMethodEntryId)
 
     @property
-    def STEPU_STEP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", SomMetaRef)
+    def SUAP_STEP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/SUAP-STEP-LST", SomMetaRef)
 
     @property
     def LGFLS_LOGI_LST(self):
@@ -99227,8 +99227,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/auditAndLogging/securityEvents/SEVT-CUST-LST", SecurityEventEntryId)
 
     @property
-    def REEN_REPO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/reportDefinitions/REEN-REPO-LST", ReportEntryId)
+    def REPENT_REPO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/reportDefinitions/REPENT-REPO-LST", ReportEntryId)
 
     @property
     def MIGTG_TARG_LST(self):
@@ -99287,8 +99287,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST", ScreenEntryId)
 
     @property
-    def GLOBA_GLOB_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screens/informationArchitecture/GLOBA-GLOB-LST", SomMetaRef)
+    def IA_GLOB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST", SomMetaRef)
 
     @property
     def NAVGRP_GROU_LST(self):
@@ -99307,12 +99307,12 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI")
 
     @property
-    def TBDE_TABB_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST", TabBarDefinitionEntryId)
+    def TABADEEN_TABB_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST", TabBarDefinitionEntryId)
 
     @property
-    def UNIE_ITEM_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST", UtilityNavigationItemEntryId)
+    def UTNAITEN_ITEM_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST", UtilityNavigationItemEntryId)
 
     @property
     def BRCO(self):
@@ -99375,12 +99375,12 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/validationFeedback/VAFEBE")
 
     @property
-    def VAMETE_MESS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/validationFeedback/VAMETE-MESS-LST", ValidationMessageTemplateId)
+    def VMT_MESS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/validationFeedback/VMT-MESS-LST", ValidationMessageTemplateId)
 
     @property
-    def FIELD_FIEL_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/validationFeedback/FIELD-FIEL-LST", SomMetaRef)
+    def VAFE_FIEL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/validationFeedback/VAFE-FIEL-LST", SomMetaRef)
 
     @property
     def SYERDI_SYST(self):
@@ -99403,12 +99403,12 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF")
 
     @property
-    def EPDE_ERRO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", SomMetaRef)
+    def SYERDI_ERRO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST", SomMetaRef)
 
     @property
-    def SECE_ERRO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/systemErrorDisplay/SECE-ERRO-LST", SystemErrorCodeEntryId)
+    def SYERCOEN_ERRO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST", SystemErrorCodeEntryId)
 
     @property
     def ERRE_RECO(self):
@@ -99435,8 +99435,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/errorRecovery/ERSH")
 
     @property
-    def RECOV_RECO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/errorRecovery/RECOV-RECO-LST", SomMetaRef)
+    def ERRE_RECO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO-LST", SomMetaRef)
 
     @property
     def RCVSCN_RECO_LST(self):
@@ -99451,8 +99451,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/responsiveDesign/breakpointConfig/BC-BREA")
 
     @property
-    def BRE_BREA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/responsiveDesign/breakpointConfig/BRE-BREA-LST", BreakpointEntryId)
+    def BE_BREA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/responsiveDesign/breakpointConfig/BE-BREA-LST", BreakpointEntryId)
 
     @property
     def REBE_LAYO(self):
@@ -99527,8 +99527,8 @@ class D13CodeSpecsProjectionId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST", TypographyStyleEntryId)
 
     @property
-    def UICOEN_COMP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/UICOEN-COMP-LST", UiComponentEntryId)
+    def UICOMENT_COMP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/experienceCodeSpecs/uiComponents/UICOMENT-COMP-LST", UiComponentEntryId)
 
     @property
     def CMFA_COMP_LST(self):
@@ -99959,8 +99959,8 @@ class DecisionPointEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/DEPOENCR")
 
     @property
-    def DEOPEN_OPTI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/resolution/DEOPEN-OPTI-LST", DecisionOptionEntryId)
+    def DOE_OPTI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/resolution/DOE-OPTI-LST", DecisionOptionEntryId)
 
 
 class DeepLinkPatternEntryId(SomMetaRef):
@@ -100754,8 +100754,8 @@ class ExportFormatEntryId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/access/gradedRequirement/AZLVL-LEVE-LST", GradedAccessLevelEntryId)
 
     @property
-    def EFME_FIEL_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/EFME-FIEL-LST", ExportFieldMappingEntryId)
+    def EXFIMAEN_FIEL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/EXFIMAEN-FIEL-LST", ExportFieldMappingEntryId)
 
 
 class ExportSizeSettingsId(SomMetaRef):
@@ -100845,8 +100845,8 @@ class ExternalActorEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/EAEC")
 
     @property
-    def INTER_INTE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/INTER-INTE-LST", SomMetaRef)
+    def EAE_INTE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/EAE-INTE-LST", SomMetaRef)
 
 
 class ExternalInterfaceEntryId(SomMetaRef):
@@ -100860,8 +100860,8 @@ class ExternalInterfaceEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/EIE-IDEN")
 
     @property
-    def IBPE_DEPE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/businessContext/IBPE-DEPE-LST", InterfaceBusinessProcessEntryId)
+    def INBUPREN_DEPE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/businessContext/INBUPREN-DEPE-LST", InterfaceBusinessProcessEntryId)
 
     @property
     def ITSC(self):
@@ -100872,24 +100872,24 @@ class ExternalInterfaceEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalSpec/ITSE")
 
     @property
-    def INOPEN_OPER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalSpec/INOPEN-OPER-LST", InterfaceOperationEntryId)
+    def IOE_OPER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalSpec/IOE-OPER-LST", InterfaceOperationEntryId)
 
     @property
     def INWESP(self):
         return SomMetaRef(self.tree, f"{self.path}/technicalSpec/INWESP")
 
     @property
-    def IDEE_DATA_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/dataSpec/IDEE-DATA-LST", InterfaceDataEntityEntryId)
+    def INDAENEN_DATA_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/dataSpec/INDAENEN-DATA-LST", InterfaceDataEntityEntryId)
 
     @property
-    def MAPPI_MAPP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/dataSpec/MAPPI-MAPP-LST", SomMetaRef)
+    def INDASP_MAPP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/dataSpec/INDASP-MAPP-LST", SomMetaRef)
 
     @property
-    def VALID_VALI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/dataSpec/VALID-VALI-LST", SomMetaRef)
+    def INDASP_VALI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/dataSpec/INDASP-VALI-LST", SomMetaRef)
 
     @property
     def INSEAU(self):
@@ -100916,8 +100916,8 @@ class ExternalInterfaceEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/operational/INOPSU")
 
     @property
-    def DEPEN_DEPE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/operational/DEPEN-DEPE-LST", SomMetaRef)
+    def INOP_DEPE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/operational/INOP-DEPE-LST", SomMetaRef)
 
     @property
     def IEHR(self):
@@ -100932,8 +100932,8 @@ class ExternalInterfaceEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/errorHandling/IEHT")
 
     @property
-    def ERROR_ERRO_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/errorHandling/ERROR-ERRO-LST", SomMetaRef)
+    def INERHA_ERRO_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/errorHandling/INERHA-ERRO-LST", SomMetaRef)
 
     @property
     def INGOCO(self):
@@ -100952,8 +100952,8 @@ class ExternalInterfaceEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/testing/INTEST")
 
     @property
-    def ITSE1_TEST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/testing/ITSE1-TEST-LST", InterfaceTestScenarioEntryId)
+    def INTESCEN_TEST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/testing/INTESCEN-TEST-LST", InterfaceTestScenarioEntryId)
 
 
 class ExternalPartnerConnectionEntryId(SomMetaRef):
@@ -101278,8 +101278,8 @@ class FunctionalRequirementEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/FREM")
 
     @property
-    def ACCR_CRIT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/acceptanceCriteria/ACCR-CRIT-LST", AcceptanceCriterionEntryId)
+    def ACE_CRIT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/acceptanceCriteria/ACE-CRIT-LST", AcceptanceCriterionEntryId)
 
     @property
     def RQBIRU_RULE_LST(self):
@@ -101302,8 +101302,8 @@ class FunctionalRequirementEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/uiSpecification/RUS-MOCK")
 
     @property
-    def SCFLD_FIEL_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/uiSpecification/SCFLD-FIEL-LST", ScreenFieldEntryId)
+    def SFE_FIEL_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/uiSpecification/SFE-FIEL-LST", ScreenFieldEntryId)
 
     @property
     def RQSCAC_ACTI_LST(self):
@@ -102730,8 +102730,8 @@ class OrganizationalRequirementEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/OREP")
 
     @property
-    def ACCR_CRIT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/acceptanceCriteria/ACCR-CRIT-LST", AcceptanceCriterionEntryId)
+    def ACE_CRIT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/acceptanceCriteria/ACE-CRIT-LST", AcceptanceCriterionEntryId)
 
     @property
     def ORIP_PLAN(self):
@@ -103693,24 +103693,24 @@ class ReportEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/RELI")
 
     @property
-    def RESEE1_SECT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RESEE1-SECT-LST", ReportSectionEntryId)
+    def RSE_SECT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RSE-SECT-LST", ReportSectionEntryId)
 
     @property
-    def REFIEN_FILT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/REFIEN-FILT-LST", ReportFilterEntryId)
+    def RFE_FILT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RFE-FILT-LST", ReportFilterEntryId)
 
     @property
-    def RESCEN_SCHE_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RESCEN-SCHE-LST", ReportScheduleEntryId)
+    def REPSCHENT_SCHE_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/REPSCHENT-SCHE-LST", ReportScheduleEntryId)
 
     @property
-    def REDIEN_DIST_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/REDIEN-DIST-LST", ReportDistributionEntryId)
+    def RDE_DIST_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RDE-DIST-LST", ReportDistributionEntryId)
 
     @property
-    def REREEN_RECI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/REREEN-RECI-LST", ReportRecipientEntryId)
+    def RRE_RECI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/RRE-RECI-LST", ReportRecipientEntryId)
 
 
 class ReportFilterEntryId(SomMetaRef):
@@ -103821,12 +103821,12 @@ class ReportSectionEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/RESEAG")
 
     @property
-    def RECOE1_COLU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RECOE1-COLU-LST", ReportColumnEntryId)
+    def REPCOLENT_COLU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/REPCOLENT-COLU-LST", ReportColumnEntryId)
 
     @property
-    def RECHEN_CHAR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/RECHEN-CHAR-LST", ReportChartEntryId)
+    def REPCHAENT_CHAR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/REPCHAENT-CHAR-LST", ReportChartEntryId)
 
 
 class RequirementBusinessRuleEntryId(SomMetaRef):
@@ -104477,8 +104477,8 @@ class ScreenElementEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/dataDisplay/SEDDO")
 
     @property
-    def EVRE_VALI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/EVRE-VALI-LST", ElementValidationRuleEntryId)
+    def ELVARUEN_VALI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/ELVARUEN-VALI-LST", ElementValidationRuleEntryId)
 
 
 class ScreenEntryId(SomMetaRef):
@@ -104536,16 +104536,16 @@ class ScreenEntryId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/states/SCRST-ITEM-LST", ScreenStateEntryId)
 
     @property
-    def SCRUSC_USER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SCRUSC-USER-LST", ScreenUserCategoryEntryId)
+    def SUCE_USER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/SUCE-USER-LST", ScreenUserCategoryEntryId)
 
     @property
     def EPNT_ENTR_LST(self):
         return SomListMetaRef(self.tree, f"{self.path}/EPNT-ENTR-LST", EntryPointEntryId)
 
     @property
-    def SRRE_RESP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SRRE-RESP-LST", ScreenResponsiveRuleEntryId)
+    def SCRERUEN_RESP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/SCRERUEN-RESP-LST", ScreenResponsiveRuleEntryId)
 
 
 class ScreenFieldEntryId(SomMetaRef):
@@ -104713,12 +104713,12 @@ class SecurityRequirementEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/SEREENST")
 
     @property
-    def ACCR_CRIT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/acceptanceCriteria/ACCR-CRIT-LST", AcceptanceCriterionEntryId)
+    def ACE_CRIT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/acceptanceCriteria/ACE-CRIT-LST", AcceptanceCriterionEntryId)
 
     @property
-    def SECCT_CONT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/controls/SECCT-CONT-LST", SecurityControlEntryId)
+    def SECOEN_CONT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/controls/SECOEN-CONT-LST", SecurityControlEntryId)
 
     @property
     def RQDEP_ITEM_LST(self):
@@ -105470,12 +105470,12 @@ class SystemTaskEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/SYTS-RELA-REF")
 
     @property
-    def SYSTE_WORK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/SYSTE-WORK-LST", SomMetaRef)
+    def SYTS_WORK_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/SYTS-WORK-LST", SomMetaRef)
 
     @property
-    def VARIA_VARI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/VARIA-VARI-LST", SomMetaRef)
+    def SYTS_VARI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/SYTS-VARI-LST", SomMetaRef)
 
 
 class SystemToReplaceEntryId(SomMetaRef):
@@ -105509,12 +105509,12 @@ class SystemToReplaceEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/technicalAssessment/STAQ")
 
     @property
-    def KIE_KNOW_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalAssessment/KIE-KNOW-LST", SomMetaRef)
+    def SYTEAS_KNOW_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalAssessment/SYTEAS-KNOW-LST", SomMetaRef)
 
     @property
-    def SECUR_SECU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/technicalAssessment/SECUR-SECU-LST", SomMetaRef)
+    def SYTEAS_SECU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/technicalAssessment/SYTEAS-SECU-LST", SomMetaRef)
 
     @property
     def SBCO(self):
@@ -105525,12 +105525,12 @@ class SystemToReplaceEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/businessCriticality/SBCG")
 
     @property
-    def SBUE_BUSI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/businessCriticality/SBUE-BUSI-LST", SystemBusinessUnitEntryId)
+    def SYBUUNEN_BUSI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/businessCriticality/SYBUUNEN-BUSI-LST", SystemBusinessUnitEntryId)
 
     @property
-    def SBPE_SUPP_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/businessCriticality/SBPE-SUPP-LST", SystemBusinessProcessEntryId)
+    def SYBUPREN_SUPP_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/businessCriticality/SYBUPREN-SUPP-LST", SystemBusinessProcessEntryId)
 
     @property
     def SRST(self):
@@ -105545,8 +105545,8 @@ class SystemToReplaceEntryId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/replacementStrategy/REPPHS-PHAS-LST", ReplacementPhaseEntryId)
 
     @property
-    def PREDE_PRED_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/replacementStrategy/PREDE-PRED-LST", SomMetaRef)
+    def SYREST_PRED_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/replacementStrategy/SYREST-PRED-LST", SomMetaRef)
 
     @property
     def SDSG(self):
@@ -105557,12 +105557,12 @@ class SystemToReplaceEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/dataScope/SYDASCMI")
 
     @property
-    def DEME_ENTI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/dataScope/DEME-ENTI-LST", DataEntityMigrationEntryId)
+    def DAENMIEN_ENTI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/dataScope/DAENMIEN-ENTI-LST", DataEntityMigrationEntryId)
 
     @property
-    def KNOWN_KNOW_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/dataScope/KNOWN-KNOW-LST", SomMetaRef)
+    def SYDASC_KNOW_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/dataScope/SYDASC-KNOW-LST", SomMetaRef)
 
     @property
     def REPSDEP_DEPE_LST(self):
@@ -105581,8 +105581,8 @@ class SystemToReplaceEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/userImpact/SUIA")
 
     @property
-    def UGIE_USER_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/userImpact/UGIE-USER-LST", UserGroupImpactEntryId)
+    def USGRIMEN_USER_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/userImpact/USGRIMEN-USER-LST", UserGroupImpactEntryId)
 
     @property
     def SCACC(self):
@@ -105597,8 +105597,8 @@ class SystemToReplaceEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/costAnalysis/SCAB")
 
     @property
-    def NONFI_NONF_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/costAnalysis/NONFI-NONF-LST", SomMetaRef)
+    def SYCOAN_NONF_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/costAnalysis/SYCOAN-NONF-LST", SomMetaRef)
 
     @property
     def SMPE(self):
@@ -105609,12 +105609,12 @@ class SystemToReplaceEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/migrationPlan/SMPC")
 
     @property
-    def SMRE_RISK_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/migrationPlan/SMRE-RISK-LST", SystemMigrationRiskEntryId)
+    def SYMIRIEN_RISK_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/migrationPlan/SYMIRIEN-RISK-LST", SystemMigrationRiskEntryId)
 
     @property
-    def CRITI_CRIT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/knowledgeTransfer/CRITI-CRIT-LST", SomMetaRef)
+    def SYKNTR_CRIT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/knowledgeTransfer/SYKNTR-CRIT-LST", SomMetaRef)
 
 
 class SystemTrainingEntryId(SomMetaRef):
@@ -105651,8 +105651,8 @@ class TabBarDefinitionEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/TBDEL")
 
     @property
-    def TAITEN_TABS_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/TAITEN-TABS-LST", TabItemEntryId)
+    def TIE_TABS_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/TIE-TABS-LST", TabItemEntryId)
 
 
 class TabItemEntryId(SomMetaRef):
@@ -105844,8 +105844,8 @@ class TechnicalRequirementEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/TREC")
 
     @property
-    def ACCR_CRIT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/acceptanceCriteria/ACCR-CRIT-LST", AcceptanceCriterionEntryId)
+    def ACE_CRIT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/acceptanceCriteria/ACE-CRIT-LST", AcceptanceCriterionEntryId)
 
     @property
     def RQDEP_ITEM_LST(self):
@@ -106333,12 +106333,12 @@ class UiComponentEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/UICOMENT-DATA")
 
     @property
-    def CMST_STAT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/CMST-STAT-LST", ComponentStateEntryId)
+    def COMSTAENT_STAT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/COMSTAENT-STAT-LST", ComponentStateEntryId)
 
     @property
-    def CMVN_VARI_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/CMVN-VARI-LST", ComponentVariantEntryId)
+    def CVE_VARI_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/CVE-VARI-LST", ComponentVariantEntryId)
 
     @property
     def CMAC_ACTI_LST(self):
@@ -106402,8 +106402,8 @@ class UserCategoryEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/personaDetails/UPD-VISU")
 
     @property
-    def REPRE_REPR_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/personaDetails/REPRE-REPR-LST", SomMetaRef)
+    def UPD_REPR_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/personaDetails/UPD-REPR-LST", SomMetaRef)
 
     @property
     def UCRE(self):
@@ -106450,12 +106450,12 @@ class UserCategoryEntryId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/userJourney/JRNST-STAG-LST", JourneyStageEntryId)
 
     @property
-    def KEYTO_KEYT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/userJourney/KEYTO-KEYT-LST", SomMetaRef)
+    def UJ_KEYT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/userJourney/UJ-KEYT-LST", SomMetaRef)
 
     @property
-    def USERJ_PAIN_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/userJourney/USERJ-PAIN-LST", SomMetaRef)
+    def UJ_PAIN_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/userJourney/UJ-PAIN-LST", SomMetaRef)
 
     @property
     def UJ_OPPO(self):
@@ -106580,8 +106580,8 @@ class UtilityNavigationItemEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/UNIEB")
 
     @property
-    def UMIE_MENU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/UMIE-MENU-LST", UtilityMenuItemEntryId)
+    def UTMEITEN_MENU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/UTMEITEN-MENU-LST", UtilityMenuItemEntryId)
 
 
 class ValidationMessageTemplateId(SomMetaRef):
@@ -106771,8 +106771,8 @@ class WorkplaceDescriptionEntryId(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/equipmentRequirements/DSEQ-DISP-LST", DisplayEquipmentEntryId)
 
     @property
-    def INPDE_INPU_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/equipmentRequirements/INPDE-INPU-LST", InputDeviceEntryId)
+    def IDE_INPU_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/equipmentRequirements/IDE-INPU-LST", InputDeviceEntryId)
 
     @property
     def PEREQ_PERI_LST(self):
@@ -106811,8 +106811,8 @@ class WorkplaceDescriptionEntryId(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/trainingRequirements/TROV")
 
     @property
-    def INITR_INIT_LST(self):
-        return SomListMetaRef(self.tree, f"{self.path}/trainingRequirements/INITR-INIT-LST", InitialTrainingEntryId)
+    def ITE_INIT_LST(self):
+        return SomListMetaRef(self.tree, f"{self.path}/trainingRequirements/ITE-INIT-LST", InitialTrainingEntryId)
 
     @property
     def ONGTR_ONGO_LST(self):

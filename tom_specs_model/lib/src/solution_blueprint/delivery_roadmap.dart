@@ -722,8 +722,8 @@ class StagingStrategy extends DocSpecsSection {
   @StandardReferences([
     'PMBOK Guide 7th edition 2021 — the PMI guidance addresses documenting and tracking project assumptions',
   ], 'Lists the key assumptions underpinning the staging strategy.')
-  @SectionId('KEYAS-KEYA-LST')
-  @SectionIdPattern('KEYAS-KEYA-xxx')
+  @SectionId('STAGST-KEYA-LST')
+  @SectionIdPattern('STAGST-KEYA-xxx')
   @ContentHelp('Add one entry per key assumption.')
   @SerializationOrder(15)
   List<DocSpecsSection> keyAssumptions = [];
@@ -732,8 +732,8 @@ class StagingStrategy extends DocSpecsSection {
   @StandardReferences([
     'ISO 21502:2020 — the guidance on project management covers identification and management of project constraints',
   ], 'Lists the constraints bounding the staging strategy.')
-  @SectionId('STAGI-CONS-LST')
-  @SectionIdPattern('STAGI-CONS-xxx')
+  @SectionId('STAGST-CONS-LST')
+  @SectionIdPattern('STAGST-CONS-xxx')
   @ContentHelp('Add one entry per staging constraint.')
   @SerializationOrder(16)
   List<DocSpecsSection> constraints = [];
@@ -3021,8 +3021,8 @@ class MoscowAnalysis extends DocSpecsSection {
     'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
     'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
   ], 'Holds the collection of MoSCoW classification entries, one per feature.')
-  @SectionId('MOEN-ITEM-LST')
-  @SectionIdPattern('MOEN-ITEM-xxx')
+  @SectionId('ME-ITEM-LST')
+  @SectionIdPattern('ME-ITEM-xxx')
   @ContentHelp('Add one entry per MoSCoW-classified feature.')
   @SerializationOrder(2)
   List<MoscowEntry> items = [];
@@ -3280,8 +3280,8 @@ class FeatureStageMatrix extends DocSpecsSection {
     ],
     'Holds the collection of feature-to-stage mapping entries that make up the matrix.',
   )
-  @SectionId('FESTM1-ITEM-LST')
-  @SectionIdPattern('FESTM1-ITEM-xxx')
+  @SectionId('FSM-ITEM-LST')
+  @SectionIdPattern('FSM-ITEM-xxx')
   @ContentHelp('Add one entry per feature-stage mapping.')
   @SerializationOrder(2)
   List<FeatureStageMapping> items = [];
@@ -3505,8 +3505,8 @@ class FeaturePriorityRegister extends DocSpecsSection {
     'DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique',
     'SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization',
   ], 'Lists each prioritized feature held in the register.')
-  @SectionId('FEPREN-ITEM-LST')
-  @SectionIdPattern('FEPREN-ITEM-xxx')
+  @SectionId('FPE-ITEM-LST')
+  @SectionIdPattern('FPE-ITEM-xxx')
   @Min(1)
   @ContentHelp('Add one entry per prioritized feature.')
   @SerializationOrder(1)
@@ -4109,8 +4109,8 @@ class FeatureDependencies extends DocSpecsSection {
     ],
     'Lists each inter-feature dependency that affects staging order and critical-path sequencing.',
   )
-  @SectionId('FEDEEN-ITEM-LST')
-  @SectionIdPattern('FEDEEN-ITEM-xxx')
+  @SectionId('FDE-ITEM-LST')
+  @SectionIdPattern('FDE-ITEM-xxx')
   @ContentHelp('Add one entry per feature dependency.')
   @SerializationOrder(2)
   List<FeatureDependencyEntry> items = [];
@@ -6520,8 +6520,8 @@ class PhaseGateReviews extends DocSpecsSection {
     ],
     'Lists the phase gate reviews defined in the stage plan, each with its own criteria, participants, evidence, and outcome.',
   )
-  @SectionId('PGRE-ITEM-LST')
-  @SectionIdPattern('PGRE-ITEM-xxx')
+  @SectionId('PHGAREEN-ITEM-LST')
+  @SectionIdPattern('PHGAREEN-ITEM-xxx')
   @ContentHelp('Add one entry per phase gate review.')
   @SerializationOrder(4)
   List<PhaseGateReviewEntry> items = [];
@@ -7035,8 +7035,8 @@ class DecisionPoints extends DocSpecsSection {
     ],
     'Lists the formal decision points defined in the stage plan, each with its own timing, criteria, authority, and options.',
   )
-  @SectionId('DEPOEN-ITEM-LST')
-  @SectionIdPattern('DEPOEN-ITEM-xxx')
+  @SectionId('DPE-ITEM-LST')
+  @SectionIdPattern('DPE-ITEM-xxx')
   @ContentHelp('Add one entry per decision point.')
   @SerializationOrder(2)
   List<DecisionPointEntry> items = [];
@@ -7315,8 +7315,8 @@ class DecisionPointEntryResolution extends DocSpecsSection {
     ],
     'Lists the available options evaluated for this decision point, each with its own impact and feasibility analysis.',
   )
-  @SectionId('DEOPEN-OPTI-LST')
-  @SectionIdPattern('DEOPEN-OPTI-xxx')
+  @SectionId('DOE-OPTI-LST')
+  @SectionIdPattern('DOE-OPTI-xxx')
   @ContentHelp('Add one entry per decision option.')
   @SerializationOrder(2)
   List<DecisionOptionEntry> options = [];

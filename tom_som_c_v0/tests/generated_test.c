@@ -799,7 +799,7 @@ static void test_live_document_case(void) {
   ok(nav_node == list_by_path, "live: nav node identity == by_path node");
 
   som_id_d00_solution_blueprint id_sbp = SBP(tree);
-  SomListMetaRef id_revs = d00_solution_blueprint_id_rvhst_revs_lst(id_sbp);
+  SomListMetaRef id_revs = d00_solution_blueprint_id_rvent_revs_lst(id_sbp);
   som_nav_document_control n_dc = d00_solution_blueprint_nav_document_control(nroot);
   SomListMetaRef nav_revs = document_control_nav_revision_history(n_dc);
   void *id_item0 = som_list_meta_ref_item(&id_revs, 0);

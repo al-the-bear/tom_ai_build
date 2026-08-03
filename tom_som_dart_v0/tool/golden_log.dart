@@ -259,7 +259,7 @@ void main(List<String> args) {
 
   metaNode('SBP');
   metaNode('SBP/documentControl');
-  metaNode('SBP/documentControl/RVHST-REVS-LST');
+  metaNode('SBP/documentControl/RVENT-REVS-LST');
   metaNode('SBP/introductionAndScope');
   metaNode('SBP/introductionAndScope/goals');
   metaNode('SBP/introductionAndScope/goals/content');
@@ -302,7 +302,7 @@ void main(List<String> args) {
 
   metaForm(
       'SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST');
-  metaForm('SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST');
+  metaForm('SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CE-CHAR-LST');
   metaForm('SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/'
       'screenRouteMap/SCTREN-TRAN-LST');
 
@@ -346,9 +346,9 @@ void main(List<String> args) {
   }
 
   metaId(SBP, d00SolutionBlueprint);
-  metaId(SBP.RVHST_REVS_LST,
+  metaId(SBP.RVENT_REVS_LST,
       d00SolutionBlueprint.documentControl.revisionHistory);
-  metaId(SBP.RVHST_REVS_LST.item(0),
+  metaId(SBP.RVENT_REVS_LST.item(0),
       d00SolutionBlueprint.documentControl.revisionHistory.item(0));
 
   // DocSpecs validation: the shared markdown rendering of the sample validates

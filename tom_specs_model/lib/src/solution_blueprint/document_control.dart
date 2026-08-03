@@ -40,8 +40,8 @@ class DocumentControl extends DocSpecsSection {
   @StandardReferences([
     'ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)',
   ], 'The ordered set of published revisions of this document.')
-  @SectionId('RVHST-REVS-LST')
-  @SectionIdPattern('RVHST-REVS-xxx')
+  @SectionId('RVENT-REVS-LST')
+  @SectionIdPattern('RVENT-REVS-xxx')
   @ContentHelp(
     'Add one entry per revision, newest last. Each entry captures '
     'the version, date, author, and a short summary of what changed.',
@@ -53,8 +53,8 @@ class DocumentControl extends DocSpecsSection {
   @StandardReferences([
     'ISO/IEC/IEEE 29148:2018 §6 — front matter (approvals)',
   ], 'The set of formal sign-offs required before this document is released.')
-  @SectionId('DOCTL-APRV-LST')
-  @SectionIdPattern('DOCTL-APRV-xxx')
+  @SectionId('APREC-APRV-LST')
+  @SectionIdPattern('APREC-APRV-xxx')
   @ContentHelp(
     'Add one entry per required sign-off (e.g. sponsor, product '
     'owner, architecture board). The document is not released until every '

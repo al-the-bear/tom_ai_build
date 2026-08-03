@@ -128,13 +128,13 @@ def test_dot_notation_surface() -> None:
     revs = m.d00SolutionBlueprint.documentControl.revisionHistory
     _check(
         "dot.list",
-        revs.path == "SBP/documentControl/RVHST-REVS-LST",
+        revs.path == "SBP/documentControl/RVENT-REVS-LST",
         revs.path,
     )
     _check(
         "dot.list-item",
         revs.item(3).path
-        == "SBP/documentControl/RVHST-REVS-LST-3",
+        == "SBP/documentControl/RVENT-REVS-LST-3",
         revs.item(3).path,
     )
     # The list node's metadata carries the section-id pattern.
@@ -154,15 +154,15 @@ def test_id_tree_surface() -> None:
     _check("id.root-path", m.SBP.path == m.d00SolutionBlueprint.path)
     _check("id.root-meta", m.SBP.meta is m.d00SolutionBlueprint.meta)
 
-    # A hoisted list id agrees with the dot-notation position. RVHST_REVS_LST
+    # A hoisted list id agrees with the dot-notation position. RVENT_REVS_LST
     # is hoisted onto the root Id class through the id-less
     # documentControl/revisionHistory members.
     revs = m.d00SolutionBlueprint.documentControl.revisionHistory
-    _check("id.hoisted-path", m.SBP.RVHST_REVS_LST.path == revs.path)
-    _check("id.hoisted-meta", m.SBP.RVHST_REVS_LST.meta is revs.meta)
+    _check("id.hoisted-path", m.SBP.RVENT_REVS_LST.path == revs.path)
+    _check("id.hoisted-meta", m.SBP.RVENT_REVS_LST.meta is revs.meta)
     _check(
         "id.hoisted-item",
-        m.SBP.RVHST_REVS_LST.item(0).path == revs.item(0).path,
+        m.SBP.RVENT_REVS_LST.item(0).path == revs.item(0).path,
     )
 
     # Every root has a distinct Id entry point at its own segment.

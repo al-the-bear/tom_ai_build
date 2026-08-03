@@ -520,7 +520,7 @@ fn meta_children_alerting_configuration(s: &mut HashSet<String>) -> Vec<Rc<som::
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "AlertingConfiguration".to_string(), member_name: "alertRules".to_string(), section_id: "ALRUEN-ALER-LST".to_string(), section_id_pattern: "ALRUEN-ALER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "AlertRuleEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per alert rule.".to_string(), doc_comment: "Alert rules catalog.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Prometheus — Alertmanager (routing, grouping, silencing)".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of alert rules the system evaluates.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "AlertingConfiguration".to_string(), member_name: "alertRules".to_string(), section_id: "ALERULENT-ALER-LST".to_string(), section_id_pattern: "ALERULENT-ALER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "AlertRuleEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per alert rule.".to_string(), doc_comment: "Alert rules catalog.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Prometheus — Alertmanager (routing, grouping, silencing)".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of alert rules the system evaluates.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("AlertRuleEntry", s, meta_children_alert_rule_entry, |r, c| som::SomMetaNode {
                 class_name: "AlertRuleEntry".to_string(), class_section_id: "ALERULENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AlertRuleEntry".to_string(), doc_comment: "An alert rule entry.".to_string(), class_doc_comment: "An alert rule entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -685,7 +685,7 @@ fn meta_children_api_versioning_strategy(_s: &mut HashSet<String>) -> Vec<Rc<som
 fn meta_children_applicable_regulation_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "ApplicableRegulationEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "regulationName".to_string(), type_name: "String".to_string(), description: "Regulation Name".to_string(), required: true, hint: "The name of this regulation".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "regulationCode".to_string(), type_name: "String".to_string(), description: "Regulation Code / Reference".to_string(), required: false, hint: "The code or reference identifier for this regulation".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "regulationType".to_string(), type_name: "String".to_string(), description: "Regulation Type (Privacy, Security, Financial, Industry, Data Retention, Accessibility)".to_string(), required: true, hint: "The category of regulation".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "jurisdiction".to_string(), type_name: "String".to_string(), description: "Jurisdiction (Geographic or organizational scope)".to_string(), required: false, hint: "The geographic or organizational scope of this regulation".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "applicability".to_string(), type_name: "String".to_string(), description: "Applicability (why this regulation applies to this system)".to_string(), required: false, hint: "Why this regulation applies to this system".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "keyRequirements".to_string(), type_name: "String".to_string(), description: "Key Requirements (summary of main requirements)".to_string(), required: false, hint: "A summary of the main requirements".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "complianceStatus".to_string(), type_name: "String".to_string(), description: "Compliance Status (Compliant, Partially Compliant, Non-Compliant, To Be Assessed)".to_string(), required: false, hint: "The current compliance status".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "complianceOwner".to_string(), type_name: "String".to_string(), description: "Compliance Owner (who is responsible for compliance)".to_string(), required: false, hint: "Who is responsible for compliance".to_string(), order: 7, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "auditRequirements".to_string(), type_name: "String".to_string(), description: "Audit Requirements (audit frequency, type)".to_string(), required: false, hint: "Audit frequency and type required".to_string(), order: 8, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "penalties".to_string(), type_name: "String".to_string(), description: "Penalties (consequences of non-compliance)".to_string(), required: false, hint: "Consequences of non-compliance".to_string(), order: 9, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "ApplicableRegulationEntry".to_string(), member_name: "complianceMeasures".to_string(), section_id: "COMPL-COMP-LST".to_string(), section_id_pattern: "COMPL-COMP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_help: "Add one entry per compliance measure taken to satisfy this regulation.".to_string(), doc_comment: "Specific compliance measures for this regulation.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27001 — compliance with legal & contractual requirements".to_string())])), ("connotation".to_string(), som::Json::Str("The set of specific compliance-measure entries for this regulation.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ApplicableRegulationEntry".to_string(), member_name: "complianceMeasures".to_string(), section_id: "ARE-COMP-LST".to_string(), section_id_pattern: "ARE-COMP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_help: "Add one entry per compliance measure taken to satisfy this regulation.".to_string(), doc_comment: "Specific compliance measures for this regulation.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27001 — compliance with legal & contractual requirements".to_string())])), ("connotation".to_string(), som::Json::Str("The set of specific compliance-measure entries for this regulation.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -833,7 +833,7 @@ fn meta_children_assumption_constraint_dependency_register(s: &mut HashSet<Strin
     vec![
         Rc::new(som::SomMetaNode { class_name: "AssumptionConstraintDependencyRegister".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), unused: true, content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "AssumptionConstraintDependencyRegister".to_string(), member_name: "assumptions".to_string(), section_id: "ACRG-ASMP-LST".to_string(), section_id_pattern: "ACRG-ASMP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "AssumptionRegisterEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per assumption (ASM-NNN).".to_string(), doc_comment: "Assumptions the solution depends on being true.".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "AssumptionConstraintDependencyRegister".to_string(), member_name: "assumptions".to_string(), section_id: "ASMRE-ASMP-LST".to_string(), section_id_pattern: "ASMRE-ASMP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "AssumptionRegisterEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per assumption (ASM-NNN).".to_string(), doc_comment: "Assumptions the solution depends on being true.".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("AssumptionRegisterEntry", s, meta_children_assumption_register_entry, |r, c| som::SomMetaNode {
                 class_name: "AssumptionRegisterEntry".to_string(), class_section_id: "ASMRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AssumptionRegisterEntry".to_string(), doc_comment: "A single assumption register entry (form).\n\nNamed `AssumptionRegisterEntry` to avoid collision with the pre-existing\n`AssumptionEntry` in `introduction_and_scope.dart` (D-IP6 deviation).".to_string(), class_doc_comment: "A single assumption register entry (form).\n\nNamed `AssumptionRegisterEntry` to avoid collision with the pre-existing\n`AssumptionEntry` in `introduction_and_scope.dart` (D-IP6 deviation).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -841,7 +841,7 @@ fn meta_children_assumption_constraint_dependency_register(s: &mut HashSet<Strin
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "AssumptionConstraintDependencyRegister".to_string(), member_name: "constraints".to_string(), section_id: "ACRG-CONS-LST".to_string(), section_id_pattern: "ACRG-CONS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ConstraintRegisterEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per constraint (CON-NNN).".to_string(), doc_comment: "Constraints the solution must operate within.".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "AssumptionConstraintDependencyRegister".to_string(), member_name: "constraints".to_string(), section_id: "CONRE-CONS-LST".to_string(), section_id_pattern: "CONRE-CONS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ConstraintRegisterEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per constraint (CON-NNN).".to_string(), doc_comment: "Constraints the solution must operate within.".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ConstraintRegisterEntry", s, meta_children_constraint_register_entry, |r, c| som::SomMetaNode {
                 class_name: "ConstraintRegisterEntry".to_string(), class_section_id: "CONRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ConstraintRegisterEntry".to_string(), doc_comment: "A single constraint register entry (form).\n\nNamed `ConstraintRegisterEntry` to avoid collision with the pre-existing\n`ConstraintEntry` in `introduction_and_scope.dart` (D-IP6 deviation).".to_string(), class_doc_comment: "A single constraint register entry (form).\n\nNamed `ConstraintRegisterEntry` to avoid collision with the pre-existing\n`ConstraintEntry` in `introduction_and_scope.dart` (D-IP6 deviation).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -849,7 +849,7 @@ fn meta_children_assumption_constraint_dependency_register(s: &mut HashSet<Strin
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "AssumptionConstraintDependencyRegister".to_string(), member_name: "dependencies".to_string(), section_id: "ACRG-DEPS-LST".to_string(), section_id_pattern: "ACRG-DEPS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DependencyRegisterEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per dependency (DEP-NNN).".to_string(), doc_comment: "Dependencies the solution relies on (external systems, teams, vendors,\nprerequisite deliverables, framework conditions).".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "AssumptionConstraintDependencyRegister".to_string(), member_name: "dependencies".to_string(), section_id: "DEPRE-DEPS-LST".to_string(), section_id_pattern: "DEPRE-DEPS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DependencyRegisterEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per dependency (DEP-NNN).".to_string(), doc_comment: "Dependencies the solution relies on (external systems, teams, vendors,\nprerequisite deliverables, framework conditions).".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DependencyRegisterEntry", s, meta_children_dependency_register_entry, |r, c| som::SomMetaNode {
                 class_name: "DependencyRegisterEntry".to_string(), class_section_id: "DEPRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DependencyRegisterEntry".to_string(), doc_comment: "A single dependency register entry (form).\n\nCaptures an external dependency the solution relies on — another system, a\nteam, a vendor, a prerequisite deliverable, or a framework condition — so the\ndependency content otherwise scattered across SBP.2 / framework conditions\nhas a canonical home in SBP.6 (the prerequisite destination for the L34C-4\ndependency re-home).".to_string(), class_doc_comment: "A single dependency register entry (form).\n\nCaptures an external dependency the solution relies on — another system, a\nteam, a vendor, a prerequisite deliverable, or a framework condition — so the\ndependency content otherwise scattered across SBP.2 / framework conditions\nhas a canonical home in SBP.6 (the prerequisite destination for the L34C-4\ndependency re-home).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -1225,7 +1225,7 @@ fn meta_children_backup_and_recovery_section(s: &mut HashSet<String>) -> Vec<Rc<
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "BackupAndRecoverySection".to_string(), member_name: "backupPolicies".to_string(), section_id: "BAPOEN-BACK-LST".to_string(), section_id_pattern: "BAPOEN-BACK-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BackupPolicyEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per backup policy.".to_string(), doc_comment: "Backup policies by data type.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27031 — ICT business continuity / disaster recovery".to_string())])), ("connotation".to_string(), som::Json::Str("The backup policies the system applies.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "BackupAndRecoverySection".to_string(), member_name: "backupPolicies".to_string(), section_id: "BPE-BACK-LST".to_string(), section_id_pattern: "BPE-BACK-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BackupPolicyEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per backup policy.".to_string(), doc_comment: "Backup policies by data type.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27031 — ICT business continuity / disaster recovery".to_string())])), ("connotation".to_string(), som::Json::Str("The backup policies the system applies.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("BackupPolicyEntry", s, meta_children_backup_policy_entry, |r, c| som::SomMetaNode {
                 class_name: "BackupPolicyEntry".to_string(), class_section_id: "BPE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BackupPolicyEntry".to_string(), doc_comment: "Backup policy entry.".to_string(), class_doc_comment: "Backup policy entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -1392,7 +1392,7 @@ fn meta_children_boundary_assumptions(s: &mut HashSet<String>) -> Vec<Rc<som::So
     vec![
         Rc::new(som::SomMetaNode { class_name: "BoundaryAssumptions".to_string(), member_name: "assumptionApproach".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Describe assumption categories, validation timeline, and impact assessment approach for assumption failures.".to_string(), doc_comment: "Overview of assumption categories and validation approach.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "BoundaryAssumptions".to_string(), member_name: "items".to_string(), section_id: "BOASEN-ITEM-LST".to_string(), section_id_pattern: "BOASEN-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BoundaryAssumptionEntry".to_string(), serialization_order: Some(1), content_help: "Each entry records one assumption with its category, validation status, and risk if proven incorrect.".to_string(), doc_comment: "Contains 0+× BoundaryAssumptionEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — scope definition & assumptions/dependencies".to_string()), som::Json::Str("ISO 31000 — risk management (assumption risk)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists each individual assumption so it can be owned, validated, and risk-assessed.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "BoundaryAssumptions".to_string(), member_name: "items".to_string(), section_id: "BAE-ITEM-LST".to_string(), section_id_pattern: "BAE-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BoundaryAssumptionEntry".to_string(), serialization_order: Some(1), content_help: "Each entry records one assumption with its category, validation status, and risk if proven incorrect.".to_string(), doc_comment: "Contains 0+× BoundaryAssumptionEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — scope definition & assumptions/dependencies".to_string()), som::Json::Str("ISO 31000 — risk management (assumption risk)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists each individual assumption so it can be owned, validated, and risk-assessed.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("BoundaryAssumptionEntry", s, meta_children_boundary_assumption_entry, |r, c| som::SomMetaNode {
                 class_name: "BoundaryAssumptionEntry".to_string(), class_section_id: "BAE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BoundaryAssumptionEntry".to_string(), doc_comment: "A boundary assumption entry (form).".to_string(), class_doc_comment: "A boundary assumption entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -1422,7 +1422,7 @@ fn meta_children_breakpoint_configuration(s: &mut HashSet<String>) -> Vec<Rc<som
     vec![
         Rc::new(som::SomMetaNode { class_name: "BreakpointConfiguration".to_string(), member_name: "breakpointOverview".to_string(), section_id: "BC-BREA".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "mobileMax".to_string(), type_name: "String".to_string(), description: "Mobile Max Width".to_string(), required: false, hint: "Maximum width for mobile (e.g., 599)".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "tabletMin".to_string(), type_name: "String".to_string(), description: "Tablet Min Width".to_string(), required: false, hint: "Minimum width for tablet (e.g., 600)".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "tabletMax".to_string(), type_name: "String".to_string(), description: "Tablet Max Width".to_string(), required: false, hint: "Maximum width for tablet (e.g., 1023)".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "desktopMin".to_string(), type_name: "String".to_string(), description: "Desktop Min Width".to_string(), required: false, hint: "Minimum width for desktop (e.g., 1024)".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "largeDesktopMin".to_string(), type_name: "String".to_string(), description: "Large Desktop Min Width".to_string(), required: false, hint: "Minimum width for large screens (e.g., 1440)".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "watchMax".to_string(), type_name: "String".to_string(), description: "Watch Max Width".to_string(), required: false, hint: "Maximum width for wearables".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "foldableBreakpoint".to_string(), type_name: "String".to_string(), description: "Foldable Breakpoint".to_string(), required: false, hint: "Breakpoint for foldable devices".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "customBreakpoints".to_string(), type_name: "String".to_string(), description: "Custom Breakpoints".to_string(), required: false, hint: "Additional app-specific breakpoints".to_string(), order: 7, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "breakpointUnit".to_string(), type_name: "String".to_string(), description: "Breakpoint Unit".to_string(), required: false, hint: "Logical pixels, device pixels".to_string(), order: 8, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "densityHandling".to_string(), type_name: "String".to_string(), description: "Density Handling".to_string(), required: false, hint: "How pixel density is handled".to_string(), order: 9, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "BreakpointConfiguration".to_string(), member_name: "breakpoints".to_string(), section_id: "BRE-BREA-LST".to_string(), section_id_pattern: "BRE-BREA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BreakpointEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per layout breakpoint.".to_string(), doc_comment: "Breakpoint entries.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("W3C CSS Media Queries — a breakpoint marks a viewport width at which the layout changes".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of layout breakpoint entries.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "BreakpointConfiguration".to_string(), member_name: "breakpoints".to_string(), section_id: "BE-BREA-LST".to_string(), section_id_pattern: "BE-BREA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BreakpointEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per layout breakpoint.".to_string(), doc_comment: "Breakpoint entries.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("W3C CSS Media Queries — a breakpoint marks a viewport width at which the layout changes".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of layout breakpoint entries.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("BreakpointEntry", s, meta_children_breakpoint_entry, |r, c| som::SomMetaNode {
                 class_name: "BreakpointEntry".to_string(), class_section_id: "BE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BreakpointEntry".to_string(), doc_comment: "A breakpoint entry.".to_string(), class_doc_comment: "A breakpoint entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -1683,7 +1683,7 @@ fn meta_children_business_pain_points(s: &mut HashSet<String>) -> Vec<Rc<som::So
         Rc::new(som::SomMetaNode { class_name: "BusinessPainPoints".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Overview of business pain points affecting strategic outcomes and growth.\nInclude revenue impact, compliance exposure, customer retention effects,\nand competitive positioning concerns.\n".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "BusinessPainPoints".to_string(), member_name: "categorySummary".to_string(), section_id: "BPPS".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_help: "Aggregate the business pain points into category metrics: estimated revenue loss, compliance risk exposure, customer-satisfaction impact, and scalability constraints.".to_string(), doc_comment: "Category-level summary for business pain points.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "estimatedRevenueLoss".to_string(), type_name: "String".to_string(), description: "Estimated Annual Revenue Loss".to_string(), required: false, hint: "Revenue lost due to business pain points, e.g. €250k/year".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "complianceRiskExposure".to_string(), type_name: "String".to_string(), description: "Compliance Risk Exposure".to_string(), required: false, hint: "Potential regulatory penalties or fines, e.g. up to €500k".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "customerSatisfactionImpact".to_string(), type_name: "String".to_string(), description: "Customer Satisfaction Impact".to_string(), required: false, hint: "NPS or CSAT impact, e.g. -15 NPS points".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "marketShareImpact".to_string(), type_name: "String".to_string(), description: "Market Share Impact".to_string(), required: false, hint: "Estimated market share loss, e.g. 2-3% market share".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "missedOpportunitiesCost".to_string(), type_name: "String".to_string(), description: "Missed Opportunities Cost".to_string(), required: false, hint: "Revenue from opportunities not pursued, e.g. €400k/year".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "scalabilityConstraints".to_string(), type_name: "String".to_string(), description: "Scalability Constraints".to_string(), required: false, hint: "Growth limitations, e.g. Cannot support >10k concurrent users".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (business measures)".to_string())])), ("connotation".to_string(), som::Json::Str("Category roll-up quantifying the business pain points — revenue loss, compliance exposure, and customer-satisfaction impact in the current state.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "BusinessPainPoints".to_string(), member_name: "items".to_string(), section_id: "BUPAPO-ITEM-LST".to_string(), section_id_pattern: "BUPAPO-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "PainPointEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per distinct business problem, each with its own root cause, quantified impact, and resolution outlook. Scope entries to strategic and financial outcomes rather than operational or technical detail.".to_string(), doc_comment: "Contains 0+× PainPoint.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (problem identification)".to_string())])), ("connotation".to_string(), som::Json::Str("The list of individual business pain points documented in detail.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "BusinessPainPoints".to_string(), member_name: "items".to_string(), section_id: "PAPE-ITEM-LST".to_string(), section_id_pattern: "PAPE-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "PainPointEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per distinct business problem, each with its own root cause, quantified impact, and resolution outlook. Scope entries to strategic and financial outcomes rather than operational or technical detail.".to_string(), doc_comment: "Contains 0+× PainPoint.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (problem identification)".to_string())])), ("connotation".to_string(), som::Json::Str("The list of individual business pain points documented in detail.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("PainPointEntry", s, meta_children_pain_point_entry, |r, c| som::SomMetaNode {
                 class_name: "PainPointEntry".to_string(), class_section_id: "PAPE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PainPointEntry".to_string(), doc_comment: "A pain point entry (form).\n\nDocuments a specific problem in the current state with comprehensive details:\nroot cause analysis, impact quantification, affected stakeholders,\ncurrent workarounds, and proposed resolution approach.".to_string(), class_doc_comment: "A pain point entry (form).\n\nDocuments a specific problem in the current state with comprehensive details:\nroot cause analysis, impact quantification, affected stakeholders,\ncurrent workarounds, and proposed resolution approach.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -2201,7 +2201,7 @@ fn meta_children_ci_cd_pipeline_configuration(s: &mut HashSet<String>) -> Vec<Rc
     vec![
         Rc::new(som::SomMetaNode { class_name: "CiCdPipelineConfiguration".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "cicdPlatform".to_string(), type_name: "String".to_string(), description: "CI/CD Platform".to_string(), required: false, hint: "GitHub Actions, GitLab CI, Jenkins, CircleCI".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "configurationLocation".to_string(), type_name: "String".to_string(), description: "Configuration Location".to_string(), required: false, hint: "Where pipeline configs live".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "secretsManagement".to_string(), type_name: "String".to_string(), description: "Secrets Management".to_string(), required: false, hint: "How secrets are stored and accessed".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "CiCdPipelineConfiguration".to_string(), member_name: "stages".to_string(), section_id: "PISTEN-STAG-LST".to_string(), section_id_pattern: "PISTEN-STAG-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "PipelineStageEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per pipeline stage.".to_string(), doc_comment: "Pipeline stages.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("CI/CD — continuous integration / delivery pipelines".to_string())])), ("connotation".to_string(), som::Json::Str("The stages that make up the delivery pipeline.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "CiCdPipelineConfiguration".to_string(), member_name: "stages".to_string(), section_id: "PSE-STAG-LST".to_string(), section_id_pattern: "PSE-STAG-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "PipelineStageEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per pipeline stage.".to_string(), doc_comment: "Pipeline stages.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("CI/CD — continuous integration / delivery pipelines".to_string())])), ("connotation".to_string(), som::Json::Str("The stages that make up the delivery pipeline.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("PipelineStageEntry", s, meta_children_pipeline_stage_entry, |r, c| som::SomMetaNode {
                 class_name: "PipelineStageEntry".to_string(), class_section_id: "PSE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PipelineStageEntry".to_string(), doc_comment: "Pipeline stage entry.".to_string(), class_doc_comment: "Pipeline stage entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -2209,7 +2209,7 @@ fn meta_children_ci_cd_pipeline_configuration(s: &mut HashSet<String>) -> Vec<Rc
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "CiCdPipelineConfiguration".to_string(), member_name: "jobs".to_string(), section_id: "PIJOEN-JOBS-LST".to_string(), section_id_pattern: "PIJOEN-JOBS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "PipelineJobEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per pipeline job.".to_string(), doc_comment: "Build jobs.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("CI/CD — continuous integration / delivery pipelines".to_string())])), ("connotation".to_string(), som::Json::Str("The build jobs that run within the delivery pipeline.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "CiCdPipelineConfiguration".to_string(), member_name: "jobs".to_string(), section_id: "PJE-JOBS-LST".to_string(), section_id_pattern: "PJE-JOBS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "PipelineJobEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per pipeline job.".to_string(), doc_comment: "Build jobs.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("CI/CD — continuous integration / delivery pipelines".to_string())])), ("connotation".to_string(), som::Json::Str("The build jobs that run within the delivery pipeline.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("PipelineJobEntry", s, meta_children_pipeline_job_entry, |r, c| som::SomMetaNode {
                 class_name: "PipelineJobEntry".to_string(), class_section_id: "PJE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PipelineJobEntry".to_string(), doc_comment: "Pipeline job entry.".to_string(), class_doc_comment: "Pipeline job entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -2217,7 +2217,7 @@ fn meta_children_ci_cd_pipeline_configuration(s: &mut HashSet<String>) -> Vec<Rc
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "CiCdPipelineConfiguration".to_string(), member_name: "environments".to_string(), section_id: "DEENEN-ENVI-LST".to_string(), section_id_pattern: "DEENEN-ENVI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DeploymentEnvironmentEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per deployment environment.".to_string(), doc_comment: "Deployment environments.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("CI/CD — continuous integration / delivery pipelines".to_string())])), ("connotation".to_string(), som::Json::Str("The deployment environments targeted by the pipeline.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "CiCdPipelineConfiguration".to_string(), member_name: "environments".to_string(), section_id: "DEE-ENVI-LST".to_string(), section_id_pattern: "DEE-ENVI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DeploymentEnvironmentEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per deployment environment.".to_string(), doc_comment: "Deployment environments.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("CI/CD — continuous integration / delivery pipelines".to_string())])), ("connotation".to_string(), som::Json::Str("The deployment environments targeted by the pipeline.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DeploymentEnvironmentEntry", s, meta_children_deployment_environment_entry, |r, c| som::SomMetaNode {
                 class_name: "DeploymentEnvironmentEntry".to_string(), class_section_id: "DEE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DeploymentEnvironmentEntry".to_string(), doc_comment: "Deployment environment entry.".to_string(), class_doc_comment: "Deployment environment entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -2306,7 +2306,7 @@ fn meta_children_client_requirements_section(s: &mut HashSet<String>) -> Vec<Rc<
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "ClientRequirementsSection".to_string(), member_name: "browserRequirements".to_string(), section_id: "BRREEN-BROW-LST".to_string(), section_id_pattern: "BRREEN-BROW-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BrowserRequirementEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per supported web browser.".to_string(), doc_comment: "Web browser requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("WHATWG / W3C — web platform / browser standards".to_string())])), ("connotation".to_string(), som::Json::Str("The web browsers the client must support.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ClientRequirementsSection".to_string(), member_name: "browserRequirements".to_string(), section_id: "BROREQENT-BROW-LST".to_string(), section_id_pattern: "BROREQENT-BROW-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BrowserRequirementEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per supported web browser.".to_string(), doc_comment: "Web browser requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("WHATWG / W3C — web platform / browser standards".to_string())])), ("connotation".to_string(), som::Json::Str("The web browsers the client must support.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("BrowserRequirementEntry", s, meta_children_browser_requirement_entry, |r, c| som::SomMetaNode {
                 class_name: "BrowserRequirementEntry".to_string(), class_section_id: "BROREQENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BrowserRequirementEntry".to_string(), doc_comment: "Browser requirement entry.".to_string(), class_doc_comment: "Browser requirement entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -2314,7 +2314,7 @@ fn meta_children_client_requirements_section(s: &mut HashSet<String>) -> Vec<Rc<
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "ClientRequirementsSection".to_string(), member_name: "desktopOsRequirements".to_string(), section_id: "DORE1-DESK-LST".to_string(), section_id_pattern: "DORE1-DESK-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DesktopOsRequirementEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per supported desktop operating system.".to_string(), doc_comment: "Desktop operating system requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — performance efficiency / resource utilization".to_string())])), ("connotation".to_string(), som::Json::Str("The desktop operating systems the client must support.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ClientRequirementsSection".to_string(), member_name: "desktopOsRequirements".to_string(), section_id: "DEOSREEN-DESK-LST".to_string(), section_id_pattern: "DEOSREEN-DESK-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DesktopOsRequirementEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per supported desktop operating system.".to_string(), doc_comment: "Desktop operating system requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — performance efficiency / resource utilization".to_string())])), ("connotation".to_string(), som::Json::Str("The desktop operating systems the client must support.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DesktopOsRequirementEntry", s, meta_children_desktop_os_requirement_entry, |r, c| som::SomMetaNode {
                 class_name: "DesktopOsRequirementEntry".to_string(), class_section_id: "DEOSREEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DesktopOsRequirementEntry".to_string(), doc_comment: "Desktop operating system requirement entry.".to_string(), class_doc_comment: "Desktop operating system requirement entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -2322,7 +2322,7 @@ fn meta_children_client_requirements_section(s: &mut HashSet<String>) -> Vec<Rc<
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "ClientRequirementsSection".to_string(), member_name: "mobileRequirements".to_string(), section_id: "MDRE-MOBI-LST".to_string(), section_id_pattern: "MDRE-MOBI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "MobileDeviceRequirementEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per supported mobile platform.".to_string(), doc_comment: "Mobile device requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Android CDD / Apple HIG — mobile device platform requirements".to_string())])), ("connotation".to_string(), som::Json::Str("The mobile platforms and devices the client must support.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ClientRequirementsSection".to_string(), member_name: "mobileRequirements".to_string(), section_id: "MODEREEN-MOBI-LST".to_string(), section_id_pattern: "MODEREEN-MOBI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "MobileDeviceRequirementEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per supported mobile platform.".to_string(), doc_comment: "Mobile device requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Android CDD / Apple HIG — mobile device platform requirements".to_string())])), ("connotation".to_string(), som::Json::Str("The mobile platforms and devices the client must support.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("MobileDeviceRequirementEntry", s, meta_children_mobile_device_requirement_entry, |r, c| som::SomMetaNode {
                 class_name: "MobileDeviceRequirementEntry".to_string(), class_section_id: "MODEREEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MobileDeviceRequirementEntry".to_string(), doc_comment: "Mobile device requirement entry.".to_string(), class_doc_comment: "Mobile device requirement entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -2560,7 +2560,7 @@ fn meta_children_compatibility_requirements_section(s: &mut HashSet<String>) -> 
         Rc::new(som::SomMetaNode { class_name: "CompatibilityRequirementsSection".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Provide an overview of compatibility requirements and testing strategy.\n\n**Include**:\n- Critical compatibility requirements\n- Testing approach and coverage\n- Known compatibility limitations\n- Browser/OS support policy\n- Deprecation and sunset timeline\n\n**Best Practices**:\n- Maintain live compatibility matrix\n- Automate compatibility testing in CI\n- Define clear support tiers (full, limited, best-effort)\n- Plan for mobile OS release cycles\n- Document workarounds for known issues\n".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "CompatibilityRequirementsSection".to_string(), member_name: "overview".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Overview of compatibility strategy.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "CompatibilityRequirementsSection".to_string(), member_name: "osCompatibility".to_string(), section_id: "OSCOEN-OSCO-LST".to_string(), section_id_pattern: "OSCOEN-OSCO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "OsCompatibilityEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per supported operating system.".to_string(), doc_comment: "Operating system compatibility requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("POSIX / ISO/IEC 9945 — operating-system interface".to_string()), som::Json::Str("ISO/IEC 25010 — compatibility (co-existence / interoperability)".to_string())])), ("connotation".to_string(), som::Json::Str("The operating systems the system must support.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "CompatibilityRequirementsSection".to_string(), member_name: "osCompatibility".to_string(), section_id: "OCE-OSCO-LST".to_string(), section_id_pattern: "OCE-OSCO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "OsCompatibilityEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per supported operating system.".to_string(), doc_comment: "Operating system compatibility requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("POSIX / ISO/IEC 9945 — operating-system interface".to_string()), som::Json::Str("ISO/IEC 25010 — compatibility (co-existence / interoperability)".to_string())])), ("connotation".to_string(), som::Json::Str("The operating systems the system must support.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("OsCompatibilityEntry", s, meta_children_os_compatibility_entry, |r, c| som::SomMetaNode {
                 class_name: "OsCompatibilityEntry".to_string(), class_section_id: "OCE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "OsCompatibilityEntry".to_string(), doc_comment: "Operating system compatibility entry.".to_string(), class_doc_comment: "Operating system compatibility entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -2568,7 +2568,7 @@ fn meta_children_compatibility_requirements_section(s: &mut HashSet<String>) -> 
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "CompatibilityRequirementsSection".to_string(), member_name: "browserCompatibility".to_string(), section_id: "BRCOEN-BROW-LST".to_string(), section_id_pattern: "BRCOEN-BROW-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BrowserCompatibilityEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per supported browser.".to_string(), doc_comment: "Browser compatibility requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("WHATWG / W3C — web platform / browser standards".to_string()), som::Json::Str("ISO/IEC 25010 — compatibility (co-existence / interoperability)".to_string())])), ("connotation".to_string(), som::Json::Str("The browsers the system must support.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "CompatibilityRequirementsSection".to_string(), member_name: "browserCompatibility".to_string(), section_id: "BROCOMENT-BROW-LST".to_string(), section_id_pattern: "BROCOMENT-BROW-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BrowserCompatibilityEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per supported browser.".to_string(), doc_comment: "Browser compatibility requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("WHATWG / W3C — web platform / browser standards".to_string()), som::Json::Str("ISO/IEC 25010 — compatibility (co-existence / interoperability)".to_string())])), ("connotation".to_string(), som::Json::Str("The browsers the system must support.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("BrowserCompatibilityEntry", s, meta_children_browser_compatibility_entry, |r, c| som::SomMetaNode {
                 class_name: "BrowserCompatibilityEntry".to_string(), class_section_id: "BROCOMENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BrowserCompatibilityEntry".to_string(), doc_comment: "Browser compatibility entry.".to_string(), class_doc_comment: "Browser compatibility entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -2576,7 +2576,7 @@ fn meta_children_compatibility_requirements_section(s: &mut HashSet<String>) -> 
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "CompatibilityRequirementsSection".to_string(), member_name: "databaseCompatibility".to_string(), section_id: "DACOEN-DATA-LST".to_string(), section_id_pattern: "DACOEN-DATA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DatabaseCompatibilityEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per supported database.".to_string(), doc_comment: "Database compatibility requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 9075 (SQL) — relational database standard".to_string()), som::Json::Str("ISO/IEC 25010 — compatibility (co-existence / interoperability)".to_string())])), ("connotation".to_string(), som::Json::Str("The databases the system must remain compatible with.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "CompatibilityRequirementsSection".to_string(), member_name: "databaseCompatibility".to_string(), section_id: "DATCOMENT-DATA-LST".to_string(), section_id_pattern: "DATCOMENT-DATA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DatabaseCompatibilityEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per supported database.".to_string(), doc_comment: "Database compatibility requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 9075 (SQL) — relational database standard".to_string()), som::Json::Str("ISO/IEC 25010 — compatibility (co-existence / interoperability)".to_string())])), ("connotation".to_string(), som::Json::Str("The databases the system must remain compatible with.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DatabaseCompatibilityEntry", s, meta_children_database_compatibility_entry, |r, c| som::SomMetaNode {
                 class_name: "DatabaseCompatibilityEntry".to_string(), class_section_id: "DATCOMENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DatabaseCompatibilityEntry".to_string(), doc_comment: "Database compatibility entry.".to_string(), class_doc_comment: "Database compatibility entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -2584,7 +2584,7 @@ fn meta_children_compatibility_requirements_section(s: &mut HashSet<String>) -> 
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "CompatibilityRequirementsSection".to_string(), member_name: "enterpriseSystemCompatibility".to_string(), section_id: "ESCE-ENTE-LST".to_string(), section_id_pattern: "ESCE-ENTE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "EnterpriseSystemCompatibilityEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per enterprise system.".to_string(), doc_comment: "Enterprise system compatibility requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — compatibility (co-existence / interoperability)".to_string()), som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string())])), ("connotation".to_string(), som::Json::Str("The enterprise systems the system must integrate with.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "CompatibilityRequirementsSection".to_string(), member_name: "enterpriseSystemCompatibility".to_string(), section_id: "ENSYCOEN-ENTE-LST".to_string(), section_id_pattern: "ENSYCOEN-ENTE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "EnterpriseSystemCompatibilityEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per enterprise system.".to_string(), doc_comment: "Enterprise system compatibility requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — compatibility (co-existence / interoperability)".to_string()), som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string())])), ("connotation".to_string(), som::Json::Str("The enterprise systems the system must integrate with.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("EnterpriseSystemCompatibilityEntry", s, meta_children_enterprise_system_compatibility_entry, |r, c| som::SomMetaNode {
                 class_name: "EnterpriseSystemCompatibilityEntry".to_string(), class_section_id: "ENSYCOEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "EnterpriseSystemCompatibilityEntry".to_string(), doc_comment: "Enterprise system compatibility entry.".to_string(), class_doc_comment: "Enterprise system compatibility entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -2600,7 +2600,7 @@ fn meta_children_compatibility_requirements_section(s: &mut HashSet<String>) -> 
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "CompatibilityRequirementsSection".to_string(), member_name: "legacyCompatibility".to_string(), section_id: "LECOEN-LEGA-LST".to_string(), section_id_pattern: "LECOEN-LEGA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "LegacyCompatibilityEntry".to_string(), serialization_order: Some(7), content_help: "Add one entry per legacy system.".to_string(), doc_comment: "Legacy system compatibility requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — compatibility (co-existence / interoperability)".to_string()), som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string())])), ("connotation".to_string(), som::Json::Str("The legacy systems the system must remain compatible with.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "CompatibilityRequirementsSection".to_string(), member_name: "legacyCompatibility".to_string(), section_id: "LCE-LEGA-LST".to_string(), section_id_pattern: "LCE-LEGA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "LegacyCompatibilityEntry".to_string(), serialization_order: Some(7), content_help: "Add one entry per legacy system.".to_string(), doc_comment: "Legacy system compatibility requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — compatibility (co-existence / interoperability)".to_string()), som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string())])), ("connotation".to_string(), som::Json::Str("The legacy systems the system must remain compatible with.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("LegacyCompatibilityEntry", s, meta_children_legacy_compatibility_entry, |r, c| som::SomMetaNode {
                 class_name: "LegacyCompatibilityEntry".to_string(), class_section_id: "LCE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "LegacyCompatibilityEntry".to_string(), doc_comment: "Legacy system compatibility entry.".to_string(), class_doc_comment: "Legacy system compatibility entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -2608,7 +2608,7 @@ fn meta_children_compatibility_requirements_section(s: &mut HashSet<String>) -> 
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "CompatibilityRequirementsSection".to_string(), member_name: "mobileCompatibility".to_string(), section_id: "MOCOEN-MOBI-LST".to_string(), section_id_pattern: "MOCOEN-MOBI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "MobileCompatibilityEntry".to_string(), serialization_order: Some(8), content_help: "Add one entry per supported mobile platform.".to_string(), doc_comment: "Mobile device compatibility requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — compatibility (co-existence / interoperability)".to_string()), som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string())])), ("connotation".to_string(), som::Json::Str("The mobile platforms the system must support.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "CompatibilityRequirementsSection".to_string(), member_name: "mobileCompatibility".to_string(), section_id: "MOBCOMENT-MOBI-LST".to_string(), section_id_pattern: "MOBCOMENT-MOBI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "MobileCompatibilityEntry".to_string(), serialization_order: Some(8), content_help: "Add one entry per supported mobile platform.".to_string(), doc_comment: "Mobile device compatibility requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — compatibility (co-existence / interoperability)".to_string()), som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string())])), ("connotation".to_string(), som::Json::Str("The mobile platforms the system must support.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("MobileCompatibilityEntry", s, meta_children_mobile_compatibility_entry, |r, c| som::SomMetaNode {
                 class_name: "MobileCompatibilityEntry".to_string(), class_section_id: "MOBCOMENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MobileCompatibilityEntry".to_string(), doc_comment: "Mobile device compatibility entry.".to_string(), class_doc_comment: "Mobile device compatibility entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -2616,7 +2616,7 @@ fn meta_children_compatibility_requirements_section(s: &mut HashSet<String>) -> 
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "CompatibilityRequirementsSection".to_string(), member_name: "thirdPartyCompatibility".to_string(), section_id: "TPCE-THIR-LST".to_string(), section_id_pattern: "TPCE-THIR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ThirdPartyCompatibilityEntry".to_string(), serialization_order: Some(9), content_help: "Add one entry per third-party software product.".to_string(), doc_comment: "Third-party software compatibility requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — compatibility (co-existence / interoperability)".to_string()), som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string())])), ("connotation".to_string(), som::Json::Str("The third-party software the system must co-exist with.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "CompatibilityRequirementsSection".to_string(), member_name: "thirdPartyCompatibility".to_string(), section_id: "THPACOEN-THIR-LST".to_string(), section_id_pattern: "THPACOEN-THIR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ThirdPartyCompatibilityEntry".to_string(), serialization_order: Some(9), content_help: "Add one entry per third-party software product.".to_string(), doc_comment: "Third-party software compatibility requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — compatibility (co-existence / interoperability)".to_string()), som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string())])), ("connotation".to_string(), som::Json::Str("The third-party software the system must co-exist with.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ThirdPartyCompatibilityEntry", s, meta_children_third_party_compatibility_entry, |r, c| som::SomMetaNode {
                 class_name: "ThirdPartyCompatibilityEntry".to_string(), class_section_id: "THPACOEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ThirdPartyCompatibilityEntry".to_string(), doc_comment: "Third-party software compatibility entry.".to_string(), class_doc_comment: "Third-party software compatibility entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -3240,8 +3240,8 @@ fn meta_children_current_architecture(_s: &mut HashSet<String>) -> Vec<Rc<som::S
         Rc::new(som::SomMetaNode { class_name: "CurrentArchitecture".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "CurrentArchitecture".to_string(), member_name: "architectureDiagram".to_string(), section_id: "CARCH-ARCH".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "mermaid-flowchart".to_string(), description: "Architecture overview diagram showing systems, their connections, and data flows".to_string() }), content_help: "Provide a Mermaid flowchart showing the current architecture. Include all major systems, their connections, and data flow directions.".to_string(), doc_comment: "Architecture overview diagram.".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "CurrentArchitecture".to_string(), member_name: "deploymentTopology".to_string(), section_id: "CARCH-DEPL".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(2), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Description of how systems are deployed across infrastructure".to_string() }), doc_comment: "Deployment topology description.".to_string(), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "CurrentArchitecture".to_string(), member_name: "integrationPatterns".to_string(), section_id: "IPE-INTE-LST".to_string(), section_id_pattern: "IPE-INTE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_help: "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why.".to_string(), doc_comment: "Integration patterns used.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (integration patterns)".to_string())])), ("connotation".to_string(), som::Json::Str("The set of integration patterns the current architecture relies on to connect its systems.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "CurrentArchitecture".to_string(), member_name: "sharedServices".to_string(), section_id: "SHARE-SHAR-LST".to_string(), section_id_pattern: "SHARE-SHAR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it.".to_string(), doc_comment: "Shared services inventory.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (shared services)".to_string())])), ("connotation".to_string(), som::Json::Str("The set of shared services the current architecture provides across multiple systems.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "CurrentArchitecture".to_string(), member_name: "integrationPatterns".to_string(), section_id: "CARCH-INTE-LST".to_string(), section_id_pattern: "CARCH-INTE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_help: "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why.".to_string(), doc_comment: "Integration patterns used.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (integration patterns)".to_string())])), ("connotation".to_string(), som::Json::Str("The set of integration patterns the current architecture relies on to connect its systems.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "CurrentArchitecture".to_string(), member_name: "sharedServices".to_string(), section_id: "CARCH-SHAR-LST".to_string(), section_id_pattern: "CARCH-SHAR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it.".to_string(), doc_comment: "Shared services inventory.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (shared services)".to_string())])), ("connotation".to_string(), som::Json::Str("The set of shared services the current architecture provides across multiple systems.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -3432,7 +3432,7 @@ fn meta_children_current_workflow_entry(s: &mut HashSet<String>) -> Vec<Rc<som::
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "CurrentWorkflowEntry".to_string(), member_name: "actors".to_string(), section_id: "WFAC-ACTO-LST".to_string(), section_id_pattern: "WFAC-ACTO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "WorkflowActorEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per actor (role, system, department, external) taking part in this workflow, with their responsibilities and authorization level.".to_string(), doc_comment: "Workflow actors and responsibilities.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (workflow participants / roles)".to_string())])), ("connotation".to_string(), som::Json::Str("The actors who participate in the workflow and their responsibilities.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "CurrentWorkflowEntry".to_string(), member_name: "actors".to_string(), section_id: "WAE-ACTO-LST".to_string(), section_id_pattern: "WAE-ACTO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "WorkflowActorEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per actor (role, system, department, external) taking part in this workflow, with their responsibilities and authorization level.".to_string(), doc_comment: "Workflow actors and responsibilities.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (workflow participants / roles)".to_string())])), ("connotation".to_string(), som::Json::Str("The actors who participate in the workflow and their responsibilities.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("WorkflowActorEntry", s, meta_children_workflow_actor_entry, |r, c| som::SomMetaNode {
                 class_name: "WorkflowActorEntry".to_string(), class_section_id: "WAE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "WorkflowActorEntry".to_string(), doc_comment: "A workflow actor entry (form).\n\nDocumentation of a participant in the workflow.".to_string(), class_doc_comment: "A workflow actor entry (form).\n\nDocumentation of a participant in the workflow.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -5078,7 +5078,7 @@ fn meta_children_decision_point_entry_resolution(s: &mut HashSet<String>) -> Vec
         Rc::new(som::SomMetaNode { class_name: "DecisionPointEntryResolution".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "selectedOption".to_string(), type_name: "String".to_string(), description: "Selected Option".to_string(), required: false, hint: "Which option was chosen — references option ID or name".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "decisionRationale".to_string(), type_name: "String".to_string(), description: "Decision Rationale".to_string(), required: false, hint: "Why this option was selected — trade-off analysis summary".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "decisionDate".to_string(), type_name: "String".to_string(), description: "Decision Date".to_string(), required: false, hint: "When the decision was formally made".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "decisionRecordReference".to_string(), type_name: "String".to_string(), description: "Decision Record Reference".to_string(), required: false, hint: "Link to the formal decision record — ADR number, meeting minutes reference".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "revisitDate".to_string(), type_name: "String".to_string(), description: "Revisit Date".to_string(), required: false, hint: "When this decision should be revisited — if conditions change, or after a defined period".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "impactSummary".to_string(), type_name: "String".to_string(), description: "Impact Summary".to_string(), required: false, hint: "Impact of the decision — affected stages, teams, budget, schedule".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "DecisionPointEntryResolution".to_string(), member_name: "decisionNarrative".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Context for this decision point: strategic background, prior related decisions, constraints shaping options, stakeholder perspectives, risk considerations, organizational readiness factors.".to_string(), doc_comment: "Decision context narrative.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "DecisionPointEntryResolution".to_string(), member_name: "options".to_string(), section_id: "DEOPEN-OPTI-LST".to_string(), section_id_pattern: "DEOPEN-OPTI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DecisionOptionEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per decision option.".to_string(), doc_comment: "Contains 0+× DecisionOptionEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions".to_string()), som::Json::Str("ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines decision-management processes".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the available options evaluated for this decision point, each with its own impact and feasibility analysis.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "DecisionPointEntryResolution".to_string(), member_name: "options".to_string(), section_id: "DOE-OPTI-LST".to_string(), section_id_pattern: "DOE-OPTI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DecisionOptionEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per decision option.".to_string(), doc_comment: "Contains 0+× DecisionOptionEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions".to_string()), som::Json::Str("ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines decision-management processes".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the available options evaluated for this decision point, each with its own impact and feasibility analysis.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DecisionOptionEntry", s, meta_children_decision_option_entry, |r, c| som::SomMetaNode {
                 class_name: "DecisionOptionEntry".to_string(), class_section_id: "DOE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DecisionOptionEntry".to_string(), doc_comment: "A decision option entry (form).\n\nOne of the available options for a decision point, with full\nimpact analysis, feasibility assessment, and trade-off evaluation.".to_string(), class_doc_comment: "A decision option entry (form).\n\nOne of the available options for a decision point, with full\nimpact analysis, feasibility assessment, and trade-off evaluation.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -5093,7 +5093,7 @@ fn meta_children_decision_points(s: &mut HashSet<String>) -> Vec<Rc<som::SomMeta
         Rc::new(som::SomMetaNode { class_name: "DecisionPoints".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "totalDecisionPoints".to_string(), type_name: "String".to_string(), description: "Total Decision Points".to_string(), required: false, hint: "Number of formal decision points defined".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "decisionRecordingMethod".to_string(), type_name: "String".to_string(), description: "Decision Recording Method".to_string(), required: false, hint: "How decisions are documented — ADR, decision log, meeting minutes, wiki".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "decisionTemplateReference".to_string(), type_name: "String".to_string(), description: "Decision Template Reference".to_string(), required: false, hint: "Reference to the decision record template — ADR template, DACI template".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "decisionCategories".to_string(), type_name: "String".to_string(), description: "Decision Categories".to_string(), required: false, hint: "GoNoGo / ScopeChange / ResourceReallocation / TechnologySelection / VendorSelection / ArchitectureChange / RiskResponse — comma-separated".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "decisionTrackingTool".to_string(), type_name: "String".to_string(), description: "Decision Tracking Tool".to_string(), required: false, hint: "Tool used to track decisions — Jira, Confluence, ADR repository, DOORS".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "decisionReviewCadence".to_string(), type_name: "String".to_string(), description: "Decision Review Cadence".to_string(), required: false, hint: "How often past decisions are reviewed for validity — Never / Quarterly / PerStage / OnDemand".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "DecisionPoints".to_string(), member_name: "decisionFrameworkNarrative".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Decision-making framework: authority matrix, decision types and their governance levels, RACI for key decisions, documentation requirements, appeal processes, decision review cadence.".to_string(), doc_comment: "Decision framework narrative.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "DecisionPoints".to_string(), member_name: "items".to_string(), section_id: "DEPOEN-ITEM-LST".to_string(), section_id_pattern: "DEPOEN-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DecisionPointEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per decision point.".to_string(), doc_comment: "Contains 0+× DecisionPointEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions".to_string()), som::Json::Str("PRINCE2 2017 — the managing successful projects method defines decision controls and management-by-exception at stage boundaries".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the formal decision points defined in the stage plan, each with its own timing, criteria, authority, and options.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "DecisionPoints".to_string(), member_name: "items".to_string(), section_id: "DPE-ITEM-LST".to_string(), section_id_pattern: "DPE-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DecisionPointEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per decision point.".to_string(), doc_comment: "Contains 0+× DecisionPointEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions".to_string()), som::Json::Str("PRINCE2 2017 — the managing successful projects method defines decision controls and management-by-exception at stage boundaries".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the formal decision points defined in the stage plan, each with its own timing, criteria, authority, and options.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DecisionPointEntry", s, meta_children_decision_point_entry, |r, c| som::SomMetaNode {
                 class_name: "DecisionPointEntry".to_string(), class_section_id: "DPE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DecisionPointEntry".to_string(), doc_comment: "A decision point entry (form).\n\nA single formal decision point with defined timing, criteria,\nauthority, available options with impact analysis, and recording\nof the actual decision and its rationale.".to_string(), class_doc_comment: "A decision point entry (form).\n\nA single formal decision point with defined timing, criteria,\nauthority, available options with impact analysis, and recording\nof the actual decision and its rationale.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -5459,7 +5459,7 @@ fn meta_children_design_patterns_and_standards(s: &mut HashSet<String>) -> Vec<R
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "DesignPatternsAndStandards".to_string(), member_name: "codingStandards".to_string(), section_id: "COSTEN-CODI-LST".to_string(), section_id_pattern: "COSTEN-CODI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "CodingStandardEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per coding standard.".to_string(), doc_comment: "Coding standards and style guidelines.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("coding standards (e.g. Effective Dart / language style guide)".to_string()), som::Json::Str("SOLID principles — object-oriented design".to_string())])), ("connotation".to_string(), som::Json::Str("The coding standards and style guidelines the code must comply with.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "DesignPatternsAndStandards".to_string(), member_name: "codingStandards".to_string(), section_id: "CSE-CODI-LST".to_string(), section_id_pattern: "CSE-CODI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "CodingStandardEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per coding standard.".to_string(), doc_comment: "Coding standards and style guidelines.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("coding standards (e.g. Effective Dart / language style guide)".to_string()), som::Json::Str("SOLID principles — object-oriented design".to_string())])), ("connotation".to_string(), som::Json::Str("The coding standards and style guidelines the code must comply with.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("CodingStandardEntry", s, meta_children_coding_standard_entry, |r, c| som::SomMetaNode {
                 class_name: "CodingStandardEntry".to_string(), class_section_id: "CSE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CodingStandardEntry".to_string(), doc_comment: "Coding standard entry — a coding style or convention requirement.".to_string(), class_doc_comment: "Coding standard entry — a coding style or convention requirement.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -5467,7 +5467,7 @@ fn meta_children_design_patterns_and_standards(s: &mut HashSet<String>) -> Vec<R
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "DesignPatternsAndStandards".to_string(), member_name: "developmentConventions".to_string(), section_id: "DECOEN-DEVE-LST".to_string(), section_id_pattern: "DECOEN-DEVE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DevelopmentConventionEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per development convention.".to_string(), doc_comment: "Development conventions and best practices.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("coding standards (e.g. Effective Dart / language style guide)".to_string()), som::Json::Str("SOLID principles — object-oriented design".to_string())])), ("connotation".to_string(), som::Json::Str("The development practices and workflow conventions the team must follow.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "DesignPatternsAndStandards".to_string(), member_name: "developmentConventions".to_string(), section_id: "DCE-DEVE-LST".to_string(), section_id_pattern: "DCE-DEVE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DevelopmentConventionEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per development convention.".to_string(), doc_comment: "Development conventions and best practices.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("coding standards (e.g. Effective Dart / language style guide)".to_string()), som::Json::Str("SOLID principles — object-oriented design".to_string())])), ("connotation".to_string(), som::Json::Str("The development practices and workflow conventions the team must follow.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DevelopmentConventionEntry", s, meta_children_development_convention_entry, |r, c| som::SomMetaNode {
                 class_name: "DevelopmentConventionEntry".to_string(), class_section_id: "DCE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DevelopmentConventionEntry".to_string(), doc_comment: "Development convention entry — a development practice or workflow convention.".to_string(), class_doc_comment: "Development convention entry — a development practice or workflow convention.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -5475,7 +5475,7 @@ fn meta_children_design_patterns_and_standards(s: &mut HashSet<String>) -> Vec<R
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "DesignPatternsAndStandards".to_string(), member_name: "industryStandards".to_string(), section_id: "INSTEN-INDU-LST".to_string(), section_id_pattern: "INSTEN-INDU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "IndustryStandardEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per industry standard.".to_string(), doc_comment: "Industry standards compliance requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("industry standards compliance (ISO/IEC / W3C / IETF)".to_string()), som::Json::Str("ISO/IEC 25010 — maintainability quality attributes".to_string())])), ("connotation".to_string(), som::Json::Str("The industry standards the system is required to comply with.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "DesignPatternsAndStandards".to_string(), member_name: "industryStandards".to_string(), section_id: "ISE-INDU-LST".to_string(), section_id_pattern: "ISE-INDU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "IndustryStandardEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per industry standard.".to_string(), doc_comment: "Industry standards compliance requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("industry standards compliance (ISO/IEC / W3C / IETF)".to_string()), som::Json::Str("ISO/IEC 25010 — maintainability quality attributes".to_string())])), ("connotation".to_string(), som::Json::Str("The industry standards the system is required to comply with.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("IndustryStandardEntry", s, meta_children_industry_standard_entry, |r, c| som::SomMetaNode {
                 class_name: "IndustryStandardEntry".to_string(), class_section_id: "ISE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "IndustryStandardEntry".to_string(), doc_comment: "Industry standard entry — compliance with industry standards.".to_string(), class_doc_comment: "Industry standard entry — compliance with industry standards.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -5583,7 +5583,7 @@ fn meta_children_development_environment(s: &mut HashSet<String>) -> Vec<Rc<som:
         Rc::new(som::SomMetaNode { class_name: "DevelopmentEnvironment".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Provide an overview of the development environment philosophy.\n\n**Include**:\n- Tooling philosophy and selection criteria\n- Developer onboarding target time\n- \"Works on my machine\" prevention strategy\n- Environment parity across dev/staging/production\n- Development metrics and productivity tracking\n\n**Best Practices**:\n- Use devcontainers or Nix for reproducible environments\n- Document \"getting started\" in under 30 minutes\n- Automate environment setup scripts\n- Establish development environment SLAs\n- Regular tooling retrospectives and updates\n".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "DevelopmentEnvironment".to_string(), member_name: "overview".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Overview of development environment requirements.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "DevelopmentEnvironment".to_string(), member_name: "ideRequirements".to_string(), section_id: "IDREEN-IDER-LST".to_string(), section_id_pattern: "IDREEN-IDER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "IdeRequirementEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per IDE or editor.".to_string(), doc_comment: "IDE and editor requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Twelve-Factor App — cloud-native methodology".to_string())])), ("connotation".to_string(), som::Json::Str("The IDEs and editors required for the development environment.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "DevelopmentEnvironment".to_string(), member_name: "ideRequirements".to_string(), section_id: "IRE-IDER-LST".to_string(), section_id_pattern: "IRE-IDER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "IdeRequirementEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per IDE or editor.".to_string(), doc_comment: "IDE and editor requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Twelve-Factor App — cloud-native methodology".to_string())])), ("connotation".to_string(), som::Json::Str("The IDEs and editors required for the development environment.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("IdeRequirementEntry", s, meta_children_ide_requirement_entry, |r, c| som::SomMetaNode {
                 class_name: "IdeRequirementEntry".to_string(), class_section_id: "IRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "IdeRequirementEntry".to_string(), doc_comment: "IDE requirement entry — a required IDE or editor.".to_string(), class_doc_comment: "IDE requirement entry — a required IDE or editor.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -5865,7 +5865,7 @@ fn meta_children_document_control(s: &mut HashSet<String>) -> Vec<Rc<som::SomMet
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "DocumentControl".to_string(), member_name: "revisionHistory".to_string(), section_id: "RVHST-REVS-LST".to_string(), section_id_pattern: "RVHST-REVS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RevisionEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed.".to_string(), doc_comment: "Chronological revision history of this document.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered set of published revisions of this document.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "DocumentControl".to_string(), member_name: "revisionHistory".to_string(), section_id: "RVENT-REVS-LST".to_string(), section_id_pattern: "RVENT-REVS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RevisionEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed.".to_string(), doc_comment: "Chronological revision history of this document.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered set of published revisions of this document.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("RevisionEntry", s, meta_children_revision_entry, |r, c| som::SomMetaNode {
                 class_name: "RevisionEntry".to_string(), class_section_id: "RVENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RevisionEntry".to_string(), doc_comment: "A single document revision entry (form).".to_string(), class_doc_comment: "A single document revision entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -5873,7 +5873,7 @@ fn meta_children_document_control(s: &mut HashSet<String>) -> Vec<Rc<som::SomMet
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "DocumentControl".to_string(), member_name: "approvals".to_string(), section_id: "DOCTL-APRV-LST".to_string(), section_id_pattern: "DOCTL-APRV-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ApprovalRecord".to_string(), serialization_order: Some(3), content_help: "Add one entry per required sign-off (e.g. sponsor, product owner, architecture board). The document is not released until every listed approval is recorded.".to_string(), doc_comment: "Formal approvals (sign-offs) recorded for this document.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — front matter (approvals)".to_string())])), ("connotation".to_string(), som::Json::Str("The set of formal sign-offs required before this document is released.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "DocumentControl".to_string(), member_name: "approvals".to_string(), section_id: "APREC-APRV-LST".to_string(), section_id_pattern: "APREC-APRV-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ApprovalRecord".to_string(), serialization_order: Some(3), content_help: "Add one entry per required sign-off (e.g. sponsor, product owner, architecture board). The document is not released until every listed approval is recorded.".to_string(), doc_comment: "Formal approvals (sign-offs) recorded for this document.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — front matter (approvals)".to_string())])), ("connotation".to_string(), som::Json::Str("The set of formal sign-offs required before this document is released.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ApprovalRecord", s, meta_children_approval_record, |r, c| som::SomMetaNode {
                 class_name: "ApprovalRecord".to_string(), class_section_id: "APREC".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ApprovalRecord".to_string(), doc_comment: "A formal approval / sign-off record (form).".to_string(), class_doc_comment: "A formal approval / sign-off record (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -5925,7 +5925,7 @@ fn meta_children_documentation_deliverables(s: &mut HashSet<String>) -> Vec<Rc<s
     vec![
         Rc::new(som::SomMetaNode { class_name: "DocumentationDeliverables".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Documentation deliverables: user guides, technical documentation,\noperations runbooks, API documentation, architecture decision records,\nrelease notes Template. Define format (PDF, HTML, Markdown, wiki),\ndelivery channel, language(s), and maintenance responsibility post-delivery.\n".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "DocumentationDeliverables".to_string(), member_name: "items".to_string(), section_id: "DCDLV-ITEM-LST".to_string(), section_id_pattern: "DCDLV-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DeliverableEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per documentation deliverable.".to_string(), doc_comment: "Contains 0+× Deliverable.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 15289:2019 — the standard for life-cycle information items defines the documentation and information products".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the individual documentation deliverables handed over as part of the delivery scope.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "DocumentationDeliverables".to_string(), member_name: "items".to_string(), section_id: "DLVEN-ITEM-LST".to_string(), section_id_pattern: "DLVEN-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DeliverableEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per documentation deliverable.".to_string(), doc_comment: "Contains 0+× Deliverable.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 15289:2019 — the standard for life-cycle information items defines the documentation and information products".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the individual documentation deliverables handed over as part of the delivery scope.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DeliverableEntry", s, meta_children_deliverable_entry, |r, c| som::SomMetaNode {
                 class_name: "DeliverableEntry".to_string(), class_section_id: "DLVEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DeliverableEntry".to_string(), doc_comment: "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.".to_string(), class_doc_comment: "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -6008,7 +6008,7 @@ fn meta_children_domain_business_rules(s: &mut HashSet<String>) -> Vec<Rc<som::S
     vec![
         Rc::new(som::SomMetaNode { class_name: "DomainBusinessRules".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Overview of business rules and their importance in this domain.".to_string() }), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "DomainBusinessRules".to_string(), member_name: "rules".to_string(), section_id: "DOBIRU-RULE-LST".to_string(), section_id_pattern: "DOBIRU-RULE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DomainBusinessRuleEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per business rule. Be specific and unambiguous.".to_string(), doc_comment: "Business rule entries — contains 0+× BusinessRuleEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10.9 — business rules analysis".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §6 — business rules".to_string())])), ("connotation".to_string(), som::Json::Str("The set of individual business-rule entries for this domain.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "DomainBusinessRules".to_string(), member_name: "rules".to_string(), section_id: "DBRE-RULE-LST".to_string(), section_id_pattern: "DBRE-RULE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DomainBusinessRuleEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per business rule. Be specific and unambiguous.".to_string(), doc_comment: "Business rule entries — contains 0+× BusinessRuleEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10.9 — business rules analysis".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §6 — business rules".to_string())])), ("connotation".to_string(), som::Json::Str("The set of individual business-rule entries for this domain.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DomainBusinessRuleEntry", s, meta_children_domain_business_rule_entry, |r, c| som::SomMetaNode {
                 class_name: "DomainBusinessRuleEntry".to_string(), class_section_id: "DBRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DomainBusinessRuleEntry".to_string(), doc_comment: "A domain business rule entry (form).".to_string(), class_doc_comment: "A domain business rule entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -6099,7 +6099,7 @@ fn meta_children_domain_processes(s: &mut HashSet<String>) -> Vec<Rc<som::SomMet
         Rc::new(som::SomMetaNode { class_name: "DomainProcesses".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "DomainProcesses".to_string(), member_name: "processOverviewDiagram".to_string(), section_id: "DP-PROC".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "mermaid-flowchart".to_string(), description: "High-level process map showing main processes and their relationships".to_string() }), content_help: "Create a process map showing the main business processes and how they interact.".to_string(), doc_comment: "Process overview diagram.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "DomainProcesses".to_string(), member_name: "processes".to_string(), section_id: "DOPR-PROC-LST".to_string(), section_id_pattern: "DOPR-PROC-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DomainProcessEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per major business process in this domain.".to_string(), doc_comment: "Domain process entries — contains 0+× DomainProcessEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10.35 — process modelling".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §6 — business process context".to_string())])), ("connotation".to_string(), som::Json::Str("The set of individual domain-process entries.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "DomainProcesses".to_string(), member_name: "processes".to_string(), section_id: "DOPREN-PROC-LST".to_string(), section_id_pattern: "DOPREN-PROC-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DomainProcessEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per major business process in this domain.".to_string(), doc_comment: "Domain process entries — contains 0+× DomainProcessEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10.35 — process modelling".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §6 — business process context".to_string())])), ("connotation".to_string(), som::Json::Str("The set of individual domain-process entries.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DomainProcessEntry", s, meta_children_domain_process_entry, |r, c| som::SomMetaNode {
                 class_name: "DomainProcessEntry".to_string(), class_section_id: "DOPREN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DomainProcessEntry".to_string(), doc_comment: "A domain process entry (form).".to_string(), class_doc_comment: "A domain process entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -6435,7 +6435,7 @@ fn meta_children_equipment_requirements(s: &mut HashSet<String>) -> Vec<Rc<som::
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "EquipmentRequirements".to_string(), member_name: "inputDevices".to_string(), section_id: "INPDE-INPU-LST".to_string(), section_id_pattern: "INPDE-INPU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "InputDeviceEntry".to_string(), serialization_order: Some(3), doc_comment: "Input devices.".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "EquipmentRequirements".to_string(), member_name: "inputDevices".to_string(), section_id: "IDE-INPU-LST".to_string(), section_id_pattern: "IDE-INPU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "InputDeviceEntry".to_string(), serialization_order: Some(3), doc_comment: "Input devices.".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("InputDeviceEntry", s, meta_children_input_device_entry, |r, c| som::SomMetaNode {
                 class_name: "InputDeviceEntry".to_string(), class_section_id: "IDE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InputDeviceEntry".to_string(), doc_comment: "Input device entry (form).".to_string(), class_doc_comment: "Input device entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -6541,7 +6541,7 @@ fn meta_children_error_recovery(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaN
         Rc::new(som::SomMetaNode { class_name: "ErrorRecovery".to_string(), member_name: "supportContact".to_string(), section_id: "ERSC".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Support contact details.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "supportAvailability".to_string(), type_name: "String".to_string(), description: "Support Availability".to_string(), required: false, hint: "When support is available".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "errorReportSubmission".to_string(), type_name: "bool".to_string(), description: "Error Report Submission".to_string(), required: false, hint: "Allow user to submit error report".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "includeDebugInfo".to_string(), type_name: "bool".to_string(), description: "Include Debug Info".to_string(), required: false, hint: "Include technical details in report".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27001:2022 — Annex A controls require reporting and logging of events for incident escalation".to_string()), som::Json::Str("ISO 9241-13:1998 — user guidance provides a path to further help when an error cannot be self-resolved".to_string())])), ("connotation".to_string(), som::Json::Str("The support-contact configuration describing availability and error-report submission to reach assistance.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ErrorRecovery".to_string(), member_name: "sessionHandling".to_string(), section_id: "ERSH".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(5), doc_comment: "Session handling configuration.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "reauthenticationFlow".to_string(), type_name: "String".to_string(), description: "Reauthentication Flow".to_string(), required: false, hint: "Inline login, redirect, modal".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "preserveContextOnReauth".to_string(), type_name: "bool".to_string(), description: "Preserve Context on Reauth".to_string(), required: false, hint: "Return to original location after reauth".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010:2023 — recoverability restores data and state after a session interruption or failure".to_string()), som::Json::Str("ISO 9241-110:2020 — controllability lets users continue an interrupted task without loss of context".to_string())])), ("connotation".to_string(), som::Json::Str("The session-handling configuration describing reauthentication and context preservation after errors.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ErrorRecovery".to_string(), member_name: "recoveryNarrative".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(6), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Detailed specification of error recovery flows and user empowerment strategies.".to_string(), doc_comment: "Error recovery narrative.".to_string(), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "ErrorRecovery".to_string(), member_name: "recoveryFlows".to_string(), section_id: "RECOV-RECO-LST".to_string(), section_id_pattern: "RECOV-RECO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(7), content_help: "Add one entry per recovery flow.".to_string(), doc_comment: "Recovery flow diagrams.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-110:2020 — use-error tolerance provides guided recovery steps after an error occurs".to_string()), som::Json::Str("ISO/IEC 25010:2023 — recoverability re-establishes a desired state and recovers affected data".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of recovery-flow entries.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ErrorRecovery".to_string(), member_name: "recoveryFlows".to_string(), section_id: "ERRE-RECO-LST".to_string(), section_id_pattern: "ERRE-RECO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(7), content_help: "Add one entry per recovery flow.".to_string(), doc_comment: "Recovery flow diagrams.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-110:2020 — use-error tolerance provides guided recovery steps after an error occurs".to_string()), som::Json::Str("ISO/IEC 25010:2023 — recoverability re-establishes a desired state and recovers affected data".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of recovery-flow entries.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
             let mut n = som::SomMetaNode { class_name: "ErrorRecovery".to_string(), member_name: "recoveryScenarios".to_string(), section_id: "RCVSCN-RECO-LST".to_string(), section_id_pattern: "RCVSCN-RECO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RecoveryScenarioEntry".to_string(), serialization_order: Some(8), content_help: "Add one entry per common recovery scenario.".to_string(), doc_comment: "Common recovery scenarios.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-110:2020 — use-error tolerance guides users through common failure situations toward recovery".to_string()), som::Json::Str("ISO/IEC 25010:2023 — recoverability restores a desired state after an interruption or failure".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of common recovery-scenario entries.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("RecoveryScenarioEntry", s, meta_children_recovery_scenario_entry, |r, c| som::SomMetaNode {
@@ -6777,7 +6777,7 @@ fn meta_children_export_format_entry(s: &mut HashSet<String>) -> Vec<Rc<som::Som
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "ExportFormatEntry".to_string(), member_name: "fieldMappings".to_string(), section_id: "EFME-FIEL-LST".to_string(), section_id_pattern: "EFME-FIEL-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ExportFieldMappingEntry".to_string(), serialization_order: Some(10), content_help: "Add one entry per export field mapping.".to_string(), doc_comment: "Contains 0+× Export Field Mapping.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("IETF RFC 4180 — each field in a record corresponds to a named column defined by the header line".to_string()), som::Json::Str("ISO/IEC 29500-1:2016 — Office Open XML defines document markup for exchanging structured field data".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of export field-mapping entries that bind source fields to output columns.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ExportFormatEntry".to_string(), member_name: "fieldMappings".to_string(), section_id: "EXFIMAEN-FIEL-LST".to_string(), section_id_pattern: "EXFIMAEN-FIEL-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ExportFieldMappingEntry".to_string(), serialization_order: Some(10), content_help: "Add one entry per export field mapping.".to_string(), doc_comment: "Contains 0+× Export Field Mapping.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("IETF RFC 4180 — each field in a record corresponds to a named column defined by the header line".to_string()), som::Json::Str("ISO/IEC 29500-1:2016 — Office Open XML defines document markup for exchanging structured field data".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of export field-mapping entries that bind source fields to output columns.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ExportFieldMappingEntry", s, meta_children_export_field_mapping_entry, |r, c| som::SomMetaNode {
                 class_name: "ExportFieldMappingEntry".to_string(), class_section_id: "EXFIMAEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExportFieldMappingEntry".to_string(), doc_comment: "A field mapping within an export (form).".to_string(), class_doc_comment: "A field mapping within an export (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -6832,7 +6832,7 @@ fn meta_children_external_actor_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::S
         Rc::new(som::SomMetaNode { class_name: "ExternalActorEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "actorName".to_string(), type_name: "String".to_string(), description: "Actor Name".to_string(), required: true, hint: "The name of this external actor".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "actorType".to_string(), type_name: "String".to_string(), description: "Actor Type (Internal User, External User, Organization, Partner, Customer, Regulator, etc.)".to_string(), required: true, hint: "The category of actor".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "description".to_string(), type_name: "String".to_string(), description: "Actor Description".to_string(), required: false, hint: "A short description of this actor".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "interactionPurpose".to_string(), type_name: "String".to_string(), description: "Interaction Purpose (why they interact with the system)".to_string(), required: false, hint: "Why this actor interacts with the system".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ExternalActorEntry".to_string(), member_name: "interaction".to_string(), section_id: "EAEI".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Interaction cadence and exchanged information.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "interactionFrequency".to_string(), type_name: "String".to_string(), description: "Interaction Frequency (Real-time, Daily, Weekly, On-demand)".to_string(), required: false, hint: "How often this actor interacts with the system".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "interactionChannel".to_string(), type_name: "String".to_string(), description: "Interaction Channel (Web UI, Mobile App, API, Email, etc.)".to_string(), required: false, hint: "The channel through which the interaction occurs".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataExchanged".to_string(), type_name: "String".to_string(), description: "Data Exchanged (what information flows to/from this actor)".to_string(), required: false, hint: "What information flows to and from this actor".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "accessLevel".to_string(), type_name: "String".to_string(), description: "Access Level (Read, Write, Admin, API-only, etc.)".to_string(), required: false, hint: "The level of access this actor has".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — external interfaces & actors".to_string()), som::Json::Str("BABOK v3 §10.43 — stakeholder/actor analysis".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the cadence and channel of an actor's interaction and the information exchanged with the system.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ExternalActorEntry".to_string(), member_name: "context".to_string(), section_id: "EAEC".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Access, authentication, and context details.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "authenticationMethod".to_string(), type_name: "String".to_string(), description: "Authentication Method (SSO, Password, Certificate, API Key, etc.)".to_string(), required: false, hint: "How this actor authenticates".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "location".to_string(), type_name: "String".to_string(), description: "Location (On-site, Remote, Mobile, Global, etc.)".to_string(), required: false, hint: "Where this actor accesses the system from".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "volumeEstimate".to_string(), type_name: "String".to_string(), description: "Volume Estimate (number of actors, transactions per day)".to_string(), required: false, hint: "Estimated number of actors or transactions per day".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — external interfaces & actors".to_string()), som::Json::Str("ISO/IEC 27001 Annex A — access control".to_string())])), ("connotation".to_string(), som::Json::Str("Captures an actor's access, authentication, location, and volume context relative to the system.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "ExternalActorEntry".to_string(), member_name: "interactionScenarios".to_string(), section_id: "INTER-INTE-LST".to_string(), section_id_pattern: "INTER-INTE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_help: "Add one entry per interaction scenario between this actor and the system.".to_string(), doc_comment: "Interaction scenarios for this actor.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — external interfaces & actors".to_string())])), ("connotation".to_string(), som::Json::Str("The set of interaction-scenario entries for this actor.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ExternalActorEntry".to_string(), member_name: "interactionScenarios".to_string(), section_id: "EAE-INTE-LST".to_string(), section_id_pattern: "EAE-INTE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_help: "Add one entry per interaction scenario between this actor and the system.".to_string(), doc_comment: "Interaction scenarios for this actor.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — external interfaces & actors".to_string())])), ("connotation".to_string(), som::Json::Str("The set of interaction-scenario entries for this actor.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -6855,7 +6855,7 @@ fn meta_children_external_connectivity_section(s: &mut HashSet<String>) -> Vec<R
         Rc::new(som::SomMetaNode { class_name: "ExternalConnectivitySection".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Provide an overview of external connectivity landscape.\n\n**Include**:\n- Key partner and integration landscape\n- Cloud service dependencies\n- Critical third-party APIs\n- Gateway and mesh architecture\n- Resilience strategy\n\n**Best Practices**:\n- Abstract external dependencies with adapters\n- Implement comprehensive error handling\n- Monitor external dependency health\n- Have fallback strategies for critical integrations\n- Regular vendor review and risk assessment\n".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ExternalConnectivitySection".to_string(), member_name: "overview".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Overview of external connectivity requirements.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "ExternalConnectivitySection".to_string(), member_name: "partnerConnections".to_string(), section_id: "EPCE-PART-LST".to_string(), section_id_pattern: "EPCE-PART-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ExternalPartnerConnectionEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per external partner connection.".to_string(), doc_comment: "External partner connections — contains 0+× ExternalPartnerConnection.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Enterprise Integration Patterns — messaging & integration".to_string())])), ("connotation".to_string(), som::Json::Str("The external partner connections the system integrates with.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ExternalConnectivitySection".to_string(), member_name: "partnerConnections".to_string(), section_id: "EXPACOEN-PART-LST".to_string(), section_id_pattern: "EXPACOEN-PART-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ExternalPartnerConnectionEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per external partner connection.".to_string(), doc_comment: "External partner connections — contains 0+× ExternalPartnerConnection.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Enterprise Integration Patterns — messaging & integration".to_string())])), ("connotation".to_string(), som::Json::Str("The external partner connections the system integrates with.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ExternalPartnerConnectionEntry", s, meta_children_external_partner_connection_entry, |r, c| som::SomMetaNode {
                 class_name: "ExternalPartnerConnectionEntry".to_string(), class_section_id: "EXPACOEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExternalPartnerConnectionEntry".to_string(), doc_comment: "An external partner connection entry (form).".to_string(), class_doc_comment: "An external partner connection entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -6929,7 +6929,7 @@ fn meta_children_external_interfaces(s: &mut HashSet<String>) -> Vec<Rc<som::Som
         Rc::new(som::SomMetaNode { class_name: "ExternalInterfaces".to_string(), member_name: "architectureApproach".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Describe integration patterns: point-to-point vs hub, synchronous vs async, API gateway usage, message broker approach.".to_string(), doc_comment: "Integration architecture approach.".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ExternalInterfaces".to_string(), member_name: "governanceModel".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(2), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Describe integration governance: ownership model, change control process, versioning strategy, deprecation policy.".to_string(), doc_comment: "Integration governance model.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "ExternalInterfaces".to_string(), member_name: "interfaces".to_string(), section_id: "EXINEN-INTE-LST".to_string(), section_id_pattern: "EXINEN-INTE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ExternalInterfaceEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per external system interface, each documenting identification, technical, data, security, and governance details.".to_string(), doc_comment: "Contains 0+× ExternalInterfaceEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("OpenAPI / AsyncAPI — API specification".to_string()), som::Json::Str("Enterprise Integration Patterns (EIP) — integration styles".to_string())])), ("connotation".to_string(), som::Json::Str("Holds one entry per external interface, the core inventory from which integration specifications are derived.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ExternalInterfaces".to_string(), member_name: "interfaces".to_string(), section_id: "EIE-INTE-LST".to_string(), section_id_pattern: "EIE-INTE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ExternalInterfaceEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per external system interface, each documenting identification, technical, data, security, and governance details.".to_string(), doc_comment: "Contains 0+× ExternalInterfaceEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("OpenAPI / AsyncAPI — API specification".to_string()), som::Json::Str("Enterprise Integration Patterns (EIP) — integration styles".to_string())])), ("connotation".to_string(), som::Json::Str("Holds one entry per external interface, the core inventory from which integration specifications are derived.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ExternalInterfaceEntry", s, meta_children_external_interface_entry, |r, c| som::SomMetaNode {
                 class_name: "ExternalInterfaceEntry".to_string(), class_section_id: "EIE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExternalInterfaceEntry".to_string(), doc_comment: "An external interface entry (form).\n\nComprehensive documentation of an external system interface covering\nidentification, technical details, data exchange specification, security,\noperational characteristics, and contractual governance. Follows\nOpenAPI/AsyncAPI patterns for API documentation and enterprise\nintegration best practices.".to_string(), class_doc_comment: "An external interface entry (form).\n\nComprehensive documentation of an external system interface covering\nidentification, technical details, data exchange specification, security,\noperational characteristics, and contractual governance. Follows\nOpenAPI/AsyncAPI patterns for API documentation and enterprise\nintegration best practices.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -7036,7 +7036,7 @@ fn meta_children_feature_dependencies(s: &mut HashSet<String>) -> Vec<Rc<som::So
         Rc::new(som::SomMetaNode { class_name: "FeatureDependencies".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "totalDependencyCount".to_string(), type_name: "String".to_string(), description: "Total Dependency Count".to_string(), required: false, hint: "Total number of inter-feature dependencies".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "crossStageDependencyCount".to_string(), type_name: "String".to_string(), description: "Cross-Stage Dependency Count".to_string(), required: false, hint: "Dependencies spanning stage boundaries — highest scheduling risk".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "criticalPathLength".to_string(), type_name: "String".to_string(), description: "Critical Path Length".to_string(), required: false, hint: "Longest dependency chain — number of features on the critical path".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "circularDependenciesDetected".to_string(), type_name: "String".to_string(), description: "Circular Dependencies Detected".to_string(), required: false, hint: "Yes / No — whether any circular chains exist (must be resolved)".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dependencyMapLastUpdated".to_string(), type_name: "String".to_string(), description: "Dependency Map Last Updated".to_string(), required: false, hint: "When the dependency map was last analyzed".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "FeatureDependencies".to_string(), member_name: "dependencyAnalysis".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Analysis of feature dependencies: dependency types, impact assessment methodology, critical dependency chains, circular dependency resolution, cross-stage dependencies, external system dependencies.".to_string(), doc_comment: "Dependency analysis narrative.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "FeatureDependencies".to_string(), member_name: "items".to_string(), section_id: "FEDEEN-ITEM-LST".to_string(), section_id_pattern: "FEDEEN-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "FeatureDependencyEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per feature dependency.".to_string(), doc_comment: "Contains 0+× FeatureDependencyEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management".to_string()), som::Json::Str("ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management".to_string())])), ("connotation".to_string(), som::Json::Str("Lists each inter-feature dependency that affects staging order and critical-path sequencing.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "FeatureDependencies".to_string(), member_name: "items".to_string(), section_id: "FDE-ITEM-LST".to_string(), section_id_pattern: "FDE-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "FeatureDependencyEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per feature dependency.".to_string(), doc_comment: "Contains 0+× FeatureDependencyEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management".to_string()), som::Json::Str("ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management".to_string())])), ("connotation".to_string(), som::Json::Str("Lists each inter-feature dependency that affects staging order and critical-path sequencing.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("FeatureDependencyEntry", s, meta_children_feature_dependency_entry, |r, c| som::SomMetaNode {
                 class_name: "FeatureDependencyEntry".to_string(), class_section_id: "FDE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "FeatureDependencyEntry".to_string(), doc_comment: "A feature dependency entry (form).\n\nDescribes a single directional dependency between two features,\nincluding type, impact, and resolution strategy.".to_string(), class_doc_comment: "A feature dependency entry (form).\n\nDescribes a single directional dependency between two features,\nincluding type, impact, and resolution strategy.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -7118,7 +7118,7 @@ fn meta_children_feature_priority_register(s: &mut HashSet<String>) -> Vec<Rc<so
     vec![
         Rc::new(som::SomMetaNode { class_name: "FeaturePriorityRegister".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "totalRegisteredFeatures".to_string(), type_name: "String".to_string(), description: "Total Registered Features".to_string(), required: false, hint: "Total number of features in the register".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "registerLastUpdated".to_string(), type_name: "String".to_string(), description: "Register Last Updated".to_string(), required: false, hint: "Date the register was last fully reviewed".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "registerOwner".to_string(), type_name: "String".to_string(), description: "Register Owner".to_string(), required: false, hint: "Person responsible for maintaining the register — typically Product Owner".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "FeaturePriorityRegister".to_string(), member_name: "items".to_string(), section_id: "FEPREN-ITEM-LST".to_string(), section_id_pattern: "FEPREN-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "FeaturePriorityEntry".to_string(), serialization_order: Some(1), min: Some(1), content_help: "Add one entry per prioritized feature.".to_string(), doc_comment: "Contains 1+× FeaturePriorityEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique".to_string()), som::Json::Str("SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization".to_string())])), ("connotation".to_string(), som::Json::Str("Lists each prioritized feature held in the register.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "FeaturePriorityRegister".to_string(), member_name: "items".to_string(), section_id: "FPE-ITEM-LST".to_string(), section_id_pattern: "FPE-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "FeaturePriorityEntry".to_string(), serialization_order: Some(1), min: Some(1), content_help: "Add one entry per prioritized feature.".to_string(), doc_comment: "Contains 1+× FeaturePriorityEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique".to_string()), som::Json::Str("SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization".to_string())])), ("connotation".to_string(), som::Json::Str("Lists each prioritized feature held in the register.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("FeaturePriorityEntry", s, meta_children_feature_priority_entry, |r, c| som::SomMetaNode {
                 class_name: "FeaturePriorityEntry".to_string(), class_section_id: "FPE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "FeaturePriorityEntry".to_string(), doc_comment: "An individual feature priority entry (form).\n\nComprehensive record covering identity, classification, business\nvalue, effort, priority scoring, stage assignment, dependencies,\nstakeholders, traceability, and status.".to_string(), class_doc_comment: "An individual feature priority entry (form).\n\nComprehensive record covering identity, classification, business\nvalue, effort, priority scoring, stage assignment, dependencies,\nstakeholders, traceability, and status.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -7143,7 +7143,7 @@ fn meta_children_feature_stage_matrix(s: &mut HashSet<String>) -> Vec<Rc<som::So
         Rc::new(som::SomMetaNode { class_name: "FeatureStageMatrix".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "totalMappedFeatures".to_string(), type_name: "String".to_string(), description: "Total Mapped Features".to_string(), required: false, hint: "Number of features mapped to stages".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "unmappedFeatures".to_string(), type_name: "String".to_string(), description: "Unmapped Features".to_string(), required: false, hint: "Features not yet assigned to any stage".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "stageCapacityUtilization".to_string(), type_name: "String".to_string(), description: "Stage Capacity Utilization".to_string(), required: false, hint: "Per-stage capacity summary — e.g. Stage 1: 85%, Stage 2: 60%".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "crossStageDependencyCount".to_string(), type_name: "String".to_string(), description: "Cross-Stage Dependency Count".to_string(), required: false, hint: "Feature dependencies crossing stage boundaries".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "matrixLastUpdated".to_string(), type_name: "String".to_string(), description: "Matrix Last Updated".to_string(), required: false, hint: "Date the feature-stage matrix was last updated".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "matrixApprovedBy".to_string(), type_name: "String".to_string(), description: "Matrix Approved By".to_string(), required: false, hint: "Person or body who approved the current matrix".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "FeatureStageMatrix".to_string(), member_name: "matrixNarrative".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Explanation of feature-to-stage mapping logic: allocation criteria, dependency constraints, capacity considerations, cross-stage feature splitting, handling of scope changes and re-prioritizations.".to_string(), doc_comment: "Feature-Stage matrix narrative.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "FeatureStageMatrix".to_string(), member_name: "items".to_string(), section_id: "FESTM1-ITEM-LST".to_string(), section_id_pattern: "FESTM1-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "FeatureStageMapping".to_string(), serialization_order: Some(2), content_help: "Add one entry per feature-stage mapping.".to_string(), doc_comment: "Contains 0+× FeatureStageMapping.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing".to_string()), som::Json::Str("ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management".to_string())])), ("connotation".to_string(), som::Json::Str("Holds the collection of feature-to-stage mapping entries that make up the matrix.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "FeatureStageMatrix".to_string(), member_name: "items".to_string(), section_id: "FSM-ITEM-LST".to_string(), section_id_pattern: "FSM-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "FeatureStageMapping".to_string(), serialization_order: Some(2), content_help: "Add one entry per feature-stage mapping.".to_string(), doc_comment: "Contains 0+× FeatureStageMapping.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing".to_string()), som::Json::Str("ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management".to_string())])), ("connotation".to_string(), som::Json::Str("Holds the collection of feature-to-stage mapping entries that make up the matrix.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("FeatureStageMapping", s, meta_children_feature_stage_mapping, |r, c| som::SomMetaNode {
                 class_name: "FeatureStageMapping".to_string(), class_section_id: "FSM".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "FeatureStageMapping".to_string(), doc_comment: "A feature-to-stage mapping entry (form).\n\nMaps a single feature or feature group to its delivery stage with\nreadiness, confidence, and dependency information.".to_string(), class_doc_comment: "A feature-to-stage mapping entry (form).\n\nMaps a single feature or feature group to its delivery stage with\nreadiness, confidence, and dependency information.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -7436,7 +7436,7 @@ fn meta_children_functional_responsibilities(s: &mut HashSet<String>) -> Vec<Rc<
         Rc::new(som::SomMetaNode { class_name: "FunctionalResponsibilities".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "responsibilityMatrixApproach".to_string(), type_name: "String".to_string(), description: "Responsibility Matrix Approach".to_string(), required: false, hint: "RACI, RASCI, DACI — methodology used for responsibility assignment".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "governanceModel".to_string(), type_name: "String".to_string(), description: "Governance Model".to_string(), required: false, hint: "Centralized, federated, distributed — how responsibilities are governed".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "escalationProcess".to_string(), type_name: "String".to_string(), description: "Escalation Process".to_string(), required: false, hint: "How responsibility conflicts or gaps are escalated".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "reviewCadence".to_string(), type_name: "String".to_string(), description: "Review Cadence".to_string(), required: false, hint: "How often responsibility assignments are reviewed".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "totalFunctionCount".to_string(), type_name: "int".to_string(), description: "Total Function Count".to_string(), required: false, hint: "Number of functional areas with assigned responsibilities".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "unassignedAreas".to_string(), type_name: "String".to_string(), description: "Unassigned Areas".to_string(), required: false, hint: "Functional areas without clear ownership".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "FunctionalResponsibilities".to_string(), member_name: "matrixOverview".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Describe the overall approach to functional responsibility assignment: governance model, cross-functional coordination, conflict resolution, and ongoing maintenance.".to_string(), doc_comment: "Responsibility matrix overview narrative.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "FunctionalResponsibilities".to_string(), member_name: "items".to_string(), section_id: "REEN1-ITEM-LST".to_string(), section_id_pattern: "REEN1-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ResponsibilityEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per functional area, capturing its RACI assignment, contacts, and related systems.".to_string(), doc_comment: "Contains 0+× Responsibility.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("RACI / responsibility assignment — functional responsibilities".to_string()), som::Json::Str("ISO 21500 — organizational roles & responsibilities".to_string())])), ("connotation".to_string(), som::Json::Str("Holds the per-function responsibility entries that make up the overall responsibility matrix.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "FunctionalResponsibilities".to_string(), member_name: "items".to_string(), section_id: "RE-ITEM-LST".to_string(), section_id_pattern: "RE-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ResponsibilityEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per functional area, capturing its RACI assignment, contacts, and related systems.".to_string(), doc_comment: "Contains 0+× Responsibility.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("RACI / responsibility assignment — functional responsibilities".to_string()), som::Json::Str("ISO 21500 — organizational roles & responsibilities".to_string())])), ("connotation".to_string(), som::Json::Str("Holds the per-function responsibility entries that make up the overall responsibility matrix.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ResponsibilityEntry", s, meta_children_responsibility_entry, |r, c| som::SomMetaNode {
                 class_name: "ResponsibilityEntry".to_string(), class_section_id: "RE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ResponsibilityEntry".to_string(), doc_comment: "A responsibility entry (form).\n\nDocuments responsibility assignment for a specific functional area,\nfollowing RACI principles (Responsible, Accountable, Consulted, Informed)\nwith additional operational details for clear accountability.".to_string(), class_doc_comment: "A responsibility entry (form).\n\nDocuments responsibility assignment for a specific functional area,\nfollowing RACI principles (Responsible, Accountable, Consulted, Informed)\nwith additional operational details for clear accountability.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -7491,7 +7491,7 @@ fn meta_children_glossary_and_abbreviations(s: &mut HashSet<String>) -> Vec<Rc<s
     vec![
         Rc::new(som::SomMetaNode { class_name: "GlossaryAndAbbreviations".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Introduce the glossary: scope, conventions, and how terms are maintained.".to_string() }), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "GlossaryAndAbbreviations".to_string(), member_name: "glossary".to_string(), section_id: "GLOSS-ENTR-LST".to_string(), section_id_pattern: "GLOSS-ENTR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "GlossaryEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per term or acronym, alphabetically ordered.".to_string(), doc_comment: "The set of defined terms and abbreviations.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered collection of defined terms and abbreviations.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "GlossaryAndAbbreviations".to_string(), member_name: "glossary".to_string(), section_id: "GLENT-ENTR-LST".to_string(), section_id_pattern: "GLENT-ENTR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "GlossaryEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per term or acronym, alphabetically ordered.".to_string(), doc_comment: "The set of defined terms and abbreviations.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered collection of defined terms and abbreviations.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("GlossaryEntry", s, meta_children_glossary_entry, |r, c| som::SomMetaNode {
                 class_name: "GlossaryEntry".to_string(), class_section_id: "GLENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "GlossaryEntry".to_string(), doc_comment: "A single glossary entry (form).".to_string(), class_doc_comment: "A single glossary entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -7958,7 +7958,7 @@ fn meta_children_information_architecture(_s: &mut HashSet<String>) -> Vec<Rc<so
         Rc::new(som::SomMetaNode { class_name: "InformationArchitecture".to_string(), member_name: "siteMap".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Site map overview.".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "InformationArchitecture".to_string(), member_name: "contentHierarchy".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(2), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Content hierarchy description.".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "InformationArchitecture".to_string(), member_name: "navigationStructure".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Navigation structure.".to_string(), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "InformationArchitecture".to_string(), member_name: "globalEntryPoints".to_string(), section_id: "GLOBA-GLOB-LST".to_string(), section_id_pattern: "GLOBA-GLOB-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "Add one entry per global entry point.".to_string(), doc_comment: "Global entry points.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-151:2008 — information architecture and navigation entry points to the site".to_string()), som::Json::Str("ISO 9241-11:2018 — context of use in which users reach the system".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of global access points through which users enter the application.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "InformationArchitecture".to_string(), member_name: "globalEntryPoints".to_string(), section_id: "IA-GLOB-LST".to_string(), section_id_pattern: "IA-GLOB-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "Add one entry per global entry point.".to_string(), doc_comment: "Global entry points.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-151:2008 — information architecture and navigation entry points to the site".to_string()), som::Json::Str("ISO 9241-11:2018 — context of use in which users reach the system".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of global access points through which users enter the application.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "InformationArchitecture".to_string(), member_name: "architectureDiagram".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_type: Some(som::SomContentTypeMeta { type_: "mermaid-flow".to_string(), description: "".to_string() }), doc_comment: "10.2.2.5. Information Architecture Diagram.".to_string(), ..som::SomMetaNode::default() }),
     ]
 }
@@ -8087,7 +8087,7 @@ fn meta_children_integration_constraint_entry(_s: &mut HashSet<String>) -> Vec<R
 fn meta_children_integration_health_summary(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "IntegrationHealthSummary".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "overallHealthRating".to_string(), type_name: "String".to_string(), description: "Overall Health Rating".to_string(), required: false, hint: "Healthy / Acceptable / Concerning / Critical".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "totalDependencies".to_string(), type_name: "int".to_string(), description: "Total Dependencies Documented".to_string(), required: false, hint: "".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "criticalDependencies".to_string(), type_name: "int".to_string(), description: "Critical Dependencies".to_string(), required: false, hint: "".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "highRiskDependencies".to_string(), type_name: "int".to_string(), description: "High-Risk Dependencies".to_string(), required: false, hint: "".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "singlePointsOfFailure".to_string(), type_name: "int".to_string(), description: "Identified Single Points of Failure".to_string(), required: false, hint: "".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "undocumentedIntegrations".to_string(), type_name: "int".to_string(), description: "Known Undocumented Integrations".to_string(), required: false, hint: "".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "technicalDebtSummary".to_string(), type_name: "String".to_string(), description: "Technical Debt Summary".to_string(), required: false, hint: "Overview of integration-related technical debt".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "priorityRemediationAreas".to_string(), type_name: "String".to_string(), description: "Priority Remediation Areas".to_string(), required: false, hint: "Top 3-5 areas requiring immediate attention".to_string(), order: 7, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "impactOnProject".to_string(), type_name: "String".to_string(), description: "Impact on This Project".to_string(), required: false, hint: "How current integration state affects project planning".to_string(), order: 8, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "IntegrationHealthSummary".to_string(), member_name: "fragilePoints".to_string(), section_id: "FRAGI-FRAG-LST".to_string(), section_id_pattern: "FRAGI-FRAG-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_help: "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation.".to_string(), doc_comment: "Fragile integration points requiring attention.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (fragile integration points)".to_string())])), ("connotation".to_string(), som::Json::Str("The set of fragile integration points in the AS-IS landscape that pose risk and require attention.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "IntegrationHealthSummary".to_string(), member_name: "fragilePoints".to_string(), section_id: "INHESU-FRAG-LST".to_string(), section_id_pattern: "INHESU-FRAG-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_help: "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation.".to_string(), doc_comment: "Fragile integration points requiring attention.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (fragile integration points)".to_string())])), ("connotation".to_string(), som::Json::Str("The set of fragile integration points in the AS-IS landscape that pose risk and require attention.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -8285,7 +8285,7 @@ fn meta_children_interface_business_context(s: &mut HashSet<String>) -> Vec<Rc<s
     vec![
         Rc::new(som::SomMetaNode { class_name: "InterfaceBusinessContext".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "businessPurpose".to_string(), type_name: "String".to_string(), description: "Business Purpose".to_string(), required: false, hint: "What business need this interface serves".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "businessValue".to_string(), type_name: "String".to_string(), description: "Business Value".to_string(), required: false, hint: "Value delivered by the integration".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "businessOwner".to_string(), type_name: "String".to_string(), description: "Business Owner".to_string(), required: false, hint: "Business stakeholder accountable for the interface".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "useCases".to_string(), type_name: "String".to_string(), description: "Primary Use Cases".to_string(), required: false, hint: "Main business use cases supported".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "businessCriticality".to_string(), type_name: "String".to_string(), description: "Criticality (Mission Critical, Business Critical, Operational)".to_string(), required: false, hint: "How critical the interface is to the business".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "revenueImpact".to_string(), type_name: "String".to_string(), description: "Revenue Impact (Direct, Indirect, None)".to_string(), required: false, hint: "How the interface affects revenue".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "regulatoryDriver".to_string(), type_name: "String".to_string(), description: "Regulatory/Compliance Driver".to_string(), required: false, hint: "Regulatory or compliance reason for the interface".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "InterfaceBusinessContext".to_string(), member_name: "dependentProcesses".to_string(), section_id: "IBPE-DEPE-LST".to_string(), section_id_pattern: "IBPE-DEPE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "InterfaceBusinessProcessEntry".to_string(), serialization_order: Some(1), content_help: "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable.".to_string(), doc_comment: "Business processes that depend on this interface.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — system context & boundary definition".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the business processes that rely on this interface so dependency and fallback impact can be assessed.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "InterfaceBusinessContext".to_string(), member_name: "dependentProcesses".to_string(), section_id: "INBUPREN-DEPE-LST".to_string(), section_id_pattern: "INBUPREN-DEPE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "InterfaceBusinessProcessEntry".to_string(), serialization_order: Some(1), content_help: "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable.".to_string(), doc_comment: "Business processes that depend on this interface.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — system context & boundary definition".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the business processes that rely on this interface so dependency and fallback impact can be assessed.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("InterfaceBusinessProcessEntry", s, meta_children_interface_business_process_entry, |r, c| som::SomMetaNode {
                 class_name: "InterfaceBusinessProcessEntry".to_string(), class_section_id: "INBUPREN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InterfaceBusinessProcessEntry".to_string(), doc_comment: "Business process dependency entry.".to_string(), class_doc_comment: "Business process dependency entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -8311,15 +8311,15 @@ fn meta_children_interface_data_spec(s: &mut HashSet<String>) -> Vec<Rc<som::Som
     vec![
         Rc::new(som::SomMetaNode { class_name: "InterfaceDataSpec".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "dataExchangeSummary".to_string(), type_name: "String".to_string(), description: "Data Exchange Summary".to_string(), required: false, hint: "High-level summary of data exchanged".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataDirection".to_string(), type_name: "String".to_string(), description: "Data Flow (Send, Receive, Bidirectional)".to_string(), required: false, hint: "Direction of data flow".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataSensitivity".to_string(), type_name: "String".to_string(), description: "Sensitivity (Public, Internal, Confidential, PII/PHI)".to_string(), required: false, hint: "Sensitivity classification of the data".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataRetentionExternal".to_string(), type_name: "String".to_string(), description: "External System Data Retention".to_string(), required: false, hint: "How long the external system retains the data".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "frequency".to_string(), type_name: "String".to_string(), description: "Frequency (Real-time, Near real-time, Batch, On-demand)".to_string(), required: false, hint: "How often data is exchanged".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "batchSchedule".to_string(), type_name: "String".to_string(), description: "Batch Schedule (if applicable)".to_string(), required: false, hint: "Schedule for batch exchanges".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "volumePerTransaction".to_string(), type_name: "String".to_string(), description: "Volume per Transaction".to_string(), required: false, hint: "Typical data volume per transaction".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dailyVolume".to_string(), type_name: "String".to_string(), description: "Expected Daily Volume".to_string(), required: false, hint: "Expected daily data volume".to_string(), order: 7, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "peakVolume".to_string(), type_name: "String".to_string(), description: "Peak Volume".to_string(), required: false, hint: "Peak data volume to plan for".to_string(), order: 8, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "payloadSizeLimit".to_string(), type_name: "String".to_string(), description: "Payload Size Limit".to_string(), required: false, hint: "Maximum allowed payload size".to_string(), order: 9, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "InterfaceDataSpec".to_string(), member_name: "dataEntities".to_string(), section_id: "IDEE-DATA-LST".to_string(), section_id_pattern: "IDEE-DATA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "InterfaceDataEntityEntry".to_string(), serialization_order: Some(1), content_help: "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to.".to_string(), doc_comment: "Data entities exchanged.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("OpenAPI / AsyncAPI — API specification".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the data entities exchanged with their direction, required and sensitive fields, and internal mapping.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "InterfaceDataSpec".to_string(), member_name: "dataEntities".to_string(), section_id: "INDAENEN-DATA-LST".to_string(), section_id_pattern: "INDAENEN-DATA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "InterfaceDataEntityEntry".to_string(), serialization_order: Some(1), content_help: "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to.".to_string(), doc_comment: "Data entities exchanged.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("OpenAPI / AsyncAPI — API specification".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the data entities exchanged with their direction, required and sensitive fields, and internal mapping.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("InterfaceDataEntityEntry", s, meta_children_interface_data_entity_entry, |r, c| som::SomMetaNode {
                 class_name: "InterfaceDataEntityEntry".to_string(), class_section_id: "INDAENEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InterfaceDataEntityEntry".to_string(), doc_comment: "Data entity exchanged.".to_string(), class_doc_comment: "Data entity exchanged.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
             }));
             Rc::new(n)
         },
-        Rc::new(som::SomMetaNode { class_name: "InterfaceDataSpec".to_string(), member_name: "mappingRules".to_string(), section_id: "MAPPI-MAPP-LST".to_string(), section_id_pattern: "MAPPI-MAPP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(2), content_help: "List data mapping and transformation rules between external and internal representations.".to_string(), doc_comment: "Data mapping and transformation rules.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Enterprise Integration Patterns (EIP) — integration styles".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the mapping and transformation rules applied between external and internal data representations.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "InterfaceDataSpec".to_string(), member_name: "validationRules".to_string(), section_id: "VALID-VALI-LST".to_string(), section_id_pattern: "VALID-VALI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_help: "List data validation rules applied to inbound and outbound payloads at the interface boundary.".to_string(), doc_comment: "Data validation rules.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — scope & external interfaces".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the validation rules applied to exchanged data to ensure integrity at the boundary.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "InterfaceDataSpec".to_string(), member_name: "mappingRules".to_string(), section_id: "INDASP-MAPP-LST".to_string(), section_id_pattern: "INDASP-MAPP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(2), content_help: "List data mapping and transformation rules between external and internal representations.".to_string(), doc_comment: "Data mapping and transformation rules.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Enterprise Integration Patterns (EIP) — integration styles".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the mapping and transformation rules applied between external and internal data representations.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "InterfaceDataSpec".to_string(), member_name: "validationRules".to_string(), section_id: "INDASP-VALI-LST".to_string(), section_id_pattern: "INDASP-VALI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_help: "List data validation rules applied to inbound and outbound payloads at the interface boundary.".to_string(), doc_comment: "Data validation rules.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — scope & external interfaces".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the validation rules applied to exchanged data to ensure integrity at the boundary.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -8329,7 +8329,7 @@ fn meta_children_interface_error_handling(_s: &mut HashSet<String>) -> Vec<Rc<so
         Rc::new(som::SomMetaNode { class_name: "InterfaceErrorHandling".to_string(), member_name: "retry".to_string(), section_id: "IEHR".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Non-retryable errors and retry strategy.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "fatalErrors".to_string(), type_name: "String".to_string(), description: "Fatal/Non-Retryable Errors".to_string(), required: false, hint: "Errors that must not be retried".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "retryStrategy".to_string(), type_name: "String".to_string(), description: "Retry Strategy (Exponential backoff, etc.)".to_string(), required: false, hint: "Strategy used when retrying".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "maxRetries".to_string(), type_name: "int".to_string(), description: "Max Retries".to_string(), required: false, hint: "Maximum number of retry attempts".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "retryInterval".to_string(), type_name: "String".to_string(), description: "Retry Interval".to_string(), required: false, hint: "Delay between retry attempts".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "circuitBreakerConfig".to_string(), type_name: "String".to_string(), description: "Circuit Breaker Configuration".to_string(), required: false, hint: "Circuit-breaker thresholds and behavior".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Enterprise Integration Patterns (EIP) — integration styles".to_string())])), ("connotation".to_string(), som::Json::Str("Defines which errors are fatal versus retryable and the retry/circuit-breaker strategy for transient failures.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "InterfaceErrorHandling".to_string(), member_name: "fallback".to_string(), section_id: "IEHF".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Fallback behavior and manual recovery.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "fallbackBehavior".to_string(), type_name: "String".to_string(), description: "Fallback Behavior".to_string(), required: false, hint: "Behavior when the interface fails".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "degradedMode".to_string(), type_name: "String".to_string(), description: "Degraded Mode Operation".to_string(), required: false, hint: "How the system runs in degraded mode".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "manualRecovery".to_string(), type_name: "String".to_string(), description: "Manual Recovery Procedure".to_string(), required: false, hint: "Manual steps to recover from failure".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — product quality (reliability)".to_string())])), ("connotation".to_string(), som::Json::Str("Describes fallback and degraded-mode behavior plus manual recovery when the interface is unavailable.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "InterfaceErrorHandling".to_string(), member_name: "timeout".to_string(), section_id: "IEHT".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Connection and transaction timeouts.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "connectionTimeout".to_string(), type_name: "String".to_string(), description: "Connection Timeout".to_string(), required: false, hint: "Timeout for establishing a connection".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "readTimeout".to_string(), type_name: "String".to_string(), description: "Read Timeout".to_string(), required: false, hint: "Timeout for reading a response".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "overallTimeout".to_string(), type_name: "String".to_string(), description: "Overall Transaction Timeout".to_string(), required: false, hint: "Total timeout for the whole transaction".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — product quality (performance efficiency)".to_string())])), ("connotation".to_string(), som::Json::Str("Specifies the connection, read, and overall transaction timeouts that bound interface calls.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "InterfaceErrorHandling".to_string(), member_name: "errorProcedures".to_string(), section_id: "ERROR-ERRO-LST".to_string(), section_id_pattern: "ERROR-ERRO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps.".to_string(), doc_comment: "Error handling procedures.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Enterprise Integration Patterns (EIP) — integration styles".to_string())])), ("connotation".to_string(), som::Json::Str("Lists concrete error-handling procedures so operators know how to respond to each failure mode of the interface.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "InterfaceErrorHandling".to_string(), member_name: "errorProcedures".to_string(), section_id: "INERHA-ERRO-LST".to_string(), section_id_pattern: "INERHA-ERRO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps.".to_string(), doc_comment: "Error handling procedures.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Enterprise Integration Patterns (EIP) — integration styles".to_string())])), ("connotation".to_string(), som::Json::Str("Lists concrete error-handling procedures so operators know how to respond to each failure mode of the interface.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -8354,7 +8354,7 @@ fn meta_children_interface_operational(_s: &mut HashSet<String>) -> Vec<Rc<som::
         Rc::new(som::SomMetaNode { class_name: "InterfaceOperational".to_string(), member_name: "rateLimiting".to_string(), section_id: "IORL".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Rate limiting rules.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "rateLimits".to_string(), type_name: "String".to_string(), description: "Rate Limits (requests/minute)".to_string(), required: false, hint: "Sustained request-rate limit".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "quotaLimits".to_string(), type_name: "String".to_string(), description: "Quota Limits (requests/day)".to_string(), required: false, hint: "Longer-period quota limit".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "burstCapacity".to_string(), type_name: "String".to_string(), description: "Burst Capacity".to_string(), required: false, hint: "Short-term burst allowance".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — product quality (operational/performance)".to_string())])), ("connotation".to_string(), som::Json::Str("Specifies the rate, quota, and burst limits the interface enforces or must respect.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "InterfaceOperational".to_string(), member_name: "monitoring".to_string(), section_id: "INOPMO".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Monitoring configuration.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "healthCheckEndpoint".to_string(), type_name: "String".to_string(), description: "Health Check Endpoint".to_string(), required: false, hint: "Endpoint used for health checks".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "statusPageUrl".to_string(), type_name: "String".to_string(), description: "Status Page URL".to_string(), required: false, hint: "External status page for the system".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "monitoringApproach".to_string(), type_name: "String".to_string(), description: "Monitoring Approach".to_string(), required: false, hint: "How the interface is monitored".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "alertingThresholds".to_string(), type_name: "String".to_string(), description: "Alerting Thresholds".to_string(), required: false, hint: "Thresholds that trigger alerts".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — product quality (operational/performance)".to_string())])), ("connotation".to_string(), som::Json::Str("Defines how the interface is monitored, including health checks, status pages, and alerting thresholds.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "InterfaceOperational".to_string(), member_name: "support".to_string(), section_id: "INOPSU".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Support model.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "supportHours".to_string(), type_name: "String".to_string(), description: "Support Hours".to_string(), required: false, hint: "Hours during which support is available".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "supportContact".to_string(), type_name: "String".to_string(), description: "Support Contact".to_string(), required: false, hint: "Primary support contact".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "incidentProcess".to_string(), type_name: "String".to_string(), description: "Incident Process".to_string(), required: false, hint: "Process for raising incidents".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "escalationPath".to_string(), type_name: "String".to_string(), description: "Escalation Path".to_string(), required: false, hint: "Escalation path for unresolved issues".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — product quality (operational/performance)".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the support model for the interface: hours, contacts, incident process, and escalation path.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "InterfaceOperational".to_string(), member_name: "dependencies".to_string(), section_id: "DEPEN-DEPE-LST".to_string(), section_id_pattern: "DEPEN-DEPE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure.".to_string(), doc_comment: "Operational dependencies.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — product quality (operational/performance)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the operational dependencies the interface relies on, so availability and failure impact can be reasoned about.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "InterfaceOperational".to_string(), member_name: "dependencies".to_string(), section_id: "INOP-DEPE-LST".to_string(), section_id_pattern: "INOP-DEPE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure.".to_string(), doc_comment: "Operational dependencies.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — product quality (operational/performance)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the operational dependencies the interface relies on, so availability and failure impact can be reasoned about.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -8384,7 +8384,7 @@ fn meta_children_interface_technical_spec(s: &mut HashSet<String>) -> Vec<Rc<som
         Rc::new(som::SomMetaNode { class_name: "InterfaceTechnicalSpec".to_string(), member_name: "communication".to_string(), section_id: "ITSC".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Directionality and messaging pattern.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "direction".to_string(), type_name: "String".to_string(), description: "Direction (Inbound, Outbound, Bidirectional)".to_string(), required: false, hint: "Flow direction relative to our system".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "initiator".to_string(), type_name: "String".to_string(), description: "Initiator (Our System, External System)".to_string(), required: false, hint: "Which side initiates the exchange".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "communicationStyle".to_string(), type_name: "String".to_string(), description: "Style (Synchronous, Asynchronous, Event-Driven)".to_string(), required: false, hint: "Synchronicity style of communication".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "deliveryGuarantee".to_string(), type_name: "String".to_string(), description: "Delivery (At-most-once, At-least-once, Exactly-once)".to_string(), required: false, hint: "Message delivery guarantee provided".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Enterprise Integration Patterns (EIP) — integration styles".to_string())])), ("connotation".to_string(), som::Json::Str("Describes the direction, initiator, style, and delivery guarantee of communication across the interface.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "InterfaceTechnicalSpec".to_string(), member_name: "endpoints".to_string(), section_id: "ITSE".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Endpoint and documentation references.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "baseEndpoint".to_string(), type_name: "String".to_string(), description: "Base URL/Endpoint".to_string(), required: false, hint: "Primary base URL of the interface".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "apiVersion".to_string(), type_name: "String".to_string(), description: "API Version".to_string(), required: false, hint: "Version of the API consumed".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "documentationUrl".to_string(), type_name: "String".to_string(), description: "API Documentation URL".to_string(), required: false, hint: "Link to the external API documentation".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "sandboxEndpoint".to_string(), type_name: "String".to_string(), description: "Sandbox/Test Endpoint".to_string(), required: false, hint: "Base URL of the sandbox/test environment".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("OpenAPI / AsyncAPI — API specification".to_string())])), ("connotation".to_string(), som::Json::Str("Records the endpoints, version, and documentation references needed to locate and call the interface.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "InterfaceTechnicalSpec".to_string(), member_name: "operations".to_string(), section_id: "INOPEN-OPER-LST".to_string(), section_id_pattern: "INOPEN-OPER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "InterfaceOperationEntry".to_string(), serialization_order: Some(3), content_help: "List the API operations or methods used: each with method, path, purpose, and request/response formats.".to_string(), doc_comment: "API operations/methods exposed or consumed.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("OpenAPI / AsyncAPI — API specification".to_string())])), ("connotation".to_string(), som::Json::Str("Enumerates the API operations exposed or consumed across this interface, the basis for contract documentation.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "InterfaceTechnicalSpec".to_string(), member_name: "operations".to_string(), section_id: "IOE-OPER-LST".to_string(), section_id_pattern: "IOE-OPER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "InterfaceOperationEntry".to_string(), serialization_order: Some(3), content_help: "List the API operations or methods used: each with method, path, purpose, and request/response formats.".to_string(), doc_comment: "API operations/methods exposed or consumed.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("OpenAPI / AsyncAPI — API specification".to_string())])), ("connotation".to_string(), som::Json::Str("Enumerates the API operations exposed or consumed across this interface, the basis for contract documentation.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("InterfaceOperationEntry", s, meta_children_interface_operation_entry, |r, c| som::SomMetaNode {
                 class_name: "InterfaceOperationEntry".to_string(), class_section_id: "IOE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InterfaceOperationEntry".to_string(), doc_comment: "An operation of an **external** interface.\n\nOne operation of a third-party system the application talks to, described in\nthat system's own terms — including its transport method and path, which a\nforeign contract genuinely has.\n\nThis is **not** where the application's own operations are declared: those\nlive in the server operation registry (SVOPR), under the\n`codespecs_mapping.md` §7 contract that fixes the transport shape and makes\nthe operation name the sole identifier.".to_string(), class_doc_comment: "An operation of an **external** interface.\n\nOne operation of a third-party system the application talks to, described in\nthat system's own terms — including its transport method and path, which a\nforeign contract genuinely has.\n\nThis is **not** where the application's own operations are declared: those\nlive in the server operation registry (SVOPR), under the\n`codespecs_mapping.md` §7 contract that fixes the transport shape and makes\nthe operation name the sole identifier.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -8407,7 +8407,7 @@ fn meta_children_interface_testing(s: &mut HashSet<String>) -> Vec<Rc<som::SomMe
         Rc::new(som::SomMetaNode { class_name: "InterfaceTesting".to_string(), member_name: "data".to_string(), section_id: "INTEDA".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Test data strategy.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "testDataApproach".to_string(), type_name: "String".to_string(), description: "Test Data Approach".to_string(), required: false, hint: "How test data is sourced or generated".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "syntheticDataSupport".to_string(), type_name: "bool".to_string(), description: "Synthetic Data Supported".to_string(), required: false, hint: "Whether synthetic test data is supported".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "productionMirror".to_string(), type_name: "bool".to_string(), description: "Production Data Mirroring".to_string(), required: false, hint: "Whether production data is mirrored for tests".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29119 — software testing".to_string())])), ("connotation".to_string(), som::Json::Str("Defines the test-data strategy for the interface, covering synthetic data and production mirroring.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "InterfaceTesting".to_string(), member_name: "strategy".to_string(), section_id: "INTEST".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Validation approach across test layers.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "unitTestApproach".to_string(), type_name: "String".to_string(), description: "Unit Test Approach".to_string(), required: false, hint: "Approach to unit testing the interface".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "integrationTestApproach".to_string(), type_name: "String".to_string(), description: "Integration Test Approach".to_string(), required: false, hint: "Approach to integration testing".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "contractTestApproach".to_string(), type_name: "String".to_string(), description: "Contract Test Approach".to_string(), required: false, hint: "Approach to contract testing".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "e2eTestApproach".to_string(), type_name: "String".to_string(), description: "E2E Test Approach".to_string(), required: false, hint: "Approach to end-to-end testing".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "performanceTestApproach".to_string(), type_name: "String".to_string(), description: "Performance Test Approach".to_string(), required: false, hint: "Approach to performance testing".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29119 — software testing".to_string())])), ("connotation".to_string(), som::Json::Str("Describes the validation approach across unit, integration, contract, E2E, and performance test layers for the interface.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "InterfaceTesting".to_string(), member_name: "testScenarios".to_string(), section_id: "ITSE1-TEST-LST".to_string(), section_id_pattern: "ITSE1-TEST-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "InterfaceTestScenarioEntry".to_string(), serialization_order: Some(3), content_help: "List test scenarios for the interface, each with type, preconditions, steps, and expected result.".to_string(), doc_comment: "Test scenarios.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29119 — software testing".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the concrete test scenarios that validate the interface across happy-path, error, and edge cases.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "InterfaceTesting".to_string(), member_name: "testScenarios".to_string(), section_id: "INTESCEN-TEST-LST".to_string(), section_id_pattern: "INTESCEN-TEST-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "InterfaceTestScenarioEntry".to_string(), serialization_order: Some(3), content_help: "List test scenarios for the interface, each with type, preconditions, steps, and expected result.".to_string(), doc_comment: "Test scenarios.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29119 — software testing".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the concrete test scenarios that validate the interface across happy-path, error, and edge cases.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("InterfaceTestScenarioEntry", s, meta_children_interface_test_scenario_entry, |r, c| som::SomMetaNode {
                 class_name: "InterfaceTestScenarioEntry".to_string(), class_section_id: "INTESCEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InterfaceTestScenarioEntry".to_string(), doc_comment: "Test scenario entry.".to_string(), class_doc_comment: "Test scenario entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -8500,7 +8500,7 @@ fn meta_children_iso25010_coverage(s: &mut HashSet<String>) -> Vec<Rc<som::SomMe
     vec![
         Rc::new(som::SomMetaNode { class_name: "Iso25010Coverage".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Summarize how the quality goals cover the eight ISO/IEC 25010:2023 characteristics. The taxonomy itself is owned by the SystemQualityGoals characteristic spine; this is a derived coverage view, not a second copy of the taxonomy.".to_string() }), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "Iso25010Coverage".to_string(), member_name: "characteristics".to_string(), section_id: "I25CV-CHAR-LST".to_string(), section_id_pattern: "I25CV-CHAR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "Iso25010CoverageEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per ISO/IEC 25010:2023 characteristic (functional suitability, performance efficiency, compatibility, interaction capability, reliability, security, maintainability, flexibility).".to_string(), doc_comment: "One entry per ISO/IEC 25010:2023 characteristic addressed.".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "Iso25010Coverage".to_string(), member_name: "characteristics".to_string(), section_id: "I25CE-CHAR-LST".to_string(), section_id_pattern: "I25CE-CHAR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "Iso25010CoverageEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per ISO/IEC 25010:2023 characteristic (functional suitability, performance efficiency, compatibility, interaction capability, reliability, security, maintainability, flexibility).".to_string(), doc_comment: "One entry per ISO/IEC 25010:2023 characteristic addressed.".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("Iso25010CoverageEntry", s, meta_children_iso25010_coverage_entry, |r, c| som::SomMetaNode {
                 class_name: "Iso25010CoverageEntry".to_string(), class_section_id: "I25CE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "Iso25010CoverageEntry".to_string(), doc_comment: "A single ISO/IEC 25010:2023 coverage entry (form).".to_string(), class_doc_comment: "A single ISO/IEC 25010:2023 coverage entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -8539,7 +8539,7 @@ fn meta_children_it_security_standards_section(s: &mut HashSet<String>) -> Vec<R
         Rc::new(som::SomMetaNode { class_name: "ItSecurityStandardsSection".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Provide an overview of IT security standards approach.\n\n**Include**:\n- Security standards adopted (OWASP, CIS, NIST)\n- Application security requirements\n- Infrastructure security baseline\n- Vulnerability management program\n- Security development integration\n\n**Best Practices**:\n- Automate security testing in CI/CD\n- Regular security training for developers\n- Maintain security champions in teams\n- Track security metrics and trends\n- Continuous security improvement\n".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ItSecurityStandardsSection".to_string(), member_name: "overview".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Overview of IT security standards strategy.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "ItSecurityStandardsSection".to_string(), member_name: "standards".to_string(), section_id: "SESTEN-STAN-LST".to_string(), section_id_pattern: "SESTEN-STAN-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SecurityStandardEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per security standard.".to_string(), doc_comment: "Security standards and frameworks — contains 0+× SecurityStandard.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27001 — information security management system".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of security standards and frameworks the system conforms to.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ItSecurityStandardsSection".to_string(), member_name: "standards".to_string(), section_id: "SSE-STAN-LST".to_string(), section_id_pattern: "SSE-STAN-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SecurityStandardEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per security standard.".to_string(), doc_comment: "Security standards and frameworks — contains 0+× SecurityStandard.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27001 — information security management system".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of security standards and frameworks the system conforms to.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("SecurityStandardEntry", s, meta_children_security_standard_entry, |r, c| som::SomMetaNode {
                 class_name: "SecurityStandardEntry".to_string(), class_section_id: "SSE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SecurityStandardEntry".to_string(), doc_comment: "A security standard entry (form).".to_string(), class_doc_comment: "A security standard entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -8584,7 +8584,7 @@ fn meta_children_job_descriptions_and_staffing(s: &mut HashSet<String>) -> Vec<R
     vec![
         Rc::new(som::SomMetaNode { class_name: "JobDescriptionsAndStaffing".to_string(), member_name: "overview".to_string(), section_id: "JODEOV".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "Overview of the job architecture and role design approach.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "roleDesignApproach".to_string(), type_name: "String".to_string(), description: "Role Design Approach — methodology for defining roles".to_string(), required: false, hint: "Methodology used to define and structure roles".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "jobArchitectureModel".to_string(), type_name: "String".to_string(), description: "Job Architecture Model — job families, levels, career paths".to_string(), required: false, hint: "Job families, levels, and career paths".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "competencyModel".to_string(), type_name: "String".to_string(), description: "Competency Model — framework for defining skills/competencies".to_string(), required: false, hint: "Framework used to define skills and competencies".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "gradingStructure".to_string(), type_name: "String".to_string(), description: "Grading Structure — how roles are graded/leveled".to_string(), required: false, hint: "How roles are graded or leveled".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "totalRoleImpact".to_string(), type_name: "String".to_string(), description: "Total Role Impact — summary of new/changed/removed roles".to_string(), required: false, hint: "Summary count of new, changed, and removed roles".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "totalFteChange".to_string(), type_name: "String".to_string(), description: "Total FTE Change — net headcount impact".to_string(), required: false, hint: "Net headcount impact across all role changes".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "hrPartner".to_string(), type_name: "String".to_string(), description: "HR Partner — HR contact for role changes".to_string(), required: false, hint: "HR contact responsible for these role changes".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "unionConsiderations".to_string(), type_name: "String".to_string(), description: "Union/Works Council Considerations — labor relations impact".to_string(), required: false, hint: "Labor relations and works council impact".to_string(), order: 7, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "legalRequirements".to_string(), type_name: "String".to_string(), description: "Legal Requirements — employment law considerations".to_string(), required: false, hint: "Employment law considerations affecting role changes".to_string(), order: 8, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("SHRM — HR best practices (job design, staffing, workforce planning)".to_string()), som::Json::Str("CIPD — competency frameworks and people management".to_string())])), ("connotation".to_string(), som::Json::Str("Summarises the overall approach to designing roles — the job architecture, competency model, grading, net headcount impact, and the HR/legal considerations that govern the role changes.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "JobDescriptionsAndStaffing".to_string(), member_name: "newRoles".to_string(), section_id: "NWROL-NEWR-LST".to_string(), section_id_pattern: "NWROL-NEWR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "NewRoleEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per new role being created.".to_string(), doc_comment: "5.2.1. New Roles — contains 0+× New Role.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("O*NET — occupational job analysis (tasks, skills, knowledge)".to_string())])), ("connotation".to_string(), som::Json::Str("The set of brand-new roles the system introduces, each defined through job analysis (tasks, skills, and knowledge requirements).".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "JobDescriptionsAndStaffing".to_string(), member_name: "newRoles".to_string(), section_id: "NRE-NEWR-LST".to_string(), section_id_pattern: "NRE-NEWR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "NewRoleEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per new role being created.".to_string(), doc_comment: "5.2.1. New Roles — contains 0+× New Role.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("O*NET — occupational job analysis (tasks, skills, knowledge)".to_string())])), ("connotation".to_string(), som::Json::Str("The set of brand-new roles the system introduces, each defined through job analysis (tasks, skills, and knowledge requirements).".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("NewRoleEntry", s, meta_children_new_role_entry, |r, c| som::SomMetaNode {
                 class_name: "NewRoleEntry".to_string(), class_section_id: "NRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "NewRoleEntry".to_string(), doc_comment: "A new role entry (form).\n\nComprehensive new role definition following HR job analysis best practices.\nIncludes competencies, responsibilities, system access, and success metrics.".to_string(), class_doc_comment: "A new role entry (form).\n\nComprehensive new role definition following HR job analysis best practices.\nIncludes competencies, responsibilities, system access, and success metrics.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -8772,7 +8772,7 @@ fn meta_children_layering_and_module_structure(s: &mut HashSet<String>) -> Vec<R
         Rc::new(som::SomMetaNode { class_name: "LayeringAndModuleStructure".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Provide an overview of the layering and modularization strategy.\n\n**Include**:\n- Chosen layering approach with rationale\n- Module organization principles\n- Dependency rules and enforcement mechanism\n- Cross-cutting concerns handling (logging, auth, transactions)\n- Module communication patterns\n\n**Best Practices**:\n- Create layer/module diagrams with dependency arrows\n- Define public API contracts for each module\n- Use automated architecture tests\n- Document exception cases and technical debt\n- Plan for module extraction and scaling\n".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "LayeringAndModuleStructure".to_string(), member_name: "overview".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Overview of the layering and modularization approach.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "LayeringAndModuleStructure".to_string(), member_name: "softwareLayers".to_string(), section_id: "SOLAEN-SOFT-LST".to_string(), section_id_pattern: "SOLAEN-SOFT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SoftwareLayerEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per software layer.".to_string(), doc_comment: "Software layer definitions.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Clean Architecture — dependency rule / layering".to_string())])), ("connotation".to_string(), som::Json::Str("The software layers that make up the application.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "LayeringAndModuleStructure".to_string(), member_name: "softwareLayers".to_string(), section_id: "SLE-SOFT-LST".to_string(), section_id_pattern: "SLE-SOFT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SoftwareLayerEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per software layer.".to_string(), doc_comment: "Software layer definitions.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Clean Architecture — dependency rule / layering".to_string())])), ("connotation".to_string(), som::Json::Str("The software layers that make up the application.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("SoftwareLayerEntry", s, meta_children_software_layer_entry, |r, c| som::SomMetaNode {
                 class_name: "SoftwareLayerEntry".to_string(), class_section_id: "SLE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SoftwareLayerEntry".to_string(), doc_comment: "Software layer entry — a horizontal layer in the architecture.".to_string(), class_doc_comment: "Software layer entry — a horizontal layer in the architecture.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -8784,7 +8784,7 @@ fn meta_children_layering_and_module_structure(s: &mut HashSet<String>) -> Vec<R
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "LayeringAndModuleStructure".to_string(), member_name: "boundedContexts".to_string(), section_id: "BOCOEN-BOUN-LST".to_string(), section_id_pattern: "BOCOEN-BOUN-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BoundedContextEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per bounded context.".to_string(), doc_comment: "Bounded contexts (DDD) definitions.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Domain-Driven Design — bounded contexts / modules".to_string()), som::Json::Str("SOLID principles — object-oriented design".to_string())])), ("connotation".to_string(), som::Json::Str("The DDD bounded contexts that partition the application domain.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "LayeringAndModuleStructure".to_string(), member_name: "boundedContexts".to_string(), section_id: "BCE-BOUN-LST".to_string(), section_id_pattern: "BCE-BOUN-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BoundedContextEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per bounded context.".to_string(), doc_comment: "Bounded contexts (DDD) definitions.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Domain-Driven Design — bounded contexts / modules".to_string()), som::Json::Str("SOLID principles — object-oriented design".to_string())])), ("connotation".to_string(), som::Json::Str("The DDD bounded contexts that partition the application domain.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("BoundedContextEntry", s, meta_children_bounded_context_entry, |r, c| som::SomMetaNode {
                 class_name: "BoundedContextEntry".to_string(), class_section_id: "BCE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BoundedContextEntry".to_string(), doc_comment: "Bounded context entry — a DDD bounded context.".to_string(), class_doc_comment: "Bounded context entry — a DDD bounded context.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -8796,7 +8796,7 @@ fn meta_children_layering_and_module_structure(s: &mut HashSet<String>) -> Vec<R
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "LayeringAndModuleStructure".to_string(), member_name: "modules".to_string(), section_id: "MOEN1-MODU-LST".to_string(), section_id_pattern: "MOEN1-MODU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ModuleEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per module.".to_string(), doc_comment: "Module catalog with dependency information.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Domain-Driven Design — bounded contexts / modules".to_string()), som::Json::Str("SOLID principles — object-oriented design".to_string())])), ("connotation".to_string(), som::Json::Str("The modules that make up the application and their dependency information.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "LayeringAndModuleStructure".to_string(), member_name: "modules".to_string(), section_id: "MODENT-MODU-LST".to_string(), section_id_pattern: "MODENT-MODU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ModuleEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per module.".to_string(), doc_comment: "Module catalog with dependency information.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Domain-Driven Design — bounded contexts / modules".to_string()), som::Json::Str("SOLID principles — object-oriented design".to_string())])), ("connotation".to_string(), som::Json::Str("The modules that make up the application and their dependency information.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ModuleEntry", s, meta_children_module_entry, |r, c| som::SomMetaNode {
                 class_name: "ModuleEntry".to_string(), class_section_id: "MODENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ModuleEntry".to_string(), doc_comment: "Module entry — a discrete module or component.".to_string(), class_doc_comment: "Module entry — a discrete module or component.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -8804,7 +8804,7 @@ fn meta_children_layering_and_module_structure(s: &mut HashSet<String>) -> Vec<R
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "LayeringAndModuleStructure".to_string(), member_name: "sharedLibraries".to_string(), section_id: "SHLIB-SHAR-LST".to_string(), section_id_pattern: "SHLIB-SHAR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SharedLibraryEntry".to_string(), serialization_order: Some(7), content_help: "Add one entry per shared library.".to_string(), doc_comment: "Shared libraries and common code.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Domain-Driven Design — bounded contexts / modules".to_string()), som::Json::Str("ISO/IEC 25010 — maintainability / modularity quality attributes".to_string())])), ("connotation".to_string(), som::Json::Str("The shared libraries and common code reused across the application.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "LayeringAndModuleStructure".to_string(), member_name: "sharedLibraries".to_string(), section_id: "SHLIEN-SHAR-LST".to_string(), section_id_pattern: "SHLIEN-SHAR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SharedLibraryEntry".to_string(), serialization_order: Some(7), content_help: "Add one entry per shared library.".to_string(), doc_comment: "Shared libraries and common code.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Domain-Driven Design — bounded contexts / modules".to_string()), som::Json::Str("ISO/IEC 25010 — maintainability / modularity quality attributes".to_string())])), ("connotation".to_string(), som::Json::Str("The shared libraries and common code reused across the application.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("SharedLibraryEntry", s, meta_children_shared_library_entry, |r, c| som::SomMetaNode {
                 class_name: "SharedLibraryEntry".to_string(), class_section_id: "SHLIEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SharedLibraryEntry".to_string(), doc_comment: "Shared library entry — a reusable library or utility.".to_string(), class_doc_comment: "Shared library entry — a reusable library or utility.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -9123,7 +9123,7 @@ fn meta_children_maintenance_windows_section(s: &mut HashSet<String>) -> Vec<Rc<
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "MaintenanceWindowsSection".to_string(), member_name: "maintenanceWindows".to_string(), section_id: "MAWIEN-MAIN-LST".to_string(), section_id_pattern: "MAWIEN-MAIN-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "MaintenanceWindowEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per maintenance window.".to_string(), doc_comment: "Maintenance window definitions.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ITIL 4 — change management".to_string())])), ("connotation".to_string(), som::Json::Str("The maintenance windows the system schedules.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "MaintenanceWindowsSection".to_string(), member_name: "maintenanceWindows".to_string(), section_id: "MWE-MAIN-LST".to_string(), section_id_pattern: "MWE-MAIN-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "MaintenanceWindowEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per maintenance window.".to_string(), doc_comment: "Maintenance window definitions.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ITIL 4 — change management".to_string())])), ("connotation".to_string(), som::Json::Str("The maintenance windows the system schedules.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("MaintenanceWindowEntry", s, meta_children_maintenance_window_entry, |r, c| som::SomMetaNode {
                 class_name: "MaintenanceWindowEntry".to_string(), class_section_id: "MWE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MaintenanceWindowEntry".to_string(), doc_comment: "Maintenance window entry.".to_string(), class_doc_comment: "Maintenance window entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -9238,7 +9238,7 @@ fn meta_children_metrics_and_observability(s: &mut HashSet<String>) -> Vec<Rc<so
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "MetricsAndObservability".to_string(), member_name: "customMetrics".to_string(), section_id: "CUMEEN-CUST-LST".to_string(), section_id_pattern: "CUMEEN-CUST-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "CustomMetricEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per custom metric.".to_string(), doc_comment: "Custom metrics catalog.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Prometheus — metric types and exposition format".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of custom application metrics the system emits.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "MetricsAndObservability".to_string(), member_name: "customMetrics".to_string(), section_id: "CUSMETENT-CUST-LST".to_string(), section_id_pattern: "CUSMETENT-CUST-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "CustomMetricEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per custom metric.".to_string(), doc_comment: "Custom metrics catalog.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Prometheus — metric types and exposition format".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of custom application metrics the system emits.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("CustomMetricEntry", s, meta_children_custom_metric_entry, |r, c| som::SomMetaNode {
                 class_name: "CustomMetricEntry".to_string(), class_section_id: "CUSMETENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CustomMetricEntry".to_string(), doc_comment: "A custom metric entry.".to_string(), class_doc_comment: "A custom metric entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -9296,7 +9296,7 @@ fn meta_children_mfa_category_requirement_entry(_s: &mut HashSet<String>) -> Vec
 fn meta_children_mfa_configuration(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "MfaConfiguration".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "MfaConfiguration".to_string(), member_name: "mfaDetails".to_string(), section_id: "MFADE-MFAD-LST".to_string(), section_id_pattern: "MFADE-MFAD-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_help: "Add one entry per MFA method definition.".to_string(), doc_comment: "MFA Implementation Details (text).".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("NIST SP 800-63B — authentication and authenticator lifecycle".to_string()), som::Json::Str("FIDO2 / W3C WebAuthn — phishing-resistant authentication".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of multi-factor authentication method definitions.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "MfaConfiguration".to_string(), member_name: "mfaDetails".to_string(), section_id: "MC-MFAD-LST".to_string(), section_id_pattern: "MC-MFAD-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_help: "Add one entry per MFA method definition.".to_string(), doc_comment: "MFA Implementation Details (text).".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("NIST SP 800-63B — authentication and authenticator lifecycle".to_string()), som::Json::Str("FIDO2 / W3C WebAuthn — phishing-resistant authentication".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of multi-factor authentication method definitions.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -9326,7 +9326,7 @@ fn meta_children_migration_considerations(s: &mut HashSet<String>) -> Vec<Rc<som
         Rc::new(som::SomMetaNode { class_name: "MigrationConsiderations".to_string(), member_name: "rollbackStrategy".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(8), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Global rollback strategy and governance.".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "MigrationConsiderations".to_string(), member_name: "goNoGosCriteria".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(9), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Go/No-Go decision criteria for each migration.".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "MigrationConsiderations".to_string(), member_name: "communicationPlan".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(10), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Stakeholder communication plan for migration program.".to_string(), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "MigrationConsiderations".to_string(), member_name: "escalationProcedures".to_string(), section_id: "ESCAL-ESCA-LST".to_string(), section_id_pattern: "ESCAL-ESCA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(11), content_help: "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority.".to_string(), doc_comment: "Escalation procedures during migration.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ITIL — service transition / change enablement".to_string()), som::Json::Str("ISO 31000 — risk management (migration risk)".to_string())])), ("connotation".to_string(), som::Json::Str("The defined escalation paths and triggers used to raise migration issues to the appropriate authority during the transition.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "MigrationConsiderations".to_string(), member_name: "escalationProcedures".to_string(), section_id: "MIGCON-ESCA-LST".to_string(), section_id_pattern: "MIGCON-ESCA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(11), content_help: "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority.".to_string(), doc_comment: "Escalation procedures during migration.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ITIL — service transition / change enablement".to_string()), som::Json::Str("ISO 31000 — risk management (migration risk)".to_string())])), ("connotation".to_string(), som::Json::Str("The defined escalation paths and triggers used to raise migration issues to the appropriate authority during the transition.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -9465,10 +9465,10 @@ fn meta_children_migration_risks(s: &mut HashSet<String>) -> Vec<Rc<som::SomMeta
         Rc::new(som::SomMetaNode { class_name: "MigrationRisks".to_string(), member_name: "reporting".to_string(), section_id: "MIRIRE".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Reporting settings.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "riskReportingCadence".to_string(), type_name: "String".to_string(), description: "Reporting Cadence".to_string(), required: false, hint: "How often risk reports are produced".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "riskDashboardTools".to_string(), type_name: "String".to_string(), description: "Dashboard Tools".to_string(), required: false, hint: "Tools for risk visualization".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "riskRegisterRepository".to_string(), type_name: "String".to_string(), description: "Risk Register Repository".to_string(), required: false, hint: "Where risk register is maintained".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 31000 — risk management (migration risk)".to_string()), som::Json::Str("PMBOK — schedule / risk / cost management".to_string())])), ("connotation".to_string(), som::Json::Str("Captures how migration risk status is reported — cadence, dashboards, and where the risk register is maintained.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "MigrationRisks".to_string(), member_name: "riskOverview".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Executive summary of migration risk landscape: critical risks, overall risk posture, trending analysis.".to_string(), doc_comment: "Risk overview at program level.".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "MigrationRisks".to_string(), member_name: "assessmentMethodology".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(6), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Detailed description of risk assessment approach, including probability/impact criteria and scoring guidelines.".to_string(), doc_comment: "Risk assessment methodology narrative.".to_string(), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "MigrationRisks".to_string(), member_name: "riskCategories".to_string(), section_id: "RISKC-RISK-LST".to_string(), section_id_pattern: "RISKC-RISK-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(7), content_help: "Add one entry per risk category, naming the category and the kinds of migration risks it groups.".to_string(), doc_comment: "Risk categories and taxonomy.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 31000 — risk management (migration risk)".to_string()), som::Json::Str("PMBOK — schedule / risk / cost management".to_string())])), ("connotation".to_string(), som::Json::Str("The taxonomy of migration risk categories used to classify and organize risks across the program.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "MigrationRisks".to_string(), member_name: "riskBasedDecisions".to_string(), section_id: "RISKB-RISK-LST".to_string(), section_id_pattern: "RISKB-RISK-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(8), content_help: "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers.".to_string(), doc_comment: "Risk-based decision making criteria.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 31000 — risk management (migration risk)".to_string()), som::Json::Str("PMBOK — schedule / risk / cost management".to_string())])), ("connotation".to_string(), som::Json::Str("The decision criteria that govern how migration risks drive go/no-go and acceptance choices.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "MigrationRisks".to_string(), member_name: "monitoringProcedures".to_string(), section_id: "MONIT-MONI-LST".to_string(), section_id_pattern: "MONIT-MONI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(9), content_help: "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken.".to_string(), doc_comment: "Risk monitoring and control procedures.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 31000 — risk management (migration risk)".to_string()), som::Json::Str("ITIL — service transition / change enablement".to_string())])), ("connotation".to_string(), som::Json::Str("The procedures used to monitor and control migration risks throughout the transition.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "MigrationRisks".to_string(), member_name: "responseStrategies".to_string(), section_id: "RESPO-RESP-LST".to_string(), section_id_pattern: "RESPO-RESP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(10), content_help: "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale.".to_string(), doc_comment: "Risk response strategies by category.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 31000 — risk management (migration risk)".to_string()), som::Json::Str("PMBOK — schedule / risk / cost management".to_string())])), ("connotation".to_string(), som::Json::Str("The response strategies — avoid, mitigate, transfer, accept — applied per category of migration risk.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "MigrationRisks".to_string(), member_name: "riskCategories".to_string(), section_id: "MIRI-RISK-LST".to_string(), section_id_pattern: "MIRI-RISK-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(7), content_help: "Add one entry per risk category, naming the category and the kinds of migration risks it groups.".to_string(), doc_comment: "Risk categories and taxonomy.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 31000 — risk management (migration risk)".to_string()), som::Json::Str("PMBOK — schedule / risk / cost management".to_string())])), ("connotation".to_string(), som::Json::Str("The taxonomy of migration risk categories used to classify and organize risks across the program.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "MigrationRisks".to_string(), member_name: "riskBasedDecisions".to_string(), section_id: "MIRI-RBDE-LST".to_string(), section_id_pattern: "MIRI-RBDE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(8), content_help: "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers.".to_string(), doc_comment: "Risk-based decision making criteria.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 31000 — risk management (migration risk)".to_string()), som::Json::Str("PMBOK — schedule / risk / cost management".to_string())])), ("connotation".to_string(), som::Json::Str("The decision criteria that govern how migration risks drive go/no-go and acceptance choices.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "MigrationRisks".to_string(), member_name: "monitoringProcedures".to_string(), section_id: "MIRI-MONI-LST".to_string(), section_id_pattern: "MIRI-MONI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(9), content_help: "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken.".to_string(), doc_comment: "Risk monitoring and control procedures.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 31000 — risk management (migration risk)".to_string()), som::Json::Str("ITIL — service transition / change enablement".to_string())])), ("connotation".to_string(), som::Json::Str("The procedures used to monitor and control migration risks throughout the transition.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "MigrationRisks".to_string(), member_name: "responseStrategies".to_string(), section_id: "MIRI-RESP-LST".to_string(), section_id_pattern: "MIRI-RESP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(10), content_help: "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale.".to_string(), doc_comment: "Risk response strategies by category.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 31000 — risk management (migration risk)".to_string()), som::Json::Str("PMBOK — schedule / risk / cost management".to_string())])), ("connotation".to_string(), som::Json::Str("The response strategies — avoid, mitigate, transfer, accept — applied per category of migration risk.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "MigrationRisks".to_string(), member_name: "riskAggregation".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(11), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "How individual system risks roll up to program level, correlation analysis, compound risk assessment.".to_string(), doc_comment: "Risk aggregation and portfolio view.".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "MigrationRisks".to_string(), member_name: "riskMatrix".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(12), content_type: Some(som::SomContentTypeMeta { type_: "mermaid".to_string(), description: "".to_string() }), content_help: "Probability × Impact matrix showing risk distribution.".to_string(), doc_comment: "Risk matrix / heat map visualization.".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "MigrationRisks".to_string(), member_name: "riskTimeline".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(13), content_type: Some(som::SomContentTypeMeta { type_: "mermaid-gantt".to_string(), description: "".to_string() }), content_help: "Timeline showing when risks are highest and mitigation points.".to_string(), doc_comment: "Risk timeline showing risk exposure over migration phases.".to_string(), ..som::SomMetaNode::default() }),
@@ -9602,7 +9602,7 @@ fn meta_children_monitoring_and_alerting_section(s: &mut HashSet<String>) -> Vec
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "MonitoringAndAlertingSection".to_string(), member_name: "alertDefinitions".to_string(), section_id: "ALDEEN-ALER-LST".to_string(), section_id_pattern: "ALDEEN-ALER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "AlertDefinitionEntry".to_string(), serialization_order: Some(7), content_help: "Add one entry per alert definition.".to_string(), doc_comment: "Alert definitions.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Prometheus / Grafana — metrics & alerting".to_string())])), ("connotation".to_string(), som::Json::Str("The alert definitions the system applies.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "MonitoringAndAlertingSection".to_string(), member_name: "alertDefinitions".to_string(), section_id: "ALEDEFENT-ALER-LST".to_string(), section_id_pattern: "ALEDEFENT-ALER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "AlertDefinitionEntry".to_string(), serialization_order: Some(7), content_help: "Add one entry per alert definition.".to_string(), doc_comment: "Alert definitions.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Prometheus / Grafana — metrics & alerting".to_string())])), ("connotation".to_string(), som::Json::Str("The alert definitions the system applies.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("AlertDefinitionEntry", s, meta_children_alert_definition_entry, |r, c| som::SomMetaNode {
                 class_name: "AlertDefinitionEntry".to_string(), class_section_id: "ALEDEFENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AlertDefinitionEntry".to_string(), doc_comment: "Alert definition entry.".to_string(), class_doc_comment: "Alert definition entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -9633,7 +9633,7 @@ fn meta_children_monitoring_dashboards(s: &mut HashSet<String>) -> Vec<Rc<som::S
         Rc::new(som::SomMetaNode { class_name: "MonitoringDashboards".to_string(), member_name: "dashboardOverview".to_string(), section_id: "MODA-DASH".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "dashboardPlatform".to_string(), type_name: "String".to_string(), description: "Dashboard Platform".to_string(), required: false, hint: "Grafana, Datadog, CloudWatch, custom".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dashboardAccessControl".to_string(), type_name: "String".to_string(), description: "Dashboard Access Control".to_string(), required: false, hint: "Who can view, edit dashboards".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dashboardVersioning".to_string(), type_name: "bool".to_string(), description: "Dashboard Versioning".to_string(), required: false, hint: "Version control for dashboards".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dashboardNamingConvention".to_string(), type_name: "String".to_string(), description: "Dashboard Naming Convention".to_string(), required: false, hint: "Naming standards for dashboards".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "standardLayout".to_string(), type_name: "String".to_string(), description: "Standard Layout".to_string(), required: false, hint: "Common layout patterns".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "colorCodingStandards".to_string(), type_name: "String".to_string(), description: "Color Coding Standards".to_string(), required: false, hint: "Red=bad, green=good conventions".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "executiveDashboards".to_string(), type_name: "bool".to_string(), description: "Executive Dashboards".to_string(), required: false, hint: "High-level business KPIs".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "operationalDashboards".to_string(), type_name: "bool".to_string(), description: "Operational Dashboards".to_string(), required: false, hint: "Real-time ops dashboards".to_string(), order: 7, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "serviceDashboards".to_string(), type_name: "bool".to_string(), description: "Service Dashboards".to_string(), required: false, hint: "Per-service detail dashboards".to_string(), order: 8, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "infrastructureDashboards".to_string(), type_name: "bool".to_string(), description: "Infrastructure Dashboards".to_string(), required: false, hint: "Infra-level dashboards".to_string(), order: 9, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "MonitoringDashboards".to_string(), member_name: "overviewNarrative".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Dashboard overview narrative.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "MonitoringDashboards".to_string(), member_name: "dashboards".to_string(), section_id: "DAEN-DASH-LST".to_string(), section_id_pattern: "DAEN-DASH-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DashboardEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per dashboard.".to_string(), doc_comment: "Dashboard catalog.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Grafana — dashboard and panel design".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of monitoring dashboards the system provides.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "MonitoringDashboards".to_string(), member_name: "dashboards".to_string(), section_id: "DASENT-DASH-LST".to_string(), section_id_pattern: "DASENT-DASH-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DashboardEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per dashboard.".to_string(), doc_comment: "Dashboard catalog.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Grafana — dashboard and panel design".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of monitoring dashboards the system provides.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DashboardEntry", s, meta_children_dashboard_entry, |r, c| som::SomMetaNode {
                 class_name: "DashboardEntry".to_string(), class_section_id: "DASENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DashboardEntry".to_string(), doc_comment: "A dashboard entry.".to_string(), class_doc_comment: "A dashboard entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -9665,7 +9665,7 @@ fn meta_children_moscow_analysis(s: &mut HashSet<String>) -> Vec<Rc<som::SomMeta
         Rc::new(som::SomMetaNode { class_name: "MoscowAnalysis".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "mustHaveCount".to_string(), type_name: "String".to_string(), description: "Must-Have Count".to_string(), required: false, hint: "Number of Must-have features".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "shouldHaveCount".to_string(), type_name: "String".to_string(), description: "Should-Have Count".to_string(), required: false, hint: "Number of Should-have features".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "couldHaveCount".to_string(), type_name: "String".to_string(), description: "Could-Have Count".to_string(), required: false, hint: "Number of Could-have features".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "wontHaveCount".to_string(), type_name: "String".to_string(), description: "Won't-Have Count".to_string(), required: false, hint: "Number of Won't-have features".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "mustHaveEffortPercentage".to_string(), type_name: "String".to_string(), description: "Must-Have Effort %".to_string(), required: false, hint: "Percentage of total effort consumed by Must-haves — DSDM recommends ≤60%".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "shouldHaveEffortPercentage".to_string(), type_name: "String".to_string(), description: "Should-Have Effort %".to_string(), required: false, hint: "Percentage of total effort for Should-haves — ≤20%".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "classificationRationale".to_string(), type_name: "String".to_string(), description: "Classification Rationale".to_string(), required: false, hint: "High-level rationale for the MoSCoW balance — risk-averse, value-first, regulatory-driven".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "classificationDate".to_string(), type_name: "String".to_string(), description: "Classification Date".to_string(), required: false, hint: "When the MoSCoW classification was last performed".to_string(), order: 7, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "classificationApprovedBy".to_string(), type_name: "String".to_string(), description: "Classification Approved By".to_string(), required: false, hint: "Person or body who approved the classification".to_string(), order: 8, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "MoscowAnalysis".to_string(), member_name: "moscowRationale".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Rationale for MoSCoW classification decisions: criteria used to assign categories, stakeholder alignment process, handling of contested classifications, relationship to stage boundaries and MVP definition.".to_string(), doc_comment: "MoSCoW rationale narrative.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "MoscowAnalysis".to_string(), member_name: "items".to_string(), section_id: "MOEN-ITEM-LST".to_string(), section_id_pattern: "MOEN-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "MoscowEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per MoSCoW-classified feature.".to_string(), doc_comment: "Contains 0+× MoscowEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique".to_string()), som::Json::Str("SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization".to_string())])), ("connotation".to_string(), som::Json::Str("Holds the collection of MoSCoW classification entries, one per feature.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "MoscowAnalysis".to_string(), member_name: "items".to_string(), section_id: "ME-ITEM-LST".to_string(), section_id_pattern: "ME-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "MoscowEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per MoSCoW-classified feature.".to_string(), doc_comment: "Contains 0+× MoscowEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique".to_string()), som::Json::Str("SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization".to_string())])), ("connotation".to_string(), som::Json::Str("Holds the collection of MoSCoW classification entries, one per feature.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("MoscowEntry", s, meta_children_moscow_entry, |r, c| som::SomMetaNode {
                 class_name: "MoscowEntry".to_string(), class_section_id: "ME".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "MoscowEntry".to_string(), doc_comment: "A MoSCoW classification entry (form).\n\nMaps a single feature or feature group to its MoSCoW category and\ntarget delivery stage, with justification and cross-references.".to_string(), class_doc_comment: "A MoSCoW classification entry (form).\n\nMaps a single feature or feature group to its MoSCoW category and\ntarget delivery stage, with justification and cross-references.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -9701,7 +9701,7 @@ fn meta_children_multi_language_support(s: &mut HashSet<String>) -> Vec<Rc<som::
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "MultiLanguageSupport".to_string(), member_name: "supportedLocales".to_string(), section_id: "SULOEN-SUPP-LST".to_string(), section_id_pattern: "SULOEN-SUPP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SupportedLocaleEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per supported locale.".to_string(), doc_comment: "Supported locale entries.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 639 — language codes identify each supported locale".to_string()), som::Json::Str("ISO 3166 — country and region codes complete each locale identifier".to_string()), som::Json::Str("W3C Internationalization / BCP 47 — language tags name the supported locales".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of locales the system supports.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "MultiLanguageSupport".to_string(), member_name: "supportedLocales".to_string(), section_id: "SUPLOCENT-SUPP-LST".to_string(), section_id_pattern: "SUPLOCENT-SUPP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SupportedLocaleEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per supported locale.".to_string(), doc_comment: "Supported locale entries.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 639 — language codes identify each supported locale".to_string()), som::Json::Str("ISO 3166 — country and region codes complete each locale identifier".to_string()), som::Json::Str("W3C Internationalization / BCP 47 — language tags name the supported locales".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of locales the system supports.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("SupportedLocaleEntry", s, meta_children_supported_locale_entry, |r, c| som::SomMetaNode {
                 class_name: "SupportedLocaleEntry".to_string(), class_section_id: "SUPLOCENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SupportedLocaleEntry".to_string(), doc_comment: "A supported locale entry.".to_string(), class_doc_comment: "A supported locale entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -9927,7 +9927,7 @@ fn meta_children_network_requirements_section(s: &mut HashSet<String>) -> Vec<Rc
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "NetworkRequirementsSection".to_string(), member_name: "vpnRequirements".to_string(), section_id: "VPREEN-VPNR-LST".to_string(), section_id_pattern: "VPREEN-VPNR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "VpnRequirementEntry".to_string(), serialization_order: Some(7), content_help: "Add one entry per VPN requirement.".to_string(), doc_comment: "VPN requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("IETF RFCs (DNS / TLS / IPsec) — network protocol standards".to_string())])), ("connotation".to_string(), som::Json::Str("The VPN requirements the network must satisfy.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "NetworkRequirementsSection".to_string(), member_name: "vpnRequirements".to_string(), section_id: "VRE-VPNR-LST".to_string(), section_id_pattern: "VRE-VPNR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "VpnRequirementEntry".to_string(), serialization_order: Some(7), content_help: "Add one entry per VPN requirement.".to_string(), doc_comment: "VPN requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("IETF RFCs (DNS / TLS / IPsec) — network protocol standards".to_string())])), ("connotation".to_string(), som::Json::Str("The VPN requirements the network must satisfy.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("VpnRequirementEntry", s, meta_children_vpn_requirement_entry, |r, c| som::SomMetaNode {
                 class_name: "VpnRequirementEntry".to_string(), class_section_id: "VRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "VpnRequirementEntry".to_string(), doc_comment: "VPN requirement entry.".to_string(), class_doc_comment: "VPN requirement entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -10193,7 +10193,7 @@ fn meta_children_operational_pain_points(s: &mut HashSet<String>) -> Vec<Rc<som:
         Rc::new(som::SomMetaNode { class_name: "OperationalPainPoints".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Overview of operational pain points affecting day-to-day activities.\nInclude patterns of recurring issues, seasonal variations, and dependencies\non specific systems or personnel.\n".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "OperationalPainPoints".to_string(), member_name: "categorySummary".to_string(), section_id: "OPPS".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_help: "Aggregate the operational pain points into category metrics: average downtime, number of manual workarounds, data-inconsistency frequency, and staff overhead spent on workarounds.".to_string(), doc_comment: "Category-level summary for operational pain points.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "averageDowntimePerMonth".to_string(), type_name: "String".to_string(), description: "Average Downtime per Month".to_string(), required: false, hint: "Total system/process downtime, e.g. 4.5 hours/month".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "manualWorkaroundsCount".to_string(), type_name: "int".to_string(), description: "Number of Manual Workarounds".to_string(), required: false, hint: "Count of documented manual workarounds in use".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataInconsistencyFrequency".to_string(), type_name: "String".to_string(), description: "Data Inconsistency Frequency".to_string(), required: false, hint: "How often data inconsistencies occur, e.g. Daily / Weekly / Monthly".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "criticalProcessesAffected".to_string(), type_name: "int".to_string(), description: "Critical Processes Affected".to_string(), required: false, hint: "Number of critical business processes impacted".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "staffOverhead".to_string(), type_name: "String".to_string(), description: "Staff Overhead for Workarounds".to_string(), required: false, hint: "FTE hours spent on operational workarounds, e.g. 40 hours/week".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (operational measures)".to_string())])), ("connotation".to_string(), som::Json::Str("Category roll-up quantifying the operational pain points — downtime, workaround count, and staff overhead in the current state.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "OperationalPainPoints".to_string(), member_name: "items".to_string(), section_id: "OPPAPO-ITEM-LST".to_string(), section_id_pattern: "OPPAPO-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "PainPointEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per distinct operational problem, each with its own root cause, impact, and workaround. Keep entries scoped to day-to-day operations rather than business or technical concerns.".to_string(), doc_comment: "Contains 0+× PainPoint.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (problem identification)".to_string())])), ("connotation".to_string(), som::Json::Str("The list of individual operational pain points documented in detail.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "OperationalPainPoints".to_string(), member_name: "items".to_string(), section_id: "PAPE-ITEM-LST".to_string(), section_id_pattern: "PAPE-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "PainPointEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per distinct operational problem, each with its own root cause, impact, and workaround. Keep entries scoped to day-to-day operations rather than business or technical concerns.".to_string(), doc_comment: "Contains 0+× PainPoint.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (problem identification)".to_string())])), ("connotation".to_string(), som::Json::Str("The list of individual operational pain points documented in detail.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("PainPointEntry", s, meta_children_pain_point_entry, |r, c| som::SomMetaNode {
                 class_name: "PainPointEntry".to_string(), class_section_id: "PAPE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PainPointEntry".to_string(), doc_comment: "A pain point entry (form).\n\nDocuments a specific problem in the current state with comprehensive details:\nroot cause analysis, impact quantification, affected stakeholders,\ncurrent workarounds, and proposed resolution approach.".to_string(), class_doc_comment: "A pain point entry (form).\n\nDocuments a specific problem in the current state with comprehensive details:\nroot cause analysis, impact quantification, affected stakeholders,\ncurrent workarounds, and proposed resolution approach.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -10326,7 +10326,7 @@ fn meta_children_organizational_environment(s: &mut HashSet<String>) -> Vec<Rc<s
         Rc::new(som::SomMetaNode { class_name: "OrganizationalEnvironment".to_string(), member_name: "decisionMakingContext".to_string(), section_id: "OEDM".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Decision-making context.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "decisionMakingStyle".to_string(), type_name: "String".to_string(), description: "Decision Style (Centralized, Federated, Consensus, Delegated)".to_string(), required: false, hint: "How decisions are typically made in the organization".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "approvalLevels".to_string(), type_name: "String".to_string(), description: "Approval Levels/Hierarchy".to_string(), required: false, hint: "Layers of approval required for decisions".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "escalationPath".to_string(), type_name: "String".to_string(), description: "Escalation Path".to_string(), required: false, hint: "Route for escalating unresolved decisions".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "budgetAuthority".to_string(), type_name: "String".to_string(), description: "Budget Authority Structure".to_string(), required: false, hint: "Who holds spending authority and at what thresholds".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "procurementProcess".to_string(), type_name: "String".to_string(), description: "Procurement Process Type".to_string(), required: false, hint: "Nature of the procurement and purchasing process".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 21500 — organizational roles & responsibilities".to_string()), som::Json::Str("PMBOK — enterprise environmental factors (EEF)".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the decision-making context including style, approval hierarchy, and budget authority that govern project decisions.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "OrganizationalEnvironment".to_string(), member_name: "structure".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Describe the organizational structure: departments involved, reporting relationships, matrix structures, and how the project intersects with existing organization.".to_string(), doc_comment: "Detailed organizational structure narrative.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "OrganizationalEnvironment".to_string(), member_name: "affectedDepartments".to_string(), section_id: "AFDEEN-AFFE-LST".to_string(), section_id_pattern: "AFDEEN-AFFE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "AffectedDepartmentEntry".to_string(), serialization_order: Some(4), content_help: "List each affected department with its role, impact level, and key contacts so organizational reach is fully documented.".to_string(), doc_comment: "Departments and business units affected.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 21500 — organizational roles & responsibilities".to_string()), som::Json::Str("TOGAF — enterprise context & environment".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the departments and business units affected by the project so their roles and impact levels are captured.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "OrganizationalEnvironment".to_string(), member_name: "affectedDepartments".to_string(), section_id: "ADE-AFFE-LST".to_string(), section_id_pattern: "ADE-AFFE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "AffectedDepartmentEntry".to_string(), serialization_order: Some(4), content_help: "List each affected department with its role, impact level, and key contacts so organizational reach is fully documented.".to_string(), doc_comment: "Departments and business units affected.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 21500 — organizational roles & responsibilities".to_string()), som::Json::Str("TOGAF — enterprise context & environment".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the departments and business units affected by the project so their roles and impact levels are captured.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("AffectedDepartmentEntry", s, meta_children_affected_department_entry, |r, c| som::SomMetaNode {
                 class_name: "AffectedDepartmentEntry".to_string(), class_section_id: "ADE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AffectedDepartmentEntry".to_string(), doc_comment: "An affected department entry.".to_string(), class_doc_comment: "An affected department entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -10335,17 +10335,17 @@ fn meta_children_organizational_environment(s: &mut HashSet<String>) -> Vec<Rc<s
         },
         Rc::new(som::SomMetaNode { class_name: "OrganizationalEnvironment".to_string(), member_name: "decisionMaking".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Describe decision-making processes: governance boards, approval workflows, decision criteria, and timeline expectations for different decision types.".to_string(), doc_comment: "Decision making processes and authority.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "OrganizationalEnvironment".to_string(), member_name: "decisionMakers".to_string(), section_id: "DEMAEN-DECI-LST".to_string(), section_id_pattern: "DEMAEN-DECI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DecisionMakerEntry".to_string(), serialization_order: Some(6), content_help: "List each decision maker with their decision authority, domains, and influence level to map governance and approval paths.".to_string(), doc_comment: "Key decision makers and their roles.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 21500 — organizational roles & responsibilities".to_string()), som::Json::Str("PMBOK — enterprise environmental factors (EEF)".to_string())])), ("connotation".to_string(), som::Json::Str("Identifies the key decision makers and their authority so governance and approval paths are clear.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "OrganizationalEnvironment".to_string(), member_name: "decisionMakers".to_string(), section_id: "DME-DECI-LST".to_string(), section_id_pattern: "DME-DECI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DecisionMakerEntry".to_string(), serialization_order: Some(6), content_help: "List each decision maker with their decision authority, domains, and influence level to map governance and approval paths.".to_string(), doc_comment: "Key decision makers and their roles.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 21500 — organizational roles & responsibilities".to_string()), som::Json::Str("PMBOK — enterprise environmental factors (EEF)".to_string())])), ("connotation".to_string(), som::Json::Str("Identifies the key decision makers and their authority so governance and approval paths are clear.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DecisionMakerEntry", s, meta_children_decision_maker_entry, |r, c| som::SomMetaNode {
                 class_name: "DecisionMakerEntry".to_string(), class_section_id: "DME".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DecisionMakerEntry".to_string(), doc_comment: "A decision maker entry.".to_string(), class_doc_comment: "A decision maker entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
             }));
             Rc::new(n)
         },
-        Rc::new(som::SomMetaNode { class_name: "OrganizationalEnvironment".to_string(), member_name: "culturalConsiderations".to_string(), section_id: "CULTU-CULT-LST".to_string(), section_id_pattern: "CULTU-CULT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(7), content_help: "List cultural factors and organizational dynamics that could affect project adoption, collaboration, or change readiness.".to_string(), doc_comment: "Cultural considerations and organizational dynamics.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK — enterprise environmental factors (EEF)".to_string()), som::Json::Str("TOGAF — enterprise context & environment".to_string())])), ("connotation".to_string(), som::Json::Str("Captures cultural considerations and organizational dynamics that may influence adoption and change.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "OrganizationalEnvironment".to_string(), member_name: "communicationPreferences".to_string(), section_id: "COMMU-COMM-LST".to_string(), section_id_pattern: "COMMU-COMM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(8), content_help: "List communication preferences per stakeholder group to guide engagement channels, frequency, and reporting style.".to_string(), doc_comment: "Stakeholder communication preferences.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 42010 — architecture environment & stakeholders".to_string()), som::Json::Str("PMBOK — enterprise environmental factors (EEF)".to_string())])), ("connotation".to_string(), som::Json::Str("Records stakeholder communication preferences so engagement and reporting fit the organizational context.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "OrganizationalEnvironment".to_string(), member_name: "culturalConsiderations".to_string(), section_id: "OREN-CULT-LST".to_string(), section_id_pattern: "OREN-CULT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(7), content_help: "List cultural factors and organizational dynamics that could affect project adoption, collaboration, or change readiness.".to_string(), doc_comment: "Cultural considerations and organizational dynamics.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK — enterprise environmental factors (EEF)".to_string()), som::Json::Str("TOGAF — enterprise context & environment".to_string())])), ("connotation".to_string(), som::Json::Str("Captures cultural considerations and organizational dynamics that may influence adoption and change.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "OrganizationalEnvironment".to_string(), member_name: "communicationPreferences".to_string(), section_id: "OREN-COMM-LST".to_string(), section_id_pattern: "OREN-COMM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(8), content_help: "List communication preferences per stakeholder group to guide engagement channels, frequency, and reporting style.".to_string(), doc_comment: "Stakeholder communication preferences.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 42010 — architecture environment & stakeholders".to_string()), som::Json::Str("PMBOK — enterprise environmental factors (EEF)".to_string())])), ("connotation".to_string(), som::Json::Str("Records stakeholder communication preferences so engagement and reporting fit the organizational context.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "OrganizationalEnvironment".to_string(), member_name: "politicalLandscape".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(9), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Describe organizational politics: power centers, influence networks, historical project outcomes, and potential resistance points.".to_string(), doc_comment: "Political dynamics and influence patterns.".to_string(), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "OrganizationalEnvironment".to_string(), member_name: "changeAdvocates".to_string(), section_id: "CHANG-CHAN-LST".to_string(), section_id_pattern: "CHANG-CHAN-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(10), content_help: "List change champions and sponsors, noting their influence and role in driving adoption across the organization.".to_string(), doc_comment: "Change champions and sponsors.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK — enterprise environmental factors (EEF)".to_string()), som::Json::Str("ISO 21500 — organizational roles & responsibilities".to_string())])), ("connotation".to_string(), som::Json::Str("Identifies change champions and sponsors who can drive adoption and overcome organizational resistance.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "OrganizationalEnvironment".to_string(), member_name: "changeAdvocates".to_string(), section_id: "OREN-CHAN-LST".to_string(), section_id_pattern: "OREN-CHAN-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(10), content_help: "List change champions and sponsors, noting their influence and role in driving adoption across the organization.".to_string(), doc_comment: "Change champions and sponsors.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK — enterprise environmental factors (EEF)".to_string()), som::Json::Str("ISO 21500 — organizational roles & responsibilities".to_string())])), ("connotation".to_string(), som::Json::Str("Identifies change champions and sponsors who can drive adoption and overcome organizational resistance.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -10482,7 +10482,7 @@ fn meta_children_out_of_scope(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNod
     vec![
         Rc::new(som::SomMetaNode { class_name: "OutOfScope".to_string(), member_name: "scopePhilosophy".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Describe the scope philosophy and how exclusions were determined. Reference any scope workshops or decision records.".to_string(), doc_comment: "Overview of scope exclusion approach.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "OutOfScope".to_string(), member_name: "items".to_string(), section_id: "OOSE-ITEM-LST".to_string(), section_id_pattern: "OOSE-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "OutOfScopeEntry".to_string(), serialization_order: Some(1), content_help: "Each entry records one excluded feature, system, or integration along with its exclusion rationale.".to_string(), doc_comment: "Contains 0+× OutOfScopeEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — scope definition & assumptions/dependencies".to_string()), som::Json::Str("PMBOK — scope management & assumption log".to_string())])), ("connotation".to_string(), som::Json::Str("Lists each individually excluded item so every out-of-scope decision is recorded and traceable.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "OutOfScope".to_string(), member_name: "items".to_string(), section_id: "OUOFSCEN-ITEM-LST".to_string(), section_id_pattern: "OUOFSCEN-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "OutOfScopeEntry".to_string(), serialization_order: Some(1), content_help: "Each entry records one excluded feature, system, or integration along with its exclusion rationale.".to_string(), doc_comment: "Contains 0+× OutOfScopeEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — scope definition & assumptions/dependencies".to_string()), som::Json::Str("PMBOK — scope management & assumption log".to_string())])), ("connotation".to_string(), som::Json::Str("Lists each individually excluded item so every out-of-scope decision is recorded and traceable.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("OutOfScopeEntry", s, meta_children_out_of_scope_entry, |r, c| som::SomMetaNode {
                 class_name: "OutOfScopeEntry".to_string(), class_section_id: "OUOFSCEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "OutOfScopeEntry".to_string(), doc_comment: "An out-of-scope entry (form).".to_string(), class_doc_comment: "An out-of-scope entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -10838,7 +10838,7 @@ fn meta_children_phase_gate_reviews(s: &mut HashSet<String>) -> Vec<Rc<som::SomM
         Rc::new(som::SomMetaNode { class_name: "PhaseGateReviews".to_string(), member_name: "outcomes".to_string(), section_id: "PGRO".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Gate decision outcomes and follow-up rules.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "possibleOutcomes".to_string(), type_name: "String".to_string(), description: "Possible Outcomes".to_string(), required: true, hint: "Proceed / ConditionalProceed / Rework / Hold / Cancel — possible gate decisions".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "conditionalProceedRules".to_string(), type_name: "String".to_string(), description: "Conditional Proceed Rules".to_string(), required: false, hint: "Conditions under which conditional approval is allowed — time-boxed remediation, risk accepted".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "reworkProcessDefinition".to_string(), type_name: "String".to_string(), description: "Rework Process Definition".to_string(), required: false, hint: "What happens on rework decision — scope, timeline, re-review scheduling".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "cancelProcessDefinition".to_string(), type_name: "String".to_string(), description: "Cancel Process Definition".to_string(), required: false, hint: "What happens on cancel — asset disposition, team reassignment, lessons learned".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls".to_string()), som::Json::Str("PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews".to_string())])), ("connotation".to_string(), som::Json::Str("Defines the possible gate decision outcomes and their follow-up rules including conditional proceed, rework, and cancel handling.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "PhaseGateReviews".to_string(), member_name: "gateReviewNarrative".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Phase gate process description: gate objectives, review rhythm, participant roles, evidence gathering, decision criteria, proceed/rework/cancel definitions, conditional approval handling.".to_string(), doc_comment: "Phase gate review process narrative.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "PhaseGateReviews".to_string(), member_name: "items".to_string(), section_id: "PGRE-ITEM-LST".to_string(), section_id_pattern: "PGRE-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "PhaseGateReviewEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per phase gate review.".to_string(), doc_comment: "Contains 0+× PhaseGateReviewEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls".to_string()), som::Json::Str("PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the phase gate reviews defined in the stage plan, each with its own criteria, participants, evidence, and outcome.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "PhaseGateReviews".to_string(), member_name: "items".to_string(), section_id: "PHGAREEN-ITEM-LST".to_string(), section_id_pattern: "PHGAREEN-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "PhaseGateReviewEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per phase gate review.".to_string(), doc_comment: "Contains 0+× PhaseGateReviewEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls".to_string()), som::Json::Str("PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the phase gate reviews defined in the stage plan, each with its own criteria, participants, evidence, and outcome.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("PhaseGateReviewEntry", s, meta_children_phase_gate_review_entry, |r, c| som::SomMetaNode {
                 class_name: "PhaseGateReviewEntry".to_string(), class_section_id: "PHGAREEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PhaseGateReviewEntry".to_string(), doc_comment: "A phase gate review entry (form).\n\nDefines a single phase gate with its criteria, participants,\nrequired evidence, entry/exit conditions, and review schedule.".to_string(), class_doc_comment: "A phase gate review entry (form).\n\nDefines a single phase gate with its criteria, participants,\nrequired evidence, entry/exit conditions, and review schedule.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -10903,7 +10903,7 @@ fn meta_children_platform_and_language(s: &mut HashSet<String>) -> Vec<Rc<som::S
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "PlatformAndLanguage".to_string(), member_name: "frameworks".to_string(), section_id: "FWREN-FRAM-LST".to_string(), section_id_pattern: "FWREN-FRAM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "FrameworkRequirementEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per framework or library.".to_string(), doc_comment: "Framework and library requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string()), som::Json::Str("Semantic Versioning (SemVer) — version numbering".to_string())])), ("connotation".to_string(), som::Json::Str("The frameworks and libraries, with versions and license constraints, the system depends on.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "PlatformAndLanguage".to_string(), member_name: "frameworks".to_string(), section_id: "FRREEN-FRAM-LST".to_string(), section_id_pattern: "FRREEN-FRAM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "FrameworkRequirementEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per framework or library.".to_string(), doc_comment: "Framework and library requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string()), som::Json::Str("Semantic Versioning (SemVer) — version numbering".to_string())])), ("connotation".to_string(), som::Json::Str("The frameworks and libraries, with versions and license constraints, the system depends on.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("FrameworkRequirementEntry", s, meta_children_framework_requirement_entry, |r, c| som::SomMetaNode {
                 class_name: "FrameworkRequirementEntry".to_string(), class_section_id: "FRREEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "FrameworkRequirementEntry".to_string(), doc_comment: "Framework or library requirement entry.".to_string(), class_doc_comment: "Framework or library requirement entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -10919,7 +10919,7 @@ fn meta_children_platform_and_language(s: &mut HashSet<String>) -> Vec<Rc<som::S
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "PlatformAndLanguage".to_string(), member_name: "deploymentTargets".to_string(), section_id: "DETAEN-DEPL-LST".to_string(), section_id_pattern: "DETAEN-DEPL-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DeploymentTargetEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per deployment target.".to_string(), doc_comment: "Deployment target specifications.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Twelve-Factor App — cloud-native methodology".to_string()), som::Json::Str("ISO/IEC 12207 — software lifecycle processes".to_string())])), ("connotation".to_string(), som::Json::Str("The deployment targets — production, staging and distribution environments — the system is released to.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "PlatformAndLanguage".to_string(), member_name: "deploymentTargets".to_string(), section_id: "DEPTARENT-DEPL-LST".to_string(), section_id_pattern: "DEPTARENT-DEPL-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DeploymentTargetEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per deployment target.".to_string(), doc_comment: "Deployment target specifications.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Twelve-Factor App — cloud-native methodology".to_string()), som::Json::Str("ISO/IEC 12207 — software lifecycle processes".to_string())])), ("connotation".to_string(), som::Json::Str("The deployment targets — production, staging and distribution environments — the system is released to.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DeploymentTargetEntry", s, meta_children_deployment_target_entry, |r, c| som::SomMetaNode {
                 class_name: "DeploymentTargetEntry".to_string(), class_section_id: "DEPTARENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DeploymentTargetEntry".to_string(), doc_comment: "Deployment target specification entry.".to_string(), class_doc_comment: "Deployment target specification entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -10983,7 +10983,7 @@ fn meta_children_print_and_export_layout(s: &mut HashSet<String>) -> Vec<Rc<som:
         Rc::new(som::SomMetaNode { class_name: "PrintAndExportLayout".to_string(), member_name: "headerFooter".to_string(), section_id: "PLHF".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Header and footer settings.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "defaultHeaderContent".to_string(), type_name: "String".to_string(), description: "Default Header Content".to_string(), required: false, hint: "Header template, e.g. {logo} {reportTitle} {date}".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "defaultFooterContent".to_string(), type_name: "String".to_string(), description: "Default Footer Content".to_string(), required: false, hint: "Footer template, e.g. {companyName} — Page {page}/{pages}".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "defaultDateFormat".to_string(), type_name: "String".to_string(), description: "Default Date Format".to_string(), required: false, hint: "Date format, e.g. dd.MM.yyyy".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "defaultNumberFormat".to_string(), type_name: "String".to_string(), description: "Default Number Format".to_string(), required: false, hint: "Number format, e.g. #,##0.00".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "defaultCurrencyFormat".to_string(), type_name: "String".to_string(), description: "Default Currency Format".to_string(), required: false, hint: "Currency format, e.g. €#,##0.00".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "defaultTimezone".to_string(), type_name: "String".to_string(), description: "Default Timezone".to_string(), required: false, hint: "Timezone, e.g. Europe/Berlin".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "defaultLocale".to_string(), type_name: "String".to_string(), description: "Default Locale".to_string(), required: false, hint: "Locale, e.g. de-DE".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("W3C CSS Paged Media Level 3 — describes running headers and footers placed in the margin boxes of printed pages".to_string()), som::Json::Str("ISO 9241-125:2017 — provides guidance on the visual presentation of information such as page-level annotations".to_string())])), ("connotation".to_string(), som::Json::Str("The default header and footer content, along with date, number, currency, timezone and locale formatting for printed output.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "PrintAndExportLayout".to_string(), member_name: "archive".to_string(), section_id: "PRLAAR".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(5), doc_comment: "Archive and batch settings.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "archivePolicy".to_string(), type_name: "String".to_string(), description: "Archive Policy".to_string(), required: false, hint: "None / 30-days / 1-year / Permanent".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "reportNamingConvention".to_string(), type_name: "String".to_string(), description: "Report Naming Convention".to_string(), required: false, hint: "File naming pattern, e.g. {reportId}_{date}_{version}".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "batchGenerationSupport".to_string(), type_name: "String".to_string(), description: "Batch Generation Support".to_string(), required: false, hint: "Yes / No — support batch report generation".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "maxConcurrentReports".to_string(), type_name: "int".to_string(), description: "Max Concurrent Reports".to_string(), required: false, hint: "Maximum concurrent reports".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 26515:2018 — manages information for use produced within an agile development lifecycle".to_string()), som::Json::Str("ISO/IEC 25010:2023 — defines functional suitability as coverage of specified tasks and objectives".to_string())])), ("connotation".to_string(), som::Json::Str("The archival and batch-generation settings governing how printed reports are retained and produced in bulk.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "PrintAndExportLayout".to_string(), member_name: "exportFormats".to_string(), section_id: "EXFOEN-EXPO-LST".to_string(), section_id_pattern: "EXFOEN-EXPO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ExportFormatEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per export format.".to_string(), doc_comment: "10.4.1. Export Formats — contains 0+× Export Format.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 32000-2:2020 — specifies the PDF format frequently offered as a report export option".to_string()), som::Json::Str("ISO/IEC 25010:2023 — defines functional suitability including coverage of specified output tasks".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of export formats in which printed reports can be produced.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "PrintAndExportLayout".to_string(), member_name: "exportFormats".to_string(), section_id: "EFE-EXPO-LST".to_string(), section_id_pattern: "EFE-EXPO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ExportFormatEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per export format.".to_string(), doc_comment: "10.4.1. Export Formats — contains 0+× Export Format.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 32000-2:2020 — specifies the PDF format frequently offered as a report export option".to_string()), som::Json::Str("ISO/IEC 25010:2023 — defines functional suitability including coverage of specified output tasks".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of export formats in which printed reports can be produced.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ExportFormatEntry", s, meta_children_export_format_entry, |r, c| som::SomMetaNode {
                 class_name: "ExportFormatEntry".to_string(), class_section_id: "EFE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExportFormatEntry".to_string(), doc_comment: "An export format entry (form).".to_string(), class_doc_comment: "An export format entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -10991,7 +10991,7 @@ fn meta_children_print_and_export_layout(s: &mut HashSet<String>) -> Vec<Rc<som:
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "PrintAndExportLayout".to_string(), member_name: "exportTemplates".to_string(), section_id: "EXTEEN-EXPO-LST".to_string(), section_id_pattern: "EXTEEN-EXPO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ExportTemplateEntry".to_string(), serialization_order: Some(7), content_help: "Add one entry per export template.".to_string(), doc_comment: "10.4.2. Export Templates — contains 0+× Export\nTemplate.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 26514:2022 — designs and develops the layout of report information for use".to_string()), som::Json::Str("ISO 32000-2:2020 — specifies the PDF document format used as an export target for printed output".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of reusable export templates available for producing formatted output.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "PrintAndExportLayout".to_string(), member_name: "exportTemplates".to_string(), section_id: "ETE-EXPO-LST".to_string(), section_id_pattern: "ETE-EXPO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ExportTemplateEntry".to_string(), serialization_order: Some(7), content_help: "Add one entry per export template.".to_string(), doc_comment: "10.4.2. Export Templates — contains 0+× Export\nTemplate.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 26514:2022 — designs and develops the layout of report information for use".to_string()), som::Json::Str("ISO 32000-2:2020 — specifies the PDF document format used as an export target for printed output".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of reusable export templates available for producing formatted output.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ExportTemplateEntry", s, meta_children_export_template_entry, |r, c| som::SomMetaNode {
                 class_name: "ExportTemplateEntry".to_string(), class_section_id: "ETE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ExportTemplateEntry".to_string(), doc_comment: "A reusable export template (form).".to_string(), class_doc_comment: "A reusable export template (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -11031,7 +11031,7 @@ fn meta_children_problem_statement(_s: &mut HashSet<String>) -> Vec<Rc<som::SomM
     vec![
         Rc::new(som::SomMetaNode { class_name: "ProblemStatement".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ProblemStatement".to_string(), member_name: "problemDetails".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Problem Description Form.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "problemSummary".to_string(), type_name: "String".to_string(), description: "Problem Summary (one sentence)".to_string(), required: true, hint: "State the core problem in a single concise sentence".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "currentState".to_string(), type_name: "String".to_string(), description: "Current State (describe the AS-IS situation that is problematic)".to_string(), required: false, hint: "Describe the current AS-IS situation that is problematic".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "affectedParties".to_string(), type_name: "String".to_string(), description: "Affected Parties (who suffers from this problem)".to_string(), required: false, hint: "Who suffers from this problem and in what way".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "impactDescription".to_string(), type_name: "String".to_string(), description: "Impact Description (business, financial, operational impacts)".to_string(), required: false, hint: "Business, financial, and operational impacts of the problem".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "impactSeverity".to_string(), type_name: "String".to_string(), description: "Impact Severity (Critical, High, Medium, Low)".to_string(), required: false, hint: "Critical / High / Medium / Low".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "impactMetrics".to_string(), type_name: "String".to_string(), description: "Impact Metrics (quantifiable measures of the problem's cost)".to_string(), required: false, hint: "Quantifiable measures of the problem's cost".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "rootCauses".to_string(), type_name: "String".to_string(), description: "Root Causes (underlying reasons for problem)".to_string(), required: false, hint: "Underlying reasons that cause the problem".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "urgency".to_string(), type_name: "String".to_string(), description: "Urgency (Immediate, Short-term, Medium-term, Long-term)".to_string(), required: false, hint: "Immediate / Short-term / Medium-term / Long-term".to_string(), order: 7, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "urgencyJustification".to_string(), type_name: "String".to_string(), description: "Urgency Justification (why this timeline is critical)".to_string(), required: false, hint: "Why the stated timeline is critical".to_string(), order: 8, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "consequencesOfInaction".to_string(), type_name: "String".to_string(), description: "Consequences of Inaction (what happens if not addressed)".to_string(), required: false, hint: "What happens if the problem is not addressed".to_string(), order: 9, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "ProblemStatement".to_string(), member_name: "relatedPainPoints".to_string(), section_id: "RPPE-RELA-LST".to_string(), section_id_pattern: "RPPE-RELA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(2), content_help: "Add one entry per related pain point identified in the Current State Analysis that this problem statement connects to.".to_string(), doc_comment: "Related pain points from Current State Analysis.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — problem space".to_string())])), ("connotation".to_string(), som::Json::Str("The set of related pain points drawn from the Current State Analysis that this problem connects to.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ProblemStatement".to_string(), member_name: "relatedPainPoints".to_string(), section_id: "PS-RELA-LST".to_string(), section_id_pattern: "PS-RELA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(2), content_help: "Add one entry per related pain point identified in the Current State Analysis that this problem statement connects to.".to_string(), doc_comment: "Related pain points from Current State Analysis.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — problem space".to_string())])), ("connotation".to_string(), som::Json::Str("The set of related pain points drawn from the Current State Analysis that this problem connects to.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -11714,7 +11714,7 @@ fn meta_children_protocols_and_standards_section(s: &mut HashSet<String>) -> Vec
         Rc::new(som::SomMetaNode { class_name: "ProtocolsAndStandardsSection".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Provide an overview of protocol and standards approach.\n\n**Include**:\n- Primary protocols and selection rationale\n- TLS/security configuration\n- Certificate management strategy\n- API versioning approach\n- Data format standards\n\n**Best Practices**:\n- Use TLS 1.3 where supported\n- Automate certificate renewal\n- Implement proper API versioning from start\n- Document protocol requirements clearly\n- Monitor protocol compliance\n".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ProtocolsAndStandardsSection".to_string(), member_name: "overview".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Overview of communication protocols and standards.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "ProtocolsAndStandardsSection".to_string(), member_name: "protocols".to_string(), section_id: "PREN-PROT-LST".to_string(), section_id_pattern: "PREN-PROT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ProtocolEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per protocol.".to_string(), doc_comment: "Protocol catalog — contains 0+× Protocol.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("IETF RFC 9110 — HTTP semantics".to_string())])), ("connotation".to_string(), som::Json::Str("The communication protocols the system supports.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ProtocolsAndStandardsSection".to_string(), member_name: "protocols".to_string(), section_id: "PE-PROT-LST".to_string(), section_id_pattern: "PE-PROT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ProtocolEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per protocol.".to_string(), doc_comment: "Protocol catalog — contains 0+× Protocol.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("IETF RFC 9110 — HTTP semantics".to_string())])), ("connotation".to_string(), som::Json::Str("The communication protocols the system supports.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ProtocolEntry", s, meta_children_protocol_entry, |r, c| som::SomMetaNode {
                 class_name: "ProtocolEntry".to_string(), class_section_id: "PE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ProtocolEntry".to_string(), doc_comment: "A protocol or standard entry (form).".to_string(), class_doc_comment: "A protocol or standard entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -11784,7 +11784,7 @@ fn meta_children_prototype_feature_subset(s: &mut HashSet<String>) -> Vec<Rc<som
         Rc::new(som::SomMetaNode { class_name: "PrototypeFeatureSubset".to_string(), member_name: "fidelity".to_string(), section_id: "PFSF".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Fidelity expectations for the prototype.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "prototypeFidelity".to_string(), type_name: "String".to_string(), description: "Prototype Fidelity".to_string(), required: false, hint: "Low, medium, high fidelity".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "interactiveFidelity".to_string(), type_name: "String".to_string(), description: "Interactive Fidelity".to_string(), required: false, hint: "Level of interactivity".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataFidelity".to_string(), type_name: "String".to_string(), description: "Data Fidelity".to_string(), required: false, hint: "Real vs. mock data".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "visualFidelity".to_string(), type_name: "String".to_string(), description: "Visual Fidelity".to_string(), required: false, hint: "Production visuals vs. wireframes".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-210:2019 — prototype fidelity is chosen to suit the questions the evaluation must answer".to_string())])), ("connotation".to_string(), som::Json::Str("The fidelity expectations for interactivity, data, and visuals in the prototype.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "PrototypeFeatureSubset".to_string(), member_name: "featureNarrative".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Feature subset narrative.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "PrototypeFeatureSubset".to_string(), member_name: "features".to_string(), section_id: "PRFEEN-FEAT-LST".to_string(), section_id_pattern: "PRFEEN-FEAT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "PrototypeFeatureEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per prototype feature.".to_string(), doc_comment: "Prototype feature entries.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-210:2019 — the prototyped features are enumerated so scope and fidelity can be tracked per feature".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of prototype-feature entries.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "PrototypeFeatureSubset".to_string(), member_name: "features".to_string(), section_id: "PFE-FEAT-LST".to_string(), section_id_pattern: "PFE-FEAT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "PrototypeFeatureEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per prototype feature.".to_string(), doc_comment: "Prototype feature entries.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-210:2019 — the prototyped features are enumerated so scope and fidelity can be tracked per feature".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of prototype-feature entries.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("PrototypeFeatureEntry", s, meta_children_prototype_feature_entry, |r, c| som::SomMetaNode {
                 class_name: "PrototypeFeatureEntry".to_string(), class_section_id: "PFE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PrototypeFeatureEntry".to_string(), doc_comment: "A prototype feature entry.".to_string(), class_doc_comment: "A prototype feature entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -11807,7 +11807,7 @@ fn meta_children_prototype_goals(s: &mut HashSet<String>) -> Vec<Rc<som::SomMeta
         Rc::new(som::SomMetaNode { class_name: "PrototypeGoals".to_string(), member_name: "feedbackProfile".to_string(), section_id: "PRGOFE".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "User feedback objectives and intake.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "userFeedbackGoals".to_string(), type_name: "String".to_string(), description: "User Feedback Goals".to_string(), required: false, hint: "What feedback to gather".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "usabilityTestingPlan".to_string(), type_name: "String".to_string(), description: "Usability Testing Plan".to_string(), required: false, hint: "How usability testing is done".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "feedbackIntegration".to_string(), type_name: "String".to_string(), description: "Feedback Integration".to_string(), required: false, hint: "How feedback flows back".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-210:2019 — user feedback is gathered from prototype evaluation to inform the design".to_string())])), ("connotation".to_string(), som::Json::Str("The user-feedback objectives and how feedback from the prototype is collected.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "PrototypeGoals".to_string(), member_name: "goalsNarrative".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Prototype goals narrative.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "PrototypeGoals".to_string(), member_name: "goals".to_string(), section_id: "PRGOEN-GOAL-LST".to_string(), section_id_pattern: "PRGOEN-GOAL-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "PrototypeGoalEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per prototype goal.".to_string(), doc_comment: "Individual goal entries.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-210:2019 — individual validation goals are recorded so prototype evaluation can be traced against them".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of individual prototype-goal entries.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "PrototypeGoals".to_string(), member_name: "goals".to_string(), section_id: "PGE-GOAL-LST".to_string(), section_id_pattern: "PGE-GOAL-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "PrototypeGoalEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per prototype goal.".to_string(), doc_comment: "Individual goal entries.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-210:2019 — individual validation goals are recorded so prototype evaluation can be traced against them".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of individual prototype-goal entries.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("PrototypeGoalEntry", s, meta_children_prototype_goal_entry, |r, c| som::SomMetaNode {
                 class_name: "PrototypeGoalEntry".to_string(), class_section_id: "PGE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PrototypeGoalEntry".to_string(), doc_comment: "A prototype goal entry.".to_string(), class_doc_comment: "A prototype goal entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -11890,7 +11890,7 @@ fn meta_children_quality_framework(s: &mut HashSet<String>) -> Vec<Rc<som::SomMe
             }));
             Rc::new(n)
         },
-        Rc::new(som::SomMetaNode { class_name: "QualityFramework".to_string(), member_name: "categoryDependencies".to_string(), section_id: "CATEG-CATE-LST".to_string(), section_id_pattern: "CATEG-CATE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(7), content_help: "Add one entry per category dependency.".to_string(), doc_comment: "Quality dependencies map.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are captured to reason about trade-offs".to_string())])), ("connotation".to_string(), som::Json::Str("Lists dependencies between quality categories used to reason about trade-offs.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "QualityFramework".to_string(), member_name: "categoryDependencies".to_string(), section_id: "QLFWK-CATE-LST".to_string(), section_id_pattern: "QLFWK-CATE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(7), content_help: "Add one entry per category dependency.".to_string(), doc_comment: "Quality dependencies map.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are captured to reason about trade-offs".to_string())])), ("connotation".to_string(), som::Json::Str("Lists dependencies between quality categories used to reason about trade-offs.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -12299,7 +12299,7 @@ fn meta_children_report_definitions(s: &mut HashSet<String>) -> Vec<Rc<som::SomM
     vec![
         Rc::new(som::SomMetaNode { class_name: "ReportDefinitions".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Summarize the report definitions: which reports exist, what each projects over the domain model, and how they are delivered.".to_string() }), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "ReportDefinitions".to_string(), member_name: "reports".to_string(), section_id: "REEN-REPO-LST".to_string(), section_id_pattern: "REEN-REPO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReportEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per report.".to_string(), doc_comment: "10.2.1. Reports — contains 0+× Report.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 26514:2022 — designs and develops report information for use".to_string()), som::Json::Str("ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of report entries available for printing.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ReportDefinitions".to_string(), member_name: "reports".to_string(), section_id: "REPENT-REPO-LST".to_string(), section_id_pattern: "REPENT-REPO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReportEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per report.".to_string(), doc_comment: "10.2.1. Reports — contains 0+× Report.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 26514:2022 — designs and develops report information for use".to_string()), som::Json::Str("ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of report entries available for printing.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ReportEntry", s, meta_children_report_entry, |r, c| som::SomMetaNode {
                 class_name: "ReportEntry".to_string(), class_section_id: "REPENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReportEntry".to_string(), doc_comment: "A report entry (form).".to_string(), class_doc_comment: "A report entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -12337,7 +12337,7 @@ fn meta_children_report_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNod
         }),
         Rc::new(som::SomMetaNode { class_name: "ReportEntry".to_string(), member_name: "lifecycle".to_string(), section_id: "RELI".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(12), doc_comment: "Lifecycle and archiving.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "archiveRetention".to_string(), type_name: "String".to_string(), description: "Archive Retention".to_string(), required: false, hint: "Retention policy for generated instances, e.g. 90 days".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "signatureRequired".to_string(), type_name: "String".to_string(), description: "Signature Required".to_string(), required: false, hint: "Yes / No — does the report require a digital signature".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "approvalWorkflow".to_string(), type_name: "String".to_string(), description: "Approval Workflow".to_string(), required: false, hint: "Approval steps before distribution, if any".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "notes".to_string(), type_name: "String".to_string(), description: "Notes".to_string(), required: false, hint: "Additional design notes or open questions".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 26515:2018 — governs retention and management of produced information".to_string()), som::Json::Str("ISO/IEC 25010:2023 — functional suitability supports controlled report distribution".to_string())])), ("connotation".to_string(), som::Json::Str("Lifecycle settings covering retention signature approval and archiving of the report.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "ReportEntry".to_string(), member_name: "sections".to_string(), section_id: "RESEE1-SECT-LST".to_string(), section_id_pattern: "RESEE1-SECT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReportSectionEntry".to_string(), serialization_order: Some(13), content_help: "Add one entry per report section.".to_string(), doc_comment: "Contains 0+× Report Section.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-125:2017 — presentation of information groups related content in sections".to_string()), som::Json::Str("ISO/IEC/IEEE 26514:2022 — structures information for use into identifiable units".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of report-section entries composing the body of the report.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ReportEntry".to_string(), member_name: "sections".to_string(), section_id: "RSE-SECT-LST".to_string(), section_id_pattern: "RSE-SECT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReportSectionEntry".to_string(), serialization_order: Some(13), content_help: "Add one entry per report section.".to_string(), doc_comment: "Contains 0+× Report Section.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-125:2017 — presentation of information groups related content in sections".to_string()), som::Json::Str("ISO/IEC/IEEE 26514:2022 — structures information for use into identifiable units".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of report-section entries composing the body of the report.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ReportSectionEntry", s, meta_children_report_section_entry, |r, c| som::SomMetaNode {
                 class_name: "ReportSectionEntry".to_string(), class_section_id: "RSE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReportSectionEntry".to_string(), doc_comment: "A section within a report (form).".to_string(), class_doc_comment: "A section within a report (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -12345,7 +12345,7 @@ fn meta_children_report_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNod
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "ReportEntry".to_string(), member_name: "filters".to_string(), section_id: "REFIEN-FILT-LST".to_string(), section_id_pattern: "REFIEN-FILT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReportFilterEntry".to_string(), serialization_order: Some(14), content_help: "Add one entry per report data filter.".to_string(), doc_comment: "Contains 0+× Report Filter.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 — captures the filter criteria constraining reported data".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of filters that restrict the data included in the report.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ReportEntry".to_string(), member_name: "filters".to_string(), section_id: "RFE-FILT-LST".to_string(), section_id_pattern: "RFE-FILT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReportFilterEntry".to_string(), serialization_order: Some(14), content_help: "Add one entry per report data filter.".to_string(), doc_comment: "Contains 0+× Report Filter.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148:2018 — captures the filter criteria constraining reported data".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of filters that restrict the data included in the report.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ReportFilterEntry", s, meta_children_report_filter_entry, |r, c| som::SomMetaNode {
                 class_name: "ReportFilterEntry".to_string(), class_section_id: "RFE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReportFilterEntry".to_string(), doc_comment: "A filter parameter for a report (form).".to_string(), class_doc_comment: "A filter parameter for a report (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -12353,7 +12353,7 @@ fn meta_children_report_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNod
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "ReportEntry".to_string(), member_name: "schedules".to_string(), section_id: "RESCEN-SCHE-LST".to_string(), section_id_pattern: "RESCEN-SCHE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReportScheduleEntry".to_string(), serialization_order: Some(15), content_help: "Add one entry per report generation schedule.".to_string(), doc_comment: "Contains 0+× Report Schedule.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 8601-1:2019 — expresses the dates and times at which the report is generated".to_string()), som::Json::Str("ISO/IEC 25010:2023 — functional suitability supports scheduled report production".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of schedules controlling automated generation of the report.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ReportEntry".to_string(), member_name: "schedules".to_string(), section_id: "REPSCHENT-SCHE-LST".to_string(), section_id_pattern: "REPSCHENT-SCHE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReportScheduleEntry".to_string(), serialization_order: Some(15), content_help: "Add one entry per report generation schedule.".to_string(), doc_comment: "Contains 0+× Report Schedule.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 8601-1:2019 — expresses the dates and times at which the report is generated".to_string()), som::Json::Str("ISO/IEC 25010:2023 — functional suitability supports scheduled report production".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of schedules controlling automated generation of the report.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ReportScheduleEntry", s, meta_children_report_schedule_entry, |r, c| som::SomMetaNode {
                 class_name: "ReportScheduleEntry".to_string(), class_section_id: "REPSCHENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReportScheduleEntry".to_string(), doc_comment: "Scheduling rules for report generation\n(form).".to_string(), class_doc_comment: "Scheduling rules for report generation\n(form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -12361,7 +12361,7 @@ fn meta_children_report_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNod
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "ReportEntry".to_string(), member_name: "distributions".to_string(), section_id: "REDIEN-DIST-LST".to_string(), section_id_pattern: "REDIEN-DIST-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReportDistributionEntry".to_string(), serialization_order: Some(16), content_help: "Add one entry per report distribution channel.".to_string(), doc_comment: "Contains 0+× Report Distribution.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 26515:2018 — governs delivery of produced information to its audience".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of distribution channels through which the report is delivered.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ReportEntry".to_string(), member_name: "distributions".to_string(), section_id: "RDE-DIST-LST".to_string(), section_id_pattern: "RDE-DIST-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReportDistributionEntry".to_string(), serialization_order: Some(16), content_help: "Add one entry per report distribution channel.".to_string(), doc_comment: "Contains 0+× Report Distribution.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 26515:2018 — governs delivery of produced information to its audience".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of distribution channels through which the report is delivered.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ReportDistributionEntry", s, meta_children_report_distribution_entry, |r, c| som::SomMetaNode {
                 class_name: "ReportDistributionEntry".to_string(), class_section_id: "RDE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReportDistributionEntry".to_string(), doc_comment: "Distribution channel configuration (form).".to_string(), class_doc_comment: "Distribution channel configuration (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -12369,7 +12369,7 @@ fn meta_children_report_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNod
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "ReportEntry".to_string(), member_name: "recipients".to_string(), section_id: "REREEN-RECI-LST".to_string(), section_id_pattern: "REREEN-RECI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReportRecipientEntry".to_string(), serialization_order: Some(17), content_help: "Add one entry per report recipient.".to_string(), doc_comment: "Contains 0+× Recipient.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 26515:2018 — identifies the audience receiving produced information".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of recipients who receive the generated report.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ReportEntry".to_string(), member_name: "recipients".to_string(), section_id: "RRE-RECI-LST".to_string(), section_id_pattern: "RRE-RECI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReportRecipientEntry".to_string(), serialization_order: Some(17), content_help: "Add one entry per report recipient.".to_string(), doc_comment: "Contains 0+× Recipient.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 26515:2018 — identifies the audience receiving produced information".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of recipients who receive the generated report.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ReportRecipientEntry", s, meta_children_report_recipient_entry, |r, c| som::SomMetaNode {
                 class_name: "ReportRecipientEntry".to_string(), class_section_id: "RRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReportRecipientEntry".to_string(), doc_comment: "A recipient entry (form).".to_string(), class_doc_comment: "A recipient entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -12421,7 +12421,7 @@ fn meta_children_report_section_entry(s: &mut HashSet<String>) -> Vec<Rc<som::So
         Rc::new(som::SomMetaNode { class_name: "ReportSectionEntry".to_string(), member_name: "sorting".to_string(), section_id: "RESESO".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Sorting and grouping.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "sortField".to_string(), type_name: "String".to_string(), description: "Sort Field".to_string(), required: false, hint: "Default sort for this section data".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "sortDirection".to_string(), type_name: "String".to_string(), description: "Sort Direction".to_string(), required: false, hint: "Ascending / Descending".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "groupByField".to_string(), type_name: "String".to_string(), description: "Group By Field".to_string(), required: false, hint: "Field used for grouping rows".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "showGroupSubtotals".to_string(), type_name: "String".to_string(), description: "Show Group Subtotals".to_string(), required: false, hint: "Yes / No".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-125:2017 — visual presentation of information supports grouping of related data".to_string()), som::Json::Str("ISO/IEC 25010:2023 — functional suitability supports sorting and grouping of section rows".to_string())])), ("connotation".to_string(), som::Json::Str("Sorting and grouping settings for a report section such as sort field and group subtotals.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ReportSectionEntry".to_string(), member_name: "aggregation".to_string(), section_id: "RESEAG".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Aggregation and limits.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "showSectionTotal".to_string(), type_name: "String".to_string(), description: "Show Section Total".to_string(), required: false, hint: "Yes / No — show totals row at section end".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "aggregationFields".to_string(), type_name: "String".to_string(), description: "Aggregation Fields".to_string(), required: false, hint: "Comma-separated fields with aggregation".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "maxRows".to_string(), type_name: "int".to_string(), description: "Max Rows".to_string(), required: false, hint: "Row limit for this section; 0 = unlimited".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "overflowBehavior".to_string(), type_name: "String".to_string(), description: "Overflow Behavior".to_string(), required: false, hint: "Truncate / Continue-next-page / Scroll".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 80000-1:2022 — general principles for quantities units and their symbols".to_string()), som::Json::Str("ISO/IEC 25010:2023 — functional suitability supports section totals and row limits".to_string())])), ("connotation".to_string(), som::Json::Str("Aggregation and row-limit settings for a report section such as totals and overflow behaviour.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "ReportSectionEntry".to_string(), member_name: "columns".to_string(), section_id: "RECOE1-COLU-LST".to_string(), section_id_pattern: "RECOE1-COLU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReportColumnEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per column in the section table.".to_string(), doc_comment: "Contains 0+× Report Column.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-112:2017 — presentation of information organises tabular data into columns".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of column entries defining the tabular layout of this report section.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ReportSectionEntry".to_string(), member_name: "columns".to_string(), section_id: "REPCOLENT-COLU-LST".to_string(), section_id_pattern: "REPCOLENT-COLU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReportColumnEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per column in the section table.".to_string(), doc_comment: "Contains 0+× Report Column.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-112:2017 — presentation of information organises tabular data into columns".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of column entries defining the tabular layout of this report section.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ReportColumnEntry", s, meta_children_report_column_entry, |r, c| som::SomMetaNode {
                 class_name: "ReportColumnEntry".to_string(), class_section_id: "REPCOLENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReportColumnEntry".to_string(), doc_comment: "A column in a tabular report section\n(form).".to_string(), class_doc_comment: "A column in a tabular report section\n(form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -12429,7 +12429,7 @@ fn meta_children_report_section_entry(s: &mut HashSet<String>) -> Vec<Rc<som::So
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "ReportSectionEntry".to_string(), member_name: "charts".to_string(), section_id: "RECHEN-CHAR-LST".to_string(), section_id_pattern: "RECHEN-CHAR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReportChartEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per chart shown in the section.".to_string(), doc_comment: "Contains 0+× Report Chart.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-125:2017 — presentation of information conveys quantitative data through graphical form".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of chart entries rendered within this report section.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ReportSectionEntry".to_string(), member_name: "charts".to_string(), section_id: "REPCHAENT-CHAR-LST".to_string(), section_id_pattern: "REPCHAENT-CHAR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReportChartEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per chart shown in the section.".to_string(), doc_comment: "Contains 0+× Report Chart.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-125:2017 — presentation of information conveys quantitative data through graphical form".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of chart entries rendered within this report section.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ReportChartEntry", s, meta_children_report_chart_entry, |r, c| som::SomMetaNode {
                 class_name: "ReportChartEntry".to_string(), class_section_id: "REPCHAENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReportChartEntry".to_string(), doc_comment: "A chart/visualization in a report\n(form).".to_string(), class_doc_comment: "A chart/visualization in a report\n(form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -12449,7 +12449,7 @@ fn meta_children_requirement_acceptance_criteria(s: &mut HashSet<String>) -> Vec
     vec![
         Rc::new(som::SomMetaNode { class_name: "RequirementAcceptanceCriteria".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Overview of acceptance approach and test coverage expectations.".to_string() }), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "RequirementAcceptanceCriteria".to_string(), member_name: "criteria".to_string(), section_id: "ACCR-CRIT-LST".to_string(), section_id_pattern: "ACCR-CRIT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "AcceptanceCriterionEntry".to_string(), serialization_order: Some(1), content_help: "Add one criterion per testable condition.".to_string(), doc_comment: "Acceptance criterion entries — contains 0+× AcceptanceCriterionEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §9 — acceptance criteria".to_string()), som::Json::Str("Agile — acceptance criteria".to_string())])), ("connotation".to_string(), som::Json::Str("The list of individual acceptance-criterion entries, one per testable condition for the requirement.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "RequirementAcceptanceCriteria".to_string(), member_name: "criteria".to_string(), section_id: "ACE-CRIT-LST".to_string(), section_id_pattern: "ACE-CRIT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "AcceptanceCriterionEntry".to_string(), serialization_order: Some(1), content_help: "Add one criterion per testable condition.".to_string(), doc_comment: "Acceptance criterion entries — contains 0+× AcceptanceCriterionEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §9 — acceptance criteria".to_string()), som::Json::Str("Agile — acceptance criteria".to_string())])), ("connotation".to_string(), som::Json::Str("The list of individual acceptance-criterion entries, one per testable condition for the requirement.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("AcceptanceCriterionEntry", s, meta_children_acceptance_criterion_entry, |r, c| som::SomMetaNode {
                 class_name: "AcceptanceCriterionEntry".to_string(), class_section_id: "ACE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AcceptanceCriterionEntry".to_string(), doc_comment: "An acceptance criterion entry (form).\n\nUses Given-When-Then format (Gherkin style) for testable criteria.".to_string(), class_doc_comment: "An acceptance criterion entry (form).\n\nUses Given-When-Then format (Gherkin style) for testable criteria.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -12579,7 +12579,7 @@ fn meta_children_requirement_ui_specification(s: &mut HashSet<String>) -> Vec<Rc
         Rc::new(som::SomMetaNode { class_name: "RequirementUiSpecification".to_string(), member_name: "layoutCode".to_string(), section_id: "RUS-LAYO".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(2), content_type: Some(som::SomContentTypeMeta { type_: "code-dart".to_string(), description: "Flutter/D4rt code specifying the UI layout using tom_flutter_ui components.".to_string() }), content_help: "Provide D4rt Flutter code for the UI layout, using tom_flutter_ui components. This can be rendered in documentation.".to_string(), doc_comment: "UI layout specification (D4rt Flutter code).".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "RequirementUiSpecification".to_string(), member_name: "mockupDescription".to_string(), section_id: "RUS-MOCK".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "ASCII or text description of UI mockup if D4rt code is not available.".to_string() }), doc_comment: "UI mockup diagram (fallback if code not available).".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "RequirementUiSpecification".to_string(), member_name: "fields".to_string(), section_id: "SCFLD-FIEL-LST".to_string(), section_id_pattern: "SCFLD-FIEL-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ScreenFieldEntry".to_string(), serialization_order: Some(4), content_help: "Define each field in the UI.".to_string(), doc_comment: "Screen field entries — contains 0+× ScreenFieldEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-110 — dialogue principles".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §9.5 — UI functional requirements".to_string())])), ("connotation".to_string(), som::Json::Str("The list of individual screen-field entries that make up this UI.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "RequirementUiSpecification".to_string(), member_name: "fields".to_string(), section_id: "SFE-FIEL-LST".to_string(), section_id_pattern: "SFE-FIEL-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ScreenFieldEntry".to_string(), serialization_order: Some(4), content_help: "Define each field in the UI.".to_string(), doc_comment: "Screen field entries — contains 0+× ScreenFieldEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-110 — dialogue principles".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §9.5 — UI functional requirements".to_string())])), ("connotation".to_string(), som::Json::Str("The list of individual screen-field entries that make up this UI.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ScreenFieldEntry", s, meta_children_screen_field_entry, |r, c| som::SomMetaNode {
                 class_name: "ScreenFieldEntry".to_string(), class_section_id: "SFE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScreenFieldEntry".to_string(), doc_comment: "A screen field entry (form).\n\nDefines a field in the user interface with all its properties.".to_string(), class_doc_comment: "A screen field entry (form).\n\nDefines a field in the user interface with all its properties.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -12885,7 +12885,7 @@ fn meta_children_reusable_components_section(s: &mut HashSet<String>) -> Vec<Rc<
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "ReusableComponentsSection".to_string(), member_name: "uiComponents".to_string(), section_id: "RUICMP-UICO-LST".to_string(), section_id_pattern: "RUICMP-UICO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReusableUiComponentEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per UI component.".to_string(), doc_comment: "UI component library entries.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DRY — reusable component design".to_string()), som::Json::Str("SOLID principles — object-oriented design".to_string())])), ("connotation".to_string(), som::Json::Str("The reusable UI components shared across the system.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ReusableComponentsSection".to_string(), member_name: "uiComponents".to_string(), section_id: "RUCE-UICO-LST".to_string(), section_id_pattern: "RUCE-UICO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ReusableUiComponentEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per UI component.".to_string(), doc_comment: "UI component library entries.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DRY — reusable component design".to_string()), som::Json::Str("SOLID principles — object-oriented design".to_string())])), ("connotation".to_string(), som::Json::Str("The reusable UI components shared across the system.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ReusableUiComponentEntry", s, meta_children_reusable_ui_component_entry, |r, c| som::SomMetaNode {
                 class_name: "ReusableUiComponentEntry".to_string(), class_section_id: "RUCE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ReusableUiComponentEntry".to_string(), doc_comment: "UI component entry — a reusable UI widget or pattern.".to_string(), class_doc_comment: "UI component entry — a reusable UI widget or pattern.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -12893,7 +12893,7 @@ fn meta_children_reusable_components_section(s: &mut HashSet<String>) -> Vec<Rc<
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "ReusableComponentsSection".to_string(), member_name: "businessComponents".to_string(), section_id: "BUCOEN-BUSI-LST".to_string(), section_id_pattern: "BUCOEN-BUSI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BusinessComponentEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per business component.".to_string(), doc_comment: "Business logic components.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Domain-Driven Design — bounded contexts / modules".to_string()), som::Json::Str("ISO/IEC 25010 — reusability quality attributes".to_string())])), ("connotation".to_string(), som::Json::Str("The reusable business logic components shared across the system.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ReusableComponentsSection".to_string(), member_name: "businessComponents".to_string(), section_id: "BUSCOMENT-BUSI-LST".to_string(), section_id_pattern: "BUSCOMENT-BUSI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "BusinessComponentEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per business component.".to_string(), doc_comment: "Business logic components.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Domain-Driven Design — bounded contexts / modules".to_string()), som::Json::Str("ISO/IEC 25010 — reusability quality attributes".to_string())])), ("connotation".to_string(), som::Json::Str("The reusable business logic components shared across the system.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("BusinessComponentEntry", s, meta_children_business_component_entry, |r, c| som::SomMetaNode {
                 class_name: "BusinessComponentEntry".to_string(), class_section_id: "BUSCOMENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "BusinessComponentEntry".to_string(), doc_comment: "Business logic component entry.".to_string(), class_doc_comment: "Business logic component entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -12901,7 +12901,7 @@ fn meta_children_reusable_components_section(s: &mut HashSet<String>) -> Vec<Rc<
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "ReusableComponentsSection".to_string(), member_name: "infrastructureComponents".to_string(), section_id: "INCOEN-INFR-LST".to_string(), section_id_pattern: "INCOEN-INFR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "InfrastructureComponentEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per infrastructure component.".to_string(), doc_comment: "Infrastructure components.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DRY — reusable component design".to_string()), som::Json::Str("ISO/IEC 25010 — maintainability quality attributes".to_string())])), ("connotation".to_string(), som::Json::Str("The reusable infrastructure components shared across the system.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ReusableComponentsSection".to_string(), member_name: "infrastructureComponents".to_string(), section_id: "INFCOMENT-INFR-LST".to_string(), section_id_pattern: "INFCOMENT-INFR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "InfrastructureComponentEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per infrastructure component.".to_string(), doc_comment: "Infrastructure components.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DRY — reusable component design".to_string()), som::Json::Str("ISO/IEC 25010 — maintainability quality attributes".to_string())])), ("connotation".to_string(), som::Json::Str("The reusable infrastructure components shared across the system.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("InfrastructureComponentEntry", s, meta_children_infrastructure_component_entry, |r, c| som::SomMetaNode {
                 class_name: "InfrastructureComponentEntry".to_string(), class_section_id: "INFCOMENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InfrastructureComponentEntry".to_string(), doc_comment: "Infrastructure component entry.".to_string(), class_doc_comment: "Infrastructure component entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -13050,7 +13050,7 @@ fn meta_children_risks_and_assumptions(s: &mut HashSet<String>) -> Vec<Rc<som::S
     vec![
         Rc::new(som::SomMetaNode { class_name: "RisksAndAssumptions".to_string(), member_name: "overview".to_string(), section_id: "RIOV".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "Overview of the risk management approach for this project.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "riskManagementApproach".to_string(), type_name: "String".to_string(), description: "Risk Management Approach — overall methodology and framework".to_string(), required: false, hint: "Describe the methodology and framework used to manage risk".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "riskAppetite".to_string(), type_name: "String".to_string(), description: "Risk Appetite — organization tolerance (risk-averse, risk-neutral, risk-seeking)".to_string(), required: false, hint: "State the organization tolerance level for risk".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "riskThresholds".to_string(), type_name: "String".to_string(), description: "Risk Thresholds — quantitative escalation levels (e.g., cost > $50K)".to_string(), required: false, hint: "Define quantitative thresholds that trigger escalation".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "riskReviewCadence".to_string(), type_name: "String".to_string(), description: "Risk Review Cadence — frequency of review meetings".to_string(), required: false, hint: "How often risks are reviewed".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "escalationPath".to_string(), type_name: "String".to_string(), description: "Escalation Path — hierarchy for escalating high-severity risks".to_string(), required: false, hint: "Chain of escalation for high-severity risks".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "riskTooling".to_string(), type_name: "String".to_string(), description: "Risk Management Tooling — tools used to track risks".to_string(), required: false, hint: "Tools or systems used to track and report risks".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "riskCategories".to_string(), type_name: "String".to_string(), description: "Risk Categories — Technical, Schedule, Cost, Resource, External, etc.".to_string(), required: false, hint: "Categories used to classify risks".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "probabilityScale".to_string(), type_name: "String".to_string(), description: "Probability Scale — Very Low (<10%), Low (10-30%), Medium (30-50%), High (50-70%), Very High (>70%)".to_string(), required: false, hint: "Scale used to rate likelihood of occurrence".to_string(), order: 7, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "impactScale".to_string(), type_name: "String".to_string(), description: "Impact Scale — Negligible, Minor, Moderate, Major, Catastrophic with criteria".to_string(), required: false, hint: "Scale used to rate severity of impact".to_string(), order: 8, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 31000:2018 — risk management".to_string()), som::Json::Str("PMBOK — project risk management".to_string()), som::Json::Str("ISO/IEC 31010 — risk assessment techniques".to_string())])), ("connotation".to_string(), som::Json::Str("This section captures the overarching risk management methodology, appetite, and scales that frame how every individual risk is assessed.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "RisksAndAssumptions".to_string(), member_name: "keyRisks".to_string(), section_id: "RIEN-KEYR-LST".to_string(), section_id_pattern: "RIEN-KEYR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RiskEntry".to_string(), serialization_order: Some(1), content_help: "List of identified project risks, each capturing analysis, response, ownership, and monitoring detail.".to_string(), doc_comment: "4.7.1. Key Risks — contains 0+× Risk.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 31000:2018 — risk management".to_string()), som::Json::Str("PMBOK — project risk management".to_string())])), ("connotation".to_string(), som::Json::Str("This list holds the individual risk entries that make up the project risk register and drive prioritization and response planning.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "RisksAndAssumptions".to_string(), member_name: "keyRisks".to_string(), section_id: "RISENT-KEYR-LST".to_string(), section_id_pattern: "RISENT-KEYR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RiskEntry".to_string(), serialization_order: Some(1), content_help: "List of identified project risks, each capturing analysis, response, ownership, and monitoring detail.".to_string(), doc_comment: "4.7.1. Key Risks — contains 0+× Risk.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 31000:2018 — risk management".to_string()), som::Json::Str("PMBOK — project risk management".to_string())])), ("connotation".to_string(), som::Json::Str("This list holds the individual risk entries that make up the project risk register and drive prioritization and response planning.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("RiskEntry", s, meta_children_risk_entry, |r, c| som::SomMetaNode {
                 class_name: "RiskEntry".to_string(), class_section_id: "RISENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RiskEntry".to_string(), doc_comment: "A risk entry (form).\n\nComprehensive risk documentation following ISO 31000 and PMBOK guidelines.\nCaptures risk identification, analysis, response planning, ownership,\nand monitoring information for systematic risk management.".to_string(), class_doc_comment: "A risk entry (form).\n\nComprehensive risk documentation following ISO 31000 and PMBOK guidelines.\nCaptures risk identification, analysis, response planning, ownership,\nand monitoring information for systematic risk management.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -13405,7 +13405,7 @@ fn meta_children_scope_boundaries(s: &mut HashSet<String>) -> Vec<Rc<som::SomMet
     vec![
         Rc::new(som::SomMetaNode { class_name: "ScopeBoundaries".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "ScopeBoundaries".to_string(), member_name: "inScopeItems".to_string(), section_id: "SCITE-INSC-LST".to_string(), section_id_pattern: "SCITE-INSC-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ScopeItemEntry".to_string(), serialization_order: Some(1), min: Some(1), content_help: "List all items that are explicitly in scope for this project. Be specific about features, processes, user groups, and systems.".to_string(), doc_comment: "In-Scope Items — contains 1+× ScopeItem.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — system scope & boundaries".to_string())])), ("connotation".to_string(), som::Json::Str("The set of items explicitly included within the scope of this project.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ScopeBoundaries".to_string(), member_name: "inScopeItems".to_string(), section_id: "SIE-INSC-LST".to_string(), section_id_pattern: "SIE-INSC-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ScopeItemEntry".to_string(), serialization_order: Some(1), min: Some(1), content_help: "List all items that are explicitly in scope for this project. Be specific about features, processes, user groups, and systems.".to_string(), doc_comment: "In-Scope Items — contains 1+× ScopeItem.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — system scope & boundaries".to_string())])), ("connotation".to_string(), som::Json::Str("The set of items explicitly included within the scope of this project.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ScopeItemEntry", s, meta_children_scope_item_entry, |r, c| som::SomMetaNode {
                 class_name: "ScopeItemEntry".to_string(), class_section_id: "SIE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScopeItemEntry".to_string(), doc_comment: "A scope item entry (in-scope or out-of-scope).".to_string(), class_doc_comment: "A scope item entry (in-scope or out-of-scope).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -13413,7 +13413,7 @@ fn meta_children_scope_boundaries(s: &mut HashSet<String>) -> Vec<Rc<som::SomMet
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "ScopeBoundaries".to_string(), member_name: "outOfScopeItems".to_string(), section_id: "SCITE-OUTO-LST".to_string(), section_id_pattern: "SCITE-OUTO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ScopeItemEntry".to_string(), serialization_order: Some(2), content_help: "List items explicitly excluded. This is as important as in-scope items to prevent misunderstandings and scope creep.".to_string(), doc_comment: "Out-of-Scope Items — contains 0+× ScopeItem.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — system scope & boundaries".to_string())])), ("connotation".to_string(), som::Json::Str("The set of items explicitly excluded from the scope of this project.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ScopeBoundaries".to_string(), member_name: "outOfScopeItems".to_string(), section_id: "SIE-OUTO-LST".to_string(), section_id_pattern: "SIE-OUTO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ScopeItemEntry".to_string(), serialization_order: Some(2), content_help: "List items explicitly excluded. This is as important as in-scope items to prevent misunderstandings and scope creep.".to_string(), doc_comment: "Out-of-Scope Items — contains 0+× ScopeItem.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — system scope & boundaries".to_string())])), ("connotation".to_string(), som::Json::Str("The set of items explicitly excluded from the scope of this project.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ScopeItemEntry", s, meta_children_scope_item_entry, |r, c| som::SomMetaNode {
                 class_name: "ScopeItemEntry".to_string(), class_section_id: "SIE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScopeItemEntry".to_string(), doc_comment: "A scope item entry (in-scope or out-of-scope).".to_string(), class_doc_comment: "A scope item entry (in-scope or out-of-scope).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -13428,7 +13428,7 @@ fn meta_children_scope_boundaries(s: &mut HashSet<String>) -> Vec<Rc<som::SomMet
             }));
             Rc::new(n)
         },
-        Rc::new(som::SomMetaNode { class_name: "ScopeBoundaries".to_string(), member_name: "scopeAssumptions".to_string(), section_id: "SCOPE-SCOP-LST".to_string(), section_id_pattern: "SCOPE-SCOP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "Add one entry per assumption that underpins the scope boundaries. State what is assumed and the impact if it proves false.".to_string(), doc_comment: "Scope Assumptions.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — system scope & boundaries".to_string())])), ("connotation".to_string(), som::Json::Str("The set of assumptions on which the defined scope boundaries depend.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ScopeBoundaries".to_string(), member_name: "scopeAssumptions".to_string(), section_id: "SCBND-SCOP-LST".to_string(), section_id_pattern: "SCBND-SCOP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "Add one entry per assumption that underpins the scope boundaries. State what is assumed and the impact if it proves false.".to_string(), doc_comment: "Scope Assumptions.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — system scope & boundaries".to_string())])), ("connotation".to_string(), som::Json::Str("The set of assumptions on which the defined scope boundaries depend.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -13521,7 +13521,7 @@ fn meta_children_screen_element_entry(s: &mut HashSet<String>) -> Vec<Rc<som::So
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "ScreenElementEntry".to_string(), member_name: "validationRules".to_string(), section_id: "EVRE-VALI-LST".to_string(), section_id_pattern: "EVRE-VALI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ElementValidationRuleEntry".to_string(), serialization_order: Some(9), content_help: "Add one entry per validation rule.".to_string(), doc_comment: "Contains 0+× ElementValidationRule.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-143:2012 — validation of user input in form-based interaction".to_string()), som::Json::Str("ISO 9241-110:2020 — use error tolerance through input validation".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of validation rules that constrain and check the input for a screen element.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ScreenElementEntry".to_string(), member_name: "validationRules".to_string(), section_id: "ELVARUEN-VALI-LST".to_string(), section_id_pattern: "ELVARUEN-VALI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ElementValidationRuleEntry".to_string(), serialization_order: Some(9), content_help: "Add one entry per validation rule.".to_string(), doc_comment: "Contains 0+× ElementValidationRule.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-143:2012 — validation of user input in form-based interaction".to_string()), som::Json::Str("ISO 9241-110:2020 — use error tolerance through input validation".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of validation rules that constrain and check the input for a screen element.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ElementValidationRuleEntry", s, meta_children_element_validation_rule_entry, |r, c| som::SomMetaNode {
                 class_name: "ElementValidationRuleEntry".to_string(), class_section_id: "ELVARUEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ElementValidationRuleEntry".to_string(), doc_comment: "A validation rule entry (form).".to_string(), class_doc_comment: "A validation rule entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -13568,7 +13568,7 @@ fn meta_children_screen_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNod
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "ScreenEntry".to_string(), member_name: "userCategories".to_string(), section_id: "SCRUSC-USER-LST".to_string(), section_id_pattern: "SCRUSC-USER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ScreenUserCategoryEntry".to_string(), serialization_order: Some(9), content_help: "Add one entry per user category.".to_string(), doc_comment: "Contains 0+× ScreenUserCategory.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-11:2018 — the categories of users and their context of use for a screen".to_string()), som::Json::Str("ISO 9241-210:2019 — user groups whose tasks the interface must support".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of user categories that describe who uses this screen and in what context.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ScreenEntry".to_string(), member_name: "userCategories".to_string(), section_id: "SUCE-USER-LST".to_string(), section_id_pattern: "SUCE-USER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ScreenUserCategoryEntry".to_string(), serialization_order: Some(9), content_help: "Add one entry per user category.".to_string(), doc_comment: "Contains 0+× ScreenUserCategory.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-11:2018 — the categories of users and their context of use for a screen".to_string()), som::Json::Str("ISO 9241-210:2019 — user groups whose tasks the interface must support".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of user categories that describe who uses this screen and in what context.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ScreenUserCategoryEntry", s, meta_children_screen_user_category_entry, |r, c| som::SomMetaNode {
                 class_name: "ScreenUserCategoryEntry".to_string(), class_section_id: "SUCE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScreenUserCategoryEntry".to_string(), doc_comment: "A user category entry (form).".to_string(), class_doc_comment: "A user category entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -13584,7 +13584,7 @@ fn meta_children_screen_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNod
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "ScreenEntry".to_string(), member_name: "responsiveRules".to_string(), section_id: "SRRE-RESP-LST".to_string(), section_id_pattern: "SRRE-RESP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ScreenResponsiveRuleEntry".to_string(), serialization_order: Some(11), content_help: "Add one entry per responsive rule.".to_string(), doc_comment: "Contains 0+× ScreenResponsiveRule.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-125:2017 — adaptation of visual presentation to different display conditions".to_string()), som::Json::Str("ISO 9241-112:2017 — presentation of information across varying contexts of use".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of responsive rules that adapt a screen layout to different device sizes.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ScreenEntry".to_string(), member_name: "responsiveRules".to_string(), section_id: "SCRERUEN-RESP-LST".to_string(), section_id_pattern: "SCRERUEN-RESP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ScreenResponsiveRuleEntry".to_string(), serialization_order: Some(11), content_help: "Add one entry per responsive rule.".to_string(), doc_comment: "Contains 0+× ScreenResponsiveRule.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-125:2017 — adaptation of visual presentation to different display conditions".to_string()), som::Json::Str("ISO 9241-112:2017 — presentation of information across varying contexts of use".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of responsive rules that adapt a screen layout to different device sizes.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ScreenResponsiveRuleEntry", s, meta_children_screen_responsive_rule_entry, |r, c| som::SomMetaNode {
                 class_name: "ScreenResponsiveRuleEntry".to_string(), class_section_id: "SCRERUEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ScreenResponsiveRuleEntry".to_string(), doc_comment: "A responsive rule entry (form).\n\nHow the screen adapts at different breakpoints.".to_string(), class_doc_comment: "A responsive rule entry (form).\n\nHow the screen adapts at different breakpoints.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -13757,7 +13757,7 @@ fn meta_children_secondary_navigation(s: &mut HashSet<String>) -> Vec<Rc<som::So
         Rc::new(som::SomMetaNode { class_name: "SecondaryNavigation".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "## Secondary Navigation (10.3.1.4)\n\nIn-page navigation: tab bars and segmented controls.\n\n### Tab Bar Properties\n- Host screen ID\n- Style (Material/Segmented/Pill/Scrollable)\n- Position (Top/Bottom/Left)\n- Default tab and persistence\n- Swipe and lazy loading behavior\n\n### Tab Item Properties\n- Label, icon, and content screen\n- Authorization and visibility\n- Badges for attention\n\n### Tom UI Mapping\nTab bars map to `TomTabBar` with:\n- Swipe navigation on mobile\n- Lazy content loading\n- Permission-aware tab visibility\n".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SecondaryNavigation".to_string(), member_name: "overview".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Overview of secondary navigation patterns.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "SecondaryNavigation".to_string(), member_name: "tabBars".to_string(), section_id: "TBDE-TABB-LST".to_string(), section_id_pattern: "TBDE-TABB-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "TabBarDefinitionEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per tab bar or segmented control.".to_string(), doc_comment: "Contains 0+× TabBarDefinition.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-143:2012 — grouped selectable navigation controls presented as tab bars".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of tab-bar definitions used for in-page secondary navigation.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "SecondaryNavigation".to_string(), member_name: "tabBars".to_string(), section_id: "TABADEEN-TABB-LST".to_string(), section_id_pattern: "TABADEEN-TABB-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "TabBarDefinitionEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per tab bar or segmented control.".to_string(), doc_comment: "Contains 0+× TabBarDefinition.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-143:2012 — grouped selectable navigation controls presented as tab bars".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of tab-bar definitions used for in-page secondary navigation.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("TabBarDefinitionEntry", s, meta_children_tab_bar_definition_entry, |r, c| som::SomMetaNode {
                 class_name: "TabBarDefinitionEntry".to_string(), class_section_id: "TABADEEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TabBarDefinitionEntry".to_string(), doc_comment: "A tab bar definition entry (form).\n\nDefines a tab bar or segmented control on a specific screen.".to_string(), class_doc_comment: "A tab bar definition entry (form).\n\nDefines a tab bar or segmented control on a specific screen.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -13844,7 +13844,7 @@ fn meta_children_security_audit_requirements_section(s: &mut HashSet<String>) ->
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "SecurityAuditRequirementsSection".to_string(), member_name: "auditEntries".to_string(), section_id: "SEAUEN-AUDI-LST".to_string(), section_id_pattern: "SEAUEN-AUDI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SecurityAuditEntry".to_string(), serialization_order: Some(8), content_help: "Add one entry per security audit requirement.".to_string(), doc_comment: "Individual security audit requirement entries — contains 0+× SecurityAudit.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27001 — internal audit and management review (Clause 9)".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of individual security audit requirements the system must satisfy.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "SecurityAuditRequirementsSection".to_string(), member_name: "auditEntries".to_string(), section_id: "SAE-AUDI-LST".to_string(), section_id_pattern: "SAE-AUDI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SecurityAuditEntry".to_string(), serialization_order: Some(8), content_help: "Add one entry per security audit requirement.".to_string(), doc_comment: "Individual security audit requirement entries — contains 0+× SecurityAudit.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27001 — internal audit and management review (Clause 9)".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of individual security audit requirements the system must satisfy.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("SecurityAuditEntry", s, meta_children_security_audit_entry, |r, c| som::SomMetaNode {
                 class_name: "SecurityAuditEntry".to_string(), class_section_id: "SAE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SecurityAuditEntry".to_string(), doc_comment: "A security audit requirement entry (form).".to_string(), class_doc_comment: "A security audit requirement entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -13910,7 +13910,7 @@ fn meta_children_security_controls(s: &mut HashSet<String>) -> Vec<Rc<som::SomMe
     vec![
         Rc::new(som::SomMetaNode { class_name: "SecurityControls".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Overview of security controls for this requirement.".to_string() }), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "SecurityControls".to_string(), member_name: "controls".to_string(), section_id: "SECCT-CONT-LST".to_string(), section_id_pattern: "SECCT-CONT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SecurityControlEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per security control implementing this requirement.".to_string(), doc_comment: "Security control entries — contains 0+× SecurityControlEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27002 — information security controls".to_string()), som::Json::Str("OWASP ASVS — security verification".to_string()), som::Json::Str("NIST SP 800-53 — security controls".to_string())])), ("connotation".to_string(), som::Json::Str("The set of individual security control entries implementing or supporting this security requirement.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "SecurityControls".to_string(), member_name: "controls".to_string(), section_id: "SECOEN-CONT-LST".to_string(), section_id_pattern: "SECOEN-CONT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SecurityControlEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per security control implementing this requirement.".to_string(), doc_comment: "Security control entries — contains 0+× SecurityControlEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27002 — information security controls".to_string()), som::Json::Str("OWASP ASVS — security verification".to_string()), som::Json::Str("NIST SP 800-53 — security controls".to_string())])), ("connotation".to_string(), som::Json::Str("The set of individual security control entries implementing or supporting this security requirement.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("SecurityControlEntry", s, meta_children_security_control_entry, |r, c| som::SomMetaNode {
                 class_name: "SecurityControlEntry".to_string(), class_section_id: "SECOEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SecurityControlEntry".to_string(), doc_comment: "A security control entry (form).".to_string(), class_doc_comment: "A security control entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -14175,7 +14175,7 @@ fn meta_children_server_requirements_section(s: &mut HashSet<String>) -> Vec<Rc<
         Rc::new(som::SomMetaNode { class_name: "ServerRequirementsSection".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Provide an overview of server infrastructure strategy.\n\n**Include**:\n- Server tier definitions and sizing\n- Scaling strategy and limits\n- High availability approach\n- Cloud provider selection rationale\n- Cost estimates and optimization plan\n\n**Best Practices**:\n- Right-size instances based on actual usage\n- Use reserved instances for stable workloads\n- Implement cost allocation tagging\n- Plan for zone and region redundancy\n- Document capacity planning assumptions\n".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ServerRequirementsSection".to_string(), member_name: "overview".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Overview of server infrastructure strategy.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "ServerRequirementsSection".to_string(), member_name: "environments".to_string(), section_id: "SEENEN-ENVI-LST".to_string(), section_id_pattern: "SEENEN-ENVI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ServerEnvironmentEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per server environment.".to_string(), doc_comment: "Server environment tiers (dev, staging, production, DR).".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("IaaS / cloud infrastructure — server provisioning".to_string())])), ("connotation".to_string(), som::Json::Str("The server environments the system is deployed to.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ServerRequirementsSection".to_string(), member_name: "environments".to_string(), section_id: "SEE-ENVI-LST".to_string(), section_id_pattern: "SEE-ENVI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ServerEnvironmentEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per server environment.".to_string(), doc_comment: "Server environment tiers (dev, staging, production, DR).".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("IaaS / cloud infrastructure — server provisioning".to_string())])), ("connotation".to_string(), som::Json::Str("The server environments the system is deployed to.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ServerEnvironmentEntry", s, meta_children_server_environment_entry, |r, c| som::SomMetaNode {
                 class_name: "ServerEnvironmentEntry".to_string(), class_section_id: "SEE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ServerEnvironmentEntry".to_string(), doc_comment: "Server environment entry (development, staging, production, DR).".to_string(), class_doc_comment: "Server environment entry (development, staging, production, DR).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -14183,7 +14183,7 @@ fn meta_children_server_requirements_section(s: &mut HashSet<String>) -> Vec<Rc<
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "ServerRequirementsSection".to_string(), member_name: "serverRoles".to_string(), section_id: "SEROEN-SERV-LST".to_string(), section_id_pattern: "SEROEN-SERV-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ServerRoleEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per server role.".to_string(), doc_comment: "Server role definitions (app server, db server, web server).".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string())])), ("connotation".to_string(), som::Json::Str("The server roles that make up the deployment.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ServerRequirementsSection".to_string(), member_name: "serverRoles".to_string(), section_id: "SRE-SERV-LST".to_string(), section_id_pattern: "SRE-SERV-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ServerRoleEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per server role.".to_string(), doc_comment: "Server role definitions (app server, db server, web server).".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string())])), ("connotation".to_string(), som::Json::Str("The server roles that make up the deployment.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ServerRoleEntry", s, meta_children_server_role_entry, |r, c| som::SomMetaNode {
                 class_name: "ServerRoleEntry".to_string(), class_section_id: "SRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ServerRoleEntry".to_string(), doc_comment: "Server role entry (application server, database server, web server).".to_string(), class_doc_comment: "Server role entry (application server, database server, web server).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -14457,7 +14457,7 @@ fn meta_children_sla_and_slo_monitoring(s: &mut HashSet<String>) -> Vec<Rc<som::
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "SlaAndSloMonitoring".to_string(), member_name: "slos".to_string(), section_id: "SLEN-SLOS-LST".to_string(), section_id_pattern: "SLEN-SLOS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SloEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per SLO.".to_string(), doc_comment: "SLO catalog.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Google SRE — service level objectives (SLOs and SLIs)".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of service level objectives the system commits to.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "SlaAndSloMonitoring".to_string(), member_name: "slos".to_string(), section_id: "SE-SLOS-LST".to_string(), section_id_pattern: "SE-SLOS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SloEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per SLO.".to_string(), doc_comment: "SLO catalog.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Google SRE — service level objectives (SLOs and SLIs)".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of service level objectives the system commits to.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("SloEntry", s, meta_children_slo_entry, |r, c| som::SomMetaNode {
                 class_name: "SloEntry".to_string(), class_section_id: "SE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SloEntry".to_string(), doc_comment: "An SLO entry.".to_string(), class_doc_comment: "An SLO entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -14493,7 +14493,7 @@ fn meta_children_software_deliverables(s: &mut HashSet<String>) -> Vec<Rc<som::S
     vec![
         Rc::new(som::SomMetaNode { class_name: "SoftwareDeliverables".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Software deliverables: application components, libraries, tools, scripts,\nconfiguration files, deployment artifacts. Define for each:\n- Delivery format (container images, packages, installers, source code)\n- Delivery mechanism (registry, artifact repository, file transfer)\n- Version requirements and compatibility constraints\n- Licensing terms applicable to the deliverable\n- Environment-specific variants (production, staging, development)\n".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "SoftwareDeliverables".to_string(), member_name: "items".to_string(), section_id: "SWDLV-ITEM-LST".to_string(), section_id_pattern: "SWDLV-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DeliverableEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per software deliverable.".to_string(), doc_comment: "Contains 0+× Deliverable.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the individual software deliverables handed over as part of the delivery scope.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "SoftwareDeliverables".to_string(), member_name: "items".to_string(), section_id: "DLVEN-ITEM-LST".to_string(), section_id_pattern: "DLVEN-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DeliverableEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per software deliverable.".to_string(), doc_comment: "Contains 0+× Deliverable.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the individual software deliverables handed over as part of the delivery scope.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DeliverableEntry", s, meta_children_deliverable_entry, |r, c| som::SomMetaNode {
                 class_name: "DeliverableEntry".to_string(), class_section_id: "DLVEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DeliverableEntry".to_string(), doc_comment: "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.".to_string(), class_doc_comment: "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -14859,8 +14859,8 @@ fn meta_children_staging_strategy(s: &mut HashSet<String>) -> Vec<Rc<som::SomMet
         Rc::new(som::SomMetaNode { class_name: "StagingStrategy".to_string(), member_name: "governance".to_string(), section_id: "STAGGV".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(12), doc_comment: "Governance and approvals.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "governanceApproach".to_string(), type_name: "String".to_string(), description: "Governance Approach".to_string(), required: false, hint: "How staging decisions will be governed".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "approvalAuthority".to_string(), type_name: "String".to_string(), description: "Approval Authority".to_string(), required: false, hint: "Who has authority to approve stage transitions".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "escalationPath".to_string(), type_name: "String".to_string(), description: "Escalation Path".to_string(), required: false, hint: "Escalation path for issues and decisions".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "exceptionHandling".to_string(), type_name: "String".to_string(), description: "Exception Handling".to_string(), required: false, hint: "How exceptions to the staging plan will be handled".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PRINCE2 2017 — the managing successful projects method defines project governance, tolerances, and escalation through the management-stage structure".to_string()), som::Json::Str("ISO 21502:2020 — the guidance on project management describes governance roles and decision authorities across the project life cycle".to_string())])), ("connotation".to_string(), som::Json::Str("Captures how staging decisions are governed, who approves stage transitions, and how exceptions and escalations are handled.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "StagingStrategy".to_string(), member_name: "stagingApproach".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(13), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Detailed description of the staging approach: how stages are defined, sequenced, and executed. Cover big bang vs phased rollout, geography-based vs function-based staging, pilot groups, parallel operation periods, and cutover methodologies.".to_string(), doc_comment: "13.1.1. Staging Approach.".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "StagingStrategy".to_string(), member_name: "rationaleNarrative".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(14), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Justification for the chosen staging approach: risk reduction benefits, early value delivery opportunities, resource optimization factors, alternatives considered and why rejected, alignment with organizational change capacity.".to_string(), doc_comment: "13.1.2. Rationale.".to_string(), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "StagingStrategy".to_string(), member_name: "keyAssumptions".to_string(), section_id: "KEYAS-KEYA-LST".to_string(), section_id_pattern: "KEYAS-KEYA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(15), content_help: "Add one entry per key assumption.".to_string(), doc_comment: "13.1.3. Key Assumptions.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK Guide 7th edition 2021 — the PMI guidance addresses documenting and tracking project assumptions".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the key assumptions underpinning the staging strategy.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "StagingStrategy".to_string(), member_name: "constraints".to_string(), section_id: "STAGI-CONS-LST".to_string(), section_id_pattern: "STAGI-CONS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(16), content_help: "Add one entry per staging constraint.".to_string(), doc_comment: "13.1.4. Constraints.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 21502:2020 — the guidance on project management covers identification and management of project constraints".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the constraints bounding the staging strategy.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "StagingStrategy".to_string(), member_name: "keyAssumptions".to_string(), section_id: "STAGST-KEYA-LST".to_string(), section_id_pattern: "STAGST-KEYA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(15), content_help: "Add one entry per key assumption.".to_string(), doc_comment: "13.1.3. Key Assumptions.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK Guide 7th edition 2021 — the PMI guidance addresses documenting and tracking project assumptions".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the key assumptions underpinning the staging strategy.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "StagingStrategy".to_string(), member_name: "constraints".to_string(), section_id: "STAGST-CONS-LST".to_string(), section_id_pattern: "STAGST-CONS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(16), content_help: "Add one entry per staging constraint.".to_string(), doc_comment: "13.1.4. Constraints.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 21502:2020 — the guidance on project management covers identification and management of project constraints".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the constraints bounding the staging strategy.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -14927,7 +14927,7 @@ fn meta_children_stakeholders_and_governance(s: &mut HashSet<String>) -> Vec<Rc<
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "StakeholdersAndGovernance".to_string(), member_name: "stakeholderRegister".to_string(), section_id: "STKRG-STAK-LST".to_string(), section_id_pattern: "STKRG-STAK-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "StakeholderRegisterEntry".to_string(), serialization_order: Some(8), content_help: "Add one entry per stakeholder or group (STK-NNN).".to_string(), doc_comment: "Stakeholder register.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 — stakeholder analysis (RACI / influence-interest grid)".to_string())])), ("connotation".to_string(), som::Json::Str("The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "StakeholdersAndGovernance".to_string(), member_name: "stakeholderRegister".to_string(), section_id: "STKRE-STAK-LST".to_string(), section_id_pattern: "STKRE-STAK-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "StakeholderRegisterEntry".to_string(), serialization_order: Some(8), content_help: "Add one entry per stakeholder or group (STK-NNN).".to_string(), doc_comment: "Stakeholder register.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 — stakeholder analysis (RACI / influence-interest grid)".to_string())])), ("connotation".to_string(), som::Json::Str("The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("StakeholderRegisterEntry", s, meta_children_stakeholder_register_entry, |r, c| som::SomMetaNode {
                 class_name: "StakeholderRegisterEntry".to_string(), class_section_id: "STKRE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "StakeholderRegisterEntry".to_string(), doc_comment: "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).".to_string(), class_doc_comment: "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -14962,7 +14962,7 @@ fn meta_children_standards_compliance_section(s: &mut HashSet<String>) -> Vec<Rc
         Rc::new(som::SomMetaNode { class_name: "StandardsComplianceSection".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Provide an overview of standards compliance strategy and roadmap.\n\n**Include**:\n- Applicable standards and regulations\n- Current compliance status\n- Gap analysis and remediation plan\n- Certification timeline and budget\n- Ongoing compliance maintenance\n\n**Best Practices**:\n- Map standards to specific controls\n- Automate compliance evidence collection\n- Schedule regular compliance reviews\n- Train team on compliance requirements\n- Engage compliance consultants for audits\n".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "StandardsComplianceSection".to_string(), member_name: "overview".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Overview of standards compliance strategy.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "StandardsComplianceSection".to_string(), member_name: "itStandards".to_string(), section_id: "ISCE-ITST-LST".to_string(), section_id_pattern: "ISCE-ITST-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ItStandardComplianceEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per IT standard.".to_string(), doc_comment: "IT standards compliance (ISO, IEEE, NIST).".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — product quality model".to_string()), som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string())])), ("connotation".to_string(), som::Json::Str("The IT standards the system must comply with.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "StandardsComplianceSection".to_string(), member_name: "itStandards".to_string(), section_id: "ITSTCOEN-ITST-LST".to_string(), section_id_pattern: "ITSTCOEN-ITST-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ItStandardComplianceEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per IT standard.".to_string(), doc_comment: "IT standards compliance (ISO, IEEE, NIST).".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — product quality model".to_string()), som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string())])), ("connotation".to_string(), som::Json::Str("The IT standards the system must comply with.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ItStandardComplianceEntry", s, meta_children_it_standard_compliance_entry, |r, c| som::SomMetaNode {
                 class_name: "ItStandardComplianceEntry".to_string(), class_section_id: "ITSTCOEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ItStandardComplianceEntry".to_string(), doc_comment: "IT standard compliance entry (ISO, IEEE, NIST, OASIS).".to_string(), class_doc_comment: "IT standard compliance entry (ISO, IEEE, NIST, OASIS).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -14970,7 +14970,7 @@ fn meta_children_standards_compliance_section(s: &mut HashSet<String>) -> Vec<Rc
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "StandardsComplianceSection".to_string(), member_name: "industryProtocols".to_string(), section_id: "IPCE-INDU-LST".to_string(), section_id_pattern: "IPCE-INDU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "IndustryProtocolComplianceEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per industry protocol.".to_string(), doc_comment: "Industry protocols compliance.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("HL7 / FHIR / ISO 20022 — industry data-exchange standards".to_string()), som::Json::Str("ISO 9001 — quality management systems".to_string())])), ("connotation".to_string(), som::Json::Str("The industry protocols the system must comply with.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "StandardsComplianceSection".to_string(), member_name: "industryProtocols".to_string(), section_id: "INPRCOEN-INDU-LST".to_string(), section_id_pattern: "INPRCOEN-INDU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "IndustryProtocolComplianceEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per industry protocol.".to_string(), doc_comment: "Industry protocols compliance.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("HL7 / FHIR / ISO 20022 — industry data-exchange standards".to_string()), som::Json::Str("ISO 9001 — quality management systems".to_string())])), ("connotation".to_string(), som::Json::Str("The industry protocols the system must comply with.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("IndustryProtocolComplianceEntry", s, meta_children_industry_protocol_compliance_entry, |r, c| som::SomMetaNode {
                 class_name: "IndustryProtocolComplianceEntry".to_string(), class_section_id: "INPRCOEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "IndustryProtocolComplianceEntry".to_string(), doc_comment: "Industry protocol compliance entry.".to_string(), class_doc_comment: "Industry protocol compliance entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -14978,7 +14978,7 @@ fn meta_children_standards_compliance_section(s: &mut HashSet<String>) -> Vec<Rc
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "StandardsComplianceSection".to_string(), member_name: "interfaceSpecifications".to_string(), section_id: "INSPEN-INTE-LST".to_string(), section_id_pattern: "INSPEN-INTE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "InterfaceSpecificationEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per interface specification.".to_string(), doc_comment: "Interface specification standards.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — product quality model".to_string()), som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string())])), ("connotation".to_string(), som::Json::Str("The interface specification standards the system must follow.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "StandardsComplianceSection".to_string(), member_name: "interfaceSpecifications".to_string(), section_id: "INTSPEENT-INTE-LST".to_string(), section_id_pattern: "INTSPEENT-INTE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "InterfaceSpecificationEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per interface specification.".to_string(), doc_comment: "Interface specification standards.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — product quality model".to_string()), som::Json::Str("ISO/IEC/IEEE 42010 — architecture description".to_string())])), ("connotation".to_string(), som::Json::Str("The interface specification standards the system must follow.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("InterfaceSpecificationEntry", s, meta_children_interface_specification_entry, |r, c| som::SomMetaNode {
                 class_name: "InterfaceSpecificationEntry".to_string(), class_section_id: "INTSPEENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InterfaceSpecificationEntry".to_string(), doc_comment: "Interface specification entry (REST, GraphQL, gRPC, SOAP).".to_string(), class_doc_comment: "Interface specification entry (REST, GraphQL, gRPC, SOAP).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -14986,7 +14986,7 @@ fn meta_children_standards_compliance_section(s: &mut HashSet<String>) -> Vec<Rc
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "StandardsComplianceSection".to_string(), member_name: "regulatoryCompliance".to_string(), section_id: "RECOEN-REGU-LST".to_string(), section_id_pattern: "RECOEN-REGU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RegulatoryComplianceEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per regulation.".to_string(), doc_comment: "Regulatory compliance requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("GDPR — data protection regulation".to_string()), som::Json::Str("ISO/IEC 27001 — information security management".to_string())])), ("connotation".to_string(), som::Json::Str("The regulatory frameworks the system must comply with.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "StandardsComplianceSection".to_string(), member_name: "regulatoryCompliance".to_string(), section_id: "RCE-REGU-LST".to_string(), section_id_pattern: "RCE-REGU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "RegulatoryComplianceEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per regulation.".to_string(), doc_comment: "Regulatory compliance requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("GDPR — data protection regulation".to_string()), som::Json::Str("ISO/IEC 27001 — information security management".to_string())])), ("connotation".to_string(), som::Json::Str("The regulatory frameworks the system must comply with.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("RegulatoryComplianceEntry", s, meta_children_regulatory_compliance_entry, |r, c| som::SomMetaNode {
                 class_name: "RegulatoryComplianceEntry".to_string(), class_section_id: "RCE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "RegulatoryComplianceEntry".to_string(), doc_comment: "Regulatory compliance entry (GDPR, HIPAA, PCI-DSS, SOX).".to_string(), class_doc_comment: "Regulatory compliance entry (GDPR, HIPAA, PCI-DSS, SOX).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -14994,7 +14994,7 @@ fn meta_children_standards_compliance_section(s: &mut HashSet<String>) -> Vec<Rc
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "StandardsComplianceSection".to_string(), member_name: "securityStandards".to_string(), section_id: "SSCE-SECU-LST".to_string(), section_id_pattern: "SSCE-SECU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SecurityStandardComplianceEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per security standard.".to_string(), doc_comment: "Security standards compliance.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27001 — information security management".to_string()), som::Json::Str("ISO/IEC 27002 — information security controls".to_string())])), ("connotation".to_string(), som::Json::Str("The security standards the system must comply with.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "StandardsComplianceSection".to_string(), member_name: "securityStandards".to_string(), section_id: "SESTCOEN-SECU-LST".to_string(), section_id_pattern: "SESTCOEN-SECU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SecurityStandardComplianceEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per security standard.".to_string(), doc_comment: "Security standards compliance.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27001 — information security management".to_string()), som::Json::Str("ISO/IEC 27002 — information security controls".to_string())])), ("connotation".to_string(), som::Json::Str("The security standards the system must comply with.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("SecurityStandardComplianceEntry", s, meta_children_security_standard_compliance_entry, |r, c| som::SomMetaNode {
                 class_name: "SecurityStandardComplianceEntry".to_string(), class_section_id: "SESTCOEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SecurityStandardComplianceEntry".to_string(), doc_comment: "Security standard compliance entry (SOC2, ISO 27001, CIS).".to_string(), class_doc_comment: "Security standard compliance entry (SOC2, ISO 27001, CIS).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -15044,7 +15044,7 @@ fn meta_children_steering_committee(s: &mut HashSet<String>) -> Vec<Rc<som::SomM
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "SteeringCommittee".to_string(), member_name: "members".to_string(), section_id: "COMMB-MEMB-LST".to_string(), section_id_pattern: "COMMB-MEMB-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "CommitteeMemberEntry".to_string(), serialization_order: Some(2), min: Some(1), content_help: "Add one entry per steering committee member, capturing their organizational and committee role, decision authority, and contact.".to_string(), doc_comment: "Steering committee members — contains 1+× Committee Member.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK — project governance & organizational structure".to_string()), som::Json::Str("ISO 21500 — project management (governance, roles & responsibilities)".to_string())])), ("connotation".to_string(), som::Json::Str("The roster of steering committee members and their governance roles.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "SteeringCommittee".to_string(), member_name: "members".to_string(), section_id: "CME-MEMB-LST".to_string(), section_id_pattern: "CME-MEMB-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "CommitteeMemberEntry".to_string(), serialization_order: Some(2), min: Some(1), content_help: "Add one entry per steering committee member, capturing their organizational and committee role, decision authority, and contact.".to_string(), doc_comment: "Steering committee members — contains 1+× Committee Member.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK — project governance & organizational structure".to_string()), som::Json::Str("ISO 21500 — project management (governance, roles & responsibilities)".to_string())])), ("connotation".to_string(), som::Json::Str("The roster of steering committee members and their governance roles.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("CommitteeMemberEntry", s, meta_children_committee_member_entry, |r, c| som::SomMetaNode {
                 class_name: "CommitteeMemberEntry".to_string(), class_section_id: "CME".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "CommitteeMemberEntry".to_string(), doc_comment: "A steering committee member entry (form).\n\nDetailed information about a steering committee member.".to_string(), class_doc_comment: "A steering committee member entry (form).\n\nDetailed information about a steering committee member.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -15057,7 +15057,7 @@ fn meta_children_steering_committee(s: &mut HashSet<String>) -> Vec<Rc<som::SomM
 fn meta_children_step_up_authentication_policy(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "StepUpAuthenticationPolicy".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "StepUpAuthenticationPolicy".to_string(), member_name: "stepUpDetails".to_string(), section_id: "STEPU-STEP-LST".to_string(), section_id_pattern: "STEPU-STEP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_help: "Add one entry per step-up authentication step.".to_string(), doc_comment: "Step-Up Authentication Details (text).".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("NIST SP 800-63B — authentication and authenticator lifecycle".to_string()), som::Json::Str("OWASP ASVS V2 — authentication verification requirements".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of step-up authentication detail entries.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "StepUpAuthenticationPolicy".to_string(), member_name: "stepUpDetails".to_string(), section_id: "SUAP-STEP-LST".to_string(), section_id_pattern: "SUAP-STEP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_help: "Add one entry per step-up authentication step.".to_string(), doc_comment: "Step-Up Authentication Details (text).".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("NIST SP 800-63B — authentication and authenticator lifecycle".to_string()), som::Json::Str("OWASP ASVS V2 — authentication verification requirements".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of step-up authentication detail entries.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -15172,7 +15172,7 @@ fn meta_children_support_deliverables(s: &mut HashSet<String>) -> Vec<Rc<som::So
     vec![
         Rc::new(som::SomMetaNode { class_name: "SupportDeliverables".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Support deliverables: transition support during go-live, warranty support\npost-acceptance, knowledge transfer sessions, escalation contacts,\nSLA definitions, support tooling and access. Define support hours,\nresponse times, coverage period, and handover criteria.\n".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "SupportDeliverables".to_string(), member_name: "items".to_string(), section_id: "SPDLV-ITEM-LST".to_string(), section_id_pattern: "SPDLV-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DeliverableEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per support deliverable.".to_string(), doc_comment: "Contains 0+× Deliverable.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 20000-1:2018 — the IT service management standard defines service delivery, support, and warranty commitments".to_string()), som::Json::Str("ITIL 4 2019 — the service management framework defines service delivery, support, and training practices".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the individual support deliverables handed over as part of the delivery scope.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "SupportDeliverables".to_string(), member_name: "items".to_string(), section_id: "DLVEN-ITEM-LST".to_string(), section_id_pattern: "DLVEN-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DeliverableEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per support deliverable.".to_string(), doc_comment: "Contains 0+× Deliverable.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 20000-1:2018 — the IT service management standard defines service delivery, support, and warranty commitments".to_string()), som::Json::Str("ITIL 4 2019 — the service management framework defines service delivery, support, and training practices".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the individual support deliverables handed over as part of the delivery scope.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DeliverableEntry", s, meta_children_deliverable_entry, |r, c| som::SomMetaNode {
                 class_name: "DeliverableEntry".to_string(), class_section_id: "DLVEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DeliverableEntry".to_string(), doc_comment: "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.".to_string(), class_doc_comment: "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -15260,7 +15260,7 @@ fn meta_children_system_business_criticality(s: &mut HashSet<String>) -> Vec<Rc<
         Rc::new(som::SomMetaNode { class_name: "SystemBusinessCriticality".to_string(), member_name: "operations".to_string(), section_id: "SBCO".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Usage scale and commercial impact.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "peakConcurrentUsers".to_string(), type_name: "int".to_string(), description: "Peak Concurrent Users".to_string(), required: false, hint: "Maximum simultaneous users observed".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "transactionVolume".to_string(), type_name: "String".to_string(), description: "Transaction Volume".to_string(), required: false, hint: "Typical transaction throughput".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataVolume".to_string(), type_name: "String".to_string(), description: "Data Volume".to_string(), required: false, hint: "Approximate volume of data handled".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "revenueImpact".to_string(), type_name: "String".to_string(), description: "Revenue Impact (Direct, Indirect, None)".to_string(), required: false, hint: "How the system affects revenue".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — application portfolio management (operational scale & revenue impact)".to_string())])), ("connotation".to_string(), som::Json::Str("Captures usage scale and commercial impact — concurrency, volumes, and revenue dependency — that weigh on the criticality assessment.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemBusinessCriticality".to_string(), member_name: "governance".to_string(), section_id: "SBCG".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Delivery and compliance constraints.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "operationsImpact".to_string(), type_name: "String".to_string(), description: "Operations Impact (Severe, Moderate, Minor, None)".to_string(), required: false, hint: "Severity of disruption if the system is unavailable".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "complianceRole".to_string(), type_name: "String".to_string(), description: "Compliance/Regulatory Role".to_string(), required: false, hint: "Regulatory or compliance function the system serves".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "maxDowntime".to_string(), type_name: "String".to_string(), description: "Max Acceptable Downtime (RTO)".to_string(), required: false, hint: "Maximum tolerable outage / recovery time objective".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — application portfolio management (governance constraints)".to_string()), som::Json::Str("ISO/IEC 27001 — information security (compliance role)".to_string())])), ("connotation".to_string(), som::Json::Str("Captures operational impact, compliance role, and recovery objectives that constrain how and when the system can be replaced.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "SystemBusinessCriticality".to_string(), member_name: "businessUnits".to_string(), section_id: "SBUE-BUSI-LST".to_string(), section_id_pattern: "SBUE-BUSI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SystemBusinessUnitEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per business unit using the system; note user count and dependency level.".to_string(), doc_comment: "Business units and departments using this system.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — application portfolio management (business usage)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the business units and departments that depend on the system, quantifying organizational reach for impact planning.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "SystemBusinessCriticality".to_string(), member_name: "businessUnits".to_string(), section_id: "SYBUUNEN-BUSI-LST".to_string(), section_id_pattern: "SYBUUNEN-BUSI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SystemBusinessUnitEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per business unit using the system; note user count and dependency level.".to_string(), doc_comment: "Business units and departments using this system.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — application portfolio management (business usage)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the business units and departments that depend on the system, quantifying organizational reach for impact planning.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("SystemBusinessUnitEntry", s, meta_children_system_business_unit_entry, |r, c| som::SomMetaNode {
                 class_name: "SystemBusinessUnitEntry".to_string(), class_section_id: "SYBUUNEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SystemBusinessUnitEntry".to_string(), doc_comment: "Business unit using the system.".to_string(), class_doc_comment: "Business unit using the system.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -15268,7 +15268,7 @@ fn meta_children_system_business_criticality(s: &mut HashSet<String>) -> Vec<Rc<
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "SystemBusinessCriticality".to_string(), member_name: "supportedProcesses".to_string(), section_id: "SBPE-SUPP-LST".to_string(), section_id_pattern: "SBPE-SUPP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SystemBusinessProcessEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per business process the system supports; note its role and execution frequency.".to_string(), doc_comment: "Business processes supported by this system.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — application portfolio management (business processes)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the business processes the system supports, establishing the functional footprint that the replacement must preserve.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "SystemBusinessCriticality".to_string(), member_name: "supportedProcesses".to_string(), section_id: "SYBUPREN-SUPP-LST".to_string(), section_id_pattern: "SYBUPREN-SUPP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SystemBusinessProcessEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per business process the system supports; note its role and execution frequency.".to_string(), doc_comment: "Business processes supported by this system.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — application portfolio management (business processes)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the business processes the system supports, establishing the functional footprint that the replacement must preserve.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("SystemBusinessProcessEntry", s, meta_children_system_business_process_entry, |r, c| som::SomMetaNode {
                 class_name: "SystemBusinessProcessEntry".to_string(), class_section_id: "SYBUPREN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SystemBusinessProcessEntry".to_string(), doc_comment: "Business process supported.".to_string(), class_doc_comment: "Business process supported.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -15352,7 +15352,7 @@ fn meta_children_system_cost_analysis(_s: &mut HashSet<String>) -> Vec<Rc<som::S
         Rc::new(som::SomMetaNode { class_name: "SystemCostAnalysis".to_string(), member_name: "migration".to_string(), section_id: "SCAM".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "One-time migration and transition investments.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "migrationProjectCost".to_string(), type_name: "String".to_string(), description: "Migration Project Cost".to_string(), required: false, hint: "Cost of the migration project itself".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataConversionCost".to_string(), type_name: "String".to_string(), description: "Data Conversion Cost".to_string(), required: false, hint: "Cost to convert and migrate data".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "integrationCost".to_string(), type_name: "String".to_string(), description: "Integration Rebuild Cost".to_string(), required: false, hint: "Cost to rebuild integrations".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "trainingCost".to_string(), type_name: "String".to_string(), description: "Training Cost".to_string(), required: false, hint: "Cost of user training".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "parallelRunCost".to_string(), type_name: "String".to_string(), description: "Parallel Run Cost".to_string(), required: false, hint: "Cost of running old and new systems together".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK — cost management (project & transition costs)".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the one-time migration and transition investments — project, data, integration, training, and parallel-run costs — for the replacement.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemCostAnalysis".to_string(), member_name: "benefits".to_string(), section_id: "SCAB".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Target-state cost and ROI indicators.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "newSystemAnnualCost".to_string(), type_name: "String".to_string(), description: "New System Annual Cost".to_string(), required: false, hint: "Expected yearly cost of the replacement system".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "annualSavings".to_string(), type_name: "String".to_string(), description: "Annual Savings".to_string(), required: false, hint: "Expected yearly savings versus the current system".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "paybackPeriod".to_string(), type_name: "String".to_string(), description: "Payback Period".to_string(), required: false, hint: "Time to recoup the migration investment".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "fiveYearTco".to_string(), type_name: "String".to_string(), description: "5-Year TCO".to_string(), required: false, hint: "Total cost of ownership over five years".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK — cost management (ROI & TCO)".to_string())])), ("connotation".to_string(), som::Json::Str("Captures target-state cost and ROI indicators — annual savings, payback period, and five-year TCO — that justify the replacement.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemCostAnalysis".to_string(), member_name: "costBreakdown".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Provide a detailed cost breakdown by category if available, beyond the summary fields above.".to_string(), doc_comment: "Cost breakdown by category if detailed analysis available.".to_string(), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "SystemCostAnalysis".to_string(), member_name: "nonFinancialBenefits".to_string(), section_id: "NONFI-NONF-LST".to_string(), section_id_pattern: "NONFI-NONF-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_help: "Add one entry per non-financial benefit (e.g. risk reduction, agility) to weigh in the ROI case.".to_string(), doc_comment: "Non-financial benefits to include in ROI.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK — cost management (benefits realization)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists non-financial benefits of the replacement that complement the monetary ROI in the investment decision.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SystemCostAnalysis".to_string(), member_name: "nonFinancialBenefits".to_string(), section_id: "SYCOAN-NONF-LST".to_string(), section_id_pattern: "SYCOAN-NONF-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_help: "Add one entry per non-financial benefit (e.g. risk reduction, agility) to weigh in the ROI case.".to_string(), doc_comment: "Non-financial benefits to include in ROI.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK — cost management (benefits realization)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists non-financial benefits of the replacement that complement the monetary ROI in the investment decision.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -15362,14 +15362,14 @@ fn meta_children_system_data_scope(s: &mut HashSet<String>) -> Vec<Rc<som::SomMe
         Rc::new(som::SomMetaNode { class_name: "SystemDataScope".to_string(), member_name: "governance".to_string(), section_id: "SDSG".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Data sensitivity and quality posture.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "sensitivityLevel".to_string(), type_name: "String".to_string(), description: "Sensitivity (Public, Internal, Confidential, PII)".to_string(), required: false, hint: "Confidentiality classification of the data".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "retentionRequirements".to_string(), type_name: "String".to_string(), description: "Retention Requirements".to_string(), required: false, hint: "Legal or policy retention obligations".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataQuality".to_string(), type_name: "String".to_string(), description: "Quality Rating (Excellent to Poor)".to_string(), required: false, hint: "Overall quality of the data".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "cleansingRequired".to_string(), type_name: "String".to_string(), description: "Cleansing Required".to_string(), required: false, hint: "Whether and what data cleansing is needed".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DAMA-DMBOK2 — data governance & quality".to_string()), som::Json::Str("ISO/IEC 27001 — information security (data sensitivity)".to_string())])), ("connotation".to_string(), som::Json::Str("Captures data sensitivity, retention requirements, and quality posture that govern how the data must be handled during migration.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemDataScope".to_string(), member_name: "migration".to_string(), section_id: "SYDASCMI".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Migration preparation and archive handling.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "deduplicationNeeded".to_string(), type_name: "bool".to_string(), description: "Deduplication Needed".to_string(), required: false, hint: "Whether duplicate records must be removed".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "transformationComplexity".to_string(), type_name: "String".to_string(), description: "Transformation Complexity".to_string(), required: false, hint: "How complex the data transformation will be".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "migrationScope".to_string(), type_name: "String".to_string(), description: "Scope (Full, Recent, Active records, Reference)".to_string(), required: false, hint: "Which subset of data will be migrated".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "archiveStrategy".to_string(), type_name: "String".to_string(), description: "Archive Strategy".to_string(), required: false, hint: "How non-migrated data will be archived".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DAMA-DMBOK2 — data migration (preparation & archiving)".to_string())])), ("connotation".to_string(), som::Json::Str("Captures migration preparation choices — deduplication, transformation complexity, scope, and archive strategy — for the system data.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "SystemDataScope".to_string(), member_name: "entities".to_string(), section_id: "DEME-ENTI-LST".to_string(), section_id_pattern: "DEME-ENTI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DataEntityMigrationEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules.".to_string(), doc_comment: "Data entities to migrate.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DAMA-DMBOK2 — data migration (entity mapping)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the data entities to migrate, with target mappings and transformation notes that drive the data-migration work.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "SystemDataScope".to_string(), member_name: "entities".to_string(), section_id: "DAENMIEN-ENTI-LST".to_string(), section_id_pattern: "DAENMIEN-ENTI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DataEntityMigrationEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules.".to_string(), doc_comment: "Data entities to migrate.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DAMA-DMBOK2 — data migration (entity mapping)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the data entities to migrate, with target mappings and transformation notes that drive the data-migration work.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DataEntityMigrationEntry", s, meta_children_data_entity_migration_entry, |r, c| som::SomMetaNode {
                 class_name: "DataEntityMigrationEntry".to_string(), class_section_id: "DAENMIEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DataEntityMigrationEntry".to_string(), doc_comment: "A data entity migration entry.".to_string(), class_doc_comment: "A data entity migration entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
             }));
             Rc::new(n)
         },
-        Rc::new(som::SomMetaNode { class_name: "SystemDataScope".to_string(), member_name: "knownQualityIssues".to_string(), section_id: "KNOWN-KNOW-LST".to_string(), section_id_pattern: "KNOWN-KNOW-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "Add one entry per data-quality issue to address; note severity and remediation approach.".to_string(), doc_comment: "Data quality issues to address.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DAMA-DMBOK2 — data quality & migration".to_string())])), ("connotation".to_string(), som::Json::Str("Lists known data-quality issues that must be cleansed or resolved before or during migration to the replacement system.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SystemDataScope".to_string(), member_name: "knownQualityIssues".to_string(), section_id: "SYDASC-KNOW-LST".to_string(), section_id_pattern: "SYDASC-KNOW-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "Add one entry per data-quality issue to address; note severity and remediation approach.".to_string(), doc_comment: "Data quality issues to address.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("DAMA-DMBOK2 — data quality & migration".to_string())])), ("connotation".to_string(), som::Json::Str("Lists known data-quality issues that must be cleansed or resolved before or during migration to the replacement system.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -15408,7 +15408,7 @@ fn meta_children_system_description(s: &mut HashSet<String>) -> Vec<Rc<som::SomM
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "SystemDescription".to_string(), member_name: "userCategories".to_string(), section_id: "USCA-USER-LST".to_string(), section_id_pattern: "USCA-USER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "UserCategoryEntry".to_string(), serialization_order: Some(5), min: Some(1), content_help: "Add one entry per distinct category of user, distinguished by role, access level, or interaction pattern with the system.".to_string(), doc_comment: "4.1.4. User Categories — contains 1+× User Category.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10.43 — stakeholder list/map/personas".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §6 — stakeholders".to_string())])), ("connotation".to_string(), som::Json::Str("The set of distinct user categories that interact with the system.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "SystemDescription".to_string(), member_name: "userCategories".to_string(), section_id: "UCE-USER-LST".to_string(), section_id_pattern: "UCE-USER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "UserCategoryEntry".to_string(), serialization_order: Some(5), min: Some(1), content_help: "Add one entry per distinct category of user, distinguished by role, access level, or interaction pattern with the system.".to_string(), doc_comment: "4.1.4. User Categories — contains 1+× User Category.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10.43 — stakeholder list/map/personas".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §6 — stakeholders".to_string())])), ("connotation".to_string(), som::Json::Str("The set of distinct user categories that interact with the system.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("UserCategoryEntry", s, meta_children_user_category_entry, |r, c| som::SomMetaNode {
                 class_name: "UserCategoryEntry".to_string(), class_section_id: "UCE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserCategoryEntry".to_string(), doc_comment: "A user category entry.\n\nComprehensive user persona definition including demographics, goals,\nfrustrations, technical proficiency, and system interaction patterns.".to_string(), class_doc_comment: "A user category entry.\n\nComprehensive user persona definition including demographics, goals,\nfrustrations, technical proficiency, and system interaction patterns.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -15447,9 +15447,9 @@ fn meta_children_system_error_display(s: &mut HashSet<String>) -> Vec<Rc<som::So
         Rc::new(som::SomMetaNode { class_name: "SystemErrorDisplay".to_string(), member_name: "displayContent".to_string(), section_id: "SEDC".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Content options.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "showTechnicalDetails".to_string(), type_name: "bool".to_string(), description: "Show Technical Details".to_string(), required: false, hint: "Display error codes, request IDs".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "showRetryOption".to_string(), type_name: "bool".to_string(), description: "Show Retry Option".to_string(), required: false, hint: "Offer a retry button on the error".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "showContactSupport".to_string(), type_name: "bool".to_string(), description: "Show Contact Support".to_string(), required: false, hint: "Show a link to contact support".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "showStatusPageLink".to_string(), type_name: "bool".to_string(), description: "Show Status Page Link".to_string(), required: false, hint: "Show a link to the service status page".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "offlineModeMessage".to_string(), type_name: "String".to_string(), description: "Offline Mode Message".to_string(), required: false, hint: "Message when app detects offline state".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-13:1998 — user guidance presents clear and specific error message content".to_string()), som::Json::Str("ISO 9241-125:2017 — presentation of information governs which error details are shown to users".to_string())])), ("connotation".to_string(), som::Json::Str("The content options that decide what information an error display presents.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemErrorDisplay".to_string(), member_name: "fallback".to_string(), section_id: "SEDF".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Fallback behavior.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "cachedDataFallback".to_string(), type_name: "String".to_string(), description: "Cached Data Fallback".to_string(), required: false, hint: "Show stale data with indicator".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "retryStrategy".to_string(), type_name: "String".to_string(), description: "Retry Strategy".to_string(), required: false, hint: "Automatic retry with backoff".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "maxRetryAttempts".to_string(), type_name: "int".to_string(), description: "Max Retry Attempts".to_string(), required: false, hint: "Number of retries before giving up".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "retryDelaySeconds".to_string(), type_name: "int".to_string(), description: "Retry Delay (seconds)".to_string(), required: false, hint: "Seconds to wait between retries".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010:2023 — fault tolerance keeps the system operating through cached data and retry fallbacks".to_string()), som::Json::Str("ISO 9241-110:2020 — use-error tolerance sustains a workable state when a system error occurs".to_string())])), ("connotation".to_string(), som::Json::Str("The fallback behaviour applied when a system error prevents normal operation.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemErrorDisplay".to_string(), member_name: "systemErrorNarrative".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Detailed specification of system error presentation and user communication approach.".to_string(), doc_comment: "System error display narrative.".to_string(), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "SystemErrorDisplay".to_string(), member_name: "errorPageDesigns".to_string(), section_id: "EPDE-ERRO-LST".to_string(), section_id_pattern: "EPDE-ERRO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(6), content_help: "Add one entry per error page design.".to_string(), doc_comment: "Error page designs.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-125:2017 — visual presentation of information governs the layout of full-page error designs".to_string()), som::Json::Str("ISO 9241-13:1998 — user guidance ensures each error page conveys clear and specific feedback".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of error-page design entries.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SystemErrorDisplay".to_string(), member_name: "errorPageDesigns".to_string(), section_id: "SYERDI-ERRO-LST".to_string(), section_id_pattern: "SYERDI-ERRO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(6), content_help: "Add one entry per error page design.".to_string(), doc_comment: "Error page designs.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-125:2017 — visual presentation of information governs the layout of full-page error designs".to_string()), som::Json::Str("ISO 9241-13:1998 — user guidance ensures each error page conveys clear and specific feedback".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of error-page design entries.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "SystemErrorDisplay".to_string(), member_name: "errorCodes".to_string(), section_id: "SECE-ERRO-LST".to_string(), section_id_pattern: "SECE-ERRO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SystemErrorCodeEntry".to_string(), serialization_order: Some(7), content_help: "Add one entry per system error code.".to_string(), doc_comment: "Error codes catalog.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated".to_string()), som::Json::Str("ISO 9241-13:1998 — user guidance links each error code to a clear and specific user message".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of catalogued system error code entries.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "SystemErrorDisplay".to_string(), member_name: "errorCodes".to_string(), section_id: "SYERCOEN-ERRO-LST".to_string(), section_id_pattern: "SYERCOEN-ERRO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SystemErrorCodeEntry".to_string(), serialization_order: Some(7), content_help: "Add one entry per system error code.".to_string(), doc_comment: "Error codes catalog.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated".to_string()), som::Json::Str("ISO 9241-13:1998 — user guidance links each error code to a clear and specific user message".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of catalogued system error code entries.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("SystemErrorCodeEntry", s, meta_children_system_error_code_entry, |r, c| som::SomMetaNode {
                 class_name: "SystemErrorCodeEntry".to_string(), class_section_id: "SYERCOEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SystemErrorCodeEntry".to_string(), doc_comment: "A system error code entry.".to_string(), class_doc_comment: "A system error code entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -15496,7 +15496,7 @@ fn meta_children_system_inventory(s: &mut HashSet<String>) -> Vec<Rc<som::SomMet
 fn meta_children_system_knowledge_transfer(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "SystemKnowledgeTransfer".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "technicalDocStatus".to_string(), type_name: "String".to_string(), description: "Technical Doc Status (Complete, Partial, Outdated, Missing)".to_string(), required: false, hint: "Completeness of technical documentation".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "businessDocStatus".to_string(), type_name: "String".to_string(), description: "Business Documentation Status".to_string(), required: false, hint: "Completeness of business documentation".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataDocStatus".to_string(), type_name: "String".to_string(), description: "Data Documentation Status".to_string(), required: false, hint: "Completeness of data documentation".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "primarySme".to_string(), type_name: "String".to_string(), description: "Primary SME".to_string(), required: false, hint: "Main subject-matter expert for the system".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "smeAvailability".to_string(), type_name: "String".to_string(), description: "SME Availability (Available, Partial, Leaving)".to_string(), required: false, hint: "How available the SME is for transfer".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "smeRiskLevel".to_string(), type_name: "String".to_string(), description: "SME Risk Level".to_string(), required: false, hint: "Risk of losing SME knowledge".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "backupSme".to_string(), type_name: "String".to_string(), description: "Backup SME".to_string(), required: false, hint: "Secondary expert who can cover".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "knowledgeCaptureNeeded".to_string(), type_name: "bool".to_string(), description: "Knowledge Capture Needed".to_string(), required: false, hint: "Whether knowledge must be formally captured".to_string(), order: 7, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "captureApproach".to_string(), type_name: "String".to_string(), description: "Capture Approach".to_string(), required: false, hint: "How knowledge will be captured".to_string(), order: 8, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "captureDeadline".to_string(), type_name: "String".to_string(), description: "Capture Deadline".to_string(), required: false, hint: "When knowledge capture must be complete".to_string(), order: 9, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "SystemKnowledgeTransfer".to_string(), member_name: "criticalKnowledgeAreas".to_string(), section_id: "CRITI-CRIT-LST".to_string(), section_id_pattern: "CRITI-CRIT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_help: "Add one entry per critical knowledge area at risk of being lost when the system is retired.".to_string(), doc_comment: "Critical knowledge areas to preserve.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK — resource & knowledge management".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the critical knowledge areas that must be preserved before the system is decommissioned and its experts disperse.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SystemKnowledgeTransfer".to_string(), member_name: "criticalKnowledgeAreas".to_string(), section_id: "SYKNTR-CRIT-LST".to_string(), section_id_pattern: "SYKNTR-CRIT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_help: "Add one entry per critical knowledge area at risk of being lost when the system is retired.".to_string(), doc_comment: "Critical knowledge areas to preserve.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK — resource & knowledge management".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the critical knowledge areas that must be preserved before the system is decommissioned and its experts disperse.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemKnowledgeTransfer".to_string(), member_name: "knowledgeTransferPlan".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(2), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Describe the knowledge-transfer plan to follow when SME risk is high, so expertise is retained before cutover.".to_string(), doc_comment: "Knowledge transfer plan if SME risk is high.".to_string(), ..som::SomMetaNode::default() }),
     ]
 }
@@ -15513,7 +15513,7 @@ fn meta_children_system_migration_plan(s: &mut HashSet<String>) -> Vec<Rc<som::S
         Rc::new(som::SomMetaNode { class_name: "SystemMigrationPlan".to_string(), member_name: "execution".to_string(), section_id: "SMPE".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Migration execution and validation details.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "duration".to_string(), type_name: "String".to_string(), description: "Estimated Duration".to_string(), required: false, hint: "Expected duration of the migration execution".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "testingApproach".to_string(), type_name: "String".to_string(), description: "Testing Approach".to_string(), required: false, hint: "How the migration will be tested".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataValidationMethod".to_string(), type_name: "String".to_string(), description: "Data Validation Method".to_string(), required: false, hint: "How migrated data will be validated".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "uatScope".to_string(), type_name: "String".to_string(), description: "UAT Scope".to_string(), required: false, hint: "Scope of user acceptance testing".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — migration planning (execution & validation)".to_string()), som::Json::Str("PMBOK — quality management".to_string())])), ("connotation".to_string(), som::Json::Str("Captures migration execution and validation details — duration, testing, data validation, and UAT scope — for the system migration.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemMigrationPlan".to_string(), member_name: "cutover".to_string(), section_id: "SMPC".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Cutover window and business fallback.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "cutoverWindow".to_string(), type_name: "String".to_string(), description: "Cutover Window".to_string(), required: false, hint: "Scheduled window for performing the cutover".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "cutoverDuration".to_string(), type_name: "String".to_string(), description: "Cutover Duration".to_string(), required: false, hint: "How long the cutover is expected to take".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "businessContingency".to_string(), type_name: "String".to_string(), description: "Business Contingency".to_string(), required: false, hint: "Business fallback if the cutover fails".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — migration planning (cutover & contingency)".to_string()), som::Json::Str("PMBOK — risk management".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the cutover window, duration, and business contingency that govern the operational switch to the replacement system.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "SystemMigrationPlan".to_string(), member_name: "risks".to_string(), section_id: "SMRE-RISK-LST".to_string(), section_id_pattern: "SMRE-RISK-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SystemMigrationRiskEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per migration risk; capture probability, impact, mitigation, and contingency.".to_string(), doc_comment: "Contains 0+× MigrationRiskEntry — per-system migration risks.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK — risk management".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the migration risks specific to this system, with probability, impact, mitigation, and contingency for each.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "SystemMigrationPlan".to_string(), member_name: "risks".to_string(), section_id: "SYMIRIEN-RISK-LST".to_string(), section_id_pattern: "SYMIRIEN-RISK-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "SystemMigrationRiskEntry".to_string(), serialization_order: Some(3), content_help: "Add one entry per migration risk; capture probability, impact, mitigation, and contingency.".to_string(), doc_comment: "Contains 0+× MigrationRiskEntry — per-system migration risks.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK — risk management".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the migration risks specific to this system, with probability, impact, mitigation, and contingency for each.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("SystemMigrationRiskEntry", s, meta_children_system_migration_risk_entry, |r, c| som::SomMetaNode {
                 class_name: "SystemMigrationRiskEntry".to_string(), class_section_id: "SYMIRIEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "SystemMigrationRiskEntry".to_string(), doc_comment: "A system migration risk entry.".to_string(), class_doc_comment: "A system migration risk entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -15538,7 +15538,7 @@ fn meta_children_system_operation(s: &mut HashSet<String>) -> Vec<Rc<som::SomMet
             class_name: "AdministrationRequirementsSection".to_string(), member_name: "administrationRequirements".to_string(), class_section_id: "ARS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "AdministrationRequirementsSection".to_string(), serialization_order: Some(1), doc_comment: "8.7.1.1. Administration Requirements.".to_string(), class_doc_comment: "8.7.1.1. Administration Requirements.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-        Rc::new(som::SomMetaNode { class_name: "SystemOperation".to_string(), member_name: "maintenanceProcedures".to_string(), section_id: "MAINT-MAIN-LST".to_string(), section_id_pattern: "MAINT-MAIN-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(2), content_help: "Add one entry per maintenance procedure.".to_string(), doc_comment: "Maintenance Procedures.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ITIL 4 — change enablement and maintenance windows".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of scheduled maintenance procedures the system requires.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SystemOperation".to_string(), member_name: "maintenanceProcedures".to_string(), section_id: "SO-MAIN-LST".to_string(), section_id_pattern: "SO-MAIN-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(2), content_help: "Add one entry per maintenance procedure.".to_string(), doc_comment: "Maintenance Procedures.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ITIL 4 — change enablement and maintenance windows".to_string())])), ("connotation".to_string(), som::Json::Str("The catalog of scheduled maintenance procedures the system requires.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -15601,7 +15601,7 @@ fn meta_children_system_quality_goals(s: &mut HashSet<String>) -> Vec<Rc<som::So
         Rc::new(som::SomMetaNode { class_name: "SystemQualityGoals".to_string(), member_name: "executiveSummary".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "High-level overview of quality objectives, expected quality level, key quality risks, and approach summary.".to_string(), doc_comment: "Executive summary of quality goals and approach.".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemQualityGoals".to_string(), member_name: "qualityVision".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(6), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Quality vision statement, core principles guiding quality decisions, and non-negotiable quality standards.".to_string(), doc_comment: "Quality vision and principles.".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemQualityGoals".to_string(), member_name: "qaStrategy".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(7), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Overall QA strategy: shift-left testing, continuous testing, test pyramid approach, verification vs validation approach.".to_string(), doc_comment: "Quality assurance strategy.".to_string(), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "SystemQualityGoals".to_string(), member_name: "attributeInterdependencies".to_string(), section_id: "ATTRI-ATTR-LST".to_string(), section_id_pattern: "ATTRI-ATTR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(8), content_help: "Add one entry per quality attribute interdependency.".to_string(), doc_comment: "Quality attribute interdependencies.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010:2023 — improving one quality characteristic can negatively affect another, so interdependencies between attributes are recorded to manage trade-offs".to_string())])), ("connotation".to_string(), som::Json::Str("Lists interdependencies between quality attributes used to manage trade-offs.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SystemQualityGoals".to_string(), member_name: "attributeInterdependencies".to_string(), section_id: "SYQG-ATTR-LST".to_string(), section_id_pattern: "SYQG-ATTR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(8), content_help: "Add one entry per quality attribute interdependency.".to_string(), doc_comment: "Quality attribute interdependencies.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010:2023 — improving one quality characteristic can negatively affect another, so interdependencies between attributes are recorded to manage trade-offs".to_string())])), ("connotation".to_string(), som::Json::Str("Lists interdependencies between quality attributes used to manage trade-offs.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemQualityGoals".to_string(), member_name: "qualityRadar".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(9), content_type: Some(som::SomContentTypeMeta { type_: "mermaid".to_string(), description: "".to_string() }), content_help: "Visual showing relative importance of quality attributes.".to_string(), doc_comment: "Quality attribute priority radar.".to_string(), ..som::SomMetaNode::default() }),
         meta_cx("QualityFramework", s, meta_children_quality_framework, |r, c| som::SomMetaNode {
             class_name: "QualityFramework".to_string(), member_name: "framework".to_string(), class_section_id: "QLFWK".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "QualityFramework".to_string(), serialization_order: Some(10), doc_comment: "11.1. Quality Framework.".to_string(), class_doc_comment: "11.1. Quality Framework.\n\nOverall quality approach for the project defining objectives, categories,\nand how quality is structured and governed across the system.".to_string(), detailed_in: "D10QualityAcceptancePlan".to_string(),
@@ -15671,7 +15671,7 @@ fn meta_children_system_replacement_strategy(s: &mut HashSet<String>) -> Vec<Rc<
             }));
             Rc::new(n)
         },
-        Rc::new(som::SomMetaNode { class_name: "SystemReplacementStrategy".to_string(), member_name: "predecessorDependencies".to_string(), section_id: "PREDE-PRED-LST".to_string(), section_id_pattern: "PREDE-PRED-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "Add one entry per predecessor system that must be replaced or addressed before this system can proceed.".to_string(), doc_comment: "Predecessor systems that must be addressed first.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — migration planning (dependency sequencing)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists predecessor systems that must be addressed before this one, capturing sequencing constraints in the replacement roadmap.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SystemReplacementStrategy".to_string(), member_name: "predecessorDependencies".to_string(), section_id: "SYREST-PRED-LST".to_string(), section_id_pattern: "SYREST-PRED-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "Add one entry per predecessor system that must be replaced or addressed before this system can proceed.".to_string(), doc_comment: "Predecessor systems that must be addressed first.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — migration planning (dependency sequencing)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists predecessor systems that must be addressed before this one, capturing sequencing constraints in the replacement roadmap.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemReplacementStrategy".to_string(), member_name: "successCriteria".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Describe the measurable criteria that confirm the replacement is complete and successful.".to_string(), doc_comment: "Success criteria for replacement completion.".to_string(), ..som::SomMetaNode::default() }),
     ]
 }
@@ -15776,8 +15776,8 @@ fn meta_children_system_task_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomM
         Rc::new(som::SomMetaNode { class_name: "SystemTaskEntry".to_string(), member_name: "data".to_string(), section_id: "STED".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Outcome and data interaction details.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "expectedOutcome".to_string(), type_name: "String".to_string(), description: "Expected Outcome".to_string(), required: false, hint: "The result the user expects from completing the task".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "successCriteria".to_string(), type_name: "String".to_string(), description: "Success Criteria".to_string(), required: false, hint: "How to tell the task completed successfully".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataAccessed".to_string(), type_name: "String".to_string(), description: "Data Accessed (what information is needed)".to_string(), required: false, hint: "What information the task needs to read".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dataModified".to_string(), type_name: "String".to_string(), description: "Data Modified (what information changes)".to_string(), required: false, hint: "What information the task creates or changes".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-11 — tasks & goals (usability)".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §6 — user tasks/use cases".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the data interaction of a task — expected outcome, success criteria, and data accessed or modified.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemTaskEntry".to_string(), member_name: "context".to_string(), section_id: "STEC".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Tooling and linked artifacts.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "toolsUsed".to_string(), type_name: "String".to_string(), description: "Tools Used (systems or tools involved)".to_string(), required: false, hint: "Systems or tools involved in performing this task".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-11 — tasks & goals (usability)".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §6 — user tasks/use cases".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the tooling context of a task — the systems and tools involved in performing it.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemTaskEntry".to_string(), member_name: "relatedUseCase".to_string(), section_id: "SYTS-RELA-REF".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), extra: vec![som::SomMetaExtra { annotation: "Reference".to_string(), args: vec![("description".to_string(), som::Json::Str("Related Use Case".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "SystemTaskEntry".to_string(), member_name: "workflowSteps".to_string(), section_id: "SYSTE-WORK-LST".to_string(), section_id_pattern: "SYSTE-WORK-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_help: "Add one entry per step in the task workflow, in the order the user performs them.".to_string(), doc_comment: "Task workflow steps.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-11 — tasks & goals (usability)".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §6 — user tasks/use cases".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered set of workflow steps that make up this task.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "SystemTaskEntry".to_string(), member_name: "variationsAndExceptions".to_string(), section_id: "VARIA-VARI-LST".to_string(), section_id_pattern: "VARIA-VARI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(6), content_help: "Add one entry per variation or exception to the normal task flow.".to_string(), doc_comment: "Variations and exceptions.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-11 — tasks & goals (usability)".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §6 — user tasks/use cases".to_string())])), ("connotation".to_string(), som::Json::Str("The set of alternative flows and exceptions for this task.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SystemTaskEntry".to_string(), member_name: "workflowSteps".to_string(), section_id: "SYTS-WORK-LST".to_string(), section_id_pattern: "SYTS-WORK-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_help: "Add one entry per step in the task workflow, in the order the user performs them.".to_string(), doc_comment: "Task workflow steps.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-11 — tasks & goals (usability)".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §6 — user tasks/use cases".to_string())])), ("connotation".to_string(), som::Json::Str("The ordered set of workflow steps that make up this task.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SystemTaskEntry".to_string(), member_name: "variationsAndExceptions".to_string(), section_id: "SYTS-VARI-LST".to_string(), section_id_pattern: "SYTS-VARI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(6), content_help: "Add one entry per variation or exception to the normal task flow.".to_string(), doc_comment: "Variations and exceptions.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-11 — tasks & goals (usability)".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §6 — user tasks/use cases".to_string())])), ("connotation".to_string(), som::Json::Str("The set of alternative flows and exceptions for this task.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -15787,8 +15787,8 @@ fn meta_children_system_technical_assessment(_s: &mut HashSet<String>) -> Vec<Rc
         Rc::new(som::SomMetaNode { class_name: "SystemTechnicalAssessment".to_string(), member_name: "platform".to_string(), section_id: "STAP".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Platform and age details.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "operatingSystem".to_string(), type_name: "String".to_string(), description: "Operating System".to_string(), required: false, hint: "OS the system runs on".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "middlewareComponents".to_string(), type_name: "String".to_string(), description: "Middleware Components".to_string(), required: false, hint: "Application servers, message brokers, or other middleware".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "deploymentDate".to_string(), type_name: "String".to_string(), description: "Initial Deployment Date".to_string(), required: false, hint: "When the system was first put into production".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "systemAge".to_string(), type_name: "int".to_string(), description: "System Age (Years)".to_string(), required: false, hint: "Age of the system in years".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "lastMajorUpgrade".to_string(), type_name: "String".to_string(), description: "Last Major Upgrade".to_string(), required: false, hint: "Date or version of the most recent major upgrade".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — product quality (platform & maintainability)".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the operating environment, middleware, and age indicators that signal the platform obsolescence driving replacement.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemTechnicalAssessment".to_string(), member_name: "lifecycle".to_string(), section_id: "STAL".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Support and lifecycle details.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "vendorSupportStatus".to_string(), type_name: "String".to_string(), description: "Support Status (Full, Extended, End of Life)".to_string(), required: false, hint: "Current vendor support level for the system".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "endOfSupportDate".to_string(), type_name: "String".to_string(), description: "End of Support Date".to_string(), required: false, hint: "Date after which the vendor no longer supports the system".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — application portfolio management (lifecycle status)".to_string()), som::Json::Str("ISO/IEC 25010 — product quality".to_string())])), ("connotation".to_string(), som::Json::Str("Captures vendor support status and end-of-support dates that bound the window in which the system must be replaced.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemTechnicalAssessment".to_string(), member_name: "quality".to_string(), section_id: "STAQ".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Technical quality indicators.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "technicalDebtRating".to_string(), type_name: "String".to_string(), description: "Technical Debt (Low, Medium, High, Critical)".to_string(), required: false, hint: "Overall accumulated technical debt of the system".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "securityPosture".to_string(), type_name: "String".to_string(), description: "Security Posture".to_string(), required: false, hint: "Overall security health of the system".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "performanceStatus".to_string(), type_name: "String".to_string(), description: "Performance (Acceptable, Degraded, Poor)".to_string(), required: false, hint: "Current runtime performance state".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "scalabilityLimitations".to_string(), type_name: "String".to_string(), description: "Scalability Limitations".to_string(), required: false, hint: "Known limits on scaling the system".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "maintainability".to_string(), type_name: "String".to_string(), description: "Maintainability Rating".to_string(), required: false, hint: "How easily the system can be changed or maintained".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "documentationQuality".to_string(), type_name: "String".to_string(), description: "Documentation (Complete, Partial, Outdated, Missing)".to_string(), required: false, hint: "Quality and completeness of system documentation".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — product quality (maintainability, performance, security)".to_string())])), ("connotation".to_string(), som::Json::Str("Captures technical-debt, performance, scalability, maintainability, and documentation quality indicators that justify replacement.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "SystemTechnicalAssessment".to_string(), member_name: "knownIssues".to_string(), section_id: "KIE-KNOW-LST".to_string(), section_id_pattern: "KIE-KNOW-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "Add one entry per significant known technical issue, defect, or deficiency affecting the system.".to_string(), doc_comment: "Known technical issues and deficiencies.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — product quality (defects & maintainability)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists known technical issues and deficiencies that strengthen the case for replacement and inform migration risk.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "SystemTechnicalAssessment".to_string(), member_name: "securityConcerns".to_string(), section_id: "SECUR-SECU-LST".to_string(), section_id_pattern: "SECUR-SECU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_help: "Add one entry per security vulnerability or compliance gap; note severity and remediation status.".to_string(), doc_comment: "Security vulnerabilities and compliance gaps.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27001 — information security (vulnerabilities & compliance gaps)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists security vulnerabilities and compliance gaps in the system that raise replacement urgency and shape migration controls.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SystemTechnicalAssessment".to_string(), member_name: "knownIssues".to_string(), section_id: "SYTEAS-KNOW-LST".to_string(), section_id_pattern: "SYTEAS-KNOW-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "Add one entry per significant known technical issue, defect, or deficiency affecting the system.".to_string(), doc_comment: "Known technical issues and deficiencies.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — product quality (defects & maintainability)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists known technical issues and deficiencies that strengthen the case for replacement and inform migration risk.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "SystemTechnicalAssessment".to_string(), member_name: "securityConcerns".to_string(), section_id: "SYTEAS-SECU-LST".to_string(), section_id_pattern: "SYTEAS-SECU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_help: "Add one entry per security vulnerability or compliance gap; note severity and remediation status.".to_string(), doc_comment: "Security vulnerabilities and compliance gaps.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 27001 — information security (vulnerabilities & compliance gaps)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists security vulnerabilities and compliance gaps in the system that raise replacement urgency and shape migration controls.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -15856,7 +15856,7 @@ fn meta_children_system_user_impact(s: &mut HashSet<String>) -> Vec<Rc<som::SomM
         Rc::new(som::SomMetaNode { class_name: "SystemUserImpact".to_string(), member_name: "enablement".to_string(), section_id: "SUIE".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Training and enablement plan.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "trainingRequired".to_string(), type_name: "String".to_string(), description: "Training Required".to_string(), required: false, hint: "What training users will need".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "estimatedTrainingHours".to_string(), type_name: "int".to_string(), description: "Training Hours per User".to_string(), required: false, hint: "Estimated training time per user".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "trainingApproach".to_string(), type_name: "String".to_string(), description: "Training Approach".to_string(), required: false, hint: "How training will be delivered".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "trainingMaterials".to_string(), type_name: "String".to_string(), description: "Materials Needed".to_string(), required: false, hint: "Training materials that must be produced".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK — stakeholder management (training & enablement)".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the training and enablement plan needed to prepare impacted users for the replacement system.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SystemUserImpact".to_string(), member_name: "adoption".to_string(), section_id: "SUIA".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Communication and adoption support.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "communicationPlan".to_string(), type_name: "String".to_string(), description: "Communication Plan".to_string(), required: false, hint: "How change will be communicated to users".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "changeChampions".to_string(), type_name: "String".to_string(), description: "Change Champions".to_string(), required: false, hint: "People who will advocate for adoption".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK — stakeholder management (communication & adoption)".to_string())])), ("connotation".to_string(), som::Json::Str("Captures the communication plan and change-champion support that drive user adoption of the replacement system.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "SystemUserImpact".to_string(), member_name: "userGroups".to_string(), section_id: "UGIE-USER-LST".to_string(), section_id_pattern: "UGIE-USER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "UserGroupImpactEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per user group needing special handling; note impact level and special considerations.".to_string(), doc_comment: "User groups requiring specific handling.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK — stakeholder management (user groups)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists user groups that require specific handling during replacement, capturing impact level and tailored change considerations.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "SystemUserImpact".to_string(), member_name: "userGroups".to_string(), section_id: "USGRIMEN-USER-LST".to_string(), section_id_pattern: "USGRIMEN-USER-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "UserGroupImpactEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per user group needing special handling; note impact level and special considerations.".to_string(), doc_comment: "User groups requiring specific handling.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("PMBOK — stakeholder management (user groups)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists user groups that require specific handling during replacement, capturing impact level and tailored change considerations.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("UserGroupImpactEntry", s, meta_children_user_group_impact_entry, |r, c| som::SomMetaNode {
                 class_name: "UserGroupImpactEntry".to_string(), class_section_id: "USGRIMEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserGroupImpactEntry".to_string(), doc_comment: "User group impact entry.".to_string(), class_doc_comment: "User group impact entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -15886,7 +15886,7 @@ fn meta_children_tab_bar_definition_entry(s: &mut HashSet<String>) -> Vec<Rc<som
         Rc::new(som::SomMetaNode { class_name: "TabBarDefinitionEntry".to_string(), member_name: "behavior".to_string(), section_id: "TBDEB".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Position and selection behavior.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "tabBarPosition".to_string(), type_name: "String".to_string(), description: "Position".to_string(), required: false, hint: "Top/Bottom/Left".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "isScrollable".to_string(), type_name: "String".to_string(), description: "Scrollable".to_string(), required: false, hint: "Yes/No — scrollable when tabs exceed width".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "defaultTabIndex".to_string(), type_name: "int".to_string(), description: "Default Tab".to_string(), required: false, hint: "Zero-based index of initially selected tab".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "persistSelection".to_string(), type_name: "String".to_string(), description: "Persist Selection".to_string(), required: false, hint: "Yes/No — remember last selected tab".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-143:2012 — the arrangement and default selection of grouped tab controls".to_string()), som::Json::Str("ISO 9241-110:2020 — conformity with user expectations makes tab selection predictable".to_string())])), ("connotation".to_string(), som::Json::Str("The positioning and default-selection behavior of a tab bar.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "TabBarDefinitionEntry".to_string(), member_name: "loading".to_string(), section_id: "TBDEL".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Visibility and loading profile.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "swipeEnabled".to_string(), type_name: "String".to_string(), description: "Swipe Navigation".to_string(), required: false, hint: "Yes/No — swipe between tabs on mobile".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "lazyLoading".to_string(), type_name: "String".to_string(), description: "Lazy Loading".to_string(), required: false, hint: "Yes/No — load tab content when first selected".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "visibilityCondition".to_string(), type_name: "String".to_string(), description: "Visibility Condition".to_string(), required: false, hint: "When entire tab bar is shown".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-151:2008 — controlled loading of navigation content supports responsive interaction".to_string()), som::Json::Str("ISO 9241-110:2020 — controllability lets the user govern how and when content is presented".to_string())])), ("connotation".to_string(), som::Json::Str("The visibility and loading behavior governing when and how tab content is shown.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "TabBarDefinitionEntry".to_string(), member_name: "tabs".to_string(), section_id: "TAITEN-TABS-LST".to_string(), section_id_pattern: "TAITEN-TABS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "TabItemEntry".to_string(), serialization_order: Some(3), min: Some(1), content_help: "Add one entry per tab item in the tab bar.".to_string(), doc_comment: "Contains 1+× TabItem.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-143:2012 — a group of selectable tab entries presented within a tab bar".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of individual tab items belonging to this tab bar.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "TabBarDefinitionEntry".to_string(), member_name: "tabs".to_string(), section_id: "TIE-TABS-LST".to_string(), section_id_pattern: "TIE-TABS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "TabItemEntry".to_string(), serialization_order: Some(3), min: Some(1), content_help: "Add one entry per tab item in the tab bar.".to_string(), doc_comment: "Contains 1+× TabItem.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-143:2012 — a group of selectable tab entries presented within a tab bar".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of individual tab items belonging to this tab bar.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("TabItemEntry", s, meta_children_tab_item_entry, |r, c| som::SomMetaNode {
                 class_name: "TabItemEntry".to_string(), class_section_id: "TIE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TabItemEntry".to_string(), doc_comment: "A tab item entry (form).".to_string(), class_doc_comment: "A tab item entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -16014,11 +16014,11 @@ fn meta_children_technical_environment(s: &mut HashSet<String>) -> Vec<Rc<som::S
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         Rc::new(som::SomMetaNode { class_name: "TechnicalEnvironment".to_string(), member_name: "existingInfrastructure".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Describe existing infrastructure: data centers, servers, networks, storage, systems that cannot be replaced, and infrastructure that the new solution must integrate with or leverage.".to_string(), doc_comment: "Existing infrastructure that must be reused or integrated with.".to_string(), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "TechnicalEnvironment".to_string(), member_name: "datacenters".to_string(), section_id: "DATAC-DATA-LST".to_string(), section_id_pattern: "DATAC-DATA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(6), content_help: "List data centers and hosting environments: location, ownership, capacity, and any reuse or integration constraints.".to_string(), doc_comment: "Data center and hosting environment details.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — technology architecture & environment".to_string()), som::Json::Str("ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)".to_string())])), ("connotation".to_string(), som::Json::Str("Enumerates data center and hosting environments the solution must run on or integrate with.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "TechnicalEnvironment".to_string(), member_name: "datacenters".to_string(), section_id: "TEEN-DATA-LST".to_string(), section_id_pattern: "TEEN-DATA-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(6), content_help: "List data centers and hosting environments: location, ownership, capacity, and any reuse or integration constraints.".to_string(), doc_comment: "Data center and hosting environment details.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — technology architecture & environment".to_string()), som::Json::Str("ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)".to_string())])), ("connotation".to_string(), som::Json::Str("Enumerates data center and hosting environments the solution must run on or integrate with.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "TechnicalEnvironment".to_string(), member_name: "networkTopology".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(7), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Describe network topology, bandwidth constraints, latency requirements, VPN/private connectivity, and firewall restrictions.".to_string(), doc_comment: "Network topology and connectivity constraints.".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "TechnicalEnvironment".to_string(), member_name: "standardsOverview".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(8), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Overview of technology standards: adoption policy, exception process, standard review cycle, and compliance monitoring.".to_string(), doc_comment: "Technology standards that must be followed.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "TechnicalEnvironment".to_string(), member_name: "technologyStandards".to_string(), section_id: "TESTEN-TECH-LST".to_string(), section_id_pattern: "TESTEN-TECH-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "TechnologyStandardEntry".to_string(), serialization_order: Some(9), content_help: "List technology standards the solution must follow, with their scope, mandate level, and compliance expectations.".to_string(), doc_comment: "Technology standards — contains 0+× TechnologyStandard.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — technology architecture & environment".to_string()), som::Json::Str("ISO/IEC 25010 — product quality (infrastructure/platform quality)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists mandated or preferred technology standards the solution must adhere to.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "TechnicalEnvironment".to_string(), member_name: "technologyStandards".to_string(), section_id: "TSE-TECH-LST".to_string(), section_id_pattern: "TSE-TECH-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "TechnologyStandardEntry".to_string(), serialization_order: Some(9), content_help: "List technology standards the solution must follow, with their scope, mandate level, and compliance expectations.".to_string(), doc_comment: "Technology standards — contains 0+× TechnologyStandard.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — technology architecture & environment".to_string()), som::Json::Str("ISO/IEC 25010 — product quality (infrastructure/platform quality)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists mandated or preferred technology standards the solution must adhere to.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("TechnologyStandardEntry", s, meta_children_technology_standard_entry, |r, c| som::SomMetaNode {
                 class_name: "TechnologyStandardEntry".to_string(), class_section_id: "TSE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TechnologyStandardEntry".to_string(), doc_comment: "A technology standard entry (form).\n\nDocuments a mandated or preferred technology standard that the solution\nmust adhere to. Includes scope, compliance requirements, and exceptions.".to_string(), class_doc_comment: "A technology standard entry (form).\n\nDocuments a mandated or preferred technology standard that the solution\nmust adhere to. Includes scope, compliance requirements, and exceptions.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -16027,7 +16027,7 @@ fn meta_children_technical_environment(s: &mut HashSet<String>) -> Vec<Rc<som::S
         },
         Rc::new(som::SomMetaNode { class_name: "TechnicalEnvironment".to_string(), member_name: "integrationOverview".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(10), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Overview of integration constraints: API standards, protocol restrictions, message format requirements, and integration platform mandates.".to_string(), doc_comment: "Integration constraints overview.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "TechnicalEnvironment".to_string(), member_name: "integrationConstraints".to_string(), section_id: "INCOE1-INTE-LST".to_string(), section_id_pattern: "INCOE1-INTE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "IntegrationConstraintEntry".to_string(), serialization_order: Some(11), content_help: "List integration constraints: protocol and format requirements, platform mandates, and the interfaces they affect.".to_string(), doc_comment: "Integration constraints — contains 0+× IntegrationConstraint.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — technology architecture & environment".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §6 — operating environment & constraints".to_string())])), ("connotation".to_string(), som::Json::Str("Lists technical constraints on integration — protocols, formats, and platform mandates the solution must respect.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "TechnicalEnvironment".to_string(), member_name: "integrationConstraints".to_string(), section_id: "INTCONENT-INTE-LST".to_string(), section_id_pattern: "INTCONENT-INTE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "IntegrationConstraintEntry".to_string(), serialization_order: Some(11), content_help: "List integration constraints: protocol and format requirements, platform mandates, and the interfaces they affect.".to_string(), doc_comment: "Integration constraints — contains 0+× IntegrationConstraint.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — technology architecture & environment".to_string()), som::Json::Str("ISO/IEC/IEEE 29148 §6 — operating environment & constraints".to_string())])), ("connotation".to_string(), som::Json::Str("Lists technical constraints on integration — protocols, formats, and platform mandates the solution must respect.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("IntegrationConstraintEntry", s, meta_children_integration_constraint_entry, |r, c| som::SomMetaNode {
                 class_name: "IntegrationConstraintEntry".to_string(), class_section_id: "INTCONENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "IntegrationConstraintEntry".to_string(), doc_comment: "An integration constraint entry (form).\n\nDocuments a technical constraint on system integration, including\nprotocol requirements, format restrictions, and platform mandates.".to_string(), class_doc_comment: "An integration constraint entry (form).\n\nDocuments a technical constraint on system integration, including\nprotocol requirements, format restrictions, and platform mandates.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -16040,8 +16040,8 @@ fn meta_children_technical_environment(s: &mut HashSet<String>) -> Vec<Rc<som::S
 fn meta_children_technical_environment_network(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "TechnicalEnvironmentNetwork".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "networkArchitecture".to_string(), type_name: "String".to_string(), description: "Network Architecture".to_string(), required: false, hint: "Network topology, DMZ, segmentation approach".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "firewallPolicies".to_string(), type_name: "String".to_string(), description: "Firewall Policies".to_string(), required: false, hint: "Standard firewall rules and policies".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "vpnRequirements".to_string(), type_name: "String".to_string(), description: "VPN Requirements".to_string(), required: false, hint: "VPN requirements for remote access".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "loadBalancingStandards".to_string(), type_name: "String".to_string(), description: "Load Balancing Standards".to_string(), required: false, hint: "Standard load-balancing approach and products".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "cdnStrategy".to_string(), type_name: "String".to_string(), description: "CDN Strategy".to_string(), required: false, hint: "Content delivery network strategy and providers".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "TechnicalEnvironmentNetwork".to_string(), member_name: "devopsStandards".to_string(), section_id: "DEVOP-DEVO-LST".to_string(), section_id_pattern: "DEVOP-DEVO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_help: "List DevOps and deployment standards: CI/CD tooling, release process, and environment promotion rules.".to_string(), doc_comment: "DevOps and deployment standards.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — technology architecture & environment".to_string()), som::Json::Str("ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists mandated DevOps and deployment standards the delivery pipeline must follow.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "TechnicalEnvironmentNetwork".to_string(), member_name: "observabilityRequirements".to_string(), section_id: "OBSER-OBSE-LST".to_string(), section_id_pattern: "OBSER-OBSE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(2), content_help: "List observability requirements: metrics, logging, tracing, alerting standards, and required monitoring platforms.".to_string(), doc_comment: "Monitoring and observability requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — product quality (infrastructure/platform quality)".to_string()), som::Json::Str("ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists monitoring and observability requirements the solution must meet for operational visibility.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "TechnicalEnvironmentNetwork".to_string(), member_name: "devopsStandards".to_string(), section_id: "TEENNE-DEVO-LST".to_string(), section_id_pattern: "TEENNE-DEVO-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_help: "List DevOps and deployment standards: CI/CD tooling, release process, and environment promotion rules.".to_string(), doc_comment: "DevOps and deployment standards.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("TOGAF — technology architecture & environment".to_string()), som::Json::Str("ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists mandated DevOps and deployment standards the delivery pipeline must follow.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "TechnicalEnvironmentNetwork".to_string(), member_name: "observabilityRequirements".to_string(), section_id: "TEENNE-OBSE-LST".to_string(), section_id_pattern: "TEENNE-OBSE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(2), content_help: "List observability requirements: metrics, logging, tracing, alerting standards, and required monitoring platforms.".to_string(), doc_comment: "Monitoring and observability requirements.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC 25010 — product quality (infrastructure/platform quality)".to_string()), som::Json::Str("ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)".to_string())])), ("connotation".to_string(), som::Json::Str("Lists monitoring and observability requirements the solution must meet for operational visibility.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "TechnicalEnvironmentNetwork".to_string(), member_name: "disasterRecovery".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Describe DR/BC requirements: RTO, RPO, backup standards, failover requirements, and recovery testing.".to_string(), doc_comment: "Disaster recovery and business continuity requirements.".to_string(), ..som::SomMetaNode::default() }),
     ]
 }
@@ -16199,7 +16199,7 @@ fn meta_children_technical_pain_points(s: &mut HashSet<String>) -> Vec<Rc<som::S
         Rc::new(som::SomMetaNode { class_name: "TechnicalPainPoints".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Overview of technical pain points affecting system development, maintenance,\nand evolution. Include technology obsolescence risks, security posture,\nintegration complexity, and team capability constraints.\n".to_string(), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "TechnicalPainPoints".to_string(), member_name: "categorySummary".to_string(), section_id: "TPPS".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_help: "Aggregate the technical pain points into category metrics: technical-debt estimate, security-vulnerability counts, systems at end of life, vendor lock-in risk, and integration complexity.".to_string(), doc_comment: "Category-level summary for technical pain points.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "technicalDebtEstimate".to_string(), type_name: "String".to_string(), description: "Technical Debt Estimate".to_string(), required: false, hint: "Estimated cost to address technical debt, e.g. €1.2M or 18 months".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "securityVulnerabilityCount".to_string(), type_name: "int".to_string(), description: "Known Security Vulnerabilities".to_string(), required: false, hint: "Number of documented security vulnerabilities".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "criticalSecurityIssues".to_string(), type_name: "int".to_string(), description: "Critical Security Issues".to_string(), required: false, hint: "Number of critical/high severity security vulnerabilities".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "systemsAtEndOfLife".to_string(), type_name: "int".to_string(), description: "Systems at End of Life".to_string(), required: false, hint: "Number of systems using unsupported or EOL technology".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "undocumentedSystems".to_string(), type_name: "int".to_string(), description: "Undocumented Systems".to_string(), required: false, hint: "Number of systems with inadequate documentation".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "vendorLockInRisk".to_string(), type_name: "String".to_string(), description: "Vendor Lock-in Risk Level".to_string(), required: false, hint: "Low / Medium / High — based on proprietary dependencies".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "integrationComplexityScore".to_string(), type_name: "String".to_string(), description: "Integration Complexity Score".to_string(), required: false, hint: "Overall integration complexity, e.g. High (47 point-to-point integrations)".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (technical measures)".to_string())])), ("connotation".to_string(), som::Json::Str("Category roll-up quantifying the technical pain points — technical debt, security vulnerabilities, and end-of-life systems in the current state.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "TechnicalPainPoints".to_string(), member_name: "items".to_string(), section_id: "TEPAPO-ITEM-LST".to_string(), section_id_pattern: "TEPAPO-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "PainPointEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per distinct technical problem, each with its own root cause, impact, and resolution outlook. Scope entries to technology, architecture, security, and maintainability concerns.".to_string(), doc_comment: "Contains 0+× PainPoint.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (problem identification)".to_string())])), ("connotation".to_string(), som::Json::Str("The list of individual technical pain points documented in detail.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "TechnicalPainPoints".to_string(), member_name: "items".to_string(), section_id: "PAPE-ITEM-LST".to_string(), section_id_pattern: "PAPE-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "PainPointEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per distinct technical problem, each with its own root cause, impact, and resolution outlook. Scope entries to technology, architecture, security, and maintainability concerns.".to_string(), doc_comment: "Contains 0+× PainPoint.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — current-state analysis (problem identification)".to_string())])), ("connotation".to_string(), som::Json::Str("The list of individual technical pain points documented in detail.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("PainPointEntry", s, meta_children_pain_point_entry, |r, c| som::SomMetaNode {
                 class_name: "PainPointEntry".to_string(), class_section_id: "PAPE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "PainPointEntry".to_string(), doc_comment: "A pain point entry (form).\n\nDocuments a specific problem in the current state with comprehensive details:\nroot cause analysis, impact quantification, affected stakeholders,\ncurrent workarounds, and proposed resolution approach.".to_string(), class_doc_comment: "A pain point entry (form).\n\nDocuments a specific problem in the current state with comprehensive details:\nroot cause analysis, impact quantification, affected stakeholders,\ncurrent workarounds, and proposed resolution approach.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -16563,7 +16563,7 @@ fn meta_children_training_deliverable_requirements(s: &mut HashSet<String>) -> V
         Rc::new(som::SomMetaNode { class_name: "TrainingDeliverableRequirements".to_string(), member_name: "trainingContent".to_string(), section_id: "TRMAT-TRAI".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "trainingMaterials".to_string(), type_name: "String".to_string(), description: "Training Materials".to_string(), required: false, hint: "Slides, workbooks, exercises".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "trainingFormat".to_string(), type_name: "String".to_string(), description: "Training Format".to_string(), required: false, hint: "In-person, virtual, self-paced".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "trainingDuration".to_string(), type_name: "String".to_string(), description: "Training Duration".to_string(), required: false, hint: "Duration per role/module".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "trainingSchedule".to_string(), type_name: "String".to_string(), description: "Training Schedule".to_string(), required: false, hint: "When training occurs".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "trainTheTrainer".to_string(), type_name: "bool".to_string(), description: "Train-the-Trainer".to_string(), required: false, hint: "Train internal trainers".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "refresherTraining".to_string(), type_name: "String".to_string(), description: "Refresher Training".to_string(), required: false, hint: "Ongoing training approach".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "knowledgeTransferPlan".to_string(), type_name: "String".to_string(), description: "Knowledge Transfer Plan".to_string(), required: false, hint: "How knowledge is transferred".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "supportHandoff".to_string(), type_name: "String".to_string(), description: "Support Handoff".to_string(), required: false, hint: "Transition to support team".to_string(), order: 7, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "certificationProgram".to_string(), type_name: "String".to_string(), description: "Certification Program".to_string(), required: false, hint: "User certification if applicable".to_string(), order: 8, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "TrainingDeliverableRequirements".to_string(), member_name: "trainingNarrative".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Training narrative.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "TrainingDeliverableRequirements".to_string(), member_name: "trainingModules".to_string(), section_id: "TRMOEN-TRAI-LST".to_string(), section_id_pattern: "TRMOEN-TRAI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "TrainingModuleEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per training module.".to_string(), doc_comment: "Training module entries.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 26514 — training material is part of the documentation and enablement content set".to_string()), som::Json::Str("ISO 17100:2015 — each training module can be localized through the translation process".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of training-module entries offered to end users.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "TrainingDeliverableRequirements".to_string(), member_name: "trainingModules".to_string(), section_id: "TME-TRAI-LST".to_string(), section_id_pattern: "TME-TRAI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "TrainingModuleEntry".to_string(), serialization_order: Some(2), content_help: "Add one entry per training module.".to_string(), doc_comment: "Training module entries.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 26514 — training material is part of the documentation and enablement content set".to_string()), som::Json::Str("ISO 17100:2015 — each training module can be localized through the translation process".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of training-module entries offered to end users.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("TrainingModuleEntry", s, meta_children_training_module_entry, |r, c| som::SomMetaNode {
                 class_name: "TrainingModuleEntry".to_string(), class_section_id: "TME".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TrainingModuleEntry".to_string(), doc_comment: "A training module entry.".to_string(), class_doc_comment: "A training module entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -16577,7 +16577,7 @@ fn meta_children_training_deliverables(s: &mut HashSet<String>) -> Vec<Rc<som::S
     vec![
         Rc::new(som::SomMetaNode { class_name: "TrainingDeliverables".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Training deliverables: instructor-led sessions, e-learning modules,\ntrain-the-trainer programs, quick reference cards, video tutorials,\nsandbox environments. Define target audience, duration, prerequisites,\nassessment criteria, and ongoing refresh schedule.\n".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "TrainingDeliverables".to_string(), member_name: "items".to_string(), section_id: "TRDLV-ITEM-LST".to_string(), section_id_pattern: "TRDLV-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DeliverableEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per training deliverable.".to_string(), doc_comment: "Contains 0+× Deliverable.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ITIL 4 2019 — the service management framework defines service delivery, support, and training practices".to_string()), som::Json::Str("PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the individual training deliverables handed over as part of the delivery scope.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "TrainingDeliverables".to_string(), member_name: "items".to_string(), section_id: "DLVEN-ITEM-LST".to_string(), section_id_pattern: "DLVEN-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "DeliverableEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per training deliverable.".to_string(), doc_comment: "Contains 0+× Deliverable.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ITIL 4 2019 — the service management framework defines service delivery, support, and training practices".to_string()), som::Json::Str("PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover".to_string())])), ("connotation".to_string(), som::Json::Str("Lists the individual training deliverables handed over as part of the delivery scope.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("DeliverableEntry", s, meta_children_deliverable_entry, |r, c| som::SomMetaNode {
                 class_name: "DeliverableEntry".to_string(), class_section_id: "DLVEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "DeliverableEntry".to_string(), doc_comment: "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.".to_string(), class_doc_comment: "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -16625,7 +16625,7 @@ fn meta_children_training_requirements(s: &mut HashSet<String>) -> Vec<Rc<som::S
     vec![
         Rc::new(som::SomMetaNode { class_name: "TrainingRequirements".to_string(), member_name: "overview".to_string(), section_id: "TROV".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), doc_comment: "Training overview and strategy.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "trainingStrategy".to_string(), type_name: "String".to_string(), description: "Training Strategy — overall approach to training".to_string(), required: false, hint: "".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "learningManagementSystem".to_string(), type_name: "String".to_string(), description: "Learning Management System — LMS platform used".to_string(), required: false, hint: "".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "blendedLearningApproach".to_string(), type_name: "String".to_string(), description: "Blended Learning Approach — mix of methods".to_string(), required: false, hint: "".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "trainingBudget".to_string(), type_name: "String".to_string(), description: "Training Budget — per user, total".to_string(), required: false, hint: "".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "trainingTimeline".to_string(), type_name: "String".to_string(), description: "Training Timeline — when training occurs".to_string(), required: false, hint: "".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "trainingOwner".to_string(), type_name: "String".to_string(), description: "Training Owner — department/person responsible".to_string(), required: false, hint: "".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "trainerResources".to_string(), type_name: "String".to_string(), description: "Trainer Resources — internal trainers, external vendors".to_string(), required: false, hint: "".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "trainingFacilities".to_string(), type_name: "String".to_string(), description: "Training Facilities — classrooms, labs, online".to_string(), required: false, hint: "".to_string(), order: 7, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "successCriteria".to_string(), type_name: "String".to_string(), description: "Success Criteria — how training success is measured".to_string(), required: false, hint: "".to_string(), order: 8, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "feedbackMechanism".to_string(), type_name: "String".to_string(), description: "Feedback Mechanism — how feedback is collected".to_string(), required: false, hint: "".to_string(), order: 9, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "TrainingRequirements".to_string(), member_name: "initialTraining".to_string(), section_id: "INITR-INIT-LST".to_string(), section_id_pattern: "INITR-INIT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "InitialTrainingEntry".to_string(), serialization_order: Some(1), doc_comment: "Initial/onboarding training.".to_string(), ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "TrainingRequirements".to_string(), member_name: "initialTraining".to_string(), section_id: "ITE-INIT-LST".to_string(), section_id_pattern: "ITE-INIT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "InitialTrainingEntry".to_string(), serialization_order: Some(1), doc_comment: "Initial/onboarding training.".to_string(), ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("InitialTrainingEntry", s, meta_children_initial_training_entry, |r, c| som::SomMetaNode {
                 class_name: "InitialTrainingEntry".to_string(), class_section_id: "ITE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "InitialTrainingEntry".to_string(), doc_comment: "Initial training entry (form).".to_string(), class_doc_comment: "Initial training entry (form).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -16837,7 +16837,7 @@ fn meta_children_translation_process(s: &mut HashSet<String>) -> Vec<Rc<som::Som
         Rc::new(som::SomMetaNode { class_name: "TranslationProcess".to_string(), member_name: "ongoing".to_string(), section_id: "TRPRON".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Ongoing localization operations.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "continuousLocalization".to_string(), type_name: "String".to_string(), description: "Continuous Localization".to_string(), required: false, hint: "CI/CD integration for translations".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "translationMemoryMaintenance".to_string(), type_name: "String".to_string(), description: "TM Maintenance".to_string(), required: false, hint: "How translation memory is maintained".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 17100:2015 — translation memory is a process asset maintained across ongoing localization work".to_string()), som::Json::Str("ISO 18587:2017 — continuous machine-translation post-editing supports ongoing operations".to_string())])), ("connotation".to_string(), som::Json::Str("The continuous localization and translation-memory maintenance operations.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "TranslationProcess".to_string(), member_name: "translationNarrative".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Translation process narrative.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "TranslationProcess".to_string(), member_name: "vendors".to_string(), section_id: "TRVEEN-VEND-LST".to_string(), section_id_pattern: "TRVEEN-VEND-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "TranslationVendorEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per translation vendor.".to_string(), doc_comment: "Translation vendor entries.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 17100:2015 — each listed translation vendor meets defined competence requirements".to_string()), som::Json::Str("ISO 18587:2017 — a listed vendor may provide machine-translation post-editing services".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of translation-vendor entries engaged for localization.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "TranslationProcess".to_string(), member_name: "vendors".to_string(), section_id: "TVE-VEND-LST".to_string(), section_id_pattern: "TVE-VEND-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "TranslationVendorEntry".to_string(), serialization_order: Some(6), content_help: "Add one entry per translation vendor.".to_string(), doc_comment: "Translation vendor entries.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 17100:2015 — each listed translation vendor meets defined competence requirements".to_string()), som::Json::Str("ISO 18587:2017 — a listed vendor may provide machine-translation post-editing services".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of translation-vendor entries engaged for localization.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("TranslationVendorEntry", s, meta_children_translation_vendor_entry, |r, c| som::SomMetaNode {
                 class_name: "TranslationVendorEntry".to_string(), class_section_id: "TVE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TranslationVendorEntry".to_string(), doc_comment: "A translation vendor entry.".to_string(), class_doc_comment: "A translation vendor entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -16948,7 +16948,7 @@ fn meta_children_ui_component_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomM
         Rc::new(som::SomMetaNode { class_name: "UiComponentEntry".to_string(), member_name: "dataBinding".to_string(), section_id: "UICOMENT-DATA".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(16), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "dataType".to_string(), type_name: "String".to_string(), description: "Data Type".to_string(), required: false, hint: "Type of data component displays/edits".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "bindingPattern".to_string(), type_name: "String".to_string(), description: "Binding Pattern".to_string(), required: false, hint: "Observable, form field, direct".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "valueAccessor".to_string(), type_name: "String".to_string(), description: "Value Accessor".to_string(), required: false, hint: "How value is read/written".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "changeNotification".to_string(), type_name: "String".to_string(), description: "Change Notification".to_string(), required: false, hint: "How changes are communicated".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "validationIntegration".to_string(), type_name: "String".to_string(), description: "Validation Integration".to_string(), required: false, hint: "How validation errors are displayed".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "dirtyTracking".to_string(), type_name: "String".to_string(), description: "Dirty Tracking".to_string(), required: false, hint: "How dirty state is tracked".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "undoRedoSupport".to_string(), type_name: "String".to_string(), description: "Undo/Redo Support".to_string(), required: false, hint: "Whether edits can be undone and redone".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "UiComponentEntry".to_string(), member_name: "behaviorNarrative".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(17), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Detailed description of component behavior, user interactions, and edge cases.".to_string(), doc_comment: "Component behavior narrative.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "UiComponentEntry".to_string(), member_name: "states".to_string(), section_id: "CMST-STAT-LST".to_string(), section_id_pattern: "CMST-STAT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ComponentStateEntry".to_string(), serialization_order: Some(18), content_help: "Add one entry per component state.".to_string(), doc_comment: "Contains 0+× ComponentState.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("W3C WAI-ARIA 1.2 — component states such as pressed, expanded, and disabled are exposed to assistive technology".to_string()), som::Json::Str("ISO 9241-161:2016 — each interactive state is presented so users can recognise it".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of component-state entries defining the visual and functional states of the component.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "UiComponentEntry".to_string(), member_name: "states".to_string(), section_id: "COMSTAENT-STAT-LST".to_string(), section_id_pattern: "COMSTAENT-STAT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ComponentStateEntry".to_string(), serialization_order: Some(18), content_help: "Add one entry per component state.".to_string(), doc_comment: "Contains 0+× ComponentState.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("W3C WAI-ARIA 1.2 — component states such as pressed, expanded, and disabled are exposed to assistive technology".to_string()), som::Json::Str("ISO 9241-161:2016 — each interactive state is presented so users can recognise it".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of component-state entries defining the visual and functional states of the component.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ComponentStateEntry", s, meta_children_component_state_entry, |r, c| som::SomMetaNode {
                 class_name: "ComponentStateEntry".to_string(), class_section_id: "COMSTAENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ComponentStateEntry".to_string(), doc_comment: "A component state entry.\n\nDefines a visual/functional state of the component.".to_string(), class_doc_comment: "A component state entry.\n\nDefines a visual/functional state of the component.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -16956,7 +16956,7 @@ fn meta_children_ui_component_entry(s: &mut HashSet<String>) -> Vec<Rc<som::SomM
             Rc::new(n)
         },
         {
-            let mut n = som::SomMetaNode { class_name: "UiComponentEntry".to_string(), member_name: "variants".to_string(), section_id: "CMVN-VARI-LST".to_string(), section_id_pattern: "CMVN-VARI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ComponentVariantEntry".to_string(), serialization_order: Some(19), content_help: "Add one entry per component variant.".to_string(), doc_comment: "Contains 0+× ComponentVariant.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Material Design — component variants define alternative appearances such as filled, outlined, and text styles".to_string()), som::Json::Str("ISO/IEC 25010:2023 — a set of component variants supports maintainability through modularity and reusability".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of component-variant entries defining alternative configurations of the component.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "UiComponentEntry".to_string(), member_name: "variants".to_string(), section_id: "CVE-VARI-LST".to_string(), section_id_pattern: "CVE-VARI-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ComponentVariantEntry".to_string(), serialization_order: Some(19), content_help: "Add one entry per component variant.".to_string(), doc_comment: "Contains 0+× ComponentVariant.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Material Design — component variants define alternative appearances such as filled, outlined, and text styles".to_string()), som::Json::Str("ISO/IEC 25010:2023 — a set of component variants supports maintainability through modularity and reusability".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of component-variant entries defining alternative configurations of the component.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ComponentVariantEntry", s, meta_children_component_variant_entry, |r, c| som::SomMetaNode {
                 class_name: "ComponentVariantEntry".to_string(), class_section_id: "CVE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ComponentVariantEntry".to_string(), doc_comment: "A component variant entry.\n\nDefines a variation of the component with different appearance or behavior.".to_string(), class_doc_comment: "A component variant entry.\n\nDefines a variation of the component with different appearance or behavior.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -17001,7 +17001,7 @@ fn meta_children_ui_components(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNo
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
         {
-            let mut n = som::SomMetaNode { class_name: "UiComponents".to_string(), member_name: "componentSpecs".to_string(), section_id: "UICOEN-COMP-LST".to_string(), section_id_pattern: "UICOEN-COMP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "UiComponentEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per catalog component.".to_string(), doc_comment: "10.11.2. Component Specifications — contains 0+×.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Atomic Design (Brad Frost) — each catalog component is specified as a composable building block".to_string()), som::Json::Str("ISO/IEC 25010:2023 — a catalog of reusable components supports maintainability through modularity".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of catalog component-specification entries.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "UiComponents".to_string(), member_name: "componentSpecs".to_string(), section_id: "UICOMENT-COMP-LST".to_string(), section_id_pattern: "UICOMENT-COMP-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "UiComponentEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per catalog component.".to_string(), doc_comment: "10.11.2. Component Specifications — contains 0+×.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("Atomic Design (Brad Frost) — each catalog component is specified as a composable building block".to_string()), som::Json::Str("ISO/IEC 25010:2023 — a catalog of reusable components supports maintainability through modularity".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of catalog component-specification entries.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("UiComponentEntry", s, meta_children_ui_component_entry, |r, c| som::SomMetaNode {
                 class_name: "UiComponentEntry".to_string(), class_section_id: "UICOMENT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UiComponentEntry".to_string(), doc_comment: "A UI component entry.\n\nComprehensive specification for a single UI component covering identity,\nvisual design, behavior, states, responsiveness, accessibility,\nauthorization, and data binding.".to_string(), class_doc_comment: "A UI component entry.\n\nComprehensive specification for a single UI component covering identity,\nvisual design, behavior, states, responsiveness, accessibility,\nauthorization, and data binding.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -17219,7 +17219,7 @@ fn meta_children_user_categories(s: &mut HashSet<String>) -> Vec<Rc<som::SomMeta
         Rc::new(som::SomMetaNode { class_name: "UserCategories".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Overview of user categories and how they relate to the system. Include summary of user population and key differences between categories.".to_string() }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "UserCategories".to_string(), member_name: "userCategoryDiagram".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "mermaid-flowchart".to_string(), description: "User category hierarchy or relationship diagram showing how different user types relate".to_string() }), content_help: "Create a diagram showing user categories, their relationships, and organizational hierarchy.".to_string(), doc_comment: "User category overview diagram.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "UserCategories".to_string(), member_name: "categories".to_string(), section_id: "USCA-CATE-LST".to_string(), section_id_pattern: "USCA-CATE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "UserCategoryEntry".to_string(), serialization_order: Some(2), min: Some(1), content_help: "Add one entry per distinct user category. Categories should be mutually exclusive where possible, with clear distinguishing characteristics.".to_string(), doc_comment: "User category entries — contains 1+× UserCategoryEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-210 — user characteristics & context of use".to_string()), som::Json::Str("BABOK v3 §10.43 — stakeholder/user analysis".to_string())])), ("connotation".to_string(), som::Json::Str("The set of individual user-category entries defined for this system.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "UserCategories".to_string(), member_name: "categories".to_string(), section_id: "UCE-CATE-LST".to_string(), section_id_pattern: "UCE-CATE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "UserCategoryEntry".to_string(), serialization_order: Some(2), min: Some(1), content_help: "Add one entry per distinct user category. Categories should be mutually exclusive where possible, with clear distinguishing characteristics.".to_string(), doc_comment: "User category entries — contains 1+× UserCategoryEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-210 — user characteristics & context of use".to_string()), som::Json::Str("BABOK v3 §10.43 — stakeholder/user analysis".to_string())])), ("connotation".to_string(), som::Json::Str("The set of individual user-category entries defined for this system.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("UserCategoryEntry", s, meta_children_user_category_entry, |r, c| som::SomMetaNode {
                 class_name: "UserCategoryEntry".to_string(), class_section_id: "UCE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserCategoryEntry".to_string(), doc_comment: "A user category entry.\n\nComprehensive user persona definition including demographics, goals,\nfrustrations, technical proficiency, and system interaction patterns.".to_string(), class_doc_comment: "A user category entry.\n\nComprehensive user persona definition including demographics, goals,\nfrustrations, technical proficiency, and system interaction patterns.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -17348,8 +17348,8 @@ fn meta_children_user_journey(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNod
             }));
             Rc::new(n)
         },
-        Rc::new(som::SomMetaNode { class_name: "UserJourney".to_string(), member_name: "keyTouchpoints".to_string(), section_id: "KEYTO-KEYT-LST".to_string(), section_id_pattern: "KEYTO-KEYT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_help: "Add one entry per key touchpoint in the user journey.".to_string(), doc_comment: "Key touchpoints.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-210 — user journey & experience".to_string()), som::Json::Str("BABOK v3 §10 — customer journey mapping".to_string())])), ("connotation".to_string(), som::Json::Str("The set of key touchpoints where this user category interacts with the system across the journey.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "UserJourney".to_string(), member_name: "painPoints".to_string(), section_id: "USERJ-PAIN-LST".to_string(), section_id_pattern: "USERJ-PAIN-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "Add one entry per pain point or friction in the user journey.".to_string(), doc_comment: "Pain points in the journey.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-210 — user journey & experience".to_string()), som::Json::Str("BABOK v3 §10 — customer journey mapping".to_string())])), ("connotation".to_string(), som::Json::Str("The set of pain points this user category encounters during the journey.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "UserJourney".to_string(), member_name: "keyTouchpoints".to_string(), section_id: "UJ-KEYT-LST".to_string(), section_id_pattern: "UJ-KEYT-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(3), content_help: "Add one entry per key touchpoint in the user journey.".to_string(), doc_comment: "Key touchpoints.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-210 — user journey & experience".to_string()), som::Json::Str("BABOK v3 §10 — customer journey mapping".to_string())])), ("connotation".to_string(), som::Json::Str("The set of key touchpoints where this user category interacts with the system across the journey.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "UserJourney".to_string(), member_name: "painPoints".to_string(), section_id: "UJ-PAIN-LST".to_string(), section_id_pattern: "UJ-PAIN-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "Add one entry per pain point or friction in the user journey.".to_string(), doc_comment: "Pain points in the journey.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-210 — user journey & experience".to_string()), som::Json::Str("BABOK v3 §10 — customer journey mapping".to_string())])), ("connotation".to_string(), som::Json::Str("The set of pain points this user category encounters during the journey.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "UserJourney".to_string(), member_name: "opportunitiesForDelight".to_string(), section_id: "UJ-OPPO".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Opportunities to exceed user expectations and create positive experiences.".to_string() }), doc_comment: "Opportunities for delight.".to_string(), ..som::SomMetaNode::default() }),
     ]
 }
@@ -17464,7 +17464,7 @@ fn meta_children_user_persona_details(_s: &mut HashSet<String>) -> Vec<Rc<som::S
         Rc::new(som::SomMetaNode { class_name: "UserPersonaDetails".to_string(), member_name: "goals".to_string(), section_id: "UPDG".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Goals and drivers.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "primaryGoals".to_string(), type_name: "String".to_string(), description: "Primary Goals (what they want to achieve with the system)".to_string(), required: false, hint: "What this persona most wants to achieve with the system".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "secondaryGoals".to_string(), type_name: "String".to_string(), description: "Secondary Goals".to_string(), required: false, hint: "Less critical goals this persona also has".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "frustrations".to_string(), type_name: "String".to_string(), description: "Frustrations (pain points with current solutions)".to_string(), required: false, hint: "Pain points with current solutions or workflows".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "motivations".to_string(), type_name: "String".to_string(), description: "Motivations (what drives them)".to_string(), required: false, hint: "What drives and motivates this persona".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "fears".to_string(), type_name: "String".to_string(), description: "Fears (concerns about new systems)".to_string(), required: false, hint: "Concerns or anxieties about adopting a new system".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-210 — personas & context of use".to_string()), som::Json::Str("BABOK v3 §10.43 — personas".to_string())])), ("connotation".to_string(), som::Json::Str("Captures what drives this persona — goals, frustrations, motivations, and fears.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "UserPersonaDetails".to_string(), member_name: "behavior".to_string(), section_id: "UPDB".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Preferences and behavior.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "techComfort".to_string(), type_name: "String".to_string(), description: "Technology Comfort Level (attitude toward technology)".to_string(), required: false, hint: "This persona's general attitude toward technology".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "preferredLearningStyle".to_string(), type_name: "String".to_string(), description: "Preferred Learning Style (visual, hands-on, documentation, etc.)".to_string(), required: false, hint: "Visual / hands-on / documentation / video".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "decisionMakingStyle".to_string(), type_name: "String".to_string(), description: "Decision Making Style (analytical, intuitive, collaborative)".to_string(), required: false, hint: "Analytical / intuitive / collaborative".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-210 — personas & context of use".to_string()), som::Json::Str("BABOK v3 §10.43 — personas".to_string())])), ("connotation".to_string(), som::Json::Str("Captures this persona's behavioral traits — technology comfort, learning style, and decision-making style.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "UserPersonaDetails".to_string(), member_name: "visualRepresentation".to_string(), section_id: "UPD-VISU".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Description of a representative photo or avatar that embodies this persona (for design reference).".to_string() }), doc_comment: "Representative photo or avatar description.".to_string(), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "UserPersonaDetails".to_string(), member_name: "representativeQuotes".to_string(), section_id: "REPRE-REPR-LST".to_string(), section_id_pattern: "REPRE-REPR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(6), content_help: "Add quotes that capture how this persona thinks and speaks, to make the persona vivid for designers.".to_string(), doc_comment: "Key quotes that represent this persona's mindset.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-210 — personas & context of use".to_string()), som::Json::Str("BABOK v3 §10.43 — personas".to_string())])), ("connotation".to_string(), som::Json::Str("The set of representative quotes capturing this persona's mindset.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "UserPersonaDetails".to_string(), member_name: "representativeQuotes".to_string(), section_id: "UPD-REPR-LST".to_string(), section_id_pattern: "UPD-REPR-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(6), content_help: "Add quotes that capture how this persona thinks and speaks, to make the persona vivid for designers.".to_string(), doc_comment: "Key quotes that represent this persona's mindset.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-210 — personas & context of use".to_string()), som::Json::Str("BABOK v3 §10.43 — personas".to_string())])), ("connotation".to_string(), som::Json::Str("The set of representative quotes capturing this persona's mindset.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -17551,7 +17551,7 @@ fn meta_children_utility_navigation(s: &mut HashSet<String>) -> Vec<Rc<som::SomM
     vec![
         Rc::new(som::SomMetaNode { class_name: "UtilityNavigation".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "## Utility Navigation (10.3.1.5)\n\nAlways-visible utility items in app bar.\n\n### Common Utilities\n- **User Menu** — Avatar with profile/settings/logout\n- **Notifications** — Bell with unread count\n- **Help** — Documentation access\n- **Settings** — Quick preferences\n\n### Item Properties\n- Position (AppBar-Leading/Trailing, Drawer-Footer)\n- Widget type (Icon-Button/Avatar/Dropdown/Popup)\n- Badge display (count, dot)\n- Interaction (Navigate/Popup/Drawer/Sheet/Dialog)\n\n### Menu Items\nDropdown/popup menus have nested items with:\n- Label, icon, display order\n- Action type (Navigate/Action/External)\n- Danger styling and confirmation\n".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "UtilityNavigation".to_string(), member_name: "items".to_string(), section_id: "UNIE-ITEM-LST".to_string(), section_id_pattern: "UNIE-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "UtilityNavigationItemEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per utility navigation item.".to_string(), doc_comment: "Contains 0+× UtilityNavigationItem.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-14:1997 — menu dialogues cover the set of always-visible utility entry points".to_string()), som::Json::Str("ISO 9241-151:2008 — navigation aids give consistent access to cross-cutting functions".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of utility navigation items shown persistently in the app bar or drawer.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "UtilityNavigation".to_string(), member_name: "items".to_string(), section_id: "UTNAITEN-ITEM-LST".to_string(), section_id_pattern: "UTNAITEN-ITEM-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "UtilityNavigationItemEntry".to_string(), serialization_order: Some(1), content_help: "Add one entry per utility navigation item.".to_string(), doc_comment: "Contains 0+× UtilityNavigationItem.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-14:1997 — menu dialogues cover the set of always-visible utility entry points".to_string()), som::Json::Str("ISO 9241-151:2008 — navigation aids give consistent access to cross-cutting functions".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of utility navigation items shown persistently in the app bar or drawer.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("UtilityNavigationItemEntry", s, meta_children_utility_navigation_item_entry, |r, c| som::SomMetaNode {
                 class_name: "UtilityNavigationItemEntry".to_string(), class_section_id: "UTNAITEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UtilityNavigationItemEntry".to_string(), doc_comment: "A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications bell,\nhelp icon, settings.".to_string(), class_doc_comment: "A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications bell,\nhelp icon, settings.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -17571,7 +17571,7 @@ fn meta_children_utility_navigation_item_entry(s: &mut HashSet<String>) -> Vec<R
         }),
         Rc::new(som::SomMetaNode { class_name: "UtilityNavigationItemEntry".to_string(), member_name: "behavior".to_string(), section_id: "UNIEB".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Badge and interaction behavior.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "badgeType".to_string(), type_name: "String".to_string(), description: "Badge Type".to_string(), required: false, hint: "None/Count/Dot".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "badgeSource".to_string(), type_name: "String".to_string(), description: "Badge Source".to_string(), required: false, hint: "Data binding for badge".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "interactionType".to_string(), type_name: "String".to_string(), description: "Interaction Type".to_string(), required: false, hint: "Navigate/Open-Popup/Open-Drawer/Open-Bottom-Sheet/Open-Dialog".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "targetScreenId".to_string(), type_name: "String".to_string(), description: "Target Screen ID".to_string(), required: false, hint: "Navigation target".to_string(), order: 3, enum_values: vec![], refers_to: vec!["SCREN.screenId".to_string()] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-14:1997 — menu dialogues define how selecting a utility item opens a menu, drawer, or sheet".to_string()), som::Json::Str("ISO/IEC 25010:2023 — appropriateness recognisability lets users read status from a badge before acting".to_string())])), ("connotation".to_string(), som::Json::Str("The badge display and interaction behavior triggered when a utility navigation item is used.".to_string()))] }], ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "UtilityNavigationItemEntry".to_string(), member_name: "menuItems".to_string(), section_id: "UMIE-MENU-LST".to_string(), section_id_pattern: "UMIE-MENU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "UtilityMenuItemEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per utility menu item.".to_string(), doc_comment: "Contains 0+× UtilityMenuItem.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-14:1997 — menu dialogues structure the nested options within a utility popup or dropdown".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of nested menu item entries belonging to a utility navigation item.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "UtilityNavigationItemEntry".to_string(), member_name: "menuItems".to_string(), section_id: "UTMEITEN-MENU-LST".to_string(), section_id_pattern: "UTMEITEN-MENU-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "UtilityMenuItemEntry".to_string(), serialization_order: Some(4), content_help: "Add one entry per utility menu item.".to_string(), doc_comment: "Contains 0+× UtilityMenuItem.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-14:1997 — menu dialogues structure the nested options within a utility popup or dropdown".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of nested menu item entries belonging to a utility navigation item.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("UtilityMenuItemEntry", s, meta_children_utility_menu_item_entry, |r, c| som::SomMetaNode {
                 class_name: "UtilityMenuItemEntry".to_string(), class_section_id: "UTMEITEN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UtilityMenuItemEntry".to_string(), doc_comment: "A utility menu item entry (form).\n\nEntry in a utility popup/dropdown menu (e.g., user menu items).".to_string(), class_doc_comment: "A utility menu item entry (form).\n\nEntry in a utility popup/dropdown menu (e.g., user menu items).".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -17596,14 +17596,14 @@ fn meta_children_validation_feedback(s: &mut HashSet<String>) -> Vec<Rc<som::Som
         Rc::new(som::SomMetaNode { class_name: "ValidationFeedback".to_string(), member_name: "behavior".to_string(), section_id: "VAFEBE".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Animation and focus behavior.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "errorAnimation".to_string(), type_name: "String".to_string(), description: "Error Animation".to_string(), required: false, hint: "Shake, fade-in, bounce, none".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "clearAnimation".to_string(), type_name: "String".to_string(), description: "Clear Animation".to_string(), required: false, hint: "Animation when error is resolved".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "scrollToError".to_string(), type_name: "bool".to_string(), description: "Scroll to Error".to_string(), required: false, hint: "Auto-scroll to first error on submit".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "focusOnError".to_string(), type_name: "bool".to_string(), description: "Focus on Error".to_string(), required: false, hint: "Move focus to first invalid field".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-143:2012 — forms move focus toward fields that need correction after validation".to_string()), som::Json::Str("ISO 9241-13:1998 — user guidance draws attention to the location of an input error".to_string())])), ("connotation".to_string(), som::Json::Str("The validation-feedback behaviour configuration governing animation and focus on errors.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ValidationFeedback".to_string(), member_name: "validationNarrative".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), content_help: "Detailed specification of validation feedback behavior and user experience considerations.".to_string(), doc_comment: "Validation feedback narrative.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "ValidationFeedback".to_string(), member_name: "messageTemplates".to_string(), section_id: "VAMETE-MESS-LST".to_string(), section_id_pattern: "VAMETE-MESS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ValidationMessageTemplate".to_string(), serialization_order: Some(6), content_help: "Add one entry per validation message template.".to_string(), doc_comment: "Validation message templates.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-143:2012 — forms present specific validation messages for input fields".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of validation-message template entries.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "ValidationFeedback".to_string(), member_name: "messageTemplates".to_string(), section_id: "VMT-MESS-LST".to_string(), section_id_pattern: "VMT-MESS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "ValidationMessageTemplate".to_string(), serialization_order: Some(6), content_help: "Add one entry per validation message template.".to_string(), doc_comment: "Validation message templates.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-143:2012 — forms present specific validation messages for input fields".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of validation-message template entries.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("ValidationMessageTemplate", s, meta_children_validation_message_template, |r, c| som::SomMetaNode {
                 class_name: "ValidationMessageTemplate".to_string(), class_section_id: "VMT".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "ValidationMessageTemplate".to_string(), doc_comment: "A validation message template.".to_string(), class_doc_comment: "A validation message template.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
             }));
             Rc::new(n)
         },
-        Rc::new(som::SomMetaNode { class_name: "ValidationFeedback".to_string(), member_name: "fieldValidationRules".to_string(), section_id: "FIELD-FIEL-LST".to_string(), section_id_pattern: "FIELD-FIEL-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(7), content_help: "Add one entry per field validation rule.".to_string(), doc_comment: "Field validation rules by type.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-143:2012 — forms apply validation rules that determine acceptable input per field".to_string()), som::Json::Str("ISO/IEC 27001:2022 — input validation controls guard against malformed or malicious data".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of field validation rule entries organised by field type.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ValidationFeedback".to_string(), member_name: "fieldValidationRules".to_string(), section_id: "VAFE-FIEL-LST".to_string(), section_id_pattern: "VAFE-FIEL-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(7), content_help: "Add one entry per field validation rule.".to_string(), doc_comment: "Field validation rules by type.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-143:2012 — forms apply validation rules that determine acceptable input per field".to_string()), som::Json::Str("ISO/IEC 27001:2022 — input validation controls guard against malformed or malicious data".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of field validation rule entries organised by field type.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -17619,7 +17619,7 @@ fn meta_children_value_proposition(_s: &mut HashSet<String>) -> Vec<Rc<som::SomM
         Rc::new(som::SomMetaNode { class_name: "ValueProposition".to_string(), member_name: "valueDetails".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(1), doc_comment: "Value Proposition Details (form).".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "valueStatement".to_string(), type_name: "String".to_string(), description: "Value Statement (concise statement of value delivered)".to_string(), required: true, hint: "Concise statement of the value the system delivers".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "primaryBenefits".to_string(), type_name: "String".to_string(), description: "Primary Benefits (top 3-5 benefits in priority order)".to_string(), required: false, hint: "Top 3-5 benefits in priority order".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "quantifiableBenefits".to_string(), type_name: "String".to_string(), description: "Quantifiable Benefits (measurable improvements with targets)".to_string(), required: false, hint: "Measurable improvements with concrete targets".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "qualitativeBenefits".to_string(), type_name: "String".to_string(), description: "Qualitative Benefits (non-quantifiable but important benefits)".to_string(), required: false, hint: "Non-quantifiable but important benefits".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ValueProposition".to_string(), member_name: "benefits".to_string(), section_id: "VALBN".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(2), doc_comment: "Financial and efficiency benefits.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "costSavings".to_string(), type_name: "String".to_string(), description: "Cost Savings (expected cost reductions and where)".to_string(), required: false, hint: "Expected cost reductions and where they occur".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "revenueImpact".to_string(), type_name: "String".to_string(), description: "Revenue Impact (how system affects revenue generation)".to_string(), required: false, hint: "How the system affects revenue generation".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "productivityGains".to_string(), type_name: "String".to_string(), description: "Productivity Gains (efficiency improvements expected)".to_string(), required: false, hint: "Efficiency improvements expected from the system".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "riskReduction".to_string(), type_name: "String".to_string(), description: "Risk Reduction (operational, compliance, security risks mitigated)".to_string(), required: false, hint: "Operational, compliance, and security risks mitigated".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — business value".to_string())])), ("connotation".to_string(), som::Json::Str("The financial and efficiency benefits of the system — cost savings, revenue impact, productivity gains, and risk reduction.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "ValueProposition".to_string(), member_name: "returnProfile".to_string(), section_id: "VALRP".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "ROI and realization timeline.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "estimatedRoi".to_string(), type_name: "String".to_string(), description: "Estimated ROI (return on investment calculation or estimate)".to_string(), required: false, hint: "Return-on-investment calculation or estimate".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "paybackPeriod".to_string(), type_name: "String".to_string(), description: "Payback Period (time until investment is recovered)".to_string(), required: false, hint: "Time until the investment is recovered".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "valueRealizationTimeline".to_string(), type_name: "String".to_string(), description: "Value Realization Timeline (when benefits start accruing)".to_string(), required: false, hint: "When benefits start accruing after delivery".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("BABOK v3 §10 — business value".to_string())])), ("connotation".to_string(), som::Json::Str("The return profile of the system — estimated ROI, payback period, and the timeline over which value is realized.".to_string()))] }], ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "ValueProposition".to_string(), member_name: "kpis".to_string(), section_id: "KPIEN-KPIS-LST".to_string(), section_id_pattern: "KPIEN-KPIS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "Add one entry per KPI used to measure delivered value. Include the metric, its baseline, and its target.".to_string(), doc_comment: "Key Performance Indicators for value measurement.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — measures of effectiveness".to_string())])), ("connotation".to_string(), som::Json::Str("The set of key performance indicators by which the system's delivered value will be measured.".to_string()))] }], ..som::SomMetaNode::default() }),
+        Rc::new(som::SomMetaNode { class_name: "ValueProposition".to_string(), member_name: "kpis".to_string(), section_id: "VALPX-KPIS-LST".to_string(), section_id_pattern: "VALPX-KPIS-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_help: "Add one entry per KPI used to measure delivered value. Include the metric, its baseline, and its target.".to_string(), doc_comment: "Key Performance Indicators for value measurement.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO/IEC/IEEE 29148 §6 — measures of effectiveness".to_string())])), ("connotation".to_string(), som::Json::Str("The set of key performance indicators by which the system's delivered value will be measured.".to_string()))] }], ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -17708,7 +17708,7 @@ fn meta_children_wcag_compliance(s: &mut HashSet<String>) -> Vec<Rc<som::SomMeta
         Rc::new(som::SomMetaNode { class_name: "WcagCompliance".to_string(), member_name: "robust".to_string(), section_id: "WCCORO".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Robustness requirements.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "compatible".to_string(), type_name: "String".to_string(), description: "Compatible (4.1)".to_string(), required: false, hint: "Parsing, name/role/value".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("W3C WCAG 2.2 — content is robust enough to be interpreted reliably by a wide variety of user agents including assistive technologies".to_string()), som::Json::Str("W3C WAI-ARIA — name, role, and value are exposed so assistive technologies can interpret user interface components".to_string())])), ("connotation".to_string(), som::Json::Str("The WCAG robust principle requirements ensuring compatibility with assistive technologies.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "WcagCompliance".to_string(), member_name: "wcagNarrative".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(4), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "WCAG compliance narrative.".to_string(), ..som::SomMetaNode::default() }),
         {
-            let mut n = som::SomMetaNode { class_name: "WcagCompliance".to_string(), member_name: "successCriteria".to_string(), section_id: "WSCE-SUCC-LST".to_string(), section_id_pattern: "WSCE-SUCC-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "WcagSuccessCriterionEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per WCAG success criterion.".to_string(), doc_comment: "WCAG success criteria mapping.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("W3C WCAG 2.2 — each success criterion states a testable accessibility requirement".to_string()), som::Json::Str("ISO/IEC 40500:2012 — the WCAG success criteria adopted as an international standard".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of WCAG success-criterion entries.".to_string()))] }], ..som::SomMetaNode::default() };
+            let mut n = som::SomMetaNode { class_name: "WcagCompliance".to_string(), member_name: "successCriteria".to_string(), section_id: "WCSUCREN-SUCC-LST".to_string(), section_id_pattern: "WCSUCREN-SUCC-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "WcagSuccessCriterionEntry".to_string(), serialization_order: Some(5), content_help: "Add one entry per WCAG success criterion.".to_string(), doc_comment: "WCAG success criteria mapping.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("W3C WCAG 2.2 — each success criterion states a testable accessibility requirement".to_string()), som::Json::Str("ISO/IEC 40500:2012 — the WCAG success criteria adopted as an international standard".to_string())])), ("connotation".to_string(), som::Json::Str("The collection of WCAG success-criterion entries.".to_string()))] }], ..som::SomMetaNode::default() };
             n.element_node = Some(meta_cx("WcagSuccessCriterionEntry", s, meta_children_wcag_success_criterion_entry, |r, c| som::SomMetaNode {
                 class_name: "WcagSuccessCriterionEntry".to_string(), class_section_id: "WCSUCREN".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "WcagSuccessCriterionEntry".to_string(), doc_comment: "A WCAG success criterion entry.".to_string(), class_doc_comment: "A WCAG success criterion entry.".to_string(), recursive: r, children: c,
                 ..som::SomMetaNode::default()
@@ -19668,7 +19668,7 @@ impl<'a> AlertingConfigurationNav<'a> {
     }
 
     pub fn alert_rules(&self) -> som::SomListMetaRef<'a, AlertRuleEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ALRUEN-ALER-LST"), AlertRuleEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ALERULENT-ALER-LST"), AlertRuleEntryNav::new)
     }
 
     pub fn escalation_policies(&self) -> AlertEscalationPoliciesNav<'a> {
@@ -20257,7 +20257,7 @@ impl<'a> ApplicableRegulationEntryNav<'a> {
     }
 
     pub fn compliance_measures(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "COMPL-COMP-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ARE-COMP-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -20754,15 +20754,15 @@ impl<'a> AssumptionConstraintDependencyRegisterNav<'a> {
     }
 
     pub fn assumptions(&self) -> som::SomListMetaRef<'a, AssumptionRegisterEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ACRG-ASMP-LST"), AssumptionRegisterEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ASMRE-ASMP-LST"), AssumptionRegisterEntryNav::new)
     }
 
     pub fn constraints(&self) -> som::SomListMetaRef<'a, ConstraintRegisterEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ACRG-CONS-LST"), ConstraintRegisterEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CONRE-CONS-LST"), ConstraintRegisterEntryNav::new)
     }
 
     pub fn dependencies(&self) -> som::SomListMetaRef<'a, DependencyRegisterEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ACRG-DEPS-LST"), DependencyRegisterEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DEPRE-DEPS-LST"), DependencyRegisterEntryNav::new)
     }
 }
 
@@ -21724,7 +21724,7 @@ impl<'a> BackupAndRecoverySectionNav<'a> {
     }
 
     pub fn backup_policies(&self) -> som::SomListMetaRef<'a, BackupPolicyEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BAPOEN-BACK-LST"), BackupPolicyEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BPE-BACK-LST"), BackupPolicyEntryNav::new)
     }
 
     pub fn rpo_rto_requirements(&self) -> RpoRtoRequirementsNav<'a> {
@@ -22326,7 +22326,7 @@ impl<'a> BoundaryAssumptionsNav<'a> {
     }
 
     pub fn items(&self) -> som::SomListMetaRef<'a, BoundaryAssumptionEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BOASEN-ITEM-LST"), BoundaryAssumptionEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BAE-ITEM-LST"), BoundaryAssumptionEntryNav::new)
     }
 }
 
@@ -22439,7 +22439,7 @@ impl<'a> BreakpointConfigurationNav<'a> {
     }
 
     pub fn breakpoints(&self) -> som::SomListMetaRef<'a, BreakpointEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BRE-BREA-LST"), BreakpointEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BE-BREA-LST"), BreakpointEntryNav::new)
     }
 }
 
@@ -23129,7 +23129,7 @@ impl<'a> BusinessPainPointsNav<'a> {
     }
 
     pub fn items(&self) -> som::SomListMetaRef<'a, PainPointEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BUPAPO-ITEM-LST"), PainPointEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PAPE-ITEM-LST"), PainPointEntryNav::new)
     }
 }
 
@@ -24463,15 +24463,15 @@ impl<'a> CiCdPipelineConfigurationNav<'a> {
     }
 
     pub fn stages(&self) -> som::SomListMetaRef<'a, PipelineStageEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PISTEN-STAG-LST"), PipelineStageEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PSE-STAG-LST"), PipelineStageEntryNav::new)
     }
 
     pub fn jobs(&self) -> som::SomListMetaRef<'a, PipelineJobEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PIJOEN-JOBS-LST"), PipelineJobEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PJE-JOBS-LST"), PipelineJobEntryNav::new)
     }
 
     pub fn environments(&self) -> som::SomListMetaRef<'a, DeploymentEnvironmentEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DEENEN-ENVI-LST"), DeploymentEnvironmentEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DEE-ENVI-LST"), DeploymentEnvironmentEntryNav::new)
     }
 }
 
@@ -24799,15 +24799,15 @@ impl<'a> ClientRequirementsSectionNav<'a> {
     }
 
     pub fn browser_requirements(&self) -> som::SomListMetaRef<'a, BrowserRequirementEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BRREEN-BROW-LST"), BrowserRequirementEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BROREQENT-BROW-LST"), BrowserRequirementEntryNav::new)
     }
 
     pub fn desktop_os_requirements(&self) -> som::SomListMetaRef<'a, DesktopOsRequirementEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DORE1-DESK-LST"), DesktopOsRequirementEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DEOSREEN-DESK-LST"), DesktopOsRequirementEntryNav::new)
     }
 
     pub fn mobile_requirements(&self) -> som::SomListMetaRef<'a, MobileDeviceRequirementEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MDRE-MOBI-LST"), MobileDeviceRequirementEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MODEREEN-MOBI-LST"), MobileDeviceRequirementEntryNav::new)
     }
 
     pub fn display_requirements(&self) -> DisplayRequirementsNav<'a> {
@@ -25678,19 +25678,19 @@ impl<'a> CompatibilityRequirementsSectionNav<'a> {
     }
 
     pub fn os_compatibility(&self) -> som::SomListMetaRef<'a, OsCompatibilityEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "OSCOEN-OSCO-LST"), OsCompatibilityEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "OCE-OSCO-LST"), OsCompatibilityEntryNav::new)
     }
 
     pub fn browser_compatibility(&self) -> som::SomListMetaRef<'a, BrowserCompatibilityEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BRCOEN-BROW-LST"), BrowserCompatibilityEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BROCOMENT-BROW-LST"), BrowserCompatibilityEntryNav::new)
     }
 
     pub fn database_compatibility(&self) -> som::SomListMetaRef<'a, DatabaseCompatibilityEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DACOEN-DATA-LST"), DatabaseCompatibilityEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DATCOMENT-DATA-LST"), DatabaseCompatibilityEntryNav::new)
     }
 
     pub fn enterprise_system_compatibility(&self) -> som::SomListMetaRef<'a, EnterpriseSystemCompatibilityEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ESCE-ENTE-LST"), EnterpriseSystemCompatibilityEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ENSYCOEN-ENTE-LST"), EnterpriseSystemCompatibilityEntryNav::new)
     }
 
     pub fn api_compatibility(&self) -> som::SomListMetaRef<'a, ApiCompatibilityEntryNav<'a>> {
@@ -25698,15 +25698,15 @@ impl<'a> CompatibilityRequirementsSectionNav<'a> {
     }
 
     pub fn legacy_compatibility(&self) -> som::SomListMetaRef<'a, LegacyCompatibilityEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "LECOEN-LEGA-LST"), LegacyCompatibilityEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "LCE-LEGA-LST"), LegacyCompatibilityEntryNav::new)
     }
 
     pub fn mobile_compatibility(&self) -> som::SomListMetaRef<'a, MobileCompatibilityEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MOCOEN-MOBI-LST"), MobileCompatibilityEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MOBCOMENT-MOBI-LST"), MobileCompatibilityEntryNav::new)
     }
 
     pub fn third_party_compatibility(&self) -> som::SomListMetaRef<'a, ThirdPartyCompatibilityEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TPCE-THIR-LST"), ThirdPartyCompatibilityEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "THPACOEN-THIR-LST"), ThirdPartyCompatibilityEntryNav::new)
     }
 
     pub fn data_format_compatibility(&self) -> DataFormatCompatibilityNav<'a> {
@@ -27926,11 +27926,11 @@ impl<'a> CurrentArchitectureNav<'a> {
     }
 
     pub fn integration_patterns(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "IPE-INTE-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CARCH-INTE-LST"), som::SomMetaRef::new)
     }
 
     pub fn shared_services(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SHARE-SHAR-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CARCH-SHAR-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -28349,7 +28349,7 @@ impl<'a> CurrentWorkflowEntryNav<'a> {
     }
 
     pub fn actors(&self) -> som::SomListMetaRef<'a, WorkflowActorEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "WFAC-ACTO-LST"), WorkflowActorEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "WAE-ACTO-LST"), WorkflowActorEntryNav::new)
     }
 
     pub fn inputs(&self) -> som::SomListMetaRef<'a, WorkflowInputEntryNav<'a>> {
@@ -32005,7 +32005,7 @@ impl<'a> DecisionPointEntryResolutionNav<'a> {
     }
 
     pub fn options(&self) -> som::SomListMetaRef<'a, DecisionOptionEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DEOPEN-OPTI-LST"), DecisionOptionEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DOE-OPTI-LST"), DecisionOptionEntryNav::new)
     }
 }
 
@@ -32044,7 +32044,7 @@ impl<'a> DecisionPointsNav<'a> {
     }
 
     pub fn items(&self) -> som::SomListMetaRef<'a, DecisionPointEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DEPOEN-ITEM-LST"), DecisionPointEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DPE-ITEM-LST"), DecisionPointEntryNav::new)
     }
 }
 
@@ -33288,15 +33288,15 @@ impl<'a> DesignPatternsAndStandardsNav<'a> {
     }
 
     pub fn coding_standards(&self) -> som::SomListMetaRef<'a, CodingStandardEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "COSTEN-CODI-LST"), CodingStandardEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CSE-CODI-LST"), CodingStandardEntryNav::new)
     }
 
     pub fn development_conventions(&self) -> som::SomListMetaRef<'a, DevelopmentConventionEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DECOEN-DEVE-LST"), DevelopmentConventionEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DCE-DEVE-LST"), DevelopmentConventionEntryNav::new)
     }
 
     pub fn industry_standards(&self) -> som::SomListMetaRef<'a, IndustryStandardEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INSTEN-INDU-LST"), IndustryStandardEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ISE-INDU-LST"), IndustryStandardEntryNav::new)
     }
 
     pub fn code_quality_metrics(&self) -> CodeQualityMetricsNav<'a> {
@@ -33644,7 +33644,7 @@ impl<'a> DevelopmentEnvironmentNav<'a> {
     }
 
     pub fn ide_requirements(&self) -> som::SomListMetaRef<'a, IdeRequirementEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "IDREEN-IDER-LST"), IdeRequirementEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "IRE-IDER-LST"), IdeRequirementEntryNav::new)
     }
 
     pub fn build_tools(&self) -> BuildToolsConfigurationNav<'a> {
@@ -34462,11 +34462,11 @@ impl<'a> DocumentControlNav<'a> {
     }
 
     pub fn revision_history(&self) -> som::SomListMetaRef<'a, RevisionEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVHST-REVS-LST"), RevisionEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RVENT-REVS-LST"), RevisionEntryNav::new)
     }
 
     pub fn approvals(&self) -> som::SomListMetaRef<'a, ApprovalRecordNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DOCTL-APRV-LST"), ApprovalRecordNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "APREC-APRV-LST"), ApprovalRecordNav::new)
     }
 
     pub fn reference_documents(&self) -> ReferenceDocumentsNav<'a> {
@@ -34606,7 +34606,7 @@ impl<'a> DocumentationDeliverablesNav<'a> {
     }
 
     pub fn items(&self) -> som::SomListMetaRef<'a, DeliverableEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DCDLV-ITEM-LST"), DeliverableEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DLVEN-ITEM-LST"), DeliverableEntryNav::new)
     }
 }
 
@@ -34876,7 +34876,7 @@ impl<'a> DomainBusinessRulesNav<'a> {
     }
 
     pub fn rules(&self) -> som::SomListMetaRef<'a, DomainBusinessRuleEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DOBIRU-RULE-LST"), DomainBusinessRuleEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DBRE-RULE-LST"), DomainBusinessRuleEntryNav::new)
     }
 }
 
@@ -35191,7 +35191,7 @@ impl<'a> DomainProcessesNav<'a> {
     }
 
     pub fn processes(&self) -> som::SomListMetaRef<'a, DomainProcessEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DOPR-PROC-LST"), DomainProcessEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DOPREN-PROC-LST"), DomainProcessEntryNav::new)
     }
 }
 
@@ -36187,7 +36187,7 @@ impl<'a> EquipmentRequirementsNav<'a> {
     }
 
     pub fn input_devices(&self) -> som::SomListMetaRef<'a, InputDeviceEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INPDE-INPU-LST"), InputDeviceEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "IDE-INPU-LST"), InputDeviceEntryNav::new)
     }
 
     pub fn peripherals(&self) -> som::SomListMetaRef<'a, PeripheralEquipmentEntryNav<'a>> {
@@ -36481,7 +36481,7 @@ impl<'a> ErrorRecoveryNav<'a> {
     }
 
     pub fn recovery_flows(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RECOV-RECO-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ERRE-RECO-LST"), som::SomMetaRef::new)
     }
 
     pub fn recovery_scenarios(&self) -> som::SomListMetaRef<'a, RecoveryScenarioEntryNav<'a>> {
@@ -37108,7 +37108,7 @@ impl<'a> ExportFormatEntryNav<'a> {
     }
 
     pub fn field_mappings(&self) -> som::SomListMetaRef<'a, ExportFieldMappingEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EFME-FIEL-LST"), ExportFieldMappingEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EXFIMAEN-FIEL-LST"), ExportFieldMappingEntryNav::new)
     }
 }
 
@@ -37299,7 +37299,7 @@ impl<'a> ExternalActorEntryNav<'a> {
     }
 
     pub fn interaction_scenarios(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INTER-INTE-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EAE-INTE-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -37373,7 +37373,7 @@ impl<'a> ExternalConnectivitySectionNav<'a> {
     }
 
     pub fn partner_connections(&self) -> som::SomListMetaRef<'a, ExternalPartnerConnectionEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EPCE-PART-LST"), ExternalPartnerConnectionEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EXPACOEN-PART-LST"), ExternalPartnerConnectionEntryNav::new)
     }
 
     pub fn cloud_services(&self) -> CloudServiceIntegrationsNav<'a> {
@@ -37499,7 +37499,7 @@ impl<'a> ExternalInterfacesNav<'a> {
     }
 
     pub fn interfaces(&self) -> som::SomListMetaRef<'a, ExternalInterfaceEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EXINEN-INTE-LST"), ExternalInterfaceEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EIE-INTE-LST"), ExternalInterfaceEntryNav::new)
     }
 }
 
@@ -37866,7 +37866,7 @@ impl<'a> FeatureDependenciesNav<'a> {
     }
 
     pub fn items(&self) -> som::SomListMetaRef<'a, FeatureDependencyEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "FEDEEN-ITEM-LST"), FeatureDependencyEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "FDE-ITEM-LST"), FeatureDependencyEntryNav::new)
     }
 }
 
@@ -38125,7 +38125,7 @@ impl<'a> FeaturePriorityRegisterNav<'a> {
     }
 
     pub fn items(&self) -> som::SomListMetaRef<'a, FeaturePriorityEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "FEPREN-ITEM-LST"), FeaturePriorityEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "FPE-ITEM-LST"), FeaturePriorityEntryNav::new)
     }
 }
 
@@ -38211,7 +38211,7 @@ impl<'a> FeatureStageMatrixNav<'a> {
     }
 
     pub fn items(&self) -> som::SomListMetaRef<'a, FeatureStageMappingNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "FESTM1-ITEM-LST"), FeatureStageMappingNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "FSM-ITEM-LST"), FeatureStageMappingNav::new)
     }
 }
 
@@ -39121,7 +39121,7 @@ impl<'a> FunctionalResponsibilitiesNav<'a> {
     }
 
     pub fn items(&self) -> som::SomListMetaRef<'a, ResponsibilityEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "REEN1-ITEM-LST"), ResponsibilityEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RE-ITEM-LST"), ResponsibilityEntryNav::new)
     }
 }
 
@@ -39324,7 +39324,7 @@ impl<'a> GlossaryAndAbbreviationsNav<'a> {
     }
 
     pub fn glossary(&self) -> som::SomListMetaRef<'a, GlossaryEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "GLOSS-ENTR-LST"), GlossaryEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "GLENT-ENTR-LST"), GlossaryEntryNav::new)
     }
 }
 
@@ -40758,7 +40758,7 @@ impl<'a> InformationArchitectureNav<'a> {
     }
 
     pub fn global_entry_points(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "GLOBA-GLOB-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "IA-GLOB-LST"), som::SomMetaRef::new)
     }
 
     pub fn architecture_diagram(&self) -> som::SomMetaRef<'a> {
@@ -41297,7 +41297,7 @@ impl<'a> IntegrationHealthSummaryNav<'a> {
     }
 
     pub fn fragile_points(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "FRAGI-FRAG-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INHESU-FRAG-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -41855,7 +41855,7 @@ impl<'a> InterfaceBusinessContextNav<'a> {
     }
 
     pub fn dependent_processes(&self) -> som::SomListMetaRef<'a, InterfaceBusinessProcessEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "IBPE-DEPE-LST"), InterfaceBusinessProcessEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INBUPREN-DEPE-LST"), InterfaceBusinessProcessEntryNav::new)
     }
 }
 
@@ -41952,15 +41952,15 @@ impl<'a> InterfaceDataSpecNav<'a> {
     }
 
     pub fn data_entities(&self) -> som::SomListMetaRef<'a, InterfaceDataEntityEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "IDEE-DATA-LST"), InterfaceDataEntityEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INDAENEN-DATA-LST"), InterfaceDataEntityEntryNav::new)
     }
 
     pub fn mapping_rules(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MAPPI-MAPP-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INDASP-MAPP-LST"), som::SomMetaRef::new)
     }
 
     pub fn validation_rules(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "VALID-VALI-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INDASP-VALI-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -42007,7 +42007,7 @@ impl<'a> InterfaceErrorHandlingNav<'a> {
     }
 
     pub fn error_procedures(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ERROR-ERRO-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INERHA-ERRO-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -42128,7 +42128,7 @@ impl<'a> InterfaceOperationalNav<'a> {
     }
 
     pub fn dependencies(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DEPEN-DEPE-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INOP-DEPE-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -42265,7 +42265,7 @@ impl<'a> InterfaceTechnicalSpecNav<'a> {
     }
 
     pub fn operations(&self) -> som::SomListMetaRef<'a, InterfaceOperationEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INOPEN-OPER-LST"), InterfaceOperationEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "IOE-OPER-LST"), InterfaceOperationEntryNav::new)
     }
 
     pub fn webhook_spec(&self) -> som::SomMetaRef<'a> {
@@ -42343,7 +42343,7 @@ impl<'a> InterfaceTestingNav<'a> {
     }
 
     pub fn test_scenarios(&self) -> som::SomListMetaRef<'a, InterfaceTestScenarioEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ITSE1-TEST-LST"), InterfaceTestScenarioEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INTESCEN-TEST-LST"), InterfaceTestScenarioEntryNav::new)
     }
 }
 
@@ -42605,7 +42605,7 @@ impl<'a> Iso25010CoverageNav<'a> {
     }
 
     pub fn characteristics(&self) -> som::SomListMetaRef<'a, Iso25010CoverageEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "I25CV-CHAR-LST"), Iso25010CoverageEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "I25CE-CHAR-LST"), Iso25010CoverageEntryNav::new)
     }
 }
 
@@ -42761,7 +42761,7 @@ impl<'a> ItSecurityStandardsSectionNav<'a> {
     }
 
     pub fn standards(&self) -> som::SomListMetaRef<'a, SecurityStandardEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SESTEN-STAN-LST"), SecurityStandardEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SSE-STAN-LST"), SecurityStandardEntryNav::new)
     }
 
     pub fn application_security(&self) -> ApplicationSecurityRequirementsNav<'a> {
@@ -42867,7 +42867,7 @@ impl<'a> JobDescriptionsAndStaffingNav<'a> {
     }
 
     pub fn new_roles(&self) -> som::SomListMetaRef<'a, NewRoleEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "NWROL-NEWR-LST"), NewRoleEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "NRE-NEWR-LST"), NewRoleEntryNav::new)
     }
 
     pub fn changed_roles(&self) -> som::SomListMetaRef<'a, ChangedRoleEntryNav<'a>> {
@@ -43507,7 +43507,7 @@ impl<'a> LayeringAndModuleStructureNav<'a> {
     }
 
     pub fn software_layers(&self) -> som::SomListMetaRef<'a, SoftwareLayerEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SOLAEN-SOFT-LST"), SoftwareLayerEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SLE-SOFT-LST"), SoftwareLayerEntryNav::new)
     }
 
     pub fn layer_communication_rules(&self) -> LayerCommunicationRulesNav<'a> {
@@ -43515,7 +43515,7 @@ impl<'a> LayeringAndModuleStructureNav<'a> {
     }
 
     pub fn bounded_contexts(&self) -> som::SomListMetaRef<'a, BoundedContextEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BOCOEN-BOUN-LST"), BoundedContextEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BCE-BOUN-LST"), BoundedContextEntryNav::new)
     }
 
     pub fn package_organization(&self) -> PackageOrganizationNav<'a> {
@@ -43523,11 +43523,11 @@ impl<'a> LayeringAndModuleStructureNav<'a> {
     }
 
     pub fn modules(&self) -> som::SomListMetaRef<'a, ModuleEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MOEN1-MODU-LST"), ModuleEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MODENT-MODU-LST"), ModuleEntryNav::new)
     }
 
     pub fn shared_libraries(&self) -> som::SomListMetaRef<'a, SharedLibraryEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SHLIB-SHAR-LST"), SharedLibraryEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SHLIEN-SHAR-LST"), SharedLibraryEntryNav::new)
     }
 
     pub fn dependency_injection(&self) -> DependencyInjectionStructureNav<'a> {
@@ -44691,7 +44691,7 @@ impl<'a> MaintenanceWindowsSectionNav<'a> {
     }
 
     pub fn maintenance_windows(&self) -> som::SomListMetaRef<'a, MaintenanceWindowEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MAWIEN-MAIN-LST"), MaintenanceWindowEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MWE-MAIN-LST"), MaintenanceWindowEntryNav::new)
     }
 
     pub fn emergency_maintenance(&self) -> EmergencyMaintenanceProceduresNav<'a> {
@@ -44992,7 +44992,7 @@ impl<'a> MetricsAndObservabilityNav<'a> {
     }
 
     pub fn custom_metrics(&self) -> som::SomListMetaRef<'a, CustomMetricEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CUMEEN-CUST-LST"), CustomMetricEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CUSMETENT-CUST-LST"), CustomMetricEntryNav::new)
     }
 }
 
@@ -45214,7 +45214,7 @@ impl<'a> MfaConfigurationNav<'a> {
     }
 
     pub fn mfa_details(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MFADE-MFAD-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MC-MFAD-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -45289,7 +45289,7 @@ impl<'a> MigrationConsiderationsNav<'a> {
     }
 
     pub fn escalation_procedures(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ESCAL-ESCA-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MIGCON-ESCA-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -45824,19 +45824,19 @@ impl<'a> MigrationRisksNav<'a> {
     }
 
     pub fn risk_categories(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RISKC-RISK-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MIRI-RISK-LST"), som::SomMetaRef::new)
     }
 
     pub fn risk_based_decisions(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RISKB-RISK-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MIRI-RBDE-LST"), som::SomMetaRef::new)
     }
 
     pub fn monitoring_procedures(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MONIT-MONI-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MIRI-MONI-LST"), som::SomMetaRef::new)
     }
 
     pub fn response_strategies(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RESPO-RESP-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MIRI-RESP-LST"), som::SomMetaRef::new)
     }
 
     pub fn risk_aggregation(&self) -> som::SomMetaRef<'a> {
@@ -46290,7 +46290,7 @@ impl<'a> MonitoringAndAlertingSectionNav<'a> {
     }
 
     pub fn alert_definitions(&self) -> som::SomListMetaRef<'a, AlertDefinitionEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ALDEEN-ALER-LST"), AlertDefinitionEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ALEDEFENT-ALER-LST"), AlertDefinitionEntryNav::new)
     }
 
     pub fn dashboards(&self) -> DashboardRequirementsNav<'a> {
@@ -46345,7 +46345,7 @@ impl<'a> MonitoringDashboardsNav<'a> {
     }
 
     pub fn dashboards(&self) -> som::SomListMetaRef<'a, DashboardEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DAEN-DASH-LST"), DashboardEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DASENT-DASH-LST"), DashboardEntryNav::new)
     }
 
     pub fn dashboard_templates(&self) -> som::SomListMetaRef<'a, DashboardTemplatesNav<'a>> {
@@ -46431,7 +46431,7 @@ impl<'a> MoscowAnalysisNav<'a> {
     }
 
     pub fn items(&self) -> som::SomListMetaRef<'a, MoscowEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MOEN-ITEM-LST"), MoscowEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ME-ITEM-LST"), MoscowEntryNav::new)
     }
 }
 
@@ -46556,7 +46556,7 @@ impl<'a> MultiLanguageSupportNav<'a> {
     }
 
     pub fn supported_locales(&self) -> som::SomListMetaRef<'a, SupportedLocaleEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SULOEN-SUPP-LST"), SupportedLocaleEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SUPLOCENT-SUPP-LST"), SupportedLocaleEntryNav::new)
     }
 }
 
@@ -47245,7 +47245,7 @@ impl<'a> NetworkRequirementsSectionNav<'a> {
     }
 
     pub fn vpn_requirements(&self) -> som::SomListMetaRef<'a, VpnRequirementEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "VPREEN-VPNR-LST"), VpnRequirementEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "VRE-VPNR-LST"), VpnRequirementEntryNav::new)
     }
 
     pub fn firewall_requirements(&self) -> FirewallRequirementsNav<'a> {
@@ -48074,7 +48074,7 @@ impl<'a> OperationalPainPointsNav<'a> {
     }
 
     pub fn items(&self) -> som::SomListMetaRef<'a, PainPointEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "OPPAPO-ITEM-LST"), PainPointEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PAPE-ITEM-LST"), PainPointEntryNav::new)
     }
 }
 
@@ -48480,7 +48480,7 @@ impl<'a> OrganizationalEnvironmentNav<'a> {
     }
 
     pub fn affected_departments(&self) -> som::SomListMetaRef<'a, AffectedDepartmentEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "AFDEEN-AFFE-LST"), AffectedDepartmentEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ADE-AFFE-LST"), AffectedDepartmentEntryNav::new)
     }
 
     pub fn decision_making(&self) -> som::SomMetaRef<'a> {
@@ -48488,15 +48488,15 @@ impl<'a> OrganizationalEnvironmentNav<'a> {
     }
 
     pub fn decision_makers(&self) -> som::SomListMetaRef<'a, DecisionMakerEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DEMAEN-DECI-LST"), DecisionMakerEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DME-DECI-LST"), DecisionMakerEntryNav::new)
     }
 
     pub fn cultural_considerations(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CULTU-CULT-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "OREN-CULT-LST"), som::SomMetaRef::new)
     }
 
     pub fn communication_preferences(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "COMMU-COMM-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "OREN-COMM-LST"), som::SomMetaRef::new)
     }
 
     pub fn political_landscape(&self) -> som::SomMetaRef<'a> {
@@ -48504,7 +48504,7 @@ impl<'a> OrganizationalEnvironmentNav<'a> {
     }
 
     pub fn change_advocates(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CHANG-CHAN-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "OREN-CHAN-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -48844,7 +48844,7 @@ impl<'a> OutOfScopeNav<'a> {
     }
 
     pub fn items(&self) -> som::SomListMetaRef<'a, OutOfScopeEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "OOSE-ITEM-LST"), OutOfScopeEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "OUOFSCEN-ITEM-LST"), OutOfScopeEntryNav::new)
     }
 }
 
@@ -50046,7 +50046,7 @@ impl<'a> PhaseGateReviewsNav<'a> {
     }
 
     pub fn items(&self) -> som::SomListMetaRef<'a, PhaseGateReviewEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PGRE-ITEM-LST"), PhaseGateReviewEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PHGAREEN-ITEM-LST"), PhaseGateReviewEntryNav::new)
     }
 }
 
@@ -50257,7 +50257,7 @@ impl<'a> PlatformAndLanguageNav<'a> {
     }
 
     pub fn frameworks(&self) -> som::SomListMetaRef<'a, FrameworkRequirementEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "FWREN-FRAM-LST"), FrameworkRequirementEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "FRREEN-FRAM-LST"), FrameworkRequirementEntryNav::new)
     }
 
     pub fn build_toolchain(&self) -> som::SomListMetaRef<'a, BuildToolchainEntryNav<'a>> {
@@ -50265,7 +50265,7 @@ impl<'a> PlatformAndLanguageNav<'a> {
     }
 
     pub fn deployment_targets(&self) -> som::SomListMetaRef<'a, DeploymentTargetEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DETAEN-DEPL-LST"), DeploymentTargetEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DEPTARENT-DEPL-LST"), DeploymentTargetEntryNav::new)
     }
 
     pub fn dependency_management(&self) -> DependencyManagementNav<'a> {
@@ -50511,11 +50511,11 @@ impl<'a> PrintAndExportLayoutNav<'a> {
     }
 
     pub fn export_formats(&self) -> som::SomListMetaRef<'a, ExportFormatEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EXFOEN-EXPO-LST"), ExportFormatEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EFE-EXPO-LST"), ExportFormatEntryNav::new)
     }
 
     pub fn export_templates(&self) -> som::SomListMetaRef<'a, ExportTemplateEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EXTEEN-EXPO-LST"), ExportTemplateEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ETE-EXPO-LST"), ExportTemplateEntryNav::new)
     }
 }
 
@@ -50679,7 +50679,7 @@ impl<'a> ProblemStatementNav<'a> {
     }
 
     pub fn related_pain_points(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RPPE-RELA-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PS-RELA-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -52725,7 +52725,7 @@ impl<'a> ProtocolsAndStandardsSectionNav<'a> {
     }
 
     pub fn protocols(&self) -> som::SomListMetaRef<'a, ProtocolEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PREN-PROT-LST"), ProtocolEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PE-PROT-LST"), ProtocolEntryNav::new)
     }
 
     pub fn tls_requirements(&self) -> TlsRequirementsNav<'a> {
@@ -52890,7 +52890,7 @@ impl<'a> PrototypeFeatureSubsetNav<'a> {
     }
 
     pub fn features(&self) -> som::SomListMetaRef<'a, PrototypeFeatureEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PRFEEN-FEAT-LST"), PrototypeFeatureEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PFE-FEAT-LST"), PrototypeFeatureEntryNav::new)
     }
 }
 
@@ -52968,7 +52968,7 @@ impl<'a> PrototypeGoalsNav<'a> {
     }
 
     pub fn goals(&self) -> som::SomListMetaRef<'a, PrototypeGoalEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PRGOEN-GOAL-LST"), PrototypeGoalEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PGE-GOAL-LST"), PrototypeGoalEntryNav::new)
     }
 }
 
@@ -53211,7 +53211,7 @@ impl<'a> QualityFrameworkNav<'a> {
     }
 
     pub fn category_dependencies(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CATEG-CATE-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "QLFWK-CATE-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -54733,7 +54733,7 @@ impl<'a> ReportDefinitionsNav<'a> {
     }
 
     pub fn reports(&self) -> som::SomListMetaRef<'a, ReportEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "REEN-REPO-LST"), ReportEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "REPENT-REPO-LST"), ReportEntryNav::new)
     }
 }
 
@@ -54859,23 +54859,23 @@ impl<'a> ReportEntryNav<'a> {
     }
 
     pub fn sections(&self) -> som::SomListMetaRef<'a, ReportSectionEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RESEE1-SECT-LST"), ReportSectionEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RSE-SECT-LST"), ReportSectionEntryNav::new)
     }
 
     pub fn filters(&self) -> som::SomListMetaRef<'a, ReportFilterEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "REFIEN-FILT-LST"), ReportFilterEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RFE-FILT-LST"), ReportFilterEntryNav::new)
     }
 
     pub fn schedules(&self) -> som::SomListMetaRef<'a, ReportScheduleEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RESCEN-SCHE-LST"), ReportScheduleEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "REPSCHENT-SCHE-LST"), ReportScheduleEntryNav::new)
     }
 
     pub fn distributions(&self) -> som::SomListMetaRef<'a, ReportDistributionEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "REDIEN-DIST-LST"), ReportDistributionEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RDE-DIST-LST"), ReportDistributionEntryNav::new)
     }
 
     pub fn recipients(&self) -> som::SomListMetaRef<'a, ReportRecipientEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "REREEN-RECI-LST"), ReportRecipientEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RRE-RECI-LST"), ReportRecipientEntryNav::new)
     }
 }
 
@@ -55083,11 +55083,11 @@ impl<'a> ReportSectionEntryNav<'a> {
     }
 
     pub fn columns(&self) -> som::SomListMetaRef<'a, ReportColumnEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RECOE1-COLU-LST"), ReportColumnEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "REPCOLENT-COLU-LST"), ReportColumnEntryNav::new)
     }
 
     pub fn charts(&self) -> som::SomListMetaRef<'a, ReportChartEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RECHEN-CHAR-LST"), ReportChartEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "REPCHAENT-CHAR-LST"), ReportChartEntryNav::new)
     }
 }
 
@@ -55153,7 +55153,7 @@ impl<'a> RequirementAcceptanceCriteriaNav<'a> {
     }
 
     pub fn criteria(&self) -> som::SomListMetaRef<'a, AcceptanceCriterionEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ACCR-CRIT-LST"), AcceptanceCriterionEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ACE-CRIT-LST"), AcceptanceCriterionEntryNav::new)
     }
 }
 
@@ -55589,7 +55589,7 @@ impl<'a> RequirementUiSpecificationNav<'a> {
     }
 
     pub fn fields(&self) -> som::SomListMetaRef<'a, ScreenFieldEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCFLD-FIEL-LST"), ScreenFieldEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SFE-FIEL-LST"), ScreenFieldEntryNav::new)
     }
 
     pub fn actions(&self) -> som::SomListMetaRef<'a, RequirementScreenActionEntryNav<'a>> {
@@ -56521,15 +56521,15 @@ impl<'a> ReusableComponentsSectionNav<'a> {
     }
 
     pub fn ui_components(&self) -> som::SomListMetaRef<'a, ReusableUiComponentEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RUICMP-UICO-LST"), ReusableUiComponentEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RUCE-UICO-LST"), ReusableUiComponentEntryNav::new)
     }
 
     pub fn business_components(&self) -> som::SomListMetaRef<'a, BusinessComponentEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BUCOEN-BUSI-LST"), BusinessComponentEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "BUSCOMENT-BUSI-LST"), BusinessComponentEntryNav::new)
     }
 
     pub fn infrastructure_components(&self) -> som::SomListMetaRef<'a, InfrastructureComponentEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INCOEN-INFR-LST"), InfrastructureComponentEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INFCOMENT-INFR-LST"), InfrastructureComponentEntryNav::new)
     }
 
     pub fn third_party_libraries(&self) -> som::SomListMetaRef<'a, ThirdPartyLibraryEntryNav<'a>> {
@@ -57060,7 +57060,7 @@ impl<'a> RisksAndAssumptionsNav<'a> {
     }
 
     pub fn key_risks(&self) -> som::SomListMetaRef<'a, RiskEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RIEN-KEYR-LST"), RiskEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RISENT-KEYR-LST"), RiskEntryNav::new)
     }
 }
 
@@ -58414,11 +58414,11 @@ impl<'a> ScopeBoundariesNav<'a> {
     }
 
     pub fn in_scope_items(&self) -> som::SomListMetaRef<'a, ScopeItemEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCITE-INSC-LST"), ScopeItemEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SIE-INSC-LST"), ScopeItemEntryNav::new)
     }
 
     pub fn out_of_scope_items(&self) -> som::SomListMetaRef<'a, ScopeItemEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCITE-OUTO-LST"), ScopeItemEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SIE-OUTO-LST"), ScopeItemEntryNav::new)
     }
 
     pub fn deferred_items(&self) -> som::SomListMetaRef<'a, DeferredScopeItemEntryNav<'a>> {
@@ -58426,7 +58426,7 @@ impl<'a> ScopeBoundariesNav<'a> {
     }
 
     pub fn scope_assumptions(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCOPE-SCOP-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCBND-SCOP-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -58750,7 +58750,7 @@ impl<'a> ScreenElementEntryNav<'a> {
     }
 
     pub fn validation_rules(&self) -> som::SomListMetaRef<'a, ElementValidationRuleEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EVRE-VALI-LST"), ElementValidationRuleEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ELVARUEN-VALI-LST"), ElementValidationRuleEntryNav::new)
     }
 }
 
@@ -58876,7 +58876,7 @@ impl<'a> ScreenEntryNav<'a> {
     }
 
     pub fn user_categories(&self) -> som::SomListMetaRef<'a, ScreenUserCategoryEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCRUSC-USER-LST"), ScreenUserCategoryEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SUCE-USER-LST"), ScreenUserCategoryEntryNav::new)
     }
 
     pub fn entry_points(&self) -> som::SomListMetaRef<'a, EntryPointEntryNav<'a>> {
@@ -58884,7 +58884,7 @@ impl<'a> ScreenEntryNav<'a> {
     }
 
     pub fn responsive_rules(&self) -> som::SomListMetaRef<'a, ScreenResponsiveRuleEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SRRE-RESP-LST"), ScreenResponsiveRuleEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCRERUEN-RESP-LST"), ScreenResponsiveRuleEntryNav::new)
     }
 }
 
@@ -59391,7 +59391,7 @@ impl<'a> SecondaryNavigationNav<'a> {
     }
 
     pub fn tab_bars(&self) -> som::SomListMetaRef<'a, TabBarDefinitionEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TBDE-TABB-LST"), TabBarDefinitionEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TABADEEN-TABB-LST"), TabBarDefinitionEntryNav::new)
     }
 }
 
@@ -59626,7 +59626,7 @@ impl<'a> SecurityAuditRequirementsSectionNav<'a> {
     }
 
     pub fn audit_entries(&self) -> som::SomListMetaRef<'a, SecurityAuditEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SEAUEN-AUDI-LST"), SecurityAuditEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SAE-AUDI-LST"), SecurityAuditEntryNav::new)
     }
 }
 
@@ -59868,7 +59868,7 @@ impl<'a> SecurityControlsNav<'a> {
     }
 
     pub fn controls(&self) -> som::SomListMetaRef<'a, SecurityControlEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SECCT-CONT-LST"), SecurityControlEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SECOEN-CONT-LST"), SecurityControlEntryNav::new)
     }
 }
 
@@ -60720,11 +60720,11 @@ impl<'a> ServerRequirementsSectionNav<'a> {
     }
 
     pub fn environments(&self) -> som::SomListMetaRef<'a, ServerEnvironmentEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SEENEN-ENVI-LST"), ServerEnvironmentEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SEE-ENVI-LST"), ServerEnvironmentEntryNav::new)
     }
 
     pub fn server_roles(&self) -> som::SomListMetaRef<'a, ServerRoleEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SEROEN-SERV-LST"), ServerRoleEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SRE-SERV-LST"), ServerRoleEntryNav::new)
     }
 
     pub fn compute_resources(&self) -> ComputeResourceRequirementsNav<'a> {
@@ -61717,7 +61717,7 @@ impl<'a> SlaAndSloMonitoringNav<'a> {
     }
 
     pub fn slos(&self) -> som::SomListMetaRef<'a, SloEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SLEN-SLOS-LST"), SloEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SE-SLOS-LST"), SloEntryNav::new)
     }
 
     pub fn error_budget(&self) -> ErrorBudgetTrackingNav<'a> {
@@ -61842,7 +61842,7 @@ impl<'a> SoftwareDeliverablesNav<'a> {
     }
 
     pub fn items(&self) -> som::SomListMetaRef<'a, DeliverableEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SWDLV-ITEM-LST"), DeliverableEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DLVEN-ITEM-LST"), DeliverableEntryNav::new)
     }
 }
 
@@ -63013,11 +63013,11 @@ impl<'a> StagingStrategyNav<'a> {
     }
 
     pub fn key_assumptions(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "KEYAS-KEYA-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "STAGST-KEYA-LST"), som::SomMetaRef::new)
     }
 
     pub fn constraints(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "STAGI-CONS-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "STAGST-CONS-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -63181,7 +63181,7 @@ impl<'a> StakeholdersAndGovernanceNav<'a> {
     }
 
     pub fn stakeholder_register(&self) -> som::SomListMetaRef<'a, StakeholderRegisterEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "STKRG-STAK-LST"), StakeholderRegisterEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "STKRE-STAK-LST"), StakeholderRegisterEntryNav::new)
     }
 }
 
@@ -63290,23 +63290,23 @@ impl<'a> StandardsComplianceSectionNav<'a> {
     }
 
     pub fn it_standards(&self) -> som::SomListMetaRef<'a, ItStandardComplianceEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ISCE-ITST-LST"), ItStandardComplianceEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ITSTCOEN-ITST-LST"), ItStandardComplianceEntryNav::new)
     }
 
     pub fn industry_protocols(&self) -> som::SomListMetaRef<'a, IndustryProtocolComplianceEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "IPCE-INDU-LST"), IndustryProtocolComplianceEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INPRCOEN-INDU-LST"), IndustryProtocolComplianceEntryNav::new)
     }
 
     pub fn interface_specifications(&self) -> som::SomListMetaRef<'a, InterfaceSpecificationEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INSPEN-INTE-LST"), InterfaceSpecificationEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INTSPEENT-INTE-LST"), InterfaceSpecificationEntryNav::new)
     }
 
     pub fn regulatory_compliance(&self) -> som::SomListMetaRef<'a, RegulatoryComplianceEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RECOEN-REGU-LST"), RegulatoryComplianceEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RCE-REGU-LST"), RegulatoryComplianceEntryNav::new)
     }
 
     pub fn security_standards(&self) -> som::SomListMetaRef<'a, SecurityStandardComplianceEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SSCE-SECU-LST"), SecurityStandardComplianceEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SESTCOEN-SECU-LST"), SecurityStandardComplianceEntryNav::new)
     }
 
     pub fn accessibility_standards(&self) -> som::SomListMetaRef<'a, AccessibilityStandardEntryNav<'a>> {
@@ -63369,7 +63369,7 @@ impl<'a> SteeringCommitteeNav<'a> {
     }
 
     pub fn members(&self) -> som::SomListMetaRef<'a, CommitteeMemberEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "COMMB-MEMB-LST"), CommitteeMemberEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CME-MEMB-LST"), CommitteeMemberEntryNav::new)
     }
 }
 
@@ -63404,7 +63404,7 @@ impl<'a> StepUpAuthenticationPolicyNav<'a> {
     }
 
     pub fn step_up_details(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "STEPU-STEP-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SUAP-STEP-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -63869,7 +63869,7 @@ impl<'a> SupportDeliverablesNav<'a> {
     }
 
     pub fn items(&self) -> som::SomListMetaRef<'a, DeliverableEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SPDLV-ITEM-LST"), DeliverableEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DLVEN-ITEM-LST"), DeliverableEntryNav::new)
     }
 }
 
@@ -64053,11 +64053,11 @@ impl<'a> SystemBusinessCriticalityNav<'a> {
     }
 
     pub fn business_units(&self) -> som::SomListMetaRef<'a, SystemBusinessUnitEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SBUE-BUSI-LST"), SystemBusinessUnitEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYBUUNEN-BUSI-LST"), SystemBusinessUnitEntryNav::new)
     }
 
     pub fn supported_processes(&self) -> som::SomListMetaRef<'a, SystemBusinessProcessEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SBPE-SUPP-LST"), SystemBusinessProcessEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYBUPREN-SUPP-LST"), SystemBusinessProcessEntryNav::new)
     }
 }
 
@@ -64280,7 +64280,7 @@ impl<'a> SystemCostAnalysisNav<'a> {
     }
 
     pub fn non_financial_benefits(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "NONFI-NONF-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYCOAN-NONF-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -64323,11 +64323,11 @@ impl<'a> SystemDataScopeNav<'a> {
     }
 
     pub fn entities(&self) -> som::SomListMetaRef<'a, DataEntityMigrationEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DEME-ENTI-LST"), DataEntityMigrationEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DAENMIEN-ENTI-LST"), DataEntityMigrationEntryNav::new)
     }
 
     pub fn known_quality_issues(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "KNOWN-KNOW-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYDASC-KNOW-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -64433,7 +64433,7 @@ impl<'a> SystemDescriptionNav<'a> {
     }
 
     pub fn user_categories(&self) -> som::SomListMetaRef<'a, UserCategoryEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "USCA-USER-LST"), UserCategoryEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "UCE-USER-LST"), UserCategoryEntryNav::new)
     }
 
     pub fn user_interaction_model(&self) -> UserInteractionModelNav<'a> {
@@ -64574,11 +64574,11 @@ impl<'a> SystemErrorDisplayNav<'a> {
     }
 
     pub fn error_page_designs(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EPDE-ERRO-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYERDI-ERRO-LST"), som::SomMetaRef::new)
     }
 
     pub fn error_codes(&self) -> som::SomListMetaRef<'a, SystemErrorCodeEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SECE-ERRO-LST"), SystemErrorCodeEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYERCOEN-ERRO-LST"), SystemErrorCodeEntryNav::new)
     }
 }
 
@@ -64711,7 +64711,7 @@ impl<'a> SystemKnowledgeTransferNav<'a> {
     }
 
     pub fn critical_knowledge_areas(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CRITI-CRIT-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYKNTR-CRIT-LST"), som::SomMetaRef::new)
     }
 
     pub fn knowledge_transfer_plan(&self) -> som::SomMetaRef<'a> {
@@ -64789,7 +64789,7 @@ impl<'a> SystemMigrationPlanNav<'a> {
     }
 
     pub fn risks(&self) -> som::SomListMetaRef<'a, SystemMigrationRiskEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SMRE-RISK-LST"), SystemMigrationRiskEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYMIRIEN-RISK-LST"), SystemMigrationRiskEntryNav::new)
     }
 
     pub fn rollback_strategy(&self) -> som::SomMetaRef<'a> {
@@ -64867,7 +64867,7 @@ impl<'a> SystemOperationNav<'a> {
     }
 
     pub fn maintenance_procedures(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "MAINT-MAIN-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SO-MAIN-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -65032,7 +65032,7 @@ impl<'a> SystemQualityGoalsNav<'a> {
     }
 
     pub fn attribute_interdependencies(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ATTRI-ATTR-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYQG-ATTR-LST"), som::SomMetaRef::new)
     }
 
     pub fn quality_radar(&self) -> som::SomMetaRef<'a> {
@@ -65135,7 +65135,7 @@ impl<'a> SystemReplacementStrategyNav<'a> {
     }
 
     pub fn predecessor_dependencies(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PREDE-PRED-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYREST-PRED-LST"), som::SomMetaRef::new)
     }
 
     pub fn success_criteria(&self) -> som::SomMetaRef<'a> {
@@ -65375,11 +65375,11 @@ impl<'a> SystemTaskEntryNav<'a> {
     }
 
     pub fn workflow_steps(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYSTE-WORK-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYTS-WORK-LST"), som::SomMetaRef::new)
     }
 
     pub fn variations_and_exceptions(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "VARIA-VARI-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYTS-VARI-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -65426,11 +65426,11 @@ impl<'a> SystemTechnicalAssessmentNav<'a> {
     }
 
     pub fn known_issues(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "KIE-KNOW-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYTEAS-KNOW-LST"), som::SomMetaRef::new)
     }
 
     pub fn security_concerns(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SECUR-SECU-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYTEAS-SECU-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -65595,7 +65595,7 @@ impl<'a> SystemUserImpactNav<'a> {
     }
 
     pub fn user_groups(&self) -> som::SomListMetaRef<'a, UserGroupImpactEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "UGIE-USER-LST"), UserGroupImpactEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "USGRIMEN-USER-LST"), UserGroupImpactEntryNav::new)
     }
 }
 
@@ -65677,7 +65677,7 @@ impl<'a> TabBarDefinitionEntryNav<'a> {
     }
 
     pub fn tabs(&self) -> som::SomListMetaRef<'a, TabItemEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TAITEN-TABS-LST"), TabItemEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TIE-TABS-LST"), TabItemEntryNav::new)
     }
 }
 
@@ -66133,7 +66133,7 @@ impl<'a> TechnicalEnvironmentNav<'a> {
     }
 
     pub fn datacenters(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DATAC-DATA-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TEEN-DATA-LST"), som::SomMetaRef::new)
     }
 
     pub fn network_topology(&self) -> som::SomMetaRef<'a> {
@@ -66145,7 +66145,7 @@ impl<'a> TechnicalEnvironmentNav<'a> {
     }
 
     pub fn technology_standards(&self) -> som::SomListMetaRef<'a, TechnologyStandardEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TESTEN-TECH-LST"), TechnologyStandardEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TSE-TECH-LST"), TechnologyStandardEntryNav::new)
     }
 
     pub fn integration_overview(&self) -> som::SomMetaRef<'a> {
@@ -66153,7 +66153,7 @@ impl<'a> TechnicalEnvironmentNav<'a> {
     }
 
     pub fn integration_constraints(&self) -> som::SomListMetaRef<'a, IntegrationConstraintEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INCOE1-INTE-LST"), IntegrationConstraintEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INTCONENT-INTE-LST"), IntegrationConstraintEntryNav::new)
     }
 }
 
@@ -66188,11 +66188,11 @@ impl<'a> TechnicalEnvironmentNetworkNav<'a> {
     }
 
     pub fn devops_standards(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DEVOP-DEVO-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TEENNE-DEVO-LST"), som::SomMetaRef::new)
     }
 
     pub fn observability_requirements(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "OBSER-OBSE-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TEENNE-OBSE-LST"), som::SomMetaRef::new)
     }
 
     pub fn disaster_recovery(&self) -> som::SomMetaRef<'a> {
@@ -66575,7 +66575,7 @@ impl<'a> TechnicalPainPointsNav<'a> {
     }
 
     pub fn items(&self) -> som::SomListMetaRef<'a, PainPointEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TEPAPO-ITEM-LST"), PainPointEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "PAPE-ITEM-LST"), PainPointEntryNav::new)
     }
 }
 
@@ -67901,7 +67901,7 @@ impl<'a> TrainingDeliverableRequirementsNav<'a> {
     }
 
     pub fn training_modules(&self) -> som::SomListMetaRef<'a, TrainingModuleEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TRMOEN-TRAI-LST"), TrainingModuleEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TME-TRAI-LST"), TrainingModuleEntryNav::new)
     }
 }
 
@@ -67936,7 +67936,7 @@ impl<'a> TrainingDeliverablesNav<'a> {
     }
 
     pub fn items(&self) -> som::SomListMetaRef<'a, DeliverableEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TRDLV-ITEM-LST"), DeliverableEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DLVEN-ITEM-LST"), DeliverableEntryNav::new)
     }
 }
 
@@ -68123,7 +68123,7 @@ impl<'a> TrainingRequirementsNav<'a> {
     }
 
     pub fn initial_training(&self) -> som::SomListMetaRef<'a, InitialTrainingEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INITR-INIT-LST"), InitialTrainingEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ITE-INIT-LST"), InitialTrainingEntryNav::new)
     }
 
     pub fn ongoing_training(&self) -> som::SomListMetaRef<'a, OngoingTrainingEntryNav<'a>> {
@@ -68739,7 +68739,7 @@ impl<'a> TranslationProcessNav<'a> {
     }
 
     pub fn vendors(&self) -> som::SomListMetaRef<'a, TranslationVendorEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TRVEEN-VEND-LST"), TranslationVendorEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TVE-VEND-LST"), TranslationVendorEntryNav::new)
     }
 }
 
@@ -69204,11 +69204,11 @@ impl<'a> UiComponentEntryNav<'a> {
     }
 
     pub fn states(&self) -> som::SomListMetaRef<'a, ComponentStateEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CMST-STAT-LST"), ComponentStateEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "COMSTAENT-STAT-LST"), ComponentStateEntryNav::new)
     }
 
     pub fn variants(&self) -> som::SomListMetaRef<'a, ComponentVariantEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CMVN-VARI-LST"), ComponentVariantEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CVE-VARI-LST"), ComponentVariantEntryNav::new)
     }
 
     pub fn actions(&self) -> som::SomListMetaRef<'a, ComponentActionEntryNav<'a>> {
@@ -69271,7 +69271,7 @@ impl<'a> UiComponentsNav<'a> {
     }
 
     pub fn component_specs(&self) -> som::SomListMetaRef<'a, UiComponentEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "UICOEN-COMP-LST"), UiComponentEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "UICOMENT-COMP-LST"), UiComponentEntryNav::new)
     }
 
     pub fn component_families(&self) -> som::SomListMetaRef<'a, ComponentFamilyEntryNav<'a>> {
@@ -69854,7 +69854,7 @@ impl<'a> UserCategoriesNav<'a> {
     }
 
     pub fn categories(&self) -> som::SomListMetaRef<'a, UserCategoryEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "USCA-CATE-LST"), UserCategoryEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "UCE-CATE-LST"), UserCategoryEntryNav::new)
     }
 }
 
@@ -70202,11 +70202,11 @@ impl<'a> UserJourneyNav<'a> {
     }
 
     pub fn key_touchpoints(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "KEYTO-KEYT-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "UJ-KEYT-LST"), som::SomMetaRef::new)
     }
 
     pub fn pain_points(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "USERJ-PAIN-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "UJ-PAIN-LST"), som::SomMetaRef::new)
     }
 
     pub fn opportunities_for_delight(&self) -> som::SomMetaRef<'a> {
@@ -70527,7 +70527,7 @@ impl<'a> UserPersonaDetailsNav<'a> {
     }
 
     pub fn representative_quotes(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "REPRE-REPR-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "UPD-REPR-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -70831,7 +70831,7 @@ impl<'a> UtilityNavigationNav<'a> {
     }
 
     pub fn items(&self) -> som::SomListMetaRef<'a, UtilityNavigationItemEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "UNIE-ITEM-LST"), UtilityNavigationItemEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "UTNAITEN-ITEM-LST"), UtilityNavigationItemEntryNav::new)
     }
 }
 
@@ -70878,7 +70878,7 @@ impl<'a> UtilityNavigationItemEntryNav<'a> {
     }
 
     pub fn menu_items(&self) -> som::SomListMetaRef<'a, UtilityMenuItemEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "UMIE-MENU-LST"), UtilityMenuItemEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "UTMEITEN-MENU-LST"), UtilityMenuItemEntryNav::new)
     }
 }
 
@@ -70964,11 +70964,11 @@ impl<'a> ValidationFeedbackNav<'a> {
     }
 
     pub fn message_templates(&self) -> som::SomListMetaRef<'a, ValidationMessageTemplateNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "VAMETE-MESS-LST"), ValidationMessageTemplateNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "VMT-MESS-LST"), ValidationMessageTemplateNav::new)
     }
 
     pub fn field_validation_rules(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "FIELD-FIEL-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "VAFE-FIEL-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -71046,7 +71046,7 @@ impl<'a> ValuePropositionNav<'a> {
     }
 
     pub fn kpis(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "KPIEN-KPIS-LST"), som::SomMetaRef::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "VALPX-KPIS-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -71433,7 +71433,7 @@ impl<'a> WcagComplianceNav<'a> {
     }
 
     pub fn success_criteria(&self) -> som::SomListMetaRef<'a, WcagSuccessCriterionEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "WSCE-SUCC-LST"), WcagSuccessCriterionEntryNav::new)
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "WCSUCREN-SUCC-LST"), WcagSuccessCriterionEntryNav::new)
     }
 }
 
@@ -72837,8 +72837,8 @@ impl<'a> ApplicableRegulationEntryId<'a> {
         self.meta_ref.meta()
     }
 
-    pub fn COMPL_COMP_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "COMPL-COMP-LST"), som::SomMetaRef::new)
+    pub fn ARE_COMP_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ARE-COMP-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -75483,8 +75483,8 @@ impl<'a> CurrentWorkflowEntryId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "WSE-STEP-LST"), WorkflowStepEntryId::new)
     }
 
-    pub fn WFAC_ACTO_LST(&self) -> som::SomListMetaRef<'a, WorkflowActorEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "WFAC-ACTO-LST"), WorkflowActorEntryId::new)
+    pub fn WAE_ACTO_LST(&self) -> som::SomListMetaRef<'a, WorkflowActorEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "WAE-ACTO-LST"), WorkflowActorEntryId::new)
     }
 
     pub fn WOINEN_INPU_LST(&self) -> som::SomListMetaRef<'a, WorkflowInputEntryId<'a>> {
@@ -75593,12 +75593,12 @@ impl<'a> D00SolutionBlueprintId<'a> {
         self.meta_ref.meta()
     }
 
-    pub fn RVHST_REVS_LST(&self) -> som::SomListMetaRef<'a, RevisionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "documentControl/RVHST-REVS-LST"), RevisionEntryId::new)
+    pub fn RVENT_REVS_LST(&self) -> som::SomListMetaRef<'a, RevisionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "documentControl/RVENT-REVS-LST"), RevisionEntryId::new)
     }
 
-    pub fn DOCTL_APRV_LST(&self) -> som::SomListMetaRef<'a, ApprovalRecordId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "documentControl/DOCTL-APRV-LST"), ApprovalRecordId::new)
+    pub fn APREC_APRV_LST(&self) -> som::SomListMetaRef<'a, ApprovalRecordId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "documentControl/APREC-APRV-LST"), ApprovalRecordId::new)
     }
 
     pub fn RFDOC_DOCU_LST(&self) -> som::SomListMetaRef<'a, ReferenceDocumentEntryId<'a>> {
@@ -75633,8 +75633,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/systemPurpose/SYPUP-VISI"))
     }
 
-    pub fn RPPE_RELA_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/systemPurpose/problemStatement/RPPE-RELA-LST"), som::SomMetaRef::new)
+    pub fn PS_RELA_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/systemPurpose/problemStatement/PS-RELA-LST"), som::SomMetaRef::new)
     }
 
     pub fn STKNT_PRIM_LST(&self) -> som::SomListMetaRef<'a, StakeholderEntryId<'a>> {
@@ -75653,24 +75653,24 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/systemPurpose/valueProposition/VALRP"))
     }
 
-    pub fn KPIEN_KPIS_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/systemPurpose/valueProposition/KPIEN-KPIS-LST"), som::SomMetaRef::new)
+    pub fn VALPX_KPIS_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/systemPurpose/valueProposition/VALPX-KPIS-LST"), som::SomMetaRef::new)
     }
 
-    pub fn SCITE_INSC_LST(&self) -> som::SomListMetaRef<'a, ScopeItemEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCITE-INSC-LST"), ScopeItemEntryId::new)
+    pub fn SIE_INSC_LST(&self) -> som::SomListMetaRef<'a, ScopeItemEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SIE-INSC-LST"), ScopeItemEntryId::new)
     }
 
-    pub fn SCITE_OUTO_LST(&self) -> som::SomListMetaRef<'a, ScopeItemEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCITE-OUTO-LST"), ScopeItemEntryId::new)
+    pub fn SIE_OUTO_LST(&self) -> som::SomListMetaRef<'a, ScopeItemEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SIE-OUTO-LST"), ScopeItemEntryId::new)
     }
 
     pub fn DFSCP_DEFE_LST(&self) -> som::SomListMetaRef<'a, DeferredScopeItemEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/DFSCP-DEFE-LST"), DeferredScopeItemEntryId::new)
     }
 
-    pub fn SCOPE_SCOP_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCOPE-SCOP-LST"), som::SomMetaRef::new)
+    pub fn SCBND_SCOP_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCBND-SCOP-LST"), som::SomMetaRef::new)
     }
 
     pub fn CD_DIAG(&self) -> som::SomMetaRef<'a> {
@@ -75733,24 +75733,24 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/businessDomain/domainBoundaries/DIE-INTE-LST"), DomainInterfaceEntryId::new)
     }
 
-    pub fn DOBIRU_RULE_LST(&self) -> som::SomListMetaRef<'a, DomainBusinessRuleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/businessDomain/businessRules/DOBIRU-RULE-LST"), DomainBusinessRuleEntryId::new)
+    pub fn DBRE_RULE_LST(&self) -> som::SomListMetaRef<'a, DomainBusinessRuleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/businessDomain/businessRules/DBRE-RULE-LST"), DomainBusinessRuleEntryId::new)
     }
 
     pub fn DP_PROC(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/businessDomain/domainProcesses/DP-PROC"))
     }
 
-    pub fn DOPR_PROC_LST(&self) -> som::SomListMetaRef<'a, DomainProcessEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/businessDomain/domainProcesses/DOPR-PROC-LST"), DomainProcessEntryId::new)
+    pub fn DOPREN_PROC_LST(&self) -> som::SomListMetaRef<'a, DomainProcessEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/businessDomain/domainProcesses/DOPREN-PROC-LST"), DomainProcessEntryId::new)
     }
 
     pub fn DOEV_EVEN_LST(&self) -> som::SomListMetaRef<'a, DomainEventEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/businessDomain/domainEvents/DOEV-EVEN-LST"), DomainEventEntryId::new)
     }
 
-    pub fn USCA_USER_LST(&self) -> som::SomListMetaRef<'a, UserCategoryEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/USCA-USER-LST"), UserCategoryEntryId::new)
+    pub fn UCE_USER_LST(&self) -> som::SomListMetaRef<'a, UserCategoryEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemDescription/UCE-USER-LST"), UserCategoryEntryId::new)
     }
 
     pub fn AC1_CHAN(&self) -> som::SomMetaRef<'a> {
@@ -75929,20 +75929,20 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRIRE"))
     }
 
-    pub fn RISKC_RISK_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKC-RISK-LST"), som::SomMetaRef::new)
+    pub fn MIRI_RISK_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-RISK-LST"), som::SomMetaRef::new)
     }
 
-    pub fn RISKB_RISK_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKB-RISK-LST"), som::SomMetaRef::new)
+    pub fn MIRI_RBDE_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-RBDE-LST"), som::SomMetaRef::new)
     }
 
-    pub fn MONIT_MONI_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MONIT-MONI-LST"), som::SomMetaRef::new)
+    pub fn MIRI_MONI_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-MONI-LST"), som::SomMetaRef::new)
     }
 
-    pub fn RESPO_RESP_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RESPO-RESP-LST"), som::SomMetaRef::new)
+    pub fn MIRI_RESP_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-RESP-LST"), som::SomMetaRef::new)
     }
 
     pub fn MGRSK_ITEM_LST(&self) -> som::SomListMetaRef<'a, MigrationRiskEntryId<'a>> {
@@ -75953,20 +75953,20 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/MGMLS-MILE-LST"), MigrationMilestoneEntryId::new)
     }
 
-    pub fn ESCAL_ESCA_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/ESCAL-ESCA-LST"), som::SomMetaRef::new)
+    pub fn MIGCON_ESCA_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemsToReplace/migrationConsiderations/MIGCON-ESCA-LST"), som::SomMetaRef::new)
     }
 
-    pub fn EXINEN_INTE_LST(&self) -> som::SomListMetaRef<'a, ExternalInterfaceEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemBoundaries/externalInterfaces/EXINEN-INTE-LST"), ExternalInterfaceEntryId::new)
+    pub fn EIE_INTE_LST(&self) -> som::SomListMetaRef<'a, ExternalInterfaceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemBoundaries/externalInterfaces/EIE-INTE-LST"), ExternalInterfaceEntryId::new)
     }
 
-    pub fn OOSE_ITEM_LST(&self) -> som::SomListMetaRef<'a, OutOfScopeEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemBoundaries/outOfScope/OOSE-ITEM-LST"), OutOfScopeEntryId::new)
+    pub fn OUOFSCEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, OutOfScopeEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemBoundaries/outOfScope/OUOFSCEN-ITEM-LST"), OutOfScopeEntryId::new)
     }
 
-    pub fn BOASEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, BoundaryAssumptionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemBoundaries/assumptions/BOASEN-ITEM-LST"), BoundaryAssumptionEntryId::new)
+    pub fn BAE_ITEM_LST(&self) -> som::SomListMetaRef<'a, BoundaryAssumptionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/systemBoundaries/assumptions/BAE-ITEM-LST"), BoundaryAssumptionEntryId::new)
     }
 
     pub fn BOINPA_BOUN_LST(&self) -> som::SomListMetaRef<'a, BoundaryInteractionPatternsId<'a>> {
@@ -75993,28 +75993,28 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/OEDM"))
     }
 
-    pub fn AFDEEN_AFFE_LST(&self) -> som::SomListMetaRef<'a, AffectedDepartmentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/AFDEEN-AFFE-LST"), AffectedDepartmentEntryId::new)
+    pub fn ADE_AFFE_LST(&self) -> som::SomListMetaRef<'a, AffectedDepartmentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/ADE-AFFE-LST"), AffectedDepartmentEntryId::new)
     }
 
-    pub fn DEMAEN_DECI_LST(&self) -> som::SomListMetaRef<'a, DecisionMakerEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/DEMAEN-DECI-LST"), DecisionMakerEntryId::new)
+    pub fn DME_DECI_LST(&self) -> som::SomListMetaRef<'a, DecisionMakerEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/DME-DECI-LST"), DecisionMakerEntryId::new)
     }
 
-    pub fn CULTU_CULT_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/CULTU-CULT-LST"), som::SomMetaRef::new)
+    pub fn OREN_CULT_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-CULT-LST"), som::SomMetaRef::new)
     }
 
-    pub fn COMMU_COMM_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/COMMU-COMM-LST"), som::SomMetaRef::new)
+    pub fn OREN_COMM_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-COMM-LST"), som::SomMetaRef::new)
     }
 
-    pub fn CHANG_CHAN_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/CHANG-CHAN-LST"), som::SomMetaRef::new)
+    pub fn OREN_CHAN_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-CHAN-LST"), som::SomMetaRef::new)
     }
 
-    pub fn REEN1_ITEM_LST(&self) -> som::SomListMetaRef<'a, ResponsibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/functionalResponsibilities/REEN1-ITEM-LST"), ResponsibilityEntryId::new)
+    pub fn RE_ITEM_LST(&self) -> som::SomListMetaRef<'a, ResponsibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/functionalResponsibilities/RE-ITEM-LST"), ResponsibilityEntryId::new)
     }
 
     pub fn TEEN_TECH(&self) -> som::SomMetaRef<'a> {
@@ -76033,24 +76033,24 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/TES"))
     }
 
-    pub fn DEVOP_DEVO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/network/DEVOP-DEVO-LST"), som::SomMetaRef::new)
+    pub fn TEENNE_DEVO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/network/TEENNE-DEVO-LST"), som::SomMetaRef::new)
     }
 
-    pub fn OBSER_OBSE_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/network/OBSER-OBSE-LST"), som::SomMetaRef::new)
+    pub fn TEENNE_OBSE_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/network/TEENNE-OBSE-LST"), som::SomMetaRef::new)
     }
 
-    pub fn DATAC_DATA_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/DATAC-DATA-LST"), som::SomMetaRef::new)
+    pub fn TEEN_DATA_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/TEEN-DATA-LST"), som::SomMetaRef::new)
     }
 
-    pub fn TESTEN_TECH_LST(&self) -> som::SomListMetaRef<'a, TechnologyStandardEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/TESTEN-TECH-LST"), TechnologyStandardEntryId::new)
+    pub fn TSE_TECH_LST(&self) -> som::SomListMetaRef<'a, TechnologyStandardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/TSE-TECH-LST"), TechnologyStandardEntryId::new)
     }
 
-    pub fn INCOE1_INTE_LST(&self) -> som::SomListMetaRef<'a, IntegrationConstraintEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/INCOE1-INTE-LST"), IntegrationConstraintEntryId::new)
+    pub fn INTCONENT_INTE_LST(&self) -> som::SomListMetaRef<'a, IntegrationConstraintEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/operatingEnvironment/technicalEnvironment/INTCONENT-INTE-LST"), IntegrationConstraintEntryId::new)
     }
 
     pub fn COANDE(&self) -> som::SomMetaRef<'a> {
@@ -76061,12 +76061,12 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/risksAndAssumptions/RIOV"))
     }
 
-    pub fn RIEN_KEYR_LST(&self) -> som::SomListMetaRef<'a, RiskEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/risksAndAssumptions/RIEN-KEYR-LST"), RiskEntryId::new)
+    pub fn RISENT_KEYR_LST(&self) -> som::SomListMetaRef<'a, RiskEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "introductionAndScope/risksAndAssumptions/RISENT-KEYR-LST"), RiskEntryId::new)
     }
 
-    pub fn GLOSS_ENTR_LST(&self) -> som::SomListMetaRef<'a, GlossaryEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "glossaryAndAbbreviations/GLOSS-ENTR-LST"), GlossaryEntryId::new)
+    pub fn GLENT_ENTR_LST(&self) -> som::SomListMetaRef<'a, GlossaryEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "glossaryAndAbbreviations/GLENT-ENTR-LST"), GlossaryEntryId::new)
     }
 
     pub fn ADMSM(&self) -> som::SomMetaRef<'a> {
@@ -76141,8 +76141,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "stakeholdersAndGovernance/projectOrganization/organizationStructure/governanceModel/DCAUT-DECI-LST"), DecisionAuthorityEntryId::new)
     }
 
-    pub fn COMMB_MEMB_LST(&self) -> som::SomListMetaRef<'a, CommitteeMemberEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "stakeholdersAndGovernance/projectOrganization/steeringCommittee/COMMB-MEMB-LST"), CommitteeMemberEntryId::new)
+    pub fn CME_MEMB_LST(&self) -> som::SomListMetaRef<'a, CommitteeMemberEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "stakeholdersAndGovernance/projectOrganization/steeringCommittee/CME-MEMB-LST"), CommitteeMemberEntryId::new)
     }
 
     pub fn TMMBE_MEMB_LST(&self) -> som::SomListMetaRef<'a, TeamMemberEntryId<'a>> {
@@ -76261,8 +76261,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "stakeholdersAndGovernance/legalAndContractual/OTAGR-OTHE-LST"), OtherAgreementEntryId::new)
     }
 
-    pub fn STKRG_STAK_LST(&self) -> som::SomListMetaRef<'a, StakeholderRegisterEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "stakeholdersAndGovernance/STKRG-STAK-LST"), StakeholderRegisterEntryId::new)
+    pub fn STKRE_STAK_LST(&self) -> som::SomListMetaRef<'a, StakeholderRegisterEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "stakeholdersAndGovernance/STKRE-STAK-LST"), StakeholderRegisterEntryId::new)
     }
 
     pub fn ESENT_SYST_LST(&self) -> som::SomListMetaRef<'a, ExistingSystemEntryId<'a>> {
@@ -76277,12 +76277,12 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-DEPL"))
     }
 
-    pub fn IPE_INTE_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST"), som::SomMetaRef::new)
+    pub fn CARCH_INTE_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-INTE-LST"), som::SomMetaRef::new)
     }
 
-    pub fn SHARE_SHAR_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST"), som::SomMetaRef::new)
+    pub fn CARCH_SHAR_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-SHAR-LST"), som::SomMetaRef::new)
     }
 
     pub fn DEPNT_DEPE(&self) -> som::SomMetaRef<'a> {
@@ -76305,8 +76305,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/integrations/SYIN-ITEM-LST"), SystemIntegrationEntryId::new)
     }
 
-    pub fn FRAGI_FRAG_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST"), som::SomMetaRef::new)
+    pub fn INHESU_FRAG_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/INHESU-FRAG-LST"), som::SomMetaRef::new)
     }
 
     pub fn CUBUPR_PROC(&self) -> som::SomMetaRef<'a> {
@@ -76353,24 +76353,24 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/painPointsAndGaps/operationalPainPoints/OPPS"))
     }
 
-    pub fn OPPAPO_ITEM_LST(&self) -> som::SomListMetaRef<'a, PainPointEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/painPointsAndGaps/operationalPainPoints/OPPAPO-ITEM-LST"), PainPointEntryId::new)
+    pub fn PAPE_ITEM_LST(&self) -> som::SomListMetaRef<'a, PainPointEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/painPointsAndGaps/operationalPainPoints/PAPE-ITEM-LST"), PainPointEntryId::new)
     }
 
     pub fn BPPS(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/painPointsAndGaps/businessPainPoints/BPPS"))
     }
 
-    pub fn BUPAPO_ITEM_LST(&self) -> som::SomListMetaRef<'a, PainPointEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/painPointsAndGaps/businessPainPoints/BUPAPO-ITEM-LST"), PainPointEntryId::new)
+    pub fn PAPE_ITEM_LST_2(&self) -> som::SomListMetaRef<'a, PainPointEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/painPointsAndGaps/businessPainPoints/PAPE-ITEM-LST"), PainPointEntryId::new)
     }
 
     pub fn TPPS(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/painPointsAndGaps/technicalPainPoints/TPPS"))
     }
 
-    pub fn TEPAPO_ITEM_LST(&self) -> som::SomListMetaRef<'a, PainPointEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/painPointsAndGaps/technicalPainPoints/TEPAPO-ITEM-LST"), PainPointEntryId::new)
+    pub fn PAPE_ITEM_LST_3(&self) -> som::SomListMetaRef<'a, PainPointEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/painPointsAndGaps/technicalPainPoints/PAPE-ITEM-LST"), PainPointEntryId::new)
     }
 
     pub fn GAPE_ITEM_LST(&self) -> som::SomListMetaRef<'a, GapEntryId<'a>> {
@@ -76521,16 +76521,16 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "currentLandscape/CUOPME-OPER-LST"), CurrentOperationalMetricId::new)
     }
 
-    pub fn ACRG_ASMP_LST(&self) -> som::SomListMetaRef<'a, AssumptionRegisterEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "assumptionsConstraintsDependencies/register/ACRG-ASMP-LST"), AssumptionRegisterEntryId::new)
+    pub fn ASMRE_ASMP_LST(&self) -> som::SomListMetaRef<'a, AssumptionRegisterEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "assumptionsConstraintsDependencies/register/ASMRE-ASMP-LST"), AssumptionRegisterEntryId::new)
     }
 
-    pub fn ACRG_CONS_LST(&self) -> som::SomListMetaRef<'a, ConstraintRegisterEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "assumptionsConstraintsDependencies/register/ACRG-CONS-LST"), ConstraintRegisterEntryId::new)
+    pub fn CONRE_CONS_LST(&self) -> som::SomListMetaRef<'a, ConstraintRegisterEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "assumptionsConstraintsDependencies/register/CONRE-CONS-LST"), ConstraintRegisterEntryId::new)
     }
 
-    pub fn ACRG_DEPS_LST(&self) -> som::SomListMetaRef<'a, DependencyRegisterEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "assumptionsConstraintsDependencies/register/ACRG-DEPS-LST"), DependencyRegisterEntryId::new)
+    pub fn DEPRE_DEPS_LST(&self) -> som::SomListMetaRef<'a, DependencyRegisterEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "assumptionsConstraintsDependencies/register/DEPRE-DEPS-LST"), DependencyRegisterEntryId::new)
     }
 
     pub fn OCCHG_OVER(&self) -> som::SomMetaRef<'a> {
@@ -76605,8 +76605,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/JODEOV"))
     }
 
-    pub fn NWROL_NEWR_LST(&self) -> som::SomListMetaRef<'a, NewRoleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/NWROL-NEWR-LST"), NewRoleEntryId::new)
+    pub fn NRE_NEWR_LST(&self) -> som::SomListMetaRef<'a, NewRoleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/NRE-NEWR-LST"), NewRoleEntryId::new)
     }
 
     pub fn CHAROL_CHAN_LST(&self) -> som::SomListMetaRef<'a, ChangedRoleEntryId<'a>> {
@@ -76865,8 +76865,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TRMAT-TRAI"))
     }
 
-    pub fn TRMOEN_TRAI_LST(&self) -> som::SomListMetaRef<'a, TrainingModuleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TRMOEN-TRAI-LST"), TrainingModuleEntryId::new)
+    pub fn TME_TRAI_LST(&self) -> som::SomListMetaRef<'a, TrainingModuleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TME-TRAI-LST"), TrainingModuleEntryId::new)
     }
 
     pub fn TGPLT_TARG_LST(&self) -> som::SomListMetaRef<'a, TargetPlatformEntryId<'a>> {
@@ -76877,16 +76877,16 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/PLGEN-PROG-LST"), ProgrammingLanguageEntryId::new)
     }
 
-    pub fn FWREN_FRAM_LST(&self) -> som::SomListMetaRef<'a, FrameworkRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/FWREN-FRAM-LST"), FrameworkRequirementEntryId::new)
+    pub fn FRREEN_FRAM_LST(&self) -> som::SomListMetaRef<'a, FrameworkRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/FRREEN-FRAM-LST"), FrameworkRequirementEntryId::new)
     }
 
     pub fn BTCEN_BUIL_LST(&self) -> som::SomListMetaRef<'a, BuildToolchainEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/BTCEN-BUIL-LST"), BuildToolchainEntryId::new)
     }
 
-    pub fn DETAEN_DEPL_LST(&self) -> som::SomListMetaRef<'a, DeploymentTargetEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/DETAEN-DEPL-LST"), DeploymentTargetEntryId::new)
+    pub fn DEPTARENT_DEPL_LST(&self) -> som::SomListMetaRef<'a, DeploymentTargetEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/DEPTARENT-DEPL-LST"), DeploymentTargetEntryId::new)
     }
 
     pub fn DEMAVE(&self) -> som::SomMetaRef<'a> {
@@ -77085,16 +77085,16 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/DSPT-DESI-LST"), DesignPatternEntryId::new)
     }
 
-    pub fn COSTEN_CODI_LST(&self) -> som::SomListMetaRef<'a, CodingStandardEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/COSTEN-CODI-LST"), CodingStandardEntryId::new)
+    pub fn CSE_CODI_LST(&self) -> som::SomListMetaRef<'a, CodingStandardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/CSE-CODI-LST"), CodingStandardEntryId::new)
     }
 
-    pub fn DECOEN_DEVE_LST(&self) -> som::SomListMetaRef<'a, DevelopmentConventionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/DECOEN-DEVE-LST"), DevelopmentConventionEntryId::new)
+    pub fn DCE_DEVE_LST(&self) -> som::SomListMetaRef<'a, DevelopmentConventionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/DCE-DEVE-LST"), DevelopmentConventionEntryId::new)
     }
 
-    pub fn INSTEN_INDU_LST(&self) -> som::SomListMetaRef<'a, IndustryStandardEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/INSTEN-INDU-LST"), IndustryStandardEntryId::new)
+    pub fn ISE_INDU_LST(&self) -> som::SomListMetaRef<'a, IndustryStandardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/ISE-INDU-LST"), IndustryStandardEntryId::new)
     }
 
     pub fn CQMC(&self) -> som::SomMetaRef<'a> {
@@ -77173,8 +77173,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTTO"))
     }
 
-    pub fn SOLAEN_SOFT_LST(&self) -> som::SomListMetaRef<'a, SoftwareLayerEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SOLAEN-SOFT-LST"), SoftwareLayerEntryId::new)
+    pub fn SLE_SOFT_LST(&self) -> som::SomListMetaRef<'a, SoftwareLayerEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SLE-SOFT-LST"), SoftwareLayerEntryId::new)
     }
 
     pub fn LCRI(&self) -> som::SomMetaRef<'a> {
@@ -77189,8 +77189,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRG"))
     }
 
-    pub fn BOCOEN_BOUN_LST(&self) -> som::SomListMetaRef<'a, BoundedContextEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/BOCOEN-BOUN-LST"), BoundedContextEntryId::new)
+    pub fn BCE_BOUN_LST(&self) -> som::SomListMetaRef<'a, BoundedContextEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/BCE-BOUN-LST"), BoundedContextEntryId::new)
     }
 
     pub fn PAORST(&self) -> som::SomMetaRef<'a> {
@@ -77209,12 +77209,12 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDO"))
     }
 
-    pub fn MOEN1_MODU_LST(&self) -> som::SomListMetaRef<'a, ModuleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/MOEN1-MODU-LST"), ModuleEntryId::new)
+    pub fn MODENT_MODU_LST(&self) -> som::SomListMetaRef<'a, ModuleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/MODENT-MODU-LST"), ModuleEntryId::new)
     }
 
-    pub fn SHLIB_SHAR_LST(&self) -> som::SomListMetaRef<'a, SharedLibraryEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIB-SHAR-LST"), SharedLibraryEntryId::new)
+    pub fn SHLIEN_SHAR_LST(&self) -> som::SomListMetaRef<'a, SharedLibraryEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIEN-SHAR-LST"), SharedLibraryEntryId::new)
     }
 
     pub fn DISR(&self) -> som::SomMetaRef<'a> {
@@ -77273,8 +77273,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO"))
     }
 
-    pub fn IDREEN_IDER_LST(&self) -> som::SomListMetaRef<'a, IdeRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/IDREEN-IDER-LST"), IdeRequirementEntryId::new)
+    pub fn IRE_IDER_LST(&self) -> som::SomListMetaRef<'a, IdeRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/IRE-IDER-LST"), IdeRequirementEntryId::new)
     }
 
     pub fn BTCBS(&self) -> som::SomMetaRef<'a> {
@@ -77309,16 +77309,16 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCM"))
     }
 
-    pub fn PISTEN_STAG_LST(&self) -> som::SomListMetaRef<'a, PipelineStageEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST"), PipelineStageEntryId::new)
+    pub fn PSE_STAG_LST(&self) -> som::SomListMetaRef<'a, PipelineStageEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PSE-STAG-LST"), PipelineStageEntryId::new)
     }
 
-    pub fn PIJOEN_JOBS_LST(&self) -> som::SomListMetaRef<'a, PipelineJobEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST"), PipelineJobEntryId::new)
+    pub fn PJE_JOBS_LST(&self) -> som::SomListMetaRef<'a, PipelineJobEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PJE-JOBS-LST"), PipelineJobEntryId::new)
     }
 
-    pub fn DEENEN_ENVI_LST(&self) -> som::SomListMetaRef<'a, DeploymentEnvironmentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST"), DeploymentEnvironmentEntryId::new)
+    pub fn DEE_ENVI_LST(&self) -> som::SomListMetaRef<'a, DeploymentEnvironmentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEE-ENVI-LST"), DeploymentEnvironmentEntryId::new)
     }
 
     pub fn CRPR(&self) -> som::SomMetaRef<'a> {
@@ -77453,16 +77453,16 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/SHLCP-SHAR-LST"), SharedLibraryComponentEntryId::new)
     }
 
-    pub fn RUICMP_UICO_LST(&self) -> som::SomListMetaRef<'a, ReusableUiComponentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/RUICMP-UICO-LST"), ReusableUiComponentEntryId::new)
+    pub fn RUCE_UICO_LST(&self) -> som::SomListMetaRef<'a, ReusableUiComponentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/RUCE-UICO-LST"), ReusableUiComponentEntryId::new)
     }
 
-    pub fn BUCOEN_BUSI_LST(&self) -> som::SomListMetaRef<'a, BusinessComponentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/BUCOEN-BUSI-LST"), BusinessComponentEntryId::new)
+    pub fn BUSCOMENT_BUSI_LST(&self) -> som::SomListMetaRef<'a, BusinessComponentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/BUSCOMENT-BUSI-LST"), BusinessComponentEntryId::new)
     }
 
-    pub fn INCOEN_INFR_LST(&self) -> som::SomListMetaRef<'a, InfrastructureComponentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/INCOEN-INFR-LST"), InfrastructureComponentEntryId::new)
+    pub fn INFCOMENT_INFR_LST(&self) -> som::SomListMetaRef<'a, InfrastructureComponentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/INFCOMENT-INFR-LST"), InfrastructureComponentEntryId::new)
     }
 
     pub fn THPALI_THIR_LST(&self) -> som::SomListMetaRef<'a, ThirdPartyLibraryEntryId<'a>> {
@@ -77501,36 +77501,36 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/registry/COREUP"))
     }
 
-    pub fn OSCOEN_OSCO_LST(&self) -> som::SomListMetaRef<'a, OsCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/OSCOEN-OSCO-LST"), OsCompatibilityEntryId::new)
+    pub fn OCE_OSCO_LST(&self) -> som::SomListMetaRef<'a, OsCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST"), OsCompatibilityEntryId::new)
     }
 
-    pub fn BRCOEN_BROW_LST(&self) -> som::SomListMetaRef<'a, BrowserCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/BRCOEN-BROW-LST"), BrowserCompatibilityEntryId::new)
+    pub fn BROCOMENT_BROW_LST(&self) -> som::SomListMetaRef<'a, BrowserCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/BROCOMENT-BROW-LST"), BrowserCompatibilityEntryId::new)
     }
 
-    pub fn DACOEN_DATA_LST(&self) -> som::SomListMetaRef<'a, DatabaseCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/DACOEN-DATA-LST"), DatabaseCompatibilityEntryId::new)
+    pub fn DATCOMENT_DATA_LST(&self) -> som::SomListMetaRef<'a, DatabaseCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/DATCOMENT-DATA-LST"), DatabaseCompatibilityEntryId::new)
     }
 
-    pub fn ESCE_ENTE_LST(&self) -> som::SomListMetaRef<'a, EnterpriseSystemCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/ESCE-ENTE-LST"), EnterpriseSystemCompatibilityEntryId::new)
+    pub fn ENSYCOEN_ENTE_LST(&self) -> som::SomListMetaRef<'a, EnterpriseSystemCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/ENSYCOEN-ENTE-LST"), EnterpriseSystemCompatibilityEntryId::new)
     }
 
     pub fn APCP_APIC_LST(&self) -> som::SomListMetaRef<'a, ApiCompatibilityEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/APCP-APIC-LST"), ApiCompatibilityEntryId::new)
     }
 
-    pub fn LECOEN_LEGA_LST(&self) -> som::SomListMetaRef<'a, LegacyCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/LECOEN-LEGA-LST"), LegacyCompatibilityEntryId::new)
+    pub fn LCE_LEGA_LST(&self) -> som::SomListMetaRef<'a, LegacyCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/LCE-LEGA-LST"), LegacyCompatibilityEntryId::new)
     }
 
-    pub fn MOCOEN_MOBI_LST(&self) -> som::SomListMetaRef<'a, MobileCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/MOCOEN-MOBI-LST"), MobileCompatibilityEntryId::new)
+    pub fn MOBCOMENT_MOBI_LST(&self) -> som::SomListMetaRef<'a, MobileCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/MOBCOMENT-MOBI-LST"), MobileCompatibilityEntryId::new)
     }
 
-    pub fn TPCE_THIR_LST(&self) -> som::SomListMetaRef<'a, ThirdPartyCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/TPCE-THIR-LST"), ThirdPartyCompatibilityEntryId::new)
+    pub fn THPACOEN_THIR_LST(&self) -> som::SomListMetaRef<'a, ThirdPartyCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/THPACOEN-THIR-LST"), ThirdPartyCompatibilityEntryId::new)
     }
 
     pub fn DFCF(&self) -> som::SomMetaRef<'a> {
@@ -77581,24 +77581,24 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREGO"))
     }
 
-    pub fn ISCE_ITST_LST(&self) -> som::SomListMetaRef<'a, ItStandardComplianceEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/ISCE-ITST-LST"), ItStandardComplianceEntryId::new)
+    pub fn ITSTCOEN_ITST_LST(&self) -> som::SomListMetaRef<'a, ItStandardComplianceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/ITSTCOEN-ITST-LST"), ItStandardComplianceEntryId::new)
     }
 
-    pub fn IPCE_INDU_LST(&self) -> som::SomListMetaRef<'a, IndustryProtocolComplianceEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/IPCE-INDU-LST"), IndustryProtocolComplianceEntryId::new)
+    pub fn INPRCOEN_INDU_LST(&self) -> som::SomListMetaRef<'a, IndustryProtocolComplianceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INPRCOEN-INDU-LST"), IndustryProtocolComplianceEntryId::new)
     }
 
-    pub fn INSPEN_INTE_LST(&self) -> som::SomListMetaRef<'a, InterfaceSpecificationEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INSPEN-INTE-LST"), InterfaceSpecificationEntryId::new)
+    pub fn INTSPEENT_INTE_LST(&self) -> som::SomListMetaRef<'a, InterfaceSpecificationEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INTSPEENT-INTE-LST"), InterfaceSpecificationEntryId::new)
     }
 
-    pub fn RECOEN_REGU_LST(&self) -> som::SomListMetaRef<'a, RegulatoryComplianceEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/RECOEN-REGU-LST"), RegulatoryComplianceEntryId::new)
+    pub fn RCE_REGU_LST(&self) -> som::SomListMetaRef<'a, RegulatoryComplianceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/RCE-REGU-LST"), RegulatoryComplianceEntryId::new)
     }
 
-    pub fn SSCE_SECU_LST(&self) -> som::SomListMetaRef<'a, SecurityStandardComplianceEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/SSCE-SECU-LST"), SecurityStandardComplianceEntryId::new)
+    pub fn SESTCOEN_SECU_LST(&self) -> som::SomListMetaRef<'a, SecurityStandardComplianceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/SESTCOEN-SECU-LST"), SecurityStandardComplianceEntryId::new)
     }
 
     pub fn ACCSTD_ACCE_LST(&self) -> som::SomListMetaRef<'a, AccessibilityStandardEntryId<'a>> {
@@ -77681,12 +77681,12 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSC"))
     }
 
-    pub fn SEENEN_ENVI_LST(&self) -> som::SomListMetaRef<'a, ServerEnvironmentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SEENEN-ENVI-LST"), ServerEnvironmentEntryId::new)
+    pub fn SEE_ENVI_LST(&self) -> som::SomListMetaRef<'a, ServerEnvironmentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SEE-ENVI-LST"), ServerEnvironmentEntryId::new)
     }
 
-    pub fn SEROEN_SERV_LST(&self) -> som::SomListMetaRef<'a, ServerRoleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SEROEN-SERV-LST"), ServerRoleEntryId::new)
+    pub fn SRE_SERV_LST(&self) -> som::SomListMetaRef<'a, ServerRoleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SRE-SERV-LST"), ServerRoleEntryId::new)
     }
 
     pub fn CRRM(&self) -> som::SomMetaRef<'a> {
@@ -77813,16 +77813,16 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST"), ClientApplicationEntryId::new)
     }
 
-    pub fn BRREEN_BROW_LST(&self) -> som::SomListMetaRef<'a, BrowserRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST"), BrowserRequirementEntryId::new)
+    pub fn BROREQENT_BROW_LST(&self) -> som::SomListMetaRef<'a, BrowserRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BROREQENT-BROW-LST"), BrowserRequirementEntryId::new)
     }
 
-    pub fn DORE1_DESK_LST(&self) -> som::SomListMetaRef<'a, DesktopOsRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/DORE1-DESK-LST"), DesktopOsRequirementEntryId::new)
+    pub fn DEOSREEN_DESK_LST(&self) -> som::SomListMetaRef<'a, DesktopOsRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/DEOSREEN-DESK-LST"), DesktopOsRequirementEntryId::new)
     }
 
-    pub fn MDRE_MOBI_LST(&self) -> som::SomListMetaRef<'a, MobileDeviceRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/MDRE-MOBI-LST"), MobileDeviceRequirementEntryId::new)
+    pub fn MODEREEN_MOBI_LST(&self) -> som::SomListMetaRef<'a, MobileDeviceRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/MODEREEN-MOBI-LST"), MobileDeviceRequirementEntryId::new)
     }
 
     pub fn DIRELA(&self) -> som::SomMetaRef<'a> {
@@ -78029,8 +78029,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/availabilityRequirements/NART"))
     }
 
-    pub fn VPREEN_VPNR_LST(&self) -> som::SomListMetaRef<'a, VpnRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/VPREEN-VPNR-LST"), VpnRequirementEntryId::new)
+    pub fn VRE_VPNR_LST(&self) -> som::SomListMetaRef<'a, VpnRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/VRE-VPNR-LST"), VpnRequirementEntryId::new)
     }
 
     pub fn FIRERU(&self) -> som::SomMetaRef<'a> {
@@ -78121,8 +78121,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/dataClassification/BDCE"))
     }
 
-    pub fn BAPOEN_BACK_LST(&self) -> som::SomListMetaRef<'a, BackupPolicyEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/BAPOEN-BACK-LST"), BackupPolicyEntryId::new)
+    pub fn BPE_BACK_LST(&self) -> som::SomListMetaRef<'a, BackupPolicyEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/BPE-BACK-LST"), BackupPolicyEntryId::new)
     }
 
     pub fn RRRBT(&self) -> som::SomMetaRef<'a> {
@@ -78417,8 +78417,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/alerting/ALRERE"))
     }
 
-    pub fn ALDEEN_ALER_LST(&self) -> som::SomListMetaRef<'a, AlertDefinitionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/ALDEEN-ALER-LST"), AlertDefinitionEntryId::new)
+    pub fn ALEDEFENT_ALER_LST(&self) -> som::SomListMetaRef<'a, AlertDefinitionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/ALEDEFENT-ALER-LST"), AlertDefinitionEntryId::new)
     }
 
     pub fn DAREST(&self) -> som::SomMetaRef<'a> {
@@ -78501,8 +78501,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPA"))
     }
 
-    pub fn MAWIEN_MAIN_LST(&self) -> som::SomListMetaRef<'a, MaintenanceWindowEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/MAWIEN-MAIN-LST"), MaintenanceWindowEntryId::new)
+    pub fn MWE_MAIN_LST(&self) -> som::SomListMetaRef<'a, MaintenanceWindowEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/MWE-MAIN-LST"), MaintenanceWindowEntryId::new)
     }
 
     pub fn EMPG(&self) -> som::SomMetaRef<'a> {
@@ -78553,8 +78553,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/postMaintenance/PMVC"))
     }
 
-    pub fn PREN_PROT_LST(&self) -> som::SomListMetaRef<'a, ProtocolEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/PREN-PROT-LST"), ProtocolEntryId::new)
+    pub fn PE_PROT_LST(&self) -> som::SomListMetaRef<'a, ProtocolEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/PE-PROT-LST"), ProtocolEntryId::new)
     }
 
     pub fn TRCS(&self) -> som::SomMetaRef<'a> {
@@ -78641,8 +78641,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/compliance/PCRE"))
     }
 
-    pub fn EPCE_PART_LST(&self) -> som::SomListMetaRef<'a, ExternalPartnerConnectionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/EPCE-PART-LST"), ExternalPartnerConnectionEntryId::new)
+    pub fn EXPACOEN_PART_LST(&self) -> som::SomListMetaRef<'a, ExternalPartnerConnectionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/EXPACOEN-PART-LST"), ExternalPartnerConnectionEntryId::new)
     }
 
     pub fn CSIS(&self) -> som::SomMetaRef<'a> {
@@ -78793,8 +78793,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS"))
     }
 
-    pub fn MAINT_MAIN_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST"), som::SomMetaRef::new)
+    pub fn SO_MAIN_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/SO-MAIN-LST"), som::SomMetaRef::new)
     }
 
     pub fn MONITO_MONI(&self) -> som::SomMetaRef<'a> {
@@ -78881,8 +78881,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCF"))
     }
 
-    pub fn ALRUEN_ALER_LST(&self) -> som::SomListMetaRef<'a, AlertRuleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALRUEN-ALER-LST"), AlertRuleEntryId::new)
+    pub fn ALERULENT_ALER_LST(&self) -> som::SomListMetaRef<'a, AlertRuleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERULENT-ALER-LST"), AlertRuleEntryId::new)
     }
 
     pub fn AEPT(&self) -> som::SomMetaRef<'a> {
@@ -78965,16 +78965,16 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSO"))
     }
 
-    pub fn CUMEEN_CUST_LST(&self) -> som::SomListMetaRef<'a, CustomMetricEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUMEEN-CUST-LST"), CustomMetricEntryId::new)
+    pub fn CUSMETENT_CUST_LST(&self) -> som::SomListMetaRef<'a, CustomMetricEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMETENT-CUST-LST"), CustomMetricEntryId::new)
     }
 
     pub fn MODA_DASH(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH"))
     }
 
-    pub fn DAEN_DASH_LST(&self) -> som::SomListMetaRef<'a, DashboardEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/DAEN-DASH-LST"), DashboardEntryId::new)
+    pub fn DASENT_DASH_LST(&self) -> som::SomListMetaRef<'a, DashboardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/DASENT-DASH-LST"), DashboardEntryId::new)
     }
 
     pub fn DATE_DASH_LST(&self) -> som::SomListMetaRef<'a, DashboardTemplatesId<'a>> {
@@ -78997,8 +78997,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIM"))
     }
 
-    pub fn SLEN_SLOS_LST(&self) -> som::SomListMetaRef<'a, SloEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST"), SloEntryId::new)
+    pub fn SE_SLOS_LST(&self) -> som::SomListMetaRef<'a, SloEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SE-SLOS-LST"), SloEntryId::new)
     }
 
     pub fn EBTM(&self) -> som::SomMetaRef<'a> {
@@ -79093,8 +79093,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPP"))
     }
 
-    pub fn SESTEN_STAN_LST(&self) -> som::SomListMetaRef<'a, SecurityStandardEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/security/itSecurityStandards/SESTEN-STAN-LST"), SecurityStandardEntryId::new)
+    pub fn SSE_STAN_LST(&self) -> som::SomListMetaRef<'a, SecurityStandardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/security/itSecurityStandards/SSE-STAN-LST"), SecurityStandardEntryId::new)
     }
 
     pub fn ASRC(&self) -> som::SomMetaRef<'a> {
@@ -79361,8 +79361,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAG"))
     }
 
-    pub fn SEAUEN_AUDI_LST(&self) -> som::SomListMetaRef<'a, SecurityAuditEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/SEAUEN-AUDI-LST"), SecurityAuditEntryId::new)
+    pub fn SAE_AUDI_LST(&self) -> som::SomListMetaRef<'a, SecurityAuditEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/SAE-AUDI-LST"), SecurityAuditEntryId::new)
     }
 
     pub fn CSVND(&self) -> som::SomMetaRef<'a> {
@@ -79497,16 +79497,16 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/identification/IDTAM-ATTR-LST"), IdentityAttributeMappingEntryId::new)
     }
 
-    pub fn MFADE_MFAD_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST"), som::SomMetaRef::new)
+    pub fn MC_MFAD_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MC-MFAD-LST"), som::SomMetaRef::new)
     }
 
     pub fn ATME_ITEM_LST(&self) -> som::SomListMetaRef<'a, AuthenticationMethodEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/ATME-ITEM-LST"), AuthenticationMethodEntryId::new)
     }
 
-    pub fn STEPU_STEP_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST"), som::SomMetaRef::new)
+    pub fn SUAP_STEP_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/SUAP-STEP-LST"), som::SomMetaRef::new)
     }
 
     pub fn LGFLS_LOGI_LST(&self) -> som::SomListMetaRef<'a, LoginFlowStepEntryId<'a>> {
@@ -79565,8 +79565,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST"), ScreenEntryId::new)
     }
 
-    pub fn GLOBA_GLOB_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/GLOBA-GLOB-LST"), som::SomMetaRef::new)
+    pub fn IA_GLOB_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST"), som::SomMetaRef::new)
     }
 
     pub fn NAVGRP_GROU_LST(&self) -> som::SomListMetaRef<'a, NavigationGroupEntryId<'a>> {
@@ -79585,12 +79585,12 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI"))
     }
 
-    pub fn TBDE_TABB_LST(&self) -> som::SomListMetaRef<'a, TabBarDefinitionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST"), TabBarDefinitionEntryId::new)
+    pub fn TABADEEN_TABB_LST(&self) -> som::SomListMetaRef<'a, TabBarDefinitionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST"), TabBarDefinitionEntryId::new)
     }
 
-    pub fn UNIE_ITEM_LST(&self) -> som::SomListMetaRef<'a, UtilityNavigationItemEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST"), UtilityNavigationItemEntryId::new)
+    pub fn UTNAITEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, UtilityNavigationItemEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST"), UtilityNavigationItemEntryId::new)
     }
 
     pub fn BRCO(&self) -> som::SomMetaRef<'a> {
@@ -79653,12 +79653,12 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEBE"))
     }
 
-    pub fn VAMETE_MESS_LST(&self) -> som::SomListMetaRef<'a, ValidationMessageTemplateId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAMETE-MESS-LST"), ValidationMessageTemplateId::new)
+    pub fn VMT_MESS_LST(&self) -> som::SomListMetaRef<'a, ValidationMessageTemplateId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VMT-MESS-LST"), ValidationMessageTemplateId::new)
     }
 
-    pub fn FIELD_FIEL_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/FIELD-FIEL-LST"), som::SomMetaRef::new)
+    pub fn VAFE_FIEL_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFE-FIEL-LST"), som::SomMetaRef::new)
     }
 
     pub fn SYERDI_SYST(&self) -> som::SomMetaRef<'a> {
@@ -79681,12 +79681,12 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF"))
     }
 
-    pub fn EPDE_ERRO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/EPDE-ERRO-LST"), som::SomMetaRef::new)
+    pub fn SYERDI_ERRO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST"), som::SomMetaRef::new)
     }
 
-    pub fn SECE_ERRO_LST(&self) -> som::SomListMetaRef<'a, SystemErrorCodeEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SECE-ERRO-LST"), SystemErrorCodeEntryId::new)
+    pub fn SYERCOEN_ERRO_LST(&self) -> som::SomListMetaRef<'a, SystemErrorCodeEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST"), SystemErrorCodeEntryId::new)
     }
 
     pub fn ERRE_RECO(&self) -> som::SomMetaRef<'a> {
@@ -79713,8 +79713,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERSH"))
     }
 
-    pub fn RECOV_RECO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/RECOV-RECO-LST"), som::SomMetaRef::new)
+    pub fn ERRE_RECO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO-LST"), som::SomMetaRef::new)
     }
 
     pub fn RCVSCN_RECO_LST(&self) -> som::SomListMetaRef<'a, RecoveryScenarioEntryId<'a>> {
@@ -79729,8 +79729,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BC-BREA"))
     }
 
-    pub fn BRE_BREA_LST(&self) -> som::SomListMetaRef<'a, BreakpointEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BRE-BREA-LST"), BreakpointEntryId::new)
+    pub fn BE_BREA_LST(&self) -> som::SomListMetaRef<'a, BreakpointEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BE-BREA-LST"), BreakpointEntryId::new)
     }
 
     pub fn REBE_LAYO(&self) -> som::SomMetaRef<'a> {
@@ -79805,16 +79805,16 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST"), TypographyStyleEntryId::new)
     }
 
-    pub fn UICOEN_COMP_LST(&self) -> som::SomListMetaRef<'a, UiComponentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOEN-COMP-LST"), UiComponentEntryId::new)
+    pub fn UICOMENT_COMP_LST(&self) -> som::SomListMetaRef<'a, UiComponentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOMENT-COMP-LST"), UiComponentEntryId::new)
     }
 
     pub fn CMFA_COMP_LST(&self) -> som::SomListMetaRef<'a, ComponentFamilyEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/CMFA-COMP-LST"), ComponentFamilyEntryId::new)
     }
 
-    pub fn REEN_REPO_LST(&self) -> som::SomListMetaRef<'a, ReportEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/reportDefinitions/REEN-REPO-LST"), ReportEntryId::new)
+    pub fn REPENT_REPO_LST(&self) -> som::SomListMetaRef<'a, ReportEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/reportDefinitions/REPENT-REPO-LST"), ReportEntryId::new)
     }
 
     pub fn DGOEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, DesignGoalEntryId<'a>> {
@@ -79849,12 +79849,12 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAAR"))
     }
 
-    pub fn EXFOEN_EXPO_LST(&self) -> som::SomListMetaRef<'a, ExportFormatEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/printLayout/EXFOEN-EXPO-LST"), ExportFormatEntryId::new)
+    pub fn EFE_EXPO_LST(&self) -> som::SomListMetaRef<'a, ExportFormatEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/printLayout/EFE-EXPO-LST"), ExportFormatEntryId::new)
     }
 
-    pub fn EXTEEN_EXPO_LST(&self) -> som::SomListMetaRef<'a, ExportTemplateEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/printLayout/EXTEEN-EXPO-LST"), ExportTemplateEntryId::new)
+    pub fn ETE_EXPO_LST(&self) -> som::SomListMetaRef<'a, ExportTemplateEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/printLayout/ETE-EXPO-LST"), ExportTemplateEntryId::new)
     }
 
     pub fn USAS_HELP(&self) -> som::SomMetaRef<'a> {
@@ -79977,8 +79977,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCORO"))
     }
 
-    pub fn WSCE_SUCC_LST(&self) -> som::SomListMetaRef<'a, WcagSuccessCriterionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WSCE-SUCC-LST"), WcagSuccessCriterionEntryId::new)
+    pub fn WCSUCREN_SUCC_LST(&self) -> som::SomListMetaRef<'a, WcagSuccessCriterionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCSUCREN-SUCC-LST"), WcagSuccessCriterionEntryId::new)
     }
 
     pub fn ACCHLS_CHEC(&self) -> som::SomMetaRef<'a> {
@@ -80017,8 +80017,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGOFE"))
     }
 
-    pub fn PRGOEN_GOAL_LST(&self) -> som::SomListMetaRef<'a, PrototypeGoalEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGOEN-GOAL-LST"), PrototypeGoalEntryId::new)
+    pub fn PGE_GOAL_LST(&self) -> som::SomListMetaRef<'a, PrototypeGoalEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PGE-GOAL-LST"), PrototypeGoalEntryId::new)
     }
 
     pub fn PRFESU_FEAT(&self) -> som::SomMetaRef<'a> {
@@ -80033,8 +80033,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFSF"))
     }
 
-    pub fn PRFEEN_FEAT_LST(&self) -> som::SomListMetaRef<'a, PrototypeFeatureEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PRFEEN-FEAT-LST"), PrototypeFeatureEntryId::new)
+    pub fn PFE_FEAT_LST(&self) -> som::SomListMetaRef<'a, PrototypeFeatureEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFE-FEAT-LST"), PrototypeFeatureEntryId::new)
     }
 
     pub fn PRTYSE_PROT(&self) -> som::SomMetaRef<'a> {
@@ -80109,8 +80109,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSU"))
     }
 
-    pub fn SULOEN_SUPP_LST(&self) -> som::SomListMetaRef<'a, SupportedLocaleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SULOEN-SUPP-LST"), SupportedLocaleEntryId::new)
+    pub fn SUPLOCENT_SUPP_LST(&self) -> som::SomListMetaRef<'a, SupportedLocaleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SUPLOCENT-SUPP-LST"), SupportedLocaleEntryId::new)
     }
 
     pub fn SYQG_GOVE(&self) -> som::SomMetaRef<'a> {
@@ -80133,8 +80133,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/systemQualityGoals/SQGRS"))
     }
 
-    pub fn ATTRI_ATTR_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/systemQualityGoals/ATTRI-ATTR-LST"), som::SomMetaRef::new)
+    pub fn SYQG_ATTR_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/systemQualityGoals/SYQG-ATTR-LST"), som::SomMetaRef::new)
     }
 
     pub fn QLFWK_FRAM(&self) -> som::SomMetaRef<'a> {
@@ -80157,8 +80157,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/systemQualityGoals/framework/QCATE-QUAL-LST"), QualityCategoryEntryId::new)
     }
 
-    pub fn CATEG_CATE_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/systemQualityGoals/framework/CATEG-CATE-LST"), som::SomMetaRef::new)
+    pub fn QLFWK_CATE_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/systemQualityGoals/framework/QLFWK-CATE-LST"), som::SomMetaRef::new)
     }
 
     pub fn FNSU_FUNC(&self) -> som::SomMetaRef<'a> {
@@ -80453,20 +80453,20 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/detailedCriteria/DACEN-ITEM-LST"), DeliveryAcceptanceCriterionEntryId::new)
     }
 
-    pub fn SWDLV_ITEM_LST(&self) -> som::SomListMetaRef<'a, DeliverableEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/softwareDeliverables/SWDLV-ITEM-LST"), DeliverableEntryId::new)
+    pub fn DLVEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, DeliverableEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/softwareDeliverables/DLVEN-ITEM-LST"), DeliverableEntryId::new)
     }
 
-    pub fn DCDLV_ITEM_LST(&self) -> som::SomListMetaRef<'a, DeliverableEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/documentationDeliverables/DCDLV-ITEM-LST"), DeliverableEntryId::new)
+    pub fn DLVEN_ITEM_LST_2(&self) -> som::SomListMetaRef<'a, DeliverableEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/documentationDeliverables/DLVEN-ITEM-LST"), DeliverableEntryId::new)
     }
 
-    pub fn TRDLV_ITEM_LST(&self) -> som::SomListMetaRef<'a, DeliverableEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/trainingDeliverables/TRDLV-ITEM-LST"), DeliverableEntryId::new)
+    pub fn DLVEN_ITEM_LST_3(&self) -> som::SomListMetaRef<'a, DeliverableEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/trainingDeliverables/DLVEN-ITEM-LST"), DeliverableEntryId::new)
     }
 
-    pub fn SPDLV_ITEM_LST(&self) -> som::SomListMetaRef<'a, DeliverableEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/supportDeliverables/SPDLV-ITEM-LST"), DeliverableEntryId::new)
+    pub fn DLVEN_ITEM_LST_4(&self) -> som::SomListMetaRef<'a, DeliverableEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/supportDeliverables/DLVEN-ITEM-LST"), DeliverableEntryId::new)
     }
 
     pub fn DACEN_ITEM_LST_2(&self) -> som::SomListMetaRef<'a, DeliveryAcceptanceCriterionEntryId<'a>> {
@@ -80613,8 +80613,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/deliveryAcceptance/acceptancePlan/warranty/WAFI"))
     }
 
-    pub fn I25CV_CHAR_LST(&self) -> som::SomListMetaRef<'a, Iso25010CoverageEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST"), Iso25010CoverageEntryId::new)
+    pub fn I25CE_CHAR_LST(&self) -> som::SomListMetaRef<'a, Iso25010CoverageEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityAndAcceptanceModel/iso25010Coverage/I25CE-CHAR-LST"), Iso25010CoverageEntryId::new)
     }
 
     pub fn SSPTM(&self) -> som::SomMetaRef<'a> {
@@ -80677,12 +80677,12 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/strategy/STAGGV"))
     }
 
-    pub fn KEYAS_KEYA_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/strategy/KEYAS-KEYA-LST"), som::SomMetaRef::new)
+    pub fn STAGST_KEYA_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/strategy/STAGST-KEYA-LST"), som::SomMetaRef::new)
     }
 
-    pub fn STAGI_CONS_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/strategy/STAGI-CONS-LST"), som::SomMetaRef::new)
+    pub fn STAGST_CONS_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/strategy/STAGST-CONS-LST"), som::SomMetaRef::new)
     }
 
     pub fn SGOVM(&self) -> som::SomMetaRef<'a> {
@@ -80761,20 +80761,20 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/FEPRTR"))
     }
 
-    pub fn MOEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, MoscowEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/moscowAnalysis/MOEN-ITEM-LST"), MoscowEntryId::new)
+    pub fn ME_ITEM_LST(&self) -> som::SomListMetaRef<'a, MoscowEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/moscowAnalysis/ME-ITEM-LST"), MoscowEntryId::new)
     }
 
-    pub fn FESTM1_ITEM_LST(&self) -> som::SomListMetaRef<'a, FeatureStageMappingId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureStageMatrix/FESTM1-ITEM-LST"), FeatureStageMappingId::new)
+    pub fn FSM_ITEM_LST(&self) -> som::SomListMetaRef<'a, FeatureStageMappingId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureStageMatrix/FSM-ITEM-LST"), FeatureStageMappingId::new)
     }
 
-    pub fn FEPREN_ITEM_LST(&self) -> som::SomListMetaRef<'a, FeaturePriorityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featurePriorityRegister/FEPREN-ITEM-LST"), FeaturePriorityEntryId::new)
+    pub fn FPE_ITEM_LST(&self) -> som::SomListMetaRef<'a, FeaturePriorityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST"), FeaturePriorityEntryId::new)
     }
 
-    pub fn FEDEEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, FeatureDependencyEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureDependencies/FEDEEN-ITEM-LST"), FeatureDependencyEntryId::new)
+    pub fn FDE_ITEM_LST(&self) -> som::SomListMetaRef<'a, FeatureDependencyEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureDependencies/FDE-ITEM-LST"), FeatureDependencyEntryId::new)
     }
 
     pub fn MIAP(&self) -> som::SomMetaRef<'a> {
@@ -80873,12 +80873,12 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PGRO"))
     }
 
-    pub fn PGRE_ITEM_LST(&self) -> som::SomListMetaRef<'a, PhaseGateReviewEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PGRE-ITEM-LST"), PhaseGateReviewEntryId::new)
+    pub fn PHGAREEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, PhaseGateReviewEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PHGAREEN-ITEM-LST"), PhaseGateReviewEntryId::new)
     }
 
-    pub fn DEPOEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, DecisionPointEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/governance/decisionPoints/DEPOEN-ITEM-LST"), DecisionPointEntryId::new)
+    pub fn DPE_ITEM_LST(&self) -> som::SomListMetaRef<'a, DecisionPointEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/systemStagePlan/governance/decisionPoints/DPE-ITEM-LST"), DecisionPointEntryId::new)
     }
 
     pub fn LOPR_LOCA(&self) -> som::SomMetaRef<'a> {
@@ -80917,8 +80917,8 @@ impl<'a> D00SolutionBlueprintId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TRPRON"))
     }
 
-    pub fn TRVEEN_VEND_LST(&self) -> som::SomListMetaRef<'a, TranslationVendorEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TRVEEN-VEND-LST"), TranslationVendorEntryId::new)
+    pub fn TVE_VEND_LST(&self) -> som::SomListMetaRef<'a, TranslationVendorEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TVE-VEND-LST"), TranslationVendorEntryId::new)
     }
 
     pub fn LOCRP(&self) -> som::SomMetaRef<'a> {
@@ -80963,12 +80963,12 @@ impl<'a> D01CurrentLandscapeAssessmentId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "existingSystemsLandscape/currentArchitecture/CARCH-DEPL"))
     }
 
-    pub fn IPE_INTE_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "existingSystemsLandscape/currentArchitecture/IPE-INTE-LST"), som::SomMetaRef::new)
+    pub fn CARCH_INTE_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "existingSystemsLandscape/currentArchitecture/CARCH-INTE-LST"), som::SomMetaRef::new)
     }
 
-    pub fn SHARE_SHAR_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST"), som::SomMetaRef::new)
+    pub fn CARCH_SHAR_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "existingSystemsLandscape/currentArchitecture/CARCH-SHAR-LST"), som::SomMetaRef::new)
     }
 
     pub fn DEPNT_DEPE(&self) -> som::SomMetaRef<'a> {
@@ -80991,8 +80991,8 @@ impl<'a> D01CurrentLandscapeAssessmentId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "existingSystemsLandscape/dependenciesAndIntegrations/integrations/SYIN-ITEM-LST"), SystemIntegrationEntryId::new)
     }
 
-    pub fn FRAGI_FRAG_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST"), som::SomMetaRef::new)
+    pub fn INHESU_FRAG_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/INHESU-FRAG-LST"), som::SomMetaRef::new)
     }
 
     pub fn CUBUPR_PROC(&self) -> som::SomMetaRef<'a> {
@@ -81039,24 +81039,24 @@ impl<'a> D01CurrentLandscapeAssessmentId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "painPointsAndGaps/operationalPainPoints/OPPS"))
     }
 
-    pub fn OPPAPO_ITEM_LST(&self) -> som::SomListMetaRef<'a, PainPointEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "painPointsAndGaps/operationalPainPoints/OPPAPO-ITEM-LST"), PainPointEntryId::new)
+    pub fn PAPE_ITEM_LST(&self) -> som::SomListMetaRef<'a, PainPointEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "painPointsAndGaps/operationalPainPoints/PAPE-ITEM-LST"), PainPointEntryId::new)
     }
 
     pub fn BPPS(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "painPointsAndGaps/businessPainPoints/BPPS"))
     }
 
-    pub fn BUPAPO_ITEM_LST(&self) -> som::SomListMetaRef<'a, PainPointEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "painPointsAndGaps/businessPainPoints/BUPAPO-ITEM-LST"), PainPointEntryId::new)
+    pub fn PAPE_ITEM_LST_2(&self) -> som::SomListMetaRef<'a, PainPointEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "painPointsAndGaps/businessPainPoints/PAPE-ITEM-LST"), PainPointEntryId::new)
     }
 
     pub fn TPPS(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "painPointsAndGaps/technicalPainPoints/TPPS"))
     }
 
-    pub fn TEPAPO_ITEM_LST(&self) -> som::SomListMetaRef<'a, PainPointEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "painPointsAndGaps/technicalPainPoints/TEPAPO-ITEM-LST"), PainPointEntryId::new)
+    pub fn PAPE_ITEM_LST_3(&self) -> som::SomListMetaRef<'a, PainPointEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "painPointsAndGaps/technicalPainPoints/PAPE-ITEM-LST"), PainPointEntryId::new)
     }
 
     pub fn GAPE_ITEM_LST(&self) -> som::SomListMetaRef<'a, GapEntryId<'a>> {
@@ -81235,20 +81235,20 @@ impl<'a> D01CurrentLandscapeAssessmentId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "migrationConsiderations/migrationRisks/MIRIRE"))
     }
 
-    pub fn RISKC_RISK_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "migrationConsiderations/migrationRisks/RISKC-RISK-LST"), som::SomMetaRef::new)
+    pub fn MIRI_RISK_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "migrationConsiderations/migrationRisks/MIRI-RISK-LST"), som::SomMetaRef::new)
     }
 
-    pub fn RISKB_RISK_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "migrationConsiderations/migrationRisks/RISKB-RISK-LST"), som::SomMetaRef::new)
+    pub fn MIRI_RBDE_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "migrationConsiderations/migrationRisks/MIRI-RBDE-LST"), som::SomMetaRef::new)
     }
 
-    pub fn MONIT_MONI_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "migrationConsiderations/migrationRisks/MONIT-MONI-LST"), som::SomMetaRef::new)
+    pub fn MIRI_MONI_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "migrationConsiderations/migrationRisks/MIRI-MONI-LST"), som::SomMetaRef::new)
     }
 
-    pub fn RESPO_RESP_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "migrationConsiderations/migrationRisks/RESPO-RESP-LST"), som::SomMetaRef::new)
+    pub fn MIRI_RESP_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "migrationConsiderations/migrationRisks/MIRI-RESP-LST"), som::SomMetaRef::new)
     }
 
     pub fn MGRSK_ITEM_LST(&self) -> som::SomListMetaRef<'a, MigrationRiskEntryId<'a>> {
@@ -81259,8 +81259,8 @@ impl<'a> D01CurrentLandscapeAssessmentId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "migrationConsiderations/MGMLS-MILE-LST"), MigrationMilestoneEntryId::new)
     }
 
-    pub fn ESCAL_ESCA_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "migrationConsiderations/ESCAL-ESCA-LST"), som::SomMetaRef::new)
+    pub fn MIGCON_ESCA_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "migrationConsiderations/MIGCON-ESCA-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -81601,16 +81601,16 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "basicTechnicalRequirements/platformAndLanguage/PLGEN-PROG-LST"), ProgrammingLanguageEntryId::new)
     }
 
-    pub fn FWREN_FRAM_LST(&self) -> som::SomListMetaRef<'a, FrameworkRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "basicTechnicalRequirements/platformAndLanguage/FWREN-FRAM-LST"), FrameworkRequirementEntryId::new)
+    pub fn FRREEN_FRAM_LST(&self) -> som::SomListMetaRef<'a, FrameworkRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "basicTechnicalRequirements/platformAndLanguage/FRREEN-FRAM-LST"), FrameworkRequirementEntryId::new)
     }
 
     pub fn BTCEN_BUIL_LST(&self) -> som::SomListMetaRef<'a, BuildToolchainEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "basicTechnicalRequirements/platformAndLanguage/BTCEN-BUIL-LST"), BuildToolchainEntryId::new)
     }
 
-    pub fn DETAEN_DEPL_LST(&self) -> som::SomListMetaRef<'a, DeploymentTargetEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "basicTechnicalRequirements/platformAndLanguage/DETAEN-DEPL-LST"), DeploymentTargetEntryId::new)
+    pub fn DEPTARENT_DEPL_LST(&self) -> som::SomListMetaRef<'a, DeploymentTargetEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "basicTechnicalRequirements/platformAndLanguage/DEPTARENT-DEPL-LST"), DeploymentTargetEntryId::new)
     }
 
     pub fn DEMAVE(&self) -> som::SomMetaRef<'a> {
@@ -81809,16 +81809,16 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "basicTechnicalRequirements/designPatternsAndStandards/DSPT-DESI-LST"), DesignPatternEntryId::new)
     }
 
-    pub fn COSTEN_CODI_LST(&self) -> som::SomListMetaRef<'a, CodingStandardEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "basicTechnicalRequirements/designPatternsAndStandards/COSTEN-CODI-LST"), CodingStandardEntryId::new)
+    pub fn CSE_CODI_LST(&self) -> som::SomListMetaRef<'a, CodingStandardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "basicTechnicalRequirements/designPatternsAndStandards/CSE-CODI-LST"), CodingStandardEntryId::new)
     }
 
-    pub fn DECOEN_DEVE_LST(&self) -> som::SomListMetaRef<'a, DevelopmentConventionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "basicTechnicalRequirements/designPatternsAndStandards/DECOEN-DEVE-LST"), DevelopmentConventionEntryId::new)
+    pub fn DCE_DEVE_LST(&self) -> som::SomListMetaRef<'a, DevelopmentConventionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "basicTechnicalRequirements/designPatternsAndStandards/DCE-DEVE-LST"), DevelopmentConventionEntryId::new)
     }
 
-    pub fn INSTEN_INDU_LST(&self) -> som::SomListMetaRef<'a, IndustryStandardEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "basicTechnicalRequirements/designPatternsAndStandards/INSTEN-INDU-LST"), IndustryStandardEntryId::new)
+    pub fn ISE_INDU_LST(&self) -> som::SomListMetaRef<'a, IndustryStandardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "basicTechnicalRequirements/designPatternsAndStandards/ISE-INDU-LST"), IndustryStandardEntryId::new)
     }
 
     pub fn CQMC(&self) -> som::SomMetaRef<'a> {
@@ -81897,8 +81897,8 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "basicTechnicalRequirements/designPatternsAndStandards/testingStandards/TESTTO"))
     }
 
-    pub fn SOLAEN_SOFT_LST(&self) -> som::SomListMetaRef<'a, SoftwareLayerEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/layeringAndModuleStructure/SOLAEN-SOFT-LST"), SoftwareLayerEntryId::new)
+    pub fn SLE_SOFT_LST(&self) -> som::SomListMetaRef<'a, SoftwareLayerEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/layeringAndModuleStructure/SLE-SOFT-LST"), SoftwareLayerEntryId::new)
     }
 
     pub fn LCRI(&self) -> som::SomMetaRef<'a> {
@@ -81913,8 +81913,8 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/layeringAndModuleStructure/layerCommunicationRules/LCRG"))
     }
 
-    pub fn BOCOEN_BOUN_LST(&self) -> som::SomListMetaRef<'a, BoundedContextEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/layeringAndModuleStructure/BOCOEN-BOUN-LST"), BoundedContextEntryId::new)
+    pub fn BCE_BOUN_LST(&self) -> som::SomListMetaRef<'a, BoundedContextEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/layeringAndModuleStructure/BCE-BOUN-LST"), BoundedContextEntryId::new)
     }
 
     pub fn PAORST(&self) -> som::SomMetaRef<'a> {
@@ -81933,12 +81933,12 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/layeringAndModuleStructure/packageOrganization/PAORDO"))
     }
 
-    pub fn MOEN1_MODU_LST(&self) -> som::SomListMetaRef<'a, ModuleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/layeringAndModuleStructure/MOEN1-MODU-LST"), ModuleEntryId::new)
+    pub fn MODENT_MODU_LST(&self) -> som::SomListMetaRef<'a, ModuleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/layeringAndModuleStructure/MODENT-MODU-LST"), ModuleEntryId::new)
     }
 
-    pub fn SHLIB_SHAR_LST(&self) -> som::SomListMetaRef<'a, SharedLibraryEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/layeringAndModuleStructure/SHLIB-SHAR-LST"), SharedLibraryEntryId::new)
+    pub fn SHLIEN_SHAR_LST(&self) -> som::SomListMetaRef<'a, SharedLibraryEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/layeringAndModuleStructure/SHLIEN-SHAR-LST"), SharedLibraryEntryId::new)
     }
 
     pub fn DISR(&self) -> som::SomMetaRef<'a> {
@@ -81997,8 +81997,8 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO"))
     }
 
-    pub fn IDREEN_IDER_LST(&self) -> som::SomListMetaRef<'a, IdeRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/developmentEnvironment/IDREEN-IDER-LST"), IdeRequirementEntryId::new)
+    pub fn IRE_IDER_LST(&self) -> som::SomListMetaRef<'a, IdeRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/developmentEnvironment/IRE-IDER-LST"), IdeRequirementEntryId::new)
     }
 
     pub fn BTCBS(&self) -> som::SomMetaRef<'a> {
@@ -82033,16 +82033,16 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/developmentEnvironment/versionControl/VCCM"))
     }
 
-    pub fn PISTEN_STAG_LST(&self) -> som::SomListMetaRef<'a, PipelineStageEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST"), PipelineStageEntryId::new)
+    pub fn PSE_STAG_LST(&self) -> som::SomListMetaRef<'a, PipelineStageEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/developmentEnvironment/cicdPipeline/PSE-STAG-LST"), PipelineStageEntryId::new)
     }
 
-    pub fn PIJOEN_JOBS_LST(&self) -> som::SomListMetaRef<'a, PipelineJobEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST"), PipelineJobEntryId::new)
+    pub fn PJE_JOBS_LST(&self) -> som::SomListMetaRef<'a, PipelineJobEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/developmentEnvironment/cicdPipeline/PJE-JOBS-LST"), PipelineJobEntryId::new)
     }
 
-    pub fn DEENEN_ENVI_LST(&self) -> som::SomListMetaRef<'a, DeploymentEnvironmentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST"), DeploymentEnvironmentEntryId::new)
+    pub fn DEE_ENVI_LST(&self) -> som::SomListMetaRef<'a, DeploymentEnvironmentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/developmentEnvironment/cicdPipeline/DEE-ENVI-LST"), DeploymentEnvironmentEntryId::new)
     }
 
     pub fn CRPR(&self) -> som::SomMetaRef<'a> {
@@ -82177,16 +82177,16 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/reusableComponents/SHLCP-SHAR-LST"), SharedLibraryComponentEntryId::new)
     }
 
-    pub fn RUICMP_UICO_LST(&self) -> som::SomListMetaRef<'a, ReusableUiComponentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/reusableComponents/RUICMP-UICO-LST"), ReusableUiComponentEntryId::new)
+    pub fn RUCE_UICO_LST(&self) -> som::SomListMetaRef<'a, ReusableUiComponentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/reusableComponents/RUCE-UICO-LST"), ReusableUiComponentEntryId::new)
     }
 
-    pub fn BUCOEN_BUSI_LST(&self) -> som::SomListMetaRef<'a, BusinessComponentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/reusableComponents/BUCOEN-BUSI-LST"), BusinessComponentEntryId::new)
+    pub fn BUSCOMENT_BUSI_LST(&self) -> som::SomListMetaRef<'a, BusinessComponentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/reusableComponents/BUSCOMENT-BUSI-LST"), BusinessComponentEntryId::new)
     }
 
-    pub fn INCOEN_INFR_LST(&self) -> som::SomListMetaRef<'a, InfrastructureComponentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/reusableComponents/INCOEN-INFR-LST"), InfrastructureComponentEntryId::new)
+    pub fn INFCOMENT_INFR_LST(&self) -> som::SomListMetaRef<'a, InfrastructureComponentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/reusableComponents/INFCOMENT-INFR-LST"), InfrastructureComponentEntryId::new)
     }
 
     pub fn THPALI_THIR_LST(&self) -> som::SomListMetaRef<'a, ThirdPartyLibraryEntryId<'a>> {
@@ -82225,36 +82225,36 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "softwareDesignRequirements/reusableComponents/registry/COREUP"))
     }
 
-    pub fn OSCOEN_OSCO_LST(&self) -> som::SomListMetaRef<'a, OsCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/compatibilityRequirements/OSCOEN-OSCO-LST"), OsCompatibilityEntryId::new)
+    pub fn OCE_OSCO_LST(&self) -> som::SomListMetaRef<'a, OsCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/compatibilityRequirements/OCE-OSCO-LST"), OsCompatibilityEntryId::new)
     }
 
-    pub fn BRCOEN_BROW_LST(&self) -> som::SomListMetaRef<'a, BrowserCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/compatibilityRequirements/BRCOEN-BROW-LST"), BrowserCompatibilityEntryId::new)
+    pub fn BROCOMENT_BROW_LST(&self) -> som::SomListMetaRef<'a, BrowserCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/compatibilityRequirements/BROCOMENT-BROW-LST"), BrowserCompatibilityEntryId::new)
     }
 
-    pub fn DACOEN_DATA_LST(&self) -> som::SomListMetaRef<'a, DatabaseCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/compatibilityRequirements/DACOEN-DATA-LST"), DatabaseCompatibilityEntryId::new)
+    pub fn DATCOMENT_DATA_LST(&self) -> som::SomListMetaRef<'a, DatabaseCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/compatibilityRequirements/DATCOMENT-DATA-LST"), DatabaseCompatibilityEntryId::new)
     }
 
-    pub fn ESCE_ENTE_LST(&self) -> som::SomListMetaRef<'a, EnterpriseSystemCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/compatibilityRequirements/ESCE-ENTE-LST"), EnterpriseSystemCompatibilityEntryId::new)
+    pub fn ENSYCOEN_ENTE_LST(&self) -> som::SomListMetaRef<'a, EnterpriseSystemCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/compatibilityRequirements/ENSYCOEN-ENTE-LST"), EnterpriseSystemCompatibilityEntryId::new)
     }
 
     pub fn APCP_APIC_LST(&self) -> som::SomListMetaRef<'a, ApiCompatibilityEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/compatibilityRequirements/APCP-APIC-LST"), ApiCompatibilityEntryId::new)
     }
 
-    pub fn LECOEN_LEGA_LST(&self) -> som::SomListMetaRef<'a, LegacyCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/compatibilityRequirements/LECOEN-LEGA-LST"), LegacyCompatibilityEntryId::new)
+    pub fn LCE_LEGA_LST(&self) -> som::SomListMetaRef<'a, LegacyCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/compatibilityRequirements/LCE-LEGA-LST"), LegacyCompatibilityEntryId::new)
     }
 
-    pub fn MOCOEN_MOBI_LST(&self) -> som::SomListMetaRef<'a, MobileCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/compatibilityRequirements/MOCOEN-MOBI-LST"), MobileCompatibilityEntryId::new)
+    pub fn MOBCOMENT_MOBI_LST(&self) -> som::SomListMetaRef<'a, MobileCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/compatibilityRequirements/MOBCOMENT-MOBI-LST"), MobileCompatibilityEntryId::new)
     }
 
-    pub fn TPCE_THIR_LST(&self) -> som::SomListMetaRef<'a, ThirdPartyCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/compatibilityRequirements/TPCE-THIR-LST"), ThirdPartyCompatibilityEntryId::new)
+    pub fn THPACOEN_THIR_LST(&self) -> som::SomListMetaRef<'a, ThirdPartyCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/compatibilityRequirements/THPACOEN-THIR-LST"), ThirdPartyCompatibilityEntryId::new)
     }
 
     pub fn DFCF(&self) -> som::SomMetaRef<'a> {
@@ -82305,24 +82305,24 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/compatibilityRequirements/interoperability/INREGO"))
     }
 
-    pub fn ISCE_ITST_LST(&self) -> som::SomListMetaRef<'a, ItStandardComplianceEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/standardsCompliance/ISCE-ITST-LST"), ItStandardComplianceEntryId::new)
+    pub fn ITSTCOEN_ITST_LST(&self) -> som::SomListMetaRef<'a, ItStandardComplianceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/standardsCompliance/ITSTCOEN-ITST-LST"), ItStandardComplianceEntryId::new)
     }
 
-    pub fn IPCE_INDU_LST(&self) -> som::SomListMetaRef<'a, IndustryProtocolComplianceEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/standardsCompliance/IPCE-INDU-LST"), IndustryProtocolComplianceEntryId::new)
+    pub fn INPRCOEN_INDU_LST(&self) -> som::SomListMetaRef<'a, IndustryProtocolComplianceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/standardsCompliance/INPRCOEN-INDU-LST"), IndustryProtocolComplianceEntryId::new)
     }
 
-    pub fn INSPEN_INTE_LST(&self) -> som::SomListMetaRef<'a, InterfaceSpecificationEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/standardsCompliance/INSPEN-INTE-LST"), InterfaceSpecificationEntryId::new)
+    pub fn INTSPEENT_INTE_LST(&self) -> som::SomListMetaRef<'a, InterfaceSpecificationEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/standardsCompliance/INTSPEENT-INTE-LST"), InterfaceSpecificationEntryId::new)
     }
 
-    pub fn RECOEN_REGU_LST(&self) -> som::SomListMetaRef<'a, RegulatoryComplianceEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/standardsCompliance/RECOEN-REGU-LST"), RegulatoryComplianceEntryId::new)
+    pub fn RCE_REGU_LST(&self) -> som::SomListMetaRef<'a, RegulatoryComplianceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/standardsCompliance/RCE-REGU-LST"), RegulatoryComplianceEntryId::new)
     }
 
-    pub fn SSCE_SECU_LST(&self) -> som::SomListMetaRef<'a, SecurityStandardComplianceEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/standardsCompliance/SSCE-SECU-LST"), SecurityStandardComplianceEntryId::new)
+    pub fn SESTCOEN_SECU_LST(&self) -> som::SomListMetaRef<'a, SecurityStandardComplianceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/standardsCompliance/SESTCOEN-SECU-LST"), SecurityStandardComplianceEntryId::new)
     }
 
     pub fn ACCSTD_ACCE_LST(&self) -> som::SomListMetaRef<'a, AccessibilityStandardEntryId<'a>> {
@@ -82405,12 +82405,12 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "standardSoftwareRequirements/standardsCompliance/complianceVerification/CVSC"))
     }
 
-    pub fn SEENEN_ENVI_LST(&self) -> som::SomListMetaRef<'a, ServerEnvironmentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/serverRequirements/SEENEN-ENVI-LST"), ServerEnvironmentEntryId::new)
+    pub fn SEE_ENVI_LST(&self) -> som::SomListMetaRef<'a, ServerEnvironmentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/serverRequirements/SEE-ENVI-LST"), ServerEnvironmentEntryId::new)
     }
 
-    pub fn SEROEN_SERV_LST(&self) -> som::SomListMetaRef<'a, ServerRoleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/serverRequirements/SEROEN-SERV-LST"), ServerRoleEntryId::new)
+    pub fn SRE_SERV_LST(&self) -> som::SomListMetaRef<'a, ServerRoleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/serverRequirements/SRE-SERV-LST"), ServerRoleEntryId::new)
     }
 
     pub fn CRRM(&self) -> som::SomMetaRef<'a> {
@@ -82537,16 +82537,16 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/clientRequirements/CLIAPP-CLIE-LST"), ClientApplicationEntryId::new)
     }
 
-    pub fn BRREEN_BROW_LST(&self) -> som::SomListMetaRef<'a, BrowserRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/clientRequirements/BRREEN-BROW-LST"), BrowserRequirementEntryId::new)
+    pub fn BROREQENT_BROW_LST(&self) -> som::SomListMetaRef<'a, BrowserRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/clientRequirements/BROREQENT-BROW-LST"), BrowserRequirementEntryId::new)
     }
 
-    pub fn DORE1_DESK_LST(&self) -> som::SomListMetaRef<'a, DesktopOsRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/clientRequirements/DORE1-DESK-LST"), DesktopOsRequirementEntryId::new)
+    pub fn DEOSREEN_DESK_LST(&self) -> som::SomListMetaRef<'a, DesktopOsRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/clientRequirements/DEOSREEN-DESK-LST"), DesktopOsRequirementEntryId::new)
     }
 
-    pub fn MDRE_MOBI_LST(&self) -> som::SomListMetaRef<'a, MobileDeviceRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/clientRequirements/MDRE-MOBI-LST"), MobileDeviceRequirementEntryId::new)
+    pub fn MODEREEN_MOBI_LST(&self) -> som::SomListMetaRef<'a, MobileDeviceRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/clientRequirements/MODEREEN-MOBI-LST"), MobileDeviceRequirementEntryId::new)
     }
 
     pub fn DIRELA(&self) -> som::SomMetaRef<'a> {
@@ -82753,8 +82753,8 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/networkRequirements/availabilityRequirements/NART"))
     }
 
-    pub fn VPREEN_VPNR_LST(&self) -> som::SomListMetaRef<'a, VpnRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/networkRequirements/VPREEN-VPNR-LST"), VpnRequirementEntryId::new)
+    pub fn VRE_VPNR_LST(&self) -> som::SomListMetaRef<'a, VpnRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "hardwareRequirements/networkRequirements/VRE-VPNR-LST"), VpnRequirementEntryId::new)
     }
 
     pub fn FIRERU(&self) -> som::SomMetaRef<'a> {
@@ -82845,8 +82845,8 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "operationsRequirements/backupAndRecovery/dataClassification/BDCE"))
     }
 
-    pub fn BAPOEN_BACK_LST(&self) -> som::SomListMetaRef<'a, BackupPolicyEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "operationsRequirements/backupAndRecovery/BAPOEN-BACK-LST"), BackupPolicyEntryId::new)
+    pub fn BPE_BACK_LST(&self) -> som::SomListMetaRef<'a, BackupPolicyEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "operationsRequirements/backupAndRecovery/BPE-BACK-LST"), BackupPolicyEntryId::new)
     }
 
     pub fn RRRBT(&self) -> som::SomMetaRef<'a> {
@@ -83141,8 +83141,8 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "operationsRequirements/monitoringAndAlerting/alerting/ALRERE"))
     }
 
-    pub fn ALDEEN_ALER_LST(&self) -> som::SomListMetaRef<'a, AlertDefinitionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "operationsRequirements/monitoringAndAlerting/ALDEEN-ALER-LST"), AlertDefinitionEntryId::new)
+    pub fn ALEDEFENT_ALER_LST(&self) -> som::SomListMetaRef<'a, AlertDefinitionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "operationsRequirements/monitoringAndAlerting/ALEDEFENT-ALER-LST"), AlertDefinitionEntryId::new)
     }
 
     pub fn DAREST(&self) -> som::SomMetaRef<'a> {
@@ -83225,8 +83225,8 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "operationsRequirements/maintenanceWindows/scheduledMaintenance/SMPA"))
     }
 
-    pub fn MAWIEN_MAIN_LST(&self) -> som::SomListMetaRef<'a, MaintenanceWindowEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "operationsRequirements/maintenanceWindows/MAWIEN-MAIN-LST"), MaintenanceWindowEntryId::new)
+    pub fn MWE_MAIN_LST(&self) -> som::SomListMetaRef<'a, MaintenanceWindowEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "operationsRequirements/maintenanceWindows/MWE-MAIN-LST"), MaintenanceWindowEntryId::new)
     }
 
     pub fn EMPG(&self) -> som::SomMetaRef<'a> {
@@ -83277,8 +83277,8 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "operationsRequirements/maintenanceWindows/postMaintenance/PMVC"))
     }
 
-    pub fn PREN_PROT_LST(&self) -> som::SomListMetaRef<'a, ProtocolEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "communicationRequirements/protocolsAndStandards/PREN-PROT-LST"), ProtocolEntryId::new)
+    pub fn PE_PROT_LST(&self) -> som::SomListMetaRef<'a, ProtocolEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "communicationRequirements/protocolsAndStandards/PE-PROT-LST"), ProtocolEntryId::new)
     }
 
     pub fn TRCS(&self) -> som::SomMetaRef<'a> {
@@ -83365,8 +83365,8 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "communicationRequirements/protocolsAndStandards/compliance/PCRE"))
     }
 
-    pub fn EPCE_PART_LST(&self) -> som::SomListMetaRef<'a, ExternalPartnerConnectionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "communicationRequirements/externalConnectivity/EPCE-PART-LST"), ExternalPartnerConnectionEntryId::new)
+    pub fn EXPACOEN_PART_LST(&self) -> som::SomListMetaRef<'a, ExternalPartnerConnectionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "communicationRequirements/externalConnectivity/EXPACOEN-PART-LST"), ExternalPartnerConnectionEntryId::new)
     }
 
     pub fn CSIS(&self) -> som::SomMetaRef<'a> {
@@ -83517,8 +83517,8 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/systemOperation/administrationRequirements/diagnosticTools/SDTSS"))
     }
 
-    pub fn MAINT_MAIN_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/systemOperation/MAINT-MAIN-LST"), som::SomMetaRef::new)
+    pub fn SO_MAIN_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/systemOperation/SO-MAIN-LST"), som::SomMetaRef::new)
     }
 
     pub fn MONITO_MONI(&self) -> som::SomMetaRef<'a> {
@@ -83605,8 +83605,8 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/monitoring/alertingConfiguration/notificationChannels/ANCF"))
     }
 
-    pub fn ALRUEN_ALER_LST(&self) -> som::SomListMetaRef<'a, AlertRuleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/monitoring/alertingConfiguration/ALRUEN-ALER-LST"), AlertRuleEntryId::new)
+    pub fn ALERULENT_ALER_LST(&self) -> som::SomListMetaRef<'a, AlertRuleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/monitoring/alertingConfiguration/ALERULENT-ALER-LST"), AlertRuleEntryId::new)
     }
 
     pub fn AEPT(&self) -> som::SomMetaRef<'a> {
@@ -83689,16 +83689,16 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/monitoring/metricsAndObservability/distributedTracing/DTSO"))
     }
 
-    pub fn CUMEEN_CUST_LST(&self) -> som::SomListMetaRef<'a, CustomMetricEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/monitoring/metricsAndObservability/CUMEEN-CUST-LST"), CustomMetricEntryId::new)
+    pub fn CUSMETENT_CUST_LST(&self) -> som::SomListMetaRef<'a, CustomMetricEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/monitoring/metricsAndObservability/CUSMETENT-CUST-LST"), CustomMetricEntryId::new)
     }
 
     pub fn MODA_DASH(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/monitoring/dashboards/MODA-DASH"))
     }
 
-    pub fn DAEN_DASH_LST(&self) -> som::SomListMetaRef<'a, DashboardEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/monitoring/dashboards/DAEN-DASH-LST"), DashboardEntryId::new)
+    pub fn DASENT_DASH_LST(&self) -> som::SomListMetaRef<'a, DashboardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/monitoring/dashboards/DASENT-DASH-LST"), DashboardEntryId::new)
     }
 
     pub fn DATE_DASH_LST(&self) -> som::SomListMetaRef<'a, DashboardTemplatesId<'a>> {
@@ -83721,8 +83721,8 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/slis/SLIM"))
     }
 
-    pub fn SLEN_SLOS_LST(&self) -> som::SomListMetaRef<'a, SloEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST"), SloEntryId::new)
+    pub fn SE_SLOS_LST(&self) -> som::SomListMetaRef<'a, SloEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/SE-SLOS-LST"), SloEntryId::new)
     }
 
     pub fn EBTM(&self) -> som::SomMetaRef<'a> {
@@ -83817,8 +83817,8 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "systemOperationAndMonitoring/capacityPlanning/capacityReview/CRPP"))
     }
 
-    pub fn SESTEN_STAN_LST(&self) -> som::SomListMetaRef<'a, SecurityStandardEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalSecurityRequirements/itSecurityStandards/SESTEN-STAN-LST"), SecurityStandardEntryId::new)
+    pub fn SSE_STAN_LST(&self) -> som::SomListMetaRef<'a, SecurityStandardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalSecurityRequirements/itSecurityStandards/SSE-STAN-LST"), SecurityStandardEntryId::new)
     }
 
     pub fn ASRC(&self) -> som::SomMetaRef<'a> {
@@ -84085,8 +84085,8 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalSecurityRequirements/securityAuditRequirements/securityTestingAutomation/STAG"))
     }
 
-    pub fn SEAUEN_AUDI_LST(&self) -> som::SomListMetaRef<'a, SecurityAuditEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalSecurityRequirements/securityAuditRequirements/SEAUEN-AUDI-LST"), SecurityAuditEntryId::new)
+    pub fn SAE_AUDI_LST(&self) -> som::SomListMetaRef<'a, SecurityAuditEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalSecurityRequirements/securityAuditRequirements/SAE-AUDI-LST"), SecurityAuditEntryId::new)
     }
 
     pub fn CSVND(&self) -> som::SomMetaRef<'a> {
@@ -84153,24 +84153,24 @@ impl<'a> D06ArchitectureTechnologySpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalEnvironment/TES"))
     }
 
-    pub fn DEVOP_DEVO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalEnvironment/network/DEVOP-DEVO-LST"), som::SomMetaRef::new)
+    pub fn TEENNE_DEVO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalEnvironment/network/TEENNE-DEVO-LST"), som::SomMetaRef::new)
     }
 
-    pub fn OBSER_OBSE_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalEnvironment/network/OBSER-OBSE-LST"), som::SomMetaRef::new)
+    pub fn TEENNE_OBSE_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalEnvironment/network/TEENNE-OBSE-LST"), som::SomMetaRef::new)
     }
 
-    pub fn DATAC_DATA_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalEnvironment/DATAC-DATA-LST"), som::SomMetaRef::new)
+    pub fn TEEN_DATA_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalEnvironment/TEEN-DATA-LST"), som::SomMetaRef::new)
     }
 
-    pub fn TESTEN_TECH_LST(&self) -> som::SomListMetaRef<'a, TechnologyStandardEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalEnvironment/TESTEN-TECH-LST"), TechnologyStandardEntryId::new)
+    pub fn TSE_TECH_LST(&self) -> som::SomListMetaRef<'a, TechnologyStandardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalEnvironment/TSE-TECH-LST"), TechnologyStandardEntryId::new)
     }
 
-    pub fn INCOE1_INTE_LST(&self) -> som::SomListMetaRef<'a, IntegrationConstraintEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalEnvironment/INCOE1-INTE-LST"), IntegrationConstraintEntryId::new)
+    pub fn INTCONENT_INTE_LST(&self) -> som::SomListMetaRef<'a, IntegrationConstraintEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalEnvironment/INTCONENT-INTE-LST"), IntegrationConstraintEntryId::new)
     }
 
     pub fn TRAREQ_TRAN(&self) -> som::SomMetaRef<'a> {
@@ -84219,16 +84219,16 @@ impl<'a> D07IntegrationInterfaceSpecificationId<'a> {
         self.meta_ref.meta()
     }
 
-    pub fn EXINEN_INTE_LST(&self) -> som::SomListMetaRef<'a, ExternalInterfaceEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "externalInterfaces/EXINEN-INTE-LST"), ExternalInterfaceEntryId::new)
+    pub fn EIE_INTE_LST(&self) -> som::SomListMetaRef<'a, ExternalInterfaceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "externalInterfaces/EIE-INTE-LST"), ExternalInterfaceEntryId::new)
     }
 
-    pub fn OOSE_ITEM_LST(&self) -> som::SomListMetaRef<'a, OutOfScopeEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "outOfScope/OOSE-ITEM-LST"), OutOfScopeEntryId::new)
+    pub fn OUOFSCEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, OutOfScopeEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "outOfScope/OUOFSCEN-ITEM-LST"), OutOfScopeEntryId::new)
     }
 
-    pub fn BOASEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, BoundaryAssumptionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "boundaryAssumptions/BOASEN-ITEM-LST"), BoundaryAssumptionEntryId::new)
+    pub fn BAE_ITEM_LST(&self) -> som::SomListMetaRef<'a, BoundaryAssumptionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "boundaryAssumptions/BAE-ITEM-LST"), BoundaryAssumptionEntryId::new)
     }
 
     pub fn BOINPA_INTE_LST(&self) -> som::SomListMetaRef<'a, BoundaryInteractionPatternsId<'a>> {
@@ -84353,16 +84353,16 @@ impl<'a> D08SecurityAccessSpecificationId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "identificationAndAuthentication/identification/IDTAM-ATTR-LST"), IdentityAttributeMappingEntryId::new)
     }
 
-    pub fn MFADE_MFAD_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "identificationAndAuthentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST"), som::SomMetaRef::new)
+    pub fn MC_MFAD_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "identificationAndAuthentication/authentication/authenticationMethods/mfaConfiguration/MC-MFAD-LST"), som::SomMetaRef::new)
     }
 
     pub fn ATME_ITEM_LST(&self) -> som::SomListMetaRef<'a, AuthenticationMethodEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "identificationAndAuthentication/authentication/authenticationMethods/ATME-ITEM-LST"), AuthenticationMethodEntryId::new)
     }
 
-    pub fn STEPU_STEP_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "identificationAndAuthentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST"), som::SomMetaRef::new)
+    pub fn SUAP_STEP_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "identificationAndAuthentication/authentication/authenticationFlow/stepUpAuthentication/SUAP-STEP-LST"), som::SomMetaRef::new)
     }
 
     pub fn LGFLS_LOGI_LST(&self) -> som::SomListMetaRef<'a, LoginFlowStepEntryId<'a>> {
@@ -84459,8 +84459,8 @@ impl<'a> D09ExperienceDesignSpecificationId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "screens/screenInventory/SCREN-ITEM-LST"), ScreenEntryId::new)
     }
 
-    pub fn GLOBA_GLOB_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "screens/informationArchitecture/GLOBA-GLOB-LST"), som::SomMetaRef::new)
+    pub fn IA_GLOB_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "screens/informationArchitecture/IA-GLOB-LST"), som::SomMetaRef::new)
     }
 
     pub fn NAVGRP_GROU_LST(&self) -> som::SomListMetaRef<'a, NavigationGroupEntryId<'a>> {
@@ -84479,12 +84479,12 @@ impl<'a> D09ExperienceDesignSpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "screenFlow/navigationModel/primaryNavigation/PRNASI"))
     }
 
-    pub fn TBDE_TABB_LST(&self) -> som::SomListMetaRef<'a, TabBarDefinitionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST"), TabBarDefinitionEntryId::new)
+    pub fn TABADEEN_TABB_LST(&self) -> som::SomListMetaRef<'a, TabBarDefinitionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST"), TabBarDefinitionEntryId::new)
     }
 
-    pub fn UNIE_ITEM_LST(&self) -> som::SomListMetaRef<'a, UtilityNavigationItemEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST"), UtilityNavigationItemEntryId::new)
+    pub fn UTNAITEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, UtilityNavigationItemEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST"), UtilityNavigationItemEntryId::new)
     }
 
     pub fn BRCO(&self) -> som::SomMetaRef<'a> {
@@ -84531,16 +84531,16 @@ impl<'a> D09ExperienceDesignSpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "printLayout/PRLAAR"))
     }
 
-    pub fn EXFOEN_EXPO_LST(&self) -> som::SomListMetaRef<'a, ExportFormatEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "printLayout/EXFOEN-EXPO-LST"), ExportFormatEntryId::new)
+    pub fn EFE_EXPO_LST(&self) -> som::SomListMetaRef<'a, ExportFormatEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "printLayout/EFE-EXPO-LST"), ExportFormatEntryId::new)
     }
 
-    pub fn EXTEEN_EXPO_LST(&self) -> som::SomListMetaRef<'a, ExportTemplateEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "printLayout/EXTEEN-EXPO-LST"), ExportTemplateEntryId::new)
+    pub fn ETE_EXPO_LST(&self) -> som::SomListMetaRef<'a, ExportTemplateEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "printLayout/ETE-EXPO-LST"), ExportTemplateEntryId::new)
     }
 
-    pub fn REEN_REPO_LST(&self) -> som::SomListMetaRef<'a, ReportEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reportDefinitions/REEN-REPO-LST"), ReportEntryId::new)
+    pub fn REPENT_REPO_LST(&self) -> som::SomListMetaRef<'a, ReportEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reportDefinitions/REPENT-REPO-LST"), ReportEntryId::new)
     }
 
     pub fn ERHACO_ERRO(&self) -> som::SomMetaRef<'a> {
@@ -84579,12 +84579,12 @@ impl<'a> D09ExperienceDesignSpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorHandling/validationFeedback/VAFEBE"))
     }
 
-    pub fn VAMETE_MESS_LST(&self) -> som::SomListMetaRef<'a, ValidationMessageTemplateId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorHandling/validationFeedback/VAMETE-MESS-LST"), ValidationMessageTemplateId::new)
+    pub fn VMT_MESS_LST(&self) -> som::SomListMetaRef<'a, ValidationMessageTemplateId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorHandling/validationFeedback/VMT-MESS-LST"), ValidationMessageTemplateId::new)
     }
 
-    pub fn FIELD_FIEL_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorHandling/validationFeedback/FIELD-FIEL-LST"), som::SomMetaRef::new)
+    pub fn VAFE_FIEL_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorHandling/validationFeedback/VAFE-FIEL-LST"), som::SomMetaRef::new)
     }
 
     pub fn SYERDI_SYST(&self) -> som::SomMetaRef<'a> {
@@ -84607,12 +84607,12 @@ impl<'a> D09ExperienceDesignSpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorHandling/systemErrorDisplay/SEDF"))
     }
 
-    pub fn EPDE_ERRO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorHandling/systemErrorDisplay/EPDE-ERRO-LST"), som::SomMetaRef::new)
+    pub fn SYERDI_ERRO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorHandling/systemErrorDisplay/SYERDI-ERRO-LST"), som::SomMetaRef::new)
     }
 
-    pub fn SECE_ERRO_LST(&self) -> som::SomListMetaRef<'a, SystemErrorCodeEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorHandling/systemErrorDisplay/SECE-ERRO-LST"), SystemErrorCodeEntryId::new)
+    pub fn SYERCOEN_ERRO_LST(&self) -> som::SomListMetaRef<'a, SystemErrorCodeEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST"), SystemErrorCodeEntryId::new)
     }
 
     pub fn ERRE_RECO(&self) -> som::SomMetaRef<'a> {
@@ -84639,8 +84639,8 @@ impl<'a> D09ExperienceDesignSpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorHandling/errorRecovery/ERSH"))
     }
 
-    pub fn RECOV_RECO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorHandling/errorRecovery/RECOV-RECO-LST"), som::SomMetaRef::new)
+    pub fn ERRE_RECO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorHandling/errorRecovery/ERRE-RECO-LST"), som::SomMetaRef::new)
     }
 
     pub fn RCVSCN_RECO_LST(&self) -> som::SomListMetaRef<'a, RecoveryScenarioEntryId<'a>> {
@@ -84767,8 +84767,8 @@ impl<'a> D09ExperienceDesignSpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessibility/wcagComplianceLevel/WCCORO"))
     }
 
-    pub fn WSCE_SUCC_LST(&self) -> som::SomListMetaRef<'a, WcagSuccessCriterionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessibility/wcagComplianceLevel/WSCE-SUCC-LST"), WcagSuccessCriterionEntryId::new)
+    pub fn WCSUCREN_SUCC_LST(&self) -> som::SomListMetaRef<'a, WcagSuccessCriterionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessibility/wcagComplianceLevel/WCSUCREN-SUCC-LST"), WcagSuccessCriterionEntryId::new)
     }
 
     pub fn ACCHLS_CHEC(&self) -> som::SomMetaRef<'a> {
@@ -84787,8 +84787,8 @@ impl<'a> D09ExperienceDesignSpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "responsiveDesign/breakpointConfig/BC-BREA"))
     }
 
-    pub fn BRE_BREA_LST(&self) -> som::SomListMetaRef<'a, BreakpointEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "responsiveDesign/breakpointConfig/BRE-BREA-LST"), BreakpointEntryId::new)
+    pub fn BE_BREA_LST(&self) -> som::SomListMetaRef<'a, BreakpointEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "responsiveDesign/breakpointConfig/BE-BREA-LST"), BreakpointEntryId::new)
     }
 
     pub fn REBE_LAYO(&self) -> som::SomMetaRef<'a> {
@@ -84863,8 +84863,8 @@ impl<'a> D09ExperienceDesignSpecificationId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "uiComponents/componentLibrary/TYST-TYPO-LST"), TypographyStyleEntryId::new)
     }
 
-    pub fn UICOEN_COMP_LST(&self) -> som::SomListMetaRef<'a, UiComponentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "uiComponents/UICOEN-COMP-LST"), UiComponentEntryId::new)
+    pub fn UICOMENT_COMP_LST(&self) -> som::SomListMetaRef<'a, UiComponentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "uiComponents/UICOMENT-COMP-LST"), UiComponentEntryId::new)
     }
 
     pub fn CMFA_COMP_LST(&self) -> som::SomListMetaRef<'a, ComponentFamilyEntryId<'a>> {
@@ -84919,8 +84919,8 @@ impl<'a> D09ExperienceDesignSpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "prototype/prototypeGoals/PRGOFE"))
     }
 
-    pub fn PRGOEN_GOAL_LST(&self) -> som::SomListMetaRef<'a, PrototypeGoalEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "prototype/prototypeGoals/PRGOEN-GOAL-LST"), PrototypeGoalEntryId::new)
+    pub fn PGE_GOAL_LST(&self) -> som::SomListMetaRef<'a, PrototypeGoalEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "prototype/prototypeGoals/PGE-GOAL-LST"), PrototypeGoalEntryId::new)
     }
 
     pub fn PRFESU_FEAT(&self) -> som::SomMetaRef<'a> {
@@ -84935,8 +84935,8 @@ impl<'a> D09ExperienceDesignSpecificationId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "prototype/featureSubset/PFSF"))
     }
 
-    pub fn PRFEEN_FEAT_LST(&self) -> som::SomListMetaRef<'a, PrototypeFeatureEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "prototype/featureSubset/PRFEEN-FEAT-LST"), PrototypeFeatureEntryId::new)
+    pub fn PFE_FEAT_LST(&self) -> som::SomListMetaRef<'a, PrototypeFeatureEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "prototype/featureSubset/PFE-FEAT-LST"), PrototypeFeatureEntryId::new)
     }
 
     pub fn PRTYSE_PROT(&self) -> som::SomMetaRef<'a> {
@@ -85033,8 +85033,8 @@ impl<'a> D10QualityAcceptancePlanId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityFramework/QCATE-QUAL-LST"), QualityCategoryEntryId::new)
     }
 
-    pub fn CATEG_CATE_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityFramework/CATEG-CATE-LST"), som::SomMetaRef::new)
+    pub fn QLFWK_CATE_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "qualityFramework/QLFWK-CATE-LST"), som::SomMetaRef::new)
     }
 
     pub fn FNSU_FUNC(&self) -> som::SomMetaRef<'a> {
@@ -85547,12 +85547,12 @@ impl<'a> D11DeliveryRoadmapId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "stagingStrategy/STAGGV"))
     }
 
-    pub fn KEYAS_KEYA_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "stagingStrategy/KEYAS-KEYA-LST"), som::SomMetaRef::new)
+    pub fn STAGST_KEYA_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "stagingStrategy/STAGST-KEYA-LST"), som::SomMetaRef::new)
     }
 
-    pub fn STAGI_CONS_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "stagingStrategy/STAGI-CONS-LST"), som::SomMetaRef::new)
+    pub fn STAGST_CONS_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "stagingStrategy/STAGST-CONS-LST"), som::SomMetaRef::new)
     }
 
     pub fn SGOVM(&self) -> som::SomMetaRef<'a> {
@@ -85631,20 +85631,20 @@ impl<'a> D11DeliveryRoadmapId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "featurePrioritization/FEPRTR"))
     }
 
-    pub fn MOEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, MoscowEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "featurePrioritization/moscowAnalysis/MOEN-ITEM-LST"), MoscowEntryId::new)
+    pub fn ME_ITEM_LST(&self) -> som::SomListMetaRef<'a, MoscowEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "featurePrioritization/moscowAnalysis/ME-ITEM-LST"), MoscowEntryId::new)
     }
 
-    pub fn FESTM1_ITEM_LST(&self) -> som::SomListMetaRef<'a, FeatureStageMappingId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "featurePrioritization/featureStageMatrix/FESTM1-ITEM-LST"), FeatureStageMappingId::new)
+    pub fn FSM_ITEM_LST(&self) -> som::SomListMetaRef<'a, FeatureStageMappingId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "featurePrioritization/featureStageMatrix/FSM-ITEM-LST"), FeatureStageMappingId::new)
     }
 
-    pub fn FEPREN_ITEM_LST(&self) -> som::SomListMetaRef<'a, FeaturePriorityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "featurePrioritization/featurePriorityRegister/FEPREN-ITEM-LST"), FeaturePriorityEntryId::new)
+    pub fn FPE_ITEM_LST(&self) -> som::SomListMetaRef<'a, FeaturePriorityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "featurePrioritization/featurePriorityRegister/FPE-ITEM-LST"), FeaturePriorityEntryId::new)
     }
 
-    pub fn FEDEEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, FeatureDependencyEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "featurePrioritization/featureDependencies/FEDEEN-ITEM-LST"), FeatureDependencyEntryId::new)
+    pub fn FDE_ITEM_LST(&self) -> som::SomListMetaRef<'a, FeatureDependencyEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "featurePrioritization/featureDependencies/FDE-ITEM-LST"), FeatureDependencyEntryId::new)
     }
 
     pub fn MIAP(&self) -> som::SomMetaRef<'a> {
@@ -85715,12 +85715,12 @@ impl<'a> D11DeliveryRoadmapId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "gateCriteria/PGRO"))
     }
 
-    pub fn PGRE_ITEM_LST(&self) -> som::SomListMetaRef<'a, PhaseGateReviewEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "gateCriteria/PGRE-ITEM-LST"), PhaseGateReviewEntryId::new)
+    pub fn PHGAREEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, PhaseGateReviewEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "gateCriteria/PHGAREEN-ITEM-LST"), PhaseGateReviewEntryId::new)
     }
 
-    pub fn DEPOEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, DecisionPointEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "decisionProcesses/DEPOEN-ITEM-LST"), DecisionPointEntryId::new)
+    pub fn DPE_ITEM_LST(&self) -> som::SomListMetaRef<'a, DecisionPointEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "decisionProcesses/DPE-ITEM-LST"), DecisionPointEntryId::new)
     }
 }
 
@@ -85785,8 +85785,8 @@ impl<'a> D12TransitionRolloutPlanId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "translationProcess/TRPRON"))
     }
 
-    pub fn TRVEEN_VEND_LST(&self) -> som::SomListMetaRef<'a, TranslationVendorEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "translationProcess/TRVEEN-VEND-LST"), TranslationVendorEntryId::new)
+    pub fn TVE_VEND_LST(&self) -> som::SomListMetaRef<'a, TranslationVendorEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "translationProcess/TVE-VEND-LST"), TranslationVendorEntryId::new)
     }
 
     pub fn DOANTR_DOCU(&self) -> som::SomMetaRef<'a> {
@@ -85805,8 +85805,8 @@ impl<'a> D12TransitionRolloutPlanId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "trainingDeliverables/TRMAT-TRAI"))
     }
 
-    pub fn TRMOEN_TRAI_LST(&self) -> som::SomListMetaRef<'a, TrainingModuleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "trainingDeliverables/TRMOEN-TRAI-LST"), TrainingModuleEntryId::new)
+    pub fn TME_TRAI_LST(&self) -> som::SomListMetaRef<'a, TrainingModuleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "trainingDeliverables/TME-TRAI-LST"), TrainingModuleEntryId::new)
     }
 }
 
@@ -85887,16 +85887,16 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/PLGEN-PROG-LST"), ProgrammingLanguageEntryId::new)
     }
 
-    pub fn FWREN_FRAM_LST(&self) -> som::SomListMetaRef<'a, FrameworkRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/FWREN-FRAM-LST"), FrameworkRequirementEntryId::new)
+    pub fn FRREEN_FRAM_LST(&self) -> som::SomListMetaRef<'a, FrameworkRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/FRREEN-FRAM-LST"), FrameworkRequirementEntryId::new)
     }
 
     pub fn BTCEN_BUIL_LST(&self) -> som::SomListMetaRef<'a, BuildToolchainEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/BTCEN-BUIL-LST"), BuildToolchainEntryId::new)
     }
 
-    pub fn DETAEN_DEPL_LST(&self) -> som::SomListMetaRef<'a, DeploymentTargetEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/DETAEN-DEPL-LST"), DeploymentTargetEntryId::new)
+    pub fn DEPTARENT_DEPL_LST(&self) -> som::SomListMetaRef<'a, DeploymentTargetEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/platformAndLanguage/DEPTARENT-DEPL-LST"), DeploymentTargetEntryId::new)
     }
 
     pub fn DEMAVE(&self) -> som::SomMetaRef<'a> {
@@ -86095,16 +86095,16 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/DSPT-DESI-LST"), DesignPatternEntryId::new)
     }
 
-    pub fn COSTEN_CODI_LST(&self) -> som::SomListMetaRef<'a, CodingStandardEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/COSTEN-CODI-LST"), CodingStandardEntryId::new)
+    pub fn CSE_CODI_LST(&self) -> som::SomListMetaRef<'a, CodingStandardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/CSE-CODI-LST"), CodingStandardEntryId::new)
     }
 
-    pub fn DECOEN_DEVE_LST(&self) -> som::SomListMetaRef<'a, DevelopmentConventionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/DECOEN-DEVE-LST"), DevelopmentConventionEntryId::new)
+    pub fn DCE_DEVE_LST(&self) -> som::SomListMetaRef<'a, DevelopmentConventionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/DCE-DEVE-LST"), DevelopmentConventionEntryId::new)
     }
 
-    pub fn INSTEN_INDU_LST(&self) -> som::SomListMetaRef<'a, IndustryStandardEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/INSTEN-INDU-LST"), IndustryStandardEntryId::new)
+    pub fn ISE_INDU_LST(&self) -> som::SomListMetaRef<'a, IndustryStandardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/ISE-INDU-LST"), IndustryStandardEntryId::new)
     }
 
     pub fn CQMC(&self) -> som::SomMetaRef<'a> {
@@ -86183,8 +86183,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTTO"))
     }
 
-    pub fn SOLAEN_SOFT_LST(&self) -> som::SomListMetaRef<'a, SoftwareLayerEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/SOLAEN-SOFT-LST"), SoftwareLayerEntryId::new)
+    pub fn SLE_SOFT_LST(&self) -> som::SomListMetaRef<'a, SoftwareLayerEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/SLE-SOFT-LST"), SoftwareLayerEntryId::new)
     }
 
     pub fn LCRI(&self) -> som::SomMetaRef<'a> {
@@ -86199,8 +86199,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRG"))
     }
 
-    pub fn BOCOEN_BOUN_LST(&self) -> som::SomListMetaRef<'a, BoundedContextEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/BOCOEN-BOUN-LST"), BoundedContextEntryId::new)
+    pub fn BCE_BOUN_LST(&self) -> som::SomListMetaRef<'a, BoundedContextEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/BCE-BOUN-LST"), BoundedContextEntryId::new)
     }
 
     pub fn PAORST(&self) -> som::SomMetaRef<'a> {
@@ -86219,12 +86219,12 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDO"))
     }
 
-    pub fn MOEN1_MODU_LST(&self) -> som::SomListMetaRef<'a, ModuleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/MOEN1-MODU-LST"), ModuleEntryId::new)
+    pub fn MODENT_MODU_LST(&self) -> som::SomListMetaRef<'a, ModuleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/MODENT-MODU-LST"), ModuleEntryId::new)
     }
 
-    pub fn SHLIB_SHAR_LST(&self) -> som::SomListMetaRef<'a, SharedLibraryEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIB-SHAR-LST"), SharedLibraryEntryId::new)
+    pub fn SHLIEN_SHAR_LST(&self) -> som::SomListMetaRef<'a, SharedLibraryEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIEN-SHAR-LST"), SharedLibraryEntryId::new)
     }
 
     pub fn DISR(&self) -> som::SomMetaRef<'a> {
@@ -86283,8 +86283,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO"))
     }
 
-    pub fn IDREEN_IDER_LST(&self) -> som::SomListMetaRef<'a, IdeRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/IDREEN-IDER-LST"), IdeRequirementEntryId::new)
+    pub fn IRE_IDER_LST(&self) -> som::SomListMetaRef<'a, IdeRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/IRE-IDER-LST"), IdeRequirementEntryId::new)
     }
 
     pub fn BTCBS(&self) -> som::SomMetaRef<'a> {
@@ -86319,16 +86319,16 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCM"))
     }
 
-    pub fn PISTEN_STAG_LST(&self) -> som::SomListMetaRef<'a, PipelineStageEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST"), PipelineStageEntryId::new)
+    pub fn PSE_STAG_LST(&self) -> som::SomListMetaRef<'a, PipelineStageEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PSE-STAG-LST"), PipelineStageEntryId::new)
     }
 
-    pub fn PIJOEN_JOBS_LST(&self) -> som::SomListMetaRef<'a, PipelineJobEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST"), PipelineJobEntryId::new)
+    pub fn PJE_JOBS_LST(&self) -> som::SomListMetaRef<'a, PipelineJobEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PJE-JOBS-LST"), PipelineJobEntryId::new)
     }
 
-    pub fn DEENEN_ENVI_LST(&self) -> som::SomListMetaRef<'a, DeploymentEnvironmentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST"), DeploymentEnvironmentEntryId::new)
+    pub fn DEE_ENVI_LST(&self) -> som::SomListMetaRef<'a, DeploymentEnvironmentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEE-ENVI-LST"), DeploymentEnvironmentEntryId::new)
     }
 
     pub fn CRPR(&self) -> som::SomMetaRef<'a> {
@@ -86463,16 +86463,16 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/SHLCP-SHAR-LST"), SharedLibraryComponentEntryId::new)
     }
 
-    pub fn RUICMP_UICO_LST(&self) -> som::SomListMetaRef<'a, ReusableUiComponentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/RUICMP-UICO-LST"), ReusableUiComponentEntryId::new)
+    pub fn RUCE_UICO_LST(&self) -> som::SomListMetaRef<'a, ReusableUiComponentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/RUCE-UICO-LST"), ReusableUiComponentEntryId::new)
     }
 
-    pub fn BUCOEN_BUSI_LST(&self) -> som::SomListMetaRef<'a, BusinessComponentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/BUCOEN-BUSI-LST"), BusinessComponentEntryId::new)
+    pub fn BUSCOMENT_BUSI_LST(&self) -> som::SomListMetaRef<'a, BusinessComponentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/BUSCOMENT-BUSI-LST"), BusinessComponentEntryId::new)
     }
 
-    pub fn INCOEN_INFR_LST(&self) -> som::SomListMetaRef<'a, InfrastructureComponentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/INCOEN-INFR-LST"), InfrastructureComponentEntryId::new)
+    pub fn INFCOMENT_INFR_LST(&self) -> som::SomListMetaRef<'a, InfrastructureComponentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/INFCOMENT-INFR-LST"), InfrastructureComponentEntryId::new)
     }
 
     pub fn THPALI_THIR_LST(&self) -> som::SomListMetaRef<'a, ThirdPartyLibraryEntryId<'a>> {
@@ -86511,36 +86511,36 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/softwareDesign/reusableComponents/registry/COREUP"))
     }
 
-    pub fn OSCOEN_OSCO_LST(&self) -> som::SomListMetaRef<'a, OsCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/OSCOEN-OSCO-LST"), OsCompatibilityEntryId::new)
+    pub fn OCE_OSCO_LST(&self) -> som::SomListMetaRef<'a, OsCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST"), OsCompatibilityEntryId::new)
     }
 
-    pub fn BRCOEN_BROW_LST(&self) -> som::SomListMetaRef<'a, BrowserCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/BRCOEN-BROW-LST"), BrowserCompatibilityEntryId::new)
+    pub fn BROCOMENT_BROW_LST(&self) -> som::SomListMetaRef<'a, BrowserCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/BROCOMENT-BROW-LST"), BrowserCompatibilityEntryId::new)
     }
 
-    pub fn DACOEN_DATA_LST(&self) -> som::SomListMetaRef<'a, DatabaseCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/DACOEN-DATA-LST"), DatabaseCompatibilityEntryId::new)
+    pub fn DATCOMENT_DATA_LST(&self) -> som::SomListMetaRef<'a, DatabaseCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/DATCOMENT-DATA-LST"), DatabaseCompatibilityEntryId::new)
     }
 
-    pub fn ESCE_ENTE_LST(&self) -> som::SomListMetaRef<'a, EnterpriseSystemCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/ESCE-ENTE-LST"), EnterpriseSystemCompatibilityEntryId::new)
+    pub fn ENSYCOEN_ENTE_LST(&self) -> som::SomListMetaRef<'a, EnterpriseSystemCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/ENSYCOEN-ENTE-LST"), EnterpriseSystemCompatibilityEntryId::new)
     }
 
     pub fn APCP_APIC_LST(&self) -> som::SomListMetaRef<'a, ApiCompatibilityEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/APCP-APIC-LST"), ApiCompatibilityEntryId::new)
     }
 
-    pub fn LECOEN_LEGA_LST(&self) -> som::SomListMetaRef<'a, LegacyCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/LECOEN-LEGA-LST"), LegacyCompatibilityEntryId::new)
+    pub fn LCE_LEGA_LST(&self) -> som::SomListMetaRef<'a, LegacyCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/LCE-LEGA-LST"), LegacyCompatibilityEntryId::new)
     }
 
-    pub fn MOCOEN_MOBI_LST(&self) -> som::SomListMetaRef<'a, MobileCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/MOCOEN-MOBI-LST"), MobileCompatibilityEntryId::new)
+    pub fn MOBCOMENT_MOBI_LST(&self) -> som::SomListMetaRef<'a, MobileCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/MOBCOMENT-MOBI-LST"), MobileCompatibilityEntryId::new)
     }
 
-    pub fn TPCE_THIR_LST(&self) -> som::SomListMetaRef<'a, ThirdPartyCompatibilityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/TPCE-THIR-LST"), ThirdPartyCompatibilityEntryId::new)
+    pub fn THPACOEN_THIR_LST(&self) -> som::SomListMetaRef<'a, ThirdPartyCompatibilityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/THPACOEN-THIR-LST"), ThirdPartyCompatibilityEntryId::new)
     }
 
     pub fn DFCF(&self) -> som::SomMetaRef<'a> {
@@ -86591,24 +86591,24 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREGO"))
     }
 
-    pub fn ISCE_ITST_LST(&self) -> som::SomListMetaRef<'a, ItStandardComplianceEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/ISCE-ITST-LST"), ItStandardComplianceEntryId::new)
+    pub fn ITSTCOEN_ITST_LST(&self) -> som::SomListMetaRef<'a, ItStandardComplianceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/ITSTCOEN-ITST-LST"), ItStandardComplianceEntryId::new)
     }
 
-    pub fn IPCE_INDU_LST(&self) -> som::SomListMetaRef<'a, IndustryProtocolComplianceEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/IPCE-INDU-LST"), IndustryProtocolComplianceEntryId::new)
+    pub fn INPRCOEN_INDU_LST(&self) -> som::SomListMetaRef<'a, IndustryProtocolComplianceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/INPRCOEN-INDU-LST"), IndustryProtocolComplianceEntryId::new)
     }
 
-    pub fn INSPEN_INTE_LST(&self) -> som::SomListMetaRef<'a, InterfaceSpecificationEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/INSPEN-INTE-LST"), InterfaceSpecificationEntryId::new)
+    pub fn INTSPEENT_INTE_LST(&self) -> som::SomListMetaRef<'a, InterfaceSpecificationEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/INTSPEENT-INTE-LST"), InterfaceSpecificationEntryId::new)
     }
 
-    pub fn RECOEN_REGU_LST(&self) -> som::SomListMetaRef<'a, RegulatoryComplianceEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/RECOEN-REGU-LST"), RegulatoryComplianceEntryId::new)
+    pub fn RCE_REGU_LST(&self) -> som::SomListMetaRef<'a, RegulatoryComplianceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/RCE-REGU-LST"), RegulatoryComplianceEntryId::new)
     }
 
-    pub fn SSCE_SECU_LST(&self) -> som::SomListMetaRef<'a, SecurityStandardComplianceEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/SSCE-SECU-LST"), SecurityStandardComplianceEntryId::new)
+    pub fn SESTCOEN_SECU_LST(&self) -> som::SomListMetaRef<'a, SecurityStandardComplianceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/SESTCOEN-SECU-LST"), SecurityStandardComplianceEntryId::new)
     }
 
     pub fn ACCSTD_ACCE_LST(&self) -> som::SomListMetaRef<'a, AccessibilityStandardEntryId<'a>> {
@@ -86691,12 +86691,12 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSC"))
     }
 
-    pub fn SEENEN_ENVI_LST(&self) -> som::SomListMetaRef<'a, ServerEnvironmentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/SEENEN-ENVI-LST"), ServerEnvironmentEntryId::new)
+    pub fn SEE_ENVI_LST(&self) -> som::SomListMetaRef<'a, ServerEnvironmentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/SEE-ENVI-LST"), ServerEnvironmentEntryId::new)
     }
 
-    pub fn SEROEN_SERV_LST(&self) -> som::SomListMetaRef<'a, ServerRoleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/SEROEN-SERV-LST"), ServerRoleEntryId::new)
+    pub fn SRE_SERV_LST(&self) -> som::SomListMetaRef<'a, ServerRoleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/serverRequirements/SRE-SERV-LST"), ServerRoleEntryId::new)
     }
 
     pub fn CRRM(&self) -> som::SomMetaRef<'a> {
@@ -86823,16 +86823,16 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST"), ClientApplicationEntryId::new)
     }
 
-    pub fn BRREEN_BROW_LST(&self) -> som::SomListMetaRef<'a, BrowserRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST"), BrowserRequirementEntryId::new)
+    pub fn BROREQENT_BROW_LST(&self) -> som::SomListMetaRef<'a, BrowserRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/BROREQENT-BROW-LST"), BrowserRequirementEntryId::new)
     }
 
-    pub fn DORE1_DESK_LST(&self) -> som::SomListMetaRef<'a, DesktopOsRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/DORE1-DESK-LST"), DesktopOsRequirementEntryId::new)
+    pub fn DEOSREEN_DESK_LST(&self) -> som::SomListMetaRef<'a, DesktopOsRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/DEOSREEN-DESK-LST"), DesktopOsRequirementEntryId::new)
     }
 
-    pub fn MDRE_MOBI_LST(&self) -> som::SomListMetaRef<'a, MobileDeviceRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/MDRE-MOBI-LST"), MobileDeviceRequirementEntryId::new)
+    pub fn MODEREEN_MOBI_LST(&self) -> som::SomListMetaRef<'a, MobileDeviceRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/clientRequirements/MODEREEN-MOBI-LST"), MobileDeviceRequirementEntryId::new)
     }
 
     pub fn DIRELA(&self) -> som::SomMetaRef<'a> {
@@ -87039,8 +87039,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/availabilityRequirements/NART"))
     }
 
-    pub fn VPREEN_VPNR_LST(&self) -> som::SomListMetaRef<'a, VpnRequirementEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/VPREEN-VPNR-LST"), VpnRequirementEntryId::new)
+    pub fn VRE_VPNR_LST(&self) -> som::SomListMetaRef<'a, VpnRequirementEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/hardware/networkRequirements/VRE-VPNR-LST"), VpnRequirementEntryId::new)
     }
 
     pub fn FIRERU(&self) -> som::SomMetaRef<'a> {
@@ -87131,8 +87131,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/dataClassification/BDCE"))
     }
 
-    pub fn BAPOEN_BACK_LST(&self) -> som::SomListMetaRef<'a, BackupPolicyEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/BAPOEN-BACK-LST"), BackupPolicyEntryId::new)
+    pub fn BPE_BACK_LST(&self) -> som::SomListMetaRef<'a, BackupPolicyEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/backupAndRecovery/BPE-BACK-LST"), BackupPolicyEntryId::new)
     }
 
     pub fn RRRBT(&self) -> som::SomMetaRef<'a> {
@@ -87427,8 +87427,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/alerting/ALRERE"))
     }
 
-    pub fn ALDEEN_ALER_LST(&self) -> som::SomListMetaRef<'a, AlertDefinitionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/ALDEEN-ALER-LST"), AlertDefinitionEntryId::new)
+    pub fn ALEDEFENT_ALER_LST(&self) -> som::SomListMetaRef<'a, AlertDefinitionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/monitoringAndAlerting/ALEDEFENT-ALER-LST"), AlertDefinitionEntryId::new)
     }
 
     pub fn DAREST(&self) -> som::SomMetaRef<'a> {
@@ -87511,8 +87511,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPA"))
     }
 
-    pub fn MAWIEN_MAIN_LST(&self) -> som::SomListMetaRef<'a, MaintenanceWindowEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/MAWIEN-MAIN-LST"), MaintenanceWindowEntryId::new)
+    pub fn MWE_MAIN_LST(&self) -> som::SomListMetaRef<'a, MaintenanceWindowEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/MWE-MAIN-LST"), MaintenanceWindowEntryId::new)
     }
 
     pub fn EMPG(&self) -> som::SomMetaRef<'a> {
@@ -87563,8 +87563,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/operations/maintenanceWindows/postMaintenance/PMVC"))
     }
 
-    pub fn PREN_PROT_LST(&self) -> som::SomListMetaRef<'a, ProtocolEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/PREN-PROT-LST"), ProtocolEntryId::new)
+    pub fn PE_PROT_LST(&self) -> som::SomListMetaRef<'a, ProtocolEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/PE-PROT-LST"), ProtocolEntryId::new)
     }
 
     pub fn TRCS(&self) -> som::SomMetaRef<'a> {
@@ -87651,8 +87651,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/protocolsAndStandards/compliance/PCRE"))
     }
 
-    pub fn EPCE_PART_LST(&self) -> som::SomListMetaRef<'a, ExternalPartnerConnectionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/EPCE-PART-LST"), ExternalPartnerConnectionEntryId::new)
+    pub fn EXPACOEN_PART_LST(&self) -> som::SomListMetaRef<'a, ExternalPartnerConnectionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/communication/externalConnectivity/EXPACOEN-PART-LST"), ExternalPartnerConnectionEntryId::new)
     }
 
     pub fn CSIS(&self) -> som::SomMetaRef<'a> {
@@ -87803,8 +87803,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS"))
     }
 
-    pub fn MAINT_MAIN_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST"), som::SomMetaRef::new)
+    pub fn SO_MAIN_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/systemOperation/SO-MAIN-LST"), som::SomMetaRef::new)
     }
 
     pub fn MONITO_MONI(&self) -> som::SomMetaRef<'a> {
@@ -87891,8 +87891,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCF"))
     }
 
-    pub fn ALRUEN_ALER_LST(&self) -> som::SomListMetaRef<'a, AlertRuleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/ALRUEN-ALER-LST"), AlertRuleEntryId::new)
+    pub fn ALERULENT_ALER_LST(&self) -> som::SomListMetaRef<'a, AlertRuleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERULENT-ALER-LST"), AlertRuleEntryId::new)
     }
 
     pub fn AEPT(&self) -> som::SomMetaRef<'a> {
@@ -87975,16 +87975,16 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSO"))
     }
 
-    pub fn CUMEEN_CUST_LST(&self) -> som::SomListMetaRef<'a, CustomMetricEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/CUMEEN-CUST-LST"), CustomMetricEntryId::new)
+    pub fn CUSMETENT_CUST_LST(&self) -> som::SomListMetaRef<'a, CustomMetricEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMETENT-CUST-LST"), CustomMetricEntryId::new)
     }
 
     pub fn MODA_DASH(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH"))
     }
 
-    pub fn DAEN_DASH_LST(&self) -> som::SomListMetaRef<'a, DashboardEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/dashboards/DAEN-DASH-LST"), DashboardEntryId::new)
+    pub fn DASENT_DASH_LST(&self) -> som::SomListMetaRef<'a, DashboardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/dashboards/DASENT-DASH-LST"), DashboardEntryId::new)
     }
 
     pub fn DATE_DASH_LST(&self) -> som::SomListMetaRef<'a, DashboardTemplatesId<'a>> {
@@ -88007,8 +88007,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIM"))
     }
 
-    pub fn SLEN_SLOS_LST(&self) -> som::SomListMetaRef<'a, SloEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST"), SloEntryId::new)
+    pub fn SE_SLOS_LST(&self) -> som::SomListMetaRef<'a, SloEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SE-SLOS-LST"), SloEntryId::new)
     }
 
     pub fn EBTM(&self) -> som::SomMetaRef<'a> {
@@ -88103,8 +88103,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPP"))
     }
 
-    pub fn SESTEN_STAN_LST(&self) -> som::SomListMetaRef<'a, SecurityStandardEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/itSecurityStandards/SESTEN-STAN-LST"), SecurityStandardEntryId::new)
+    pub fn SSE_STAN_LST(&self) -> som::SomListMetaRef<'a, SecurityStandardEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/itSecurityStandards/SSE-STAN-LST"), SecurityStandardEntryId::new)
     }
 
     pub fn ASRC(&self) -> som::SomMetaRef<'a> {
@@ -88371,8 +88371,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAG"))
     }
 
-    pub fn SEAUEN_AUDI_LST(&self) -> som::SomListMetaRef<'a, SecurityAuditEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/SEAUEN-AUDI-LST"), SecurityAuditEntryId::new)
+    pub fn SAE_AUDI_LST(&self) -> som::SomListMetaRef<'a, SecurityAuditEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalFramework/security/securityAuditRequirements/SAE-AUDI-LST"), SecurityAuditEntryId::new)
     }
 
     pub fn USCDF_ITEM_LST(&self) -> som::SomListMetaRef<'a, UserCategoryDefinitionId<'a>> {
@@ -88459,16 +88459,16 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/identification/IDTAM-ATTR-LST"), IdentityAttributeMappingEntryId::new)
     }
 
-    pub fn MFADE_MFAD_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST"), som::SomMetaRef::new)
+    pub fn MC_MFAD_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MC-MFAD-LST"), som::SomMetaRef::new)
     }
 
     pub fn ATME_ITEM_LST(&self) -> som::SomListMetaRef<'a, AuthenticationMethodEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/authentication/authenticationMethods/ATME-ITEM-LST"), AuthenticationMethodEntryId::new)
     }
 
-    pub fn STEPU_STEP_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST"), som::SomMetaRef::new)
+    pub fn SUAP_STEP_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/SUAP-STEP-LST"), som::SomMetaRef::new)
     }
 
     pub fn LGFLS_LOGI_LST(&self) -> som::SomListMetaRef<'a, LoginFlowStepEntryId<'a>> {
@@ -88515,8 +88515,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "auditAndLogging/securityEvents/SEVT-CUST-LST"), SecurityEventEntryId::new)
     }
 
-    pub fn REEN_REPO_LST(&self) -> som::SomListMetaRef<'a, ReportEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reportDefinitions/REEN-REPO-LST"), ReportEntryId::new)
+    pub fn REPENT_REPO_LST(&self) -> som::SomListMetaRef<'a, ReportEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "reportDefinitions/REPENT-REPO-LST"), ReportEntryId::new)
     }
 
     pub fn MIGTG_TARG_LST(&self) -> som::SomListMetaRef<'a, MigrationTargetEntryId<'a>> {
@@ -88575,8 +88575,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST"), ScreenEntryId::new)
     }
 
-    pub fn GLOBA_GLOB_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screens/informationArchitecture/GLOBA-GLOB-LST"), som::SomMetaRef::new)
+    pub fn IA_GLOB_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST"), som::SomMetaRef::new)
     }
 
     pub fn NAVGRP_GROU_LST(&self) -> som::SomListMetaRef<'a, NavigationGroupEntryId<'a>> {
@@ -88595,12 +88595,12 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI"))
     }
 
-    pub fn TBDE_TABB_LST(&self) -> som::SomListMetaRef<'a, TabBarDefinitionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST"), TabBarDefinitionEntryId::new)
+    pub fn TABADEEN_TABB_LST(&self) -> som::SomListMetaRef<'a, TabBarDefinitionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST"), TabBarDefinitionEntryId::new)
     }
 
-    pub fn UNIE_ITEM_LST(&self) -> som::SomListMetaRef<'a, UtilityNavigationItemEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST"), UtilityNavigationItemEntryId::new)
+    pub fn UTNAITEN_ITEM_LST(&self) -> som::SomListMetaRef<'a, UtilityNavigationItemEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST"), UtilityNavigationItemEntryId::new)
     }
 
     pub fn BRCO(&self) -> som::SomMetaRef<'a> {
@@ -88663,12 +88663,12 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/validationFeedback/VAFEBE"))
     }
 
-    pub fn VAMETE_MESS_LST(&self) -> som::SomListMetaRef<'a, ValidationMessageTemplateId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/validationFeedback/VAMETE-MESS-LST"), ValidationMessageTemplateId::new)
+    pub fn VMT_MESS_LST(&self) -> som::SomListMetaRef<'a, ValidationMessageTemplateId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/validationFeedback/VMT-MESS-LST"), ValidationMessageTemplateId::new)
     }
 
-    pub fn FIELD_FIEL_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/validationFeedback/FIELD-FIEL-LST"), som::SomMetaRef::new)
+    pub fn VAFE_FIEL_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/validationFeedback/VAFE-FIEL-LST"), som::SomMetaRef::new)
     }
 
     pub fn SYERDI_SYST(&self) -> som::SomMetaRef<'a> {
@@ -88691,12 +88691,12 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF"))
     }
 
-    pub fn EPDE_ERRO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/systemErrorDisplay/EPDE-ERRO-LST"), som::SomMetaRef::new)
+    pub fn SYERDI_ERRO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST"), som::SomMetaRef::new)
     }
 
-    pub fn SECE_ERRO_LST(&self) -> som::SomListMetaRef<'a, SystemErrorCodeEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/systemErrorDisplay/SECE-ERRO-LST"), SystemErrorCodeEntryId::new)
+    pub fn SYERCOEN_ERRO_LST(&self) -> som::SomListMetaRef<'a, SystemErrorCodeEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST"), SystemErrorCodeEntryId::new)
     }
 
     pub fn ERRE_RECO(&self) -> som::SomMetaRef<'a> {
@@ -88723,8 +88723,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/errorRecovery/ERSH"))
     }
 
-    pub fn RECOV_RECO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/errorRecovery/RECOV-RECO-LST"), som::SomMetaRef::new)
+    pub fn ERRE_RECO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO-LST"), som::SomMetaRef::new)
     }
 
     pub fn RCVSCN_RECO_LST(&self) -> som::SomListMetaRef<'a, RecoveryScenarioEntryId<'a>> {
@@ -88739,8 +88739,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/responsiveDesign/breakpointConfig/BC-BREA"))
     }
 
-    pub fn BRE_BREA_LST(&self) -> som::SomListMetaRef<'a, BreakpointEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/responsiveDesign/breakpointConfig/BRE-BREA-LST"), BreakpointEntryId::new)
+    pub fn BE_BREA_LST(&self) -> som::SomListMetaRef<'a, BreakpointEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/responsiveDesign/breakpointConfig/BE-BREA-LST"), BreakpointEntryId::new)
     }
 
     pub fn REBE_LAYO(&self) -> som::SomMetaRef<'a> {
@@ -88815,8 +88815,8 @@ impl<'a> D13CodeSpecsProjectionId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST"), TypographyStyleEntryId::new)
     }
 
-    pub fn UICOEN_COMP_LST(&self) -> som::SomListMetaRef<'a, UiComponentEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/uiComponents/UICOEN-COMP-LST"), UiComponentEntryId::new)
+    pub fn UICOMENT_COMP_LST(&self) -> som::SomListMetaRef<'a, UiComponentEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "experienceCodeSpecs/uiComponents/UICOMENT-COMP-LST"), UiComponentEntryId::new)
     }
 
     pub fn CMFA_COMP_LST(&self) -> som::SomListMetaRef<'a, ComponentFamilyEntryId<'a>> {
@@ -89703,8 +89703,8 @@ impl<'a> DecisionPointEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "DEPOENCR"))
     }
 
-    pub fn DEOPEN_OPTI_LST(&self) -> som::SomListMetaRef<'a, DecisionOptionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "resolution/DEOPEN-OPTI-LST"), DecisionOptionEntryId::new)
+    pub fn DOE_OPTI_LST(&self) -> som::SomListMetaRef<'a, DecisionOptionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "resolution/DOE-OPTI-LST"), DecisionOptionEntryId::new)
     }
 }
 
@@ -91353,8 +91353,8 @@ impl<'a> ExportFormatEntryId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "access/gradedRequirement/AZLVL-LEVE-LST"), GradedAccessLevelEntryId::new)
     }
 
-    pub fn EFME_FIEL_LST(&self) -> som::SomListMetaRef<'a, ExportFieldMappingEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EFME-FIEL-LST"), ExportFieldMappingEntryId::new)
+    pub fn EXFIMAEN_FIEL_LST(&self) -> som::SomListMetaRef<'a, ExportFieldMappingEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EXFIMAEN-FIEL-LST"), ExportFieldMappingEntryId::new)
     }
 }
 
@@ -91539,8 +91539,8 @@ impl<'a> ExternalActorEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EAEC"))
     }
 
-    pub fn INTER_INTE_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "INTER-INTE-LST"), som::SomMetaRef::new)
+    pub fn EAE_INTE_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EAE-INTE-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -91573,8 +91573,8 @@ impl<'a> ExternalInterfaceEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EIE-IDEN"))
     }
 
-    pub fn IBPE_DEPE_LST(&self) -> som::SomListMetaRef<'a, InterfaceBusinessProcessEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "businessContext/IBPE-DEPE-LST"), InterfaceBusinessProcessEntryId::new)
+    pub fn INBUPREN_DEPE_LST(&self) -> som::SomListMetaRef<'a, InterfaceBusinessProcessEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "businessContext/INBUPREN-DEPE-LST"), InterfaceBusinessProcessEntryId::new)
     }
 
     pub fn ITSC(&self) -> som::SomMetaRef<'a> {
@@ -91585,24 +91585,24 @@ impl<'a> ExternalInterfaceEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalSpec/ITSE"))
     }
 
-    pub fn INOPEN_OPER_LST(&self) -> som::SomListMetaRef<'a, InterfaceOperationEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalSpec/INOPEN-OPER-LST"), InterfaceOperationEntryId::new)
+    pub fn IOE_OPER_LST(&self) -> som::SomListMetaRef<'a, InterfaceOperationEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalSpec/IOE-OPER-LST"), InterfaceOperationEntryId::new)
     }
 
     pub fn INWESP(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalSpec/INWESP"))
     }
 
-    pub fn IDEE_DATA_LST(&self) -> som::SomListMetaRef<'a, InterfaceDataEntityEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataSpec/IDEE-DATA-LST"), InterfaceDataEntityEntryId::new)
+    pub fn INDAENEN_DATA_LST(&self) -> som::SomListMetaRef<'a, InterfaceDataEntityEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataSpec/INDAENEN-DATA-LST"), InterfaceDataEntityEntryId::new)
     }
 
-    pub fn MAPPI_MAPP_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataSpec/MAPPI-MAPP-LST"), som::SomMetaRef::new)
+    pub fn INDASP_MAPP_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataSpec/INDASP-MAPP-LST"), som::SomMetaRef::new)
     }
 
-    pub fn VALID_VALI_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataSpec/VALID-VALI-LST"), som::SomMetaRef::new)
+    pub fn INDASP_VALI_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataSpec/INDASP-VALI-LST"), som::SomMetaRef::new)
     }
 
     pub fn INSEAU(&self) -> som::SomMetaRef<'a> {
@@ -91629,8 +91629,8 @@ impl<'a> ExternalInterfaceEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "operational/INOPSU"))
     }
 
-    pub fn DEPEN_DEPE_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "operational/DEPEN-DEPE-LST"), som::SomMetaRef::new)
+    pub fn INOP_DEPE_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "operational/INOP-DEPE-LST"), som::SomMetaRef::new)
     }
 
     pub fn IEHR(&self) -> som::SomMetaRef<'a> {
@@ -91645,8 +91645,8 @@ impl<'a> ExternalInterfaceEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorHandling/IEHT"))
     }
 
-    pub fn ERROR_ERRO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorHandling/ERROR-ERRO-LST"), som::SomMetaRef::new)
+    pub fn INERHA_ERRO_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "errorHandling/INERHA-ERRO-LST"), som::SomMetaRef::new)
     }
 
     pub fn INGOCO(&self) -> som::SomMetaRef<'a> {
@@ -91665,8 +91665,8 @@ impl<'a> ExternalInterfaceEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "testing/INTEST"))
     }
 
-    pub fn ITSE1_TEST_LST(&self) -> som::SomListMetaRef<'a, InterfaceTestScenarioEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "testing/ITSE1-TEST-LST"), InterfaceTestScenarioEntryId::new)
+    pub fn INTESCEN_TEST_LST(&self) -> som::SomListMetaRef<'a, InterfaceTestScenarioEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "testing/INTESCEN-TEST-LST"), InterfaceTestScenarioEntryId::new)
     }
 }
 
@@ -92333,8 +92333,8 @@ impl<'a> FunctionalRequirementEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "FREM"))
     }
 
-    pub fn ACCR_CRIT_LST(&self) -> som::SomListMetaRef<'a, AcceptanceCriterionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "acceptanceCriteria/ACCR-CRIT-LST"), AcceptanceCriterionEntryId::new)
+    pub fn ACE_CRIT_LST(&self) -> som::SomListMetaRef<'a, AcceptanceCriterionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "acceptanceCriteria/ACE-CRIT-LST"), AcceptanceCriterionEntryId::new)
     }
 
     pub fn RQBIRU_RULE_LST(&self) -> som::SomListMetaRef<'a, RequirementBusinessRuleEntryId<'a>> {
@@ -92357,8 +92357,8 @@ impl<'a> FunctionalRequirementEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "uiSpecification/RUS-MOCK"))
     }
 
-    pub fn SCFLD_FIEL_LST(&self) -> som::SomListMetaRef<'a, ScreenFieldEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "uiSpecification/SCFLD-FIEL-LST"), ScreenFieldEntryId::new)
+    pub fn SFE_FIEL_LST(&self) -> som::SomListMetaRef<'a, ScreenFieldEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "uiSpecification/SFE-FIEL-LST"), ScreenFieldEntryId::new)
     }
 
     pub fn RQSCAC_ACTI_LST(&self) -> som::SomListMetaRef<'a, RequirementScreenActionEntryId<'a>> {
@@ -95381,8 +95381,8 @@ impl<'a> OrganizationalRequirementEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "OREP"))
     }
 
-    pub fn ACCR_CRIT_LST(&self) -> som::SomListMetaRef<'a, AcceptanceCriterionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "acceptanceCriteria/ACCR-CRIT-LST"), AcceptanceCriterionEntryId::new)
+    pub fn ACE_CRIT_LST(&self) -> som::SomListMetaRef<'a, AcceptanceCriterionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "acceptanceCriteria/ACE-CRIT-LST"), AcceptanceCriterionEntryId::new)
     }
 
     pub fn ORIP_PLAN(&self) -> som::SomMetaRef<'a> {
@@ -97579,24 +97579,24 @@ impl<'a> ReportEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RELI"))
     }
 
-    pub fn RESEE1_SECT_LST(&self) -> som::SomListMetaRef<'a, ReportSectionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RESEE1-SECT-LST"), ReportSectionEntryId::new)
+    pub fn RSE_SECT_LST(&self) -> som::SomListMetaRef<'a, ReportSectionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RSE-SECT-LST"), ReportSectionEntryId::new)
     }
 
-    pub fn REFIEN_FILT_LST(&self) -> som::SomListMetaRef<'a, ReportFilterEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "REFIEN-FILT-LST"), ReportFilterEntryId::new)
+    pub fn RFE_FILT_LST(&self) -> som::SomListMetaRef<'a, ReportFilterEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RFE-FILT-LST"), ReportFilterEntryId::new)
     }
 
-    pub fn RESCEN_SCHE_LST(&self) -> som::SomListMetaRef<'a, ReportScheduleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RESCEN-SCHE-LST"), ReportScheduleEntryId::new)
+    pub fn REPSCHENT_SCHE_LST(&self) -> som::SomListMetaRef<'a, ReportScheduleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "REPSCHENT-SCHE-LST"), ReportScheduleEntryId::new)
     }
 
-    pub fn REDIEN_DIST_LST(&self) -> som::SomListMetaRef<'a, ReportDistributionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "REDIEN-DIST-LST"), ReportDistributionEntryId::new)
+    pub fn RDE_DIST_LST(&self) -> som::SomListMetaRef<'a, ReportDistributionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RDE-DIST-LST"), ReportDistributionEntryId::new)
     }
 
-    pub fn REREEN_RECI_LST(&self) -> som::SomListMetaRef<'a, ReportRecipientEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "REREEN-RECI-LST"), ReportRecipientEntryId::new)
+    pub fn RRE_RECI_LST(&self) -> som::SomListMetaRef<'a, ReportRecipientEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RRE-RECI-LST"), ReportRecipientEntryId::new)
     }
 }
 
@@ -97783,12 +97783,12 @@ impl<'a> ReportSectionEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RESEAG"))
     }
 
-    pub fn RECOE1_COLU_LST(&self) -> som::SomListMetaRef<'a, ReportColumnEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RECOE1-COLU-LST"), ReportColumnEntryId::new)
+    pub fn REPCOLENT_COLU_LST(&self) -> som::SomListMetaRef<'a, ReportColumnEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "REPCOLENT-COLU-LST"), ReportColumnEntryId::new)
     }
 
-    pub fn RECHEN_CHAR_LST(&self) -> som::SomListMetaRef<'a, ReportChartEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "RECHEN-CHAR-LST"), ReportChartEntryId::new)
+    pub fn REPCHAENT_CHAR_LST(&self) -> som::SomListMetaRef<'a, ReportChartEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "REPCHAENT-CHAR-LST"), ReportChartEntryId::new)
     }
 }
 
@@ -99275,8 +99275,8 @@ impl<'a> ScreenElementEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataDisplay/SEDDO"))
     }
 
-    pub fn EVRE_VALI_LST(&self) -> som::SomListMetaRef<'a, ElementValidationRuleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EVRE-VALI-LST"), ElementValidationRuleEntryId::new)
+    pub fn ELVARUEN_VALI_LST(&self) -> som::SomListMetaRef<'a, ElementValidationRuleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ELVARUEN-VALI-LST"), ElementValidationRuleEntryId::new)
     }
 }
 
@@ -99353,16 +99353,16 @@ impl<'a> ScreenEntryId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "states/SCRST-ITEM-LST"), ScreenStateEntryId::new)
     }
 
-    pub fn SCRUSC_USER_LST(&self) -> som::SomListMetaRef<'a, ScreenUserCategoryEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCRUSC-USER-LST"), ScreenUserCategoryEntryId::new)
+    pub fn SUCE_USER_LST(&self) -> som::SomListMetaRef<'a, ScreenUserCategoryEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SUCE-USER-LST"), ScreenUserCategoryEntryId::new)
     }
 
     pub fn EPNT_ENTR_LST(&self) -> som::SomListMetaRef<'a, EntryPointEntryId<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "EPNT-ENTR-LST"), EntryPointEntryId::new)
     }
 
-    pub fn SRRE_RESP_LST(&self) -> som::SomListMetaRef<'a, ScreenResponsiveRuleEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SRRE-RESP-LST"), ScreenResponsiveRuleEntryId::new)
+    pub fn SCRERUEN_RESP_LST(&self) -> som::SomListMetaRef<'a, ScreenResponsiveRuleEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SCRERUEN-RESP-LST"), ScreenResponsiveRuleEntryId::new)
     }
 }
 
@@ -99739,12 +99739,12 @@ impl<'a> SecurityRequirementEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SEREENST"))
     }
 
-    pub fn ACCR_CRIT_LST(&self) -> som::SomListMetaRef<'a, AcceptanceCriterionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "acceptanceCriteria/ACCR-CRIT-LST"), AcceptanceCriterionEntryId::new)
+    pub fn ACE_CRIT_LST(&self) -> som::SomListMetaRef<'a, AcceptanceCriterionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "acceptanceCriteria/ACE-CRIT-LST"), AcceptanceCriterionEntryId::new)
     }
 
-    pub fn SECCT_CONT_LST(&self) -> som::SomListMetaRef<'a, SecurityControlEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "controls/SECCT-CONT-LST"), SecurityControlEntryId::new)
+    pub fn SECOEN_CONT_LST(&self) -> som::SomListMetaRef<'a, SecurityControlEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "controls/SECOEN-CONT-LST"), SecurityControlEntryId::new)
     }
 
     pub fn RQDEP_ITEM_LST(&self) -> som::SomListMetaRef<'a, RequirementDependencyEntryId<'a>> {
@@ -101313,12 +101313,12 @@ impl<'a> SystemTaskEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYTS-RELA-REF"))
     }
 
-    pub fn SYSTE_WORK_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYSTE-WORK-LST"), som::SomMetaRef::new)
+    pub fn SYTS_WORK_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYTS-WORK-LST"), som::SomMetaRef::new)
     }
 
-    pub fn VARIA_VARI_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "VARIA-VARI-LST"), som::SomMetaRef::new)
+    pub fn SYTS_VARI_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "SYTS-VARI-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -101371,12 +101371,12 @@ impl<'a> SystemToReplaceEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalAssessment/STAQ"))
     }
 
-    pub fn KIE_KNOW_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalAssessment/KIE-KNOW-LST"), som::SomMetaRef::new)
+    pub fn SYTEAS_KNOW_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalAssessment/SYTEAS-KNOW-LST"), som::SomMetaRef::new)
     }
 
-    pub fn SECUR_SECU_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalAssessment/SECUR-SECU-LST"), som::SomMetaRef::new)
+    pub fn SYTEAS_SECU_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "technicalAssessment/SYTEAS-SECU-LST"), som::SomMetaRef::new)
     }
 
     pub fn SBCO(&self) -> som::SomMetaRef<'a> {
@@ -101387,12 +101387,12 @@ impl<'a> SystemToReplaceEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "businessCriticality/SBCG"))
     }
 
-    pub fn SBUE_BUSI_LST(&self) -> som::SomListMetaRef<'a, SystemBusinessUnitEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "businessCriticality/SBUE-BUSI-LST"), SystemBusinessUnitEntryId::new)
+    pub fn SYBUUNEN_BUSI_LST(&self) -> som::SomListMetaRef<'a, SystemBusinessUnitEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "businessCriticality/SYBUUNEN-BUSI-LST"), SystemBusinessUnitEntryId::new)
     }
 
-    pub fn SBPE_SUPP_LST(&self) -> som::SomListMetaRef<'a, SystemBusinessProcessEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "businessCriticality/SBPE-SUPP-LST"), SystemBusinessProcessEntryId::new)
+    pub fn SYBUPREN_SUPP_LST(&self) -> som::SomListMetaRef<'a, SystemBusinessProcessEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "businessCriticality/SYBUPREN-SUPP-LST"), SystemBusinessProcessEntryId::new)
     }
 
     pub fn SRST(&self) -> som::SomMetaRef<'a> {
@@ -101407,8 +101407,8 @@ impl<'a> SystemToReplaceEntryId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "replacementStrategy/REPPHS-PHAS-LST"), ReplacementPhaseEntryId::new)
     }
 
-    pub fn PREDE_PRED_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "replacementStrategy/PREDE-PRED-LST"), som::SomMetaRef::new)
+    pub fn SYREST_PRED_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "replacementStrategy/SYREST-PRED-LST"), som::SomMetaRef::new)
     }
 
     pub fn SDSG(&self) -> som::SomMetaRef<'a> {
@@ -101419,12 +101419,12 @@ impl<'a> SystemToReplaceEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataScope/SYDASCMI"))
     }
 
-    pub fn DEME_ENTI_LST(&self) -> som::SomListMetaRef<'a, DataEntityMigrationEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataScope/DEME-ENTI-LST"), DataEntityMigrationEntryId::new)
+    pub fn DAENMIEN_ENTI_LST(&self) -> som::SomListMetaRef<'a, DataEntityMigrationEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataScope/DAENMIEN-ENTI-LST"), DataEntityMigrationEntryId::new)
     }
 
-    pub fn KNOWN_KNOW_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataScope/KNOWN-KNOW-LST"), som::SomMetaRef::new)
+    pub fn SYDASC_KNOW_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "dataScope/SYDASC-KNOW-LST"), som::SomMetaRef::new)
     }
 
     pub fn REPSDEP_DEPE_LST(&self) -> som::SomListMetaRef<'a, ReplacementSystemDependencyEntryId<'a>> {
@@ -101443,8 +101443,8 @@ impl<'a> SystemToReplaceEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "userImpact/SUIA"))
     }
 
-    pub fn UGIE_USER_LST(&self) -> som::SomListMetaRef<'a, UserGroupImpactEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "userImpact/UGIE-USER-LST"), UserGroupImpactEntryId::new)
+    pub fn USGRIMEN_USER_LST(&self) -> som::SomListMetaRef<'a, UserGroupImpactEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "userImpact/USGRIMEN-USER-LST"), UserGroupImpactEntryId::new)
     }
 
     pub fn SCACC(&self) -> som::SomMetaRef<'a> {
@@ -101459,8 +101459,8 @@ impl<'a> SystemToReplaceEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "costAnalysis/SCAB"))
     }
 
-    pub fn NONFI_NONF_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "costAnalysis/NONFI-NONF-LST"), som::SomMetaRef::new)
+    pub fn SYCOAN_NONF_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "costAnalysis/SYCOAN-NONF-LST"), som::SomMetaRef::new)
     }
 
     pub fn SMPE(&self) -> som::SomMetaRef<'a> {
@@ -101471,12 +101471,12 @@ impl<'a> SystemToReplaceEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "migrationPlan/SMPC"))
     }
 
-    pub fn SMRE_RISK_LST(&self) -> som::SomListMetaRef<'a, SystemMigrationRiskEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "migrationPlan/SMRE-RISK-LST"), SystemMigrationRiskEntryId::new)
+    pub fn SYMIRIEN_RISK_LST(&self) -> som::SomListMetaRef<'a, SystemMigrationRiskEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "migrationPlan/SYMIRIEN-RISK-LST"), SystemMigrationRiskEntryId::new)
     }
 
-    pub fn CRITI_CRIT_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "knowledgeTransfer/CRITI-CRIT-LST"), som::SomMetaRef::new)
+    pub fn SYKNTR_CRIT_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "knowledgeTransfer/SYKNTR-CRIT-LST"), som::SomMetaRef::new)
     }
 }
 
@@ -101551,8 +101551,8 @@ impl<'a> TabBarDefinitionEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TBDEL"))
     }
 
-    pub fn TAITEN_TABS_LST(&self) -> som::SomListMetaRef<'a, TabItemEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TAITEN-TABS-LST"), TabItemEntryId::new)
+    pub fn TIE_TABS_LST(&self) -> som::SomListMetaRef<'a, TabItemEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TIE-TABS-LST"), TabItemEntryId::new)
     }
 }
 
@@ -101953,8 +101953,8 @@ impl<'a> TechnicalRequirementEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TREC"))
     }
 
-    pub fn ACCR_CRIT_LST(&self) -> som::SomListMetaRef<'a, AcceptanceCriterionEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "acceptanceCriteria/ACCR-CRIT-LST"), AcceptanceCriterionEntryId::new)
+    pub fn ACE_CRIT_LST(&self) -> som::SomListMetaRef<'a, AcceptanceCriterionEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "acceptanceCriteria/ACE-CRIT-LST"), AcceptanceCriterionEntryId::new)
     }
 
     pub fn RQDEP_ITEM_LST(&self) -> som::SomListMetaRef<'a, RequirementDependencyEntryId<'a>> {
@@ -102955,12 +102955,12 @@ impl<'a> UiComponentEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "UICOMENT-DATA"))
     }
 
-    pub fn CMST_STAT_LST(&self) -> som::SomListMetaRef<'a, ComponentStateEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CMST-STAT-LST"), ComponentStateEntryId::new)
+    pub fn COMSTAENT_STAT_LST(&self) -> som::SomListMetaRef<'a, ComponentStateEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "COMSTAENT-STAT-LST"), ComponentStateEntryId::new)
     }
 
-    pub fn CMVN_VARI_LST(&self) -> som::SomListMetaRef<'a, ComponentVariantEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CMVN-VARI-LST"), ComponentVariantEntryId::new)
+    pub fn CVE_VARI_LST(&self) -> som::SomListMetaRef<'a, ComponentVariantEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "CVE-VARI-LST"), ComponentVariantEntryId::new)
     }
 
     pub fn CMAC_ACTI_LST(&self) -> som::SomListMetaRef<'a, ComponentActionEntryId<'a>> {
@@ -103081,8 +103081,8 @@ impl<'a> UserCategoryEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "personaDetails/UPD-VISU"))
     }
 
-    pub fn REPRE_REPR_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "personaDetails/REPRE-REPR-LST"), som::SomMetaRef::new)
+    pub fn UPD_REPR_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "personaDetails/UPD-REPR-LST"), som::SomMetaRef::new)
     }
 
     pub fn UCRE(&self) -> som::SomMetaRef<'a> {
@@ -103129,12 +103129,12 @@ impl<'a> UserCategoryEntryId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "userJourney/JRNST-STAG-LST"), JourneyStageEntryId::new)
     }
 
-    pub fn KEYTO_KEYT_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "userJourney/KEYTO-KEYT-LST"), som::SomMetaRef::new)
+    pub fn UJ_KEYT_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "userJourney/UJ-KEYT-LST"), som::SomMetaRef::new)
     }
 
-    pub fn USERJ_PAIN_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "userJourney/USERJ-PAIN-LST"), som::SomMetaRef::new)
+    pub fn UJ_PAIN_LST(&self) -> som::SomListMetaRef<'a, som::SomMetaRef<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "userJourney/UJ-PAIN-LST"), som::SomMetaRef::new)
     }
 
     pub fn UJ_OPPO(&self) -> som::SomMetaRef<'a> {
@@ -103373,8 +103373,8 @@ impl<'a> UtilityNavigationItemEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "UNIEB"))
     }
 
-    pub fn UMIE_MENU_LST(&self) -> som::SomListMetaRef<'a, UtilityMenuItemEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "UMIE-MENU-LST"), UtilityMenuItemEntryId::new)
+    pub fn UTMEITEN_MENU_LST(&self) -> som::SomListMetaRef<'a, UtilityMenuItemEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "UTMEITEN-MENU-LST"), UtilityMenuItemEntryId::new)
     }
 }
 
@@ -103887,8 +103887,8 @@ impl<'a> WorkplaceDescriptionEntryId<'a> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "equipmentRequirements/DSEQ-DISP-LST"), DisplayEquipmentEntryId::new)
     }
 
-    pub fn INPDE_INPU_LST(&self) -> som::SomListMetaRef<'a, InputDeviceEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "equipmentRequirements/INPDE-INPU-LST"), InputDeviceEntryId::new)
+    pub fn IDE_INPU_LST(&self) -> som::SomListMetaRef<'a, InputDeviceEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "equipmentRequirements/IDE-INPU-LST"), InputDeviceEntryId::new)
     }
 
     pub fn PEREQ_PERI_LST(&self) -> som::SomListMetaRef<'a, PeripheralEquipmentEntryId<'a>> {
@@ -103927,8 +103927,8 @@ impl<'a> WorkplaceDescriptionEntryId<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "trainingRequirements/TROV"))
     }
 
-    pub fn INITR_INIT_LST(&self) -> som::SomListMetaRef<'a, InitialTrainingEntryId<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "trainingRequirements/INITR-INIT-LST"), InitialTrainingEntryId::new)
+    pub fn ITE_INIT_LST(&self) -> som::SomListMetaRef<'a, InitialTrainingEntryId<'a>> {
+        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "trainingRequirements/ITE-INIT-LST"), InitialTrainingEntryId::new)
     }
 
     pub fn ONGTR_ONGO_LST(&self) -> som::SomListMetaRef<'a, OngoingTrainingEntryId<'a>> {

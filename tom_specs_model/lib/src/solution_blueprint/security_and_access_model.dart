@@ -3378,8 +3378,8 @@ class MfaConfiguration extends DocSpecsSection {
     'NIST SP 800-63B — authentication and authenticator lifecycle',
     'FIDO2 / W3C WebAuthn — phishing-resistant authentication',
   ], 'The catalog of multi-factor authentication method definitions.')
-  @SectionId('MFADE-MFAD-LST')
-  @SectionIdPattern('MFADE-MFAD-xxx')
+  @SectionId('MC-MFAD-LST')
+  @SectionIdPattern('MC-MFAD-xxx')
   @ContentHelp('Add one entry per MFA method definition.')
   @SerializationOrder(1)
   List<DocSpecsSection> mfaDetails = [];
@@ -4783,8 +4783,8 @@ class StepUpAuthenticationPolicy extends DocSpecsSection {
     'NIST SP 800-63B — authentication and authenticator lifecycle',
     'OWASP ASVS V2 — authentication verification requirements',
   ], 'The catalog of step-up authentication detail entries.')
-  @SectionId('STEPU-STEP-LST')
-  @SectionIdPattern('STEPU-STEP-xxx')
+  @SectionId('SUAP-STEP-LST')
+  @SectionIdPattern('SUAP-STEP-xxx')
   @ContentHelp('Add one entry per step-up authentication step.')
   @SerializationOrder(1)
   List<DocSpecsSection> stepUpDetails = [];

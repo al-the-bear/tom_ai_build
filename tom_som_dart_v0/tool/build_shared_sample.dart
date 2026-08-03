@@ -333,7 +333,7 @@ void _normalizeListItemIds(SpecDocument doc, SomMetaTree tree) {
     // (`FRE-REQU-ORDER-CAPTURE`, …) straight onto each item's `$sectionId`
     // store, so it is exempt: renumbering would destroy those authored values.
     // Every other patterned list carries only the AA1 date-lettered auto-ids
-    // (e.g. `USCA-USER-GR1`), which churn per build and must be renumbered to
+    // (e.g. `UCE-USER-GR1`), which churn per build and must be renumbered to
     // the deterministic `<stem>-<pos>` form.
     if (listPath.endsWith('/FRE-REQU-LST')) continue;
     final items = doc.listItems(listPath);
@@ -1171,10 +1171,14 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   wl.classification
     ..screenCategory = 'List'
     ..routePattern = '/orders';
-  wl.access
-    ..accessLevel = 'Authenticated'
-    ..requiredRoles = 'Order Clerk, Order Supervisor'
-    ..permissionEffect = 'Allow';
+  // Authorization is a closed choice: the kind selects which payload
+  // subsection carries the detail. `role` implies authentication, so naming the
+  // roles is the whole requirement — there is no separate access level.
+  wl.access.content
+    ..requirementKind = AuthorizationRequirementKind.role
+    ..rationale = 'The work list exposes every open order, so it is limited to '
+        'the two roles that work the queue.';
+  wl.access.roleRequirement.roles = 'Order Clerk, Order Supervisor';
   wl.traceability
     ..relatedUseCases = 'UC-01, UC-02'
     ..relatedRequirements = 'FR-01, FR-04, FR-06'
@@ -1256,10 +1260,11 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..screenCategory = 'Detail'
     ..parentScreenId = 'SCR-01'
     ..routePattern = '/orders/:orderId';
-  detail.access
-    ..accessLevel = 'Authenticated'
-    ..requiredRoles = 'Order Clerk, Order Supervisor'
-    ..permissionEffect = 'Allow';
+  detail.access.content
+    ..requirementKind = AuthorizationRequirementKind.role
+    ..rationale = 'Order detail carries the amendment actions, so it is held to '
+        'the same two roles as the work list it is reached from.';
+  detail.access.roleRequirement.roles = 'Order Clerk, Order Supervisor';
   detail.traceability
     ..relatedUseCases = 'UC-02, UC-03'
     ..relatedRequirements = 'FR-05, FR-06'

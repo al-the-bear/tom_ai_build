@@ -93,9 +93,9 @@ void main() {
 
     test('list positions expose item() with element accessors', () {
       final revs = d00SolutionBlueprint.documentControl.revisionHistory;
-      expect(revs.path, 'SBP/documentControl/RVHST-REVS-LST');
+      expect(revs.path, 'SBP/documentControl/RVENT-REVS-LST');
       expect(revs.item(3).path,
-          'SBP/documentControl/RVHST-REVS-LST-3');
+          'SBP/documentControl/RVENT-REVS-LST-3');
       // The list node's metadata carries the section-id pattern.
       expect(revs.meta.sectionIdPattern, isNotNull);
     });
@@ -116,18 +116,18 @@ void main() {
     });
 
     test('a hoisted list id agrees with the dot-notation position', () {
-      // RVHST_REVS_LST is hoisted onto the root Id class through the id-less
+      // RVENT_REVS_LST is hoisted onto the root Id class through the id-less
       // documentControl/revisionHistory members.
-      expect(SBP.RVHST_REVS_LST.path,
+      expect(SBP.RVENT_REVS_LST.path,
           d00SolutionBlueprint.documentControl.revisionHistory.path);
       expect(
           identical(
-              SBP.RVHST_REVS_LST.meta,
+              SBP.RVENT_REVS_LST.meta,
               d00SolutionBlueprint
                   .documentControl.revisionHistory.meta),
           isTrue);
       // Element access agrees too.
-      expect(SBP.RVHST_REVS_LST.item(0).path,
+      expect(SBP.RVENT_REVS_LST.item(0).path,
           d00SolutionBlueprint.documentControl.revisionHistory
               .item(0)
               .path);

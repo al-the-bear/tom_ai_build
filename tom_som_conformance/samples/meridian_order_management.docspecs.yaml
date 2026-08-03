@@ -33,8 +33,8 @@ document:
           published interface)
         - CRM lead management
       SYDSC systemDescription:
-        USCA-USER-LST userCategories:
-          USCA-USER-1:
+        UCE-USER-LST userCategories:
+          UCE-USER-1:
             content:
               categoryName: |2-
                 Order Operations Clerk
@@ -51,10 +51,10 @@ document:
                     Clear the order work list
                   description: |2-
                     Work the state-filtered order queue from capture through to confirmation, handling holds and amendments as they arise.
-                SYSTE-WORK-LST workflowSteps:
-                  SYSTE-WORK-1: Open the work list filtered to the Captured and Hold states.
-                  SYSTE-WORK-2: Select an order and review its lifecycle timeline.
-                  SYSTE-WORK-3: Release holds, amend lines, or confirm as the order allows.
+                SYTS-WORK-LST workflowSteps:
+                  SYTS-WORK-1: Open the work list filtered to the Captured and Hold states.
+                  SYTS-WORK-2: Select an order and review its lifecycle timeline.
+                  SYTS-WORK-3: Release holds, amend lines, or confirm as the order allows.
       GOALS goals:
         content: |2-
           Primary goals:
@@ -122,8 +122,8 @@ document:
                 customerDissatisfaction: |2-
                   1
               RAC acceptanceCriteria:
-                ACCR-CRIT-LST criteria:
-                  ACCR-CRIT-1:
+                ACE-CRIT-LST criteria:
+                  ACE-CRIT-1:
                     content:
                       criterionId: |2-
                         FR-01-AC-1
@@ -143,7 +143,7 @@ document:
                         Must
                       status: |2-
                         Draft
-                  ACCR-CRIT-2:
+                  ACE-CRIT-2:
                     content:
                       criterionId: |2-
                         FR-01-AC-2
@@ -189,8 +189,8 @@ document:
                 fitCriterion: |2-
                   Each confirmed line carries a unitPrice snapshot equal to the price list at pricing time.
               RAC acceptanceCriteria:
-                ACCR-CRIT-LST criteria:
-                  ACCR-CRIT-1:
+                ACE-CRIT-LST criteria:
+                  ACE-CRIT-1:
                     content:
                       criterionId: |2-
                         FR-02-AC-1
@@ -233,8 +233,8 @@ document:
                 riskLevel: |2-
                   High
               RAC acceptanceCriteria:
-                ACCR-CRIT-LST criteria:
-                  ACCR-CRIT-1:
+                ACE-CRIT-LST criteria:
+                  ACE-CRIT-1:
                     content:
                       criterionId: |2-
                         FR-03-AC-1
@@ -254,7 +254,7 @@ document:
                         Must
                       status: |2-
                         Draft
-                  ACCR-CRIT-2:
+                  ACE-CRIT-2:
                     content:
                       criterionId: |2-
                         FR-03-AC-2
@@ -297,8 +297,8 @@ document:
                 riskLevel: |2-
                   Medium
               RAC acceptanceCriteria:
-                ACCR-CRIT-LST criteria:
-                  ACCR-CRIT-1:
+                ACE-CRIT-LST criteria:
+                  ACE-CRIT-1:
                     content:
                       criterionId: |2-
                         FR-04-AC-1
@@ -318,7 +318,7 @@ document:
                         Must
                       status: |2-
                         Draft
-                  ACCR-CRIT-2:
+                  ACE-CRIT-2:
                     content:
                       criterionId: |2-
                         FR-04-AC-2
@@ -361,8 +361,8 @@ document:
                 riskLevel: |2-
                   Medium
               RAC acceptanceCriteria:
-                ACCR-CRIT-LST criteria:
-                  ACCR-CRIT-1:
+                ACE-CRIT-LST criteria:
+                  ACE-CRIT-1:
                     content:
                       criterionId: |2-
                         FR-05-AC-1
@@ -382,7 +382,7 @@ document:
                         Must
                       status: |2-
                         Draft
-                  ACCR-CRIT-2:
+                  ACE-CRIT-2:
                     content:
                       criterionId: |2-
                         FR-05-AC-2
@@ -425,8 +425,8 @@ document:
                 riskLevel: |2-
                   Low
               RAC acceptanceCriteria:
-                ACCR-CRIT-LST criteria:
-                  ACCR-CRIT-1:
+                ACE-CRIT-LST criteria:
+                  ACE-CRIT-1:
                     content:
                       criterionId: |2-
                         FR-06-AC-1
@@ -1729,13 +1729,15 @@ document:
                     List
                   routePattern: |2-
                     /orders
-                SCEAC access:
-                  accessLevel: |2-
-                    Authenticated
-                  requiredRoles: |2-
-                    Order Clerk, Order Supervisor
-                  permissionEffect: |2-
-                    Allow
+                AZREQ access:
+                  content:
+                    requirementKind: |2-
+                      role
+                    rationale: |2-
+                      The work list exposes every open order, so it is limited to the two roles that work the queue.
+                  AZREQ-ROLE roleRequirement:
+                    roles: |2-
+                      Order Clerk, Order Supervisor
                 SCETR traceability:
                   relatedUseCases: |2-
                     UC-01, UC-02
@@ -1869,13 +1871,15 @@ document:
                     SCR-01
                   routePattern: |2-
                     /orders/:orderId
-                SCEAC access:
-                  accessLevel: |2-
-                    Authenticated
-                  requiredRoles: |2-
-                    Order Clerk, Order Supervisor
-                  permissionEffect: |2-
-                    Allow
+                AZREQ access:
+                  content:
+                    requirementKind: |2-
+                      role
+                    rationale: |2-
+                      Order detail carries the amendment actions, so it is held to the same two roles as the work list it is reached from.
+                  AZREQ-ROLE roleRequirement:
+                    roles: |2-
+                      Order Clerk, Order Supervisor
                 SCETR traceability:
                   relatedUseCases: |2-
                     UC-02, UC-03
@@ -2001,8 +2005,8 @@ document:
         Business sign-off requires the operations desk to clear a full day's orders on
         MOM alone.
       I25CV iso25010Coverage:
-        I25CV-CHAR-LST characteristics:
-          I25CV-CHAR-1:
+        I25CE-CHAR-LST characteristics:
+          I25CE-CHAR-1:
             content:
               characteristic: |2-
                 performanceEfficiency
@@ -2010,7 +2014,7 @@ document:
                 NFR load test at 3x peak-hour order volume
               targetMetric: |2-
                 p95 order-capture latency within budget at 3x peak
-          I25CV-CHAR-2:
+          I25CE-CHAR-2:
             content:
               characteristic: |2-
                 reliability

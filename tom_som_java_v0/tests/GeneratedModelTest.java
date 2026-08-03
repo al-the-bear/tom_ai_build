@@ -461,7 +461,7 @@ public final class GeneratedModelTest {
     check("live.node.nav-path",
         "SBP/currentLandscape/CUOPME-OPER-LST".equals(navRef.path), navRef.path);
     check("live.node.nav-identity", navRef.meta() == listByPath);
-    SomMetaRef idRef = TomSomV0Meta.SBP.RVHST_REVS_LST().item(0);
+    SomMetaRef idRef = TomSomV0Meta.SBP.RVENT_REVS_LST().item(0);
     SomMetaRef navItem = TomSomV0Meta.D00SolutionBlueprintMeta.documentControl()
         .revisionHistory().item(0);
     check("live.node.id-path", idRef.path.equals(navItem.path), idRef.path);

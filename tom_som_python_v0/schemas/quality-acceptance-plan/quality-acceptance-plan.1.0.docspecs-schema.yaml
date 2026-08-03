@@ -35,14 +35,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per warranty service element.
-  categ-cate-lst:
-    prefix: CATEG_CATE_LST
-    subsection-types:
-      categ-cate:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per category dependency.
   dacen-item-lst:
     prefix: DACEN_ITEM_LST
     subsection-types:
@@ -67,6 +59,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per quality gate check.
+  qlfwk-cate-lst:
+    prefix: QLFWK_CATE_LST
+    subsection-types:
+      qlfwk-cate:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per category dependency.
   qlwgt-weig-lst:
     prefix: QLWGT_WEIG_LST
     subsection-types:
@@ -151,12 +151,6 @@ section-types:
   accrsu-acce:
     prefix: ACCRSU_ACCE
     format: accrsu-acce-form
-  categ-cate:
-    prefix: CATEG_CATE_
-    pattern-check-id:
-      pattern: ^CATEG-CATE-.+$
-      error-message: IDs of this section must match CATEG-CATE-xxx
-    description: Add one entry per category dependency.
   dacen-item:
     prefix: DACEN_ITEM_
     subsection-types:
@@ -212,6 +206,12 @@ section-types:
       pattern: ^QGCHK-ITEM-.+$
       error-message: IDs of this section must match QGCHK-ITEM-xxx
     description: Add one entry per quality gate check.
+  qlfwk-cate:
+    prefix: QLFWK_CATE_
+    pattern-check-id:
+      pattern: ^QLFWK-CATE-.+$
+      error-message: IDs of this section must match QLFWK-CATE-xxx
+    description: Add one entry per category dependency.
   qlwgt-weig:
     prefix: QLWGT_WEIG_
     pattern-check-id:
@@ -807,7 +807,7 @@ section-types:
         max-count: 1
       qcate-qual-lst:
         max-count: 1
-      categ-cate-lst:
+      qlfwk-cate-lst:
         max-count: 1
     description: Quality framework.
   requ1:

@@ -282,8 +282,8 @@ class ReportDefinitions extends DocSpecsSection {
     'ISO/IEC/IEEE 26514:2022 — designs and develops report information for use',
     'ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content',
   ], 'The collection of report entries available for printing.')
-  @SectionId('REEN-REPO-LST')
-  @SectionIdPattern('REEN-REPO-xxx')
+  @SectionId('REPENT-REPO-LST')
+  @SectionIdPattern('REPENT-REPO-xxx')
   @ContentHelp('Add one entry per report.')
   @SerializationOrder(1)
   List<ReportEntry> reports = [];
@@ -1536,8 +1536,8 @@ class ScreenEntry extends DocSpecsSection {
     ],
     'The collection of user categories that describe who uses this screen and in what context.',
   )
-  @SectionId('SCRUSC-USER-LST')
-  @SectionIdPattern('SCRUSC-USER-xxx')
+  @SectionId('SUCE-USER-LST')
+  @SectionIdPattern('SUCE-USER-xxx')
   @ContentHelp('Add one entry per user category.')
   @SerializationOrder(9)
   List<ScreenUserCategoryEntry> userCategories = [];
@@ -1564,8 +1564,8 @@ class ScreenEntry extends DocSpecsSection {
     ],
     'The collection of responsive rules that adapt a screen layout to different device sizes.',
   )
-  @SectionId('SRRE-RESP-LST')
-  @SectionIdPattern('SRRE-RESP-xxx')
+  @SectionId('SCRERUEN-RESP-LST')
+  @SectionIdPattern('SCRERUEN-RESP-xxx')
   @ContentHelp('Add one entry per responsive rule.')
   @SerializationOrder(11)
   List<ScreenResponsiveRuleEntry> responsiveRules = [];
@@ -2019,8 +2019,8 @@ class ScreenElementEntry extends DocSpecsSection {
     ],
     'The collection of validation rules that constrain and check the input for a screen element.',
   )
-  @SectionId('EVRE-VALI-LST')
-  @SectionIdPattern('EVRE-VALI-xxx')
+  @SectionId('ELVARUEN-VALI-LST')
+  @SectionIdPattern('ELVARUEN-VALI-xxx')
   @ContentHelp('Add one entry per validation rule.')
   @SerializationOrder(9)
   List<ElementValidationRuleEntry> validationRules = [];
@@ -3154,8 +3154,8 @@ Overall content organization and navigation structure.
     ],
     'The collection of global access points through which users enter the application.',
   )
-  @SectionId('GLOBA-GLOB-LST')
-  @SectionIdPattern('GLOBA-GLOB-xxx')
+  @SectionId('IA-GLOB-LST')
+  @SectionIdPattern('IA-GLOB-xxx')
   @ContentHelp('Add one entry per global entry point.')
   @SerializationOrder(4)
   List<DocSpecsSection> globalEntryPoints = [];
@@ -4258,8 +4258,8 @@ Tab bars map to `TomTabBar` with:
     ],
     'The collection of tab-bar definitions used for in-page secondary navigation.',
   )
-  @SectionId('TBDE-TABB-LST')
-  @SectionIdPattern('TBDE-TABB-xxx')
+  @SectionId('TABADEEN-TABB-LST')
+  @SectionIdPattern('TABADEEN-TABB-xxx')
   @ContentHelp('Add one entry per tab bar or segmented control.')
   @SerializationOrder(2)
   List<TabBarDefinitionEntry> tabBars = [];
@@ -4376,8 +4376,8 @@ class TabBarDefinitionEntry extends DocSpecsSection {
   @StandardReferences([
     'ISO 9241-143:2012 — a group of selectable tab entries presented within a tab bar',
   ], 'The collection of individual tab items belonging to this tab bar.')
-  @SectionId('TAITEN-TABS-LST')
-  @SectionIdPattern('TAITEN-TABS-xxx')
+  @SectionId('TIE-TABS-LST')
+  @SectionIdPattern('TIE-TABS-xxx')
   @ContentHelp('Add one entry per tab item in the tab bar.')
   @Min(1)
   @SerializationOrder(3)
@@ -4494,8 +4494,8 @@ Dropdown/popup menus have nested items with:
     ],
     'The collection of utility navigation items shown persistently in the app bar or drawer.',
   )
-  @SectionId('UNIE-ITEM-LST')
-  @SectionIdPattern('UNIE-ITEM-xxx')
+  @SectionId('UTNAITEN-ITEM-LST')
+  @SectionIdPattern('UTNAITEN-ITEM-xxx')
   @ContentHelp('Add one entry per utility navigation item.')
   @SerializationOrder(1)
   List<UtilityNavigationItemEntry> items = [];
@@ -4623,8 +4623,8 @@ class UtilityNavigationItemEntry extends DocSpecsSection {
     ],
     'The collection of nested menu item entries belonging to a utility navigation item.',
   )
-  @SectionId('UMIE-MENU-LST')
-  @SectionIdPattern('UMIE-MENU-xxx')
+  @SectionId('UTMEITEN-MENU-LST')
+  @SectionIdPattern('UTMEITEN-MENU-xxx')
   @ContentHelp('Add one entry per utility menu item.')
   @SerializationOrder(4)
   List<UtilityMenuItemEntry> menuItems = [];
@@ -5454,8 +5454,8 @@ class PrintAndExportLayout extends DocSpecsSection {
     ],
     'The collection of export formats in which printed reports can be produced.',
   )
-  @SectionId('EXFOEN-EXPO-LST')
-  @SectionIdPattern('EXFOEN-EXPO-xxx')
+  @SectionId('EFE-EXPO-LST')
+  @SectionIdPattern('EFE-EXPO-xxx')
   @ContentHelp('Add one entry per export format.')
   @SerializationOrder(6)
   List<ExportFormatEntry> exportFormats = [];
@@ -5469,8 +5469,8 @@ class PrintAndExportLayout extends DocSpecsSection {
     ],
     'The collection of reusable export templates available for producing formatted output.',
   )
-  @SectionId('EXTEEN-EXPO-LST')
-  @SectionIdPattern('EXTEEN-EXPO-xxx')
+  @SectionId('ETE-EXPO-LST')
+  @SectionIdPattern('ETE-EXPO-xxx')
   @ContentHelp('Add one entry per export template.')
   @SerializationOrder(7)
   List<ExportTemplateEntry> exportTemplates = [];
@@ -5934,8 +5934,8 @@ class ReportEntry extends DocSpecsSection {
     ],
     'The collection of report-section entries composing the body of the report.',
   )
-  @SectionId('RESEE1-SECT-LST')
-  @SectionIdPattern('RESEE1-SECT-xxx')
+  @SectionId('RSE-SECT-LST')
+  @SectionIdPattern('RSE-SECT-xxx')
   @ContentHelp('Add one entry per report section.')
   @SerializationOrder(13)
   List<ReportSectionEntry> sections = [];
@@ -5944,8 +5944,8 @@ class ReportEntry extends DocSpecsSection {
   @StandardReferences([
     'ISO/IEC/IEEE 29148:2018 — captures the filter criteria constraining reported data',
   ], 'The collection of filters that restrict the data included in the report.')
-  @SectionId('REFIEN-FILT-LST')
-  @SectionIdPattern('REFIEN-FILT-xxx')
+  @SectionId('RFE-FILT-LST')
+  @SectionIdPattern('RFE-FILT-xxx')
   @ContentHelp('Add one entry per report data filter.')
   @SerializationOrder(14)
   List<ReportFilterEntry> filters = [];
@@ -5958,8 +5958,8 @@ class ReportEntry extends DocSpecsSection {
     ],
     'The collection of schedules controlling automated generation of the report.',
   )
-  @SectionId('RESCEN-SCHE-LST')
-  @SectionIdPattern('RESCEN-SCHE-xxx')
+  @SectionId('REPSCHENT-SCHE-LST')
+  @SectionIdPattern('REPSCHENT-SCHE-xxx')
   @ContentHelp('Add one entry per report generation schedule.')
   @SerializationOrder(15)
   List<ReportScheduleEntry> schedules = [];
@@ -5971,8 +5971,8 @@ class ReportEntry extends DocSpecsSection {
     ],
     'The collection of distribution channels through which the report is delivered.',
   )
-  @SectionId('REDIEN-DIST-LST')
-  @SectionIdPattern('REDIEN-DIST-xxx')
+  @SectionId('RDE-DIST-LST')
+  @SectionIdPattern('RDE-DIST-xxx')
   @ContentHelp('Add one entry per report distribution channel.')
   @SerializationOrder(16)
   List<ReportDistributionEntry> distributions = [];
@@ -5981,8 +5981,8 @@ class ReportEntry extends DocSpecsSection {
   @StandardReferences([
     'ISO/IEC/IEEE 26515:2018 — identifies the audience receiving produced information',
   ], 'The collection of recipients who receive the generated report.')
-  @SectionId('REREEN-RECI-LST')
-  @SectionIdPattern('REREEN-RECI-xxx')
+  @SectionId('RRE-RECI-LST')
+  @SectionIdPattern('RRE-RECI-xxx')
   @ContentHelp('Add one entry per report recipient.')
   @SerializationOrder(17)
   List<ReportRecipientEntry> recipients = [];
@@ -6210,8 +6210,8 @@ class ReportSectionEntry extends DocSpecsSection {
     ],
     'The collection of column entries defining the tabular layout of this report section.',
   )
-  @SectionId('RECOE1-COLU-LST')
-  @SectionIdPattern('RECOE1-COLU-xxx')
+  @SectionId('REPCOLENT-COLU-LST')
+  @SectionIdPattern('REPCOLENT-COLU-xxx')
   @ContentHelp('Add one entry per column in the section table.')
   @SerializationOrder(5)
   List<ReportColumnEntry> columns = [];
@@ -6220,8 +6220,8 @@ class ReportSectionEntry extends DocSpecsSection {
   @StandardReferences([
     'ISO 9241-125:2017 — presentation of information conveys quantitative data through graphical form',
   ], 'The collection of chart entries rendered within this report section.')
-  @SectionId('RECHEN-CHAR-LST')
-  @SectionIdPattern('RECHEN-CHAR-xxx')
+  @SectionId('REPCHAENT-CHAR-LST')
+  @SectionIdPattern('REPCHAENT-CHAR-xxx')
   @ContentHelp('Add one entry per chart shown in the section.')
   @SerializationOrder(6)
   List<ReportChartEntry> charts = [];
@@ -8089,8 +8089,8 @@ class ExportFormatEntry extends DocSpecsSection {
     ],
     'The collection of export field-mapping entries that bind source fields to output columns.',
   )
-  @SectionId('EFME-FIEL-LST')
-  @SectionIdPattern('EFME-FIEL-xxx')
+  @SectionId('EXFIMAEN-FIEL-LST')
+  @SectionIdPattern('EXFIMAEN-FIEL-xxx')
   @ContentHelp('Add one entry per export field mapping.')
   @SerializationOrder(10)
   List<ExportFieldMappingEntry> fieldMappings = [];
@@ -9050,8 +9050,8 @@ class ValidationFeedback extends DocSpecsSection {
   @StandardReferences([
     'ISO 9241-143:2012 — forms present specific validation messages for input fields',
   ], 'The collection of validation-message template entries.')
-  @SectionId('VAMETE-MESS-LST')
-  @SectionIdPattern('VAMETE-MESS-xxx')
+  @SectionId('VMT-MESS-LST')
+  @SectionIdPattern('VMT-MESS-xxx')
   @ContentHelp('Add one entry per validation message template.')
   @SerializationOrder(6)
   List<ValidationMessageTemplate> messageTemplates = [];
@@ -9061,8 +9061,8 @@ class ValidationFeedback extends DocSpecsSection {
     'ISO 9241-143:2012 — forms apply validation rules that determine acceptable input per field',
     'ISO/IEC 27001:2022 — input validation controls guard against malformed or malicious data',
   ], 'The collection of field validation rule entries organised by field type.')
-  @SectionId('FIELD-FIEL-LST')
-  @SectionIdPattern('FIELD-FIEL-xxx')
+  @SectionId('VAFE-FIEL-LST')
+  @SectionIdPattern('VAFE-FIEL-xxx')
   @ContentHelp('Add one entry per field validation rule.')
   @SerializationOrder(7)
   List<DocSpecsSection> fieldValidationRules = [];
@@ -9384,8 +9384,8 @@ class SystemErrorDisplay extends DocSpecsSection {
     'ISO 9241-125:2017 — visual presentation of information governs the layout of full-page error designs',
     'ISO 9241-13:1998 — user guidance ensures each error page conveys clear and specific feedback',
   ], 'The collection of error-page design entries.')
-  @SectionId('EPDE-ERRO-LST')
-  @SectionIdPattern('EPDE-ERRO-xxx')
+  @SectionId('SYERDI-ERRO-LST')
+  @SectionIdPattern('SYERDI-ERRO-xxx')
   @ContentHelp('Add one entry per error page design.')
   @SerializationOrder(6)
   List<DocSpecsSection> errorPageDesigns = [];
@@ -9395,8 +9395,8 @@ class SystemErrorDisplay extends DocSpecsSection {
     'ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated',
     'ISO 9241-13:1998 — user guidance links each error code to a clear and specific user message',
   ], 'The collection of catalogued system error code entries.')
-  @SectionId('SECE-ERRO-LST')
-  @SectionIdPattern('SECE-ERRO-xxx')
+  @SectionId('SYERCOEN-ERRO-LST')
+  @SectionIdPattern('SYERCOEN-ERRO-xxx')
   @ContentHelp('Add one entry per system error code.')
   @SerializationOrder(7)
   List<SystemErrorCodeEntry> errorCodes = [];
@@ -9754,8 +9754,8 @@ class ErrorRecovery extends DocSpecsSection {
     'ISO 9241-110:2020 — use-error tolerance provides guided recovery steps after an error occurs',
     'ISO/IEC 25010:2023 — recoverability re-establishes a desired state and recovers affected data',
   ], 'The collection of recovery-flow entries.')
-  @SectionId('RECOV-RECO-LST')
-  @SectionIdPattern('RECOV-RECO-xxx')
+  @SectionId('ERRE-RECO-LST')
+  @SectionIdPattern('ERRE-RECO-xxx')
   @ContentHelp('Add one entry per recovery flow.')
   @SerializationOrder(7)
   List<DocSpecsSection> recoveryFlows = [];
@@ -11159,8 +11159,8 @@ class WcagCompliance extends DocSpecsSection {
     'W3C WCAG 2.2 — each success criterion states a testable accessibility requirement',
     'ISO/IEC 40500:2012 — the WCAG success criteria adopted as an international standard',
   ], 'The collection of WCAG success-criterion entries.')
-  @SectionId('WSCE-SUCC-LST')
-  @SectionIdPattern('WSCE-SUCC-xxx')
+  @SectionId('WCSUCREN-SUCC-LST')
+  @SectionIdPattern('WCSUCREN-SUCC-xxx')
   @ContentHelp('Add one entry per WCAG success criterion.')
   @SerializationOrder(5)
   List<WcagSuccessCriterionEntry> successCriteria = [];
@@ -11629,8 +11629,8 @@ class BreakpointConfiguration extends DocSpecsSection {
   @StandardReferences([
     'W3C CSS Media Queries — a breakpoint marks a viewport width at which the layout changes',
   ], 'The collection of layout breakpoint entries.')
-  @SectionId('BRE-BREA-LST')
-  @SectionIdPattern('BRE-BREA-xxx')
+  @SectionId('BE-BREA-LST')
+  @SectionIdPattern('BE-BREA-xxx')
   @ContentHelp('Add one entry per layout breakpoint.')
   @SerializationOrder(1)
   List<BreakpointEntry> breakpoints = [];
@@ -12166,8 +12166,8 @@ class UiComponents extends DocSpecsSection {
     'Atomic Design (Brad Frost) — each catalog component is specified as a composable building block',
     'ISO/IEC 25010:2023 — a catalog of reusable components supports maintainability through modularity',
   ], 'The collection of catalog component-specification entries.')
-  @SectionId('UICOEN-COMP-LST')
-  @SectionIdPattern('UICOEN-COMP-xxx')
+  @SectionId('UICOMENT-COMP-LST')
+  @SectionIdPattern('UICOMENT-COMP-xxx')
   @ContentHelp('Add one entry per catalog component.')
   @SerializationOrder(5)
   List<UiComponentEntry> componentSpecs = [];
@@ -13379,8 +13379,8 @@ class UiComponentEntry extends DocSpecsSection {
     ],
     'The collection of component-state entries defining the visual and functional states of the component.',
   )
-  @SectionId('CMST-STAT-LST')
-  @SectionIdPattern('CMST-STAT-xxx')
+  @SectionId('COMSTAENT-STAT-LST')
+  @SectionIdPattern('COMSTAENT-STAT-xxx')
   @ContentHelp('Add one entry per component state.')
   @SerializationOrder(18)
   List<ComponentStateEntry> states = [];
@@ -13393,8 +13393,8 @@ class UiComponentEntry extends DocSpecsSection {
     ],
     'The collection of component-variant entries defining alternative configurations of the component.',
   )
-  @SectionId('CMVN-VARI-LST')
-  @SectionIdPattern('CMVN-VARI-xxx')
+  @SectionId('CVE-VARI-LST')
+  @SectionIdPattern('CVE-VARI-xxx')
   @ContentHelp('Add one entry per component variant.')
   @SerializationOrder(19)
   List<ComponentVariantEntry> variants = [];
@@ -14077,8 +14077,8 @@ class MultiLanguageSupport extends DocSpecsSection {
     'ISO 3166 — country and region codes complete each locale identifier',
     'W3C Internationalization / BCP 47 — language tags name the supported locales',
   ], 'The collection of locales the system supports.')
-  @SectionId('SULOEN-SUPP-LST')
-  @SectionIdPattern('SULOEN-SUPP-xxx')
+  @SectionId('SUPLOCENT-SUPP-LST')
+  @SectionIdPattern('SUPLOCENT-SUPP-xxx')
   @ContentHelp('Add one entry per supported locale.')
   @SerializationOrder(3)
   List<SupportedLocaleEntry> supportedLocales = [];
@@ -14471,8 +14471,8 @@ class TranslationProcess extends DocSpecsSection {
     'ISO 17100:2015 — each listed translation vendor meets defined competence requirements',
     'ISO 18587:2017 — a listed vendor may provide machine-translation post-editing services',
   ], 'The collection of translation-vendor entries engaged for localization.')
-  @SectionId('TRVEEN-VEND-LST')
-  @SectionIdPattern('TRVEEN-VEND-xxx')
+  @SectionId('TVE-VEND-LST')
+  @SectionIdPattern('TVE-VEND-xxx')
   @ContentHelp('Add one entry per translation vendor.')
   @SerializationOrder(6)
   List<TranslationVendorEntry> vendors = [];
@@ -14758,8 +14758,8 @@ class TrainingDeliverableRequirements extends DocSpecsSection {
     'ISO/IEC/IEEE 26514 — training material is part of the documentation and enablement content set',
     'ISO 17100:2015 — each training module can be localized through the translation process',
   ], 'The collection of training-module entries offered to end users.')
-  @SectionId('TRMOEN-TRAI-LST')
-  @SectionIdPattern('TRMOEN-TRAI-xxx')
+  @SectionId('TME-TRAI-LST')
+  @SectionIdPattern('TME-TRAI-xxx')
   @ContentHelp('Add one entry per training module.')
   @SerializationOrder(2)
   List<TrainingModuleEntry> trainingModules = [];
@@ -15603,8 +15603,8 @@ class PrototypeGoals extends DocSpecsSection {
   @StandardReferences([
     'ISO 9241-210:2019 — individual validation goals are recorded so prototype evaluation can be traced against them',
   ], 'The collection of individual prototype-goal entries.')
-  @SectionId('PRGOEN-GOAL-LST')
-  @SectionIdPattern('PRGOEN-GOAL-xxx')
+  @SectionId('PGE-GOAL-LST')
+  @SectionIdPattern('PGE-GOAL-xxx')
   @ContentHelp('Add one entry per prototype goal.')
   @SerializationOrder(4)
   List<PrototypeGoalEntry> goals = [];
@@ -15786,8 +15786,8 @@ class PrototypeFeatureSubset extends DocSpecsSection {
   @StandardReferences([
     'ISO 9241-210:2019 — the prototyped features are enumerated so scope and fidelity can be tracked per feature',
   ], 'The collection of prototype-feature entries.')
-  @SectionId('PRFEEN-FEAT-LST')
-  @SectionIdPattern('PRFEEN-FEAT-xxx')
+  @SectionId('PFE-FEAT-LST')
+  @SectionIdPattern('PFE-FEAT-xxx')
   @ContentHelp('Add one entry per prototype feature.')
   @SerializationOrder(4)
   List<PrototypeFeatureEntry> features = [];

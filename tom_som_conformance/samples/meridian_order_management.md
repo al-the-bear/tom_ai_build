@@ -34,9 +34,9 @@ Out of scope:
 
 ### <!--[SYDSC]--> System Description
 
-#### <!--[USCA-USER-LST]--> User Categories
+#### <!--[UCE-USER-LST]--> User Categories
 
-##### <!--[USCA-USER-1]--> User Category 1
+##### <!--[UCE-USER-1]--> User Category 1
 
 CategoryName: Order Operations Clerk
 Description: Back-office staff who clear the order work list, amend lines, and cancel orders before dispatch across the wholesale and e-commerce channels.
@@ -50,17 +50,17 @@ TaskId: TSK-01
 TaskName: Clear the order work list
 Description: Work the state-filtered order queue from capture through to confirmation, handling holds and amendments as they arise.
 
-######## <!--[SYSTE-WORK-LST]--> Workflow Steps
+######## <!--[SYTS-WORK-LST]--> Workflow Steps
 
-######### <!--[SYSTE-WORK-1]--> Workflow Steps 1
+######### <!--[SYTS-WORK-1]--> Workflow Steps 1
 
 Open the work list filtered to the Captured and Hold states.
 
-######### <!--[SYSTE-WORK-2]--> Workflow Steps 2
+######### <!--[SYTS-WORK-2]--> Workflow Steps 2
 
 Select an order and review its lifecycle timeline.
 
-######### <!--[SYSTE-WORK-3]--> Workflow Steps 3
+######### <!--[SYTS-WORK-3]--> Workflow Steps 3
 
 Release holds, amend lines, or confirm as the order allows.
 
@@ -123,9 +123,9 @@ CustomerDissatisfaction: 1
 
 ####### <!--[RAC]--> Acceptance Criteria
 
-######## <!--[ACCR-CRIT-LST]--> Criteria
+######## <!--[ACE-CRIT-LST]--> Criteria
 
-######### <!--[ACCR-CRIT-1]--> Acceptance Criterion 1
+######### <!--[ACE-CRIT-1]--> Acceptance Criterion 1
 
 CriterionId: FR-01-AC-1
 CriterionTitle: EDI order accepted
@@ -137,7 +137,7 @@ TestType: Integration
 Priority: Must
 Status: Draft
 
-######### <!--[ACCR-CRIT-2]--> Acceptance Criterion 2
+######### <!--[ACE-CRIT-2]--> Acceptance Criterion 2
 
 CriterionId: FR-01-AC-2
 CriterionTitle: REST order accepted
@@ -172,9 +172,9 @@ FitCriterion: Each confirmed line carries a unitPrice snapshot equal to the pric
 
 ####### <!--[RAC]--> Acceptance Criteria
 
-######## <!--[ACCR-CRIT-LST]--> Criteria
+######## <!--[ACE-CRIT-LST]--> Criteria
 
-######### <!--[ACCR-CRIT-1]--> Acceptance Criterion 1
+######### <!--[ACE-CRIT-1]--> Acceptance Criterion 1
 
 CriterionId: FR-02-AC-1
 CriterionTitle: Price snapshotted onto line
@@ -205,9 +205,9 @@ RiskLevel: High
 
 ####### <!--[RAC]--> Acceptance Criteria
 
-######## <!--[ACCR-CRIT-LST]--> Criteria
+######## <!--[ACE-CRIT-LST]--> Criteria
 
-######### <!--[ACCR-CRIT-1]--> Acceptance Criterion 1
+######### <!--[ACE-CRIT-1]--> Acceptance Criterion 1
 
 CriterionId: FR-03-AC-1
 CriterionTitle: Stock reserved when available
@@ -219,7 +219,7 @@ TestType: Integration
 Priority: Must
 Status: Draft
 
-######### <!--[ACCR-CRIT-2]--> Acceptance Criterion 2
+######### <!--[ACE-CRIT-2]--> Acceptance Criterion 2
 
 CriterionId: FR-03-AC-2
 CriterionTitle: Short line placed on Hold
@@ -250,9 +250,9 @@ RiskLevel: Medium
 
 ####### <!--[RAC]--> Acceptance Criteria
 
-######## <!--[ACCR-CRIT-LST]--> Criteria
+######## <!--[ACE-CRIT-LST]--> Criteria
 
-######### <!--[ACCR-CRIT-1]--> Acceptance Criterion 1
+######### <!--[ACE-CRIT-1]--> Acceptance Criterion 1
 
 CriterionId: FR-04-AC-1
 CriterionTitle: Order confirmed within budget
@@ -264,7 +264,7 @@ TestType: Integration
 Priority: Must
 Status: Draft
 
-######### <!--[ACCR-CRIT-2]--> Acceptance Criterion 2
+######### <!--[ACE-CRIT-2]--> Acceptance Criterion 2
 
 CriterionId: FR-04-AC-2
 CriterionTitle: Confirmation surfaced to operations and tracking
@@ -295,9 +295,9 @@ RiskLevel: Medium
 
 ####### <!--[RAC]--> Acceptance Criteria
 
-######## <!--[ACCR-CRIT-LST]--> Criteria
+######## <!--[ACE-CRIT-LST]--> Criteria
 
-######### <!--[ACCR-CRIT-1]--> Acceptance Criterion 1
+######### <!--[ACE-CRIT-1]--> Acceptance Criterion 1
 
 CriterionId: FR-05-AC-1
 CriterionTitle: Amendment re-runs pricing and reservation
@@ -309,7 +309,7 @@ TestType: Integration
 Priority: Must
 Status: Draft
 
-######### <!--[ACCR-CRIT-2]--> Acceptance Criterion 2
+######### <!--[ACE-CRIT-2]--> Acceptance Criterion 2
 
 CriterionId: FR-05-AC-2
 CriterionTitle: Cancellation blocked after dispatch
@@ -340,9 +340,9 @@ RiskLevel: Low
 
 ####### <!--[RAC]--> Acceptance Criteria
 
-######## <!--[ACCR-CRIT-LST]--> Criteria
+######## <!--[ACE-CRIT-LST]--> Criteria
 
-######### <!--[ACCR-CRIT-1]--> Acceptance Criterion 1
+######### <!--[ACE-CRIT-1]--> Acceptance Criterion 1
 
 CriterionId: FR-06-AC-1
 CriterionTitle: Supervisor releases hold
@@ -1508,11 +1508,14 @@ Purpose: The single, state-filtered queue from which clerks work every order.
 ScreenCategory: List
 RoutePattern: /orders
 
-######## <!--[SCEAC]--> Access
+######## <!--[AZREQ]--> Access
 
-AccessLevel: Authenticated
-RequiredRoles: Order Clerk, Order Supervisor
-PermissionEffect: Allow
+RequirementKind: role
+Rationale: The work list exposes every open order, so it is limited to the two roles that work the queue.
+
+######### <!--[AZREQ-ROLE]--> Role Requirement
+
+Roles: Order Clerk, Order Supervisor
 
 ######## <!--[SCETR]--> Traceability
 
@@ -1631,11 +1634,14 @@ ScreenCategory: Detail
 ParentScreenId: SCR-01
 RoutePattern: /orders/:orderId
 
-######## <!--[SCEAC]--> Access
+######## <!--[AZREQ]--> Access
 
-AccessLevel: Authenticated
-RequiredRoles: Order Clerk, Order Supervisor
-PermissionEffect: Allow
+RequirementKind: role
+Rationale: Order detail carries the amendment actions, so it is held to the same two roles as the work list it is reached from.
+
+######### <!--[AZREQ-ROLE]--> Role Requirement
+
+Roles: Order Clerk, Order Supervisor
 
 ######## <!--[SCETR]--> Traceability
 
@@ -1757,15 +1763,15 @@ MOM alone.
 
 ### <!--[I25CV]--> Iso25010 Coverage
 
-#### <!--[I25CV-CHAR-LST]--> Characteristics
+#### <!--[I25CE-CHAR-LST]--> Characteristics
 
-##### <!--[I25CV-CHAR-1]--> Iso25010 Coverage 1
+##### <!--[I25CE-CHAR-1]--> Iso25010 Coverage 1
 
 Characteristic: performanceEfficiency
 AddressedBy: NFR load test at 3x peak-hour order volume
 TargetMetric: p95 order-capture latency within budget at 3x peak
 
-##### <!--[I25CV-CHAR-2]--> Iso25010 Coverage 2
+##### <!--[I25CE-CHAR-2]--> Iso25010 Coverage 2
 
 Characteristic: reliability
 AddressedBy: Two-week parallel run against OrderDesk

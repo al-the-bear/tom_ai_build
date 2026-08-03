@@ -3,33 +3,21 @@
 
 title-format: "# <!--[TRP]--> Transition & Rollout Plan"
 section-types:
-  trmoen-trai-lst:
-    prefix: TRMOEN_TRAI_LST
+  tme-trai-lst:
+    prefix: TME_TRAI_LST
     subsection-types:
-      trmoen-trai:
+      tme-trai:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per training module.
-  trveen-vend-lst:
-    prefix: TRVEEN_VEND_LST
+  tve-vend-lst:
+    prefix: TVE_VEND_LST
     subsection-types:
-      trveen-vend:
+      tve-vend:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: Add one entry per translation vendor.
-  trmoen-trai:
-    prefix: TRMOEN_TRAI_
-    pattern-check-id:
-      pattern: ^TRMOEN-TRAI-.+$
-      error-message: IDs of this section must match TRMOEN-TRAI-xxx
-    description: Add one entry per training module.
-  trveen-vend:
-    prefix: TRVEEN_VEND_
-    pattern-check-id:
-      pattern: ^TRVEEN-VEND-.+$
-      error-message: IDs of this section must match TRVEEN-VEND-xxx
     description: Add one entry per translation vendor.
   doantr-docu:
     prefix: DOANTR_DOCU
@@ -40,9 +28,21 @@ section-types:
   lopr-loca:
     prefix: LOPR_LOCA
     format: lopr-loca-form
+  tme-trai:
+    prefix: TME_TRAI_
+    pattern-check-id:
+      pattern: ^TME-TRAI-.+$
+      error-message: IDs of this section must match TME-TRAI-xxx
+    description: Add one entry per training module.
   trpr-tran:
     prefix: TRPR_TRAN
     format: trpr-tran-form
+  tve-vend:
+    prefix: TVE_VEND_
+    pattern-check-id:
+      pattern: ^TVE-VEND-.+$
+      error-message: IDs of this section must match TVE-VEND-xxx
+    description: Add one entry per translation vendor.
   cutprc:
     prefix: CUTPRC
     description: Cutover procedures.
@@ -110,7 +110,7 @@ section-types:
     subsection-types:
       trmat-trai:
         max-count: 1
-      trmoen-trai-lst:
+      tme-trai-lst:
         max-count: 1
     description: Training deliverable requirements (training half of the former DOANTR;
   wrtsp:
@@ -149,7 +149,7 @@ section-types:
         max-count: 1
       trpron:
         max-count: 1
-      trveen-vend-lst:
+      tve-vend-lst:
         max-count: 1
     description: Translation process.
 form-types:

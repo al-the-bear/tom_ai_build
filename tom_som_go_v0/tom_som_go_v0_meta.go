@@ -491,7 +491,7 @@ func metaChildrenAlertingConfiguration(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "AlertNotificationChannels", MemberName: "notificationChannels", ClassSectionID: "ALNOCH", Kind: som.SomMetaKindComplex, TypeName: "AlertNotificationChannels", SerializationOrder: metaIntPtr(2), DocComment: "Notification channels.", ClassDocComment: "Alert notification channels.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "AlertingConfiguration", MemberName: "alertRules", SectionID: "ALRUEN-ALER-LST", SectionIDPattern: "ALRUEN-ALER-xxx", Kind: som.SomMetaKindList, TypeName: "AlertRuleEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per alert rule.", DocComment: "Alert rules catalog.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Prometheus — Alertmanager (routing, grouping, silencing)"}, "connotation": "The catalog of alert rules the system evaluates."}}}}
+			n := &som.SomMetaNode{ClassName: "AlertingConfiguration", MemberName: "alertRules", SectionID: "ALERULENT-ALER-LST", SectionIDPattern: "ALERULENT-ALER-xxx", Kind: som.SomMetaKindList, TypeName: "AlertRuleEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per alert rule.", DocComment: "Alert rules catalog.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Prometheus — Alertmanager (routing, grouping, silencing)"}, "connotation": "The catalog of alert rules the system evaluates."}}}}
 			n.ElementNode = metaCx("AlertRuleEntry", s, metaChildrenAlertRuleEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "AlertRuleEntry", ClassSectionID: "ALERULENT", Kind: som.SomMetaKindComplex, TypeName: "AlertRuleEntry", DocComment: "An alert rule entry.", ClassDocComment: "An alert rule entry.", Recursive: r, Children: c}
 			})
@@ -645,7 +645,7 @@ func metaChildrenApiVersioningStrategy(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenApplicableRegulationEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "ApplicableRegulationEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "regulationName", TypeName: "String", Description: "Regulation Name", Required: true, Hint: "The name of this regulation", Order: 0}, {Name: "regulationCode", TypeName: "String", Description: "Regulation Code / Reference", Hint: "The code or reference identifier for this regulation", Order: 1}, {Name: "regulationType", TypeName: "String", Description: "Regulation Type (Privacy, Security, Financial, Industry, Data Retention, Accessibility)", Required: true, Hint: "The category of regulation", Order: 2}, {Name: "jurisdiction", TypeName: "String", Description: "Jurisdiction (Geographic or organizational scope)", Hint: "The geographic or organizational scope of this regulation", Order: 3}, {Name: "applicability", TypeName: "String", Description: "Applicability (why this regulation applies to this system)", Hint: "Why this regulation applies to this system", Order: 4}, {Name: "keyRequirements", TypeName: "String", Description: "Key Requirements (summary of main requirements)", Hint: "A summary of the main requirements", Order: 5}, {Name: "complianceStatus", TypeName: "String", Description: "Compliance Status (Compliant, Partially Compliant, Non-Compliant, To Be Assessed)", Hint: "The current compliance status", Order: 6}, {Name: "complianceOwner", TypeName: "String", Description: "Compliance Owner (who is responsible for compliance)", Hint: "Who is responsible for compliance", Order: 7}, {Name: "auditRequirements", TypeName: "String", Description: "Audit Requirements (audit frequency, type)", Hint: "Audit frequency and type required", Order: 8}, {Name: "penalties", TypeName: "String", Description: "Penalties (consequences of non-compliance)", Hint: "Consequences of non-compliance", Order: 9}}}},
-		{ClassName: "ApplicableRegulationEntry", MemberName: "complianceMeasures", SectionID: "COMPL-COMP-LST", SectionIDPattern: "COMPL-COMP-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per compliance measure taken to satisfy this regulation.", DocComment: "Specific compliance measures for this regulation.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001 — compliance with legal & contractual requirements"}, "connotation": "The set of specific compliance-measure entries for this regulation."}}}},
+		{ClassName: "ApplicableRegulationEntry", MemberName: "complianceMeasures", SectionID: "ARE-COMP-LST", SectionIDPattern: "ARE-COMP-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per compliance measure taken to satisfy this regulation.", DocComment: "Specific compliance measures for this regulation.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001 — compliance with legal & contractual requirements"}, "connotation": "The set of specific compliance-measure entries for this regulation."}}}},
 	}
 }
 
@@ -783,21 +783,21 @@ func metaChildrenAssumptionConstraintDependencyRegister(s map[string]bool) []*so
 	return []*som.SomMetaNode{
 		{ClassName: "AssumptionConstraintDependencyRegister", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), Unused: true, ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "AssumptionConstraintDependencyRegister", MemberName: "assumptions", SectionID: "ACRG-ASMP-LST", SectionIDPattern: "ACRG-ASMP-xxx", Kind: som.SomMetaKindList, TypeName: "AssumptionRegisterEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per assumption (ASM-NNN).", DocComment: "Assumptions the solution depends on being true."}
+			n := &som.SomMetaNode{ClassName: "AssumptionConstraintDependencyRegister", MemberName: "assumptions", SectionID: "ASMRE-ASMP-LST", SectionIDPattern: "ASMRE-ASMP-xxx", Kind: som.SomMetaKindList, TypeName: "AssumptionRegisterEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per assumption (ASM-NNN).", DocComment: "Assumptions the solution depends on being true."}
 			n.ElementNode = metaCx("AssumptionRegisterEntry", s, metaChildrenAssumptionRegisterEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "AssumptionRegisterEntry", ClassSectionID: "ASMRE", Kind: som.SomMetaKindComplex, TypeName: "AssumptionRegisterEntry", DocComment: "A single assumption register entry (form).\n\nNamed `AssumptionRegisterEntry` to avoid collision with the pre-existing\n`AssumptionEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", ClassDocComment: "A single assumption register entry (form).\n\nNamed `AssumptionRegisterEntry` to avoid collision with the pre-existing\n`AssumptionEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "AssumptionConstraintDependencyRegister", MemberName: "constraints", SectionID: "ACRG-CONS-LST", SectionIDPattern: "ACRG-CONS-xxx", Kind: som.SomMetaKindList, TypeName: "ConstraintRegisterEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per constraint (CON-NNN).", DocComment: "Constraints the solution must operate within."}
+			n := &som.SomMetaNode{ClassName: "AssumptionConstraintDependencyRegister", MemberName: "constraints", SectionID: "CONRE-CONS-LST", SectionIDPattern: "CONRE-CONS-xxx", Kind: som.SomMetaKindList, TypeName: "ConstraintRegisterEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per constraint (CON-NNN).", DocComment: "Constraints the solution must operate within."}
 			n.ElementNode = metaCx("ConstraintRegisterEntry", s, metaChildrenConstraintRegisterEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ConstraintRegisterEntry", ClassSectionID: "CONRE", Kind: som.SomMetaKindComplex, TypeName: "ConstraintRegisterEntry", DocComment: "A single constraint register entry (form).\n\nNamed `ConstraintRegisterEntry` to avoid collision with the pre-existing\n`ConstraintEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", ClassDocComment: "A single constraint register entry (form).\n\nNamed `ConstraintRegisterEntry` to avoid collision with the pre-existing\n`ConstraintEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "AssumptionConstraintDependencyRegister", MemberName: "dependencies", SectionID: "ACRG-DEPS-LST", SectionIDPattern: "ACRG-DEPS-xxx", Kind: som.SomMetaKindList, TypeName: "DependencyRegisterEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per dependency (DEP-NNN).", DocComment: "Dependencies the solution relies on (external systems, teams, vendors,\nprerequisite deliverables, framework conditions)."}
+			n := &som.SomMetaNode{ClassName: "AssumptionConstraintDependencyRegister", MemberName: "dependencies", SectionID: "DEPRE-DEPS-LST", SectionIDPattern: "DEPRE-DEPS-xxx", Kind: som.SomMetaKindList, TypeName: "DependencyRegisterEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per dependency (DEP-NNN).", DocComment: "Dependencies the solution relies on (external systems, teams, vendors,\nprerequisite deliverables, framework conditions)."}
 			n.ElementNode = metaCx("DependencyRegisterEntry", s, metaChildrenDependencyRegisterEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DependencyRegisterEntry", ClassSectionID: "DEPRE", Kind: som.SomMetaKindComplex, TypeName: "DependencyRegisterEntry", DocComment: "A single dependency register entry (form).\n\nCaptures an external dependency the solution relies on — another system, a\nteam, a vendor, a prerequisite deliverable, or a framework condition — so the\ndependency content otherwise scattered across SBP.2 / framework conditions\nhas a canonical home in SBP.6 (the prerequisite destination for the L34C-4\ndependency re-home).", ClassDocComment: "A single dependency register entry (form).\n\nCaptures an external dependency the solution relies on — another system, a\nteam, a vendor, a prerequisite deliverable, or a framework condition — so the\ndependency content otherwise scattered across SBP.2 / framework conditions\nhas a canonical home in SBP.6 (the prerequisite destination for the L34C-4\ndependency re-home).", Recursive: r, Children: c}
 			})
@@ -1131,7 +1131,7 @@ func metaChildrenBackupAndRecoverySection(s map[string]bool) []*som.SomMetaNode 
 			return &som.SomMetaNode{ClassName: "BackupDataClassification", MemberName: "dataClassification", ClassSectionID: "BADACL", Kind: som.SomMetaKindComplex, TypeName: "BackupDataClassification", SerializationOrder: metaIntPtr(2), DocComment: "Data classification for backup purposes.", ClassDocComment: "Data classification for backup purposes.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "BackupAndRecoverySection", MemberName: "backupPolicies", SectionID: "BAPOEN-BACK-LST", SectionIDPattern: "BAPOEN-BACK-xxx", Kind: som.SomMetaKindList, TypeName: "BackupPolicyEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per backup policy.", DocComment: "Backup policies by data type.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27031 — ICT business continuity / disaster recovery"}, "connotation": "The backup policies the system applies."}}}}
+			n := &som.SomMetaNode{ClassName: "BackupAndRecoverySection", MemberName: "backupPolicies", SectionID: "BPE-BACK-LST", SectionIDPattern: "BPE-BACK-xxx", Kind: som.SomMetaKindList, TypeName: "BackupPolicyEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per backup policy.", DocComment: "Backup policies by data type.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27031 — ICT business continuity / disaster recovery"}, "connotation": "The backup policies the system applies."}}}}
 			n.ElementNode = metaCx("BackupPolicyEntry", s, metaChildrenBackupPolicyEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "BackupPolicyEntry", ClassSectionID: "BPE", Kind: som.SomMetaKindComplex, TypeName: "BackupPolicyEntry", DocComment: "Backup policy entry.", ClassDocComment: "Backup policy entry.", Recursive: r, Children: c}
 			})
@@ -1287,7 +1287,7 @@ func metaChildrenBoundaryAssumptions(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "BoundaryAssumptions", MemberName: "assumptionApproach", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe assumption categories, validation timeline, and impact assessment approach for assumption failures.", DocComment: "Overview of assumption categories and validation approach."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "BoundaryAssumptions", MemberName: "items", SectionID: "BOASEN-ITEM-LST", SectionIDPattern: "BOASEN-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "BoundaryAssumptionEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Each entry records one assumption with its category, validation status, and risk if proven incorrect.", DocComment: "Contains 0+× BoundaryAssumptionEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — scope definition & assumptions/dependencies", "ISO 31000 — risk management (assumption risk)"}, "connotation": "Lists each individual assumption so it can be owned, validated, and risk-assessed."}}}}
+			n := &som.SomMetaNode{ClassName: "BoundaryAssumptions", MemberName: "items", SectionID: "BAE-ITEM-LST", SectionIDPattern: "BAE-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "BoundaryAssumptionEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Each entry records one assumption with its category, validation status, and risk if proven incorrect.", DocComment: "Contains 0+× BoundaryAssumptionEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — scope definition & assumptions/dependencies", "ISO 31000 — risk management (assumption risk)"}, "connotation": "Lists each individual assumption so it can be owned, validated, and risk-assessed."}}}}
 			n.ElementNode = metaCx("BoundaryAssumptionEntry", s, metaChildrenBoundaryAssumptionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "BoundaryAssumptionEntry", ClassSectionID: "BAE", Kind: som.SomMetaKindComplex, TypeName: "BoundaryAssumptionEntry", DocComment: "A boundary assumption entry (form).", ClassDocComment: "A boundary assumption entry (form).", Recursive: r, Children: c}
 			})
@@ -1316,7 +1316,7 @@ func metaChildrenBreakpointConfiguration(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "BreakpointConfiguration", MemberName: "breakpointOverview", SectionID: "BC-BREA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "mobileMax", TypeName: "String", Description: "Mobile Max Width", Hint: "Maximum width for mobile (e.g., 599)", Order: 0}, {Name: "tabletMin", TypeName: "String", Description: "Tablet Min Width", Hint: "Minimum width for tablet (e.g., 600)", Order: 1}, {Name: "tabletMax", TypeName: "String", Description: "Tablet Max Width", Hint: "Maximum width for tablet (e.g., 1023)", Order: 2}, {Name: "desktopMin", TypeName: "String", Description: "Desktop Min Width", Hint: "Minimum width for desktop (e.g., 1024)", Order: 3}, {Name: "largeDesktopMin", TypeName: "String", Description: "Large Desktop Min Width", Hint: "Minimum width for large screens (e.g., 1440)", Order: 4}, {Name: "watchMax", TypeName: "String", Description: "Watch Max Width", Hint: "Maximum width for wearables", Order: 5}, {Name: "foldableBreakpoint", TypeName: "String", Description: "Foldable Breakpoint", Hint: "Breakpoint for foldable devices", Order: 6}, {Name: "customBreakpoints", TypeName: "String", Description: "Custom Breakpoints", Hint: "Additional app-specific breakpoints", Order: 7}, {Name: "breakpointUnit", TypeName: "String", Description: "Breakpoint Unit", Hint: "Logical pixels, device pixels", Order: 8}, {Name: "densityHandling", TypeName: "String", Description: "Density Handling", Hint: "How pixel density is handled", Order: 9}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "BreakpointConfiguration", MemberName: "breakpoints", SectionID: "BRE-BREA-LST", SectionIDPattern: "BRE-BREA-xxx", Kind: som.SomMetaKindList, TypeName: "BreakpointEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per layout breakpoint.", DocComment: "Breakpoint entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"W3C CSS Media Queries — a breakpoint marks a viewport width at which the layout changes"}, "connotation": "The collection of layout breakpoint entries."}}}}
+			n := &som.SomMetaNode{ClassName: "BreakpointConfiguration", MemberName: "breakpoints", SectionID: "BE-BREA-LST", SectionIDPattern: "BE-BREA-xxx", Kind: som.SomMetaKindList, TypeName: "BreakpointEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per layout breakpoint.", DocComment: "Breakpoint entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"W3C CSS Media Queries — a breakpoint marks a viewport width at which the layout changes"}, "connotation": "The collection of layout breakpoint entries."}}}}
 			n.ElementNode = metaCx("BreakpointEntry", s, metaChildrenBreakpointEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "BreakpointEntry", ClassSectionID: "BE", Kind: som.SomMetaKindComplex, TypeName: "BreakpointEntry", DocComment: "A breakpoint entry.", ClassDocComment: "A breakpoint entry.", Recursive: r, Children: c}
 			})
@@ -1554,7 +1554,7 @@ func metaChildrenBusinessPainPoints(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "BusinessPainPoints", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Overview of business pain points affecting strategic outcomes and growth.\nInclude revenue impact, compliance exposure, customer retention effects,\nand competitive positioning concerns.\n"},
 		{ClassName: "BusinessPainPoints", MemberName: "categorySummary", SectionID: "BPPS", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentHelp: "Aggregate the business pain points into category metrics: estimated revenue loss, compliance risk exposure, customer-satisfaction impact, and scalability constraints.", DocComment: "Category-level summary for business pain points.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "estimatedRevenueLoss", TypeName: "String", Description: "Estimated Annual Revenue Loss", Hint: "Revenue lost due to business pain points, e.g. €250k/year", Order: 0}, {Name: "complianceRiskExposure", TypeName: "String", Description: "Compliance Risk Exposure", Hint: "Potential regulatory penalties or fines, e.g. up to €500k", Order: 1}, {Name: "customerSatisfactionImpact", TypeName: "String", Description: "Customer Satisfaction Impact", Hint: "NPS or CSAT impact, e.g. -15 NPS points", Order: 2}, {Name: "marketShareImpact", TypeName: "String", Description: "Market Share Impact", Hint: "Estimated market share loss, e.g. 2-3% market share", Order: 3}, {Name: "missedOpportunitiesCost", TypeName: "String", Description: "Missed Opportunities Cost", Hint: "Revenue from opportunities not pursued, e.g. €400k/year", Order: 4}, {Name: "scalabilityConstraints", TypeName: "String", Description: "Scalability Constraints", Hint: "Growth limitations, e.g. Cannot support >10k concurrent users", Order: 5}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (business measures)"}, "connotation": "Category roll-up quantifying the business pain points — revenue loss, compliance exposure, and customer-satisfaction impact in the current state."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "BusinessPainPoints", MemberName: "items", SectionID: "BUPAPO-ITEM-LST", SectionIDPattern: "BUPAPO-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "PainPointEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per distinct business problem, each with its own root cause, quantified impact, and resolution outlook. Scope entries to strategic and financial outcomes rather than operational or technical detail.", DocComment: "Contains 0+× PainPoint.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (problem identification)"}, "connotation": "The list of individual business pain points documented in detail."}}}}
+			n := &som.SomMetaNode{ClassName: "BusinessPainPoints", MemberName: "items", SectionID: "PAPE-ITEM-LST", SectionIDPattern: "PAPE-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "PainPointEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per distinct business problem, each with its own root cause, quantified impact, and resolution outlook. Scope entries to strategic and financial outcomes rather than operational or technical detail.", DocComment: "Contains 0+× PainPoint.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (problem identification)"}, "connotation": "The list of individual business pain points documented in detail."}}}}
 			n.ElementNode = metaCx("PainPointEntry", s, metaChildrenPainPointEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "PainPointEntry", ClassSectionID: "PAPE", Kind: som.SomMetaKindComplex, TypeName: "PainPointEntry", DocComment: "A pain point entry (form).\n\nDocuments a specific problem in the current state with comprehensive details:\nroot cause analysis, impact quantification, affected stakeholders,\ncurrent workarounds, and proposed resolution approach.", ClassDocComment: "A pain point entry (form).\n\nDocuments a specific problem in the current state with comprehensive details:\nroot cause analysis, impact quantification, affected stakeholders,\ncurrent workarounds, and proposed resolution approach.", Recursive: r, Children: c}
 			})
@@ -2021,21 +2021,21 @@ func metaChildrenCiCdPipelineConfiguration(s map[string]bool) []*som.SomMetaNode
 	return []*som.SomMetaNode{
 		{ClassName: "CiCdPipelineConfiguration", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "cicdPlatform", TypeName: "String", Description: "CI/CD Platform", Hint: "GitHub Actions, GitLab CI, Jenkins, CircleCI", Order: 0}, {Name: "configurationLocation", TypeName: "String", Description: "Configuration Location", Hint: "Where pipeline configs live", Order: 1}, {Name: "secretsManagement", TypeName: "String", Description: "Secrets Management", Hint: "How secrets are stored and accessed", Order: 2}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "CiCdPipelineConfiguration", MemberName: "stages", SectionID: "PISTEN-STAG-LST", SectionIDPattern: "PISTEN-STAG-xxx", Kind: som.SomMetaKindList, TypeName: "PipelineStageEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per pipeline stage.", DocComment: "Pipeline stages.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"CI/CD — continuous integration / delivery pipelines"}, "connotation": "The stages that make up the delivery pipeline."}}}}
+			n := &som.SomMetaNode{ClassName: "CiCdPipelineConfiguration", MemberName: "stages", SectionID: "PSE-STAG-LST", SectionIDPattern: "PSE-STAG-xxx", Kind: som.SomMetaKindList, TypeName: "PipelineStageEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per pipeline stage.", DocComment: "Pipeline stages.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"CI/CD — continuous integration / delivery pipelines"}, "connotation": "The stages that make up the delivery pipeline."}}}}
 			n.ElementNode = metaCx("PipelineStageEntry", s, metaChildrenPipelineStageEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "PipelineStageEntry", ClassSectionID: "PSE", Kind: som.SomMetaKindComplex, TypeName: "PipelineStageEntry", DocComment: "Pipeline stage entry.", ClassDocComment: "Pipeline stage entry.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "CiCdPipelineConfiguration", MemberName: "jobs", SectionID: "PIJOEN-JOBS-LST", SectionIDPattern: "PIJOEN-JOBS-xxx", Kind: som.SomMetaKindList, TypeName: "PipelineJobEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per pipeline job.", DocComment: "Build jobs.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"CI/CD — continuous integration / delivery pipelines"}, "connotation": "The build jobs that run within the delivery pipeline."}}}}
+			n := &som.SomMetaNode{ClassName: "CiCdPipelineConfiguration", MemberName: "jobs", SectionID: "PJE-JOBS-LST", SectionIDPattern: "PJE-JOBS-xxx", Kind: som.SomMetaKindList, TypeName: "PipelineJobEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per pipeline job.", DocComment: "Build jobs.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"CI/CD — continuous integration / delivery pipelines"}, "connotation": "The build jobs that run within the delivery pipeline."}}}}
 			n.ElementNode = metaCx("PipelineJobEntry", s, metaChildrenPipelineJobEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "PipelineJobEntry", ClassSectionID: "PJE", Kind: som.SomMetaKindComplex, TypeName: "PipelineJobEntry", DocComment: "Pipeline job entry.", ClassDocComment: "Pipeline job entry.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "CiCdPipelineConfiguration", MemberName: "environments", SectionID: "DEENEN-ENVI-LST", SectionIDPattern: "DEENEN-ENVI-xxx", Kind: som.SomMetaKindList, TypeName: "DeploymentEnvironmentEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per deployment environment.", DocComment: "Deployment environments.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"CI/CD — continuous integration / delivery pipelines"}, "connotation": "The deployment environments targeted by the pipeline."}}}}
+			n := &som.SomMetaNode{ClassName: "CiCdPipelineConfiguration", MemberName: "environments", SectionID: "DEE-ENVI-LST", SectionIDPattern: "DEE-ENVI-xxx", Kind: som.SomMetaKindList, TypeName: "DeploymentEnvironmentEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per deployment environment.", DocComment: "Deployment environments.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"CI/CD — continuous integration / delivery pipelines"}, "connotation": "The deployment environments targeted by the pipeline."}}}}
 			n.ElementNode = metaCx("DeploymentEnvironmentEntry", s, metaChildrenDeploymentEnvironmentEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DeploymentEnvironmentEntry", ClassSectionID: "DEE", Kind: som.SomMetaKindComplex, TypeName: "DeploymentEnvironmentEntry", DocComment: "Deployment environment entry.", ClassDocComment: "Deployment environment entry.", Recursive: r, Children: c}
 			})
@@ -2121,21 +2121,21 @@ func metaChildrenClientRequirementsSection(s map[string]bool) []*som.SomMetaNode
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ClientRequirementsSection", MemberName: "browserRequirements", SectionID: "BRREEN-BROW-LST", SectionIDPattern: "BRREEN-BROW-xxx", Kind: som.SomMetaKindList, TypeName: "BrowserRequirementEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per supported web browser.", DocComment: "Web browser requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"WHATWG / W3C — web platform / browser standards"}, "connotation": "The web browsers the client must support."}}}}
+			n := &som.SomMetaNode{ClassName: "ClientRequirementsSection", MemberName: "browserRequirements", SectionID: "BROREQENT-BROW-LST", SectionIDPattern: "BROREQENT-BROW-xxx", Kind: som.SomMetaKindList, TypeName: "BrowserRequirementEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per supported web browser.", DocComment: "Web browser requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"WHATWG / W3C — web platform / browser standards"}, "connotation": "The web browsers the client must support."}}}}
 			n.ElementNode = metaCx("BrowserRequirementEntry", s, metaChildrenBrowserRequirementEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "BrowserRequirementEntry", ClassSectionID: "BROREQENT", Kind: som.SomMetaKindComplex, TypeName: "BrowserRequirementEntry", DocComment: "Browser requirement entry.", ClassDocComment: "Browser requirement entry.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ClientRequirementsSection", MemberName: "desktopOsRequirements", SectionID: "DORE1-DESK-LST", SectionIDPattern: "DORE1-DESK-xxx", Kind: som.SomMetaKindList, TypeName: "DesktopOsRequirementEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per supported desktop operating system.", DocComment: "Desktop operating system requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — performance efficiency / resource utilization"}, "connotation": "The desktop operating systems the client must support."}}}}
+			n := &som.SomMetaNode{ClassName: "ClientRequirementsSection", MemberName: "desktopOsRequirements", SectionID: "DEOSREEN-DESK-LST", SectionIDPattern: "DEOSREEN-DESK-xxx", Kind: som.SomMetaKindList, TypeName: "DesktopOsRequirementEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per supported desktop operating system.", DocComment: "Desktop operating system requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — performance efficiency / resource utilization"}, "connotation": "The desktop operating systems the client must support."}}}}
 			n.ElementNode = metaCx("DesktopOsRequirementEntry", s, metaChildrenDesktopOsRequirementEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DesktopOsRequirementEntry", ClassSectionID: "DEOSREEN", Kind: som.SomMetaKindComplex, TypeName: "DesktopOsRequirementEntry", DocComment: "Desktop operating system requirement entry.", ClassDocComment: "Desktop operating system requirement entry.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ClientRequirementsSection", MemberName: "mobileRequirements", SectionID: "MDRE-MOBI-LST", SectionIDPattern: "MDRE-MOBI-xxx", Kind: som.SomMetaKindList, TypeName: "MobileDeviceRequirementEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per supported mobile platform.", DocComment: "Mobile device requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Android CDD / Apple HIG — mobile device platform requirements"}, "connotation": "The mobile platforms and devices the client must support."}}}}
+			n := &som.SomMetaNode{ClassName: "ClientRequirementsSection", MemberName: "mobileRequirements", SectionID: "MODEREEN-MOBI-LST", SectionIDPattern: "MODEREEN-MOBI-xxx", Kind: som.SomMetaKindList, TypeName: "MobileDeviceRequirementEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per supported mobile platform.", DocComment: "Mobile device requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Android CDD / Apple HIG — mobile device platform requirements"}, "connotation": "The mobile platforms and devices the client must support."}}}}
 			n.ElementNode = metaCx("MobileDeviceRequirementEntry", s, metaChildrenMobileDeviceRequirementEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "MobileDeviceRequirementEntry", ClassSectionID: "MODEREEN", Kind: som.SomMetaKindComplex, TypeName: "MobileDeviceRequirementEntry", DocComment: "Mobile device requirement entry.", ClassDocComment: "Mobile device requirement entry.", Recursive: r, Children: c}
 			})
@@ -2358,28 +2358,28 @@ func metaChildrenCompatibilityRequirementsSection(s map[string]bool) []*som.SomM
 		{ClassName: "CompatibilityRequirementsSection", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Provide an overview of compatibility requirements and testing strategy.\n\n**Include**:\n- Critical compatibility requirements\n- Testing approach and coverage\n- Known compatibility limitations\n- Browser/OS support policy\n- Deprecation and sunset timeline\n\n**Best Practices**:\n- Maintain live compatibility matrix\n- Automate compatibility testing in CI\n- Define clear support tiers (full, limited, best-effort)\n- Plan for mobile OS release cycles\n- Document workarounds for known issues\n"},
 		{ClassName: "CompatibilityRequirementsSection", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Overview of compatibility strategy."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "CompatibilityRequirementsSection", MemberName: "osCompatibility", SectionID: "OSCOEN-OSCO-LST", SectionIDPattern: "OSCOEN-OSCO-xxx", Kind: som.SomMetaKindList, TypeName: "OsCompatibilityEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per supported operating system.", DocComment: "Operating system compatibility requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"POSIX / ISO/IEC 9945 — operating-system interface", "ISO/IEC 25010 — compatibility (co-existence / interoperability)"}, "connotation": "The operating systems the system must support."}}}}
+			n := &som.SomMetaNode{ClassName: "CompatibilityRequirementsSection", MemberName: "osCompatibility", SectionID: "OCE-OSCO-LST", SectionIDPattern: "OCE-OSCO-xxx", Kind: som.SomMetaKindList, TypeName: "OsCompatibilityEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per supported operating system.", DocComment: "Operating system compatibility requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"POSIX / ISO/IEC 9945 — operating-system interface", "ISO/IEC 25010 — compatibility (co-existence / interoperability)"}, "connotation": "The operating systems the system must support."}}}}
 			n.ElementNode = metaCx("OsCompatibilityEntry", s, metaChildrenOsCompatibilityEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "OsCompatibilityEntry", ClassSectionID: "OCE", Kind: som.SomMetaKindComplex, TypeName: "OsCompatibilityEntry", DocComment: "Operating system compatibility entry.", ClassDocComment: "Operating system compatibility entry.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "CompatibilityRequirementsSection", MemberName: "browserCompatibility", SectionID: "BRCOEN-BROW-LST", SectionIDPattern: "BRCOEN-BROW-xxx", Kind: som.SomMetaKindList, TypeName: "BrowserCompatibilityEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per supported browser.", DocComment: "Browser compatibility requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"WHATWG / W3C — web platform / browser standards", "ISO/IEC 25010 — compatibility (co-existence / interoperability)"}, "connotation": "The browsers the system must support."}}}}
+			n := &som.SomMetaNode{ClassName: "CompatibilityRequirementsSection", MemberName: "browserCompatibility", SectionID: "BROCOMENT-BROW-LST", SectionIDPattern: "BROCOMENT-BROW-xxx", Kind: som.SomMetaKindList, TypeName: "BrowserCompatibilityEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per supported browser.", DocComment: "Browser compatibility requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"WHATWG / W3C — web platform / browser standards", "ISO/IEC 25010 — compatibility (co-existence / interoperability)"}, "connotation": "The browsers the system must support."}}}}
 			n.ElementNode = metaCx("BrowserCompatibilityEntry", s, metaChildrenBrowserCompatibilityEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "BrowserCompatibilityEntry", ClassSectionID: "BROCOMENT", Kind: som.SomMetaKindComplex, TypeName: "BrowserCompatibilityEntry", DocComment: "Browser compatibility entry.", ClassDocComment: "Browser compatibility entry.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "CompatibilityRequirementsSection", MemberName: "databaseCompatibility", SectionID: "DACOEN-DATA-LST", SectionIDPattern: "DACOEN-DATA-xxx", Kind: som.SomMetaKindList, TypeName: "DatabaseCompatibilityEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per supported database.", DocComment: "Database compatibility requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 9075 (SQL) — relational database standard", "ISO/IEC 25010 — compatibility (co-existence / interoperability)"}, "connotation": "The databases the system must remain compatible with."}}}}
+			n := &som.SomMetaNode{ClassName: "CompatibilityRequirementsSection", MemberName: "databaseCompatibility", SectionID: "DATCOMENT-DATA-LST", SectionIDPattern: "DATCOMENT-DATA-xxx", Kind: som.SomMetaKindList, TypeName: "DatabaseCompatibilityEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per supported database.", DocComment: "Database compatibility requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 9075 (SQL) — relational database standard", "ISO/IEC 25010 — compatibility (co-existence / interoperability)"}, "connotation": "The databases the system must remain compatible with."}}}}
 			n.ElementNode = metaCx("DatabaseCompatibilityEntry", s, metaChildrenDatabaseCompatibilityEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DatabaseCompatibilityEntry", ClassSectionID: "DATCOMENT", Kind: som.SomMetaKindComplex, TypeName: "DatabaseCompatibilityEntry", DocComment: "Database compatibility entry.", ClassDocComment: "Database compatibility entry.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "CompatibilityRequirementsSection", MemberName: "enterpriseSystemCompatibility", SectionID: "ESCE-ENTE-LST", SectionIDPattern: "ESCE-ENTE-xxx", Kind: som.SomMetaKindList, TypeName: "EnterpriseSystemCompatibilityEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per enterprise system.", DocComment: "Enterprise system compatibility requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — compatibility (co-existence / interoperability)", "ISO/IEC/IEEE 42010 — architecture description"}, "connotation": "The enterprise systems the system must integrate with."}}}}
+			n := &som.SomMetaNode{ClassName: "CompatibilityRequirementsSection", MemberName: "enterpriseSystemCompatibility", SectionID: "ENSYCOEN-ENTE-LST", SectionIDPattern: "ENSYCOEN-ENTE-xxx", Kind: som.SomMetaKindList, TypeName: "EnterpriseSystemCompatibilityEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per enterprise system.", DocComment: "Enterprise system compatibility requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — compatibility (co-existence / interoperability)", "ISO/IEC/IEEE 42010 — architecture description"}, "connotation": "The enterprise systems the system must integrate with."}}}}
 			n.ElementNode = metaCx("EnterpriseSystemCompatibilityEntry", s, metaChildrenEnterpriseSystemCompatibilityEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "EnterpriseSystemCompatibilityEntry", ClassSectionID: "ENSYCOEN", Kind: som.SomMetaKindComplex, TypeName: "EnterpriseSystemCompatibilityEntry", DocComment: "Enterprise system compatibility entry.", ClassDocComment: "Enterprise system compatibility entry.", Recursive: r, Children: c}
 			})
@@ -2393,21 +2393,21 @@ func metaChildrenCompatibilityRequirementsSection(s map[string]bool) []*som.SomM
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "CompatibilityRequirementsSection", MemberName: "legacyCompatibility", SectionID: "LECOEN-LEGA-LST", SectionIDPattern: "LECOEN-LEGA-xxx", Kind: som.SomMetaKindList, TypeName: "LegacyCompatibilityEntry", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per legacy system.", DocComment: "Legacy system compatibility requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — compatibility (co-existence / interoperability)", "ISO/IEC/IEEE 42010 — architecture description"}, "connotation": "The legacy systems the system must remain compatible with."}}}}
+			n := &som.SomMetaNode{ClassName: "CompatibilityRequirementsSection", MemberName: "legacyCompatibility", SectionID: "LCE-LEGA-LST", SectionIDPattern: "LCE-LEGA-xxx", Kind: som.SomMetaKindList, TypeName: "LegacyCompatibilityEntry", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per legacy system.", DocComment: "Legacy system compatibility requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — compatibility (co-existence / interoperability)", "ISO/IEC/IEEE 42010 — architecture description"}, "connotation": "The legacy systems the system must remain compatible with."}}}}
 			n.ElementNode = metaCx("LegacyCompatibilityEntry", s, metaChildrenLegacyCompatibilityEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "LegacyCompatibilityEntry", ClassSectionID: "LCE", Kind: som.SomMetaKindComplex, TypeName: "LegacyCompatibilityEntry", DocComment: "Legacy system compatibility entry.", ClassDocComment: "Legacy system compatibility entry.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "CompatibilityRequirementsSection", MemberName: "mobileCompatibility", SectionID: "MOCOEN-MOBI-LST", SectionIDPattern: "MOCOEN-MOBI-xxx", Kind: som.SomMetaKindList, TypeName: "MobileCompatibilityEntry", SerializationOrder: metaIntPtr(8), ContentHelp: "Add one entry per supported mobile platform.", DocComment: "Mobile device compatibility requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — compatibility (co-existence / interoperability)", "ISO/IEC/IEEE 42010 — architecture description"}, "connotation": "The mobile platforms the system must support."}}}}
+			n := &som.SomMetaNode{ClassName: "CompatibilityRequirementsSection", MemberName: "mobileCompatibility", SectionID: "MOBCOMENT-MOBI-LST", SectionIDPattern: "MOBCOMENT-MOBI-xxx", Kind: som.SomMetaKindList, TypeName: "MobileCompatibilityEntry", SerializationOrder: metaIntPtr(8), ContentHelp: "Add one entry per supported mobile platform.", DocComment: "Mobile device compatibility requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — compatibility (co-existence / interoperability)", "ISO/IEC/IEEE 42010 — architecture description"}, "connotation": "The mobile platforms the system must support."}}}}
 			n.ElementNode = metaCx("MobileCompatibilityEntry", s, metaChildrenMobileCompatibilityEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "MobileCompatibilityEntry", ClassSectionID: "MOBCOMENT", Kind: som.SomMetaKindComplex, TypeName: "MobileCompatibilityEntry", DocComment: "Mobile device compatibility entry.", ClassDocComment: "Mobile device compatibility entry.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "CompatibilityRequirementsSection", MemberName: "thirdPartyCompatibility", SectionID: "TPCE-THIR-LST", SectionIDPattern: "TPCE-THIR-xxx", Kind: som.SomMetaKindList, TypeName: "ThirdPartyCompatibilityEntry", SerializationOrder: metaIntPtr(9), ContentHelp: "Add one entry per third-party software product.", DocComment: "Third-party software compatibility requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — compatibility (co-existence / interoperability)", "ISO/IEC/IEEE 42010 — architecture description"}, "connotation": "The third-party software the system must co-exist with."}}}}
+			n := &som.SomMetaNode{ClassName: "CompatibilityRequirementsSection", MemberName: "thirdPartyCompatibility", SectionID: "THPACOEN-THIR-LST", SectionIDPattern: "THPACOEN-THIR-xxx", Kind: som.SomMetaKindList, TypeName: "ThirdPartyCompatibilityEntry", SerializationOrder: metaIntPtr(9), ContentHelp: "Add one entry per third-party software product.", DocComment: "Third-party software compatibility requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — compatibility (co-existence / interoperability)", "ISO/IEC/IEEE 42010 — architecture description"}, "connotation": "The third-party software the system must co-exist with."}}}}
 			n.ElementNode = metaCx("ThirdPartyCompatibilityEntry", s, metaChildrenThirdPartyCompatibilityEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ThirdPartyCompatibilityEntry", ClassSectionID: "THPACOEN", Kind: som.SomMetaKindComplex, TypeName: "ThirdPartyCompatibilityEntry", DocComment: "Third-party software compatibility entry.", ClassDocComment: "Third-party software compatibility entry.", Recursive: r, Children: c}
 			})
@@ -3000,8 +3000,8 @@ func metaChildrenCurrentArchitecture(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "CurrentArchitecture", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
 		{ClassName: "CurrentArchitecture", MemberName: "architectureDiagram", SectionID: "CARCH-ARCH", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Architecture overview diagram showing systems, their connections, and data flows"}, ContentHelp: "Provide a Mermaid flowchart showing the current architecture. Include all major systems, their connections, and data flow directions.", DocComment: "Architecture overview diagram."},
 		{ClassName: "CurrentArchitecture", MemberName: "deploymentTopology", SectionID: "CARCH-DEPL", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Description of how systems are deployed across infrastructure"}, DocComment: "Deployment topology description."},
-		{ClassName: "CurrentArchitecture", MemberName: "integrationPatterns", SectionID: "IPE-INTE-LST", SectionIDPattern: "IPE-INTE-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why.", DocComment: "Integration patterns used.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (integration patterns)"}, "connotation": "The set of integration patterns the current architecture relies on to connect its systems."}}}},
-		{ClassName: "CurrentArchitecture", MemberName: "sharedServices", SectionID: "SHARE-SHAR-LST", SectionIDPattern: "SHARE-SHAR-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it.", DocComment: "Shared services inventory.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (shared services)"}, "connotation": "The set of shared services the current architecture provides across multiple systems."}}}},
+		{ClassName: "CurrentArchitecture", MemberName: "integrationPatterns", SectionID: "CARCH-INTE-LST", SectionIDPattern: "CARCH-INTE-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why.", DocComment: "Integration patterns used.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (integration patterns)"}, "connotation": "The set of integration patterns the current architecture relies on to connect its systems."}}}},
+		{ClassName: "CurrentArchitecture", MemberName: "sharedServices", SectionID: "CARCH-SHAR-LST", SectionIDPattern: "CARCH-SHAR-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it.", DocComment: "Shared services inventory.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (shared services)"}, "connotation": "The set of shared services the current architecture provides across multiple systems."}}}},
 	}
 }
 
@@ -3165,7 +3165,7 @@ func metaChildrenCurrentWorkflowEntry(s map[string]bool) []*som.SomMetaNode {
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "CurrentWorkflowEntry", MemberName: "actors", SectionID: "WFAC-ACTO-LST", SectionIDPattern: "WFAC-ACTO-xxx", Kind: som.SomMetaKindList, TypeName: "WorkflowActorEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per actor (role, system, department, external) taking part in this workflow, with their responsibilities and authorization level.", DocComment: "Workflow actors and responsibilities.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (workflow participants / roles)"}, "connotation": "The actors who participate in the workflow and their responsibilities."}}}}
+			n := &som.SomMetaNode{ClassName: "CurrentWorkflowEntry", MemberName: "actors", SectionID: "WAE-ACTO-LST", SectionIDPattern: "WAE-ACTO-xxx", Kind: som.SomMetaKindList, TypeName: "WorkflowActorEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per actor (role, system, department, external) taking part in this workflow, with their responsibilities and authorization level.", DocComment: "Workflow actors and responsibilities.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (workflow participants / roles)"}, "connotation": "The actors who participate in the workflow and their responsibilities."}}}}
 			n.ElementNode = metaCx("WorkflowActorEntry", s, metaChildrenWorkflowActorEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "WorkflowActorEntry", ClassSectionID: "WAE", Kind: som.SomMetaKindComplex, TypeName: "WorkflowActorEntry", DocComment: "A workflow actor entry (form).\n\nDocumentation of a participant in the workflow.", ClassDocComment: "A workflow actor entry (form).\n\nDocumentation of a participant in the workflow.", Recursive: r, Children: c}
 			})
@@ -4585,7 +4585,7 @@ func metaChildrenDecisionPointEntryResolution(s map[string]bool) []*som.SomMetaN
 		{ClassName: "DecisionPointEntryResolution", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "selectedOption", TypeName: "String", Description: "Selected Option", Hint: "Which option was chosen — references option ID or name", Order: 0}, {Name: "decisionRationale", TypeName: "String", Description: "Decision Rationale", Hint: "Why this option was selected — trade-off analysis summary", Order: 1}, {Name: "decisionDate", TypeName: "String", Description: "Decision Date", Hint: "When the decision was formally made", Order: 2}, {Name: "decisionRecordReference", TypeName: "String", Description: "Decision Record Reference", Hint: "Link to the formal decision record — ADR number, meeting minutes reference", Order: 3}, {Name: "revisitDate", TypeName: "String", Description: "Revisit Date", Hint: "When this decision should be revisited — if conditions change, or after a defined period", Order: 4}, {Name: "impactSummary", TypeName: "String", Description: "Impact Summary", Hint: "Impact of the decision — affected stages, teams, budget, schedule", Order: 5}}}},
 		{ClassName: "DecisionPointEntryResolution", MemberName: "decisionNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Context for this decision point: strategic background, prior related decisions, constraints shaping options, stakeholder perspectives, risk considerations, organizational readiness factors.", DocComment: "Decision context narrative."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DecisionPointEntryResolution", MemberName: "options", SectionID: "DEOPEN-OPTI-LST", SectionIDPattern: "DEOPEN-OPTI-xxx", Kind: som.SomMetaKindList, TypeName: "DecisionOptionEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per decision option.", DocComment: "Contains 0+× DecisionOptionEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions", "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines decision-management processes"}, "connotation": "Lists the available options evaluated for this decision point, each with its own impact and feasibility analysis."}}}}
+			n := &som.SomMetaNode{ClassName: "DecisionPointEntryResolution", MemberName: "options", SectionID: "DOE-OPTI-LST", SectionIDPattern: "DOE-OPTI-xxx", Kind: som.SomMetaKindList, TypeName: "DecisionOptionEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per decision option.", DocComment: "Contains 0+× DecisionOptionEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions", "ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines decision-management processes"}, "connotation": "Lists the available options evaluated for this decision point, each with its own impact and feasibility analysis."}}}}
 			n.ElementNode = metaCx("DecisionOptionEntry", s, metaChildrenDecisionOptionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DecisionOptionEntry", ClassSectionID: "DOE", Kind: som.SomMetaKindComplex, TypeName: "DecisionOptionEntry", DocComment: "A decision option entry (form).\n\nOne of the available options for a decision point, with full\nimpact analysis, feasibility assessment, and trade-off evaluation.", ClassDocComment: "A decision option entry (form).\n\nOne of the available options for a decision point, with full\nimpact analysis, feasibility assessment, and trade-off evaluation.", Recursive: r, Children: c}
 			})
@@ -4599,7 +4599,7 @@ func metaChildrenDecisionPoints(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "DecisionPoints", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalDecisionPoints", TypeName: "String", Description: "Total Decision Points", Hint: "Number of formal decision points defined", Order: 0}, {Name: "decisionRecordingMethod", TypeName: "String", Description: "Decision Recording Method", Hint: "How decisions are documented — ADR, decision log, meeting minutes, wiki", Order: 1}, {Name: "decisionTemplateReference", TypeName: "String", Description: "Decision Template Reference", Hint: "Reference to the decision record template — ADR template, DACI template", Order: 2}, {Name: "decisionCategories", TypeName: "String", Description: "Decision Categories", Hint: "GoNoGo / ScopeChange / ResourceReallocation / TechnologySelection / VendorSelection / ArchitectureChange / RiskResponse — comma-separated", Order: 3}, {Name: "decisionTrackingTool", TypeName: "String", Description: "Decision Tracking Tool", Hint: "Tool used to track decisions — Jira, Confluence, ADR repository, DOORS", Order: 4}, {Name: "decisionReviewCadence", TypeName: "String", Description: "Decision Review Cadence", Hint: "How often past decisions are reviewed for validity — Never / Quarterly / PerStage / OnDemand", Order: 5}}}},
 		{ClassName: "DecisionPoints", MemberName: "decisionFrameworkNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Decision-making framework: authority matrix, decision types and their governance levels, RACI for key decisions, documentation requirements, appeal processes, decision review cadence.", DocComment: "Decision framework narrative."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DecisionPoints", MemberName: "items", SectionID: "DEPOEN-ITEM-LST", SectionIDPattern: "DEPOEN-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "DecisionPointEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per decision point.", DocComment: "Contains 0+× DecisionPointEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions", "PRINCE2 2017 — the managing successful projects method defines decision controls and management-by-exception at stage boundaries"}, "connotation": "Lists the formal decision points defined in the stage plan, each with its own timing, criteria, authority, and options."}}}}
+			n := &som.SomMetaNode{ClassName: "DecisionPoints", MemberName: "items", SectionID: "DPE-ITEM-LST", SectionIDPattern: "DPE-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "DecisionPointEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per decision point.", DocComment: "Contains 0+× DecisionPointEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines governance, decision authority, and gate decisions", "PRINCE2 2017 — the managing successful projects method defines decision controls and management-by-exception at stage boundaries"}, "connotation": "Lists the formal decision points defined in the stage plan, each with its own timing, criteria, authority, and options."}}}}
 			n.ElementNode = metaCx("DecisionPointEntry", s, metaChildrenDecisionPointEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DecisionPointEntry", ClassSectionID: "DPE", Kind: som.SomMetaKindComplex, TypeName: "DecisionPointEntry", DocComment: "A decision point entry (form).\n\nA single formal decision point with defined timing, criteria,\nauthority, available options with impact analysis, and recording\nof the actual decision and its rationale.", ClassDocComment: "A decision point entry (form).\n\nA single formal decision point with defined timing, criteria,\nauthority, available options with impact analysis, and recording\nof the actual decision and its rationale.", Recursive: r, Children: c}
 			})
@@ -4937,21 +4937,21 @@ func metaChildrenDesignPatternsAndStandards(s map[string]bool) []*som.SomMetaNod
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DesignPatternsAndStandards", MemberName: "codingStandards", SectionID: "COSTEN-CODI-LST", SectionIDPattern: "COSTEN-CODI-xxx", Kind: som.SomMetaKindList, TypeName: "CodingStandardEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per coding standard.", DocComment: "Coding standards and style guidelines.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"coding standards (e.g. Effective Dart / language style guide)", "SOLID principles — object-oriented design"}, "connotation": "The coding standards and style guidelines the code must comply with."}}}}
+			n := &som.SomMetaNode{ClassName: "DesignPatternsAndStandards", MemberName: "codingStandards", SectionID: "CSE-CODI-LST", SectionIDPattern: "CSE-CODI-xxx", Kind: som.SomMetaKindList, TypeName: "CodingStandardEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per coding standard.", DocComment: "Coding standards and style guidelines.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"coding standards (e.g. Effective Dart / language style guide)", "SOLID principles — object-oriented design"}, "connotation": "The coding standards and style guidelines the code must comply with."}}}}
 			n.ElementNode = metaCx("CodingStandardEntry", s, metaChildrenCodingStandardEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "CodingStandardEntry", ClassSectionID: "CSE", Kind: som.SomMetaKindComplex, TypeName: "CodingStandardEntry", DocComment: "Coding standard entry — a coding style or convention requirement.", ClassDocComment: "Coding standard entry — a coding style or convention requirement.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DesignPatternsAndStandards", MemberName: "developmentConventions", SectionID: "DECOEN-DEVE-LST", SectionIDPattern: "DECOEN-DEVE-xxx", Kind: som.SomMetaKindList, TypeName: "DevelopmentConventionEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per development convention.", DocComment: "Development conventions and best practices.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"coding standards (e.g. Effective Dart / language style guide)", "SOLID principles — object-oriented design"}, "connotation": "The development practices and workflow conventions the team must follow."}}}}
+			n := &som.SomMetaNode{ClassName: "DesignPatternsAndStandards", MemberName: "developmentConventions", SectionID: "DCE-DEVE-LST", SectionIDPattern: "DCE-DEVE-xxx", Kind: som.SomMetaKindList, TypeName: "DevelopmentConventionEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per development convention.", DocComment: "Development conventions and best practices.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"coding standards (e.g. Effective Dart / language style guide)", "SOLID principles — object-oriented design"}, "connotation": "The development practices and workflow conventions the team must follow."}}}}
 			n.ElementNode = metaCx("DevelopmentConventionEntry", s, metaChildrenDevelopmentConventionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DevelopmentConventionEntry", ClassSectionID: "DCE", Kind: som.SomMetaKindComplex, TypeName: "DevelopmentConventionEntry", DocComment: "Development convention entry — a development practice or workflow convention.", ClassDocComment: "Development convention entry — a development practice or workflow convention.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DesignPatternsAndStandards", MemberName: "industryStandards", SectionID: "INSTEN-INDU-LST", SectionIDPattern: "INSTEN-INDU-xxx", Kind: som.SomMetaKindList, TypeName: "IndustryStandardEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per industry standard.", DocComment: "Industry standards compliance requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"industry standards compliance (ISO/IEC / W3C / IETF)", "ISO/IEC 25010 — maintainability quality attributes"}, "connotation": "The industry standards the system is required to comply with."}}}}
+			n := &som.SomMetaNode{ClassName: "DesignPatternsAndStandards", MemberName: "industryStandards", SectionID: "ISE-INDU-LST", SectionIDPattern: "ISE-INDU-xxx", Kind: som.SomMetaKindList, TypeName: "IndustryStandardEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per industry standard.", DocComment: "Industry standards compliance requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"industry standards compliance (ISO/IEC / W3C / IETF)", "ISO/IEC 25010 — maintainability quality attributes"}, "connotation": "The industry standards the system is required to comply with."}}}}
 			n.ElementNode = metaCx("IndustryStandardEntry", s, metaChildrenIndustryStandardEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "IndustryStandardEntry", ClassSectionID: "ISE", Kind: som.SomMetaKindComplex, TypeName: "IndustryStandardEntry", DocComment: "Industry standard entry — compliance with industry standards.", ClassDocComment: "Industry standard entry — compliance with industry standards.", Recursive: r, Children: c}
 			})
@@ -5050,7 +5050,7 @@ func metaChildrenDevelopmentEnvironment(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "DevelopmentEnvironment", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Provide an overview of the development environment philosophy.\n\n**Include**:\n- Tooling philosophy and selection criteria\n- Developer onboarding target time\n- \"Works on my machine\" prevention strategy\n- Environment parity across dev/staging/production\n- Development metrics and productivity tracking\n\n**Best Practices**:\n- Use devcontainers or Nix for reproducible environments\n- Document \"getting started\" in under 30 minutes\n- Automate environment setup scripts\n- Establish development environment SLAs\n- Regular tooling retrospectives and updates\n"},
 		{ClassName: "DevelopmentEnvironment", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Overview of development environment requirements."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DevelopmentEnvironment", MemberName: "ideRequirements", SectionID: "IDREEN-IDER-LST", SectionIDPattern: "IDREEN-IDER-xxx", Kind: som.SomMetaKindList, TypeName: "IdeRequirementEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per IDE or editor.", DocComment: "IDE and editor requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Twelve-Factor App — cloud-native methodology"}, "connotation": "The IDEs and editors required for the development environment."}}}}
+			n := &som.SomMetaNode{ClassName: "DevelopmentEnvironment", MemberName: "ideRequirements", SectionID: "IRE-IDER-LST", SectionIDPattern: "IRE-IDER-xxx", Kind: som.SomMetaKindList, TypeName: "IdeRequirementEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per IDE or editor.", DocComment: "IDE and editor requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Twelve-Factor App — cloud-native methodology"}, "connotation": "The IDEs and editors required for the development environment."}}}}
 			n.ElementNode = metaCx("IdeRequirementEntry", s, metaChildrenIdeRequirementEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "IdeRequirementEntry", ClassSectionID: "IRE", Kind: som.SomMetaKindComplex, TypeName: "IdeRequirementEntry", DocComment: "IDE requirement entry — a required IDE or editor.", ClassDocComment: "IDE requirement entry — a required IDE or editor.", Recursive: r, Children: c}
 			})
@@ -5301,14 +5301,14 @@ func metaChildrenDocumentControl(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DocumentHeader", MemberName: "header", ClassSectionID: "DOCHD", Kind: som.SomMetaKindComplex, TypeName: "DocumentHeader", SerializationOrder: metaIntPtr(1), DocComment: "Document header form (id, project, version, date, author, status).", ClassDocComment: "Standard document header present at the top of every TomSpecs document.\n\nAll fields are optional strings representing the document's form fields.\n\nA leaf [SpecNode]: it owns only a scalar [content] field, so snapshots share\nan unchanged header by identity and [cloneShallow] needs no child handling.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DocumentControl", MemberName: "revisionHistory", SectionID: "RVHST-REVS-LST", SectionIDPattern: "RVHST-REVS-xxx", Kind: som.SomMetaKindList, TypeName: "RevisionEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed.", DocComment: "Chronological revision history of this document.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"}, "connotation": "The ordered set of published revisions of this document."}}}}
+			n := &som.SomMetaNode{ClassName: "DocumentControl", MemberName: "revisionHistory", SectionID: "RVENT-REVS-LST", SectionIDPattern: "RVENT-REVS-xxx", Kind: som.SomMetaKindList, TypeName: "RevisionEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed.", DocComment: "Chronological revision history of this document.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (revision history)"}, "connotation": "The ordered set of published revisions of this document."}}}}
 			n.ElementNode = metaCx("RevisionEntry", s, metaChildrenRevisionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "RevisionEntry", ClassSectionID: "RVENT", Kind: som.SomMetaKindComplex, TypeName: "RevisionEntry", DocComment: "A single document revision entry (form).", ClassDocComment: "A single document revision entry (form).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DocumentControl", MemberName: "approvals", SectionID: "DOCTL-APRV-LST", SectionIDPattern: "DOCTL-APRV-xxx", Kind: som.SomMetaKindList, TypeName: "ApprovalRecord", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per required sign-off (e.g. sponsor, product owner, architecture board). The document is not released until every listed approval is recorded.", DocComment: "Formal approvals (sign-offs) recorded for this document.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (approvals)"}, "connotation": "The set of formal sign-offs required before this document is released."}}}}
+			n := &som.SomMetaNode{ClassName: "DocumentControl", MemberName: "approvals", SectionID: "APREC-APRV-LST", SectionIDPattern: "APREC-APRV-xxx", Kind: som.SomMetaKindList, TypeName: "ApprovalRecord", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per required sign-off (e.g. sponsor, product owner, architecture board). The document is not released until every listed approval is recorded.", DocComment: "Formal approvals (sign-offs) recorded for this document.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — front matter (approvals)"}, "connotation": "The set of formal sign-offs required before this document is released."}}}}
 			n.ElementNode = metaCx("ApprovalRecord", s, metaChildrenApprovalRecord, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ApprovalRecord", ClassSectionID: "APREC", Kind: som.SomMetaKindComplex, TypeName: "ApprovalRecord", DocComment: "A formal approval / sign-off record (form).", ClassDocComment: "A formal approval / sign-off record (form).", Recursive: r, Children: c}
 			})
@@ -5356,7 +5356,7 @@ func metaChildrenDocumentationDeliverables(s map[string]bool) []*som.SomMetaNode
 	return []*som.SomMetaNode{
 		{ClassName: "DocumentationDeliverables", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Documentation deliverables: user guides, technical documentation,\noperations runbooks, API documentation, architecture decision records,\nrelease notes Template. Define format (PDF, HTML, Markdown, wiki),\ndelivery channel, language(s), and maintenance responsibility post-delivery.\n"},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DocumentationDeliverables", MemberName: "items", SectionID: "DCDLV-ITEM-LST", SectionIDPattern: "DCDLV-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "DeliverableEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per documentation deliverable.", DocComment: "Contains 0+× Deliverable.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 15289:2019 — the standard for life-cycle information items defines the documentation and information products"}, "connotation": "Lists the individual documentation deliverables handed over as part of the delivery scope."}}}}
+			n := &som.SomMetaNode{ClassName: "DocumentationDeliverables", MemberName: "items", SectionID: "DLVEN-ITEM-LST", SectionIDPattern: "DLVEN-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "DeliverableEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per documentation deliverable.", DocComment: "Contains 0+× Deliverable.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 15289:2019 — the standard for life-cycle information items defines the documentation and information products"}, "connotation": "Lists the individual documentation deliverables handed over as part of the delivery scope."}}}}
 			n.ElementNode = metaCx("DeliverableEntry", s, metaChildrenDeliverableEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DeliverableEntry", ClassSectionID: "DLVEN", Kind: som.SomMetaKindComplex, TypeName: "DeliverableEntry", DocComment: "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.", ClassDocComment: "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.", Recursive: r, Children: c}
 			})
@@ -5433,7 +5433,7 @@ func metaChildrenDomainBusinessRules(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "DomainBusinessRules", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Overview of business rules and their importance in this domain."}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DomainBusinessRules", MemberName: "rules", SectionID: "DOBIRU-RULE-LST", SectionIDPattern: "DOBIRU-RULE-xxx", Kind: som.SomMetaKindList, TypeName: "DomainBusinessRuleEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per business rule. Be specific and unambiguous.", DocComment: "Business rule entries — contains 0+× BusinessRuleEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10.9 — business rules analysis", "ISO/IEC/IEEE 29148 §6 — business rules"}, "connotation": "The set of individual business-rule entries for this domain."}}}}
+			n := &som.SomMetaNode{ClassName: "DomainBusinessRules", MemberName: "rules", SectionID: "DBRE-RULE-LST", SectionIDPattern: "DBRE-RULE-xxx", Kind: som.SomMetaKindList, TypeName: "DomainBusinessRuleEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per business rule. Be specific and unambiguous.", DocComment: "Business rule entries — contains 0+× BusinessRuleEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10.9 — business rules analysis", "ISO/IEC/IEEE 29148 §6 — business rules"}, "connotation": "The set of individual business-rule entries for this domain."}}}}
 			n.ElementNode = metaCx("DomainBusinessRuleEntry", s, metaChildrenDomainBusinessRuleEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DomainBusinessRuleEntry", ClassSectionID: "DBRE", Kind: som.SomMetaKindComplex, TypeName: "DomainBusinessRuleEntry", DocComment: "A domain business rule entry (form).", ClassDocComment: "A domain business rule entry (form).", Recursive: r, Children: c}
 			})
@@ -5520,7 +5520,7 @@ func metaChildrenDomainProcesses(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "DomainProcesses", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
 		{ClassName: "DomainProcesses", MemberName: "processOverviewDiagram", SectionID: "DP-PROC", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "High-level process map showing main processes and their relationships"}, ContentHelp: "Create a process map showing the main business processes and how they interact.", DocComment: "Process overview diagram."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "DomainProcesses", MemberName: "processes", SectionID: "DOPR-PROC-LST", SectionIDPattern: "DOPR-PROC-xxx", Kind: som.SomMetaKindList, TypeName: "DomainProcessEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per major business process in this domain.", DocComment: "Domain process entries — contains 0+× DomainProcessEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10.35 — process modelling", "ISO/IEC/IEEE 29148 §6 — business process context"}, "connotation": "The set of individual domain-process entries."}}}}
+			n := &som.SomMetaNode{ClassName: "DomainProcesses", MemberName: "processes", SectionID: "DOPREN-PROC-LST", SectionIDPattern: "DOPREN-PROC-xxx", Kind: som.SomMetaKindList, TypeName: "DomainProcessEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per major business process in this domain.", DocComment: "Domain process entries — contains 0+× DomainProcessEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10.35 — process modelling", "ISO/IEC/IEEE 29148 §6 — business process context"}, "connotation": "The set of individual domain-process entries."}}}}
 			n.ElementNode = metaCx("DomainProcessEntry", s, metaChildrenDomainProcessEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DomainProcessEntry", ClassSectionID: "DOPREN", Kind: som.SomMetaKindComplex, TypeName: "DomainProcessEntry", DocComment: "A domain process entry (form).", ClassDocComment: "A domain process entry (form).", Recursive: r, Children: c}
 			})
@@ -5833,7 +5833,7 @@ func metaChildrenEquipmentRequirements(s map[string]bool) []*som.SomMetaNode {
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "EquipmentRequirements", MemberName: "inputDevices", SectionID: "INPDE-INPU-LST", SectionIDPattern: "INPDE-INPU-xxx", Kind: som.SomMetaKindList, TypeName: "InputDeviceEntry", SerializationOrder: metaIntPtr(3), DocComment: "Input devices."}
+			n := &som.SomMetaNode{ClassName: "EquipmentRequirements", MemberName: "inputDevices", SectionID: "IDE-INPU-LST", SectionIDPattern: "IDE-INPU-xxx", Kind: som.SomMetaKindList, TypeName: "InputDeviceEntry", SerializationOrder: metaIntPtr(3), DocComment: "Input devices."}
 			n.ElementNode = metaCx("InputDeviceEntry", s, metaChildrenInputDeviceEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "InputDeviceEntry", ClassSectionID: "IDE", Kind: som.SomMetaKindComplex, TypeName: "InputDeviceEntry", DocComment: "Input device entry (form).", ClassDocComment: "Input device entry (form).", Recursive: r, Children: c}
 			})
@@ -5931,7 +5931,7 @@ func metaChildrenErrorRecovery(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "ErrorRecovery", MemberName: "supportContact", SectionID: "ERSC", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Support contact details.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "supportAvailability", TypeName: "String", Description: "Support Availability", Hint: "When support is available", Order: 0}, {Name: "errorReportSubmission", TypeName: "bool", Description: "Error Report Submission", Hint: "Allow user to submit error report", Order: 1}, {Name: "includeDebugInfo", TypeName: "bool", Description: "Include Debug Info", Hint: "Include technical details in report", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001:2022 — Annex A controls require reporting and logging of events for incident escalation", "ISO 9241-13:1998 — user guidance provides a path to further help when an error cannot be self-resolved"}, "connotation": "The support-contact configuration describing availability and error-report submission to reach assistance."}}}},
 		{ClassName: "ErrorRecovery", MemberName: "sessionHandling", SectionID: "ERSH", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(5), DocComment: "Session handling configuration.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "reauthenticationFlow", TypeName: "String", Description: "Reauthentication Flow", Hint: "Inline login, redirect, modal", Order: 0}, {Name: "preserveContextOnReauth", TypeName: "bool", Description: "Preserve Context on Reauth", Hint: "Return to original location after reauth", Order: 1}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010:2023 — recoverability restores data and state after a session interruption or failure", "ISO 9241-110:2020 — controllability lets users continue an interrupted task without loss of context"}, "connotation": "The session-handling configuration describing reauthentication and context preservation after errors."}}}},
 		{ClassName: "ErrorRecovery", MemberName: "recoveryNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(6), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Detailed specification of error recovery flows and user empowerment strategies.", DocComment: "Error recovery narrative."},
-		{ClassName: "ErrorRecovery", MemberName: "recoveryFlows", SectionID: "RECOV-RECO-LST", SectionIDPattern: "RECOV-RECO-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per recovery flow.", DocComment: "Recovery flow diagrams.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-110:2020 — use-error tolerance provides guided recovery steps after an error occurs", "ISO/IEC 25010:2023 — recoverability re-establishes a desired state and recovers affected data"}, "connotation": "The collection of recovery-flow entries."}}}},
+		{ClassName: "ErrorRecovery", MemberName: "recoveryFlows", SectionID: "ERRE-RECO-LST", SectionIDPattern: "ERRE-RECO-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per recovery flow.", DocComment: "Recovery flow diagrams.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-110:2020 — use-error tolerance provides guided recovery steps after an error occurs", "ISO/IEC 25010:2023 — recoverability re-establishes a desired state and recovers affected data"}, "connotation": "The collection of recovery-flow entries."}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "ErrorRecovery", MemberName: "recoveryScenarios", SectionID: "RCVSCN-RECO-LST", SectionIDPattern: "RCVSCN-RECO-xxx", Kind: som.SomMetaKindList, TypeName: "RecoveryScenarioEntry", SerializationOrder: metaIntPtr(8), ContentHelp: "Add one entry per common recovery scenario.", DocComment: "Common recovery scenarios.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-110:2020 — use-error tolerance guides users through common failure situations toward recovery", "ISO/IEC 25010:2023 — recoverability restores a desired state after an interruption or failure"}, "connotation": "The collection of common recovery-scenario entries."}}}}
 			n.ElementNode = metaCx("RecoveryScenarioEntry", s, metaChildrenRecoveryScenarioEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -6140,7 +6140,7 @@ func metaChildrenExportFormatEntry(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "AuthorizationRequirementSpec", MemberName: "access", ClassSectionID: "AZREQ", Kind: som.SomMetaKindComplex, TypeName: "AuthorizationRequirementSpec", SerializationOrder: metaIntPtr(9), DocComment: "Access control — what a caller must satisfy to run this export.\n\nThe shared CE-AZ requirement section (`AZREQ`).", ClassDocComment: "What a caller must satisfy to reach the thing this section modifies\n(`codespecs_mapping.md` §5.15).\n\nEmbed this section wherever a guarded thing is authored — do not restate its\nfields inline. The kind selects at most one payload subsection; the four\npresets select none, which is why four of the ten arms bind no case.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ExportFormatEntry", MemberName: "fieldMappings", SectionID: "EFME-FIEL-LST", SectionIDPattern: "EFME-FIEL-xxx", Kind: som.SomMetaKindList, TypeName: "ExportFieldMappingEntry", SerializationOrder: metaIntPtr(10), ContentHelp: "Add one entry per export field mapping.", DocComment: "Contains 0+× Export Field Mapping.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"IETF RFC 4180 — each field in a record corresponds to a named column defined by the header line", "ISO/IEC 29500-1:2016 — Office Open XML defines document markup for exchanging structured field data"}, "connotation": "The collection of export field-mapping entries that bind source fields to output columns."}}}}
+			n := &som.SomMetaNode{ClassName: "ExportFormatEntry", MemberName: "fieldMappings", SectionID: "EXFIMAEN-FIEL-LST", SectionIDPattern: "EXFIMAEN-FIEL-xxx", Kind: som.SomMetaKindList, TypeName: "ExportFieldMappingEntry", SerializationOrder: metaIntPtr(10), ContentHelp: "Add one entry per export field mapping.", DocComment: "Contains 0+× Export Field Mapping.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"IETF RFC 4180 — each field in a record corresponds to a named column defined by the header line", "ISO/IEC 29500-1:2016 — Office Open XML defines document markup for exchanging structured field data"}, "connotation": "The collection of export field-mapping entries that bind source fields to output columns."}}}}
 			n.ElementNode = metaCx("ExportFieldMappingEntry", s, metaChildrenExportFieldMappingEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ExportFieldMappingEntry", ClassSectionID: "EXFIMAEN", Kind: som.SomMetaKindComplex, TypeName: "ExportFieldMappingEntry", DocComment: "A field mapping within an export (form).", ClassDocComment: "A field mapping within an export (form).", Recursive: r, Children: c}
 			})
@@ -6192,7 +6192,7 @@ func metaChildrenExternalActorEntry(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "ExternalActorEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "actorName", TypeName: "String", Description: "Actor Name", Required: true, Hint: "The name of this external actor", Order: 0}, {Name: "actorType", TypeName: "String", Description: "Actor Type (Internal User, External User, Organization, Partner, Customer, Regulator, etc.)", Required: true, Hint: "The category of actor", Order: 1}, {Name: "description", TypeName: "String", Description: "Actor Description", Hint: "A short description of this actor", Order: 2}, {Name: "interactionPurpose", TypeName: "String", Description: "Interaction Purpose (why they interact with the system)", Hint: "Why this actor interacts with the system", Order: 3}}}},
 		{ClassName: "ExternalActorEntry", MemberName: "interaction", SectionID: "EAEI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Interaction cadence and exchanged information.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "interactionFrequency", TypeName: "String", Description: "Interaction Frequency (Real-time, Daily, Weekly, On-demand)", Hint: "How often this actor interacts with the system", Order: 0}, {Name: "interactionChannel", TypeName: "String", Description: "Interaction Channel (Web UI, Mobile App, API, Email, etc.)", Hint: "The channel through which the interaction occurs", Order: 1}, {Name: "dataExchanged", TypeName: "String", Description: "Data Exchanged (what information flows to/from this actor)", Hint: "What information flows to and from this actor", Order: 2}, {Name: "accessLevel", TypeName: "String", Description: "Access Level (Read, Write, Admin, API-only, etc.)", Hint: "The level of access this actor has", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — external interfaces & actors", "BABOK v3 §10.43 — stakeholder/actor analysis"}, "connotation": "Captures the cadence and channel of an actor's interaction and the information exchanged with the system."}}}},
 		{ClassName: "ExternalActorEntry", MemberName: "context", SectionID: "EAEC", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Access, authentication, and context details.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "authenticationMethod", TypeName: "String", Description: "Authentication Method (SSO, Password, Certificate, API Key, etc.)", Hint: "How this actor authenticates", Order: 0}, {Name: "location", TypeName: "String", Description: "Location (On-site, Remote, Mobile, Global, etc.)", Hint: "Where this actor accesses the system from", Order: 1}, {Name: "volumeEstimate", TypeName: "String", Description: "Volume Estimate (number of actors, transactions per day)", Hint: "Estimated number of actors or transactions per day", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — external interfaces & actors", "ISO/IEC 27001 Annex A — access control"}, "connotation": "Captures an actor's access, authentication, location, and volume context relative to the system."}}}},
-		{ClassName: "ExternalActorEntry", MemberName: "interactionScenarios", SectionID: "INTER-INTE-LST", SectionIDPattern: "INTER-INTE-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per interaction scenario between this actor and the system.", DocComment: "Interaction scenarios for this actor.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — external interfaces & actors"}, "connotation": "The set of interaction-scenario entries for this actor."}}}},
+		{ClassName: "ExternalActorEntry", MemberName: "interactionScenarios", SectionID: "EAE-INTE-LST", SectionIDPattern: "EAE-INTE-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per interaction scenario between this actor and the system.", DocComment: "Interaction scenarios for this actor.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — external interfaces & actors"}, "connotation": "The set of interaction-scenario entries for this actor."}}}},
 	}
 }
 
@@ -6214,7 +6214,7 @@ func metaChildrenExternalConnectivitySection(s map[string]bool) []*som.SomMetaNo
 		{ClassName: "ExternalConnectivitySection", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Provide an overview of external connectivity landscape.\n\n**Include**:\n- Key partner and integration landscape\n- Cloud service dependencies\n- Critical third-party APIs\n- Gateway and mesh architecture\n- Resilience strategy\n\n**Best Practices**:\n- Abstract external dependencies with adapters\n- Implement comprehensive error handling\n- Monitor external dependency health\n- Have fallback strategies for critical integrations\n- Regular vendor review and risk assessment\n"},
 		{ClassName: "ExternalConnectivitySection", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Overview of external connectivity requirements."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ExternalConnectivitySection", MemberName: "partnerConnections", SectionID: "EPCE-PART-LST", SectionIDPattern: "EPCE-PART-xxx", Kind: som.SomMetaKindList, TypeName: "ExternalPartnerConnectionEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per external partner connection.", DocComment: "External partner connections — contains 0+× ExternalPartnerConnection.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Enterprise Integration Patterns — messaging & integration"}, "connotation": "The external partner connections the system integrates with."}}}}
+			n := &som.SomMetaNode{ClassName: "ExternalConnectivitySection", MemberName: "partnerConnections", SectionID: "EXPACOEN-PART-LST", SectionIDPattern: "EXPACOEN-PART-xxx", Kind: som.SomMetaKindList, TypeName: "ExternalPartnerConnectionEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per external partner connection.", DocComment: "External partner connections — contains 0+× ExternalPartnerConnection.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Enterprise Integration Patterns — messaging & integration"}, "connotation": "The external partner connections the system integrates with."}}}}
 			n.ElementNode = metaCx("ExternalPartnerConnectionEntry", s, metaChildrenExternalPartnerConnectionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ExternalPartnerConnectionEntry", ClassSectionID: "EXPACOEN", Kind: som.SomMetaKindComplex, TypeName: "ExternalPartnerConnectionEntry", DocComment: "An external partner connection entry (form).", ClassDocComment: "An external partner connection entry (form).", Recursive: r, Children: c}
 			})
@@ -6274,7 +6274,7 @@ func metaChildrenExternalInterfaces(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "ExternalInterfaces", MemberName: "architectureApproach", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe integration patterns: point-to-point vs hub, synchronous vs async, API gateway usage, message broker approach.", DocComment: "Integration architecture approach."},
 		{ClassName: "ExternalInterfaces", MemberName: "governanceModel", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe integration governance: ownership model, change control process, versioning strategy, deprecation policy.", DocComment: "Integration governance model."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ExternalInterfaces", MemberName: "interfaces", SectionID: "EXINEN-INTE-LST", SectionIDPattern: "EXINEN-INTE-xxx", Kind: som.SomMetaKindList, TypeName: "ExternalInterfaceEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per external system interface, each documenting identification, technical, data, security, and governance details.", DocComment: "Contains 0+× ExternalInterfaceEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"OpenAPI / AsyncAPI — API specification", "Enterprise Integration Patterns (EIP) — integration styles"}, "connotation": "Holds one entry per external interface, the core inventory from which integration specifications are derived."}}}}
+			n := &som.SomMetaNode{ClassName: "ExternalInterfaces", MemberName: "interfaces", SectionID: "EIE-INTE-LST", SectionIDPattern: "EIE-INTE-xxx", Kind: som.SomMetaKindList, TypeName: "ExternalInterfaceEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per external system interface, each documenting identification, technical, data, security, and governance details.", DocComment: "Contains 0+× ExternalInterfaceEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"OpenAPI / AsyncAPI — API specification", "Enterprise Integration Patterns (EIP) — integration styles"}, "connotation": "Holds one entry per external interface, the core inventory from which integration specifications are derived."}}}}
 			n.ElementNode = metaCx("ExternalInterfaceEntry", s, metaChildrenExternalInterfaceEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ExternalInterfaceEntry", ClassSectionID: "EIE", Kind: som.SomMetaKindComplex, TypeName: "ExternalInterfaceEntry", DocComment: "An external interface entry (form).\n\nComprehensive documentation of an external system interface covering\nidentification, technical details, data exchange specification, security,\noperational characteristics, and contractual governance. Follows\nOpenAPI/AsyncAPI patterns for API documentation and enterprise\nintegration best practices.", ClassDocComment: "An external interface entry (form).\n\nComprehensive documentation of an external system interface covering\nidentification, technical details, data exchange specification, security,\noperational characteristics, and contractual governance. Follows\nOpenAPI/AsyncAPI patterns for API documentation and enterprise\nintegration best practices.", Recursive: r, Children: c}
 			})
@@ -6376,7 +6376,7 @@ func metaChildrenFeatureDependencies(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "FeatureDependencies", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalDependencyCount", TypeName: "String", Description: "Total Dependency Count", Hint: "Total number of inter-feature dependencies", Order: 0}, {Name: "crossStageDependencyCount", TypeName: "String", Description: "Cross-Stage Dependency Count", Hint: "Dependencies spanning stage boundaries — highest scheduling risk", Order: 1}, {Name: "criticalPathLength", TypeName: "String", Description: "Critical Path Length", Hint: "Longest dependency chain — number of features on the critical path", Order: 2}, {Name: "circularDependenciesDetected", TypeName: "String", Description: "Circular Dependencies Detected", Hint: "Yes / No — whether any circular chains exist (must be resolved)", Order: 3}, {Name: "dependencyMapLastUpdated", TypeName: "String", Description: "Dependency Map Last Updated", Hint: "When the dependency map was last analyzed", Order: 4}}}},
 		{ClassName: "FeatureDependencies", MemberName: "dependencyAnalysis", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Analysis of feature dependencies: dependency types, impact assessment methodology, critical dependency chains, circular dependency resolution, cross-stage dependencies, external system dependencies.", DocComment: "Dependency analysis narrative."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "FeatureDependencies", MemberName: "items", SectionID: "FEDEEN-ITEM-LST", SectionIDPattern: "FEDEEN-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "FeatureDependencyEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per feature dependency.", DocComment: "Contains 0+× FeatureDependencyEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management", "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"}, "connotation": "Lists each inter-feature dependency that affects staging order and critical-path sequencing."}}}}
+			n := &som.SomMetaNode{ClassName: "FeatureDependencies", MemberName: "items", SectionID: "FDE-ITEM-LST", SectionIDPattern: "FDE-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "FeatureDependencyEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per feature dependency.", DocComment: "Contains 0+× FeatureDependencyEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management", "ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management"}, "connotation": "Lists each inter-feature dependency that affects staging order and critical-path sequencing."}}}}
 			n.ElementNode = metaCx("FeatureDependencyEntry", s, metaChildrenFeatureDependencyEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "FeatureDependencyEntry", ClassSectionID: "FDE", Kind: som.SomMetaKindComplex, TypeName: "FeatureDependencyEntry", DocComment: "A feature dependency entry (form).\n\nDescribes a single directional dependency between two features,\nincluding type, impact, and resolution strategy.", ClassDocComment: "A feature dependency entry (form).\n\nDescribes a single directional dependency between two features,\nincluding type, impact, and resolution strategy.", Recursive: r, Children: c}
 			})
@@ -6452,7 +6452,7 @@ func metaChildrenFeaturePriorityRegister(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "FeaturePriorityRegister", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalRegisteredFeatures", TypeName: "String", Description: "Total Registered Features", Hint: "Total number of features in the register", Order: 0}, {Name: "registerLastUpdated", TypeName: "String", Description: "Register Last Updated", Hint: "Date the register was last fully reviewed", Order: 1}, {Name: "registerOwner", TypeName: "String", Description: "Register Owner", Hint: "Person responsible for maintaining the register — typically Product Owner", Order: 2}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "FeaturePriorityRegister", MemberName: "items", SectionID: "FEPREN-ITEM-LST", SectionIDPattern: "FEPREN-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "FeaturePriorityEntry", SerializationOrder: metaIntPtr(1), Min: metaIntPtr(1), ContentHelp: "Add one entry per prioritized feature.", DocComment: "Contains 1+× FeaturePriorityEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique", "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"}, "connotation": "Lists each prioritized feature held in the register."}}}}
+			n := &som.SomMetaNode{ClassName: "FeaturePriorityRegister", MemberName: "items", SectionID: "FPE-ITEM-LST", SectionIDPattern: "FPE-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "FeaturePriorityEntry", SerializationOrder: metaIntPtr(1), Min: metaIntPtr(1), ContentHelp: "Add one entry per prioritized feature.", DocComment: "Contains 1+× FeaturePriorityEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique", "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"}, "connotation": "Lists each prioritized feature held in the register."}}}}
 			n.ElementNode = metaCx("FeaturePriorityEntry", s, metaChildrenFeaturePriorityEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "FeaturePriorityEntry", ClassSectionID: "FPE", Kind: som.SomMetaKindComplex, TypeName: "FeaturePriorityEntry", DocComment: "An individual feature priority entry (form).\n\nComprehensive record covering identity, classification, business\nvalue, effort, priority scoring, stage assignment, dependencies,\nstakeholders, traceability, and status.", ClassDocComment: "An individual feature priority entry (form).\n\nComprehensive record covering identity, classification, business\nvalue, effort, priority scoring, stage assignment, dependencies,\nstakeholders, traceability, and status.", Recursive: r, Children: c}
 			})
@@ -6476,7 +6476,7 @@ func metaChildrenFeatureStageMatrix(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "FeatureStageMatrix", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalMappedFeatures", TypeName: "String", Description: "Total Mapped Features", Hint: "Number of features mapped to stages", Order: 0}, {Name: "unmappedFeatures", TypeName: "String", Description: "Unmapped Features", Hint: "Features not yet assigned to any stage", Order: 1}, {Name: "stageCapacityUtilization", TypeName: "String", Description: "Stage Capacity Utilization", Hint: "Per-stage capacity summary — e.g. Stage 1: 85%, Stage 2: 60%", Order: 2}, {Name: "crossStageDependencyCount", TypeName: "String", Description: "Cross-Stage Dependency Count", Hint: "Feature dependencies crossing stage boundaries", Order: 3}, {Name: "matrixLastUpdated", TypeName: "String", Description: "Matrix Last Updated", Hint: "Date the feature-stage matrix was last updated", Order: 4}, {Name: "matrixApprovedBy", TypeName: "String", Description: "Matrix Approved By", Hint: "Person or body who approved the current matrix", Order: 5}}}},
 		{ClassName: "FeatureStageMatrix", MemberName: "matrixNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Explanation of feature-to-stage mapping logic: allocation criteria, dependency constraints, capacity considerations, cross-stage feature splitting, handling of scope changes and re-prioritizations.", DocComment: "Feature-Stage matrix narrative."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "FeatureStageMatrix", MemberName: "items", SectionID: "FESTM1-ITEM-LST", SectionIDPattern: "FESTM1-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "FeatureStageMapping", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per feature-stage mapping.", DocComment: "Contains 0+× FeatureStageMapping.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing", "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"}, "connotation": "Holds the collection of feature-to-stage mapping entries that make up the matrix."}}}}
+			n := &som.SomMetaNode{ClassName: "FeatureStageMatrix", MemberName: "items", SectionID: "FSM-ITEM-LST", SectionIDPattern: "FSM-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "FeatureStageMapping", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per feature-stage mapping.", DocComment: "Contains 0+× FeatureStageMapping.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing", "ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management"}, "connotation": "Holds the collection of feature-to-stage mapping entries that make up the matrix."}}}}
 			n.ElementNode = metaCx("FeatureStageMapping", s, metaChildrenFeatureStageMapping, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "FeatureStageMapping", ClassSectionID: "FSM", Kind: som.SomMetaKindComplex, TypeName: "FeatureStageMapping", DocComment: "A feature-to-stage mapping entry (form).\n\nMaps a single feature or feature group to its delivery stage with\nreadiness, confidence, and dependency information.", ClassDocComment: "A feature-to-stage mapping entry (form).\n\nMaps a single feature or feature group to its delivery stage with\nreadiness, confidence, and dependency information.", Recursive: r, Children: c}
 			})
@@ -6745,7 +6745,7 @@ func metaChildrenFunctionalResponsibilities(s map[string]bool) []*som.SomMetaNod
 		{ClassName: "FunctionalResponsibilities", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "responsibilityMatrixApproach", TypeName: "String", Description: "Responsibility Matrix Approach", Hint: "RACI, RASCI, DACI — methodology used for responsibility assignment", Order: 0}, {Name: "governanceModel", TypeName: "String", Description: "Governance Model", Hint: "Centralized, federated, distributed — how responsibilities are governed", Order: 1}, {Name: "escalationProcess", TypeName: "String", Description: "Escalation Process", Hint: "How responsibility conflicts or gaps are escalated", Order: 2}, {Name: "reviewCadence", TypeName: "String", Description: "Review Cadence", Hint: "How often responsibility assignments are reviewed", Order: 3}, {Name: "totalFunctionCount", TypeName: "int", Description: "Total Function Count", Hint: "Number of functional areas with assigned responsibilities", Order: 4}, {Name: "unassignedAreas", TypeName: "String", Description: "Unassigned Areas", Hint: "Functional areas without clear ownership", Order: 5}}}},
 		{ClassName: "FunctionalResponsibilities", MemberName: "matrixOverview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the overall approach to functional responsibility assignment: governance model, cross-functional coordination, conflict resolution, and ongoing maintenance.", DocComment: "Responsibility matrix overview narrative."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "FunctionalResponsibilities", MemberName: "items", SectionID: "REEN1-ITEM-LST", SectionIDPattern: "REEN1-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "ResponsibilityEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per functional area, capturing its RACI assignment, contacts, and related systems.", DocComment: "Contains 0+× Responsibility.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"RACI / responsibility assignment — functional responsibilities", "ISO 21500 — organizational roles & responsibilities"}, "connotation": "Holds the per-function responsibility entries that make up the overall responsibility matrix."}}}}
+			n := &som.SomMetaNode{ClassName: "FunctionalResponsibilities", MemberName: "items", SectionID: "RE-ITEM-LST", SectionIDPattern: "RE-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "ResponsibilityEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per functional area, capturing its RACI assignment, contacts, and related systems.", DocComment: "Contains 0+× Responsibility.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"RACI / responsibility assignment — functional responsibilities", "ISO 21500 — organizational roles & responsibilities"}, "connotation": "Holds the per-function responsibility entries that make up the overall responsibility matrix."}}}}
 			n.ElementNode = metaCx("ResponsibilityEntry", s, metaChildrenResponsibilityEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ResponsibilityEntry", ClassSectionID: "RE", Kind: som.SomMetaKindComplex, TypeName: "ResponsibilityEntry", DocComment: "A responsibility entry (form).\n\nDocuments responsibility assignment for a specific functional area,\nfollowing RACI principles (Responsible, Accountable, Consulted, Informed)\nwith additional operational details for clear accountability.", ClassDocComment: "A responsibility entry (form).\n\nDocuments responsibility assignment for a specific functional area,\nfollowing RACI principles (Responsible, Accountable, Consulted, Informed)\nwith additional operational details for clear accountability.", Recursive: r, Children: c}
 			})
@@ -6797,7 +6797,7 @@ func metaChildrenGlossaryAndAbbreviations(s map[string]bool) []*som.SomMetaNode 
 	return []*som.SomMetaNode{
 		{ClassName: "GlossaryAndAbbreviations", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Introduce the glossary: scope, conventions, and how terms are maintained."}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "GlossaryAndAbbreviations", MemberName: "glossary", SectionID: "GLOSS-ENTR-LST", SectionIDPattern: "GLOSS-ENTR-xxx", Kind: som.SomMetaKindList, TypeName: "GlossaryEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per term or acronym, alphabetically ordered.", DocComment: "The set of defined terms and abbreviations.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations"}, "connotation": "The ordered collection of defined terms and abbreviations."}}}}
+			n := &som.SomMetaNode{ClassName: "GlossaryAndAbbreviations", MemberName: "glossary", SectionID: "GLENT-ENTR-LST", SectionIDPattern: "GLENT-ENTR-xxx", Kind: som.SomMetaKindList, TypeName: "GlossaryEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per term or acronym, alphabetically ordered.", DocComment: "The set of defined terms and abbreviations.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations"}, "connotation": "The ordered collection of defined terms and abbreviations."}}}}
 			n.ElementNode = metaCx("GlossaryEntry", s, metaChildrenGlossaryEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "GlossaryEntry", ClassSectionID: "GLENT", Kind: som.SomMetaKindComplex, TypeName: "GlossaryEntry", DocComment: "A single glossary entry (form).", ClassDocComment: "A single glossary entry (form).", Recursive: r, Children: c}
 			})
@@ -7225,7 +7225,7 @@ func metaChildrenInformationArchitecture(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "InformationArchitecture", MemberName: "siteMap", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Site map overview."},
 		{ClassName: "InformationArchitecture", MemberName: "contentHierarchy", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Content hierarchy description."},
 		{ClassName: "InformationArchitecture", MemberName: "navigationStructure", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Navigation structure."},
-		{ClassName: "InformationArchitecture", MemberName: "globalEntryPoints", SectionID: "GLOBA-GLOB-LST", SectionIDPattern: "GLOBA-GLOB-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per global entry point.", DocComment: "Global entry points.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-151:2008 — information architecture and navigation entry points to the site", "ISO 9241-11:2018 — context of use in which users reach the system"}, "connotation": "The collection of global access points through which users enter the application."}}}},
+		{ClassName: "InformationArchitecture", MemberName: "globalEntryPoints", SectionID: "IA-GLOB-LST", SectionIDPattern: "IA-GLOB-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per global entry point.", DocComment: "Global entry points.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-151:2008 — information architecture and navigation entry points to the site", "ISO 9241-11:2018 — context of use in which users reach the system"}, "connotation": "The collection of global access points through which users enter the application."}}}},
 		{ClassName: "InformationArchitecture", MemberName: "architectureDiagram", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flow", Description: ""}, DocComment: "10.2.2.5. Information Architecture Diagram."},
 	}
 }
@@ -7351,7 +7351,7 @@ func metaChildrenIntegrationConstraintEntry(s map[string]bool) []*som.SomMetaNod
 func metaChildrenIntegrationHealthSummary(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "IntegrationHealthSummary", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "overallHealthRating", TypeName: "String", Description: "Overall Health Rating", Hint: "Healthy / Acceptable / Concerning / Critical", Order: 0}, {Name: "totalDependencies", TypeName: "int", Description: "Total Dependencies Documented", Order: 1}, {Name: "criticalDependencies", TypeName: "int", Description: "Critical Dependencies", Order: 2}, {Name: "highRiskDependencies", TypeName: "int", Description: "High-Risk Dependencies", Order: 3}, {Name: "singlePointsOfFailure", TypeName: "int", Description: "Identified Single Points of Failure", Order: 4}, {Name: "undocumentedIntegrations", TypeName: "int", Description: "Known Undocumented Integrations", Order: 5}, {Name: "technicalDebtSummary", TypeName: "String", Description: "Technical Debt Summary", Hint: "Overview of integration-related technical debt", Order: 6}, {Name: "priorityRemediationAreas", TypeName: "String", Description: "Priority Remediation Areas", Hint: "Top 3-5 areas requiring immediate attention", Order: 7}, {Name: "impactOnProject", TypeName: "String", Description: "Impact on This Project", Hint: "How current integration state affects project planning", Order: 8}}}},
-		{ClassName: "IntegrationHealthSummary", MemberName: "fragilePoints", SectionID: "FRAGI-FRAG-LST", SectionIDPattern: "FRAGI-FRAG-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation.", DocComment: "Fragile integration points requiring attention.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (fragile integration points)"}, "connotation": "The set of fragile integration points in the AS-IS landscape that pose risk and require attention."}}}},
+		{ClassName: "IntegrationHealthSummary", MemberName: "fragilePoints", SectionID: "INHESU-FRAG-LST", SectionIDPattern: "INHESU-FRAG-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation.", DocComment: "Fragile integration points requiring attention.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (fragile integration points)"}, "connotation": "The set of fragile integration points in the AS-IS landscape that pose risk and require attention."}}}},
 	}
 }
 
@@ -7535,7 +7535,7 @@ func metaChildrenInterfaceBusinessContext(s map[string]bool) []*som.SomMetaNode 
 	return []*som.SomMetaNode{
 		{ClassName: "InterfaceBusinessContext", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "businessPurpose", TypeName: "String", Description: "Business Purpose", Hint: "What business need this interface serves", Order: 0}, {Name: "businessValue", TypeName: "String", Description: "Business Value", Hint: "Value delivered by the integration", Order: 1}, {Name: "businessOwner", TypeName: "String", Description: "Business Owner", Hint: "Business stakeholder accountable for the interface", Order: 2}, {Name: "useCases", TypeName: "String", Description: "Primary Use Cases", Hint: "Main business use cases supported", Order: 3}, {Name: "businessCriticality", TypeName: "String", Description: "Criticality (Mission Critical, Business Critical, Operational)", Hint: "How critical the interface is to the business", Order: 4}, {Name: "revenueImpact", TypeName: "String", Description: "Revenue Impact (Direct, Indirect, None)", Hint: "How the interface affects revenue", Order: 5}, {Name: "regulatoryDriver", TypeName: "String", Description: "Regulatory/Compliance Driver", Hint: "Regulatory or compliance reason for the interface", Order: 6}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "InterfaceBusinessContext", MemberName: "dependentProcesses", SectionID: "IBPE-DEPE-LST", SectionIDPattern: "IBPE-DEPE-xxx", Kind: som.SomMetaKindList, TypeName: "InterfaceBusinessProcessEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable.", DocComment: "Business processes that depend on this interface.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — system context & boundary definition"}, "connotation": "Lists the business processes that rely on this interface so dependency and fallback impact can be assessed."}}}}
+			n := &som.SomMetaNode{ClassName: "InterfaceBusinessContext", MemberName: "dependentProcesses", SectionID: "INBUPREN-DEPE-LST", SectionIDPattern: "INBUPREN-DEPE-xxx", Kind: som.SomMetaKindList, TypeName: "InterfaceBusinessProcessEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable.", DocComment: "Business processes that depend on this interface.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — system context & boundary definition"}, "connotation": "Lists the business processes that rely on this interface so dependency and fallback impact can be assessed."}}}}
 			n.ElementNode = metaCx("InterfaceBusinessProcessEntry", s, metaChildrenInterfaceBusinessProcessEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "InterfaceBusinessProcessEntry", ClassSectionID: "INBUPREN", Kind: som.SomMetaKindComplex, TypeName: "InterfaceBusinessProcessEntry", DocComment: "Business process dependency entry.", ClassDocComment: "Business process dependency entry.", Recursive: r, Children: c}
 			})
@@ -7560,14 +7560,14 @@ func metaChildrenInterfaceDataSpec(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "InterfaceDataSpec", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dataExchangeSummary", TypeName: "String", Description: "Data Exchange Summary", Hint: "High-level summary of data exchanged", Order: 0}, {Name: "dataDirection", TypeName: "String", Description: "Data Flow (Send, Receive, Bidirectional)", Hint: "Direction of data flow", Order: 1}, {Name: "dataSensitivity", TypeName: "String", Description: "Sensitivity (Public, Internal, Confidential, PII/PHI)", Hint: "Sensitivity classification of the data", Order: 2}, {Name: "dataRetentionExternal", TypeName: "String", Description: "External System Data Retention", Hint: "How long the external system retains the data", Order: 3}, {Name: "frequency", TypeName: "String", Description: "Frequency (Real-time, Near real-time, Batch, On-demand)", Hint: "How often data is exchanged", Order: 4}, {Name: "batchSchedule", TypeName: "String", Description: "Batch Schedule (if applicable)", Hint: "Schedule for batch exchanges", Order: 5}, {Name: "volumePerTransaction", TypeName: "String", Description: "Volume per Transaction", Hint: "Typical data volume per transaction", Order: 6}, {Name: "dailyVolume", TypeName: "String", Description: "Expected Daily Volume", Hint: "Expected daily data volume", Order: 7}, {Name: "peakVolume", TypeName: "String", Description: "Peak Volume", Hint: "Peak data volume to plan for", Order: 8}, {Name: "payloadSizeLimit", TypeName: "String", Description: "Payload Size Limit", Hint: "Maximum allowed payload size", Order: 9}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "InterfaceDataSpec", MemberName: "dataEntities", SectionID: "IDEE-DATA-LST", SectionIDPattern: "IDEE-DATA-xxx", Kind: som.SomMetaKindList, TypeName: "InterfaceDataEntityEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to.", DocComment: "Data entities exchanged.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"OpenAPI / AsyncAPI — API specification"}, "connotation": "Lists the data entities exchanged with their direction, required and sensitive fields, and internal mapping."}}}}
+			n := &som.SomMetaNode{ClassName: "InterfaceDataSpec", MemberName: "dataEntities", SectionID: "INDAENEN-DATA-LST", SectionIDPattern: "INDAENEN-DATA-xxx", Kind: som.SomMetaKindList, TypeName: "InterfaceDataEntityEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to.", DocComment: "Data entities exchanged.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"OpenAPI / AsyncAPI — API specification"}, "connotation": "Lists the data entities exchanged with their direction, required and sensitive fields, and internal mapping."}}}}
 			n.ElementNode = metaCx("InterfaceDataEntityEntry", s, metaChildrenInterfaceDataEntityEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "InterfaceDataEntityEntry", ClassSectionID: "INDAENEN", Kind: som.SomMetaKindComplex, TypeName: "InterfaceDataEntityEntry", DocComment: "Data entity exchanged.", ClassDocComment: "Data entity exchanged.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
-		{ClassName: "InterfaceDataSpec", MemberName: "mappingRules", SectionID: "MAPPI-MAPP-LST", SectionIDPattern: "MAPPI-MAPP-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentHelp: "List data mapping and transformation rules between external and internal representations.", DocComment: "Data mapping and transformation rules.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Enterprise Integration Patterns (EIP) — integration styles"}, "connotation": "Captures the mapping and transformation rules applied between external and internal data representations."}}}},
-		{ClassName: "InterfaceDataSpec", MemberName: "validationRules", SectionID: "VALID-VALI-LST", SectionIDPattern: "VALID-VALI-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentHelp: "List data validation rules applied to inbound and outbound payloads at the interface boundary.", DocComment: "Data validation rules.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — scope & external interfaces"}, "connotation": "Captures the validation rules applied to exchanged data to ensure integrity at the boundary."}}}},
+		{ClassName: "InterfaceDataSpec", MemberName: "mappingRules", SectionID: "INDASP-MAPP-LST", SectionIDPattern: "INDASP-MAPP-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentHelp: "List data mapping and transformation rules between external and internal representations.", DocComment: "Data mapping and transformation rules.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Enterprise Integration Patterns (EIP) — integration styles"}, "connotation": "Captures the mapping and transformation rules applied between external and internal data representations."}}}},
+		{ClassName: "InterfaceDataSpec", MemberName: "validationRules", SectionID: "INDASP-VALI-LST", SectionIDPattern: "INDASP-VALI-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentHelp: "List data validation rules applied to inbound and outbound payloads at the interface boundary.", DocComment: "Data validation rules.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — scope & external interfaces"}, "connotation": "Captures the validation rules applied to exchanged data to ensure integrity at the boundary."}}}},
 	}
 }
 
@@ -7577,7 +7577,7 @@ func metaChildrenInterfaceErrorHandling(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "InterfaceErrorHandling", MemberName: "retry", SectionID: "IEHR", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Non-retryable errors and retry strategy.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "fatalErrors", TypeName: "String", Description: "Fatal/Non-Retryable Errors", Hint: "Errors that must not be retried", Order: 0}, {Name: "retryStrategy", TypeName: "String", Description: "Retry Strategy (Exponential backoff, etc.)", Hint: "Strategy used when retrying", Order: 1}, {Name: "maxRetries", TypeName: "int", Description: "Max Retries", Hint: "Maximum number of retry attempts", Order: 2}, {Name: "retryInterval", TypeName: "String", Description: "Retry Interval", Hint: "Delay between retry attempts", Order: 3}, {Name: "circuitBreakerConfig", TypeName: "String", Description: "Circuit Breaker Configuration", Hint: "Circuit-breaker thresholds and behavior", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Enterprise Integration Patterns (EIP) — integration styles"}, "connotation": "Defines which errors are fatal versus retryable and the retry/circuit-breaker strategy for transient failures."}}}},
 		{ClassName: "InterfaceErrorHandling", MemberName: "fallback", SectionID: "IEHF", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Fallback behavior and manual recovery.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "fallbackBehavior", TypeName: "String", Description: "Fallback Behavior", Hint: "Behavior when the interface fails", Order: 0}, {Name: "degradedMode", TypeName: "String", Description: "Degraded Mode Operation", Hint: "How the system runs in degraded mode", Order: 1}, {Name: "manualRecovery", TypeName: "String", Description: "Manual Recovery Procedure", Hint: "Manual steps to recover from failure", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — product quality (reliability)"}, "connotation": "Describes fallback and degraded-mode behavior plus manual recovery when the interface is unavailable."}}}},
 		{ClassName: "InterfaceErrorHandling", MemberName: "timeout", SectionID: "IEHT", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Connection and transaction timeouts.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "connectionTimeout", TypeName: "String", Description: "Connection Timeout", Hint: "Timeout for establishing a connection", Order: 0}, {Name: "readTimeout", TypeName: "String", Description: "Read Timeout", Hint: "Timeout for reading a response", Order: 1}, {Name: "overallTimeout", TypeName: "String", Description: "Overall Transaction Timeout", Hint: "Total timeout for the whole transaction", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — product quality (performance efficiency)"}, "connotation": "Specifies the connection, read, and overall transaction timeouts that bound interface calls."}}}},
-		{ClassName: "InterfaceErrorHandling", MemberName: "errorProcedures", SectionID: "ERROR-ERRO-LST", SectionIDPattern: "ERROR-ERRO-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps.", DocComment: "Error handling procedures.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Enterprise Integration Patterns (EIP) — integration styles"}, "connotation": "Lists concrete error-handling procedures so operators know how to respond to each failure mode of the interface."}}}},
+		{ClassName: "InterfaceErrorHandling", MemberName: "errorProcedures", SectionID: "INERHA-ERRO-LST", SectionIDPattern: "INERHA-ERRO-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps.", DocComment: "Error handling procedures.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Enterprise Integration Patterns (EIP) — integration styles"}, "connotation": "Lists concrete error-handling procedures so operators know how to respond to each failure mode of the interface."}}}},
 	}
 }
 
@@ -7602,7 +7602,7 @@ func metaChildrenInterfaceOperational(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "InterfaceOperational", MemberName: "rateLimiting", SectionID: "IORL", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Rate limiting rules.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "rateLimits", TypeName: "String", Description: "Rate Limits (requests/minute)", Hint: "Sustained request-rate limit", Order: 0}, {Name: "quotaLimits", TypeName: "String", Description: "Quota Limits (requests/day)", Hint: "Longer-period quota limit", Order: 1}, {Name: "burstCapacity", TypeName: "String", Description: "Burst Capacity", Hint: "Short-term burst allowance", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — product quality (operational/performance)"}, "connotation": "Specifies the rate, quota, and burst limits the interface enforces or must respect."}}}},
 		{ClassName: "InterfaceOperational", MemberName: "monitoring", SectionID: "INOPMO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Monitoring configuration.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "healthCheckEndpoint", TypeName: "String", Description: "Health Check Endpoint", Hint: "Endpoint used for health checks", Order: 0}, {Name: "statusPageUrl", TypeName: "String", Description: "Status Page URL", Hint: "External status page for the system", Order: 1}, {Name: "monitoringApproach", TypeName: "String", Description: "Monitoring Approach", Hint: "How the interface is monitored", Order: 2}, {Name: "alertingThresholds", TypeName: "String", Description: "Alerting Thresholds", Hint: "Thresholds that trigger alerts", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — product quality (operational/performance)"}, "connotation": "Defines how the interface is monitored, including health checks, status pages, and alerting thresholds."}}}},
 		{ClassName: "InterfaceOperational", MemberName: "support", SectionID: "INOPSU", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Support model.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "supportHours", TypeName: "String", Description: "Support Hours", Hint: "Hours during which support is available", Order: 0}, {Name: "supportContact", TypeName: "String", Description: "Support Contact", Hint: "Primary support contact", Order: 1}, {Name: "incidentProcess", TypeName: "String", Description: "Incident Process", Hint: "Process for raising incidents", Order: 2}, {Name: "escalationPath", TypeName: "String", Description: "Escalation Path", Hint: "Escalation path for unresolved issues", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — product quality (operational/performance)"}, "connotation": "Captures the support model for the interface: hours, contacts, incident process, and escalation path."}}}},
-		{ClassName: "InterfaceOperational", MemberName: "dependencies", SectionID: "DEPEN-DEPE-LST", SectionIDPattern: "DEPEN-DEPE-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure.", DocComment: "Operational dependencies.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — product quality (operational/performance)"}, "connotation": "Lists the operational dependencies the interface relies on, so availability and failure impact can be reasoned about."}}}},
+		{ClassName: "InterfaceOperational", MemberName: "dependencies", SectionID: "INOP-DEPE-LST", SectionIDPattern: "INOP-DEPE-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure.", DocComment: "Operational dependencies.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — product quality (operational/performance)"}, "connotation": "Lists the operational dependencies the interface relies on, so availability and failure impact can be reasoned about."}}}},
 	}
 }
 
@@ -7632,7 +7632,7 @@ func metaChildrenInterfaceTechnicalSpec(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "InterfaceTechnicalSpec", MemberName: "communication", SectionID: "ITSC", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Directionality and messaging pattern.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "direction", TypeName: "String", Description: "Direction (Inbound, Outbound, Bidirectional)", Hint: "Flow direction relative to our system", Order: 0}, {Name: "initiator", TypeName: "String", Description: "Initiator (Our System, External System)", Hint: "Which side initiates the exchange", Order: 1}, {Name: "communicationStyle", TypeName: "String", Description: "Style (Synchronous, Asynchronous, Event-Driven)", Hint: "Synchronicity style of communication", Order: 2}, {Name: "deliveryGuarantee", TypeName: "String", Description: "Delivery (At-most-once, At-least-once, Exactly-once)", Hint: "Message delivery guarantee provided", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Enterprise Integration Patterns (EIP) — integration styles"}, "connotation": "Describes the direction, initiator, style, and delivery guarantee of communication across the interface."}}}},
 		{ClassName: "InterfaceTechnicalSpec", MemberName: "endpoints", SectionID: "ITSE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Endpoint and documentation references.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "baseEndpoint", TypeName: "String", Description: "Base URL/Endpoint", Hint: "Primary base URL of the interface", Order: 0}, {Name: "apiVersion", TypeName: "String", Description: "API Version", Hint: "Version of the API consumed", Order: 1}, {Name: "documentationUrl", TypeName: "String", Description: "API Documentation URL", Hint: "Link to the external API documentation", Order: 2}, {Name: "sandboxEndpoint", TypeName: "String", Description: "Sandbox/Test Endpoint", Hint: "Base URL of the sandbox/test environment", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"OpenAPI / AsyncAPI — API specification"}, "connotation": "Records the endpoints, version, and documentation references needed to locate and call the interface."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "InterfaceTechnicalSpec", MemberName: "operations", SectionID: "INOPEN-OPER-LST", SectionIDPattern: "INOPEN-OPER-xxx", Kind: som.SomMetaKindList, TypeName: "InterfaceOperationEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "List the API operations or methods used: each with method, path, purpose, and request/response formats.", DocComment: "API operations/methods exposed or consumed.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"OpenAPI / AsyncAPI — API specification"}, "connotation": "Enumerates the API operations exposed or consumed across this interface, the basis for contract documentation."}}}}
+			n := &som.SomMetaNode{ClassName: "InterfaceTechnicalSpec", MemberName: "operations", SectionID: "IOE-OPER-LST", SectionIDPattern: "IOE-OPER-xxx", Kind: som.SomMetaKindList, TypeName: "InterfaceOperationEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "List the API operations or methods used: each with method, path, purpose, and request/response formats.", DocComment: "API operations/methods exposed or consumed.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"OpenAPI / AsyncAPI — API specification"}, "connotation": "Enumerates the API operations exposed or consumed across this interface, the basis for contract documentation."}}}}
 			n.ElementNode = metaCx("InterfaceOperationEntry", s, metaChildrenInterfaceOperationEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "InterfaceOperationEntry", ClassSectionID: "IOE", Kind: som.SomMetaKindComplex, TypeName: "InterfaceOperationEntry", DocComment: "An operation of an **external** interface.\n\nOne operation of a third-party system the application talks to, described in\nthat system's own terms — including its transport method and path, which a\nforeign contract genuinely has.\n\nThis is **not** where the application's own operations are declared: those\nlive in the server operation registry (SVOPR), under the\n`codespecs_mapping.md` §7 contract that fixes the transport shape and makes\nthe operation name the sole identifier.", ClassDocComment: "An operation of an **external** interface.\n\nOne operation of a third-party system the application talks to, described in\nthat system's own terms — including its transport method and path, which a\nforeign contract genuinely has.\n\nThis is **not** where the application's own operations are declared: those\nlive in the server operation registry (SVOPR), under the\n`codespecs_mapping.md` §7 contract that fixes the transport shape and makes\nthe operation name the sole identifier.", Recursive: r, Children: c}
 			})
@@ -7654,7 +7654,7 @@ func metaChildrenInterfaceTesting(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "InterfaceTesting", MemberName: "data", SectionID: "INTEDA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Test data strategy.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "testDataApproach", TypeName: "String", Description: "Test Data Approach", Hint: "How test data is sourced or generated", Order: 0}, {Name: "syntheticDataSupport", TypeName: "bool", Description: "Synthetic Data Supported", Hint: "Whether synthetic test data is supported", Order: 1}, {Name: "productionMirror", TypeName: "bool", Description: "Production Data Mirroring", Hint: "Whether production data is mirrored for tests", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29119 — software testing"}, "connotation": "Defines the test-data strategy for the interface, covering synthetic data and production mirroring."}}}},
 		{ClassName: "InterfaceTesting", MemberName: "strategy", SectionID: "INTEST", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Validation approach across test layers.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "unitTestApproach", TypeName: "String", Description: "Unit Test Approach", Hint: "Approach to unit testing the interface", Order: 0}, {Name: "integrationTestApproach", TypeName: "String", Description: "Integration Test Approach", Hint: "Approach to integration testing", Order: 1}, {Name: "contractTestApproach", TypeName: "String", Description: "Contract Test Approach", Hint: "Approach to contract testing", Order: 2}, {Name: "e2eTestApproach", TypeName: "String", Description: "E2E Test Approach", Hint: "Approach to end-to-end testing", Order: 3}, {Name: "performanceTestApproach", TypeName: "String", Description: "Performance Test Approach", Hint: "Approach to performance testing", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29119 — software testing"}, "connotation": "Describes the validation approach across unit, integration, contract, E2E, and performance test layers for the interface."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "InterfaceTesting", MemberName: "testScenarios", SectionID: "ITSE1-TEST-LST", SectionIDPattern: "ITSE1-TEST-xxx", Kind: som.SomMetaKindList, TypeName: "InterfaceTestScenarioEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "List test scenarios for the interface, each with type, preconditions, steps, and expected result.", DocComment: "Test scenarios.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29119 — software testing"}, "connotation": "Lists the concrete test scenarios that validate the interface across happy-path, error, and edge cases."}}}}
+			n := &som.SomMetaNode{ClassName: "InterfaceTesting", MemberName: "testScenarios", SectionID: "INTESCEN-TEST-LST", SectionIDPattern: "INTESCEN-TEST-xxx", Kind: som.SomMetaKindList, TypeName: "InterfaceTestScenarioEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "List test scenarios for the interface, each with type, preconditions, steps, and expected result.", DocComment: "Test scenarios.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29119 — software testing"}, "connotation": "Lists the concrete test scenarios that validate the interface across happy-path, error, and edge cases."}}}}
 			n.ElementNode = metaCx("InterfaceTestScenarioEntry", s, metaChildrenInterfaceTestScenarioEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "InterfaceTestScenarioEntry", ClassSectionID: "INTESCEN", Kind: som.SomMetaKindComplex, TypeName: "InterfaceTestScenarioEntry", DocComment: "Test scenario entry.", ClassDocComment: "Test scenario entry.", Recursive: r, Children: c}
 			})
@@ -7737,7 +7737,7 @@ func metaChildrenIso25010Coverage(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "Iso25010Coverage", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summarize how the quality goals cover the eight ISO/IEC 25010:2023 characteristics. The taxonomy itself is owned by the SystemQualityGoals characteristic spine; this is a derived coverage view, not a second copy of the taxonomy."}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "Iso25010Coverage", MemberName: "characteristics", SectionID: "I25CV-CHAR-LST", SectionIDPattern: "I25CV-CHAR-xxx", Kind: som.SomMetaKindList, TypeName: "Iso25010CoverageEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per ISO/IEC 25010:2023 characteristic (functional suitability, performance efficiency, compatibility, interaction capability, reliability, security, maintainability, flexibility).", DocComment: "One entry per ISO/IEC 25010:2023 characteristic addressed."}
+			n := &som.SomMetaNode{ClassName: "Iso25010Coverage", MemberName: "characteristics", SectionID: "I25CE-CHAR-LST", SectionIDPattern: "I25CE-CHAR-xxx", Kind: som.SomMetaKindList, TypeName: "Iso25010CoverageEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per ISO/IEC 25010:2023 characteristic (functional suitability, performance efficiency, compatibility, interaction capability, reliability, security, maintainability, flexibility).", DocComment: "One entry per ISO/IEC 25010:2023 characteristic addressed."}
 			n.ElementNode = metaCx("Iso25010CoverageEntry", s, metaChildrenIso25010CoverageEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "Iso25010CoverageEntry", ClassSectionID: "I25CE", Kind: som.SomMetaKindComplex, TypeName: "Iso25010CoverageEntry", DocComment: "A single ISO/IEC 25010:2023 coverage entry (form).", ClassDocComment: "A single ISO/IEC 25010:2023 coverage entry (form).", Recursive: r, Children: c}
 			})
@@ -7775,7 +7775,7 @@ func metaChildrenItSecurityStandardsSection(s map[string]bool) []*som.SomMetaNod
 		{ClassName: "ItSecurityStandardsSection", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Provide an overview of IT security standards approach.\n\n**Include**:\n- Security standards adopted (OWASP, CIS, NIST)\n- Application security requirements\n- Infrastructure security baseline\n- Vulnerability management program\n- Security development integration\n\n**Best Practices**:\n- Automate security testing in CI/CD\n- Regular security training for developers\n- Maintain security champions in teams\n- Track security metrics and trends\n- Continuous security improvement\n"},
 		{ClassName: "ItSecurityStandardsSection", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Overview of IT security standards strategy."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ItSecurityStandardsSection", MemberName: "standards", SectionID: "SESTEN-STAN-LST", SectionIDPattern: "SESTEN-STAN-xxx", Kind: som.SomMetaKindList, TypeName: "SecurityStandardEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per security standard.", DocComment: "Security standards and frameworks — contains 0+× SecurityStandard.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001 — information security management system"}, "connotation": "The catalog of security standards and frameworks the system conforms to."}}}}
+			n := &som.SomMetaNode{ClassName: "ItSecurityStandardsSection", MemberName: "standards", SectionID: "SSE-STAN-LST", SectionIDPattern: "SSE-STAN-xxx", Kind: som.SomMetaKindList, TypeName: "SecurityStandardEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per security standard.", DocComment: "Security standards and frameworks — contains 0+× SecurityStandard.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001 — information security management system"}, "connotation": "The catalog of security standards and frameworks the system conforms to."}}}}
 			n.ElementNode = metaCx("SecurityStandardEntry", s, metaChildrenSecurityStandardEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "SecurityStandardEntry", ClassSectionID: "SSE", Kind: som.SomMetaKindComplex, TypeName: "SecurityStandardEntry", DocComment: "A security standard entry (form).", ClassDocComment: "A security standard entry (form).", Recursive: r, Children: c}
 			})
@@ -7814,7 +7814,7 @@ func metaChildrenJobDescriptionsAndStaffing(s map[string]bool) []*som.SomMetaNod
 	return []*som.SomMetaNode{
 		{ClassName: "JobDescriptionsAndStaffing", MemberName: "overview", SectionID: "JODEOV", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), DocComment: "Overview of the job architecture and role design approach.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "roleDesignApproach", TypeName: "String", Description: "Role Design Approach — methodology for defining roles", Hint: "Methodology used to define and structure roles", Order: 0}, {Name: "jobArchitectureModel", TypeName: "String", Description: "Job Architecture Model — job families, levels, career paths", Hint: "Job families, levels, and career paths", Order: 1}, {Name: "competencyModel", TypeName: "String", Description: "Competency Model — framework for defining skills/competencies", Hint: "Framework used to define skills and competencies", Order: 2}, {Name: "gradingStructure", TypeName: "String", Description: "Grading Structure — how roles are graded/leveled", Hint: "How roles are graded or leveled", Order: 3}, {Name: "totalRoleImpact", TypeName: "String", Description: "Total Role Impact — summary of new/changed/removed roles", Hint: "Summary count of new, changed, and removed roles", Order: 4}, {Name: "totalFteChange", TypeName: "String", Description: "Total FTE Change — net headcount impact", Hint: "Net headcount impact across all role changes", Order: 5}, {Name: "hrPartner", TypeName: "String", Description: "HR Partner — HR contact for role changes", Hint: "HR contact responsible for these role changes", Order: 6}, {Name: "unionConsiderations", TypeName: "String", Description: "Union/Works Council Considerations — labor relations impact", Hint: "Labor relations and works council impact", Order: 7}, {Name: "legalRequirements", TypeName: "String", Description: "Legal Requirements — employment law considerations", Hint: "Employment law considerations affecting role changes", Order: 8}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"SHRM — HR best practices (job design, staffing, workforce planning)", "CIPD — competency frameworks and people management"}, "connotation": "Summarises the overall approach to designing roles — the job architecture, competency model, grading, net headcount impact, and the HR/legal considerations that govern the role changes."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "JobDescriptionsAndStaffing", MemberName: "newRoles", SectionID: "NWROL-NEWR-LST", SectionIDPattern: "NWROL-NEWR-xxx", Kind: som.SomMetaKindList, TypeName: "NewRoleEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per new role being created.", DocComment: "5.2.1. New Roles — contains 0+× New Role.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"O*NET — occupational job analysis (tasks, skills, knowledge)"}, "connotation": "The set of brand-new roles the system introduces, each defined through job analysis (tasks, skills, and knowledge requirements)."}}}}
+			n := &som.SomMetaNode{ClassName: "JobDescriptionsAndStaffing", MemberName: "newRoles", SectionID: "NRE-NEWR-LST", SectionIDPattern: "NRE-NEWR-xxx", Kind: som.SomMetaKindList, TypeName: "NewRoleEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per new role being created.", DocComment: "5.2.1. New Roles — contains 0+× New Role.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"O*NET — occupational job analysis (tasks, skills, knowledge)"}, "connotation": "The set of brand-new roles the system introduces, each defined through job analysis (tasks, skills, and knowledge requirements)."}}}}
 			n.ElementNode = metaCx("NewRoleEntry", s, metaChildrenNewRoleEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "NewRoleEntry", ClassSectionID: "NRE", Kind: som.SomMetaKindComplex, TypeName: "NewRoleEntry", DocComment: "A new role entry (form).\n\nComprehensive new role definition following HR job analysis best practices.\nIncludes competencies, responsibilities, system access, and success metrics.", ClassDocComment: "A new role entry (form).\n\nComprehensive new role definition following HR job analysis best practices.\nIncludes competencies, responsibilities, system access, and success metrics.", Recursive: r, Children: c}
 			})
@@ -7990,7 +7990,7 @@ func metaChildrenLayeringAndModuleStructure(s map[string]bool) []*som.SomMetaNod
 		{ClassName: "LayeringAndModuleStructure", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Provide an overview of the layering and modularization strategy.\n\n**Include**:\n- Chosen layering approach with rationale\n- Module organization principles\n- Dependency rules and enforcement mechanism\n- Cross-cutting concerns handling (logging, auth, transactions)\n- Module communication patterns\n\n**Best Practices**:\n- Create layer/module diagrams with dependency arrows\n- Define public API contracts for each module\n- Use automated architecture tests\n- Document exception cases and technical debt\n- Plan for module extraction and scaling\n"},
 		{ClassName: "LayeringAndModuleStructure", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Overview of the layering and modularization approach."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "LayeringAndModuleStructure", MemberName: "softwareLayers", SectionID: "SOLAEN-SOFT-LST", SectionIDPattern: "SOLAEN-SOFT-xxx", Kind: som.SomMetaKindList, TypeName: "SoftwareLayerEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per software layer.", DocComment: "Software layer definitions.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Clean Architecture — dependency rule / layering"}, "connotation": "The software layers that make up the application."}}}}
+			n := &som.SomMetaNode{ClassName: "LayeringAndModuleStructure", MemberName: "softwareLayers", SectionID: "SLE-SOFT-LST", SectionIDPattern: "SLE-SOFT-xxx", Kind: som.SomMetaKindList, TypeName: "SoftwareLayerEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per software layer.", DocComment: "Software layer definitions.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Clean Architecture — dependency rule / layering"}, "connotation": "The software layers that make up the application."}}}}
 			n.ElementNode = metaCx("SoftwareLayerEntry", s, metaChildrenSoftwareLayerEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "SoftwareLayerEntry", ClassSectionID: "SLE", Kind: som.SomMetaKindComplex, TypeName: "SoftwareLayerEntry", DocComment: "Software layer entry — a horizontal layer in the architecture.", ClassDocComment: "Software layer entry — a horizontal layer in the architecture.", Recursive: r, Children: c}
 			})
@@ -8000,7 +8000,7 @@ func metaChildrenLayeringAndModuleStructure(s map[string]bool) []*som.SomMetaNod
 			return &som.SomMetaNode{ClassName: "LayerCommunicationRules", MemberName: "layerCommunicationRules", ClassSectionID: "LACORU", Kind: som.SomMetaKindComplex, TypeName: "LayerCommunicationRules", SerializationOrder: metaIntPtr(3), DocComment: "Layer communication rules and constraints.", ClassDocComment: "Layer communication rules and constraints.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "LayeringAndModuleStructure", MemberName: "boundedContexts", SectionID: "BOCOEN-BOUN-LST", SectionIDPattern: "BOCOEN-BOUN-xxx", Kind: som.SomMetaKindList, TypeName: "BoundedContextEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per bounded context.", DocComment: "Bounded contexts (DDD) definitions.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Domain-Driven Design — bounded contexts / modules", "SOLID principles — object-oriented design"}, "connotation": "The DDD bounded contexts that partition the application domain."}}}}
+			n := &som.SomMetaNode{ClassName: "LayeringAndModuleStructure", MemberName: "boundedContexts", SectionID: "BCE-BOUN-LST", SectionIDPattern: "BCE-BOUN-xxx", Kind: som.SomMetaKindList, TypeName: "BoundedContextEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per bounded context.", DocComment: "Bounded contexts (DDD) definitions.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Domain-Driven Design — bounded contexts / modules", "SOLID principles — object-oriented design"}, "connotation": "The DDD bounded contexts that partition the application domain."}}}}
 			n.ElementNode = metaCx("BoundedContextEntry", s, metaChildrenBoundedContextEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "BoundedContextEntry", ClassSectionID: "BCE", Kind: som.SomMetaKindComplex, TypeName: "BoundedContextEntry", DocComment: "Bounded context entry — a DDD bounded context.", ClassDocComment: "Bounded context entry — a DDD bounded context.", Recursive: r, Children: c}
 			})
@@ -8010,14 +8010,14 @@ func metaChildrenLayeringAndModuleStructure(s map[string]bool) []*som.SomMetaNod
 			return &som.SomMetaNode{ClassName: "PackageOrganization", MemberName: "packageOrganization", ClassSectionID: "PAOR", Kind: som.SomMetaKindComplex, TypeName: "PackageOrganization", SerializationOrder: metaIntPtr(5), DocComment: "Package organization and structure.", ClassDocComment: "Package organization and naming structure.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "LayeringAndModuleStructure", MemberName: "modules", SectionID: "MOEN1-MODU-LST", SectionIDPattern: "MOEN1-MODU-xxx", Kind: som.SomMetaKindList, TypeName: "ModuleEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per module.", DocComment: "Module catalog with dependency information.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Domain-Driven Design — bounded contexts / modules", "SOLID principles — object-oriented design"}, "connotation": "The modules that make up the application and their dependency information."}}}}
+			n := &som.SomMetaNode{ClassName: "LayeringAndModuleStructure", MemberName: "modules", SectionID: "MODENT-MODU-LST", SectionIDPattern: "MODENT-MODU-xxx", Kind: som.SomMetaKindList, TypeName: "ModuleEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per module.", DocComment: "Module catalog with dependency information.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Domain-Driven Design — bounded contexts / modules", "SOLID principles — object-oriented design"}, "connotation": "The modules that make up the application and their dependency information."}}}}
 			n.ElementNode = metaCx("ModuleEntry", s, metaChildrenModuleEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ModuleEntry", ClassSectionID: "MODENT", Kind: som.SomMetaKindComplex, TypeName: "ModuleEntry", DocComment: "Module entry — a discrete module or component.", ClassDocComment: "Module entry — a discrete module or component.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "LayeringAndModuleStructure", MemberName: "sharedLibraries", SectionID: "SHLIB-SHAR-LST", SectionIDPattern: "SHLIB-SHAR-xxx", Kind: som.SomMetaKindList, TypeName: "SharedLibraryEntry", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per shared library.", DocComment: "Shared libraries and common code.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Domain-Driven Design — bounded contexts / modules", "ISO/IEC 25010 — maintainability / modularity quality attributes"}, "connotation": "The shared libraries and common code reused across the application."}}}}
+			n := &som.SomMetaNode{ClassName: "LayeringAndModuleStructure", MemberName: "sharedLibraries", SectionID: "SHLIEN-SHAR-LST", SectionIDPattern: "SHLIEN-SHAR-xxx", Kind: som.SomMetaKindList, TypeName: "SharedLibraryEntry", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per shared library.", DocComment: "Shared libraries and common code.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Domain-Driven Design — bounded contexts / modules", "ISO/IEC 25010 — maintainability / modularity quality attributes"}, "connotation": "The shared libraries and common code reused across the application."}}}}
 			n.ElementNode = metaCx("SharedLibraryEntry", s, metaChildrenSharedLibraryEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "SharedLibraryEntry", ClassSectionID: "SHLIEN", Kind: som.SomMetaKindComplex, TypeName: "SharedLibraryEntry", DocComment: "Shared library entry — a reusable library or utility.", ClassDocComment: "Shared library entry — a reusable library or utility.", Recursive: r, Children: c}
 			})
@@ -8317,7 +8317,7 @@ func metaChildrenMaintenanceWindowsSection(s map[string]bool) []*som.SomMetaNode
 			return &som.SomMetaNode{ClassName: "ScheduledMaintenancePolicy", MemberName: "scheduledMaintenance", ClassSectionID: "SCMAPO", Kind: som.SomMetaKindComplex, TypeName: "ScheduledMaintenancePolicy", SerializationOrder: metaIntPtr(2), DocComment: "Scheduled maintenance policies.", ClassDocComment: "Scheduled maintenance policy.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "MaintenanceWindowsSection", MemberName: "maintenanceWindows", SectionID: "MAWIEN-MAIN-LST", SectionIDPattern: "MAWIEN-MAIN-xxx", Kind: som.SomMetaKindList, TypeName: "MaintenanceWindowEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per maintenance window.", DocComment: "Maintenance window definitions.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ITIL 4 — change management"}, "connotation": "The maintenance windows the system schedules."}}}}
+			n := &som.SomMetaNode{ClassName: "MaintenanceWindowsSection", MemberName: "maintenanceWindows", SectionID: "MWE-MAIN-LST", SectionIDPattern: "MWE-MAIN-xxx", Kind: som.SomMetaKindList, TypeName: "MaintenanceWindowEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per maintenance window.", DocComment: "Maintenance window definitions.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ITIL 4 — change management"}, "connotation": "The maintenance windows the system schedules."}}}}
 			n.ElementNode = metaCx("MaintenanceWindowEntry", s, metaChildrenMaintenanceWindowEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "MaintenanceWindowEntry", ClassSectionID: "MWE", Kind: som.SomMetaKindComplex, TypeName: "MaintenanceWindowEntry", DocComment: "Maintenance window entry.", ClassDocComment: "Maintenance window entry.", Recursive: r, Children: c}
 			})
@@ -8420,7 +8420,7 @@ func metaChildrenMetricsAndObservability(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "DistributedTracingSpec", MemberName: "distributedTracing", ClassSectionID: "DITRSP", Kind: som.SomMetaKindComplex, TypeName: "DistributedTracingSpec", SerializationOrder: metaIntPtr(5), DocComment: "Distributed tracing specification.", ClassDocComment: "Distributed tracing specification.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "MetricsAndObservability", MemberName: "customMetrics", SectionID: "CUMEEN-CUST-LST", SectionIDPattern: "CUMEEN-CUST-xxx", Kind: som.SomMetaKindList, TypeName: "CustomMetricEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per custom metric.", DocComment: "Custom metrics catalog.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Prometheus — metric types and exposition format"}, "connotation": "The catalog of custom application metrics the system emits."}}}}
+			n := &som.SomMetaNode{ClassName: "MetricsAndObservability", MemberName: "customMetrics", SectionID: "CUSMETENT-CUST-LST", SectionIDPattern: "CUSMETENT-CUST-xxx", Kind: som.SomMetaKindList, TypeName: "CustomMetricEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per custom metric.", DocComment: "Custom metrics catalog.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Prometheus — metric types and exposition format"}, "connotation": "The catalog of custom application metrics the system emits."}}}}
 			n.ElementNode = metaCx("CustomMetricEntry", s, metaChildrenCustomMetricEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "CustomMetricEntry", ClassSectionID: "CUSMETENT", Kind: som.SomMetaKindComplex, TypeName: "CustomMetricEntry", DocComment: "A custom metric entry.", ClassDocComment: "A custom metric entry.", Recursive: r, Children: c}
 			})
@@ -8476,7 +8476,7 @@ func metaChildrenMfaCategoryRequirementEntry(s map[string]bool) []*som.SomMetaNo
 func metaChildrenMfaConfiguration(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "MfaConfiguration", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "MfaConfiguration", MemberName: "mfaDetails", SectionID: "MFADE-MFAD-LST", SectionIDPattern: "MFADE-MFAD-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per MFA method definition.", DocComment: "MFA Implementation Details (text).", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"NIST SP 800-63B — authentication and authenticator lifecycle", "FIDO2 / W3C WebAuthn — phishing-resistant authentication"}, "connotation": "The catalog of multi-factor authentication method definitions."}}}},
+		{ClassName: "MfaConfiguration", MemberName: "mfaDetails", SectionID: "MC-MFAD-LST", SectionIDPattern: "MC-MFAD-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per MFA method definition.", DocComment: "MFA Implementation Details (text).", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"NIST SP 800-63B — authentication and authenticator lifecycle", "FIDO2 / W3C WebAuthn — phishing-resistant authentication"}, "connotation": "The catalog of multi-factor authentication method definitions."}}}},
 	}
 }
 
@@ -8503,7 +8503,7 @@ func metaChildrenMigrationConsiderations(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "MigrationConsiderations", MemberName: "rollbackStrategy", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(8), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Global rollback strategy and governance."},
 		{ClassName: "MigrationConsiderations", MemberName: "goNoGosCriteria", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(9), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Go/No-Go decision criteria for each migration."},
 		{ClassName: "MigrationConsiderations", MemberName: "communicationPlan", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(10), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Stakeholder communication plan for migration program."},
-		{ClassName: "MigrationConsiderations", MemberName: "escalationProcedures", SectionID: "ESCAL-ESCA-LST", SectionIDPattern: "ESCAL-ESCA-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(11), ContentHelp: "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority.", DocComment: "Escalation procedures during migration.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ITIL — service transition / change enablement", "ISO 31000 — risk management (migration risk)"}, "connotation": "The defined escalation paths and triggers used to raise migration issues to the appropriate authority during the transition."}}}},
+		{ClassName: "MigrationConsiderations", MemberName: "escalationProcedures", SectionID: "MIGCON-ESCA-LST", SectionIDPattern: "MIGCON-ESCA-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(11), ContentHelp: "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority.", DocComment: "Escalation procedures during migration.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ITIL — service transition / change enablement", "ISO 31000 — risk management (migration risk)"}, "connotation": "The defined escalation paths and triggers used to raise migration issues to the appropriate authority during the transition."}}}},
 	}
 }
 
@@ -8638,10 +8638,10 @@ func metaChildrenMigrationRisks(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "MigrationRisks", MemberName: "reporting", SectionID: "MIRIRE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Reporting settings.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "riskReportingCadence", TypeName: "String", Description: "Reporting Cadence", Hint: "How often risk reports are produced", Order: 0}, {Name: "riskDashboardTools", TypeName: "String", Description: "Dashboard Tools", Hint: "Tools for risk visualization", Order: 1}, {Name: "riskRegisterRepository", TypeName: "String", Description: "Risk Register Repository", Hint: "Where risk register is maintained", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"}, "connotation": "Captures how migration risk status is reported — cadence, dashboards, and where the risk register is maintained."}}}},
 		{ClassName: "MigrationRisks", MemberName: "riskOverview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Executive summary of migration risk landscape: critical risks, overall risk posture, trending analysis.", DocComment: "Risk overview at program level."},
 		{ClassName: "MigrationRisks", MemberName: "assessmentMethodology", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(6), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Detailed description of risk assessment approach, including probability/impact criteria and scoring guidelines.", DocComment: "Risk assessment methodology narrative."},
-		{ClassName: "MigrationRisks", MemberName: "riskCategories", SectionID: "RISKC-RISK-LST", SectionIDPattern: "RISKC-RISK-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per risk category, naming the category and the kinds of migration risks it groups.", DocComment: "Risk categories and taxonomy.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"}, "connotation": "The taxonomy of migration risk categories used to classify and organize risks across the program."}}}},
-		{ClassName: "MigrationRisks", MemberName: "riskBasedDecisions", SectionID: "RISKB-RISK-LST", SectionIDPattern: "RISKB-RISK-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(8), ContentHelp: "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers.", DocComment: "Risk-based decision making criteria.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"}, "connotation": "The decision criteria that govern how migration risks drive go/no-go and acceptance choices."}}}},
-		{ClassName: "MigrationRisks", MemberName: "monitoringProcedures", SectionID: "MONIT-MONI-LST", SectionIDPattern: "MONIT-MONI-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(9), ContentHelp: "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken.", DocComment: "Risk monitoring and control procedures.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 31000 — risk management (migration risk)", "ITIL — service transition / change enablement"}, "connotation": "The procedures used to monitor and control migration risks throughout the transition."}}}},
-		{ClassName: "MigrationRisks", MemberName: "responseStrategies", SectionID: "RESPO-RESP-LST", SectionIDPattern: "RESPO-RESP-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(10), ContentHelp: "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale.", DocComment: "Risk response strategies by category.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"}, "connotation": "The response strategies — avoid, mitigate, transfer, accept — applied per category of migration risk."}}}},
+		{ClassName: "MigrationRisks", MemberName: "riskCategories", SectionID: "MIRI-RISK-LST", SectionIDPattern: "MIRI-RISK-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per risk category, naming the category and the kinds of migration risks it groups.", DocComment: "Risk categories and taxonomy.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"}, "connotation": "The taxonomy of migration risk categories used to classify and organize risks across the program."}}}},
+		{ClassName: "MigrationRisks", MemberName: "riskBasedDecisions", SectionID: "MIRI-RBDE-LST", SectionIDPattern: "MIRI-RBDE-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(8), ContentHelp: "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers.", DocComment: "Risk-based decision making criteria.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"}, "connotation": "The decision criteria that govern how migration risks drive go/no-go and acceptance choices."}}}},
+		{ClassName: "MigrationRisks", MemberName: "monitoringProcedures", SectionID: "MIRI-MONI-LST", SectionIDPattern: "MIRI-MONI-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(9), ContentHelp: "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken.", DocComment: "Risk monitoring and control procedures.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 31000 — risk management (migration risk)", "ITIL — service transition / change enablement"}, "connotation": "The procedures used to monitor and control migration risks throughout the transition."}}}},
+		{ClassName: "MigrationRisks", MemberName: "responseStrategies", SectionID: "MIRI-RESP-LST", SectionIDPattern: "MIRI-RESP-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(10), ContentHelp: "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale.", DocComment: "Risk response strategies by category.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 31000 — risk management (migration risk)", "PMBOK — schedule / risk / cost management"}, "connotation": "The response strategies — avoid, mitigate, transfer, accept — applied per category of migration risk."}}}},
 		{ClassName: "MigrationRisks", MemberName: "riskAggregation", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(11), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "How individual system risks roll up to program level, correlation analysis, compound risk assessment.", DocComment: "Risk aggregation and portfolio view."},
 		{ClassName: "MigrationRisks", MemberName: "riskMatrix", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(12), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: ""}, ContentHelp: "Probability × Impact matrix showing risk distribution.", DocComment: "Risk matrix / heat map visualization."},
 		{ClassName: "MigrationRisks", MemberName: "riskTimeline", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(13), ContentType: &som.SomContentTypeMeta{Type: "mermaid-gantt", Description: ""}, ContentHelp: "Timeline showing when risks are highest and mitigation points.", DocComment: "Risk timeline showing risk exposure over migration phases."},
@@ -8764,7 +8764,7 @@ func metaChildrenMonitoringAndAlertingSection(s map[string]bool) []*som.SomMetaN
 			return &som.SomMetaNode{ClassName: "AlertingRequirements", MemberName: "alerting", ClassSectionID: "ALRE", Kind: som.SomMetaKindComplex, TypeName: "AlertingRequirements", SerializationOrder: metaIntPtr(6), DocComment: "Alerting requirements.", ClassDocComment: "Alerting requirements.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "MonitoringAndAlertingSection", MemberName: "alertDefinitions", SectionID: "ALDEEN-ALER-LST", SectionIDPattern: "ALDEEN-ALER-xxx", Kind: som.SomMetaKindList, TypeName: "AlertDefinitionEntry", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per alert definition.", DocComment: "Alert definitions.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Prometheus / Grafana — metrics & alerting"}, "connotation": "The alert definitions the system applies."}}}}
+			n := &som.SomMetaNode{ClassName: "MonitoringAndAlertingSection", MemberName: "alertDefinitions", SectionID: "ALEDEFENT-ALER-LST", SectionIDPattern: "ALEDEFENT-ALER-xxx", Kind: som.SomMetaKindList, TypeName: "AlertDefinitionEntry", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per alert definition.", DocComment: "Alert definitions.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Prometheus / Grafana — metrics & alerting"}, "connotation": "The alert definitions the system applies."}}}}
 			n.ElementNode = metaCx("AlertDefinitionEntry", s, metaChildrenAlertDefinitionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "AlertDefinitionEntry", ClassSectionID: "ALEDEFENT", Kind: som.SomMetaKindComplex, TypeName: "AlertDefinitionEntry", DocComment: "Alert definition entry.", ClassDocComment: "Alert definition entry.", Recursive: r, Children: c}
 			})
@@ -8790,7 +8790,7 @@ func metaChildrenMonitoringDashboards(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "MonitoringDashboards", MemberName: "dashboardOverview", SectionID: "MODA-DASH", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dashboardPlatform", TypeName: "String", Description: "Dashboard Platform", Hint: "Grafana, Datadog, CloudWatch, custom", Order: 0}, {Name: "dashboardAccessControl", TypeName: "String", Description: "Dashboard Access Control", Hint: "Who can view, edit dashboards", Order: 1}, {Name: "dashboardVersioning", TypeName: "bool", Description: "Dashboard Versioning", Hint: "Version control for dashboards", Order: 2}, {Name: "dashboardNamingConvention", TypeName: "String", Description: "Dashboard Naming Convention", Hint: "Naming standards for dashboards", Order: 3}, {Name: "standardLayout", TypeName: "String", Description: "Standard Layout", Hint: "Common layout patterns", Order: 4}, {Name: "colorCodingStandards", TypeName: "String", Description: "Color Coding Standards", Hint: "Red=bad, green=good conventions", Order: 5}, {Name: "executiveDashboards", TypeName: "bool", Description: "Executive Dashboards", Hint: "High-level business KPIs", Order: 6}, {Name: "operationalDashboards", TypeName: "bool", Description: "Operational Dashboards", Hint: "Real-time ops dashboards", Order: 7}, {Name: "serviceDashboards", TypeName: "bool", Description: "Service Dashboards", Hint: "Per-service detail dashboards", Order: 8}, {Name: "infrastructureDashboards", TypeName: "bool", Description: "Infrastructure Dashboards", Hint: "Infra-level dashboards", Order: 9}}}},
 		{ClassName: "MonitoringDashboards", MemberName: "overviewNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Dashboard overview narrative."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "MonitoringDashboards", MemberName: "dashboards", SectionID: "DAEN-DASH-LST", SectionIDPattern: "DAEN-DASH-xxx", Kind: som.SomMetaKindList, TypeName: "DashboardEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per dashboard.", DocComment: "Dashboard catalog.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Grafana — dashboard and panel design"}, "connotation": "The catalog of monitoring dashboards the system provides."}}}}
+			n := &som.SomMetaNode{ClassName: "MonitoringDashboards", MemberName: "dashboards", SectionID: "DASENT-DASH-LST", SectionIDPattern: "DASENT-DASH-xxx", Kind: som.SomMetaKindList, TypeName: "DashboardEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per dashboard.", DocComment: "Dashboard catalog.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Grafana — dashboard and panel design"}, "connotation": "The catalog of monitoring dashboards the system provides."}}}}
 			n.ElementNode = metaCx("DashboardEntry", s, metaChildrenDashboardEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DashboardEntry", ClassSectionID: "DASENT", Kind: som.SomMetaKindComplex, TypeName: "DashboardEntry", DocComment: "A dashboard entry.", ClassDocComment: "A dashboard entry.", Recursive: r, Children: c}
 			})
@@ -8820,7 +8820,7 @@ func metaChildrenMoscowAnalysis(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "MoscowAnalysis", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "mustHaveCount", TypeName: "String", Description: "Must-Have Count", Hint: "Number of Must-have features", Order: 0}, {Name: "shouldHaveCount", TypeName: "String", Description: "Should-Have Count", Hint: "Number of Should-have features", Order: 1}, {Name: "couldHaveCount", TypeName: "String", Description: "Could-Have Count", Hint: "Number of Could-have features", Order: 2}, {Name: "wontHaveCount", TypeName: "String", Description: "Won't-Have Count", Hint: "Number of Won't-have features", Order: 3}, {Name: "mustHaveEffortPercentage", TypeName: "String", Description: "Must-Have Effort %", Hint: "Percentage of total effort consumed by Must-haves — DSDM recommends ≤60%", Order: 4}, {Name: "shouldHaveEffortPercentage", TypeName: "String", Description: "Should-Have Effort %", Hint: "Percentage of total effort for Should-haves — ≤20%", Order: 5}, {Name: "classificationRationale", TypeName: "String", Description: "Classification Rationale", Hint: "High-level rationale for the MoSCoW balance — risk-averse, value-first, regulatory-driven", Order: 6}, {Name: "classificationDate", TypeName: "String", Description: "Classification Date", Hint: "When the MoSCoW classification was last performed", Order: 7}, {Name: "classificationApprovedBy", TypeName: "String", Description: "Classification Approved By", Hint: "Person or body who approved the classification", Order: 8}}}},
 		{ClassName: "MoscowAnalysis", MemberName: "moscowRationale", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Rationale for MoSCoW classification decisions: criteria used to assign categories, stakeholder alignment process, handling of contested classifications, relationship to stage boundaries and MVP definition.", DocComment: "MoSCoW rationale narrative."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "MoscowAnalysis", MemberName: "items", SectionID: "MOEN-ITEM-LST", SectionIDPattern: "MOEN-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "MoscowEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per MoSCoW-classified feature.", DocComment: "Contains 0+× MoscowEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique", "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"}, "connotation": "Holds the collection of MoSCoW classification entries, one per feature."}}}}
+			n := &som.SomMetaNode{ClassName: "MoscowAnalysis", MemberName: "items", SectionID: "ME-ITEM-LST", SectionIDPattern: "ME-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "MoscowEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per MoSCoW-classified feature.", DocComment: "Contains 0+× MoscowEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique", "SAFe 6.0 — the Scaled Agile Framework defines Weighted Shortest Job First for economic feature prioritization"}, "connotation": "Holds the collection of MoSCoW classification entries, one per feature."}}}}
 			n.ElementNode = metaCx("MoscowEntry", s, metaChildrenMoscowEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "MoscowEntry", ClassSectionID: "ME", Kind: som.SomMetaKindComplex, TypeName: "MoscowEntry", DocComment: "A MoSCoW classification entry (form).\n\nMaps a single feature or feature group to its MoSCoW category and\ntarget delivery stage, with justification and cross-references.", ClassDocComment: "A MoSCoW classification entry (form).\n\nMaps a single feature or feature group to its MoSCoW category and\ntarget delivery stage, with justification and cross-references.", Recursive: r, Children: c}
 			})
@@ -8854,7 +8854,7 @@ func metaChildrenMultiLanguageSupport(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "LanguageCountrySelection", MemberName: "languageCountrySelection", ClassSectionID: "LACOSE", Kind: som.SomMetaKindComplex, TypeName: "LanguageCountrySelection", SerializationOrder: metaIntPtr(2), DocComment: "10.12.4. Language and Country Selection.", ClassDocComment: "10.12.4. Language and Country Selection.\n\nUI specification for language and country selection.\n\nThis is the *picker* — how a user is offered languages and countries, what\nis preselected, how the choice is retained across a sign-in, and how the\nsystem falls back. The underlying `ui.language` / `ui.country` preference is\n**declared** as a CE-UP user setting in `UserSettings` (`USRSET`), which is\nwhy this section carries no `@CodeSpecKind`: a picker is a screen, not a\nsetting declaration (`codespecs_mapping.md` §5.16).", MapsTo: "D09ExperienceDesignSpecification", DetailedIn: "D09ExperienceDesignSpecification", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "MultiLanguageSupport", MemberName: "supportedLocales", SectionID: "SULOEN-SUPP-LST", SectionIDPattern: "SULOEN-SUPP-xxx", Kind: som.SomMetaKindList, TypeName: "SupportedLocaleEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per supported locale.", DocComment: "Supported locale entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 639 — language codes identify each supported locale", "ISO 3166 — country and region codes complete each locale identifier", "W3C Internationalization / BCP 47 — language tags name the supported locales"}, "connotation": "The collection of locales the system supports."}}}}
+			n := &som.SomMetaNode{ClassName: "MultiLanguageSupport", MemberName: "supportedLocales", SectionID: "SUPLOCENT-SUPP-LST", SectionIDPattern: "SUPLOCENT-SUPP-xxx", Kind: som.SomMetaKindList, TypeName: "SupportedLocaleEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per supported locale.", DocComment: "Supported locale entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 639 — language codes identify each supported locale", "ISO 3166 — country and region codes complete each locale identifier", "W3C Internationalization / BCP 47 — language tags name the supported locales"}, "connotation": "The collection of locales the system supports."}}}}
 			n.ElementNode = metaCx("SupportedLocaleEntry", s, metaChildrenSupportedLocaleEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "SupportedLocaleEntry", ClassSectionID: "SUPLOCENT", Kind: som.SomMetaKindComplex, TypeName: "SupportedLocaleEntry", DocComment: "A supported locale entry.", ClassDocComment: "A supported locale entry.", Recursive: r, Children: c}
 			})
@@ -9060,7 +9060,7 @@ func metaChildrenNetworkRequirementsSection(s map[string]bool) []*som.SomMetaNod
 			return &som.SomMetaNode{ClassName: "NetworkAvailabilityRequirements", MemberName: "availabilityRequirements", ClassSectionID: "NEAVRE", Kind: som.SomMetaKindComplex, TypeName: "NetworkAvailabilityRequirements", SerializationOrder: metaIntPtr(6), DocComment: "Network availability requirements.", ClassDocComment: "Network availability requirements.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "NetworkRequirementsSection", MemberName: "vpnRequirements", SectionID: "VPREEN-VPNR-LST", SectionIDPattern: "VPREEN-VPNR-xxx", Kind: som.SomMetaKindList, TypeName: "VpnRequirementEntry", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per VPN requirement.", DocComment: "VPN requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"IETF RFCs (DNS / TLS / IPsec) — network protocol standards"}, "connotation": "The VPN requirements the network must satisfy."}}}}
+			n := &som.SomMetaNode{ClassName: "NetworkRequirementsSection", MemberName: "vpnRequirements", SectionID: "VRE-VPNR-LST", SectionIDPattern: "VRE-VPNR-xxx", Kind: som.SomMetaKindList, TypeName: "VpnRequirementEntry", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per VPN requirement.", DocComment: "VPN requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"IETF RFCs (DNS / TLS / IPsec) — network protocol standards"}, "connotation": "The VPN requirements the network must satisfy."}}}}
 			n.ElementNode = metaCx("VpnRequirementEntry", s, metaChildrenVpnRequirementEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "VpnRequirementEntry", ClassSectionID: "VRE", Kind: som.SomMetaKindComplex, TypeName: "VpnRequirementEntry", DocComment: "VPN requirement entry.", ClassDocComment: "VPN requirement entry.", Recursive: r, Children: c}
 			})
@@ -9306,7 +9306,7 @@ func metaChildrenOperationalPainPoints(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "OperationalPainPoints", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Overview of operational pain points affecting day-to-day activities.\nInclude patterns of recurring issues, seasonal variations, and dependencies\non specific systems or personnel.\n"},
 		{ClassName: "OperationalPainPoints", MemberName: "categorySummary", SectionID: "OPPS", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentHelp: "Aggregate the operational pain points into category metrics: average downtime, number of manual workarounds, data-inconsistency frequency, and staff overhead spent on workarounds.", DocComment: "Category-level summary for operational pain points.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "averageDowntimePerMonth", TypeName: "String", Description: "Average Downtime per Month", Hint: "Total system/process downtime, e.g. 4.5 hours/month", Order: 0}, {Name: "manualWorkaroundsCount", TypeName: "int", Description: "Number of Manual Workarounds", Hint: "Count of documented manual workarounds in use", Order: 1}, {Name: "dataInconsistencyFrequency", TypeName: "String", Description: "Data Inconsistency Frequency", Hint: "How often data inconsistencies occur, e.g. Daily / Weekly / Monthly", Order: 2}, {Name: "criticalProcessesAffected", TypeName: "int", Description: "Critical Processes Affected", Hint: "Number of critical business processes impacted", Order: 3}, {Name: "staffOverhead", TypeName: "String", Description: "Staff Overhead for Workarounds", Hint: "FTE hours spent on operational workarounds, e.g. 40 hours/week", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (operational measures)"}, "connotation": "Category roll-up quantifying the operational pain points — downtime, workaround count, and staff overhead in the current state."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "OperationalPainPoints", MemberName: "items", SectionID: "OPPAPO-ITEM-LST", SectionIDPattern: "OPPAPO-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "PainPointEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per distinct operational problem, each with its own root cause, impact, and workaround. Keep entries scoped to day-to-day operations rather than business or technical concerns.", DocComment: "Contains 0+× PainPoint.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (problem identification)"}, "connotation": "The list of individual operational pain points documented in detail."}}}}
+			n := &som.SomMetaNode{ClassName: "OperationalPainPoints", MemberName: "items", SectionID: "PAPE-ITEM-LST", SectionIDPattern: "PAPE-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "PainPointEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per distinct operational problem, each with its own root cause, impact, and workaround. Keep entries scoped to day-to-day operations rather than business or technical concerns.", DocComment: "Contains 0+× PainPoint.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (problem identification)"}, "connotation": "The list of individual operational pain points documented in detail."}}}}
 			n.ElementNode = metaCx("PainPointEntry", s, metaChildrenPainPointEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "PainPointEntry", ClassSectionID: "PAPE", Kind: som.SomMetaKindComplex, TypeName: "PainPointEntry", DocComment: "A pain point entry (form).\n\nDocuments a specific problem in the current state with comprehensive details:\nroot cause analysis, impact quantification, affected stakeholders,\ncurrent workarounds, and proposed resolution approach.", ClassDocComment: "A pain point entry (form).\n\nDocuments a specific problem in the current state with comprehensive details:\nroot cause analysis, impact quantification, affected stakeholders,\ncurrent workarounds, and proposed resolution approach.", Recursive: r, Children: c}
 			})
@@ -9428,7 +9428,7 @@ func metaChildrenOrganizationalEnvironment(s map[string]bool) []*som.SomMetaNode
 		{ClassName: "OrganizationalEnvironment", MemberName: "decisionMakingContext", SectionID: "OEDM", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Decision-making context.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "decisionMakingStyle", TypeName: "String", Description: "Decision Style (Centralized, Federated, Consensus, Delegated)", Hint: "How decisions are typically made in the organization", Order: 0}, {Name: "approvalLevels", TypeName: "String", Description: "Approval Levels/Hierarchy", Hint: "Layers of approval required for decisions", Order: 1}, {Name: "escalationPath", TypeName: "String", Description: "Escalation Path", Hint: "Route for escalating unresolved decisions", Order: 2}, {Name: "budgetAuthority", TypeName: "String", Description: "Budget Authority Structure", Hint: "Who holds spending authority and at what thresholds", Order: 3}, {Name: "procurementProcess", TypeName: "String", Description: "Procurement Process Type", Hint: "Nature of the procurement and purchasing process", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 21500 — organizational roles & responsibilities", "PMBOK — enterprise environmental factors (EEF)"}, "connotation": "Captures the decision-making context including style, approval hierarchy, and budget authority that govern project decisions."}}}},
 		{ClassName: "OrganizationalEnvironment", MemberName: "structure", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the organizational structure: departments involved, reporting relationships, matrix structures, and how the project intersects with existing organization.", DocComment: "Detailed organizational structure narrative."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "OrganizationalEnvironment", MemberName: "affectedDepartments", SectionID: "AFDEEN-AFFE-LST", SectionIDPattern: "AFDEEN-AFFE-xxx", Kind: som.SomMetaKindList, TypeName: "AffectedDepartmentEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "List each affected department with its role, impact level, and key contacts so organizational reach is fully documented.", DocComment: "Departments and business units affected.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 21500 — organizational roles & responsibilities", "TOGAF — enterprise context & environment"}, "connotation": "Lists the departments and business units affected by the project so their roles and impact levels are captured."}}}}
+			n := &som.SomMetaNode{ClassName: "OrganizationalEnvironment", MemberName: "affectedDepartments", SectionID: "ADE-AFFE-LST", SectionIDPattern: "ADE-AFFE-xxx", Kind: som.SomMetaKindList, TypeName: "AffectedDepartmentEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "List each affected department with its role, impact level, and key contacts so organizational reach is fully documented.", DocComment: "Departments and business units affected.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 21500 — organizational roles & responsibilities", "TOGAF — enterprise context & environment"}, "connotation": "Lists the departments and business units affected by the project so their roles and impact levels are captured."}}}}
 			n.ElementNode = metaCx("AffectedDepartmentEntry", s, metaChildrenAffectedDepartmentEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "AffectedDepartmentEntry", ClassSectionID: "ADE", Kind: som.SomMetaKindComplex, TypeName: "AffectedDepartmentEntry", DocComment: "An affected department entry.", ClassDocComment: "An affected department entry.", Recursive: r, Children: c}
 			})
@@ -9436,16 +9436,16 @@ func metaChildrenOrganizationalEnvironment(s map[string]bool) []*som.SomMetaNode
 		}(),
 		{ClassName: "OrganizationalEnvironment", MemberName: "decisionMaking", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe decision-making processes: governance boards, approval workflows, decision criteria, and timeline expectations for different decision types.", DocComment: "Decision making processes and authority."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "OrganizationalEnvironment", MemberName: "decisionMakers", SectionID: "DEMAEN-DECI-LST", SectionIDPattern: "DEMAEN-DECI-xxx", Kind: som.SomMetaKindList, TypeName: "DecisionMakerEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "List each decision maker with their decision authority, domains, and influence level to map governance and approval paths.", DocComment: "Key decision makers and their roles.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 21500 — organizational roles & responsibilities", "PMBOK — enterprise environmental factors (EEF)"}, "connotation": "Identifies the key decision makers and their authority so governance and approval paths are clear."}}}}
+			n := &som.SomMetaNode{ClassName: "OrganizationalEnvironment", MemberName: "decisionMakers", SectionID: "DME-DECI-LST", SectionIDPattern: "DME-DECI-xxx", Kind: som.SomMetaKindList, TypeName: "DecisionMakerEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "List each decision maker with their decision authority, domains, and influence level to map governance and approval paths.", DocComment: "Key decision makers and their roles.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 21500 — organizational roles & responsibilities", "PMBOK — enterprise environmental factors (EEF)"}, "connotation": "Identifies the key decision makers and their authority so governance and approval paths are clear."}}}}
 			n.ElementNode = metaCx("DecisionMakerEntry", s, metaChildrenDecisionMakerEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DecisionMakerEntry", ClassSectionID: "DME", Kind: som.SomMetaKindComplex, TypeName: "DecisionMakerEntry", DocComment: "A decision maker entry.", ClassDocComment: "A decision maker entry.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
-		{ClassName: "OrganizationalEnvironment", MemberName: "culturalConsiderations", SectionID: "CULTU-CULT-LST", SectionIDPattern: "CULTU-CULT-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(7), ContentHelp: "List cultural factors and organizational dynamics that could affect project adoption, collaboration, or change readiness.", DocComment: "Cultural considerations and organizational dynamics.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — enterprise environmental factors (EEF)", "TOGAF — enterprise context & environment"}, "connotation": "Captures cultural considerations and organizational dynamics that may influence adoption and change."}}}},
-		{ClassName: "OrganizationalEnvironment", MemberName: "communicationPreferences", SectionID: "COMMU-COMM-LST", SectionIDPattern: "COMMU-COMM-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(8), ContentHelp: "List communication preferences per stakeholder group to guide engagement channels, frequency, and reporting style.", DocComment: "Stakeholder communication preferences.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 42010 — architecture environment & stakeholders", "PMBOK — enterprise environmental factors (EEF)"}, "connotation": "Records stakeholder communication preferences so engagement and reporting fit the organizational context."}}}},
+		{ClassName: "OrganizationalEnvironment", MemberName: "culturalConsiderations", SectionID: "OREN-CULT-LST", SectionIDPattern: "OREN-CULT-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(7), ContentHelp: "List cultural factors and organizational dynamics that could affect project adoption, collaboration, or change readiness.", DocComment: "Cultural considerations and organizational dynamics.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — enterprise environmental factors (EEF)", "TOGAF — enterprise context & environment"}, "connotation": "Captures cultural considerations and organizational dynamics that may influence adoption and change."}}}},
+		{ClassName: "OrganizationalEnvironment", MemberName: "communicationPreferences", SectionID: "OREN-COMM-LST", SectionIDPattern: "OREN-COMM-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(8), ContentHelp: "List communication preferences per stakeholder group to guide engagement channels, frequency, and reporting style.", DocComment: "Stakeholder communication preferences.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 42010 — architecture environment & stakeholders", "PMBOK — enterprise environmental factors (EEF)"}, "connotation": "Records stakeholder communication preferences so engagement and reporting fit the organizational context."}}}},
 		{ClassName: "OrganizationalEnvironment", MemberName: "politicalLandscape", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(9), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe organizational politics: power centers, influence networks, historical project outcomes, and potential resistance points.", DocComment: "Political dynamics and influence patterns."},
-		{ClassName: "OrganizationalEnvironment", MemberName: "changeAdvocates", SectionID: "CHANG-CHAN-LST", SectionIDPattern: "CHANG-CHAN-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(10), ContentHelp: "List change champions and sponsors, noting their influence and role in driving adoption across the organization.", DocComment: "Change champions and sponsors.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — enterprise environmental factors (EEF)", "ISO 21500 — organizational roles & responsibilities"}, "connotation": "Identifies change champions and sponsors who can drive adoption and overcome organizational resistance."}}}},
+		{ClassName: "OrganizationalEnvironment", MemberName: "changeAdvocates", SectionID: "OREN-CHAN-LST", SectionIDPattern: "OREN-CHAN-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(10), ContentHelp: "List change champions and sponsors, noting their influence and role in driving adoption across the organization.", DocComment: "Change champions and sponsors.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — enterprise environmental factors (EEF)", "ISO 21500 — organizational roles & responsibilities"}, "connotation": "Identifies change champions and sponsors who can drive adoption and overcome organizational resistance."}}}},
 	}
 }
 
@@ -9567,7 +9567,7 @@ func metaChildrenOutOfScope(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "OutOfScope", MemberName: "scopePhilosophy", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the scope philosophy and how exclusions were determined. Reference any scope workshops or decision records.", DocComment: "Overview of scope exclusion approach."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "OutOfScope", MemberName: "items", SectionID: "OOSE-ITEM-LST", SectionIDPattern: "OOSE-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "OutOfScopeEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Each entry records one excluded feature, system, or integration along with its exclusion rationale.", DocComment: "Contains 0+× OutOfScopeEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — scope definition & assumptions/dependencies", "PMBOK — scope management & assumption log"}, "connotation": "Lists each individually excluded item so every out-of-scope decision is recorded and traceable."}}}}
+			n := &som.SomMetaNode{ClassName: "OutOfScope", MemberName: "items", SectionID: "OUOFSCEN-ITEM-LST", SectionIDPattern: "OUOFSCEN-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "OutOfScopeEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Each entry records one excluded feature, system, or integration along with its exclusion rationale.", DocComment: "Contains 0+× OutOfScopeEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — scope definition & assumptions/dependencies", "PMBOK — scope management & assumption log"}, "connotation": "Lists each individually excluded item so every out-of-scope decision is recorded and traceable."}}}}
 			n.ElementNode = metaCx("OutOfScopeEntry", s, metaChildrenOutOfScopeEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "OutOfScopeEntry", ClassSectionID: "OUOFSCEN", Kind: som.SomMetaKindComplex, TypeName: "OutOfScopeEntry", DocComment: "An out-of-scope entry (form).", ClassDocComment: "An out-of-scope entry (form).", Recursive: r, Children: c}
 			})
@@ -9899,7 +9899,7 @@ func metaChildrenPhaseGateReviews(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "PhaseGateReviews", MemberName: "outcomes", SectionID: "PGRO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Gate decision outcomes and follow-up rules.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "possibleOutcomes", TypeName: "String", Description: "Possible Outcomes", Required: true, Hint: "Proceed / ConditionalProceed / Rework / Hold / Cancel — possible gate decisions", Order: 0}, {Name: "conditionalProceedRules", TypeName: "String", Description: "Conditional Proceed Rules", Hint: "Conditions under which conditional approval is allowed — time-boxed remediation, risk accepted", Order: 1}, {Name: "reworkProcessDefinition", TypeName: "String", Description: "Rework Process Definition", Hint: "What happens on rework decision — scope, timeline, re-review scheduling", Order: 2}, {Name: "cancelProcessDefinition", TypeName: "String", Description: "Cancel Process Definition", Hint: "What happens on cancel — asset disposition, team reassignment, lessons learned", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls", "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"}, "connotation": "Defines the possible gate decision outcomes and their follow-up rules including conditional proceed, rework, and cancel handling."}}}},
 		{ClassName: "PhaseGateReviews", MemberName: "gateReviewNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Phase gate process description: gate objectives, review rhythm, participant roles, evidence gathering, decision criteria, proceed/rework/cancel definitions, conditional approval handling.", DocComment: "Phase gate review process narrative."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "PhaseGateReviews", MemberName: "items", SectionID: "PGRE-ITEM-LST", SectionIDPattern: "PGRE-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "PhaseGateReviewEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per phase gate review.", DocComment: "Contains 0+× PhaseGateReviewEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls", "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"}, "connotation": "Lists the phase gate reviews defined in the stage plan, each with its own criteria, participants, evidence, and outcome."}}}}
+			n := &som.SomMetaNode{ClassName: "PhaseGateReviews", MemberName: "items", SectionID: "PHGAREEN-ITEM-LST", SectionIDPattern: "PHGAREEN-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "PhaseGateReviewEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per phase gate review.", DocComment: "Contains 0+× PhaseGateReviewEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls", "PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews"}, "connotation": "Lists the phase gate reviews defined in the stage plan, each with its own criteria, participants, evidence, and outcome."}}}}
 			n.ElementNode = metaCx("PhaseGateReviewEntry", s, metaChildrenPhaseGateReviewEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "PhaseGateReviewEntry", ClassSectionID: "PHGAREEN", Kind: som.SomMetaKindComplex, TypeName: "PhaseGateReviewEntry", DocComment: "A phase gate review entry (form).\n\nDefines a single phase gate with its criteria, participants,\nrequired evidence, entry/exit conditions, and review schedule.", ClassDocComment: "A phase gate review entry (form).\n\nDefines a single phase gate with its criteria, participants,\nrequired evidence, entry/exit conditions, and review schedule.", Recursive: r, Children: c}
 			})
@@ -9961,7 +9961,7 @@ func metaChildrenPlatformAndLanguage(s map[string]bool) []*som.SomMetaNode {
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "PlatformAndLanguage", MemberName: "frameworks", SectionID: "FWREN-FRAM-LST", SectionIDPattern: "FWREN-FRAM-xxx", Kind: som.SomMetaKindList, TypeName: "FrameworkRequirementEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per framework or library.", DocComment: "Framework and library requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 42010 — architecture description", "Semantic Versioning (SemVer) — version numbering"}, "connotation": "The frameworks and libraries, with versions and license constraints, the system depends on."}}}}
+			n := &som.SomMetaNode{ClassName: "PlatformAndLanguage", MemberName: "frameworks", SectionID: "FRREEN-FRAM-LST", SectionIDPattern: "FRREEN-FRAM-xxx", Kind: som.SomMetaKindList, TypeName: "FrameworkRequirementEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per framework or library.", DocComment: "Framework and library requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 42010 — architecture description", "Semantic Versioning (SemVer) — version numbering"}, "connotation": "The frameworks and libraries, with versions and license constraints, the system depends on."}}}}
 			n.ElementNode = metaCx("FrameworkRequirementEntry", s, metaChildrenFrameworkRequirementEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "FrameworkRequirementEntry", ClassSectionID: "FRREEN", Kind: som.SomMetaKindComplex, TypeName: "FrameworkRequirementEntry", DocComment: "Framework or library requirement entry.", ClassDocComment: "Framework or library requirement entry.", Recursive: r, Children: c}
 			})
@@ -9975,7 +9975,7 @@ func metaChildrenPlatformAndLanguage(s map[string]bool) []*som.SomMetaNode {
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "PlatformAndLanguage", MemberName: "deploymentTargets", SectionID: "DETAEN-DEPL-LST", SectionIDPattern: "DETAEN-DEPL-xxx", Kind: som.SomMetaKindList, TypeName: "DeploymentTargetEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per deployment target.", DocComment: "Deployment target specifications.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Twelve-Factor App — cloud-native methodology", "ISO/IEC 12207 — software lifecycle processes"}, "connotation": "The deployment targets — production, staging and distribution environments — the system is released to."}}}}
+			n := &som.SomMetaNode{ClassName: "PlatformAndLanguage", MemberName: "deploymentTargets", SectionID: "DEPTARENT-DEPL-LST", SectionIDPattern: "DEPTARENT-DEPL-xxx", Kind: som.SomMetaKindList, TypeName: "DeploymentTargetEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per deployment target.", DocComment: "Deployment target specifications.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Twelve-Factor App — cloud-native methodology", "ISO/IEC 12207 — software lifecycle processes"}, "connotation": "The deployment targets — production, staging and distribution environments — the system is released to."}}}}
 			n.ElementNode = metaCx("DeploymentTargetEntry", s, metaChildrenDeploymentTargetEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DeploymentTargetEntry", ClassSectionID: "DEPTARENT", Kind: som.SomMetaKindComplex, TypeName: "DeploymentTargetEntry", DocComment: "Deployment target specification entry.", ClassDocComment: "Deployment target specification entry.", Recursive: r, Children: c}
 			})
@@ -10036,14 +10036,14 @@ func metaChildrenPrintAndExportLayout(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "PrintAndExportLayout", MemberName: "headerFooter", SectionID: "PLHF", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Header and footer settings.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "defaultHeaderContent", TypeName: "String", Description: "Default Header Content", Hint: "Header template, e.g. {logo} {reportTitle} {date}", Order: 0}, {Name: "defaultFooterContent", TypeName: "String", Description: "Default Footer Content", Hint: "Footer template, e.g. {companyName} — Page {page}/{pages}", Order: 1}, {Name: "defaultDateFormat", TypeName: "String", Description: "Default Date Format", Hint: "Date format, e.g. dd.MM.yyyy", Order: 2}, {Name: "defaultNumberFormat", TypeName: "String", Description: "Default Number Format", Hint: "Number format, e.g. #,##0.00", Order: 3}, {Name: "defaultCurrencyFormat", TypeName: "String", Description: "Default Currency Format", Hint: "Currency format, e.g. €#,##0.00", Order: 4}, {Name: "defaultTimezone", TypeName: "String", Description: "Default Timezone", Hint: "Timezone, e.g. Europe/Berlin", Order: 5}, {Name: "defaultLocale", TypeName: "String", Description: "Default Locale", Hint: "Locale, e.g. de-DE", Order: 6}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"W3C CSS Paged Media Level 3 — describes running headers and footers placed in the margin boxes of printed pages", "ISO 9241-125:2017 — provides guidance on the visual presentation of information such as page-level annotations"}, "connotation": "The default header and footer content, along with date, number, currency, timezone and locale formatting for printed output."}}}},
 		{ClassName: "PrintAndExportLayout", MemberName: "archive", SectionID: "PRLAAR", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(5), DocComment: "Archive and batch settings.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "archivePolicy", TypeName: "String", Description: "Archive Policy", Hint: "None / 30-days / 1-year / Permanent", Order: 0}, {Name: "reportNamingConvention", TypeName: "String", Description: "Report Naming Convention", Hint: "File naming pattern, e.g. {reportId}_{date}_{version}", Order: 1}, {Name: "batchGenerationSupport", TypeName: "String", Description: "Batch Generation Support", Hint: "Yes / No — support batch report generation", Order: 2}, {Name: "maxConcurrentReports", TypeName: "int", Description: "Max Concurrent Reports", Hint: "Maximum concurrent reports", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 26515:2018 — manages information for use produced within an agile development lifecycle", "ISO/IEC 25010:2023 — defines functional suitability as coverage of specified tasks and objectives"}, "connotation": "The archival and batch-generation settings governing how printed reports are retained and produced in bulk."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "PrintAndExportLayout", MemberName: "exportFormats", SectionID: "EXFOEN-EXPO-LST", SectionIDPattern: "EXFOEN-EXPO-xxx", Kind: som.SomMetaKindList, TypeName: "ExportFormatEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per export format.", DocComment: "10.4.1. Export Formats — contains 0+× Export Format.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 32000-2:2020 — specifies the PDF format frequently offered as a report export option", "ISO/IEC 25010:2023 — defines functional suitability including coverage of specified output tasks"}, "connotation": "The collection of export formats in which printed reports can be produced."}}}}
+			n := &som.SomMetaNode{ClassName: "PrintAndExportLayout", MemberName: "exportFormats", SectionID: "EFE-EXPO-LST", SectionIDPattern: "EFE-EXPO-xxx", Kind: som.SomMetaKindList, TypeName: "ExportFormatEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per export format.", DocComment: "10.4.1. Export Formats — contains 0+× Export Format.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 32000-2:2020 — specifies the PDF format frequently offered as a report export option", "ISO/IEC 25010:2023 — defines functional suitability including coverage of specified output tasks"}, "connotation": "The collection of export formats in which printed reports can be produced."}}}}
 			n.ElementNode = metaCx("ExportFormatEntry", s, metaChildrenExportFormatEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ExportFormatEntry", ClassSectionID: "EFE", Kind: som.SomMetaKindComplex, TypeName: "ExportFormatEntry", DocComment: "An export format entry (form).", ClassDocComment: "An export format entry (form).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "PrintAndExportLayout", MemberName: "exportTemplates", SectionID: "EXTEEN-EXPO-LST", SectionIDPattern: "EXTEEN-EXPO-xxx", Kind: som.SomMetaKindList, TypeName: "ExportTemplateEntry", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per export template.", DocComment: "10.4.2. Export Templates — contains 0+× Export\nTemplate.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 26514:2022 — designs and develops the layout of report information for use", "ISO 32000-2:2020 — specifies the PDF document format used as an export target for printed output"}, "connotation": "The collection of reusable export templates available for producing formatted output."}}}}
+			n := &som.SomMetaNode{ClassName: "PrintAndExportLayout", MemberName: "exportTemplates", SectionID: "ETE-EXPO-LST", SectionIDPattern: "ETE-EXPO-xxx", Kind: som.SomMetaKindList, TypeName: "ExportTemplateEntry", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per export template.", DocComment: "10.4.2. Export Templates — contains 0+× Export\nTemplate.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 26514:2022 — designs and develops the layout of report information for use", "ISO 32000-2:2020 — specifies the PDF document format used as an export target for printed output"}, "connotation": "The collection of reusable export templates available for producing formatted output."}}}}
 			n.ElementNode = metaCx("ExportTemplateEntry", s, metaChildrenExportTemplateEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ExportTemplateEntry", ClassSectionID: "ETE", Kind: som.SomMetaKindComplex, TypeName: "ExportTemplateEntry", DocComment: "A reusable export template (form).", ClassDocComment: "A reusable export template (form).", Recursive: r, Children: c}
 			})
@@ -10082,7 +10082,7 @@ func metaChildrenProblemStatement(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "ProblemStatement", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
 		{ClassName: "ProblemStatement", MemberName: "problemDetails", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Problem Description Form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "problemSummary", TypeName: "String", Description: "Problem Summary (one sentence)", Required: true, Hint: "State the core problem in a single concise sentence", Order: 0}, {Name: "currentState", TypeName: "String", Description: "Current State (describe the AS-IS situation that is problematic)", Hint: "Describe the current AS-IS situation that is problematic", Order: 1}, {Name: "affectedParties", TypeName: "String", Description: "Affected Parties (who suffers from this problem)", Hint: "Who suffers from this problem and in what way", Order: 2}, {Name: "impactDescription", TypeName: "String", Description: "Impact Description (business, financial, operational impacts)", Hint: "Business, financial, and operational impacts of the problem", Order: 3}, {Name: "impactSeverity", TypeName: "String", Description: "Impact Severity (Critical, High, Medium, Low)", Hint: "Critical / High / Medium / Low", Order: 4}, {Name: "impactMetrics", TypeName: "String", Description: "Impact Metrics (quantifiable measures of the problem's cost)", Hint: "Quantifiable measures of the problem's cost", Order: 5}, {Name: "rootCauses", TypeName: "String", Description: "Root Causes (underlying reasons for problem)", Hint: "Underlying reasons that cause the problem", Order: 6}, {Name: "urgency", TypeName: "String", Description: "Urgency (Immediate, Short-term, Medium-term, Long-term)", Hint: "Immediate / Short-term / Medium-term / Long-term", Order: 7}, {Name: "urgencyJustification", TypeName: "String", Description: "Urgency Justification (why this timeline is critical)", Hint: "Why the stated timeline is critical", Order: 8}, {Name: "consequencesOfInaction", TypeName: "String", Description: "Consequences of Inaction (what happens if not addressed)", Hint: "What happens if the problem is not addressed", Order: 9}}}},
-		{ClassName: "ProblemStatement", MemberName: "relatedPainPoints", SectionID: "RPPE-RELA-LST", SectionIDPattern: "RPPE-RELA-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per related pain point identified in the Current State Analysis that this problem statement connects to.", DocComment: "Related pain points from Current State Analysis.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — problem space"}, "connotation": "The set of related pain points drawn from the Current State Analysis that this problem connects to."}}}},
+		{ClassName: "ProblemStatement", MemberName: "relatedPainPoints", SectionID: "PS-RELA-LST", SectionIDPattern: "PS-RELA-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per related pain point identified in the Current State Analysis that this problem statement connects to.", DocComment: "Related pain points from Current State Analysis.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — problem space"}, "connotation": "The set of related pain points drawn from the Current State Analysis that this problem connects to."}}}},
 	}
 }
 
@@ -10718,7 +10718,7 @@ func metaChildrenProtocolsAndStandardsSection(s map[string]bool) []*som.SomMetaN
 		{ClassName: "ProtocolsAndStandardsSection", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Provide an overview of protocol and standards approach.\n\n**Include**:\n- Primary protocols and selection rationale\n- TLS/security configuration\n- Certificate management strategy\n- API versioning approach\n- Data format standards\n\n**Best Practices**:\n- Use TLS 1.3 where supported\n- Automate certificate renewal\n- Implement proper API versioning from start\n- Document protocol requirements clearly\n- Monitor protocol compliance\n"},
 		{ClassName: "ProtocolsAndStandardsSection", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Overview of communication protocols and standards."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ProtocolsAndStandardsSection", MemberName: "protocols", SectionID: "PREN-PROT-LST", SectionIDPattern: "PREN-PROT-xxx", Kind: som.SomMetaKindList, TypeName: "ProtocolEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per protocol.", DocComment: "Protocol catalog — contains 0+× Protocol.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"IETF RFC 9110 — HTTP semantics"}, "connotation": "The communication protocols the system supports."}}}}
+			n := &som.SomMetaNode{ClassName: "ProtocolsAndStandardsSection", MemberName: "protocols", SectionID: "PE-PROT-LST", SectionIDPattern: "PE-PROT-xxx", Kind: som.SomMetaKindList, TypeName: "ProtocolEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per protocol.", DocComment: "Protocol catalog — contains 0+× Protocol.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"IETF RFC 9110 — HTTP semantics"}, "connotation": "The communication protocols the system supports."}}}}
 			n.ElementNode = metaCx("ProtocolEntry", s, metaChildrenProtocolEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ProtocolEntry", ClassSectionID: "PE", Kind: som.SomMetaKindComplex, TypeName: "ProtocolEntry", DocComment: "A protocol or standard entry (form).", ClassDocComment: "A protocol or standard entry (form).", Recursive: r, Children: c}
 			})
@@ -10778,7 +10778,7 @@ func metaChildrenPrototypeFeatureSubset(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "PrototypeFeatureSubset", MemberName: "fidelity", SectionID: "PFSF", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Fidelity expectations for the prototype.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "prototypeFidelity", TypeName: "String", Description: "Prototype Fidelity", Hint: "Low, medium, high fidelity", Order: 0}, {Name: "interactiveFidelity", TypeName: "String", Description: "Interactive Fidelity", Hint: "Level of interactivity", Order: 1}, {Name: "dataFidelity", TypeName: "String", Description: "Data Fidelity", Hint: "Real vs. mock data", Order: 2}, {Name: "visualFidelity", TypeName: "String", Description: "Visual Fidelity", Hint: "Production visuals vs. wireframes", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210:2019 — prototype fidelity is chosen to suit the questions the evaluation must answer"}, "connotation": "The fidelity expectations for interactivity, data, and visuals in the prototype."}}}},
 		{ClassName: "PrototypeFeatureSubset", MemberName: "featureNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Feature subset narrative."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "PrototypeFeatureSubset", MemberName: "features", SectionID: "PRFEEN-FEAT-LST", SectionIDPattern: "PRFEEN-FEAT-xxx", Kind: som.SomMetaKindList, TypeName: "PrototypeFeatureEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per prototype feature.", DocComment: "Prototype feature entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210:2019 — the prototyped features are enumerated so scope and fidelity can be tracked per feature"}, "connotation": "The collection of prototype-feature entries."}}}}
+			n := &som.SomMetaNode{ClassName: "PrototypeFeatureSubset", MemberName: "features", SectionID: "PFE-FEAT-LST", SectionIDPattern: "PFE-FEAT-xxx", Kind: som.SomMetaKindList, TypeName: "PrototypeFeatureEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per prototype feature.", DocComment: "Prototype feature entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210:2019 — the prototyped features are enumerated so scope and fidelity can be tracked per feature"}, "connotation": "The collection of prototype-feature entries."}}}}
 			n.ElementNode = metaCx("PrototypeFeatureEntry", s, metaChildrenPrototypeFeatureEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "PrototypeFeatureEntry", ClassSectionID: "PFE", Kind: som.SomMetaKindComplex, TypeName: "PrototypeFeatureEntry", DocComment: "A prototype feature entry.", ClassDocComment: "A prototype feature entry.", Recursive: r, Children: c}
 			})
@@ -10800,7 +10800,7 @@ func metaChildrenPrototypeGoals(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "PrototypeGoals", MemberName: "feedbackProfile", SectionID: "PRGOFE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "User feedback objectives and intake.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "userFeedbackGoals", TypeName: "String", Description: "User Feedback Goals", Hint: "What feedback to gather", Order: 0}, {Name: "usabilityTestingPlan", TypeName: "String", Description: "Usability Testing Plan", Hint: "How usability testing is done", Order: 1}, {Name: "feedbackIntegration", TypeName: "String", Description: "Feedback Integration", Hint: "How feedback flows back", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210:2019 — user feedback is gathered from prototype evaluation to inform the design"}, "connotation": "The user-feedback objectives and how feedback from the prototype is collected."}}}},
 		{ClassName: "PrototypeGoals", MemberName: "goalsNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Prototype goals narrative."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "PrototypeGoals", MemberName: "goals", SectionID: "PRGOEN-GOAL-LST", SectionIDPattern: "PRGOEN-GOAL-xxx", Kind: som.SomMetaKindList, TypeName: "PrototypeGoalEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per prototype goal.", DocComment: "Individual goal entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210:2019 — individual validation goals are recorded so prototype evaluation can be traced against them"}, "connotation": "The collection of individual prototype-goal entries."}}}}
+			n := &som.SomMetaNode{ClassName: "PrototypeGoals", MemberName: "goals", SectionID: "PGE-GOAL-LST", SectionIDPattern: "PGE-GOAL-xxx", Kind: som.SomMetaKindList, TypeName: "PrototypeGoalEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per prototype goal.", DocComment: "Individual goal entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210:2019 — individual validation goals are recorded so prototype evaluation can be traced against them"}, "connotation": "The collection of individual prototype-goal entries."}}}}
 			n.ElementNode = metaCx("PrototypeGoalEntry", s, metaChildrenPrototypeGoalEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "PrototypeGoalEntry", ClassSectionID: "PGE", Kind: som.SomMetaKindComplex, TypeName: "PrototypeGoalEntry", DocComment: "A prototype goal entry.", ClassDocComment: "A prototype goal entry.", Recursive: r, Children: c}
 			})
@@ -10875,7 +10875,7 @@ func metaChildrenQualityFramework(s map[string]bool) []*som.SomMetaNode {
 			})
 			return n
 		}(),
-		{ClassName: "QualityFramework", MemberName: "categoryDependencies", SectionID: "CATEG-CATE-LST", SectionIDPattern: "CATEG-CATE-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per category dependency.", DocComment: "Quality dependencies map.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are captured to reason about trade-offs"}, "connotation": "Lists dependencies between quality categories used to reason about trade-offs."}}}},
+		{ClassName: "QualityFramework", MemberName: "categoryDependencies", SectionID: "QLFWK-CATE-LST", SectionIDPattern: "QLFWK-CATE-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per category dependency.", DocComment: "Quality dependencies map.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010:2023 — quality characteristics are interrelated, so dependencies between categories are captured to reason about trade-offs"}, "connotation": "Lists dependencies between quality categories used to reason about trade-offs."}}}},
 	}
 }
 
@@ -11266,7 +11266,7 @@ func metaChildrenReportDefinitions(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "ReportDefinitions", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summarize the report definitions: which reports exist, what each projects over the domain model, and how they are delivered."}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ReportDefinitions", MemberName: "reports", SectionID: "REEN-REPO-LST", SectionIDPattern: "REEN-REPO-xxx", Kind: som.SomMetaKindList, TypeName: "ReportEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per report.", DocComment: "10.2.1. Reports — contains 0+× Report.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 26514:2022 — designs and develops report information for use", "ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content"}, "connotation": "The collection of report entries available for printing."}}}}
+			n := &som.SomMetaNode{ClassName: "ReportDefinitions", MemberName: "reports", SectionID: "REPENT-REPO-LST", SectionIDPattern: "REPENT-REPO-xxx", Kind: som.SomMetaKindList, TypeName: "ReportEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per report.", DocComment: "10.2.1. Reports — contains 0+× Report.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 26514:2022 — designs and develops report information for use", "ISO 9241-125:2017 — provides guidance on the visual presentation of printed report content"}, "connotation": "The collection of report entries available for printing."}}}}
 			n.ElementNode = metaCx("ReportEntry", s, metaChildrenReportEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ReportEntry", ClassSectionID: "REPENT", Kind: som.SomMetaKindComplex, TypeName: "ReportEntry", DocComment: "A report entry (form).", ClassDocComment: "A report entry (form).", Recursive: r, Children: c}
 			})
@@ -11302,35 +11302,35 @@ func metaChildrenReportEntry(s map[string]bool) []*som.SomMetaNode {
 		}),
 		{ClassName: "ReportEntry", MemberName: "lifecycle", SectionID: "RELI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(12), DocComment: "Lifecycle and archiving.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "archiveRetention", TypeName: "String", Description: "Archive Retention", Hint: "Retention policy for generated instances, e.g. 90 days", Order: 0}, {Name: "signatureRequired", TypeName: "String", Description: "Signature Required", Hint: "Yes / No — does the report require a digital signature", Order: 1}, {Name: "approvalWorkflow", TypeName: "String", Description: "Approval Workflow", Hint: "Approval steps before distribution, if any", Order: 2}, {Name: "notes", TypeName: "String", Description: "Notes", Hint: "Additional design notes or open questions", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 26515:2018 — governs retention and management of produced information", "ISO/IEC 25010:2023 — functional suitability supports controlled report distribution"}, "connotation": "Lifecycle settings covering retention signature approval and archiving of the report."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ReportEntry", MemberName: "sections", SectionID: "RESEE1-SECT-LST", SectionIDPattern: "RESEE1-SECT-xxx", Kind: som.SomMetaKindList, TypeName: "ReportSectionEntry", SerializationOrder: metaIntPtr(13), ContentHelp: "Add one entry per report section.", DocComment: "Contains 0+× Report Section.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-125:2017 — presentation of information groups related content in sections", "ISO/IEC/IEEE 26514:2022 — structures information for use into identifiable units"}, "connotation": "The collection of report-section entries composing the body of the report."}}}}
+			n := &som.SomMetaNode{ClassName: "ReportEntry", MemberName: "sections", SectionID: "RSE-SECT-LST", SectionIDPattern: "RSE-SECT-xxx", Kind: som.SomMetaKindList, TypeName: "ReportSectionEntry", SerializationOrder: metaIntPtr(13), ContentHelp: "Add one entry per report section.", DocComment: "Contains 0+× Report Section.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-125:2017 — presentation of information groups related content in sections", "ISO/IEC/IEEE 26514:2022 — structures information for use into identifiable units"}, "connotation": "The collection of report-section entries composing the body of the report."}}}}
 			n.ElementNode = metaCx("ReportSectionEntry", s, metaChildrenReportSectionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ReportSectionEntry", ClassSectionID: "RSE", Kind: som.SomMetaKindComplex, TypeName: "ReportSectionEntry", DocComment: "A section within a report (form).", ClassDocComment: "A section within a report (form).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ReportEntry", MemberName: "filters", SectionID: "REFIEN-FILT-LST", SectionIDPattern: "REFIEN-FILT-xxx", Kind: som.SomMetaKindList, TypeName: "ReportFilterEntry", SerializationOrder: metaIntPtr(14), ContentHelp: "Add one entry per report data filter.", DocComment: "Contains 0+× Report Filter.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 — captures the filter criteria constraining reported data"}, "connotation": "The collection of filters that restrict the data included in the report."}}}}
+			n := &som.SomMetaNode{ClassName: "ReportEntry", MemberName: "filters", SectionID: "RFE-FILT-LST", SectionIDPattern: "RFE-FILT-xxx", Kind: som.SomMetaKindList, TypeName: "ReportFilterEntry", SerializationOrder: metaIntPtr(14), ContentHelp: "Add one entry per report data filter.", DocComment: "Contains 0+× Report Filter.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148:2018 — captures the filter criteria constraining reported data"}, "connotation": "The collection of filters that restrict the data included in the report."}}}}
 			n.ElementNode = metaCx("ReportFilterEntry", s, metaChildrenReportFilterEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ReportFilterEntry", ClassSectionID: "RFE", Kind: som.SomMetaKindComplex, TypeName: "ReportFilterEntry", DocComment: "A filter parameter for a report (form).", ClassDocComment: "A filter parameter for a report (form).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ReportEntry", MemberName: "schedules", SectionID: "RESCEN-SCHE-LST", SectionIDPattern: "RESCEN-SCHE-xxx", Kind: som.SomMetaKindList, TypeName: "ReportScheduleEntry", SerializationOrder: metaIntPtr(15), ContentHelp: "Add one entry per report generation schedule.", DocComment: "Contains 0+× Report Schedule.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 8601-1:2019 — expresses the dates and times at which the report is generated", "ISO/IEC 25010:2023 — functional suitability supports scheduled report production"}, "connotation": "The collection of schedules controlling automated generation of the report."}}}}
+			n := &som.SomMetaNode{ClassName: "ReportEntry", MemberName: "schedules", SectionID: "REPSCHENT-SCHE-LST", SectionIDPattern: "REPSCHENT-SCHE-xxx", Kind: som.SomMetaKindList, TypeName: "ReportScheduleEntry", SerializationOrder: metaIntPtr(15), ContentHelp: "Add one entry per report generation schedule.", DocComment: "Contains 0+× Report Schedule.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 8601-1:2019 — expresses the dates and times at which the report is generated", "ISO/IEC 25010:2023 — functional suitability supports scheduled report production"}, "connotation": "The collection of schedules controlling automated generation of the report."}}}}
 			n.ElementNode = metaCx("ReportScheduleEntry", s, metaChildrenReportScheduleEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ReportScheduleEntry", ClassSectionID: "REPSCHENT", Kind: som.SomMetaKindComplex, TypeName: "ReportScheduleEntry", DocComment: "Scheduling rules for report generation\n(form).", ClassDocComment: "Scheduling rules for report generation\n(form).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ReportEntry", MemberName: "distributions", SectionID: "REDIEN-DIST-LST", SectionIDPattern: "REDIEN-DIST-xxx", Kind: som.SomMetaKindList, TypeName: "ReportDistributionEntry", SerializationOrder: metaIntPtr(16), ContentHelp: "Add one entry per report distribution channel.", DocComment: "Contains 0+× Report Distribution.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 26515:2018 — governs delivery of produced information to its audience"}, "connotation": "The collection of distribution channels through which the report is delivered."}}}}
+			n := &som.SomMetaNode{ClassName: "ReportEntry", MemberName: "distributions", SectionID: "RDE-DIST-LST", SectionIDPattern: "RDE-DIST-xxx", Kind: som.SomMetaKindList, TypeName: "ReportDistributionEntry", SerializationOrder: metaIntPtr(16), ContentHelp: "Add one entry per report distribution channel.", DocComment: "Contains 0+× Report Distribution.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 26515:2018 — governs delivery of produced information to its audience"}, "connotation": "The collection of distribution channels through which the report is delivered."}}}}
 			n.ElementNode = metaCx("ReportDistributionEntry", s, metaChildrenReportDistributionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ReportDistributionEntry", ClassSectionID: "RDE", Kind: som.SomMetaKindComplex, TypeName: "ReportDistributionEntry", DocComment: "Distribution channel configuration (form).", ClassDocComment: "Distribution channel configuration (form).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ReportEntry", MemberName: "recipients", SectionID: "REREEN-RECI-LST", SectionIDPattern: "REREEN-RECI-xxx", Kind: som.SomMetaKindList, TypeName: "ReportRecipientEntry", SerializationOrder: metaIntPtr(17), ContentHelp: "Add one entry per report recipient.", DocComment: "Contains 0+× Recipient.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 26515:2018 — identifies the audience receiving produced information"}, "connotation": "The collection of recipients who receive the generated report."}}}}
+			n := &som.SomMetaNode{ClassName: "ReportEntry", MemberName: "recipients", SectionID: "RRE-RECI-LST", SectionIDPattern: "RRE-RECI-xxx", Kind: som.SomMetaKindList, TypeName: "ReportRecipientEntry", SerializationOrder: metaIntPtr(17), ContentHelp: "Add one entry per report recipient.", DocComment: "Contains 0+× Recipient.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 26515:2018 — identifies the audience receiving produced information"}, "connotation": "The collection of recipients who receive the generated report."}}}}
 			n.ElementNode = metaCx("ReportRecipientEntry", s, metaChildrenReportRecipientEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ReportRecipientEntry", ClassSectionID: "RRE", Kind: som.SomMetaKindComplex, TypeName: "ReportRecipientEntry", DocComment: "A recipient entry (form).", ClassDocComment: "A recipient entry (form).", Recursive: r, Children: c}
 			})
@@ -11381,14 +11381,14 @@ func metaChildrenReportSectionEntry(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "ReportSectionEntry", MemberName: "sorting", SectionID: "RESESO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Sorting and grouping.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "sortField", TypeName: "String", Description: "Sort Field", Hint: "Default sort for this section data", Order: 0}, {Name: "sortDirection", TypeName: "String", Description: "Sort Direction", Hint: "Ascending / Descending", Order: 1}, {Name: "groupByField", TypeName: "String", Description: "Group By Field", Hint: "Field used for grouping rows", Order: 2}, {Name: "showGroupSubtotals", TypeName: "String", Description: "Show Group Subtotals", Hint: "Yes / No", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-125:2017 — visual presentation of information supports grouping of related data", "ISO/IEC 25010:2023 — functional suitability supports sorting and grouping of section rows"}, "connotation": "Sorting and grouping settings for a report section such as sort field and group subtotals."}}}},
 		{ClassName: "ReportSectionEntry", MemberName: "aggregation", SectionID: "RESEAG", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Aggregation and limits.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "showSectionTotal", TypeName: "String", Description: "Show Section Total", Hint: "Yes / No — show totals row at section end", Order: 0}, {Name: "aggregationFields", TypeName: "String", Description: "Aggregation Fields", Hint: "Comma-separated fields with aggregation", Order: 1}, {Name: "maxRows", TypeName: "int", Description: "Max Rows", Hint: "Row limit for this section; 0 = unlimited", Order: 2}, {Name: "overflowBehavior", TypeName: "String", Description: "Overflow Behavior", Hint: "Truncate / Continue-next-page / Scroll", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 80000-1:2022 — general principles for quantities units and their symbols", "ISO/IEC 25010:2023 — functional suitability supports section totals and row limits"}, "connotation": "Aggregation and row-limit settings for a report section such as totals and overflow behaviour."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ReportSectionEntry", MemberName: "columns", SectionID: "RECOE1-COLU-LST", SectionIDPattern: "RECOE1-COLU-xxx", Kind: som.SomMetaKindList, TypeName: "ReportColumnEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per column in the section table.", DocComment: "Contains 0+× Report Column.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-112:2017 — presentation of information organises tabular data into columns"}, "connotation": "The collection of column entries defining the tabular layout of this report section."}}}}
+			n := &som.SomMetaNode{ClassName: "ReportSectionEntry", MemberName: "columns", SectionID: "REPCOLENT-COLU-LST", SectionIDPattern: "REPCOLENT-COLU-xxx", Kind: som.SomMetaKindList, TypeName: "ReportColumnEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per column in the section table.", DocComment: "Contains 0+× Report Column.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-112:2017 — presentation of information organises tabular data into columns"}, "connotation": "The collection of column entries defining the tabular layout of this report section."}}}}
 			n.ElementNode = metaCx("ReportColumnEntry", s, metaChildrenReportColumnEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ReportColumnEntry", ClassSectionID: "REPCOLENT", Kind: som.SomMetaKindComplex, TypeName: "ReportColumnEntry", DocComment: "A column in a tabular report section\n(form).", ClassDocComment: "A column in a tabular report section\n(form).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ReportSectionEntry", MemberName: "charts", SectionID: "RECHEN-CHAR-LST", SectionIDPattern: "RECHEN-CHAR-xxx", Kind: som.SomMetaKindList, TypeName: "ReportChartEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per chart shown in the section.", DocComment: "Contains 0+× Report Chart.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-125:2017 — presentation of information conveys quantitative data through graphical form"}, "connotation": "The collection of chart entries rendered within this report section."}}}}
+			n := &som.SomMetaNode{ClassName: "ReportSectionEntry", MemberName: "charts", SectionID: "REPCHAENT-CHAR-LST", SectionIDPattern: "REPCHAENT-CHAR-xxx", Kind: som.SomMetaKindList, TypeName: "ReportChartEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per chart shown in the section.", DocComment: "Contains 0+× Report Chart.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-125:2017 — presentation of information conveys quantitative data through graphical form"}, "connotation": "The collection of chart entries rendered within this report section."}}}}
 			n.ElementNode = metaCx("ReportChartEntry", s, metaChildrenReportChartEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ReportChartEntry", ClassSectionID: "REPCHAENT", Kind: som.SomMetaKindComplex, TypeName: "ReportChartEntry", DocComment: "A chart/visualization in a report\n(form).", ClassDocComment: "A chart/visualization in a report\n(form).", Recursive: r, Children: c}
 			})
@@ -11407,7 +11407,7 @@ func metaChildrenRequirementAcceptanceCriteria(s map[string]bool) []*som.SomMeta
 	return []*som.SomMetaNode{
 		{ClassName: "RequirementAcceptanceCriteria", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Overview of acceptance approach and test coverage expectations."}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "RequirementAcceptanceCriteria", MemberName: "criteria", SectionID: "ACCR-CRIT-LST", SectionIDPattern: "ACCR-CRIT-xxx", Kind: som.SomMetaKindList, TypeName: "AcceptanceCriterionEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one criterion per testable condition.", DocComment: "Acceptance criterion entries — contains 0+× AcceptanceCriterionEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §9 — acceptance criteria", "Agile — acceptance criteria"}, "connotation": "The list of individual acceptance-criterion entries, one per testable condition for the requirement."}}}}
+			n := &som.SomMetaNode{ClassName: "RequirementAcceptanceCriteria", MemberName: "criteria", SectionID: "ACE-CRIT-LST", SectionIDPattern: "ACE-CRIT-xxx", Kind: som.SomMetaKindList, TypeName: "AcceptanceCriterionEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one criterion per testable condition.", DocComment: "Acceptance criterion entries — contains 0+× AcceptanceCriterionEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §9 — acceptance criteria", "Agile — acceptance criteria"}, "connotation": "The list of individual acceptance-criterion entries, one per testable condition for the requirement."}}}}
 			n.ElementNode = metaCx("AcceptanceCriterionEntry", s, metaChildrenAcceptanceCriterionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "AcceptanceCriterionEntry", ClassSectionID: "ACE", Kind: som.SomMetaKindComplex, TypeName: "AcceptanceCriterionEntry", DocComment: "An acceptance criterion entry (form).\n\nUses Given-When-Then format (Gherkin style) for testable criteria.", ClassDocComment: "An acceptance criterion entry (form).\n\nUses Given-When-Then format (Gherkin style) for testable criteria.", Recursive: r, Children: c}
 			})
@@ -11531,7 +11531,7 @@ func metaChildrenRequirementUiSpecification(s map[string]bool) []*som.SomMetaNod
 		{ClassName: "RequirementUiSpecification", MemberName: "layoutCode", SectionID: "RUS-LAYO", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "code-dart", Description: "Flutter/D4rt code specifying the UI layout using tom_flutter_ui components."}, ContentHelp: "Provide D4rt Flutter code for the UI layout, using tom_flutter_ui components. This can be rendered in documentation.", DocComment: "UI layout specification (D4rt Flutter code)."},
 		{ClassName: "RequirementUiSpecification", MemberName: "mockupDescription", SectionID: "RUS-MOCK", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "ASCII or text description of UI mockup if D4rt code is not available."}, DocComment: "UI mockup diagram (fallback if code not available)."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "RequirementUiSpecification", MemberName: "fields", SectionID: "SCFLD-FIEL-LST", SectionIDPattern: "SCFLD-FIEL-xxx", Kind: som.SomMetaKindList, TypeName: "ScreenFieldEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Define each field in the UI.", DocComment: "Screen field entries — contains 0+× ScreenFieldEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-110 — dialogue principles", "ISO/IEC/IEEE 29148 §9.5 — UI functional requirements"}, "connotation": "The list of individual screen-field entries that make up this UI."}}}}
+			n := &som.SomMetaNode{ClassName: "RequirementUiSpecification", MemberName: "fields", SectionID: "SFE-FIEL-LST", SectionIDPattern: "SFE-FIEL-xxx", Kind: som.SomMetaKindList, TypeName: "ScreenFieldEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Define each field in the UI.", DocComment: "Screen field entries — contains 0+× ScreenFieldEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-110 — dialogue principles", "ISO/IEC/IEEE 29148 §9.5 — UI functional requirements"}, "connotation": "The list of individual screen-field entries that make up this UI."}}}}
 			n.ElementNode = metaCx("ScreenFieldEntry", s, metaChildrenScreenFieldEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ScreenFieldEntry", ClassSectionID: "SFE", Kind: som.SomMetaKindComplex, TypeName: "ScreenFieldEntry", DocComment: "A screen field entry (form).\n\nDefines a field in the user interface with all its properties.", ClassDocComment: "A screen field entry (form).\n\nDefines a field in the user interface with all its properties.", Recursive: r, Children: c}
 			})
@@ -11812,21 +11812,21 @@ func metaChildrenReusableComponentsSection(s map[string]bool) []*som.SomMetaNode
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ReusableComponentsSection", MemberName: "uiComponents", SectionID: "RUICMP-UICO-LST", SectionIDPattern: "RUICMP-UICO-xxx", Kind: som.SomMetaKindList, TypeName: "ReusableUiComponentEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per UI component.", DocComment: "UI component library entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DRY — reusable component design", "SOLID principles — object-oriented design"}, "connotation": "The reusable UI components shared across the system."}}}}
+			n := &som.SomMetaNode{ClassName: "ReusableComponentsSection", MemberName: "uiComponents", SectionID: "RUCE-UICO-LST", SectionIDPattern: "RUCE-UICO-xxx", Kind: som.SomMetaKindList, TypeName: "ReusableUiComponentEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per UI component.", DocComment: "UI component library entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DRY — reusable component design", "SOLID principles — object-oriented design"}, "connotation": "The reusable UI components shared across the system."}}}}
 			n.ElementNode = metaCx("ReusableUiComponentEntry", s, metaChildrenReusableUiComponentEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ReusableUiComponentEntry", ClassSectionID: "RUCE", Kind: som.SomMetaKindComplex, TypeName: "ReusableUiComponentEntry", DocComment: "UI component entry — a reusable UI widget or pattern.", ClassDocComment: "UI component entry — a reusable UI widget or pattern.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ReusableComponentsSection", MemberName: "businessComponents", SectionID: "BUCOEN-BUSI-LST", SectionIDPattern: "BUCOEN-BUSI-xxx", Kind: som.SomMetaKindList, TypeName: "BusinessComponentEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per business component.", DocComment: "Business logic components.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Domain-Driven Design — bounded contexts / modules", "ISO/IEC 25010 — reusability quality attributes"}, "connotation": "The reusable business logic components shared across the system."}}}}
+			n := &som.SomMetaNode{ClassName: "ReusableComponentsSection", MemberName: "businessComponents", SectionID: "BUSCOMENT-BUSI-LST", SectionIDPattern: "BUSCOMENT-BUSI-xxx", Kind: som.SomMetaKindList, TypeName: "BusinessComponentEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per business component.", DocComment: "Business logic components.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Domain-Driven Design — bounded contexts / modules", "ISO/IEC 25010 — reusability quality attributes"}, "connotation": "The reusable business logic components shared across the system."}}}}
 			n.ElementNode = metaCx("BusinessComponentEntry", s, metaChildrenBusinessComponentEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "BusinessComponentEntry", ClassSectionID: "BUSCOMENT", Kind: som.SomMetaKindComplex, TypeName: "BusinessComponentEntry", DocComment: "Business logic component entry.", ClassDocComment: "Business logic component entry.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ReusableComponentsSection", MemberName: "infrastructureComponents", SectionID: "INCOEN-INFR-LST", SectionIDPattern: "INCOEN-INFR-xxx", Kind: som.SomMetaKindList, TypeName: "InfrastructureComponentEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per infrastructure component.", DocComment: "Infrastructure components.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DRY — reusable component design", "ISO/IEC 25010 — maintainability quality attributes"}, "connotation": "The reusable infrastructure components shared across the system."}}}}
+			n := &som.SomMetaNode{ClassName: "ReusableComponentsSection", MemberName: "infrastructureComponents", SectionID: "INFCOMENT-INFR-LST", SectionIDPattern: "INFCOMENT-INFR-xxx", Kind: som.SomMetaKindList, TypeName: "InfrastructureComponentEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per infrastructure component.", DocComment: "Infrastructure components.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DRY — reusable component design", "ISO/IEC 25010 — maintainability quality attributes"}, "connotation": "The reusable infrastructure components shared across the system."}}}}
 			n.ElementNode = metaCx("InfrastructureComponentEntry", s, metaChildrenInfrastructureComponentEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "InfrastructureComponentEntry", ClassSectionID: "INFCOMENT", Kind: som.SomMetaKindComplex, TypeName: "InfrastructureComponentEntry", DocComment: "Infrastructure component entry.", ClassDocComment: "Infrastructure component entry.", Recursive: r, Children: c}
 			})
@@ -11966,7 +11966,7 @@ func metaChildrenRisksAndAssumptions(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "RisksAndAssumptions", MemberName: "overview", SectionID: "RIOV", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), DocComment: "Overview of the risk management approach for this project.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "riskManagementApproach", TypeName: "String", Description: "Risk Management Approach — overall methodology and framework", Hint: "Describe the methodology and framework used to manage risk", Order: 0}, {Name: "riskAppetite", TypeName: "String", Description: "Risk Appetite — organization tolerance (risk-averse, risk-neutral, risk-seeking)", Hint: "State the organization tolerance level for risk", Order: 1}, {Name: "riskThresholds", TypeName: "String", Description: "Risk Thresholds — quantitative escalation levels (e.g., cost > $50K)", Hint: "Define quantitative thresholds that trigger escalation", Order: 2}, {Name: "riskReviewCadence", TypeName: "String", Description: "Risk Review Cadence — frequency of review meetings", Hint: "How often risks are reviewed", Order: 3}, {Name: "escalationPath", TypeName: "String", Description: "Escalation Path — hierarchy for escalating high-severity risks", Hint: "Chain of escalation for high-severity risks", Order: 4}, {Name: "riskTooling", TypeName: "String", Description: "Risk Management Tooling — tools used to track risks", Hint: "Tools or systems used to track and report risks", Order: 5}, {Name: "riskCategories", TypeName: "String", Description: "Risk Categories — Technical, Schedule, Cost, Resource, External, etc.", Hint: "Categories used to classify risks", Order: 6}, {Name: "probabilityScale", TypeName: "String", Description: "Probability Scale — Very Low (<10%), Low (10-30%), Medium (30-50%), High (50-70%), Very High (>70%)", Hint: "Scale used to rate likelihood of occurrence", Order: 7}, {Name: "impactScale", TypeName: "String", Description: "Impact Scale — Negligible, Minor, Moderate, Major, Catastrophic with criteria", Hint: "Scale used to rate severity of impact", Order: 8}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 31000:2018 — risk management", "PMBOK — project risk management", "ISO/IEC 31010 — risk assessment techniques"}, "connotation": "This section captures the overarching risk management methodology, appetite, and scales that frame how every individual risk is assessed."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "RisksAndAssumptions", MemberName: "keyRisks", SectionID: "RIEN-KEYR-LST", SectionIDPattern: "RIEN-KEYR-xxx", Kind: som.SomMetaKindList, TypeName: "RiskEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "List of identified project risks, each capturing analysis, response, ownership, and monitoring detail.", DocComment: "4.7.1. Key Risks — contains 0+× Risk.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 31000:2018 — risk management", "PMBOK — project risk management"}, "connotation": "This list holds the individual risk entries that make up the project risk register and drive prioritization and response planning."}}}}
+			n := &som.SomMetaNode{ClassName: "RisksAndAssumptions", MemberName: "keyRisks", SectionID: "RISENT-KEYR-LST", SectionIDPattern: "RISENT-KEYR-xxx", Kind: som.SomMetaKindList, TypeName: "RiskEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "List of identified project risks, each capturing analysis, response, ownership, and monitoring detail.", DocComment: "4.7.1. Key Risks — contains 0+× Risk.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 31000:2018 — risk management", "PMBOK — project risk management"}, "connotation": "This list holds the individual risk entries that make up the project risk register and drive prioritization and response planning."}}}}
 			n.ElementNode = metaCx("RiskEntry", s, metaChildrenRiskEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "RiskEntry", ClassSectionID: "RISENT", Kind: som.SomMetaKindComplex, TypeName: "RiskEntry", DocComment: "A risk entry (form).\n\nComprehensive risk documentation following ISO 31000 and PMBOK guidelines.\nCaptures risk identification, analysis, response planning, ownership,\nand monitoring information for systematic risk management.", ClassDocComment: "A risk entry (form).\n\nComprehensive risk documentation following ISO 31000 and PMBOK guidelines.\nCaptures risk identification, analysis, response planning, ownership,\nand monitoring information for systematic risk management.", Recursive: r, Children: c}
 			})
@@ -12309,14 +12309,14 @@ func metaChildrenScopeBoundaries(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "ScopeBoundaries", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ScopeBoundaries", MemberName: "inScopeItems", SectionID: "SCITE-INSC-LST", SectionIDPattern: "SCITE-INSC-xxx", Kind: som.SomMetaKindList, TypeName: "ScopeItemEntry", SerializationOrder: metaIntPtr(1), Min: metaIntPtr(1), ContentHelp: "List all items that are explicitly in scope for this project. Be specific about features, processes, user groups, and systems.", DocComment: "In-Scope Items — contains 1+× ScopeItem.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — system scope & boundaries"}, "connotation": "The set of items explicitly included within the scope of this project."}}}}
+			n := &som.SomMetaNode{ClassName: "ScopeBoundaries", MemberName: "inScopeItems", SectionID: "SIE-INSC-LST", SectionIDPattern: "SIE-INSC-xxx", Kind: som.SomMetaKindList, TypeName: "ScopeItemEntry", SerializationOrder: metaIntPtr(1), Min: metaIntPtr(1), ContentHelp: "List all items that are explicitly in scope for this project. Be specific about features, processes, user groups, and systems.", DocComment: "In-Scope Items — contains 1+× ScopeItem.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — system scope & boundaries"}, "connotation": "The set of items explicitly included within the scope of this project."}}}}
 			n.ElementNode = metaCx("ScopeItemEntry", s, metaChildrenScopeItemEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ScopeItemEntry", ClassSectionID: "SIE", Kind: som.SomMetaKindComplex, TypeName: "ScopeItemEntry", DocComment: "A scope item entry (in-scope or out-of-scope).", ClassDocComment: "A scope item entry (in-scope or out-of-scope).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ScopeBoundaries", MemberName: "outOfScopeItems", SectionID: "SCITE-OUTO-LST", SectionIDPattern: "SCITE-OUTO-xxx", Kind: som.SomMetaKindList, TypeName: "ScopeItemEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "List items explicitly excluded. This is as important as in-scope items to prevent misunderstandings and scope creep.", DocComment: "Out-of-Scope Items — contains 0+× ScopeItem.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — system scope & boundaries"}, "connotation": "The set of items explicitly excluded from the scope of this project."}}}}
+			n := &som.SomMetaNode{ClassName: "ScopeBoundaries", MemberName: "outOfScopeItems", SectionID: "SIE-OUTO-LST", SectionIDPattern: "SIE-OUTO-xxx", Kind: som.SomMetaKindList, TypeName: "ScopeItemEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "List items explicitly excluded. This is as important as in-scope items to prevent misunderstandings and scope creep.", DocComment: "Out-of-Scope Items — contains 0+× ScopeItem.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — system scope & boundaries"}, "connotation": "The set of items explicitly excluded from the scope of this project."}}}}
 			n.ElementNode = metaCx("ScopeItemEntry", s, metaChildrenScopeItemEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ScopeItemEntry", ClassSectionID: "SIE", Kind: som.SomMetaKindComplex, TypeName: "ScopeItemEntry", DocComment: "A scope item entry (in-scope or out-of-scope).", ClassDocComment: "A scope item entry (in-scope or out-of-scope).", Recursive: r, Children: c}
 			})
@@ -12329,7 +12329,7 @@ func metaChildrenScopeBoundaries(s map[string]bool) []*som.SomMetaNode {
 			})
 			return n
 		}(),
-		{ClassName: "ScopeBoundaries", MemberName: "scopeAssumptions", SectionID: "SCOPE-SCOP-LST", SectionIDPattern: "SCOPE-SCOP-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per assumption that underpins the scope boundaries. State what is assumed and the impact if it proves false.", DocComment: "Scope Assumptions.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — system scope & boundaries"}, "connotation": "The set of assumptions on which the defined scope boundaries depend."}}}},
+		{ClassName: "ScopeBoundaries", MemberName: "scopeAssumptions", SectionID: "SCBND-SCOP-LST", SectionIDPattern: "SCBND-SCOP-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per assumption that underpins the scope boundaries. State what is assumed and the impact if it proves false.", DocComment: "Scope Assumptions.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — system scope & boundaries"}, "connotation": "The set of assumptions on which the defined scope boundaries depend."}}}},
 	}
 }
 
@@ -12415,7 +12415,7 @@ func metaChildrenScreenElementEntry(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ScreenElementDataDisplay", MemberName: "dataDisplay", ClassSectionID: "SEDD", Kind: som.SomMetaKindComplex, TypeName: "ScreenElementDataDisplay", SerializationOrder: metaIntPtr(8), DocComment: "10.2.1.n.m.k.3. Element Data Display.\n\nPresent only for display-kind elements (`@OneOf` case, csmb6).", ClassDocComment: "Data display specification for display-type elements (form).\n\nDefines how data is presented: format, empty state, refresh, drill-down.", Extra: []*som.SomMetaExtra{{Annotation: "Case", Args: map[string]interface{}{"value": "ScreenElementKind.dataDisplay"}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenElementKind.dataTable"}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenElementKind.card"}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenElementKind.chart"}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenElementKind.statusIndicator"}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenElementKind.icon"}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenElementKind.label"}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenElementKind.image"}}, {Annotation: "Case", Args: map[string]interface{}{"value": "ScreenElementKind.badge"}}}, Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ScreenElementEntry", MemberName: "validationRules", SectionID: "EVRE-VALI-LST", SectionIDPattern: "EVRE-VALI-xxx", Kind: som.SomMetaKindList, TypeName: "ElementValidationRuleEntry", SerializationOrder: metaIntPtr(9), ContentHelp: "Add one entry per validation rule.", DocComment: "Contains 0+× ElementValidationRule.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-143:2012 — validation of user input in form-based interaction", "ISO 9241-110:2020 — use error tolerance through input validation"}, "connotation": "The collection of validation rules that constrain and check the input for a screen element."}}}}
+			n := &som.SomMetaNode{ClassName: "ScreenElementEntry", MemberName: "validationRules", SectionID: "ELVARUEN-VALI-LST", SectionIDPattern: "ELVARUEN-VALI-xxx", Kind: som.SomMetaKindList, TypeName: "ElementValidationRuleEntry", SerializationOrder: metaIntPtr(9), ContentHelp: "Add one entry per validation rule.", DocComment: "Contains 0+× ElementValidationRule.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-143:2012 — validation of user input in form-based interaction", "ISO 9241-110:2020 — use error tolerance through input validation"}, "connotation": "The collection of validation rules that constrain and check the input for a screen element."}}}}
 			n.ElementNode = metaCx("ElementValidationRuleEntry", s, metaChildrenElementValidationRuleEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ElementValidationRuleEntry", ClassSectionID: "ELVARUEN", Kind: som.SomMetaKindComplex, TypeName: "ElementValidationRuleEntry", DocComment: "A validation rule entry (form).", ClassDocComment: "A validation rule entry (form).", Recursive: r, Children: c}
 			})
@@ -12457,7 +12457,7 @@ func metaChildrenScreenEntry(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ScreenStates", MemberName: "states", ClassSectionID: "SCST", Kind: som.SomMetaKindComplex, TypeName: "ScreenStates", SerializationOrder: metaIntPtr(8), DocComment: "10.2.1.n.3. Screen States.", ClassDocComment: "10.2.1.n.3. Screen States.\n\nDifferent visual/behavioral states the screen can be in.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ScreenEntry", MemberName: "userCategories", SectionID: "SCRUSC-USER-LST", SectionIDPattern: "SCRUSC-USER-xxx", Kind: som.SomMetaKindList, TypeName: "ScreenUserCategoryEntry", SerializationOrder: metaIntPtr(9), ContentHelp: "Add one entry per user category.", DocComment: "Contains 0+× ScreenUserCategory.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-11:2018 — the categories of users and their context of use for a screen", "ISO 9241-210:2019 — user groups whose tasks the interface must support"}, "connotation": "The collection of user categories that describe who uses this screen and in what context."}}}}
+			n := &som.SomMetaNode{ClassName: "ScreenEntry", MemberName: "userCategories", SectionID: "SUCE-USER-LST", SectionIDPattern: "SUCE-USER-xxx", Kind: som.SomMetaKindList, TypeName: "ScreenUserCategoryEntry", SerializationOrder: metaIntPtr(9), ContentHelp: "Add one entry per user category.", DocComment: "Contains 0+× ScreenUserCategory.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-11:2018 — the categories of users and their context of use for a screen", "ISO 9241-210:2019 — user groups whose tasks the interface must support"}, "connotation": "The collection of user categories that describe who uses this screen and in what context."}}}}
 			n.ElementNode = metaCx("ScreenUserCategoryEntry", s, metaChildrenScreenUserCategoryEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ScreenUserCategoryEntry", ClassSectionID: "SUCE", Kind: som.SomMetaKindComplex, TypeName: "ScreenUserCategoryEntry", DocComment: "A user category entry (form).", ClassDocComment: "A user category entry (form).", Recursive: r, Children: c}
 			})
@@ -12471,7 +12471,7 @@ func metaChildrenScreenEntry(s map[string]bool) []*som.SomMetaNode {
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ScreenEntry", MemberName: "responsiveRules", SectionID: "SRRE-RESP-LST", SectionIDPattern: "SRRE-RESP-xxx", Kind: som.SomMetaKindList, TypeName: "ScreenResponsiveRuleEntry", SerializationOrder: metaIntPtr(11), ContentHelp: "Add one entry per responsive rule.", DocComment: "Contains 0+× ScreenResponsiveRule.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-125:2017 — adaptation of visual presentation to different display conditions", "ISO 9241-112:2017 — presentation of information across varying contexts of use"}, "connotation": "The collection of responsive rules that adapt a screen layout to different device sizes."}}}}
+			n := &som.SomMetaNode{ClassName: "ScreenEntry", MemberName: "responsiveRules", SectionID: "SCRERUEN-RESP-LST", SectionIDPattern: "SCRERUEN-RESP-xxx", Kind: som.SomMetaKindList, TypeName: "ScreenResponsiveRuleEntry", SerializationOrder: metaIntPtr(11), ContentHelp: "Add one entry per responsive rule.", DocComment: "Contains 0+× ScreenResponsiveRule.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-125:2017 — adaptation of visual presentation to different display conditions", "ISO 9241-112:2017 — presentation of information across varying contexts of use"}, "connotation": "The collection of responsive rules that adapt a screen layout to different device sizes."}}}}
 			n.ElementNode = metaCx("ScreenResponsiveRuleEntry", s, metaChildrenScreenResponsiveRuleEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ScreenResponsiveRuleEntry", ClassSectionID: "SCRERUEN", Kind: som.SomMetaKindComplex, TypeName: "ScreenResponsiveRuleEntry", DocComment: "A responsive rule entry (form).\n\nHow the screen adapts at different breakpoints.", ClassDocComment: "A responsive rule entry (form).\n\nHow the screen adapts at different breakpoints.", Recursive: r, Children: c}
 			})
@@ -12633,7 +12633,7 @@ func metaChildrenSecondaryNavigation(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "SecondaryNavigation", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "## Secondary Navigation (10.3.1.4)\n\nIn-page navigation: tab bars and segmented controls.\n\n### Tab Bar Properties\n- Host screen ID\n- Style (Material/Segmented/Pill/Scrollable)\n- Position (Top/Bottom/Left)\n- Default tab and persistence\n- Swipe and lazy loading behavior\n\n### Tab Item Properties\n- Label, icon, and content screen\n- Authorization and visibility\n- Badges for attention\n\n### Tom UI Mapping\nTab bars map to `TomTabBar` with:\n- Swipe navigation on mobile\n- Lazy content loading\n- Permission-aware tab visibility\n"},
 		{ClassName: "SecondaryNavigation", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Overview of secondary navigation patterns."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "SecondaryNavigation", MemberName: "tabBars", SectionID: "TBDE-TABB-LST", SectionIDPattern: "TBDE-TABB-xxx", Kind: som.SomMetaKindList, TypeName: "TabBarDefinitionEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per tab bar or segmented control.", DocComment: "Contains 0+× TabBarDefinition.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-143:2012 — grouped selectable navigation controls presented as tab bars"}, "connotation": "The collection of tab-bar definitions used for in-page secondary navigation."}}}}
+			n := &som.SomMetaNode{ClassName: "SecondaryNavigation", MemberName: "tabBars", SectionID: "TABADEEN-TABB-LST", SectionIDPattern: "TABADEEN-TABB-xxx", Kind: som.SomMetaKindList, TypeName: "TabBarDefinitionEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per tab bar or segmented control.", DocComment: "Contains 0+× TabBarDefinition.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-143:2012 — grouped selectable navigation controls presented as tab bars"}, "connotation": "The collection of tab-bar definitions used for in-page secondary navigation."}}}}
 			n.ElementNode = metaCx("TabBarDefinitionEntry", s, metaChildrenTabBarDefinitionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "TabBarDefinitionEntry", ClassSectionID: "TABADEEN", Kind: som.SomMetaKindComplex, TypeName: "TabBarDefinitionEntry", DocComment: "A tab bar definition entry (form).\n\nDefines a tab bar or segmented control on a specific screen.", ClassDocComment: "A tab bar definition entry (form).\n\nDefines a tab bar or segmented control on a specific screen.", Recursive: r, Children: c}
 			})
@@ -12709,7 +12709,7 @@ func metaChildrenSecurityAuditRequirementsSection(s map[string]bool) []*som.SomM
 			return &som.SomMetaNode{ClassName: "SecurityTestingAutomation", MemberName: "securityTestingAutomation", ClassSectionID: "SETEAU", Kind: som.SomMetaKindComplex, TypeName: "SecurityTestingAutomation", SerializationOrder: metaIntPtr(7), DocComment: "Automated security testing integration (SAST, DAST, IAST).", ClassDocComment: "Automated security testing integration.\n\nRequirements for SAST, DAST, IAST, and fuzzing integration\ninto the CI/CD pipeline and development workflow.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "SecurityAuditRequirementsSection", MemberName: "auditEntries", SectionID: "SEAUEN-AUDI-LST", SectionIDPattern: "SEAUEN-AUDI-xxx", Kind: som.SomMetaKindList, TypeName: "SecurityAuditEntry", SerializationOrder: metaIntPtr(8), ContentHelp: "Add one entry per security audit requirement.", DocComment: "Individual security audit requirement entries — contains 0+× SecurityAudit.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001 — internal audit and management review (Clause 9)"}, "connotation": "The catalog of individual security audit requirements the system must satisfy."}}}}
+			n := &som.SomMetaNode{ClassName: "SecurityAuditRequirementsSection", MemberName: "auditEntries", SectionID: "SAE-AUDI-LST", SectionIDPattern: "SAE-AUDI-xxx", Kind: som.SomMetaKindList, TypeName: "SecurityAuditEntry", SerializationOrder: metaIntPtr(8), ContentHelp: "Add one entry per security audit requirement.", DocComment: "Individual security audit requirement entries — contains 0+× SecurityAudit.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001 — internal audit and management review (Clause 9)"}, "connotation": "The catalog of individual security audit requirements the system must satisfy."}}}}
 			n.ElementNode = metaCx("SecurityAuditEntry", s, metaChildrenSecurityAuditEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "SecurityAuditEntry", ClassSectionID: "SAE", Kind: som.SomMetaKindComplex, TypeName: "SecurityAuditEntry", DocComment: "A security audit requirement entry (form).", ClassDocComment: "A security audit requirement entry (form).", Recursive: r, Children: c}
 			})
@@ -12771,7 +12771,7 @@ func metaChildrenSecurityControls(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "SecurityControls", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Overview of security controls for this requirement."}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "SecurityControls", MemberName: "controls", SectionID: "SECCT-CONT-LST", SectionIDPattern: "SECCT-CONT-xxx", Kind: som.SomMetaKindList, TypeName: "SecurityControlEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per security control implementing this requirement.", DocComment: "Security control entries — contains 0+× SecurityControlEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27002 — information security controls", "OWASP ASVS — security verification", "NIST SP 800-53 — security controls"}, "connotation": "The set of individual security control entries implementing or supporting this security requirement."}}}}
+			n := &som.SomMetaNode{ClassName: "SecurityControls", MemberName: "controls", SectionID: "SECOEN-CONT-LST", SectionIDPattern: "SECOEN-CONT-xxx", Kind: som.SomMetaKindList, TypeName: "SecurityControlEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per security control implementing this requirement.", DocComment: "Security control entries — contains 0+× SecurityControlEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27002 — information security controls", "OWASP ASVS — security verification", "NIST SP 800-53 — security controls"}, "connotation": "The set of individual security control entries implementing or supporting this security requirement."}}}}
 			n.ElementNode = metaCx("SecurityControlEntry", s, metaChildrenSecurityControlEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "SecurityControlEntry", ClassSectionID: "SECOEN", Kind: som.SomMetaKindComplex, TypeName: "SecurityControlEntry", DocComment: "A security control entry (form).", ClassDocComment: "A security control entry (form).", Recursive: r, Children: c}
 			})
@@ -13015,14 +13015,14 @@ func metaChildrenServerRequirementsSection(s map[string]bool) []*som.SomMetaNode
 		{ClassName: "ServerRequirementsSection", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Provide an overview of server infrastructure strategy.\n\n**Include**:\n- Server tier definitions and sizing\n- Scaling strategy and limits\n- High availability approach\n- Cloud provider selection rationale\n- Cost estimates and optimization plan\n\n**Best Practices**:\n- Right-size instances based on actual usage\n- Use reserved instances for stable workloads\n- Implement cost allocation tagging\n- Plan for zone and region redundancy\n- Document capacity planning assumptions\n"},
 		{ClassName: "ServerRequirementsSection", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Overview of server infrastructure strategy."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ServerRequirementsSection", MemberName: "environments", SectionID: "SEENEN-ENVI-LST", SectionIDPattern: "SEENEN-ENVI-xxx", Kind: som.SomMetaKindList, TypeName: "ServerEnvironmentEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per server environment.", DocComment: "Server environment tiers (dev, staging, production, DR).", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"IaaS / cloud infrastructure — server provisioning"}, "connotation": "The server environments the system is deployed to."}}}}
+			n := &som.SomMetaNode{ClassName: "ServerRequirementsSection", MemberName: "environments", SectionID: "SEE-ENVI-LST", SectionIDPattern: "SEE-ENVI-xxx", Kind: som.SomMetaKindList, TypeName: "ServerEnvironmentEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per server environment.", DocComment: "Server environment tiers (dev, staging, production, DR).", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"IaaS / cloud infrastructure — server provisioning"}, "connotation": "The server environments the system is deployed to."}}}}
 			n.ElementNode = metaCx("ServerEnvironmentEntry", s, metaChildrenServerEnvironmentEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ServerEnvironmentEntry", ClassSectionID: "SEE", Kind: som.SomMetaKindComplex, TypeName: "ServerEnvironmentEntry", DocComment: "Server environment entry (development, staging, production, DR).", ClassDocComment: "Server environment entry (development, staging, production, DR).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ServerRequirementsSection", MemberName: "serverRoles", SectionID: "SEROEN-SERV-LST", SectionIDPattern: "SEROEN-SERV-xxx", Kind: som.SomMetaKindList, TypeName: "ServerRoleEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per server role.", DocComment: "Server role definitions (app server, db server, web server).", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 42010 — architecture description"}, "connotation": "The server roles that make up the deployment."}}}}
+			n := &som.SomMetaNode{ClassName: "ServerRequirementsSection", MemberName: "serverRoles", SectionID: "SRE-SERV-LST", SectionIDPattern: "SRE-SERV-xxx", Kind: som.SomMetaKindList, TypeName: "ServerRoleEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per server role.", DocComment: "Server role definitions (app server, db server, web server).", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 42010 — architecture description"}, "connotation": "The server roles that make up the deployment."}}}}
 			n.ElementNode = metaCx("ServerRoleEntry", s, metaChildrenServerRoleEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ServerRoleEntry", ClassSectionID: "SRE", Kind: som.SomMetaKindComplex, TypeName: "ServerRoleEntry", DocComment: "Server role entry (application server, database server, web server).", ClassDocComment: "Server role entry (application server, database server, web server).", Recursive: r, Children: c}
 			})
@@ -13278,7 +13278,7 @@ func metaChildrenSlaAndSloMonitoring(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ServiceLevelIndicators", MemberName: "slis", ClassSectionID: "SELEIN", Kind: som.SomMetaKindComplex, TypeName: "ServiceLevelIndicators", SerializationOrder: metaIntPtr(2), DocComment: "Service Level Indicators.", ClassDocComment: "Service Level Indicators.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "SlaAndSloMonitoring", MemberName: "slos", SectionID: "SLEN-SLOS-LST", SectionIDPattern: "SLEN-SLOS-xxx", Kind: som.SomMetaKindList, TypeName: "SloEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per SLO.", DocComment: "SLO catalog.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Google SRE — service level objectives (SLOs and SLIs)"}, "connotation": "The catalog of service level objectives the system commits to."}}}}
+			n := &som.SomMetaNode{ClassName: "SlaAndSloMonitoring", MemberName: "slos", SectionID: "SE-SLOS-LST", SectionIDPattern: "SE-SLOS-xxx", Kind: som.SomMetaKindList, TypeName: "SloEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per SLO.", DocComment: "SLO catalog.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Google SRE — service level objectives (SLOs and SLIs)"}, "connotation": "The catalog of service level objectives the system commits to."}}}}
 			n.ElementNode = metaCx("SloEntry", s, metaChildrenSloEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "SloEntry", ClassSectionID: "SE", Kind: som.SomMetaKindComplex, TypeName: "SloEntry", DocComment: "An SLO entry.", ClassDocComment: "An SLO entry.", Recursive: r, Children: c}
 			})
@@ -13312,7 +13312,7 @@ func metaChildrenSoftwareDeliverables(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "SoftwareDeliverables", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Software deliverables: application components, libraries, tools, scripts,\nconfiguration files, deployment artifacts. Define for each:\n- Delivery format (container images, packages, installers, source code)\n- Delivery mechanism (registry, artifact repository, file transfer)\n- Version requirements and compatibility constraints\n- Licensing terms applicable to the deliverable\n- Environment-specific variants (production, staging, development)\n"},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "SoftwareDeliverables", MemberName: "items", SectionID: "SWDLV-ITEM-LST", SectionIDPattern: "SWDLV-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "DeliverableEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per software deliverable.", DocComment: "Contains 0+× Deliverable.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition"}, "connotation": "Lists the individual software deliverables handed over as part of the delivery scope."}}}}
+			n := &som.SomMetaNode{ClassName: "SoftwareDeliverables", MemberName: "items", SectionID: "DLVEN-ITEM-LST", SectionIDPattern: "DLVEN-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "DeliverableEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per software deliverable.", DocComment: "Contains 0+× Deliverable.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition"}, "connotation": "Lists the individual software deliverables handed over as part of the delivery scope."}}}}
 			n.ElementNode = metaCx("DeliverableEntry", s, metaChildrenDeliverableEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DeliverableEntry", ClassSectionID: "DLVEN", Kind: som.SomMetaKindComplex, TypeName: "DeliverableEntry", DocComment: "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.", ClassDocComment: "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.", Recursive: r, Children: c}
 			})
@@ -13656,8 +13656,8 @@ func metaChildrenStagingStrategy(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "StagingStrategy", MemberName: "governance", SectionID: "STAGGV", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(12), DocComment: "Governance and approvals.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "governanceApproach", TypeName: "String", Description: "Governance Approach", Hint: "How staging decisions will be governed", Order: 0}, {Name: "approvalAuthority", TypeName: "String", Description: "Approval Authority", Hint: "Who has authority to approve stage transitions", Order: 1}, {Name: "escalationPath", TypeName: "String", Description: "Escalation Path", Hint: "Escalation path for issues and decisions", Order: 2}, {Name: "exceptionHandling", TypeName: "String", Description: "Exception Handling", Hint: "How exceptions to the staging plan will be handled", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PRINCE2 2017 — the managing successful projects method defines project governance, tolerances, and escalation through the management-stage structure", "ISO 21502:2020 — the guidance on project management describes governance roles and decision authorities across the project life cycle"}, "connotation": "Captures how staging decisions are governed, who approves stage transitions, and how exceptions and escalations are handled."}}}},
 		{ClassName: "StagingStrategy", MemberName: "stagingApproach", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(13), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Detailed description of the staging approach: how stages are defined, sequenced, and executed. Cover big bang vs phased rollout, geography-based vs function-based staging, pilot groups, parallel operation periods, and cutover methodologies.", DocComment: "13.1.1. Staging Approach."},
 		{ClassName: "StagingStrategy", MemberName: "rationaleNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(14), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Justification for the chosen staging approach: risk reduction benefits, early value delivery opportunities, resource optimization factors, alternatives considered and why rejected, alignment with organizational change capacity.", DocComment: "13.1.2. Rationale."},
-		{ClassName: "StagingStrategy", MemberName: "keyAssumptions", SectionID: "KEYAS-KEYA-LST", SectionIDPattern: "KEYAS-KEYA-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(15), ContentHelp: "Add one entry per key assumption.", DocComment: "13.1.3. Key Assumptions.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK Guide 7th edition 2021 — the PMI guidance addresses documenting and tracking project assumptions"}, "connotation": "Lists the key assumptions underpinning the staging strategy."}}}},
-		{ClassName: "StagingStrategy", MemberName: "constraints", SectionID: "STAGI-CONS-LST", SectionIDPattern: "STAGI-CONS-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(16), ContentHelp: "Add one entry per staging constraint.", DocComment: "13.1.4. Constraints.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 21502:2020 — the guidance on project management covers identification and management of project constraints"}, "connotation": "Lists the constraints bounding the staging strategy."}}}},
+		{ClassName: "StagingStrategy", MemberName: "keyAssumptions", SectionID: "STAGST-KEYA-LST", SectionIDPattern: "STAGST-KEYA-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(15), ContentHelp: "Add one entry per key assumption.", DocComment: "13.1.3. Key Assumptions.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK Guide 7th edition 2021 — the PMI guidance addresses documenting and tracking project assumptions"}, "connotation": "Lists the key assumptions underpinning the staging strategy."}}}},
+		{ClassName: "StagingStrategy", MemberName: "constraints", SectionID: "STAGST-CONS-LST", SectionIDPattern: "STAGST-CONS-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(16), ContentHelp: "Add one entry per staging constraint.", DocComment: "13.1.4. Constraints.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 21502:2020 — the guidance on project management covers identification and management of project constraints"}, "connotation": "Lists the constraints bounding the staging strategy."}}}},
 	}
 }
 
@@ -13716,7 +13716,7 @@ func metaChildrenStakeholdersAndGovernance(s map[string]bool) []*som.SomMetaNode
 			return &som.SomMetaNode{ClassName: "LegalAndContractualRequirements", MemberName: "legalAndContractual", ClassSectionID: "LCR", Kind: som.SomMetaKindComplex, TypeName: "LegalAndContractualRequirements", SerializationOrder: metaIntPtr(7), DocComment: "Legal and contractual requirements (IP, NDAs, compliance, audit).\nRenamed to `LegalAndContractualRequirements` in L34C-9.", ClassDocComment: "3.6. Legal and Contractual Requirements.\n\nAdditional administrative agreements, constraints, or requirements not\ncovered by other sections: IP ownership, NDAs, regulatory compliance,\naudit requirements, and other legal or organizational agreements.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "StakeholdersAndGovernance", MemberName: "stakeholderRegister", SectionID: "STKRG-STAK-LST", SectionIDPattern: "STKRG-STAK-xxx", Kind: som.SomMetaKindList, TypeName: "StakeholderRegisterEntry", SerializationOrder: metaIntPtr(8), ContentHelp: "Add one entry per stakeholder or group (STK-NNN).", DocComment: "Stakeholder register.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"}, "connotation": "The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder."}}}}
+			n := &som.SomMetaNode{ClassName: "StakeholdersAndGovernance", MemberName: "stakeholderRegister", SectionID: "STKRE-STAK-LST", SectionIDPattern: "STKRE-STAK-xxx", Kind: som.SomMetaKindList, TypeName: "StakeholderRegisterEntry", SerializationOrder: metaIntPtr(8), ContentHelp: "Add one entry per stakeholder or group (STK-NNN).", DocComment: "Stakeholder register.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 — stakeholder analysis (RACI / influence-interest grid)"}, "connotation": "The canonical source of truth for the role, interest, influence, concerns, and engagement strategy of each stakeholder."}}}}
 			n.ElementNode = metaCx("StakeholderRegisterEntry", s, metaChildrenStakeholderRegisterEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "StakeholderRegisterEntry", ClassSectionID: "STKRE", Kind: som.SomMetaKindComplex, TypeName: "StakeholderRegisterEntry", DocComment: "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", ClassDocComment: "A single stakeholder register entry (form).\n\nNamed `StakeholderRegisterEntry` to avoid collision with the pre-existing\n`StakeholderEntry` in `introduction_and_scope.dart` (D-IP6 deviation).", Recursive: r, Children: c}
 			})
@@ -13748,35 +13748,35 @@ func metaChildrenStandardsComplianceSection(s map[string]bool) []*som.SomMetaNod
 		{ClassName: "StandardsComplianceSection", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Provide an overview of standards compliance strategy and roadmap.\n\n**Include**:\n- Applicable standards and regulations\n- Current compliance status\n- Gap analysis and remediation plan\n- Certification timeline and budget\n- Ongoing compliance maintenance\n\n**Best Practices**:\n- Map standards to specific controls\n- Automate compliance evidence collection\n- Schedule regular compliance reviews\n- Train team on compliance requirements\n- Engage compliance consultants for audits\n"},
 		{ClassName: "StandardsComplianceSection", MemberName: "overview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Overview of standards compliance strategy."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "StandardsComplianceSection", MemberName: "itStandards", SectionID: "ISCE-ITST-LST", SectionIDPattern: "ISCE-ITST-xxx", Kind: som.SomMetaKindList, TypeName: "ItStandardComplianceEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per IT standard.", DocComment: "IT standards compliance (ISO, IEEE, NIST).", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — product quality model", "ISO/IEC/IEEE 42010 — architecture description"}, "connotation": "The IT standards the system must comply with."}}}}
+			n := &som.SomMetaNode{ClassName: "StandardsComplianceSection", MemberName: "itStandards", SectionID: "ITSTCOEN-ITST-LST", SectionIDPattern: "ITSTCOEN-ITST-xxx", Kind: som.SomMetaKindList, TypeName: "ItStandardComplianceEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per IT standard.", DocComment: "IT standards compliance (ISO, IEEE, NIST).", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — product quality model", "ISO/IEC/IEEE 42010 — architecture description"}, "connotation": "The IT standards the system must comply with."}}}}
 			n.ElementNode = metaCx("ItStandardComplianceEntry", s, metaChildrenItStandardComplianceEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ItStandardComplianceEntry", ClassSectionID: "ITSTCOEN", Kind: som.SomMetaKindComplex, TypeName: "ItStandardComplianceEntry", DocComment: "IT standard compliance entry (ISO, IEEE, NIST, OASIS).", ClassDocComment: "IT standard compliance entry (ISO, IEEE, NIST, OASIS).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "StandardsComplianceSection", MemberName: "industryProtocols", SectionID: "IPCE-INDU-LST", SectionIDPattern: "IPCE-INDU-xxx", Kind: som.SomMetaKindList, TypeName: "IndustryProtocolComplianceEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per industry protocol.", DocComment: "Industry protocols compliance.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"HL7 / FHIR / ISO 20022 — industry data-exchange standards", "ISO 9001 — quality management systems"}, "connotation": "The industry protocols the system must comply with."}}}}
+			n := &som.SomMetaNode{ClassName: "StandardsComplianceSection", MemberName: "industryProtocols", SectionID: "INPRCOEN-INDU-LST", SectionIDPattern: "INPRCOEN-INDU-xxx", Kind: som.SomMetaKindList, TypeName: "IndustryProtocolComplianceEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per industry protocol.", DocComment: "Industry protocols compliance.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"HL7 / FHIR / ISO 20022 — industry data-exchange standards", "ISO 9001 — quality management systems"}, "connotation": "The industry protocols the system must comply with."}}}}
 			n.ElementNode = metaCx("IndustryProtocolComplianceEntry", s, metaChildrenIndustryProtocolComplianceEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "IndustryProtocolComplianceEntry", ClassSectionID: "INPRCOEN", Kind: som.SomMetaKindComplex, TypeName: "IndustryProtocolComplianceEntry", DocComment: "Industry protocol compliance entry.", ClassDocComment: "Industry protocol compliance entry.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "StandardsComplianceSection", MemberName: "interfaceSpecifications", SectionID: "INSPEN-INTE-LST", SectionIDPattern: "INSPEN-INTE-xxx", Kind: som.SomMetaKindList, TypeName: "InterfaceSpecificationEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per interface specification.", DocComment: "Interface specification standards.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — product quality model", "ISO/IEC/IEEE 42010 — architecture description"}, "connotation": "The interface specification standards the system must follow."}}}}
+			n := &som.SomMetaNode{ClassName: "StandardsComplianceSection", MemberName: "interfaceSpecifications", SectionID: "INTSPEENT-INTE-LST", SectionIDPattern: "INTSPEENT-INTE-xxx", Kind: som.SomMetaKindList, TypeName: "InterfaceSpecificationEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per interface specification.", DocComment: "Interface specification standards.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — product quality model", "ISO/IEC/IEEE 42010 — architecture description"}, "connotation": "The interface specification standards the system must follow."}}}}
 			n.ElementNode = metaCx("InterfaceSpecificationEntry", s, metaChildrenInterfaceSpecificationEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "InterfaceSpecificationEntry", ClassSectionID: "INTSPEENT", Kind: som.SomMetaKindComplex, TypeName: "InterfaceSpecificationEntry", DocComment: "Interface specification entry (REST, GraphQL, gRPC, SOAP).", ClassDocComment: "Interface specification entry (REST, GraphQL, gRPC, SOAP).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "StandardsComplianceSection", MemberName: "regulatoryCompliance", SectionID: "RECOEN-REGU-LST", SectionIDPattern: "RECOEN-REGU-xxx", Kind: som.SomMetaKindList, TypeName: "RegulatoryComplianceEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per regulation.", DocComment: "Regulatory compliance requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"GDPR — data protection regulation", "ISO/IEC 27001 — information security management"}, "connotation": "The regulatory frameworks the system must comply with."}}}}
+			n := &som.SomMetaNode{ClassName: "StandardsComplianceSection", MemberName: "regulatoryCompliance", SectionID: "RCE-REGU-LST", SectionIDPattern: "RCE-REGU-xxx", Kind: som.SomMetaKindList, TypeName: "RegulatoryComplianceEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per regulation.", DocComment: "Regulatory compliance requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"GDPR — data protection regulation", "ISO/IEC 27001 — information security management"}, "connotation": "The regulatory frameworks the system must comply with."}}}}
 			n.ElementNode = metaCx("RegulatoryComplianceEntry", s, metaChildrenRegulatoryComplianceEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "RegulatoryComplianceEntry", ClassSectionID: "RCE", Kind: som.SomMetaKindComplex, TypeName: "RegulatoryComplianceEntry", DocComment: "Regulatory compliance entry (GDPR, HIPAA, PCI-DSS, SOX).", ClassDocComment: "Regulatory compliance entry (GDPR, HIPAA, PCI-DSS, SOX).", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "StandardsComplianceSection", MemberName: "securityStandards", SectionID: "SSCE-SECU-LST", SectionIDPattern: "SSCE-SECU-xxx", Kind: som.SomMetaKindList, TypeName: "SecurityStandardComplianceEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per security standard.", DocComment: "Security standards compliance.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001 — information security management", "ISO/IEC 27002 — information security controls"}, "connotation": "The security standards the system must comply with."}}}}
+			n := &som.SomMetaNode{ClassName: "StandardsComplianceSection", MemberName: "securityStandards", SectionID: "SESTCOEN-SECU-LST", SectionIDPattern: "SESTCOEN-SECU-xxx", Kind: som.SomMetaKindList, TypeName: "SecurityStandardComplianceEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per security standard.", DocComment: "Security standards compliance.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001 — information security management", "ISO/IEC 27002 — information security controls"}, "connotation": "The security standards the system must comply with."}}}}
 			n.ElementNode = metaCx("SecurityStandardComplianceEntry", s, metaChildrenSecurityStandardComplianceEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "SecurityStandardComplianceEntry", ClassSectionID: "SESTCOEN", Kind: som.SomMetaKindComplex, TypeName: "SecurityStandardComplianceEntry", DocComment: "Security standard compliance entry (SOC2, ISO 27001, CIS).", ClassDocComment: "Security standard compliance entry (SOC2, ISO 27001, CIS).", Recursive: r, Children: c}
 			})
@@ -13818,7 +13818,7 @@ func metaChildrenSteeringCommittee(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "CommitteeCharter", MemberName: "charter", ClassSectionID: "COMCH", Kind: som.SomMetaKindComplex, TypeName: "CommitteeCharter", SerializationOrder: metaIntPtr(1), DocComment: "Committee charter and rules.", ClassDocComment: "Committee charter defining rules and procedures.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "SteeringCommittee", MemberName: "members", SectionID: "COMMB-MEMB-LST", SectionIDPattern: "COMMB-MEMB-xxx", Kind: som.SomMetaKindList, TypeName: "CommitteeMemberEntry", SerializationOrder: metaIntPtr(2), Min: metaIntPtr(1), ContentHelp: "Add one entry per steering committee member, capturing their organizational and committee role, decision authority, and contact.", DocComment: "Steering committee members — contains 1+× Committee Member.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — project governance & organizational structure", "ISO 21500 — project management (governance, roles & responsibilities)"}, "connotation": "The roster of steering committee members and their governance roles."}}}}
+			n := &som.SomMetaNode{ClassName: "SteeringCommittee", MemberName: "members", SectionID: "CME-MEMB-LST", SectionIDPattern: "CME-MEMB-xxx", Kind: som.SomMetaKindList, TypeName: "CommitteeMemberEntry", SerializationOrder: metaIntPtr(2), Min: metaIntPtr(1), ContentHelp: "Add one entry per steering committee member, capturing their organizational and committee role, decision authority, and contact.", DocComment: "Steering committee members — contains 1+× Committee Member.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — project governance & organizational structure", "ISO 21500 — project management (governance, roles & responsibilities)"}, "connotation": "The roster of steering committee members and their governance roles."}}}}
 			n.ElementNode = metaCx("CommitteeMemberEntry", s, metaChildrenCommitteeMemberEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "CommitteeMemberEntry", ClassSectionID: "CME", Kind: som.SomMetaKindComplex, TypeName: "CommitteeMemberEntry", DocComment: "A steering committee member entry (form).\n\nDetailed information about a steering committee member.", ClassDocComment: "A steering committee member entry (form).\n\nDetailed information about a steering committee member.", Recursive: r, Children: c}
 			})
@@ -13830,7 +13830,7 @@ func metaChildrenSteeringCommittee(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenStepUpAuthenticationPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "StepUpAuthenticationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
-		{ClassName: "StepUpAuthenticationPolicy", MemberName: "stepUpDetails", SectionID: "STEPU-STEP-LST", SectionIDPattern: "STEPU-STEP-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per step-up authentication step.", DocComment: "Step-Up Authentication Details (text).", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"NIST SP 800-63B — authentication and authenticator lifecycle", "OWASP ASVS V2 — authentication verification requirements"}, "connotation": "The catalog of step-up authentication detail entries."}}}},
+		{ClassName: "StepUpAuthenticationPolicy", MemberName: "stepUpDetails", SectionID: "SUAP-STEP-LST", SectionIDPattern: "SUAP-STEP-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per step-up authentication step.", DocComment: "Step-Up Authentication Details (text).", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"NIST SP 800-63B — authentication and authenticator lifecycle", "OWASP ASVS V2 — authentication verification requirements"}, "connotation": "The catalog of step-up authentication detail entries."}}}},
 	}
 }
 
@@ -13942,7 +13942,7 @@ func metaChildrenSupportDeliverables(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "SupportDeliverables", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Support deliverables: transition support during go-live, warranty support\npost-acceptance, knowledge transfer sessions, escalation contacts,\nSLA definitions, support tooling and access. Define support hours,\nresponse times, coverage period, and handover criteria.\n"},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "SupportDeliverables", MemberName: "items", SectionID: "SPDLV-ITEM-LST", SectionIDPattern: "SPDLV-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "DeliverableEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per support deliverable.", DocComment: "Contains 0+× Deliverable.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 20000-1:2018 — the IT service management standard defines service delivery, support, and warranty commitments", "ITIL 4 2019 — the service management framework defines service delivery, support, and training practices"}, "connotation": "Lists the individual support deliverables handed over as part of the delivery scope."}}}}
+			n := &som.SomMetaNode{ClassName: "SupportDeliverables", MemberName: "items", SectionID: "DLVEN-ITEM-LST", SectionIDPattern: "DLVEN-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "DeliverableEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per support deliverable.", DocComment: "Contains 0+× Deliverable.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 20000-1:2018 — the IT service management standard defines service delivery, support, and warranty commitments", "ITIL 4 2019 — the service management framework defines service delivery, support, and training practices"}, "connotation": "Lists the individual support deliverables handed over as part of the delivery scope."}}}}
 			n.ElementNode = metaCx("DeliverableEntry", s, metaChildrenDeliverableEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DeliverableEntry", ClassSectionID: "DLVEN", Kind: som.SomMetaKindComplex, TypeName: "DeliverableEntry", DocComment: "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.", ClassDocComment: "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.", Recursive: r, Children: c}
 			})
@@ -14019,14 +14019,14 @@ func metaChildrenSystemBusinessCriticality(s map[string]bool) []*som.SomMetaNode
 		{ClassName: "SystemBusinessCriticality", MemberName: "operations", SectionID: "SBCO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Usage scale and commercial impact.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "peakConcurrentUsers", TypeName: "int", Description: "Peak Concurrent Users", Hint: "Maximum simultaneous users observed", Order: 0}, {Name: "transactionVolume", TypeName: "String", Description: "Transaction Volume", Hint: "Typical transaction throughput", Order: 1}, {Name: "dataVolume", TypeName: "String", Description: "Data Volume", Hint: "Approximate volume of data handled", Order: 2}, {Name: "revenueImpact", TypeName: "String", Description: "Revenue Impact (Direct, Indirect, None)", Hint: "How the system affects revenue", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — application portfolio management (operational scale & revenue impact)"}, "connotation": "Captures usage scale and commercial impact — concurrency, volumes, and revenue dependency — that weigh on the criticality assessment."}}}},
 		{ClassName: "SystemBusinessCriticality", MemberName: "governance", SectionID: "SBCG", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Delivery and compliance constraints.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "operationsImpact", TypeName: "String", Description: "Operations Impact (Severe, Moderate, Minor, None)", Hint: "Severity of disruption if the system is unavailable", Order: 0}, {Name: "complianceRole", TypeName: "String", Description: "Compliance/Regulatory Role", Hint: "Regulatory or compliance function the system serves", Order: 1}, {Name: "maxDowntime", TypeName: "String", Description: "Max Acceptable Downtime (RTO)", Hint: "Maximum tolerable outage / recovery time objective", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — application portfolio management (governance constraints)", "ISO/IEC 27001 — information security (compliance role)"}, "connotation": "Captures operational impact, compliance role, and recovery objectives that constrain how and when the system can be replaced."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "SystemBusinessCriticality", MemberName: "businessUnits", SectionID: "SBUE-BUSI-LST", SectionIDPattern: "SBUE-BUSI-xxx", Kind: som.SomMetaKindList, TypeName: "SystemBusinessUnitEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per business unit using the system; note user count and dependency level.", DocComment: "Business units and departments using this system.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — application portfolio management (business usage)"}, "connotation": "Lists the business units and departments that depend on the system, quantifying organizational reach for impact planning."}}}}
+			n := &som.SomMetaNode{ClassName: "SystemBusinessCriticality", MemberName: "businessUnits", SectionID: "SYBUUNEN-BUSI-LST", SectionIDPattern: "SYBUUNEN-BUSI-xxx", Kind: som.SomMetaKindList, TypeName: "SystemBusinessUnitEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per business unit using the system; note user count and dependency level.", DocComment: "Business units and departments using this system.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — application portfolio management (business usage)"}, "connotation": "Lists the business units and departments that depend on the system, quantifying organizational reach for impact planning."}}}}
 			n.ElementNode = metaCx("SystemBusinessUnitEntry", s, metaChildrenSystemBusinessUnitEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "SystemBusinessUnitEntry", ClassSectionID: "SYBUUNEN", Kind: som.SomMetaKindComplex, TypeName: "SystemBusinessUnitEntry", DocComment: "Business unit using the system.", ClassDocComment: "Business unit using the system.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "SystemBusinessCriticality", MemberName: "supportedProcesses", SectionID: "SBPE-SUPP-LST", SectionIDPattern: "SBPE-SUPP-xxx", Kind: som.SomMetaKindList, TypeName: "SystemBusinessProcessEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per business process the system supports; note its role and execution frequency.", DocComment: "Business processes supported by this system.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — application portfolio management (business processes)"}, "connotation": "Lists the business processes the system supports, establishing the functional footprint that the replacement must preserve."}}}}
+			n := &som.SomMetaNode{ClassName: "SystemBusinessCriticality", MemberName: "supportedProcesses", SectionID: "SYBUPREN-SUPP-LST", SectionIDPattern: "SYBUPREN-SUPP-xxx", Kind: som.SomMetaKindList, TypeName: "SystemBusinessProcessEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per business process the system supports; note its role and execution frequency.", DocComment: "Business processes supported by this system.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — application portfolio management (business processes)"}, "connotation": "Lists the business processes the system supports, establishing the functional footprint that the replacement must preserve."}}}}
 			n.ElementNode = metaCx("SystemBusinessProcessEntry", s, metaChildrenSystemBusinessProcessEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "SystemBusinessProcessEntry", ClassSectionID: "SYBUPREN", Kind: som.SomMetaKindComplex, TypeName: "SystemBusinessProcessEntry", DocComment: "Business process supported.", ClassDocComment: "Business process supported.", Recursive: r, Children: c}
 			})
@@ -14100,7 +14100,7 @@ func metaChildrenSystemCostAnalysis(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "SystemCostAnalysis", MemberName: "migration", SectionID: "SCAM", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "One-time migration and transition investments.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "migrationProjectCost", TypeName: "String", Description: "Migration Project Cost", Hint: "Cost of the migration project itself", Order: 0}, {Name: "dataConversionCost", TypeName: "String", Description: "Data Conversion Cost", Hint: "Cost to convert and migrate data", Order: 1}, {Name: "integrationCost", TypeName: "String", Description: "Integration Rebuild Cost", Hint: "Cost to rebuild integrations", Order: 2}, {Name: "trainingCost", TypeName: "String", Description: "Training Cost", Hint: "Cost of user training", Order: 3}, {Name: "parallelRunCost", TypeName: "String", Description: "Parallel Run Cost", Hint: "Cost of running old and new systems together", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — cost management (project & transition costs)"}, "connotation": "Captures the one-time migration and transition investments — project, data, integration, training, and parallel-run costs — for the replacement."}}}},
 		{ClassName: "SystemCostAnalysis", MemberName: "benefits", SectionID: "SCAB", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Target-state cost and ROI indicators.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "newSystemAnnualCost", TypeName: "String", Description: "New System Annual Cost", Hint: "Expected yearly cost of the replacement system", Order: 0}, {Name: "annualSavings", TypeName: "String", Description: "Annual Savings", Hint: "Expected yearly savings versus the current system", Order: 1}, {Name: "paybackPeriod", TypeName: "String", Description: "Payback Period", Hint: "Time to recoup the migration investment", Order: 2}, {Name: "fiveYearTco", TypeName: "String", Description: "5-Year TCO", Hint: "Total cost of ownership over five years", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — cost management (ROI & TCO)"}, "connotation": "Captures target-state cost and ROI indicators — annual savings, payback period, and five-year TCO — that justify the replacement."}}}},
 		{ClassName: "SystemCostAnalysis", MemberName: "costBreakdown", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Provide a detailed cost breakdown by category if available, beyond the summary fields above.", DocComment: "Cost breakdown by category if detailed analysis available."},
-		{ClassName: "SystemCostAnalysis", MemberName: "nonFinancialBenefits", SectionID: "NONFI-NONF-LST", SectionIDPattern: "NONFI-NONF-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per non-financial benefit (e.g. risk reduction, agility) to weigh in the ROI case.", DocComment: "Non-financial benefits to include in ROI.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — cost management (benefits realization)"}, "connotation": "Lists non-financial benefits of the replacement that complement the monetary ROI in the investment decision."}}}},
+		{ClassName: "SystemCostAnalysis", MemberName: "nonFinancialBenefits", SectionID: "SYCOAN-NONF-LST", SectionIDPattern: "SYCOAN-NONF-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per non-financial benefit (e.g. risk reduction, agility) to weigh in the ROI case.", DocComment: "Non-financial benefits to include in ROI.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — cost management (benefits realization)"}, "connotation": "Lists non-financial benefits of the replacement that complement the monetary ROI in the investment decision."}}}},
 	}
 }
 
@@ -14110,13 +14110,13 @@ func metaChildrenSystemDataScope(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "SystemDataScope", MemberName: "governance", SectionID: "SDSG", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Data sensitivity and quality posture.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "sensitivityLevel", TypeName: "String", Description: "Sensitivity (Public, Internal, Confidential, PII)", Hint: "Confidentiality classification of the data", Order: 0}, {Name: "retentionRequirements", TypeName: "String", Description: "Retention Requirements", Hint: "Legal or policy retention obligations", Order: 1}, {Name: "dataQuality", TypeName: "String", Description: "Quality Rating (Excellent to Poor)", Hint: "Overall quality of the data", Order: 2}, {Name: "cleansingRequired", TypeName: "String", Description: "Cleansing Required", Hint: "Whether and what data cleansing is needed", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data governance & quality", "ISO/IEC 27001 — information security (data sensitivity)"}, "connotation": "Captures data sensitivity, retention requirements, and quality posture that govern how the data must be handled during migration."}}}},
 		{ClassName: "SystemDataScope", MemberName: "migration", SectionID: "SYDASCMI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Migration preparation and archive handling.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "deduplicationNeeded", TypeName: "bool", Description: "Deduplication Needed", Hint: "Whether duplicate records must be removed", Order: 0}, {Name: "transformationComplexity", TypeName: "String", Description: "Transformation Complexity", Hint: "How complex the data transformation will be", Order: 1}, {Name: "migrationScope", TypeName: "String", Description: "Scope (Full, Recent, Active records, Reference)", Hint: "Which subset of data will be migrated", Order: 2}, {Name: "archiveStrategy", TypeName: "String", Description: "Archive Strategy", Hint: "How non-migrated data will be archived", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data migration (preparation & archiving)"}, "connotation": "Captures migration preparation choices — deduplication, transformation complexity, scope, and archive strategy — for the system data."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "SystemDataScope", MemberName: "entities", SectionID: "DEME-ENTI-LST", SectionIDPattern: "DEME-ENTI-xxx", Kind: som.SomMetaKindList, TypeName: "DataEntityMigrationEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules.", DocComment: "Data entities to migrate.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data migration (entity mapping)"}, "connotation": "Lists the data entities to migrate, with target mappings and transformation notes that drive the data-migration work."}}}}
+			n := &som.SomMetaNode{ClassName: "SystemDataScope", MemberName: "entities", SectionID: "DAENMIEN-ENTI-LST", SectionIDPattern: "DAENMIEN-ENTI-xxx", Kind: som.SomMetaKindList, TypeName: "DataEntityMigrationEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules.", DocComment: "Data entities to migrate.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data migration (entity mapping)"}, "connotation": "Lists the data entities to migrate, with target mappings and transformation notes that drive the data-migration work."}}}}
 			n.ElementNode = metaCx("DataEntityMigrationEntry", s, metaChildrenDataEntityMigrationEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DataEntityMigrationEntry", ClassSectionID: "DAENMIEN", Kind: som.SomMetaKindComplex, TypeName: "DataEntityMigrationEntry", DocComment: "A data entity migration entry.", ClassDocComment: "A data entity migration entry.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
-		{ClassName: "SystemDataScope", MemberName: "knownQualityIssues", SectionID: "KNOWN-KNOW-LST", SectionIDPattern: "KNOWN-KNOW-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per data-quality issue to address; note severity and remediation approach.", DocComment: "Data quality issues to address.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data quality & migration"}, "connotation": "Lists known data-quality issues that must be cleansed or resolved before or during migration to the replacement system."}}}},
+		{ClassName: "SystemDataScope", MemberName: "knownQualityIssues", SectionID: "SYDASC-KNOW-LST", SectionIDPattern: "SYDASC-KNOW-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per data-quality issue to address; note severity and remediation approach.", DocComment: "Data quality issues to address.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"DAMA-DMBOK2 — data quality & migration"}, "connotation": "Lists known data-quality issues that must be cleansed or resolved before or during migration to the replacement system."}}}},
 	}
 }
 
@@ -14150,7 +14150,7 @@ func metaChildrenSystemDescription(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "BusinessDomain", MemberName: "businessDomain", ClassSectionID: "BD", Kind: som.SomMetaKindComplex, TypeName: "BusinessDomain", SerializationOrder: metaIntPtr(4), DocComment: "4.1.3. Description of Business Domain.", ClassDocComment: "4.1.3. Description of Business Domain.\n\nDescribes the business domain and task area the system addresses.\nDefines the domain vocabulary and key concepts (ubiquitous language)\nthat will be used throughout the project. Based on Domain-Driven Design\nprinciples for establishing a shared understanding.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "SystemDescription", MemberName: "userCategories", SectionID: "USCA-USER-LST", SectionIDPattern: "USCA-USER-xxx", Kind: som.SomMetaKindList, TypeName: "UserCategoryEntry", SerializationOrder: metaIntPtr(5), Min: metaIntPtr(1), ContentHelp: "Add one entry per distinct category of user, distinguished by role, access level, or interaction pattern with the system.", DocComment: "4.1.4. User Categories — contains 1+× User Category.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10.43 — stakeholder list/map/personas", "ISO/IEC/IEEE 29148 §6 — stakeholders"}, "connotation": "The set of distinct user categories that interact with the system."}}}}
+			n := &som.SomMetaNode{ClassName: "SystemDescription", MemberName: "userCategories", SectionID: "UCE-USER-LST", SectionIDPattern: "UCE-USER-xxx", Kind: som.SomMetaKindList, TypeName: "UserCategoryEntry", SerializationOrder: metaIntPtr(5), Min: metaIntPtr(1), ContentHelp: "Add one entry per distinct category of user, distinguished by role, access level, or interaction pattern with the system.", DocComment: "4.1.4. User Categories — contains 1+× User Category.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10.43 — stakeholder list/map/personas", "ISO/IEC/IEEE 29148 §6 — stakeholders"}, "connotation": "The set of distinct user categories that interact with the system."}}}}
 			n.ElementNode = metaCx("UserCategoryEntry", s, metaChildrenUserCategoryEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "UserCategoryEntry", ClassSectionID: "UCE", Kind: som.SomMetaKindComplex, TypeName: "UserCategoryEntry", DocComment: "A user category entry.\n\nComprehensive user persona definition including demographics, goals,\nfrustrations, technical proficiency, and system interaction patterns.", ClassDocComment: "A user category entry.\n\nComprehensive user persona definition including demographics, goals,\nfrustrations, technical proficiency, and system interaction patterns.", Recursive: r, Children: c}
 			})
@@ -14187,9 +14187,9 @@ func metaChildrenSystemErrorDisplay(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "SystemErrorDisplay", MemberName: "displayContent", SectionID: "SEDC", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Content options.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "showTechnicalDetails", TypeName: "bool", Description: "Show Technical Details", Hint: "Display error codes, request IDs", Order: 0}, {Name: "showRetryOption", TypeName: "bool", Description: "Show Retry Option", Hint: "Offer a retry button on the error", Order: 1}, {Name: "showContactSupport", TypeName: "bool", Description: "Show Contact Support", Hint: "Show a link to contact support", Order: 2}, {Name: "showStatusPageLink", TypeName: "bool", Description: "Show Status Page Link", Hint: "Show a link to the service status page", Order: 3}, {Name: "offlineModeMessage", TypeName: "String", Description: "Offline Mode Message", Hint: "Message when app detects offline state", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-13:1998 — user guidance presents clear and specific error message content", "ISO 9241-125:2017 — presentation of information governs which error details are shown to users"}, "connotation": "The content options that decide what information an error display presents."}}}},
 		{ClassName: "SystemErrorDisplay", MemberName: "fallback", SectionID: "SEDF", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Fallback behavior.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "cachedDataFallback", TypeName: "String", Description: "Cached Data Fallback", Hint: "Show stale data with indicator", Order: 0}, {Name: "retryStrategy", TypeName: "String", Description: "Retry Strategy", Hint: "Automatic retry with backoff", Order: 1}, {Name: "maxRetryAttempts", TypeName: "int", Description: "Max Retry Attempts", Hint: "Number of retries before giving up", Order: 2}, {Name: "retryDelaySeconds", TypeName: "int", Description: "Retry Delay (seconds)", Hint: "Seconds to wait between retries", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010:2023 — fault tolerance keeps the system operating through cached data and retry fallbacks", "ISO 9241-110:2020 — use-error tolerance sustains a workable state when a system error occurs"}, "connotation": "The fallback behaviour applied when a system error prevents normal operation."}}}},
 		{ClassName: "SystemErrorDisplay", MemberName: "systemErrorNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Detailed specification of system error presentation and user communication approach.", DocComment: "System error display narrative."},
-		{ClassName: "SystemErrorDisplay", MemberName: "errorPageDesigns", SectionID: "EPDE-ERRO-LST", SectionIDPattern: "EPDE-ERRO-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per error page design.", DocComment: "Error page designs.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-125:2017 — visual presentation of information governs the layout of full-page error designs", "ISO 9241-13:1998 — user guidance ensures each error page conveys clear and specific feedback"}, "connotation": "The collection of error-page design entries."}}}},
+		{ClassName: "SystemErrorDisplay", MemberName: "errorPageDesigns", SectionID: "SYERDI-ERRO-LST", SectionIDPattern: "SYERDI-ERRO-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per error page design.", DocComment: "Error page designs.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-125:2017 — visual presentation of information governs the layout of full-page error designs", "ISO 9241-13:1998 — user guidance ensures each error page conveys clear and specific feedback"}, "connotation": "The collection of error-page design entries."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "SystemErrorDisplay", MemberName: "errorCodes", SectionID: "SECE-ERRO-LST", SectionIDPattern: "SECE-ERRO-xxx", Kind: som.SomMetaKindList, TypeName: "SystemErrorCodeEntry", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per system error code.", DocComment: "Error codes catalog.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated", "ISO 9241-13:1998 — user guidance links each error code to a clear and specific user message"}, "connotation": "The collection of catalogued system error code entries."}}}}
+			n := &som.SomMetaNode{ClassName: "SystemErrorDisplay", MemberName: "errorCodes", SectionID: "SYERCOEN-ERRO-LST", SectionIDPattern: "SYERCOEN-ERRO-xxx", Kind: som.SomMetaKindList, TypeName: "SystemErrorCodeEntry", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per system error code.", DocComment: "Error codes catalog.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001:2022 — error codes classify events so they can be logged and correlated", "ISO 9241-13:1998 — user guidance links each error code to a clear and specific user message"}, "connotation": "The collection of catalogued system error code entries."}}}}
 			n.ElementNode = metaCx("SystemErrorCodeEntry", s, metaChildrenSystemErrorCodeEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "SystemErrorCodeEntry", ClassSectionID: "SYERCOEN", Kind: som.SomMetaKindComplex, TypeName: "SystemErrorCodeEntry", DocComment: "A system error code entry.", ClassDocComment: "A system error code entry.", Recursive: r, Children: c}
 			})
@@ -14232,7 +14232,7 @@ func metaChildrenSystemInventory(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenSystemKnowledgeTransfer(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "SystemKnowledgeTransfer", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "technicalDocStatus", TypeName: "String", Description: "Technical Doc Status (Complete, Partial, Outdated, Missing)", Hint: "Completeness of technical documentation", Order: 0}, {Name: "businessDocStatus", TypeName: "String", Description: "Business Documentation Status", Hint: "Completeness of business documentation", Order: 1}, {Name: "dataDocStatus", TypeName: "String", Description: "Data Documentation Status", Hint: "Completeness of data documentation", Order: 2}, {Name: "primarySme", TypeName: "String", Description: "Primary SME", Hint: "Main subject-matter expert for the system", Order: 3}, {Name: "smeAvailability", TypeName: "String", Description: "SME Availability (Available, Partial, Leaving)", Hint: "How available the SME is for transfer", Order: 4}, {Name: "smeRiskLevel", TypeName: "String", Description: "SME Risk Level", Hint: "Risk of losing SME knowledge", Order: 5}, {Name: "backupSme", TypeName: "String", Description: "Backup SME", Hint: "Secondary expert who can cover", Order: 6}, {Name: "knowledgeCaptureNeeded", TypeName: "bool", Description: "Knowledge Capture Needed", Hint: "Whether knowledge must be formally captured", Order: 7}, {Name: "captureApproach", TypeName: "String", Description: "Capture Approach", Hint: "How knowledge will be captured", Order: 8}, {Name: "captureDeadline", TypeName: "String", Description: "Capture Deadline", Hint: "When knowledge capture must be complete", Order: 9}}}},
-		{ClassName: "SystemKnowledgeTransfer", MemberName: "criticalKnowledgeAreas", SectionID: "CRITI-CRIT-LST", SectionIDPattern: "CRITI-CRIT-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per critical knowledge area at risk of being lost when the system is retired.", DocComment: "Critical knowledge areas to preserve.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — resource & knowledge management"}, "connotation": "Lists the critical knowledge areas that must be preserved before the system is decommissioned and its experts disperse."}}}},
+		{ClassName: "SystemKnowledgeTransfer", MemberName: "criticalKnowledgeAreas", SectionID: "SYKNTR-CRIT-LST", SectionIDPattern: "SYKNTR-CRIT-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per critical knowledge area at risk of being lost when the system is retired.", DocComment: "Critical knowledge areas to preserve.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — resource & knowledge management"}, "connotation": "Lists the critical knowledge areas that must be preserved before the system is decommissioned and its experts disperse."}}}},
 		{ClassName: "SystemKnowledgeTransfer", MemberName: "knowledgeTransferPlan", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the knowledge-transfer plan to follow when SME risk is high, so expertise is retained before cutover.", DocComment: "Knowledge transfer plan if SME risk is high."},
 	}
 }
@@ -14249,7 +14249,7 @@ func metaChildrenSystemMigrationPlan(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "SystemMigrationPlan", MemberName: "execution", SectionID: "SMPE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Migration execution and validation details.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "duration", TypeName: "String", Description: "Estimated Duration", Hint: "Expected duration of the migration execution", Order: 0}, {Name: "testingApproach", TypeName: "String", Description: "Testing Approach", Hint: "How the migration will be tested", Order: 1}, {Name: "dataValidationMethod", TypeName: "String", Description: "Data Validation Method", Hint: "How migrated data will be validated", Order: 2}, {Name: "uatScope", TypeName: "String", Description: "UAT Scope", Hint: "Scope of user acceptance testing", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — migration planning (execution & validation)", "PMBOK — quality management"}, "connotation": "Captures migration execution and validation details — duration, testing, data validation, and UAT scope — for the system migration."}}}},
 		{ClassName: "SystemMigrationPlan", MemberName: "cutover", SectionID: "SMPC", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Cutover window and business fallback.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "cutoverWindow", TypeName: "String", Description: "Cutover Window", Hint: "Scheduled window for performing the cutover", Order: 0}, {Name: "cutoverDuration", TypeName: "String", Description: "Cutover Duration", Hint: "How long the cutover is expected to take", Order: 1}, {Name: "businessContingency", TypeName: "String", Description: "Business Contingency", Hint: "Business fallback if the cutover fails", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — migration planning (cutover & contingency)", "PMBOK — risk management"}, "connotation": "Captures the cutover window, duration, and business contingency that govern the operational switch to the replacement system."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "SystemMigrationPlan", MemberName: "risks", SectionID: "SMRE-RISK-LST", SectionIDPattern: "SMRE-RISK-xxx", Kind: som.SomMetaKindList, TypeName: "SystemMigrationRiskEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per migration risk; capture probability, impact, mitigation, and contingency.", DocComment: "Contains 0+× MigrationRiskEntry — per-system migration risks.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — risk management"}, "connotation": "Lists the migration risks specific to this system, with probability, impact, mitigation, and contingency for each."}}}}
+			n := &som.SomMetaNode{ClassName: "SystemMigrationPlan", MemberName: "risks", SectionID: "SYMIRIEN-RISK-LST", SectionIDPattern: "SYMIRIEN-RISK-xxx", Kind: som.SomMetaKindList, TypeName: "SystemMigrationRiskEntry", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per migration risk; capture probability, impact, mitigation, and contingency.", DocComment: "Contains 0+× MigrationRiskEntry — per-system migration risks.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — risk management"}, "connotation": "Lists the migration risks specific to this system, with probability, impact, mitigation, and contingency for each."}}}}
 			n.ElementNode = metaCx("SystemMigrationRiskEntry", s, metaChildrenSystemMigrationRiskEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "SystemMigrationRiskEntry", ClassSectionID: "SYMIRIEN", Kind: som.SomMetaKindComplex, TypeName: "SystemMigrationRiskEntry", DocComment: "A system migration risk entry.", ClassDocComment: "A system migration risk entry.", Recursive: r, Children: c}
 			})
@@ -14272,7 +14272,7 @@ func metaChildrenSystemOperation(s map[string]bool) []*som.SomMetaNode {
 		metaCx("AdministrationRequirementsSection", s, metaChildrenAdministrationRequirementsSection, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "AdministrationRequirementsSection", MemberName: "administrationRequirements", ClassSectionID: "ARS", Kind: som.SomMetaKindComplex, TypeName: "AdministrationRequirementsSection", SerializationOrder: metaIntPtr(1), DocComment: "8.7.1.1. Administration Requirements.", ClassDocComment: "8.7.1.1. Administration Requirements.", Recursive: r, Children: c}
 		}),
-		{ClassName: "SystemOperation", MemberName: "maintenanceProcedures", SectionID: "MAINT-MAIN-LST", SectionIDPattern: "MAINT-MAIN-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per maintenance procedure.", DocComment: "Maintenance Procedures.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ITIL 4 — change enablement and maintenance windows"}, "connotation": "The catalog of scheduled maintenance procedures the system requires."}}}},
+		{ClassName: "SystemOperation", MemberName: "maintenanceProcedures", SectionID: "SO-MAIN-LST", SectionIDPattern: "SO-MAIN-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per maintenance procedure.", DocComment: "Maintenance Procedures.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ITIL 4 — change enablement and maintenance windows"}, "connotation": "The catalog of scheduled maintenance procedures the system requires."}}}},
 	}
 }
 
@@ -14326,7 +14326,7 @@ func metaChildrenSystemQualityGoals(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "SystemQualityGoals", MemberName: "executiveSummary", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "High-level overview of quality objectives, expected quality level, key quality risks, and approach summary.", DocComment: "Executive summary of quality goals and approach."},
 		{ClassName: "SystemQualityGoals", MemberName: "qualityVision", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(6), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Quality vision statement, core principles guiding quality decisions, and non-negotiable quality standards.", DocComment: "Quality vision and principles."},
 		{ClassName: "SystemQualityGoals", MemberName: "qaStrategy", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(7), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Overall QA strategy: shift-left testing, continuous testing, test pyramid approach, verification vs validation approach.", DocComment: "Quality assurance strategy."},
-		{ClassName: "SystemQualityGoals", MemberName: "attributeInterdependencies", SectionID: "ATTRI-ATTR-LST", SectionIDPattern: "ATTRI-ATTR-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(8), ContentHelp: "Add one entry per quality attribute interdependency.", DocComment: "Quality attribute interdependencies.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010:2023 — improving one quality characteristic can negatively affect another, so interdependencies between attributes are recorded to manage trade-offs"}, "connotation": "Lists interdependencies between quality attributes used to manage trade-offs."}}}},
+		{ClassName: "SystemQualityGoals", MemberName: "attributeInterdependencies", SectionID: "SYQG-ATTR-LST", SectionIDPattern: "SYQG-ATTR-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(8), ContentHelp: "Add one entry per quality attribute interdependency.", DocComment: "Quality attribute interdependencies.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010:2023 — improving one quality characteristic can negatively affect another, so interdependencies between attributes are recorded to manage trade-offs"}, "connotation": "Lists interdependencies between quality attributes used to manage trade-offs."}}}},
 		{ClassName: "SystemQualityGoals", MemberName: "qualityRadar", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(9), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: ""}, ContentHelp: "Visual showing relative importance of quality attributes.", DocComment: "Quality attribute priority radar."},
 		metaCx("QualityFramework", s, metaChildrenQualityFramework, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "QualityFramework", MemberName: "framework", ClassSectionID: "QLFWK", Kind: som.SomMetaKindComplex, TypeName: "QualityFramework", SerializationOrder: metaIntPtr(10), DocComment: "11.1. Quality Framework.", ClassDocComment: "11.1. Quality Framework.\n\nOverall quality approach for the project defining objectives, categories,\nand how quality is structured and governed across the system.", DetailedIn: "D10QualityAcceptancePlan", Recursive: r, Children: c}
@@ -14382,7 +14382,7 @@ func metaChildrenSystemReplacementStrategy(s map[string]bool) []*som.SomMetaNode
 			})
 			return n
 		}(),
-		{ClassName: "SystemReplacementStrategy", MemberName: "predecessorDependencies", SectionID: "PREDE-PRED-LST", SectionIDPattern: "PREDE-PRED-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per predecessor system that must be replaced or addressed before this system can proceed.", DocComment: "Predecessor systems that must be addressed first.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — migration planning (dependency sequencing)"}, "connotation": "Lists predecessor systems that must be addressed before this one, capturing sequencing constraints in the replacement roadmap."}}}},
+		{ClassName: "SystemReplacementStrategy", MemberName: "predecessorDependencies", SectionID: "SYREST-PRED-LST", SectionIDPattern: "SYREST-PRED-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per predecessor system that must be replaced or addressed before this system can proceed.", DocComment: "Predecessor systems that must be addressed first.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — migration planning (dependency sequencing)"}, "connotation": "Lists predecessor systems that must be addressed before this one, capturing sequencing constraints in the replacement roadmap."}}}},
 		{ClassName: "SystemReplacementStrategy", MemberName: "successCriteria", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the measurable criteria that confirm the replacement is complete and successful.", DocComment: "Success criteria for replacement completion."},
 	}
 }
@@ -14471,8 +14471,8 @@ func metaChildrenSystemTaskEntry(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "SystemTaskEntry", MemberName: "data", SectionID: "STED", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Outcome and data interaction details.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "expectedOutcome", TypeName: "String", Description: "Expected Outcome", Hint: "The result the user expects from completing the task", Order: 0}, {Name: "successCriteria", TypeName: "String", Description: "Success Criteria", Hint: "How to tell the task completed successfully", Order: 1}, {Name: "dataAccessed", TypeName: "String", Description: "Data Accessed (what information is needed)", Hint: "What information the task needs to read", Order: 2}, {Name: "dataModified", TypeName: "String", Description: "Data Modified (what information changes)", Hint: "What information the task creates or changes", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-11 — tasks & goals (usability)", "ISO/IEC/IEEE 29148 §6 — user tasks/use cases"}, "connotation": "Captures the data interaction of a task — expected outcome, success criteria, and data accessed or modified."}}}},
 		{ClassName: "SystemTaskEntry", MemberName: "context", SectionID: "STEC", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Tooling and linked artifacts.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "toolsUsed", TypeName: "String", Description: "Tools Used (systems or tools involved)", Hint: "Systems or tools involved in performing this task", Order: 0}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-11 — tasks & goals (usability)", "ISO/IEC/IEEE 29148 §6 — user tasks/use cases"}, "connotation": "Captures the tooling context of a task — the systems and tools involved in performing it."}}}},
 		{ClassName: "SystemTaskEntry", MemberName: "relatedUseCase", SectionID: "SYTS-RELA-REF", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, Extra: []*som.SomMetaExtra{{Annotation: "Reference", Args: map[string]interface{}{"description": "Related Use Case"}}}},
-		{ClassName: "SystemTaskEntry", MemberName: "workflowSteps", SectionID: "SYSTE-WORK-LST", SectionIDPattern: "SYSTE-WORK-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per step in the task workflow, in the order the user performs them.", DocComment: "Task workflow steps.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-11 — tasks & goals (usability)", "ISO/IEC/IEEE 29148 §6 — user tasks/use cases"}, "connotation": "The ordered set of workflow steps that make up this task."}}}},
-		{ClassName: "SystemTaskEntry", MemberName: "variationsAndExceptions", SectionID: "VARIA-VARI-LST", SectionIDPattern: "VARIA-VARI-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per variation or exception to the normal task flow.", DocComment: "Variations and exceptions.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-11 — tasks & goals (usability)", "ISO/IEC/IEEE 29148 §6 — user tasks/use cases"}, "connotation": "The set of alternative flows and exceptions for this task."}}}},
+		{ClassName: "SystemTaskEntry", MemberName: "workflowSteps", SectionID: "SYTS-WORK-LST", SectionIDPattern: "SYTS-WORK-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per step in the task workflow, in the order the user performs them.", DocComment: "Task workflow steps.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-11 — tasks & goals (usability)", "ISO/IEC/IEEE 29148 §6 — user tasks/use cases"}, "connotation": "The ordered set of workflow steps that make up this task."}}}},
+		{ClassName: "SystemTaskEntry", MemberName: "variationsAndExceptions", SectionID: "SYTS-VARI-LST", SectionIDPattern: "SYTS-VARI-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per variation or exception to the normal task flow.", DocComment: "Variations and exceptions.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-11 — tasks & goals (usability)", "ISO/IEC/IEEE 29148 §6 — user tasks/use cases"}, "connotation": "The set of alternative flows and exceptions for this task."}}}},
 	}
 }
 
@@ -14482,8 +14482,8 @@ func metaChildrenSystemTechnicalAssessment(s map[string]bool) []*som.SomMetaNode
 		{ClassName: "SystemTechnicalAssessment", MemberName: "platform", SectionID: "STAP", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Platform and age details.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "operatingSystem", TypeName: "String", Description: "Operating System", Hint: "OS the system runs on", Order: 0}, {Name: "middlewareComponents", TypeName: "String", Description: "Middleware Components", Hint: "Application servers, message brokers, or other middleware", Order: 1}, {Name: "deploymentDate", TypeName: "String", Description: "Initial Deployment Date", Hint: "When the system was first put into production", Order: 2}, {Name: "systemAge", TypeName: "int", Description: "System Age (Years)", Hint: "Age of the system in years", Order: 3}, {Name: "lastMajorUpgrade", TypeName: "String", Description: "Last Major Upgrade", Hint: "Date or version of the most recent major upgrade", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — product quality (platform & maintainability)"}, "connotation": "Captures the operating environment, middleware, and age indicators that signal the platform obsolescence driving replacement."}}}},
 		{ClassName: "SystemTechnicalAssessment", MemberName: "lifecycle", SectionID: "STAL", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Support and lifecycle details.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "vendorSupportStatus", TypeName: "String", Description: "Support Status (Full, Extended, End of Life)", Hint: "Current vendor support level for the system", Order: 0}, {Name: "endOfSupportDate", TypeName: "String", Description: "End of Support Date", Hint: "Date after which the vendor no longer supports the system", Order: 1}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — application portfolio management (lifecycle status)", "ISO/IEC 25010 — product quality"}, "connotation": "Captures vendor support status and end-of-support dates that bound the window in which the system must be replaced."}}}},
 		{ClassName: "SystemTechnicalAssessment", MemberName: "quality", SectionID: "STAQ", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Technical quality indicators.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "technicalDebtRating", TypeName: "String", Description: "Technical Debt (Low, Medium, High, Critical)", Hint: "Overall accumulated technical debt of the system", Order: 0}, {Name: "securityPosture", TypeName: "String", Description: "Security Posture", Hint: "Overall security health of the system", Order: 1}, {Name: "performanceStatus", TypeName: "String", Description: "Performance (Acceptable, Degraded, Poor)", Hint: "Current runtime performance state", Order: 2}, {Name: "scalabilityLimitations", TypeName: "String", Description: "Scalability Limitations", Hint: "Known limits on scaling the system", Order: 3}, {Name: "maintainability", TypeName: "String", Description: "Maintainability Rating", Hint: "How easily the system can be changed or maintained", Order: 4}, {Name: "documentationQuality", TypeName: "String", Description: "Documentation (Complete, Partial, Outdated, Missing)", Hint: "Quality and completeness of system documentation", Order: 5}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — product quality (maintainability, performance, security)"}, "connotation": "Captures technical-debt, performance, scalability, maintainability, and documentation quality indicators that justify replacement."}}}},
-		{ClassName: "SystemTechnicalAssessment", MemberName: "knownIssues", SectionID: "KIE-KNOW-LST", SectionIDPattern: "KIE-KNOW-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per significant known technical issue, defect, or deficiency affecting the system.", DocComment: "Known technical issues and deficiencies.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — product quality (defects & maintainability)"}, "connotation": "Lists known technical issues and deficiencies that strengthen the case for replacement and inform migration risk."}}}},
-		{ClassName: "SystemTechnicalAssessment", MemberName: "securityConcerns", SectionID: "SECUR-SECU-LST", SectionIDPattern: "SECUR-SECU-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per security vulnerability or compliance gap; note severity and remediation status.", DocComment: "Security vulnerabilities and compliance gaps.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001 — information security (vulnerabilities & compliance gaps)"}, "connotation": "Lists security vulnerabilities and compliance gaps in the system that raise replacement urgency and shape migration controls."}}}},
+		{ClassName: "SystemTechnicalAssessment", MemberName: "knownIssues", SectionID: "SYTEAS-KNOW-LST", SectionIDPattern: "SYTEAS-KNOW-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per significant known technical issue, defect, or deficiency affecting the system.", DocComment: "Known technical issues and deficiencies.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — product quality (defects & maintainability)"}, "connotation": "Lists known technical issues and deficiencies that strengthen the case for replacement and inform migration risk."}}}},
+		{ClassName: "SystemTechnicalAssessment", MemberName: "securityConcerns", SectionID: "SYTEAS-SECU-LST", SectionIDPattern: "SYTEAS-SECU-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per security vulnerability or compliance gap; note severity and remediation status.", DocComment: "Security vulnerabilities and compliance gaps.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001 — information security (vulnerabilities & compliance gaps)"}, "connotation": "Lists security vulnerabilities and compliance gaps in the system that raise replacement urgency and shape migration controls."}}}},
 	}
 }
 
@@ -14542,7 +14542,7 @@ func metaChildrenSystemUserImpact(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "SystemUserImpact", MemberName: "enablement", SectionID: "SUIE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Training and enablement plan.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "trainingRequired", TypeName: "String", Description: "Training Required", Hint: "What training users will need", Order: 0}, {Name: "estimatedTrainingHours", TypeName: "int", Description: "Training Hours per User", Hint: "Estimated training time per user", Order: 1}, {Name: "trainingApproach", TypeName: "String", Description: "Training Approach", Hint: "How training will be delivered", Order: 2}, {Name: "trainingMaterials", TypeName: "String", Description: "Materials Needed", Hint: "Training materials that must be produced", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — stakeholder management (training & enablement)"}, "connotation": "Captures the training and enablement plan needed to prepare impacted users for the replacement system."}}}},
 		{ClassName: "SystemUserImpact", MemberName: "adoption", SectionID: "SUIA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Communication and adoption support.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "communicationPlan", TypeName: "String", Description: "Communication Plan", Hint: "How change will be communicated to users", Order: 0}, {Name: "changeChampions", TypeName: "String", Description: "Change Champions", Hint: "People who will advocate for adoption", Order: 1}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — stakeholder management (communication & adoption)"}, "connotation": "Captures the communication plan and change-champion support that drive user adoption of the replacement system."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "SystemUserImpact", MemberName: "userGroups", SectionID: "UGIE-USER-LST", SectionIDPattern: "UGIE-USER-xxx", Kind: som.SomMetaKindList, TypeName: "UserGroupImpactEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per user group needing special handling; note impact level and special considerations.", DocComment: "User groups requiring specific handling.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — stakeholder management (user groups)"}, "connotation": "Lists user groups that require specific handling during replacement, capturing impact level and tailored change considerations."}}}}
+			n := &som.SomMetaNode{ClassName: "SystemUserImpact", MemberName: "userGroups", SectionID: "USGRIMEN-USER-LST", SectionIDPattern: "USGRIMEN-USER-xxx", Kind: som.SomMetaKindList, TypeName: "UserGroupImpactEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per user group needing special handling; note impact level and special considerations.", DocComment: "User groups requiring specific handling.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — stakeholder management (user groups)"}, "connotation": "Lists user groups that require specific handling during replacement, capturing impact level and tailored change considerations."}}}}
 			n.ElementNode = metaCx("UserGroupImpactEntry", s, metaChildrenUserGroupImpactEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "UserGroupImpactEntry", ClassSectionID: "USGRIMEN", Kind: som.SomMetaKindComplex, TypeName: "UserGroupImpactEntry", DocComment: "User group impact entry.", ClassDocComment: "User group impact entry.", Recursive: r, Children: c}
 			})
@@ -14569,7 +14569,7 @@ func metaChildrenTabBarDefinitionEntry(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "TabBarDefinitionEntry", MemberName: "behavior", SectionID: "TBDEB", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Position and selection behavior.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "tabBarPosition", TypeName: "String", Description: "Position", Hint: "Top/Bottom/Left", Order: 0}, {Name: "isScrollable", TypeName: "String", Description: "Scrollable", Hint: "Yes/No — scrollable when tabs exceed width", Order: 1}, {Name: "defaultTabIndex", TypeName: "int", Description: "Default Tab", Hint: "Zero-based index of initially selected tab", Order: 2}, {Name: "persistSelection", TypeName: "String", Description: "Persist Selection", Hint: "Yes/No — remember last selected tab", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-143:2012 — the arrangement and default selection of grouped tab controls", "ISO 9241-110:2020 — conformity with user expectations makes tab selection predictable"}, "connotation": "The positioning and default-selection behavior of a tab bar."}}}},
 		{ClassName: "TabBarDefinitionEntry", MemberName: "loading", SectionID: "TBDEL", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Visibility and loading profile.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "swipeEnabled", TypeName: "String", Description: "Swipe Navigation", Hint: "Yes/No — swipe between tabs on mobile", Order: 0}, {Name: "lazyLoading", TypeName: "String", Description: "Lazy Loading", Hint: "Yes/No — load tab content when first selected", Order: 1}, {Name: "visibilityCondition", TypeName: "String", Description: "Visibility Condition", Hint: "When entire tab bar is shown", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-151:2008 — controlled loading of navigation content supports responsive interaction", "ISO 9241-110:2020 — controllability lets the user govern how and when content is presented"}, "connotation": "The visibility and loading behavior governing when and how tab content is shown."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "TabBarDefinitionEntry", MemberName: "tabs", SectionID: "TAITEN-TABS-LST", SectionIDPattern: "TAITEN-TABS-xxx", Kind: som.SomMetaKindList, TypeName: "TabItemEntry", SerializationOrder: metaIntPtr(3), Min: metaIntPtr(1), ContentHelp: "Add one entry per tab item in the tab bar.", DocComment: "Contains 1+× TabItem.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-143:2012 — a group of selectable tab entries presented within a tab bar"}, "connotation": "The collection of individual tab items belonging to this tab bar."}}}}
+			n := &som.SomMetaNode{ClassName: "TabBarDefinitionEntry", MemberName: "tabs", SectionID: "TIE-TABS-LST", SectionIDPattern: "TIE-TABS-xxx", Kind: som.SomMetaKindList, TypeName: "TabItemEntry", SerializationOrder: metaIntPtr(3), Min: metaIntPtr(1), ContentHelp: "Add one entry per tab item in the tab bar.", DocComment: "Contains 1+× TabItem.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-143:2012 — a group of selectable tab entries presented within a tab bar"}, "connotation": "The collection of individual tab items belonging to this tab bar."}}}}
 			n.ElementNode = metaCx("TabItemEntry", s, metaChildrenTabItemEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "TabItemEntry", ClassSectionID: "TIE", Kind: som.SomMetaKindComplex, TypeName: "TabItemEntry", DocComment: "A tab item entry (form).", ClassDocComment: "A tab item entry (form).", Recursive: r, Children: c}
 			})
@@ -14689,11 +14689,11 @@ func metaChildrenTechnicalEnvironment(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "TechnicalEnvironmentNetwork", MemberName: "network", ClassSectionID: "TEENNE", Kind: som.SomMetaKindComplex, TypeName: "TechnicalEnvironmentNetwork", SerializationOrder: metaIntPtr(4), DocComment: "Network and infrastructure standards.", ClassDocComment: "Network and infrastructure standards.", Recursive: r, Children: c}
 		}),
 		{ClassName: "TechnicalEnvironment", MemberName: "existingInfrastructure", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe existing infrastructure: data centers, servers, networks, storage, systems that cannot be replaced, and infrastructure that the new solution must integrate with or leverage.", DocComment: "Existing infrastructure that must be reused or integrated with."},
-		{ClassName: "TechnicalEnvironment", MemberName: "datacenters", SectionID: "DATAC-DATA-LST", SectionIDPattern: "DATAC-DATA-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(6), ContentHelp: "List data centers and hosting environments: location, ownership, capacity, and any reuse or integration constraints.", DocComment: "Data center and hosting environment details.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — technology architecture & environment", "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"}, "connotation": "Enumerates data center and hosting environments the solution must run on or integrate with."}}}},
+		{ClassName: "TechnicalEnvironment", MemberName: "datacenters", SectionID: "TEEN-DATA-LST", SectionIDPattern: "TEEN-DATA-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(6), ContentHelp: "List data centers and hosting environments: location, ownership, capacity, and any reuse or integration constraints.", DocComment: "Data center and hosting environment details.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — technology architecture & environment", "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"}, "connotation": "Enumerates data center and hosting environments the solution must run on or integrate with."}}}},
 		{ClassName: "TechnicalEnvironment", MemberName: "networkTopology", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(7), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe network topology, bandwidth constraints, latency requirements, VPN/private connectivity, and firewall restrictions.", DocComment: "Network topology and connectivity constraints."},
 		{ClassName: "TechnicalEnvironment", MemberName: "standardsOverview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(8), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Overview of technology standards: adoption policy, exception process, standard review cycle, and compliance monitoring.", DocComment: "Technology standards that must be followed."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "TechnicalEnvironment", MemberName: "technologyStandards", SectionID: "TESTEN-TECH-LST", SectionIDPattern: "TESTEN-TECH-xxx", Kind: som.SomMetaKindList, TypeName: "TechnologyStandardEntry", SerializationOrder: metaIntPtr(9), ContentHelp: "List technology standards the solution must follow, with their scope, mandate level, and compliance expectations.", DocComment: "Technology standards — contains 0+× TechnologyStandard.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — technology architecture & environment", "ISO/IEC 25010 — product quality (infrastructure/platform quality)"}, "connotation": "Lists mandated or preferred technology standards the solution must adhere to."}}}}
+			n := &som.SomMetaNode{ClassName: "TechnicalEnvironment", MemberName: "technologyStandards", SectionID: "TSE-TECH-LST", SectionIDPattern: "TSE-TECH-xxx", Kind: som.SomMetaKindList, TypeName: "TechnologyStandardEntry", SerializationOrder: metaIntPtr(9), ContentHelp: "List technology standards the solution must follow, with their scope, mandate level, and compliance expectations.", DocComment: "Technology standards — contains 0+× TechnologyStandard.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — technology architecture & environment", "ISO/IEC 25010 — product quality (infrastructure/platform quality)"}, "connotation": "Lists mandated or preferred technology standards the solution must adhere to."}}}}
 			n.ElementNode = metaCx("TechnologyStandardEntry", s, metaChildrenTechnologyStandardEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "TechnologyStandardEntry", ClassSectionID: "TSE", Kind: som.SomMetaKindComplex, TypeName: "TechnologyStandardEntry", DocComment: "A technology standard entry (form).\n\nDocuments a mandated or preferred technology standard that the solution\nmust adhere to. Includes scope, compliance requirements, and exceptions.", ClassDocComment: "A technology standard entry (form).\n\nDocuments a mandated or preferred technology standard that the solution\nmust adhere to. Includes scope, compliance requirements, and exceptions.", Recursive: r, Children: c}
 			})
@@ -14701,7 +14701,7 @@ func metaChildrenTechnicalEnvironment(s map[string]bool) []*som.SomMetaNode {
 		}(),
 		{ClassName: "TechnicalEnvironment", MemberName: "integrationOverview", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(10), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Overview of integration constraints: API standards, protocol restrictions, message format requirements, and integration platform mandates.", DocComment: "Integration constraints overview."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "TechnicalEnvironment", MemberName: "integrationConstraints", SectionID: "INCOE1-INTE-LST", SectionIDPattern: "INCOE1-INTE-xxx", Kind: som.SomMetaKindList, TypeName: "IntegrationConstraintEntry", SerializationOrder: metaIntPtr(11), ContentHelp: "List integration constraints: protocol and format requirements, platform mandates, and the interfaces they affect.", DocComment: "Integration constraints — contains 0+× IntegrationConstraint.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — technology architecture & environment", "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"}, "connotation": "Lists technical constraints on integration — protocols, formats, and platform mandates the solution must respect."}}}}
+			n := &som.SomMetaNode{ClassName: "TechnicalEnvironment", MemberName: "integrationConstraints", SectionID: "INTCONENT-INTE-LST", SectionIDPattern: "INTCONENT-INTE-xxx", Kind: som.SomMetaKindList, TypeName: "IntegrationConstraintEntry", SerializationOrder: metaIntPtr(11), ContentHelp: "List integration constraints: protocol and format requirements, platform mandates, and the interfaces they affect.", DocComment: "Integration constraints — contains 0+× IntegrationConstraint.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — technology architecture & environment", "ISO/IEC/IEEE 29148 §6 — operating environment & constraints"}, "connotation": "Lists technical constraints on integration — protocols, formats, and platform mandates the solution must respect."}}}}
 			n.ElementNode = metaCx("IntegrationConstraintEntry", s, metaChildrenIntegrationConstraintEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "IntegrationConstraintEntry", ClassSectionID: "INTCONENT", Kind: som.SomMetaKindComplex, TypeName: "IntegrationConstraintEntry", DocComment: "An integration constraint entry (form).\n\nDocuments a technical constraint on system integration, including\nprotocol requirements, format restrictions, and platform mandates.", ClassDocComment: "An integration constraint entry (form).\n\nDocuments a technical constraint on system integration, including\nprotocol requirements, format restrictions, and platform mandates.", Recursive: r, Children: c}
 			})
@@ -14713,8 +14713,8 @@ func metaChildrenTechnicalEnvironment(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenTechnicalEnvironmentNetwork(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "TechnicalEnvironmentNetwork", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "networkArchitecture", TypeName: "String", Description: "Network Architecture", Hint: "Network topology, DMZ, segmentation approach", Order: 0}, {Name: "firewallPolicies", TypeName: "String", Description: "Firewall Policies", Hint: "Standard firewall rules and policies", Order: 1}, {Name: "vpnRequirements", TypeName: "String", Description: "VPN Requirements", Hint: "VPN requirements for remote access", Order: 2}, {Name: "loadBalancingStandards", TypeName: "String", Description: "Load Balancing Standards", Hint: "Standard load-balancing approach and products", Order: 3}, {Name: "cdnStrategy", TypeName: "String", Description: "CDN Strategy", Hint: "Content delivery network strategy and providers", Order: 4}}}},
-		{ClassName: "TechnicalEnvironmentNetwork", MemberName: "devopsStandards", SectionID: "DEVOP-DEVO-LST", SectionIDPattern: "DEVOP-DEVO-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentHelp: "List DevOps and deployment standards: CI/CD tooling, release process, and environment promotion rules.", DocComment: "DevOps and deployment standards.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — technology architecture & environment", "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"}, "connotation": "Lists mandated DevOps and deployment standards the delivery pipeline must follow."}}}},
-		{ClassName: "TechnicalEnvironmentNetwork", MemberName: "observabilityRequirements", SectionID: "OBSER-OBSE-LST", SectionIDPattern: "OBSER-OBSE-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentHelp: "List observability requirements: metrics, logging, tracing, alerting standards, and required monitoring platforms.", DocComment: "Monitoring and observability requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — product quality (infrastructure/platform quality)", "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"}, "connotation": "Lists monitoring and observability requirements the solution must meet for operational visibility."}}}},
+		{ClassName: "TechnicalEnvironmentNetwork", MemberName: "devopsStandards", SectionID: "TEENNE-DEVO-LST", SectionIDPattern: "TEENNE-DEVO-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentHelp: "List DevOps and deployment standards: CI/CD tooling, release process, and environment promotion rules.", DocComment: "DevOps and deployment standards.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"TOGAF — technology architecture & environment", "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"}, "connotation": "Lists mandated DevOps and deployment standards the delivery pipeline must follow."}}}},
+		{ClassName: "TechnicalEnvironmentNetwork", MemberName: "observabilityRequirements", SectionID: "TEENNE-OBSE-LST", SectionIDPattern: "TEENNE-OBSE-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentHelp: "List observability requirements: metrics, logging, tracing, alerting standards, and required monitoring platforms.", DocComment: "Monitoring and observability requirements.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 25010 — product quality (infrastructure/platform quality)", "ISO/IEC/IEEE 12207 — software life-cycle (technical infrastructure)"}, "connotation": "Lists monitoring and observability requirements the solution must meet for operational visibility."}}}},
 		{ClassName: "TechnicalEnvironmentNetwork", MemberName: "disasterRecovery", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe DR/BC requirements: RTO, RPO, backup standards, failover requirements, and recovery testing.", DocComment: "Disaster recovery and business continuity requirements."},
 	}
 }
@@ -14853,7 +14853,7 @@ func metaChildrenTechnicalPainPoints(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "TechnicalPainPoints", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Overview of technical pain points affecting system development, maintenance,\nand evolution. Include technology obsolescence risks, security posture,\nintegration complexity, and team capability constraints.\n"},
 		{ClassName: "TechnicalPainPoints", MemberName: "categorySummary", SectionID: "TPPS", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentHelp: "Aggregate the technical pain points into category metrics: technical-debt estimate, security-vulnerability counts, systems at end of life, vendor lock-in risk, and integration complexity.", DocComment: "Category-level summary for technical pain points.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "technicalDebtEstimate", TypeName: "String", Description: "Technical Debt Estimate", Hint: "Estimated cost to address technical debt, e.g. €1.2M or 18 months", Order: 0}, {Name: "securityVulnerabilityCount", TypeName: "int", Description: "Known Security Vulnerabilities", Hint: "Number of documented security vulnerabilities", Order: 1}, {Name: "criticalSecurityIssues", TypeName: "int", Description: "Critical Security Issues", Hint: "Number of critical/high severity security vulnerabilities", Order: 2}, {Name: "systemsAtEndOfLife", TypeName: "int", Description: "Systems at End of Life", Hint: "Number of systems using unsupported or EOL technology", Order: 3}, {Name: "undocumentedSystems", TypeName: "int", Description: "Undocumented Systems", Hint: "Number of systems with inadequate documentation", Order: 4}, {Name: "vendorLockInRisk", TypeName: "String", Description: "Vendor Lock-in Risk Level", Hint: "Low / Medium / High — based on proprietary dependencies", Order: 5}, {Name: "integrationComplexityScore", TypeName: "String", Description: "Integration Complexity Score", Hint: "Overall integration complexity, e.g. High (47 point-to-point integrations)", Order: 6}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (technical measures)"}, "connotation": "Category roll-up quantifying the technical pain points — technical debt, security vulnerabilities, and end-of-life systems in the current state."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "TechnicalPainPoints", MemberName: "items", SectionID: "TEPAPO-ITEM-LST", SectionIDPattern: "TEPAPO-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "PainPointEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per distinct technical problem, each with its own root cause, impact, and resolution outlook. Scope entries to technology, architecture, security, and maintainability concerns.", DocComment: "Contains 0+× PainPoint.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (problem identification)"}, "connotation": "The list of individual technical pain points documented in detail."}}}}
+			n := &som.SomMetaNode{ClassName: "TechnicalPainPoints", MemberName: "items", SectionID: "PAPE-ITEM-LST", SectionIDPattern: "PAPE-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "PainPointEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per distinct technical problem, each with its own root cause, impact, and resolution outlook. Scope entries to technology, architecture, security, and maintainability concerns.", DocComment: "Contains 0+× PainPoint.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (problem identification)"}, "connotation": "The list of individual technical pain points documented in detail."}}}}
 			n.ElementNode = metaCx("PainPointEntry", s, metaChildrenPainPointEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "PainPointEntry", ClassSectionID: "PAPE", Kind: som.SomMetaKindComplex, TypeName: "PainPointEntry", DocComment: "A pain point entry (form).\n\nDocuments a specific problem in the current state with comprehensive details:\nroot cause analysis, impact quantification, affected stakeholders,\ncurrent workarounds, and proposed resolution approach.", ClassDocComment: "A pain point entry (form).\n\nDocuments a specific problem in the current state with comprehensive details:\nroot cause analysis, impact quantification, affected stakeholders,\ncurrent workarounds, and proposed resolution approach.", Recursive: r, Children: c}
 			})
@@ -15198,7 +15198,7 @@ func metaChildrenTrainingDeliverableRequirements(s map[string]bool) []*som.SomMe
 		{ClassName: "TrainingDeliverableRequirements", MemberName: "trainingContent", SectionID: "TRMAT-TRAI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "trainingMaterials", TypeName: "String", Description: "Training Materials", Hint: "Slides, workbooks, exercises", Order: 0}, {Name: "trainingFormat", TypeName: "String", Description: "Training Format", Hint: "In-person, virtual, self-paced", Order: 1}, {Name: "trainingDuration", TypeName: "String", Description: "Training Duration", Hint: "Duration per role/module", Order: 2}, {Name: "trainingSchedule", TypeName: "String", Description: "Training Schedule", Hint: "When training occurs", Order: 3}, {Name: "trainTheTrainer", TypeName: "bool", Description: "Train-the-Trainer", Hint: "Train internal trainers", Order: 4}, {Name: "refresherTraining", TypeName: "String", Description: "Refresher Training", Hint: "Ongoing training approach", Order: 5}, {Name: "knowledgeTransferPlan", TypeName: "String", Description: "Knowledge Transfer Plan", Hint: "How knowledge is transferred", Order: 6}, {Name: "supportHandoff", TypeName: "String", Description: "Support Handoff", Hint: "Transition to support team", Order: 7}, {Name: "certificationProgram", TypeName: "String", Description: "Certification Program", Hint: "User certification if applicable", Order: 8}}}},
 		{ClassName: "TrainingDeliverableRequirements", MemberName: "trainingNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Training narrative."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "TrainingDeliverableRequirements", MemberName: "trainingModules", SectionID: "TRMOEN-TRAI-LST", SectionIDPattern: "TRMOEN-TRAI-xxx", Kind: som.SomMetaKindList, TypeName: "TrainingModuleEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per training module.", DocComment: "Training module entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 26514 — training material is part of the documentation and enablement content set", "ISO 17100:2015 — each training module can be localized through the translation process"}, "connotation": "The collection of training-module entries offered to end users."}}}}
+			n := &som.SomMetaNode{ClassName: "TrainingDeliverableRequirements", MemberName: "trainingModules", SectionID: "TME-TRAI-LST", SectionIDPattern: "TME-TRAI-xxx", Kind: som.SomMetaKindList, TypeName: "TrainingModuleEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per training module.", DocComment: "Training module entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 26514 — training material is part of the documentation and enablement content set", "ISO 17100:2015 — each training module can be localized through the translation process"}, "connotation": "The collection of training-module entries offered to end users."}}}}
 			n.ElementNode = metaCx("TrainingModuleEntry", s, metaChildrenTrainingModuleEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "TrainingModuleEntry", ClassSectionID: "TME", Kind: som.SomMetaKindComplex, TypeName: "TrainingModuleEntry", DocComment: "A training module entry.", ClassDocComment: "A training module entry.", Recursive: r, Children: c}
 			})
@@ -15211,7 +15211,7 @@ func metaChildrenTrainingDeliverables(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "TrainingDeliverables", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Training deliverables: instructor-led sessions, e-learning modules,\ntrain-the-trainer programs, quick reference cards, video tutorials,\nsandbox environments. Define target audience, duration, prerequisites,\nassessment criteria, and ongoing refresh schedule.\n"},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "TrainingDeliverables", MemberName: "items", SectionID: "TRDLV-ITEM-LST", SectionIDPattern: "TRDLV-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "DeliverableEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per training deliverable.", DocComment: "Contains 0+× Deliverable.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ITIL 4 2019 — the service management framework defines service delivery, support, and training practices", "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover"}, "connotation": "Lists the individual training deliverables handed over as part of the delivery scope."}}}}
+			n := &som.SomMetaNode{ClassName: "TrainingDeliverables", MemberName: "items", SectionID: "DLVEN-ITEM-LST", SectionIDPattern: "DLVEN-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "DeliverableEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per training deliverable.", DocComment: "Contains 0+× Deliverable.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ITIL 4 2019 — the service management framework defines service delivery, support, and training practices", "PMBOK Guide 7th edition 2021 — the PMI project management guidance frames deliverable scope, work breakdown, and handover"}, "connotation": "Lists the individual training deliverables handed over as part of the delivery scope."}}}}
 			n.ElementNode = metaCx("DeliverableEntry", s, metaChildrenDeliverableEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "DeliverableEntry", ClassSectionID: "DLVEN", Kind: som.SomMetaKindComplex, TypeName: "DeliverableEntry", DocComment: "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.", ClassDocComment: "A deliverable entry (form).\n\nRepresents a single deliverable item within any deliverable category.\nCaptures identification, delivery logistics, quality requirements,\nownership, and acceptance linkage.", Recursive: r, Children: c}
 			})
@@ -15257,7 +15257,7 @@ func metaChildrenTrainingRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "TrainingRequirements", MemberName: "overview", SectionID: "TROV", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), DocComment: "Training overview and strategy.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "trainingStrategy", TypeName: "String", Description: "Training Strategy — overall approach to training", Order: 0}, {Name: "learningManagementSystem", TypeName: "String", Description: "Learning Management System — LMS platform used", Order: 1}, {Name: "blendedLearningApproach", TypeName: "String", Description: "Blended Learning Approach — mix of methods", Order: 2}, {Name: "trainingBudget", TypeName: "String", Description: "Training Budget — per user, total", Order: 3}, {Name: "trainingTimeline", TypeName: "String", Description: "Training Timeline — when training occurs", Order: 4}, {Name: "trainingOwner", TypeName: "String", Description: "Training Owner — department/person responsible", Order: 5}, {Name: "trainerResources", TypeName: "String", Description: "Trainer Resources — internal trainers, external vendors", Order: 6}, {Name: "trainingFacilities", TypeName: "String", Description: "Training Facilities — classrooms, labs, online", Order: 7}, {Name: "successCriteria", TypeName: "String", Description: "Success Criteria — how training success is measured", Order: 8}, {Name: "feedbackMechanism", TypeName: "String", Description: "Feedback Mechanism — how feedback is collected", Order: 9}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "TrainingRequirements", MemberName: "initialTraining", SectionID: "INITR-INIT-LST", SectionIDPattern: "INITR-INIT-xxx", Kind: som.SomMetaKindList, TypeName: "InitialTrainingEntry", SerializationOrder: metaIntPtr(1), DocComment: "Initial/onboarding training."}
+			n := &som.SomMetaNode{ClassName: "TrainingRequirements", MemberName: "initialTraining", SectionID: "ITE-INIT-LST", SectionIDPattern: "ITE-INIT-xxx", Kind: som.SomMetaKindList, TypeName: "InitialTrainingEntry", SerializationOrder: metaIntPtr(1), DocComment: "Initial/onboarding training."}
 			n.ElementNode = metaCx("InitialTrainingEntry", s, metaChildrenInitialTrainingEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "InitialTrainingEntry", ClassSectionID: "ITE", Kind: som.SomMetaKindComplex, TypeName: "InitialTrainingEntry", DocComment: "Initial training entry (form).", ClassDocComment: "Initial training entry (form).", Recursive: r, Children: c}
 			})
@@ -15455,7 +15455,7 @@ func metaChildrenTranslationProcess(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "TranslationProcess", MemberName: "ongoing", SectionID: "TRPRON", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Ongoing localization operations.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "continuousLocalization", TypeName: "String", Description: "Continuous Localization", Hint: "CI/CD integration for translations", Order: 0}, {Name: "translationMemoryMaintenance", TypeName: "String", Description: "TM Maintenance", Hint: "How translation memory is maintained", Order: 1}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 17100:2015 — translation memory is a process asset maintained across ongoing localization work", "ISO 18587:2017 — continuous machine-translation post-editing supports ongoing operations"}, "connotation": "The continuous localization and translation-memory maintenance operations."}}}},
 		{ClassName: "TranslationProcess", MemberName: "translationNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Translation process narrative."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "TranslationProcess", MemberName: "vendors", SectionID: "TRVEEN-VEND-LST", SectionIDPattern: "TRVEEN-VEND-xxx", Kind: som.SomMetaKindList, TypeName: "TranslationVendorEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per translation vendor.", DocComment: "Translation vendor entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 17100:2015 — each listed translation vendor meets defined competence requirements", "ISO 18587:2017 — a listed vendor may provide machine-translation post-editing services"}, "connotation": "The collection of translation-vendor entries engaged for localization."}}}}
+			n := &som.SomMetaNode{ClassName: "TranslationProcess", MemberName: "vendors", SectionID: "TVE-VEND-LST", SectionIDPattern: "TVE-VEND-xxx", Kind: som.SomMetaKindList, TypeName: "TranslationVendorEntry", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per translation vendor.", DocComment: "Translation vendor entries.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 17100:2015 — each listed translation vendor meets defined competence requirements", "ISO 18587:2017 — a listed vendor may provide machine-translation post-editing services"}, "connotation": "The collection of translation-vendor entries engaged for localization."}}}}
 			n.ElementNode = metaCx("TranslationVendorEntry", s, metaChildrenTranslationVendorEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "TranslationVendorEntry", ClassSectionID: "TVE", Kind: som.SomMetaKindComplex, TypeName: "TranslationVendorEntry", DocComment: "A translation vendor entry.", ClassDocComment: "A translation vendor entry.", Recursive: r, Children: c}
 			})
@@ -15564,14 +15564,14 @@ func metaChildrenUiComponentEntry(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "UiComponentEntry", MemberName: "dataBinding", SectionID: "UICOMENT-DATA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(16), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "dataType", TypeName: "String", Description: "Data Type", Hint: "Type of data component displays/edits", Order: 0}, {Name: "bindingPattern", TypeName: "String", Description: "Binding Pattern", Hint: "Observable, form field, direct", Order: 1}, {Name: "valueAccessor", TypeName: "String", Description: "Value Accessor", Hint: "How value is read/written", Order: 2}, {Name: "changeNotification", TypeName: "String", Description: "Change Notification", Hint: "How changes are communicated", Order: 3}, {Name: "validationIntegration", TypeName: "String", Description: "Validation Integration", Hint: "How validation errors are displayed", Order: 4}, {Name: "dirtyTracking", TypeName: "String", Description: "Dirty Tracking", Hint: "How dirty state is tracked", Order: 5}, {Name: "undoRedoSupport", TypeName: "String", Description: "Undo/Redo Support", Hint: "Whether edits can be undone and redone", Order: 6}}}},
 		{ClassName: "UiComponentEntry", MemberName: "behaviorNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(17), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Detailed description of component behavior, user interactions, and edge cases.", DocComment: "Component behavior narrative."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "UiComponentEntry", MemberName: "states", SectionID: "CMST-STAT-LST", SectionIDPattern: "CMST-STAT-xxx", Kind: som.SomMetaKindList, TypeName: "ComponentStateEntry", SerializationOrder: metaIntPtr(18), ContentHelp: "Add one entry per component state.", DocComment: "Contains 0+× ComponentState.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"W3C WAI-ARIA 1.2 — component states such as pressed, expanded, and disabled are exposed to assistive technology", "ISO 9241-161:2016 — each interactive state is presented so users can recognise it"}, "connotation": "The collection of component-state entries defining the visual and functional states of the component."}}}}
+			n := &som.SomMetaNode{ClassName: "UiComponentEntry", MemberName: "states", SectionID: "COMSTAENT-STAT-LST", SectionIDPattern: "COMSTAENT-STAT-xxx", Kind: som.SomMetaKindList, TypeName: "ComponentStateEntry", SerializationOrder: metaIntPtr(18), ContentHelp: "Add one entry per component state.", DocComment: "Contains 0+× ComponentState.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"W3C WAI-ARIA 1.2 — component states such as pressed, expanded, and disabled are exposed to assistive technology", "ISO 9241-161:2016 — each interactive state is presented so users can recognise it"}, "connotation": "The collection of component-state entries defining the visual and functional states of the component."}}}}
 			n.ElementNode = metaCx("ComponentStateEntry", s, metaChildrenComponentStateEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ComponentStateEntry", ClassSectionID: "COMSTAENT", Kind: som.SomMetaKindComplex, TypeName: "ComponentStateEntry", DocComment: "A component state entry.\n\nDefines a visual/functional state of the component.", ClassDocComment: "A component state entry.\n\nDefines a visual/functional state of the component.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "UiComponentEntry", MemberName: "variants", SectionID: "CMVN-VARI-LST", SectionIDPattern: "CMVN-VARI-xxx", Kind: som.SomMetaKindList, TypeName: "ComponentVariantEntry", SerializationOrder: metaIntPtr(19), ContentHelp: "Add one entry per component variant.", DocComment: "Contains 0+× ComponentVariant.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Material Design — component variants define alternative appearances such as filled, outlined, and text styles", "ISO/IEC 25010:2023 — a set of component variants supports maintainability through modularity and reusability"}, "connotation": "The collection of component-variant entries defining alternative configurations of the component."}}}}
+			n := &som.SomMetaNode{ClassName: "UiComponentEntry", MemberName: "variants", SectionID: "CVE-VARI-LST", SectionIDPattern: "CVE-VARI-xxx", Kind: som.SomMetaKindList, TypeName: "ComponentVariantEntry", SerializationOrder: metaIntPtr(19), ContentHelp: "Add one entry per component variant.", DocComment: "Contains 0+× ComponentVariant.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Material Design — component variants define alternative appearances such as filled, outlined, and text styles", "ISO/IEC 25010:2023 — a set of component variants supports maintainability through modularity and reusability"}, "connotation": "The collection of component-variant entries defining alternative configurations of the component."}}}}
 			n.ElementNode = metaCx("ComponentVariantEntry", s, metaChildrenComponentVariantEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ComponentVariantEntry", ClassSectionID: "CVE", Kind: som.SomMetaKindComplex, TypeName: "ComponentVariantEntry", DocComment: "A component variant entry.\n\nDefines a variation of the component with different appearance or behavior.", ClassDocComment: "A component variant entry.\n\nDefines a variation of the component with different appearance or behavior.", Recursive: r, Children: c}
 			})
@@ -15611,7 +15611,7 @@ func metaChildrenUiComponents(s map[string]bool) []*som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ComponentLibrary", MemberName: "componentLibrary", ClassSectionID: "COLI", Kind: som.SomMetaKindComplex, TypeName: "ComponentLibrary", SerializationOrder: metaIntPtr(4), DocComment: "10.11.1. Component Library.", ClassDocComment: "10.11.1. Component Library.\n\nDesign system and component catalog specification.", Recursive: r, Children: c}
 		}),
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "UiComponents", MemberName: "componentSpecs", SectionID: "UICOEN-COMP-LST", SectionIDPattern: "UICOEN-COMP-xxx", Kind: som.SomMetaKindList, TypeName: "UiComponentEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per catalog component.", DocComment: "10.11.2. Component Specifications — contains 0+×.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Atomic Design (Brad Frost) — each catalog component is specified as a composable building block", "ISO/IEC 25010:2023 — a catalog of reusable components supports maintainability through modularity"}, "connotation": "The collection of catalog component-specification entries."}}}}
+			n := &som.SomMetaNode{ClassName: "UiComponents", MemberName: "componentSpecs", SectionID: "UICOMENT-COMP-LST", SectionIDPattern: "UICOMENT-COMP-xxx", Kind: som.SomMetaKindList, TypeName: "UiComponentEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per catalog component.", DocComment: "10.11.2. Component Specifications — contains 0+×.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Atomic Design (Brad Frost) — each catalog component is specified as a composable building block", "ISO/IEC 25010:2023 — a catalog of reusable components supports maintainability through modularity"}, "connotation": "The collection of catalog component-specification entries."}}}}
 			n.ElementNode = metaCx("UiComponentEntry", s, metaChildrenUiComponentEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "UiComponentEntry", ClassSectionID: "UICOMENT", Kind: som.SomMetaKindComplex, TypeName: "UiComponentEntry", DocComment: "A UI component entry.\n\nComprehensive specification for a single UI component covering identity,\nvisual design, behavior, states, responsiveness, accessibility,\nauthorization, and data binding.", ClassDocComment: "A UI component entry.\n\nComprehensive specification for a single UI component covering identity,\nvisual design, behavior, states, responsiveness, accessibility,\nauthorization, and data binding.", Recursive: r, Children: c}
 			})
@@ -15812,7 +15812,7 @@ func metaChildrenUserCategories(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "UserCategories", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Overview of user categories and how they relate to the system. Include summary of user population and key differences between categories."}},
 		{ClassName: "UserCategories", MemberName: "userCategoryDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "User category hierarchy or relationship diagram showing how different user types relate"}, ContentHelp: "Create a diagram showing user categories, their relationships, and organizational hierarchy.", DocComment: "User category overview diagram."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "UserCategories", MemberName: "categories", SectionID: "USCA-CATE-LST", SectionIDPattern: "USCA-CATE-xxx", Kind: som.SomMetaKindList, TypeName: "UserCategoryEntry", SerializationOrder: metaIntPtr(2), Min: metaIntPtr(1), ContentHelp: "Add one entry per distinct user category. Categories should be mutually exclusive where possible, with clear distinguishing characteristics.", DocComment: "User category entries — contains 1+× UserCategoryEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210 — user characteristics & context of use", "BABOK v3 §10.43 — stakeholder/user analysis"}, "connotation": "The set of individual user-category entries defined for this system."}}}}
+			n := &som.SomMetaNode{ClassName: "UserCategories", MemberName: "categories", SectionID: "UCE-CATE-LST", SectionIDPattern: "UCE-CATE-xxx", Kind: som.SomMetaKindList, TypeName: "UserCategoryEntry", SerializationOrder: metaIntPtr(2), Min: metaIntPtr(1), ContentHelp: "Add one entry per distinct user category. Categories should be mutually exclusive where possible, with clear distinguishing characteristics.", DocComment: "User category entries — contains 1+× UserCategoryEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210 — user characteristics & context of use", "BABOK v3 §10.43 — stakeholder/user analysis"}, "connotation": "The set of individual user-category entries defined for this system."}}}}
 			n.ElementNode = metaCx("UserCategoryEntry", s, metaChildrenUserCategoryEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "UserCategoryEntry", ClassSectionID: "UCE", Kind: som.SomMetaKindComplex, TypeName: "UserCategoryEntry", DocComment: "A user category entry.\n\nComprehensive user persona definition including demographics, goals,\nfrustrations, technical proficiency, and system interaction patterns.", ClassDocComment: "A user category entry.\n\nComprehensive user persona definition including demographics, goals,\nfrustrations, technical proficiency, and system interaction patterns.", Recursive: r, Children: c}
 			})
@@ -15926,8 +15926,8 @@ func metaChildrenUserJourney(s map[string]bool) []*som.SomMetaNode {
 			})
 			return n
 		}(),
-		{ClassName: "UserJourney", MemberName: "keyTouchpoints", SectionID: "KEYTO-KEYT-LST", SectionIDPattern: "KEYTO-KEYT-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per key touchpoint in the user journey.", DocComment: "Key touchpoints.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210 — user journey & experience", "BABOK v3 §10 — customer journey mapping"}, "connotation": "The set of key touchpoints where this user category interacts with the system across the journey."}}}},
-		{ClassName: "UserJourney", MemberName: "painPoints", SectionID: "USERJ-PAIN-LST", SectionIDPattern: "USERJ-PAIN-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per pain point or friction in the user journey.", DocComment: "Pain points in the journey.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210 — user journey & experience", "BABOK v3 §10 — customer journey mapping"}, "connotation": "The set of pain points this user category encounters during the journey."}}}},
+		{ClassName: "UserJourney", MemberName: "keyTouchpoints", SectionID: "UJ-KEYT-LST", SectionIDPattern: "UJ-KEYT-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per key touchpoint in the user journey.", DocComment: "Key touchpoints.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210 — user journey & experience", "BABOK v3 §10 — customer journey mapping"}, "connotation": "The set of key touchpoints where this user category interacts with the system across the journey."}}}},
+		{ClassName: "UserJourney", MemberName: "painPoints", SectionID: "UJ-PAIN-LST", SectionIDPattern: "UJ-PAIN-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per pain point or friction in the user journey.", DocComment: "Pain points in the journey.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210 — user journey & experience", "BABOK v3 §10 — customer journey mapping"}, "connotation": "The set of pain points this user category encounters during the journey."}}}},
 		{ClassName: "UserJourney", MemberName: "opportunitiesForDelight", SectionID: "UJ-OPPO", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Opportunities to exceed user expectations and create positive experiences."}, DocComment: "Opportunities for delight."},
 	}
 }
@@ -16029,7 +16029,7 @@ func metaChildrenUserPersonaDetails(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "UserPersonaDetails", MemberName: "goals", SectionID: "UPDG", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Goals and drivers.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "primaryGoals", TypeName: "String", Description: "Primary Goals (what they want to achieve with the system)", Hint: "What this persona most wants to achieve with the system", Order: 0}, {Name: "secondaryGoals", TypeName: "String", Description: "Secondary Goals", Hint: "Less critical goals this persona also has", Order: 1}, {Name: "frustrations", TypeName: "String", Description: "Frustrations (pain points with current solutions)", Hint: "Pain points with current solutions or workflows", Order: 2}, {Name: "motivations", TypeName: "String", Description: "Motivations (what drives them)", Hint: "What drives and motivates this persona", Order: 3}, {Name: "fears", TypeName: "String", Description: "Fears (concerns about new systems)", Hint: "Concerns or anxieties about adopting a new system", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210 — personas & context of use", "BABOK v3 §10.43 — personas"}, "connotation": "Captures what drives this persona — goals, frustrations, motivations, and fears."}}}},
 		{ClassName: "UserPersonaDetails", MemberName: "behavior", SectionID: "UPDB", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Preferences and behavior.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "techComfort", TypeName: "String", Description: "Technology Comfort Level (attitude toward technology)", Hint: "This persona's general attitude toward technology", Order: 0}, {Name: "preferredLearningStyle", TypeName: "String", Description: "Preferred Learning Style (visual, hands-on, documentation, etc.)", Hint: "Visual / hands-on / documentation / video", Order: 1}, {Name: "decisionMakingStyle", TypeName: "String", Description: "Decision Making Style (analytical, intuitive, collaborative)", Hint: "Analytical / intuitive / collaborative", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210 — personas & context of use", "BABOK v3 §10.43 — personas"}, "connotation": "Captures this persona's behavioral traits — technology comfort, learning style, and decision-making style."}}}},
 		{ClassName: "UserPersonaDetails", MemberName: "visualRepresentation", SectionID: "UPD-VISU", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Description of a representative photo or avatar that embodies this persona (for design reference)."}, DocComment: "Representative photo or avatar description."},
-		{ClassName: "UserPersonaDetails", MemberName: "representativeQuotes", SectionID: "REPRE-REPR-LST", SectionIDPattern: "REPRE-REPR-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(6), ContentHelp: "Add quotes that capture how this persona thinks and speaks, to make the persona vivid for designers.", DocComment: "Key quotes that represent this persona's mindset.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210 — personas & context of use", "BABOK v3 §10.43 — personas"}, "connotation": "The set of representative quotes capturing this persona's mindset."}}}},
+		{ClassName: "UserPersonaDetails", MemberName: "representativeQuotes", SectionID: "UPD-REPR-LST", SectionIDPattern: "UPD-REPR-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(6), ContentHelp: "Add quotes that capture how this persona thinks and speaks, to make the persona vivid for designers.", DocComment: "Key quotes that represent this persona's mindset.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210 — personas & context of use", "BABOK v3 §10.43 — personas"}, "connotation": "The set of representative quotes capturing this persona's mindset."}}}},
 	}
 }
 
@@ -16112,7 +16112,7 @@ func metaChildrenUtilityNavigation(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "UtilityNavigation", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "## Utility Navigation (10.3.1.5)\n\nAlways-visible utility items in app bar.\n\n### Common Utilities\n- **User Menu** — Avatar with profile/settings/logout\n- **Notifications** — Bell with unread count\n- **Help** — Documentation access\n- **Settings** — Quick preferences\n\n### Item Properties\n- Position (AppBar-Leading/Trailing, Drawer-Footer)\n- Widget type (Icon-Button/Avatar/Dropdown/Popup)\n- Badge display (count, dot)\n- Interaction (Navigate/Popup/Drawer/Sheet/Dialog)\n\n### Menu Items\nDropdown/popup menus have nested items with:\n- Label, icon, display order\n- Action type (Navigate/Action/External)\n- Danger styling and confirmation\n"},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "UtilityNavigation", MemberName: "items", SectionID: "UNIE-ITEM-LST", SectionIDPattern: "UNIE-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "UtilityNavigationItemEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per utility navigation item.", DocComment: "Contains 0+× UtilityNavigationItem.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-14:1997 — menu dialogues cover the set of always-visible utility entry points", "ISO 9241-151:2008 — navigation aids give consistent access to cross-cutting functions"}, "connotation": "The collection of utility navigation items shown persistently in the app bar or drawer."}}}}
+			n := &som.SomMetaNode{ClassName: "UtilityNavigation", MemberName: "items", SectionID: "UTNAITEN-ITEM-LST", SectionIDPattern: "UTNAITEN-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "UtilityNavigationItemEntry", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per utility navigation item.", DocComment: "Contains 0+× UtilityNavigationItem.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-14:1997 — menu dialogues cover the set of always-visible utility entry points", "ISO 9241-151:2008 — navigation aids give consistent access to cross-cutting functions"}, "connotation": "The collection of utility navigation items shown persistently in the app bar or drawer."}}}}
 			n.ElementNode = metaCx("UtilityNavigationItemEntry", s, metaChildrenUtilityNavigationItemEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "UtilityNavigationItemEntry", ClassSectionID: "UTNAITEN", Kind: som.SomMetaKindComplex, TypeName: "UtilityNavigationItemEntry", DocComment: "A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications bell,\nhelp icon, settings.", ClassDocComment: "A utility navigation item entry (form).\n\nA persistent utility element in the app bar: user avatar, notifications bell,\nhelp icon, settings.", Recursive: r, Children: c}
 			})
@@ -16130,7 +16130,7 @@ func metaChildrenUtilityNavigationItemEntry(s map[string]bool) []*som.SomMetaNod
 		}),
 		{ClassName: "UtilityNavigationItemEntry", MemberName: "behavior", SectionID: "UNIEB", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Badge and interaction behavior.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "badgeType", TypeName: "String", Description: "Badge Type", Hint: "None/Count/Dot", Order: 0}, {Name: "badgeSource", TypeName: "String", Description: "Badge Source", Hint: "Data binding for badge", Order: 1}, {Name: "interactionType", TypeName: "String", Description: "Interaction Type", Hint: "Navigate/Open-Popup/Open-Drawer/Open-Bottom-Sheet/Open-Dialog", Order: 2}, {Name: "targetScreenId", TypeName: "String", Description: "Target Screen ID", Hint: "Navigation target", Order: 3, RefersTo: []string{"SCREN.screenId"}}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-14:1997 — menu dialogues define how selecting a utility item opens a menu, drawer, or sheet", "ISO/IEC 25010:2023 — appropriateness recognisability lets users read status from a badge before acting"}, "connotation": "The badge display and interaction behavior triggered when a utility navigation item is used."}}}},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "UtilityNavigationItemEntry", MemberName: "menuItems", SectionID: "UMIE-MENU-LST", SectionIDPattern: "UMIE-MENU-xxx", Kind: som.SomMetaKindList, TypeName: "UtilityMenuItemEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per utility menu item.", DocComment: "Contains 0+× UtilityMenuItem.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-14:1997 — menu dialogues structure the nested options within a utility popup or dropdown"}, "connotation": "The collection of nested menu item entries belonging to a utility navigation item."}}}}
+			n := &som.SomMetaNode{ClassName: "UtilityNavigationItemEntry", MemberName: "menuItems", SectionID: "UTMEITEN-MENU-LST", SectionIDPattern: "UTMEITEN-MENU-xxx", Kind: som.SomMetaKindList, TypeName: "UtilityMenuItemEntry", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per utility menu item.", DocComment: "Contains 0+× UtilityMenuItem.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-14:1997 — menu dialogues structure the nested options within a utility popup or dropdown"}, "connotation": "The collection of nested menu item entries belonging to a utility navigation item."}}}}
 			n.ElementNode = metaCx("UtilityMenuItemEntry", s, metaChildrenUtilityMenuItemEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "UtilityMenuItemEntry", ClassSectionID: "UTMEITEN", Kind: som.SomMetaKindComplex, TypeName: "UtilityMenuItemEntry", DocComment: "A utility menu item entry (form).\n\nEntry in a utility popup/dropdown menu (e.g., user menu items).", ClassDocComment: "A utility menu item entry (form).\n\nEntry in a utility popup/dropdown menu (e.g., user menu items).", Recursive: r, Children: c}
 			})
@@ -16154,13 +16154,13 @@ func metaChildrenValidationFeedback(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "ValidationFeedback", MemberName: "behavior", SectionID: "VAFEBE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Animation and focus behavior.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "errorAnimation", TypeName: "String", Description: "Error Animation", Hint: "Shake, fade-in, bounce, none", Order: 0}, {Name: "clearAnimation", TypeName: "String", Description: "Clear Animation", Hint: "Animation when error is resolved", Order: 1}, {Name: "scrollToError", TypeName: "bool", Description: "Scroll to Error", Hint: "Auto-scroll to first error on submit", Order: 2}, {Name: "focusOnError", TypeName: "bool", Description: "Focus on Error", Hint: "Move focus to first invalid field", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-143:2012 — forms move focus toward fields that need correction after validation", "ISO 9241-13:1998 — user guidance draws attention to the location of an input error"}, "connotation": "The validation-feedback behaviour configuration governing animation and focus on errors."}}}},
 		{ClassName: "ValidationFeedback", MemberName: "validationNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Detailed specification of validation feedback behavior and user experience considerations.", DocComment: "Validation feedback narrative."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "ValidationFeedback", MemberName: "messageTemplates", SectionID: "VAMETE-MESS-LST", SectionIDPattern: "VAMETE-MESS-xxx", Kind: som.SomMetaKindList, TypeName: "ValidationMessageTemplate", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per validation message template.", DocComment: "Validation message templates.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-143:2012 — forms present specific validation messages for input fields"}, "connotation": "The collection of validation-message template entries."}}}}
+			n := &som.SomMetaNode{ClassName: "ValidationFeedback", MemberName: "messageTemplates", SectionID: "VMT-MESS-LST", SectionIDPattern: "VMT-MESS-xxx", Kind: som.SomMetaKindList, TypeName: "ValidationMessageTemplate", SerializationOrder: metaIntPtr(6), ContentHelp: "Add one entry per validation message template.", DocComment: "Validation message templates.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-143:2012 — forms present specific validation messages for input fields"}, "connotation": "The collection of validation-message template entries."}}}}
 			n.ElementNode = metaCx("ValidationMessageTemplate", s, metaChildrenValidationMessageTemplate, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "ValidationMessageTemplate", ClassSectionID: "VMT", Kind: som.SomMetaKindComplex, TypeName: "ValidationMessageTemplate", DocComment: "A validation message template.", ClassDocComment: "A validation message template.", Recursive: r, Children: c}
 			})
 			return n
 		}(),
-		{ClassName: "ValidationFeedback", MemberName: "fieldValidationRules", SectionID: "FIELD-FIEL-LST", SectionIDPattern: "FIELD-FIEL-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per field validation rule.", DocComment: "Field validation rules by type.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-143:2012 — forms apply validation rules that determine acceptable input per field", "ISO/IEC 27001:2022 — input validation controls guard against malformed or malicious data"}, "connotation": "The collection of field validation rule entries organised by field type."}}}},
+		{ClassName: "ValidationFeedback", MemberName: "fieldValidationRules", SectionID: "VAFE-FIEL-LST", SectionIDPattern: "VAFE-FIEL-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(7), ContentHelp: "Add one entry per field validation rule.", DocComment: "Field validation rules by type.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-143:2012 — forms apply validation rules that determine acceptable input per field", "ISO/IEC 27001:2022 — input validation controls guard against malformed or malicious data"}, "connotation": "The collection of field validation rule entries organised by field type."}}}},
 	}
 }
 
@@ -16176,7 +16176,7 @@ func metaChildrenValueProposition(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "ValueProposition", MemberName: "valueDetails", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Value Proposition Details (form).", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "valueStatement", TypeName: "String", Description: "Value Statement (concise statement of value delivered)", Required: true, Hint: "Concise statement of the value the system delivers", Order: 0}, {Name: "primaryBenefits", TypeName: "String", Description: "Primary Benefits (top 3-5 benefits in priority order)", Hint: "Top 3-5 benefits in priority order", Order: 1}, {Name: "quantifiableBenefits", TypeName: "String", Description: "Quantifiable Benefits (measurable improvements with targets)", Hint: "Measurable improvements with concrete targets", Order: 2}, {Name: "qualitativeBenefits", TypeName: "String", Description: "Qualitative Benefits (non-quantifiable but important benefits)", Hint: "Non-quantifiable but important benefits", Order: 3}}}},
 		{ClassName: "ValueProposition", MemberName: "benefits", SectionID: "VALBN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Financial and efficiency benefits.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "costSavings", TypeName: "String", Description: "Cost Savings (expected cost reductions and where)", Hint: "Expected cost reductions and where they occur", Order: 0}, {Name: "revenueImpact", TypeName: "String", Description: "Revenue Impact (how system affects revenue generation)", Hint: "How the system affects revenue generation", Order: 1}, {Name: "productivityGains", TypeName: "String", Description: "Productivity Gains (efficiency improvements expected)", Hint: "Efficiency improvements expected from the system", Order: 2}, {Name: "riskReduction", TypeName: "String", Description: "Risk Reduction (operational, compliance, security risks mitigated)", Hint: "Operational, compliance, and security risks mitigated", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — business value"}, "connotation": "The financial and efficiency benefits of the system — cost savings, revenue impact, productivity gains, and risk reduction."}}}},
 		{ClassName: "ValueProposition", MemberName: "returnProfile", SectionID: "VALRP", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "ROI and realization timeline.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "estimatedRoi", TypeName: "String", Description: "Estimated ROI (return on investment calculation or estimate)", Hint: "Return-on-investment calculation or estimate", Order: 0}, {Name: "paybackPeriod", TypeName: "String", Description: "Payback Period (time until investment is recovered)", Hint: "Time until the investment is recovered", Order: 1}, {Name: "valueRealizationTimeline", TypeName: "String", Description: "Value Realization Timeline (when benefits start accruing)", Hint: "When benefits start accruing after delivery", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — business value"}, "connotation": "The return profile of the system — estimated ROI, payback period, and the timeline over which value is realized."}}}},
-		{ClassName: "ValueProposition", MemberName: "kpis", SectionID: "KPIEN-KPIS-LST", SectionIDPattern: "KPIEN-KPIS-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per KPI used to measure delivered value. Include the metric, its baseline, and its target.", DocComment: "Key Performance Indicators for value measurement.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — measures of effectiveness"}, "connotation": "The set of key performance indicators by which the system's delivered value will be measured."}}}},
+		{ClassName: "ValueProposition", MemberName: "kpis", SectionID: "VALPX-KPIS-LST", SectionIDPattern: "VALPX-KPIS-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentHelp: "Add one entry per KPI used to measure delivered value. Include the metric, its baseline, and its target.", DocComment: "Key Performance Indicators for value measurement.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — measures of effectiveness"}, "connotation": "The set of key performance indicators by which the system's delivered value will be measured."}}}},
 	}
 }
 
@@ -16264,7 +16264,7 @@ func metaChildrenWcagCompliance(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "WcagCompliance", MemberName: "robust", SectionID: "WCCORO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Robustness requirements.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "compatible", TypeName: "String", Description: "Compatible (4.1)", Hint: "Parsing, name/role/value", Order: 0}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"W3C WCAG 2.2 — content is robust enough to be interpreted reliably by a wide variety of user agents including assistive technologies", "W3C WAI-ARIA — name, role, and value are exposed so assistive technologies can interpret user interface components"}, "connotation": "The WCAG robust principle requirements ensuring compatibility with assistive technologies."}}}},
 		{ClassName: "WcagCompliance", MemberName: "wcagNarrative", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(4), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "WCAG compliance narrative."},
 		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "WcagCompliance", MemberName: "successCriteria", SectionID: "WSCE-SUCC-LST", SectionIDPattern: "WSCE-SUCC-xxx", Kind: som.SomMetaKindList, TypeName: "WcagSuccessCriterionEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per WCAG success criterion.", DocComment: "WCAG success criteria mapping.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"W3C WCAG 2.2 — each success criterion states a testable accessibility requirement", "ISO/IEC 40500:2012 — the WCAG success criteria adopted as an international standard"}, "connotation": "The collection of WCAG success-criterion entries."}}}}
+			n := &som.SomMetaNode{ClassName: "WcagCompliance", MemberName: "successCriteria", SectionID: "WCSUCREN-SUCC-LST", SectionIDPattern: "WCSUCREN-SUCC-xxx", Kind: som.SomMetaKindList, TypeName: "WcagSuccessCriterionEntry", SerializationOrder: metaIntPtr(5), ContentHelp: "Add one entry per WCAG success criterion.", DocComment: "WCAG success criteria mapping.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"W3C WCAG 2.2 — each success criterion states a testable accessibility requirement", "ISO/IEC 40500:2012 — the WCAG success criteria adopted as an international standard"}, "connotation": "The collection of WCAG success-criterion entries."}}}}
 			n.ElementNode = metaCx("WcagSuccessCriterionEntry", s, metaChildrenWcagSuccessCriterionEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 				return &som.SomMetaNode{ClassName: "WcagSuccessCriterionEntry", ClassSectionID: "WCSUCREN", Kind: som.SomMetaKindComplex, TypeName: "WcagSuccessCriterionEntry", DocComment: "A WCAG success criterion entry.", ClassDocComment: "A WCAG success criterion entry.", Recursive: r, Children: c}
 			})
@@ -17679,7 +17679,7 @@ func (x *AlertingConfigurationNav) NotificationChannels() *AlertNotificationChan
 }
 
 func (x *AlertingConfigurationNav) AlertRules() *som.SomListMetaRef[*AlertRuleEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/ALRUEN-ALER-LST", func(t *som.SomMetaTree, p string) *AlertRuleEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/ALERULENT-ALER-LST", func(t *som.SomMetaTree, p string) *AlertRuleEntryNav {
 		return newAlertRuleEntryNav(t, p)
 	})
 }
@@ -18079,7 +18079,7 @@ func (x *ApplicableRegulationEntryNav) Content() *som.SomMetaRef {
 }
 
 func (x *ApplicableRegulationEntryNav) ComplianceMeasures() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/COMPL-COMP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/ARE-COMP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -18441,19 +18441,19 @@ func (x *AssumptionConstraintDependencyRegisterNav) Content() *som.SomMetaRef {
 }
 
 func (x *AssumptionConstraintDependencyRegisterNav) Assumptions() *som.SomListMetaRef[*AssumptionRegisterEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/ACRG-ASMP-LST", func(t *som.SomMetaTree, p string) *AssumptionRegisterEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/ASMRE-ASMP-LST", func(t *som.SomMetaTree, p string) *AssumptionRegisterEntryNav {
 		return newAssumptionRegisterEntryNav(t, p)
 	})
 }
 
 func (x *AssumptionConstraintDependencyRegisterNav) Constraints() *som.SomListMetaRef[*ConstraintRegisterEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/ACRG-CONS-LST", func(t *som.SomMetaTree, p string) *ConstraintRegisterEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/CONRE-CONS-LST", func(t *som.SomMetaTree, p string) *ConstraintRegisterEntryNav {
 		return newConstraintRegisterEntryNav(t, p)
 	})
 }
 
 func (x *AssumptionConstraintDependencyRegisterNav) Dependencies() *som.SomListMetaRef[*DependencyRegisterEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/ACRG-DEPS-LST", func(t *som.SomMetaTree, p string) *DependencyRegisterEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DEPRE-DEPS-LST", func(t *som.SomMetaTree, p string) *DependencyRegisterEntryNav {
 		return newDependencyRegisterEntryNav(t, p)
 	})
 }
@@ -19153,7 +19153,7 @@ func (x *BackupAndRecoverySectionNav) DataClassification() *BackupDataClassifica
 }
 
 func (x *BackupAndRecoverySectionNav) BackupPolicies() *som.SomListMetaRef[*BackupPolicyEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/BAPOEN-BACK-LST", func(t *som.SomMetaTree, p string) *BackupPolicyEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/BPE-BACK-LST", func(t *som.SomMetaTree, p string) *BackupPolicyEntryNav {
 		return newBackupPolicyEntryNav(t, p)
 	})
 }
@@ -19577,7 +19577,7 @@ func (x *BoundaryAssumptionsNav) AssumptionApproach() *som.SomMetaRef {
 }
 
 func (x *BoundaryAssumptionsNav) Items() *som.SomListMetaRef[*BoundaryAssumptionEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/BOASEN-ITEM-LST", func(t *som.SomMetaTree, p string) *BoundaryAssumptionEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/BAE-ITEM-LST", func(t *som.SomMetaTree, p string) *BoundaryAssumptionEntryNav {
 		return newBoundaryAssumptionEntryNav(t, p)
 	})
 }
@@ -19653,7 +19653,7 @@ func (x *BreakpointConfigurationNav) BreakpointOverview() *som.SomMetaRef {
 }
 
 func (x *BreakpointConfigurationNav) Breakpoints() *som.SomListMetaRef[*BreakpointEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/BRE-BREA-LST", func(t *som.SomMetaTree, p string) *BreakpointEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/BE-BREA-LST", func(t *som.SomMetaTree, p string) *BreakpointEntryNav {
 		return newBreakpointEntryNav(t, p)
 	})
 }
@@ -20183,7 +20183,7 @@ func (x *BusinessPainPointsNav) CategorySummary() *som.SomMetaRef {
 }
 
 func (x *BusinessPainPointsNav) Items() *som.SomListMetaRef[*PainPointEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/BUPAPO-ITEM-LST", func(t *som.SomMetaTree, p string) *PainPointEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/PAPE-ITEM-LST", func(t *som.SomMetaTree, p string) *PainPointEntryNav {
 		return newPainPointEntryNav(t, p)
 	})
 }
@@ -21169,19 +21169,19 @@ func (x *CiCdPipelineConfigurationNav) Content() *som.SomMetaRef {
 }
 
 func (x *CiCdPipelineConfigurationNav) Stages() *som.SomListMetaRef[*PipelineStageEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/PISTEN-STAG-LST", func(t *som.SomMetaTree, p string) *PipelineStageEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/PSE-STAG-LST", func(t *som.SomMetaTree, p string) *PipelineStageEntryNav {
 		return newPipelineStageEntryNav(t, p)
 	})
 }
 
 func (x *CiCdPipelineConfigurationNav) Jobs() *som.SomListMetaRef[*PipelineJobEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/PIJOEN-JOBS-LST", func(t *som.SomMetaTree, p string) *PipelineJobEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/PJE-JOBS-LST", func(t *som.SomMetaTree, p string) *PipelineJobEntryNav {
 		return newPipelineJobEntryNav(t, p)
 	})
 }
 
 func (x *CiCdPipelineConfigurationNav) Environments() *som.SomListMetaRef[*DeploymentEnvironmentEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/DEENEN-ENVI-LST", func(t *som.SomMetaTree, p string) *DeploymentEnvironmentEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DEE-ENVI-LST", func(t *som.SomMetaTree, p string) *DeploymentEnvironmentEntryNav {
 		return newDeploymentEnvironmentEntryNav(t, p)
 	})
 }
@@ -21411,19 +21411,19 @@ func (x *ClientRequirementsSectionNav) ClientApplications() *som.SomListMetaRef[
 }
 
 func (x *ClientRequirementsSectionNav) BrowserRequirements() *som.SomListMetaRef[*BrowserRequirementEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/BRREEN-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserRequirementEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/BROREQENT-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserRequirementEntryNav {
 		return newBrowserRequirementEntryNav(t, p)
 	})
 }
 
 func (x *ClientRequirementsSectionNav) DesktopOsRequirements() *som.SomListMetaRef[*DesktopOsRequirementEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/DORE1-DESK-LST", func(t *som.SomMetaTree, p string) *DesktopOsRequirementEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DEOSREEN-DESK-LST", func(t *som.SomMetaTree, p string) *DesktopOsRequirementEntryNav {
 		return newDesktopOsRequirementEntryNav(t, p)
 	})
 }
 
 func (x *ClientRequirementsSectionNav) MobileRequirements() *som.SomListMetaRef[*MobileDeviceRequirementEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/MDRE-MOBI-LST", func(t *som.SomMetaTree, p string) *MobileDeviceRequirementEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/MODEREEN-MOBI-LST", func(t *som.SomMetaTree, p string) *MobileDeviceRequirementEntryNav {
 		return newMobileDeviceRequirementEntryNav(t, p)
 	})
 }
@@ -22027,25 +22027,25 @@ func (x *CompatibilityRequirementsSectionNav) Overview() *som.SomMetaRef {
 }
 
 func (x *CompatibilityRequirementsSectionNav) OsCompatibility() *som.SomListMetaRef[*OsCompatibilityEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/OSCOEN-OSCO-LST", func(t *som.SomMetaTree, p string) *OsCompatibilityEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/OCE-OSCO-LST", func(t *som.SomMetaTree, p string) *OsCompatibilityEntryNav {
 		return newOsCompatibilityEntryNav(t, p)
 	})
 }
 
 func (x *CompatibilityRequirementsSectionNav) BrowserCompatibility() *som.SomListMetaRef[*BrowserCompatibilityEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/BRCOEN-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserCompatibilityEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/BROCOMENT-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserCompatibilityEntryNav {
 		return newBrowserCompatibilityEntryNav(t, p)
 	})
 }
 
 func (x *CompatibilityRequirementsSectionNav) DatabaseCompatibility() *som.SomListMetaRef[*DatabaseCompatibilityEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/DACOEN-DATA-LST", func(t *som.SomMetaTree, p string) *DatabaseCompatibilityEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DATCOMENT-DATA-LST", func(t *som.SomMetaTree, p string) *DatabaseCompatibilityEntryNav {
 		return newDatabaseCompatibilityEntryNav(t, p)
 	})
 }
 
 func (x *CompatibilityRequirementsSectionNav) EnterpriseSystemCompatibility() *som.SomListMetaRef[*EnterpriseSystemCompatibilityEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/ESCE-ENTE-LST", func(t *som.SomMetaTree, p string) *EnterpriseSystemCompatibilityEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/ENSYCOEN-ENTE-LST", func(t *som.SomMetaTree, p string) *EnterpriseSystemCompatibilityEntryNav {
 		return newEnterpriseSystemCompatibilityEntryNav(t, p)
 	})
 }
@@ -22057,19 +22057,19 @@ func (x *CompatibilityRequirementsSectionNav) ApiCompatibility() *som.SomListMet
 }
 
 func (x *CompatibilityRequirementsSectionNav) LegacyCompatibility() *som.SomListMetaRef[*LegacyCompatibilityEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/LECOEN-LEGA-LST", func(t *som.SomMetaTree, p string) *LegacyCompatibilityEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/LCE-LEGA-LST", func(t *som.SomMetaTree, p string) *LegacyCompatibilityEntryNav {
 		return newLegacyCompatibilityEntryNav(t, p)
 	})
 }
 
 func (x *CompatibilityRequirementsSectionNav) MobileCompatibility() *som.SomListMetaRef[*MobileCompatibilityEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/MOCOEN-MOBI-LST", func(t *som.SomMetaTree, p string) *MobileCompatibilityEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/MOBCOMENT-MOBI-LST", func(t *som.SomMetaTree, p string) *MobileCompatibilityEntryNav {
 		return newMobileCompatibilityEntryNav(t, p)
 	})
 }
 
 func (x *CompatibilityRequirementsSectionNav) ThirdPartyCompatibility() *som.SomListMetaRef[*ThirdPartyCompatibilityEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/TPCE-THIR-LST", func(t *som.SomMetaTree, p string) *ThirdPartyCompatibilityEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/THPACOEN-THIR-LST", func(t *som.SomMetaTree, p string) *ThirdPartyCompatibilityEntryNav {
 		return newThirdPartyCompatibilityEntryNav(t, p)
 	})
 }
@@ -23647,13 +23647,13 @@ func (x *CurrentArchitectureNav) DeploymentTopology() *som.SomMetaRef {
 }
 
 func (x *CurrentArchitectureNav) IntegrationPatterns() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/IPE-INTE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/CARCH-INTE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
 func (x *CurrentArchitectureNav) SharedServices() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SHARE-SHAR-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/CARCH-SHAR-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -23967,7 +23967,7 @@ func (x *CurrentWorkflowEntryNav) Steps() *som.SomListMetaRef[*WorkflowStepEntry
 }
 
 func (x *CurrentWorkflowEntryNav) Actors() *som.SomListMetaRef[*WorkflowActorEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/WFAC-ACTO-LST", func(t *som.SomMetaTree, p string) *WorkflowActorEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/WAE-ACTO-LST", func(t *som.SomMetaTree, p string) *WorkflowActorEntryNav {
 		return newWorkflowActorEntryNav(t, p)
 	})
 }
@@ -26777,7 +26777,7 @@ func (x *DecisionPointEntryResolutionNav) DecisionNarrative() *som.SomMetaRef {
 }
 
 func (x *DecisionPointEntryResolutionNav) Options() *som.SomListMetaRef[*DecisionOptionEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/DEOPEN-OPTI-LST", func(t *som.SomMetaTree, p string) *DecisionOptionEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DOE-OPTI-LST", func(t *som.SomMetaTree, p string) *DecisionOptionEntryNav {
 		return newDecisionOptionEntryNav(t, p)
 	})
 }
@@ -26805,7 +26805,7 @@ func (x *DecisionPointsNav) DecisionFrameworkNarrative() *som.SomMetaRef {
 }
 
 func (x *DecisionPointsNav) Items() *som.SomListMetaRef[*DecisionPointEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/DEPOEN-ITEM-LST", func(t *som.SomMetaTree, p string) *DecisionPointEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DPE-ITEM-LST", func(t *som.SomMetaTree, p string) *DecisionPointEntryNav {
 		return newDecisionPointEntryNav(t, p)
 	})
 }
@@ -27695,19 +27695,19 @@ func (x *DesignPatternsAndStandardsNav) DesignPatterns() *som.SomListMetaRef[*De
 }
 
 func (x *DesignPatternsAndStandardsNav) CodingStandards() *som.SomListMetaRef[*CodingStandardEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/COSTEN-CODI-LST", func(t *som.SomMetaTree, p string) *CodingStandardEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/CSE-CODI-LST", func(t *som.SomMetaTree, p string) *CodingStandardEntryNav {
 		return newCodingStandardEntryNav(t, p)
 	})
 }
 
 func (x *DesignPatternsAndStandardsNav) DevelopmentConventions() *som.SomListMetaRef[*DevelopmentConventionEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/DECOEN-DEVE-LST", func(t *som.SomMetaTree, p string) *DevelopmentConventionEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DCE-DEVE-LST", func(t *som.SomMetaTree, p string) *DevelopmentConventionEntryNav {
 		return newDevelopmentConventionEntryNav(t, p)
 	})
 }
 
 func (x *DesignPatternsAndStandardsNav) IndustryStandards() *som.SomListMetaRef[*IndustryStandardEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/INSTEN-INDU-LST", func(t *som.SomMetaTree, p string) *IndustryStandardEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/ISE-INDU-LST", func(t *som.SomMetaTree, p string) *IndustryStandardEntryNav {
 		return newIndustryStandardEntryNav(t, p)
 	})
 }
@@ -27955,7 +27955,7 @@ func (x *DevelopmentEnvironmentNav) Overview() *som.SomMetaRef {
 }
 
 func (x *DevelopmentEnvironmentNav) IdeRequirements() *som.SomListMetaRef[*IdeRequirementEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/IDREEN-IDER-LST", func(t *som.SomMetaTree, p string) *IdeRequirementEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/IRE-IDER-LST", func(t *som.SomMetaTree, p string) *IdeRequirementEntryNav {
 		return newIdeRequirementEntryNav(t, p)
 	})
 }
@@ -28547,13 +28547,13 @@ func (x *DocumentControlNav) Header() *DocumentHeaderNav {
 }
 
 func (x *DocumentControlNav) RevisionHistory() *som.SomListMetaRef[*RevisionEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVHST-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryNav {
 		return newRevisionEntryNav(t, p)
 	})
 }
 
 func (x *DocumentControlNav) Approvals() *som.SomListMetaRef[*ApprovalRecordNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/DOCTL-APRV-LST", func(t *som.SomMetaTree, p string) *ApprovalRecordNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/APREC-APRV-LST", func(t *som.SomMetaTree, p string) *ApprovalRecordNav {
 		return newApprovalRecordNav(t, p)
 	})
 }
@@ -28647,7 +28647,7 @@ func (x *DocumentationDeliverablesNav) Content() *som.SomMetaRef {
 }
 
 func (x *DocumentationDeliverablesNav) Items() *som.SomListMetaRef[*DeliverableEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/DCDLV-ITEM-LST", func(t *som.SomMetaTree, p string) *DeliverableEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DLVEN-ITEM-LST", func(t *som.SomMetaTree, p string) *DeliverableEntryNav {
 		return newDeliverableEntryNav(t, p)
 	})
 }
@@ -28843,7 +28843,7 @@ func (x *DomainBusinessRulesNav) Content() *som.SomMetaRef {
 }
 
 func (x *DomainBusinessRulesNav) Rules() *som.SomListMetaRef[*DomainBusinessRuleEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/DOBIRU-RULE-LST", func(t *som.SomMetaTree, p string) *DomainBusinessRuleEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DBRE-RULE-LST", func(t *som.SomMetaTree, p string) *DomainBusinessRuleEntryNav {
 		return newDomainBusinessRuleEntryNav(t, p)
 	})
 }
@@ -29049,7 +29049,7 @@ func (x *DomainProcessesNav) ProcessOverviewDiagram() *som.SomMetaRef {
 }
 
 func (x *DomainProcessesNav) Processes() *som.SomListMetaRef[*DomainProcessEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/DOPR-PROC-LST", func(t *som.SomMetaTree, p string) *DomainProcessEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DOPREN-PROC-LST", func(t *som.SomMetaTree, p string) *DomainProcessEntryNav {
 		return newDomainProcessEntryNav(t, p)
 	})
 }
@@ -29763,7 +29763,7 @@ func (x *EquipmentRequirementsNav) Displays() *som.SomListMetaRef[*DisplayEquipm
 }
 
 func (x *EquipmentRequirementsNav) InputDevices() *som.SomListMetaRef[*InputDeviceEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/INPDE-INPU-LST", func(t *som.SomMetaTree, p string) *InputDeviceEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/IDE-INPU-LST", func(t *som.SomMetaTree, p string) *InputDeviceEntryNav {
 		return newInputDeviceEntryNav(t, p)
 	})
 }
@@ -29989,7 +29989,7 @@ func (x *ErrorRecoveryNav) RecoveryNarrative() *som.SomMetaRef {
 }
 
 func (x *ErrorRecoveryNav) RecoveryFlows() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/RECOV-RECO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/ERRE-RECO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -30459,7 +30459,7 @@ func (x *ExportFormatEntryNav) Access() *AuthorizationRequirementSpecNav {
 }
 
 func (x *ExportFormatEntryNav) FieldMappings() *som.SomListMetaRef[*ExportFieldMappingEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/EFME-FIEL-LST", func(t *som.SomMetaTree, p string) *ExportFieldMappingEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/EXFIMAEN-FIEL-LST", func(t *som.SomMetaTree, p string) *ExportFieldMappingEntryNav {
 		return newExportFieldMappingEntryNav(t, p)
 	})
 }
@@ -30589,7 +30589,7 @@ func (x *ExternalActorEntryNav) Context() *som.SomMetaRef {
 }
 
 func (x *ExternalActorEntryNav) InteractionScenarios() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/INTER-INTE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/EAE-INTE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -30641,7 +30641,7 @@ func (x *ExternalConnectivitySectionNav) Overview() *som.SomMetaRef {
 }
 
 func (x *ExternalConnectivitySectionNav) PartnerConnections() *som.SomListMetaRef[*ExternalPartnerConnectionEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/EPCE-PART-LST", func(t *som.SomMetaTree, p string) *ExternalPartnerConnectionEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/EXPACOEN-PART-LST", func(t *som.SomMetaTree, p string) *ExternalPartnerConnectionEntryNav {
 		return newExternalPartnerConnectionEntryNav(t, p)
 	})
 }
@@ -30743,7 +30743,7 @@ func (x *ExternalInterfacesNav) GovernanceModel() *som.SomMetaRef {
 }
 
 func (x *ExternalInterfacesNav) Interfaces() *som.SomListMetaRef[*ExternalInterfaceEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/EXINEN-INTE-LST", func(t *som.SomMetaTree, p string) *ExternalInterfaceEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/EIE-INTE-LST", func(t *som.SomMetaTree, p string) *ExternalInterfaceEntryNav {
 		return newExternalInterfaceEntryNav(t, p)
 	})
 }
@@ -31001,7 +31001,7 @@ func (x *FeatureDependenciesNav) DependencyAnalysis() *som.SomMetaRef {
 }
 
 func (x *FeatureDependenciesNav) Items() *som.SomListMetaRef[*FeatureDependencyEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/FEDEEN-ITEM-LST", func(t *som.SomMetaTree, p string) *FeatureDependencyEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/FDE-ITEM-LST", func(t *som.SomMetaTree, p string) *FeatureDependencyEntryNav {
 		return newFeatureDependencyEntryNav(t, p)
 	})
 }
@@ -31199,7 +31199,7 @@ func (x *FeaturePriorityRegisterNav) Content() *som.SomMetaRef {
 }
 
 func (x *FeaturePriorityRegisterNav) Items() *som.SomListMetaRef[*FeaturePriorityEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/FEPREN-ITEM-LST", func(t *som.SomMetaTree, p string) *FeaturePriorityEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/FPE-ITEM-LST", func(t *som.SomMetaTree, p string) *FeaturePriorityEntryNav {
 		return newFeaturePriorityEntryNav(t, p)
 	})
 }
@@ -31261,7 +31261,7 @@ func (x *FeatureStageMatrixNav) MatrixNarrative() *som.SomMetaRef {
 }
 
 func (x *FeatureStageMatrixNav) Items() *som.SomListMetaRef[*FeatureStageMappingNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/FESTM1-ITEM-LST", func(t *som.SomMetaTree, p string) *FeatureStageMappingNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/FSM-ITEM-LST", func(t *som.SomMetaTree, p string) *FeatureStageMappingNav {
 		return newFeatureStageMappingNav(t, p)
 	})
 }
@@ -31901,7 +31901,7 @@ func (x *FunctionalResponsibilitiesNav) MatrixOverview() *som.SomMetaRef {
 }
 
 func (x *FunctionalResponsibilitiesNav) Items() *som.SomListMetaRef[*ResponsibilityEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/REEN1-ITEM-LST", func(t *som.SomMetaTree, p string) *ResponsibilityEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RE-ITEM-LST", func(t *som.SomMetaTree, p string) *ResponsibilityEntryNav {
 		return newResponsibilityEntryNav(t, p)
 	})
 }
@@ -32041,7 +32041,7 @@ func (x *GlossaryAndAbbreviationsNav) Content() *som.SomMetaRef {
 }
 
 func (x *GlossaryAndAbbreviationsNav) Glossary() *som.SomListMetaRef[*GlossaryEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/GLOSS-ENTR-LST", func(t *som.SomMetaTree, p string) *GlossaryEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/GLENT-ENTR-LST", func(t *som.SomMetaTree, p string) *GlossaryEntryNav {
 		return newGlossaryEntryNav(t, p)
 	})
 }
@@ -33059,7 +33059,7 @@ func (x *InformationArchitectureNav) NavigationStructure() *som.SomMetaRef {
 }
 
 func (x *InformationArchitectureNav) GlobalEntryPoints() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/GLOBA-GLOB-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/IA-GLOB-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -33435,7 +33435,7 @@ func (x *IntegrationHealthSummaryNav) Content() *som.SomMetaRef {
 }
 
 func (x *IntegrationHealthSummaryNav) FragilePoints() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/FRAGI-FRAG-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/INHESU-FRAG-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -33833,7 +33833,7 @@ func (x *InterfaceBusinessContextNav) Content() *som.SomMetaRef {
 }
 
 func (x *InterfaceBusinessContextNav) DependentProcesses() *som.SomListMetaRef[*InterfaceBusinessProcessEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/IBPE-DEPE-LST", func(t *som.SomMetaTree, p string) *InterfaceBusinessProcessEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/INBUPREN-DEPE-LST", func(t *som.SomMetaTree, p string) *InterfaceBusinessProcessEntryNav {
 		return newInterfaceBusinessProcessEntryNav(t, p)
 	})
 }
@@ -33893,19 +33893,19 @@ func (x *InterfaceDataSpecNav) Content() *som.SomMetaRef {
 }
 
 func (x *InterfaceDataSpecNav) DataEntities() *som.SomListMetaRef[*InterfaceDataEntityEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/IDEE-DATA-LST", func(t *som.SomMetaTree, p string) *InterfaceDataEntityEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/INDAENEN-DATA-LST", func(t *som.SomMetaTree, p string) *InterfaceDataEntityEntryNav {
 		return newInterfaceDataEntityEntryNav(t, p)
 	})
 }
 
 func (x *InterfaceDataSpecNav) MappingRules() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/MAPPI-MAPP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/INDASP-MAPP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
 func (x *InterfaceDataSpecNav) ValidationRules() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/VALID-VALI-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/INDASP-VALI-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -33941,7 +33941,7 @@ func (x *InterfaceErrorHandlingNav) Timeout() *som.SomMetaRef {
 }
 
 func (x *InterfaceErrorHandlingNav) ErrorProcedures() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/ERROR-ERRO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/INERHA-ERRO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -34025,7 +34025,7 @@ func (x *InterfaceOperationalNav) Support() *som.SomMetaRef {
 }
 
 func (x *InterfaceOperationalNav) Dependencies() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/DEPEN-DEPE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/INOP-DEPE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -34125,7 +34125,7 @@ func (x *InterfaceTechnicalSpecNav) Endpoints() *som.SomMetaRef {
 }
 
 func (x *InterfaceTechnicalSpecNav) Operations() *som.SomListMetaRef[*InterfaceOperationEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/INOPEN-OPER-LST", func(t *som.SomMetaTree, p string) *InterfaceOperationEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/IOE-OPER-LST", func(t *som.SomMetaTree, p string) *InterfaceOperationEntryNav {
 		return newInterfaceOperationEntryNav(t, p)
 	})
 }
@@ -34179,7 +34179,7 @@ func (x *InterfaceTestingNav) Strategy() *som.SomMetaRef {
 }
 
 func (x *InterfaceTestingNav) TestScenarios() *som.SomListMetaRef[*InterfaceTestScenarioEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/ITSE1-TEST-LST", func(t *som.SomMetaTree, p string) *InterfaceTestScenarioEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/INTESCEN-TEST-LST", func(t *som.SomMetaTree, p string) *InterfaceTestScenarioEntryNav {
 		return newInterfaceTestScenarioEntryNav(t, p)
 	})
 }
@@ -34367,7 +34367,7 @@ func (x *Iso25010CoverageNav) Content() *som.SomMetaRef {
 }
 
 func (x *Iso25010CoverageNav) Characteristics() *som.SomListMetaRef[*Iso25010CoverageEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/I25CV-CHAR-LST", func(t *som.SomMetaTree, p string) *Iso25010CoverageEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/I25CE-CHAR-LST", func(t *som.SomMetaTree, p string) *Iso25010CoverageEntryNav {
 		return newIso25010CoverageEntryNav(t, p)
 	})
 }
@@ -34473,7 +34473,7 @@ func (x *ItSecurityStandardsSectionNav) Overview() *som.SomMetaRef {
 }
 
 func (x *ItSecurityStandardsSectionNav) Standards() *som.SomListMetaRef[*SecurityStandardEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SESTEN-STAN-LST", func(t *som.SomMetaTree, p string) *SecurityStandardEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SSE-STAN-LST", func(t *som.SomMetaTree, p string) *SecurityStandardEntryNav {
 		return newSecurityStandardEntryNav(t, p)
 	})
 }
@@ -34555,7 +34555,7 @@ func (x *JobDescriptionsAndStaffingNav) Overview() *som.SomMetaRef {
 }
 
 func (x *JobDescriptionsAndStaffingNav) NewRoles() *som.SomListMetaRef[*NewRoleEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/NWROL-NEWR-LST", func(t *som.SomMetaTree, p string) *NewRoleEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/NRE-NEWR-LST", func(t *som.SomMetaTree, p string) *NewRoleEntryNav {
 		return newNewRoleEntryNav(t, p)
 	})
 }
@@ -34997,7 +34997,7 @@ func (x *LayeringAndModuleStructureNav) Overview() *som.SomMetaRef {
 }
 
 func (x *LayeringAndModuleStructureNav) SoftwareLayers() *som.SomListMetaRef[*SoftwareLayerEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SOLAEN-SOFT-LST", func(t *som.SomMetaTree, p string) *SoftwareLayerEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SLE-SOFT-LST", func(t *som.SomMetaTree, p string) *SoftwareLayerEntryNav {
 		return newSoftwareLayerEntryNav(t, p)
 	})
 }
@@ -35007,7 +35007,7 @@ func (x *LayeringAndModuleStructureNav) LayerCommunicationRules() *LayerCommunic
 }
 
 func (x *LayeringAndModuleStructureNav) BoundedContexts() *som.SomListMetaRef[*BoundedContextEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/BOCOEN-BOUN-LST", func(t *som.SomMetaTree, p string) *BoundedContextEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/BCE-BOUN-LST", func(t *som.SomMetaTree, p string) *BoundedContextEntryNav {
 		return newBoundedContextEntryNav(t, p)
 	})
 }
@@ -35017,13 +35017,13 @@ func (x *LayeringAndModuleStructureNav) PackageOrganization() *PackageOrganizati
 }
 
 func (x *LayeringAndModuleStructureNav) Modules() *som.SomListMetaRef[*ModuleEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/MOEN1-MODU-LST", func(t *som.SomMetaTree, p string) *ModuleEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/MODENT-MODU-LST", func(t *som.SomMetaTree, p string) *ModuleEntryNav {
 		return newModuleEntryNav(t, p)
 	})
 }
 
 func (x *LayeringAndModuleStructureNav) SharedLibraries() *som.SomListMetaRef[*SharedLibraryEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SHLIB-SHAR-LST", func(t *som.SomMetaTree, p string) *SharedLibraryEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SHLIEN-SHAR-LST", func(t *som.SomMetaTree, p string) *SharedLibraryEntryNav {
 		return newSharedLibraryEntryNav(t, p)
 	})
 }
@@ -35833,7 +35833,7 @@ func (x *MaintenanceWindowsSectionNav) ScheduledMaintenance() *ScheduledMaintena
 }
 
 func (x *MaintenanceWindowsSectionNav) MaintenanceWindows() *som.SomListMetaRef[*MaintenanceWindowEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/MAWIEN-MAIN-LST", func(t *som.SomMetaTree, p string) *MaintenanceWindowEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/MWE-MAIN-LST", func(t *som.SomMetaTree, p string) *MaintenanceWindowEntryNav {
 		return newMaintenanceWindowEntryNav(t, p)
 	})
 }
@@ -36051,7 +36051,7 @@ func (x *MetricsAndObservabilityNav) DistributedTracing() *DistributedTracingSpe
 }
 
 func (x *MetricsAndObservabilityNav) CustomMetrics() *som.SomListMetaRef[*CustomMetricEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/CUMEEN-CUST-LST", func(t *som.SomMetaTree, p string) *CustomMetricEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/CUSMETENT-CUST-LST", func(t *som.SomMetaTree, p string) *CustomMetricEntryNav {
 		return newCustomMetricEntryNav(t, p)
 	})
 }
@@ -36199,7 +36199,7 @@ func (x *MfaConfigurationNav) Content() *som.SomMetaRef {
 }
 
 func (x *MfaConfigurationNav) MfaDetails() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/MFADE-MFAD-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/MC-MFAD-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -36265,7 +36265,7 @@ func (x *MigrationConsiderationsNav) CommunicationPlan() *som.SomMetaRef {
 }
 
 func (x *MigrationConsiderationsNav) EscalationProcedures() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/ESCAL-ESCA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/MIGCON-ESCA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -36641,25 +36641,25 @@ func (x *MigrationRisksNav) AssessmentMethodology() *som.SomMetaRef {
 }
 
 func (x *MigrationRisksNav) RiskCategories() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/RISKC-RISK-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/MIRI-RISK-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
 func (x *MigrationRisksNav) RiskBasedDecisions() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/RISKB-RISK-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/MIRI-RBDE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
 func (x *MigrationRisksNav) MonitoringProcedures() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/MONIT-MONI-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/MIRI-MONI-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
 func (x *MigrationRisksNav) ResponseStrategies() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/RESPO-RESP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/MIRI-RESP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -36987,7 +36987,7 @@ func (x *MonitoringAndAlertingSectionNav) Alerting() *AlertingRequirementsNav {
 }
 
 func (x *MonitoringAndAlertingSectionNav) AlertDefinitions() *som.SomListMetaRef[*AlertDefinitionEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/ALDEEN-ALER-LST", func(t *som.SomMetaTree, p string) *AlertDefinitionEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/ALEDEFENT-ALER-LST", func(t *som.SomMetaTree, p string) *AlertDefinitionEntryNav {
 		return newAlertDefinitionEntryNav(t, p)
 	})
 }
@@ -37031,7 +37031,7 @@ func (x *MonitoringDashboardsNav) OverviewNarrative() *som.SomMetaRef {
 }
 
 func (x *MonitoringDashboardsNav) Dashboards() *som.SomListMetaRef[*DashboardEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/DAEN-DASH-LST", func(t *som.SomMetaTree, p string) *DashboardEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DASENT-DASH-LST", func(t *som.SomMetaTree, p string) *DashboardEntryNav {
 		return newDashboardEntryNav(t, p)
 	})
 }
@@ -37095,7 +37095,7 @@ func (x *MoscowAnalysisNav) MoscowRationale() *som.SomMetaRef {
 }
 
 func (x *MoscowAnalysisNav) Items() *som.SomListMetaRef[*MoscowEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/MOEN-ITEM-LST", func(t *som.SomMetaTree, p string) *MoscowEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/ME-ITEM-LST", func(t *som.SomMetaTree, p string) *MoscowEntryNav {
 		return newMoscowEntryNav(t, p)
 	})
 }
@@ -37183,7 +37183,7 @@ func (x *MultiLanguageSupportNav) LanguageCountrySelection() *LanguageCountrySel
 }
 
 func (x *MultiLanguageSupportNav) SupportedLocales() *som.SomListMetaRef[*SupportedLocaleEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SULOEN-SUPP-LST", func(t *som.SomMetaTree, p string) *SupportedLocaleEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SUPLOCENT-SUPP-LST", func(t *som.SomMetaTree, p string) *SupportedLocaleEntryNav {
 		return newSupportedLocaleEntryNav(t, p)
 	})
 }
@@ -37687,7 +37687,7 @@ func (x *NetworkRequirementsSectionNav) AvailabilityRequirements() *NetworkAvail
 }
 
 func (x *NetworkRequirementsSectionNav) VpnRequirements() *som.SomListMetaRef[*VpnRequirementEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/VPREEN-VPNR-LST", func(t *som.SomMetaTree, p string) *VpnRequirementEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/VRE-VPNR-LST", func(t *som.SomMetaTree, p string) *VpnRequirementEntryNav {
 		return newVpnRequirementEntryNav(t, p)
 	})
 }
@@ -38285,7 +38285,7 @@ func (x *OperationalPainPointsNav) CategorySummary() *som.SomMetaRef {
 }
 
 func (x *OperationalPainPointsNav) Items() *som.SomListMetaRef[*PainPointEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/OPPAPO-ITEM-LST", func(t *som.SomMetaTree, p string) *PainPointEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/PAPE-ITEM-LST", func(t *som.SomMetaTree, p string) *PainPointEntryNav {
 		return newPainPointEntryNav(t, p)
 	})
 }
@@ -38569,7 +38569,7 @@ func (x *OrganizationalEnvironmentNav) Structure() *som.SomMetaRef {
 }
 
 func (x *OrganizationalEnvironmentNav) AffectedDepartments() *som.SomListMetaRef[*AffectedDepartmentEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/AFDEEN-AFFE-LST", func(t *som.SomMetaTree, p string) *AffectedDepartmentEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/ADE-AFFE-LST", func(t *som.SomMetaTree, p string) *AffectedDepartmentEntryNav {
 		return newAffectedDepartmentEntryNav(t, p)
 	})
 }
@@ -38579,19 +38579,19 @@ func (x *OrganizationalEnvironmentNav) DecisionMaking() *som.SomMetaRef {
 }
 
 func (x *OrganizationalEnvironmentNav) DecisionMakers() *som.SomListMetaRef[*DecisionMakerEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/DEMAEN-DECI-LST", func(t *som.SomMetaTree, p string) *DecisionMakerEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DME-DECI-LST", func(t *som.SomMetaTree, p string) *DecisionMakerEntryNav {
 		return newDecisionMakerEntryNav(t, p)
 	})
 }
 
 func (x *OrganizationalEnvironmentNav) CulturalConsiderations() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/CULTU-CULT-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/OREN-CULT-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
 func (x *OrganizationalEnvironmentNav) CommunicationPreferences() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/COMMU-COMM-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/OREN-COMM-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -38601,7 +38601,7 @@ func (x *OrganizationalEnvironmentNav) PoliticalLandscape() *som.SomMetaRef {
 }
 
 func (x *OrganizationalEnvironmentNav) ChangeAdvocates() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/CHANG-CHAN-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/OREN-CHAN-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -38849,7 +38849,7 @@ func (x *OutOfScopeNav) ScopePhilosophy() *som.SomMetaRef {
 }
 
 func (x *OutOfScopeNav) Items() *som.SomListMetaRef[*OutOfScopeEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/OOSE-ITEM-LST", func(t *som.SomMetaTree, p string) *OutOfScopeEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/OUOFSCEN-ITEM-LST", func(t *som.SomMetaTree, p string) *OutOfScopeEntryNav {
 		return newOutOfScopeEntryNav(t, p)
 	})
 }
@@ -39679,7 +39679,7 @@ func (x *PhaseGateReviewsNav) GateReviewNarrative() *som.SomMetaRef {
 }
 
 func (x *PhaseGateReviewsNav) Items() *som.SomListMetaRef[*PhaseGateReviewEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/PGRE-ITEM-LST", func(t *som.SomMetaTree, p string) *PhaseGateReviewEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/PHGAREEN-ITEM-LST", func(t *som.SomMetaTree, p string) *PhaseGateReviewEntryNav {
 		return newPhaseGateReviewEntryNav(t, p)
 	})
 }
@@ -39831,7 +39831,7 @@ func (x *PlatformAndLanguageNav) ProgrammingLanguages() *som.SomListMetaRef[*Pro
 }
 
 func (x *PlatformAndLanguageNav) Frameworks() *som.SomListMetaRef[*FrameworkRequirementEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/FWREN-FRAM-LST", func(t *som.SomMetaTree, p string) *FrameworkRequirementEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/FRREEN-FRAM-LST", func(t *som.SomMetaTree, p string) *FrameworkRequirementEntryNav {
 		return newFrameworkRequirementEntryNav(t, p)
 	})
 }
@@ -39843,7 +39843,7 @@ func (x *PlatformAndLanguageNav) BuildToolchain() *som.SomListMetaRef[*BuildTool
 }
 
 func (x *PlatformAndLanguageNav) DeploymentTargets() *som.SomListMetaRef[*DeploymentTargetEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/DETAEN-DEPL-LST", func(t *som.SomMetaTree, p string) *DeploymentTargetEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DEPTARENT-DEPL-LST", func(t *som.SomMetaTree, p string) *DeploymentTargetEntryNav {
 		return newDeploymentTargetEntryNav(t, p)
 	})
 }
@@ -40013,13 +40013,13 @@ func (x *PrintAndExportLayoutNav) Archive() *som.SomMetaRef {
 }
 
 func (x *PrintAndExportLayoutNav) ExportFormats() *som.SomListMetaRef[*ExportFormatEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/EXFOEN-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportFormatEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/EFE-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportFormatEntryNav {
 		return newExportFormatEntryNav(t, p)
 	})
 }
 
 func (x *PrintAndExportLayoutNav) ExportTemplates() *som.SomListMetaRef[*ExportTemplateEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/EXTEEN-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportTemplateEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/ETE-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportTemplateEntryNav {
 		return newExportTemplateEntryNav(t, p)
 	})
 }
@@ -40133,7 +40133,7 @@ func (x *ProblemStatementNav) ProblemDetails() *som.SomMetaRef {
 }
 
 func (x *ProblemStatementNav) RelatedPainPoints() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/RPPE-RELA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/PS-RELA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -41541,7 +41541,7 @@ func (x *ProtocolsAndStandardsSectionNav) Overview() *som.SomMetaRef {
 }
 
 func (x *ProtocolsAndStandardsSectionNav) Protocols() *som.SomListMetaRef[*ProtocolEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/PREN-PROT-LST", func(t *som.SomMetaTree, p string) *ProtocolEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/PE-PROT-LST", func(t *som.SomMetaTree, p string) *ProtocolEntryNav {
 		return newProtocolEntryNav(t, p)
 	})
 }
@@ -41669,7 +41669,7 @@ func (x *PrototypeFeatureSubsetNav) FeatureNarrative() *som.SomMetaRef {
 }
 
 func (x *PrototypeFeatureSubsetNav) Features() *som.SomListMetaRef[*PrototypeFeatureEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/PRFEEN-FEAT-LST", func(t *som.SomMetaTree, p string) *PrototypeFeatureEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/PFE-FEAT-LST", func(t *som.SomMetaTree, p string) *PrototypeFeatureEntryNav {
 		return newPrototypeFeatureEntryNav(t, p)
 	})
 }
@@ -41723,7 +41723,7 @@ func (x *PrototypeGoalsNav) GoalsNarrative() *som.SomMetaRef {
 }
 
 func (x *PrototypeGoalsNav) Goals() *som.SomListMetaRef[*PrototypeGoalEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/PRGOEN-GOAL-LST", func(t *som.SomMetaTree, p string) *PrototypeGoalEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/PGE-GOAL-LST", func(t *som.SomMetaTree, p string) *PrototypeGoalEntryNav {
 		return newPrototypeGoalEntryNav(t, p)
 	})
 }
@@ -41905,7 +41905,7 @@ func (x *QualityFrameworkNav) QualityCategories() *som.SomListMetaRef[*QualityCa
 }
 
 func (x *QualityFrameworkNav) CategoryDependencies() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/CATEG-CATE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/QLFWK-CATE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -42955,7 +42955,7 @@ func (x *ReportDefinitionsNav) Content() *som.SomMetaRef {
 }
 
 func (x *ReportDefinitionsNav) Reports() *som.SomListMetaRef[*ReportEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/REEN-REPO-LST", func(t *som.SomMetaTree, p string) *ReportEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/REPENT-REPO-LST", func(t *som.SomMetaTree, p string) *ReportEntryNav {
 		return newReportEntryNav(t, p)
 	})
 }
@@ -43057,31 +43057,31 @@ func (x *ReportEntryNav) Lifecycle() *som.SomMetaRef {
 }
 
 func (x *ReportEntryNav) Sections() *som.SomListMetaRef[*ReportSectionEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/RESEE1-SECT-LST", func(t *som.SomMetaTree, p string) *ReportSectionEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RSE-SECT-LST", func(t *som.SomMetaTree, p string) *ReportSectionEntryNav {
 		return newReportSectionEntryNav(t, p)
 	})
 }
 
 func (x *ReportEntryNav) Filters() *som.SomListMetaRef[*ReportFilterEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/REFIEN-FILT-LST", func(t *som.SomMetaTree, p string) *ReportFilterEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RFE-FILT-LST", func(t *som.SomMetaTree, p string) *ReportFilterEntryNav {
 		return newReportFilterEntryNav(t, p)
 	})
 }
 
 func (x *ReportEntryNav) Schedules() *som.SomListMetaRef[*ReportScheduleEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/RESCEN-SCHE-LST", func(t *som.SomMetaTree, p string) *ReportScheduleEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/REPSCHENT-SCHE-LST", func(t *som.SomMetaTree, p string) *ReportScheduleEntryNav {
 		return newReportScheduleEntryNav(t, p)
 	})
 }
 
 func (x *ReportEntryNav) Distributions() *som.SomListMetaRef[*ReportDistributionEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/REDIEN-DIST-LST", func(t *som.SomMetaTree, p string) *ReportDistributionEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RDE-DIST-LST", func(t *som.SomMetaTree, p string) *ReportDistributionEntryNav {
 		return newReportDistributionEntryNav(t, p)
 	})
 }
 
 func (x *ReportEntryNav) Recipients() *som.SomListMetaRef[*ReportRecipientEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/REREEN-RECI-LST", func(t *som.SomMetaTree, p string) *ReportRecipientEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RRE-RECI-LST", func(t *som.SomMetaTree, p string) *ReportRecipientEntryNav {
 		return newReportRecipientEntryNav(t, p)
 	})
 }
@@ -43239,13 +43239,13 @@ func (x *ReportSectionEntryNav) Aggregation() *som.SomMetaRef {
 }
 
 func (x *ReportSectionEntryNav) Columns() *som.SomListMetaRef[*ReportColumnEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/RECOE1-COLU-LST", func(t *som.SomMetaTree, p string) *ReportColumnEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/REPCOLENT-COLU-LST", func(t *som.SomMetaTree, p string) *ReportColumnEntryNav {
 		return newReportColumnEntryNav(t, p)
 	})
 }
 
 func (x *ReportSectionEntryNav) Charts() *som.SomListMetaRef[*ReportChartEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/RECHEN-CHAR-LST", func(t *som.SomMetaTree, p string) *ReportChartEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/REPCHAENT-CHAR-LST", func(t *som.SomMetaTree, p string) *ReportChartEntryNav {
 		return newReportChartEntryNav(t, p)
 	})
 }
@@ -43287,7 +43287,7 @@ func (x *RequirementAcceptanceCriteriaNav) Content() *som.SomMetaRef {
 }
 
 func (x *RequirementAcceptanceCriteriaNav) Criteria() *som.SomListMetaRef[*AcceptanceCriterionEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/ACCR-CRIT-LST", func(t *som.SomMetaTree, p string) *AcceptanceCriterionEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/ACE-CRIT-LST", func(t *som.SomMetaTree, p string) *AcceptanceCriterionEntryNav {
 		return newAcceptanceCriterionEntryNav(t, p)
 	})
 }
@@ -43579,7 +43579,7 @@ func (x *RequirementUiSpecificationNav) MockupDescription() *som.SomMetaRef {
 }
 
 func (x *RequirementUiSpecificationNav) Fields() *som.SomListMetaRef[*ScreenFieldEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SCFLD-FIEL-LST", func(t *som.SomMetaTree, p string) *ScreenFieldEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SFE-FIEL-LST", func(t *som.SomMetaTree, p string) *ScreenFieldEntryNav {
 		return newScreenFieldEntryNav(t, p)
 	})
 }
@@ -44219,19 +44219,19 @@ func (x *ReusableComponentsSectionNav) SharedLibraries() *som.SomListMetaRef[*Sh
 }
 
 func (x *ReusableComponentsSectionNav) UiComponents() *som.SomListMetaRef[*ReusableUiComponentEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/RUICMP-UICO-LST", func(t *som.SomMetaTree, p string) *ReusableUiComponentEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RUCE-UICO-LST", func(t *som.SomMetaTree, p string) *ReusableUiComponentEntryNav {
 		return newReusableUiComponentEntryNav(t, p)
 	})
 }
 
 func (x *ReusableComponentsSectionNav) BusinessComponents() *som.SomListMetaRef[*BusinessComponentEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/BUCOEN-BUSI-LST", func(t *som.SomMetaTree, p string) *BusinessComponentEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/BUSCOMENT-BUSI-LST", func(t *som.SomMetaTree, p string) *BusinessComponentEntryNav {
 		return newBusinessComponentEntryNav(t, p)
 	})
 }
 
 func (x *ReusableComponentsSectionNav) InfrastructureComponents() *som.SomListMetaRef[*InfrastructureComponentEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/INCOEN-INFR-LST", func(t *som.SomMetaTree, p string) *InfrastructureComponentEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/INFCOMENT-INFR-LST", func(t *som.SomMetaTree, p string) *InfrastructureComponentEntryNav {
 		return newInfrastructureComponentEntryNav(t, p)
 	})
 }
@@ -44599,7 +44599,7 @@ func (x *RisksAndAssumptionsNav) Overview() *som.SomMetaRef {
 }
 
 func (x *RisksAndAssumptionsNav) KeyRisks() *som.SomListMetaRef[*RiskEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/RIEN-KEYR-LST", func(t *som.SomMetaTree, p string) *RiskEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RISENT-KEYR-LST", func(t *som.SomMetaTree, p string) *RiskEntryNav {
 		return newRiskEntryNav(t, p)
 	})
 }
@@ -45531,13 +45531,13 @@ func (x *ScopeBoundariesNav) Content() *som.SomMetaRef {
 }
 
 func (x *ScopeBoundariesNav) InScopeItems() *som.SomListMetaRef[*ScopeItemEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SCITE-INSC-LST", func(t *som.SomMetaTree, p string) *ScopeItemEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SIE-INSC-LST", func(t *som.SomMetaTree, p string) *ScopeItemEntryNav {
 		return newScopeItemEntryNav(t, p)
 	})
 }
 
 func (x *ScopeBoundariesNav) OutOfScopeItems() *som.SomListMetaRef[*ScopeItemEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SCITE-OUTO-LST", func(t *som.SomMetaTree, p string) *ScopeItemEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SIE-OUTO-LST", func(t *som.SomMetaTree, p string) *ScopeItemEntryNav {
 		return newScopeItemEntryNav(t, p)
 	})
 }
@@ -45549,7 +45549,7 @@ func (x *ScopeBoundariesNav) DeferredItems() *som.SomListMetaRef[*DeferredScopeI
 }
 
 func (x *ScopeBoundariesNav) ScopeAssumptions() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SCOPE-SCOP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SCBND-SCOP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -45773,7 +45773,7 @@ func (x *ScreenElementEntryNav) DataDisplay() *ScreenElementDataDisplayNav {
 }
 
 func (x *ScreenElementEntryNav) ValidationRules() *som.SomListMetaRef[*ElementValidationRuleEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/EVRE-VALI-LST", func(t *som.SomMetaTree, p string) *ElementValidationRuleEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/ELVARUEN-VALI-LST", func(t *som.SomMetaTree, p string) *ElementValidationRuleEntryNav {
 		return newElementValidationRuleEntryNav(t, p)
 	})
 }
@@ -45875,7 +45875,7 @@ func (x *ScreenEntryNav) States() *ScreenStatesNav {
 }
 
 func (x *ScreenEntryNav) UserCategories() *som.SomListMetaRef[*ScreenUserCategoryEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SCRUSC-USER-LST", func(t *som.SomMetaTree, p string) *ScreenUserCategoryEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SUCE-USER-LST", func(t *som.SomMetaTree, p string) *ScreenUserCategoryEntryNav {
 		return newScreenUserCategoryEntryNav(t, p)
 	})
 }
@@ -45887,7 +45887,7 @@ func (x *ScreenEntryNav) EntryPoints() *som.SomListMetaRef[*EntryPointEntryNav] 
 }
 
 func (x *ScreenEntryNav) ResponsiveRules() *som.SomListMetaRef[*ScreenResponsiveRuleEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SRRE-RESP-LST", func(t *som.SomMetaTree, p string) *ScreenResponsiveRuleEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SCRERUEN-RESP-LST", func(t *som.SomMetaTree, p string) *ScreenResponsiveRuleEntryNav {
 		return newScreenResponsiveRuleEntryNav(t, p)
 	})
 }
@@ -46243,7 +46243,7 @@ func (x *SecondaryNavigationNav) Overview() *som.SomMetaRef {
 }
 
 func (x *SecondaryNavigationNav) TabBars() *som.SomListMetaRef[*TabBarDefinitionEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/TBDE-TABB-LST", func(t *som.SomMetaTree, p string) *TabBarDefinitionEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/TABADEEN-TABB-LST", func(t *som.SomMetaTree, p string) *TabBarDefinitionEntryNav {
 		return newTabBarDefinitionEntryNav(t, p)
 	})
 }
@@ -46415,7 +46415,7 @@ func (x *SecurityAuditRequirementsSectionNav) SecurityTestingAutomation() *Secur
 }
 
 func (x *SecurityAuditRequirementsSectionNav) AuditEntries() *som.SomListMetaRef[*SecurityAuditEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SEAUEN-AUDI-LST", func(t *som.SomMetaTree, p string) *SecurityAuditEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SAE-AUDI-LST", func(t *som.SomMetaTree, p string) *SecurityAuditEntryNav {
 		return newSecurityAuditEntryNav(t, p)
 	})
 }
@@ -46581,7 +46581,7 @@ func (x *SecurityControlsNav) Content() *som.SomMetaRef {
 }
 
 func (x *SecurityControlsNav) Controls() *som.SomListMetaRef[*SecurityControlEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SECCT-CONT-LST", func(t *som.SomMetaTree, p string) *SecurityControlEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SECOEN-CONT-LST", func(t *som.SomMetaTree, p string) *SecurityControlEntryNav {
 		return newSecurityControlEntryNav(t, p)
 	})
 }
@@ -47185,13 +47185,13 @@ func (x *ServerRequirementsSectionNav) Overview() *som.SomMetaRef {
 }
 
 func (x *ServerRequirementsSectionNav) Environments() *som.SomListMetaRef[*ServerEnvironmentEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SEENEN-ENVI-LST", func(t *som.SomMetaTree, p string) *ServerEnvironmentEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SEE-ENVI-LST", func(t *som.SomMetaTree, p string) *ServerEnvironmentEntryNav {
 		return newServerEnvironmentEntryNav(t, p)
 	})
 }
 
 func (x *ServerRequirementsSectionNav) ServerRoles() *som.SomListMetaRef[*ServerRoleEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SEROEN-SERV-LST", func(t *som.SomMetaTree, p string) *ServerRoleEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SRE-SERV-LST", func(t *som.SomMetaTree, p string) *ServerRoleEntryNav {
 		return newServerRoleEntryNav(t, p)
 	})
 }
@@ -47891,7 +47891,7 @@ func (x *SlaAndSloMonitoringNav) Slis() *ServiceLevelIndicatorsNav {
 }
 
 func (x *SlaAndSloMonitoringNav) Slos() *som.SomListMetaRef[*SloEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SLEN-SLOS-LST", func(t *som.SomMetaTree, p string) *SloEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SE-SLOS-LST", func(t *som.SomMetaTree, p string) *SloEntryNav {
 		return newSloEntryNav(t, p)
 	})
 }
@@ -47979,7 +47979,7 @@ func (x *SoftwareDeliverablesNav) Content() *som.SomMetaRef {
 }
 
 func (x *SoftwareDeliverablesNav) Items() *som.SomListMetaRef[*DeliverableEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SWDLV-ITEM-LST", func(t *som.SomMetaTree, p string) *DeliverableEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DLVEN-ITEM-LST", func(t *som.SomMetaTree, p string) *DeliverableEntryNav {
 		return newDeliverableEntryNav(t, p)
 	})
 }
@@ -48851,13 +48851,13 @@ func (x *StagingStrategyNav) RationaleNarrative() *som.SomMetaRef {
 }
 
 func (x *StagingStrategyNav) KeyAssumptions() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/KEYAS-KEYA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/STAGST-KEYA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
 func (x *StagingStrategyNav) Constraints() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/STAGI-CONS-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/STAGST-CONS-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -48975,7 +48975,7 @@ func (x *StakeholdersAndGovernanceNav) LegalAndContractual() *LegalAndContractua
 }
 
 func (x *StakeholdersAndGovernanceNav) StakeholderRegister() *som.SomListMetaRef[*StakeholderRegisterEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/STKRG-STAK-LST", func(t *som.SomMetaTree, p string) *StakeholderRegisterEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/STKRE-STAK-LST", func(t *som.SomMetaTree, p string) *StakeholderRegisterEntryNav {
 		return newStakeholderRegisterEntryNav(t, p)
 	})
 }
@@ -49047,31 +49047,31 @@ func (x *StandardsComplianceSectionNav) Overview() *som.SomMetaRef {
 }
 
 func (x *StandardsComplianceSectionNav) ItStandards() *som.SomListMetaRef[*ItStandardComplianceEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/ISCE-ITST-LST", func(t *som.SomMetaTree, p string) *ItStandardComplianceEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/ITSTCOEN-ITST-LST", func(t *som.SomMetaTree, p string) *ItStandardComplianceEntryNav {
 		return newItStandardComplianceEntryNav(t, p)
 	})
 }
 
 func (x *StandardsComplianceSectionNav) IndustryProtocols() *som.SomListMetaRef[*IndustryProtocolComplianceEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/IPCE-INDU-LST", func(t *som.SomMetaTree, p string) *IndustryProtocolComplianceEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/INPRCOEN-INDU-LST", func(t *som.SomMetaTree, p string) *IndustryProtocolComplianceEntryNav {
 		return newIndustryProtocolComplianceEntryNav(t, p)
 	})
 }
 
 func (x *StandardsComplianceSectionNav) InterfaceSpecifications() *som.SomListMetaRef[*InterfaceSpecificationEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/INSPEN-INTE-LST", func(t *som.SomMetaTree, p string) *InterfaceSpecificationEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/INTSPEENT-INTE-LST", func(t *som.SomMetaTree, p string) *InterfaceSpecificationEntryNav {
 		return newInterfaceSpecificationEntryNav(t, p)
 	})
 }
 
 func (x *StandardsComplianceSectionNav) RegulatoryCompliance() *som.SomListMetaRef[*RegulatoryComplianceEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/RECOEN-REGU-LST", func(t *som.SomMetaTree, p string) *RegulatoryComplianceEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RCE-REGU-LST", func(t *som.SomMetaTree, p string) *RegulatoryComplianceEntryNav {
 		return newRegulatoryComplianceEntryNav(t, p)
 	})
 }
 
 func (x *StandardsComplianceSectionNav) SecurityStandards() *som.SomListMetaRef[*SecurityStandardComplianceEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SSCE-SECU-LST", func(t *som.SomMetaTree, p string) *SecurityStandardComplianceEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SESTCOEN-SECU-LST", func(t *som.SomMetaTree, p string) *SecurityStandardComplianceEntryNav {
 		return newSecurityStandardComplianceEntryNav(t, p)
 	})
 }
@@ -49127,7 +49127,7 @@ func (x *SteeringCommitteeNav) Charter() *CommitteeCharterNav {
 }
 
 func (x *SteeringCommitteeNav) Members() *som.SomListMetaRef[*CommitteeMemberEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/COMMB-MEMB-LST", func(t *som.SomMetaTree, p string) *CommitteeMemberEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/CME-MEMB-LST", func(t *som.SomMetaTree, p string) *CommitteeMemberEntryNav {
 		return newCommitteeMemberEntryNav(t, p)
 	})
 }
@@ -49151,7 +49151,7 @@ func (x *StepUpAuthenticationPolicyNav) Content() *som.SomMetaRef {
 }
 
 func (x *StepUpAuthenticationPolicyNav) StepUpDetails() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/STEPU-STEP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SUAP-STEP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -49479,7 +49479,7 @@ func (x *SupportDeliverablesNav) Content() *som.SomMetaRef {
 }
 
 func (x *SupportDeliverablesNav) Items() *som.SomListMetaRef[*DeliverableEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SPDLV-ITEM-LST", func(t *som.SomMetaTree, p string) *DeliverableEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DLVEN-ITEM-LST", func(t *som.SomMetaTree, p string) *DeliverableEntryNav {
 		return newDeliverableEntryNav(t, p)
 	})
 }
@@ -49619,13 +49619,13 @@ func (x *SystemBusinessCriticalityNav) Governance() *som.SomMetaRef {
 }
 
 func (x *SystemBusinessCriticalityNav) BusinessUnits() *som.SomListMetaRef[*SystemBusinessUnitEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SBUE-BUSI-LST", func(t *som.SomMetaTree, p string) *SystemBusinessUnitEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SYBUUNEN-BUSI-LST", func(t *som.SomMetaTree, p string) *SystemBusinessUnitEntryNav {
 		return newSystemBusinessUnitEntryNav(t, p)
 	})
 }
 
 func (x *SystemBusinessCriticalityNav) SupportedProcesses() *som.SomListMetaRef[*SystemBusinessProcessEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SBPE-SUPP-LST", func(t *som.SomMetaTree, p string) *SystemBusinessProcessEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SYBUPREN-SUPP-LST", func(t *som.SomMetaTree, p string) *SystemBusinessProcessEntryNav {
 		return newSystemBusinessProcessEntryNav(t, p)
 	})
 }
@@ -49787,7 +49787,7 @@ func (x *SystemCostAnalysisNav) CostBreakdown() *som.SomMetaRef {
 }
 
 func (x *SystemCostAnalysisNav) NonFinancialBenefits() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/NONFI-NONF-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SYCOAN-NONF-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -49819,13 +49819,13 @@ func (x *SystemDataScopeNav) Migration() *som.SomMetaRef {
 }
 
 func (x *SystemDataScopeNav) Entities() *som.SomListMetaRef[*DataEntityMigrationEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/DEME-ENTI-LST", func(t *som.SomMetaTree, p string) *DataEntityMigrationEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DAENMIEN-ENTI-LST", func(t *som.SomMetaTree, p string) *DataEntityMigrationEntryNav {
 		return newDataEntityMigrationEntryNav(t, p)
 	})
 }
 
 func (x *SystemDataScopeNav) KnownQualityIssues() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/KNOWN-KNOW-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SYDASC-KNOW-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -49907,7 +49907,7 @@ func (x *SystemDescriptionNav) BusinessDomain() *BusinessDomainNav {
 }
 
 func (x *SystemDescriptionNav) UserCategories() *som.SomListMetaRef[*UserCategoryEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/USCA-USER-LST", func(t *som.SomMetaTree, p string) *UserCategoryEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/UCE-USER-LST", func(t *som.SomMetaTree, p string) *UserCategoryEntryNav {
 		return newUserCategoryEntryNav(t, p)
 	})
 }
@@ -50011,13 +50011,13 @@ func (x *SystemErrorDisplayNav) SystemErrorNarrative() *som.SomMetaRef {
 }
 
 func (x *SystemErrorDisplayNav) ErrorPageDesigns() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/EPDE-ERRO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SYERDI-ERRO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
 func (x *SystemErrorDisplayNav) ErrorCodes() *som.SomListMetaRef[*SystemErrorCodeEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SECE-ERRO-LST", func(t *som.SomMetaTree, p string) *SystemErrorCodeEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SYERCOEN-ERRO-LST", func(t *som.SomMetaTree, p string) *SystemErrorCodeEntryNav {
 		return newSystemErrorCodeEntryNav(t, p)
 	})
 }
@@ -50115,7 +50115,7 @@ func (x *SystemKnowledgeTransferNav) Content() *som.SomMetaRef {
 }
 
 func (x *SystemKnowledgeTransferNav) CriticalKnowledgeAreas() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/CRITI-CRIT-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SYKNTR-CRIT-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -50169,7 +50169,7 @@ func (x *SystemMigrationPlanNav) Cutover() *som.SomMetaRef {
 }
 
 func (x *SystemMigrationPlanNav) Risks() *som.SomListMetaRef[*SystemMigrationRiskEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SMRE-RISK-LST", func(t *som.SomMetaTree, p string) *SystemMigrationRiskEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SYMIRIEN-RISK-LST", func(t *som.SomMetaTree, p string) *SystemMigrationRiskEntryNav {
 		return newSystemMigrationRiskEntryNav(t, p)
 	})
 }
@@ -50223,7 +50223,7 @@ func (x *SystemOperationNav) AdministrationRequirements() *AdministrationRequire
 }
 
 func (x *SystemOperationNav) MaintenanceProcedures() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/MAINT-MAIN-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SO-MAIN-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -50351,7 +50351,7 @@ func (x *SystemQualityGoalsNav) QaStrategy() *som.SomMetaRef {
 }
 
 func (x *SystemQualityGoalsNav) AttributeInterdependencies() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/ATTRI-ATTR-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SYQG-ATTR-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -50445,7 +50445,7 @@ func (x *SystemReplacementStrategyNav) Phases() *som.SomListMetaRef[*Replacement
 }
 
 func (x *SystemReplacementStrategyNav) PredecessorDependencies() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/PREDE-PRED-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SYREST-PRED-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -50637,13 +50637,13 @@ func (x *SystemTaskEntryNav) RelatedUseCase() *som.SomMetaRef {
 }
 
 func (x *SystemTaskEntryNav) WorkflowSteps() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SYSTE-WORK-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SYTS-WORK-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
 func (x *SystemTaskEntryNav) VariationsAndExceptions() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/VARIA-VARI-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SYTS-VARI-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -50679,13 +50679,13 @@ func (x *SystemTechnicalAssessmentNav) Quality() *som.SomMetaRef {
 }
 
 func (x *SystemTechnicalAssessmentNav) KnownIssues() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/KIE-KNOW-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SYTEAS-KNOW-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
 func (x *SystemTechnicalAssessmentNav) SecurityConcerns() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SECUR-SECU-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SYTEAS-SECU-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -50815,7 +50815,7 @@ func (x *SystemUserImpactNav) Adoption() *som.SomMetaRef {
 }
 
 func (x *SystemUserImpactNav) UserGroups() *som.SomListMetaRef[*UserGroupImpactEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/UGIE-USER-LST", func(t *som.SomMetaTree, p string) *UserGroupImpactEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/USGRIMEN-USER-LST", func(t *som.SomMetaTree, p string) *UserGroupImpactEntryNav {
 		return newUserGroupImpactEntryNav(t, p)
 	})
 }
@@ -50873,7 +50873,7 @@ func (x *TabBarDefinitionEntryNav) Loading() *som.SomMetaRef {
 }
 
 func (x *TabBarDefinitionEntryNav) Tabs() *som.SomListMetaRef[*TabItemEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/TAITEN-TABS-LST", func(t *som.SomMetaTree, p string) *TabItemEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/TIE-TABS-LST", func(t *som.SomMetaTree, p string) *TabItemEntryNav {
 		return newTabItemEntryNav(t, p)
 	})
 }
@@ -51179,7 +51179,7 @@ func (x *TechnicalEnvironmentNav) ExistingInfrastructure() *som.SomMetaRef {
 }
 
 func (x *TechnicalEnvironmentNav) Datacenters() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/DATAC-DATA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/TEEN-DATA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -51193,7 +51193,7 @@ func (x *TechnicalEnvironmentNav) StandardsOverview() *som.SomMetaRef {
 }
 
 func (x *TechnicalEnvironmentNav) TechnologyStandards() *som.SomListMetaRef[*TechnologyStandardEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/TESTEN-TECH-LST", func(t *som.SomMetaTree, p string) *TechnologyStandardEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/TSE-TECH-LST", func(t *som.SomMetaTree, p string) *TechnologyStandardEntryNav {
 		return newTechnologyStandardEntryNav(t, p)
 	})
 }
@@ -51203,7 +51203,7 @@ func (x *TechnicalEnvironmentNav) IntegrationOverview() *som.SomMetaRef {
 }
 
 func (x *TechnicalEnvironmentNav) IntegrationConstraints() *som.SomListMetaRef[*IntegrationConstraintEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/INCOE1-INTE-LST", func(t *som.SomMetaTree, p string) *IntegrationConstraintEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/INTCONENT-INTE-LST", func(t *som.SomMetaTree, p string) *IntegrationConstraintEntryNav {
 		return newIntegrationConstraintEntryNav(t, p)
 	})
 }
@@ -51227,13 +51227,13 @@ func (x *TechnicalEnvironmentNetworkNav) Content() *som.SomMetaRef {
 }
 
 func (x *TechnicalEnvironmentNetworkNav) DevopsStandards() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/DEVOP-DEVO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/TEENNE-DEVO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
 func (x *TechnicalEnvironmentNetworkNav) ObservabilityRequirements() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/OBSER-OBSE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/TEENNE-OBSE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -51511,7 +51511,7 @@ func (x *TechnicalPainPointsNav) CategorySummary() *som.SomMetaRef {
 }
 
 func (x *TechnicalPainPointsNav) Items() *som.SomListMetaRef[*PainPointEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/TEPAPO-ITEM-LST", func(t *som.SomMetaTree, p string) *PainPointEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/PAPE-ITEM-LST", func(t *som.SomMetaTree, p string) *PainPointEntryNav {
 		return newPainPointEntryNav(t, p)
 	})
 }
@@ -52461,7 +52461,7 @@ func (x *TrainingDeliverableRequirementsNav) TrainingNarrative() *som.SomMetaRef
 }
 
 func (x *TrainingDeliverableRequirementsNav) TrainingModules() *som.SomListMetaRef[*TrainingModuleEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/TRMOEN-TRAI-LST", func(t *som.SomMetaTree, p string) *TrainingModuleEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/TME-TRAI-LST", func(t *som.SomMetaTree, p string) *TrainingModuleEntryNav {
 		return newTrainingModuleEntryNav(t, p)
 	})
 }
@@ -52485,7 +52485,7 @@ func (x *TrainingDeliverablesNav) Content() *som.SomMetaRef {
 }
 
 func (x *TrainingDeliverablesNav) Items() *som.SomListMetaRef[*DeliverableEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/TRDLV-ITEM-LST", func(t *som.SomMetaTree, p string) *DeliverableEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/DLVEN-ITEM-LST", func(t *som.SomMetaTree, p string) *DeliverableEntryNav {
 		return newDeliverableEntryNav(t, p)
 	})
 }
@@ -52609,7 +52609,7 @@ func (x *TrainingRequirementsNav) Overview() *som.SomMetaRef {
 }
 
 func (x *TrainingRequirementsNav) InitialTraining() *som.SomListMetaRef[*InitialTrainingEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/INITR-INIT-LST", func(t *som.SomMetaTree, p string) *InitialTrainingEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/ITE-INIT-LST", func(t *som.SomMetaTree, p string) *InitialTrainingEntryNav {
 		return newInitialTrainingEntryNav(t, p)
 	})
 }
@@ -53039,7 +53039,7 @@ func (x *TranslationProcessNav) TranslationNarrative() *som.SomMetaRef {
 }
 
 func (x *TranslationProcessNav) Vendors() *som.SomListMetaRef[*TranslationVendorEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/TRVEEN-VEND-LST", func(t *som.SomMetaTree, p string) *TranslationVendorEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/TVE-VEND-LST", func(t *som.SomMetaTree, p string) *TranslationVendorEntryNav {
 		return newTranslationVendorEntryNav(t, p)
 	})
 }
@@ -53365,13 +53365,13 @@ func (x *UiComponentEntryNav) BehaviorNarrative() *som.SomMetaRef {
 }
 
 func (x *UiComponentEntryNav) States() *som.SomListMetaRef[*ComponentStateEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/CMST-STAT-LST", func(t *som.SomMetaTree, p string) *ComponentStateEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/COMSTAENT-STAT-LST", func(t *som.SomMetaTree, p string) *ComponentStateEntryNav {
 		return newComponentStateEntryNav(t, p)
 	})
 }
 
 func (x *UiComponentEntryNav) Variants() *som.SomListMetaRef[*ComponentVariantEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/CMVN-VARI-LST", func(t *som.SomMetaTree, p string) *ComponentVariantEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/CVE-VARI-LST", func(t *som.SomMetaTree, p string) *ComponentVariantEntryNav {
 		return newComponentVariantEntryNav(t, p)
 	})
 }
@@ -53429,7 +53429,7 @@ func (x *UiComponentsNav) ComponentLibrary() *ComponentLibraryNav {
 }
 
 func (x *UiComponentsNav) ComponentSpecs() *som.SomListMetaRef[*UiComponentEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/UICOEN-COMP-LST", func(t *som.SomMetaTree, p string) *UiComponentEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/UICOMENT-COMP-LST", func(t *som.SomMetaTree, p string) *UiComponentEntryNav {
 		return newUiComponentEntryNav(t, p)
 	})
 }
@@ -53865,7 +53865,7 @@ func (x *UserCategoriesNav) UserCategoryDiagram() *som.SomMetaRef {
 }
 
 func (x *UserCategoriesNav) Categories() *som.SomListMetaRef[*UserCategoryEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/USCA-CATE-LST", func(t *som.SomMetaTree, p string) *UserCategoryEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/UCE-CATE-LST", func(t *som.SomMetaTree, p string) *UserCategoryEntryNav {
 		return newUserCategoryEntryNav(t, p)
 	})
 }
@@ -54115,13 +54115,13 @@ func (x *UserJourneyNav) Stages() *som.SomListMetaRef[*JourneyStageEntryNav] {
 }
 
 func (x *UserJourneyNav) KeyTouchpoints() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/KEYTO-KEYT-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/UJ-KEYT-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
 func (x *UserJourneyNav) PainPoints() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/USERJ-PAIN-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/UJ-PAIN-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -54357,7 +54357,7 @@ func (x *UserPersonaDetailsNav) VisualRepresentation() *som.SomMetaRef {
 }
 
 func (x *UserPersonaDetailsNav) RepresentativeQuotes() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/REPRE-REPR-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/UPD-REPR-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -54565,7 +54565,7 @@ func (x *UtilityNavigationNav) Content() *som.SomMetaRef {
 }
 
 func (x *UtilityNavigationNav) Items() *som.SomListMetaRef[*UtilityNavigationItemEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/UNIE-ITEM-LST", func(t *som.SomMetaTree, p string) *UtilityNavigationItemEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/UTNAITEN-ITEM-LST", func(t *som.SomMetaTree, p string) *UtilityNavigationItemEntryNav {
 		return newUtilityNavigationItemEntryNav(t, p)
 	})
 }
@@ -54601,7 +54601,7 @@ func (x *UtilityNavigationItemEntryNav) Behavior() *som.SomMetaRef {
 }
 
 func (x *UtilityNavigationItemEntryNav) MenuItems() *som.SomListMetaRef[*UtilityMenuItemEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/UMIE-MENU-LST", func(t *som.SomMetaTree, p string) *UtilityMenuItemEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/UTMEITEN-MENU-LST", func(t *som.SomMetaTree, p string) *UtilityMenuItemEntryNav {
 		return newUtilityMenuItemEntryNav(t, p)
 	})
 }
@@ -54663,13 +54663,13 @@ func (x *ValidationFeedbackNav) ValidationNarrative() *som.SomMetaRef {
 }
 
 func (x *ValidationFeedbackNav) MessageTemplates() *som.SomListMetaRef[*ValidationMessageTemplateNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/VAMETE-MESS-LST", func(t *som.SomMetaTree, p string) *ValidationMessageTemplateNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/VMT-MESS-LST", func(t *som.SomMetaTree, p string) *ValidationMessageTemplateNav {
 		return newValidationMessageTemplateNav(t, p)
 	})
 }
 
 func (x *ValidationFeedbackNav) FieldValidationRules() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/FIELD-FIEL-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/VAFE-FIEL-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -54723,7 +54723,7 @@ func (x *ValuePropositionNav) ReturnProfile() *som.SomMetaRef {
 }
 
 func (x *ValuePropositionNav) Kpis() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/KPIEN-KPIS-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/VALPX-KPIS-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -54997,7 +54997,7 @@ func (x *WcagComplianceNav) WcagNarrative() *som.SomMetaRef {
 }
 
 func (x *WcagComplianceNav) SuccessCriteria() *som.SomListMetaRef[*WcagSuccessCriterionEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/WSCE-SUCC-LST", func(t *som.SomMetaTree, p string) *WcagSuccessCriterionEntryNav {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/WCSUCREN-SUCC-LST", func(t *som.SomMetaTree, p string) *WcagSuccessCriterionEntryNav {
 		return newWcagSuccessCriterionEntryNav(t, p)
 	})
 }
@@ -55898,8 +55898,8 @@ func newApplicableRegulationEntryID(tree *som.SomMetaTree, path string) *Applica
 	return &ApplicableRegulationEntryID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
-func (x *ApplicableRegulationEntryID) COMPL_COMP_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/COMPL-COMP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *ApplicableRegulationEntryID) ARE_COMP_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/ARE-COMP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -57759,8 +57759,8 @@ func (x *CurrentWorkflowEntryID) WSE_STEP_LST() *som.SomListMetaRef[*WorkflowSte
 	})
 }
 
-func (x *CurrentWorkflowEntryID) WFAC_ACTO_LST() *som.SomListMetaRef[*WorkflowActorEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/WFAC-ACTO-LST", func(t *som.SomMetaTree, p string) *WorkflowActorEntryID {
+func (x *CurrentWorkflowEntryID) WAE_ACTO_LST() *som.SomListMetaRef[*WorkflowActorEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/WAE-ACTO-LST", func(t *som.SomMetaTree, p string) *WorkflowActorEntryID {
 		return newWorkflowActorEntryID(t, p)
 	})
 }
@@ -57844,14 +57844,14 @@ func newD00SolutionBlueprintID(tree *som.SomMetaTree, path string) *D00SolutionB
 	return &D00SolutionBlueprintID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
-func (x *D00SolutionBlueprintID) RVHST_REVS_LST() *som.SomListMetaRef[*RevisionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/documentControl/RVHST-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryID {
+func (x *D00SolutionBlueprintID) RVENT_REVS_LST() *som.SomListMetaRef[*RevisionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/documentControl/RVENT-REVS-LST", func(t *som.SomMetaTree, p string) *RevisionEntryID {
 		return newRevisionEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) DOCTL_APRV_LST() *som.SomListMetaRef[*ApprovalRecordID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/documentControl/DOCTL-APRV-LST", func(t *som.SomMetaTree, p string) *ApprovalRecordID {
+func (x *D00SolutionBlueprintID) APREC_APRV_LST() *som.SomListMetaRef[*ApprovalRecordID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/documentControl/APREC-APRV-LST", func(t *som.SomMetaTree, p string) *ApprovalRecordID {
 		return newApprovalRecordID(t, p)
 	})
 }
@@ -57890,8 +57890,8 @@ func (x *D00SolutionBlueprintID) SYPUP_VISI() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemDescription/systemPurpose/SYPUP-VISI"}
 }
 
-func (x *D00SolutionBlueprintID) RPPE_RELA_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/systemPurpose/problemStatement/RPPE-RELA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) PS_RELA_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/systemPurpose/problemStatement/PS-RELA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -57916,20 +57916,20 @@ func (x *D00SolutionBlueprintID) VALRP() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemDescription/systemPurpose/valueProposition/VALRP"}
 }
 
-func (x *D00SolutionBlueprintID) KPIEN_KPIS_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/systemPurpose/valueProposition/KPIEN-KPIS-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) VALPX_KPIS_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/systemPurpose/valueProposition/VALPX-KPIS-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D00SolutionBlueprintID) SCITE_INSC_LST() *som.SomListMetaRef[*ScopeItemEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCITE-INSC-LST", func(t *som.SomMetaTree, p string) *ScopeItemEntryID {
+func (x *D00SolutionBlueprintID) SIE_INSC_LST() *som.SomListMetaRef[*ScopeItemEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SIE-INSC-LST", func(t *som.SomMetaTree, p string) *ScopeItemEntryID {
 		return newScopeItemEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) SCITE_OUTO_LST() *som.SomListMetaRef[*ScopeItemEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCITE-OUTO-LST", func(t *som.SomMetaTree, p string) *ScopeItemEntryID {
+func (x *D00SolutionBlueprintID) SIE_OUTO_LST() *som.SomListMetaRef[*ScopeItemEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SIE-OUTO-LST", func(t *som.SomMetaTree, p string) *ScopeItemEntryID {
 		return newScopeItemEntryID(t, p)
 	})
 }
@@ -57940,8 +57940,8 @@ func (x *D00SolutionBlueprintID) DFSCP_DEFE_LST() *som.SomListMetaRef[*DeferredS
 	})
 }
 
-func (x *D00SolutionBlueprintID) SCOPE_SCOP_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCOPE-SCOP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) SCBND_SCOP_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCBND-SCOP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -58022,8 +58022,8 @@ func (x *D00SolutionBlueprintID) DIE_INTE_LST() *som.SomListMetaRef[*DomainInter
 	})
 }
 
-func (x *D00SolutionBlueprintID) DOBIRU_RULE_LST() *som.SomListMetaRef[*DomainBusinessRuleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/businessDomain/businessRules/DOBIRU-RULE-LST", func(t *som.SomMetaTree, p string) *DomainBusinessRuleEntryID {
+func (x *D00SolutionBlueprintID) DBRE_RULE_LST() *som.SomListMetaRef[*DomainBusinessRuleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/businessDomain/businessRules/DBRE-RULE-LST", func(t *som.SomMetaTree, p string) *DomainBusinessRuleEntryID {
 		return newDomainBusinessRuleEntryID(t, p)
 	})
 }
@@ -58032,8 +58032,8 @@ func (x *D00SolutionBlueprintID) DP_PROC() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemDescription/businessDomain/domainProcesses/DP-PROC"}
 }
 
-func (x *D00SolutionBlueprintID) DOPR_PROC_LST() *som.SomListMetaRef[*DomainProcessEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/businessDomain/domainProcesses/DOPR-PROC-LST", func(t *som.SomMetaTree, p string) *DomainProcessEntryID {
+func (x *D00SolutionBlueprintID) DOPREN_PROC_LST() *som.SomListMetaRef[*DomainProcessEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/businessDomain/domainProcesses/DOPREN-PROC-LST", func(t *som.SomMetaTree, p string) *DomainProcessEntryID {
 		return newDomainProcessEntryID(t, p)
 	})
 }
@@ -58044,8 +58044,8 @@ func (x *D00SolutionBlueprintID) DOEV_EVEN_LST() *som.SomListMetaRef[*DomainEven
 	})
 }
 
-func (x *D00SolutionBlueprintID) USCA_USER_LST() *som.SomListMetaRef[*UserCategoryEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/USCA-USER-LST", func(t *som.SomMetaTree, p string) *UserCategoryEntryID {
+func (x *D00SolutionBlueprintID) UCE_USER_LST() *som.SomListMetaRef[*UserCategoryEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemDescription/UCE-USER-LST", func(t *som.SomMetaTree, p string) *UserCategoryEntryID {
 		return newUserCategoryEntryID(t, p)
 	})
 }
@@ -58256,26 +58256,26 @@ func (x *D00SolutionBlueprintID) MIRIRE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRIRE"}
 }
 
-func (x *D00SolutionBlueprintID) RISKC_RISK_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKC-RISK-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) MIRI_RISK_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-RISK-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D00SolutionBlueprintID) RISKB_RISK_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKB-RISK-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) MIRI_RBDE_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-RBDE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D00SolutionBlueprintID) MONIT_MONI_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MONIT-MONI-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) MIRI_MONI_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-MONI-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D00SolutionBlueprintID) RESPO_RESP_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RESPO-RESP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) MIRI_RESP_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-RESP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -58292,26 +58292,26 @@ func (x *D00SolutionBlueprintID) MGMLS_MILE_LST() *som.SomListMetaRef[*Migration
 	})
 }
 
-func (x *D00SolutionBlueprintID) ESCAL_ESCA_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemsToReplace/migrationConsiderations/ESCAL-ESCA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) MIGCON_ESCA_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemsToReplace/migrationConsiderations/MIGCON-ESCA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D00SolutionBlueprintID) EXINEN_INTE_LST() *som.SomListMetaRef[*ExternalInterfaceEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemBoundaries/externalInterfaces/EXINEN-INTE-LST", func(t *som.SomMetaTree, p string) *ExternalInterfaceEntryID {
+func (x *D00SolutionBlueprintID) EIE_INTE_LST() *som.SomListMetaRef[*ExternalInterfaceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemBoundaries/externalInterfaces/EIE-INTE-LST", func(t *som.SomMetaTree, p string) *ExternalInterfaceEntryID {
 		return newExternalInterfaceEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) OOSE_ITEM_LST() *som.SomListMetaRef[*OutOfScopeEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemBoundaries/outOfScope/OOSE-ITEM-LST", func(t *som.SomMetaTree, p string) *OutOfScopeEntryID {
+func (x *D00SolutionBlueprintID) OUOFSCEN_ITEM_LST() *som.SomListMetaRef[*OutOfScopeEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemBoundaries/outOfScope/OUOFSCEN-ITEM-LST", func(t *som.SomMetaTree, p string) *OutOfScopeEntryID {
 		return newOutOfScopeEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) BOASEN_ITEM_LST() *som.SomListMetaRef[*BoundaryAssumptionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemBoundaries/assumptions/BOASEN-ITEM-LST", func(t *som.SomMetaTree, p string) *BoundaryAssumptionEntryID {
+func (x *D00SolutionBlueprintID) BAE_ITEM_LST() *som.SomListMetaRef[*BoundaryAssumptionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/systemBoundaries/assumptions/BAE-ITEM-LST", func(t *som.SomMetaTree, p string) *BoundaryAssumptionEntryID {
 		return newBoundaryAssumptionEntryID(t, p)
 	})
 }
@@ -58346,38 +58346,38 @@ func (x *D00SolutionBlueprintID) OEDM() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/OEDM"}
 }
 
-func (x *D00SolutionBlueprintID) AFDEEN_AFFE_LST() *som.SomListMetaRef[*AffectedDepartmentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/organizationalEnvironment/AFDEEN-AFFE-LST", func(t *som.SomMetaTree, p string) *AffectedDepartmentEntryID {
+func (x *D00SolutionBlueprintID) ADE_AFFE_LST() *som.SomListMetaRef[*AffectedDepartmentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/organizationalEnvironment/ADE-AFFE-LST", func(t *som.SomMetaTree, p string) *AffectedDepartmentEntryID {
 		return newAffectedDepartmentEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) DEMAEN_DECI_LST() *som.SomListMetaRef[*DecisionMakerEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/organizationalEnvironment/DEMAEN-DECI-LST", func(t *som.SomMetaTree, p string) *DecisionMakerEntryID {
+func (x *D00SolutionBlueprintID) DME_DECI_LST() *som.SomListMetaRef[*DecisionMakerEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/organizationalEnvironment/DME-DECI-LST", func(t *som.SomMetaTree, p string) *DecisionMakerEntryID {
 		return newDecisionMakerEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) CULTU_CULT_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/organizationalEnvironment/CULTU-CULT-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) OREN_CULT_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-CULT-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D00SolutionBlueprintID) COMMU_COMM_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/organizationalEnvironment/COMMU-COMM-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) OREN_COMM_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-COMM-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D00SolutionBlueprintID) CHANG_CHAN_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/organizationalEnvironment/CHANG-CHAN-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) OREN_CHAN_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-CHAN-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D00SolutionBlueprintID) REEN1_ITEM_LST() *som.SomListMetaRef[*ResponsibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/functionalResponsibilities/REEN1-ITEM-LST", func(t *som.SomMetaTree, p string) *ResponsibilityEntryID {
+func (x *D00SolutionBlueprintID) RE_ITEM_LST() *som.SomListMetaRef[*ResponsibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/functionalResponsibilities/RE-ITEM-LST", func(t *som.SomMetaTree, p string) *ResponsibilityEntryID {
 		return newResponsibilityEntryID(t, p)
 	})
 }
@@ -58398,32 +58398,32 @@ func (x *D00SolutionBlueprintID) TES() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/TES"}
 }
 
-func (x *D00SolutionBlueprintID) DEVOP_DEVO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/technicalEnvironment/network/DEVOP-DEVO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) TEENNE_DEVO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/technicalEnvironment/network/TEENNE-DEVO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D00SolutionBlueprintID) OBSER_OBSE_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/technicalEnvironment/network/OBSER-OBSE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) TEENNE_OBSE_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/technicalEnvironment/network/TEENNE-OBSE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D00SolutionBlueprintID) DATAC_DATA_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/technicalEnvironment/DATAC-DATA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) TEEN_DATA_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/technicalEnvironment/TEEN-DATA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D00SolutionBlueprintID) TESTEN_TECH_LST() *som.SomListMetaRef[*TechnologyStandardEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/technicalEnvironment/TESTEN-TECH-LST", func(t *som.SomMetaTree, p string) *TechnologyStandardEntryID {
+func (x *D00SolutionBlueprintID) TSE_TECH_LST() *som.SomListMetaRef[*TechnologyStandardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/technicalEnvironment/TSE-TECH-LST", func(t *som.SomMetaTree, p string) *TechnologyStandardEntryID {
 		return newTechnologyStandardEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) INCOE1_INTE_LST() *som.SomListMetaRef[*IntegrationConstraintEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/technicalEnvironment/INCOE1-INTE-LST", func(t *som.SomMetaTree, p string) *IntegrationConstraintEntryID {
+func (x *D00SolutionBlueprintID) INTCONENT_INTE_LST() *som.SomListMetaRef[*IntegrationConstraintEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/operatingEnvironment/technicalEnvironment/INTCONENT-INTE-LST", func(t *som.SomMetaTree, p string) *IntegrationConstraintEntryID {
 		return newIntegrationConstraintEntryID(t, p)
 	})
 }
@@ -58436,14 +58436,14 @@ func (x *D00SolutionBlueprintID) RIOV() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/introductionAndScope/risksAndAssumptions/RIOV"}
 }
 
-func (x *D00SolutionBlueprintID) RIEN_KEYR_LST() *som.SomListMetaRef[*RiskEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/risksAndAssumptions/RIEN-KEYR-LST", func(t *som.SomMetaTree, p string) *RiskEntryID {
+func (x *D00SolutionBlueprintID) RISENT_KEYR_LST() *som.SomListMetaRef[*RiskEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/introductionAndScope/risksAndAssumptions/RISENT-KEYR-LST", func(t *som.SomMetaTree, p string) *RiskEntryID {
 		return newRiskEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) GLOSS_ENTR_LST() *som.SomListMetaRef[*GlossaryEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/glossaryAndAbbreviations/GLOSS-ENTR-LST", func(t *som.SomMetaTree, p string) *GlossaryEntryID {
+func (x *D00SolutionBlueprintID) GLENT_ENTR_LST() *som.SomListMetaRef[*GlossaryEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/glossaryAndAbbreviations/GLENT-ENTR-LST", func(t *som.SomMetaTree, p string) *GlossaryEntryID {
 		return newGlossaryEntryID(t, p)
 	})
 }
@@ -58532,8 +58532,8 @@ func (x *D00SolutionBlueprintID) DCAUT_DECI_LST() *som.SomListMetaRef[*DecisionA
 	})
 }
 
-func (x *D00SolutionBlueprintID) COMMB_MEMB_LST() *som.SomListMetaRef[*CommitteeMemberEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/stakeholdersAndGovernance/projectOrganization/steeringCommittee/COMMB-MEMB-LST", func(t *som.SomMetaTree, p string) *CommitteeMemberEntryID {
+func (x *D00SolutionBlueprintID) CME_MEMB_LST() *som.SomListMetaRef[*CommitteeMemberEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/stakeholdersAndGovernance/projectOrganization/steeringCommittee/CME-MEMB-LST", func(t *som.SomMetaTree, p string) *CommitteeMemberEntryID {
 		return newCommitteeMemberEntryID(t, p)
 	})
 }
@@ -58698,8 +58698,8 @@ func (x *D00SolutionBlueprintID) OTAGR_OTHE_LST() *som.SomListMetaRef[*OtherAgre
 	})
 }
 
-func (x *D00SolutionBlueprintID) STKRG_STAK_LST() *som.SomListMetaRef[*StakeholderRegisterEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/stakeholdersAndGovernance/STKRG-STAK-LST", func(t *som.SomMetaTree, p string) *StakeholderRegisterEntryID {
+func (x *D00SolutionBlueprintID) STKRE_STAK_LST() *som.SomListMetaRef[*StakeholderRegisterEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/stakeholdersAndGovernance/STKRE-STAK-LST", func(t *som.SomMetaTree, p string) *StakeholderRegisterEntryID {
 		return newStakeholderRegisterEntryID(t, p)
 	})
 }
@@ -58718,14 +58718,14 @@ func (x *D00SolutionBlueprintID) CARCH_DEPL() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-DEPL"}
 }
 
-func (x *D00SolutionBlueprintID) IPE_INTE_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) CARCH_INTE_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-INTE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D00SolutionBlueprintID) SHARE_SHAR_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) CARCH_SHAR_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-SHAR-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -58758,8 +58758,8 @@ func (x *D00SolutionBlueprintID) SYIN_ITEM_LST() *som.SomListMetaRef[*SystemInte
 	})
 }
 
-func (x *D00SolutionBlueprintID) FRAGI_FRAG_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) INHESU_FRAG_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/INHESU-FRAG-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -58818,8 +58818,8 @@ func (x *D00SolutionBlueprintID) OPPS() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/painPointsAndGaps/operationalPainPoints/OPPS"}
 }
 
-func (x *D00SolutionBlueprintID) OPPAPO_ITEM_LST() *som.SomListMetaRef[*PainPointEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/painPointsAndGaps/operationalPainPoints/OPPAPO-ITEM-LST", func(t *som.SomMetaTree, p string) *PainPointEntryID {
+func (x *D00SolutionBlueprintID) PAPE_ITEM_LST() *som.SomListMetaRef[*PainPointEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/painPointsAndGaps/operationalPainPoints/PAPE-ITEM-LST", func(t *som.SomMetaTree, p string) *PainPointEntryID {
 		return newPainPointEntryID(t, p)
 	})
 }
@@ -58828,8 +58828,8 @@ func (x *D00SolutionBlueprintID) BPPS() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/painPointsAndGaps/businessPainPoints/BPPS"}
 }
 
-func (x *D00SolutionBlueprintID) BUPAPO_ITEM_LST() *som.SomListMetaRef[*PainPointEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/painPointsAndGaps/businessPainPoints/BUPAPO-ITEM-LST", func(t *som.SomMetaTree, p string) *PainPointEntryID {
+func (x *D00SolutionBlueprintID) PAPE_ITEM_LST_2() *som.SomListMetaRef[*PainPointEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/painPointsAndGaps/businessPainPoints/PAPE-ITEM-LST", func(t *som.SomMetaTree, p string) *PainPointEntryID {
 		return newPainPointEntryID(t, p)
 	})
 }
@@ -58838,8 +58838,8 @@ func (x *D00SolutionBlueprintID) TPPS() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/currentLandscape/painPointsAndGaps/technicalPainPoints/TPPS"}
 }
 
-func (x *D00SolutionBlueprintID) TEPAPO_ITEM_LST() *som.SomListMetaRef[*PainPointEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/painPointsAndGaps/technicalPainPoints/TEPAPO-ITEM-LST", func(t *som.SomMetaTree, p string) *PainPointEntryID {
+func (x *D00SolutionBlueprintID) PAPE_ITEM_LST_3() *som.SomListMetaRef[*PainPointEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/currentLandscape/painPointsAndGaps/technicalPainPoints/PAPE-ITEM-LST", func(t *som.SomMetaTree, p string) *PainPointEntryID {
 		return newPainPointEntryID(t, p)
 	})
 }
@@ -59022,20 +59022,20 @@ func (x *D00SolutionBlueprintID) CUOPME_OPER_LST() *som.SomListMetaRef[*CurrentO
 	})
 }
 
-func (x *D00SolutionBlueprintID) ACRG_ASMP_LST() *som.SomListMetaRef[*AssumptionRegisterEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/assumptionsConstraintsDependencies/register/ACRG-ASMP-LST", func(t *som.SomMetaTree, p string) *AssumptionRegisterEntryID {
+func (x *D00SolutionBlueprintID) ASMRE_ASMP_LST() *som.SomListMetaRef[*AssumptionRegisterEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/assumptionsConstraintsDependencies/register/ASMRE-ASMP-LST", func(t *som.SomMetaTree, p string) *AssumptionRegisterEntryID {
 		return newAssumptionRegisterEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) ACRG_CONS_LST() *som.SomListMetaRef[*ConstraintRegisterEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/assumptionsConstraintsDependencies/register/ACRG-CONS-LST", func(t *som.SomMetaTree, p string) *ConstraintRegisterEntryID {
+func (x *D00SolutionBlueprintID) CONRE_CONS_LST() *som.SomListMetaRef[*ConstraintRegisterEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/assumptionsConstraintsDependencies/register/CONRE-CONS-LST", func(t *som.SomMetaTree, p string) *ConstraintRegisterEntryID {
 		return newConstraintRegisterEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) ACRG_DEPS_LST() *som.SomListMetaRef[*DependencyRegisterEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/assumptionsConstraintsDependencies/register/ACRG-DEPS-LST", func(t *som.SomMetaTree, p string) *DependencyRegisterEntryID {
+func (x *D00SolutionBlueprintID) DEPRE_DEPS_LST() *som.SomListMetaRef[*DependencyRegisterEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/assumptionsConstraintsDependencies/register/DEPRE-DEPS-LST", func(t *som.SomMetaTree, p string) *DependencyRegisterEntryID {
 		return newDependencyRegisterEntryID(t, p)
 	})
 }
@@ -59132,8 +59132,8 @@ func (x *D00SolutionBlueprintID) JODEOV() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/JODEOV"}
 }
 
-func (x *D00SolutionBlueprintID) NWROL_NEWR_LST() *som.SomListMetaRef[*NewRoleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/NWROL-NEWR-LST", func(t *som.SomMetaTree, p string) *NewRoleEntryID {
+func (x *D00SolutionBlueprintID) NRE_NEWR_LST() *som.SomListMetaRef[*NewRoleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/NRE-NEWR-LST", func(t *som.SomMetaTree, p string) *NewRoleEntryID {
 		return newNewRoleEntryID(t, p)
 	})
 }
@@ -59460,8 +59460,8 @@ func (x *D00SolutionBlueprintID) TRMAT_TRAI() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TRMAT-TRAI"}
 }
 
-func (x *D00SolutionBlueprintID) TRMOEN_TRAI_LST() *som.SomListMetaRef[*TrainingModuleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TRMOEN-TRAI-LST", func(t *som.SomMetaTree, p string) *TrainingModuleEntryID {
+func (x *D00SolutionBlueprintID) TME_TRAI_LST() *som.SomListMetaRef[*TrainingModuleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TME-TRAI-LST", func(t *som.SomMetaTree, p string) *TrainingModuleEntryID {
 		return newTrainingModuleEntryID(t, p)
 	})
 }
@@ -59478,8 +59478,8 @@ func (x *D00SolutionBlueprintID) PLGEN_PROG_LST() *som.SomListMetaRef[*Programmi
 	})
 }
 
-func (x *D00SolutionBlueprintID) FWREN_FRAM_LST() *som.SomListMetaRef[*FrameworkRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/FWREN-FRAM-LST", func(t *som.SomMetaTree, p string) *FrameworkRequirementEntryID {
+func (x *D00SolutionBlueprintID) FRREEN_FRAM_LST() *som.SomListMetaRef[*FrameworkRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/FRREEN-FRAM-LST", func(t *som.SomMetaTree, p string) *FrameworkRequirementEntryID {
 		return newFrameworkRequirementEntryID(t, p)
 	})
 }
@@ -59490,8 +59490,8 @@ func (x *D00SolutionBlueprintID) BTCEN_BUIL_LST() *som.SomListMetaRef[*BuildTool
 	})
 }
 
-func (x *D00SolutionBlueprintID) DETAEN_DEPL_LST() *som.SomListMetaRef[*DeploymentTargetEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/DETAEN-DEPL-LST", func(t *som.SomMetaTree, p string) *DeploymentTargetEntryID {
+func (x *D00SolutionBlueprintID) DEPTARENT_DEPL_LST() *som.SomListMetaRef[*DeploymentTargetEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/DEPTARENT-DEPL-LST", func(t *som.SomMetaTree, p string) *DeploymentTargetEntryID {
 		return newDeploymentTargetEntryID(t, p)
 	})
 }
@@ -59700,20 +59700,20 @@ func (x *D00SolutionBlueprintID) DSPT_DESI_LST() *som.SomListMetaRef[*DesignPatt
 	})
 }
 
-func (x *D00SolutionBlueprintID) COSTEN_CODI_LST() *som.SomListMetaRef[*CodingStandardEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/COSTEN-CODI-LST", func(t *som.SomMetaTree, p string) *CodingStandardEntryID {
+func (x *D00SolutionBlueprintID) CSE_CODI_LST() *som.SomListMetaRef[*CodingStandardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/CSE-CODI-LST", func(t *som.SomMetaTree, p string) *CodingStandardEntryID {
 		return newCodingStandardEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) DECOEN_DEVE_LST() *som.SomListMetaRef[*DevelopmentConventionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/DECOEN-DEVE-LST", func(t *som.SomMetaTree, p string) *DevelopmentConventionEntryID {
+func (x *D00SolutionBlueprintID) DCE_DEVE_LST() *som.SomListMetaRef[*DevelopmentConventionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/DCE-DEVE-LST", func(t *som.SomMetaTree, p string) *DevelopmentConventionEntryID {
 		return newDevelopmentConventionEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) INSTEN_INDU_LST() *som.SomListMetaRef[*IndustryStandardEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/INSTEN-INDU-LST", func(t *som.SomMetaTree, p string) *IndustryStandardEntryID {
+func (x *D00SolutionBlueprintID) ISE_INDU_LST() *som.SomListMetaRef[*IndustryStandardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/ISE-INDU-LST", func(t *som.SomMetaTree, p string) *IndustryStandardEntryID {
 		return newIndustryStandardEntryID(t, p)
 	})
 }
@@ -59794,8 +59794,8 @@ func (x *D00SolutionBlueprintID) TESTTO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTTO"}
 }
 
-func (x *D00SolutionBlueprintID) SOLAEN_SOFT_LST() *som.SomListMetaRef[*SoftwareLayerEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SOLAEN-SOFT-LST", func(t *som.SomMetaTree, p string) *SoftwareLayerEntryID {
+func (x *D00SolutionBlueprintID) SLE_SOFT_LST() *som.SomListMetaRef[*SoftwareLayerEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SLE-SOFT-LST", func(t *som.SomMetaTree, p string) *SoftwareLayerEntryID {
 		return newSoftwareLayerEntryID(t, p)
 	})
 }
@@ -59812,8 +59812,8 @@ func (x *D00SolutionBlueprintID) LCRG() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRG"}
 }
 
-func (x *D00SolutionBlueprintID) BOCOEN_BOUN_LST() *som.SomListMetaRef[*BoundedContextEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/BOCOEN-BOUN-LST", func(t *som.SomMetaTree, p string) *BoundedContextEntryID {
+func (x *D00SolutionBlueprintID) BCE_BOUN_LST() *som.SomListMetaRef[*BoundedContextEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/BCE-BOUN-LST", func(t *som.SomMetaTree, p string) *BoundedContextEntryID {
 		return newBoundedContextEntryID(t, p)
 	})
 }
@@ -59834,14 +59834,14 @@ func (x *D00SolutionBlueprintID) PAORDO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDO"}
 }
 
-func (x *D00SolutionBlueprintID) MOEN1_MODU_LST() *som.SomListMetaRef[*ModuleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/MOEN1-MODU-LST", func(t *som.SomMetaTree, p string) *ModuleEntryID {
+func (x *D00SolutionBlueprintID) MODENT_MODU_LST() *som.SomListMetaRef[*ModuleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/MODENT-MODU-LST", func(t *som.SomMetaTree, p string) *ModuleEntryID {
 		return newModuleEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) SHLIB_SHAR_LST() *som.SomListMetaRef[*SharedLibraryEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIB-SHAR-LST", func(t *som.SomMetaTree, p string) *SharedLibraryEntryID {
+func (x *D00SolutionBlueprintID) SHLIEN_SHAR_LST() *som.SomListMetaRef[*SharedLibraryEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIEN-SHAR-LST", func(t *som.SomMetaTree, p string) *SharedLibraryEntryID {
 		return newSharedLibraryEntryID(t, p)
 	})
 }
@@ -59904,8 +59904,8 @@ func (x *D00SolutionBlueprintID) MOVESTCO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO"}
 }
 
-func (x *D00SolutionBlueprintID) IDREEN_IDER_LST() *som.SomListMetaRef[*IdeRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/IDREEN-IDER-LST", func(t *som.SomMetaTree, p string) *IdeRequirementEntryID {
+func (x *D00SolutionBlueprintID) IRE_IDER_LST() *som.SomListMetaRef[*IdeRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/IRE-IDER-LST", func(t *som.SomMetaTree, p string) *IdeRequirementEntryID {
 		return newIdeRequirementEntryID(t, p)
 	})
 }
@@ -59942,20 +59942,20 @@ func (x *D00SolutionBlueprintID) VCCM() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCM"}
 }
 
-func (x *D00SolutionBlueprintID) PISTEN_STAG_LST() *som.SomListMetaRef[*PipelineStageEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST", func(t *som.SomMetaTree, p string) *PipelineStageEntryID {
+func (x *D00SolutionBlueprintID) PSE_STAG_LST() *som.SomListMetaRef[*PipelineStageEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PSE-STAG-LST", func(t *som.SomMetaTree, p string) *PipelineStageEntryID {
 		return newPipelineStageEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) PIJOEN_JOBS_LST() *som.SomListMetaRef[*PipelineJobEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST", func(t *som.SomMetaTree, p string) *PipelineJobEntryID {
+func (x *D00SolutionBlueprintID) PJE_JOBS_LST() *som.SomListMetaRef[*PipelineJobEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PJE-JOBS-LST", func(t *som.SomMetaTree, p string) *PipelineJobEntryID {
 		return newPipelineJobEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) DEENEN_ENVI_LST() *som.SomListMetaRef[*DeploymentEnvironmentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST", func(t *som.SomMetaTree, p string) *DeploymentEnvironmentEntryID {
+func (x *D00SolutionBlueprintID) DEE_ENVI_LST() *som.SomListMetaRef[*DeploymentEnvironmentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEE-ENVI-LST", func(t *som.SomMetaTree, p string) *DeploymentEnvironmentEntryID {
 		return newDeploymentEnvironmentEntryID(t, p)
 	})
 }
@@ -60094,20 +60094,20 @@ func (x *D00SolutionBlueprintID) SHLCP_SHAR_LST() *som.SomListMetaRef[*SharedLib
 	})
 }
 
-func (x *D00SolutionBlueprintID) RUICMP_UICO_LST() *som.SomListMetaRef[*ReusableUiComponentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/RUICMP-UICO-LST", func(t *som.SomMetaTree, p string) *ReusableUiComponentEntryID {
+func (x *D00SolutionBlueprintID) RUCE_UICO_LST() *som.SomListMetaRef[*ReusableUiComponentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/RUCE-UICO-LST", func(t *som.SomMetaTree, p string) *ReusableUiComponentEntryID {
 		return newReusableUiComponentEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) BUCOEN_BUSI_LST() *som.SomListMetaRef[*BusinessComponentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/BUCOEN-BUSI-LST", func(t *som.SomMetaTree, p string) *BusinessComponentEntryID {
+func (x *D00SolutionBlueprintID) BUSCOMENT_BUSI_LST() *som.SomListMetaRef[*BusinessComponentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/BUSCOMENT-BUSI-LST", func(t *som.SomMetaTree, p string) *BusinessComponentEntryID {
 		return newBusinessComponentEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) INCOEN_INFR_LST() *som.SomListMetaRef[*InfrastructureComponentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/INCOEN-INFR-LST", func(t *som.SomMetaTree, p string) *InfrastructureComponentEntryID {
+func (x *D00SolutionBlueprintID) INFCOMENT_INFR_LST() *som.SomListMetaRef[*InfrastructureComponentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/INFCOMENT-INFR-LST", func(t *som.SomMetaTree, p string) *InfrastructureComponentEntryID {
 		return newInfrastructureComponentEntryID(t, p)
 	})
 }
@@ -60150,26 +60150,26 @@ func (x *D00SolutionBlueprintID) COREUP() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/registry/COREUP"}
 }
 
-func (x *D00SolutionBlueprintID) OSCOEN_OSCO_LST() *som.SomListMetaRef[*OsCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/OSCOEN-OSCO-LST", func(t *som.SomMetaTree, p string) *OsCompatibilityEntryID {
+func (x *D00SolutionBlueprintID) OCE_OSCO_LST() *som.SomListMetaRef[*OsCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST", func(t *som.SomMetaTree, p string) *OsCompatibilityEntryID {
 		return newOsCompatibilityEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) BRCOEN_BROW_LST() *som.SomListMetaRef[*BrowserCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/BRCOEN-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserCompatibilityEntryID {
+func (x *D00SolutionBlueprintID) BROCOMENT_BROW_LST() *som.SomListMetaRef[*BrowserCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/BROCOMENT-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserCompatibilityEntryID {
 		return newBrowserCompatibilityEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) DACOEN_DATA_LST() *som.SomListMetaRef[*DatabaseCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/DACOEN-DATA-LST", func(t *som.SomMetaTree, p string) *DatabaseCompatibilityEntryID {
+func (x *D00SolutionBlueprintID) DATCOMENT_DATA_LST() *som.SomListMetaRef[*DatabaseCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/DATCOMENT-DATA-LST", func(t *som.SomMetaTree, p string) *DatabaseCompatibilityEntryID {
 		return newDatabaseCompatibilityEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) ESCE_ENTE_LST() *som.SomListMetaRef[*EnterpriseSystemCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/ESCE-ENTE-LST", func(t *som.SomMetaTree, p string) *EnterpriseSystemCompatibilityEntryID {
+func (x *D00SolutionBlueprintID) ENSYCOEN_ENTE_LST() *som.SomListMetaRef[*EnterpriseSystemCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/ENSYCOEN-ENTE-LST", func(t *som.SomMetaTree, p string) *EnterpriseSystemCompatibilityEntryID {
 		return newEnterpriseSystemCompatibilityEntryID(t, p)
 	})
 }
@@ -60180,20 +60180,20 @@ func (x *D00SolutionBlueprintID) APCP_APIC_LST() *som.SomListMetaRef[*ApiCompati
 	})
 }
 
-func (x *D00SolutionBlueprintID) LECOEN_LEGA_LST() *som.SomListMetaRef[*LegacyCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/LECOEN-LEGA-LST", func(t *som.SomMetaTree, p string) *LegacyCompatibilityEntryID {
+func (x *D00SolutionBlueprintID) LCE_LEGA_LST() *som.SomListMetaRef[*LegacyCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/LCE-LEGA-LST", func(t *som.SomMetaTree, p string) *LegacyCompatibilityEntryID {
 		return newLegacyCompatibilityEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) MOCOEN_MOBI_LST() *som.SomListMetaRef[*MobileCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/MOCOEN-MOBI-LST", func(t *som.SomMetaTree, p string) *MobileCompatibilityEntryID {
+func (x *D00SolutionBlueprintID) MOBCOMENT_MOBI_LST() *som.SomListMetaRef[*MobileCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/MOBCOMENT-MOBI-LST", func(t *som.SomMetaTree, p string) *MobileCompatibilityEntryID {
 		return newMobileCompatibilityEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) TPCE_THIR_LST() *som.SomListMetaRef[*ThirdPartyCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/TPCE-THIR-LST", func(t *som.SomMetaTree, p string) *ThirdPartyCompatibilityEntryID {
+func (x *D00SolutionBlueprintID) THPACOEN_THIR_LST() *som.SomListMetaRef[*ThirdPartyCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/THPACOEN-THIR-LST", func(t *som.SomMetaTree, p string) *ThirdPartyCompatibilityEntryID {
 		return newThirdPartyCompatibilityEntryID(t, p)
 	})
 }
@@ -60246,32 +60246,32 @@ func (x *D00SolutionBlueprintID) INREGO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREGO"}
 }
 
-func (x *D00SolutionBlueprintID) ISCE_ITST_LST() *som.SomListMetaRef[*ItStandardComplianceEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/ISCE-ITST-LST", func(t *som.SomMetaTree, p string) *ItStandardComplianceEntryID {
+func (x *D00SolutionBlueprintID) ITSTCOEN_ITST_LST() *som.SomListMetaRef[*ItStandardComplianceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/ITSTCOEN-ITST-LST", func(t *som.SomMetaTree, p string) *ItStandardComplianceEntryID {
 		return newItStandardComplianceEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) IPCE_INDU_LST() *som.SomListMetaRef[*IndustryProtocolComplianceEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/IPCE-INDU-LST", func(t *som.SomMetaTree, p string) *IndustryProtocolComplianceEntryID {
+func (x *D00SolutionBlueprintID) INPRCOEN_INDU_LST() *som.SomListMetaRef[*IndustryProtocolComplianceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INPRCOEN-INDU-LST", func(t *som.SomMetaTree, p string) *IndustryProtocolComplianceEntryID {
 		return newIndustryProtocolComplianceEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) INSPEN_INTE_LST() *som.SomListMetaRef[*InterfaceSpecificationEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INSPEN-INTE-LST", func(t *som.SomMetaTree, p string) *InterfaceSpecificationEntryID {
+func (x *D00SolutionBlueprintID) INTSPEENT_INTE_LST() *som.SomListMetaRef[*InterfaceSpecificationEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INTSPEENT-INTE-LST", func(t *som.SomMetaTree, p string) *InterfaceSpecificationEntryID {
 		return newInterfaceSpecificationEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) RECOEN_REGU_LST() *som.SomListMetaRef[*RegulatoryComplianceEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/RECOEN-REGU-LST", func(t *som.SomMetaTree, p string) *RegulatoryComplianceEntryID {
+func (x *D00SolutionBlueprintID) RCE_REGU_LST() *som.SomListMetaRef[*RegulatoryComplianceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/RCE-REGU-LST", func(t *som.SomMetaTree, p string) *RegulatoryComplianceEntryID {
 		return newRegulatoryComplianceEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) SSCE_SECU_LST() *som.SomListMetaRef[*SecurityStandardComplianceEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/SSCE-SECU-LST", func(t *som.SomMetaTree, p string) *SecurityStandardComplianceEntryID {
+func (x *D00SolutionBlueprintID) SESTCOEN_SECU_LST() *som.SomListMetaRef[*SecurityStandardComplianceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/SESTCOEN-SECU-LST", func(t *som.SomMetaTree, p string) *SecurityStandardComplianceEntryID {
 		return newSecurityStandardComplianceEntryID(t, p)
 	})
 }
@@ -60360,14 +60360,14 @@ func (x *D00SolutionBlueprintID) CVSC() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSC"}
 }
 
-func (x *D00SolutionBlueprintID) SEENEN_ENVI_LST() *som.SomListMetaRef[*ServerEnvironmentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SEENEN-ENVI-LST", func(t *som.SomMetaTree, p string) *ServerEnvironmentEntryID {
+func (x *D00SolutionBlueprintID) SEE_ENVI_LST() *som.SomListMetaRef[*ServerEnvironmentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SEE-ENVI-LST", func(t *som.SomMetaTree, p string) *ServerEnvironmentEntryID {
 		return newServerEnvironmentEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) SEROEN_SERV_LST() *som.SomListMetaRef[*ServerRoleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SEROEN-SERV-LST", func(t *som.SomMetaTree, p string) *ServerRoleEntryID {
+func (x *D00SolutionBlueprintID) SRE_SERV_LST() *som.SomListMetaRef[*ServerRoleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SRE-SERV-LST", func(t *som.SomMetaTree, p string) *ServerRoleEntryID {
 		return newServerRoleEntryID(t, p)
 	})
 }
@@ -60498,20 +60498,20 @@ func (x *D00SolutionBlueprintID) CLIAPP_CLIE_LST() *som.SomListMetaRef[*ClientAp
 	})
 }
 
-func (x *D00SolutionBlueprintID) BRREEN_BROW_LST() *som.SomListMetaRef[*BrowserRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserRequirementEntryID {
+func (x *D00SolutionBlueprintID) BROREQENT_BROW_LST() *som.SomListMetaRef[*BrowserRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BROREQENT-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserRequirementEntryID {
 		return newBrowserRequirementEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) DORE1_DESK_LST() *som.SomListMetaRef[*DesktopOsRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/DORE1-DESK-LST", func(t *som.SomMetaTree, p string) *DesktopOsRequirementEntryID {
+func (x *D00SolutionBlueprintID) DEOSREEN_DESK_LST() *som.SomListMetaRef[*DesktopOsRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/DEOSREEN-DESK-LST", func(t *som.SomMetaTree, p string) *DesktopOsRequirementEntryID {
 		return newDesktopOsRequirementEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) MDRE_MOBI_LST() *som.SomListMetaRef[*MobileDeviceRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/MDRE-MOBI-LST", func(t *som.SomMetaTree, p string) *MobileDeviceRequirementEntryID {
+func (x *D00SolutionBlueprintID) MODEREEN_MOBI_LST() *som.SomListMetaRef[*MobileDeviceRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/MODEREEN-MOBI-LST", func(t *som.SomMetaTree, p string) *MobileDeviceRequirementEntryID {
 		return newMobileDeviceRequirementEntryID(t, p)
 	})
 }
@@ -60726,8 +60726,8 @@ func (x *D00SolutionBlueprintID) NART() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/availabilityRequirements/NART"}
 }
 
-func (x *D00SolutionBlueprintID) VPREEN_VPNR_LST() *som.SomListMetaRef[*VpnRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/VPREEN-VPNR-LST", func(t *som.SomMetaTree, p string) *VpnRequirementEntryID {
+func (x *D00SolutionBlueprintID) VRE_VPNR_LST() *som.SomListMetaRef[*VpnRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/VRE-VPNR-LST", func(t *som.SomMetaTree, p string) *VpnRequirementEntryID {
 		return newVpnRequirementEntryID(t, p)
 	})
 }
@@ -60820,8 +60820,8 @@ func (x *D00SolutionBlueprintID) BDCE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/dataClassification/BDCE"}
 }
 
-func (x *D00SolutionBlueprintID) BAPOEN_BACK_LST() *som.SomListMetaRef[*BackupPolicyEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/BAPOEN-BACK-LST", func(t *som.SomMetaTree, p string) *BackupPolicyEntryID {
+func (x *D00SolutionBlueprintID) BPE_BACK_LST() *som.SomListMetaRef[*BackupPolicyEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/BPE-BACK-LST", func(t *som.SomMetaTree, p string) *BackupPolicyEntryID {
 		return newBackupPolicyEntryID(t, p)
 	})
 }
@@ -61118,8 +61118,8 @@ func (x *D00SolutionBlueprintID) ALRERE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/alerting/ALRERE"}
 }
 
-func (x *D00SolutionBlueprintID) ALDEEN_ALER_LST() *som.SomListMetaRef[*AlertDefinitionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/ALDEEN-ALER-LST", func(t *som.SomMetaTree, p string) *AlertDefinitionEntryID {
+func (x *D00SolutionBlueprintID) ALEDEFENT_ALER_LST() *som.SomListMetaRef[*AlertDefinitionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/ALEDEFENT-ALER-LST", func(t *som.SomMetaTree, p string) *AlertDefinitionEntryID {
 		return newAlertDefinitionEntryID(t, p)
 	})
 }
@@ -61204,8 +61204,8 @@ func (x *D00SolutionBlueprintID) SMPA() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPA"}
 }
 
-func (x *D00SolutionBlueprintID) MAWIEN_MAIN_LST() *som.SomListMetaRef[*MaintenanceWindowEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/MAWIEN-MAIN-LST", func(t *som.SomMetaTree, p string) *MaintenanceWindowEntryID {
+func (x *D00SolutionBlueprintID) MWE_MAIN_LST() *som.SomListMetaRef[*MaintenanceWindowEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/MWE-MAIN-LST", func(t *som.SomMetaTree, p string) *MaintenanceWindowEntryID {
 		return newMaintenanceWindowEntryID(t, p)
 	})
 }
@@ -61258,8 +61258,8 @@ func (x *D00SolutionBlueprintID) PMVC() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/postMaintenance/PMVC"}
 }
 
-func (x *D00SolutionBlueprintID) PREN_PROT_LST() *som.SomListMetaRef[*ProtocolEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/PREN-PROT-LST", func(t *som.SomMetaTree, p string) *ProtocolEntryID {
+func (x *D00SolutionBlueprintID) PE_PROT_LST() *som.SomListMetaRef[*ProtocolEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/PE-PROT-LST", func(t *som.SomMetaTree, p string) *ProtocolEntryID {
 		return newProtocolEntryID(t, p)
 	})
 }
@@ -61348,8 +61348,8 @@ func (x *D00SolutionBlueprintID) PCRE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/compliance/PCRE"}
 }
 
-func (x *D00SolutionBlueprintID) EPCE_PART_LST() *som.SomListMetaRef[*ExternalPartnerConnectionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/EPCE-PART-LST", func(t *som.SomMetaTree, p string) *ExternalPartnerConnectionEntryID {
+func (x *D00SolutionBlueprintID) EXPACOEN_PART_LST() *som.SomListMetaRef[*ExternalPartnerConnectionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/EXPACOEN-PART-LST", func(t *som.SomMetaTree, p string) *ExternalPartnerConnectionEntryID {
 		return newExternalPartnerConnectionEntryID(t, p)
 	})
 }
@@ -61506,8 +61506,8 @@ func (x *D00SolutionBlueprintID) SDTSS() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS"}
 }
 
-func (x *D00SolutionBlueprintID) MAINT_MAIN_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) SO_MAIN_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/SO-MAIN-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -61596,8 +61596,8 @@ func (x *D00SolutionBlueprintID) ANCF() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCF"}
 }
 
-func (x *D00SolutionBlueprintID) ALRUEN_ALER_LST() *som.SomListMetaRef[*AlertRuleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALRUEN-ALER-LST", func(t *som.SomMetaTree, p string) *AlertRuleEntryID {
+func (x *D00SolutionBlueprintID) ALERULENT_ALER_LST() *som.SomListMetaRef[*AlertRuleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERULENT-ALER-LST", func(t *som.SomMetaTree, p string) *AlertRuleEntryID {
 		return newAlertRuleEntryID(t, p)
 	})
 }
@@ -61684,8 +61684,8 @@ func (x *D00SolutionBlueprintID) DTSO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSO"}
 }
 
-func (x *D00SolutionBlueprintID) CUMEEN_CUST_LST() *som.SomListMetaRef[*CustomMetricEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUMEEN-CUST-LST", func(t *som.SomMetaTree, p string) *CustomMetricEntryID {
+func (x *D00SolutionBlueprintID) CUSMETENT_CUST_LST() *som.SomListMetaRef[*CustomMetricEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMETENT-CUST-LST", func(t *som.SomMetaTree, p string) *CustomMetricEntryID {
 		return newCustomMetricEntryID(t, p)
 	})
 }
@@ -61694,8 +61694,8 @@ func (x *D00SolutionBlueprintID) MODA_DASH() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH"}
 }
 
-func (x *D00SolutionBlueprintID) DAEN_DASH_LST() *som.SomListMetaRef[*DashboardEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/DAEN-DASH-LST", func(t *som.SomMetaTree, p string) *DashboardEntryID {
+func (x *D00SolutionBlueprintID) DASENT_DASH_LST() *som.SomListMetaRef[*DashboardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/DASENT-DASH-LST", func(t *som.SomMetaTree, p string) *DashboardEntryID {
 		return newDashboardEntryID(t, p)
 	})
 }
@@ -61722,8 +61722,8 @@ func (x *D00SolutionBlueprintID) SLIM() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIM"}
 }
 
-func (x *D00SolutionBlueprintID) SLEN_SLOS_LST() *som.SomListMetaRef[*SloEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST", func(t *som.SomMetaTree, p string) *SloEntryID {
+func (x *D00SolutionBlueprintID) SE_SLOS_LST() *som.SomListMetaRef[*SloEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SE-SLOS-LST", func(t *som.SomMetaTree, p string) *SloEntryID {
 		return newSloEntryID(t, p)
 	})
 }
@@ -61820,8 +61820,8 @@ func (x *D00SolutionBlueprintID) CRPP() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPP"}
 }
 
-func (x *D00SolutionBlueprintID) SESTEN_STAN_LST() *som.SomListMetaRef[*SecurityStandardEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/security/itSecurityStandards/SESTEN-STAN-LST", func(t *som.SomMetaTree, p string) *SecurityStandardEntryID {
+func (x *D00SolutionBlueprintID) SSE_STAN_LST() *som.SomListMetaRef[*SecurityStandardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/security/itSecurityStandards/SSE-STAN-LST", func(t *som.SomMetaTree, p string) *SecurityStandardEntryID {
 		return newSecurityStandardEntryID(t, p)
 	})
 }
@@ -62090,8 +62090,8 @@ func (x *D00SolutionBlueprintID) STAG() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAG"}
 }
 
-func (x *D00SolutionBlueprintID) SEAUEN_AUDI_LST() *som.SomListMetaRef[*SecurityAuditEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/SEAUEN-AUDI-LST", func(t *som.SomMetaTree, p string) *SecurityAuditEntryID {
+func (x *D00SolutionBlueprintID) SAE_AUDI_LST() *som.SomListMetaRef[*SecurityAuditEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/SAE-AUDI-LST", func(t *som.SomMetaTree, p string) *SecurityAuditEntryID {
 		return newSecurityAuditEntryID(t, p)
 	})
 }
@@ -62256,8 +62256,8 @@ func (x *D00SolutionBlueprintID) IDTAM_ATTR_LST() *som.SomListMetaRef[*IdentityA
 	})
 }
 
-func (x *D00SolutionBlueprintID) MFADE_MFAD_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) MC_MFAD_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MC-MFAD-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -62268,8 +62268,8 @@ func (x *D00SolutionBlueprintID) ATME_ITEM_LST() *som.SomListMetaRef[*Authentica
 	})
 }
 
-func (x *D00SolutionBlueprintID) STEPU_STEP_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) SUAP_STEP_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/SUAP-STEP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -62358,8 +62358,8 @@ func (x *D00SolutionBlueprintID) SCREN_ITEM_LST() *som.SomListMetaRef[*ScreenEnt
 	})
 }
 
-func (x *D00SolutionBlueprintID) GLOBA_GLOB_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/GLOBA-GLOB-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) IA_GLOB_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -62382,14 +62382,14 @@ func (x *D00SolutionBlueprintID) PRNASI() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI"}
 }
 
-func (x *D00SolutionBlueprintID) TBDE_TABB_LST() *som.SomListMetaRef[*TabBarDefinitionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST", func(t *som.SomMetaTree, p string) *TabBarDefinitionEntryID {
+func (x *D00SolutionBlueprintID) TABADEEN_TABB_LST() *som.SomListMetaRef[*TabBarDefinitionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST", func(t *som.SomMetaTree, p string) *TabBarDefinitionEntryID {
 		return newTabBarDefinitionEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) UNIE_ITEM_LST() *som.SomListMetaRef[*UtilityNavigationItemEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST", func(t *som.SomMetaTree, p string) *UtilityNavigationItemEntryID {
+func (x *D00SolutionBlueprintID) UTNAITEN_ITEM_LST() *som.SomListMetaRef[*UtilityNavigationItemEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST", func(t *som.SomMetaTree, p string) *UtilityNavigationItemEntryID {
 		return newUtilityNavigationItemEntryID(t, p)
 	})
 }
@@ -62464,14 +62464,14 @@ func (x *D00SolutionBlueprintID) VAFEBE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEBE"}
 }
 
-func (x *D00SolutionBlueprintID) VAMETE_MESS_LST() *som.SomListMetaRef[*ValidationMessageTemplateID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAMETE-MESS-LST", func(t *som.SomMetaTree, p string) *ValidationMessageTemplateID {
+func (x *D00SolutionBlueprintID) VMT_MESS_LST() *som.SomListMetaRef[*ValidationMessageTemplateID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VMT-MESS-LST", func(t *som.SomMetaTree, p string) *ValidationMessageTemplateID {
 		return newValidationMessageTemplateID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) FIELD_FIEL_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/FIELD-FIEL-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) VAFE_FIEL_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFE-FIEL-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -62496,14 +62496,14 @@ func (x *D00SolutionBlueprintID) SEDF() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF"}
 }
 
-func (x *D00SolutionBlueprintID) EPDE_ERRO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) SYERDI_ERRO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D00SolutionBlueprintID) SECE_ERRO_LST() *som.SomListMetaRef[*SystemErrorCodeEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SECE-ERRO-LST", func(t *som.SomMetaTree, p string) *SystemErrorCodeEntryID {
+func (x *D00SolutionBlueprintID) SYERCOEN_ERRO_LST() *som.SomListMetaRef[*SystemErrorCodeEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST", func(t *som.SomMetaTree, p string) *SystemErrorCodeEntryID {
 		return newSystemErrorCodeEntryID(t, p)
 	})
 }
@@ -62532,8 +62532,8 @@ func (x *D00SolutionBlueprintID) ERSH() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERSH"}
 }
 
-func (x *D00SolutionBlueprintID) RECOV_RECO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/RECOV-RECO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) ERRE_RECO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -62552,8 +62552,8 @@ func (x *D00SolutionBlueprintID) BC_BREA() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BC-BREA"}
 }
 
-func (x *D00SolutionBlueprintID) BRE_BREA_LST() *som.SomListMetaRef[*BreakpointEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BRE-BREA-LST", func(t *som.SomMetaTree, p string) *BreakpointEntryID {
+func (x *D00SolutionBlueprintID) BE_BREA_LST() *som.SomListMetaRef[*BreakpointEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BE-BREA-LST", func(t *som.SomMetaTree, p string) *BreakpointEntryID {
 		return newBreakpointEntryID(t, p)
 	})
 }
@@ -62638,8 +62638,8 @@ func (x *D00SolutionBlueprintID) TYST_TYPO_LST() *som.SomListMetaRef[*Typography
 	})
 }
 
-func (x *D00SolutionBlueprintID) UICOEN_COMP_LST() *som.SomListMetaRef[*UiComponentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOEN-COMP-LST", func(t *som.SomMetaTree, p string) *UiComponentEntryID {
+func (x *D00SolutionBlueprintID) UICOMENT_COMP_LST() *som.SomListMetaRef[*UiComponentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOMENT-COMP-LST", func(t *som.SomMetaTree, p string) *UiComponentEntryID {
 		return newUiComponentEntryID(t, p)
 	})
 }
@@ -62650,8 +62650,8 @@ func (x *D00SolutionBlueprintID) CMFA_COMP_LST() *som.SomListMetaRef[*ComponentF
 	})
 }
 
-func (x *D00SolutionBlueprintID) REEN_REPO_LST() *som.SomListMetaRef[*ReportEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/reportDefinitions/REEN-REPO-LST", func(t *som.SomMetaTree, p string) *ReportEntryID {
+func (x *D00SolutionBlueprintID) REPENT_REPO_LST() *som.SomListMetaRef[*ReportEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/reportDefinitions/REPENT-REPO-LST", func(t *som.SomMetaTree, p string) *ReportEntryID {
 		return newReportEntryID(t, p)
 	})
 }
@@ -62694,14 +62694,14 @@ func (x *D00SolutionBlueprintID) PRLAAR() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAAR"}
 }
 
-func (x *D00SolutionBlueprintID) EXFOEN_EXPO_LST() *som.SomListMetaRef[*ExportFormatEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/printLayout/EXFOEN-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportFormatEntryID {
+func (x *D00SolutionBlueprintID) EFE_EXPO_LST() *som.SomListMetaRef[*ExportFormatEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/printLayout/EFE-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportFormatEntryID {
 		return newExportFormatEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) EXTEEN_EXPO_LST() *som.SomListMetaRef[*ExportTemplateEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/printLayout/EXTEEN-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportTemplateEntryID {
+func (x *D00SolutionBlueprintID) ETE_EXPO_LST() *som.SomListMetaRef[*ExportTemplateEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/printLayout/ETE-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportTemplateEntryID {
 		return newExportTemplateEntryID(t, p)
 	})
 }
@@ -62830,8 +62830,8 @@ func (x *D00SolutionBlueprintID) WCCORO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCORO"}
 }
 
-func (x *D00SolutionBlueprintID) WSCE_SUCC_LST() *som.SomListMetaRef[*WcagSuccessCriterionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WSCE-SUCC-LST", func(t *som.SomMetaTree, p string) *WcagSuccessCriterionEntryID {
+func (x *D00SolutionBlueprintID) WCSUCREN_SUCC_LST() *som.SomListMetaRef[*WcagSuccessCriterionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCSUCREN-SUCC-LST", func(t *som.SomMetaTree, p string) *WcagSuccessCriterionEntryID {
 		return newWcagSuccessCriterionEntryID(t, p)
 	})
 }
@@ -62874,8 +62874,8 @@ func (x *D00SolutionBlueprintID) PRGOFE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGOFE"}
 }
 
-func (x *D00SolutionBlueprintID) PRGOEN_GOAL_LST() *som.SomListMetaRef[*PrototypeGoalEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGOEN-GOAL-LST", func(t *som.SomMetaTree, p string) *PrototypeGoalEntryID {
+func (x *D00SolutionBlueprintID) PGE_GOAL_LST() *som.SomListMetaRef[*PrototypeGoalEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PGE-GOAL-LST", func(t *som.SomMetaTree, p string) *PrototypeGoalEntryID {
 		return newPrototypeGoalEntryID(t, p)
 	})
 }
@@ -62892,8 +62892,8 @@ func (x *D00SolutionBlueprintID) PFSF() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFSF"}
 }
 
-func (x *D00SolutionBlueprintID) PRFEEN_FEAT_LST() *som.SomListMetaRef[*PrototypeFeatureEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PRFEEN-FEAT-LST", func(t *som.SomMetaTree, p string) *PrototypeFeatureEntryID {
+func (x *D00SolutionBlueprintID) PFE_FEAT_LST() *som.SomListMetaRef[*PrototypeFeatureEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFE-FEAT-LST", func(t *som.SomMetaTree, p string) *PrototypeFeatureEntryID {
 		return newPrototypeFeatureEntryID(t, p)
 	})
 }
@@ -62970,8 +62970,8 @@ func (x *D00SolutionBlueprintID) LCSU() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSU"}
 }
 
-func (x *D00SolutionBlueprintID) SULOEN_SUPP_LST() *som.SomListMetaRef[*SupportedLocaleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SULOEN-SUPP-LST", func(t *som.SomMetaTree, p string) *SupportedLocaleEntryID {
+func (x *D00SolutionBlueprintID) SUPLOCENT_SUPP_LST() *som.SomListMetaRef[*SupportedLocaleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SUPLOCENT-SUPP-LST", func(t *som.SomMetaTree, p string) *SupportedLocaleEntryID {
 		return newSupportedLocaleEntryID(t, p)
 	})
 }
@@ -62996,8 +62996,8 @@ func (x *D00SolutionBlueprintID) SQGRS() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/systemQualityGoals/SQGRS"}
 }
 
-func (x *D00SolutionBlueprintID) ATTRI_ATTR_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityAndAcceptanceModel/systemQualityGoals/ATTRI-ATTR-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) SYQG_ATTR_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityAndAcceptanceModel/systemQualityGoals/SYQG-ATTR-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -63024,8 +63024,8 @@ func (x *D00SolutionBlueprintID) QCATE_QUAL_LST() *som.SomListMetaRef[*QualityCa
 	})
 }
 
-func (x *D00SolutionBlueprintID) CATEG_CATE_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityAndAcceptanceModel/systemQualityGoals/framework/CATEG-CATE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) QLFWK_CATE_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityAndAcceptanceModel/systemQualityGoals/framework/QLFWK-CATE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -63334,26 +63334,26 @@ func (x *D00SolutionBlueprintID) DACEN_ITEM_LST() *som.SomListMetaRef[*DeliveryA
 	})
 }
 
-func (x *D00SolutionBlueprintID) SWDLV_ITEM_LST() *som.SomListMetaRef[*DeliverableEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/softwareDeliverables/SWDLV-ITEM-LST", func(t *som.SomMetaTree, p string) *DeliverableEntryID {
+func (x *D00SolutionBlueprintID) DLVEN_ITEM_LST() *som.SomListMetaRef[*DeliverableEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/softwareDeliverables/DLVEN-ITEM-LST", func(t *som.SomMetaTree, p string) *DeliverableEntryID {
 		return newDeliverableEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) DCDLV_ITEM_LST() *som.SomListMetaRef[*DeliverableEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/documentationDeliverables/DCDLV-ITEM-LST", func(t *som.SomMetaTree, p string) *DeliverableEntryID {
+func (x *D00SolutionBlueprintID) DLVEN_ITEM_LST_2() *som.SomListMetaRef[*DeliverableEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/documentationDeliverables/DLVEN-ITEM-LST", func(t *som.SomMetaTree, p string) *DeliverableEntryID {
 		return newDeliverableEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) TRDLV_ITEM_LST() *som.SomListMetaRef[*DeliverableEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/trainingDeliverables/TRDLV-ITEM-LST", func(t *som.SomMetaTree, p string) *DeliverableEntryID {
+func (x *D00SolutionBlueprintID) DLVEN_ITEM_LST_3() *som.SomListMetaRef[*DeliverableEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/trainingDeliverables/DLVEN-ITEM-LST", func(t *som.SomMetaTree, p string) *DeliverableEntryID {
 		return newDeliverableEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) SPDLV_ITEM_LST() *som.SomListMetaRef[*DeliverableEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/supportDeliverables/SPDLV-ITEM-LST", func(t *som.SomMetaTree, p string) *DeliverableEntryID {
+func (x *D00SolutionBlueprintID) DLVEN_ITEM_LST_4() *som.SomListMetaRef[*DeliverableEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/supportDeliverables/DLVEN-ITEM-LST", func(t *som.SomMetaTree, p string) *DeliverableEntryID {
 		return newDeliverableEntryID(t, p)
 	})
 }
@@ -63512,8 +63512,8 @@ func (x *D00SolutionBlueprintID) WAFI() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/qualityAndAcceptanceModel/deliveryAcceptance/acceptancePlan/warranty/WAFI"}
 }
 
-func (x *D00SolutionBlueprintID) I25CV_CHAR_LST() *som.SomListMetaRef[*Iso25010CoverageEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST", func(t *som.SomMetaTree, p string) *Iso25010CoverageEntryID {
+func (x *D00SolutionBlueprintID) I25CE_CHAR_LST() *som.SomListMetaRef[*Iso25010CoverageEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityAndAcceptanceModel/iso25010Coverage/I25CE-CHAR-LST", func(t *som.SomMetaTree, p string) *Iso25010CoverageEntryID {
 		return newIso25010CoverageEntryID(t, p)
 	})
 }
@@ -63582,14 +63582,14 @@ func (x *D00SolutionBlueprintID) STAGGV() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGGV"}
 }
 
-func (x *D00SolutionBlueprintID) KEYAS_KEYA_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/systemStagePlan/strategy/KEYAS-KEYA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) STAGST_KEYA_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGST-KEYA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D00SolutionBlueprintID) STAGI_CONS_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGI-CONS-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D00SolutionBlueprintID) STAGST_CONS_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGST-CONS-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -63674,26 +63674,26 @@ func (x *D00SolutionBlueprintID) FEPRTR() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/FEPRTR"}
 }
 
-func (x *D00SolutionBlueprintID) MOEN_ITEM_LST() *som.SomListMetaRef[*MoscowEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/moscowAnalysis/MOEN-ITEM-LST", func(t *som.SomMetaTree, p string) *MoscowEntryID {
+func (x *D00SolutionBlueprintID) ME_ITEM_LST() *som.SomListMetaRef[*MoscowEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/moscowAnalysis/ME-ITEM-LST", func(t *som.SomMetaTree, p string) *MoscowEntryID {
 		return newMoscowEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) FESTM1_ITEM_LST() *som.SomListMetaRef[*FeatureStageMappingID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureStageMatrix/FESTM1-ITEM-LST", func(t *som.SomMetaTree, p string) *FeatureStageMappingID {
+func (x *D00SolutionBlueprintID) FSM_ITEM_LST() *som.SomListMetaRef[*FeatureStageMappingID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureStageMatrix/FSM-ITEM-LST", func(t *som.SomMetaTree, p string) *FeatureStageMappingID {
 		return newFeatureStageMappingID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) FEPREN_ITEM_LST() *som.SomListMetaRef[*FeaturePriorityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featurePriorityRegister/FEPREN-ITEM-LST", func(t *som.SomMetaTree, p string) *FeaturePriorityEntryID {
+func (x *D00SolutionBlueprintID) FPE_ITEM_LST() *som.SomListMetaRef[*FeaturePriorityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST", func(t *som.SomMetaTree, p string) *FeaturePriorityEntryID {
 		return newFeaturePriorityEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) FEDEEN_ITEM_LST() *som.SomListMetaRef[*FeatureDependencyEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureDependencies/FEDEEN-ITEM-LST", func(t *som.SomMetaTree, p string) *FeatureDependencyEntryID {
+func (x *D00SolutionBlueprintID) FDE_ITEM_LST() *som.SomListMetaRef[*FeatureDependencyEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureDependencies/FDE-ITEM-LST", func(t *som.SomMetaTree, p string) *FeatureDependencyEntryID {
 		return newFeatureDependencyEntryID(t, p)
 	})
 }
@@ -63806,14 +63806,14 @@ func (x *D00SolutionBlueprintID) PGRO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PGRO"}
 }
 
-func (x *D00SolutionBlueprintID) PGRE_ITEM_LST() *som.SomListMetaRef[*PhaseGateReviewEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PGRE-ITEM-LST", func(t *som.SomMetaTree, p string) *PhaseGateReviewEntryID {
+func (x *D00SolutionBlueprintID) PHGAREEN_ITEM_LST() *som.SomListMetaRef[*PhaseGateReviewEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PHGAREEN-ITEM-LST", func(t *som.SomMetaTree, p string) *PhaseGateReviewEntryID {
 		return newPhaseGateReviewEntryID(t, p)
 	})
 }
 
-func (x *D00SolutionBlueprintID) DEPOEN_ITEM_LST() *som.SomListMetaRef[*DecisionPointEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/systemStagePlan/governance/decisionPoints/DEPOEN-ITEM-LST", func(t *som.SomMetaTree, p string) *DecisionPointEntryID {
+func (x *D00SolutionBlueprintID) DPE_ITEM_LST() *som.SomListMetaRef[*DecisionPointEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/systemStagePlan/governance/decisionPoints/DPE-ITEM-LST", func(t *som.SomMetaTree, p string) *DecisionPointEntryID {
 		return newDecisionPointEntryID(t, p)
 	})
 }
@@ -63854,8 +63854,8 @@ func (x *D00SolutionBlueprintID) TRPRON() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TRPRON"}
 }
 
-func (x *D00SolutionBlueprintID) TRVEEN_VEND_LST() *som.SomListMetaRef[*TranslationVendorEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TRVEEN-VEND-LST", func(t *som.SomMetaTree, p string) *TranslationVendorEntryID {
+func (x *D00SolutionBlueprintID) TVE_VEND_LST() *som.SomListMetaRef[*TranslationVendorEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TVE-VEND-LST", func(t *som.SomMetaTree, p string) *TranslationVendorEntryID {
 		return newTranslationVendorEntryID(t, p)
 	})
 }
@@ -63891,14 +63891,14 @@ func (x *D01CurrentLandscapeAssessmentID) CARCH_DEPL() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/existingSystemsLandscape/currentArchitecture/CARCH-DEPL"}
 }
 
-func (x *D01CurrentLandscapeAssessmentID) IPE_INTE_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D01CurrentLandscapeAssessmentID) CARCH_INTE_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/existingSystemsLandscape/currentArchitecture/CARCH-INTE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D01CurrentLandscapeAssessmentID) SHARE_SHAR_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D01CurrentLandscapeAssessmentID) CARCH_SHAR_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/existingSystemsLandscape/currentArchitecture/CARCH-SHAR-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -63931,8 +63931,8 @@ func (x *D01CurrentLandscapeAssessmentID) SYIN_ITEM_LST() *som.SomListMetaRef[*S
 	})
 }
 
-func (x *D01CurrentLandscapeAssessmentID) FRAGI_FRAG_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D01CurrentLandscapeAssessmentID) INHESU_FRAG_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/INHESU-FRAG-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -63991,8 +63991,8 @@ func (x *D01CurrentLandscapeAssessmentID) OPPS() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/painPointsAndGaps/operationalPainPoints/OPPS"}
 }
 
-func (x *D01CurrentLandscapeAssessmentID) OPPAPO_ITEM_LST() *som.SomListMetaRef[*PainPointEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/painPointsAndGaps/operationalPainPoints/OPPAPO-ITEM-LST", func(t *som.SomMetaTree, p string) *PainPointEntryID {
+func (x *D01CurrentLandscapeAssessmentID) PAPE_ITEM_LST() *som.SomListMetaRef[*PainPointEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/painPointsAndGaps/operationalPainPoints/PAPE-ITEM-LST", func(t *som.SomMetaTree, p string) *PainPointEntryID {
 		return newPainPointEntryID(t, p)
 	})
 }
@@ -64001,8 +64001,8 @@ func (x *D01CurrentLandscapeAssessmentID) BPPS() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/painPointsAndGaps/businessPainPoints/BPPS"}
 }
 
-func (x *D01CurrentLandscapeAssessmentID) BUPAPO_ITEM_LST() *som.SomListMetaRef[*PainPointEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/painPointsAndGaps/businessPainPoints/BUPAPO-ITEM-LST", func(t *som.SomMetaTree, p string) *PainPointEntryID {
+func (x *D01CurrentLandscapeAssessmentID) PAPE_ITEM_LST_2() *som.SomListMetaRef[*PainPointEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/painPointsAndGaps/businessPainPoints/PAPE-ITEM-LST", func(t *som.SomMetaTree, p string) *PainPointEntryID {
 		return newPainPointEntryID(t, p)
 	})
 }
@@ -64011,8 +64011,8 @@ func (x *D01CurrentLandscapeAssessmentID) TPPS() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/painPointsAndGaps/technicalPainPoints/TPPS"}
 }
 
-func (x *D01CurrentLandscapeAssessmentID) TEPAPO_ITEM_LST() *som.SomListMetaRef[*PainPointEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/painPointsAndGaps/technicalPainPoints/TEPAPO-ITEM-LST", func(t *som.SomMetaTree, p string) *PainPointEntryID {
+func (x *D01CurrentLandscapeAssessmentID) PAPE_ITEM_LST_3() *som.SomListMetaRef[*PainPointEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/painPointsAndGaps/technicalPainPoints/PAPE-ITEM-LST", func(t *som.SomMetaTree, p string) *PainPointEntryID {
 		return newPainPointEntryID(t, p)
 	})
 }
@@ -64225,26 +64225,26 @@ func (x *D01CurrentLandscapeAssessmentID) MIRIRE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/migrationConsiderations/migrationRisks/MIRIRE"}
 }
 
-func (x *D01CurrentLandscapeAssessmentID) RISKC_RISK_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/migrationConsiderations/migrationRisks/RISKC-RISK-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D01CurrentLandscapeAssessmentID) MIRI_RISK_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/migrationConsiderations/migrationRisks/MIRI-RISK-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D01CurrentLandscapeAssessmentID) RISKB_RISK_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/migrationConsiderations/migrationRisks/RISKB-RISK-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D01CurrentLandscapeAssessmentID) MIRI_RBDE_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/migrationConsiderations/migrationRisks/MIRI-RBDE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D01CurrentLandscapeAssessmentID) MONIT_MONI_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/migrationConsiderations/migrationRisks/MONIT-MONI-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D01CurrentLandscapeAssessmentID) MIRI_MONI_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/migrationConsiderations/migrationRisks/MIRI-MONI-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D01CurrentLandscapeAssessmentID) RESPO_RESP_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/migrationConsiderations/migrationRisks/RESPO-RESP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D01CurrentLandscapeAssessmentID) MIRI_RESP_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/migrationConsiderations/migrationRisks/MIRI-RESP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -64261,8 +64261,8 @@ func (x *D01CurrentLandscapeAssessmentID) MGMLS_MILE_LST() *som.SomListMetaRef[*
 	})
 }
 
-func (x *D01CurrentLandscapeAssessmentID) ESCAL_ESCA_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/migrationConsiderations/ESCAL-ESCA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D01CurrentLandscapeAssessmentID) MIGCON_ESCA_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/migrationConsiderations/MIGCON-ESCA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -64604,8 +64604,8 @@ func (x *D06ArchitectureTechnologySpecificationID) PLGEN_PROG_LST() *som.SomList
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) FWREN_FRAM_LST() *som.SomListMetaRef[*FrameworkRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/basicTechnicalRequirements/platformAndLanguage/FWREN-FRAM-LST", func(t *som.SomMetaTree, p string) *FrameworkRequirementEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) FRREEN_FRAM_LST() *som.SomListMetaRef[*FrameworkRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/basicTechnicalRequirements/platformAndLanguage/FRREEN-FRAM-LST", func(t *som.SomMetaTree, p string) *FrameworkRequirementEntryID {
 		return newFrameworkRequirementEntryID(t, p)
 	})
 }
@@ -64616,8 +64616,8 @@ func (x *D06ArchitectureTechnologySpecificationID) BTCEN_BUIL_LST() *som.SomList
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) DETAEN_DEPL_LST() *som.SomListMetaRef[*DeploymentTargetEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/basicTechnicalRequirements/platformAndLanguage/DETAEN-DEPL-LST", func(t *som.SomMetaTree, p string) *DeploymentTargetEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) DEPTARENT_DEPL_LST() *som.SomListMetaRef[*DeploymentTargetEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/basicTechnicalRequirements/platformAndLanguage/DEPTARENT-DEPL-LST", func(t *som.SomMetaTree, p string) *DeploymentTargetEntryID {
 		return newDeploymentTargetEntryID(t, p)
 	})
 }
@@ -64826,20 +64826,20 @@ func (x *D06ArchitectureTechnologySpecificationID) DSPT_DESI_LST() *som.SomListM
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) COSTEN_CODI_LST() *som.SomListMetaRef[*CodingStandardEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/basicTechnicalRequirements/designPatternsAndStandards/COSTEN-CODI-LST", func(t *som.SomMetaTree, p string) *CodingStandardEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) CSE_CODI_LST() *som.SomListMetaRef[*CodingStandardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/basicTechnicalRequirements/designPatternsAndStandards/CSE-CODI-LST", func(t *som.SomMetaTree, p string) *CodingStandardEntryID {
 		return newCodingStandardEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) DECOEN_DEVE_LST() *som.SomListMetaRef[*DevelopmentConventionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/basicTechnicalRequirements/designPatternsAndStandards/DECOEN-DEVE-LST", func(t *som.SomMetaTree, p string) *DevelopmentConventionEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) DCE_DEVE_LST() *som.SomListMetaRef[*DevelopmentConventionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/basicTechnicalRequirements/designPatternsAndStandards/DCE-DEVE-LST", func(t *som.SomMetaTree, p string) *DevelopmentConventionEntryID {
 		return newDevelopmentConventionEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) INSTEN_INDU_LST() *som.SomListMetaRef[*IndustryStandardEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/basicTechnicalRequirements/designPatternsAndStandards/INSTEN-INDU-LST", func(t *som.SomMetaTree, p string) *IndustryStandardEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) ISE_INDU_LST() *som.SomListMetaRef[*IndustryStandardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/basicTechnicalRequirements/designPatternsAndStandards/ISE-INDU-LST", func(t *som.SomMetaTree, p string) *IndustryStandardEntryID {
 		return newIndustryStandardEntryID(t, p)
 	})
 }
@@ -64920,8 +64920,8 @@ func (x *D06ArchitectureTechnologySpecificationID) TESTTO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/basicTechnicalRequirements/designPatternsAndStandards/testingStandards/TESTTO"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) SOLAEN_SOFT_LST() *som.SomListMetaRef[*SoftwareLayerEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/layeringAndModuleStructure/SOLAEN-SOFT-LST", func(t *som.SomMetaTree, p string) *SoftwareLayerEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) SLE_SOFT_LST() *som.SomListMetaRef[*SoftwareLayerEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/layeringAndModuleStructure/SLE-SOFT-LST", func(t *som.SomMetaTree, p string) *SoftwareLayerEntryID {
 		return newSoftwareLayerEntryID(t, p)
 	})
 }
@@ -64938,8 +64938,8 @@ func (x *D06ArchitectureTechnologySpecificationID) LCRG() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/softwareDesignRequirements/layeringAndModuleStructure/layerCommunicationRules/LCRG"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) BOCOEN_BOUN_LST() *som.SomListMetaRef[*BoundedContextEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/layeringAndModuleStructure/BOCOEN-BOUN-LST", func(t *som.SomMetaTree, p string) *BoundedContextEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) BCE_BOUN_LST() *som.SomListMetaRef[*BoundedContextEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/layeringAndModuleStructure/BCE-BOUN-LST", func(t *som.SomMetaTree, p string) *BoundedContextEntryID {
 		return newBoundedContextEntryID(t, p)
 	})
 }
@@ -64960,14 +64960,14 @@ func (x *D06ArchitectureTechnologySpecificationID) PAORDO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/softwareDesignRequirements/layeringAndModuleStructure/packageOrganization/PAORDO"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) MOEN1_MODU_LST() *som.SomListMetaRef[*ModuleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/layeringAndModuleStructure/MOEN1-MODU-LST", func(t *som.SomMetaTree, p string) *ModuleEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) MODENT_MODU_LST() *som.SomListMetaRef[*ModuleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/layeringAndModuleStructure/MODENT-MODU-LST", func(t *som.SomMetaTree, p string) *ModuleEntryID {
 		return newModuleEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) SHLIB_SHAR_LST() *som.SomListMetaRef[*SharedLibraryEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/layeringAndModuleStructure/SHLIB-SHAR-LST", func(t *som.SomMetaTree, p string) *SharedLibraryEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) SHLIEN_SHAR_LST() *som.SomListMetaRef[*SharedLibraryEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/layeringAndModuleStructure/SHLIEN-SHAR-LST", func(t *som.SomMetaTree, p string) *SharedLibraryEntryID {
 		return newSharedLibraryEntryID(t, p)
 	})
 }
@@ -65030,8 +65030,8 @@ func (x *D06ArchitectureTechnologySpecificationID) MOVESTCO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/softwareDesignRequirements/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) IDREEN_IDER_LST() *som.SomListMetaRef[*IdeRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/developmentEnvironment/IDREEN-IDER-LST", func(t *som.SomMetaTree, p string) *IdeRequirementEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) IRE_IDER_LST() *som.SomListMetaRef[*IdeRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/developmentEnvironment/IRE-IDER-LST", func(t *som.SomMetaTree, p string) *IdeRequirementEntryID {
 		return newIdeRequirementEntryID(t, p)
 	})
 }
@@ -65068,20 +65068,20 @@ func (x *D06ArchitectureTechnologySpecificationID) VCCM() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/softwareDesignRequirements/developmentEnvironment/versionControl/VCCM"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) PISTEN_STAG_LST() *som.SomListMetaRef[*PipelineStageEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST", func(t *som.SomMetaTree, p string) *PipelineStageEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) PSE_STAG_LST() *som.SomListMetaRef[*PipelineStageEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/developmentEnvironment/cicdPipeline/PSE-STAG-LST", func(t *som.SomMetaTree, p string) *PipelineStageEntryID {
 		return newPipelineStageEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) PIJOEN_JOBS_LST() *som.SomListMetaRef[*PipelineJobEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST", func(t *som.SomMetaTree, p string) *PipelineJobEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) PJE_JOBS_LST() *som.SomListMetaRef[*PipelineJobEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/developmentEnvironment/cicdPipeline/PJE-JOBS-LST", func(t *som.SomMetaTree, p string) *PipelineJobEntryID {
 		return newPipelineJobEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) DEENEN_ENVI_LST() *som.SomListMetaRef[*DeploymentEnvironmentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST", func(t *som.SomMetaTree, p string) *DeploymentEnvironmentEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) DEE_ENVI_LST() *som.SomListMetaRef[*DeploymentEnvironmentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/developmentEnvironment/cicdPipeline/DEE-ENVI-LST", func(t *som.SomMetaTree, p string) *DeploymentEnvironmentEntryID {
 		return newDeploymentEnvironmentEntryID(t, p)
 	})
 }
@@ -65220,20 +65220,20 @@ func (x *D06ArchitectureTechnologySpecificationID) SHLCP_SHAR_LST() *som.SomList
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) RUICMP_UICO_LST() *som.SomListMetaRef[*ReusableUiComponentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/reusableComponents/RUICMP-UICO-LST", func(t *som.SomMetaTree, p string) *ReusableUiComponentEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) RUCE_UICO_LST() *som.SomListMetaRef[*ReusableUiComponentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/reusableComponents/RUCE-UICO-LST", func(t *som.SomMetaTree, p string) *ReusableUiComponentEntryID {
 		return newReusableUiComponentEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) BUCOEN_BUSI_LST() *som.SomListMetaRef[*BusinessComponentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/reusableComponents/BUCOEN-BUSI-LST", func(t *som.SomMetaTree, p string) *BusinessComponentEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) BUSCOMENT_BUSI_LST() *som.SomListMetaRef[*BusinessComponentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/reusableComponents/BUSCOMENT-BUSI-LST", func(t *som.SomMetaTree, p string) *BusinessComponentEntryID {
 		return newBusinessComponentEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) INCOEN_INFR_LST() *som.SomListMetaRef[*InfrastructureComponentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/reusableComponents/INCOEN-INFR-LST", func(t *som.SomMetaTree, p string) *InfrastructureComponentEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) INFCOMENT_INFR_LST() *som.SomListMetaRef[*InfrastructureComponentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/softwareDesignRequirements/reusableComponents/INFCOMENT-INFR-LST", func(t *som.SomMetaTree, p string) *InfrastructureComponentEntryID {
 		return newInfrastructureComponentEntryID(t, p)
 	})
 }
@@ -65276,26 +65276,26 @@ func (x *D06ArchitectureTechnologySpecificationID) COREUP() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/softwareDesignRequirements/reusableComponents/registry/COREUP"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) OSCOEN_OSCO_LST() *som.SomListMetaRef[*OsCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/compatibilityRequirements/OSCOEN-OSCO-LST", func(t *som.SomMetaTree, p string) *OsCompatibilityEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) OCE_OSCO_LST() *som.SomListMetaRef[*OsCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/compatibilityRequirements/OCE-OSCO-LST", func(t *som.SomMetaTree, p string) *OsCompatibilityEntryID {
 		return newOsCompatibilityEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) BRCOEN_BROW_LST() *som.SomListMetaRef[*BrowserCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/compatibilityRequirements/BRCOEN-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserCompatibilityEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) BROCOMENT_BROW_LST() *som.SomListMetaRef[*BrowserCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/compatibilityRequirements/BROCOMENT-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserCompatibilityEntryID {
 		return newBrowserCompatibilityEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) DACOEN_DATA_LST() *som.SomListMetaRef[*DatabaseCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/compatibilityRequirements/DACOEN-DATA-LST", func(t *som.SomMetaTree, p string) *DatabaseCompatibilityEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) DATCOMENT_DATA_LST() *som.SomListMetaRef[*DatabaseCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/compatibilityRequirements/DATCOMENT-DATA-LST", func(t *som.SomMetaTree, p string) *DatabaseCompatibilityEntryID {
 		return newDatabaseCompatibilityEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) ESCE_ENTE_LST() *som.SomListMetaRef[*EnterpriseSystemCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/compatibilityRequirements/ESCE-ENTE-LST", func(t *som.SomMetaTree, p string) *EnterpriseSystemCompatibilityEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) ENSYCOEN_ENTE_LST() *som.SomListMetaRef[*EnterpriseSystemCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/compatibilityRequirements/ENSYCOEN-ENTE-LST", func(t *som.SomMetaTree, p string) *EnterpriseSystemCompatibilityEntryID {
 		return newEnterpriseSystemCompatibilityEntryID(t, p)
 	})
 }
@@ -65306,20 +65306,20 @@ func (x *D06ArchitectureTechnologySpecificationID) APCP_APIC_LST() *som.SomListM
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) LECOEN_LEGA_LST() *som.SomListMetaRef[*LegacyCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/compatibilityRequirements/LECOEN-LEGA-LST", func(t *som.SomMetaTree, p string) *LegacyCompatibilityEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) LCE_LEGA_LST() *som.SomListMetaRef[*LegacyCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/compatibilityRequirements/LCE-LEGA-LST", func(t *som.SomMetaTree, p string) *LegacyCompatibilityEntryID {
 		return newLegacyCompatibilityEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) MOCOEN_MOBI_LST() *som.SomListMetaRef[*MobileCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/compatibilityRequirements/MOCOEN-MOBI-LST", func(t *som.SomMetaTree, p string) *MobileCompatibilityEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) MOBCOMENT_MOBI_LST() *som.SomListMetaRef[*MobileCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/compatibilityRequirements/MOBCOMENT-MOBI-LST", func(t *som.SomMetaTree, p string) *MobileCompatibilityEntryID {
 		return newMobileCompatibilityEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) TPCE_THIR_LST() *som.SomListMetaRef[*ThirdPartyCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/compatibilityRequirements/TPCE-THIR-LST", func(t *som.SomMetaTree, p string) *ThirdPartyCompatibilityEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) THPACOEN_THIR_LST() *som.SomListMetaRef[*ThirdPartyCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/compatibilityRequirements/THPACOEN-THIR-LST", func(t *som.SomMetaTree, p string) *ThirdPartyCompatibilityEntryID {
 		return newThirdPartyCompatibilityEntryID(t, p)
 	})
 }
@@ -65372,32 +65372,32 @@ func (x *D06ArchitectureTechnologySpecificationID) INREGO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/standardSoftwareRequirements/compatibilityRequirements/interoperability/INREGO"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) ISCE_ITST_LST() *som.SomListMetaRef[*ItStandardComplianceEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/standardsCompliance/ISCE-ITST-LST", func(t *som.SomMetaTree, p string) *ItStandardComplianceEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) ITSTCOEN_ITST_LST() *som.SomListMetaRef[*ItStandardComplianceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/standardsCompliance/ITSTCOEN-ITST-LST", func(t *som.SomMetaTree, p string) *ItStandardComplianceEntryID {
 		return newItStandardComplianceEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) IPCE_INDU_LST() *som.SomListMetaRef[*IndustryProtocolComplianceEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/standardsCompliance/IPCE-INDU-LST", func(t *som.SomMetaTree, p string) *IndustryProtocolComplianceEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) INPRCOEN_INDU_LST() *som.SomListMetaRef[*IndustryProtocolComplianceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/standardsCompliance/INPRCOEN-INDU-LST", func(t *som.SomMetaTree, p string) *IndustryProtocolComplianceEntryID {
 		return newIndustryProtocolComplianceEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) INSPEN_INTE_LST() *som.SomListMetaRef[*InterfaceSpecificationEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/standardsCompliance/INSPEN-INTE-LST", func(t *som.SomMetaTree, p string) *InterfaceSpecificationEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) INTSPEENT_INTE_LST() *som.SomListMetaRef[*InterfaceSpecificationEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/standardsCompliance/INTSPEENT-INTE-LST", func(t *som.SomMetaTree, p string) *InterfaceSpecificationEntryID {
 		return newInterfaceSpecificationEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) RECOEN_REGU_LST() *som.SomListMetaRef[*RegulatoryComplianceEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/standardsCompliance/RECOEN-REGU-LST", func(t *som.SomMetaTree, p string) *RegulatoryComplianceEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) RCE_REGU_LST() *som.SomListMetaRef[*RegulatoryComplianceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/standardsCompliance/RCE-REGU-LST", func(t *som.SomMetaTree, p string) *RegulatoryComplianceEntryID {
 		return newRegulatoryComplianceEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) SSCE_SECU_LST() *som.SomListMetaRef[*SecurityStandardComplianceEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/standardsCompliance/SSCE-SECU-LST", func(t *som.SomMetaTree, p string) *SecurityStandardComplianceEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) SESTCOEN_SECU_LST() *som.SomListMetaRef[*SecurityStandardComplianceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/standardSoftwareRequirements/standardsCompliance/SESTCOEN-SECU-LST", func(t *som.SomMetaTree, p string) *SecurityStandardComplianceEntryID {
 		return newSecurityStandardComplianceEntryID(t, p)
 	})
 }
@@ -65486,14 +65486,14 @@ func (x *D06ArchitectureTechnologySpecificationID) CVSC() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/standardSoftwareRequirements/standardsCompliance/complianceVerification/CVSC"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) SEENEN_ENVI_LST() *som.SomListMetaRef[*ServerEnvironmentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/hardwareRequirements/serverRequirements/SEENEN-ENVI-LST", func(t *som.SomMetaTree, p string) *ServerEnvironmentEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) SEE_ENVI_LST() *som.SomListMetaRef[*ServerEnvironmentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/hardwareRequirements/serverRequirements/SEE-ENVI-LST", func(t *som.SomMetaTree, p string) *ServerEnvironmentEntryID {
 		return newServerEnvironmentEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) SEROEN_SERV_LST() *som.SomListMetaRef[*ServerRoleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/hardwareRequirements/serverRequirements/SEROEN-SERV-LST", func(t *som.SomMetaTree, p string) *ServerRoleEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) SRE_SERV_LST() *som.SomListMetaRef[*ServerRoleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/hardwareRequirements/serverRequirements/SRE-SERV-LST", func(t *som.SomMetaTree, p string) *ServerRoleEntryID {
 		return newServerRoleEntryID(t, p)
 	})
 }
@@ -65624,20 +65624,20 @@ func (x *D06ArchitectureTechnologySpecificationID) CLIAPP_CLIE_LST() *som.SomLis
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) BRREEN_BROW_LST() *som.SomListMetaRef[*BrowserRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/hardwareRequirements/clientRequirements/BRREEN-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserRequirementEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) BROREQENT_BROW_LST() *som.SomListMetaRef[*BrowserRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/hardwareRequirements/clientRequirements/BROREQENT-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserRequirementEntryID {
 		return newBrowserRequirementEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) DORE1_DESK_LST() *som.SomListMetaRef[*DesktopOsRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/hardwareRequirements/clientRequirements/DORE1-DESK-LST", func(t *som.SomMetaTree, p string) *DesktopOsRequirementEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) DEOSREEN_DESK_LST() *som.SomListMetaRef[*DesktopOsRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/hardwareRequirements/clientRequirements/DEOSREEN-DESK-LST", func(t *som.SomMetaTree, p string) *DesktopOsRequirementEntryID {
 		return newDesktopOsRequirementEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) MDRE_MOBI_LST() *som.SomListMetaRef[*MobileDeviceRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/hardwareRequirements/clientRequirements/MDRE-MOBI-LST", func(t *som.SomMetaTree, p string) *MobileDeviceRequirementEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) MODEREEN_MOBI_LST() *som.SomListMetaRef[*MobileDeviceRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/hardwareRequirements/clientRequirements/MODEREEN-MOBI-LST", func(t *som.SomMetaTree, p string) *MobileDeviceRequirementEntryID {
 		return newMobileDeviceRequirementEntryID(t, p)
 	})
 }
@@ -65852,8 +65852,8 @@ func (x *D06ArchitectureTechnologySpecificationID) NART() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/hardwareRequirements/networkRequirements/availabilityRequirements/NART"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) VPREEN_VPNR_LST() *som.SomListMetaRef[*VpnRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/hardwareRequirements/networkRequirements/VPREEN-VPNR-LST", func(t *som.SomMetaTree, p string) *VpnRequirementEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) VRE_VPNR_LST() *som.SomListMetaRef[*VpnRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/hardwareRequirements/networkRequirements/VRE-VPNR-LST", func(t *som.SomMetaTree, p string) *VpnRequirementEntryID {
 		return newVpnRequirementEntryID(t, p)
 	})
 }
@@ -65946,8 +65946,8 @@ func (x *D06ArchitectureTechnologySpecificationID) BDCE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/operationsRequirements/backupAndRecovery/dataClassification/BDCE"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) BAPOEN_BACK_LST() *som.SomListMetaRef[*BackupPolicyEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/operationsRequirements/backupAndRecovery/BAPOEN-BACK-LST", func(t *som.SomMetaTree, p string) *BackupPolicyEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) BPE_BACK_LST() *som.SomListMetaRef[*BackupPolicyEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/operationsRequirements/backupAndRecovery/BPE-BACK-LST", func(t *som.SomMetaTree, p string) *BackupPolicyEntryID {
 		return newBackupPolicyEntryID(t, p)
 	})
 }
@@ -66244,8 +66244,8 @@ func (x *D06ArchitectureTechnologySpecificationID) ALRERE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/operationsRequirements/monitoringAndAlerting/alerting/ALRERE"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) ALDEEN_ALER_LST() *som.SomListMetaRef[*AlertDefinitionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/operationsRequirements/monitoringAndAlerting/ALDEEN-ALER-LST", func(t *som.SomMetaTree, p string) *AlertDefinitionEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) ALEDEFENT_ALER_LST() *som.SomListMetaRef[*AlertDefinitionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/operationsRequirements/monitoringAndAlerting/ALEDEFENT-ALER-LST", func(t *som.SomMetaTree, p string) *AlertDefinitionEntryID {
 		return newAlertDefinitionEntryID(t, p)
 	})
 }
@@ -66330,8 +66330,8 @@ func (x *D06ArchitectureTechnologySpecificationID) SMPA() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/operationsRequirements/maintenanceWindows/scheduledMaintenance/SMPA"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) MAWIEN_MAIN_LST() *som.SomListMetaRef[*MaintenanceWindowEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/operationsRequirements/maintenanceWindows/MAWIEN-MAIN-LST", func(t *som.SomMetaTree, p string) *MaintenanceWindowEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) MWE_MAIN_LST() *som.SomListMetaRef[*MaintenanceWindowEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/operationsRequirements/maintenanceWindows/MWE-MAIN-LST", func(t *som.SomMetaTree, p string) *MaintenanceWindowEntryID {
 		return newMaintenanceWindowEntryID(t, p)
 	})
 }
@@ -66384,8 +66384,8 @@ func (x *D06ArchitectureTechnologySpecificationID) PMVC() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/operationsRequirements/maintenanceWindows/postMaintenance/PMVC"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) PREN_PROT_LST() *som.SomListMetaRef[*ProtocolEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/communicationRequirements/protocolsAndStandards/PREN-PROT-LST", func(t *som.SomMetaTree, p string) *ProtocolEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) PE_PROT_LST() *som.SomListMetaRef[*ProtocolEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/communicationRequirements/protocolsAndStandards/PE-PROT-LST", func(t *som.SomMetaTree, p string) *ProtocolEntryID {
 		return newProtocolEntryID(t, p)
 	})
 }
@@ -66474,8 +66474,8 @@ func (x *D06ArchitectureTechnologySpecificationID) PCRE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/communicationRequirements/protocolsAndStandards/compliance/PCRE"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) EPCE_PART_LST() *som.SomListMetaRef[*ExternalPartnerConnectionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/communicationRequirements/externalConnectivity/EPCE-PART-LST", func(t *som.SomMetaTree, p string) *ExternalPartnerConnectionEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) EXPACOEN_PART_LST() *som.SomListMetaRef[*ExternalPartnerConnectionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/communicationRequirements/externalConnectivity/EXPACOEN-PART-LST", func(t *som.SomMetaTree, p string) *ExternalPartnerConnectionEntryID {
 		return newExternalPartnerConnectionEntryID(t, p)
 	})
 }
@@ -66632,8 +66632,8 @@ func (x *D06ArchitectureTechnologySpecificationID) SDTSS() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/systemOperationAndMonitoring/systemOperation/administrationRequirements/diagnosticTools/SDTSS"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) MAINT_MAIN_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/systemOperationAndMonitoring/systemOperation/MAINT-MAIN-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D06ArchitectureTechnologySpecificationID) SO_MAIN_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/systemOperationAndMonitoring/systemOperation/SO-MAIN-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -66722,8 +66722,8 @@ func (x *D06ArchitectureTechnologySpecificationID) ANCF() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/systemOperationAndMonitoring/monitoring/alertingConfiguration/notificationChannels/ANCF"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) ALRUEN_ALER_LST() *som.SomListMetaRef[*AlertRuleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/systemOperationAndMonitoring/monitoring/alertingConfiguration/ALRUEN-ALER-LST", func(t *som.SomMetaTree, p string) *AlertRuleEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) ALERULENT_ALER_LST() *som.SomListMetaRef[*AlertRuleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/systemOperationAndMonitoring/monitoring/alertingConfiguration/ALERULENT-ALER-LST", func(t *som.SomMetaTree, p string) *AlertRuleEntryID {
 		return newAlertRuleEntryID(t, p)
 	})
 }
@@ -66810,8 +66810,8 @@ func (x *D06ArchitectureTechnologySpecificationID) DTSO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/systemOperationAndMonitoring/monitoring/metricsAndObservability/distributedTracing/DTSO"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) CUMEEN_CUST_LST() *som.SomListMetaRef[*CustomMetricEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/systemOperationAndMonitoring/monitoring/metricsAndObservability/CUMEEN-CUST-LST", func(t *som.SomMetaTree, p string) *CustomMetricEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) CUSMETENT_CUST_LST() *som.SomListMetaRef[*CustomMetricEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/systemOperationAndMonitoring/monitoring/metricsAndObservability/CUSMETENT-CUST-LST", func(t *som.SomMetaTree, p string) *CustomMetricEntryID {
 		return newCustomMetricEntryID(t, p)
 	})
 }
@@ -66820,8 +66820,8 @@ func (x *D06ArchitectureTechnologySpecificationID) MODA_DASH() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/systemOperationAndMonitoring/monitoring/dashboards/MODA-DASH"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) DAEN_DASH_LST() *som.SomListMetaRef[*DashboardEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/systemOperationAndMonitoring/monitoring/dashboards/DAEN-DASH-LST", func(t *som.SomMetaTree, p string) *DashboardEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) DASENT_DASH_LST() *som.SomListMetaRef[*DashboardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/systemOperationAndMonitoring/monitoring/dashboards/DASENT-DASH-LST", func(t *som.SomMetaTree, p string) *DashboardEntryID {
 		return newDashboardEntryID(t, p)
 	})
 }
@@ -66848,8 +66848,8 @@ func (x *D06ArchitectureTechnologySpecificationID) SLIM() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/slis/SLIM"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) SLEN_SLOS_LST() *som.SomListMetaRef[*SloEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST", func(t *som.SomMetaTree, p string) *SloEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) SE_SLOS_LST() *som.SomListMetaRef[*SloEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/SE-SLOS-LST", func(t *som.SomMetaTree, p string) *SloEntryID {
 		return newSloEntryID(t, p)
 	})
 }
@@ -66946,8 +66946,8 @@ func (x *D06ArchitectureTechnologySpecificationID) CRPP() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/systemOperationAndMonitoring/capacityPlanning/capacityReview/CRPP"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) SESTEN_STAN_LST() *som.SomListMetaRef[*SecurityStandardEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalSecurityRequirements/itSecurityStandards/SESTEN-STAN-LST", func(t *som.SomMetaTree, p string) *SecurityStandardEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) SSE_STAN_LST() *som.SomListMetaRef[*SecurityStandardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalSecurityRequirements/itSecurityStandards/SSE-STAN-LST", func(t *som.SomMetaTree, p string) *SecurityStandardEntryID {
 		return newSecurityStandardEntryID(t, p)
 	})
 }
@@ -67216,8 +67216,8 @@ func (x *D06ArchitectureTechnologySpecificationID) STAG() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalSecurityRequirements/securityAuditRequirements/securityTestingAutomation/STAG"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) SEAUEN_AUDI_LST() *som.SomListMetaRef[*SecurityAuditEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalSecurityRequirements/securityAuditRequirements/SEAUEN-AUDI-LST", func(t *som.SomMetaTree, p string) *SecurityAuditEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) SAE_AUDI_LST() *som.SomListMetaRef[*SecurityAuditEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalSecurityRequirements/securityAuditRequirements/SAE-AUDI-LST", func(t *som.SomMetaTree, p string) *SecurityAuditEntryID {
 		return newSecurityAuditEntryID(t, p)
 	})
 }
@@ -67300,32 +67300,32 @@ func (x *D06ArchitectureTechnologySpecificationID) TES() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalEnvironment/TES"}
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) DEVOP_DEVO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalEnvironment/network/DEVOP-DEVO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D06ArchitectureTechnologySpecificationID) TEENNE_DEVO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalEnvironment/network/TEENNE-DEVO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) OBSER_OBSE_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalEnvironment/network/OBSER-OBSE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D06ArchitectureTechnologySpecificationID) TEENNE_OBSE_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalEnvironment/network/TEENNE-OBSE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) DATAC_DATA_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalEnvironment/DATAC-DATA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D06ArchitectureTechnologySpecificationID) TEEN_DATA_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalEnvironment/TEEN-DATA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) TESTEN_TECH_LST() *som.SomListMetaRef[*TechnologyStandardEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalEnvironment/TESTEN-TECH-LST", func(t *som.SomMetaTree, p string) *TechnologyStandardEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) TSE_TECH_LST() *som.SomListMetaRef[*TechnologyStandardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalEnvironment/TSE-TECH-LST", func(t *som.SomMetaTree, p string) *TechnologyStandardEntryID {
 		return newTechnologyStandardEntryID(t, p)
 	})
 }
 
-func (x *D06ArchitectureTechnologySpecificationID) INCOE1_INTE_LST() *som.SomListMetaRef[*IntegrationConstraintEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalEnvironment/INCOE1-INTE-LST", func(t *som.SomMetaTree, p string) *IntegrationConstraintEntryID {
+func (x *D06ArchitectureTechnologySpecificationID) INTCONENT_INTE_LST() *som.SomListMetaRef[*IntegrationConstraintEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalEnvironment/INTCONENT-INTE-LST", func(t *som.SomMetaTree, p string) *IntegrationConstraintEntryID {
 		return newIntegrationConstraintEntryID(t, p)
 	})
 }
@@ -67363,20 +67363,20 @@ func newD07IntegrationInterfaceSpecificationID(tree *som.SomMetaTree, path strin
 	return &D07IntegrationInterfaceSpecificationID{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
 }
 
-func (x *D07IntegrationInterfaceSpecificationID) EXINEN_INTE_LST() *som.SomListMetaRef[*ExternalInterfaceEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/externalInterfaces/EXINEN-INTE-LST", func(t *som.SomMetaTree, p string) *ExternalInterfaceEntryID {
+func (x *D07IntegrationInterfaceSpecificationID) EIE_INTE_LST() *som.SomListMetaRef[*ExternalInterfaceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/externalInterfaces/EIE-INTE-LST", func(t *som.SomMetaTree, p string) *ExternalInterfaceEntryID {
 		return newExternalInterfaceEntryID(t, p)
 	})
 }
 
-func (x *D07IntegrationInterfaceSpecificationID) OOSE_ITEM_LST() *som.SomListMetaRef[*OutOfScopeEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/outOfScope/OOSE-ITEM-LST", func(t *som.SomMetaTree, p string) *OutOfScopeEntryID {
+func (x *D07IntegrationInterfaceSpecificationID) OUOFSCEN_ITEM_LST() *som.SomListMetaRef[*OutOfScopeEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/outOfScope/OUOFSCEN-ITEM-LST", func(t *som.SomMetaTree, p string) *OutOfScopeEntryID {
 		return newOutOfScopeEntryID(t, p)
 	})
 }
 
-func (x *D07IntegrationInterfaceSpecificationID) BOASEN_ITEM_LST() *som.SomListMetaRef[*BoundaryAssumptionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/boundaryAssumptions/BOASEN-ITEM-LST", func(t *som.SomMetaTree, p string) *BoundaryAssumptionEntryID {
+func (x *D07IntegrationInterfaceSpecificationID) BAE_ITEM_LST() *som.SomListMetaRef[*BoundaryAssumptionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/boundaryAssumptions/BAE-ITEM-LST", func(t *som.SomMetaTree, p string) *BoundaryAssumptionEntryID {
 		return newBoundaryAssumptionEntryID(t, p)
 	})
 }
@@ -67510,8 +67510,8 @@ func (x *D08SecurityAccessSpecificationID) IDTAM_ATTR_LST() *som.SomListMetaRef[
 	})
 }
 
-func (x *D08SecurityAccessSpecificationID) MFADE_MFAD_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/identificationAndAuthentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D08SecurityAccessSpecificationID) MC_MFAD_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/identificationAndAuthentication/authentication/authenticationMethods/mfaConfiguration/MC-MFAD-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -67522,8 +67522,8 @@ func (x *D08SecurityAccessSpecificationID) ATME_ITEM_LST() *som.SomListMetaRef[*
 	})
 }
 
-func (x *D08SecurityAccessSpecificationID) STEPU_STEP_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/identificationAndAuthentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D08SecurityAccessSpecificationID) SUAP_STEP_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/identificationAndAuthentication/authentication/authenticationFlow/stepUpAuthentication/SUAP-STEP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -67643,8 +67643,8 @@ func (x *D09ExperienceDesignSpecificationID) SCREN_ITEM_LST() *som.SomListMetaRe
 	})
 }
 
-func (x *D09ExperienceDesignSpecificationID) GLOBA_GLOB_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/screens/informationArchitecture/GLOBA-GLOB-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D09ExperienceDesignSpecificationID) IA_GLOB_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/screens/informationArchitecture/IA-GLOB-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -67667,14 +67667,14 @@ func (x *D09ExperienceDesignSpecificationID) PRNASI() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/screenFlow/navigationModel/primaryNavigation/PRNASI"}
 }
 
-func (x *D09ExperienceDesignSpecificationID) TBDE_TABB_LST() *som.SomListMetaRef[*TabBarDefinitionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST", func(t *som.SomMetaTree, p string) *TabBarDefinitionEntryID {
+func (x *D09ExperienceDesignSpecificationID) TABADEEN_TABB_LST() *som.SomListMetaRef[*TabBarDefinitionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST", func(t *som.SomMetaTree, p string) *TabBarDefinitionEntryID {
 		return newTabBarDefinitionEntryID(t, p)
 	})
 }
 
-func (x *D09ExperienceDesignSpecificationID) UNIE_ITEM_LST() *som.SomListMetaRef[*UtilityNavigationItemEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST", func(t *som.SomMetaTree, p string) *UtilityNavigationItemEntryID {
+func (x *D09ExperienceDesignSpecificationID) UTNAITEN_ITEM_LST() *som.SomListMetaRef[*UtilityNavigationItemEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST", func(t *som.SomMetaTree, p string) *UtilityNavigationItemEntryID {
 		return newUtilityNavigationItemEntryID(t, p)
 	})
 }
@@ -67733,20 +67733,20 @@ func (x *D09ExperienceDesignSpecificationID) PRLAAR() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/printLayout/PRLAAR"}
 }
 
-func (x *D09ExperienceDesignSpecificationID) EXFOEN_EXPO_LST() *som.SomListMetaRef[*ExportFormatEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/printLayout/EXFOEN-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportFormatEntryID {
+func (x *D09ExperienceDesignSpecificationID) EFE_EXPO_LST() *som.SomListMetaRef[*ExportFormatEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/printLayout/EFE-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportFormatEntryID {
 		return newExportFormatEntryID(t, p)
 	})
 }
 
-func (x *D09ExperienceDesignSpecificationID) EXTEEN_EXPO_LST() *som.SomListMetaRef[*ExportTemplateEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/printLayout/EXTEEN-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportTemplateEntryID {
+func (x *D09ExperienceDesignSpecificationID) ETE_EXPO_LST() *som.SomListMetaRef[*ExportTemplateEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/printLayout/ETE-EXPO-LST", func(t *som.SomMetaTree, p string) *ExportTemplateEntryID {
 		return newExportTemplateEntryID(t, p)
 	})
 }
 
-func (x *D09ExperienceDesignSpecificationID) REEN_REPO_LST() *som.SomListMetaRef[*ReportEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/reportDefinitions/REEN-REPO-LST", func(t *som.SomMetaTree, p string) *ReportEntryID {
+func (x *D09ExperienceDesignSpecificationID) REPENT_REPO_LST() *som.SomListMetaRef[*ReportEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/reportDefinitions/REPENT-REPO-LST", func(t *som.SomMetaTree, p string) *ReportEntryID {
 		return newReportEntryID(t, p)
 	})
 }
@@ -67787,14 +67787,14 @@ func (x *D09ExperienceDesignSpecificationID) VAFEBE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/errorHandling/validationFeedback/VAFEBE"}
 }
 
-func (x *D09ExperienceDesignSpecificationID) VAMETE_MESS_LST() *som.SomListMetaRef[*ValidationMessageTemplateID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/errorHandling/validationFeedback/VAMETE-MESS-LST", func(t *som.SomMetaTree, p string) *ValidationMessageTemplateID {
+func (x *D09ExperienceDesignSpecificationID) VMT_MESS_LST() *som.SomListMetaRef[*ValidationMessageTemplateID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/errorHandling/validationFeedback/VMT-MESS-LST", func(t *som.SomMetaTree, p string) *ValidationMessageTemplateID {
 		return newValidationMessageTemplateID(t, p)
 	})
 }
 
-func (x *D09ExperienceDesignSpecificationID) FIELD_FIEL_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/errorHandling/validationFeedback/FIELD-FIEL-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D09ExperienceDesignSpecificationID) VAFE_FIEL_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/errorHandling/validationFeedback/VAFE-FIEL-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -67819,14 +67819,14 @@ func (x *D09ExperienceDesignSpecificationID) SEDF() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/errorHandling/systemErrorDisplay/SEDF"}
 }
 
-func (x *D09ExperienceDesignSpecificationID) EPDE_ERRO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D09ExperienceDesignSpecificationID) SYERDI_ERRO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D09ExperienceDesignSpecificationID) SECE_ERRO_LST() *som.SomListMetaRef[*SystemErrorCodeEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/errorHandling/systemErrorDisplay/SECE-ERRO-LST", func(t *som.SomMetaTree, p string) *SystemErrorCodeEntryID {
+func (x *D09ExperienceDesignSpecificationID) SYERCOEN_ERRO_LST() *som.SomListMetaRef[*SystemErrorCodeEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST", func(t *som.SomMetaTree, p string) *SystemErrorCodeEntryID {
 		return newSystemErrorCodeEntryID(t, p)
 	})
 }
@@ -67855,8 +67855,8 @@ func (x *D09ExperienceDesignSpecificationID) ERSH() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/errorHandling/errorRecovery/ERSH"}
 }
 
-func (x *D09ExperienceDesignSpecificationID) RECOV_RECO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/errorHandling/errorRecovery/RECOV-RECO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D09ExperienceDesignSpecificationID) ERRE_RECO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/errorHandling/errorRecovery/ERRE-RECO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -67991,8 +67991,8 @@ func (x *D09ExperienceDesignSpecificationID) WCCORO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/accessibility/wcagComplianceLevel/WCCORO"}
 }
 
-func (x *D09ExperienceDesignSpecificationID) WSCE_SUCC_LST() *som.SomListMetaRef[*WcagSuccessCriterionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessibility/wcagComplianceLevel/WSCE-SUCC-LST", func(t *som.SomMetaTree, p string) *WcagSuccessCriterionEntryID {
+func (x *D09ExperienceDesignSpecificationID) WCSUCREN_SUCC_LST() *som.SomListMetaRef[*WcagSuccessCriterionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessibility/wcagComplianceLevel/WCSUCREN-SUCC-LST", func(t *som.SomMetaTree, p string) *WcagSuccessCriterionEntryID {
 		return newWcagSuccessCriterionEntryID(t, p)
 	})
 }
@@ -68015,8 +68015,8 @@ func (x *D09ExperienceDesignSpecificationID) BC_BREA() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/responsiveDesign/breakpointConfig/BC-BREA"}
 }
 
-func (x *D09ExperienceDesignSpecificationID) BRE_BREA_LST() *som.SomListMetaRef[*BreakpointEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/responsiveDesign/breakpointConfig/BRE-BREA-LST", func(t *som.SomMetaTree, p string) *BreakpointEntryID {
+func (x *D09ExperienceDesignSpecificationID) BE_BREA_LST() *som.SomListMetaRef[*BreakpointEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/responsiveDesign/breakpointConfig/BE-BREA-LST", func(t *som.SomMetaTree, p string) *BreakpointEntryID {
 		return newBreakpointEntryID(t, p)
 	})
 }
@@ -68101,8 +68101,8 @@ func (x *D09ExperienceDesignSpecificationID) TYST_TYPO_LST() *som.SomListMetaRef
 	})
 }
 
-func (x *D09ExperienceDesignSpecificationID) UICOEN_COMP_LST() *som.SomListMetaRef[*UiComponentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/uiComponents/UICOEN-COMP-LST", func(t *som.SomMetaTree, p string) *UiComponentEntryID {
+func (x *D09ExperienceDesignSpecificationID) UICOMENT_COMP_LST() *som.SomListMetaRef[*UiComponentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/uiComponents/UICOMENT-COMP-LST", func(t *som.SomMetaTree, p string) *UiComponentEntryID {
 		return newUiComponentEntryID(t, p)
 	})
 }
@@ -68161,8 +68161,8 @@ func (x *D09ExperienceDesignSpecificationID) PRGOFE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/prototype/prototypeGoals/PRGOFE"}
 }
 
-func (x *D09ExperienceDesignSpecificationID) PRGOEN_GOAL_LST() *som.SomListMetaRef[*PrototypeGoalEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/prototype/prototypeGoals/PRGOEN-GOAL-LST", func(t *som.SomMetaTree, p string) *PrototypeGoalEntryID {
+func (x *D09ExperienceDesignSpecificationID) PGE_GOAL_LST() *som.SomListMetaRef[*PrototypeGoalEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/prototype/prototypeGoals/PGE-GOAL-LST", func(t *som.SomMetaTree, p string) *PrototypeGoalEntryID {
 		return newPrototypeGoalEntryID(t, p)
 	})
 }
@@ -68179,8 +68179,8 @@ func (x *D09ExperienceDesignSpecificationID) PFSF() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/prototype/featureSubset/PFSF"}
 }
 
-func (x *D09ExperienceDesignSpecificationID) PRFEEN_FEAT_LST() *som.SomListMetaRef[*PrototypeFeatureEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/prototype/featureSubset/PRFEEN-FEAT-LST", func(t *som.SomMetaTree, p string) *PrototypeFeatureEntryID {
+func (x *D09ExperienceDesignSpecificationID) PFE_FEAT_LST() *som.SomListMetaRef[*PrototypeFeatureEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/prototype/featureSubset/PFE-FEAT-LST", func(t *som.SomMetaTree, p string) *PrototypeFeatureEntryID {
 		return newPrototypeFeatureEntryID(t, p)
 	})
 }
@@ -68268,8 +68268,8 @@ func (x *D10QualityAcceptancePlanID) QCATE_QUAL_LST() *som.SomListMetaRef[*Quali
 	})
 }
 
-func (x *D10QualityAcceptancePlanID) CATEG_CATE_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityFramework/CATEG-CATE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D10QualityAcceptancePlanID) QLFWK_CATE_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/qualityFramework/QLFWK-CATE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -68797,14 +68797,14 @@ func (x *D11DeliveryRoadmapID) STAGGV() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/stagingStrategy/STAGGV"}
 }
 
-func (x *D11DeliveryRoadmapID) KEYAS_KEYA_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/stagingStrategy/KEYAS-KEYA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D11DeliveryRoadmapID) STAGST_KEYA_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/stagingStrategy/STAGST-KEYA-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D11DeliveryRoadmapID) STAGI_CONS_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/stagingStrategy/STAGI-CONS-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D11DeliveryRoadmapID) STAGST_CONS_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/stagingStrategy/STAGST-CONS-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -68889,26 +68889,26 @@ func (x *D11DeliveryRoadmapID) FEPRTR() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/featurePrioritization/FEPRTR"}
 }
 
-func (x *D11DeliveryRoadmapID) MOEN_ITEM_LST() *som.SomListMetaRef[*MoscowEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/featurePrioritization/moscowAnalysis/MOEN-ITEM-LST", func(t *som.SomMetaTree, p string) *MoscowEntryID {
+func (x *D11DeliveryRoadmapID) ME_ITEM_LST() *som.SomListMetaRef[*MoscowEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/featurePrioritization/moscowAnalysis/ME-ITEM-LST", func(t *som.SomMetaTree, p string) *MoscowEntryID {
 		return newMoscowEntryID(t, p)
 	})
 }
 
-func (x *D11DeliveryRoadmapID) FESTM1_ITEM_LST() *som.SomListMetaRef[*FeatureStageMappingID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/featurePrioritization/featureStageMatrix/FESTM1-ITEM-LST", func(t *som.SomMetaTree, p string) *FeatureStageMappingID {
+func (x *D11DeliveryRoadmapID) FSM_ITEM_LST() *som.SomListMetaRef[*FeatureStageMappingID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/featurePrioritization/featureStageMatrix/FSM-ITEM-LST", func(t *som.SomMetaTree, p string) *FeatureStageMappingID {
 		return newFeatureStageMappingID(t, p)
 	})
 }
 
-func (x *D11DeliveryRoadmapID) FEPREN_ITEM_LST() *som.SomListMetaRef[*FeaturePriorityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/featurePrioritization/featurePriorityRegister/FEPREN-ITEM-LST", func(t *som.SomMetaTree, p string) *FeaturePriorityEntryID {
+func (x *D11DeliveryRoadmapID) FPE_ITEM_LST() *som.SomListMetaRef[*FeaturePriorityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST", func(t *som.SomMetaTree, p string) *FeaturePriorityEntryID {
 		return newFeaturePriorityEntryID(t, p)
 	})
 }
 
-func (x *D11DeliveryRoadmapID) FEDEEN_ITEM_LST() *som.SomListMetaRef[*FeatureDependencyEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/featurePrioritization/featureDependencies/FEDEEN-ITEM-LST", func(t *som.SomMetaTree, p string) *FeatureDependencyEntryID {
+func (x *D11DeliveryRoadmapID) FDE_ITEM_LST() *som.SomListMetaRef[*FeatureDependencyEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/featurePrioritization/featureDependencies/FDE-ITEM-LST", func(t *som.SomMetaTree, p string) *FeatureDependencyEntryID {
 		return newFeatureDependencyEntryID(t, p)
 	})
 }
@@ -68993,14 +68993,14 @@ func (x *D11DeliveryRoadmapID) PGRO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/gateCriteria/PGRO"}
 }
 
-func (x *D11DeliveryRoadmapID) PGRE_ITEM_LST() *som.SomListMetaRef[*PhaseGateReviewEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/gateCriteria/PGRE-ITEM-LST", func(t *som.SomMetaTree, p string) *PhaseGateReviewEntryID {
+func (x *D11DeliveryRoadmapID) PHGAREEN_ITEM_LST() *som.SomListMetaRef[*PhaseGateReviewEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/gateCriteria/PHGAREEN-ITEM-LST", func(t *som.SomMetaTree, p string) *PhaseGateReviewEntryID {
 		return newPhaseGateReviewEntryID(t, p)
 	})
 }
 
-func (x *D11DeliveryRoadmapID) DEPOEN_ITEM_LST() *som.SomListMetaRef[*DecisionPointEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/decisionProcesses/DEPOEN-ITEM-LST", func(t *som.SomMetaTree, p string) *DecisionPointEntryID {
+func (x *D11DeliveryRoadmapID) DPE_ITEM_LST() *som.SomListMetaRef[*DecisionPointEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/decisionProcesses/DPE-ITEM-LST", func(t *som.SomMetaTree, p string) *DecisionPointEntryID {
 		return newDecisionPointEntryID(t, p)
 	})
 }
@@ -69054,8 +69054,8 @@ func (x *D12TransitionRolloutPlanID) TRPRON() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/translationProcess/TRPRON"}
 }
 
-func (x *D12TransitionRolloutPlanID) TRVEEN_VEND_LST() *som.SomListMetaRef[*TranslationVendorEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/translationProcess/TRVEEN-VEND-LST", func(t *som.SomMetaTree, p string) *TranslationVendorEntryID {
+func (x *D12TransitionRolloutPlanID) TVE_VEND_LST() *som.SomListMetaRef[*TranslationVendorEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/translationProcess/TVE-VEND-LST", func(t *som.SomMetaTree, p string) *TranslationVendorEntryID {
 		return newTranslationVendorEntryID(t, p)
 	})
 }
@@ -69076,8 +69076,8 @@ func (x *D12TransitionRolloutPlanID) TRMAT_TRAI() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/trainingDeliverables/TRMAT-TRAI"}
 }
 
-func (x *D12TransitionRolloutPlanID) TRMOEN_TRAI_LST() *som.SomListMetaRef[*TrainingModuleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/trainingDeliverables/TRMOEN-TRAI-LST", func(t *som.SomMetaTree, p string) *TrainingModuleEntryID {
+func (x *D12TransitionRolloutPlanID) TME_TRAI_LST() *som.SomListMetaRef[*TrainingModuleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/trainingDeliverables/TME-TRAI-LST", func(t *som.SomMetaTree, p string) *TrainingModuleEntryID {
 		return newTrainingModuleEntryID(t, p)
 	})
 }
@@ -69171,8 +69171,8 @@ func (x *D13CodeSpecsProjectionID) PLGEN_PROG_LST() *som.SomListMetaRef[*Program
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) FWREN_FRAM_LST() *som.SomListMetaRef[*FrameworkRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/platformAndLanguage/FWREN-FRAM-LST", func(t *som.SomMetaTree, p string) *FrameworkRequirementEntryID {
+func (x *D13CodeSpecsProjectionID) FRREEN_FRAM_LST() *som.SomListMetaRef[*FrameworkRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/platformAndLanguage/FRREEN-FRAM-LST", func(t *som.SomMetaTree, p string) *FrameworkRequirementEntryID {
 		return newFrameworkRequirementEntryID(t, p)
 	})
 }
@@ -69183,8 +69183,8 @@ func (x *D13CodeSpecsProjectionID) BTCEN_BUIL_LST() *som.SomListMetaRef[*BuildTo
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) DETAEN_DEPL_LST() *som.SomListMetaRef[*DeploymentTargetEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/platformAndLanguage/DETAEN-DEPL-LST", func(t *som.SomMetaTree, p string) *DeploymentTargetEntryID {
+func (x *D13CodeSpecsProjectionID) DEPTARENT_DEPL_LST() *som.SomListMetaRef[*DeploymentTargetEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/platformAndLanguage/DEPTARENT-DEPL-LST", func(t *som.SomMetaTree, p string) *DeploymentTargetEntryID {
 		return newDeploymentTargetEntryID(t, p)
 	})
 }
@@ -69393,20 +69393,20 @@ func (x *D13CodeSpecsProjectionID) DSPT_DESI_LST() *som.SomListMetaRef[*DesignPa
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) COSTEN_CODI_LST() *som.SomListMetaRef[*CodingStandardEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/designPatternsAndStandards/COSTEN-CODI-LST", func(t *som.SomMetaTree, p string) *CodingStandardEntryID {
+func (x *D13CodeSpecsProjectionID) CSE_CODI_LST() *som.SomListMetaRef[*CodingStandardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/designPatternsAndStandards/CSE-CODI-LST", func(t *som.SomMetaTree, p string) *CodingStandardEntryID {
 		return newCodingStandardEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) DECOEN_DEVE_LST() *som.SomListMetaRef[*DevelopmentConventionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/designPatternsAndStandards/DECOEN-DEVE-LST", func(t *som.SomMetaTree, p string) *DevelopmentConventionEntryID {
+func (x *D13CodeSpecsProjectionID) DCE_DEVE_LST() *som.SomListMetaRef[*DevelopmentConventionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/designPatternsAndStandards/DCE-DEVE-LST", func(t *som.SomMetaTree, p string) *DevelopmentConventionEntryID {
 		return newDevelopmentConventionEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) INSTEN_INDU_LST() *som.SomListMetaRef[*IndustryStandardEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/designPatternsAndStandards/INSTEN-INDU-LST", func(t *som.SomMetaTree, p string) *IndustryStandardEntryID {
+func (x *D13CodeSpecsProjectionID) ISE_INDU_LST() *som.SomListMetaRef[*IndustryStandardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/basicRequirements/designPatternsAndStandards/ISE-INDU-LST", func(t *som.SomMetaTree, p string) *IndustryStandardEntryID {
 		return newIndustryStandardEntryID(t, p)
 	})
 }
@@ -69487,8 +69487,8 @@ func (x *D13CodeSpecsProjectionID) TESTTO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTTO"}
 }
 
-func (x *D13CodeSpecsProjectionID) SOLAEN_SOFT_LST() *som.SomListMetaRef[*SoftwareLayerEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/layeringAndModuleStructure/SOLAEN-SOFT-LST", func(t *som.SomMetaTree, p string) *SoftwareLayerEntryID {
+func (x *D13CodeSpecsProjectionID) SLE_SOFT_LST() *som.SomListMetaRef[*SoftwareLayerEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/layeringAndModuleStructure/SLE-SOFT-LST", func(t *som.SomMetaTree, p string) *SoftwareLayerEntryID {
 		return newSoftwareLayerEntryID(t, p)
 	})
 }
@@ -69505,8 +69505,8 @@ func (x *D13CodeSpecsProjectionID) LCRG() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRG"}
 }
 
-func (x *D13CodeSpecsProjectionID) BOCOEN_BOUN_LST() *som.SomListMetaRef[*BoundedContextEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/layeringAndModuleStructure/BOCOEN-BOUN-LST", func(t *som.SomMetaTree, p string) *BoundedContextEntryID {
+func (x *D13CodeSpecsProjectionID) BCE_BOUN_LST() *som.SomListMetaRef[*BoundedContextEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/layeringAndModuleStructure/BCE-BOUN-LST", func(t *som.SomMetaTree, p string) *BoundedContextEntryID {
 		return newBoundedContextEntryID(t, p)
 	})
 }
@@ -69527,14 +69527,14 @@ func (x *D13CodeSpecsProjectionID) PAORDO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDO"}
 }
 
-func (x *D13CodeSpecsProjectionID) MOEN1_MODU_LST() *som.SomListMetaRef[*ModuleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/layeringAndModuleStructure/MOEN1-MODU-LST", func(t *som.SomMetaTree, p string) *ModuleEntryID {
+func (x *D13CodeSpecsProjectionID) MODENT_MODU_LST() *som.SomListMetaRef[*ModuleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/layeringAndModuleStructure/MODENT-MODU-LST", func(t *som.SomMetaTree, p string) *ModuleEntryID {
 		return newModuleEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) SHLIB_SHAR_LST() *som.SomListMetaRef[*SharedLibraryEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIB-SHAR-LST", func(t *som.SomMetaTree, p string) *SharedLibraryEntryID {
+func (x *D13CodeSpecsProjectionID) SHLIEN_SHAR_LST() *som.SomListMetaRef[*SharedLibraryEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIEN-SHAR-LST", func(t *som.SomMetaTree, p string) *SharedLibraryEntryID {
 		return newSharedLibraryEntryID(t, p)
 	})
 }
@@ -69597,8 +69597,8 @@ func (x *D13CodeSpecsProjectionID) MOVESTCO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO"}
 }
 
-func (x *D13CodeSpecsProjectionID) IDREEN_IDER_LST() *som.SomListMetaRef[*IdeRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/developmentEnvironment/IDREEN-IDER-LST", func(t *som.SomMetaTree, p string) *IdeRequirementEntryID {
+func (x *D13CodeSpecsProjectionID) IRE_IDER_LST() *som.SomListMetaRef[*IdeRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/developmentEnvironment/IRE-IDER-LST", func(t *som.SomMetaTree, p string) *IdeRequirementEntryID {
 		return newIdeRequirementEntryID(t, p)
 	})
 }
@@ -69635,20 +69635,20 @@ func (x *D13CodeSpecsProjectionID) VCCM() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCM"}
 }
 
-func (x *D13CodeSpecsProjectionID) PISTEN_STAG_LST() *som.SomListMetaRef[*PipelineStageEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST", func(t *som.SomMetaTree, p string) *PipelineStageEntryID {
+func (x *D13CodeSpecsProjectionID) PSE_STAG_LST() *som.SomListMetaRef[*PipelineStageEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PSE-STAG-LST", func(t *som.SomMetaTree, p string) *PipelineStageEntryID {
 		return newPipelineStageEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) PIJOEN_JOBS_LST() *som.SomListMetaRef[*PipelineJobEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST", func(t *som.SomMetaTree, p string) *PipelineJobEntryID {
+func (x *D13CodeSpecsProjectionID) PJE_JOBS_LST() *som.SomListMetaRef[*PipelineJobEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PJE-JOBS-LST", func(t *som.SomMetaTree, p string) *PipelineJobEntryID {
 		return newPipelineJobEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) DEENEN_ENVI_LST() *som.SomListMetaRef[*DeploymentEnvironmentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST", func(t *som.SomMetaTree, p string) *DeploymentEnvironmentEntryID {
+func (x *D13CodeSpecsProjectionID) DEE_ENVI_LST() *som.SomListMetaRef[*DeploymentEnvironmentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEE-ENVI-LST", func(t *som.SomMetaTree, p string) *DeploymentEnvironmentEntryID {
 		return newDeploymentEnvironmentEntryID(t, p)
 	})
 }
@@ -69787,20 +69787,20 @@ func (x *D13CodeSpecsProjectionID) SHLCP_SHAR_LST() *som.SomListMetaRef[*SharedL
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) RUICMP_UICO_LST() *som.SomListMetaRef[*ReusableUiComponentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/reusableComponents/RUICMP-UICO-LST", func(t *som.SomMetaTree, p string) *ReusableUiComponentEntryID {
+func (x *D13CodeSpecsProjectionID) RUCE_UICO_LST() *som.SomListMetaRef[*ReusableUiComponentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/reusableComponents/RUCE-UICO-LST", func(t *som.SomMetaTree, p string) *ReusableUiComponentEntryID {
 		return newReusableUiComponentEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) BUCOEN_BUSI_LST() *som.SomListMetaRef[*BusinessComponentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/reusableComponents/BUCOEN-BUSI-LST", func(t *som.SomMetaTree, p string) *BusinessComponentEntryID {
+func (x *D13CodeSpecsProjectionID) BUSCOMENT_BUSI_LST() *som.SomListMetaRef[*BusinessComponentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/reusableComponents/BUSCOMENT-BUSI-LST", func(t *som.SomMetaTree, p string) *BusinessComponentEntryID {
 		return newBusinessComponentEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) INCOEN_INFR_LST() *som.SomListMetaRef[*InfrastructureComponentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/reusableComponents/INCOEN-INFR-LST", func(t *som.SomMetaTree, p string) *InfrastructureComponentEntryID {
+func (x *D13CodeSpecsProjectionID) INFCOMENT_INFR_LST() *som.SomListMetaRef[*InfrastructureComponentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/softwareDesign/reusableComponents/INFCOMENT-INFR-LST", func(t *som.SomMetaTree, p string) *InfrastructureComponentEntryID {
 		return newInfrastructureComponentEntryID(t, p)
 	})
 }
@@ -69843,26 +69843,26 @@ func (x *D13CodeSpecsProjectionID) COREUP() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/softwareDesign/reusableComponents/registry/COREUP"}
 }
 
-func (x *D13CodeSpecsProjectionID) OSCOEN_OSCO_LST() *som.SomListMetaRef[*OsCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/OSCOEN-OSCO-LST", func(t *som.SomMetaTree, p string) *OsCompatibilityEntryID {
+func (x *D13CodeSpecsProjectionID) OCE_OSCO_LST() *som.SomListMetaRef[*OsCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST", func(t *som.SomMetaTree, p string) *OsCompatibilityEntryID {
 		return newOsCompatibilityEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) BRCOEN_BROW_LST() *som.SomListMetaRef[*BrowserCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/BRCOEN-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserCompatibilityEntryID {
+func (x *D13CodeSpecsProjectionID) BROCOMENT_BROW_LST() *som.SomListMetaRef[*BrowserCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/BROCOMENT-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserCompatibilityEntryID {
 		return newBrowserCompatibilityEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) DACOEN_DATA_LST() *som.SomListMetaRef[*DatabaseCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/DACOEN-DATA-LST", func(t *som.SomMetaTree, p string) *DatabaseCompatibilityEntryID {
+func (x *D13CodeSpecsProjectionID) DATCOMENT_DATA_LST() *som.SomListMetaRef[*DatabaseCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/DATCOMENT-DATA-LST", func(t *som.SomMetaTree, p string) *DatabaseCompatibilityEntryID {
 		return newDatabaseCompatibilityEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) ESCE_ENTE_LST() *som.SomListMetaRef[*EnterpriseSystemCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/ESCE-ENTE-LST", func(t *som.SomMetaTree, p string) *EnterpriseSystemCompatibilityEntryID {
+func (x *D13CodeSpecsProjectionID) ENSYCOEN_ENTE_LST() *som.SomListMetaRef[*EnterpriseSystemCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/ENSYCOEN-ENTE-LST", func(t *som.SomMetaTree, p string) *EnterpriseSystemCompatibilityEntryID {
 		return newEnterpriseSystemCompatibilityEntryID(t, p)
 	})
 }
@@ -69873,20 +69873,20 @@ func (x *D13CodeSpecsProjectionID) APCP_APIC_LST() *som.SomListMetaRef[*ApiCompa
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) LECOEN_LEGA_LST() *som.SomListMetaRef[*LegacyCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/LECOEN-LEGA-LST", func(t *som.SomMetaTree, p string) *LegacyCompatibilityEntryID {
+func (x *D13CodeSpecsProjectionID) LCE_LEGA_LST() *som.SomListMetaRef[*LegacyCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/LCE-LEGA-LST", func(t *som.SomMetaTree, p string) *LegacyCompatibilityEntryID {
 		return newLegacyCompatibilityEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) MOCOEN_MOBI_LST() *som.SomListMetaRef[*MobileCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/MOCOEN-MOBI-LST", func(t *som.SomMetaTree, p string) *MobileCompatibilityEntryID {
+func (x *D13CodeSpecsProjectionID) MOBCOMENT_MOBI_LST() *som.SomListMetaRef[*MobileCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/MOBCOMENT-MOBI-LST", func(t *som.SomMetaTree, p string) *MobileCompatibilityEntryID {
 		return newMobileCompatibilityEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) TPCE_THIR_LST() *som.SomListMetaRef[*ThirdPartyCompatibilityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/TPCE-THIR-LST", func(t *som.SomMetaTree, p string) *ThirdPartyCompatibilityEntryID {
+func (x *D13CodeSpecsProjectionID) THPACOEN_THIR_LST() *som.SomListMetaRef[*ThirdPartyCompatibilityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/compatibilityRequirements/THPACOEN-THIR-LST", func(t *som.SomMetaTree, p string) *ThirdPartyCompatibilityEntryID {
 		return newThirdPartyCompatibilityEntryID(t, p)
 	})
 }
@@ -69939,32 +69939,32 @@ func (x *D13CodeSpecsProjectionID) INREGO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREGO"}
 }
 
-func (x *D13CodeSpecsProjectionID) ISCE_ITST_LST() *som.SomListMetaRef[*ItStandardComplianceEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/standardsCompliance/ISCE-ITST-LST", func(t *som.SomMetaTree, p string) *ItStandardComplianceEntryID {
+func (x *D13CodeSpecsProjectionID) ITSTCOEN_ITST_LST() *som.SomListMetaRef[*ItStandardComplianceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/standardsCompliance/ITSTCOEN-ITST-LST", func(t *som.SomMetaTree, p string) *ItStandardComplianceEntryID {
 		return newItStandardComplianceEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) IPCE_INDU_LST() *som.SomListMetaRef[*IndustryProtocolComplianceEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/standardsCompliance/IPCE-INDU-LST", func(t *som.SomMetaTree, p string) *IndustryProtocolComplianceEntryID {
+func (x *D13CodeSpecsProjectionID) INPRCOEN_INDU_LST() *som.SomListMetaRef[*IndustryProtocolComplianceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/standardsCompliance/INPRCOEN-INDU-LST", func(t *som.SomMetaTree, p string) *IndustryProtocolComplianceEntryID {
 		return newIndustryProtocolComplianceEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) INSPEN_INTE_LST() *som.SomListMetaRef[*InterfaceSpecificationEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/standardsCompliance/INSPEN-INTE-LST", func(t *som.SomMetaTree, p string) *InterfaceSpecificationEntryID {
+func (x *D13CodeSpecsProjectionID) INTSPEENT_INTE_LST() *som.SomListMetaRef[*InterfaceSpecificationEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/standardsCompliance/INTSPEENT-INTE-LST", func(t *som.SomMetaTree, p string) *InterfaceSpecificationEntryID {
 		return newInterfaceSpecificationEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) RECOEN_REGU_LST() *som.SomListMetaRef[*RegulatoryComplianceEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/standardsCompliance/RECOEN-REGU-LST", func(t *som.SomMetaTree, p string) *RegulatoryComplianceEntryID {
+func (x *D13CodeSpecsProjectionID) RCE_REGU_LST() *som.SomListMetaRef[*RegulatoryComplianceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/standardsCompliance/RCE-REGU-LST", func(t *som.SomMetaTree, p string) *RegulatoryComplianceEntryID {
 		return newRegulatoryComplianceEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) SSCE_SECU_LST() *som.SomListMetaRef[*SecurityStandardComplianceEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/standardsCompliance/SSCE-SECU-LST", func(t *som.SomMetaTree, p string) *SecurityStandardComplianceEntryID {
+func (x *D13CodeSpecsProjectionID) SESTCOEN_SECU_LST() *som.SomListMetaRef[*SecurityStandardComplianceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/standardSoftware/standardsCompliance/SESTCOEN-SECU-LST", func(t *som.SomMetaTree, p string) *SecurityStandardComplianceEntryID {
 		return newSecurityStandardComplianceEntryID(t, p)
 	})
 }
@@ -70053,14 +70053,14 @@ func (x *D13CodeSpecsProjectionID) CVSC() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSC"}
 }
 
-func (x *D13CodeSpecsProjectionID) SEENEN_ENVI_LST() *som.SomListMetaRef[*ServerEnvironmentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/serverRequirements/SEENEN-ENVI-LST", func(t *som.SomMetaTree, p string) *ServerEnvironmentEntryID {
+func (x *D13CodeSpecsProjectionID) SEE_ENVI_LST() *som.SomListMetaRef[*ServerEnvironmentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/serverRequirements/SEE-ENVI-LST", func(t *som.SomMetaTree, p string) *ServerEnvironmentEntryID {
 		return newServerEnvironmentEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) SEROEN_SERV_LST() *som.SomListMetaRef[*ServerRoleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/serverRequirements/SEROEN-SERV-LST", func(t *som.SomMetaTree, p string) *ServerRoleEntryID {
+func (x *D13CodeSpecsProjectionID) SRE_SERV_LST() *som.SomListMetaRef[*ServerRoleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/serverRequirements/SRE-SERV-LST", func(t *som.SomMetaTree, p string) *ServerRoleEntryID {
 		return newServerRoleEntryID(t, p)
 	})
 }
@@ -70191,20 +70191,20 @@ func (x *D13CodeSpecsProjectionID) CLIAPP_CLIE_LST() *som.SomListMetaRef[*Client
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) BRREEN_BROW_LST() *som.SomListMetaRef[*BrowserRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserRequirementEntryID {
+func (x *D13CodeSpecsProjectionID) BROREQENT_BROW_LST() *som.SomListMetaRef[*BrowserRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/clientRequirements/BROREQENT-BROW-LST", func(t *som.SomMetaTree, p string) *BrowserRequirementEntryID {
 		return newBrowserRequirementEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) DORE1_DESK_LST() *som.SomListMetaRef[*DesktopOsRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/clientRequirements/DORE1-DESK-LST", func(t *som.SomMetaTree, p string) *DesktopOsRequirementEntryID {
+func (x *D13CodeSpecsProjectionID) DEOSREEN_DESK_LST() *som.SomListMetaRef[*DesktopOsRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/clientRequirements/DEOSREEN-DESK-LST", func(t *som.SomMetaTree, p string) *DesktopOsRequirementEntryID {
 		return newDesktopOsRequirementEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) MDRE_MOBI_LST() *som.SomListMetaRef[*MobileDeviceRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/clientRequirements/MDRE-MOBI-LST", func(t *som.SomMetaTree, p string) *MobileDeviceRequirementEntryID {
+func (x *D13CodeSpecsProjectionID) MODEREEN_MOBI_LST() *som.SomListMetaRef[*MobileDeviceRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/clientRequirements/MODEREEN-MOBI-LST", func(t *som.SomMetaTree, p string) *MobileDeviceRequirementEntryID {
 		return newMobileDeviceRequirementEntryID(t, p)
 	})
 }
@@ -70419,8 +70419,8 @@ func (x *D13CodeSpecsProjectionID) NART() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/hardware/networkRequirements/availabilityRequirements/NART"}
 }
 
-func (x *D13CodeSpecsProjectionID) VPREEN_VPNR_LST() *som.SomListMetaRef[*VpnRequirementEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/networkRequirements/VPREEN-VPNR-LST", func(t *som.SomMetaTree, p string) *VpnRequirementEntryID {
+func (x *D13CodeSpecsProjectionID) VRE_VPNR_LST() *som.SomListMetaRef[*VpnRequirementEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/hardware/networkRequirements/VRE-VPNR-LST", func(t *som.SomMetaTree, p string) *VpnRequirementEntryID {
 		return newVpnRequirementEntryID(t, p)
 	})
 }
@@ -70513,8 +70513,8 @@ func (x *D13CodeSpecsProjectionID) BDCE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/backupAndRecovery/dataClassification/BDCE"}
 }
 
-func (x *D13CodeSpecsProjectionID) BAPOEN_BACK_LST() *som.SomListMetaRef[*BackupPolicyEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/operations/backupAndRecovery/BAPOEN-BACK-LST", func(t *som.SomMetaTree, p string) *BackupPolicyEntryID {
+func (x *D13CodeSpecsProjectionID) BPE_BACK_LST() *som.SomListMetaRef[*BackupPolicyEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/operations/backupAndRecovery/BPE-BACK-LST", func(t *som.SomMetaTree, p string) *BackupPolicyEntryID {
 		return newBackupPolicyEntryID(t, p)
 	})
 }
@@ -70811,8 +70811,8 @@ func (x *D13CodeSpecsProjectionID) ALRERE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/monitoringAndAlerting/alerting/ALRERE"}
 }
 
-func (x *D13CodeSpecsProjectionID) ALDEEN_ALER_LST() *som.SomListMetaRef[*AlertDefinitionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/operations/monitoringAndAlerting/ALDEEN-ALER-LST", func(t *som.SomMetaTree, p string) *AlertDefinitionEntryID {
+func (x *D13CodeSpecsProjectionID) ALEDEFENT_ALER_LST() *som.SomListMetaRef[*AlertDefinitionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/operations/monitoringAndAlerting/ALEDEFENT-ALER-LST", func(t *som.SomMetaTree, p string) *AlertDefinitionEntryID {
 		return newAlertDefinitionEntryID(t, p)
 	})
 }
@@ -70897,8 +70897,8 @@ func (x *D13CodeSpecsProjectionID) SMPA() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPA"}
 }
 
-func (x *D13CodeSpecsProjectionID) MAWIEN_MAIN_LST() *som.SomListMetaRef[*MaintenanceWindowEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/operations/maintenanceWindows/MAWIEN-MAIN-LST", func(t *som.SomMetaTree, p string) *MaintenanceWindowEntryID {
+func (x *D13CodeSpecsProjectionID) MWE_MAIN_LST() *som.SomListMetaRef[*MaintenanceWindowEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/operations/maintenanceWindows/MWE-MAIN-LST", func(t *som.SomMetaTree, p string) *MaintenanceWindowEntryID {
 		return newMaintenanceWindowEntryID(t, p)
 	})
 }
@@ -70951,8 +70951,8 @@ func (x *D13CodeSpecsProjectionID) PMVC() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/operations/maintenanceWindows/postMaintenance/PMVC"}
 }
 
-func (x *D13CodeSpecsProjectionID) PREN_PROT_LST() *som.SomListMetaRef[*ProtocolEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/communication/protocolsAndStandards/PREN-PROT-LST", func(t *som.SomMetaTree, p string) *ProtocolEntryID {
+func (x *D13CodeSpecsProjectionID) PE_PROT_LST() *som.SomListMetaRef[*ProtocolEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/communication/protocolsAndStandards/PE-PROT-LST", func(t *som.SomMetaTree, p string) *ProtocolEntryID {
 		return newProtocolEntryID(t, p)
 	})
 }
@@ -71041,8 +71041,8 @@ func (x *D13CodeSpecsProjectionID) PCRE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/communication/protocolsAndStandards/compliance/PCRE"}
 }
 
-func (x *D13CodeSpecsProjectionID) EPCE_PART_LST() *som.SomListMetaRef[*ExternalPartnerConnectionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/communication/externalConnectivity/EPCE-PART-LST", func(t *som.SomMetaTree, p string) *ExternalPartnerConnectionEntryID {
+func (x *D13CodeSpecsProjectionID) EXPACOEN_PART_LST() *som.SomListMetaRef[*ExternalPartnerConnectionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/communication/externalConnectivity/EXPACOEN-PART-LST", func(t *som.SomMetaTree, p string) *ExternalPartnerConnectionEntryID {
 		return newExternalPartnerConnectionEntryID(t, p)
 	})
 }
@@ -71199,8 +71199,8 @@ func (x *D13CodeSpecsProjectionID) SDTSS() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS"}
 }
 
-func (x *D13CodeSpecsProjectionID) MAINT_MAIN_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D13CodeSpecsProjectionID) SO_MAIN_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/systemOperation/SO-MAIN-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -71289,8 +71289,8 @@ func (x *D13CodeSpecsProjectionID) ANCF() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCF"}
 }
 
-func (x *D13CodeSpecsProjectionID) ALRUEN_ALER_LST() *som.SomListMetaRef[*AlertRuleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALRUEN-ALER-LST", func(t *som.SomMetaTree, p string) *AlertRuleEntryID {
+func (x *D13CodeSpecsProjectionID) ALERULENT_ALER_LST() *som.SomListMetaRef[*AlertRuleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERULENT-ALER-LST", func(t *som.SomMetaTree, p string) *AlertRuleEntryID {
 		return newAlertRuleEntryID(t, p)
 	})
 }
@@ -71377,8 +71377,8 @@ func (x *D13CodeSpecsProjectionID) DTSO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSO"}
 }
 
-func (x *D13CodeSpecsProjectionID) CUMEEN_CUST_LST() *som.SomListMetaRef[*CustomMetricEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUMEEN-CUST-LST", func(t *som.SomMetaTree, p string) *CustomMetricEntryID {
+func (x *D13CodeSpecsProjectionID) CUSMETENT_CUST_LST() *som.SomListMetaRef[*CustomMetricEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMETENT-CUST-LST", func(t *som.SomMetaTree, p string) *CustomMetricEntryID {
 		return newCustomMetricEntryID(t, p)
 	})
 }
@@ -71387,8 +71387,8 @@ func (x *D13CodeSpecsProjectionID) MODA_DASH() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH"}
 }
 
-func (x *D13CodeSpecsProjectionID) DAEN_DASH_LST() *som.SomListMetaRef[*DashboardEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/monitoring/dashboards/DAEN-DASH-LST", func(t *som.SomMetaTree, p string) *DashboardEntryID {
+func (x *D13CodeSpecsProjectionID) DASENT_DASH_LST() *som.SomListMetaRef[*DashboardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/monitoring/dashboards/DASENT-DASH-LST", func(t *som.SomMetaTree, p string) *DashboardEntryID {
 		return newDashboardEntryID(t, p)
 	})
 }
@@ -71415,8 +71415,8 @@ func (x *D13CodeSpecsProjectionID) SLIM() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIM"}
 }
 
-func (x *D13CodeSpecsProjectionID) SLEN_SLOS_LST() *som.SomListMetaRef[*SloEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST", func(t *som.SomMetaTree, p string) *SloEntryID {
+func (x *D13CodeSpecsProjectionID) SE_SLOS_LST() *som.SomListMetaRef[*SloEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SE-SLOS-LST", func(t *som.SomMetaTree, p string) *SloEntryID {
 		return newSloEntryID(t, p)
 	})
 }
@@ -71513,8 +71513,8 @@ func (x *D13CodeSpecsProjectionID) CRPP() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPP"}
 }
 
-func (x *D13CodeSpecsProjectionID) SESTEN_STAN_LST() *som.SomListMetaRef[*SecurityStandardEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/security/itSecurityStandards/SESTEN-STAN-LST", func(t *som.SomMetaTree, p string) *SecurityStandardEntryID {
+func (x *D13CodeSpecsProjectionID) SSE_STAN_LST() *som.SomListMetaRef[*SecurityStandardEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/security/itSecurityStandards/SSE-STAN-LST", func(t *som.SomMetaTree, p string) *SecurityStandardEntryID {
 		return newSecurityStandardEntryID(t, p)
 	})
 }
@@ -71783,8 +71783,8 @@ func (x *D13CodeSpecsProjectionID) STAG() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAG"}
 }
 
-func (x *D13CodeSpecsProjectionID) SEAUEN_AUDI_LST() *som.SomListMetaRef[*SecurityAuditEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/security/securityAuditRequirements/SEAUEN-AUDI-LST", func(t *som.SomMetaTree, p string) *SecurityAuditEntryID {
+func (x *D13CodeSpecsProjectionID) SAE_AUDI_LST() *som.SomListMetaRef[*SecurityAuditEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalFramework/security/securityAuditRequirements/SAE-AUDI-LST", func(t *som.SomMetaTree, p string) *SecurityAuditEntryID {
 		return newSecurityAuditEntryID(t, p)
 	})
 }
@@ -71887,8 +71887,8 @@ func (x *D13CodeSpecsProjectionID) IDTAM_ATTR_LST() *som.SomListMetaRef[*Identit
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) MFADE_MFAD_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D13CodeSpecsProjectionID) MC_MFAD_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MC-MFAD-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -71899,8 +71899,8 @@ func (x *D13CodeSpecsProjectionID) ATME_ITEM_LST() *som.SomListMetaRef[*Authenti
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) STEPU_STEP_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D13CodeSpecsProjectionID) SUAP_STEP_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/SUAP-STEP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -71971,8 +71971,8 @@ func (x *D13CodeSpecsProjectionID) SEVT_CUST_LST() *som.SomListMetaRef[*Security
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) REEN_REPO_LST() *som.SomListMetaRef[*ReportEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/reportDefinitions/REEN-REPO-LST", func(t *som.SomMetaTree, p string) *ReportEntryID {
+func (x *D13CodeSpecsProjectionID) REPENT_REPO_LST() *som.SomListMetaRef[*ReportEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/reportDefinitions/REPENT-REPO-LST", func(t *som.SomMetaTree, p string) *ReportEntryID {
 		return newReportEntryID(t, p)
 	})
 }
@@ -72049,8 +72049,8 @@ func (x *D13CodeSpecsProjectionID) SCREN_ITEM_LST() *som.SomListMetaRef[*ScreenE
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) GLOBA_GLOB_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/screens/informationArchitecture/GLOBA-GLOB-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D13CodeSpecsProjectionID) IA_GLOB_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -72073,14 +72073,14 @@ func (x *D13CodeSpecsProjectionID) PRNASI() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI"}
 }
 
-func (x *D13CodeSpecsProjectionID) TBDE_TABB_LST() *som.SomListMetaRef[*TabBarDefinitionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST", func(t *som.SomMetaTree, p string) *TabBarDefinitionEntryID {
+func (x *D13CodeSpecsProjectionID) TABADEEN_TABB_LST() *som.SomListMetaRef[*TabBarDefinitionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST", func(t *som.SomMetaTree, p string) *TabBarDefinitionEntryID {
 		return newTabBarDefinitionEntryID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) UNIE_ITEM_LST() *som.SomListMetaRef[*UtilityNavigationItemEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST", func(t *som.SomMetaTree, p string) *UtilityNavigationItemEntryID {
+func (x *D13CodeSpecsProjectionID) UTNAITEN_ITEM_LST() *som.SomListMetaRef[*UtilityNavigationItemEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST", func(t *som.SomMetaTree, p string) *UtilityNavigationItemEntryID {
 		return newUtilityNavigationItemEntryID(t, p)
 	})
 }
@@ -72155,14 +72155,14 @@ func (x *D13CodeSpecsProjectionID) VAFEBE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/validationFeedback/VAFEBE"}
 }
 
-func (x *D13CodeSpecsProjectionID) VAMETE_MESS_LST() *som.SomListMetaRef[*ValidationMessageTemplateID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/errorHandling/validationFeedback/VAMETE-MESS-LST", func(t *som.SomMetaTree, p string) *ValidationMessageTemplateID {
+func (x *D13CodeSpecsProjectionID) VMT_MESS_LST() *som.SomListMetaRef[*ValidationMessageTemplateID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/errorHandling/validationFeedback/VMT-MESS-LST", func(t *som.SomMetaTree, p string) *ValidationMessageTemplateID {
 		return newValidationMessageTemplateID(t, p)
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) FIELD_FIEL_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/errorHandling/validationFeedback/FIELD-FIEL-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D13CodeSpecsProjectionID) VAFE_FIEL_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/errorHandling/validationFeedback/VAFE-FIEL-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -72187,14 +72187,14 @@ func (x *D13CodeSpecsProjectionID) SEDF() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF"}
 }
 
-func (x *D13CodeSpecsProjectionID) EPDE_ERRO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D13CodeSpecsProjectionID) SYERDI_ERRO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) SECE_ERRO_LST() *som.SomListMetaRef[*SystemErrorCodeEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/errorHandling/systemErrorDisplay/SECE-ERRO-LST", func(t *som.SomMetaTree, p string) *SystemErrorCodeEntryID {
+func (x *D13CodeSpecsProjectionID) SYERCOEN_ERRO_LST() *som.SomListMetaRef[*SystemErrorCodeEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST", func(t *som.SomMetaTree, p string) *SystemErrorCodeEntryID {
 		return newSystemErrorCodeEntryID(t, p)
 	})
 }
@@ -72223,8 +72223,8 @@ func (x *D13CodeSpecsProjectionID) ERSH() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERSH"}
 }
 
-func (x *D13CodeSpecsProjectionID) RECOV_RECO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/errorHandling/errorRecovery/RECOV-RECO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *D13CodeSpecsProjectionID) ERRE_RECO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -72243,8 +72243,8 @@ func (x *D13CodeSpecsProjectionID) BC_BREA() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/experienceCodeSpecs/responsiveDesign/breakpointConfig/BC-BREA"}
 }
 
-func (x *D13CodeSpecsProjectionID) BRE_BREA_LST() *som.SomListMetaRef[*BreakpointEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/responsiveDesign/breakpointConfig/BRE-BREA-LST", func(t *som.SomMetaTree, p string) *BreakpointEntryID {
+func (x *D13CodeSpecsProjectionID) BE_BREA_LST() *som.SomListMetaRef[*BreakpointEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/responsiveDesign/breakpointConfig/BE-BREA-LST", func(t *som.SomMetaTree, p string) *BreakpointEntryID {
 		return newBreakpointEntryID(t, p)
 	})
 }
@@ -72329,8 +72329,8 @@ func (x *D13CodeSpecsProjectionID) TYST_TYPO_LST() *som.SomListMetaRef[*Typograp
 	})
 }
 
-func (x *D13CodeSpecsProjectionID) UICOEN_COMP_LST() *som.SomListMetaRef[*UiComponentEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/uiComponents/UICOEN-COMP-LST", func(t *som.SomMetaTree, p string) *UiComponentEntryID {
+func (x *D13CodeSpecsProjectionID) UICOMENT_COMP_LST() *som.SomListMetaRef[*UiComponentEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/experienceCodeSpecs/uiComponents/UICOMENT-COMP-LST", func(t *som.SomMetaTree, p string) *UiComponentEntryID {
 		return newUiComponentEntryID(t, p)
 	})
 }
@@ -72927,8 +72927,8 @@ func (x *DecisionPointEntryID) DEPOENCR() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/DEPOENCR"}
 }
 
-func (x *DecisionPointEntryID) DEOPEN_OPTI_LST() *som.SomListMetaRef[*DecisionOptionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/resolution/DEOPEN-OPTI-LST", func(t *som.SomMetaTree, p string) *DecisionOptionEntryID {
+func (x *DecisionPointEntryID) DOE_OPTI_LST() *som.SomListMetaRef[*DecisionOptionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/resolution/DOE-OPTI-LST", func(t *som.SomMetaTree, p string) *DecisionOptionEntryID {
 		return newDecisionOptionEntryID(t, p)
 	})
 }
@@ -74022,8 +74022,8 @@ func (x *ExportFormatEntryID) AZLVL_LEVE_LST() *som.SomListMetaRef[*GradedAccess
 	})
 }
 
-func (x *ExportFormatEntryID) EFME_FIEL_LST() *som.SomListMetaRef[*ExportFieldMappingEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/EFME-FIEL-LST", func(t *som.SomMetaTree, p string) *ExportFieldMappingEntryID {
+func (x *ExportFormatEntryID) EXFIMAEN_FIEL_LST() *som.SomListMetaRef[*ExportFieldMappingEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/EXFIMAEN-FIEL-LST", func(t *som.SomMetaTree, p string) *ExportFieldMappingEntryID {
 		return newExportFieldMappingEntryID(t, p)
 	})
 }
@@ -74149,8 +74149,8 @@ func (x *ExternalActorEntryID) EAEC() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/EAEC"}
 }
 
-func (x *ExternalActorEntryID) INTER_INTE_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/INTER-INTE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *ExternalActorEntryID) EAE_INTE_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/EAE-INTE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -74172,8 +74172,8 @@ func (x *ExternalInterfaceEntryID) EIE_IDEN() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/EIE-IDEN"}
 }
 
-func (x *ExternalInterfaceEntryID) IBPE_DEPE_LST() *som.SomListMetaRef[*InterfaceBusinessProcessEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/businessContext/IBPE-DEPE-LST", func(t *som.SomMetaTree, p string) *InterfaceBusinessProcessEntryID {
+func (x *ExternalInterfaceEntryID) INBUPREN_DEPE_LST() *som.SomListMetaRef[*InterfaceBusinessProcessEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/businessContext/INBUPREN-DEPE-LST", func(t *som.SomMetaTree, p string) *InterfaceBusinessProcessEntryID {
 		return newInterfaceBusinessProcessEntryID(t, p)
 	})
 }
@@ -74186,8 +74186,8 @@ func (x *ExternalInterfaceEntryID) ITSE() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalSpec/ITSE"}
 }
 
-func (x *ExternalInterfaceEntryID) INOPEN_OPER_LST() *som.SomListMetaRef[*InterfaceOperationEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalSpec/INOPEN-OPER-LST", func(t *som.SomMetaTree, p string) *InterfaceOperationEntryID {
+func (x *ExternalInterfaceEntryID) IOE_OPER_LST() *som.SomListMetaRef[*InterfaceOperationEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalSpec/IOE-OPER-LST", func(t *som.SomMetaTree, p string) *InterfaceOperationEntryID {
 		return newInterfaceOperationEntryID(t, p)
 	})
 }
@@ -74196,20 +74196,20 @@ func (x *ExternalInterfaceEntryID) INWESP() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalSpec/INWESP"}
 }
 
-func (x *ExternalInterfaceEntryID) IDEE_DATA_LST() *som.SomListMetaRef[*InterfaceDataEntityEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/dataSpec/IDEE-DATA-LST", func(t *som.SomMetaTree, p string) *InterfaceDataEntityEntryID {
+func (x *ExternalInterfaceEntryID) INDAENEN_DATA_LST() *som.SomListMetaRef[*InterfaceDataEntityEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/dataSpec/INDAENEN-DATA-LST", func(t *som.SomMetaTree, p string) *InterfaceDataEntityEntryID {
 		return newInterfaceDataEntityEntryID(t, p)
 	})
 }
 
-func (x *ExternalInterfaceEntryID) MAPPI_MAPP_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/dataSpec/MAPPI-MAPP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *ExternalInterfaceEntryID) INDASP_MAPP_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/dataSpec/INDASP-MAPP-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *ExternalInterfaceEntryID) VALID_VALI_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/dataSpec/VALID-VALI-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *ExternalInterfaceEntryID) INDASP_VALI_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/dataSpec/INDASP-VALI-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -74238,8 +74238,8 @@ func (x *ExternalInterfaceEntryID) INOPSU() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/operational/INOPSU"}
 }
 
-func (x *ExternalInterfaceEntryID) DEPEN_DEPE_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/operational/DEPEN-DEPE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *ExternalInterfaceEntryID) INOP_DEPE_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/operational/INOP-DEPE-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -74256,8 +74256,8 @@ func (x *ExternalInterfaceEntryID) IEHT() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/errorHandling/IEHT"}
 }
 
-func (x *ExternalInterfaceEntryID) ERROR_ERRO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/errorHandling/ERROR-ERRO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *ExternalInterfaceEntryID) INERHA_ERRO_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/errorHandling/INERHA-ERRO-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -74278,8 +74278,8 @@ func (x *ExternalInterfaceEntryID) INTEST() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/testing/INTEST"}
 }
 
-func (x *ExternalInterfaceEntryID) ITSE1_TEST_LST() *som.SomListMetaRef[*InterfaceTestScenarioEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/testing/ITSE1-TEST-LST", func(t *som.SomMetaTree, p string) *InterfaceTestScenarioEntryID {
+func (x *ExternalInterfaceEntryID) INTESCEN_TEST_LST() *som.SomListMetaRef[*InterfaceTestScenarioEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/testing/INTESCEN-TEST-LST", func(t *som.SomMetaTree, p string) *InterfaceTestScenarioEntryID {
 		return newInterfaceTestScenarioEntryID(t, p)
 	})
 }
@@ -74722,8 +74722,8 @@ func (x *FunctionalRequirementEntryID) FREM() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/FREM"}
 }
 
-func (x *FunctionalRequirementEntryID) ACCR_CRIT_LST() *som.SomListMetaRef[*AcceptanceCriterionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/acceptanceCriteria/ACCR-CRIT-LST", func(t *som.SomMetaTree, p string) *AcceptanceCriterionEntryID {
+func (x *FunctionalRequirementEntryID) ACE_CRIT_LST() *som.SomListMetaRef[*AcceptanceCriterionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/acceptanceCriteria/ACE-CRIT-LST", func(t *som.SomMetaTree, p string) *AcceptanceCriterionEntryID {
 		return newAcceptanceCriterionEntryID(t, p)
 	})
 }
@@ -74752,8 +74752,8 @@ func (x *FunctionalRequirementEntryID) RUS_MOCK() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/uiSpecification/RUS-MOCK"}
 }
 
-func (x *FunctionalRequirementEntryID) SCFLD_FIEL_LST() *som.SomListMetaRef[*ScreenFieldEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/uiSpecification/SCFLD-FIEL-LST", func(t *som.SomMetaTree, p string) *ScreenFieldEntryID {
+func (x *FunctionalRequirementEntryID) SFE_FIEL_LST() *som.SomListMetaRef[*ScreenFieldEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/uiSpecification/SFE-FIEL-LST", func(t *som.SomMetaTree, p string) *ScreenFieldEntryID {
 		return newScreenFieldEntryID(t, p)
 	})
 }
@@ -76736,8 +76736,8 @@ func (x *OrganizationalRequirementEntryID) OREP() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/OREP"}
 }
 
-func (x *OrganizationalRequirementEntryID) ACCR_CRIT_LST() *som.SomListMetaRef[*AcceptanceCriterionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/acceptanceCriteria/ACCR-CRIT-LST", func(t *som.SomMetaTree, p string) *AcceptanceCriterionEntryID {
+func (x *OrganizationalRequirementEntryID) ACE_CRIT_LST() *som.SomListMetaRef[*AcceptanceCriterionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/acceptanceCriteria/ACE-CRIT-LST", func(t *som.SomMetaTree, p string) *AcceptanceCriterionEntryID {
 		return newAcceptanceCriterionEntryID(t, p)
 	})
 }
@@ -78119,32 +78119,32 @@ func (x *ReportEntryID) RELI() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RELI"}
 }
 
-func (x *ReportEntryID) RESEE1_SECT_LST() *som.SomListMetaRef[*ReportSectionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/RESEE1-SECT-LST", func(t *som.SomMetaTree, p string) *ReportSectionEntryID {
+func (x *ReportEntryID) RSE_SECT_LST() *som.SomListMetaRef[*ReportSectionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RSE-SECT-LST", func(t *som.SomMetaTree, p string) *ReportSectionEntryID {
 		return newReportSectionEntryID(t, p)
 	})
 }
 
-func (x *ReportEntryID) REFIEN_FILT_LST() *som.SomListMetaRef[*ReportFilterEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/REFIEN-FILT-LST", func(t *som.SomMetaTree, p string) *ReportFilterEntryID {
+func (x *ReportEntryID) RFE_FILT_LST() *som.SomListMetaRef[*ReportFilterEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RFE-FILT-LST", func(t *som.SomMetaTree, p string) *ReportFilterEntryID {
 		return newReportFilterEntryID(t, p)
 	})
 }
 
-func (x *ReportEntryID) RESCEN_SCHE_LST() *som.SomListMetaRef[*ReportScheduleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/RESCEN-SCHE-LST", func(t *som.SomMetaTree, p string) *ReportScheduleEntryID {
+func (x *ReportEntryID) REPSCHENT_SCHE_LST() *som.SomListMetaRef[*ReportScheduleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/REPSCHENT-SCHE-LST", func(t *som.SomMetaTree, p string) *ReportScheduleEntryID {
 		return newReportScheduleEntryID(t, p)
 	})
 }
 
-func (x *ReportEntryID) REDIEN_DIST_LST() *som.SomListMetaRef[*ReportDistributionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/REDIEN-DIST-LST", func(t *som.SomMetaTree, p string) *ReportDistributionEntryID {
+func (x *ReportEntryID) RDE_DIST_LST() *som.SomListMetaRef[*ReportDistributionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RDE-DIST-LST", func(t *som.SomMetaTree, p string) *ReportDistributionEntryID {
 		return newReportDistributionEntryID(t, p)
 	})
 }
 
-func (x *ReportEntryID) REREEN_RECI_LST() *som.SomListMetaRef[*ReportRecipientEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/REREEN-RECI-LST", func(t *som.SomMetaTree, p string) *ReportRecipientEntryID {
+func (x *ReportEntryID) RRE_RECI_LST() *som.SomListMetaRef[*ReportRecipientEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/RRE-RECI-LST", func(t *som.SomMetaTree, p string) *ReportRecipientEntryID {
 		return newReportRecipientEntryID(t, p)
 	})
 }
@@ -78281,14 +78281,14 @@ func (x *ReportSectionEntryID) RESEAG() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/RESEAG"}
 }
 
-func (x *ReportSectionEntryID) RECOE1_COLU_LST() *som.SomListMetaRef[*ReportColumnEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/RECOE1-COLU-LST", func(t *som.SomMetaTree, p string) *ReportColumnEntryID {
+func (x *ReportSectionEntryID) REPCOLENT_COLU_LST() *som.SomListMetaRef[*ReportColumnEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/REPCOLENT-COLU-LST", func(t *som.SomMetaTree, p string) *ReportColumnEntryID {
 		return newReportColumnEntryID(t, p)
 	})
 }
 
-func (x *ReportSectionEntryID) RECHEN_CHAR_LST() *som.SomListMetaRef[*ReportChartEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/RECHEN-CHAR-LST", func(t *som.SomMetaTree, p string) *ReportChartEntryID {
+func (x *ReportSectionEntryID) REPCHAENT_CHAR_LST() *som.SomListMetaRef[*ReportChartEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/REPCHAENT-CHAR-LST", func(t *som.SomMetaTree, p string) *ReportChartEntryID {
 		return newReportChartEntryID(t, p)
 	})
 }
@@ -79221,8 +79221,8 @@ func (x *ScreenElementEntryID) SEDDO() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/dataDisplay/SEDDO"}
 }
 
-func (x *ScreenElementEntryID) EVRE_VALI_LST() *som.SomListMetaRef[*ElementValidationRuleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/EVRE-VALI-LST", func(t *som.SomMetaTree, p string) *ElementValidationRuleEntryID {
+func (x *ScreenElementEntryID) ELVARUEN_VALI_LST() *som.SomListMetaRef[*ElementValidationRuleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/ELVARUEN-VALI-LST", func(t *som.SomMetaTree, p string) *ElementValidationRuleEntryID {
 		return newElementValidationRuleEntryID(t, p)
 	})
 }
@@ -79296,8 +79296,8 @@ func (x *ScreenEntryID) SCRST_ITEM_LST() *som.SomListMetaRef[*ScreenStateEntryID
 	})
 }
 
-func (x *ScreenEntryID) SCRUSC_USER_LST() *som.SomListMetaRef[*ScreenUserCategoryEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SCRUSC-USER-LST", func(t *som.SomMetaTree, p string) *ScreenUserCategoryEntryID {
+func (x *ScreenEntryID) SUCE_USER_LST() *som.SomListMetaRef[*ScreenUserCategoryEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SUCE-USER-LST", func(t *som.SomMetaTree, p string) *ScreenUserCategoryEntryID {
 		return newScreenUserCategoryEntryID(t, p)
 	})
 }
@@ -79308,8 +79308,8 @@ func (x *ScreenEntryID) EPNT_ENTR_LST() *som.SomListMetaRef[*EntryPointEntryID] 
 	})
 }
 
-func (x *ScreenEntryID) SRRE_RESP_LST() *som.SomListMetaRef[*ScreenResponsiveRuleEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SRRE-RESP-LST", func(t *som.SomMetaTree, p string) *ScreenResponsiveRuleEntryID {
+func (x *ScreenEntryID) SCRERUEN_RESP_LST() *som.SomListMetaRef[*ScreenResponsiveRuleEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SCRERUEN-RESP-LST", func(t *som.SomMetaTree, p string) *ScreenResponsiveRuleEntryID {
 		return newScreenResponsiveRuleEntryID(t, p)
 	})
 }
@@ -79549,14 +79549,14 @@ func (x *SecurityRequirementEntryID) SEREENST() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SEREENST"}
 }
 
-func (x *SecurityRequirementEntryID) ACCR_CRIT_LST() *som.SomListMetaRef[*AcceptanceCriterionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/acceptanceCriteria/ACCR-CRIT-LST", func(t *som.SomMetaTree, p string) *AcceptanceCriterionEntryID {
+func (x *SecurityRequirementEntryID) ACE_CRIT_LST() *som.SomListMetaRef[*AcceptanceCriterionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/acceptanceCriteria/ACE-CRIT-LST", func(t *som.SomMetaTree, p string) *AcceptanceCriterionEntryID {
 		return newAcceptanceCriterionEntryID(t, p)
 	})
 }
 
-func (x *SecurityRequirementEntryID) SECCT_CONT_LST() *som.SomListMetaRef[*SecurityControlEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/controls/SECCT-CONT-LST", func(t *som.SomMetaTree, p string) *SecurityControlEntryID {
+func (x *SecurityRequirementEntryID) SECOEN_CONT_LST() *som.SomListMetaRef[*SecurityControlEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/controls/SECOEN-CONT-LST", func(t *som.SomMetaTree, p string) *SecurityControlEntryID {
 		return newSecurityControlEntryID(t, p)
 	})
 }
@@ -80592,14 +80592,14 @@ func (x *SystemTaskEntryID) SYTS_RELA_REF() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/SYTS-RELA-REF"}
 }
 
-func (x *SystemTaskEntryID) SYSTE_WORK_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/SYSTE-WORK-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *SystemTaskEntryID) SYTS_WORK_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SYTS-WORK-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *SystemTaskEntryID) VARIA_VARI_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/VARIA-VARI-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *SystemTaskEntryID) SYTS_VARI_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/SYTS-VARI-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -80641,14 +80641,14 @@ func (x *SystemToReplaceEntryID) STAQ() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/technicalAssessment/STAQ"}
 }
 
-func (x *SystemToReplaceEntryID) KIE_KNOW_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalAssessment/KIE-KNOW-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *SystemToReplaceEntryID) SYTEAS_KNOW_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalAssessment/SYTEAS-KNOW-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *SystemToReplaceEntryID) SECUR_SECU_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalAssessment/SECUR-SECU-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *SystemToReplaceEntryID) SYTEAS_SECU_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/technicalAssessment/SYTEAS-SECU-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -80661,14 +80661,14 @@ func (x *SystemToReplaceEntryID) SBCG() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/businessCriticality/SBCG"}
 }
 
-func (x *SystemToReplaceEntryID) SBUE_BUSI_LST() *som.SomListMetaRef[*SystemBusinessUnitEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/businessCriticality/SBUE-BUSI-LST", func(t *som.SomMetaTree, p string) *SystemBusinessUnitEntryID {
+func (x *SystemToReplaceEntryID) SYBUUNEN_BUSI_LST() *som.SomListMetaRef[*SystemBusinessUnitEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/businessCriticality/SYBUUNEN-BUSI-LST", func(t *som.SomMetaTree, p string) *SystemBusinessUnitEntryID {
 		return newSystemBusinessUnitEntryID(t, p)
 	})
 }
 
-func (x *SystemToReplaceEntryID) SBPE_SUPP_LST() *som.SomListMetaRef[*SystemBusinessProcessEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/businessCriticality/SBPE-SUPP-LST", func(t *som.SomMetaTree, p string) *SystemBusinessProcessEntryID {
+func (x *SystemToReplaceEntryID) SYBUPREN_SUPP_LST() *som.SomListMetaRef[*SystemBusinessProcessEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/businessCriticality/SYBUPREN-SUPP-LST", func(t *som.SomMetaTree, p string) *SystemBusinessProcessEntryID {
 		return newSystemBusinessProcessEntryID(t, p)
 	})
 }
@@ -80687,8 +80687,8 @@ func (x *SystemToReplaceEntryID) REPPHS_PHAS_LST() *som.SomListMetaRef[*Replacem
 	})
 }
 
-func (x *SystemToReplaceEntryID) PREDE_PRED_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/replacementStrategy/PREDE-PRED-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *SystemToReplaceEntryID) SYREST_PRED_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/replacementStrategy/SYREST-PRED-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -80701,14 +80701,14 @@ func (x *SystemToReplaceEntryID) SYDASCMI() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/dataScope/SYDASCMI"}
 }
 
-func (x *SystemToReplaceEntryID) DEME_ENTI_LST() *som.SomListMetaRef[*DataEntityMigrationEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/dataScope/DEME-ENTI-LST", func(t *som.SomMetaTree, p string) *DataEntityMigrationEntryID {
+func (x *SystemToReplaceEntryID) DAENMIEN_ENTI_LST() *som.SomListMetaRef[*DataEntityMigrationEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/dataScope/DAENMIEN-ENTI-LST", func(t *som.SomMetaTree, p string) *DataEntityMigrationEntryID {
 		return newDataEntityMigrationEntryID(t, p)
 	})
 }
 
-func (x *SystemToReplaceEntryID) KNOWN_KNOW_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/dataScope/KNOWN-KNOW-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *SystemToReplaceEntryID) SYDASC_KNOW_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/dataScope/SYDASC-KNOW-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -80731,8 +80731,8 @@ func (x *SystemToReplaceEntryID) SUIA() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/userImpact/SUIA"}
 }
 
-func (x *SystemToReplaceEntryID) UGIE_USER_LST() *som.SomListMetaRef[*UserGroupImpactEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/userImpact/UGIE-USER-LST", func(t *som.SomMetaTree, p string) *UserGroupImpactEntryID {
+func (x *SystemToReplaceEntryID) USGRIMEN_USER_LST() *som.SomListMetaRef[*UserGroupImpactEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/userImpact/USGRIMEN-USER-LST", func(t *som.SomMetaTree, p string) *UserGroupImpactEntryID {
 		return newUserGroupImpactEntryID(t, p)
 	})
 }
@@ -80749,8 +80749,8 @@ func (x *SystemToReplaceEntryID) SCAB() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/costAnalysis/SCAB"}
 }
 
-func (x *SystemToReplaceEntryID) NONFI_NONF_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/costAnalysis/NONFI-NONF-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *SystemToReplaceEntryID) SYCOAN_NONF_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/costAnalysis/SYCOAN-NONF-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -80763,14 +80763,14 @@ func (x *SystemToReplaceEntryID) SMPC() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/migrationPlan/SMPC"}
 }
 
-func (x *SystemToReplaceEntryID) SMRE_RISK_LST() *som.SomListMetaRef[*SystemMigrationRiskEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/migrationPlan/SMRE-RISK-LST", func(t *som.SomMetaTree, p string) *SystemMigrationRiskEntryID {
+func (x *SystemToReplaceEntryID) SYMIRIEN_RISK_LST() *som.SomListMetaRef[*SystemMigrationRiskEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/migrationPlan/SYMIRIEN-RISK-LST", func(t *som.SomMetaTree, p string) *SystemMigrationRiskEntryID {
 		return newSystemMigrationRiskEntryID(t, p)
 	})
 }
 
-func (x *SystemToReplaceEntryID) CRITI_CRIT_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/knowledgeTransfer/CRITI-CRIT-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *SystemToReplaceEntryID) SYKNTR_CRIT_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/knowledgeTransfer/SYKNTR-CRIT-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -80821,8 +80821,8 @@ func (x *TabBarDefinitionEntryID) TBDEL() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/TBDEL"}
 }
 
-func (x *TabBarDefinitionEntryID) TAITEN_TABS_LST() *som.SomListMetaRef[*TabItemEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/TAITEN-TABS-LST", func(t *som.SomMetaTree, p string) *TabItemEntryID {
+func (x *TabBarDefinitionEntryID) TIE_TABS_LST() *som.SomListMetaRef[*TabItemEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/TIE-TABS-LST", func(t *som.SomMetaTree, p string) *TabItemEntryID {
 		return newTabItemEntryID(t, p)
 	})
 }
@@ -81096,8 +81096,8 @@ func (x *TechnicalRequirementEntryID) TREC() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/TREC"}
 }
 
-func (x *TechnicalRequirementEntryID) ACCR_CRIT_LST() *som.SomListMetaRef[*AcceptanceCriterionEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/acceptanceCriteria/ACCR-CRIT-LST", func(t *som.SomMetaTree, p string) *AcceptanceCriterionEntryID {
+func (x *TechnicalRequirementEntryID) ACE_CRIT_LST() *som.SomListMetaRef[*AcceptanceCriterionEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/acceptanceCriteria/ACE-CRIT-LST", func(t *som.SomMetaTree, p string) *AcceptanceCriterionEntryID {
 		return newAcceptanceCriterionEntryID(t, p)
 	})
 }
@@ -81759,14 +81759,14 @@ func (x *UiComponentEntryID) UICOMENT_DATA() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UICOMENT-DATA"}
 }
 
-func (x *UiComponentEntryID) CMST_STAT_LST() *som.SomListMetaRef[*ComponentStateEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/CMST-STAT-LST", func(t *som.SomMetaTree, p string) *ComponentStateEntryID {
+func (x *UiComponentEntryID) COMSTAENT_STAT_LST() *som.SomListMetaRef[*ComponentStateEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/COMSTAENT-STAT-LST", func(t *som.SomMetaTree, p string) *ComponentStateEntryID {
 		return newComponentStateEntryID(t, p)
 	})
 }
 
-func (x *UiComponentEntryID) CMVN_VARI_LST() *som.SomListMetaRef[*ComponentVariantEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/CMVN-VARI-LST", func(t *som.SomMetaTree, p string) *ComponentVariantEntryID {
+func (x *UiComponentEntryID) CVE_VARI_LST() *som.SomListMetaRef[*ComponentVariantEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/CVE-VARI-LST", func(t *som.SomMetaTree, p string) *ComponentVariantEntryID {
 		return newComponentVariantEntryID(t, p)
 	})
 }
@@ -81856,8 +81856,8 @@ func (x *UserCategoryEntryID) UPD_VISU() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/personaDetails/UPD-VISU"}
 }
 
-func (x *UserCategoryEntryID) REPRE_REPR_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/personaDetails/REPRE-REPR-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *UserCategoryEntryID) UPD_REPR_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/personaDetails/UPD-REPR-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -81914,14 +81914,14 @@ func (x *UserCategoryEntryID) JRNST_STAG_LST() *som.SomListMetaRef[*JourneyStage
 	})
 }
 
-func (x *UserCategoryEntryID) KEYTO_KEYT_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/userJourney/KEYTO-KEYT-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *UserCategoryEntryID) UJ_KEYT_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/userJourney/UJ-KEYT-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
 
-func (x *UserCategoryEntryID) USERJ_PAIN_LST() *som.SomListMetaRef[*som.SomMetaRef] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/userJourney/USERJ-PAIN-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
+func (x *UserCategoryEntryID) UJ_PAIN_LST() *som.SomListMetaRef[*som.SomMetaRef] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/userJourney/UJ-PAIN-LST", func(t *som.SomMetaTree, p string) *som.SomMetaRef {
 		return &som.SomMetaRef{Tree: t, Path: p}
 	})
 }
@@ -82088,8 +82088,8 @@ func (x *UtilityNavigationItemEntryID) UNIEB() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/UNIEB"}
 }
 
-func (x *UtilityNavigationItemEntryID) UMIE_MENU_LST() *som.SomListMetaRef[*UtilityMenuItemEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/UMIE-MENU-LST", func(t *som.SomMetaTree, p string) *UtilityMenuItemEntryID {
+func (x *UtilityNavigationItemEntryID) UTMEITEN_MENU_LST() *som.SomListMetaRef[*UtilityMenuItemEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/UTMEITEN-MENU-LST", func(t *som.SomMetaTree, p string) *UtilityMenuItemEntryID {
 		return newUtilityMenuItemEntryID(t, p)
 	})
 }
@@ -82399,8 +82399,8 @@ func (x *WorkplaceDescriptionEntryID) DSEQ_DISP_LST() *som.SomListMetaRef[*Displ
 	})
 }
 
-func (x *WorkplaceDescriptionEntryID) INPDE_INPU_LST() *som.SomListMetaRef[*InputDeviceEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/equipmentRequirements/INPDE-INPU-LST", func(t *som.SomMetaTree, p string) *InputDeviceEntryID {
+func (x *WorkplaceDescriptionEntryID) IDE_INPU_LST() *som.SomListMetaRef[*InputDeviceEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/equipmentRequirements/IDE-INPU-LST", func(t *som.SomMetaTree, p string) *InputDeviceEntryID {
 		return newInputDeviceEntryID(t, p)
 	})
 }
@@ -82449,8 +82449,8 @@ func (x *WorkplaceDescriptionEntryID) TROV() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/trainingRequirements/TROV"}
 }
 
-func (x *WorkplaceDescriptionEntryID) INITR_INIT_LST() *som.SomListMetaRef[*InitialTrainingEntryID] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/trainingRequirements/INITR-INIT-LST", func(t *som.SomMetaTree, p string) *InitialTrainingEntryID {
+func (x *WorkplaceDescriptionEntryID) ITE_INIT_LST() *som.SomListMetaRef[*InitialTrainingEntryID] {
+	return som.NewSomListMetaRef(x.Tree, x.Path+"/trainingRequirements/ITE-INIT-LST", func(t *som.SomMetaTree, p string) *InitialTrainingEntryID {
 		return newInitialTrainingEntryID(t, p)
 	})
 }

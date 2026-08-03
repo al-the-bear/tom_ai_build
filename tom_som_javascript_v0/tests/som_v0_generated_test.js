@@ -453,7 +453,7 @@ function testLiveDocumentCase() {
   const navRef = m.d00SolutionBlueprint.currentLandscape.operationalMetrics;
   check('live.node.nav-path', navRef.path === 'SBP/currentLandscape/CUOPME-OPER-LST', navRef.path);
   check('live.node.nav-identity', navRef.meta === listByPath);
-  const idRef = m.SBP.RVHST_REVS_LST.item(0);
+  const idRef = m.SBP.RVENT_REVS_LST.item(0);
   const navItem = m.d00SolutionBlueprint.documentControl.revisionHistory.item(0);
   check('live.node.id-path', idRef.path === navItem.path, idRef.path);
   check('live.node.id-identity', idRef.meta === navItem.meta);

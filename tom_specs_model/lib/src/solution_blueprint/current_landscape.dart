@@ -207,8 +207,8 @@ class CurrentArchitecture extends DocSpecsSection {
     'The set of integration patterns the current architecture relies on to '
     'connect its systems.',
   )
-  @SectionId('IPE-INTE-LST')
-  @SectionIdPattern('IPE-INTE-xxx')
+  @SectionId('CARCH-INTE-LST')
+  @SectionIdPattern('CARCH-INTE-xxx')
   @ContentHelp(
     'Add one entry per integration pattern in use (e.g. point-to-'
     'point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each '
@@ -223,8 +223,8 @@ class CurrentArchitecture extends DocSpecsSection {
     'The set of shared services the current architecture provides across '
     'multiple systems.',
   )
-  @SectionId('SHARE-SHAR-LST')
-  @SectionIdPattern('SHARE-SHAR-xxx')
+  @SectionId('CARCH-SHAR-LST')
+  @SectionIdPattern('CARCH-SHAR-xxx')
   @ContentHelp(
     'Add one entry per shared service used by more than one system '
     '(e.g. authentication, logging, notifications). Capture which systems '
@@ -1297,8 +1297,8 @@ class IntegrationHealthSummary extends DocSpecsSection {
     'The set of fragile integration points in the AS-IS landscape that pose '
     'risk and require attention.',
   )
-  @SectionId('FRAGI-FRAG-LST')
-  @SectionIdPattern('FRAGI-FRAG-xxx')
+  @SectionId('INHESU-FRAG-LST')
+  @SectionIdPattern('INHESU-FRAG-xxx')
   @ContentHelp(
     'Add one entry per fragile or high-risk integration point — '
     'brittle interfaces, undocumented links, or single points of failure '
@@ -2468,8 +2468,8 @@ class CurrentWorkflowEntry extends DocSpecsSection {
   @StandardReferences([
     'BABOK v3 §10 — current-state analysis (workflow participants / roles)',
   ], 'The actors who participate in the workflow and their responsibilities.')
-  @SectionId('WFAC-ACTO-LST')
-  @SectionIdPattern('WFAC-ACTO-xxx')
+  @SectionId('WAE-ACTO-LST')
+  @SectionIdPattern('WAE-ACTO-xxx')
   @ContentHelp(
     'Add one entry per actor (role, system, department, external) '
     'taking part in this workflow, with their responsibilities and '
@@ -3530,8 +3530,8 @@ on specific systems or personnel.
   @StandardReferences([
     'BABOK v3 §10 — current-state analysis (problem identification)',
   ], 'The list of individual operational pain points documented in detail.')
-  @SectionId('OPPAPO-ITEM-LST')
-  @SectionIdPattern('OPPAPO-ITEM-xxx')
+  @SectionId('PAPE-ITEM-LST')
+  @SectionIdPattern('PAPE-ITEM-xxx')
   @ContentHelp(
     'Add one entry per distinct operational problem, each with its '
     'own root cause, impact, and workaround. Keep entries scoped to '
@@ -3618,8 +3618,8 @@ and competitive positioning concerns.
   @StandardReferences([
     'BABOK v3 §10 — current-state analysis (problem identification)',
   ], 'The list of individual business pain points documented in detail.')
-  @SectionId('BUPAPO-ITEM-LST')
-  @SectionIdPattern('BUPAPO-ITEM-xxx')
+  @SectionId('PAPE-ITEM-LST')
+  @SectionIdPattern('PAPE-ITEM-xxx')
   @ContentHelp(
     'Add one entry per distinct business problem, each with its own '
     'root cause, quantified impact, and resolution outlook. Scope entries to '
@@ -3717,8 +3717,8 @@ integration complexity, and team capability constraints.
   @StandardReferences([
     'BABOK v3 §10 — current-state analysis (problem identification)',
   ], 'The list of individual technical pain points documented in detail.')
-  @SectionId('TEPAPO-ITEM-LST')
-  @SectionIdPattern('TEPAPO-ITEM-xxx')
+  @SectionId('PAPE-ITEM-LST')
+  @SectionIdPattern('PAPE-ITEM-xxx')
   @ContentHelp(
     'Add one entry per distinct technical problem, each with its own '
     'root cause, impact, and resolution outlook. Scope entries to technology, '

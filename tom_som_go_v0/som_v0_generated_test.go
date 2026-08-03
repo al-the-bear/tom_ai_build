@@ -561,7 +561,7 @@ func TestLiveDocumentCase(t *testing.T) {
 		t.Error("nav node identity != ByPath node")
 	}
 	revs := nav.DocumentControl().RevisionHistory()
-	idItem := SBP.RVHST_REVS_LST().Item(0)
+	idItem := SBP.RVENT_REVS_LST().Item(0)
 	navItem := revs.Item(0)
 	if idItem.Path != navItem.Path {
 		t.Errorf("id path = %q, want %q", idItem.Path, navItem.Path)

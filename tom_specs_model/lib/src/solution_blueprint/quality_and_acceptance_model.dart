@@ -64,8 +64,8 @@ class Iso25010Coverage extends DocSpecsSection {
   String? content;
 
   /// One entry per ISO/IEC 25010:2023 characteristic addressed.
-  @SectionId('I25CV-CHAR-LST')
-  @SectionIdPattern('I25CV-CHAR-xxx')
+  @SectionId('I25CE-CHAR-LST')
+  @SectionIdPattern('I25CE-CHAR-xxx')
   @ContentHelp('Add one entry per ISO/IEC 25010:2023 characteristic '
       '(functional suitability, performance efficiency, compatibility, '
       'interaction capability, reliability, security, maintainability, '

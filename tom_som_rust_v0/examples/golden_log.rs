@@ -277,7 +277,7 @@ fn main() {
     for path in [
         "SBP",
         "SBP/documentControl",
-        "SBP/documentControl/RVHST-REVS-LST",
+        "SBP/documentControl/RVENT-REVS-LST",
         "SBP/introductionAndScope",
         "SBP/introductionAndScope/goals",
         "SBP/introductionAndScope/goals/content",
@@ -347,7 +347,7 @@ fn main() {
         }
     };
     meta_form("SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST");
-    meta_form("SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST");
+    meta_form("SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CE-CHAR-LST");
     meta_form(
         "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCTREN-TRAN-LST",
     );
@@ -429,7 +429,7 @@ fn main() {
     };
 
     let revs = doc_control.revision_history();
-    let hoisted = sbp_id.RVHST_REVS_LST();
+    let hoisted = sbp_id.RVENT_REVS_LST();
     meta_id(
         sbp_id.path(),
         &sbp_id.meta().unwrap_or_else(|e| die(&e)),

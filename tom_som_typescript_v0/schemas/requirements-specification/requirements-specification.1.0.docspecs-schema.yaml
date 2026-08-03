@@ -29,6 +29,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Define actions available in the UI.
+  secoen-cont-lst:
+    prefix: SECOEN_CONT_LST
+    subsection-types:
+      secoen-cont:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per security control implementing this requirement.
   fldvl-vali-lst:
     prefix: FLDVL_VALI_LST
     subsection-types:
@@ -73,22 +81,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Define dynamic behaviors and interactions.
-  scfld-fiel-lst:
-    prefix: SCFLD_FIEL_LST
-    subsection-types:
-      scfld-fiel:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Define each field in the UI.
-  secct-cont-lst:
-    prefix: SECCT_CONT_LST
-    subsection-types:
-      secct-cont:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per security control implementing this requirement.
   secrq-requ-lst:
     prefix: SECRQ_REQU_LST
     subsection-types:
@@ -97,14 +89,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per security requirement.
-  accr-crit-lst:
-    prefix: ACCR_CRIT_LST
-    subsection-types:
-      accr-crit:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one criterion per testable condition.
   acpr-para-lst:
     prefix: ACPR_PARA_LST
     subsection-types:
@@ -137,6 +121,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per technical requirement.
+  ace-crit-lst:
+    prefix: ACE_CRIT_LST
+    subsection-types:
+      ace-crit:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one criterion per testable condition.
   daenre-enti:
     prefix: DAENRE_ENTI_
     subsection-types:
@@ -170,6 +162,25 @@ section-types:
       pattern: ^RQSCAC-ACTI-.+$
       error-message: IDs of this section must match RQSCAC-ACTI-xxx
     description: Define actions available in the UI.
+  secoen-cont:
+    prefix: SECOEN_CONT_
+    subsection-types:
+      scei:
+        max-count: 1
+      scev:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SECOEN-CONT-.+$
+      error-message: IDs of this section must match SECOEN-CONT-xxx
+    description: Add one entry per security control implementing this requirement.
+  sfe-fiel-lst:
+    prefix: SFE_FIEL_LST
+    subsection-types:
+      sfe-fiel:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Define each field in the UI.
   fldvl-vali:
     prefix: FLDVL_VALI_
     pattern-check-id:
@@ -210,44 +221,6 @@ section-types:
       pattern: ^SCBHV-BEHA-.+$
       error-message: IDs of this section must match SCBHV-BEHA-xxx
     description: Define dynamic behaviors and interactions.
-  scfld-fiel:
-    prefix: SCFLD_FIEL_
-    subsection-types:
-      sfdb:
-        max-count: 1
-      scfico:
-        max-count: 1
-      scfiva:
-        max-count: 1
-      scfivt:
-        max-count: 1
-      scfivn:
-        max-count: 1
-      scfivd:
-        max-count: 1
-      scfich:
-        max-count: 1
-      scfifi:
-        max-count: 1
-      scfila:
-        max-count: 1
-      fldvl-vali-lst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^SCFLD-FIEL-.+$
-      error-message: IDs of this section must match SCFLD-FIEL-xxx
-    description: Define each field in the UI.
-  secct-cont:
-    prefix: SECCT_CONT_
-    subsection-types:
-      scei:
-        max-count: 1
-      scev:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^SECCT-CONT-.+$
-      error-message: IDs of this section must match SECCT-CONT-xxx
-    description: Add one entry per security control implementing this requirement.
   secrq-requ:
     prefix: SECRQ_REQU_
     subsection-types:
@@ -271,12 +244,6 @@ section-types:
       pattern: ^SECRQ-REQU-.+$
       error-message: IDs of this section must match SECRQ-REQU-xxx
     description: Add one entry per security requirement.
-  accr-crit:
-    prefix: ACCR_CRIT_
-    pattern-check-id:
-      pattern: ^ACCR-CRIT-.+$
-      error-message: IDs of this section must match ACCR-CRIT-xxx
-    description: Add one criterion per testable condition.
   acpr-para:
     prefix: ACPR_PARA_
     pattern-check-id:
@@ -331,6 +298,12 @@ section-types:
       pattern: ^TERQ-REQU-.+$
       error-message: IDs of this section must match TERQ-REQU-xxx
     description: Add one entry per technical requirement.
+  ace-crit:
+    prefix: ACE_CRIT_
+    pattern-check-id:
+      pattern: ^ACE-CRIT-.+$
+      error-message: IDs of this section must match ACE-CRIT-xxx
+    description: Add one criterion per testable condition.
   fre-requ:
     prefix: FRE_REQU_
     subsection-types:
@@ -368,6 +341,33 @@ section-types:
     prefix: ORIP_PLAN
     format: orip-plan-form
     description: Implementation plan form.
+  sfe-fiel:
+    prefix: SFE_FIEL_
+    subsection-types:
+      sfdb:
+        max-count: 1
+      scfico:
+        max-count: 1
+      scfiva:
+        max-count: 1
+      scfivt:
+        max-count: 1
+      scfivn:
+        max-count: 1
+      scfivd:
+        max-count: 1
+      scfich:
+        max-count: 1
+      scfifi:
+        max-count: 1
+      scfila:
+        max-count: 1
+      fldvl-vali-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SFE-FIEL-.+$
+      error-message: IDs of this section must match SFE-FIEL-xxx
+    description: Define each field in the UI.
   rsp-trac:
     prefix: RSP_TRAC
     format: description
@@ -537,7 +537,7 @@ section-types:
   seco:
     prefix: SECO
     subsection-types:
-      secct-cont-lst:
+      secoen-cont-lst:
         max-count: 1
     description: Define security controls that implement this requirement.
   sfdb:
@@ -571,7 +571,7 @@ section-types:
   rac:
     prefix: RAC
     subsection-types:
-      accr-crit-lst:
+      ace-crit-lst:
         max-count: 1
     description: "Define clear, testable acceptance criteria. Use Given-When-Then format: Given [context], When [action], Then [expected result]."
   rbr:
@@ -595,7 +595,7 @@ section-types:
         max-count: 1
       rus-mock:
         max-count: 1
-      scfld-fiel-lst:
+      sfe-fiel-lst:
         max-count: 1
       rqscac-acti-lst:
         max-count: 1

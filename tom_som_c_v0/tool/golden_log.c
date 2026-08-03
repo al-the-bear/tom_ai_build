@@ -586,7 +586,7 @@ int main(int argc, char **argv) {
   som_strlist_push_copy(&out, "SECTION\tmeta");
   meta_node(meta_tree, &out, "SBP");
   meta_node(meta_tree, &out, "SBP/documentControl");
-  meta_node(meta_tree, &out, "SBP/documentControl/RVHST-REVS-LST");
+  meta_node(meta_tree, &out, "SBP/documentControl/RVENT-REVS-LST");
   meta_node(meta_tree, &out, "SBP/introductionAndScope");
   meta_node(meta_tree, &out, "SBP/introductionAndScope/goals");
   meta_node(meta_tree, &out, "SBP/introductionAndScope/goals/content");
@@ -603,7 +603,7 @@ int main(int argc, char **argv) {
   emit_meta_form(meta_tree, &out,
                  "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST");
   emit_meta_form(meta_tree, &out,
-                 "SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST");
+                 "SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CE-CHAR-LST");
   emit_meta_form(meta_tree, &out,
                  "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/"
                  "screenRouteMap/SCTREN-TRAN-LST");
@@ -650,7 +650,7 @@ int main(int argc, char **argv) {
     som_nav_d00_solution_blueprint nroot = d00_solution_blueprint_meta(meta_tree);
     meta_id(&out, &id_sbp.ref, &nroot.ref);
 
-    SomListMetaRef id_revs = d00_solution_blueprint_id_rvhst_revs_lst(id_sbp);
+    SomListMetaRef id_revs = d00_solution_blueprint_id_rvent_revs_lst(id_sbp);
     som_nav_document_control n_dc = d00_solution_blueprint_nav_document_control(nroot);
     SomListMetaRef nav_revs = document_control_nav_revision_history(n_dc);
     meta_id(&out, &id_revs.ref, &nav_revs.ref);

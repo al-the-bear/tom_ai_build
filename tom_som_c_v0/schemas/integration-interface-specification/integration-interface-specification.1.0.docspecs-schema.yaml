@@ -3,14 +3,38 @@
 
 title-format: "# <!--[IIS]--> Integration & Interface Specification"
 section-types:
-  boasen-item-lst:
-    prefix: BOASEN_ITEM_LST
+  inbupren-depe-lst:
+    prefix: INBUPREN_DEPE_LST
     subsection-types:
-      boasen-item:
+      inbupren-depe:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: "Each entry records one assumption with its category, validation status, and risk if proven incorrect."
+    description: "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable."
+  indaenen-data-lst:
+    prefix: INDAENEN_DATA_LST
+    subsection-types:
+      indaenen-data:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to."
+  intescen-test-lst:
+    prefix: INTESCEN_TEST_LST
+    subsection-types:
+      intescen-test:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "List test scenarios for the interface, each with type, preconditions, steps, and expected result."
+  ouofscen-item-lst:
+    prefix: OUOFSCEN_ITEM_LST
+    subsection-types:
+      ouofscen-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Each entry records one excluded feature, system, or integration along with its exclusion rationale."
   boinpa-inte-lst:
     prefix: BOINPA_INTE_LST
     subsection-types:
@@ -19,62 +43,59 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Boundary interaction patterns.
-  exinen-inte-lst:
-    prefix: EXINEN_INTE_LST
+  indasp-mapp-lst:
+    prefix: INDASP_MAPP_LST
     subsection-types:
-      exinen-inte:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per external system interface, each documenting identification, technical, data, security, and governance details."
-  inopen-oper-lst:
-    prefix: INOPEN_OPER_LST
-    subsection-types:
-      inopen-oper:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "List the API operations or methods used: each with method, path, purpose, and request/response formats."
-  depen-depe-lst:
-    prefix: DEPEN_DEPE_LST
-    subsection-types:
-      depen-depe:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure."
-  error-erro-lst:
-    prefix: ERROR_ERRO_LST
-    subsection-types:
-      error-erro:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps."
-  itse1-test-lst:
-    prefix: ITSE1_TEST_LST
-    subsection-types:
-      itse1-test:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "List test scenarios for the interface, each with type, preconditions, steps, and expected result."
-  mappi-mapp-lst:
-    prefix: MAPPI_MAPP_LST
-    subsection-types:
-      mappi-mapp:
+      indasp-mapp:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
     description: List data mapping and transformation rules between external and internal representations.
-  valid-vali-lst:
-    prefix: VALID_VALI_LST
+  indasp-vali-lst:
+    prefix: INDASP_VALI_LST
     subsection-types:
-      valid-vali:
+      indasp-vali:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
     description: List data validation rules applied to inbound and outbound payloads at the interface boundary.
+  inerha-erro-lst:
+    prefix: INERHA_ERRO_LST
+    subsection-types:
+      inerha-erro:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps."
+  inbupren-depe:
+    prefix: INBUPREN_DEPE_
+    pattern-check-id:
+      pattern: ^INBUPREN-DEPE-.+$
+      error-message: IDs of this section must match INBUPREN-DEPE-xxx
+    description: "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable."
+  indaenen-data:
+    prefix: INDAENEN_DATA_
+    pattern-check-id:
+      pattern: ^INDAENEN-DATA-.+$
+      error-message: IDs of this section must match INDAENEN-DATA-xxx
+    description: "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to."
+  intescen-test:
+    prefix: INTESCEN_TEST_
+    pattern-check-id:
+      pattern: ^INTESCEN-TEST-.+$
+      error-message: IDs of this section must match INTESCEN-TEST-xxx
+    description: "List test scenarios for the interface, each with type, preconditions, steps, and expected result."
+  ouofscen-item:
+    prefix: OUOFSCEN_ITEM_
+    subsection-types:
+      oosed:
+        max-count: 1
+      oosem:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^OUOFSCEN-ITEM-.+$
+      error-message: IDs of this section must match OUOFSCEN-ITEM-xxx
+    description: "Each entry records one excluded feature, system, or integration along with its exclusion rationale."
   cboc-oper-lst:
     prefix: CBOC_OPER_LST
     subsection-types:
@@ -83,22 +104,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Cross-boundary operational considerations.
-  ibpe-depe-lst:
-    prefix: IBPE_DEPE_LST
+  inop-depe-lst:
+    prefix: INOP_DEPE_LST
     subsection-types:
-      ibpe-depe:
+      inop-depe:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable."
-  idee-data-lst:
-    prefix: IDEE_DATA_LST
-    subsection-types:
-      idee-data:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to."
+    description: "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure."
   miin-migr-lst:
     prefix: MIIN_MIGR_LST
     subsection-types:
@@ -107,24 +120,13 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Migration interactions.
-  oose-item-lst:
-    prefix: OOSE_ITEM_LST
+  bae-item-lst:
+    prefix: BAE_ITEM_LST
     subsection-types:
-      oose-item:
+      bae-item:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: "Each entry records one excluded feature, system, or integration along with its exclusion rationale."
-  boasen-item:
-    prefix: BOASEN_ITEM_
-    subsection-types:
-      baev:
-        max-count: 1
-      baer:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^BOASEN-ITEM-.+$
-      error-message: IDs of this section must match BOASEN-ITEM-xxx
     description: "Each entry records one assumption with its category, validation status, and risk if proven incorrect."
   boinpa-inte:
     prefix: BOINPA_INTE_
@@ -132,8 +134,71 @@ section-types:
       pattern: ^BOINPA-INTE-.+$
       error-message: IDs of this section must match BOINPA-INTE-xxx
     description: 4.5.5. Boundary Interaction Patterns.
-  exinen-inte:
-    prefix: EXINEN_INTE_
+  eie-inte-lst:
+    prefix: EIE_INTE_LST
+    subsection-types:
+      eie-inte:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per external system interface, each documenting identification, technical, data, security, and governance details."
+  indasp-mapp:
+    prefix: INDASP_MAPP_
+    pattern-check-id:
+      pattern: ^INDASP-MAPP-.+$
+      error-message: IDs of this section must match INDASP-MAPP-xxx
+    description: List data mapping and transformation rules between external and internal representations.
+  indasp-vali:
+    prefix: INDASP_VALI_
+    pattern-check-id:
+      pattern: ^INDASP-VALI-.+$
+      error-message: IDs of this section must match INDASP-VALI-xxx
+    description: List data validation rules applied to inbound and outbound payloads at the interface boundary.
+  inerha-erro:
+    prefix: INERHA_ERRO_
+    pattern-check-id:
+      pattern: ^INERHA-ERRO-.+$
+      error-message: IDs of this section must match INERHA-ERRO-xxx
+    description: "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps."
+  ioe-oper-lst:
+    prefix: IOE_OPER_LST
+    subsection-types:
+      ioe-oper:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "List the API operations or methods used: each with method, path, purpose, and request/response formats."
+  cboc-oper:
+    prefix: CBOC_OPER_
+    pattern-check-id:
+      pattern: ^CBOC-OPER-.+$
+      error-message: IDs of this section must match CBOC-OPER-xxx
+    description: 4.5.9. Cross-Boundary Operational Considerations.
+  inop-depe:
+    prefix: INOP_DEPE_
+    pattern-check-id:
+      pattern: ^INOP-DEPE-.+$
+      error-message: IDs of this section must match INOP-DEPE-xxx
+    description: "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure."
+  miin-migr:
+    prefix: MIIN_MIGR_
+    pattern-check-id:
+      pattern: ^MIIN-MIGR-.+$
+      error-message: IDs of this section must match MIIN-MIGR-xxx
+    description: 4.5.8. Migration Interactions.
+  bae-item:
+    prefix: BAE_ITEM_
+    subsection-types:
+      baev:
+        max-count: 1
+      baer:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^BAE-ITEM-.+$
+      error-message: IDs of this section must match BAE-ITEM-xxx
+    description: "Each entry records one assumption with its category, validation status, and risk if proven incorrect."
+  eie-inte:
+    prefix: EIE_INTE_
     subsection-types:
       eie-iden:
         max-count: 1
@@ -154,97 +219,32 @@ section-types:
       inte:
         max-count: 1
     pattern-check-id:
-      pattern: ^EXINEN-INTE-.+$
-      error-message: IDs of this section must match EXINEN-INTE-xxx
+      pattern: ^EIE-INTE-.+$
+      error-message: IDs of this section must match EIE-INTE-xxx
     description: "Add one entry per external system interface, each documenting identification, technical, data, security, and governance details."
-  inopen-oper:
-    prefix: INOPEN_OPER_
+  ioe-oper:
+    prefix: IOE_OPER_
     pattern-check-id:
-      pattern: ^INOPEN-OPER-.+$
-      error-message: IDs of this section must match INOPEN-OPER-xxx
+      pattern: ^IOE-OPER-.+$
+      error-message: IDs of this section must match IOE-OPER-xxx
     description: "List the API operations or methods used: each with method, path, purpose, and request/response formats."
-  depen-depe:
-    prefix: DEPEN_DEPE_
-    pattern-check-id:
-      pattern: ^DEPEN-DEPE-.+$
-      error-message: IDs of this section must match DEPEN-DEPE-xxx
-    description: "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure."
-  error-erro:
-    prefix: ERROR_ERRO_
-    pattern-check-id:
-      pattern: ^ERROR-ERRO-.+$
-      error-message: IDs of this section must match ERROR-ERRO-xxx
-    description: "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps."
-  itse1-test:
-    prefix: ITSE1_TEST_
-    pattern-check-id:
-      pattern: ^ITSE1-TEST-.+$
-      error-message: IDs of this section must match ITSE1-TEST-xxx
-    description: "List test scenarios for the interface, each with type, preconditions, steps, and expected result."
-  mappi-mapp:
-    prefix: MAPPI_MAPP_
-    pattern-check-id:
-      pattern: ^MAPPI-MAPP-.+$
-      error-message: IDs of this section must match MAPPI-MAPP-xxx
-    description: List data mapping and transformation rules between external and internal representations.
-  valid-vali:
-    prefix: VALID_VALI_
-    pattern-check-id:
-      pattern: ^VALID-VALI-.+$
-      error-message: IDs of this section must match VALID-VALI-xxx
-    description: List data validation rules applied to inbound and outbound payloads at the interface boundary.
-  cboc-oper:
-    prefix: CBOC_OPER_
-    pattern-check-id:
-      pattern: ^CBOC-OPER-.+$
-      error-message: IDs of this section must match CBOC-OPER-xxx
-    description: 4.5.9. Cross-Boundary Operational Considerations.
-  ibpe-depe:
-    prefix: IBPE_DEPE_
-    pattern-check-id:
-      pattern: ^IBPE-DEPE-.+$
-      error-message: IDs of this section must match IBPE-DEPE-xxx
-    description: "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable."
-  idee-data:
-    prefix: IDEE_DATA_
-    pattern-check-id:
-      pattern: ^IDEE-DATA-.+$
-      error-message: IDs of this section must match IDEE-DATA-xxx
-    description: "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to."
-  miin-migr:
-    prefix: MIIN_MIGR_
-    pattern-check-id:
-      pattern: ^MIIN-MIGR-.+$
-      error-message: IDs of this section must match MIIN-MIGR-xxx
-    description: 4.5.8. Migration Interactions.
-  oose-item:
-    prefix: OOSE_ITEM_
-    subsection-types:
-      oosed:
-        max-count: 1
-      oosem:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^OOSE-ITEM-.+$
-      error-message: IDs of this section must match OOSE-ITEM-xxx
-    description: "Each entry records one excluded feature, system, or integration along with its exclusion rationale."
   eie-iden:
     prefix: EIE_IDEN
     format: eie-iden-form
   inbuco:
     prefix: INBUCO
     subsection-types:
-      ibpe-depe-lst:
+      inbupren-depe-lst:
         max-count: 1
     description: Business purpose and value of this interface.
   indasp:
     prefix: INDASP
     subsection-types:
-      idee-data-lst:
+      indaenen-data-lst:
         max-count: 1
-      mappi-mapp-lst:
+      indasp-mapp-lst:
         max-count: 1
-      valid-vali-lst:
+      indasp-vali-lst:
         max-count: 1
     description: Data exchange specification.
   indean:
@@ -259,7 +259,7 @@ section-types:
         max-count: 1
       ieht:
         max-count: 1
-      error-erro-lst:
+      inerha-erro-lst:
         max-count: 1
     description: Error handling and resilience.
   ingoco:
@@ -304,7 +304,7 @@ section-types:
         max-count: 1
       itse:
         max-count: 1
-      inopen-oper-lst:
+      ioe-oper-lst:
         max-count: 1
       inwesp:
         max-count: 1
@@ -320,7 +320,7 @@ section-types:
   ouofsc:
     prefix: OUOFSC
     subsection-types:
-      oose-item-lst:
+      ouofscen-item-lst:
         max-count: 1
     description: Out of scope.
   sylain:
@@ -348,7 +348,7 @@ section-types:
   boas:
     prefix: BOAS
     subsection-types:
-      boasen-item-lst:
+      bae-item-lst:
         max-count: 1
     description: Boundary assumptions.
   cbeh:
@@ -357,7 +357,7 @@ section-types:
   exin:
     prefix: EXIN
     subsection-types:
-      exinen-inte-lst:
+      eie-inte-lst:
         max-count: 1
     description: External interfaces.
   iehf:
@@ -389,7 +389,7 @@ section-types:
         max-count: 1
       inopsu:
         max-count: 1
-      depen-depe-lst:
+      inop-depe-lst:
         max-count: 1
     description: Operational and SLA requirements.
   inte:
@@ -399,7 +399,7 @@ section-types:
         max-count: 1
       intest:
         max-count: 1
-      itse1-test-lst:
+      intescen-test-lst:
         max-count: 1
     description: Testing and environment information.
   iorl:

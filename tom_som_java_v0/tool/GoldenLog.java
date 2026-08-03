@@ -217,7 +217,7 @@ public final class GoldenLog {
     out.add("SECTION\tmeta");
     metaNode(out, metaTree, "SBP");
     metaNode(out, metaTree, "SBP/documentControl");
-    metaNode(out, metaTree, "SBP/documentControl/RVHST-REVS-LST");
+    metaNode(out, metaTree, "SBP/documentControl/RVENT-REVS-LST");
     metaNode(out, metaTree, "SBP/introductionAndScope");
     metaNode(out, metaTree, "SBP/introductionAndScope/goals");
     metaNode(out, metaTree, "SBP/introductionAndScope/goals/content");
@@ -239,7 +239,7 @@ public final class GoldenLog {
     metaForm(out, metaTree,
         "SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST");
     metaForm(out, metaTree,
-        "SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST");
+        "SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CE-CHAR-LST");
     metaForm(out, metaTree,
         "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/"
             + "screenRouteMap/SCTREN-TRAN-LST");
@@ -265,9 +265,9 @@ public final class GoldenLog {
 
     out.add("SECTION\tmeta-id");
     metaId(out, TomSomV0Meta.SBP, TomSomV0Meta.D00SolutionBlueprintMeta);
-    metaId(out, TomSomV0Meta.SBP.RVHST_REVS_LST(),
+    metaId(out, TomSomV0Meta.SBP.RVENT_REVS_LST(),
         TomSomV0Meta.D00SolutionBlueprintMeta.documentControl().revisionHistory());
-    metaId(out, TomSomV0Meta.SBP.RVHST_REVS_LST().item(0),
+    metaId(out, TomSomV0Meta.SBP.RVENT_REVS_LST().item(0),
         TomSomV0Meta.D00SolutionBlueprintMeta.documentControl().revisionHistory()
             .item(0));
 

@@ -445,6 +445,39 @@ void main() {
             '${schema.id}.2.0.docspecs-schema.yaml');
       }
     });
+
+    test('writeSchemaTree prunes a stale major alongside a stale root', () {
+      final dir = Directory.systemTemp.createTempSync('specs_schema_prune_');
+      addTearDown(() => dir.deleteSync(recursive: true));
+      final gen = DocSpecsSchemaGenerator(classes);
+
+      // A tree written at major 9, then rewritten at major 1: the filename
+      // carries the major, so the 9.0 file is not overwritten — it must be
+      // pruned. Without that, the old major stays frozen at the model shape it
+      // had when the version moved and drifts silently.
+      DocSpecsSchemaGenerator.writeSchemaTree(
+          dir.path, gen.generateAll(modelVersion: 9));
+      // A root that no longer exists leaves a whole directory behind.
+      final goneRoot = Directory(p.join(dir.path, 'schemas', 'retired-doc'))
+        ..createSync(recursive: true);
+      File(p.join(goneRoot.path, 'retired-doc.1.0.docspecs-schema.yaml'))
+          .writeAsStringSync('stale');
+
+      final written = DocSpecsSchemaGenerator.writeSchemaTree(
+          dir.path, gen.generateAll(modelVersion: 1));
+
+      final onDisk = Directory(p.join(dir.path, 'schemas'))
+          .listSync(recursive: true)
+          .whereType<File>()
+          .map((f) => f.path)
+          .toList()
+        ..sort();
+      expect(onDisk, equals(written..sort()),
+          reason: 'schemas/ holds exactly what this run wrote');
+      expect(onDisk.where((f) => f.endsWith('.9.0.docspecs-schema.yaml')),
+          isEmpty);
+      expect(goneRoot.existsSync(), isFalse);
+    });
   });
 
   // -------------------------------------------------------------------------

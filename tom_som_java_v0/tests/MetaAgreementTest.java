@@ -179,9 +179,9 @@ public final class MetaAgreementTest {
     var revs = TomSomV0Meta.D00SolutionBlueprintMeta
         .documentControl().revisionHistory();
     check("dot.list-path",
-        revs.path.equals("SBP/documentControl/RVHST-REVS-LST"), revs.path);
+        revs.path.equals("SBP/documentControl/RVENT-REVS-LST"), revs.path);
     check("dot.list-item-path",
-        revs.item(3).path.equals("SBP/documentControl/RVHST-REVS-LST-3"),
+        revs.item(3).path.equals("SBP/documentControl/RVENT-REVS-LST-3"),
         revs.item(3).path);
     // The list node's metadata carries the section-id pattern.
     SomMetaNode revsNode = mustMeta("Revisions", revs);
@@ -215,16 +215,16 @@ public final class MetaAgreementTest {
             == mustMeta("D00SolutionBlueprintMeta", TomSomV0Meta.D00SolutionBlueprintMeta),
         "SBP.meta() != dot root meta()");
 
-    // A hoisted list id agrees with the dot-notation position: RVHST_REVS_LST
+    // A hoisted list id agrees with the dot-notation position: RVENT_REVS_LST
     // is hoisted onto the root ID type through the id-less documentControl /
     // revisionHistory members.
     var revs = TomSomV0Meta.D00SolutionBlueprintMeta
         .documentControl().revisionHistory();
-    var hoisted = TomSomV0Meta.SBP.RVHST_REVS_LST();
+    var hoisted = TomSomV0Meta.SBP.RVENT_REVS_LST();
     check("id.hoisted-path", hoisted.path.equals(revs.path),
         hoisted.path + " != " + revs.path);
     check("id.hoisted-meta",
-        mustMeta("SBP.RVHST_REVS_LST", hoisted) == mustMeta("revisions", revs),
+        mustMeta("SBP.RVENT_REVS_LST", hoisted) == mustMeta("revisions", revs),
         "hoisted meta() != dot meta()");
     check("id.hoisted-item0",
         hoisted.item(0).path.equals(revs.item(0).path),

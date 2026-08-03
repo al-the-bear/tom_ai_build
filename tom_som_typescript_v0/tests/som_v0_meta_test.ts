@@ -129,13 +129,13 @@ function testDotNotationSurface(): void {
   const revs = m.d00SolutionBlueprint.documentControl.revisionHistory;
   check(
     'dot.list',
-    revs.path === 'SBP/documentControl/RVHST-REVS-LST',
+    revs.path === 'SBP/documentControl/RVENT-REVS-LST',
     revs.path,
   );
   check(
     'dot.list-item',
     revs.item(3).path ===
-      'SBP/documentControl/RVHST-REVS-LST-3',
+      'SBP/documentControl/RVENT-REVS-LST-3',
     revs.item(3).path,
   );
   // The list node's metadata carries the section-id pattern.
@@ -155,15 +155,15 @@ function testIdTreeSurface(): void {
   check('id.root-path', m.SBP.path === m.d00SolutionBlueprint.path);
   check('id.root-meta', m.SBP.meta === m.d00SolutionBlueprint.meta);
 
-  // A hoisted list id agrees with the dot-notation position. RVHST_REVS_LST
+  // A hoisted list id agrees with the dot-notation position. RVENT_REVS_LST
   // is hoisted onto the root Id class through the id-less
   // documentControl/revisionHistory members.
   const revs = m.d00SolutionBlueprint.documentControl.revisionHistory;
-  check('id.hoisted-path', m.SBP.RVHST_REVS_LST.path === revs.path);
-  check('id.hoisted-meta', m.SBP.RVHST_REVS_LST.meta === revs.meta);
+  check('id.hoisted-path', m.SBP.RVENT_REVS_LST.path === revs.path);
+  check('id.hoisted-meta', m.SBP.RVENT_REVS_LST.meta === revs.meta);
   check(
     'id.hoisted-item',
-    m.SBP.RVHST_REVS_LST.item(0).path === revs.item(0).path,
+    m.SBP.RVENT_REVS_LST.item(0).path === revs.item(0).path,
   );
 
   // Every root has a distinct Id entry point at its own segment.

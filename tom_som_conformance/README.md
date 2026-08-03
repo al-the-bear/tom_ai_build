@@ -54,7 +54,7 @@ accessor *names* differ:
 | `typed-form` | Typed non-String form members (int / bool / enum, FORMAT 6) read through the facade and asserted against the generic form store after boundary canonicalisation (int → decimal, bool → `true`/`false`, enum → constant name). |
 | `meta` | The generated metadata tree resolved by path (`metaTree.byPath`), emitting each node's `kind` / `sectionId` / `contentHelp` / `comment` / `docComment`. |
 | `meta-nav` | Dot-notation navigation accessors (`d00SolutionBlueprint.introductionAndScope.goals`), asserted to resolve to the same node instance `byPath` finds. |
-| `meta-id` | Hoisted-id accessors (`SBP`, `SBP.RVHST_REVS_LST.item(0)`), asserted to agree with the dot-notation position. |
+| `meta-id` | Hoisted-id accessors (`SBP`, `SBP.RVENT_REVS_LST.item(0)`), asserted to agree with the dot-notation position. |
 | `docspecs` | The sample's markdown validated against the facade's generated DocSpecs schema — root id, warning count, violation count. |
 
 Each generator is itself a test: it asserts the typed reads equal the generic
@@ -218,7 +218,7 @@ above) reference a compiler-checked symbol instead of a raw path literal:
 | ------- | ----------- | ------------- |
 | Metadata tree | `<camelRoot>MetaTree` (a `SomMetaTree`) | Resolve any node by path — `metaTree.byPath('SBP/currentLandscape/CUOPME-OPER-LST')` — then read `kind` / `sectionId` / `contentHelp` / `comment` / `docComment`. |
 | Dot-notation nav (SOM §8) | `d00SolutionBlueprint` (a `<Root>$Nav`) | Member-named accessors — `d00SolutionBlueprint.currentLandscape.operationalMetrics` — resolving to a `SomMetaRef`. |
-| ID-tree (SOM §8) | `SBP` (a `<Root>$Id`) | Section-id-named accessors that hoist through id-less members — `SBP.RVHST_REVS_LST.item(0)` — resolving to the *same* `SomMetaRef` instance the nav position finds. |
+| ID-tree (SOM §8) | `SBP` (a `<Root>$Id`) | Section-id-named accessors that hoist through id-less members — `SBP.RVENT_REVS_LST.item(0)` — resolving to the *same* `SomMetaRef` instance the nav position finds. |
 
 Each nav / id accessor is a `SomMetaRef` exposing `.path` (the absolute generic
 path string) and `.meta` (its metadata node), so navigating to a symbol and

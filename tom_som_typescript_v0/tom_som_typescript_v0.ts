@@ -1163,7 +1163,7 @@ export class AlertingConfiguration extends SomNode {
 
   // Alert rules catalog.
   get alertRules(): SomList<AlertRuleEntry> {
-    return new SomList(this.doc, this.path + "/ALRUEN-ALER-LST", (d: SpecDocument, p: string) => new AlertRuleEntry(d, p), "ALRUEN-ALER-xxx");
+    return new SomList(this.doc, this.path + "/ALERULENT-ALER-LST", (d: SpecDocument, p: string) => new AlertRuleEntry(d, p), "ALERULENT-ALER-xxx");
   }
 
   // Escalation policies.
@@ -1567,7 +1567,7 @@ export class ApplicableRegulationEntry extends SomNode {
 
   // Specific compliance measures for this regulation.
   get complianceMeasures(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/COMPL-COMP-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "COMPL-COMP-xxx");
+    return new SomList(this.doc, this.path + "/ARE-COMP-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "ARE-COMP-xxx");
   }
 }
 
@@ -1903,18 +1903,18 @@ export class AssumptionConstraintDependencyRegister extends SomNode {
 
   // Assumptions the solution depends on being true.
   get assumptions(): SomList<AssumptionRegisterEntry> {
-    return new SomList(this.doc, this.path + "/ACRG-ASMP-LST", (d: SpecDocument, p: string) => new AssumptionRegisterEntry(d, p), "ACRG-ASMP-xxx");
+    return new SomList(this.doc, this.path + "/ASMRE-ASMP-LST", (d: SpecDocument, p: string) => new AssumptionRegisterEntry(d, p), "ASMRE-ASMP-xxx");
   }
 
   // Constraints the solution must operate within.
   get constraints(): SomList<ConstraintRegisterEntry> {
-    return new SomList(this.doc, this.path + "/ACRG-CONS-LST", (d: SpecDocument, p: string) => new ConstraintRegisterEntry(d, p), "ACRG-CONS-xxx");
+    return new SomList(this.doc, this.path + "/CONRE-CONS-LST", (d: SpecDocument, p: string) => new ConstraintRegisterEntry(d, p), "CONRE-CONS-xxx");
   }
 
   // Dependencies the solution relies on (external systems, teams, vendors,
   // prerequisite deliverables, framework conditions).
   get dependencies(): SomList<DependencyRegisterEntry> {
-    return new SomList(this.doc, this.path + "/ACRG-DEPS-LST", (d: SpecDocument, p: string) => new DependencyRegisterEntry(d, p), "ACRG-DEPS-xxx");
+    return new SomList(this.doc, this.path + "/DEPRE-DEPS-LST", (d: SpecDocument, p: string) => new DependencyRegisterEntry(d, p), "DEPRE-DEPS-xxx");
   }
 }
 
@@ -2635,7 +2635,7 @@ export class BackupAndRecoverySection extends SomNode {
 
   // Backup policies by data type.
   get backupPolicies(): SomList<BackupPolicyEntry> {
-    return new SomList(this.doc, this.path + "/BAPOEN-BACK-LST", (d: SpecDocument, p: string) => new BackupPolicyEntry(d, p), "BAPOEN-BACK-xxx");
+    return new SomList(this.doc, this.path + "/BPE-BACK-LST", (d: SpecDocument, p: string) => new BackupPolicyEntry(d, p), "BPE-BACK-xxx");
   }
 
   // RPO and RTO requirements.
@@ -3075,7 +3075,7 @@ export class BoundaryAssumptions extends SomNode {
 
   // Contains 0+× BoundaryAssumptionEntry.
   get items(): SomList<BoundaryAssumptionEntry> {
-    return new SomList(this.doc, this.path + "/BOASEN-ITEM-LST", (d: SpecDocument, p: string) => new BoundaryAssumptionEntry(d, p), "BOASEN-ITEM-xxx");
+    return new SomList(this.doc, this.path + "/BAE-ITEM-LST", (d: SpecDocument, p: string) => new BoundaryAssumptionEntry(d, p), "BAE-ITEM-xxx");
   }
 }
 
@@ -3147,7 +3147,7 @@ export class BreakpointConfiguration extends SomNode {
 
   // Breakpoint entries.
   get breakpoints(): SomList<BreakpointEntry> {
-    return new SomList(this.doc, this.path + "/BRE-BREA-LST", (d: SpecDocument, p: string) => new BreakpointEntry(d, p), "BRE-BREA-xxx");
+    return new SomList(this.doc, this.path + "/BE-BREA-LST", (d: SpecDocument, p: string) => new BreakpointEntry(d, p), "BE-BREA-xxx");
   }
 }
 
@@ -3667,7 +3667,7 @@ export class BusinessPainPoints extends SomNode {
 
   // Contains 0+× PainPoint.
   get items(): SomList<PainPointEntry> {
-    return new SomList(this.doc, this.path + "/BUPAPO-ITEM-LST", (d: SpecDocument, p: string) => new PainPointEntry(d, p), "BUPAPO-ITEM-xxx");
+    return new SomList(this.doc, this.path + "/PAPE-ITEM-LST", (d: SpecDocument, p: string) => new PainPointEntry(d, p), "PAPE-ITEM-xxx");
   }
 }
 
@@ -4588,17 +4588,17 @@ export class CiCdPipelineConfiguration extends SomNode {
 
   // Pipeline stages.
   get stages(): SomList<PipelineStageEntry> {
-    return new SomList(this.doc, this.path + "/PISTEN-STAG-LST", (d: SpecDocument, p: string) => new PipelineStageEntry(d, p), "PISTEN-STAG-xxx");
+    return new SomList(this.doc, this.path + "/PSE-STAG-LST", (d: SpecDocument, p: string) => new PipelineStageEntry(d, p), "PSE-STAG-xxx");
   }
 
   // Build jobs.
   get jobs(): SomList<PipelineJobEntry> {
-    return new SomList(this.doc, this.path + "/PIJOEN-JOBS-LST", (d: SpecDocument, p: string) => new PipelineJobEntry(d, p), "PIJOEN-JOBS-xxx");
+    return new SomList(this.doc, this.path + "/PJE-JOBS-LST", (d: SpecDocument, p: string) => new PipelineJobEntry(d, p), "PJE-JOBS-xxx");
   }
 
   // Deployment environments.
   get environments(): SomList<DeploymentEnvironmentEntry> {
-    return new SomList(this.doc, this.path + "/DEENEN-ENVI-LST", (d: SpecDocument, p: string) => new DeploymentEnvironmentEntry(d, p), "DEENEN-ENVI-xxx");
+    return new SomList(this.doc, this.path + "/DEE-ENVI-LST", (d: SpecDocument, p: string) => new DeploymentEnvironmentEntry(d, p), "DEE-ENVI-xxx");
   }
 }
 
@@ -4846,17 +4846,17 @@ export class ClientRequirementsSection extends SomNode {
 
   // Web browser requirements.
   get browserRequirements(): SomList<BrowserRequirementEntry> {
-    return new SomList(this.doc, this.path + "/BRREEN-BROW-LST", (d: SpecDocument, p: string) => new BrowserRequirementEntry(d, p), "BRREEN-BROW-xxx");
+    return new SomList(this.doc, this.path + "/BROREQENT-BROW-LST", (d: SpecDocument, p: string) => new BrowserRequirementEntry(d, p), "BROREQENT-BROW-xxx");
   }
 
   // Desktop operating system requirements.
   get desktopOsRequirements(): SomList<DesktopOsRequirementEntry> {
-    return new SomList(this.doc, this.path + "/DORE1-DESK-LST", (d: SpecDocument, p: string) => new DesktopOsRequirementEntry(d, p), "DORE1-DESK-xxx");
+    return new SomList(this.doc, this.path + "/DEOSREEN-DESK-LST", (d: SpecDocument, p: string) => new DesktopOsRequirementEntry(d, p), "DEOSREEN-DESK-xxx");
   }
 
   // Mobile device requirements.
   get mobileRequirements(): SomList<MobileDeviceRequirementEntry> {
-    return new SomList(this.doc, this.path + "/MDRE-MOBI-LST", (d: SpecDocument, p: string) => new MobileDeviceRequirementEntry(d, p), "MDRE-MOBI-xxx");
+    return new SomList(this.doc, this.path + "/MODEREEN-MOBI-LST", (d: SpecDocument, p: string) => new MobileDeviceRequirementEntry(d, p), "MODEREEN-MOBI-xxx");
   }
 
   // Display and screen requirements.
@@ -5403,22 +5403,22 @@ export class CompatibilityRequirementsSection extends SomNode {
 
   // Operating system compatibility requirements.
   get osCompatibility(): SomList<OsCompatibilityEntry> {
-    return new SomList(this.doc, this.path + "/OSCOEN-OSCO-LST", (d: SpecDocument, p: string) => new OsCompatibilityEntry(d, p), "OSCOEN-OSCO-xxx");
+    return new SomList(this.doc, this.path + "/OCE-OSCO-LST", (d: SpecDocument, p: string) => new OsCompatibilityEntry(d, p), "OCE-OSCO-xxx");
   }
 
   // Browser compatibility requirements.
   get browserCompatibility(): SomList<BrowserCompatibilityEntry> {
-    return new SomList(this.doc, this.path + "/BRCOEN-BROW-LST", (d: SpecDocument, p: string) => new BrowserCompatibilityEntry(d, p), "BRCOEN-BROW-xxx");
+    return new SomList(this.doc, this.path + "/BROCOMENT-BROW-LST", (d: SpecDocument, p: string) => new BrowserCompatibilityEntry(d, p), "BROCOMENT-BROW-xxx");
   }
 
   // Database compatibility requirements.
   get databaseCompatibility(): SomList<DatabaseCompatibilityEntry> {
-    return new SomList(this.doc, this.path + "/DACOEN-DATA-LST", (d: SpecDocument, p: string) => new DatabaseCompatibilityEntry(d, p), "DACOEN-DATA-xxx");
+    return new SomList(this.doc, this.path + "/DATCOMENT-DATA-LST", (d: SpecDocument, p: string) => new DatabaseCompatibilityEntry(d, p), "DATCOMENT-DATA-xxx");
   }
 
   // Enterprise system compatibility requirements.
   get enterpriseSystemCompatibility(): SomList<EnterpriseSystemCompatibilityEntry> {
-    return new SomList(this.doc, this.path + "/ESCE-ENTE-LST", (d: SpecDocument, p: string) => new EnterpriseSystemCompatibilityEntry(d, p), "ESCE-ENTE-xxx");
+    return new SomList(this.doc, this.path + "/ENSYCOEN-ENTE-LST", (d: SpecDocument, p: string) => new EnterpriseSystemCompatibilityEntry(d, p), "ENSYCOEN-ENTE-xxx");
   }
 
   // API and protocol compatibility requirements.
@@ -5428,17 +5428,17 @@ export class CompatibilityRequirementsSection extends SomNode {
 
   // Legacy system compatibility requirements.
   get legacyCompatibility(): SomList<LegacyCompatibilityEntry> {
-    return new SomList(this.doc, this.path + "/LECOEN-LEGA-LST", (d: SpecDocument, p: string) => new LegacyCompatibilityEntry(d, p), "LECOEN-LEGA-xxx");
+    return new SomList(this.doc, this.path + "/LCE-LEGA-LST", (d: SpecDocument, p: string) => new LegacyCompatibilityEntry(d, p), "LCE-LEGA-xxx");
   }
 
   // Mobile device compatibility requirements.
   get mobileCompatibility(): SomList<MobileCompatibilityEntry> {
-    return new SomList(this.doc, this.path + "/MOCOEN-MOBI-LST", (d: SpecDocument, p: string) => new MobileCompatibilityEntry(d, p), "MOCOEN-MOBI-xxx");
+    return new SomList(this.doc, this.path + "/MOBCOMENT-MOBI-LST", (d: SpecDocument, p: string) => new MobileCompatibilityEntry(d, p), "MOBCOMENT-MOBI-xxx");
   }
 
   // Third-party software compatibility requirements.
   get thirdPartyCompatibility(): SomList<ThirdPartyCompatibilityEntry> {
-    return new SomList(this.doc, this.path + "/TPCE-THIR-LST", (d: SpecDocument, p: string) => new ThirdPartyCompatibilityEntry(d, p), "TPCE-THIR-xxx");
+    return new SomList(this.doc, this.path + "/THPACOEN-THIR-LST", (d: SpecDocument, p: string) => new ThirdPartyCompatibilityEntry(d, p), "THPACOEN-THIR-xxx");
   }
 
   // Data format and encoding compatibility.
@@ -6985,12 +6985,12 @@ export class CurrentArchitecture extends SomNode {
 
   // Integration patterns used.
   get integrationPatterns(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/IPE-INTE-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "IPE-INTE-xxx");
+    return new SomList(this.doc, this.path + "/CARCH-INTE-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "CARCH-INTE-xxx");
   }
 
   // Shared services inventory.
   get sharedServices(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/SHARE-SHAR-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SHARE-SHAR-xxx");
+    return new SomList(this.doc, this.path + "/CARCH-SHAR-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "CARCH-SHAR-xxx");
   }
 }
 
@@ -7356,7 +7356,7 @@ export class CurrentWorkflowEntry extends SomNode {
 
   // Workflow actors and responsibilities.
   get actors(): SomList<WorkflowActorEntry> {
-    return new SomList(this.doc, this.path + "/WFAC-ACTO-LST", (d: SpecDocument, p: string) => new WorkflowActorEntry(d, p), "WFAC-ACTO-xxx");
+    return new SomList(this.doc, this.path + "/WAE-ACTO-LST", (d: SpecDocument, p: string) => new WorkflowActorEntry(d, p), "WAE-ACTO-xxx");
   }
 
   // Workflow inputs.
@@ -10965,7 +10965,7 @@ export class DecisionPointEntryResolution extends SomNode {
 
   // Contains 0+× DecisionOptionEntry.
   get options(): SomList<DecisionOptionEntry> {
-    return new SomList(this.doc, this.path + "/DEOPEN-OPTI-LST", (d: SpecDocument, p: string) => new DecisionOptionEntry(d, p), "DEOPEN-OPTI-xxx");
+    return new SomList(this.doc, this.path + "/DOE-OPTI-LST", (d: SpecDocument, p: string) => new DecisionOptionEntry(d, p), "DOE-OPTI-xxx");
   }
 }
 
@@ -10989,7 +10989,7 @@ export class DecisionPoints extends SomNode {
 
   // Contains 0+× DecisionPointEntry.
   get items(): SomList<DecisionPointEntry> {
-    return new SomList(this.doc, this.path + "/DEPOEN-ITEM-LST", (d: SpecDocument, p: string) => new DecisionPointEntry(d, p), "DEPOEN-ITEM-xxx");
+    return new SomList(this.doc, this.path + "/DPE-ITEM-LST", (d: SpecDocument, p: string) => new DecisionPointEntry(d, p), "DPE-ITEM-xxx");
   }
 }
 
@@ -11877,17 +11877,17 @@ export class DesignPatternsAndStandards extends SomNode {
 
   // Coding standards and style guidelines.
   get codingStandards(): SomList<CodingStandardEntry> {
-    return new SomList(this.doc, this.path + "/COSTEN-CODI-LST", (d: SpecDocument, p: string) => new CodingStandardEntry(d, p), "COSTEN-CODI-xxx");
+    return new SomList(this.doc, this.path + "/CSE-CODI-LST", (d: SpecDocument, p: string) => new CodingStandardEntry(d, p), "CSE-CODI-xxx");
   }
 
   // Development conventions and best practices.
   get developmentConventions(): SomList<DevelopmentConventionEntry> {
-    return new SomList(this.doc, this.path + "/DECOEN-DEVE-LST", (d: SpecDocument, p: string) => new DevelopmentConventionEntry(d, p), "DECOEN-DEVE-xxx");
+    return new SomList(this.doc, this.path + "/DCE-DEVE-LST", (d: SpecDocument, p: string) => new DevelopmentConventionEntry(d, p), "DCE-DEVE-xxx");
   }
 
   // Industry standards compliance requirements.
   get industryStandards(): SomList<IndustryStandardEntry> {
-    return new SomList(this.doc, this.path + "/INSTEN-INDU-LST", (d: SpecDocument, p: string) => new IndustryStandardEntry(d, p), "INSTEN-INDU-xxx");
+    return new SomList(this.doc, this.path + "/ISE-INDU-LST", (d: SpecDocument, p: string) => new IndustryStandardEntry(d, p), "ISE-INDU-xxx");
   }
 
   // Code quality metrics and thresholds.
@@ -12142,7 +12142,7 @@ export class DevelopmentEnvironment extends SomNode {
 
   // IDE and editor requirements.
   get ideRequirements(): SomList<IdeRequirementEntry> {
-    return new SomList(this.doc, this.path + "/IDREEN-IDER-LST", (d: SpecDocument, p: string) => new IdeRequirementEntry(d, p), "IDREEN-IDER-xxx");
+    return new SomList(this.doc, this.path + "/IRE-IDER-LST", (d: SpecDocument, p: string) => new IdeRequirementEntry(d, p), "IRE-IDER-xxx");
   }
 
   // Build tools and automation.
@@ -12635,12 +12635,12 @@ export class DocumentControl extends SomNode {
 
   // Chronological revision history of this document.
   get revisionHistory(): SomList<RevisionEntry> {
-    return new SomList(this.doc, this.path + "/RVHST-REVS-LST", (d: SpecDocument, p: string) => new RevisionEntry(d, p), "RVHST-REVS-xxx");
+    return new SomList(this.doc, this.path + "/RVENT-REVS-LST", (d: SpecDocument, p: string) => new RevisionEntry(d, p), "RVENT-REVS-xxx");
   }
 
   // Formal approvals (sign-offs) recorded for this document.
   get approvals(): SomList<ApprovalRecord> {
-    return new SomList(this.doc, this.path + "/DOCTL-APRV-LST", (d: SpecDocument, p: string) => new ApprovalRecord(d, p), "DOCTL-APRV-xxx");
+    return new SomList(this.doc, this.path + "/APREC-APRV-LST", (d: SpecDocument, p: string) => new ApprovalRecord(d, p), "APREC-APRV-xxx");
   }
 
   // Reference documents — the catalogue of documents this specification draws
@@ -12728,7 +12728,7 @@ export class DocumentationDeliverables extends SomNode {
 
   // Contains 0+× Deliverable.
   get items(): SomList<DeliverableEntry> {
-    return new SomList(this.doc, this.path + "/DCDLV-ITEM-LST", (d: SpecDocument, p: string) => new DeliverableEntry(d, p), "DCDLV-ITEM-xxx");
+    return new SomList(this.doc, this.path + "/DLVEN-ITEM-LST", (d: SpecDocument, p: string) => new DeliverableEntry(d, p), "DLVEN-ITEM-xxx");
   }
 }
 
@@ -12939,7 +12939,7 @@ export class DomainBusinessRules extends SomNode {
 
   // Business rule entries — contains 0+× BusinessRuleEntry.
   get rules(): SomList<DomainBusinessRuleEntry> {
-    return new SomList(this.doc, this.path + "/DOBIRU-RULE-LST", (d: SpecDocument, p: string) => new DomainBusinessRuleEntry(d, p), "DOBIRU-RULE-xxx");
+    return new SomList(this.doc, this.path + "/DBRE-RULE-LST", (d: SpecDocument, p: string) => new DomainBusinessRuleEntry(d, p), "DBRE-RULE-xxx");
   }
 }
 
@@ -13159,7 +13159,7 @@ export class DomainProcesses extends SomNode {
 
   // Domain process entries — contains 0+× DomainProcessEntry.
   get processes(): SomList<DomainProcessEntry> {
-    return new SomList(this.doc, this.path + "/DOPR-PROC-LST", (d: SpecDocument, p: string) => new DomainProcessEntry(d, p), "DOPR-PROC-xxx");
+    return new SomList(this.doc, this.path + "/DOPREN-PROC-LST", (d: SpecDocument, p: string) => new DomainProcessEntry(d, p), "DOPREN-PROC-xxx");
   }
 }
 
@@ -13824,7 +13824,7 @@ export class EquipmentRequirements extends SomNode {
 
   // Input devices.
   get inputDevices(): SomList<InputDeviceEntry> {
-    return new SomList(this.doc, this.path + "/INPDE-INPU-LST", (d: SpecDocument, p: string) => new InputDeviceEntry(d, p), "INPDE-INPU-xxx");
+    return new SomList(this.doc, this.path + "/IDE-INPU-LST", (d: SpecDocument, p: string) => new InputDeviceEntry(d, p), "IDE-INPU-xxx");
   }
 
   // Peripheral equipment.
@@ -14055,7 +14055,7 @@ export class ErrorRecovery extends SomNode {
 
   // Recovery flow diagrams.
   get recoveryFlows(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/RECOV-RECO-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "RECOV-RECO-xxx");
+    return new SomList(this.doc, this.path + "/ERRE-RECO-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "ERRE-RECO-xxx");
   }
 
   // Common recovery scenarios.
@@ -14588,7 +14588,7 @@ export class ExportFormatEntry extends SomNode {
 
   // Contains 0+× Export Field Mapping.
   get fieldMappings(): SomList<ExportFieldMappingEntry> {
-    return new SomList(this.doc, this.path + "/EFME-FIEL-LST", (d: SpecDocument, p: string) => new ExportFieldMappingEntry(d, p), "EFME-FIEL-xxx");
+    return new SomList(this.doc, this.path + "/EXFIMAEN-FIEL-LST", (d: SpecDocument, p: string) => new ExportFieldMappingEntry(d, p), "EXFIMAEN-FIEL-xxx");
   }
 }
 
@@ -14690,7 +14690,7 @@ export class ExternalActorEntry extends SomNode {
 
   // Interaction scenarios for this actor.
   get interactionScenarios(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/INTER-INTE-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "INTER-INTE-xxx");
+    return new SomList(this.doc, this.path + "/EAE-INTE-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "EAE-INTE-xxx");
   }
 }
 
@@ -14744,7 +14744,7 @@ export class ExternalConnectivitySection extends SomNode {
 
   // External partner connections — contains 0+× ExternalPartnerConnection.
   get partnerConnections(): SomList<ExternalPartnerConnectionEntry> {
-    return new SomList(this.doc, this.path + "/EPCE-PART-LST", (d: SpecDocument, p: string) => new ExternalPartnerConnectionEntry(d, p), "EPCE-PART-xxx");
+    return new SomList(this.doc, this.path + "/EXPACOEN-PART-LST", (d: SpecDocument, p: string) => new ExternalPartnerConnectionEntry(d, p), "EXPACOEN-PART-xxx");
   }
 
   // Cloud service integrations.
@@ -14853,7 +14853,7 @@ export class ExternalInterfaces extends SomNode {
 
   // Contains 0+× ExternalInterfaceEntry.
   get interfaces(): SomList<ExternalInterfaceEntry> {
-    return new SomList(this.doc, this.path + "/EXINEN-INTE-LST", (d: SpecDocument, p: string) => new ExternalInterfaceEntry(d, p), "EXINEN-INTE-xxx");
+    return new SomList(this.doc, this.path + "/EIE-INTE-LST", (d: SpecDocument, p: string) => new ExternalInterfaceEntry(d, p), "EIE-INTE-xxx");
   }
 }
 
@@ -15090,7 +15090,7 @@ export class FeatureDependencies extends SomNode {
 
   // Contains 0+× FeatureDependencyEntry.
   get items(): SomList<FeatureDependencyEntry> {
-    return new SomList(this.doc, this.path + "/FEDEEN-ITEM-LST", (d: SpecDocument, p: string) => new FeatureDependencyEntry(d, p), "FEDEEN-ITEM-xxx");
+    return new SomList(this.doc, this.path + "/FDE-ITEM-LST", (d: SpecDocument, p: string) => new FeatureDependencyEntry(d, p), "FDE-ITEM-xxx");
   }
 }
 
@@ -15290,7 +15290,7 @@ export class FeaturePriorityRegister extends SomNode {
 
   // Contains 1+× FeaturePriorityEntry.
   get items(): SomList<FeaturePriorityEntry> {
-    return new SomList(this.doc, this.path + "/FEPREN-ITEM-LST", (d: SpecDocument, p: string) => new FeaturePriorityEntry(d, p), "FEPREN-ITEM-xxx");
+    return new SomList(this.doc, this.path + "/FPE-ITEM-LST", (d: SpecDocument, p: string) => new FeaturePriorityEntry(d, p), "FPE-ITEM-xxx");
   }
 }
 
@@ -15346,7 +15346,7 @@ export class FeatureStageMatrix extends SomNode {
 
   // Contains 0+× FeatureStageMapping.
   get items(): SomList<FeatureStageMapping> {
-    return new SomList(this.doc, this.path + "/FESTM1-ITEM-LST", (d: SpecDocument, p: string) => new FeatureStageMapping(d, p), "FESTM1-ITEM-xxx");
+    return new SomList(this.doc, this.path + "/FSM-ITEM-LST", (d: SpecDocument, p: string) => new FeatureStageMapping(d, p), "FSM-ITEM-xxx");
   }
 }
 
@@ -15959,7 +15959,7 @@ export class FunctionalResponsibilities extends SomNode {
 
   // Contains 0+× Responsibility.
   get items(): SomList<ResponsibilityEntry> {
-    return new SomList(this.doc, this.path + "/REEN1-ITEM-LST", (d: SpecDocument, p: string) => new ResponsibilityEntry(d, p), "REEN1-ITEM-xxx");
+    return new SomList(this.doc, this.path + "/RE-ITEM-LST", (d: SpecDocument, p: string) => new ResponsibilityEntry(d, p), "RE-ITEM-xxx");
   }
 }
 
@@ -16091,7 +16091,7 @@ export class GlossaryAndAbbreviations extends SomNode {
 
   // The set of defined terms and abbreviations.
   get glossary(): SomList<GlossaryEntry> {
-    return new SomList(this.doc, this.path + "/GLOSS-ENTR-LST", (d: SpecDocument, p: string) => new GlossaryEntry(d, p), "GLOSS-ENTR-xxx");
+    return new SomList(this.doc, this.path + "/GLENT-ENTR-LST", (d: SpecDocument, p: string) => new GlossaryEntry(d, p), "GLENT-ENTR-xxx");
   }
 }
 
@@ -17097,7 +17097,7 @@ export class InformationArchitecture extends SomNode {
 
   // Global entry points.
   get globalEntryPoints(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/GLOBA-GLOB-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "GLOBA-GLOB-xxx");
+    return new SomList(this.doc, this.path + "/IA-GLOB-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "IA-GLOB-xxx");
   }
 
   // 10.2.2.5. Information Architecture Diagram.
@@ -17450,7 +17450,7 @@ export class IntegrationHealthSummary extends SomNode {
 
   // Fragile integration points requiring attention.
   get fragilePoints(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/FRAGI-FRAG-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "FRAGI-FRAG-xxx");
+    return new SomList(this.doc, this.path + "/INHESU-FRAG-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "INHESU-FRAG-xxx");
   }
 }
 
@@ -17846,7 +17846,7 @@ export class InterfaceBusinessContext extends SomNode {
 
   // Business processes that depend on this interface.
   get dependentProcesses(): SomList<InterfaceBusinessProcessEntry> {
-    return new SomList(this.doc, this.path + "/IBPE-DEPE-LST", (d: SpecDocument, p: string) => new InterfaceBusinessProcessEntry(d, p), "IBPE-DEPE-xxx");
+    return new SomList(this.doc, this.path + "/INBUPREN-DEPE-LST", (d: SpecDocument, p: string) => new InterfaceBusinessProcessEntry(d, p), "INBUPREN-DEPE-xxx");
   }
 }
 
@@ -17884,17 +17884,17 @@ export class InterfaceDataSpec extends SomNode {
 
   // Data entities exchanged.
   get dataEntities(): SomList<InterfaceDataEntityEntry> {
-    return new SomList(this.doc, this.path + "/IDEE-DATA-LST", (d: SpecDocument, p: string) => new InterfaceDataEntityEntry(d, p), "IDEE-DATA-xxx");
+    return new SomList(this.doc, this.path + "/INDAENEN-DATA-LST", (d: SpecDocument, p: string) => new InterfaceDataEntityEntry(d, p), "INDAENEN-DATA-xxx");
   }
 
   // Data mapping and transformation rules.
   get mappingRules(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/MAPPI-MAPP-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "MAPPI-MAPP-xxx");
+    return new SomList(this.doc, this.path + "/INDASP-MAPP-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "INDASP-MAPP-xxx");
   }
 
   // Data validation rules.
   get validationRules(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/VALID-VALI-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "VALID-VALI-xxx");
+    return new SomList(this.doc, this.path + "/INDASP-VALI-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "INDASP-VALI-xxx");
   }
 }
 
@@ -17925,7 +17925,7 @@ export class InterfaceErrorHandling extends SomNode {
 
   // Error handling procedures.
   get errorProcedures(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/ERROR-ERRO-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "ERROR-ERRO-xxx");
+    return new SomList(this.doc, this.path + "/INERHA-ERRO-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "INERHA-ERRO-xxx");
   }
 }
 
@@ -18000,7 +18000,7 @@ export class InterfaceOperational extends SomNode {
 
   // Operational dependencies.
   get dependencies(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/DEPEN-DEPE-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "DEPEN-DEPE-xxx");
+    return new SomList(this.doc, this.path + "/INOP-DEPE-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "INOP-DEPE-xxx");
   }
 }
 
@@ -18086,7 +18086,7 @@ export class InterfaceTechnicalSpec extends SomNode {
 
   // API operations/methods exposed or consumed.
   get operations(): SomList<InterfaceOperationEntry> {
-    return new SomList(this.doc, this.path + "/INOPEN-OPER-LST", (d: SpecDocument, p: string) => new InterfaceOperationEntry(d, p), "INOPEN-OPER-xxx");
+    return new SomList(this.doc, this.path + "/IOE-OPER-LST", (d: SpecDocument, p: string) => new InterfaceOperationEntry(d, p), "IOE-OPER-xxx");
   }
 
   // Webhook/callback configurations if applicable.
@@ -18128,7 +18128,7 @@ export class InterfaceTesting extends SomNode {
 
   // Test scenarios.
   get testScenarios(): SomList<InterfaceTestScenarioEntry> {
-    return new SomList(this.doc, this.path + "/ITSE1-TEST-LST", (d: SpecDocument, p: string) => new InterfaceTestScenarioEntry(d, p), "ITSE1-TEST-xxx");
+    return new SomList(this.doc, this.path + "/INTESCEN-TEST-LST", (d: SpecDocument, p: string) => new InterfaceTestScenarioEntry(d, p), "INTESCEN-TEST-xxx");
   }
 }
 
@@ -18331,7 +18331,7 @@ export class Iso25010Coverage extends SomNode {
 
   // One entry per ISO/IEC 25010:2023 characteristic addressed.
   get characteristics(): SomList<Iso25010CoverageEntry> {
-    return new SomList(this.doc, this.path + "/I25CV-CHAR-LST", (d: SpecDocument, p: string) => new Iso25010CoverageEntry(d, p), "I25CV-CHAR-xxx");
+    return new SomList(this.doc, this.path + "/I25CE-CHAR-LST", (d: SpecDocument, p: string) => new Iso25010CoverageEntry(d, p), "I25CE-CHAR-xxx");
   }
 }
 
@@ -18430,7 +18430,7 @@ export class ItSecurityStandardsSection extends SomNode {
 
   // Security standards and frameworks — contains 0+× SecurityStandard.
   get standards(): SomList<SecurityStandardEntry> {
-    return new SomList(this.doc, this.path + "/SESTEN-STAN-LST", (d: SpecDocument, p: string) => new SecurityStandardEntry(d, p), "SESTEN-STAN-xxx");
+    return new SomList(this.doc, this.path + "/SSE-STAN-LST", (d: SpecDocument, p: string) => new SecurityStandardEntry(d, p), "SSE-STAN-xxx");
   }
 
   // Application security requirements (OWASP).
@@ -18512,7 +18512,7 @@ export class JobDescriptionsAndStaffing extends SomNode {
 
   // 5.2.1. New Roles — contains 0+× New Role.
   get newRoles(): SomList<NewRoleEntry> {
-    return new SomList(this.doc, this.path + "/NWROL-NEWR-LST", (d: SpecDocument, p: string) => new NewRoleEntry(d, p), "NWROL-NEWR-xxx");
+    return new SomList(this.doc, this.path + "/NRE-NEWR-LST", (d: SpecDocument, p: string) => new NewRoleEntry(d, p), "NRE-NEWR-xxx");
   }
 
   // 5.2.2. Changed Roles — contains 0+× Changed Role.
@@ -18945,7 +18945,7 @@ export class LayeringAndModuleStructure extends SomNode {
 
   // Software layer definitions.
   get softwareLayers(): SomList<SoftwareLayerEntry> {
-    return new SomList(this.doc, this.path + "/SOLAEN-SOFT-LST", (d: SpecDocument, p: string) => new SoftwareLayerEntry(d, p), "SOLAEN-SOFT-xxx");
+    return new SomList(this.doc, this.path + "/SLE-SOFT-LST", (d: SpecDocument, p: string) => new SoftwareLayerEntry(d, p), "SLE-SOFT-xxx");
   }
 
   // Layer communication rules and constraints.
@@ -18955,7 +18955,7 @@ export class LayeringAndModuleStructure extends SomNode {
 
   // Bounded contexts (DDD) definitions.
   get boundedContexts(): SomList<BoundedContextEntry> {
-    return new SomList(this.doc, this.path + "/BOCOEN-BOUN-LST", (d: SpecDocument, p: string) => new BoundedContextEntry(d, p), "BOCOEN-BOUN-xxx");
+    return new SomList(this.doc, this.path + "/BCE-BOUN-LST", (d: SpecDocument, p: string) => new BoundedContextEntry(d, p), "BCE-BOUN-xxx");
   }
 
   // Package organization and structure.
@@ -18965,12 +18965,12 @@ export class LayeringAndModuleStructure extends SomNode {
 
   // Module catalog with dependency information.
   get modules(): SomList<ModuleEntry> {
-    return new SomList(this.doc, this.path + "/MOEN1-MODU-LST", (d: SpecDocument, p: string) => new ModuleEntry(d, p), "MOEN1-MODU-xxx");
+    return new SomList(this.doc, this.path + "/MODENT-MODU-LST", (d: SpecDocument, p: string) => new ModuleEntry(d, p), "MODENT-MODU-xxx");
   }
 
   // Shared libraries and common code.
   get sharedLibraries(): SomList<SharedLibraryEntry> {
-    return new SomList(this.doc, this.path + "/SHLIB-SHAR-LST", (d: SpecDocument, p: string) => new SharedLibraryEntry(d, p), "SHLIB-SHAR-xxx");
+    return new SomList(this.doc, this.path + "/SHLIEN-SHAR-LST", (d: SpecDocument, p: string) => new SharedLibraryEntry(d, p), "SHLIEN-SHAR-xxx");
   }
 
   // Dependency injection configuration.
@@ -19719,7 +19719,7 @@ export class MaintenanceWindowsSection extends SomNode {
 
   // Maintenance window definitions.
   get maintenanceWindows(): SomList<MaintenanceWindowEntry> {
-    return new SomList(this.doc, this.path + "/MAWIEN-MAIN-LST", (d: SpecDocument, p: string) => new MaintenanceWindowEntry(d, p), "MAWIEN-MAIN-xxx");
+    return new SomList(this.doc, this.path + "/MWE-MAIN-LST", (d: SpecDocument, p: string) => new MaintenanceWindowEntry(d, p), "MWE-MAIN-xxx");
   }
 
   // Emergency maintenance procedures.
@@ -19953,7 +19953,7 @@ export class MetricsAndObservability extends SomNode {
 
   // Custom metrics catalog.
   get customMetrics(): SomList<CustomMetricEntry> {
-    return new SomList(this.doc, this.path + "/CUMEEN-CUST-LST", (d: SpecDocument, p: string) => new CustomMetricEntry(d, p), "CUMEEN-CUST-xxx");
+    return new SomList(this.doc, this.path + "/CUSMETENT-CUST-LST", (d: SpecDocument, p: string) => new CustomMetricEntry(d, p), "CUSMETENT-CUST-xxx");
   }
 }
 
@@ -20086,7 +20086,7 @@ export class MfaConfiguration extends SomNode {
 
   // MFA Implementation Details (text).
   get mfaDetails(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/MFADE-MFAD-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "MFADE-MFAD-xxx");
+    return new SomList(this.doc, this.path + "/MC-MFAD-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "MC-MFAD-xxx");
   }
 }
 
@@ -20142,7 +20142,7 @@ export class MigrationConsiderations extends SomNode {
 
   // Escalation procedures during migration.
   get escalationProcedures(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/ESCAL-ESCA-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "ESCAL-ESCA-xxx");
+    return new SomList(this.doc, this.path + "/MIGCON-ESCA-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "MIGCON-ESCA-xxx");
   }
 }
 
@@ -20489,22 +20489,22 @@ export class MigrationRisks extends SomNode {
 
   // Risk categories and taxonomy.
   get riskCategories(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/RISKC-RISK-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "RISKC-RISK-xxx");
+    return new SomList(this.doc, this.path + "/MIRI-RISK-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "MIRI-RISK-xxx");
   }
 
   // Risk-based decision making criteria.
   get riskBasedDecisions(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/RISKB-RISK-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "RISKB-RISK-xxx");
+    return new SomList(this.doc, this.path + "/MIRI-RBDE-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "MIRI-RBDE-xxx");
   }
 
   // Risk monitoring and control procedures.
   get monitoringProcedures(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/MONIT-MONI-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "MONIT-MONI-xxx");
+    return new SomList(this.doc, this.path + "/MIRI-MONI-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "MIRI-MONI-xxx");
   }
 
   // Risk response strategies by category.
   get responseStrategies(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/RESPO-RESP-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "RESPO-RESP-xxx");
+    return new SomList(this.doc, this.path + "/MIRI-RESP-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "MIRI-RESP-xxx");
   }
 
   // Risk aggregation and portfolio view.
@@ -20803,7 +20803,7 @@ export class MonitoringAndAlertingSection extends SomNode {
 
   // Alert definitions.
   get alertDefinitions(): SomList<AlertDefinitionEntry> {
-    return new SomList(this.doc, this.path + "/ALDEEN-ALER-LST", (d: SpecDocument, p: string) => new AlertDefinitionEntry(d, p), "ALDEEN-ALER-xxx");
+    return new SomList(this.doc, this.path + "/ALEDEFENT-ALER-LST", (d: SpecDocument, p: string) => new AlertDefinitionEntry(d, p), "ALEDEFENT-ALER-xxx");
   }
 
   // Dashboard requirements.
@@ -20844,7 +20844,7 @@ export class MonitoringDashboards extends SomNode {
 
   // Dashboard catalog.
   get dashboards(): SomList<DashboardEntry> {
-    return new SomList(this.doc, this.path + "/DAEN-DASH-LST", (d: SpecDocument, p: string) => new DashboardEntry(d, p), "DAEN-DASH-xxx");
+    return new SomList(this.doc, this.path + "/DASENT-DASH-LST", (d: SpecDocument, p: string) => new DashboardEntry(d, p), "DASENT-DASH-xxx");
   }
 
   // Dashboard template specifications.
@@ -20897,7 +20897,7 @@ export class MoscowAnalysis extends SomNode {
 
   // Contains 0+× MoscowEntry.
   get items(): SomList<MoscowEntry> {
-    return new SomList(this.doc, this.path + "/MOEN-ITEM-LST", (d: SpecDocument, p: string) => new MoscowEntry(d, p), "MOEN-ITEM-xxx");
+    return new SomList(this.doc, this.path + "/ME-ITEM-LST", (d: SpecDocument, p: string) => new MoscowEntry(d, p), "ME-ITEM-xxx");
   }
 }
 
@@ -20988,7 +20988,7 @@ export class MultiLanguageSupport extends SomNode {
 
   // Supported locale entries.
   get supportedLocales(): SomList<SupportedLocaleEntry> {
-    return new SomList(this.doc, this.path + "/SULOEN-SUPP-LST", (d: SpecDocument, p: string) => new SupportedLocaleEntry(d, p), "SULOEN-SUPP-xxx");
+    return new SomList(this.doc, this.path + "/SUPLOCENT-SUPP-LST", (d: SpecDocument, p: string) => new SupportedLocaleEntry(d, p), "SUPLOCENT-SUPP-xxx");
   }
 }
 
@@ -21493,7 +21493,7 @@ export class NetworkRequirementsSection extends SomNode {
 
   // VPN requirements.
   get vpnRequirements(): SomList<VpnRequirementEntry> {
-    return new SomList(this.doc, this.path + "/VPREEN-VPNR-LST", (d: SpecDocument, p: string) => new VpnRequirementEntry(d, p), "VPREEN-VPNR-xxx");
+    return new SomList(this.doc, this.path + "/VRE-VPNR-LST", (d: SpecDocument, p: string) => new VpnRequirementEntry(d, p), "VRE-VPNR-xxx");
   }
 
   // Firewall rules and policies.
@@ -22043,7 +22043,7 @@ export class OperationalPainPoints extends SomNode {
 
   // Contains 0+× PainPoint.
   get items(): SomList<PainPointEntry> {
-    return new SomList(this.doc, this.path + "/OPPAPO-ITEM-LST", (d: SpecDocument, p: string) => new PainPointEntry(d, p), "OPPAPO-ITEM-xxx");
+    return new SomList(this.doc, this.path + "/PAPE-ITEM-LST", (d: SpecDocument, p: string) => new PainPointEntry(d, p), "PAPE-ITEM-xxx");
   }
 }
 
@@ -22344,7 +22344,7 @@ export class OrganizationalEnvironment extends SomNode {
 
   // Departments and business units affected.
   get affectedDepartments(): SomList<AffectedDepartmentEntry> {
-    return new SomList(this.doc, this.path + "/AFDEEN-AFFE-LST", (d: SpecDocument, p: string) => new AffectedDepartmentEntry(d, p), "AFDEEN-AFFE-xxx");
+    return new SomList(this.doc, this.path + "/ADE-AFFE-LST", (d: SpecDocument, p: string) => new AffectedDepartmentEntry(d, p), "ADE-AFFE-xxx");
   }
 
   // Decision making processes and authority.
@@ -22352,17 +22352,17 @@ export class OrganizationalEnvironment extends SomNode {
 
   // Key decision makers and their roles.
   get decisionMakers(): SomList<DecisionMakerEntry> {
-    return new SomList(this.doc, this.path + "/DEMAEN-DECI-LST", (d: SpecDocument, p: string) => new DecisionMakerEntry(d, p), "DEMAEN-DECI-xxx");
+    return new SomList(this.doc, this.path + "/DME-DECI-LST", (d: SpecDocument, p: string) => new DecisionMakerEntry(d, p), "DME-DECI-xxx");
   }
 
   // Cultural considerations and organizational dynamics.
   get culturalConsiderations(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/CULTU-CULT-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "CULTU-CULT-xxx");
+    return new SomList(this.doc, this.path + "/OREN-CULT-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "OREN-CULT-xxx");
   }
 
   // Stakeholder communication preferences.
   get communicationPreferences(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/COMMU-COMM-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "COMMU-COMM-xxx");
+    return new SomList(this.doc, this.path + "/OREN-COMM-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "OREN-COMM-xxx");
   }
 
   // Political dynamics and influence patterns.
@@ -22370,7 +22370,7 @@ export class OrganizationalEnvironment extends SomNode {
 
   // Change champions and sponsors.
   get changeAdvocates(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/CHANG-CHAN-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "CHANG-CHAN-xxx");
+    return new SomList(this.doc, this.path + "/OREN-CHAN-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "OREN-CHAN-xxx");
   }
 }
 
@@ -22606,7 +22606,7 @@ export class OutOfScope extends SomNode {
 
   // Contains 0+× OutOfScopeEntry.
   get items(): SomList<OutOfScopeEntry> {
-    return new SomList(this.doc, this.path + "/OOSE-ITEM-LST", (d: SpecDocument, p: string) => new OutOfScopeEntry(d, p), "OOSE-ITEM-xxx");
+    return new SomList(this.doc, this.path + "/OUOFSCEN-ITEM-LST", (d: SpecDocument, p: string) => new OutOfScopeEntry(d, p), "OUOFSCEN-ITEM-xxx");
   }
 }
 
@@ -23413,7 +23413,7 @@ export class PhaseGateReviews extends SomNode {
 
   // Contains 0+× PhaseGateReviewEntry.
   get items(): SomList<PhaseGateReviewEntry> {
-    return new SomList(this.doc, this.path + "/PGRE-ITEM-LST", (d: SpecDocument, p: string) => new PhaseGateReviewEntry(d, p), "PGRE-ITEM-xxx");
+    return new SomList(this.doc, this.path + "/PHGAREEN-ITEM-LST", (d: SpecDocument, p: string) => new PhaseGateReviewEntry(d, p), "PHGAREEN-ITEM-xxx");
   }
 }
 
@@ -23557,7 +23557,7 @@ export class PlatformAndLanguage extends SomNode {
 
   // Framework and library requirements.
   get frameworks(): SomList<FrameworkRequirementEntry> {
-    return new SomList(this.doc, this.path + "/FWREN-FRAM-LST", (d: SpecDocument, p: string) => new FrameworkRequirementEntry(d, p), "FWREN-FRAM-xxx");
+    return new SomList(this.doc, this.path + "/FRREEN-FRAM-LST", (d: SpecDocument, p: string) => new FrameworkRequirementEntry(d, p), "FRREEN-FRAM-xxx");
   }
 
   // Build toolchain requirements.
@@ -23567,7 +23567,7 @@ export class PlatformAndLanguage extends SomNode {
 
   // Deployment target specifications.
   get deploymentTargets(): SomList<DeploymentTargetEntry> {
-    return new SomList(this.doc, this.path + "/DETAEN-DEPL-LST", (d: SpecDocument, p: string) => new DeploymentTargetEntry(d, p), "DETAEN-DEPL-xxx");
+    return new SomList(this.doc, this.path + "/DEPTARENT-DEPL-LST", (d: SpecDocument, p: string) => new DeploymentTargetEntry(d, p), "DEPTARENT-DEPL-xxx");
   }
 
   // Dependency management requirements.
@@ -23706,13 +23706,13 @@ export class PrintAndExportLayout extends SomNode {
 
   // 10.4.1. Export Formats — contains 0+× Export Format.
   get exportFormats(): SomList<ExportFormatEntry> {
-    return new SomList(this.doc, this.path + "/EXFOEN-EXPO-LST", (d: SpecDocument, p: string) => new ExportFormatEntry(d, p), "EXFOEN-EXPO-xxx");
+    return new SomList(this.doc, this.path + "/EFE-EXPO-LST", (d: SpecDocument, p: string) => new ExportFormatEntry(d, p), "EFE-EXPO-xxx");
   }
 
   // 10.4.2. Export Templates — contains 0+× Export
   // Template.
   get exportTemplates(): SomList<ExportTemplateEntry> {
-    return new SomList(this.doc, this.path + "/EXTEEN-EXPO-LST", (d: SpecDocument, p: string) => new ExportTemplateEntry(d, p), "EXTEEN-EXPO-xxx");
+    return new SomList(this.doc, this.path + "/ETE-EXPO-LST", (d: SpecDocument, p: string) => new ExportTemplateEntry(d, p), "ETE-EXPO-xxx");
   }
 }
 
@@ -23817,7 +23817,7 @@ export class ProblemStatement extends SomNode {
 
   // Related pain points from Current State Analysis.
   get relatedPainPoints(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/RPPE-RELA-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "RPPE-RELA-xxx");
+    return new SomList(this.doc, this.path + "/PS-RELA-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "PS-RELA-xxx");
   }
 }
 
@@ -24986,7 +24986,7 @@ export class ProtocolsAndStandardsSection extends SomNode {
 
   // Protocol catalog — contains 0+× Protocol.
   get protocols(): SomList<ProtocolEntry> {
-    return new SomList(this.doc, this.path + "/PREN-PROT-LST", (d: SpecDocument, p: string) => new ProtocolEntry(d, p), "PREN-PROT-xxx");
+    return new SomList(this.doc, this.path + "/PE-PROT-LST", (d: SpecDocument, p: string) => new ProtocolEntry(d, p), "PE-PROT-xxx");
   }
 
   // TLS/SSL requirements.
@@ -25108,7 +25108,7 @@ export class PrototypeFeatureSubset extends SomNode {
 
   // Prototype feature entries.
   get features(): SomList<PrototypeFeatureEntry> {
-    return new SomList(this.doc, this.path + "/PRFEEN-FEAT-LST", (d: SpecDocument, p: string) => new PrototypeFeatureEntry(d, p), "PRFEEN-FEAT-xxx");
+    return new SomList(this.doc, this.path + "/PFE-FEAT-LST", (d: SpecDocument, p: string) => new PrototypeFeatureEntry(d, p), "PFE-FEAT-xxx");
   }
 }
 
@@ -25150,7 +25150,7 @@ export class PrototypeGoals extends SomNode {
 
   // Individual goal entries.
   get goals(): SomList<PrototypeGoalEntry> {
-    return new SomList(this.doc, this.path + "/PRGOEN-GOAL-LST", (d: SpecDocument, p: string) => new PrototypeGoalEntry(d, p), "PRGOEN-GOAL-xxx");
+    return new SomList(this.doc, this.path + "/PGE-GOAL-LST", (d: SpecDocument, p: string) => new PrototypeGoalEntry(d, p), "PGE-GOAL-xxx");
   }
 }
 
@@ -25325,7 +25325,7 @@ export class QualityFramework extends SomNode {
 
   // Quality dependencies map.
   get categoryDependencies(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/CATEG-CATE-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "CATEG-CATE-xxx");
+    return new SomList(this.doc, this.path + "/QLFWK-CATE-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "QLFWK-CATE-xxx");
   }
 }
 
@@ -26295,7 +26295,7 @@ export class ReportDefinitions extends SomNode {
 
   // 10.2.1. Reports — contains 0+× Report.
   get reports(): SomList<ReportEntry> {
-    return new SomList(this.doc, this.path + "/REEN-REPO-LST", (d: SpecDocument, p: string) => new ReportEntry(d, p), "REEN-REPO-xxx");
+    return new SomList(this.doc, this.path + "/REPENT-REPO-LST", (d: SpecDocument, p: string) => new ReportEntry(d, p), "REPENT-REPO-xxx");
   }
 }
 
@@ -26399,27 +26399,27 @@ export class ReportEntry extends SomNode {
 
   // Contains 0+× Report Section.
   get sections(): SomList<ReportSectionEntry> {
-    return new SomList(this.doc, this.path + "/RESEE1-SECT-LST", (d: SpecDocument, p: string) => new ReportSectionEntry(d, p), "RESEE1-SECT-xxx");
+    return new SomList(this.doc, this.path + "/RSE-SECT-LST", (d: SpecDocument, p: string) => new ReportSectionEntry(d, p), "RSE-SECT-xxx");
   }
 
   // Contains 0+× Report Filter.
   get filters(): SomList<ReportFilterEntry> {
-    return new SomList(this.doc, this.path + "/REFIEN-FILT-LST", (d: SpecDocument, p: string) => new ReportFilterEntry(d, p), "REFIEN-FILT-xxx");
+    return new SomList(this.doc, this.path + "/RFE-FILT-LST", (d: SpecDocument, p: string) => new ReportFilterEntry(d, p), "RFE-FILT-xxx");
   }
 
   // Contains 0+× Report Schedule.
   get schedules(): SomList<ReportScheduleEntry> {
-    return new SomList(this.doc, this.path + "/RESCEN-SCHE-LST", (d: SpecDocument, p: string) => new ReportScheduleEntry(d, p), "RESCEN-SCHE-xxx");
+    return new SomList(this.doc, this.path + "/REPSCHENT-SCHE-LST", (d: SpecDocument, p: string) => new ReportScheduleEntry(d, p), "REPSCHENT-SCHE-xxx");
   }
 
   // Contains 0+× Report Distribution.
   get distributions(): SomList<ReportDistributionEntry> {
-    return new SomList(this.doc, this.path + "/REDIEN-DIST-LST", (d: SpecDocument, p: string) => new ReportDistributionEntry(d, p), "REDIEN-DIST-xxx");
+    return new SomList(this.doc, this.path + "/RDE-DIST-LST", (d: SpecDocument, p: string) => new ReportDistributionEntry(d, p), "RDE-DIST-xxx");
   }
 
   // Contains 0+× Recipient.
   get recipients(): SomList<ReportRecipientEntry> {
-    return new SomList(this.doc, this.path + "/REREEN-RECI-LST", (d: SpecDocument, p: string) => new ReportRecipientEntry(d, p), "REREEN-RECI-xxx");
+    return new SomList(this.doc, this.path + "/RRE-RECI-LST", (d: SpecDocument, p: string) => new ReportRecipientEntry(d, p), "RRE-RECI-xxx");
   }
 }
 
@@ -26589,12 +26589,12 @@ export class ReportSectionEntry extends SomNode {
 
   // Contains 0+× Report Column.
   get columns(): SomList<ReportColumnEntry> {
-    return new SomList(this.doc, this.path + "/RECOE1-COLU-LST", (d: SpecDocument, p: string) => new ReportColumnEntry(d, p), "RECOE1-COLU-xxx");
+    return new SomList(this.doc, this.path + "/REPCOLENT-COLU-LST", (d: SpecDocument, p: string) => new ReportColumnEntry(d, p), "REPCOLENT-COLU-xxx");
   }
 
   // Contains 0+× Report Chart.
   get charts(): SomList<ReportChartEntry> {
-    return new SomList(this.doc, this.path + "/RECHEN-CHAR-LST", (d: SpecDocument, p: string) => new ReportChartEntry(d, p), "RECHEN-CHAR-xxx");
+    return new SomList(this.doc, this.path + "/REPCHAENT-CHAR-LST", (d: SpecDocument, p: string) => new ReportChartEntry(d, p), "REPCHAENT-CHAR-xxx");
   }
 }
 
@@ -26621,7 +26621,7 @@ export class RequirementAcceptanceCriteria extends SomNode {
 
   // Acceptance criterion entries — contains 0+× AcceptanceCriterionEntry.
   get criteria(): SomList<AcceptanceCriterionEntry> {
-    return new SomList(this.doc, this.path + "/ACCR-CRIT-LST", (d: SpecDocument, p: string) => new AcceptanceCriterionEntry(d, p), "ACCR-CRIT-xxx");
+    return new SomList(this.doc, this.path + "/ACE-CRIT-LST", (d: SpecDocument, p: string) => new AcceptanceCriterionEntry(d, p), "ACE-CRIT-xxx");
   }
 }
 
@@ -26931,7 +26931,7 @@ export class RequirementUiSpecification extends SomNode {
 
   // Screen field entries — contains 0+× ScreenFieldEntry.
   get fields(): SomList<ScreenFieldEntry> {
-    return new SomList(this.doc, this.path + "/SCFLD-FIEL-LST", (d: SpecDocument, p: string) => new ScreenFieldEntry(d, p), "SCFLD-FIEL-xxx");
+    return new SomList(this.doc, this.path + "/SFE-FIEL-LST", (d: SpecDocument, p: string) => new ScreenFieldEntry(d, p), "SFE-FIEL-xxx");
   }
 
   // Screen action entries — contains 0+× RequirementScreenActionEntry.
@@ -27527,17 +27527,17 @@ export class ReusableComponentsSection extends SomNode {
 
   // UI component library entries.
   get uiComponents(): SomList<ReusableUiComponentEntry> {
-    return new SomList(this.doc, this.path + "/RUICMP-UICO-LST", (d: SpecDocument, p: string) => new ReusableUiComponentEntry(d, p), "RUICMP-UICO-xxx");
+    return new SomList(this.doc, this.path + "/RUCE-UICO-LST", (d: SpecDocument, p: string) => new ReusableUiComponentEntry(d, p), "RUCE-UICO-xxx");
   }
 
   // Business logic components.
   get businessComponents(): SomList<BusinessComponentEntry> {
-    return new SomList(this.doc, this.path + "/BUCOEN-BUSI-LST", (d: SpecDocument, p: string) => new BusinessComponentEntry(d, p), "BUCOEN-BUSI-xxx");
+    return new SomList(this.doc, this.path + "/BUSCOMENT-BUSI-LST", (d: SpecDocument, p: string) => new BusinessComponentEntry(d, p), "BUSCOMENT-BUSI-xxx");
   }
 
   // Infrastructure components.
   get infrastructureComponents(): SomList<InfrastructureComponentEntry> {
-    return new SomList(this.doc, this.path + "/INCOEN-INFR-LST", (d: SpecDocument, p: string) => new InfrastructureComponentEntry(d, p), "INCOEN-INFR-xxx");
+    return new SomList(this.doc, this.path + "/INFCOMENT-INFR-LST", (d: SpecDocument, p: string) => new InfrastructureComponentEntry(d, p), "INFCOMENT-INFR-xxx");
   }
 
   // Third-party frameworks and libraries.
@@ -27852,7 +27852,7 @@ export class RisksAndAssumptions extends SomNode {
 
   // 4.7.1. Key Risks — contains 0+× Risk.
   get keyRisks(): SomList<RiskEntry> {
-    return new SomList(this.doc, this.path + "/RIEN-KEYR-LST", (d: SpecDocument, p: string) => new RiskEntry(d, p), "RIEN-KEYR-xxx");
+    return new SomList(this.doc, this.path + "/RISENT-KEYR-LST", (d: SpecDocument, p: string) => new RiskEntry(d, p), "RISENT-KEYR-xxx");
   }
 }
 
@@ -28803,12 +28803,12 @@ export class ScopeBoundaries extends SomNode {
 
   // In-Scope Items — contains 1+× ScopeItem.
   get inScopeItems(): SomList<ScopeItemEntry> {
-    return new SomList(this.doc, this.path + "/SCITE-INSC-LST", (d: SpecDocument, p: string) => new ScopeItemEntry(d, p), "SCITE-INSC-xxx");
+    return new SomList(this.doc, this.path + "/SIE-INSC-LST", (d: SpecDocument, p: string) => new ScopeItemEntry(d, p), "SIE-INSC-xxx");
   }
 
   // Out-of-Scope Items — contains 0+× ScopeItem.
   get outOfScopeItems(): SomList<ScopeItemEntry> {
-    return new SomList(this.doc, this.path + "/SCITE-OUTO-LST", (d: SpecDocument, p: string) => new ScopeItemEntry(d, p), "SCITE-OUTO-xxx");
+    return new SomList(this.doc, this.path + "/SIE-OUTO-LST", (d: SpecDocument, p: string) => new ScopeItemEntry(d, p), "SIE-OUTO-xxx");
   }
 
   // Deferred Items — contains 0+× ScopeItem.
@@ -28818,7 +28818,7 @@ export class ScopeBoundaries extends SomNode {
 
   // Scope Assumptions.
   get scopeAssumptions(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/SCOPE-SCOP-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SCOPE-SCOP-xxx");
+    return new SomList(this.doc, this.path + "/SCBND-SCOP-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SCBND-SCOP-xxx");
   }
 }
 
@@ -29045,7 +29045,7 @@ export class ScreenElementEntry extends SomNode {
 
   // Contains 0+× ElementValidationRule.
   get validationRules(): SomList<ElementValidationRuleEntry> {
-    return new SomList(this.doc, this.path + "/EVRE-VALI-LST", (d: SpecDocument, p: string) => new ElementValidationRuleEntry(d, p), "EVRE-VALI-xxx");
+    return new SomList(this.doc, this.path + "/ELVARUEN-VALI-LST", (d: SpecDocument, p: string) => new ElementValidationRuleEntry(d, p), "ELVARUEN-VALI-xxx");
   }
 }
 
@@ -29173,7 +29173,7 @@ export class ScreenEntry extends SomNode {
 
   // Contains 0+× ScreenUserCategory.
   get userCategories(): SomList<ScreenUserCategoryEntry> {
-    return new SomList(this.doc, this.path + "/SCRUSC-USER-LST", (d: SpecDocument, p: string) => new ScreenUserCategoryEntry(d, p), "SCRUSC-USER-xxx");
+    return new SomList(this.doc, this.path + "/SUCE-USER-LST", (d: SpecDocument, p: string) => new ScreenUserCategoryEntry(d, p), "SUCE-USER-xxx");
   }
 
   // Contains 0+× EntryPoint.
@@ -29183,7 +29183,7 @@ export class ScreenEntry extends SomNode {
 
   // Contains 0+× ScreenResponsiveRule.
   get responsiveRules(): SomList<ScreenResponsiveRuleEntry> {
-    return new SomList(this.doc, this.path + "/SRRE-RESP-LST", (d: SpecDocument, p: string) => new ScreenResponsiveRuleEntry(d, p), "SRRE-RESP-xxx");
+    return new SomList(this.doc, this.path + "/SCRERUEN-RESP-LST", (d: SpecDocument, p: string) => new ScreenResponsiveRuleEntry(d, p), "SCRERUEN-RESP-xxx");
   }
 }
 
@@ -29533,7 +29533,7 @@ export class SecondaryNavigation extends SomNode {
 
   // Contains 0+× TabBarDefinition.
   get tabBars(): SomList<TabBarDefinitionEntry> {
-    return new SomList(this.doc, this.path + "/TBDE-TABB-LST", (d: SpecDocument, p: string) => new TabBarDefinitionEntry(d, p), "TBDE-TABB-xxx");
+    return new SomList(this.doc, this.path + "/TABADEEN-TABB-LST", (d: SpecDocument, p: string) => new TabBarDefinitionEntry(d, p), "TABADEEN-TABB-xxx");
   }
 }
 
@@ -29693,7 +29693,7 @@ export class SecurityAuditRequirementsSection extends SomNode {
 
   // Individual security audit requirement entries — contains 0+× SecurityAudit.
   get auditEntries(): SomList<SecurityAuditEntry> {
-    return new SomList(this.doc, this.path + "/SEAUEN-AUDI-LST", (d: SpecDocument, p: string) => new SecurityAuditEntry(d, p), "SEAUEN-AUDI-xxx");
+    return new SomList(this.doc, this.path + "/SAE-AUDI-LST", (d: SpecDocument, p: string) => new SecurityAuditEntry(d, p), "SAE-AUDI-xxx");
   }
 }
 
@@ -29858,7 +29858,7 @@ export class SecurityControls extends SomNode {
 
   // Security control entries — contains 0+× SecurityControlEntry.
   get controls(): SomList<SecurityControlEntry> {
-    return new SomList(this.doc, this.path + "/SECCT-CONT-LST", (d: SpecDocument, p: string) => new SecurityControlEntry(d, p), "SECCT-CONT-xxx");
+    return new SomList(this.doc, this.path + "/SECOEN-CONT-LST", (d: SpecDocument, p: string) => new SecurityControlEntry(d, p), "SECOEN-CONT-xxx");
   }
 }
 
@@ -30521,12 +30521,12 @@ export class ServerRequirementsSection extends SomNode {
 
   // Server environment tiers (dev, staging, production, DR).
   get environments(): SomList<ServerEnvironmentEntry> {
-    return new SomList(this.doc, this.path + "/SEENEN-ENVI-LST", (d: SpecDocument, p: string) => new ServerEnvironmentEntry(d, p), "SEENEN-ENVI-xxx");
+    return new SomList(this.doc, this.path + "/SEE-ENVI-LST", (d: SpecDocument, p: string) => new ServerEnvironmentEntry(d, p), "SEE-ENVI-xxx");
   }
 
   // Server role definitions (app server, db server, web server).
   get serverRoles(): SomList<ServerRoleEntry> {
-    return new SomList(this.doc, this.path + "/SEROEN-SERV-LST", (d: SpecDocument, p: string) => new ServerRoleEntry(d, p), "SEROEN-SERV-xxx");
+    return new SomList(this.doc, this.path + "/SRE-SERV-LST", (d: SpecDocument, p: string) => new ServerRoleEntry(d, p), "SRE-SERV-xxx");
   }
 
   // Compute resource requirements.
@@ -31222,7 +31222,7 @@ export class SlaAndSloMonitoring extends SomNode {
 
   // SLO catalog.
   get slos(): SomList<SloEntry> {
-    return new SomList(this.doc, this.path + "/SLEN-SLOS-LST", (d: SpecDocument, p: string) => new SloEntry(d, p), "SLEN-SLOS-xxx");
+    return new SomList(this.doc, this.path + "/SE-SLOS-LST", (d: SpecDocument, p: string) => new SloEntry(d, p), "SE-SLOS-xxx");
   }
 
   // Error budget tracking.
@@ -31303,7 +31303,7 @@ export class SoftwareDeliverables extends SomNode {
 
   // Contains 0+× Deliverable.
   get items(): SomList<DeliverableEntry> {
-    return new SomList(this.doc, this.path + "/SWDLV-ITEM-LST", (d: SpecDocument, p: string) => new DeliverableEntry(d, p), "SWDLV-ITEM-xxx");
+    return new SomList(this.doc, this.path + "/DLVEN-ITEM-LST", (d: SpecDocument, p: string) => new DeliverableEntry(d, p), "DLVEN-ITEM-xxx");
   }
 }
 
@@ -32144,12 +32144,12 @@ export class StagingStrategy extends SomNode {
 
   // 13.1.3. Key Assumptions.
   get keyAssumptions(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/KEYAS-KEYA-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "KEYAS-KEYA-xxx");
+    return new SomList(this.doc, this.path + "/STAGST-KEYA-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "STAGST-KEYA-xxx");
   }
 
   // 13.1.4. Constraints.
   get constraints(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/STAGI-CONS-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "STAGI-CONS-xxx");
+    return new SomList(this.doc, this.path + "/STAGST-CONS-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "STAGST-CONS-xxx");
   }
 }
 
@@ -32274,7 +32274,7 @@ export class StakeholdersAndGovernance extends SomNode {
 
   // Stakeholder register.
   get stakeholderRegister(): SomList<StakeholderRegisterEntry> {
-    return new SomList(this.doc, this.path + "/STKRG-STAK-LST", (d: SpecDocument, p: string) => new StakeholderRegisterEntry(d, p), "STKRG-STAK-xxx");
+    return new SomList(this.doc, this.path + "/STKRE-STAK-LST", (d: SpecDocument, p: string) => new StakeholderRegisterEntry(d, p), "STKRE-STAK-xxx");
   }
 }
 
@@ -32344,27 +32344,27 @@ export class StandardsComplianceSection extends SomNode {
 
   // IT standards compliance (ISO, IEEE, NIST).
   get itStandards(): SomList<ItStandardComplianceEntry> {
-    return new SomList(this.doc, this.path + "/ISCE-ITST-LST", (d: SpecDocument, p: string) => new ItStandardComplianceEntry(d, p), "ISCE-ITST-xxx");
+    return new SomList(this.doc, this.path + "/ITSTCOEN-ITST-LST", (d: SpecDocument, p: string) => new ItStandardComplianceEntry(d, p), "ITSTCOEN-ITST-xxx");
   }
 
   // Industry protocols compliance.
   get industryProtocols(): SomList<IndustryProtocolComplianceEntry> {
-    return new SomList(this.doc, this.path + "/IPCE-INDU-LST", (d: SpecDocument, p: string) => new IndustryProtocolComplianceEntry(d, p), "IPCE-INDU-xxx");
+    return new SomList(this.doc, this.path + "/INPRCOEN-INDU-LST", (d: SpecDocument, p: string) => new IndustryProtocolComplianceEntry(d, p), "INPRCOEN-INDU-xxx");
   }
 
   // Interface specification standards.
   get interfaceSpecifications(): SomList<InterfaceSpecificationEntry> {
-    return new SomList(this.doc, this.path + "/INSPEN-INTE-LST", (d: SpecDocument, p: string) => new InterfaceSpecificationEntry(d, p), "INSPEN-INTE-xxx");
+    return new SomList(this.doc, this.path + "/INTSPEENT-INTE-LST", (d: SpecDocument, p: string) => new InterfaceSpecificationEntry(d, p), "INTSPEENT-INTE-xxx");
   }
 
   // Regulatory compliance requirements.
   get regulatoryCompliance(): SomList<RegulatoryComplianceEntry> {
-    return new SomList(this.doc, this.path + "/RECOEN-REGU-LST", (d: SpecDocument, p: string) => new RegulatoryComplianceEntry(d, p), "RECOEN-REGU-xxx");
+    return new SomList(this.doc, this.path + "/RCE-REGU-LST", (d: SpecDocument, p: string) => new RegulatoryComplianceEntry(d, p), "RCE-REGU-xxx");
   }
 
   // Security standards compliance.
   get securityStandards(): SomList<SecurityStandardComplianceEntry> {
-    return new SomList(this.doc, this.path + "/SSCE-SECU-LST", (d: SpecDocument, p: string) => new SecurityStandardComplianceEntry(d, p), "SSCE-SECU-xxx");
+    return new SomList(this.doc, this.path + "/SESTCOEN-SECU-LST", (d: SpecDocument, p: string) => new SecurityStandardComplianceEntry(d, p), "SESTCOEN-SECU-xxx");
   }
 
   // Accessibility standards compliance.
@@ -32425,7 +32425,7 @@ export class SteeringCommittee extends SomNode {
 
   // Steering committee members — contains 1+× Committee Member.
   get members(): SomList<CommitteeMemberEntry> {
-    return new SomList(this.doc, this.path + "/COMMB-MEMB-LST", (d: SpecDocument, p: string) => new CommitteeMemberEntry(d, p), "COMMB-MEMB-xxx");
+    return new SomList(this.doc, this.path + "/CME-MEMB-LST", (d: SpecDocument, p: string) => new CommitteeMemberEntry(d, p), "CME-MEMB-xxx");
   }
 }
 
@@ -32452,7 +32452,7 @@ export class StepUpAuthenticationPolicy extends SomNode {
 
   // Step-Up Authentication Details (text).
   get stepUpDetails(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/STEPU-STEP-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "STEPU-STEP-xxx");
+    return new SomList(this.doc, this.path + "/SUAP-STEP-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SUAP-STEP-xxx");
   }
 }
 
@@ -32812,7 +32812,7 @@ export class SupportDeliverables extends SomNode {
 
   // Contains 0+× Deliverable.
   get items(): SomList<DeliverableEntry> {
-    return new SomList(this.doc, this.path + "/SPDLV-ITEM-LST", (d: SpecDocument, p: string) => new DeliverableEntry(d, p), "SPDLV-ITEM-xxx");
+    return new SomList(this.doc, this.path + "/DLVEN-ITEM-LST", (d: SpecDocument, p: string) => new DeliverableEntry(d, p), "DLVEN-ITEM-xxx");
   }
 }
 
@@ -32949,12 +32949,12 @@ export class SystemBusinessCriticality extends SomNode {
 
   // Business units and departments using this system.
   get businessUnits(): SomList<SystemBusinessUnitEntry> {
-    return new SomList(this.doc, this.path + "/SBUE-BUSI-LST", (d: SpecDocument, p: string) => new SystemBusinessUnitEntry(d, p), "SBUE-BUSI-xxx");
+    return new SomList(this.doc, this.path + "/SYBUUNEN-BUSI-LST", (d: SpecDocument, p: string) => new SystemBusinessUnitEntry(d, p), "SYBUUNEN-BUSI-xxx");
   }
 
   // Business processes supported by this system.
   get supportedProcesses(): SomList<SystemBusinessProcessEntry> {
-    return new SomList(this.doc, this.path + "/SBPE-SUPP-LST", (d: SpecDocument, p: string) => new SystemBusinessProcessEntry(d, p), "SBPE-SUPP-xxx");
+    return new SomList(this.doc, this.path + "/SYBUPREN-SUPP-LST", (d: SpecDocument, p: string) => new SystemBusinessProcessEntry(d, p), "SYBUPREN-SUPP-xxx");
   }
 }
 
@@ -33104,7 +33104,7 @@ export class SystemCostAnalysis extends SomNode {
 
   // Non-financial benefits to include in ROI.
   get nonFinancialBenefits(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/NONFI-NONF-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "NONFI-NONF-xxx");
+    return new SomList(this.doc, this.path + "/SYCOAN-NONF-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SYCOAN-NONF-xxx");
   }
 }
 
@@ -33130,12 +33130,12 @@ export class SystemDataScope extends SomNode {
 
   // Data entities to migrate.
   get entities(): SomList<DataEntityMigrationEntry> {
-    return new SomList(this.doc, this.path + "/DEME-ENTI-LST", (d: SpecDocument, p: string) => new DataEntityMigrationEntry(d, p), "DEME-ENTI-xxx");
+    return new SomList(this.doc, this.path + "/DAENMIEN-ENTI-LST", (d: SpecDocument, p: string) => new DataEntityMigrationEntry(d, p), "DAENMIEN-ENTI-xxx");
   }
 
   // Data quality issues to address.
   get knownQualityIssues(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/KNOWN-KNOW-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "KNOWN-KNOW-xxx");
+    return new SomList(this.doc, this.path + "/SYDASC-KNOW-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SYDASC-KNOW-xxx");
   }
 }
 
@@ -33226,7 +33226,7 @@ export class SystemDescription extends SomNode {
 
   // 4.1.4. User Categories — contains 1+× User Category.
   get userCategories(): SomList<UserCategoryEntry> {
-    return new SomList(this.doc, this.path + "/USCA-USER-LST", (d: SpecDocument, p: string) => new UserCategoryEntry(d, p), "USCA-USER-xxx");
+    return new SomList(this.doc, this.path + "/UCE-USER-LST", (d: SpecDocument, p: string) => new UserCategoryEntry(d, p), "UCE-USER-xxx");
   }
 
   // 4.1.5. User Interaction Model.
@@ -33320,12 +33320,12 @@ export class SystemErrorDisplay extends SomNode {
 
   // Error page designs.
   get errorPageDesigns(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/EPDE-ERRO-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "EPDE-ERRO-xxx");
+    return new SomList(this.doc, this.path + "/SYERDI-ERRO-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SYERDI-ERRO-xxx");
   }
 
   // Error codes catalog.
   get errorCodes(): SomList<SystemErrorCodeEntry> {
-    return new SomList(this.doc, this.path + "/SECE-ERRO-LST", (d: SpecDocument, p: string) => new SystemErrorCodeEntry(d, p), "SECE-ERRO-xxx");
+    return new SomList(this.doc, this.path + "/SYERCOEN-ERRO-LST", (d: SpecDocument, p: string) => new SystemErrorCodeEntry(d, p), "SYERCOEN-ERRO-xxx");
   }
 }
 
@@ -33421,7 +33421,7 @@ export class SystemKnowledgeTransfer extends SomNode {
 
   // Critical knowledge areas to preserve.
   get criticalKnowledgeAreas(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/CRITI-CRIT-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "CRITI-CRIT-xxx");
+    return new SomList(this.doc, this.path + "/SYKNTR-CRIT-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SYKNTR-CRIT-xxx");
   }
 
   // Knowledge transfer plan if SME risk is high.
@@ -33471,7 +33471,7 @@ export class SystemMigrationPlan extends SomNode {
 
   // Contains 0+× MigrationRiskEntry — per-system migration risks.
   get risks(): SomList<SystemMigrationRiskEntry> {
-    return new SomList(this.doc, this.path + "/SMRE-RISK-LST", (d: SpecDocument, p: string) => new SystemMigrationRiskEntry(d, p), "SMRE-RISK-xxx");
+    return new SomList(this.doc, this.path + "/SYMIRIEN-RISK-LST", (d: SpecDocument, p: string) => new SystemMigrationRiskEntry(d, p), "SYMIRIEN-RISK-xxx");
   }
 
   // Rollback strategy and procedures.
@@ -33517,7 +33517,7 @@ export class SystemOperation extends SomNode {
 
   // Maintenance Procedures.
   get maintenanceProcedures(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/MAINT-MAIN-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "MAINT-MAIN-xxx");
+    return new SomList(this.doc, this.path + "/SO-MAIN-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SO-MAIN-xxx");
   }
 }
 
@@ -33664,7 +33664,7 @@ export class SystemQualityGoals extends SomNode {
 
   // Quality attribute interdependencies.
   get attributeInterdependencies(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/ATTRI-ATTR-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "ATTRI-ATTR-xxx");
+    return new SomList(this.doc, this.path + "/SYQG-ATTR-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SYQG-ATTR-xxx");
   }
 
   // Quality attribute priority radar.
@@ -33765,7 +33765,7 @@ export class SystemReplacementStrategy extends SomNode {
 
   // Predecessor systems that must be addressed first.
   get predecessorDependencies(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/PREDE-PRED-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "PREDE-PRED-xxx");
+    return new SomList(this.doc, this.path + "/SYREST-PRED-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SYREST-PRED-xxx");
   }
 
   // Success criteria for replacement completion.
@@ -33983,12 +33983,12 @@ export class SystemTaskEntry extends SomNode {
 
   // Task workflow steps.
   get workflowSteps(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/SYSTE-WORK-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SYSTE-WORK-xxx");
+    return new SomList(this.doc, this.path + "/SYTS-WORK-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SYTS-WORK-xxx");
   }
 
   // Variations and exceptions.
   get variationsAndExceptions(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/VARIA-VARI-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "VARIA-VARI-xxx");
+    return new SomList(this.doc, this.path + "/SYTS-VARI-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SYTS-VARI-xxx");
   }
 }
 
@@ -34019,12 +34019,12 @@ export class SystemTechnicalAssessment extends SomNode {
 
   // Known technical issues and deficiencies.
   get knownIssues(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/KIE-KNOW-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "KIE-KNOW-xxx");
+    return new SomList(this.doc, this.path + "/SYTEAS-KNOW-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SYTEAS-KNOW-xxx");
   }
 
   // Security vulnerabilities and compliance gaps.
   get securityConcerns(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/SECUR-SECU-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SECUR-SECU-xxx");
+    return new SomList(this.doc, this.path + "/SYTEAS-SECU-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "SYTEAS-SECU-xxx");
   }
 }
 
@@ -34152,7 +34152,7 @@ export class SystemUserImpact extends SomNode {
 
   // User groups requiring specific handling.
   get userGroups(): SomList<UserGroupImpactEntry> {
-    return new SomList(this.doc, this.path + "/UGIE-USER-LST", (d: SpecDocument, p: string) => new UserGroupImpactEntry(d, p), "UGIE-USER-xxx");
+    return new SomList(this.doc, this.path + "/USGRIMEN-USER-LST", (d: SpecDocument, p: string) => new UserGroupImpactEntry(d, p), "USGRIMEN-USER-xxx");
   }
 }
 
@@ -34205,7 +34205,7 @@ export class TabBarDefinitionEntry extends SomNode {
 
   // Contains 1+× TabItem.
   get tabs(): SomList<TabItemEntry> {
-    return new SomList(this.doc, this.path + "/TAITEN-TABS-LST", (d: SpecDocument, p: string) => new TabItemEntry(d, p), "TAITEN-TABS-xxx");
+    return new SomList(this.doc, this.path + "/TIE-TABS-LST", (d: SpecDocument, p: string) => new TabItemEntry(d, p), "TIE-TABS-xxx");
   }
 }
 
@@ -34462,7 +34462,7 @@ export class TechnicalEnvironment extends SomNode {
 
   // Data center and hosting environment details.
   get datacenters(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/DATAC-DATA-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "DATAC-DATA-xxx");
+    return new SomList(this.doc, this.path + "/TEEN-DATA-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "TEEN-DATA-xxx");
   }
 
   // Network topology and connectivity constraints.
@@ -34473,7 +34473,7 @@ export class TechnicalEnvironment extends SomNode {
 
   // Technology standards — contains 0+× TechnologyStandard.
   get technologyStandards(): SomList<TechnologyStandardEntry> {
-    return new SomList(this.doc, this.path + "/TESTEN-TECH-LST", (d: SpecDocument, p: string) => new TechnologyStandardEntry(d, p), "TESTEN-TECH-xxx");
+    return new SomList(this.doc, this.path + "/TSE-TECH-LST", (d: SpecDocument, p: string) => new TechnologyStandardEntry(d, p), "TSE-TECH-xxx");
   }
 
   // Integration constraints overview.
@@ -34481,7 +34481,7 @@ export class TechnicalEnvironment extends SomNode {
 
   // Integration constraints — contains 0+× IntegrationConstraint.
   get integrationConstraints(): SomList<IntegrationConstraintEntry> {
-    return new SomList(this.doc, this.path + "/INCOE1-INTE-LST", (d: SpecDocument, p: string) => new IntegrationConstraintEntry(d, p), "INCOE1-INTE-xxx");
+    return new SomList(this.doc, this.path + "/INTCONENT-INTE-LST", (d: SpecDocument, p: string) => new IntegrationConstraintEntry(d, p), "INTCONENT-INTE-xxx");
   }
 }
 
@@ -34497,12 +34497,12 @@ export class TechnicalEnvironmentNetwork extends SomNode {
 
   // DevOps and deployment standards.
   get devopsStandards(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/DEVOP-DEVO-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "DEVOP-DEVO-xxx");
+    return new SomList(this.doc, this.path + "/TEENNE-DEVO-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "TEENNE-DEVO-xxx");
   }
 
   // Monitoring and observability requirements.
   get observabilityRequirements(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/OBSER-OBSE-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "OBSER-OBSE-xxx");
+    return new SomList(this.doc, this.path + "/TEENNE-OBSE-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "TEENNE-OBSE-xxx");
   }
 
   // Disaster recovery and business continuity requirements.
@@ -34795,7 +34795,7 @@ export class TechnicalPainPoints extends SomNode {
 
   // Contains 0+× PainPoint.
   get items(): SomList<PainPointEntry> {
-    return new SomList(this.doc, this.path + "/TEPAPO-ITEM-LST", (d: SpecDocument, p: string) => new PainPointEntry(d, p), "TEPAPO-ITEM-xxx");
+    return new SomList(this.doc, this.path + "/PAPE-ITEM-LST", (d: SpecDocument, p: string) => new PainPointEntry(d, p), "PAPE-ITEM-xxx");
   }
 }
 
@@ -35761,7 +35761,7 @@ export class TrainingDeliverableRequirements extends SomNode {
 
   // Training module entries.
   get trainingModules(): SomList<TrainingModuleEntry> {
-    return new SomList(this.doc, this.path + "/TRMOEN-TRAI-LST", (d: SpecDocument, p: string) => new TrainingModuleEntry(d, p), "TRMOEN-TRAI-xxx");
+    return new SomList(this.doc, this.path + "/TME-TRAI-LST", (d: SpecDocument, p: string) => new TrainingModuleEntry(d, p), "TME-TRAI-xxx");
   }
 }
 
@@ -35785,7 +35785,7 @@ export class TrainingDeliverables extends SomNode {
 
   // Contains 0+× Deliverable.
   get items(): SomList<DeliverableEntry> {
-    return new SomList(this.doc, this.path + "/TRDLV-ITEM-LST", (d: SpecDocument, p: string) => new DeliverableEntry(d, p), "TRDLV-ITEM-xxx");
+    return new SomList(this.doc, this.path + "/DLVEN-ITEM-LST", (d: SpecDocument, p: string) => new DeliverableEntry(d, p), "DLVEN-ITEM-xxx");
   }
 }
 
@@ -35890,7 +35890,7 @@ export class TrainingRequirements extends SomNode {
 
   // Initial/onboarding training.
   get initialTraining(): SomList<InitialTrainingEntry> {
-    return new SomList(this.doc, this.path + "/INITR-INIT-LST", (d: SpecDocument, p: string) => new InitialTrainingEntry(d, p), "INITR-INIT-xxx");
+    return new SomList(this.doc, this.path + "/ITE-INIT-LST", (d: SpecDocument, p: string) => new InitialTrainingEntry(d, p), "ITE-INIT-xxx");
   }
 
   // Ongoing/refresher training.
@@ -36222,7 +36222,7 @@ export class TranslationProcess extends SomNode {
 
   // Translation vendor entries.
   get vendors(): SomList<TranslationVendorEntry> {
-    return new SomList(this.doc, this.path + "/TRVEEN-VEND-LST", (d: SpecDocument, p: string) => new TranslationVendorEntry(d, p), "TRVEEN-VEND-xxx");
+    return new SomList(this.doc, this.path + "/TVE-VEND-LST", (d: SpecDocument, p: string) => new TranslationVendorEntry(d, p), "TVE-VEND-xxx");
   }
 }
 
@@ -36518,12 +36518,12 @@ export class UiComponentEntry extends SomNode {
 
   // Contains 0+× ComponentState.
   get states(): SomList<ComponentStateEntry> {
-    return new SomList(this.doc, this.path + "/CMST-STAT-LST", (d: SpecDocument, p: string) => new ComponentStateEntry(d, p), "CMST-STAT-xxx");
+    return new SomList(this.doc, this.path + "/COMSTAENT-STAT-LST", (d: SpecDocument, p: string) => new ComponentStateEntry(d, p), "COMSTAENT-STAT-xxx");
   }
 
   // Contains 0+× ComponentVariant.
   get variants(): SomList<ComponentVariantEntry> {
-    return new SomList(this.doc, this.path + "/CMVN-VARI-LST", (d: SpecDocument, p: string) => new ComponentVariantEntry(d, p), "CMVN-VARI-xxx");
+    return new SomList(this.doc, this.path + "/CVE-VARI-LST", (d: SpecDocument, p: string) => new ComponentVariantEntry(d, p), "CVE-VARI-xxx");
   }
 
   // Contains 0+× ComponentAction.
@@ -36578,7 +36578,7 @@ export class UiComponents extends SomNode {
 
   // 10.11.2. Component Specifications — contains 0+×.
   get componentSpecs(): SomList<UiComponentEntry> {
-    return new SomList(this.doc, this.path + "/UICOEN-COMP-LST", (d: SpecDocument, p: string) => new UiComponentEntry(d, p), "UICOEN-COMP-xxx");
+    return new SomList(this.doc, this.path + "/UICOMENT-COMP-LST", (d: SpecDocument, p: string) => new UiComponentEntry(d, p), "UICOMENT-COMP-xxx");
   }
 
   // 10.11.3. Component Families — contains 0+×.
@@ -37250,12 +37250,12 @@ export class UserJourney extends SomNode {
 
   // Key touchpoints.
   get keyTouchpoints(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/KEYTO-KEYT-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "KEYTO-KEYT-xxx");
+    return new SomList(this.doc, this.path + "/UJ-KEYT-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "UJ-KEYT-xxx");
   }
 
   // Pain points in the journey.
   get painPoints(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/USERJ-PAIN-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "USERJ-PAIN-xxx");
+    return new SomList(this.doc, this.path + "/UJ-PAIN-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "UJ-PAIN-xxx");
   }
 
   // Opportunities for delight.
@@ -37534,7 +37534,7 @@ export class UserPersonaDetails extends SomNode {
 
   // Key quotes that represent this persona's mindset.
   get representativeQuotes(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/REPRE-REPR-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "REPRE-REPR-xxx");
+    return new SomList(this.doc, this.path + "/UPD-REPR-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "UPD-REPR-xxx");
   }
 }
 
@@ -37755,7 +37755,7 @@ export class UtilityNavigation extends SomNode {
 
   // Contains 0+× UtilityNavigationItem.
   get items(): SomList<UtilityNavigationItemEntry> {
-    return new SomList(this.doc, this.path + "/UNIE-ITEM-LST", (d: SpecDocument, p: string) => new UtilityNavigationItemEntry(d, p), "UNIE-ITEM-xxx");
+    return new SomList(this.doc, this.path + "/UTNAITEN-ITEM-LST", (d: SpecDocument, p: string) => new UtilityNavigationItemEntry(d, p), "UTNAITEN-ITEM-xxx");
   }
 }
 
@@ -37791,7 +37791,7 @@ export class UtilityNavigationItemEntry extends SomNode {
 
   // Contains 0+× UtilityMenuItem.
   get menuItems(): SomList<UtilityMenuItemEntry> {
-    return new SomList(this.doc, this.path + "/UMIE-MENU-LST", (d: SpecDocument, p: string) => new UtilityMenuItemEntry(d, p), "UMIE-MENU-xxx");
+    return new SomList(this.doc, this.path + "/UTMEITEN-MENU-LST", (d: SpecDocument, p: string) => new UtilityMenuItemEntry(d, p), "UTMEITEN-MENU-xxx");
   }
 }
 
@@ -37855,12 +37855,12 @@ export class ValidationFeedback extends SomNode {
 
   // Validation message templates.
   get messageTemplates(): SomList<ValidationMessageTemplate> {
-    return new SomList(this.doc, this.path + "/VAMETE-MESS-LST", (d: SpecDocument, p: string) => new ValidationMessageTemplate(d, p), "VAMETE-MESS-xxx");
+    return new SomList(this.doc, this.path + "/VMT-MESS-LST", (d: SpecDocument, p: string) => new ValidationMessageTemplate(d, p), "VMT-MESS-xxx");
   }
 
   // Field validation rules by type.
   get fieldValidationRules(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/FIELD-FIEL-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "FIELD-FIEL-xxx");
+    return new SomList(this.doc, this.path + "/VAFE-FIEL-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "VAFE-FIEL-xxx");
   }
 }
 
@@ -37913,7 +37913,7 @@ export class ValueProposition extends SomNode {
 
   // Key Performance Indicators for value measurement.
   get kpis(): SomList<SomScalar> {
-    return new SomList(this.doc, this.path + "/KPIEN-KPIS-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "KPIEN-KPIS-xxx");
+    return new SomList(this.doc, this.path + "/VALPX-KPIS-LST", (d: SpecDocument, p: string) => new SomScalar(d, p), "VALPX-KPIS-xxx");
   }
 }
 
@@ -38157,7 +38157,7 @@ export class WcagCompliance extends SomNode {
 
   // WCAG success criteria mapping.
   get successCriteria(): SomList<WcagSuccessCriterionEntry> {
-    return new SomList(this.doc, this.path + "/WSCE-SUCC-LST", (d: SpecDocument, p: string) => new WcagSuccessCriterionEntry(d, p), "WSCE-SUCC-xxx");
+    return new SomList(this.doc, this.path + "/WCSUCREN-SUCC-LST", (d: SpecDocument, p: string) => new WcagSuccessCriterionEntry(d, p), "WCSUCREN-SUCC-xxx");
   }
 }
 

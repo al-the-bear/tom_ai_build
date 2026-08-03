@@ -40,23 +40,23 @@ class AssumptionConstraintDependencyRegister extends DocSpecsSection {
   String? content;
 
   /// Assumptions the solution depends on being true.
-  @SectionId('ACRG-ASMP-LST')
-  @SectionIdPattern('ACRG-ASMP-xxx')
+  @SectionId('ASMRE-ASMP-LST')
+  @SectionIdPattern('ASMRE-ASMP-xxx')
   @ContentHelp('Add one entry per assumption (ASM-NNN).')
   @SerializationOrder(1)
   List<AssumptionRegisterEntry> assumptions = [];
 
   /// Constraints the solution must operate within.
-  @SectionId('ACRG-CONS-LST')
-  @SectionIdPattern('ACRG-CONS-xxx')
+  @SectionId('CONRE-CONS-LST')
+  @SectionIdPattern('CONRE-CONS-xxx')
   @ContentHelp('Add one entry per constraint (CON-NNN).')
   @SerializationOrder(2)
   List<ConstraintRegisterEntry> constraints = [];
 
   /// Dependencies the solution relies on (external systems, teams, vendors,
   /// prerequisite deliverables, framework conditions).
-  @SectionId('ACRG-DEPS-LST')
-  @SectionIdPattern('ACRG-DEPS-xxx')
+  @SectionId('DEPRE-DEPS-LST')
+  @SectionIdPattern('DEPRE-DEPS-xxx')
   @ContentHelp('Add one entry per dependency (DEP-NNN).')
   @SerializationOrder(3)
   List<DependencyRegisterEntry> dependencies = [];

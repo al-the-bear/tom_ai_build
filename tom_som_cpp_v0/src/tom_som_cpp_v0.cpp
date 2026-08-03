@@ -562,7 +562,7 @@ AlertNotificationChannels AlertingConfiguration::notificationChannels() const {
   return AlertNotificationChannels(doc(), som::joinPath(path(), "notificationChannels"));
 }
 som::SomList AlertingConfiguration::alertRules() const {
-  return som::SomList(doc(), som::joinPath(path(), "ALRUEN-ALER-LST"), "ALRUEN-ALER-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ALERULENT-ALER-LST"), "ALERULENT-ALER-xxx");
 }
 AlertEscalationPolicies AlertingConfiguration::escalationPolicies() const {
   return AlertEscalationPolicies(doc(), som::joinPath(path(), "escalationPolicies"));
@@ -742,7 +742,7 @@ ApplicableRegulationEntryContentForm ApplicableRegulationEntry::content() const 
   return ApplicableRegulationEntryContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList ApplicableRegulationEntry::complianceMeasures() const {
-  return som::SomList(doc(), som::joinPath(path(), "COMPL-COMP-LST"), "COMPL-COMP-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ARE-COMP-LST"), "ARE-COMP-xxx");
 }
 
 ApplicationDiagnostics::ApplicationDiagnostics(som::SpecDocument& doc, std::string path)
@@ -931,13 +931,13 @@ void AssumptionConstraintDependencyRegister::setContent(const std::string& value
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList AssumptionConstraintDependencyRegister::assumptions() const {
-  return som::SomList(doc(), som::joinPath(path(), "ACRG-ASMP-LST"), "ACRG-ASMP-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ASMRE-ASMP-LST"), "ASMRE-ASMP-xxx");
 }
 som::SomList AssumptionConstraintDependencyRegister::constraints() const {
-  return som::SomList(doc(), som::joinPath(path(), "ACRG-CONS-LST"), "ACRG-CONS-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "CONRE-CONS-LST"), "CONRE-CONS-xxx");
 }
 som::SomList AssumptionConstraintDependencyRegister::dependencies() const {
-  return som::SomList(doc(), som::joinPath(path(), "ACRG-DEPS-LST"), "ACRG-DEPS-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DEPRE-DEPS-LST"), "DEPRE-DEPS-xxx");
 }
 
 AssumptionRegisterEntry::AssumptionRegisterEntry(som::SpecDocument& doc, std::string path)
@@ -1279,7 +1279,7 @@ BackupDataClassification BackupAndRecoverySection::dataClassification() const {
   return BackupDataClassification(doc(), som::joinPath(path(), "dataClassification"));
 }
 som::SomList BackupAndRecoverySection::backupPolicies() const {
-  return som::SomList(doc(), som::joinPath(path(), "BAPOEN-BACK-LST"), "BAPOEN-BACK-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "BPE-BACK-LST"), "BPE-BACK-xxx");
 }
 RpoRtoRequirements BackupAndRecoverySection::rpoRtoRequirements() const {
   return RpoRtoRequirements(doc(), som::joinPath(path(), "rpoRtoRequirements"));
@@ -1492,7 +1492,7 @@ BoundaryAssumptionEntryRiskForm BoundaryAssumptionEntry::risk() const {
 BoundaryAssumptions::BoundaryAssumptions(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 som::SomList BoundaryAssumptions::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "BOASEN-ITEM-LST"), "BOASEN-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "BAE-ITEM-LST"), "BAE-ITEM-xxx");
 }
 
 BoundaryInteractionPatterns::BoundaryInteractionPatterns(som::SpecDocument& doc, std::string path)
@@ -1528,7 +1528,7 @@ BreakpointConfigurationBreakpointOverviewForm BreakpointConfiguration::breakpoin
   return BreakpointConfigurationBreakpointOverviewForm(doc(), som::joinPath(path(), "BC-BREA"));
 }
 som::SomList BreakpointConfiguration::breakpoints() const {
-  return som::SomList(doc(), som::joinPath(path(), "BRE-BREA-LST"), "BRE-BREA-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "BE-BREA-LST"), "BE-BREA-xxx");
 }
 
 BreakpointEntry::BreakpointEntry(som::SpecDocument& doc, std::string path)
@@ -1813,7 +1813,7 @@ BusinessPainPointsCategorySummaryForm BusinessPainPoints::categorySummary() cons
   return BusinessPainPointsCategorySummaryForm(doc(), som::joinPath(path(), "BPPS"));
 }
 som::SomList BusinessPainPoints::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "BUPAPO-ITEM-LST"), "BUPAPO-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "PAPE-ITEM-LST"), "PAPE-ITEM-xxx");
 }
 
 BusinessProcessDescriptions::BusinessProcessDescriptions(som::SpecDocument& doc, std::string path)
@@ -2296,13 +2296,13 @@ CiCdPipelineConfigurationContentForm CiCdPipelineConfiguration::content() const 
   return CiCdPipelineConfigurationContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList CiCdPipelineConfiguration::stages() const {
-  return som::SomList(doc(), som::joinPath(path(), "PISTEN-STAG-LST"), "PISTEN-STAG-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "PSE-STAG-LST"), "PSE-STAG-xxx");
 }
 som::SomList CiCdPipelineConfiguration::jobs() const {
-  return som::SomList(doc(), som::joinPath(path(), "PIJOEN-JOBS-LST"), "PIJOEN-JOBS-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "PJE-JOBS-LST"), "PJE-JOBS-xxx");
 }
 som::SomList CiCdPipelineConfiguration::environments() const {
-  return som::SomList(doc(), som::joinPath(path(), "DEENEN-ENVI-LST"), "DEENEN-ENVI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DEE-ENVI-LST"), "DEE-ENVI-xxx");
 }
 
 CiCdPipelineRequirements::CiCdPipelineRequirements(som::SpecDocument& doc, std::string path)
@@ -2413,13 +2413,13 @@ som::SomList ClientRequirementsSection::clientApplications() const {
   return som::SomList(doc(), som::joinPath(path(), "CLIAPP-CLIE-LST"), "CLIAPP-CLIE-xxx");
 }
 som::SomList ClientRequirementsSection::browserRequirements() const {
-  return som::SomList(doc(), som::joinPath(path(), "BRREEN-BROW-LST"), "BRREEN-BROW-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "BROREQENT-BROW-LST"), "BROREQENT-BROW-xxx");
 }
 som::SomList ClientRequirementsSection::desktopOsRequirements() const {
-  return som::SomList(doc(), som::joinPath(path(), "DORE1-DESK-LST"), "DORE1-DESK-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DEOSREEN-DESK-LST"), "DEOSREEN-DESK-xxx");
 }
 som::SomList ClientRequirementsSection::mobileRequirements() const {
-  return som::SomList(doc(), som::joinPath(path(), "MDRE-MOBI-LST"), "MDRE-MOBI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "MODEREEN-MOBI-LST"), "MODEREEN-MOBI-xxx");
 }
 DisplayRequirements ClientRequirementsSection::displayRequirements() const {
   return DisplayRequirements(doc(), som::joinPath(path(), "displayRequirements"));
@@ -2713,28 +2713,28 @@ void CompatibilityRequirementsSection::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList CompatibilityRequirementsSection::osCompatibility() const {
-  return som::SomList(doc(), som::joinPath(path(), "OSCOEN-OSCO-LST"), "OSCOEN-OSCO-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "OCE-OSCO-LST"), "OCE-OSCO-xxx");
 }
 som::SomList CompatibilityRequirementsSection::browserCompatibility() const {
-  return som::SomList(doc(), som::joinPath(path(), "BRCOEN-BROW-LST"), "BRCOEN-BROW-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "BROCOMENT-BROW-LST"), "BROCOMENT-BROW-xxx");
 }
 som::SomList CompatibilityRequirementsSection::databaseCompatibility() const {
-  return som::SomList(doc(), som::joinPath(path(), "DACOEN-DATA-LST"), "DACOEN-DATA-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DATCOMENT-DATA-LST"), "DATCOMENT-DATA-xxx");
 }
 som::SomList CompatibilityRequirementsSection::enterpriseSystemCompatibility() const {
-  return som::SomList(doc(), som::joinPath(path(), "ESCE-ENTE-LST"), "ESCE-ENTE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ENSYCOEN-ENTE-LST"), "ENSYCOEN-ENTE-xxx");
 }
 som::SomList CompatibilityRequirementsSection::apiCompatibility() const {
   return som::SomList(doc(), som::joinPath(path(), "APCP-APIC-LST"), "APCP-APIC-xxx");
 }
 som::SomList CompatibilityRequirementsSection::legacyCompatibility() const {
-  return som::SomList(doc(), som::joinPath(path(), "LECOEN-LEGA-LST"), "LECOEN-LEGA-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "LCE-LEGA-LST"), "LCE-LEGA-xxx");
 }
 som::SomList CompatibilityRequirementsSection::mobileCompatibility() const {
-  return som::SomList(doc(), som::joinPath(path(), "MOCOEN-MOBI-LST"), "MOCOEN-MOBI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "MOBCOMENT-MOBI-LST"), "MOBCOMENT-MOBI-xxx");
 }
 som::SomList CompatibilityRequirementsSection::thirdPartyCompatibility() const {
-  return som::SomList(doc(), som::joinPath(path(), "TPCE-THIR-LST"), "TPCE-THIR-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "THPACOEN-THIR-LST"), "THPACOEN-THIR-xxx");
 }
 DataFormatCompatibility CompatibilityRequirementsSection::dataFormatCompatibility() const {
   return DataFormatCompatibility(doc(), som::joinPath(path(), "dataFormatCompatibility"));
@@ -3511,10 +3511,10 @@ void CurrentArchitecture::setDeploymentTopology(const std::string& value) {
   doc().setContent(som::joinPath(path(), "CARCH-DEPL"), value);
 }
 som::SomList CurrentArchitecture::integrationPatterns() const {
-  return som::SomList(doc(), som::joinPath(path(), "IPE-INTE-LST"), "IPE-INTE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "CARCH-INTE-LST"), "CARCH-INTE-xxx");
 }
 som::SomList CurrentArchitecture::sharedServices() const {
-  return som::SomList(doc(), som::joinPath(path(), "SHARE-SHAR-LST"), "SHARE-SHAR-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "CARCH-SHAR-LST"), "CARCH-SHAR-xxx");
 }
 
 CurrentBusinessProcess::CurrentBusinessProcess(som::SpecDocument& doc, std::string path)
@@ -3703,7 +3703,7 @@ som::SomList CurrentWorkflowEntry::steps() const {
   return som::SomList(doc(), som::joinPath(path(), "WSE-STEP-LST"), "WSE-STEP-xxx");
 }
 som::SomList CurrentWorkflowEntry::actors() const {
-  return som::SomList(doc(), som::joinPath(path(), "WFAC-ACTO-LST"), "WFAC-ACTO-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "WAE-ACTO-LST"), "WAE-ACTO-xxx");
 }
 som::SomList CurrentWorkflowEntry::inputs() const {
   return som::SomList(doc(), som::joinPath(path(), "WOINEN-INPU-LST"), "WOINEN-INPU-xxx");
@@ -5682,7 +5682,7 @@ DecisionPointEntryResolutionContentForm DecisionPointEntryResolution::content() 
   return DecisionPointEntryResolutionContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList DecisionPointEntryResolution::options() const {
-  return som::SomList(doc(), som::joinPath(path(), "DEOPEN-OPTI-LST"), "DEOPEN-OPTI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DOE-OPTI-LST"), "DOE-OPTI-xxx");
 }
 
 DecisionPoints::DecisionPoints(som::SpecDocument& doc, std::string path)
@@ -5691,7 +5691,7 @@ DecisionPointsContentForm DecisionPoints::content() const {
   return DecisionPointsContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList DecisionPoints::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "DEPOEN-ITEM-LST"), "DEPOEN-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DPE-ITEM-LST"), "DPE-ITEM-xxx");
 }
 
 DeepLinkPatternEntry::DeepLinkPatternEntry(som::SpecDocument& doc, std::string path)
@@ -6156,13 +6156,13 @@ som::SomList DesignPatternsAndStandards::designPatterns() const {
   return som::SomList(doc(), som::joinPath(path(), "DSPT-DESI-LST"), "DSPT-DESI-xxx");
 }
 som::SomList DesignPatternsAndStandards::codingStandards() const {
-  return som::SomList(doc(), som::joinPath(path(), "COSTEN-CODI-LST"), "COSTEN-CODI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "CSE-CODI-LST"), "CSE-CODI-xxx");
 }
 som::SomList DesignPatternsAndStandards::developmentConventions() const {
-  return som::SomList(doc(), som::joinPath(path(), "DECOEN-DEVE-LST"), "DECOEN-DEVE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DCE-DEVE-LST"), "DCE-DEVE-xxx");
 }
 som::SomList DesignPatternsAndStandards::industryStandards() const {
-  return som::SomList(doc(), som::joinPath(path(), "INSTEN-INDU-LST"), "INSTEN-INDU-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ISE-INDU-LST"), "ISE-INDU-xxx");
 }
 CodeQualityMetrics DesignPatternsAndStandards::codeQualityMetrics() const {
   return CodeQualityMetrics(doc(), som::joinPath(path(), "codeQualityMetrics"));
@@ -6291,7 +6291,7 @@ void DevelopmentEnvironment::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList DevelopmentEnvironment::ideRequirements() const {
-  return som::SomList(doc(), som::joinPath(path(), "IDREEN-IDER-LST"), "IDREEN-IDER-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "IRE-IDER-LST"), "IRE-IDER-xxx");
 }
 BuildToolsConfiguration DevelopmentEnvironment::buildTools() const {
   return BuildToolsConfiguration(doc(), som::joinPath(path(), "buildTools"));
@@ -6549,10 +6549,10 @@ DocumentHeader DocumentControl::header() const {
   return DocumentHeader(doc(), som::joinPath(path(), "header"));
 }
 som::SomList DocumentControl::revisionHistory() const {
-  return som::SomList(doc(), som::joinPath(path(), "RVHST-REVS-LST"), "RVHST-REVS-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "RVENT-REVS-LST"), "RVENT-REVS-xxx");
 }
 som::SomList DocumentControl::approvals() const {
-  return som::SomList(doc(), som::joinPath(path(), "DOCTL-APRV-LST"), "DOCTL-APRV-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "APREC-APRV-LST"), "APREC-APRV-xxx");
 }
 ReferenceDocuments DocumentControl::referenceDocuments() const {
   return ReferenceDocuments(doc(), som::joinPath(path(), "referenceDocuments"));
@@ -6594,7 +6594,7 @@ void DocumentationDeliverables::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList DocumentationDeliverables::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "DCDLV-ITEM-LST"), "DCDLV-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DLVEN-ITEM-LST"), "DLVEN-ITEM-xxx");
 }
 
 DocumentationQualityCriteria::DocumentationQualityCriteria(som::SpecDocument& doc, std::string path)
@@ -6705,7 +6705,7 @@ void DomainBusinessRules::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList DomainBusinessRules::rules() const {
-  return som::SomList(doc(), som::joinPath(path(), "DOBIRU-RULE-LST"), "DOBIRU-RULE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DBRE-RULE-LST"), "DBRE-RULE-xxx");
 }
 
 DomainEnumEntry::DomainEnumEntry(som::SpecDocument& doc, std::string path)
@@ -6798,7 +6798,7 @@ void DomainProcesses::setProcessOverviewDiagram(const std::string& value) {
   doc().setContent(som::joinPath(path(), "DP-PROC"), value);
 }
 som::SomList DomainProcesses::processes() const {
-  return som::SomList(doc(), som::joinPath(path(), "DOPR-PROC-LST"), "DOPR-PROC-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DOPREN-PROC-LST"), "DOPREN-PROC-xxx");
 }
 
 DomainTermEntry::DomainTermEntry(som::SpecDocument& doc, std::string path)
@@ -7143,7 +7143,7 @@ som::SomList EquipmentRequirements::displays() const {
   return som::SomList(doc(), som::joinPath(path(), "DSEQ-DISP-LST"), "DSEQ-DISP-xxx");
 }
 som::SomList EquipmentRequirements::inputDevices() const {
-  return som::SomList(doc(), som::joinPath(path(), "INPDE-INPU-LST"), "INPDE-INPU-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "IDE-INPU-LST"), "IDE-INPU-xxx");
 }
 som::SomList EquipmentRequirements::peripherals() const {
   return som::SomList(doc(), som::joinPath(path(), "PEREQ-PERI-LST"), "PEREQ-PERI-xxx");
@@ -7251,7 +7251,7 @@ ErrorRecoverySessionHandlingForm ErrorRecovery::sessionHandling() const {
   return ErrorRecoverySessionHandlingForm(doc(), som::joinPath(path(), "ERSH"));
 }
 som::SomList ErrorRecovery::recoveryFlows() const {
-  return som::SomList(doc(), som::joinPath(path(), "RECOV-RECO-LST"), "RECOV-RECO-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ERRE-RECO-LST"), "ERRE-RECO-xxx");
 }
 som::SomList ErrorRecovery::recoveryScenarios() const {
   return som::SomList(doc(), som::joinPath(path(), "RCVSCN-RECO-LST"), "RCVSCN-RECO-xxx");
@@ -7512,7 +7512,7 @@ AuthorizationRequirementSpec ExportFormatEntry::access() const {
   return AuthorizationRequirementSpec(doc(), som::joinPath(path(), "access"));
 }
 som::SomList ExportFormatEntry::fieldMappings() const {
-  return som::SomList(doc(), som::joinPath(path(), "EFME-FIEL-LST"), "EFME-FIEL-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "EXFIMAEN-FIEL-LST"), "EXFIMAEN-FIEL-xxx");
 }
 
 ExportSizeSettings::ExportSizeSettings(som::SpecDocument& doc, std::string path)
@@ -7569,7 +7569,7 @@ ExternalActorEntryContextForm ExternalActorEntry::context() const {
   return ExternalActorEntryContextForm(doc(), som::joinPath(path(), "EAEC"));
 }
 som::SomList ExternalActorEntry::interactionScenarios() const {
-  return som::SomList(doc(), som::joinPath(path(), "INTER-INTE-LST"), "INTER-INTE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "EAE-INTE-LST"), "EAE-INTE-xxx");
 }
 
 ExternalActors::ExternalActors(som::SpecDocument& doc, std::string path)
@@ -7593,7 +7593,7 @@ void ExternalConnectivitySection::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList ExternalConnectivitySection::partnerConnections() const {
-  return som::SomList(doc(), som::joinPath(path(), "EPCE-PART-LST"), "EPCE-PART-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "EXPACOEN-PART-LST"), "EXPACOEN-PART-xxx");
 }
 CloudServiceIntegrations ExternalConnectivitySection::cloudServices() const {
   return CloudServiceIntegrations(doc(), som::joinPath(path(), "cloudServices"));
@@ -7644,7 +7644,7 @@ InterfaceTesting ExternalInterfaceEntry::testing() const {
 ExternalInterfaces::ExternalInterfaces(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 som::SomList ExternalInterfaces::interfaces() const {
-  return som::SomList(doc(), som::joinPath(path(), "EXINEN-INTE-LST"), "EXINEN-INTE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "EIE-INTE-LST"), "EIE-INTE-xxx");
 }
 
 ExternalNetworkRequirements::ExternalNetworkRequirements(som::SpecDocument& doc, std::string path)
@@ -7770,7 +7770,7 @@ FeatureDependenciesContentForm FeatureDependencies::content() const {
   return FeatureDependenciesContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList FeatureDependencies::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "FEDEEN-ITEM-LST"), "FEDEEN-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "FDE-ITEM-LST"), "FDE-ITEM-xxx");
 }
 
 FeatureDependencyEntry::FeatureDependencyEntry(som::SpecDocument& doc, std::string path)
@@ -7875,7 +7875,7 @@ FeaturePriorityRegisterContentForm FeaturePriorityRegister::content() const {
   return FeaturePriorityRegisterContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList FeaturePriorityRegister::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "FEPREN-ITEM-LST"), "FEPREN-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "FPE-ITEM-LST"), "FPE-ITEM-xxx");
 }
 
 FeatureStageMapping::FeatureStageMapping(som::SpecDocument& doc, std::string path)
@@ -7902,7 +7902,7 @@ FeatureStageMatrixContentForm FeatureStageMatrix::content() const {
   return FeatureStageMatrixContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList FeatureStageMatrix::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "FESTM1-ITEM-LST"), "FESTM1-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "FSM-ITEM-LST"), "FSM-ITEM-xxx");
 }
 
 FeatureStakeholders::FeatureStakeholders(som::SpecDocument& doc, std::string path)
@@ -8199,7 +8199,7 @@ FunctionalResponsibilitiesContentForm FunctionalResponsibilities::content() cons
   return FunctionalResponsibilitiesContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList FunctionalResponsibilities::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "REEN1-ITEM-LST"), "REEN1-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "RE-ITEM-LST"), "RE-ITEM-xxx");
 }
 
 FunctionalSuitabilityCharacteristic::FunctionalSuitabilityCharacteristic(som::SpecDocument& doc, std::string path)
@@ -8265,7 +8265,7 @@ void GlossaryAndAbbreviations::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList GlossaryAndAbbreviations::glossary() const {
-  return som::SomList(doc(), som::joinPath(path(), "GLOSS-ENTR-LST"), "GLOSS-ENTR-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "GLENT-ENTR-LST"), "GLENT-ENTR-xxx");
 }
 
 GlossaryEntry::GlossaryEntry(som::SpecDocument& doc, std::string path)
@@ -8778,7 +8778,7 @@ void InformationArchitecture::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList InformationArchitecture::globalEntryPoints() const {
-  return som::SomList(doc(), som::joinPath(path(), "GLOBA-GLOB-LST"), "GLOBA-GLOB-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "IA-GLOB-LST"), "IA-GLOB-xxx");
 }
 
 InformationForUseRequirements::InformationForUseRequirements(som::SpecDocument& doc, std::string path)
@@ -8964,7 +8964,7 @@ IntegrationHealthSummaryContentForm IntegrationHealthSummary::content() const {
   return IntegrationHealthSummaryContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList IntegrationHealthSummary::fragilePoints() const {
-  return som::SomList(doc(), som::joinPath(path(), "FRAGI-FRAG-LST"), "FRAGI-FRAG-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INHESU-FRAG-LST"), "INHESU-FRAG-xxx");
 }
 
 IntegrationPointEntry::IntegrationPointEntry(som::SpecDocument& doc, std::string path)
@@ -9156,7 +9156,7 @@ InterfaceBusinessContextContentForm InterfaceBusinessContext::content() const {
   return InterfaceBusinessContextContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList InterfaceBusinessContext::dependentProcesses() const {
-  return som::SomList(doc(), som::joinPath(path(), "IBPE-DEPE-LST"), "IBPE-DEPE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INBUPREN-DEPE-LST"), "INBUPREN-DEPE-xxx");
 }
 
 InterfaceBusinessProcessEntry::InterfaceBusinessProcessEntry(som::SpecDocument& doc, std::string path)
@@ -9177,13 +9177,13 @@ InterfaceDataSpecContentForm InterfaceDataSpec::content() const {
   return InterfaceDataSpecContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList InterfaceDataSpec::dataEntities() const {
-  return som::SomList(doc(), som::joinPath(path(), "IDEE-DATA-LST"), "IDEE-DATA-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INDAENEN-DATA-LST"), "INDAENEN-DATA-xxx");
 }
 som::SomList InterfaceDataSpec::mappingRules() const {
-  return som::SomList(doc(), som::joinPath(path(), "MAPPI-MAPP-LST"), "MAPPI-MAPP-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INDASP-MAPP-LST"), "INDASP-MAPP-xxx");
 }
 som::SomList InterfaceDataSpec::validationRules() const {
-  return som::SomList(doc(), som::joinPath(path(), "VALID-VALI-LST"), "VALID-VALI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INDASP-VALI-LST"), "INDASP-VALI-xxx");
 }
 
 InterfaceErrorHandling::InterfaceErrorHandling(som::SpecDocument& doc, std::string path)
@@ -9201,7 +9201,7 @@ InterfaceErrorHandlingTimeoutForm InterfaceErrorHandling::timeout() const {
   return InterfaceErrorHandlingTimeoutForm(doc(), som::joinPath(path(), "IEHT"));
 }
 som::SomList InterfaceErrorHandling::errorProcedures() const {
-  return som::SomList(doc(), som::joinPath(path(), "ERROR-ERRO-LST"), "ERROR-ERRO-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INERHA-ERRO-LST"), "INERHA-ERRO-xxx");
 }
 
 InterfaceGovernance::InterfaceGovernance(som::SpecDocument& doc, std::string path)
@@ -9237,7 +9237,7 @@ InterfaceOperationalSupportForm InterfaceOperational::support() const {
   return InterfaceOperationalSupportForm(doc(), som::joinPath(path(), "INOPSU"));
 }
 som::SomList InterfaceOperational::dependencies() const {
-  return som::SomList(doc(), som::joinPath(path(), "DEPEN-DEPE-LST"), "DEPEN-DEPE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INOP-DEPE-LST"), "INOP-DEPE-xxx");
 }
 
 InterfaceSecurity::InterfaceSecurity(som::SpecDocument& doc, std::string path)
@@ -9285,7 +9285,7 @@ InterfaceTechnicalSpecEndpointsForm InterfaceTechnicalSpec::endpoints() const {
   return InterfaceTechnicalSpecEndpointsForm(doc(), som::joinPath(path(), "ITSE"));
 }
 som::SomList InterfaceTechnicalSpec::operations() const {
-  return som::SomList(doc(), som::joinPath(path(), "INOPEN-OPER-LST"), "INOPEN-OPER-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "IOE-OPER-LST"), "IOE-OPER-xxx");
 }
 InterfaceTechnicalSpecWebhookSpecForm InterfaceTechnicalSpec::webhookSpec() const {
   return InterfaceTechnicalSpecWebhookSpecForm(doc(), som::joinPath(path(), "INWESP"));
@@ -9309,7 +9309,7 @@ InterfaceTestingStrategyForm InterfaceTesting::strategy() const {
   return InterfaceTestingStrategyForm(doc(), som::joinPath(path(), "INTEST"));
 }
 som::SomList InterfaceTesting::testScenarios() const {
-  return som::SomList(doc(), som::joinPath(path(), "ITSE1-TEST-LST"), "ITSE1-TEST-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INTESCEN-TEST-LST"), "INTESCEN-TEST-xxx");
 }
 
 InternalDependencies::InternalDependencies(som::SpecDocument& doc, std::string path)
@@ -9414,7 +9414,7 @@ void Iso25010Coverage::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList Iso25010Coverage::characteristics() const {
-  return som::SomList(doc(), som::joinPath(path(), "I25CV-CHAR-LST"), "I25CV-CHAR-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "I25CE-CHAR-LST"), "I25CE-CHAR-xxx");
 }
 
 Iso25010CoverageEntry::Iso25010CoverageEntry(som::SpecDocument& doc, std::string path)
@@ -9462,7 +9462,7 @@ void ItSecurityStandardsSection::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList ItSecurityStandardsSection::standards() const {
-  return som::SomList(doc(), som::joinPath(path(), "SESTEN-STAN-LST"), "SESTEN-STAN-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SSE-STAN-LST"), "SSE-STAN-xxx");
 }
 ApplicationSecurityRequirements ItSecurityStandardsSection::applicationSecurity() const {
   return ApplicationSecurityRequirements(doc(), som::joinPath(path(), "applicationSecurity"));
@@ -9507,7 +9507,7 @@ JobDescriptionsAndStaffingOverviewForm JobDescriptionsAndStaffing::overview() co
   return JobDescriptionsAndStaffingOverviewForm(doc(), som::joinPath(path(), "JODEOV"));
 }
 som::SomList JobDescriptionsAndStaffing::newRoles() const {
-  return som::SomList(doc(), som::joinPath(path(), "NWROL-NEWR-LST"), "NWROL-NEWR-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "NRE-NEWR-LST"), "NRE-NEWR-xxx");
 }
 som::SomList JobDescriptionsAndStaffing::changedRoles() const {
   return som::SomList(doc(), som::joinPath(path(), "CHAROL-CHAN-LST"), "CHAROL-CHAN-xxx");
@@ -9699,22 +9699,22 @@ void LayeringAndModuleStructure::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList LayeringAndModuleStructure::softwareLayers() const {
-  return som::SomList(doc(), som::joinPath(path(), "SOLAEN-SOFT-LST"), "SOLAEN-SOFT-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SLE-SOFT-LST"), "SLE-SOFT-xxx");
 }
 LayerCommunicationRules LayeringAndModuleStructure::layerCommunicationRules() const {
   return LayerCommunicationRules(doc(), som::joinPath(path(), "layerCommunicationRules"));
 }
 som::SomList LayeringAndModuleStructure::boundedContexts() const {
-  return som::SomList(doc(), som::joinPath(path(), "BOCOEN-BOUN-LST"), "BOCOEN-BOUN-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "BCE-BOUN-LST"), "BCE-BOUN-xxx");
 }
 PackageOrganization LayeringAndModuleStructure::packageOrganization() const {
   return PackageOrganization(doc(), som::joinPath(path(), "packageOrganization"));
 }
 som::SomList LayeringAndModuleStructure::modules() const {
-  return som::SomList(doc(), som::joinPath(path(), "MOEN1-MODU-LST"), "MOEN1-MODU-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "MODENT-MODU-LST"), "MODENT-MODU-xxx");
 }
 som::SomList LayeringAndModuleStructure::sharedLibraries() const {
-  return som::SomList(doc(), som::joinPath(path(), "SHLIB-SHAR-LST"), "SHLIB-SHAR-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SHLIEN-SHAR-LST"), "SHLIEN-SHAR-xxx");
 }
 DependencyInjectionStructure LayeringAndModuleStructure::dependencyInjection() const {
   return DependencyInjectionStructure(doc(), som::joinPath(path(), "dependencyInjection"));
@@ -10095,7 +10095,7 @@ ScheduledMaintenancePolicy MaintenanceWindowsSection::scheduledMaintenance() con
   return ScheduledMaintenancePolicy(doc(), som::joinPath(path(), "scheduledMaintenance"));
 }
 som::SomList MaintenanceWindowsSection::maintenanceWindows() const {
-  return som::SomList(doc(), som::joinPath(path(), "MAWIEN-MAIN-LST"), "MAWIEN-MAIN-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "MWE-MAIN-LST"), "MWE-MAIN-xxx");
 }
 EmergencyMaintenanceProcedures MaintenanceWindowsSection::emergencyMaintenance() const {
   return EmergencyMaintenanceProcedures(doc(), som::joinPath(path(), "emergencyMaintenance"));
@@ -10203,7 +10203,7 @@ DistributedTracingSpec MetricsAndObservability::distributedTracing() const {
   return DistributedTracingSpec(doc(), som::joinPath(path(), "distributedTracing"));
 }
 som::SomList MetricsAndObservability::customMetrics() const {
-  return som::SomList(doc(), som::joinPath(path(), "CUMEEN-CUST-LST"), "CUMEEN-CUST-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "CUSMETENT-CUST-LST"), "CUSMETENT-CUST-xxx");
 }
 
 MetricsBaselineEntry::MetricsBaselineEntry(som::SpecDocument& doc, std::string path)
@@ -10272,7 +10272,7 @@ void MfaConfiguration::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList MfaConfiguration::mfaDetails() const {
-  return som::SomList(doc(), som::joinPath(path(), "MFADE-MFAD-LST"), "MFADE-MFAD-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "MC-MFAD-LST"), "MC-MFAD-xxx");
 }
 
 MigrationConsiderations::MigrationConsiderations(som::SpecDocument& doc, std::string path)
@@ -10290,7 +10290,7 @@ som::SomList MigrationConsiderations::milestones() const {
   return som::SomList(doc(), som::joinPath(path(), "MGMLS-MILE-LST"), "MGMLS-MILE-xxx");
 }
 som::SomList MigrationConsiderations::escalationProcedures() const {
-  return som::SomList(doc(), som::joinPath(path(), "ESCAL-ESCA-LST"), "ESCAL-ESCA-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "MIGCON-ESCA-LST"), "MIGCON-ESCA-xxx");
 }
 
 MigrationEnvironments::MigrationEnvironments(som::SpecDocument& doc, std::string path)
@@ -10455,16 +10455,16 @@ MigrationRisksReportingForm MigrationRisks::reporting() const {
   return MigrationRisksReportingForm(doc(), som::joinPath(path(), "MIRIRE"));
 }
 som::SomList MigrationRisks::riskCategories() const {
-  return som::SomList(doc(), som::joinPath(path(), "RISKC-RISK-LST"), "RISKC-RISK-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "MIRI-RISK-LST"), "MIRI-RISK-xxx");
 }
 som::SomList MigrationRisks::riskBasedDecisions() const {
-  return som::SomList(doc(), som::joinPath(path(), "RISKB-RISK-LST"), "RISKB-RISK-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "MIRI-RBDE-LST"), "MIRI-RBDE-xxx");
 }
 som::SomList MigrationRisks::monitoringProcedures() const {
-  return som::SomList(doc(), som::joinPath(path(), "MONIT-MONI-LST"), "MONIT-MONI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "MIRI-MONI-LST"), "MIRI-MONI-xxx");
 }
 som::SomList MigrationRisks::responseStrategies() const {
-  return som::SomList(doc(), som::joinPath(path(), "RESPO-RESP-LST"), "RESPO-RESP-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "MIRI-RESP-LST"), "MIRI-RESP-xxx");
 }
 som::SomList MigrationRisks::items() const {
   return som::SomList(doc(), som::joinPath(path(), "MGRSK-ITEM-LST"), "MGRSK-ITEM-xxx");
@@ -10620,7 +10620,7 @@ AlertingRequirements MonitoringAndAlertingSection::alerting() const {
   return AlertingRequirements(doc(), som::joinPath(path(), "alerting"));
 }
 som::SomList MonitoringAndAlertingSection::alertDefinitions() const {
-  return som::SomList(doc(), som::joinPath(path(), "ALDEEN-ALER-LST"), "ALDEEN-ALER-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ALEDEFENT-ALER-LST"), "ALEDEFENT-ALER-xxx");
 }
 DashboardRequirements MonitoringAndAlertingSection::dashboards() const {
   return DashboardRequirements(doc(), som::joinPath(path(), "dashboards"));
@@ -10641,7 +10641,7 @@ MonitoringDashboardsDashboardOverviewForm MonitoringDashboards::dashboardOvervie
   return MonitoringDashboardsDashboardOverviewForm(doc(), som::joinPath(path(), "MODA-DASH"));
 }
 som::SomList MonitoringDashboards::dashboards() const {
-  return som::SomList(doc(), som::joinPath(path(), "DAEN-DASH-LST"), "DAEN-DASH-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DASENT-DASH-LST"), "DASENT-DASH-xxx");
 }
 som::SomList MonitoringDashboards::dashboardTemplates() const {
   return som::SomList(doc(), som::joinPath(path(), "DATE-DASH-LST"), "DATE-DASH-xxx");
@@ -10668,7 +10668,7 @@ MoscowAnalysisContentForm MoscowAnalysis::content() const {
   return MoscowAnalysisContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList MoscowAnalysis::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "MOEN-ITEM-LST"), "MOEN-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ME-ITEM-LST"), "ME-ITEM-xxx");
 }
 
 MoscowEntry::MoscowEntry(som::SpecDocument& doc, std::string path)
@@ -10710,7 +10710,7 @@ LanguageCountrySelection MultiLanguageSupport::languageCountrySelection() const 
   return LanguageCountrySelection(doc(), som::joinPath(path(), "languageCountrySelection"));
 }
 som::SomList MultiLanguageSupport::supportedLocales() const {
-  return som::SomList(doc(), som::joinPath(path(), "SULOEN-SUPP-LST"), "SULOEN-SUPP-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SUPLOCENT-SUPP-LST"), "SUPLOCENT-SUPP-xxx");
 }
 
 MustPassCriteria::MustPassCriteria(som::SpecDocument& doc, std::string path)
@@ -10962,7 +10962,7 @@ NetworkAvailabilityRequirements NetworkRequirementsSection::availabilityRequirem
   return NetworkAvailabilityRequirements(doc(), som::joinPath(path(), "availabilityRequirements"));
 }
 som::SomList NetworkRequirementsSection::vpnRequirements() const {
-  return som::SomList(doc(), som::joinPath(path(), "VPREEN-VPNR-LST"), "VPREEN-VPNR-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "VRE-VPNR-LST"), "VRE-VPNR-xxx");
 }
 FirewallRequirements NetworkRequirementsSection::firewallRequirements() const {
   return FirewallRequirements(doc(), som::joinPath(path(), "firewallRequirements"));
@@ -11253,7 +11253,7 @@ OperationalPainPointsCategorySummaryForm OperationalPainPoints::categorySummary(
   return OperationalPainPointsCategorySummaryForm(doc(), som::joinPath(path(), "OPPS"));
 }
 som::SomList OperationalPainPoints::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "OPPAPO-ITEM-LST"), "OPPAPO-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "PAPE-ITEM-LST"), "PAPE-ITEM-xxx");
 }
 
 OperationsRequirements::OperationsRequirements(som::SpecDocument& doc, std::string path)
@@ -11400,19 +11400,19 @@ OrganizationalEnvironmentDecisionMakingContextForm OrganizationalEnvironment::de
   return OrganizationalEnvironmentDecisionMakingContextForm(doc(), som::joinPath(path(), "OEDM"));
 }
 som::SomList OrganizationalEnvironment::affectedDepartments() const {
-  return som::SomList(doc(), som::joinPath(path(), "AFDEEN-AFFE-LST"), "AFDEEN-AFFE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ADE-AFFE-LST"), "ADE-AFFE-xxx");
 }
 som::SomList OrganizationalEnvironment::decisionMakers() const {
-  return som::SomList(doc(), som::joinPath(path(), "DEMAEN-DECI-LST"), "DEMAEN-DECI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DME-DECI-LST"), "DME-DECI-xxx");
 }
 som::SomList OrganizationalEnvironment::culturalConsiderations() const {
-  return som::SomList(doc(), som::joinPath(path(), "CULTU-CULT-LST"), "CULTU-CULT-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "OREN-CULT-LST"), "OREN-CULT-xxx");
 }
 som::SomList OrganizationalEnvironment::communicationPreferences() const {
-  return som::SomList(doc(), som::joinPath(path(), "COMMU-COMM-LST"), "COMMU-COMM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "OREN-COMM-LST"), "OREN-COMM-xxx");
 }
 som::SomList OrganizationalEnvironment::changeAdvocates() const {
-  return som::SomList(doc(), som::joinPath(path(), "CHANG-CHAN-LST"), "CHANG-CHAN-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "OREN-CHAN-LST"), "OREN-CHAN-xxx");
 }
 
 OrganizationalFramework::OrganizationalFramework(som::SpecDocument& doc, std::string path)
@@ -11526,7 +11526,7 @@ OtherAgreementEntryContentForm OtherAgreementEntry::content() const {
 OutOfScope::OutOfScope(som::SpecDocument& doc, std::string path)
     : som::SomNode(doc, std::move(path)) {}
 som::SomList OutOfScope::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "OOSE-ITEM-LST"), "OOSE-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "OUOFSCEN-ITEM-LST"), "OUOFSCEN-ITEM-xxx");
 }
 
 OutOfScopeEntry::OutOfScopeEntry(som::SpecDocument& doc, std::string path)
@@ -11922,7 +11922,7 @@ PhaseGateReviewsOutcomesForm PhaseGateReviews::outcomes() const {
   return PhaseGateReviewsOutcomesForm(doc(), som::joinPath(path(), "PGRO"));
 }
 som::SomList PhaseGateReviews::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "PGRE-ITEM-LST"), "PGRE-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "PHGAREEN-ITEM-LST"), "PHGAREEN-ITEM-xxx");
 }
 
 PhysicalWorkplaceRequirements::PhysicalWorkplaceRequirements(som::SpecDocument& doc, std::string path)
@@ -11997,13 +11997,13 @@ som::SomList PlatformAndLanguage::programmingLanguages() const {
   return som::SomList(doc(), som::joinPath(path(), "PLGEN-PROG-LST"), "PLGEN-PROG-xxx");
 }
 som::SomList PlatformAndLanguage::frameworks() const {
-  return som::SomList(doc(), som::joinPath(path(), "FWREN-FRAM-LST"), "FWREN-FRAM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "FRREEN-FRAM-LST"), "FRREEN-FRAM-xxx");
 }
 som::SomList PlatformAndLanguage::buildToolchain() const {
   return som::SomList(doc(), som::joinPath(path(), "BTCEN-BUIL-LST"), "BTCEN-BUIL-xxx");
 }
 som::SomList PlatformAndLanguage::deploymentTargets() const {
-  return som::SomList(doc(), som::joinPath(path(), "DETAEN-DEPL-LST"), "DETAEN-DEPL-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DEPTARENT-DEPL-LST"), "DEPTARENT-DEPL-xxx");
 }
 DependencyManagement PlatformAndLanguage::dependencyManagement() const {
   return DependencyManagement(doc(), som::joinPath(path(), "dependencyManagement"));
@@ -12078,10 +12078,10 @@ PrintAndExportLayoutArchiveForm PrintAndExportLayout::archive() const {
   return PrintAndExportLayoutArchiveForm(doc(), som::joinPath(path(), "PRLAAR"));
 }
 som::SomList PrintAndExportLayout::exportFormats() const {
-  return som::SomList(doc(), som::joinPath(path(), "EXFOEN-EXPO-LST"), "EXFOEN-EXPO-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "EFE-EXPO-LST"), "EFE-EXPO-xxx");
 }
 som::SomList PrintAndExportLayout::exportTemplates() const {
-  return som::SomList(doc(), som::joinPath(path(), "EXTEEN-EXPO-LST"), "EXTEEN-EXPO-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ETE-EXPO-LST"), "ETE-EXPO-xxx");
 }
 
 PrivacyImpactAssessmentProcess::PrivacyImpactAssessmentProcess(som::SpecDocument& doc, std::string path)
@@ -12135,7 +12135,7 @@ ProblemStatementProblemDetailsForm ProblemStatement::problemDetails() const {
   return ProblemStatementProblemDetailsForm(doc(), som::joinPath(path(), "problemDetails"));
 }
 som::SomList ProblemStatement::relatedPainPoints() const {
-  return som::SomList(doc(), som::joinPath(path(), "RPPE-RELA-LST"), "RPPE-RELA-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "PS-RELA-LST"), "PS-RELA-xxx");
 }
 
 ProcessAdjustmentDetails::ProcessAdjustmentDetails(som::SpecDocument& doc, std::string path)
@@ -12747,7 +12747,7 @@ void ProtocolsAndStandardsSection::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList ProtocolsAndStandardsSection::protocols() const {
-  return som::SomList(doc(), som::joinPath(path(), "PREN-PROT-LST"), "PREN-PROT-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "PE-PROT-LST"), "PE-PROT-xxx");
 }
 TlsRequirements ProtocolsAndStandardsSection::tlsRequirements() const {
   return TlsRequirements(doc(), som::joinPath(path(), "tlsRequirements"));
@@ -12810,7 +12810,7 @@ PrototypeFeatureSubsetFidelityForm PrototypeFeatureSubset::fidelity() const {
   return PrototypeFeatureSubsetFidelityForm(doc(), som::joinPath(path(), "PFSF"));
 }
 som::SomList PrototypeFeatureSubset::features() const {
-  return som::SomList(doc(), som::joinPath(path(), "PRFEEN-FEAT-LST"), "PRFEEN-FEAT-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "PFE-FEAT-LST"), "PFE-FEAT-xxx");
 }
 
 PrototypeGoalEntry::PrototypeGoalEntry(som::SpecDocument& doc, std::string path)
@@ -12831,7 +12831,7 @@ PrototypeGoalsFeedbackProfileForm PrototypeGoals::feedbackProfile() const {
   return PrototypeGoalsFeedbackProfileForm(doc(), som::joinPath(path(), "PRGOFE"));
 }
 som::SomList PrototypeGoals::goals() const {
-  return som::SomList(doc(), som::joinPath(path(), "PRGOEN-GOAL-LST"), "PRGOEN-GOAL-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "PGE-GOAL-LST"), "PGE-GOAL-xxx");
 }
 
 PrototypeType::PrototypeType(som::SpecDocument& doc, std::string path)
@@ -12921,7 +12921,7 @@ som::SomList QualityFramework::qualityCategories() const {
   return som::SomList(doc(), som::joinPath(path(), "QCATE-QUAL-LST"), "QCATE-QUAL-xxx");
 }
 som::SomList QualityFramework::categoryDependencies() const {
-  return som::SomList(doc(), som::joinPath(path(), "CATEG-CATE-LST"), "CATEG-CATE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "QLFWK-CATE-LST"), "QLFWK-CATE-xxx");
 }
 
 QualityGateAdjustmentDetails::QualityGateAdjustmentDetails(som::SpecDocument& doc, std::string path)
@@ -13401,7 +13401,7 @@ void ReportDefinitions::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList ReportDefinitions::reports() const {
-  return som::SomList(doc(), som::joinPath(path(), "REEN-REPO-LST"), "REEN-REPO-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "REPENT-REPO-LST"), "REPENT-REPO-xxx");
 }
 
 ReportDistributionEntry::ReportDistributionEntry(som::SpecDocument& doc, std::string path)
@@ -13461,19 +13461,19 @@ ReportEntryLifecycleForm ReportEntry::lifecycle() const {
   return ReportEntryLifecycleForm(doc(), som::joinPath(path(), "RELI"));
 }
 som::SomList ReportEntry::sections() const {
-  return som::SomList(doc(), som::joinPath(path(), "RESEE1-SECT-LST"), "RESEE1-SECT-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "RSE-SECT-LST"), "RSE-SECT-xxx");
 }
 som::SomList ReportEntry::filters() const {
-  return som::SomList(doc(), som::joinPath(path(), "REFIEN-FILT-LST"), "REFIEN-FILT-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "RFE-FILT-LST"), "RFE-FILT-xxx");
 }
 som::SomList ReportEntry::schedules() const {
-  return som::SomList(doc(), som::joinPath(path(), "RESCEN-SCHE-LST"), "RESCEN-SCHE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "REPSCHENT-SCHE-LST"), "REPSCHENT-SCHE-xxx");
 }
 som::SomList ReportEntry::distributions() const {
-  return som::SomList(doc(), som::joinPath(path(), "REDIEN-DIST-LST"), "REDIEN-DIST-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "RDE-DIST-LST"), "RDE-DIST-xxx");
 }
 som::SomList ReportEntry::recipients() const {
-  return som::SomList(doc(), som::joinPath(path(), "REREEN-RECI-LST"), "REREEN-RECI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "RRE-RECI-LST"), "RRE-RECI-xxx");
 }
 
 ReportFilterEntry::ReportFilterEntry(som::SpecDocument& doc, std::string path)
@@ -13560,10 +13560,10 @@ ReportSectionEntryAggregationForm ReportSectionEntry::aggregation() const {
   return ReportSectionEntryAggregationForm(doc(), som::joinPath(path(), "RESEAG"));
 }
 som::SomList ReportSectionEntry::columns() const {
-  return som::SomList(doc(), som::joinPath(path(), "RECOE1-COLU-LST"), "RECOE1-COLU-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "REPCOLENT-COLU-LST"), "REPCOLENT-COLU-xxx");
 }
 som::SomList ReportSectionEntry::charts() const {
-  return som::SomList(doc(), som::joinPath(path(), "RECHEN-CHAR-LST"), "RECHEN-CHAR-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "REPCHAENT-CHAR-LST"), "REPCHAENT-CHAR-xxx");
 }
 
 RequirementAcceptanceCriteria::RequirementAcceptanceCriteria(som::SpecDocument& doc, std::string path)
@@ -13575,7 +13575,7 @@ void RequirementAcceptanceCriteria::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList RequirementAcceptanceCriteria::criteria() const {
-  return som::SomList(doc(), som::joinPath(path(), "ACCR-CRIT-LST"), "ACCR-CRIT-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ACE-CRIT-LST"), "ACE-CRIT-xxx");
 }
 
 RequirementBusinessRuleEntry::RequirementBusinessRuleEntry(som::SpecDocument& doc, std::string path)
@@ -13731,7 +13731,7 @@ void RequirementUiSpecification::setMockupDescription(const std::string& value) 
   doc().setContent(som::joinPath(path(), "RUS-MOCK"), value);
 }
 som::SomList RequirementUiSpecification::fields() const {
-  return som::SomList(doc(), som::joinPath(path(), "SCFLD-FIEL-LST"), "SCFLD-FIEL-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SFE-FIEL-LST"), "SFE-FIEL-xxx");
 }
 som::SomList RequirementUiSpecification::actions() const {
   return som::SomList(doc(), som::joinPath(path(), "RQSCAC-ACTI-LST"), "RQSCAC-ACTI-xxx");
@@ -14025,13 +14025,13 @@ som::SomList ReusableComponentsSection::sharedLibraries() const {
   return som::SomList(doc(), som::joinPath(path(), "SHLCP-SHAR-LST"), "SHLCP-SHAR-xxx");
 }
 som::SomList ReusableComponentsSection::uiComponents() const {
-  return som::SomList(doc(), som::joinPath(path(), "RUICMP-UICO-LST"), "RUICMP-UICO-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "RUCE-UICO-LST"), "RUCE-UICO-xxx");
 }
 som::SomList ReusableComponentsSection::businessComponents() const {
-  return som::SomList(doc(), som::joinPath(path(), "BUCOEN-BUSI-LST"), "BUCOEN-BUSI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "BUSCOMENT-BUSI-LST"), "BUSCOMENT-BUSI-xxx");
 }
 som::SomList ReusableComponentsSection::infrastructureComponents() const {
-  return som::SomList(doc(), som::joinPath(path(), "INCOEN-INFR-LST"), "INCOEN-INFR-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INFCOMENT-INFR-LST"), "INFCOMENT-INFR-xxx");
 }
 som::SomList ReusableComponentsSection::thirdPartyLibraries() const {
   return som::SomList(doc(), som::joinPath(path(), "THPALI-THIR-LST"), "THPALI-THIR-xxx");
@@ -14196,7 +14196,7 @@ RisksAndAssumptionsOverviewForm RisksAndAssumptions::overview() const {
   return RisksAndAssumptionsOverviewForm(doc(), som::joinPath(path(), "RIOV"));
 }
 som::SomList RisksAndAssumptions::keyRisks() const {
-  return som::SomList(doc(), som::joinPath(path(), "RIEN-KEYR-LST"), "RIEN-KEYR-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "RISENT-KEYR-LST"), "RISENT-KEYR-xxx");
 }
 
 RoleAdjustmentEntry::RoleAdjustmentEntry(som::SpecDocument& doc, std::string path)
@@ -14640,16 +14640,16 @@ void ScopeBoundaries::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList ScopeBoundaries::inScopeItems() const {
-  return som::SomList(doc(), som::joinPath(path(), "SCITE-INSC-LST"), "SCITE-INSC-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SIE-INSC-LST"), "SIE-INSC-xxx");
 }
 som::SomList ScopeBoundaries::outOfScopeItems() const {
-  return som::SomList(doc(), som::joinPath(path(), "SCITE-OUTO-LST"), "SCITE-OUTO-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SIE-OUTO-LST"), "SIE-OUTO-xxx");
 }
 som::SomList ScopeBoundaries::deferredItems() const {
   return som::SomList(doc(), som::joinPath(path(), "DFSCP-DEFE-LST"), "DFSCP-DEFE-xxx");
 }
 som::SomList ScopeBoundaries::scopeAssumptions() const {
-  return som::SomList(doc(), som::joinPath(path(), "SCOPE-SCOP-LST"), "SCOPE-SCOP-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SCBND-SCOP-LST"), "SCBND-SCOP-xxx");
 }
 
 ScopeItemEntry::ScopeItemEntry(som::SpecDocument& doc, std::string path)
@@ -14760,7 +14760,7 @@ ScreenElementDataDisplay ScreenElementEntry::dataDisplay() const {
   return ScreenElementDataDisplay(doc(), som::joinPath(path(), "dataDisplay"));
 }
 som::SomList ScreenElementEntry::validationRules() const {
-  return som::SomList(doc(), som::joinPath(path(), "EVRE-VALI-LST"), "EVRE-VALI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ELVARUEN-VALI-LST"), "ELVARUEN-VALI-xxx");
 }
 
 ScreenElementFieldSpec::ScreenElementFieldSpec(som::SpecDocument& doc, std::string path)
@@ -14817,13 +14817,13 @@ ScreenStates ScreenEntry::states() const {
   return ScreenStates(doc(), som::joinPath(path(), "states"));
 }
 som::SomList ScreenEntry::userCategories() const {
-  return som::SomList(doc(), som::joinPath(path(), "SCRUSC-USER-LST"), "SCRUSC-USER-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SUCE-USER-LST"), "SUCE-USER-xxx");
 }
 som::SomList ScreenEntry::entryPoints() const {
   return som::SomList(doc(), som::joinPath(path(), "EPNT-ENTR-LST"), "EPNT-ENTR-xxx");
 }
 som::SomList ScreenEntry::responsiveRules() const {
-  return som::SomList(doc(), som::joinPath(path(), "SRRE-RESP-LST"), "SRRE-RESP-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SCRERUEN-RESP-LST"), "SCRERUEN-RESP-xxx");
 }
 
 ScreenFieldEntry::ScreenFieldEntry(som::SpecDocument& doc, std::string path)
@@ -14985,7 +14985,7 @@ void SecondaryNavigation::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList SecondaryNavigation::tabBars() const {
-  return som::SomList(doc(), som::joinPath(path(), "TBDE-TABB-LST"), "TBDE-TABB-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "TABADEEN-TABB-LST"), "TABADEEN-TABB-xxx");
 }
 
 Security::Security(som::SpecDocument& doc, std::string path)
@@ -15069,7 +15069,7 @@ SecurityTestingAutomation SecurityAuditRequirementsSection::securityTestingAutom
   return SecurityTestingAutomation(doc(), som::joinPath(path(), "securityTestingAutomation"));
 }
 som::SomList SecurityAuditRequirementsSection::auditEntries() const {
-  return som::SomList(doc(), som::joinPath(path(), "SEAUEN-AUDI-LST"), "SEAUEN-AUDI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SAE-AUDI-LST"), "SAE-AUDI-xxx");
 }
 
 SecurityCertificationRequirements::SecurityCertificationRequirements(som::SpecDocument& doc, std::string path)
@@ -15150,7 +15150,7 @@ void SecurityControls::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList SecurityControls::controls() const {
-  return som::SomList(doc(), som::joinPath(path(), "SECCT-CONT-LST"), "SECCT-CONT-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SECOEN-CONT-LST"), "SECOEN-CONT-xxx");
 }
 
 SecurityDevelopmentLifecycle::SecurityDevelopmentLifecycle(som::SpecDocument& doc, std::string path)
@@ -15453,10 +15453,10 @@ void ServerRequirementsSection::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList ServerRequirementsSection::environments() const {
-  return som::SomList(doc(), som::joinPath(path(), "SEENEN-ENVI-LST"), "SEENEN-ENVI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SEE-ENVI-LST"), "SEE-ENVI-xxx");
 }
 som::SomList ServerRequirementsSection::serverRoles() const {
-  return som::SomList(doc(), som::joinPath(path(), "SEROEN-SERV-LST"), "SEROEN-SERV-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SRE-SERV-LST"), "SRE-SERV-xxx");
 }
 ComputeResourceRequirements ServerRequirementsSection::computeResources() const {
   return ComputeResourceRequirements(doc(), som::joinPath(path(), "computeResources"));
@@ -15792,7 +15792,7 @@ ServiceLevelIndicators SlaAndSloMonitoring::slis() const {
   return ServiceLevelIndicators(doc(), som::joinPath(path(), "slis"));
 }
 som::SomList SlaAndSloMonitoring::slos() const {
-  return som::SomList(doc(), som::joinPath(path(), "SLEN-SLOS-LST"), "SLEN-SLOS-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SE-SLOS-LST"), "SE-SLOS-xxx");
 }
 ErrorBudgetTracking SlaAndSloMonitoring::errorBudget() const {
   return ErrorBudgetTracking(doc(), som::joinPath(path(), "errorBudget"));
@@ -15837,7 +15837,7 @@ void SoftwareDeliverables::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList SoftwareDeliverables::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "SWDLV-ITEM-LST"), "SWDLV-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DLVEN-ITEM-LST"), "DLVEN-ITEM-xxx");
 }
 
 SoftwareDesignRequirements::SoftwareDesignRequirements(som::SpecDocument& doc, std::string path)
@@ -16257,10 +16257,10 @@ StagingStrategyGovernanceForm StagingStrategy::governance() const {
   return StagingStrategyGovernanceForm(doc(), som::joinPath(path(), "STAGGV"));
 }
 som::SomList StagingStrategy::keyAssumptions() const {
-  return som::SomList(doc(), som::joinPath(path(), "KEYAS-KEYA-LST"), "KEYAS-KEYA-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "STAGST-KEYA-LST"), "STAGST-KEYA-xxx");
 }
 som::SomList StagingStrategy::constraints() const {
-  return som::SomList(doc(), som::joinPath(path(), "STAGI-CONS-LST"), "STAGI-CONS-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "STAGST-CONS-LST"), "STAGST-CONS-xxx");
 }
 
 StakeholderEntry::StakeholderEntry(som::SpecDocument& doc, std::string path)
@@ -16320,7 +16320,7 @@ LegalAndContractualRequirements StakeholdersAndGovernance::legalAndContractual()
   return LegalAndContractualRequirements(doc(), som::joinPath(path(), "legalAndContractual"));
 }
 som::SomList StakeholdersAndGovernance::stakeholderRegister() const {
-  return som::SomList(doc(), som::joinPath(path(), "STKRG-STAK-LST"), "STKRG-STAK-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "STKRE-STAK-LST"), "STKRE-STAK-xxx");
 }
 
 StakeholdersAndInterests::StakeholdersAndInterests(som::SpecDocument& doc, std::string path)
@@ -16353,19 +16353,19 @@ void StandardsComplianceSection::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList StandardsComplianceSection::itStandards() const {
-  return som::SomList(doc(), som::joinPath(path(), "ISCE-ITST-LST"), "ISCE-ITST-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ITSTCOEN-ITST-LST"), "ITSTCOEN-ITST-xxx");
 }
 som::SomList StandardsComplianceSection::industryProtocols() const {
-  return som::SomList(doc(), som::joinPath(path(), "IPCE-INDU-LST"), "IPCE-INDU-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INPRCOEN-INDU-LST"), "INPRCOEN-INDU-xxx");
 }
 som::SomList StandardsComplianceSection::interfaceSpecifications() const {
-  return som::SomList(doc(), som::joinPath(path(), "INSPEN-INTE-LST"), "INSPEN-INTE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INTSPEENT-INTE-LST"), "INTSPEENT-INTE-xxx");
 }
 som::SomList StandardsComplianceSection::regulatoryCompliance() const {
-  return som::SomList(doc(), som::joinPath(path(), "RECOEN-REGU-LST"), "RECOEN-REGU-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "RCE-REGU-LST"), "RCE-REGU-xxx");
 }
 som::SomList StandardsComplianceSection::securityStandards() const {
-  return som::SomList(doc(), som::joinPath(path(), "SSCE-SECU-LST"), "SSCE-SECU-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SESTCOEN-SECU-LST"), "SESTCOEN-SECU-xxx");
 }
 som::SomList StandardsComplianceSection::accessibilityStandards() const {
   return som::SomList(doc(), som::joinPath(path(), "ACCSTD-ACCE-LST"), "ACCSTD-ACCE-xxx");
@@ -16398,7 +16398,7 @@ CommitteeCharter SteeringCommittee::charter() const {
   return CommitteeCharter(doc(), som::joinPath(path(), "charter"));
 }
 som::SomList SteeringCommittee::members() const {
-  return som::SomList(doc(), som::joinPath(path(), "COMMB-MEMB-LST"), "COMMB-MEMB-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "CME-MEMB-LST"), "CME-MEMB-xxx");
 }
 
 StepUpAuthenticationPolicy::StepUpAuthenticationPolicy(som::SpecDocument& doc, std::string path)
@@ -16410,7 +16410,7 @@ void StepUpAuthenticationPolicy::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList StepUpAuthenticationPolicy::stepUpDetails() const {
-  return som::SomList(doc(), som::joinPath(path(), "STEPU-STEP-LST"), "STEPU-STEP-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SUAP-STEP-LST"), "SUAP-STEP-xxx");
 }
 
 StorageEncryptionPolicy::StorageEncryptionPolicy(som::SpecDocument& doc, std::string path)
@@ -16593,7 +16593,7 @@ void SupportDeliverables::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList SupportDeliverables::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "SPDLV-ITEM-LST"), "SPDLV-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DLVEN-ITEM-LST"), "DLVEN-ITEM-xxx");
 }
 
 SupportedLocaleEntry::SupportedLocaleEntry(som::SpecDocument& doc, std::string path)
@@ -16662,10 +16662,10 @@ SystemBusinessCriticalityGovernanceForm SystemBusinessCriticality::governance() 
   return SystemBusinessCriticalityGovernanceForm(doc(), som::joinPath(path(), "SBCG"));
 }
 som::SomList SystemBusinessCriticality::businessUnits() const {
-  return som::SomList(doc(), som::joinPath(path(), "SBUE-BUSI-LST"), "SBUE-BUSI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SYBUUNEN-BUSI-LST"), "SYBUUNEN-BUSI-xxx");
 }
 som::SomList SystemBusinessCriticality::supportedProcesses() const {
-  return som::SomList(doc(), som::joinPath(path(), "SBPE-SUPP-LST"), "SBPE-SUPP-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SYBUPREN-SUPP-LST"), "SYBUPREN-SUPP-xxx");
 }
 
 SystemBusinessProcessEntry::SystemBusinessProcessEntry(som::SpecDocument& doc, std::string path)
@@ -16746,7 +16746,7 @@ SystemCostAnalysisBenefitsForm SystemCostAnalysis::benefits() const {
   return SystemCostAnalysisBenefitsForm(doc(), som::joinPath(path(), "SCAB"));
 }
 som::SomList SystemCostAnalysis::nonFinancialBenefits() const {
-  return som::SomList(doc(), som::joinPath(path(), "NONFI-NONF-LST"), "NONFI-NONF-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SYCOAN-NONF-LST"), "SYCOAN-NONF-xxx");
 }
 
 SystemDataScope::SystemDataScope(som::SpecDocument& doc, std::string path)
@@ -16761,10 +16761,10 @@ SystemDataScopeMigrationForm SystemDataScope::migration() const {
   return SystemDataScopeMigrationForm(doc(), som::joinPath(path(), "SYDASCMI"));
 }
 som::SomList SystemDataScope::entities() const {
-  return som::SomList(doc(), som::joinPath(path(), "DEME-ENTI-LST"), "DEME-ENTI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DAENMIEN-ENTI-LST"), "DAENMIEN-ENTI-xxx");
 }
 som::SomList SystemDataScope::knownQualityIssues() const {
-  return som::SomList(doc(), som::joinPath(path(), "KNOWN-KNOW-LST"), "KNOWN-KNOW-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SYDASC-KNOW-LST"), "SYDASC-KNOW-xxx");
 }
 
 SystemDependencyEntry::SystemDependencyEntry(som::SpecDocument& doc, std::string path)
@@ -16812,7 +16812,7 @@ BusinessDomain SystemDescription::businessDomain() const {
   return BusinessDomain(doc(), som::joinPath(path(), "businessDomain"));
 }
 som::SomList SystemDescription::userCategories() const {
-  return som::SomList(doc(), som::joinPath(path(), "USCA-USER-LST"), "USCA-USER-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "UCE-USER-LST"), "UCE-USER-xxx");
 }
 UserInteractionModel SystemDescription::userInteractionModel() const {
   return UserInteractionModel(doc(), som::joinPath(path(), "userInteractionModel"));
@@ -16863,10 +16863,10 @@ SystemErrorDisplayFallbackForm SystemErrorDisplay::fallback() const {
   return SystemErrorDisplayFallbackForm(doc(), som::joinPath(path(), "SEDF"));
 }
 som::SomList SystemErrorDisplay::errorPageDesigns() const {
-  return som::SomList(doc(), som::joinPath(path(), "EPDE-ERRO-LST"), "EPDE-ERRO-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SYERDI-ERRO-LST"), "SYERDI-ERRO-xxx");
 }
 som::SomList SystemErrorDisplay::errorCodes() const {
-  return som::SomList(doc(), som::joinPath(path(), "SECE-ERRO-LST"), "SECE-ERRO-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SYERCOEN-ERRO-LST"), "SYERCOEN-ERRO-xxx");
 }
 
 SystemIntegrationEntry::SystemIntegrationEntry(som::SpecDocument& doc, std::string path)
@@ -16917,7 +16917,7 @@ SystemKnowledgeTransferContentForm SystemKnowledgeTransfer::content() const {
   return SystemKnowledgeTransferContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList SystemKnowledgeTransfer::criticalKnowledgeAreas() const {
-  return som::SomList(doc(), som::joinPath(path(), "CRITI-CRIT-LST"), "CRITI-CRIT-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SYKNTR-CRIT-LST"), "SYKNTR-CRIT-xxx");
 }
 
 SystemLandscapeInventory::SystemLandscapeInventory(som::SpecDocument& doc, std::string path)
@@ -16941,7 +16941,7 @@ SystemMigrationPlanCutoverForm SystemMigrationPlan::cutover() const {
   return SystemMigrationPlanCutoverForm(doc(), som::joinPath(path(), "SMPC"));
 }
 som::SomList SystemMigrationPlan::risks() const {
-  return som::SomList(doc(), som::joinPath(path(), "SMRE-RISK-LST"), "SMRE-RISK-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SYMIRIEN-RISK-LST"), "SYMIRIEN-RISK-xxx");
 }
 
 SystemMigrationRiskEntry::SystemMigrationRiskEntry(som::SpecDocument& doc, std::string path)
@@ -16962,7 +16962,7 @@ AdministrationRequirementsSection SystemOperation::administrationRequirements() 
   return AdministrationRequirementsSection(doc(), som::joinPath(path(), "administrationRequirements"));
 }
 som::SomList SystemOperation::maintenanceProcedures() const {
-  return som::SomList(doc(), som::joinPath(path(), "MAINT-MAIN-LST"), "MAINT-MAIN-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SO-MAIN-LST"), "SO-MAIN-xxx");
 }
 
 SystemOperationAndMonitoring::SystemOperationAndMonitoring(som::SpecDocument& doc, std::string path)
@@ -17034,7 +17034,7 @@ SystemQualityGoalsResourcesForm SystemQualityGoals::resources() const {
   return SystemQualityGoalsResourcesForm(doc(), som::joinPath(path(), "SQGRS"));
 }
 som::SomList SystemQualityGoals::attributeInterdependencies() const {
-  return som::SomList(doc(), som::joinPath(path(), "ATTRI-ATTR-LST"), "ATTRI-ATTR-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SYQG-ATTR-LST"), "SYQG-ATTR-xxx");
 }
 QualityFramework SystemQualityGoals::framework() const {
   return QualityFramework(doc(), som::joinPath(path(), "framework"));
@@ -17091,7 +17091,7 @@ som::SomList SystemReplacementStrategy::phases() const {
   return som::SomList(doc(), som::joinPath(path(), "REPPHS-PHAS-LST"), "REPPHS-PHAS-xxx");
 }
 som::SomList SystemReplacementStrategy::predecessorDependencies() const {
-  return som::SomList(doc(), som::joinPath(path(), "PREDE-PRED-LST"), "PREDE-PRED-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SYREST-PRED-LST"), "SYREST-PRED-xxx");
 }
 
 SystemRollout::SystemRollout(som::SpecDocument& doc, std::string path)
@@ -17205,10 +17205,10 @@ void SystemTaskEntry::setRelatedUseCase(const std::string& value) {
   doc().setContent(som::joinPath(path(), "SYTS-RELA-REF"), value);
 }
 som::SomList SystemTaskEntry::workflowSteps() const {
-  return som::SomList(doc(), som::joinPath(path(), "SYSTE-WORK-LST"), "SYSTE-WORK-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SYTS-WORK-LST"), "SYTS-WORK-xxx");
 }
 som::SomList SystemTaskEntry::variationsAndExceptions() const {
-  return som::SomList(doc(), som::joinPath(path(), "VARIA-VARI-LST"), "VARIA-VARI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SYTS-VARI-LST"), "SYTS-VARI-xxx");
 }
 
 SystemTechnicalAssessment::SystemTechnicalAssessment(som::SpecDocument& doc, std::string path)
@@ -17226,10 +17226,10 @@ SystemTechnicalAssessmentQualityForm SystemTechnicalAssessment::quality() const 
   return SystemTechnicalAssessmentQualityForm(doc(), som::joinPath(path(), "STAQ"));
 }
 som::SomList SystemTechnicalAssessment::knownIssues() const {
-  return som::SomList(doc(), som::joinPath(path(), "KIE-KNOW-LST"), "KIE-KNOW-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SYTEAS-KNOW-LST"), "SYTEAS-KNOW-xxx");
 }
 som::SomList SystemTechnicalAssessment::securityConcerns() const {
-  return som::SomList(doc(), som::joinPath(path(), "SECUR-SECU-LST"), "SECUR-SECU-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "SYTEAS-SECU-LST"), "SYTEAS-SECU-xxx");
 }
 
 SystemToReplaceEntry::SystemToReplaceEntry(som::SpecDocument& doc, std::string path)
@@ -17301,7 +17301,7 @@ SystemUserImpactAdoptionForm SystemUserImpact::adoption() const {
   return SystemUserImpactAdoptionForm(doc(), som::joinPath(path(), "SUIA"));
 }
 som::SomList SystemUserImpact::userGroups() const {
-  return som::SomList(doc(), som::joinPath(path(), "UGIE-USER-LST"), "UGIE-USER-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "USGRIMEN-USER-LST"), "USGRIMEN-USER-xxx");
 }
 
 SystemsToReplace::SystemsToReplace(som::SpecDocument& doc, std::string path)
@@ -17325,7 +17325,7 @@ TabBarDefinitionEntryLoadingForm TabBarDefinitionEntry::loading() const {
   return TabBarDefinitionEntryLoadingForm(doc(), som::joinPath(path(), "TBDEL"));
 }
 som::SomList TabBarDefinitionEntry::tabs() const {
-  return som::SomList(doc(), som::joinPath(path(), "TAITEN-TABS-LST"), "TAITEN-TABS-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "TIE-TABS-LST"), "TIE-TABS-xxx");
 }
 
 TabItemEntry::TabItemEntry(som::SpecDocument& doc, std::string path)
@@ -17457,13 +17457,13 @@ TechnicalEnvironmentNetwork TechnicalEnvironment::network() const {
   return TechnicalEnvironmentNetwork(doc(), som::joinPath(path(), "network"));
 }
 som::SomList TechnicalEnvironment::datacenters() const {
-  return som::SomList(doc(), som::joinPath(path(), "DATAC-DATA-LST"), "DATAC-DATA-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "TEEN-DATA-LST"), "TEEN-DATA-xxx");
 }
 som::SomList TechnicalEnvironment::technologyStandards() const {
-  return som::SomList(doc(), som::joinPath(path(), "TESTEN-TECH-LST"), "TESTEN-TECH-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "TSE-TECH-LST"), "TSE-TECH-xxx");
 }
 som::SomList TechnicalEnvironment::integrationConstraints() const {
-  return som::SomList(doc(), som::joinPath(path(), "INCOE1-INTE-LST"), "INCOE1-INTE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "INTCONENT-INTE-LST"), "INTCONENT-INTE-xxx");
 }
 
 TechnicalEnvironmentNetwork::TechnicalEnvironmentNetwork(som::SpecDocument& doc, std::string path)
@@ -17472,10 +17472,10 @@ TechnicalEnvironmentNetworkContentForm TechnicalEnvironmentNetwork::content() co
   return TechnicalEnvironmentNetworkContentForm(doc(), som::joinPath(path(), "content"));
 }
 som::SomList TechnicalEnvironmentNetwork::devopsStandards() const {
-  return som::SomList(doc(), som::joinPath(path(), "DEVOP-DEVO-LST"), "DEVOP-DEVO-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "TEENNE-DEVO-LST"), "TEENNE-DEVO-xxx");
 }
 som::SomList TechnicalEnvironmentNetwork::observabilityRequirements() const {
-  return som::SomList(doc(), som::joinPath(path(), "OBSER-OBSE-LST"), "OBSER-OBSE-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "TEENNE-OBSE-LST"), "TEENNE-OBSE-xxx");
 }
 
 TechnicalFrameworkConcept::TechnicalFrameworkConcept(som::SpecDocument& doc, std::string path)
@@ -17622,7 +17622,7 @@ TechnicalPainPointsCategorySummaryForm TechnicalPainPoints::categorySummary() co
   return TechnicalPainPointsCategorySummaryForm(doc(), som::joinPath(path(), "TPPS"));
 }
 som::SomList TechnicalPainPoints::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "TEPAPO-ITEM-LST"), "TEPAPO-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "PAPE-ITEM-LST"), "PAPE-ITEM-xxx");
 }
 
 TechnicalRequirementEntry::TechnicalRequirementEntry(som::SpecDocument& doc, std::string path)
@@ -18093,7 +18093,7 @@ TrainingDeliverableRequirementsTrainingContentForm TrainingDeliverableRequiremen
   return TrainingDeliverableRequirementsTrainingContentForm(doc(), som::joinPath(path(), "TRMAT-TRAI"));
 }
 som::SomList TrainingDeliverableRequirements::trainingModules() const {
-  return som::SomList(doc(), som::joinPath(path(), "TRMOEN-TRAI-LST"), "TRMOEN-TRAI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "TME-TRAI-LST"), "TME-TRAI-xxx");
 }
 
 TrainingDeliverables::TrainingDeliverables(som::SpecDocument& doc, std::string path)
@@ -18105,7 +18105,7 @@ void TrainingDeliverables::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList TrainingDeliverables::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "TRDLV-ITEM-LST"), "TRDLV-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "DLVEN-ITEM-LST"), "DLVEN-ITEM-xxx");
 }
 
 TrainingEnablementRequirements::TrainingEnablementRequirements(som::SpecDocument& doc, std::string path)
@@ -18156,7 +18156,7 @@ TrainingRequirementsOverviewForm TrainingRequirements::overview() const {
   return TrainingRequirementsOverviewForm(doc(), som::joinPath(path(), "TROV"));
 }
 som::SomList TrainingRequirements::initialTraining() const {
-  return som::SomList(doc(), som::joinPath(path(), "INITR-INIT-LST"), "INITR-INIT-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "ITE-INIT-LST"), "ITE-INIT-xxx");
 }
 som::SomList TrainingRequirements::ongoingTraining() const {
   return som::SomList(doc(), som::joinPath(path(), "ONGTR-ONGO-LST"), "ONGTR-ONGO-xxx");
@@ -18339,7 +18339,7 @@ TranslationProcessOngoingForm TranslationProcess::ongoing() const {
   return TranslationProcessOngoingForm(doc(), som::joinPath(path(), "TRPRON"));
 }
 som::SomList TranslationProcess::vendors() const {
-  return som::SomList(doc(), som::joinPath(path(), "TRVEEN-VEND-LST"), "TRVEEN-VEND-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "TVE-VEND-LST"), "TVE-VEND-xxx");
 }
 
 TranslationRequirements::TranslationRequirements(som::SpecDocument& doc, std::string path)
@@ -18489,10 +18489,10 @@ UiComponentEntryDataBindingForm UiComponentEntry::dataBinding() const {
   return UiComponentEntryDataBindingForm(doc(), som::joinPath(path(), "UICOMENT-DATA"));
 }
 som::SomList UiComponentEntry::states() const {
-  return som::SomList(doc(), som::joinPath(path(), "CMST-STAT-LST"), "CMST-STAT-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "COMSTAENT-STAT-LST"), "COMSTAENT-STAT-xxx");
 }
 som::SomList UiComponentEntry::variants() const {
-  return som::SomList(doc(), som::joinPath(path(), "CMVN-VARI-LST"), "CMVN-VARI-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "CVE-VARI-LST"), "CVE-VARI-xxx");
 }
 som::SomList UiComponentEntry::actions() const {
   return som::SomList(doc(), som::joinPath(path(), "CMAC-ACTI-LST"), "CMAC-ACTI-xxx");
@@ -18522,7 +18522,7 @@ ComponentLibrary UiComponents::componentLibrary() const {
   return ComponentLibrary(doc(), som::joinPath(path(), "componentLibrary"));
 }
 som::SomList UiComponents::componentSpecs() const {
-  return som::SomList(doc(), som::joinPath(path(), "UICOEN-COMP-LST"), "UICOEN-COMP-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "UICOMENT-COMP-LST"), "UICOMENT-COMP-xxx");
 }
 som::SomList UiComponents::componentFamilies() const {
   return som::SomList(doc(), som::joinPath(path(), "CMFA-COMP-LST"), "CMFA-COMP-xxx");
@@ -18861,10 +18861,10 @@ som::SomList UserJourney::stages() const {
   return som::SomList(doc(), som::joinPath(path(), "JRNST-STAG-LST"), "JRNST-STAG-xxx");
 }
 som::SomList UserJourney::keyTouchpoints() const {
-  return som::SomList(doc(), som::joinPath(path(), "KEYTO-KEYT-LST"), "KEYTO-KEYT-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "UJ-KEYT-LST"), "UJ-KEYT-xxx");
 }
 som::SomList UserJourney::painPoints() const {
-  return som::SomList(doc(), som::joinPath(path(), "USERJ-PAIN-LST"), "USERJ-PAIN-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "UJ-PAIN-LST"), "UJ-PAIN-xxx");
 }
 std::string UserJourney::opportunitiesForDelight() const {
   return doc().content(som::joinPath(path(), "UJ-OPPO"));
@@ -18999,7 +18999,7 @@ void UserPersonaDetails::setVisualRepresentation(const std::string& value) {
   doc().setContent(som::joinPath(path(), "UPD-VISU"), value);
 }
 som::SomList UserPersonaDetails::representativeQuotes() const {
-  return som::SomList(doc(), som::joinPath(path(), "REPRE-REPR-LST"), "REPRE-REPR-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "UPD-REPR-LST"), "UPD-REPR-xxx");
 }
 
 UserPersonas::UserPersonas(som::SpecDocument& doc, std::string path)
@@ -19095,7 +19095,7 @@ void UtilityNavigation::setContent(const std::string& value) {
   doc().setContent(som::joinPath(path(), "content"), value);
 }
 som::SomList UtilityNavigation::items() const {
-  return som::SomList(doc(), som::joinPath(path(), "UNIE-ITEM-LST"), "UNIE-ITEM-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "UTNAITEN-ITEM-LST"), "UTNAITEN-ITEM-xxx");
 }
 
 UtilityNavigationItemEntry::UtilityNavigationItemEntry(som::SpecDocument& doc, std::string path)
@@ -19113,7 +19113,7 @@ UtilityNavigationItemEntryBehaviorForm UtilityNavigationItemEntry::behavior() co
   return UtilityNavigationItemEntryBehaviorForm(doc(), som::joinPath(path(), "UNIEB"));
 }
 som::SomList UtilityNavigationItemEntry::menuItems() const {
-  return som::SomList(doc(), som::joinPath(path(), "UMIE-MENU-LST"), "UMIE-MENU-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "UTMEITEN-MENU-LST"), "UTMEITEN-MENU-xxx");
 }
 
 ValidationConstraints::ValidationConstraints(som::SpecDocument& doc, std::string path)
@@ -19143,10 +19143,10 @@ ValidationFeedbackBehaviorForm ValidationFeedback::behavior() const {
   return ValidationFeedbackBehaviorForm(doc(), som::joinPath(path(), "VAFEBE"));
 }
 som::SomList ValidationFeedback::messageTemplates() const {
-  return som::SomList(doc(), som::joinPath(path(), "VAMETE-MESS-LST"), "VAMETE-MESS-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "VMT-MESS-LST"), "VMT-MESS-xxx");
 }
 som::SomList ValidationFeedback::fieldValidationRules() const {
-  return som::SomList(doc(), som::joinPath(path(), "FIELD-FIEL-LST"), "FIELD-FIEL-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "VAFE-FIEL-LST"), "VAFE-FIEL-xxx");
 }
 
 ValidationMessageTemplate::ValidationMessageTemplate(som::SpecDocument& doc, std::string path)
@@ -19173,7 +19173,7 @@ ValuePropositionReturnProfileForm ValueProposition::returnProfile() const {
   return ValuePropositionReturnProfileForm(doc(), som::joinPath(path(), "VALRP"));
 }
 som::SomList ValueProposition::kpis() const {
-  return som::SomList(doc(), som::joinPath(path(), "KPIEN-KPIS-LST"), "KPIEN-KPIS-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "VALPX-KPIS-LST"), "VALPX-KPIS-xxx");
 }
 
 VersionControlConfiguration::VersionControlConfiguration(som::SpecDocument& doc, std::string path)
@@ -19305,7 +19305,7 @@ WcagComplianceRobustForm WcagCompliance::robust() const {
   return WcagComplianceRobustForm(doc(), som::joinPath(path(), "WCCORO"));
 }
 som::SomList WcagCompliance::successCriteria() const {
-  return som::SomList(doc(), som::joinPath(path(), "WSCE-SUCC-LST"), "WSCE-SUCC-xxx");
+  return som::SomList(doc(), som::joinPath(path(), "WCSUCREN-SUCC-LST"), "WCSUCREN-SUCC-xxx");
 }
 
 WcagSuccessCriterionEntry::WcagSuccessCriterionEntry(som::SpecDocument& doc, std::string path)

@@ -28,8 +28,8 @@ class GlossaryAndAbbreviations extends DocSpecsSection {
   @StandardReferences([
     'ISO/IEC/IEEE 29148:2018 §6 — definitions and abbreviations',
   ], 'The ordered collection of defined terms and abbreviations.')
-  @SectionId('GLOSS-ENTR-LST')
-  @SectionIdPattern('GLOSS-ENTR-xxx')
+  @SectionId('GLENT-ENTR-LST')
+  @SectionIdPattern('GLENT-ENTR-xxx')
   @ContentHelp('Add one entry per term or acronym, alphabetically ordered.')
   @SerializationOrder(1)
   List<GlossaryEntry> glossary = [];

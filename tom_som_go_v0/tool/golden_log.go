@@ -283,7 +283,7 @@ func main() {
 	}
 	metaNode("SBP")
 	metaNode("SBP/documentControl")
-	metaNode("SBP/documentControl/RVHST-REVS-LST")
+	metaNode("SBP/documentControl/RVENT-REVS-LST")
 	metaNode("SBP/introductionAndScope")
 	metaNode("SBP/introductionAndScope/goals")
 	metaNode("SBP/introductionAndScope/goals/content")
@@ -340,7 +340,7 @@ func main() {
 	}
 
 	metaForm("SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST")
-	metaForm("SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST")
+	metaForm("SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CE-CHAR-LST")
 	metaForm("SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/screenRouteMap/SCTREN-TRAN-LST")
 
 	// Dot-notation navigation: the typed nav accessors must resolve to exactly
@@ -387,8 +387,8 @@ func main() {
 	}
 	revs := nav.DocumentControl().RevisionHistory()
 	metaID(&somv0.SBP.SomMetaRef, &nav.SomMetaRef)
-	metaID(&somv0.SBP.RVHST_REVS_LST().SomMetaRef, &revs.SomMetaRef)
-	metaID(&somv0.SBP.RVHST_REVS_LST().Item(0).SomMetaRef, &revs.Item(0).SomMetaRef)
+	metaID(&somv0.SBP.RVENT_REVS_LST().SomMetaRef, &revs.SomMetaRef)
+	metaID(&somv0.SBP.RVENT_REVS_LST().Item(0).SomMetaRef, &revs.Item(0).SomMetaRef)
 
 	// DocSpecs validation: the shared markdown rendering of the sample validates
 	// cleanly against the facade's generated Solution-Blueprint schema.

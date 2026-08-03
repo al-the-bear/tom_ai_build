@@ -140,8 +140,8 @@ from standard organizational project governance procedures.
     'The canonical source of truth for the role, interest, influence, concerns, '
     'and engagement strategy of each stakeholder.',
   )
-  @SectionId('STKRG-STAK-LST')
-  @SectionIdPattern('STKRG-STAK-xxx')
+  @SectionId('STKRE-STAK-LST')
+  @SectionIdPattern('STKRE-STAK-xxx')
   @ContentHelp('Add one entry per stakeholder or group (STK-NNN).')
   @SerializationOrder(8)
   List<StakeholderRegisterEntry> stakeholderRegister = [];

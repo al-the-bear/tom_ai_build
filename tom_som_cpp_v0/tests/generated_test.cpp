@@ -549,7 +549,7 @@ void testLiveDocumentCase() {
      "live: nav node identity == byPath node");
 
   m::IdD00SolutionBlueprint idRoot = m::d00SolutionBlueprintMetaId(tree);
-  som::SomListMetaRef idRevs = m::idD00SolutionBlueprint_RVHST_REVS_LST(idRoot);
+  som::SomListMetaRef idRevs = m::idD00SolutionBlueprint_RVENT_REVS_LST(idRoot);
   m::NavDocumentControl navDc =
       m::navD00SolutionBlueprint_documentControl(navRoot);
   som::SomListMetaRef navRevs = m::navDocumentControl_revisionHistory(navDc);

@@ -267,29 +267,52 @@ class DocSpecsSchemaGenerator {
   /// Writes the full DocSpecs schema tree under `<outputRoot>/schemas/` and
   /// returns the written file paths (sorted).
   ///
-  /// The `schemas/` directory is owned wholesale by the generator, so any
-  /// subdirectory whose name is not a current schema id is **pruned** first.
-  /// Without this, a root that gets renamed or removed leaves a stale
-  /// `*.docspecs-schema.yaml` orphan behind — the per-language emitters write
-  /// new files but never delete obsolete ones, so regeneration was not
-  /// idempotent. Pruning keeps the committed tree a faithful image of the model.
+  /// The `schemas/` directory is owned wholesale by the generator, so anything
+  /// it does not write on this run is **pruned**. Without this, a root that gets
+  /// renamed or removed leaves a stale `*.docspecs-schema.yaml` orphan behind —
+  /// the per-language emitters write new files but never delete obsolete ones,
+  /// so regeneration was not idempotent. Pruning keeps the committed tree a
+  /// faithful image of the model.
+  ///
+  /// Pruning is **two-level**, because a schema can go stale two ways. A
+  /// subdirectory whose name is not a current schema id is dropped whole (the
+  /// root is gone). Inside a kept directory, a `*.docspecs-schema.yaml` whose
+  /// name is not the one [fileNameFor] produces is dropped too — since the
+  /// filename carries the schema **major** (`<id>.<major>.0.…`), a major bump
+  /// renames the file rather than overwriting it, so directory-level pruning
+  /// alone would leave the previous major's file frozen at the model shape it
+  /// happened to have when the version moved.
   static List<String> writeSchemaTree(
     String outputRoot,
     Map<String, DocSpecSchema> schemas,
   ) {
     final schemasDir = Directory(p.join(outputRoot, 'schemas'));
-    final keepIds = schemas.values.map((s) => s.id).toSet();
+    final keepFiles = <String, String>{
+      for (final schema in schemas.values) schema.id: fileNameFor(schema),
+    };
     if (schemasDir.existsSync()) {
       for (final entity in schemasDir.listSync()) {
-        if (entity is Directory && !keepIds.contains(p.basename(entity.path))) {
+        if (entity is! Directory) continue;
+        final id = p.basename(entity.path);
+        final keep = keepFiles[id];
+        if (keep == null) {
           entity.deleteSync(recursive: true);
+          continue;
+        }
+        for (final child in entity.listSync()) {
+          if (child is File &&
+              child.path.endsWith('.docspecs-schema.yaml') &&
+              p.basename(child.path) != keep) {
+            child.deleteSync();
+          }
         }
       }
     }
     final paths = <String>[];
     for (final schema in schemas.values) {
-      final file = File(p.join(outputRoot, 'schemas', schema.id, fileNameFor(schema)))
-        ..parent.createSync(recursive: true);
+      final file =
+          File(p.join(outputRoot, 'schemas', schema.id, fileNameFor(schema)))
+            ..parent.createSync(recursive: true);
       file.writeAsStringSync(toYamlString(schema));
       paths.add(file.path);
     }

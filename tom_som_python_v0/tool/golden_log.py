@@ -254,7 +254,7 @@ def main() -> None:
 
     meta_node("SBP")
     meta_node("SBP/documentControl")
-    meta_node("SBP/documentControl/RVHST-REVS-LST")
+    meta_node("SBP/documentControl/RVENT-REVS-LST")
     meta_node("SBP/introductionAndScope")
     meta_node("SBP/introductionAndScope/goals")
     meta_node("SBP/introductionAndScope/goals/content")
@@ -301,7 +301,7 @@ def main() -> None:
 
     meta_form("SBP/introductionAndScope/requirements/"
               "functionalRequirements/FRE-REQU-LST")
-    meta_form("SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST")
+    meta_form("SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CE-CHAR-LST")
     meta_form("SBP/experienceAndInterfaceDesign/experienceCodeSpecs/"
               "screenFlow/screenRouteMap/SCTREN-TRAN-LST")
 
@@ -341,9 +341,9 @@ def main() -> None:
         out.append("D\t%s" % id_ref.path)
 
     meta_id(m.SBP, m.d00SolutionBlueprint)
-    meta_id(m.SBP.RVHST_REVS_LST,
+    meta_id(m.SBP.RVENT_REVS_LST,
             m.d00SolutionBlueprint.documentControl.revisionHistory)
-    meta_id(m.SBP.RVHST_REVS_LST.item(0),
+    meta_id(m.SBP.RVENT_REVS_LST.item(0),
             m.d00SolutionBlueprint.documentControl.revisionHistory.item(0))
 
     out.append("SECTION\tdocspecs")

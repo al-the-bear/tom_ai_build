@@ -226,8 +226,8 @@ class SystemQualityGoals extends DocSpecsSection {
     ],
     'Lists interdependencies between quality attributes used to manage trade-offs.',
   )
-  @SectionId('ATTRI-ATTR-LST')
-  @SectionIdPattern('ATTRI-ATTR-xxx')
+  @SectionId('SYQG-ATTR-LST')
+  @SectionIdPattern('SYQG-ATTR-xxx')
   @ContentHelp('Add one entry per quality attribute interdependency.')
   @SerializationOrder(8)
   List<DocSpecsSection> attributeInterdependencies = [];
@@ -481,8 +481,8 @@ class QualityFramework extends DocSpecsSection {
     ],
     'Lists dependencies between quality categories used to reason about trade-offs.',
   )
-  @SectionId('CATEG-CATE-LST')
-  @SectionIdPattern('CATEG-CATE-xxx')
+  @SectionId('QLFWK-CATE-LST')
+  @SectionIdPattern('QLFWK-CATE-xxx')
   @ContentHelp('Add one entry per category dependency.')
   @SerializationOrder(7)
   List<DocSpecsSection> categoryDependencies = [];

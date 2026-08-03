@@ -150,10 +150,10 @@ func TestDotNotationSurface(t *testing.T) {
 
 	// List positions expose Item() with element accessors.
 	revs := D00SolutionBlueprintMeta.DocumentControl().RevisionHistory()
-	if revs.Path != "SBP/documentControl/RVHST-REVS-LST" {
+	if revs.Path != "SBP/documentControl/RVENT-REVS-LST" {
 		t.Errorf("dot list path = %q", revs.Path)
 	}
-	if got := revs.Item(3).Path; got != "SBP/documentControl/RVHST-REVS-LST-3" {
+	if got := revs.Item(3).Path; got != "SBP/documentControl/RVENT-REVS-LST-3" {
 		t.Errorf("dot list-item path = %q", got)
 	}
 	// The list node's metadata carries the section-id pattern.
@@ -184,15 +184,15 @@ func TestIdTreeSurface(t *testing.T) {
 		t.Errorf("SBP.Meta() != dot root Meta()")
 	}
 
-	// A hoisted list id agrees with the dot-notation position: RVHST_REVS_LST
+	// A hoisted list id agrees with the dot-notation position: RVENT_REVS_LST
 	// is hoisted onto the root ID type through the id-less documentControl /
 	// revisionHistory members.
 	revs := D00SolutionBlueprintMeta.DocumentControl().RevisionHistory()
-	hoisted := SBP.RVHST_REVS_LST()
+	hoisted := SBP.RVENT_REVS_LST()
 	if hoisted.Path != revs.Path {
 		t.Errorf("hoisted path = %q != dot path %q", hoisted.Path, revs.Path)
 	}
-	if mustMeta(t, "SBP.RVHST_REVS_LST", hoisted) != mustMeta(t, "revisions", revs) {
+	if mustMeta(t, "SBP.RVENT_REVS_LST", hoisted) != mustMeta(t, "revisions", revs) {
 		t.Errorf("hoisted Meta() != dot Meta()")
 	}
 	if got, want := hoisted.Item(0).Path, revs.Item(0).Path; got != want {

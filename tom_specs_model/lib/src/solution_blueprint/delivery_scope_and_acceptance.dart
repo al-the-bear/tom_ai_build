@@ -116,8 +116,8 @@ configuration files, deployment artifacts. Define for each:
     ],
     'Lists the individual software deliverables handed over as part of the delivery scope.',
   )
-  @SectionId('SWDLV-ITEM-LST')
-  @SectionIdPattern('SWDLV-ITEM-xxx')
+  @SectionId('DLVEN-ITEM-LST')
+  @SectionIdPattern('DLVEN-ITEM-xxx')
   @ContentHelp('Add one entry per software deliverable.')
   @SerializationOrder(1)
   List<DeliverableEntry> items = [];
@@ -150,8 +150,8 @@ delivery channel, language(s), and maintenance responsibility post-delivery.
     ],
     'Lists the individual documentation deliverables handed over as part of the delivery scope.',
   )
-  @SectionId('DCDLV-ITEM-LST')
-  @SectionIdPattern('DCDLV-ITEM-xxx')
+  @SectionId('DLVEN-ITEM-LST')
+  @SectionIdPattern('DLVEN-ITEM-xxx')
   @ContentHelp('Add one entry per documentation deliverable.')
   @SerializationOrder(1)
   List<DeliverableEntry> items = [];
@@ -185,8 +185,8 @@ assessment criteria, and ongoing refresh schedule.
     ],
     'Lists the individual training deliverables handed over as part of the delivery scope.',
   )
-  @SectionId('TRDLV-ITEM-LST')
-  @SectionIdPattern('TRDLV-ITEM-xxx')
+  @SectionId('DLVEN-ITEM-LST')
+  @SectionIdPattern('DLVEN-ITEM-xxx')
   @ContentHelp('Add one entry per training deliverable.')
   @SerializationOrder(1)
   List<DeliverableEntry> items = [];
@@ -220,8 +220,8 @@ response times, coverage period, and handover criteria.
     ],
     'Lists the individual support deliverables handed over as part of the delivery scope.',
   )
-  @SectionId('SPDLV-ITEM-LST')
-  @SectionIdPattern('SPDLV-ITEM-xxx')
+  @SectionId('DLVEN-ITEM-LST')
+  @SectionIdPattern('DLVEN-ITEM-xxx')
   @ContentHelp('Add one entry per support deliverable.')
   @SerializationOrder(1)
   List<DeliverableEntry> items = [];

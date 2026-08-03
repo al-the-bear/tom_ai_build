@@ -155,14 +155,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per login flow step.
-  mfade-mfad-lst:
-    prefix: MFADE_MFAD_LST
-    subsection-types:
-      mfade-mfad:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per MFA method definition.
   rlcmb-comb-lst:
     prefix: RLCMB_COMB_LST
     subsection-types:
@@ -187,14 +179,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per service-account lifecycle entry.
-  stepu-step-lst:
-    prefix: STEPU_STEP_LST
-    subsection-types:
-      stepu-step:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per step-up authentication step.
   ultre-item-lst:
     prefix: ULTRE_ITEM_LST
     subsection-types:
@@ -270,6 +254,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per custom security event.
+  suap-step-lst:
+    prefix: SUAP_STEP_LST
+    subsection-types:
+      suap-step:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per step-up authentication step.
   tncs-tena-lst:
     prefix: TNCS_TENA_LST
     subsection-types:
@@ -424,11 +416,13 @@ section-types:
       pattern: ^LGFLS-LOGI-.+$
       error-message: IDs of this section must match LGFLS-LOGI-xxx
     description: Add one entry per login flow step.
-  mfade-mfad:
-    prefix: MFADE_MFAD_
-    pattern-check-id:
-      pattern: ^MFADE-MFAD-.+$
-      error-message: IDs of this section must match MFADE-MFAD-xxx
+  mc-mfad-lst:
+    prefix: MC_MFAD_LST
+    subsection-types:
+      mc-mfad:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per MFA method definition.
   rlcmb-comb:
     prefix: RLCMB_COMB_
@@ -449,12 +443,6 @@ section-types:
       error-message: IDs of this section must match SACLC-SERV-xxx
     format: saclc-serv-form
     description: Add one entry per service-account lifecycle entry.
-  stepu-step:
-    prefix: STEPU_STEP_
-    pattern-check-id:
-      pattern: ^STEPU-STEP-.+$
-      error-message: IDs of this section must match STEPU-STEP-xxx
-    description: Add one entry per step-up authentication step.
   ultre-item:
     prefix: ULTRE_ITEM_
     subsection-types:
@@ -537,6 +525,12 @@ section-types:
       pattern: ^SEVT-CUST-.+$
       error-message: IDs of this section must match SEVT-CUST-xxx
     description: Add one entry per custom security event.
+  suap-step:
+    prefix: SUAP_STEP_
+    pattern-check-id:
+      pattern: ^SUAP-STEP-.+$
+      error-message: IDs of this section must match SUAP-STEP-xxx
+    description: Add one entry per step-up authentication step.
   tncs-tena:
     prefix: TNCS_TENA_
     pattern-check-id:
@@ -560,6 +554,12 @@ section-types:
     prefix: IDSOENCO
     format: idsoenco-form
     description: Connectivity and trust details.
+  mc-mfad:
+    prefix: MC_MFAD_
+    pattern-check-id:
+      pattern: ^MC-MFAD-.+$
+      error-message: IDs of this section must match MC-MFAD-xxx
+    description: Add one entry per MFA method definition.
   accopo:
     prefix: ACCOPO
     format: accopo-form
@@ -1330,7 +1330,7 @@ section-types:
   suap:
     prefix: SUAP
     subsection-types:
-      stepu-step-lst:
+      suap-step-lst:
         max-count: 1
     format: suap-form
     description: Step-Up and Adaptive Authentication.
@@ -1466,7 +1466,7 @@ section-types:
   mc:
     prefix: MC
     subsection-types:
-      mfade-mfad-lst:
+      mc-mfad-lst:
         max-count: 1
     format: mc-form
     description: Multi-Factor Authentication Configuration.

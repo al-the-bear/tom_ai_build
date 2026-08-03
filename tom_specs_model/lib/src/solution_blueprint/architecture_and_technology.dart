@@ -298,8 +298,8 @@ Provide a strategic overview of platform and technology selections.
     ],
     'The frameworks and libraries, with versions and license constraints, the system depends on.',
   )
-  @SectionId('FWREN-FRAM-LST')
-  @SectionIdPattern('FWREN-FRAM-xxx')
+  @SectionId('FRREEN-FRAM-LST')
+  @SectionIdPattern('FRREEN-FRAM-xxx')
   @ContentHelp('Add one entry per framework or library.')
   @SerializationOrder(4)
   List<FrameworkRequirementEntry> frameworks = [];
@@ -326,8 +326,8 @@ Provide a strategic overview of platform and technology selections.
     ],
     'The deployment targets — production, staging and distribution environments — the system is released to.',
   )
-  @SectionId('DETAEN-DEPL-LST')
-  @SectionIdPattern('DETAEN-DEPL-xxx')
+  @SectionId('DEPTARENT-DEPL-LST')
+  @SectionIdPattern('DEPTARENT-DEPL-xxx')
   @ContentHelp('Add one entry per deployment target.')
   @SerializationOrder(6)
   List<DeploymentTargetEntry> deploymentTargets = [];
@@ -3628,8 +3628,8 @@ Provide an overview of the design patterns and standards approach.
     'coding standards (e.g. Effective Dart / language style guide)',
     'SOLID principles — object-oriented design',
   ], 'The coding standards and style guidelines the code must comply with.')
-  @SectionId('COSTEN-CODI-LST')
-  @SectionIdPattern('COSTEN-CODI-xxx')
+  @SectionId('CSE-CODI-LST')
+  @SectionIdPattern('CSE-CODI-xxx')
   @ContentHelp('Add one entry per coding standard.')
   @SerializationOrder(3)
   List<CodingStandardEntry> codingStandards = [];
@@ -3639,8 +3639,8 @@ Provide an overview of the design patterns and standards approach.
     'coding standards (e.g. Effective Dart / language style guide)',
     'SOLID principles — object-oriented design',
   ], 'The development practices and workflow conventions the team must follow.')
-  @SectionId('DECOEN-DEVE-LST')
-  @SectionIdPattern('DECOEN-DEVE-xxx')
+  @SectionId('DCE-DEVE-LST')
+  @SectionIdPattern('DCE-DEVE-xxx')
   @ContentHelp('Add one entry per development convention.')
   @SerializationOrder(4)
   List<DevelopmentConventionEntry> developmentConventions = [];
@@ -3650,8 +3650,8 @@ Provide an overview of the design patterns and standards approach.
     'industry standards compliance (ISO/IEC / W3C / IETF)',
     'ISO/IEC 25010 — maintainability quality attributes',
   ], 'The industry standards the system is required to comply with.')
-  @SectionId('INSTEN-INDU-LST')
-  @SectionIdPattern('INSTEN-INDU-xxx')
+  @SectionId('ISE-INDU-LST')
+  @SectionIdPattern('ISE-INDU-xxx')
   @ContentHelp('Add one entry per industry standard.')
   @SerializationOrder(5)
   List<IndustryStandardEntry> industryStandards = [];
@@ -5254,8 +5254,8 @@ Provide an overview of the layering and modularization strategy.
   @StandardReferences([
     'Clean Architecture — dependency rule / layering',
   ], 'The software layers that make up the application.')
-  @SectionId('SOLAEN-SOFT-LST')
-  @SectionIdPattern('SOLAEN-SOFT-xxx')
+  @SectionId('SLE-SOFT-LST')
+  @SectionIdPattern('SLE-SOFT-xxx')
   @ContentHelp('Add one entry per software layer.')
   @SerializationOrder(2)
   List<SoftwareLayerEntry> softwareLayers = [];
@@ -5269,8 +5269,8 @@ Provide an overview of the layering and modularization strategy.
     'Domain-Driven Design — bounded contexts / modules',
     'SOLID principles — object-oriented design',
   ], 'The DDD bounded contexts that partition the application domain.')
-  @SectionId('BOCOEN-BOUN-LST')
-  @SectionIdPattern('BOCOEN-BOUN-xxx')
+  @SectionId('BCE-BOUN-LST')
+  @SectionIdPattern('BCE-BOUN-xxx')
   @ContentHelp('Add one entry per bounded context.')
   @SerializationOrder(4)
   List<BoundedContextEntry> boundedContexts = [];
@@ -5287,8 +5287,8 @@ Provide an overview of the layering and modularization strategy.
     ],
     'The modules that make up the application and their dependency information.',
   )
-  @SectionId('MOEN1-MODU-LST')
-  @SectionIdPattern('MOEN1-MODU-xxx')
+  @SectionId('MODENT-MODU-LST')
+  @SectionIdPattern('MODENT-MODU-xxx')
   @ContentHelp('Add one entry per module.')
   @SerializationOrder(6)
   List<ModuleEntry> modules = [];
@@ -5298,8 +5298,8 @@ Provide an overview of the layering and modularization strategy.
     'Domain-Driven Design — bounded contexts / modules',
     'ISO/IEC 25010 — maintainability / modularity quality attributes',
   ], 'The shared libraries and common code reused across the application.')
-  @SectionId('SHLIB-SHAR-LST')
-  @SectionIdPattern('SHLIB-SHAR-xxx')
+  @SectionId('SHLIEN-SHAR-LST')
+  @SectionIdPattern('SHLIEN-SHAR-xxx')
   @ContentHelp('Add one entry per shared library.')
   @SerializationOrder(7)
   List<SharedLibraryEntry> sharedLibraries = [];
@@ -7054,8 +7054,8 @@ Provide an overview of the development environment philosophy.
   @StandardReferences([
     'Twelve-Factor App — cloud-native methodology',
   ], 'The IDEs and editors required for the development environment.')
-  @SectionId('IDREEN-IDER-LST')
-  @SectionIdPattern('IDREEN-IDER-xxx')
+  @SectionId('IRE-IDER-LST')
+  @SectionIdPattern('IRE-IDER-xxx')
   @ContentHelp('Add one entry per IDE or editor.')
   @SerializationOrder(2)
   List<IdeRequirementEntry> ideRequirements = [];
@@ -7607,8 +7607,8 @@ class CiCdPipelineConfiguration extends DocSpecsSection {
   @StandardReferences([
     'CI/CD — continuous integration / delivery pipelines',
   ], 'The stages that make up the delivery pipeline.')
-  @SectionId('PISTEN-STAG-LST')
-  @SectionIdPattern('PISTEN-STAG-xxx')
+  @SectionId('PSE-STAG-LST')
+  @SectionIdPattern('PSE-STAG-xxx')
   @ContentHelp('Add one entry per pipeline stage.')
   @SerializationOrder(1)
   List<PipelineStageEntry> stages = [];
@@ -7617,8 +7617,8 @@ class CiCdPipelineConfiguration extends DocSpecsSection {
   @StandardReferences([
     'CI/CD — continuous integration / delivery pipelines',
   ], 'The build jobs that run within the delivery pipeline.')
-  @SectionId('PIJOEN-JOBS-LST')
-  @SectionIdPattern('PIJOEN-JOBS-xxx')
+  @SectionId('PJE-JOBS-LST')
+  @SectionIdPattern('PJE-JOBS-xxx')
   @ContentHelp('Add one entry per pipeline job.')
   @SerializationOrder(2)
   List<PipelineJobEntry> jobs = [];
@@ -7627,8 +7627,8 @@ class CiCdPipelineConfiguration extends DocSpecsSection {
   @StandardReferences([
     'CI/CD — continuous integration / delivery pipelines',
   ], 'The deployment environments targeted by the pipeline.')
-  @SectionId('DEENEN-ENVI-LST')
-  @SectionIdPattern('DEENEN-ENVI-xxx')
+  @SectionId('DEE-ENVI-LST')
+  @SectionIdPattern('DEE-ENVI-xxx')
   @ContentHelp('Add one entry per deployment environment.')
   @SerializationOrder(3)
   List<DeploymentEnvironmentEntry> environments = [];
@@ -9214,8 +9214,8 @@ Provide an overview of the reusability strategy and component library.
     'DRY — reusable component design',
     'SOLID principles — object-oriented design',
   ], 'The reusable UI components shared across the system.')
-  @SectionId('RUICMP-UICO-LST')
-  @SectionIdPattern('RUICMP-UICO-xxx')
+  @SectionId('RUCE-UICO-LST')
+  @SectionIdPattern('RUCE-UICO-xxx')
   @ContentHelp('Add one entry per UI component.')
   @SerializationOrder(4)
   List<ReusableUiComponentEntry> uiComponents = [];
@@ -9225,8 +9225,8 @@ Provide an overview of the reusability strategy and component library.
     'Domain-Driven Design — bounded contexts / modules',
     'ISO/IEC 25010 — reusability quality attributes',
   ], 'The reusable business logic components shared across the system.')
-  @SectionId('BUCOEN-BUSI-LST')
-  @SectionIdPattern('BUCOEN-BUSI-xxx')
+  @SectionId('BUSCOMENT-BUSI-LST')
+  @SectionIdPattern('BUSCOMENT-BUSI-xxx')
   @ContentHelp('Add one entry per business component.')
   @SerializationOrder(5)
   List<BusinessComponentEntry> businessComponents = [];
@@ -9236,8 +9236,8 @@ Provide an overview of the reusability strategy and component library.
     'DRY — reusable component design',
     'ISO/IEC 25010 — maintainability quality attributes',
   ], 'The reusable infrastructure components shared across the system.')
-  @SectionId('INCOEN-INFR-LST')
-  @SectionIdPattern('INCOEN-INFR-xxx')
+  @SectionId('INFCOMENT-INFR-LST')
+  @SectionIdPattern('INFCOMENT-INFR-xxx')
   @ContentHelp('Add one entry per infrastructure component.')
   @SerializationOrder(6)
   List<InfrastructureComponentEntry> infrastructureComponents = [];
@@ -10793,8 +10793,8 @@ Provide an overview of compatibility requirements and testing strategy.
     'POSIX / ISO/IEC 9945 — operating-system interface',
     'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
   ], 'The operating systems the system must support.')
-  @SectionId('OSCOEN-OSCO-LST')
-  @SectionIdPattern('OSCOEN-OSCO-xxx')
+  @SectionId('OCE-OSCO-LST')
+  @SectionIdPattern('OCE-OSCO-xxx')
   @ContentHelp('Add one entry per supported operating system.')
   @SerializationOrder(2)
   List<OsCompatibilityEntry> osCompatibility = [];
@@ -10804,8 +10804,8 @@ Provide an overview of compatibility requirements and testing strategy.
     'WHATWG / W3C — web platform / browser standards',
     'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
   ], 'The browsers the system must support.')
-  @SectionId('BRCOEN-BROW-LST')
-  @SectionIdPattern('BRCOEN-BROW-xxx')
+  @SectionId('BROCOMENT-BROW-LST')
+  @SectionIdPattern('BROCOMENT-BROW-xxx')
   @ContentHelp('Add one entry per supported browser.')
   @SerializationOrder(3)
   List<BrowserCompatibilityEntry> browserCompatibility = [];
@@ -10815,8 +10815,8 @@ Provide an overview of compatibility requirements and testing strategy.
     'ISO/IEC 9075 (SQL) — relational database standard',
     'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
   ], 'The databases the system must remain compatible with.')
-  @SectionId('DACOEN-DATA-LST')
-  @SectionIdPattern('DACOEN-DATA-xxx')
+  @SectionId('DATCOMENT-DATA-LST')
+  @SectionIdPattern('DATCOMENT-DATA-xxx')
   @ContentHelp('Add one entry per supported database.')
   @SerializationOrder(4)
   List<DatabaseCompatibilityEntry> databaseCompatibility = [];
@@ -10826,8 +10826,8 @@ Provide an overview of compatibility requirements and testing strategy.
     'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
     'ISO/IEC/IEEE 42010 — architecture description',
   ], 'The enterprise systems the system must integrate with.')
-  @SectionId('ESCE-ENTE-LST')
-  @SectionIdPattern('ESCE-ENTE-xxx')
+  @SectionId('ENSYCOEN-ENTE-LST')
+  @SectionIdPattern('ENSYCOEN-ENTE-xxx')
   @ContentHelp('Add one entry per enterprise system.')
   @SerializationOrder(5)
   List<EnterpriseSystemCompatibilityEntry> enterpriseSystemCompatibility = [];
@@ -10848,8 +10848,8 @@ Provide an overview of compatibility requirements and testing strategy.
     'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
     'ISO/IEC/IEEE 42010 — architecture description',
   ], 'The legacy systems the system must remain compatible with.')
-  @SectionId('LECOEN-LEGA-LST')
-  @SectionIdPattern('LECOEN-LEGA-xxx')
+  @SectionId('LCE-LEGA-LST')
+  @SectionIdPattern('LCE-LEGA-xxx')
   @ContentHelp('Add one entry per legacy system.')
   @SerializationOrder(7)
   List<LegacyCompatibilityEntry> legacyCompatibility = [];
@@ -10859,8 +10859,8 @@ Provide an overview of compatibility requirements and testing strategy.
     'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
     'ISO/IEC/IEEE 42010 — architecture description',
   ], 'The mobile platforms the system must support.')
-  @SectionId('MOCOEN-MOBI-LST')
-  @SectionIdPattern('MOCOEN-MOBI-xxx')
+  @SectionId('MOBCOMENT-MOBI-LST')
+  @SectionIdPattern('MOBCOMENT-MOBI-xxx')
   @ContentHelp('Add one entry per supported mobile platform.')
   @SerializationOrder(8)
   List<MobileCompatibilityEntry> mobileCompatibility = [];
@@ -10870,8 +10870,8 @@ Provide an overview of compatibility requirements and testing strategy.
     'ISO/IEC 25010 — compatibility (co-existence / interoperability)',
     'ISO/IEC/IEEE 42010 — architecture description',
   ], 'The third-party software the system must co-exist with.')
-  @SectionId('TPCE-THIR-LST')
-  @SectionIdPattern('TPCE-THIR-xxx')
+  @SectionId('THPACOEN-THIR-LST')
+  @SectionIdPattern('THPACOEN-THIR-xxx')
   @ContentHelp('Add one entry per third-party software product.')
   @SerializationOrder(9)
   List<ThirdPartyCompatibilityEntry> thirdPartyCompatibility = [];
@@ -12692,8 +12692,8 @@ Provide an overview of standards compliance strategy and roadmap.
     'ISO/IEC 25010 — product quality model',
     'ISO/IEC/IEEE 42010 — architecture description',
   ], 'The IT standards the system must comply with.')
-  @SectionId('ISCE-ITST-LST')
-  @SectionIdPattern('ISCE-ITST-xxx')
+  @SectionId('ITSTCOEN-ITST-LST')
+  @SectionIdPattern('ITSTCOEN-ITST-xxx')
   @ContentHelp('Add one entry per IT standard.')
   @SerializationOrder(2)
   List<ItStandardComplianceEntry> itStandards = [];
@@ -12703,8 +12703,8 @@ Provide an overview of standards compliance strategy and roadmap.
     'HL7 / FHIR / ISO 20022 — industry data-exchange standards',
     'ISO 9001 — quality management systems',
   ], 'The industry protocols the system must comply with.')
-  @SectionId('IPCE-INDU-LST')
-  @SectionIdPattern('IPCE-INDU-xxx')
+  @SectionId('INPRCOEN-INDU-LST')
+  @SectionIdPattern('INPRCOEN-INDU-xxx')
   @ContentHelp('Add one entry per industry protocol.')
   @SerializationOrder(3)
   List<IndustryProtocolComplianceEntry> industryProtocols = [];
@@ -12714,8 +12714,8 @@ Provide an overview of standards compliance strategy and roadmap.
     'ISO/IEC 25010 — product quality model',
     'ISO/IEC/IEEE 42010 — architecture description',
   ], 'The interface specification standards the system must follow.')
-  @SectionId('INSPEN-INTE-LST')
-  @SectionIdPattern('INSPEN-INTE-xxx')
+  @SectionId('INTSPEENT-INTE-LST')
+  @SectionIdPattern('INTSPEENT-INTE-xxx')
   @ContentHelp('Add one entry per interface specification.')
   @SerializationOrder(4)
   List<InterfaceSpecificationEntry> interfaceSpecifications = [];
@@ -12725,8 +12725,8 @@ Provide an overview of standards compliance strategy and roadmap.
     'GDPR — data protection regulation',
     'ISO/IEC 27001 — information security management',
   ], 'The regulatory frameworks the system must comply with.')
-  @SectionId('RECOEN-REGU-LST')
-  @SectionIdPattern('RECOEN-REGU-xxx')
+  @SectionId('RCE-REGU-LST')
+  @SectionIdPattern('RCE-REGU-xxx')
   @ContentHelp('Add one entry per regulation.')
   @SerializationOrder(5)
   List<RegulatoryComplianceEntry> regulatoryCompliance = [];
@@ -12736,8 +12736,8 @@ Provide an overview of standards compliance strategy and roadmap.
     'ISO/IEC 27001 — information security management',
     'ISO/IEC 27002 — information security controls',
   ], 'The security standards the system must comply with.')
-  @SectionId('SSCE-SECU-LST')
-  @SectionIdPattern('SSCE-SECU-xxx')
+  @SectionId('SESTCOEN-SECU-LST')
+  @SectionIdPattern('SESTCOEN-SECU-xxx')
   @ContentHelp('Add one entry per security standard.')
   @SerializationOrder(6)
   List<SecurityStandardComplianceEntry> securityStandards = [];
@@ -14587,8 +14587,8 @@ Provide an overview of server infrastructure strategy.
   @StandardReferences([
     'IaaS / cloud infrastructure — server provisioning',
   ], 'The server environments the system is deployed to.')
-  @SectionId('SEENEN-ENVI-LST')
-  @SectionIdPattern('SEENEN-ENVI-xxx')
+  @SectionId('SEE-ENVI-LST')
+  @SectionIdPattern('SEE-ENVI-xxx')
   @ContentHelp('Add one entry per server environment.')
   @SerializationOrder(2)
   List<ServerEnvironmentEntry> environments = [];
@@ -14597,8 +14597,8 @@ Provide an overview of server infrastructure strategy.
   @StandardReferences([
     'ISO/IEC/IEEE 42010 — architecture description',
   ], 'The server roles that make up the deployment.')
-  @SectionId('SEROEN-SERV-LST')
-  @SectionIdPattern('SEROEN-SERV-xxx')
+  @SectionId('SRE-SERV-LST')
+  @SectionIdPattern('SRE-SERV-xxx')
   @ContentHelp('Add one entry per server role.')
   @SerializationOrder(3)
   List<ServerRoleEntry> serverRoles = [];
@@ -16164,8 +16164,8 @@ Provide an overview of client requirements and support strategy.
   @StandardReferences([
     'WHATWG / W3C — web platform / browser standards',
   ], 'The web browsers the client must support.')
-  @SectionId('BRREEN-BROW-LST')
-  @SectionIdPattern('BRREEN-BROW-xxx')
+  @SectionId('BROREQENT-BROW-LST')
+  @SectionIdPattern('BROREQENT-BROW-xxx')
   @ContentHelp('Add one entry per supported web browser.')
   @SerializationOrder(3)
   List<BrowserRequirementEntry> browserRequirements = [];
@@ -16174,8 +16174,8 @@ Provide an overview of client requirements and support strategy.
   @StandardReferences([
     'ISO/IEC 25010 — performance efficiency / resource utilization',
   ], 'The desktop operating systems the client must support.')
-  @SectionId('DORE1-DESK-LST')
-  @SectionIdPattern('DORE1-DESK-xxx')
+  @SectionId('DEOSREEN-DESK-LST')
+  @SectionIdPattern('DEOSREEN-DESK-xxx')
   @ContentHelp('Add one entry per supported desktop operating system.')
   @SerializationOrder(4)
   List<DesktopOsRequirementEntry> desktopOsRequirements = [];
@@ -16184,8 +16184,8 @@ Provide an overview of client requirements and support strategy.
   @StandardReferences([
     'Android CDD / Apple HIG — mobile device platform requirements',
   ], 'The mobile platforms and devices the client must support.')
-  @SectionId('MDRE-MOBI-LST')
-  @SectionIdPattern('MDRE-MOBI-xxx')
+  @SectionId('MODEREEN-MOBI-LST')
+  @SectionIdPattern('MODEREEN-MOBI-xxx')
   @ContentHelp('Add one entry per supported mobile platform.')
   @SerializationOrder(5)
   List<MobileDeviceRequirementEntry> mobileRequirements = [];
@@ -18217,8 +18217,8 @@ Provide an overview of network strategy and architecture.
   @StandardReferences([
     'IETF RFCs (DNS / TLS / IPsec) — network protocol standards',
   ], 'The VPN requirements the network must satisfy.')
-  @SectionId('VPREEN-VPNR-LST')
-  @SectionIdPattern('VPREEN-VPNR-xxx')
+  @SectionId('VRE-VPNR-LST')
+  @SectionIdPattern('VRE-VPNR-xxx')
   @ContentHelp('Add one entry per VPN requirement.')
   @SerializationOrder(7)
   List<VpnRequirementEntry> vpnRequirements = [];
@@ -19934,8 +19934,8 @@ Provide an overview of backup and recovery strategy.
   @StandardReferences([
     'ISO/IEC 27031 — ICT business continuity / disaster recovery',
   ], 'The backup policies the system applies.')
-  @SectionId('BAPOEN-BACK-LST')
-  @SectionIdPattern('BAPOEN-BACK-xxx')
+  @SectionId('BPE-BACK-LST')
+  @SectionIdPattern('BPE-BACK-xxx')
   @ContentHelp('Add one entry per backup policy.')
   @SerializationOrder(3)
   List<BackupPolicyEntry> backupPolicies = [];
@@ -22740,8 +22740,8 @@ Provide an overview of monitoring and observability strategy.
   @StandardReferences([
     'Prometheus / Grafana — metrics & alerting',
   ], 'The alert definitions the system applies.')
-  @SectionId('ALDEEN-ALER-LST')
-  @SectionIdPattern('ALDEEN-ALER-xxx')
+  @SectionId('ALEDEFENT-ALER-LST')
+  @SectionIdPattern('ALEDEFENT-ALER-xxx')
   @ContentHelp('Add one entry per alert definition.')
   @SerializationOrder(7)
   List<AlertDefinitionEntry> alertDefinitions = [];
@@ -24293,8 +24293,8 @@ Provide an overview of maintenance strategy and policies.
   @StandardReferences([
     'ITIL 4 — change management',
   ], 'The maintenance windows the system schedules.')
-  @SectionId('MAWIEN-MAIN-LST')
-  @SectionIdPattern('MAWIEN-MAIN-xxx')
+  @SectionId('MWE-MAIN-LST')
+  @SectionIdPattern('MWE-MAIN-xxx')
   @ContentHelp('Add one entry per maintenance window.')
   @SerializationOrder(3)
   List<MaintenanceWindowEntry> maintenanceWindows = [];
@@ -25289,8 +25289,8 @@ Provide an overview of protocol and standards approach.
   @StandardReferences([
     'IETF RFC 9110 — HTTP semantics',
   ], 'The communication protocols the system supports.')
-  @SectionId('PREN-PROT-LST')
-  @SectionIdPattern('PREN-PROT-xxx')
+  @SectionId('PE-PROT-LST')
+  @SectionIdPattern('PE-PROT-xxx')
   @ContentHelp('Add one entry per protocol.')
   @SerializationOrder(2)
   List<ProtocolEntry> protocols = [];
@@ -26415,8 +26415,8 @@ Provide an overview of external connectivity landscape.
   @StandardReferences([
     'Enterprise Integration Patterns — messaging & integration',
   ], 'The external partner connections the system integrates with.')
-  @SectionId('EPCE-PART-LST')
-  @SectionIdPattern('EPCE-PART-xxx')
+  @SectionId('EXPACOEN-PART-LST')
+  @SectionIdPattern('EXPACOEN-PART-xxx')
   @ContentHelp('Add one entry per external partner connection.')
   @SerializationOrder(2)
   List<ExternalPartnerConnectionEntry> partnerConnections = [];
@@ -27611,8 +27611,8 @@ Provide an overview of system operation approach.
   @StandardReferences([
     'ITIL 4 — change enablement and maintenance windows',
   ], 'The catalog of scheduled maintenance procedures the system requires.')
-  @SectionId('MAINT-MAIN-LST')
-  @SectionIdPattern('MAINT-MAIN-xxx')
+  @SectionId('SO-MAIN-LST')
+  @SectionIdPattern('SO-MAIN-xxx')
   @ContentHelp('Add one entry per maintenance procedure.')
   @SerializationOrder(2)
   List<DocSpecsSection> maintenanceProcedures = [];
@@ -29224,8 +29224,8 @@ class AlertingConfiguration extends DocSpecsSection {
   @StandardReferences([
     'Prometheus — Alertmanager (routing, grouping, silencing)',
   ], 'The catalog of alert rules the system evaluates.')
-  @SectionId('ALRUEN-ALER-LST')
-  @SectionIdPattern('ALRUEN-ALER-xxx')
+  @SectionId('ALERULENT-ALER-LST')
+  @SectionIdPattern('ALERULENT-ALER-xxx')
   @ContentHelp('Add one entry per alert rule.')
   @SerializationOrder(3)
   List<AlertRuleEntry> alertRules = [];
@@ -29932,8 +29932,8 @@ class MetricsAndObservability extends DocSpecsSection {
   @StandardReferences([
     'Prometheus — metric types and exposition format',
   ], 'The catalog of custom application metrics the system emits.')
-  @SectionId('CUMEEN-CUST-LST')
-  @SectionIdPattern('CUMEEN-CUST-xxx')
+  @SectionId('CUSMETENT-CUST-LST')
+  @SectionIdPattern('CUSMETENT-CUST-xxx')
   @ContentHelp('Add one entry per custom metric.')
   @SerializationOrder(6)
   List<CustomMetricEntry> customMetrics = [];
@@ -30617,8 +30617,8 @@ class MonitoringDashboards extends DocSpecsSection {
   @StandardReferences([
     'Grafana — dashboard and panel design',
   ], 'The catalog of monitoring dashboards the system provides.')
-  @SectionId('DAEN-DASH-LST')
-  @SectionIdPattern('DAEN-DASH-xxx')
+  @SectionId('DASENT-DASH-LST')
+  @SectionIdPattern('DASENT-DASH-xxx')
   @ContentHelp('Add one entry per dashboard.')
   @SerializationOrder(2)
   List<DashboardEntry> dashboards = [];
@@ -30894,8 +30894,8 @@ class SlaAndSloMonitoring extends DocSpecsSection {
   @StandardReferences([
     'Google SRE — service level objectives (SLOs and SLIs)',
   ], 'The catalog of service level objectives the system commits to.')
-  @SectionId('SLEN-SLOS-LST')
-  @SectionIdPattern('SLEN-SLOS-xxx')
+  @SectionId('SE-SLOS-LST')
+  @SectionIdPattern('SE-SLOS-xxx')
   @ContentHelp('Add one entry per SLO.')
   @SerializationOrder(3)
   List<SloEntry> slos = [];
@@ -33229,8 +33229,8 @@ Provide an overview of IT security standards approach.
   @StandardReferences([
     'ISO/IEC 27001 — information security management system',
   ], 'The catalog of security standards and frameworks the system conforms to.')
-  @SectionId('SESTEN-STAN-LST')
-  @SectionIdPattern('SESTEN-STAN-xxx')
+  @SectionId('SSE-STAN-LST')
+  @SectionIdPattern('SSE-STAN-xxx')
   @ContentHelp('Add one entry per security standard.')
   @SerializationOrder(2)
   List<SecurityStandardEntry> standards = [];
@@ -35686,8 +35686,8 @@ Provide an overview of security audit strategy.
     ['ISO/IEC 27001 — internal audit and management review (Clause 9)'],
     'The catalog of individual security audit requirements the system must satisfy.',
   )
-  @SectionId('SEAUEN-AUDI-LST')
-  @SectionIdPattern('SEAUEN-AUDI-xxx')
+  @SectionId('SAE-AUDI-LST')
+  @SectionIdPattern('SAE-AUDI-xxx')
   @ContentHelp('Add one entry per security audit requirement.')
   @SerializationOrder(8)
   List<SecurityAuditEntry> auditEntries = [];

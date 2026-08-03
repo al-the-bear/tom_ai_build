@@ -3,6 +3,46 @@
 
 title-format: "# <!--[CLA]--> Current Landscape Assessment"
 section-types:
+  daenmien-enti-lst:
+    prefix: DAENMIEN_ENTI_LST
+    subsection-types:
+      daenmien-enti:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules."
+  sybupren-supp-lst:
+    prefix: SYBUPREN_SUPP_LST
+    subsection-types:
+      sybupren-supp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business process the system supports; note its role and execution frequency.
+  sybuunen-busi-lst:
+    prefix: SYBUUNEN_BUSI_LST
+    subsection-types:
+      sybuunen-busi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business unit using the system; note user count and dependency level.
+  symirien-risk-lst:
+    prefix: SYMIRIEN_RISK_LST
+    subsection-types:
+      symirien-risk:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per migration risk; capture probability, impact, mitigation, and contingency."
+  usgrimen-user-lst:
+    prefix: USGRIMEN_USER_LST
+    subsection-types:
+      usgrimen-user:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per user group needing special handling; note impact level and special considerations.
   repsdep-depe-lst:
     prefix: REPSDEP_DEPE_LST
     subsection-types:
@@ -11,14 +51,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per integration or dependency; capture direction, criticality, and how the link will be rebuilt or eliminated."
-  bupapo-item-lst:
-    prefix: BUPAPO_ITEM_LST
-    subsection-types:
-      bupapo-item:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per distinct business problem, each with its own root cause, quantified impact, and resolution outlook. Scope entries to strategic and financial outcomes rather than operational or technical detail."
   cubipr-proc-lst:
     prefix: CUBIPR_PROC_LST
     subsection-types:
@@ -63,6 +95,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per data source. Capture its current volume, record count, average record size, historical and projected growth, growth drivers, and archival/purge rates."
+  inhesu-frag-lst:
+    prefix: INHESU_FRAG_LST
+    subsection-types:
+      inhesu-frag:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation."
   mebaen-entr-lst:
     prefix: MEBAEN_ENTR_LST
     subsection-types:
@@ -71,6 +111,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per metric to be tracked, with its baseline value, target value, and improvement target."
+  migcon-esca-lst:
+    prefix: MIGCON_ESCA_LST
+    subsection-types:
+      migcon-esca:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority."
   miriin-indi-lst:
     prefix: MIRIIN_INDI_LST
     subsection-types:
@@ -79,14 +127,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per indicator set, describing the metrics, thresholds, and monitoring frequency that signal the risk."
-  oppapo-item-lst:
-    prefix: OPPAPO_ITEM_LST
-    subsection-types:
-      oppapo-item:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per distinct operational problem, each with its own root cause, impact, and workaround. Keep entries scoped to day-to-day operations rather than business or technical concerns."
   papor1-rela-lst:
     prefix: PAPOR1_RELA_LST
     subsection-types:
@@ -167,6 +207,54 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per replacement phase; capture scope, dates, and exit criteria for each."
+  sycoan-nonf-lst:
+    prefix: SYCOAN_NONF_LST
+    subsection-types:
+      sycoan-nonf:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per non-financial benefit (e.g. risk reduction, agility) to weigh in the ROI case."
+  sydasc-know-lst:
+    prefix: SYDASC_KNOW_LST
+    subsection-types:
+      sydasc-know:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per data-quality issue to address; note severity and remediation approach.
+  sykntr-crit-lst:
+    prefix: SYKNTR_CRIT_LST
+    subsection-types:
+      sykntr-crit:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per critical knowledge area at risk of being lost when the system is retired.
+  syrest-pred-lst:
+    prefix: SYREST_PRED_LST
+    subsection-types:
+      syrest-pred:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per predecessor system that must be replaced or addressed before this system can proceed.
+  syteas-know-lst:
+    prefix: SYTEAS_KNOW_LST
+    subsection-types:
+      syteas-know:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per significant known technical issue, defect, or deficiency affecting the system."
+  syteas-secu-lst:
+    prefix: SYTEAS_SECU_LST
+    subsection-types:
+      syteas-secu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per security vulnerability or compliance gap; note severity and remediation status.
   sytore-syst-lst:
     prefix: SYTORE_SYST_LST
     subsection-types:
@@ -175,14 +263,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per legacy system targeted for replacement; each entry captures its full technical, business, and migration assessment."
-  tepapo-item-lst:
-    prefix: TEPAPO_ITEM_LST
-    subsection-types:
-      tepapo-item:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per distinct technical problem, each with its own root cause, impact, and resolution outlook. Scope entries to technology, architecture, security, and maintainability concerns."
   woburu-busi-lst:
     prefix: WOBURU_BUSI_LST
     subsection-types:
@@ -255,22 +335,28 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per trigger, with its type (event, schedule, manual, system), source, condition, and frequency."
-  criti-crit-lst:
-    prefix: CRITI_CRIT_LST
+  carch-inte-lst:
+    prefix: CARCH_INTE_LST
     subsection-types:
-      criti-crit:
+      carch-inte:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: Add one entry per critical knowledge area at risk of being lost when the system is retired.
-  escal-esca-lst:
-    prefix: ESCAL_ESCA_LST
+    description: "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why."
+  carch-shar-lst:
+    prefix: CARCH_SHAR_LST
     subsection-types:
-      escal-esca:
+      carch-shar:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority."
+    description: "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it."
+  daenmien-enti:
+    prefix: DAENMIEN_ENTI_
+    pattern-check-id:
+      pattern: ^DAENMIEN-ENTI-.+$
+      error-message: IDs of this section must match DAENMIEN-ENTI-xxx
+    description: "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules."
   esent-syst-lst:
     prefix: ESENT_SYST_LST
     subsection-types:
@@ -308,22 +394,6 @@ section-types:
       esqua:
         max-count: 1
     description: An existing system entry (form).
-  fragi-frag-lst:
-    prefix: FRAGI_FRAG_LST
-    subsection-types:
-      fragi-frag:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation."
-  known-know-lst:
-    prefix: KNOWN_KNOW_LST
-    subsection-types:
-      known-know:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per data-quality issue to address; note severity and remediation approach.
   limet-know-lst:
     prefix: LIMET_KNOW_LST
     subsection-types:
@@ -348,14 +418,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per identified migration risk, each capturing its full lifecycle from identification through resolution."
-  monit-moni-lst:
-    prefix: MONIT_MONI_LST
-    subsection-types:
-      monit-moni:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken."
   msddo-mast-lst:
     prefix: MSDDO_MAST_LST
     subsection-types:
@@ -365,14 +427,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per master data domain (e.g. Customer, Product, Vendor). Capture its golden-record source, quality and volume, consuming systems and cadence, and ownership and improvement plans."
-  nonfi-nonf-lst:
-    prefix: NONFI_NONF_LST
-    subsection-types:
-      nonfi-nonf:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per non-financial benefit (e.g. risk reduction, agility) to weigh in the ROI case."
   ppgce-corr-lst:
     prefix: PPGCE_CORR_LST
     subsection-types:
@@ -382,14 +436,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per pain-point-to-gap relationship, naming both IDs and describing how they are linked (cause, contribution, or indication) and how strong the link is."
-  prede-pred-lst:
-    prefix: PREDE_PRED_LST
-    subsection-types:
-      prede-pred:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per predecessor system that must be replaced or addressed before this system can proceed.
   repol-rete-lst:
     prefix: REPOL_RETE_LST
     subsection-types:
@@ -399,46 +445,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per data category with a retention policy. Capture its retention period and trigger, legal basis, archival and deletion methods, and compliance/implementation status."
-  respo-resp-lst:
-    prefix: RESPO_RESP_LST
-    subsection-types:
-      respo-resp:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale."
-  riskb-risk-lst:
-    prefix: RISKB_RISK_LST
-    subsection-types:
-      riskb-risk:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers."
-  riskc-risk-lst:
-    prefix: RISKC_RISK_LST
-    subsection-types:
-      riskc-risk:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per risk category, naming the category and the kinds of migration risks it groups."
-  secur-secu-lst:
-    prefix: SECUR_SECU_LST
-    subsection-types:
-      secur-secu:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per security vulnerability or compliance gap; note severity and remediation status.
-  share-shar-lst:
-    prefix: SHARE_SHAR_LST
-    subsection-types:
-      share-shar:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it."
   shien-item-lst:
     prefix: SHIEN_ITEM_LST
     subsection-types:
@@ -447,6 +453,30 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per shared infrastructure component (e.g. a database cluster, message broker, identity provider). Capture its criticality, resilience, and the systems that depend on it."
+  sybupren-supp:
+    prefix: SYBUPREN_SUPP_
+    pattern-check-id:
+      pattern: ^SYBUPREN-SUPP-.+$
+      error-message: IDs of this section must match SYBUPREN-SUPP-xxx
+    description: Add one entry per business process the system supports; note its role and execution frequency.
+  sybuunen-busi:
+    prefix: SYBUUNEN_BUSI_
+    pattern-check-id:
+      pattern: ^SYBUUNEN-BUSI-.+$
+      error-message: IDs of this section must match SYBUUNEN-BUSI-xxx
+    description: Add one entry per business unit using the system; note user count and dependency level.
+  symirien-risk:
+    prefix: SYMIRIEN_RISK_
+    pattern-check-id:
+      pattern: ^SYMIRIEN-RISK-.+$
+      error-message: IDs of this section must match SYMIRIEN-RISK-xxx
+    description: "Add one entry per migration risk; capture probability, impact, mitigation, and contingency."
+  usgrimen-user:
+    prefix: USGRIMEN_USER_
+    pattern-check-id:
+      pattern: ^USGRIMEN-USER-.+$
+      error-message: IDs of this section must match USGRIMEN-USER-xxx
+    description: Add one entry per user group needing special handling; note impact level and special considerations.
   cpie-impr-lst:
     prefix: CPIE_IMPR_LST
     subsection-types:
@@ -506,14 +536,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per data domain. Capture its classification status, percentage classified, highest sensitivity level present, the classification owner, and when it was last reviewed."
-  deme-enti-lst:
-    prefix: DEME_ENTI_LST
-    subsection-types:
-      deme-enti:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules."
   dgpe-gove-lst:
     prefix: DGPE_GOVE_LST
     subsection-types:
@@ -548,36 +570,52 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution."
+  miri-moni-lst:
+    prefix: MIRI_MONI_LST
+    subsection-types:
+      miri-moni:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken."
+  miri-rbde-lst:
+    prefix: MIRI_RBDE_LST
+    subsection-types:
+      miri-rbde:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers."
+  miri-resp-lst:
+    prefix: MIRI_RESP_LST
+    subsection-types:
+      miri-resp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale."
+  miri-risk-lst:
+    prefix: MIRI_RISK_LST
+    subsection-types:
+      miri-risk:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per risk category, naming the category and the kinds of migration risks it groups."
+  pape-item-lst:
+    prefix: PAPE_ITEM_LST
+    subsection-types:
+      pape-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per distinct technical problem, each with its own root cause, impact, and resolution outlook. Scope entries to technology, architecture, security, and maintainability concerns."
   repsdep-depe:
     prefix: REPSDEP_DEPE_
     pattern-check-id:
       pattern: ^REPSDEP-DEPE-.+$
       error-message: IDs of this section must match REPSDEP-DEPE-xxx
     description: "Add one entry per integration or dependency; capture direction, criticality, and how the link will be rebuilt or eliminated."
-  sbpe-supp-lst:
-    prefix: SBPE_SUPP_LST
-    subsection-types:
-      sbpe-supp:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per business process the system supports; note its role and execution frequency.
-  sbue-busi-lst:
-    prefix: SBUE_BUSI_LST
-    subsection-types:
-      sbue-busi:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per business unit using the system; note user count and dependency level.
-  smre-risk-lst:
-    prefix: SMRE_RISK_LST
-    subsection-types:
-      smre-risk:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per migration risk; capture probability, impact, mitigation, and contingency."
   syde-item-lst:
     prefix: SYDE_ITEM_LST
     subsection-types:
@@ -674,43 +712,6 @@ section-types:
       esqua:
         max-count: 1
     description: An existing system entry (form).
-  ugie-user-lst:
-    prefix: UGIE_USER_LST
-    subsection-types:
-      ugie-user:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per user group needing special handling; note impact level and special considerations.
-  wfac-acto-lst:
-    prefix: WFAC_ACTO_LST
-    subsection-types:
-      wfac-acto:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per actor (role, system, department, external) taking part in this workflow, with their responsibilities and authorization level."
-  bupapo-item:
-    prefix: BUPAPO_ITEM_
-    subsection-types:
-      papocl:
-        max-count: 1
-      pprc:
-        max-count: 1
-      papoim:
-        max-count: 1
-      papoev:
-        max-count: 1
-      papowo:
-        max-count: 1
-      papore:
-        max-count: 1
-      papor1-rela-lst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^BUPAPO-ITEM-.+$
-      error-message: IDs of this section must match BUPAPO-ITEM-xxx
-    description: "Add one entry per distinct business problem, each with its own root cause, quantified impact, and resolution outlook. Scope entries to strategic and financial outcomes rather than operational or technical detail."
   cubipr-proc:
     prefix: CUBIPR_PROC_
     subsection-types:
@@ -766,55 +767,30 @@ section-types:
       pattern: ^DAVOEN-VOLU-.+$
       error-message: IDs of this section must match DAVOEN-VOLU-xxx
     description: "Add one entry per data source. Capture its current volume, record count, average record size, historical and projected growth, growth drivers, and archival/purge rates."
-  ipe-inte-lst:
-    prefix: IPE_INTE_LST
-    subsection-types:
-      ipe-inte:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why."
-  kie-know-lst:
-    prefix: KIE_KNOW_LST
-    subsection-types:
-      kie-know:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: "Add one entry per significant known technical issue, defect, or deficiency affecting the system."
+  inhesu-frag:
+    prefix: INHESU_FRAG_
+    pattern-check-id:
+      pattern: ^INHESU-FRAG-.+$
+      error-message: IDs of this section must match INHESU-FRAG-xxx
+    description: "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation."
   mebaen-entr:
     prefix: MEBAEN_ENTR_
     pattern-check-id:
       pattern: ^MEBAEN-ENTR-.+$
       error-message: IDs of this section must match MEBAEN-ENTR-xxx
     description: "Add one entry per metric to be tracked, with its baseline value, target value, and improvement target."
+  migcon-esca:
+    prefix: MIGCON_ESCA_
+    pattern-check-id:
+      pattern: ^MIGCON-ESCA-.+$
+      error-message: IDs of this section must match MIGCON-ESCA-xxx
+    description: "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority."
   miriin-indi:
     prefix: MIRIIN_INDI_
     pattern-check-id:
       pattern: ^MIRIIN-INDI-.+$
       error-message: IDs of this section must match MIRIIN-INDI-xxx
     description: "Add one entry per indicator set, describing the metrics, thresholds, and monitoring frequency that signal the risk."
-  oppapo-item:
-    prefix: OPPAPO_ITEM_
-    subsection-types:
-      papocl:
-        max-count: 1
-      pprc:
-        max-count: 1
-      papoim:
-        max-count: 1
-      papoev:
-        max-count: 1
-      papowo:
-        max-count: 1
-      papore:
-        max-count: 1
-      papor1-rela-lst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^OPPAPO-ITEM-.+$
-      error-message: IDs of this section must match OPPAPO-ITEM-xxx
-    description: "Add one entry per distinct operational problem, each with its own root cause, impact, and workaround. Keep entries scoped to day-to-day operations rather than business or technical concerns."
   papor1-rela:
     prefix: PAPOR1_RELA_
     pattern-check-id:
@@ -926,6 +902,42 @@ section-types:
       pattern: ^REPPHS-PHAS-.+$
       error-message: IDs of this section must match REPPHS-PHAS-xxx
     description: "Add one entry per replacement phase; capture scope, dates, and exit criteria for each."
+  sycoan-nonf:
+    prefix: SYCOAN_NONF_
+    pattern-check-id:
+      pattern: ^SYCOAN-NONF-.+$
+      error-message: IDs of this section must match SYCOAN-NONF-xxx
+    description: "Add one entry per non-financial benefit (e.g. risk reduction, agility) to weigh in the ROI case."
+  sydasc-know:
+    prefix: SYDASC_KNOW_
+    pattern-check-id:
+      pattern: ^SYDASC-KNOW-.+$
+      error-message: IDs of this section must match SYDASC-KNOW-xxx
+    description: Add one entry per data-quality issue to address; note severity and remediation approach.
+  sykntr-crit:
+    prefix: SYKNTR_CRIT_
+    pattern-check-id:
+      pattern: ^SYKNTR-CRIT-.+$
+      error-message: IDs of this section must match SYKNTR-CRIT-xxx
+    description: Add one entry per critical knowledge area at risk of being lost when the system is retired.
+  syrest-pred:
+    prefix: SYREST_PRED_
+    pattern-check-id:
+      pattern: ^SYREST-PRED-.+$
+      error-message: IDs of this section must match SYREST-PRED-xxx
+    description: Add one entry per predecessor system that must be replaced or addressed before this system can proceed.
+  syteas-know:
+    prefix: SYTEAS_KNOW_
+    pattern-check-id:
+      pattern: ^SYTEAS-KNOW-.+$
+      error-message: IDs of this section must match SYTEAS-KNOW-xxx
+    description: "Add one entry per significant known technical issue, defect, or deficiency affecting the system."
+  syteas-secu:
+    prefix: SYTEAS_SECU_
+    pattern-check-id:
+      pattern: ^SYTEAS-SECU-.+$
+      error-message: IDs of this section must match SYTEAS-SECU-xxx
+    description: Add one entry per security vulnerability or compliance gap; note severity and remediation status.
   sytore-syst:
     prefix: SYTORE_SYST_
     subsection-types:
@@ -957,27 +969,14 @@ section-types:
       pattern: ^SYTORE-SYST-.+$
       error-message: IDs of this section must match SYTORE-SYST-xxx
     description: "Add one entry per legacy system targeted for replacement; each entry captures its full technical, business, and migration assessment."
-  tepapo-item:
-    prefix: TEPAPO_ITEM_
+  wae-acto-lst:
+    prefix: WAE_ACTO_LST
     subsection-types:
-      papocl:
-        max-count: 1
-      pprc:
-        max-count: 1
-      papoim:
-        max-count: 1
-      papoev:
-        max-count: 1
-      papowo:
-        max-count: 1
-      papore:
-        max-count: 1
-      papor1-rela-lst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^TEPAPO-ITEM-.+$
-      error-message: IDs of this section must match TEPAPO-ITEM-xxx
-    description: "Add one entry per distinct technical problem, each with its own root cause, impact, and resolution outlook. Scope entries to technology, architecture, security, and maintainability concerns."
+      wae-acto:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: "Add one entry per actor (role, system, department, external) taking part in this workflow, with their responsibilities and authorization level."
   wae-part-ref:
     prefix: WAE_PART_REF
     subsection-types:
@@ -1051,12 +1050,18 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add the workflow steps in execution order, capturing the responsible actor, inputs/outputs, and whether each is manual, automatable and error-prone. Steps are listed here once: mark a step that needs human judgment or that fails often with the corresponding flag rather than repeating it in a second list."
-  criti-crit:
-    prefix: CRITI_CRIT_
+  carch-inte:
+    prefix: CARCH_INTE_
     pattern-check-id:
-      pattern: ^CRITI-CRIT-.+$
-      error-message: IDs of this section must match CRITI-CRIT-xxx
-    description: Add one entry per critical knowledge area at risk of being lost when the system is retired.
+      pattern: ^CARCH-INTE-.+$
+      error-message: IDs of this section must match CARCH-INTE-xxx
+    description: "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why."
+  carch-shar:
+    prefix: CARCH_SHAR_
+    pattern-check-id:
+      pattern: ^CARCH-SHAR-.+$
+      error-message: IDs of this section must match CARCH-SHAR-xxx
+    description: "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it."
   cubupr-proc:
     prefix: CUBUPR_PROC
     format: mermaid-flowchart
@@ -1081,12 +1086,6 @@ section-types:
     prefix: DASOIN_DATA
     format: mermaid
     description: Visual map of data sources by domain/category.
-  escal-esca:
-    prefix: ESCAL_ESCA_
-    pattern-check-id:
-      pattern: ^ESCAL-ESCA-.+$
-      error-message: IDs of this section must match ESCAL-ESCA-xxx
-    description: "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority."
   esent-syst:
     prefix: ESENT_SYST_
     subsection-types:
@@ -1125,18 +1124,6 @@ section-types:
       pattern: ^EXSDE-ITEM-.+$
       error-message: IDs of this section must match EXSDE-ITEM-xxx
     description: "Add one entry per external service or third-party provider the current systems rely on. Capture vendor, SLA, risk, and fallback for each."
-  fragi-frag:
-    prefix: FRAGI_FRAG_
-    pattern-check-id:
-      pattern: ^FRAGI-FRAG-.+$
-      error-message: IDs of this section must match FRAGI-FRAG-xxx
-    description: "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation."
-  known-know:
-    prefix: KNOWN_KNOW_
-    pattern-check-id:
-      pattern: ^KNOWN-KNOW-.+$
-      error-message: IDs of this section must match KNOWN-KNOW-xxx
-    description: Add one entry per data-quality issue to address; note severity and remediation approach.
   limet-know:
     prefix: LIMET_KNOW_
     pattern-check-id:
@@ -1179,12 +1166,6 @@ section-types:
   migcon-stra:
     prefix: MIGCON_STRA
     format: migcon-stra-form
-  monit-moni:
-    prefix: MONIT_MONI_
-    pattern-check-id:
-      pattern: ^MONIT-MONI-.+$
-      error-message: IDs of this section must match MONIT-MONI-xxx
-    description: "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken."
   msddo-mast:
     prefix: MSDDO_MAST_
     subsection-types:
@@ -1198,24 +1179,12 @@ section-types:
       pattern: ^MSDDO-MAST-.+$
       error-message: IDs of this section must match MSDDO-MAST-xxx
     description: "Add one entry per master data domain (e.g. Customer, Product, Vendor). Capture its golden-record source, quality and volume, consuming systems and cadence, and ownership and improvement plans."
-  nonfi-nonf:
-    prefix: NONFI_NONF_
-    pattern-check-id:
-      pattern: ^NONFI-NONF-.+$
-      error-message: IDs of this section must match NONFI-NONF-xxx
-    description: "Add one entry per non-financial benefit (e.g. risk reduction, agility) to weigh in the ROI case."
   ppgce-corr:
     prefix: PPGCE_CORR_
     pattern-check-id:
       pattern: ^PPGCE-CORR-.+$
       error-message: IDs of this section must match PPGCE-CORR-xxx
     description: "Add one entry per pain-point-to-gap relationship, naming both IDs and describing how they are linked (cause, contribution, or indication) and how strong the link is."
-  prede-pred:
-    prefix: PREDE_PRED_
-    pattern-check-id:
-      pattern: ^PREDE-PRED-.+$
-      error-message: IDs of this section must match PREDE-PRED-xxx
-    description: Add one entry per predecessor system that must be replaced or addressed before this system can proceed.
   prinma-depe:
     prefix: PRINMA_DEPE
     format: mermaid-flowchart
@@ -1233,36 +1202,6 @@ section-types:
       pattern: ^REPOL-RETE-.+$
       error-message: IDs of this section must match REPOL-RETE-xxx
     description: "Add one entry per data category with a retention policy. Capture its retention period and trigger, legal basis, archival and deletion methods, and compliance/implementation status."
-  respo-resp:
-    prefix: RESPO_RESP_
-    pattern-check-id:
-      pattern: ^RESPO-RESP-.+$
-      error-message: IDs of this section must match RESPO-RESP-xxx
-    description: "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale."
-  riskb-risk:
-    prefix: RISKB_RISK_
-    pattern-check-id:
-      pattern: ^RISKB-RISK-.+$
-      error-message: IDs of this section must match RISKB-RISK-xxx
-    description: "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers."
-  riskc-risk:
-    prefix: RISKC_RISK_
-    pattern-check-id:
-      pattern: ^RISKC-RISK-.+$
-      error-message: IDs of this section must match RISKC-RISK-xxx
-    description: "Add one entry per risk category, naming the category and the kinds of migration risks it groups."
-  secur-secu:
-    prefix: SECUR_SECU_
-    pattern-check-id:
-      pattern: ^SECUR-SECU-.+$
-      error-message: IDs of this section must match SECUR-SECU-xxx
-    description: Add one entry per security vulnerability or compliance gap; note severity and remediation status.
-  share-shar:
-    prefix: SHARE_SHAR_
-    pattern-check-id:
-      pattern: ^SHARE-SHAR-.+$
-      error-message: IDs of this section must match SHARE-SHAR-xxx
-    description: "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it."
   shien-item:
     prefix: SHIEN_ITEM_
     subsection-types:
@@ -1362,12 +1301,6 @@ section-types:
       pattern: ^DCSE-CLAS-.+$
       error-message: IDs of this section must match DCSE-CLAS-xxx
     description: "Add one entry per data domain. Capture its classification status, percentage classified, highest sensitivity level present, the classification owner, and when it was last reviewed."
-  deme-enti:
-    prefix: DEME_ENTI_
-    pattern-check-id:
-      pattern: ^DEME-ENTI-.+$
-      error-message: IDs of this section must match DEME-ENTI-xxx
-    description: "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules."
   depnt-depe:
     prefix: DEPNT_DEPE
     format: mermaid-flowchart
@@ -1410,28 +1343,55 @@ section-types:
       pattern: ^GAPE-ITEM-.+$
       error-message: IDs of this section must match GAPE-ITEM-xxx
     description: "Add one entry per identified gap between current capabilities and business needs, each with its category, severity, cost, drivers, and proposed resolution."
+  miri-moni:
+    prefix: MIRI_MONI_
+    pattern-check-id:
+      pattern: ^MIRI-MONI-.+$
+      error-message: IDs of this section must match MIRI-MONI-xxx
+    description: "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken."
+  miri-rbde:
+    prefix: MIRI_RBDE_
+    pattern-check-id:
+      pattern: ^MIRI-RBDE-.+$
+      error-message: IDs of this section must match MIRI-RBDE-xxx
+    description: "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers."
+  miri-resp:
+    prefix: MIRI_RESP_
+    pattern-check-id:
+      pattern: ^MIRI-RESP-.+$
+      error-message: IDs of this section must match MIRI-RESP-xxx
+    description: "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale."
+  miri-risk:
+    prefix: MIRI_RISK_
+    pattern-check-id:
+      pattern: ^MIRI-RISK-.+$
+      error-message: IDs of this section must match MIRI-RISK-xxx
+    description: "Add one entry per risk category, naming the category and the kinds of migration risks it groups."
+  pape-item:
+    prefix: PAPE_ITEM_
+    subsection-types:
+      papocl:
+        max-count: 1
+      pprc:
+        max-count: 1
+      papoim:
+        max-count: 1
+      papoev:
+        max-count: 1
+      papowo:
+        max-count: 1
+      papore:
+        max-count: 1
+      papor1-rela-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PAPE-ITEM-.+$
+      error-message: IDs of this section must match PAPE-ITEM-xxx
+    description: "Add one entry per distinct technical problem, each with its own root cause, impact, and resolution outlook. Scope entries to technology, architecture, security, and maintainability concerns."
   ppag-painp:
     prefix: PPAG_PAINP
     format: mermaid
     description: Pain points priority matrix (urgency vs impact).
-  sbpe-supp:
-    prefix: SBPE_SUPP_
-    pattern-check-id:
-      pattern: ^SBPE-SUPP-.+$
-      error-message: IDs of this section must match SBPE-SUPP-xxx
-    description: Add one entry per business process the system supports; note its role and execution frequency.
-  sbue-busi:
-    prefix: SBUE_BUSI_
-    pattern-check-id:
-      pattern: ^SBUE-BUSI-.+$
-      error-message: IDs of this section must match SBUE-BUSI-xxx
-    description: Add one entry per business unit using the system; note user count and dependency level.
-  smre-risk:
-    prefix: SMRE_RISK_
-    pattern-check-id:
-      pattern: ^SMRE-RISK-.+$
-      error-message: IDs of this section must match SMRE-RISK-xxx
-    description: "Add one entry per migration risk; capture probability, impact, mitigation, and contingency."
   syde-item:
     prefix: SYDE_ITEM_
     subsection-types:
@@ -1474,21 +1434,6 @@ section-types:
       pattern: ^SYIN-ITEM-.+$
       error-message: IDs of this section must match SYIN-ITEM-xxx
     description: "Add one entry per active integration between systems. Capture its type, pattern, protocol, data format, throughput, and monitoring."
-  ugie-user:
-    prefix: UGIE_USER_
-    pattern-check-id:
-      pattern: ^UGIE-USER-.+$
-      error-message: IDs of this section must match UGIE-USER-xxx
-    description: Add one entry per user group needing special handling; note impact level and special considerations.
-  wfac-acto:
-    prefix: WFAC_ACTO_
-    subsection-types:
-      wae-part-ref:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^WFAC-ACTO-.+$
-      error-message: IDs of this section must match WFAC-ACTO-xxx
-    description: "Document all actors including their roles, responsibilities, authorization levels, and involvement pattern."
   cuwf-work:
     prefix: CUWF_WORK
     subsection-types:
@@ -1498,7 +1443,7 @@ section-types:
         max-count: 1
       wse-step-lst:
         max-count: 1
-      wfac-acto-lst:
+      wae-acto-lst:
         max-count: 1
       woinen-inpu-lst:
         max-count: 1
@@ -1529,18 +1474,6 @@ section-types:
     prefix: DVAG_GROW
     format: mermaid
     description: Growth trend visualization.
-  ipe-inte:
-    prefix: IPE_INTE_
-    pattern-check-id:
-      pattern: ^IPE-INTE-.+$
-      error-message: IDs of this section must match IPE-INTE-xxx
-    description: "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why."
-  kie-know:
-    prefix: KIE_KNOW_
-    pattern-check-id:
-      pattern: ^KIE-KNOW-.+$
-      error-message: IDs of this section must match KIE-KNOW-xxx
-    description: "Add one entry per significant known technical issue, defect, or deficiency affecting the system."
   miri-gove:
     prefix: MIRI_GOVE
     format: miri-gove-form
@@ -1591,6 +1524,15 @@ section-types:
     prefix: PPGC_CORR
     format: mermaid
     description: Visual correlation between pain points and gaps.
+  wae-acto:
+    prefix: WAE_ACTO_
+    subsection-types:
+      wae-part-ref:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^WAE-ACTO-.+$
+      error-message: IDs of this section must match WAE-ACTO-xxx
+    description: "Document all actors including their roles, responsibilities, authorization levels, and involvement pattern."
   wode-work:
     prefix: WODE_WORK
     format: mermaid-flowchart
@@ -1632,7 +1574,7 @@ section-types:
     subsection-types:
       bpps:
         max-count: 1
-      bupapo-item-lst:
+      pape-item-lst:
         max-count: 1
     description: 1.3.2. Business Pain Points.
   cubupr:
@@ -1823,7 +1765,7 @@ section-types:
   inhesu:
     prefix: INHESU
     subsection-types:
-      fragi-frag-lst:
+      inhesu-frag-lst:
         max-count: 1
     description: 1.1.3.5. Integration Health Summary.
   integr:
@@ -1861,7 +1803,7 @@ section-types:
         max-count: 1
       mgmls-mile-lst:
         max-count: 1
-      escal-esca-lst:
+      migcon-esca-lst:
         max-count: 1
     description: Migration considerations.
   mirias:
@@ -1921,7 +1863,7 @@ section-types:
     subsection-types:
       opps:
         max-count: 1
-      oppapo-item-lst:
+      pape-item-lst:
         max-count: 1
     description: 1.3.1. Operational Pain Points.
   papocl:
@@ -1987,9 +1929,9 @@ section-types:
         max-count: 1
       sbcg:
         max-count: 1
-      sbue-busi-lst:
+      sybuunen-busi-lst:
         max-count: 1
-      sbpe-supp-lst:
+      sybupren-supp-lst:
         max-count: 1
     description: Business value and criticality assessment.
   sycoan:
@@ -2001,7 +1943,7 @@ section-types:
         max-count: 1
       scab:
         max-count: 1
-      nonfi-nonf-lst:
+      sycoan-nonf-lst:
         max-count: 1
     description: Financial analysis for replacement decision.
   sydasc:
@@ -2011,9 +1953,9 @@ section-types:
         max-count: 1
       sydascmi:
         max-count: 1
-      deme-enti-lst:
+      daenmien-enti-lst:
         max-count: 1
-      known-know-lst:
+      sydasc-know-lst:
         max-count: 1
     description: Data migration scope and assessment.
   syinmo:
@@ -2035,7 +1977,7 @@ section-types:
   sykntr:
     prefix: SYKNTR
     subsection-types:
-      criti-crit-lst:
+      sykntr-crit-lst:
         max-count: 1
     description: Documentation and knowledge transfer status.
   symipl:
@@ -2045,7 +1987,7 @@ section-types:
         max-count: 1
       smpc:
         max-count: 1
-      smre-risk-lst:
+      symirien-risk-lst:
         max-count: 1
     description: Per-system migration considerations.
   syrest:
@@ -2057,7 +1999,7 @@ section-types:
         max-count: 1
       repphs-phas-lst:
         max-count: 1
-      prede-pred-lst:
+      syrest-pred-lst:
         max-count: 1
     description: Detailed replacement approach.
   syteas:
@@ -2069,9 +2011,9 @@ section-types:
         max-count: 1
       staq:
         max-count: 1
-      kie-know-lst:
+      syteas-know-lst:
         max-count: 1
-      secur-secu-lst:
+      syteas-secu-lst:
         max-count: 1
     description: Technical stack and architecture assessment.
   syusim:
@@ -2083,7 +2025,7 @@ section-types:
         max-count: 1
       suia:
         max-count: 1
-      ugie-user-lst:
+      usgrimen-user-lst:
         max-count: 1
     description: User impact and change management needs.
   tepapo:
@@ -2091,7 +2033,7 @@ section-types:
     subsection-types:
       tpps:
         max-count: 1
-      tepapo-item-lst:
+      pape-item-lst:
         max-count: 1
     description: 1.3.3. Technical Pain Points.
   wosuta:
@@ -2107,9 +2049,9 @@ section-types:
         max-count: 1
       carch-depl:
         max-count: 1
-      ipe-inte-lst:
+      carch-inte-lst:
         max-count: 1
-      share-shar-lst:
+      carch-shar-lst:
         max-count: 1
     description: 1.1.2. Current Architecture.
   depnt:
@@ -2363,13 +2305,13 @@ section-types:
         max-count: 1
       mirire:
         max-count: 1
-      riskc-risk-lst:
+      miri-risk-lst:
         max-count: 1
-      riskb-risk-lst:
+      miri-rbde-lst:
         max-count: 1
-      monit-moni-lst:
+      miri-moni-lst:
         max-count: 1
-      respo-resp-lst:
+      miri-resp-lst:
         max-count: 1
       mgrsk-item-lst:
         max-count: 1

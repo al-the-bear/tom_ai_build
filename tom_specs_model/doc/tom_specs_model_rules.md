@@ -725,13 +725,16 @@ A `List<T>` field is a distinct document section (§4 rule 2) and needs its
 <elementId>-<FIELDSUFFIX>-xxx     (numbering @SectionIdPattern)
 ```
 
-- `<elementId>` is an **element mnemonic** — normally the class-level
-  `@SectionId` of the element type `T`, which is what the majority of container
-  ids use. It is a naming *convention*, not a machine-checked derivation: where
-  `T` is the untyped `DocSpecsSection` there is no element class id to take, and
-  a number of container ids carry a mnemonic derived from the element class name
-  rather than its `@SectionId`. Read the prefix as "which kind of thing this list
-  holds", not as a key you can resolve back to a class.
+- `<elementId>` is **not authored — it is derived**. It *is* the class-level
+  `@SectionId` of the element type `T`, so the prefix is a key that resolves
+  back to a class rather than a mnemonic that merely resembles one. Where `T`
+  is the untyped `DocSpecsSection` there is no element class, and the prefix is
+  the **owning class's** `@SectionId` — matching §7.3, since such a list holds
+  free-text sub-sections of its parent and nothing else. The two cases together
+  make the rule total: every list container id has exactly one correct prefix,
+  and the validator computes it (§7.4). Renaming an element class's id
+  therefore means updating every container id that points at it; the validator
+  names each one.
 - `<FIELDSUFFIX>` is a **hand-authored 4-character mnemonic for the field**,
   written in uppercase alphanumerics. The default is the first four letters of
   the field name (`systems` → `SYST`, `inScopeProcesses` → `INSC`), and most
@@ -756,11 +759,25 @@ The field suffix is what makes the id unique, and it works because Dart forbids
 duplicate field names within a class — so two same-type lists in one class (e.g.
 `ProcessScopeSummary.inScopeProcesses` and `outOfScopeProcesses`) get **distinct**
 container ids (`PRSCEN-INSC-LST` vs `PRSCEN-OUTO-LST`) instead of colliding.
+Since the prefix is derived, the suffix carries the whole burden: where two
+sibling lists share a prefix *and* their first four letters (`MigrationRisks`'s
+`riskCategories` / `riskBasedDecisions`), one of them takes a hand-picked
+mnemonic (`MIRI-RISK-LST` / `MIRI-RBDE-LST`). The per-class uniqueness check
+(§7.4) is what forces that choice.
 
-**Neither token's derivation is machine-verified.** The validator checks the
-*shape* of the pair and its uniqueness properties (§7.4) — it does not
-recompute the prefix from the element class or the suffix from the field name.
-Getting a mnemonic right is an authoring responsibility.
+**The prefix is machine-verified; the suffix is not.** The validator recomputes
+`<elementId>` from the element class — or from the owning class for a
+`List<DocSpecsSection>` — and rejects any container id that does not match, so
+the prefix cannot drift from the class it names. The 4-character suffix stays an
+authoring judgement: the validator checks that it is unique among siblings
+(§7.4), not that it reads well.
+
+**`@Reference` list fields are outside this rule, not an omission.** A reference
+list points at sections owned elsewhere, so it carries no container/pattern pair
+at all (§7.4 list-coverage). Its field-level id is a §7.3 inline sub-section id
+with a trailing `-REF` — `WorkflowActorEntry.participatingSteps` is
+`WAE-PART-REF`: the *owning* class's `@SectionId` plus the field suffix, with no
+`-LST`/`-xxx` twin and no element prefix.
 
 ### 7.3 Inline sub-section ids
 
@@ -783,15 +800,19 @@ have needed an extra parent discriminator folded into every container id).
   suffix guarantees this by construction; the validator enforces it as a guard,
   so a later-added second list cannot silently collide. Error tag:
   `§10.2 @SectionId per-class uniqueness`.
+- **Container prefix:** the `<elementId>` token of a container id **is** the
+  element type's class-level `@SectionId` — or, for a `List<DocSpecsSection>`,
+  the owning class's (§7.2). Recomputed, not merely shape-checked. Error tag:
+  `§10.2 @SectionId container prefix`.
 - **Type-consistency:** a given container id maps to **exactly one** element type.
   Error tag: `§10.2 @SectionId consistency`.
 - **Pattern pairing:** the `@SectionIdPattern` must mirror the container
   `@SectionId` (`-LST` ↔ `-xxx`). Error tag:
   `§10.2 @SectionId/@SectionIdPattern pairing`.
-- **List coverage:** every `List<T>` field of section elements must carry the
-  container/pattern pair. The only exemption is `@Reference` list fields, which
-  are pointers rather than owned sub-sections. Error tag:
-  `§10.2 @SectionIdPattern list-coverage`.
+- **List coverage:** every `List<T>` field of section elements — a complex `T`
+  or the untyped `DocSpecsSection` — must carry the container/pattern pair. The
+  only exemption is `@Reference` list fields, which are pointers rather than
+  owned sub-sections. Error tag: `§10.2 @SectionIdPattern list-coverage`.
 
 **Cross-class sharing is legitimate.** Two *different* classes that each declare a
 list of the same element type *with the same field name* share one container id

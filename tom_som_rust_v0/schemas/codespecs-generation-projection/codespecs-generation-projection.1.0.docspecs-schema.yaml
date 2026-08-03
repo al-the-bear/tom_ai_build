@@ -3,6 +3,246 @@
 
 title-format: "# <!--[CGP]--> CodeSpecs Generation Projection"
 section-types:
+  aledefent-aler-lst:
+    prefix: ALEDEFENT_ALER_LST
+    subsection-types:
+      aledefent-aler:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per alert definition.
+  alerulent-aler-lst:
+    prefix: ALERULENT_ALER_LST
+    subsection-types:
+      alerulent-aler:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per alert rule.
+  brocoment-brow-lst:
+    prefix: BROCOMENT_BROW_LST
+    subsection-types:
+      brocoment-brow:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per supported browser.
+  broreqent-brow-lst:
+    prefix: BROREQENT_BROW_LST
+    subsection-types:
+      broreqent-brow:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per supported web browser.
+  buscoment-busi-lst:
+    prefix: BUSCOMENT_BUSI_LST
+    subsection-types:
+      buscoment-busi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per business component.
+  comstaent-stat-lst:
+    prefix: COMSTAENT_STAT_LST
+    subsection-types:
+      comstaent-stat:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component state.
+  cusmetent-cust-lst:
+    prefix: CUSMETENT_CUST_LST
+    subsection-types:
+      cusmetent-cust:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per custom metric.
+  datcoment-data-lst:
+    prefix: DATCOMENT_DATA_LST
+    subsection-types:
+      datcoment-data:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per supported database.
+  deptarent-depl-lst:
+    prefix: DEPTARENT_DEPL_LST
+    subsection-types:
+      deptarent-depl:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per deployment target.
+  infcoment-infr-lst:
+    prefix: INFCOMENT_INFR_LST
+    subsection-types:
+      infcoment-infr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per infrastructure component.
+  intspeent-inte-lst:
+    prefix: INTSPEENT_INTE_LST
+    subsection-types:
+      intspeent-inte:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per interface specification.
+  mobcoment-mobi-lst:
+    prefix: MOBCOMENT_MOBI_LST
+    subsection-types:
+      mobcoment-mobi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per supported mobile platform.
+  repchaent-char-lst:
+    prefix: REPCHAENT_CHAR_LST
+    subsection-types:
+      repchaent-char:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per chart shown in the section.
+  repcolent-colu-lst:
+    prefix: REPCOLENT_COLU_LST
+    subsection-types:
+      repcolent-colu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per column in the section table.
+  repschent-sche-lst:
+    prefix: REPSCHENT_SCHE_LST
+    subsection-types:
+      repschent-sche:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report generation schedule.
+  deosreen-desk-lst:
+    prefix: DEOSREEN_DESK_LST
+    subsection-types:
+      deosreen-desk:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per supported desktop operating system.
+  elvaruen-vali-lst:
+    prefix: ELVARUEN_VALI_LST
+    subsection-types:
+      elvaruen-vali:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per validation rule.
+  ensycoen-ente-lst:
+    prefix: ENSYCOEN_ENTE_LST
+    subsection-types:
+      ensycoen-ente:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per enterprise system.
+  expacoen-part-lst:
+    prefix: EXPACOEN_PART_LST
+    subsection-types:
+      expacoen-part:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per external partner connection.
+  inprcoen-indu-lst:
+    prefix: INPRCOEN_INDU_LST
+    subsection-types:
+      inprcoen-indu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per industry protocol.
+  itstcoen-itst-lst:
+    prefix: ITSTCOEN_ITST_LST
+    subsection-types:
+      itstcoen-itst:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per IT standard.
+  modereen-mobi-lst:
+    prefix: MODEREEN_MOBI_LST
+    subsection-types:
+      modereen-mobi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per supported mobile platform.
+  screruen-resp-lst:
+    prefix: SCRERUEN_RESP_LST
+    subsection-types:
+      screruen-resp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per responsive rule.
+  sestcoen-secu-lst:
+    prefix: SESTCOEN_SECU_LST
+    subsection-types:
+      sestcoen-secu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per security standard.
+  syercoen-erro-lst:
+    prefix: SYERCOEN_ERRO_LST
+    subsection-types:
+      syercoen-erro:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per system error code.
+  tabadeen-tabb-lst:
+    prefix: TABADEEN_TABB_LST
+    subsection-types:
+      tabadeen-tabb:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per tab bar or segmented control.
+  thpacoen-thir-lst:
+    prefix: THPACOEN_THIR_LST
+    subsection-types:
+      thpacoen-thir:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per third-party software product.
+  uicoment-comp-lst:
+    prefix: UICOMENT_COMP_LST
+    subsection-types:
+      uicoment-comp:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per catalog component.
+  utmeiten-menu-lst:
+    prefix: UTMEITEN_MENU_LST
+    subsection-types:
+      utmeiten-menu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per utility menu item.
+  utnaiten-item-lst:
+    prefix: UTNAITEN_ITEM_LST
+    subsection-types:
+      utnaiten-item:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per utility navigation item.
   reskref-reso-lst:
     prefix: RESKREF_RESO_LST
     subsection-types:
@@ -35,21 +275,31 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per accessibility standard.
-  aldeen-aler-lst:
-    prefix: ALDEEN_ALER_LST
+  aledefent-aler:
+    prefix: ALEDEFENT_ALER_
     subsection-types:
-      aldeen-aler:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
+      adec:
+        max-count: 1
+      ader:
+        max-count: 1
+      aden:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^ALEDEFENT-ALER-.+$
+      error-message: IDs of this section must match ALEDEFENT-ALER-xxx
     description: Add one entry per alert definition.
-  alruen-aler-lst:
-    prefix: ALRUEN_ALER_LST
+  alerulent-aler:
+    prefix: ALERULENT_ALER_
     subsection-types:
-      alruen-aler:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
+      aret:
+        max-count: 1
+      arer:
+        max-count: 1
+      areo:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^ALERULENT-ALER-.+$
+      error-message: IDs of this section must match ALERULENT-ALER-xxx
     description: Add one entry per alert rule.
   alsuru-supp-lst:
     prefix: ALSURU_SUPP_LST
@@ -59,45 +309,52 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per suppression or maintenance window.
-  bapoen-back-lst:
-    prefix: BAPOEN_BACK_LST
+  brocoment-brow:
+    prefix: BROCOMENT_BROW_
     subsection-types:
-      bapoen-back:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per backup policy.
-  bocoen-boun-lst:
-    prefix: BOCOEN_BOUN_LST
-    subsection-types:
-      bocoen-boun:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per bounded context.
-  brcoen-brow-lst:
-    prefix: BRCOEN_BROW_LST
-    subsection-types:
-      brcoen-brow:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
+      brcoensu:
+        max-count: 1
+      bcef:
+        max-count: 1
+      bcem:
+        max-count: 1
+      brcoente:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^BROCOMENT-BROW-.+$
+      error-message: IDs of this section must match BROCOMENT-BROW-xxx
     description: Add one entry per supported browser.
-  brreen-brow-lst:
-    prefix: BRREEN_BROW_LST
+  broreqent-brow:
+    prefix: BROREQENT_BROW_
     subsection-types:
-      brreen-brow:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
+      bres:
+        max-count: 1
+      bref:
+        max-count: 1
+      bret:
+        max-count: 1
+      brei:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^BROREQENT-BROW-.+$
+      error-message: IDs of this section must match BROREQENT-BROW-xxx
     description: Add one entry per supported web browser.
-  bucoen-busi-lst:
-    prefix: BUCOEN_BUSI_LST
+  buscoment-busi:
+    prefix: BUSCOMENT_BUSI_
     subsection-types:
-      bucoen-busi:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
+      bced:
+        max-count: 1
+      bucoenin:
+        max-count: 1
+      bucoende:
+        max-count: 1
+      bcet:
+        max-count: 1
+      bcer:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^BUSCOMENT-BUSI-.+$
+      error-message: IDs of this section must match BUSCOMENT-BUSI-xxx
     description: Add one entry per business component.
   cliapp-clie-lst:
     prefix: CLIAPP_CLIE_LST
@@ -107,46 +364,48 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per client application of the system. A client that is not listed here does not exist, however thoroughly the requirement subsections below describe the machines it would run on."
-  costen-codi-lst:
-    prefix: COSTEN_CODI_LST
+  comstaent-stat:
+    prefix: COMSTAENT_STAT_
     subsection-types:
-      costen-codi:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per coding standard.
-  cumeen-cust-lst:
-    prefix: CUMEEN_CUST_LST
-    subsection-types:
-      cumeen-cust:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
+      csev:
+        max-count: 1
+      cseb:
+        max-count: 1
+      cset:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^COMSTAENT-STAT-.+$
+      error-message: IDs of this section must match COMSTAENT-STAT-xxx
+    description: Add one entry per component state.
+  cusmetent-cust:
+    prefix: CUSMETENT_CUST_
+    pattern-check-id:
+      pattern: ^CUSMETENT-CUST-.+$
+      error-message: IDs of this section must match CUSMETENT-CUST-xxx
     description: Add one entry per custom metric.
-  dacoen-data-lst:
-    prefix: DACOEN_DATA_LST
+  dasent-dash-lst:
+    prefix: DASENT_DASH_LST
     subsection-types:
-      dacoen-data:
+      dasent-dash:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
+    description: Add one entry per dashboard.
+  datcoment-data:
+    prefix: DATCOMENT_DATA_
+    subsection-types:
+      dces:
+        max-count: 1
+      dcef:
+        max-count: 1
+      dcec:
+        max-count: 1
+      dcep:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^DATCOMENT-DATA-.+$
+      error-message: IDs of this section must match DATCOMENT-DATA-xxx
     description: Add one entry per supported database.
-  decoen-deve-lst:
-    prefix: DECOEN_DEVE_LST
-    subsection-types:
-      decoen-deve:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per development convention.
-  deenen-envi-lst:
-    prefix: DEENEN_ENVI_LST
-    subsection-types:
-      deenen-envi:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per deployment environment.
   delnpt-patt-lst:
     prefix: DELNPT_PATT_LST
     subsection-types:
@@ -155,13 +414,22 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per deep-link URL pattern.
-  detaen-depl-lst:
-    prefix: DETAEN_DEPL_LST
+  deptarent-depl:
+    prefix: DEPTARENT_DEPL_
     subsection-types:
-      detaen-depl:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
+      dtep:
+        max-count: 1
+      dtebo:
+        max-count: 1
+      dter:
+        max-count: 1
+      detaenpr:
+        max-count: 1
+      dtec:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^DEPTARENT-DEPL-.+$
+      error-message: IDs of this section must match DEPTARENT-DEPL-xxx
     description: Add one entry per deployment target.
   enrefe-enti-lst:
     prefix: ENREFE_ENTI_LST
@@ -195,6 +463,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per form placed on a route.
+  frreen-fram-lst:
+    prefix: FRREEN_FRAM_LST
+    subsection-types:
+      frreen-fram:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per framework or library.
   ftrmod-feat-lst:
     prefix: FTRMOD_FEAT_LST
     subsection-types:
@@ -219,14 +495,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per provider-endpoint entry.
-  idreen-ider-lst:
-    prefix: IDREEN_IDER_LST
-    subsection-types:
-      idreen-ider:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per IDE or editor.
   inburu-busi-lst:
     prefix: INBURU_BUSI_LST
     subsection-types:
@@ -235,46 +503,38 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per business-rule group.
-  incoen-infr-lst:
-    prefix: INCOEN_INFR_LST
+  infcoment-infr:
+    prefix: INFCOMENT_INFR_
     subsection-types:
-      incoen-infr:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
+      iced:
+        max-count: 1
+      icec:
+        max-count: 1
+      icei:
+        max-count: 1
+      iceo:
+        max-count: 1
+      icer:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^INFCOMENT-INFR-.+$
+      error-message: IDs of this section must match INFCOMENT-INFR-xxx
     description: Add one entry per infrastructure component.
-  inspen-inte-lst:
-    prefix: INSPEN_INTE_LST
+  intspeent-inte:
+    prefix: INTSPEENT_INTE_
     subsection-types:
-      inspen-inte:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
+      ised:
+        max-count: 1
+      inspenco:
+        max-count: 1
+      inspendo:
+        max-count: 1
+      iset:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^INTSPEENT-INTE-.+$
+      error-message: IDs of this section must match INTSPEENT-INTE-xxx
     description: Add one entry per interface specification.
-  insten-indu-lst:
-    prefix: INSTEN_INDU_LST
-    subsection-types:
-      insten-indu:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per industry standard.
-  lecoen-lega-lst:
-    prefix: LECOEN_LEGA_LST
-    subsection-types:
-      lecoen-lega:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per legacy system.
-  mawien-main-lst:
-    prefix: MAWIEN_MAIN_LST
-    subsection-types:
-      mawien-main:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per maintenance window.
   mfacrq-mfac-lst:
     prefix: MFACRQ_MFAC_LST
     subsection-types:
@@ -283,14 +543,29 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per MFA credential requirement.
-  mocoen-mobi-lst:
-    prefix: MOCOEN_MOBI_LST
+  mobcoment-mobi:
+    prefix: MOBCOMENT_MOBI_
     subsection-types:
-      mocoen-mobi:
+      mced:
+        max-count: 1
+      mceh:
+        max-count: 1
+      mcec:
+        max-count: 1
+      mocoendi:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^MOBCOMENT-MOBI-.+$
+      error-message: IDs of this section must match MOBCOMENT-MOBI-xxx
+    description: Add one entry per supported mobile platform.
+  modent-modu-lst:
+    prefix: MODENT_MODU_LST
+    subsection-types:
+      modent-modu:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: Add one entry per supported mobile platform.
+    description: Add one entry per module.
   navgrd-guar-lst:
     prefix: NAVGRD_GUAR_LST
     subsection-types:
@@ -315,30 +590,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per navigation item in this group.
-  oscoen-osco-lst:
-    prefix: OSCOEN_OSCO_LST
-    subsection-types:
-      oscoen-osco:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per supported operating system.
-  pijoen-jobs-lst:
-    prefix: PIJOEN_JOBS_LST
-    subsection-types:
-      pijoen-jobs:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per pipeline job.
-  pisten-stag-lst:
-    prefix: PISTEN_STAG_LST
-    subsection-types:
-      pisten-stag:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per pipeline stage.
   poangu-post-lst:
     prefix: POANGU_POST_LST
     subsection-types:
@@ -371,70 +622,73 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per chart axis configuration.
-  rechen-char-lst:
-    prefix: RECHEN_CHAR_LST
+  repchaent-char:
+    prefix: REPCHAENT_CHAR_
     subsection-types:
-      rechen-char:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
+      rechax-axes-lst:
+        max-count: 1
+      rechse:
+        max-count: 1
+      rechdi:
+        max-count: 1
+      rechin:
+        max-count: 1
+      rechla:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^REPCHAENT-CHAR-.+$
+      error-message: IDs of this section must match REPCHAENT-CHAR-xxx
     description: Add one entry per chart shown in the section.
-  recoe1-colu-lst:
-    prefix: RECOE1_COLU_LST
+  repcolent-colu:
+    prefix: REPCOLENT_COLU_
     subsection-types:
-      recoe1-colu:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
+      rcds:
+        max-count: 1
+      recofo:
+        max-count: 1
+      recofn:
+        max-count: 1
+      recofc:
+        max-count: 1
+      recofd:
+        max-count: 1
+      recofb:
+        max-count: 1
+      recoft:
+        max-count: 1
+      recoag:
+        max-count: 1
+      recoin:
+        max-count: 1
+      recola:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^REPCOLENT-COLU-.+$
+      error-message: IDs of this section must match REPCOLENT-COLU-xxx
     description: Add one entry per column in the section table.
-  recoen-regu-lst:
-    prefix: RECOEN_REGU_LST
+  repent-repo-lst:
+    prefix: REPENT_REPO_LST
     subsection-types:
-      recoen-regu:
+      repent-repo:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: Add one entry per regulation.
-  redien-dist-lst:
-    prefix: REDIEN_DIST_LST
+    description: Add one entry per report.
+  repschent-sche:
+    prefix: REPSCHENT_SCHE_
     subsection-types:
-      redien-dist:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per report distribution channel.
-  refien-filt-lst:
-    prefix: REFIEN_FILT_LST
-    subsection-types:
-      refien-filt:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per report data filter.
-  rereen-reci-lst:
-    prefix: REREEN_RECI_LST
-    subsection-types:
-      rereen-reci:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per report recipient.
-  rescen-sche-lst:
-    prefix: RESCEN_SCHE_LST
-    subsection-types:
-      rescen-sche:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
+      rset:
+        max-count: 1
+      rser:
+        max-count: 1
+      rsen:
+        max-count: 1
+      rseo:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^REPSCHENT-SCHE-.+$
+      error-message: IDs of this section must match REPSCHENT-SCHE-xxx
     description: Add one entry per report generation schedule.
-  resee1-sect-lst:
-    prefix: RESEE1_SECT_LST
-    subsection-types:
-      resee1-sect:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per report section.
   reskey-reso-lst:
     prefix: RESKEY_RESO_LST
     subsection-types:
@@ -483,14 +737,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per responsibility reference.
-  ruicmp-uico-lst:
-    prefix: RUICMP_UICO_LST
-    subsection-types:
-      ruicmp-uico:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per UI component.
   scrten-rout-lst:
     prefix: SCRTEN_ROUT_LST
     subsection-types:
@@ -499,14 +745,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per addressable route.
-  scrusc-user-lst:
-    prefix: SCRUSC_USER_LST
-    subsection-types:
-      scrusc-user:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per user category.
   sctren-tran-lst:
     prefix: SCTREN_TRAN_LST
     subsection-types:
@@ -515,46 +753,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per (source route, action, outcome) — an action with different targets for success and failure needs one entry per outcome."
-  seauen-audi-lst:
-    prefix: SEAUEN_AUDI_LST
+  shlien-shar-lst:
+    prefix: SHLIEN_SHAR_LST
     subsection-types:
-      seauen-audi:
+      shlien-shar:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: Add one entry per security audit requirement.
-  seenen-envi-lst:
-    prefix: SEENEN_ENVI_LST
-    subsection-types:
-      seenen-envi:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per server environment.
-  seroen-serv-lst:
-    prefix: SEROEN_SERV_LST
-    subsection-types:
-      seroen-serv:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per server role.
-  sesten-stan-lst:
-    prefix: SESTEN_STAN_LST
-    subsection-types:
-      sesten-stan:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per security standard.
-  solaen-soft-lst:
-    prefix: SOLAEN_SOFT_LST
-    subsection-types:
-      solaen-soft:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per software layer.
+    description: Add one entry per shared library.
   stanin-stak-lst:
     prefix: STANIN_STAK_LST
     subsection-types:
@@ -563,15 +769,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per stakeholder interest.
-  taiten-tabs-lst:
-    prefix: TAITEN_TABS_LST
+  syerdi-erro-lst:
+    prefix: SYERDI_ERRO_LST
     subsection-types:
-      taiten-tabs:
+      syerdi-erro:
         max-count: infinite
-        min-count: 1
     min-text-length: 0
     max-text-length: 0
-    description: Add one entry per tab item in the tab bar.
+    description: Add one entry per error page design.
   tedava-vari-lst:
     prefix: TEDAVA_VARI_LST
     subsection-types:
@@ -588,30 +793,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per third-party library.
-  uicoen-comp-lst:
-    prefix: UICOEN_COMP_LST
-    subsection-types:
-      uicoen-comp:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per catalog component.
-  vamete-mess-lst:
-    prefix: VAMETE_MESS_LST
-    subsection-types:
-      vamete-mess:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per validation message template.
-  vpreen-vpnr-lst:
-    prefix: VPREEN_VPNR_LST
-    subsection-types:
-      vpreen-vpnr:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per VPN requirement.
   acrse-acce-lst:
     prefix: ACRSE_ACCE_LST
     subsection-types:
@@ -678,6 +859,21 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per data classification level.
+  deosreen-desk:
+    prefix: DEOSREEN_DESK_
+    subsection-types:
+      dores:
+        max-count: 1
+      dorer:
+        max-count: 1
+      deosreenso:
+        max-count: 1
+      doret:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^DEOSREEN-DESK-.+$
+      error-message: IDs of this section must match DEOSREEN-DESK-xxx
+    description: Add one entry per supported desktop operating system.
   desig-desi-lst:
     prefix: DESIG_DESI_LST
     subsection-types:
@@ -711,14 +907,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per enum value.
-  dore1-desk-lst:
-    prefix: DORE1_DESK_LST
-    subsection-types:
-      dore1-desk:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per supported desktop operating system.
   dsset-sett-lst:
     prefix: DSSET_SETT_LST
     subsection-types:
@@ -727,6 +915,12 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per device setting. Declare the setting — key, value type and default — never the user's chosen value: that lives in the device-local store. Typical keys: window.layout, editor.fontSize, recent.files, cache.sizeLimit."
+  elvaruen-vali:
+    prefix: ELVARUEN_VALI_
+    pattern-check-id:
+      pattern: ^ELVARUEN-VALI-.+$
+      error-message: IDs of this section must match ELVARUEN-VALI-xxx
+    description: Add one entry per validation rule.
   encns-cons-lst:
     prefix: ENCNS_CONS_LST
     subsection-types:
@@ -755,6 +949,21 @@ section-types:
     prefix: ENRLE_SOUR_REF
   enrle-targ-ref:
     prefix: ENRLE_TARG_REF
+  ensycoen-ente:
+    prefix: ENSYCOEN_ENTE_
+    subsection-types:
+      escei:
+        max-count: 1
+      esces:
+        max-count: 1
+      escer:
+        max-count: 1
+      escet:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^ENSYCOEN-ENTE-.+$
+      error-message: IDs of this section must match ENSYCOEN-ENTE-xxx
+    description: Add one entry per enterprise system.
   ercen-code-lst:
     prefix: ERCEN_CODE_LST
     subsection-types:
@@ -771,6 +980,25 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per end-to-end test scenario.
+  expacoen-part:
+    prefix: EXPACOEN_PART_
+    subsection-types:
+      expapr:
+        max-count: 1
+      expaau:
+        max-count: 1
+      expane:
+        max-count: 1
+      expare:
+        max-count: 1
+      epdh:
+        max-count: 1
+      expaop-oper-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^EXPACOEN-PART-.+$
+      error-message: IDs of this section must match EXPACOEN-PART-xxx
+    description: Add one entry per external partner connection.
   exten-exte-lst:
     prefix: EXTEN_EXTE_LST
     subsection-types:
@@ -787,22 +1015,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per extension step.
-  field-fiel-lst:
-    prefix: FIELD_FIEL_LST
-    subsection-types:
-      field-fiel:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per field validation rule.
-  fwren-fram-lst:
-    prefix: FWREN_FRAM_LST
-    subsection-types:
-      fwren-fram:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per framework or library.
   gbrlx-glob-lst:
     prefix: GBRLX_GLOB_LST
     subsection-types:
@@ -811,14 +1023,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per global role exclusion.
-  globa-glob-lst:
-    prefix: GLOBA_GLOB_LST
-    subsection-types:
-      globa-glob:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per global entry point.
   hndre-hand-lst:
     prefix: HNDRE_HAND_LST
     subsection-types:
@@ -851,6 +1055,38 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per identifier source.
+  inprcoen-indu:
+    prefix: INPRCOEN_INDU_
+    subsection-types:
+      ipces:
+        max-count: 1
+      ipcei:
+        max-count: 1
+      ipcet:
+        max-count: 1
+      inprcoenin:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^INPRCOEN-INDU-.+$
+      error-message: IDs of this section must match INPRCOEN-INDU-xxx
+    description: Add one entry per industry protocol.
+  itstcoen-itst:
+    prefix: ITSTCOEN_ITST_
+    subsection-types:
+      isces:
+        max-count: 1
+      iscer:
+        max-count: 1
+      iscet:
+        max-count: 1
+      isceo:
+        max-count: 1
+      iscee:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^ITSTCOEN-ITST-.+$
+      error-message: IDs of this section must match ITSTCOEN-ITST-xxx
+    description: Add one entry per IT standard.
   keatt-keya-lst:
     prefix: KEATT_KEYA_LST
     subsection-types:
@@ -869,22 +1105,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per login flow step.
-  maint-main-lst:
-    prefix: MAINT_MAIN_LST
-    subsection-types:
-      maint-main:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per maintenance procedure.
-  mfade-mfad-lst:
-    prefix: MFADE_MFAD_LST
-    subsection-types:
-      mfade-mfad:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per MFA method definition.
   migtg-targ-lst:
     prefix: MIGTG_TARG_LST
     subsection-types:
@@ -902,14 +1122,21 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per numbered step.
-  moen1-modu-lst:
-    prefix: MOEN1_MODU_LST
+  modereen-mobi:
+    prefix: MODEREEN_MOBI_
     subsection-types:
-      moen1-modu:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per module.
+      mdres:
+        max-count: 1
+      mdred:
+        max-count: 1
+      mdreh:
+        max-count: 1
+      mdrec:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^MODEREEN-MOBI-.+$
+      error-message: IDs of this section must match MODEREEN-MOBI-xxx
+    description: Add one entry per supported mobile platform.
   msgke-mkey-lst:
     prefix: MSGKE_MKEY_LST
     subsection-types:
@@ -967,14 +1194,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per quality standard.
-  recov-reco-lst:
-    prefix: RECOV_RECO_LST
-    subsection-types:
-      recov-reco:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per recovery flow.
   relat-rela-lst:
     prefix: RELAT_RELA_LST
     subsection-types:
@@ -1066,6 +1285,12 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per screen.
+  screruen-resp:
+    prefix: SCRERUEN_RESP_
+    pattern-check-id:
+      pattern: ^SCRERUEN-RESP-.+$
+      error-message: IDs of this section must match SCRERUEN-RESP-xxx
+    description: Add one entry per responsive rule.
   scrsc-item-lst:
     prefix: SCRSC_ITEM_LST
     subsection-types:
@@ -1090,6 +1315,21 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per server configuration setting **this application owns** — a setting whose key you invent. Declare the setting: key, value type, default, the source key it is read from, whether it carries a secret, and whether narrower scopes may shadow it. Never write the value: it is supplied per deployment, and a secret-bearing setting declares only its presence and shape, never its content. Typical keys: server.host, server.port, server.isolateCount, log.level, database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey. This list is the only place a secret may be declared: the security, encryption, key-management and audit-sink policy sections name their own settings and carry values only, so a credential they need — a remote log sink password, a KMS access key — is authored here as its own entry."
+  sestcoen-secu:
+    prefix: SESTCOEN_SECU_
+    subsection-types:
+      sestcoensc:
+        max-count: 1
+      sscec:
+        max-count: 1
+      sscea:
+        max-count: 1
+      sestcoenst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SESTCOEN-SECU-.+$
+      error-message: IDs of this section must match SESTCOEN-SECU-xxx
+    description: Add one entry per security standard.
   shlcp-shar-lst:
     prefix: SHLCP_SHAR_LST
     subsection-types:
@@ -1098,22 +1338,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per shared library.
-  shlib-shar-lst:
-    prefix: SHLIB_SHAR_LST
-    subsection-types:
-      shlib-shar:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per shared library.
-  stepu-step-lst:
-    prefix: STEPU_STEP_LST
-    subsection-types:
-      stepu-step:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per step-up authentication step.
   svope-oper-lst:
     prefix: SVOPE_OPER_LST
     subsection-types:
@@ -1138,6 +1362,31 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per member of the success payload. Leave empty for an operation that returns nothing but success or error.
+  syercoen-erro:
+    prefix: SYERCOEN_ERRO_
+    subsection-types:
+      seceh:
+        max-count: 1
+      seceo:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SYERCOEN-ERRO-.+$
+      error-message: IDs of this section must match SYERCOEN-ERRO-xxx
+    description: Add one entry per system error code.
+  tabadeen-tabb:
+    prefix: TABADEEN_TABB_
+    subsection-types:
+      tbdeb:
+        max-count: 1
+      tbdel:
+        max-count: 1
+      tie-tabs-lst:
+        max-count: 1
+        min-count: 1
+    pattern-check-id:
+      pattern: ^TABADEEN-TABB-.+$
+      error-message: IDs of this section must match TABADEEN-TABB-xxx
+    description: Add one entry per tab bar or segmented control.
   tgplt-targ-lst:
     prefix: TGPLT_TARG_LST
     subsection-types:
@@ -1146,6 +1395,70 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per target platform.
+  thpacoen-thir:
+    prefix: THPACOEN_THIR_
+    subsection-types:
+      tpcec:
+        max-count: 1
+      tpcei:
+        max-count: 1
+      tpcet:
+        max-count: 1
+      tpces:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^THPACOEN-THIR-.+$
+      error-message: IDs of this section must match THPACOEN-THIR-xxx
+    description: Add one entry per third-party software product.
+  uicoment-comp:
+    prefix: UICOMENT_COMP_
+    subsection-types:
+      uicoment-iden:
+        max-count: 1
+      ucep:
+        max-count: 1
+      ucec:
+        max-count: 1
+      uicoment-visu:
+        max-count: 1
+      uced:
+        max-count: 1
+      uces:
+        max-count: 1
+      uicoensu:
+        max-count: 1
+      uicoment-inte:
+        max-count: 1
+      uceib:
+        max-count: 1
+      ucea:
+        max-count: 1
+      uicoensc:
+        max-count: 1
+      uicoment-resp:
+        max-count: 1
+      uicoment-acce:
+        max-count: 1
+      uicoment-auth:
+        max-count: 1
+      uicoment-reso:
+        max-count: 1
+      uicoment-data:
+        max-count: 1
+      comstaent-stat-lst:
+        max-count: 1
+      cve-vari-lst:
+        max-count: 1
+      cmac-acti-lst:
+        max-count: 1
+      cmsl-slot-lst:
+        max-count: 1
+      cmpr-prop-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^UICOMENT-COMP-.+$
+      error-message: IDs of this section must match UICOMENT-COMP-xxx
+    description: Add one entry per catalog component.
   ultre-item-lst:
     prefix: ULTRE_ITEM_LST
     subsection-types:
@@ -1178,6 +1491,34 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per user setting. Declare the setting — key, value type and default — never the user's chosen value: that is persisted per user on the server. Typical keys: ui.theme, ui.language, ui.country, notifications.<channel>.enabled, list.pageSize."
+  utmeiten-menu:
+    prefix: UTMEITEN_MENU_
+    subsection-types:
+      umiea:
+        max-count: 1
+      umieb:
+        max-count: 1
+      azreq:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^UTMEITEN-MENU-.+$
+      error-message: IDs of this section must match UTMEITEN-MENU-xxx
+    description: Add one entry per utility menu item.
+  utnaiten-item:
+    prefix: UTNAITEN_ITEM_
+    subsection-types:
+      unied:
+        max-count: 1
+      azreq:
+        max-count: 1
+      unieb:
+        max-count: 1
+      utmeiten-menu-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^UTNAITEN-ITEM-.+$
+      error-message: IDs of this section must match UTNAITEN-ITEM-xxx
+    description: Add one entry per utility navigation item.
   acen-acto-lst:
     prefix: ACEN_ACTO_LST
     subsection-types:
@@ -1308,22 +1649,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per component slot.
-  cmst-stat-lst:
-    prefix: CMST_STAT_LST
-    subsection-types:
-      cmst-stat:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per component state.
-  cmvn-vari-lst:
-    prefix: CMVN_VARI_LST
-    subsection-types:
-      cmvn-vari:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per component variant.
   copa-colo-lst:
     prefix: COPA_COLO_LST
     subsection-types:
@@ -1332,14 +1657,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per colour palette.
-  daen-dash-lst:
-    prefix: DAEN_DASH_LST
-    subsection-types:
-      daen-dash:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per dashboard.
   date-dash-lst:
     prefix: DATE_DASH_LST
     subsection-types:
@@ -1356,22 +1673,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per design pattern.
-  epce-part-lst:
-    prefix: EPCE_PART_LST
-    subsection-types:
-      epce-part:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per external partner connection.
-  epde-erro-lst:
-    prefix: EPDE_ERRO_LST
-    subsection-types:
-      epde-erro:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per error page design.
   epnt-entr-lst:
     prefix: EPNT_ENTR_LST
     subsection-types:
@@ -1380,22 +1681,14 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per entry point.
-  esce-ente-lst:
-    prefix: ESCE_ENTE_LST
+  erre-reco-lst:
+    prefix: ERRE_RECO_LST
     subsection-types:
-      esce-ente:
+      erre-reco:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: Add one entry per enterprise system.
-  evre-vali-lst:
-    prefix: EVRE_VALI_LST
-    subsection-types:
-      evre-vali:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per validation rule.
+    description: Add one entry per recovery flow.
   inen-inte-lst:
     prefix: INEN_INTE_LST
     subsection-types:
@@ -1405,46 +1698,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per interaction.
-  ipce-indu-lst:
-    prefix: IPCE_INDU_LST
-    subsection-types:
-      ipce-indu:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per industry protocol.
-  isce-itst-lst:
-    prefix: ISCE_ITST_LST
-    subsection-types:
-      isce-itst:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per IT standard.
-  mdre-mobi-lst:
-    prefix: MDRE_MOBI_LST
-    subsection-types:
-      mdre-mobi:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per supported mobile platform.
-  pren-prot-lst:
-    prefix: PREN_PROT_LST
-    subsection-types:
-      pren-prot:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per protocol.
-  reen-repo-lst:
-    prefix: REEN_REPO_LST
-    subsection-types:
-      reen-repo:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per report.
   reskref-reso:
     prefix: RESKREF_RESO_
     pattern-check-id:
@@ -1463,6 +1716,14 @@ section-types:
       pattern: ^ROLPERM-DIRE-.+$
       error-message: IDs of this section must match ROLPERM-DIRE-xxx
     description: Add one entry per direct permission.
+  ruce-uico-lst:
+    prefix: RUCE_UICO_LST
+    subsection-types:
+      ruce-uico:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per UI component.
   scjob-job-lst:
     prefix: SCJOB_JOB_LST
     subsection-types:
@@ -1471,14 +1732,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: "Add one entry per job the system runs off the request thread. A job that is not listed here does not exist, however thoroughly the policy sections above describe how jobs are run."
-  sece-erro-lst:
-    prefix: SECE_ERRO_LST
-    subsection-types:
-      sece-erro:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per system error code.
   sevt-cust-lst:
     prefix: SEVT_CUST_LST
     subsection-types:
@@ -1487,38 +1740,22 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per custom security event.
-  slen-slos-lst:
-    prefix: SLEN_SLOS_LST
+  suap-step-lst:
+    prefix: SUAP_STEP_LST
     subsection-types:
-      slen-slos:
+      suap-step:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: Add one entry per SLO.
-  srre-resp-lst:
-    prefix: SRRE_RESP_LST
+    description: Add one entry per step-up authentication step.
+  suce-user-lst:
+    prefix: SUCE_USER_LST
     subsection-types:
-      srre-resp:
+      suce-user:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: Add one entry per responsive rule.
-  ssce-secu-lst:
-    prefix: SSCE_SECU_LST
-    subsection-types:
-      ssce-secu:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per security standard.
-  tbde-tabb-lst:
-    prefix: TBDE_TABB_LST
-    subsection-types:
-      tbde-tabb:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per tab bar or segmented control.
+    description: Add one entry per user category.
   tncs-tena-lst:
     prefix: TNCS_TENA_LST
     subsection-types:
@@ -1527,14 +1764,6 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per tenant.
-  tpce-thir-lst:
-    prefix: TPCE_THIR_LST
-    subsection-types:
-      tpce-thir:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per third-party software product.
   tyst-typo-lst:
     prefix: TYST_TYPO_LST
     subsection-types:
@@ -1567,22 +1796,14 @@ section-types:
   uicoment-visu:
     prefix: UICOMENT_VISU
     format: uicoment-visu-form
-  umie-menu-lst:
-    prefix: UMIE_MENU_LST
+  vafe-fiel-lst:
+    prefix: VAFE_FIEL_LST
     subsection-types:
-      umie-menu:
+      vafe-fiel:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: Add one entry per utility menu item.
-  unie-item-lst:
-    prefix: UNIE_ITEM_LST
-    subsection-types:
-      unie-item:
-        max-count: infinite
-    min-text-length: 0
-    max-text-length: 0
-    description: Add one entry per utility navigation item.
+    description: Add one entry per field validation rule.
   accstd-acce:
     prefix: ACCSTD_ACCE_
     subsection-types:
@@ -1598,196 +1819,76 @@ section-types:
       pattern: ^ACCSTD-ACCE-.+$
       error-message: IDs of this section must match ACCSTD-ACCE-xxx
     description: Add one entry per accessibility standard.
-  aldeen-aler:
-    prefix: ALDEEN_ALER_
-    subsection-types:
-      adec:
-        max-count: 1
-      ader:
-        max-count: 1
-      aden:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^ALDEEN-ALER-.+$
-      error-message: IDs of this section must match ALDEEN-ALER-xxx
-    description: Add one entry per alert definition.
-  alruen-aler:
-    prefix: ALRUEN_ALER_
-    subsection-types:
-      aret:
-        max-count: 1
-      arer:
-        max-count: 1
-      areo:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^ALRUEN-ALER-.+$
-      error-message: IDs of this section must match ALRUEN-ALER-xxx
-    description: Add one entry per alert rule.
   alsuru-supp:
     prefix: ALSURU_SUPP_
     pattern-check-id:
       pattern: ^ALSURU-SUPP-.+$
       error-message: IDs of this section must match ALSURU-SUPP-xxx
     description: Add one entry per suppression or maintenance window.
-  bapoen-back:
-    prefix: BAPOEN_BACK_
+  bce-boun-lst:
+    prefix: BCE_BOUN_LST
     subsection-types:
-      bpet:
-        max-count: 1
-      bpes:
-        max-count: 1
-      bper:
-        max-count: 1
-      bapoenst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^BAPOEN-BACK-.+$
-      error-message: IDs of this section must match BAPOEN-BACK-xxx
-    description: Add one entry per backup policy.
-  bocoen-boun:
-    prefix: BOCOEN_BOUN_
-    subsection-types:
-      bces:
-        max-count: 1
-      bceb:
-        max-count: 1
-      bcei:
-        max-count: 1
-      bocoenin:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^BOCOEN-BOUN-.+$
-      error-message: IDs of this section must match BOCOEN-BOUN-xxx
-    description: Add one entry per bounded context.
-  brcoen-brow:
-    prefix: BRCOEN_BROW_
-    subsection-types:
-      brcoensu:
-        max-count: 1
-      bcef:
-        max-count: 1
-      bcem:
-        max-count: 1
-      brcoente:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^BRCOEN-BROW-.+$
-      error-message: IDs of this section must match BRCOEN-BROW-xxx
-    description: Add one entry per supported browser.
-  bre-brea-lst:
-    prefix: BRE_BREA_LST
-    subsection-types:
-      bre-brea:
+      bce-boun:
         max-count: infinite
     min-text-length: 0
     max-text-length: 0
-    description: Add one entry per layout breakpoint.
-  brreen-brow:
-    prefix: BRREEN_BROW_
+    description: Add one entry per bounded context.
+  bpe-back-lst:
+    prefix: BPE_BACK_LST
     subsection-types:
-      bres:
-        max-count: 1
-      bref:
-        max-count: 1
-      bret:
-        max-count: 1
-      brei:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^BRREEN-BROW-.+$
-      error-message: IDs of this section must match BRREEN-BROW-xxx
-    description: Add one entry per supported web browser.
-  bucoen-busi:
-    prefix: BUCOEN_BUSI_
-    subsection-types:
-      bced:
-        max-count: 1
-      bucoenin:
-        max-count: 1
-      bucoende:
-        max-count: 1
-      bcet:
-        max-count: 1
-      bcer:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^BUCOEN-BUSI-.+$
-      error-message: IDs of this section must match BUCOEN-BUSI-xxx
-    description: Add one entry per business component.
+      bpe-back:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per backup policy.
   cliapp-clie:
     prefix: CLIAPP_CLIE_
     pattern-check-id:
       pattern: ^CLIAPP-CLIE-.+$
       error-message: IDs of this section must match CLIAPP-CLIE-xxx
     description: "Add one entry per client application of the system. A client that is not listed here does not exist, however thoroughly the requirement subsections below describe the machines it would run on."
-  costen-codi:
-    prefix: COSTEN_CODI_
+  cse-codi-lst:
+    prefix: CSE_CODI_LST
     subsection-types:
-      cserd:
-        max-count: 1
-      csen:
-        max-count: 1
-      csef:
-        max-count: 1
-      csee:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^COSTEN-CODI-.+$
-      error-message: IDs of this section must match COSTEN-CODI-xxx
+      cse-codi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per coding standard.
-  cumeen-cust:
-    prefix: CUMEEN_CUST_
-    pattern-check-id:
-      pattern: ^CUMEEN-CUST-.+$
-      error-message: IDs of this section must match CUMEEN-CUST-xxx
-    description: Add one entry per custom metric.
-  dacoen-data:
-    prefix: DACOEN_DATA_
+  cve-vari-lst:
+    prefix: CVE_VARI_LST
     subsection-types:
-      dces:
-        max-count: 1
-      dcef:
-        max-count: 1
-      dcec:
-        max-count: 1
-      dcep:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^DACOEN-DATA-.+$
-      error-message: IDs of this section must match DACOEN-DATA-xxx
-    description: Add one entry per supported database.
-  decoen-deve:
-    prefix: DECOEN_DEVE_
+      cve-vari:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per component variant.
+  dasent-dash:
+    prefix: DASENT_DASH_
     subsection-types:
-      dceo:
+      daenco:
         max-count: 1
-      dcevc:
-        max-count: 1
-      dcer:
-        max-count: 1
-      dcea:
-        max-count: 1
-      dcee:
+      daenop:
         max-count: 1
     pattern-check-id:
-      pattern: ^DECOEN-DEVE-.+$
-      error-message: IDs of this section must match DECOEN-DEVE-xxx
+      pattern: ^DASENT-DASH-.+$
+      error-message: IDs of this section must match DASENT-DASH-xxx
+    description: Add one entry per dashboard.
+  dce-deve-lst:
+    prefix: DCE_DEVE_LST
+    subsection-types:
+      dce-deve:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per development convention.
-  deenen-envi:
-    prefix: DEENEN_ENVI_
+  dee-envi-lst:
+    prefix: DEE_ENVI_LST
     subsection-types:
-      deed:
-        max-count: 1
-      deep:
-        max-count: 1
-      deec:
-        max-count: 1
-      deem:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^DEENEN-ENVI-.+$
-      error-message: IDs of this section must match DEENEN-ENVI-xxx
+      dee-envi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per deployment environment.
   delnpt-patt:
     prefix: DELNPT_PATT_
@@ -1798,23 +1899,6 @@ section-types:
       pattern: ^DELNPT-PATT-.+$
       error-message: IDs of this section must match DELNPT-PATT-xxx
     description: Add one entry per deep-link URL pattern.
-  detaen-depl:
-    prefix: DETAEN_DEPL_
-    subsection-types:
-      dtep:
-        max-count: 1
-      dtebo:
-        max-count: 1
-      dter:
-        max-count: 1
-      detaenpr:
-        max-count: 1
-      dtec:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^DETAEN-DEPL-.+$
-      error-message: IDs of this section must match DETAEN-DEPL-xxx
-    description: Add one entry per deployment target.
   enrefe-enti:
     prefix: ENREFE_ENTI_
     pattern-check-id:
@@ -1848,6 +1932,25 @@ section-types:
       pattern: ^FMSCAS-FORM-.+$
       error-message: IDs of this section must match FMSCAS-FORM-xxx
     description: Add one entry per form placed on a route.
+  frreen-fram:
+    prefix: FRREEN_FRAM_
+    subsection-types:
+      fwrid:
+        max-count: 1
+      fwrvr:
+        max-count: 1
+      fwrsc:
+        max-count: 1
+      fwrcp:
+        max-count: 1
+      fwrsp:
+        max-count: 1
+      fwrjt:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^FRREEN-FRAM-.+$
+      error-message: IDs of this section must match FRREEN-FRAM-xxx
+    description: Add one entry per framework or library.
   ftrmod-feat:
     prefix: FTRMOD_FEAT_
     subsection-types:
@@ -1877,104 +1980,36 @@ section-types:
       pattern: ^IDPREN-ENDP-.+$
       error-message: IDs of this section must match IDPREN-ENDP-xxx
     description: Add one entry per provider-endpoint entry.
-  idreen-ider:
-    prefix: IDREEN_IDER_
-    subsection-types:
-      irec:
-        max-count: 1
-      irei:
-        max-count: 1
-      ires:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^IDREEN-IDER-.+$
-      error-message: IDs of this section must match IDREEN-IDER-xxx
-    description: Add one entry per IDE or editor.
   inburu-busi:
     prefix: INBURU_BUSI_
     pattern-check-id:
       pattern: ^INBURU-BUSI-.+$
       error-message: IDs of this section must match INBURU-BUSI-xxx
     description: Add one entry per business-rule group.
-  incoen-infr:
-    prefix: INCOEN_INFR_
+  ire-ider-lst:
+    prefix: IRE_IDER_LST
     subsection-types:
-      iced:
-        max-count: 1
-      icec:
-        max-count: 1
-      icei:
-        max-count: 1
-      iceo:
-        max-count: 1
-      icer:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^INCOEN-INFR-.+$
-      error-message: IDs of this section must match INCOEN-INFR-xxx
-    description: Add one entry per infrastructure component.
-  inspen-inte:
-    prefix: INSPEN_INTE_
+      ire-ider:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per IDE or editor.
+  ise-indu-lst:
+    prefix: ISE_INDU_LST
     subsection-types:
-      ised:
-        max-count: 1
-      inspenco:
-        max-count: 1
-      inspendo:
-        max-count: 1
-      iset:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^INSPEN-INTE-.+$
-      error-message: IDs of this section must match INSPEN-INTE-xxx
-    description: Add one entry per interface specification.
-  insten-indu:
-    prefix: INSTEN_INDU_
-    subsection-types:
-      ises:
-        max-count: 1
-      isec:
-        max-count: 1
-      instence:
-        max-count: 1
-      isev:
-        max-count: 1
-      iser:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^INSTEN-INDU-.+$
-      error-message: IDs of this section must match INSTEN-INDU-xxx
+      ise-indu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per industry standard.
-  lecoen-lega:
-    prefix: LECOEN_LEGA_
+  lce-lega-lst:
+    prefix: LCE_LEGA_LST
     subsection-types:
-      lcei:
-        max-count: 1
-      lcec:
-        max-count: 1
-      lcem:
-        max-count: 1
-      lcer:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^LECOEN-LEGA-.+$
-      error-message: IDs of this section must match LECOEN-LEGA-xxx
+      lce-lega:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per legacy system.
-  mawien-main:
-    prefix: MAWIEN_MAIN_
-    subsection-types:
-      mwes:
-        max-count: 1
-      mawiensc:
-        max-count: 1
-      mwei:
-        max-count: 1
-      mwer:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^MAWIEN-MAIN-.+$
-      error-message: IDs of this section must match MAWIEN-MAIN-xxx
-    description: Add one entry per maintenance window.
   mfacrq-mfac:
     prefix: MFACRQ_MFAC_
     subsection-types:
@@ -1988,21 +2023,31 @@ section-types:
       pattern: ^MFACRQ-MFAC-.+$
       error-message: IDs of this section must match MFACRQ-MFAC-xxx
     description: Add one entry per MFA credential requirement.
-  mocoen-mobi:
-    prefix: MOCOEN_MOBI_
+  modent-modu:
+    prefix: MODENT_MODU_
     subsection-types:
-      mced:
+      moende:
         max-count: 1
-      mceh:
+      moend1:
         max-count: 1
-      mcec:
+      moenow:
         max-count: 1
-      mocoendi:
+      moenco:
+        max-count: 1
+      moente:
         max-count: 1
     pattern-check-id:
-      pattern: ^MOCOEN-MOBI-.+$
-      error-message: IDs of this section must match MOCOEN-MOBI-xxx
-    description: Add one entry per supported mobile platform.
+      pattern: ^MODENT-MODU-.+$
+      error-message: IDs of this section must match MODENT-MODU-xxx
+    description: Add one entry per module.
+  mwe-main-lst:
+    prefix: MWE_MAIN_LST
+    subsection-types:
+      mwe-main:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per maintenance window.
   navgrd-guar:
     prefix: NAVGRD_GUAR_
     subsection-types:
@@ -2048,51 +2093,22 @@ section-types:
       pattern: ^NAVIIT-ITEM-.+$
       error-message: IDs of this section must match NAVIIT-ITEM-xxx
     description: Add one entry per navigation item in this group.
-  oscoen-osco:
-    prefix: OSCOEN_OSCO_
+  oce-osco-lst:
+    prefix: OCE_OSCO_LST
     subsection-types:
-      oces:
-        max-count: 1
-      ocer:
-        max-count: 1
-      ocet:
-        max-count: 1
-      ocel:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^OSCOEN-OSCO-.+$
-      error-message: IDs of this section must match OSCOEN-OSCO-xxx
+      oce-osco:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per supported operating system.
-  pijoen-jobs:
-    prefix: PIJOEN_JOBS_
+  pje-jobs-lst:
+    prefix: PJE_JOBS_LST
     subsection-types:
-      pjee:
-        max-count: 1
-      pjes:
-        max-count: 1
-      pjed:
-        max-count: 1
-      pjeo:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^PIJOEN-JOBS-.+$
-      error-message: IDs of this section must match PIJOEN-JOBS-xxx
+      pje-jobs:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per pipeline job.
-  pisten-stag:
-    prefix: PISTEN_STAG_
-    subsection-types:
-      pset:
-        max-count: 1
-      psee:
-        max-count: 1
-      psea:
-        max-count: 1
-      psef:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^PISTEN-STAG-.+$
-      error-message: IDs of this section must match PISTEN-STAG-xxx
-    description: Add one entry per pipeline stage.
   poangu-post:
     prefix: POANGU_POST_
     pattern-check-id:
@@ -2105,162 +2121,83 @@ section-types:
       pattern: ^PRANTR-PREC-.+$
       error-message: IDs of this section must match PRANTR-PREC-xxx
     description: Add one entry per precondition/trigger set.
+  pse-stag-lst:
+    prefix: PSE_STAG_LST
+    subsection-types:
+      pse-stag:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per pipeline stage.
+  rce-regu-lst:
+    prefix: RCE_REGU_LST
+    subsection-types:
+      rce-regu:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per regulation.
   rcvscn-reco:
     prefix: RCVSCN_RECO_
     pattern-check-id:
       pattern: ^RCVSCN-RECO-.+$
       error-message: IDs of this section must match RCVSCN-RECO-xxx
     description: Add one entry per common recovery scenario.
+  rde-dist-lst:
+    prefix: RDE_DIST_LST
+    subsection-types:
+      rde-dist:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report distribution channel.
   rechax-axes:
     prefix: RECHAX_AXES_
     pattern-check-id:
       pattern: ^RECHAX-AXES-.+$
       error-message: IDs of this section must match RECHAX-AXES-xxx
     description: Add one entry per chart axis configuration.
-  rechen-char:
-    prefix: RECHEN_CHAR_
+  repent-repo:
+    prefix: REPENT_REPO_
     subsection-types:
-      rechax-axes-lst:
+      reid:
         max-count: 1
-      rechse:
+      redaso:
         max-count: 1
-      rechdi:
+      refo:
         max-count: 1
-      rechin:
+      rela:
         max-count: 1
-      rechla:
+      rehefo:
+        max-count: 1
+      regr:
+        max-count: 1
+      rf:
+        max-count: 1
+      rein:
+        max-count: 1
+      repa:
+        max-count: 1
+      rese:
+        max-count: 1
+      azreq:
+        max-count: 1
+      reli:
+        max-count: 1
+      rse-sect-lst:
+        max-count: 1
+      rfe-filt-lst:
+        max-count: 1
+      repschent-sche-lst:
+        max-count: 1
+      rde-dist-lst:
+        max-count: 1
+      rre-reci-lst:
         max-count: 1
     pattern-check-id:
-      pattern: ^RECHEN-CHAR-.+$
-      error-message: IDs of this section must match RECHEN-CHAR-xxx
-    description: Add one entry per chart shown in the section.
-  recoe1-colu:
-    prefix: RECOE1_COLU_
-    subsection-types:
-      rcds:
-        max-count: 1
-      recofo:
-        max-count: 1
-      recofn:
-        max-count: 1
-      recofc:
-        max-count: 1
-      recofd:
-        max-count: 1
-      recofb:
-        max-count: 1
-      recoft:
-        max-count: 1
-      recoag:
-        max-count: 1
-      recoin:
-        max-count: 1
-      recola:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^RECOE1-COLU-.+$
-      error-message: IDs of this section must match RECOE1-COLU-xxx
-    description: Add one entry per column in the section table.
-  recoen-regu:
-    prefix: RECOEN_REGU_
-    subsection-types:
-      recoenap:
-        max-count: 1
-      recoenre:
-        max-count: 1
-      rcep:
-        max-count: 1
-      rceo:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^RECOEN-REGU-.+$
-      error-message: IDs of this section must match RECOEN-REGU-xxx
-    description: Add one entry per regulation.
-  redien-dist:
-    prefix: REDIEN_DIST_
-    subsection-types:
-      redienre:
-        max-count: 1
-      redienco:
-        max-count: 1
-      rded:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^REDIEN-DIST-.+$
-      error-message: IDs of this section must match REDIEN-DIST-xxx
-    description: Add one entry per report distribution channel.
-  refien-filt:
-    prefix: REFIEN_FILT_
-    subsection-types:
-      rfei:
-        max-count: 1
-      rfeit:
-        max-count: 1
-      rfein:
-        max-count: 1
-      rfeid:
-        max-count: 1
-      rfeib:
-        max-count: 1
-      rfeis:
-        max-count: 1
-      rfeie:
-        max-count: 1
-      rfeb:
-        max-count: 1
-      rfep:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^REFIEN-FILT-.+$
-      error-message: IDs of this section must match REFIEN-FILT-xxx
-    description: Add one entry per report data filter.
-  rereen-reci:
-    prefix: REREEN_RECI_
-    subsection-types:
-      rereenco:
-        max-count: 1
-      rred:
-        max-count: 1
-      rrel:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^REREEN-RECI-.+$
-      error-message: IDs of this section must match REREEN-RECI-xxx
-    description: Add one entry per report recipient.
-  rescen-sche:
-    prefix: RESCEN_SCHE_
-    subsection-types:
-      rset:
-        max-count: 1
-      rser:
-        max-count: 1
-      rsen:
-        max-count: 1
-      rseo:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^RESCEN-SCHE-.+$
-      error-message: IDs of this section must match RESCEN-SCHE-xxx
-    description: Add one entry per report generation schedule.
-  resee1-sect:
-    prefix: RESEE1_SECT_
-    subsection-types:
-      reseda:
-        max-count: 1
-      resela:
-        max-count: 1
-      reseso:
-        max-count: 1
-      reseag:
-        max-count: 1
-      recoe1-colu-lst:
-        max-count: 1
-      rechen-char-lst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^RESEE1-SECT-.+$
-      error-message: IDs of this section must match RESEE1-SECT-xxx
-    description: Add one entry per report section.
+      pattern: ^REPENT-REPO-.+$
+      error-message: IDs of this section must match REPENT-REPO-xxx
+    description: Add one entry per report.
   reskey-reso:
     prefix: RESKEY_RESO_
     pattern-check-id:
@@ -2273,6 +2210,14 @@ section-types:
       pattern: ^RESPSR-SCRE-.+$
       error-message: IDs of this section must match RESPSR-SCRE-xxx
     description: Add one entry per screen with distinct responsive rules.
+  rfe-filt-lst:
+    prefix: RFE_FILT_LST
+    subsection-types:
+      rfe-filt:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report data filter.
   rolexc-mutu:
     prefix: ROLEXC_MUTU_
     pattern-check-id:
@@ -2291,133 +2236,105 @@ section-types:
       pattern: ^ROLREF-CONT-.+$
       error-message: IDs of this section must match ROLREF-CONT-xxx
     description: Add one entry per contained role.
+  rre-reci-lst:
+    prefix: RRE_RECI_LST
+    subsection-types:
+      rre-reci:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report recipient.
+  rse-sect-lst:
+    prefix: RSE_SECT_LST
+    subsection-types:
+      rse-sect:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per report section.
   rspref-resp:
     prefix: RSPREF_RESP_
     pattern-check-id:
       pattern: ^RSPREF-RESP-.+$
       error-message: IDs of this section must match RSPREF-RESP-xxx
     description: Add one entry per responsibility reference.
-  ruicmp-uico:
-    prefix: RUICMP_UICO_
+  sae-audi-lst:
+    prefix: SAE_AUDI_LST
     subsection-types:
-      ruced:
-        max-count: 1
-      reuicoende:
-        max-count: 1
-      rucei:
-        max-count: 1
-      rucea:
-        max-count: 1
-      reuicoenim:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^RUICMP-UICO-.+$
-      error-message: IDs of this section must match RUICMP-UICO-xxx
-    description: Add one entry per UI component.
+      sae-audi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per security audit requirement.
   scrten-rout:
     prefix: SCRTEN_ROUT_
     pattern-check-id:
       pattern: ^SCRTEN-ROUT-.+$
       error-message: IDs of this section must match SCRTEN-ROUT-xxx
     description: Add one entry per addressable route.
-  scrusc-user:
-    prefix: SCRUSC_USER_
-    pattern-check-id:
-      pattern: ^SCRUSC-USER-.+$
-      error-message: IDs of this section must match SCRUSC-USER-xxx
-    description: Add one entry per user category.
   sctren-tran:
     prefix: SCTREN_TRAN_
     pattern-check-id:
       pattern: ^SCTREN-TRAN-.+$
       error-message: IDs of this section must match SCTREN-TRAN-xxx
     description: "Add one entry per (source route, action, outcome) — an action with different targets for success and failure needs one entry per outcome."
-  seauen-audi:
-    prefix: SEAUEN_AUDI_
+  see-envi-lst:
+    prefix: SEE_ENVI_LST
     subsection-types:
-      saes:
-        max-count: 1
-      saee:
-        max-count: 1
-      saefu:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^SEAUEN-AUDI-.+$
-      error-message: IDs of this section must match SEAUEN-AUDI-xxx
-    description: Add one entry per security audit requirement.
-  seenen-envi:
-    prefix: SEENEN_ENVI_
-    subsection-types:
-      seel:
-        max-count: 1
-      sees:
-        max-count: 1
-      seea:
-        max-count: 1
-      seenenli:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^SEENEN-ENVI-.+$
-      error-message: IDs of this section must match SEENEN-ENVI-xxx
+      see-envi:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per server environment.
-  seroen-serv:
-    prefix: SEROEN_SERV_
+  shlien-shar:
+    prefix: SHLIEN_SHAR_
     subsection-types:
-      sres:
+      shliende:
         max-count: 1
-      srec:
+      slea:
         max-count: 1
-      seroenst:
-        max-count: 1
-      sren:
+      slel:
         max-count: 1
     pattern-check-id:
-      pattern: ^SEROEN-SERV-.+$
-      error-message: IDs of this section must match SEROEN-SERV-xxx
-    description: Add one entry per server role.
-  sesten-stan:
-    prefix: SESTEN_STAN_
+      pattern: ^SHLIEN-SHAR-.+$
+      error-message: IDs of this section must match SHLIEN-SHAR-xxx
+    description: Add one entry per shared library.
+  sle-soft-lst:
+    prefix: SLE_SOFT_LST
     subsection-types:
-      sestensc:
-        max-count: 1
-      ssei:
-        max-count: 1
-      ssev:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^SESTEN-STAN-.+$
-      error-message: IDs of this section must match SESTEN-STAN-xxx
-    description: Add one entry per security standard.
-  solaen-soft:
-    prefix: SOLAEN_SOFT_
-    subsection-types:
-      sler:
-        max-count: 1
-      slec:
-        max-count: 1
-      sled:
-        max-count: 1
-      slet:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^SOLAEN-SOFT-.+$
-      error-message: IDs of this section must match SOLAEN-SOFT-xxx
+      sle-soft:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per software layer.
+  sre-serv-lst:
+    prefix: SRE_SERV_LST
+    subsection-types:
+      sre-serv:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per server role.
+  sse-stan-lst:
+    prefix: SSE_STAN_LST
+    subsection-types:
+      sse-stan:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per security standard.
   stanin-stak:
     prefix: STANIN_STAK_
     pattern-check-id:
       pattern: ^STANIN-STAK-.+$
       error-message: IDs of this section must match STANIN-STAK-xxx
     description: Add one entry per stakeholder interest.
-  taiten-tabs:
-    prefix: TAITEN_TABS_
-    subsection-types:
-      azreq:
-        max-count: 1
+  syerdi-erro:
+    prefix: SYERDI_ERRO_
     pattern-check-id:
-      pattern: ^TAITEN-TABS-.+$
-      error-message: IDs of this section must match TAITEN-TABS-xxx
-    description: Add one entry per tab item in the tab bar.
+      pattern: ^SYERDI-ERRO-.+$
+      error-message: IDs of this section must match SYERDI-ERRO-xxx
+    description: Add one entry per error page design.
   tedava-vari:
     prefix: TEDAVA_VARI_
     pattern-check-id:
@@ -2441,55 +2358,15 @@ section-types:
       pattern: ^THPALI-THIR-.+$
       error-message: IDs of this section must match THPALI-THIR-xxx
     description: Add one entry per third-party library.
-  uicoen-comp:
-    prefix: UICOEN_COMP_
+  tie-tabs-lst:
+    prefix: TIE_TABS_LST
     subsection-types:
-      uicoment-iden:
-        max-count: 1
-      ucep:
-        max-count: 1
-      ucec:
-        max-count: 1
-      uicoment-visu:
-        max-count: 1
-      uced:
-        max-count: 1
-      uces:
-        max-count: 1
-      uicoensu:
-        max-count: 1
-      uicoment-inte:
-        max-count: 1
-      uceib:
-        max-count: 1
-      ucea:
-        max-count: 1
-      uicoensc:
-        max-count: 1
-      uicoment-resp:
-        max-count: 1
-      uicoment-acce:
-        max-count: 1
-      uicoment-auth:
-        max-count: 1
-      uicoment-reso:
-        max-count: 1
-      uicoment-data:
-        max-count: 1
-      cmst-stat-lst:
-        max-count: 1
-      cmvn-vari-lst:
-        max-count: 1
-      cmac-acti-lst:
-        max-count: 1
-      cmsl-slot-lst:
-        max-count: 1
-      cmpr-prop-lst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^UICOEN-COMP-.+$
-      error-message: IDs of this section must match UICOEN-COMP-xxx
-    description: Add one entry per catalog component.
+      tie-tabs:
+        max-count: infinite
+        min-count: 1
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per tab item in the tab bar.
   unp-pref-lst:
     prefix: UNP_PREF_LST
     subsection-types:
@@ -2498,26 +2375,21 @@ section-types:
     min-text-length: 0
     max-text-length: 0
     description: Add one entry per user notification-preference profile.
-  vamete-mess:
-    prefix: VAMETE_MESS_
-    pattern-check-id:
-      pattern: ^VAMETE-MESS-.+$
-      error-message: IDs of this section must match VAMETE-MESS-xxx
-    description: Add one entry per validation message template.
-  vpreen-vpnr:
-    prefix: VPREEN_VPNR_
+  vmt-mess-lst:
+    prefix: VMT_MESS_LST
     subsection-types:
-      vree:
-        max-count: 1
-      vrep:
-        max-count: 1
-      vpreenpe:
-        max-count: 1
-      vrea:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^VPREEN-VPNR-.+$
-      error-message: IDs of this section must match VPREEN-VPNR-xxx
+      vmt-mess:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per validation message template.
+  vre-vpnr-lst:
+    prefix: VRE_VPNR_LST
+    subsection-types:
+      vre-vpnr:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
     description: Add one entry per VPN requirement.
   acrse-acce:
     prefix: ACRSE_ACCE_
@@ -2542,6 +2414,14 @@ section-types:
       pattern: ^AZLVL-LEVE-.+$
       error-message: IDs of this section must match AZLVL-LEVE-xxx
     description: Add one entry per access state that has its own requirement. At least Full must be authored; Read and Disabled inherit downwards when omitted.
+  be-brea-lst:
+    prefix: BE_BREA_LST
+    subsection-types:
+      be-brea:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per layout breakpoint.
   btcen-buil:
     prefix: BTCEN_BUIL_
     subsection-types:
@@ -2676,21 +2556,6 @@ section-types:
       pattern: ^DMEVA-VALU-.+$
       error-message: IDs of this section must match DMEVA-VALU-xxx
     description: Add one entry per enum value.
-  dore1-desk:
-    prefix: DORE1_DESK_
-    subsection-types:
-      dores:
-        max-count: 1
-      dorer:
-        max-count: 1
-      deosreenso:
-        max-count: 1
-      doret:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^DORE1-DESK-.+$
-      error-message: IDs of this section must match DORE1-DESK-xxx
-    description: Add one entry per supported desktop operating system.
   dsset-sett:
     prefix: DSSET_SETT_
     pattern-check-id:
@@ -2762,49 +2627,26 @@ section-types:
       pattern: ^EXTST-STEP-.+$
       error-message: IDs of this section must match EXTST-STEP-xxx
     description: Add one entry per extension step.
-  field-fiel:
-    prefix: FIELD_FIEL_
-    pattern-check-id:
-      pattern: ^FIELD-FIEL-.+$
-      error-message: IDs of this section must match FIELD-FIEL-xxx
-    description: Add one entry per field validation rule.
-  fwren-fram:
-    prefix: FWREN_FRAM_
-    subsection-types:
-      fwrid:
-        max-count: 1
-      fwrvr:
-        max-count: 1
-      fwrsc:
-        max-count: 1
-      fwrcp:
-        max-count: 1
-      fwrsp:
-        max-count: 1
-      fwrjt:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^FWREN-FRAM-.+$
-      error-message: IDs of this section must match FWREN-FRAM-xxx
-    description: Add one entry per framework or library.
   gbrlx-glob:
     prefix: GBRLX_GLOB_
     pattern-check-id:
       pattern: ^GBRLX-GLOB-.+$
       error-message: IDs of this section must match GBRLX-GLOB-xxx
     description: Add one entry per global role exclusion.
-  globa-glob:
-    prefix: GLOBA_GLOB_
-    pattern-check-id:
-      pattern: ^GLOBA-GLOB-.+$
-      error-message: IDs of this section must match GLOBA-GLOB-xxx
-    description: Add one entry per global entry point.
   hndre-hand:
     prefix: HNDRE_HAND_
     pattern-check-id:
       pattern: ^HNDRE-HAND-.+$
       error-message: IDs of this section must match HNDRE-HAND-xxx
     description: Add one entry per handling requirement.
+  ia-glob-lst:
+    prefix: IA_GLOB_LST
+    subsection-types:
+      ia-glob:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per global entry point.
   idtam-attr:
     prefix: IDTAM_ATTR_
     subsection-types:
@@ -2878,21 +2720,17 @@ section-types:
       pattern: ^LGFLS-LOGI-.+$
       error-message: IDs of this section must match LGFLS-LOGI-xxx
     description: Add one entry per login flow step.
-  maint-main:
-    prefix: MAINT_MAIN_
-    pattern-check-id:
-      pattern: ^MAINT-MAIN-.+$
-      error-message: IDs of this section must match MAINT-MAIN-xxx
-    description: Add one entry per maintenance procedure.
+  mc-mfad-lst:
+    prefix: MC_MFAD_LST
+    subsection-types:
+      mc-mfad:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per MFA method definition.
   meanob-metr:
     prefix: MEANOB_METR
     format: meanob-metr-form
-  mfade-mfad:
-    prefix: MFADE_MFAD_
-    pattern-check-id:
-      pattern: ^MFADE-MFAD-.+$
-      error-message: IDs of this section must match MFADE-MFAD-xxx
-    description: Add one entry per MFA method definition.
   migtg-targ:
     prefix: MIGTG_TARG_
     pattern-check-id:
@@ -2905,23 +2743,6 @@ section-types:
       pattern: ^MNSST-STEP-.+$
       error-message: IDs of this section must match MNSST-STEP-xxx
     description: Add one entry per numbered step.
-  moen1-modu:
-    prefix: MOEN1_MODU_
-    subsection-types:
-      moende:
-        max-count: 1
-      moend1:
-        max-count: 1
-      moenow:
-        max-count: 1
-      moenco:
-        max-count: 1
-      moente:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^MOEN1-MODU-.+$
-      error-message: IDs of this section must match MOEN1-MODU-xxx
-    description: Add one entry per module.
   monito-moni:
     prefix: MONITO_MONI
     format: monito-moni-form
@@ -2958,6 +2779,14 @@ section-types:
       pattern: ^PARTI-PART-.+$
       error-message: IDs of this section must match PARTI-PART-xxx
     description: Add one entry per participating entity.
+  pe-prot-lst:
+    prefix: PE_PROT_LST
+    subsection-types:
+      pe-prot:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per protocol.
   plgen-prog:
     prefix: PLGEN_PROG_
     subsection-types:
@@ -2990,12 +2819,6 @@ section-types:
       pattern: ^QLSTD-QUAL-.+$
       error-message: IDs of this section must match QLSTD-QUAL-xxx
     description: Add one entry per quality standard.
-  recov-reco:
-    prefix: RECOV_RECO_
-    pattern-check-id:
-      pattern: ^RECOV-RECO-.+$
-      error-message: IDs of this section must match RECOV-RECO-xxx
-    description: Add one entry per recovery flow.
   relat-rela:
     prefix: RELAT_RELA_
     pattern-check-id:
@@ -3105,7 +2928,7 @@ section-types:
         max-count: 1
       sedd:
         max-count: 1
-      evre-vali-lst:
+      elvaruen-vali-lst:
         max-count: 1
     pattern-check-id:
       pattern: ^SCREL-ELEM-.+$
@@ -3128,11 +2951,11 @@ section-types:
         max-count: 1
       scst:
         max-count: 1
-      scrusc-user-lst:
+      suce-user-lst:
         max-count: 1
       epnt-entr-lst:
         max-count: 1
-      srre-resp-lst:
+      screruen-resp-lst:
         max-count: 1
     pattern-check-id:
       pattern: ^SCREN-ITEM-.+$
@@ -3163,6 +2986,14 @@ section-types:
       pattern: ^SCSET-SETT-.+$
       error-message: IDs of this section must match SCSET-SETT-xxx
     description: "Add one entry per server configuration setting **this application owns** — a setting whose key you invent. Declare the setting: key, value type, default, the source key it is read from, whether it carries a secret, and whether narrower scopes may shadow it. Never write the value: it is supplied per deployment, and a secret-bearing setting declares only its presence and shape, never its content. Typical keys: server.host, server.port, server.isolateCount, log.level, database.migrationsDirectory, tls.privateKey, jwt.rsaPrivateKey. This list is the only place a secret may be declared: the security, encryption, key-management and audit-sink policy sections name their own settings and carry values only, so a credential they need — a remote log sink password, a KMS access key — is authored here as its own entry."
+  se-slos-lst:
+    prefix: SE_SLOS_LST
+    subsection-types:
+      se-slos:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per SLO.
   shlcp-shar:
     prefix: SHLCP_SHAR_
     subsection-types:
@@ -3178,25 +3009,14 @@ section-types:
       pattern: ^SHLCP-SHAR-.+$
       error-message: IDs of this section must match SHLCP-SHAR-xxx
     description: Add one entry per shared library.
-  shlib-shar:
-    prefix: SHLIB_SHAR_
+  so-main-lst:
+    prefix: SO_MAIN_LST
     subsection-types:
-      shliende:
-        max-count: 1
-      slea:
-        max-count: 1
-      slel:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^SHLIB-SHAR-.+$
-      error-message: IDs of this section must match SHLIB-SHAR-xxx
-    description: Add one entry per shared library.
-  stepu-step:
-    prefix: STEPU_STEP_
-    pattern-check-id:
-      pattern: ^STEPU-STEP-.+$
-      error-message: IDs of this section must match STEPU-STEP-xxx
-    description: Add one entry per step-up authentication step.
+      so-main:
+        max-count: infinite
+    min-text-length: 0
+    max-text-length: 0
+    description: Add one entry per maintenance procedure.
   svope-oper:
     prefix: SVOPE_OPER_
     subsection-types:
@@ -3498,30 +3318,6 @@ section-types:
       pattern: ^CMSL-SLOT-.+$
       error-message: IDs of this section must match CMSL-SLOT-xxx
     description: Add one entry per component slot.
-  cmst-stat:
-    prefix: CMST_STAT_
-    subsection-types:
-      csev:
-        max-count: 1
-      cseb:
-        max-count: 1
-      cset:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^CMST-STAT-.+$
-      error-message: IDs of this section must match CMST-STAT-xxx
-    description: Add one entry per component state.
-  cmvn-vari:
-    prefix: CMVN_VARI_
-    subsection-types:
-      cvev:
-        max-count: 1
-      cveb:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^CMVN-VARI-.+$
-      error-message: IDs of this section must match CMVN-VARI-xxx
-    description: Add one entry per component variant.
   copa-colo:
     prefix: COPA_COLO_
     pattern-check-id:
@@ -3563,17 +3359,6 @@ section-types:
   daatt-secu:
     prefix: DAATT_SECU
     format: daatt-secu-form
-  daen-dash:
-    prefix: DAEN_DASH_
-    subsection-types:
-      daenco:
-        max-count: 1
-      daenop:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^DAEN-DASH-.+$
-      error-message: IDs of this section must match DAEN-DASH-xxx
-    description: Add one entry per dashboard.
   daent-clas:
     prefix: DAENT_CLAS
     format: daent-clas-form
@@ -3647,58 +3432,12 @@ section-types:
   enrle-refe:
     prefix: ENRLE_REFE
     format: enrle-refe-form
-  epce-part:
-    prefix: EPCE_PART_
-    subsection-types:
-      expapr:
-        max-count: 1
-      expaau:
-        max-count: 1
-      expane:
-        max-count: 1
-      expare:
-        max-count: 1
-      epdh:
-        max-count: 1
-      expaop-oper-lst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^EPCE-PART-.+$
-      error-message: IDs of this section must match EPCE-PART-xxx
-    description: Add one entry per external partner connection.
-  epde-erro:
-    prefix: EPDE_ERRO_
-    pattern-check-id:
-      pattern: ^EPDE-ERRO-.+$
-      error-message: IDs of this section must match EPDE-ERRO-xxx
-    description: Add one entry per error page design.
   epnt-entr:
     prefix: EPNT_ENTR_
     pattern-check-id:
       pattern: ^EPNT-ENTR-.+$
       error-message: IDs of this section must match EPNT-ENTR-xxx
     description: Add one entry per entry point.
-  esce-ente:
-    prefix: ESCE_ENTE_
-    subsection-types:
-      escei:
-        max-count: 1
-      esces:
-        max-count: 1
-      escer:
-        max-count: 1
-      escet:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^ESCE-ENTE-.+$
-      error-message: IDs of this section must match ESCE-ENTE-xxx
-    description: Add one entry per enterprise system.
-  evre-vali:
-    prefix: EVRE_VALI_
-    pattern-check-id:
-      pattern: ^EVRE-VALI-.+$
-      error-message: IDs of this section must match EVRE-VALI-xxx
-    description: Add one entry per validation rule.
   inen-inte:
     prefix: INEN_INTE_
     subsection-types:
@@ -3736,100 +3475,6 @@ section-types:
     prefix: INPRCOENIN
     format: inprcoenin-form
     description: Interoperability notes.
-  ipce-indu:
-    prefix: IPCE_INDU_
-    subsection-types:
-      ipces:
-        max-count: 1
-      ipcei:
-        max-count: 1
-      ipcet:
-        max-count: 1
-      inprcoenin:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^IPCE-INDU-.+$
-      error-message: IDs of this section must match IPCE-INDU-xxx
-    description: Add one entry per industry protocol.
-  isce-itst:
-    prefix: ISCE_ITST_
-    subsection-types:
-      isces:
-        max-count: 1
-      iscer:
-        max-count: 1
-      iscet:
-        max-count: 1
-      isceo:
-        max-count: 1
-      iscee:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^ISCE-ITST-.+$
-      error-message: IDs of this section must match ISCE-ITST-xxx
-    description: Add one entry per IT standard.
-  mdre-mobi:
-    prefix: MDRE_MOBI_
-    subsection-types:
-      mdres:
-        max-count: 1
-      mdred:
-        max-count: 1
-      mdreh:
-        max-count: 1
-      mdrec:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^MDRE-MOBI-.+$
-      error-message: IDs of this section must match MDRE-MOBI-xxx
-    description: Add one entry per supported mobile platform.
-  pren-prot:
-    prefix: PREN_PROT_
-    pattern-check-id:
-      pattern: ^PREN-PROT-.+$
-      error-message: IDs of this section must match PREN-PROT-xxx
-    description: Add one entry per protocol.
-  reen-repo:
-    prefix: REEN_REPO_
-    subsection-types:
-      reid:
-        max-count: 1
-      redaso:
-        max-count: 1
-      refo:
-        max-count: 1
-      rela:
-        max-count: 1
-      rehefo:
-        max-count: 1
-      regr:
-        max-count: 1
-      rf:
-        max-count: 1
-      rein:
-        max-count: 1
-      repa:
-        max-count: 1
-      rese:
-        max-count: 1
-      azreq:
-        max-count: 1
-      reli:
-        max-count: 1
-      resee1-sect-lst:
-        max-count: 1
-      refien-filt-lst:
-        max-count: 1
-      rescen-sche-lst:
-        max-count: 1
-      redien-dist-lst:
-        max-count: 1
-      rereen-reci-lst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^REEN-REPO-.+$
-      error-message: IDs of this section must match REEN-REPO-xxx
-    description: Add one entry per report.
   reuicoende:
     prefix: REUICOENDE
     format: reuicoende-form
@@ -3838,6 +3483,23 @@ section-types:
     prefix: REUICOENIM
     format: reuicoenim-form
     description: Implementation details.
+  ruce-uico:
+    prefix: RUCE_UICO_
+    subsection-types:
+      ruced:
+        max-count: 1
+      reuicoende:
+        max-count: 1
+      rucei:
+        max-count: 1
+      rucea:
+        max-count: 1
+      reuicoenim:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^RUCE-UICO-.+$
+      error-message: IDs of this section must match RUCE-UICO-xxx
+    description: Add one entry per UI component.
   scjob-cron:
     prefix: SCJOB_CRON
     format: scjob-cron-form
@@ -3883,17 +3545,6 @@ section-types:
     prefix: SCMST_REFD
     format: scmst-refd-form
     description: "Reference-data definition — a promoted `@OneOf` case."
-  sece-erro:
-    prefix: SECE_ERRO_
-    subsection-types:
-      seceh:
-        max-count: 1
-      seceo:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^SECE-ERRO-.+$
-      error-message: IDs of this section must match SECE-ERRO-xxx
-    description: Add one entry per system error code.
   sestcoensc:
     prefix: SESTCOENSC
     format: sestcoensc-form
@@ -3908,52 +3559,18 @@ section-types:
       pattern: ^SEVT-CUST-.+$
       error-message: IDs of this section must match SEVT-CUST-xxx
     description: Add one entry per custom security event.
-  slen-slos:
-    prefix: SLEN_SLOS_
-    subsection-types:
-      slenta:
-        max-count: 1
-      slenop:
-        max-count: 1
+  suap-step:
+    prefix: SUAP_STEP_
     pattern-check-id:
-      pattern: ^SLEN-SLOS-.+$
-      error-message: IDs of this section must match SLEN-SLOS-xxx
-    description: Add one entry per SLO.
-  srre-resp:
-    prefix: SRRE_RESP_
+      pattern: ^SUAP-STEP-.+$
+      error-message: IDs of this section must match SUAP-STEP-xxx
+    description: Add one entry per step-up authentication step.
+  suce-user:
+    prefix: SUCE_USER_
     pattern-check-id:
-      pattern: ^SRRE-RESP-.+$
-      error-message: IDs of this section must match SRRE-RESP-xxx
-    description: Add one entry per responsive rule.
-  ssce-secu:
-    prefix: SSCE_SECU_
-    subsection-types:
-      sestcoensc:
-        max-count: 1
-      sscec:
-        max-count: 1
-      sscea:
-        max-count: 1
-      sestcoenst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^SSCE-SECU-.+$
-      error-message: IDs of this section must match SSCE-SECU-xxx
-    description: Add one entry per security standard.
-  tbde-tabb:
-    prefix: TBDE_TABB_
-    subsection-types:
-      tbdeb:
-        max-count: 1
-      tbdel:
-        max-count: 1
-      taiten-tabs-lst:
-        max-count: 1
-        min-count: 1
-    pattern-check-id:
-      pattern: ^TBDE-TABB-.+$
-      error-message: IDs of this section must match TBDE-TABB-xxx
-    description: Add one entry per tab bar or segmented control.
+      pattern: ^SUCE-USER-.+$
+      error-message: IDs of this section must match SUCE-USER-xxx
+    description: Add one entry per user category.
   thpaapinai:
     prefix: THPAAPINAI
     format: thpaapinai-form
@@ -3964,69 +3581,109 @@ section-types:
       pattern: ^TNCS-TENA-.+$
       error-message: IDs of this section must match TNCS-TENA-xxx
     description: Add one entry per tenant.
-  tpce-thir:
-    prefix: TPCE_THIR_
-    subsection-types:
-      tpcec:
-        max-count: 1
-      tpcei:
-        max-count: 1
-      tpcet:
-        max-count: 1
-      tpces:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^TPCE-THIR-.+$
-      error-message: IDs of this section must match TPCE-THIR-xxx
-    description: Add one entry per third-party software product.
   tyst-typo:
     prefix: TYST_TYPO_
     pattern-check-id:
       pattern: ^TYST-TYPO-.+$
       error-message: IDs of this section must match TYST-TYPO-xxx
     description: Add one entry per typography style.
-  umie-menu:
-    prefix: UMIE_MENU_
-    subsection-types:
-      umiea:
-        max-count: 1
-      umieb:
-        max-count: 1
-      azreq:
-        max-count: 1
+  vafe-fiel:
+    prefix: VAFE_FIEL_
     pattern-check-id:
-      pattern: ^UMIE-MENU-.+$
-      error-message: IDs of this section must match UMIE-MENU-xxx
-    description: Add one entry per utility menu item.
-  unie-item:
-    prefix: UNIE_ITEM_
-    subsection-types:
-      unied:
-        max-count: 1
-      azreq:
-        max-count: 1
-      unieb:
-        max-count: 1
-      umie-menu-lst:
-        max-count: 1
-    pattern-check-id:
-      pattern: ^UNIE-ITEM-.+$
-      error-message: IDs of this section must match UNIE-ITEM-xxx
-    description: Add one entry per utility navigation item.
+      pattern: ^VAFE-FIEL-.+$
+      error-message: IDs of this section must match VAFE-FIEL-xxx
+    description: Add one entry per field validation rule.
   alco-aler:
     prefix: ALCO_ALER
     format: alco-aler-form
-  bre-brea:
-    prefix: BRE_BREA_
+  bce-boun:
+    prefix: BCE_BOUN_
     subsection-types:
-      brenla:
+      bces:
         max-count: 1
-      brensc:
+      bceb:
+        max-count: 1
+      bcei:
+        max-count: 1
+      bocoenin:
         max-count: 1
     pattern-check-id:
-      pattern: ^BRE-BREA-.+$
-      error-message: IDs of this section must match BRE-BREA-xxx
-    description: Add one entry per layout breakpoint.
+      pattern: ^BCE-BOUN-.+$
+      error-message: IDs of this section must match BCE-BOUN-xxx
+    description: Add one entry per bounded context.
+  bpe-back:
+    prefix: BPE_BACK_
+    subsection-types:
+      bpet:
+        max-count: 1
+      bpes:
+        max-count: 1
+      bper:
+        max-count: 1
+      bapoenst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^BPE-BACK-.+$
+      error-message: IDs of this section must match BPE-BACK-xxx
+    description: Add one entry per backup policy.
+  cse-codi:
+    prefix: CSE_CODI_
+    subsection-types:
+      cserd:
+        max-count: 1
+      csen:
+        max-count: 1
+      csef:
+        max-count: 1
+      csee:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^CSE-CODI-.+$
+      error-message: IDs of this section must match CSE-CODI-xxx
+    description: Add one entry per coding standard.
+  cve-vari:
+    prefix: CVE_VARI_
+    subsection-types:
+      cvev:
+        max-count: 1
+      cveb:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^CVE-VARI-.+$
+      error-message: IDs of this section must match CVE-VARI-xxx
+    description: Add one entry per component variant.
+  dce-deve:
+    prefix: DCE_DEVE_
+    subsection-types:
+      dceo:
+        max-count: 1
+      dcevc:
+        max-count: 1
+      dcer:
+        max-count: 1
+      dcea:
+        max-count: 1
+      dcee:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^DCE-DEVE-.+$
+      error-message: IDs of this section must match DCE-DEVE-xxx
+    description: Add one entry per development convention.
+  dee-envi:
+    prefix: DEE_ENVI_
+    subsection-types:
+      deed:
+        max-count: 1
+      deep:
+        max-count: 1
+      deec:
+        max-count: 1
+      deem:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^DEE-ENVI-.+$
+      error-message: IDs of this section must match DEE-ENVI-xxx
+    description: Add one entry per deployment environment.
   ent-enti:
     prefix: ENT_ENTI_
     subsection-types:
@@ -4038,16 +3695,223 @@ section-types:
     description: Add one entry per entitlement.
   erre-reco:
     prefix: ERRE_RECO
+    pattern-check-id:
+      pattern: ^ERRE-RECO-.+$
+      error-message: IDs of this section must match ERRE-RECO-xxx
     format: erre-reco-form
+    description: Add one entry per recovery flow.
+  ire-ider:
+    prefix: IRE_IDER_
+    subsection-types:
+      irec:
+        max-count: 1
+      irei:
+        max-count: 1
+      ires:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^IRE-IDER-.+$
+      error-message: IDs of this section must match IRE-IDER-xxx
+    description: Add one entry per IDE or editor.
+  ise-indu:
+    prefix: ISE_INDU_
+    subsection-types:
+      ises:
+        max-count: 1
+      isec:
+        max-count: 1
+      instence:
+        max-count: 1
+      isev:
+        max-count: 1
+      iser:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^ISE-INDU-.+$
+      error-message: IDs of this section must match ISE-INDU-xxx
+    description: Add one entry per industry standard.
+  lce-lega:
+    prefix: LCE_LEGA_
+    subsection-types:
+      lcei:
+        max-count: 1
+      lcec:
+        max-count: 1
+      lcem:
+        max-count: 1
+      lcer:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^LCE-LEGA-.+$
+      error-message: IDs of this section must match LCE-LEGA-xxx
+    description: Add one entry per legacy system.
   moda-dash:
     prefix: MODA_DASH
     format: moda-dash-form
+  mwe-main:
+    prefix: MWE_MAIN_
+    subsection-types:
+      mwes:
+        max-count: 1
+      mawiensc:
+        max-count: 1
+      mwei:
+        max-count: 1
+      mwer:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^MWE-MAIN-.+$
+      error-message: IDs of this section must match MWE-MAIN-xxx
+    description: Add one entry per maintenance window.
+  oce-osco:
+    prefix: OCE_OSCO_
+    subsection-types:
+      oces:
+        max-count: 1
+      ocer:
+        max-count: 1
+      ocet:
+        max-count: 1
+      ocel:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^OCE-OSCO-.+$
+      error-message: IDs of this section must match OCE-OSCO-xxx
+    description: Add one entry per supported operating system.
+  pje-jobs:
+    prefix: PJE_JOBS_
+    subsection-types:
+      pjee:
+        max-count: 1
+      pjes:
+        max-count: 1
+      pjed:
+        max-count: 1
+      pjeo:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PJE-JOBS-.+$
+      error-message: IDs of this section must match PJE-JOBS-xxx
+    description: Add one entry per pipeline job.
+  pse-stag:
+    prefix: PSE_STAG_
+    subsection-types:
+      pset:
+        max-count: 1
+      psee:
+        max-count: 1
+      psea:
+        max-count: 1
+      psef:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^PSE-STAG-.+$
+      error-message: IDs of this section must match PSE-STAG-xxx
+    description: Add one entry per pipeline stage.
+  rce-regu:
+    prefix: RCE_REGU_
+    subsection-types:
+      recoenap:
+        max-count: 1
+      recoenre:
+        max-count: 1
+      rcep:
+        max-count: 1
+      rceo:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^RCE-REGU-.+$
+      error-message: IDs of this section must match RCE-REGU-xxx
+    description: Add one entry per regulation.
+  rde-dist:
+    prefix: RDE_DIST_
+    subsection-types:
+      redienre:
+        max-count: 1
+      redienco:
+        max-count: 1
+      rded:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^RDE-DIST-.+$
+      error-message: IDs of this section must match RDE-DIST-xxx
+    description: Add one entry per report distribution channel.
   rebe-layo:
     prefix: REBE_LAYO
     format: rebe-layo-form
   rede-resp:
     prefix: REDE_RESP
     format: rede-resp-form
+  rfe-filt:
+    prefix: RFE_FILT_
+    subsection-types:
+      rfei:
+        max-count: 1
+      rfeit:
+        max-count: 1
+      rfein:
+        max-count: 1
+      rfeid:
+        max-count: 1
+      rfeib:
+        max-count: 1
+      rfeis:
+        max-count: 1
+      rfeie:
+        max-count: 1
+      rfeb:
+        max-count: 1
+      rfep:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^RFE-FILT-.+$
+      error-message: IDs of this section must match RFE-FILT-xxx
+    description: Add one entry per report data filter.
+  rre-reci:
+    prefix: RRE_RECI_
+    subsection-types:
+      rereenco:
+        max-count: 1
+      rred:
+        max-count: 1
+      rrel:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^RRE-RECI-.+$
+      error-message: IDs of this section must match RRE-RECI-xxx
+    description: Add one entry per report recipient.
+  rse-sect:
+    prefix: RSE_SECT_
+    subsection-types:
+      reseda:
+        max-count: 1
+      resela:
+        max-count: 1
+      reseso:
+        max-count: 1
+      reseag:
+        max-count: 1
+      repcolent-colu-lst:
+        max-count: 1
+      repchaent-char-lst:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^RSE-SECT-.+$
+      error-message: IDs of this section must match RSE-SECT-xxx
+    description: Add one entry per report section.
+  sae-audi:
+    prefix: SAE_AUDI_
+    subsection-types:
+      saes:
+        max-count: 1
+      saee:
+        max-count: 1
+      saefu:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SAE-AUDI-.+$
+      error-message: IDs of this section must match SAE-AUDI-xxx
+    description: Add one entry per security audit requirement.
   sasm-slao:
     prefix: SASM_SLAO
     format: sasm-slao-form
@@ -4055,6 +3919,73 @@ section-types:
     prefix: SCJOB_CAL
     format: scjob-cal-form
     description: "Calendar trigger — a promoted `@OneOf` case."
+  see-envi:
+    prefix: SEE_ENVI_
+    subsection-types:
+      seel:
+        max-count: 1
+      sees:
+        max-count: 1
+      seea:
+        max-count: 1
+      seenenli:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SEE-ENVI-.+$
+      error-message: IDs of this section must match SEE-ENVI-xxx
+    description: Add one entry per server environment.
+  sle-soft:
+    prefix: SLE_SOFT_
+    subsection-types:
+      sler:
+        max-count: 1
+      slec:
+        max-count: 1
+      sled:
+        max-count: 1
+      slet:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SLE-SOFT-.+$
+      error-message: IDs of this section must match SLE-SOFT-xxx
+    description: Add one entry per software layer.
+  sre-serv:
+    prefix: SRE_SERV_
+    subsection-types:
+      sres:
+        max-count: 1
+      srec:
+        max-count: 1
+      seroenst:
+        max-count: 1
+      sren:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SRE-SERV-.+$
+      error-message: IDs of this section must match SRE-SERV-xxx
+    description: Add one entry per server role.
+  sse-stan:
+    prefix: SSE_STAN_
+    subsection-types:
+      sestensc:
+        max-count: 1
+      ssei:
+        max-count: 1
+      ssev:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SSE-STAN-.+$
+      error-message: IDs of this section must match SSE-STAN-xxx
+    description: Add one entry per security standard.
+  tie-tabs:
+    prefix: TIE_TABS_
+    subsection-types:
+      azreq:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^TIE-TABS-.+$
+      error-message: IDs of this section must match TIE-TABS-xxx
+    description: Add one entry per tab item in the tab bar.
   uico-comp:
     prefix: UICO_COMP
     format: uico-comp-form
@@ -4068,6 +3999,27 @@ section-types:
   vafe-vali:
     prefix: VAFE_VALI
     format: vafe-vali-form
+  vmt-mess:
+    prefix: VMT_MESS_
+    pattern-check-id:
+      pattern: ^VMT-MESS-.+$
+      error-message: IDs of this section must match VMT-MESS-xxx
+    description: Add one entry per validation message template.
+  vre-vpnr:
+    prefix: VRE_VPNR_
+    subsection-types:
+      vree:
+        max-count: 1
+      vrep:
+        max-count: 1
+      vpreenpe:
+        max-count: 1
+      vrea:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^VRE-VPNR-.+$
+      error-message: IDs of this section must match VRE-VPNR-xxx
+    description: Add one entry per VPN requirement.
   adinreda:
     prefix: ADINREDA
     format: adinreda-form
@@ -4100,6 +4052,17 @@ section-types:
     prefix: BAPOENST
     format: bapoenst-form
     description: Storage configuration.
+  be-brea:
+    prefix: BE_BREA_
+    subsection-types:
+      brenla:
+        max-count: 1
+      brensc:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^BE-BREA-.+$
+      error-message: IDs of this section must match BE-BREA-xxx
+    description: Add one entry per layout breakpoint.
   bocoenin:
     prefix: BOCOENIN
     format: bocoenin-form
@@ -4196,6 +4159,12 @@ section-types:
     prefix: HECHENCO
     format: hechenco-form
     description: Response content settings.
+  ia-glob:
+    prefix: IA_GLOB_
+    pattern-check-id:
+      pattern: ^IA-GLOB-.+$
+      error-message: IDs of this section must match IA-GLOB-xxx
+    description: Add one entry per global entry point.
   idsoenco:
     prefix: IDSOENCO
     format: idsoenco-form
@@ -4232,6 +4201,12 @@ section-types:
     prefix: MAWIENSC
     format: mawiensc-form
     description: Scope details.
+  mc-mfad:
+    prefix: MC_MFAD_
+    pattern-check-id:
+      pattern: ^MC-MFAD-.+$
+      error-message: IDs of this section must match MC-MFAD-xxx
+    description: Add one entry per MFA method definition.
   mecorecu:
     prefix: MECORECU
     format: mecorecu-form
@@ -4260,6 +4235,12 @@ section-types:
     prefix: NESEPODN
     format: nesepodn-form
     description: DNS controls and notes.
+  pe-prot:
+    prefix: PE_PROT_
+    pattern-check-id:
+      pattern: ^PE-PROT-.+$
+      error-message: IDs of this section must match PE-PROT-xxx
+    description: Add one entry per protocol.
   recoenap:
     prefix: RECOENAP
     format: recoenap-form
@@ -4292,6 +4273,17 @@ section-types:
     prefix: SCSTENEX
     format: scstenex-form
     description: "Branching, timing, and notes."
+  se-slos:
+    prefix: SE_SLOS_
+    subsection-types:
+      slenta:
+        max-count: 1
+      slenop:
+        max-count: 1
+    pattern-check-id:
+      pattern: ^SE-SLOS-.+$
+      error-message: IDs of this section must match SE-SLOS-xxx
+    description: Add one entry per SLO.
   secerein:
     prefix: SECEREIN
     format: secerein-form
@@ -4324,6 +4316,12 @@ section-types:
     prefix: SLMORERE
     format: slmorere-form
     description: Reporting and review.
+  so-main:
+    prefix: SO_MAIN_
+    pattern-check-id:
+      pattern: ^SO-MAIN-.+$
+      error-message: IDs of this section must match SO-MAIN-xxx
+    description: Add one entry per maintenance procedure.
   uicoensc:
     prefix: UICOENSC
     format: uicoensc-form
@@ -4767,11 +4765,11 @@ section-types:
     subsection-types:
       cliapp-clie-lst:
         max-count: 1
-      brreen-brow-lst:
+      broreqent-brow-lst:
         max-count: 1
-      dore1-desk-lst:
+      deosreen-desk-lst:
         max-count: 1
-      mdre-mobi-lst:
+      modereen-mobi-lst:
         max-count: 1
       dire:
         max-count: 1
@@ -5843,7 +5841,7 @@ section-types:
         max-count: 1
       ditrsp:
         max-count: 1
-      cumeen-cust-lst:
+      cusmetent-cust-lst:
         max-count: 1
     description: 8.7.2.3. Metrics and Observability.
   mecore:
@@ -6555,15 +6553,15 @@ section-types:
   stcose:
     prefix: STCOSE
     subsection-types:
-      isce-itst-lst:
+      itstcoen-itst-lst:
         max-count: 1
-      ipce-indu-lst:
+      inprcoen-indu-lst:
         max-count: 1
-      inspen-inte-lst:
+      intspeent-inte-lst:
         max-count: 1
-      recoen-regu-lst:
+      rce-regu-lst:
         max-count: 1
-      ssce-secu-lst:
+      sestcoen-secu-lst:
         max-count: 1
       accstd-acce-lst:
         max-count: 1
@@ -6646,9 +6644,9 @@ section-types:
         max-count: 1
       sedf:
         max-count: 1
-      epde-erro-lst:
+      syerdi-erro-lst:
         max-count: 1
-      sece-erro-lst:
+      syercoen-erro-lst:
         max-count: 1
     description: 10.7.2. System Error Display.
   tecopo:
@@ -7393,11 +7391,11 @@ section-types:
         max-count: 1
       plgen-prog-lst:
         max-count: 1
-      fwren-fram-lst:
+      frreen-fram-lst:
         max-count: 1
       btcen-buil-lst:
         max-count: 1
-      detaen-depl-lst:
+      deptarent-depl-lst:
         max-count: 1
       dema:
         max-count: 1
@@ -7957,7 +7955,7 @@ section-types:
         max-count: 1
       alnoch:
         max-count: 1
-      alruen-aler-lst:
+      alerulent-aler-lst:
         max-count: 1
       alespo:
         max-count: 1
@@ -8231,7 +8229,7 @@ section-types:
     subsection-types:
       badacl:
         max-count: 1
-      bapoen-back-lst:
+      bpe-back-lst:
         max-count: 1
       rprtre:
         max-count: 1
@@ -8474,11 +8472,11 @@ section-types:
   ccpc:
     prefix: CCPC
     subsection-types:
-      pisten-stag-lst:
+      pse-stag-lst:
         max-count: 1
-      pijoen-jobs-lst:
+      pje-jobs-lst:
         max-count: 1
-      deenen-envi-lst:
+      dee-envi-lst:
         max-count: 1
     description: CI/CD pipeline requirements.
   ccpr:
@@ -8888,7 +8886,7 @@ section-types:
   deen:
     prefix: DEEN
     subsection-types:
-      idreen-ider-lst:
+      ire-ider-lst:
         max-count: 1
       butoco:
         max-count: 1
@@ -9132,11 +9130,11 @@ section-types:
     subsection-types:
       dspt-desi-lst:
         max-count: 1
-      costen-codi-lst:
+      cse-codi-lst:
         max-count: 1
-      decoen-deve-lst:
+      dce-deve-lst:
         max-count: 1
-      insten-indu-lst:
+      ise-indu-lst:
         max-count: 1
       coqume:
         max-count: 1
@@ -9422,7 +9420,7 @@ section-types:
         max-count: 1
       ersh:
         max-count: 1
-      recov-reco-lst:
+      erre-reco-lst:
         max-count: 1
       rcvscn-reco-lst:
         max-count: 1
@@ -9722,7 +9720,7 @@ section-types:
   isss:
     prefix: ISSS
     subsection-types:
-      sesten-stan-lst:
+      sse-stan-lst:
         max-count: 1
       apsere:
         max-count: 1
@@ -9800,17 +9798,17 @@ section-types:
   lams:
     prefix: LAMS
     subsection-types:
-      solaen-soft-lst:
+      sle-soft-lst:
         max-count: 1
       lacoru:
         max-count: 1
-      bocoen-boun-lst:
+      bce-boun-lst:
         max-count: 1
       paor:
         max-count: 1
-      moen1-modu-lst:
+      modent-modu-lst:
         max-count: 1
-      shlib-shar-lst:
+      shlien-shar-lst:
         max-count: 1
       deinst:
         max-count: 1
@@ -9928,7 +9926,7 @@ section-types:
         max-count: 1
       alre:
         max-count: 1
-      aldeen-aler-lst:
+      aledefent-aler-lst:
         max-count: 1
       dare:
         max-count: 1
@@ -10031,7 +10029,7 @@ section-types:
     subsection-types:
       moda-dash:
         max-count: 1
-      daen-dash-lst:
+      dasent-dash-lst:
         max-count: 1
       date-dash-lst:
         max-count: 1
@@ -10339,7 +10337,7 @@ section-types:
   pass:
     prefix: PASS
     subsection-types:
-      pren-prot-lst:
+      pe-prot-lst:
         max-count: 1
       tlre:
         max-count: 1
@@ -10585,7 +10583,7 @@ section-types:
   redf:
     prefix: REDF
     subsection-types:
-      reen-repo-lst:
+      repent-repo-lst:
         max-count: 1
     description: Report definitions — CE-RP grouped projections over the domain model.
   refo:
@@ -10802,7 +10800,7 @@ section-types:
         max-count: 1
       seteau:
         max-count: 1
-      seauen-audi-lst:
+      sae-audi-lst:
         max-count: 1
     description: |
       Specify security audit requirements including penetration testing, code
@@ -10849,7 +10847,7 @@ section-types:
         max-count: 1
       selein:
         max-count: 1
-      slen-slos-lst:
+      se-slos-lst:
         max-count: 1
       erbutr:
         max-count: 1
@@ -11064,7 +11062,7 @@ section-types:
   sena:
     prefix: SENA
     subsection-types:
-      tbde-tabb-lst:
+      tabadeen-tabb-lst:
         max-count: 1
     description: 10.3.1.4. Secondary Navigation.
   slea:
@@ -11290,7 +11288,7 @@ section-types:
   suap:
     prefix: SUAP
     subsection-types:
-      stepu-step-lst:
+      suap-step-lst:
         max-count: 1
     format: suap-form
     description: Step-Up and Adaptive Authentication.
@@ -11460,7 +11458,7 @@ section-types:
         max-count: 1
       coli:
         max-count: 1
-      uicoen-comp-lst:
+      uicoment-comp-lst:
         max-count: 1
       cmfa-comp-lst:
         max-count: 1
@@ -11495,7 +11493,7 @@ section-types:
   utna:
     prefix: UTNA
     subsection-types:
-      unie-item-lst:
+      utnaiten-item-lst:
         max-count: 1
     description: 10.3.1.5. Utility Navigation.
   vaco:
@@ -11514,9 +11512,9 @@ section-types:
         max-count: 1
       vafebe:
         max-count: 1
-      vamete-mess-lst:
+      vmt-mess-lst:
         max-count: 1
-      field-fiel-lst:
+      vafe-fiel-lst:
         max-count: 1
     description: 10.7.1. Validation Feedback.
   vccb:
@@ -11695,21 +11693,21 @@ section-types:
   crs:
     prefix: CRS
     subsection-types:
-      oscoen-osco-lst:
+      oce-osco-lst:
         max-count: 1
-      brcoen-brow-lst:
+      brocoment-brow-lst:
         max-count: 1
-      dacoen-data-lst:
+      datcoment-data-lst:
         max-count: 1
-      esce-ente-lst:
+      ensycoen-ente-lst:
         max-count: 1
       apcp-apic-lst:
         max-count: 1
-      lecoen-lega-lst:
+      lce-lega-lst:
         max-count: 1
-      mocoen-mobi-lst:
+      mobcoment-mobi-lst:
         max-count: 1
-      tpce-thir-lst:
+      thpacoen-thir-lst:
         max-count: 1
       dafoco:
         max-count: 1
@@ -11804,7 +11802,7 @@ section-types:
   ecs:
     prefix: ECS
     subsection-types:
-      epce-part-lst:
+      expacoen-part-lst:
         max-count: 1
       clsein:
         max-count: 1
@@ -11856,7 +11854,7 @@ section-types:
     subsection-types:
       scmapo:
         max-count: 1
-      mawien-main-lst:
+      mwe-main-lst:
         max-count: 1
       emmapr:
         max-count: 1
@@ -11908,7 +11906,7 @@ section-types:
         max-count: 1
       neavre:
         max-count: 1
-      vpreen-vpnr-lst:
+      vre-vpnr-lst:
         max-count: 1
       fire:
         max-count: 1
@@ -11968,11 +11966,11 @@ section-types:
         max-count: 1
       shlcp-shar-lst:
         max-count: 1
-      ruicmp-uico-lst:
+      ruce-uico-lst:
         max-count: 1
-      bucoen-busi-lst:
+      buscoment-busi-lst:
         max-count: 1
-      incoen-infr-lst:
+      infcoment-infr-lst:
         max-count: 1
       thpali-thir-lst:
         max-count: 1
@@ -12058,9 +12056,9 @@ section-types:
   srs:
     prefix: SRS
     subsection-types:
-      seenen-envi-lst:
+      see-envi-lst:
         max-count: 1
-      seroen-serv-lst:
+      sre-serv-lst:
         max-count: 1
       corere:
         max-count: 1
@@ -12249,7 +12247,7 @@ section-types:
     subsection-types:
       bc-brea:
         max-count: 1
-      bre-brea-lst:
+      be-brea-lst:
         max-count: 1
     description: 10.10.1. Breakpoints.
   cm:
@@ -12299,13 +12297,13 @@ section-types:
   ia:
     prefix: IA
     subsection-types:
-      globa-glob-lst:
+      ia-glob-lst:
         max-count: 1
     description: 10.2.2. Information Architecture.
   mc:
     prefix: MC
     subsection-types:
-      mfade-mfad-lst:
+      mc-mfad-lst:
         max-count: 1
     format: mc-form
     description: Multi-Factor Authentication Configuration.
@@ -12341,7 +12339,7 @@ section-types:
     subsection-types:
       ars:
         max-count: 1
-      maint-main-lst:
+      so-main-lst:
         max-count: 1
     description: |
       Specify day-to-day system operation requirements including administration,

@@ -1488,8 +1488,8 @@ List<SomMetaNode> _mc$AlertingConfiguration(Set<String> s) => [
        SomMetaNode(
           className: 'AlertingConfiguration',
           memberName: 'alertRules',
-          sectionId: 'ALRUEN-ALER-LST',
-          sectionIdPattern: 'ALRUEN-ALER-xxx',
+          sectionId: 'ALERULENT-ALER-LST',
+          sectionIdPattern: 'ALERULENT-ALER-xxx',
           kind: SomMetaKind.list,
           typeName: 'AlertRuleEntry',
           serializationOrder: 3,
@@ -1945,8 +1945,8 @@ List<SomMetaNode> _mc$ApplicableRegulationEntry(Set<String> s) => [
        SomMetaNode(
           className: 'ApplicableRegulationEntry',
           memberName: 'complianceMeasures',
-          sectionId: 'COMPL-COMP-LST',
-          sectionIdPattern: 'COMPL-COMP-xxx',
+          sectionId: 'ARE-COMP-LST',
+          sectionIdPattern: 'ARE-COMP-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 1,
@@ -2461,8 +2461,8 @@ List<SomMetaNode> _mc$AssumptionConstraintDependencyRegister(Set<String> s) => [
        SomMetaNode(
           className: 'AssumptionConstraintDependencyRegister',
           memberName: 'assumptions',
-          sectionId: 'ACRG-ASMP-LST',
-          sectionIdPattern: 'ACRG-ASMP-xxx',
+          sectionId: 'ASMRE-ASMP-LST',
+          sectionIdPattern: 'ASMRE-ASMP-xxx',
           kind: SomMetaKind.list,
           typeName: 'AssumptionRegisterEntry',
           serializationOrder: 1,
@@ -2472,8 +2472,8 @@ List<SomMetaNode> _mc$AssumptionConstraintDependencyRegister(Set<String> s) => [
        SomMetaNode(
           className: 'AssumptionConstraintDependencyRegister',
           memberName: 'constraints',
-          sectionId: 'ACRG-CONS-LST',
-          sectionIdPattern: 'ACRG-CONS-xxx',
+          sectionId: 'CONRE-CONS-LST',
+          sectionIdPattern: 'CONRE-CONS-xxx',
           kind: SomMetaKind.list,
           typeName: 'ConstraintRegisterEntry',
           serializationOrder: 2,
@@ -2483,8 +2483,8 @@ List<SomMetaNode> _mc$AssumptionConstraintDependencyRegister(Set<String> s) => [
        SomMetaNode(
           className: 'AssumptionConstraintDependencyRegister',
           memberName: 'dependencies',
-          sectionId: 'ACRG-DEPS-LST',
-          sectionIdPattern: 'ACRG-DEPS-xxx',
+          sectionId: 'DEPRE-DEPS-LST',
+          sectionIdPattern: 'DEPRE-DEPS-xxx',
           kind: SomMetaKind.list,
           typeName: 'DependencyRegisterEntry',
           serializationOrder: 3,
@@ -3443,8 +3443,8 @@ List<SomMetaNode> _mc$BackupAndRecoverySection(Set<String> s) => [
        SomMetaNode(
           className: 'BackupAndRecoverySection',
           memberName: 'backupPolicies',
-          sectionId: 'BAPOEN-BACK-LST',
-          sectionIdPattern: 'BAPOEN-BACK-xxx',
+          sectionId: 'BPE-BACK-LST',
+          sectionIdPattern: 'BPE-BACK-xxx',
           kind: SomMetaKind.list,
           typeName: 'BackupPolicyEntry',
           serializationOrder: 3,
@@ -4018,8 +4018,8 @@ List<SomMetaNode> _mc$BoundaryAssumptions(Set<String> s) => [
        SomMetaNode(
           className: 'BoundaryAssumptions',
           memberName: 'items',
-          sectionId: 'BOASEN-ITEM-LST',
-          sectionIdPattern: 'BOASEN-ITEM-xxx',
+          sectionId: 'BAE-ITEM-LST',
+          sectionIdPattern: 'BAE-ITEM-xxx',
           kind: SomMetaKind.list,
           typeName: 'BoundaryAssumptionEntry',
           serializationOrder: 1,
@@ -4102,8 +4102,8 @@ List<SomMetaNode> _mc$BreakpointConfiguration(Set<String> s) => [
        SomMetaNode(
           className: 'BreakpointConfiguration',
           memberName: 'breakpoints',
-          sectionId: 'BRE-BREA-LST',
-          sectionIdPattern: 'BRE-BREA-xxx',
+          sectionId: 'BE-BREA-LST',
+          sectionIdPattern: 'BE-BREA-xxx',
           kind: SomMetaKind.list,
           typeName: 'BreakpointEntry',
           serializationOrder: 1,
@@ -4912,8 +4912,8 @@ List<SomMetaNode> _mc$BusinessPainPoints(Set<String> s) => [
        SomMetaNode(
           className: 'BusinessPainPoints',
           memberName: 'items',
-          sectionId: 'BUPAPO-ITEM-LST',
-          sectionIdPattern: 'BUPAPO-ITEM-xxx',
+          sectionId: 'PAPE-ITEM-LST',
+          sectionIdPattern: 'PAPE-ITEM-xxx',
           kind: SomMetaKind.list,
           typeName: 'PainPointEntry',
           serializationOrder: 2,
@@ -6297,8 +6297,8 @@ List<SomMetaNode> _mc$CiCdPipelineConfiguration(Set<String> s) => [
        SomMetaNode(
           className: 'CiCdPipelineConfiguration',
           memberName: 'stages',
-          sectionId: 'PISTEN-STAG-LST',
-          sectionIdPattern: 'PISTEN-STAG-xxx',
+          sectionId: 'PSE-STAG-LST',
+          sectionIdPattern: 'PSE-STAG-xxx',
           kind: SomMetaKind.list,
           typeName: 'PipelineStageEntry',
           serializationOrder: 1,
@@ -6309,8 +6309,8 @@ List<SomMetaNode> _mc$CiCdPipelineConfiguration(Set<String> s) => [
        SomMetaNode(
           className: 'CiCdPipelineConfiguration',
           memberName: 'jobs',
-          sectionId: 'PIJOEN-JOBS-LST',
-          sectionIdPattern: 'PIJOEN-JOBS-xxx',
+          sectionId: 'PJE-JOBS-LST',
+          sectionIdPattern: 'PJE-JOBS-xxx',
           kind: SomMetaKind.list,
           typeName: 'PipelineJobEntry',
           serializationOrder: 2,
@@ -6321,8 +6321,8 @@ List<SomMetaNode> _mc$CiCdPipelineConfiguration(Set<String> s) => [
        SomMetaNode(
           className: 'CiCdPipelineConfiguration',
           memberName: 'environments',
-          sectionId: 'DEENEN-ENVI-LST',
-          sectionIdPattern: 'DEENEN-ENVI-xxx',
+          sectionId: 'DEE-ENVI-LST',
+          sectionIdPattern: 'DEE-ENVI-xxx',
           kind: SomMetaKind.list,
           typeName: 'DeploymentEnvironmentEntry',
           serializationOrder: 3,
@@ -6608,8 +6608,8 @@ List<SomMetaNode> _mc$ClientRequirementsSection(Set<String> s) => [
        SomMetaNode(
           className: 'ClientRequirementsSection',
           memberName: 'browserRequirements',
-          sectionId: 'BRREEN-BROW-LST',
-          sectionIdPattern: 'BRREEN-BROW-xxx',
+          sectionId: 'BROREQENT-BROW-LST',
+          sectionIdPattern: 'BROREQENT-BROW-xxx',
           kind: SomMetaKind.list,
           typeName: 'BrowserRequirementEntry',
           serializationOrder: 3,
@@ -6620,8 +6620,8 @@ List<SomMetaNode> _mc$ClientRequirementsSection(Set<String> s) => [
        SomMetaNode(
           className: 'ClientRequirementsSection',
           memberName: 'desktopOsRequirements',
-          sectionId: 'DORE1-DESK-LST',
-          sectionIdPattern: 'DORE1-DESK-xxx',
+          sectionId: 'DEOSREEN-DESK-LST',
+          sectionIdPattern: 'DEOSREEN-DESK-xxx',
           kind: SomMetaKind.list,
           typeName: 'DesktopOsRequirementEntry',
           serializationOrder: 4,
@@ -6632,8 +6632,8 @@ List<SomMetaNode> _mc$ClientRequirementsSection(Set<String> s) => [
        SomMetaNode(
           className: 'ClientRequirementsSection',
           memberName: 'mobileRequirements',
-          sectionId: 'MDRE-MOBI-LST',
-          sectionIdPattern: 'MDRE-MOBI-xxx',
+          sectionId: 'MODEREEN-MOBI-LST',
+          sectionIdPattern: 'MODEREEN-MOBI-xxx',
           kind: SomMetaKind.list,
           typeName: 'MobileDeviceRequirementEntry',
           serializationOrder: 5,
@@ -7407,8 +7407,8 @@ List<SomMetaNode> _mc$CompatibilityRequirementsSection(Set<String> s) => [
        SomMetaNode(
           className: 'CompatibilityRequirementsSection',
           memberName: 'osCompatibility',
-          sectionId: 'OSCOEN-OSCO-LST',
-          sectionIdPattern: 'OSCOEN-OSCO-xxx',
+          sectionId: 'OCE-OSCO-LST',
+          sectionIdPattern: 'OCE-OSCO-xxx',
           kind: SomMetaKind.list,
           typeName: 'OsCompatibilityEntry',
           serializationOrder: 2,
@@ -7419,8 +7419,8 @@ List<SomMetaNode> _mc$CompatibilityRequirementsSection(Set<String> s) => [
        SomMetaNode(
           className: 'CompatibilityRequirementsSection',
           memberName: 'browserCompatibility',
-          sectionId: 'BRCOEN-BROW-LST',
-          sectionIdPattern: 'BRCOEN-BROW-xxx',
+          sectionId: 'BROCOMENT-BROW-LST',
+          sectionIdPattern: 'BROCOMENT-BROW-xxx',
           kind: SomMetaKind.list,
           typeName: 'BrowserCompatibilityEntry',
           serializationOrder: 3,
@@ -7431,8 +7431,8 @@ List<SomMetaNode> _mc$CompatibilityRequirementsSection(Set<String> s) => [
        SomMetaNode(
           className: 'CompatibilityRequirementsSection',
           memberName: 'databaseCompatibility',
-          sectionId: 'DACOEN-DATA-LST',
-          sectionIdPattern: 'DACOEN-DATA-xxx',
+          sectionId: 'DATCOMENT-DATA-LST',
+          sectionIdPattern: 'DATCOMENT-DATA-xxx',
           kind: SomMetaKind.list,
           typeName: 'DatabaseCompatibilityEntry',
           serializationOrder: 4,
@@ -7443,8 +7443,8 @@ List<SomMetaNode> _mc$CompatibilityRequirementsSection(Set<String> s) => [
        SomMetaNode(
           className: 'CompatibilityRequirementsSection',
           memberName: 'enterpriseSystemCompatibility',
-          sectionId: 'ESCE-ENTE-LST',
-          sectionIdPattern: 'ESCE-ENTE-xxx',
+          sectionId: 'ENSYCOEN-ENTE-LST',
+          sectionIdPattern: 'ENSYCOEN-ENTE-xxx',
           kind: SomMetaKind.list,
           typeName: 'EnterpriseSystemCompatibilityEntry',
           serializationOrder: 5,
@@ -7467,8 +7467,8 @@ List<SomMetaNode> _mc$CompatibilityRequirementsSection(Set<String> s) => [
        SomMetaNode(
           className: 'CompatibilityRequirementsSection',
           memberName: 'legacyCompatibility',
-          sectionId: 'LECOEN-LEGA-LST',
-          sectionIdPattern: 'LECOEN-LEGA-xxx',
+          sectionId: 'LCE-LEGA-LST',
+          sectionIdPattern: 'LCE-LEGA-xxx',
           kind: SomMetaKind.list,
           typeName: 'LegacyCompatibilityEntry',
           serializationOrder: 7,
@@ -7479,8 +7479,8 @@ List<SomMetaNode> _mc$CompatibilityRequirementsSection(Set<String> s) => [
        SomMetaNode(
           className: 'CompatibilityRequirementsSection',
           memberName: 'mobileCompatibility',
-          sectionId: 'MOCOEN-MOBI-LST',
-          sectionIdPattern: 'MOCOEN-MOBI-xxx',
+          sectionId: 'MOBCOMENT-MOBI-LST',
+          sectionIdPattern: 'MOBCOMENT-MOBI-xxx',
           kind: SomMetaKind.list,
           typeName: 'MobileCompatibilityEntry',
           serializationOrder: 8,
@@ -7491,8 +7491,8 @@ List<SomMetaNode> _mc$CompatibilityRequirementsSection(Set<String> s) => [
        SomMetaNode(
           className: 'CompatibilityRequirementsSection',
           memberName: 'thirdPartyCompatibility',
-          sectionId: 'TPCE-THIR-LST',
-          sectionIdPattern: 'TPCE-THIR-xxx',
+          sectionId: 'THPACOEN-THIR-LST',
+          sectionIdPattern: 'THPACOEN-THIR-xxx',
           kind: SomMetaKind.list,
           typeName: 'ThirdPartyCompatibilityEntry',
           serializationOrder: 9,
@@ -9558,8 +9558,8 @@ List<SomMetaNode> _mc$CurrentArchitecture(Set<String> s) => [
        SomMetaNode(
           className: 'CurrentArchitecture',
           memberName: 'integrationPatterns',
-          sectionId: 'IPE-INTE-LST',
-          sectionIdPattern: 'IPE-INTE-xxx',
+          sectionId: 'CARCH-INTE-LST',
+          sectionIdPattern: 'CARCH-INTE-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 3,
@@ -9569,8 +9569,8 @@ List<SomMetaNode> _mc$CurrentArchitecture(Set<String> s) => [
        SomMetaNode(
           className: 'CurrentArchitecture',
           memberName: 'sharedServices',
-          sectionId: 'SHARE-SHAR-LST',
-          sectionIdPattern: 'SHARE-SHAR-xxx',
+          sectionId: 'CARCH-SHAR-LST',
+          sectionIdPattern: 'CARCH-SHAR-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 4,
@@ -10056,8 +10056,8 @@ List<SomMetaNode> _mc$CurrentWorkflowEntry(Set<String> s) => [
        SomMetaNode(
           className: 'CurrentWorkflowEntry',
           memberName: 'actors',
-          sectionId: 'WFAC-ACTO-LST',
-          sectionIdPattern: 'WFAC-ACTO-xxx',
+          sectionId: 'WAE-ACTO-LST',
+          sectionIdPattern: 'WAE-ACTO-xxx',
           kind: SomMetaKind.list,
           typeName: 'WorkflowActorEntry',
           serializationOrder: 4,
@@ -14722,8 +14722,8 @@ List<SomMetaNode> _mc$DecisionPointEntryResolution(Set<String> s) => [
        SomMetaNode(
           className: 'DecisionPointEntryResolution',
           memberName: 'options',
-          sectionId: 'DEOPEN-OPTI-LST',
-          sectionIdPattern: 'DEOPEN-OPTI-xxx',
+          sectionId: 'DOE-OPTI-LST',
+          sectionIdPattern: 'DOE-OPTI-xxx',
           kind: SomMetaKind.list,
           typeName: 'DecisionOptionEntry',
           serializationOrder: 2,
@@ -14753,8 +14753,8 @@ List<SomMetaNode> _mc$DecisionPoints(Set<String> s) => [
        SomMetaNode(
           className: 'DecisionPoints',
           memberName: 'items',
-          sectionId: 'DEPOEN-ITEM-LST',
-          sectionIdPattern: 'DEPOEN-ITEM-xxx',
+          sectionId: 'DPE-ITEM-LST',
+          sectionIdPattern: 'DPE-ITEM-xxx',
           kind: SomMetaKind.list,
           typeName: 'DecisionPointEntry',
           serializationOrder: 2,
@@ -16012,8 +16012,8 @@ List<SomMetaNode> _mc$DesignPatternsAndStandards(Set<String> s) => [
        SomMetaNode(
           className: 'DesignPatternsAndStandards',
           memberName: 'codingStandards',
-          sectionId: 'COSTEN-CODI-LST',
-          sectionIdPattern: 'COSTEN-CODI-xxx',
+          sectionId: 'CSE-CODI-LST',
+          sectionIdPattern: 'CSE-CODI-xxx',
           kind: SomMetaKind.list,
           typeName: 'CodingStandardEntry',
           serializationOrder: 3,
@@ -16024,8 +16024,8 @@ List<SomMetaNode> _mc$DesignPatternsAndStandards(Set<String> s) => [
        SomMetaNode(
           className: 'DesignPatternsAndStandards',
           memberName: 'developmentConventions',
-          sectionId: 'DECOEN-DEVE-LST',
-          sectionIdPattern: 'DECOEN-DEVE-xxx',
+          sectionId: 'DCE-DEVE-LST',
+          sectionIdPattern: 'DCE-DEVE-xxx',
           kind: SomMetaKind.list,
           typeName: 'DevelopmentConventionEntry',
           serializationOrder: 4,
@@ -16036,8 +16036,8 @@ List<SomMetaNode> _mc$DesignPatternsAndStandards(Set<String> s) => [
        SomMetaNode(
           className: 'DesignPatternsAndStandards',
           memberName: 'industryStandards',
-          sectionId: 'INSTEN-INDU-LST',
-          sectionIdPattern: 'INSTEN-INDU-xxx',
+          sectionId: 'ISE-INDU-LST',
+          sectionIdPattern: 'ISE-INDU-xxx',
           kind: SomMetaKind.list,
           typeName: 'IndustryStandardEntry',
           serializationOrder: 5,
@@ -16377,8 +16377,8 @@ List<SomMetaNode> _mc$DevelopmentEnvironment(Set<String> s) => [
        SomMetaNode(
           className: 'DevelopmentEnvironment',
           memberName: 'ideRequirements',
-          sectionId: 'IDREEN-IDER-LST',
-          sectionIdPattern: 'IDREEN-IDER-xxx',
+          sectionId: 'IRE-IDER-LST',
+          sectionIdPattern: 'IRE-IDER-xxx',
           kind: SomMetaKind.list,
           typeName: 'IdeRequirementEntry',
           serializationOrder: 2,
@@ -17239,8 +17239,8 @@ List<SomMetaNode> _mc$DocumentControl(Set<String> s) => [
        SomMetaNode(
           className: 'DocumentControl',
           memberName: 'revisionHistory',
-          sectionId: 'RVHST-REVS-LST',
-          sectionIdPattern: 'RVHST-REVS-xxx',
+          sectionId: 'RVENT-REVS-LST',
+          sectionIdPattern: 'RVENT-REVS-xxx',
           kind: SomMetaKind.list,
           typeName: 'RevisionEntry',
           serializationOrder: 2,
@@ -17251,8 +17251,8 @@ List<SomMetaNode> _mc$DocumentControl(Set<String> s) => [
        SomMetaNode(
           className: 'DocumentControl',
           memberName: 'approvals',
-          sectionId: 'DOCTL-APRV-LST',
-          sectionIdPattern: 'DOCTL-APRV-xxx',
+          sectionId: 'APREC-APRV-LST',
+          sectionIdPattern: 'APREC-APRV-xxx',
           kind: SomMetaKind.list,
           typeName: 'ApprovalRecord',
           serializationOrder: 3,
@@ -17339,8 +17339,8 @@ List<SomMetaNode> _mc$DocumentationDeliverables(Set<String> s) => [
        SomMetaNode(
           className: 'DocumentationDeliverables',
           memberName: 'items',
-          sectionId: 'DCDLV-ITEM-LST',
-          sectionIdPattern: 'DCDLV-ITEM-xxx',
+          sectionId: 'DLVEN-ITEM-LST',
+          sectionIdPattern: 'DLVEN-ITEM-xxx',
           kind: SomMetaKind.list,
           typeName: 'DeliverableEntry',
           serializationOrder: 1,
@@ -17615,8 +17615,8 @@ List<SomMetaNode> _mc$DomainBusinessRules(Set<String> s) => [
        SomMetaNode(
           className: 'DomainBusinessRules',
           memberName: 'rules',
-          sectionId: 'DOBIRU-RULE-LST',
-          sectionIdPattern: 'DOBIRU-RULE-xxx',
+          sectionId: 'DBRE-RULE-LST',
+          sectionIdPattern: 'DBRE-RULE-xxx',
           kind: SomMetaKind.list,
           typeName: 'DomainBusinessRuleEntry',
           serializationOrder: 1,
@@ -17801,8 +17801,8 @@ List<SomMetaNode> _mc$DomainProcesses(Set<String> s) => [
        SomMetaNode(
           className: 'DomainProcesses',
           memberName: 'processes',
-          sectionId: 'DOPR-PROC-LST',
-          sectionIdPattern: 'DOPR-PROC-xxx',
+          sectionId: 'DOPREN-PROC-LST',
+          sectionIdPattern: 'DOPREN-PROC-xxx',
           kind: SomMetaKind.list,
           typeName: 'DomainProcessEntry',
           serializationOrder: 2,
@@ -18692,8 +18692,8 @@ List<SomMetaNode> _mc$EquipmentRequirements(Set<String> s) => [
        SomMetaNode(
           className: 'EquipmentRequirements',
           memberName: 'inputDevices',
-          sectionId: 'INPDE-INPU-LST',
-          sectionIdPattern: 'INPDE-INPU-xxx',
+          sectionId: 'IDE-INPU-LST',
+          sectionIdPattern: 'IDE-INPU-xxx',
           kind: SomMetaKind.list,
           typeName: 'InputDeviceEntry',
           serializationOrder: 3,
@@ -19026,8 +19026,8 @@ List<SomMetaNode> _mc$ErrorRecovery(Set<String> s) => [
        SomMetaNode(
           className: 'ErrorRecovery',
           memberName: 'recoveryFlows',
-          sectionId: 'RECOV-RECO-LST',
-          sectionIdPattern: 'RECOV-RECO-xxx',
+          sectionId: 'ERRE-RECO-LST',
+          sectionIdPattern: 'ERRE-RECO-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 7,
@@ -19777,8 +19777,8 @@ List<SomMetaNode> _mc$ExportFormatEntry(Set<String> s) => [
        SomMetaNode(
           className: 'ExportFormatEntry',
           memberName: 'fieldMappings',
-          sectionId: 'EFME-FIEL-LST',
-          sectionIdPattern: 'EFME-FIEL-xxx',
+          sectionId: 'EXFIMAEN-FIEL-LST',
+          sectionIdPattern: 'EXFIMAEN-FIEL-xxx',
           kind: SomMetaKind.list,
           typeName: 'ExportFieldMappingEntry',
           serializationOrder: 10,
@@ -19922,8 +19922,8 @@ List<SomMetaNode> _mc$ExternalActorEntry(Set<String> s) => [
        SomMetaNode(
           className: 'ExternalActorEntry',
           memberName: 'interactionScenarios',
-          sectionId: 'INTER-INTE-LST',
-          sectionIdPattern: 'INTER-INTE-xxx',
+          sectionId: 'EAE-INTE-LST',
+          sectionIdPattern: 'EAE-INTE-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 3,
@@ -19975,8 +19975,8 @@ List<SomMetaNode> _mc$ExternalConnectivitySection(Set<String> s) => [
        SomMetaNode(
           className: 'ExternalConnectivitySection',
           memberName: 'partnerConnections',
-          sectionId: 'EPCE-PART-LST',
-          sectionIdPattern: 'EPCE-PART-xxx',
+          sectionId: 'EXPACOEN-PART-LST',
+          sectionIdPattern: 'EXPACOEN-PART-xxx',
           kind: SomMetaKind.list,
           typeName: 'ExternalPartnerConnectionEntry',
           serializationOrder: 2,
@@ -20171,8 +20171,8 @@ List<SomMetaNode> _mc$ExternalInterfaces(Set<String> s) => [
        SomMetaNode(
           className: 'ExternalInterfaces',
           memberName: 'interfaces',
-          sectionId: 'EXINEN-INTE-LST',
-          sectionIdPattern: 'EXINEN-INTE-xxx',
+          sectionId: 'EIE-INTE-LST',
+          sectionIdPattern: 'EIE-INTE-xxx',
           kind: SomMetaKind.list,
           typeName: 'ExternalInterfaceEntry',
           serializationOrder: 3,
@@ -20491,8 +20491,8 @@ List<SomMetaNode> _mc$FeatureDependencies(Set<String> s) => [
        SomMetaNode(
           className: 'FeatureDependencies',
           memberName: 'items',
-          sectionId: 'FEDEEN-ITEM-LST',
-          sectionIdPattern: 'FEDEEN-ITEM-xxx',
+          sectionId: 'FDE-ITEM-LST',
+          sectionIdPattern: 'FDE-ITEM-xxx',
           kind: SomMetaKind.list,
           typeName: 'FeatureDependencyEntry',
           serializationOrder: 2,
@@ -20808,8 +20808,8 @@ List<SomMetaNode> _mc$FeaturePriorityRegister(Set<String> s) => [
        SomMetaNode(
           className: 'FeaturePriorityRegister',
           memberName: 'items',
-          sectionId: 'FEPREN-ITEM-LST',
-          sectionIdPattern: 'FEPREN-ITEM-xxx',
+          sectionId: 'FPE-ITEM-LST',
+          sectionIdPattern: 'FPE-ITEM-xxx',
           kind: SomMetaKind.list,
           typeName: 'FeaturePriorityEntry',
           serializationOrder: 1,
@@ -20890,8 +20890,8 @@ List<SomMetaNode> _mc$FeatureStageMatrix(Set<String> s) => [
        SomMetaNode(
           className: 'FeatureStageMatrix',
           memberName: 'items',
-          sectionId: 'FESTM1-ITEM-LST',
-          sectionIdPattern: 'FESTM1-ITEM-xxx',
+          sectionId: 'FSM-ITEM-LST',
+          sectionIdPattern: 'FSM-ITEM-xxx',
           kind: SomMetaKind.list,
           typeName: 'FeatureStageMapping',
           serializationOrder: 2,
@@ -21699,8 +21699,8 @@ List<SomMetaNode> _mc$FunctionalResponsibilities(Set<String> s) => [
        SomMetaNode(
           className: 'FunctionalResponsibilities',
           memberName: 'items',
-          sectionId: 'REEN1-ITEM-LST',
-          sectionIdPattern: 'REEN1-ITEM-xxx',
+          sectionId: 'RE-ITEM-LST',
+          sectionIdPattern: 'RE-ITEM-xxx',
           kind: SomMetaKind.list,
           typeName: 'ResponsibilityEntry',
           serializationOrder: 2,
@@ -21873,8 +21873,8 @@ List<SomMetaNode> _mc$GlossaryAndAbbreviations(Set<String> s) => [
        SomMetaNode(
           className: 'GlossaryAndAbbreviations',
           memberName: 'glossary',
-          sectionId: 'GLOSS-ENTR-LST',
-          sectionIdPattern: 'GLOSS-ENTR-xxx',
+          sectionId: 'GLENT-ENTR-LST',
+          sectionIdPattern: 'GLENT-ENTR-xxx',
           kind: SomMetaKind.list,
           typeName: 'GlossaryEntry',
           serializationOrder: 1,
@@ -23214,8 +23214,8 @@ List<SomMetaNode> _mc$InformationArchitecture(Set<String> s) => [
        SomMetaNode(
           className: 'InformationArchitecture',
           memberName: 'globalEntryPoints',
-          sectionId: 'GLOBA-GLOB-LST',
-          sectionIdPattern: 'GLOBA-GLOB-xxx',
+          sectionId: 'IA-GLOB-LST',
+          sectionIdPattern: 'IA-GLOB-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 4,
@@ -23686,8 +23686,8 @@ List<SomMetaNode> _mc$IntegrationHealthSummary(Set<String> s) => [
        SomMetaNode(
           className: 'IntegrationHealthSummary',
           memberName: 'fragilePoints',
-          sectionId: 'FRAGI-FRAG-LST',
-          sectionIdPattern: 'FRAGI-FRAG-xxx',
+          sectionId: 'INHESU-FRAG-LST',
+          sectionIdPattern: 'INHESU-FRAG-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 1,
@@ -24171,8 +24171,8 @@ List<SomMetaNode> _mc$InterfaceBusinessContext(Set<String> s) => [
        SomMetaNode(
           className: 'InterfaceBusinessContext',
           memberName: 'dependentProcesses',
-          sectionId: 'IBPE-DEPE-LST',
-          sectionIdPattern: 'IBPE-DEPE-xxx',
+          sectionId: 'INBUPREN-DEPE-LST',
+          sectionIdPattern: 'INBUPREN-DEPE-xxx',
           kind: SomMetaKind.list,
           typeName: 'InterfaceBusinessProcessEntry',
           serializationOrder: 1,
@@ -24213,8 +24213,8 @@ List<SomMetaNode> _mc$InterfaceDataSpec(Set<String> s) => [
        SomMetaNode(
           className: 'InterfaceDataSpec',
           memberName: 'dataEntities',
-          sectionId: 'IDEE-DATA-LST',
-          sectionIdPattern: 'IDEE-DATA-xxx',
+          sectionId: 'INDAENEN-DATA-LST',
+          sectionIdPattern: 'INDAENEN-DATA-xxx',
           kind: SomMetaKind.list,
           typeName: 'InterfaceDataEntityEntry',
           serializationOrder: 1,
@@ -24225,8 +24225,8 @@ List<SomMetaNode> _mc$InterfaceDataSpec(Set<String> s) => [
        SomMetaNode(
           className: 'InterfaceDataSpec',
           memberName: 'mappingRules',
-          sectionId: 'MAPPI-MAPP-LST',
-          sectionIdPattern: 'MAPPI-MAPP-xxx',
+          sectionId: 'INDASP-MAPP-LST',
+          sectionIdPattern: 'INDASP-MAPP-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 2,
@@ -24236,8 +24236,8 @@ List<SomMetaNode> _mc$InterfaceDataSpec(Set<String> s) => [
        SomMetaNode(
           className: 'InterfaceDataSpec',
           memberName: 'validationRules',
-          sectionId: 'VALID-VALI-LST',
-          sectionIdPattern: 'VALID-VALI-xxx',
+          sectionId: 'INDASP-VALI-LST',
+          sectionIdPattern: 'INDASP-VALI-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 3,
@@ -24287,8 +24287,8 @@ List<SomMetaNode> _mc$InterfaceErrorHandling(Set<String> s) => [
        SomMetaNode(
           className: 'InterfaceErrorHandling',
           memberName: 'errorProcedures',
-          sectionId: 'ERROR-ERRO-LST',
-          sectionIdPattern: 'ERROR-ERRO-xxx',
+          sectionId: 'INERHA-ERRO-LST',
+          sectionIdPattern: 'INERHA-ERRO-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 4,
@@ -24386,8 +24386,8 @@ List<SomMetaNode> _mc$InterfaceOperational(Set<String> s) => [
        SomMetaNode(
           className: 'InterfaceOperational',
           memberName: 'dependencies',
-          sectionId: 'DEPEN-DEPE-LST',
-          sectionIdPattern: 'DEPEN-DEPE-xxx',
+          sectionId: 'INOP-DEPE-LST',
+          sectionIdPattern: 'INOP-DEPE-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 4,
@@ -24525,8 +24525,8 @@ List<SomMetaNode> _mc$InterfaceTechnicalSpec(Set<String> s) => [
        SomMetaNode(
           className: 'InterfaceTechnicalSpec',
           memberName: 'operations',
-          sectionId: 'INOPEN-OPER-LST',
-          sectionIdPattern: 'INOPEN-OPER-xxx',
+          sectionId: 'IOE-OPER-LST',
+          sectionIdPattern: 'IOE-OPER-xxx',
           kind: SomMetaKind.list,
           typeName: 'InterfaceOperationEntry',
           serializationOrder: 3,
@@ -24587,8 +24587,8 @@ List<SomMetaNode> _mc$InterfaceTesting(Set<String> s) => [
        SomMetaNode(
           className: 'InterfaceTesting',
           memberName: 'testScenarios',
-          sectionId: 'ITSE1-TEST-LST',
-          sectionIdPattern: 'ITSE1-TEST-xxx',
+          sectionId: 'INTESCEN-TEST-LST',
+          sectionIdPattern: 'INTESCEN-TEST-xxx',
           kind: SomMetaKind.list,
           typeName: 'InterfaceTestScenarioEntry',
           serializationOrder: 3,
@@ -24857,8 +24857,8 @@ List<SomMetaNode> _mc$Iso25010Coverage(Set<String> s) => [
        SomMetaNode(
           className: 'Iso25010Coverage',
           memberName: 'characteristics',
-          sectionId: 'I25CV-CHAR-LST',
-          sectionIdPattern: 'I25CV-CHAR-xxx',
+          sectionId: 'I25CE-CHAR-LST',
+          sectionIdPattern: 'I25CE-CHAR-xxx',
           kind: SomMetaKind.list,
           typeName: 'Iso25010CoverageEntry',
           serializationOrder: 1,
@@ -24974,8 +24974,8 @@ List<SomMetaNode> _mc$ItSecurityStandardsSection(Set<String> s) => [
        SomMetaNode(
           className: 'ItSecurityStandardsSection',
           memberName: 'standards',
-          sectionId: 'SESTEN-STAN-LST',
-          sectionIdPattern: 'SESTEN-STAN-xxx',
+          sectionId: 'SSE-STAN-LST',
+          sectionIdPattern: 'SSE-STAN-xxx',
           kind: SomMetaKind.list,
           typeName: 'SecurityStandardEntry',
           serializationOrder: 2,
@@ -25114,8 +25114,8 @@ List<SomMetaNode> _mc$JobDescriptionsAndStaffing(Set<String> s) => [
        SomMetaNode(
           className: 'JobDescriptionsAndStaffing',
           memberName: 'newRoles',
-          sectionId: 'NWROL-NEWR-LST',
-          sectionIdPattern: 'NWROL-NEWR-xxx',
+          sectionId: 'NRE-NEWR-LST',
+          sectionIdPattern: 'NRE-NEWR-xxx',
           kind: SomMetaKind.list,
           typeName: 'NewRoleEntry',
           serializationOrder: 1,
@@ -25635,8 +25635,8 @@ List<SomMetaNode> _mc$LayeringAndModuleStructure(Set<String> s) => [
        SomMetaNode(
           className: 'LayeringAndModuleStructure',
           memberName: 'softwareLayers',
-          sectionId: 'SOLAEN-SOFT-LST',
-          sectionIdPattern: 'SOLAEN-SOFT-xxx',
+          sectionId: 'SLE-SOFT-LST',
+          sectionIdPattern: 'SLE-SOFT-xxx',
           kind: SomMetaKind.list,
           typeName: 'SoftwareLayerEntry',
           serializationOrder: 2,
@@ -25658,8 +25658,8 @@ List<SomMetaNode> _mc$LayeringAndModuleStructure(Set<String> s) => [
        SomMetaNode(
           className: 'LayeringAndModuleStructure',
           memberName: 'boundedContexts',
-          sectionId: 'BOCOEN-BOUN-LST',
-          sectionIdPattern: 'BOCOEN-BOUN-xxx',
+          sectionId: 'BCE-BOUN-LST',
+          sectionIdPattern: 'BCE-BOUN-xxx',
           kind: SomMetaKind.list,
           typeName: 'BoundedContextEntry',
           serializationOrder: 4,
@@ -25681,8 +25681,8 @@ List<SomMetaNode> _mc$LayeringAndModuleStructure(Set<String> s) => [
        SomMetaNode(
           className: 'LayeringAndModuleStructure',
           memberName: 'modules',
-          sectionId: 'MOEN1-MODU-LST',
-          sectionIdPattern: 'MOEN1-MODU-xxx',
+          sectionId: 'MODENT-MODU-LST',
+          sectionIdPattern: 'MODENT-MODU-xxx',
           kind: SomMetaKind.list,
           typeName: 'ModuleEntry',
           serializationOrder: 6,
@@ -25693,8 +25693,8 @@ List<SomMetaNode> _mc$LayeringAndModuleStructure(Set<String> s) => [
        SomMetaNode(
           className: 'LayeringAndModuleStructure',
           memberName: 'sharedLibraries',
-          sectionId: 'SHLIB-SHAR-LST',
-          sectionIdPattern: 'SHLIB-SHAR-xxx',
+          sectionId: 'SHLIEN-SHAR-LST',
+          sectionIdPattern: 'SHLIEN-SHAR-xxx',
           kind: SomMetaKind.list,
           typeName: 'SharedLibraryEntry',
           serializationOrder: 7,
@@ -26732,8 +26732,8 @@ List<SomMetaNode> _mc$MaintenanceWindowsSection(Set<String> s) => [
        SomMetaNode(
           className: 'MaintenanceWindowsSection',
           memberName: 'maintenanceWindows',
-          sectionId: 'MAWIEN-MAIN-LST',
-          sectionIdPattern: 'MAWIEN-MAIN-xxx',
+          sectionId: 'MWE-MAIN-LST',
+          sectionIdPattern: 'MWE-MAIN-xxx',
           kind: SomMetaKind.list,
           typeName: 'MaintenanceWindowEntry',
           serializationOrder: 3,
@@ -27030,8 +27030,8 @@ List<SomMetaNode> _mc$MetricsAndObservability(Set<String> s) => [
        SomMetaNode(
           className: 'MetricsAndObservability',
           memberName: 'customMetrics',
-          sectionId: 'CUMEEN-CUST-LST',
-          sectionIdPattern: 'CUMEEN-CUST-xxx',
+          sectionId: 'CUSMETENT-CUST-LST',
+          sectionIdPattern: 'CUSMETENT-CUST-xxx',
           kind: SomMetaKind.list,
           typeName: 'CustomMetricEntry',
           serializationOrder: 6,
@@ -27185,8 +27185,8 @@ List<SomMetaNode> _mc$MfaConfiguration(Set<String> s) => [
        SomMetaNode(
           className: 'MfaConfiguration',
           memberName: 'mfaDetails',
-          sectionId: 'MFADE-MFAD-LST',
-          sectionIdPattern: 'MFADE-MFAD-xxx',
+          sectionId: 'MC-MFAD-LST',
+          sectionIdPattern: 'MC-MFAD-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 1,
@@ -27297,8 +27297,8 @@ List<SomMetaNode> _mc$MigrationConsiderations(Set<String> s) => [
        SomMetaNode(
           className: 'MigrationConsiderations',
           memberName: 'escalationProcedures',
-          sectionId: 'ESCAL-ESCA-LST',
-          sectionIdPattern: 'ESCAL-ESCA-xxx',
+          sectionId: 'MIGCON-ESCA-LST',
+          sectionIdPattern: 'MIGCON-ESCA-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 11,
@@ -27763,8 +27763,8 @@ List<SomMetaNode> _mc$MigrationRisks(Set<String> s) => [
        SomMetaNode(
           className: 'MigrationRisks',
           memberName: 'riskCategories',
-          sectionId: 'RISKC-RISK-LST',
-          sectionIdPattern: 'RISKC-RISK-xxx',
+          sectionId: 'MIRI-RISK-LST',
+          sectionIdPattern: 'MIRI-RISK-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 7,
@@ -27774,8 +27774,8 @@ List<SomMetaNode> _mc$MigrationRisks(Set<String> s) => [
        SomMetaNode(
           className: 'MigrationRisks',
           memberName: 'riskBasedDecisions',
-          sectionId: 'RISKB-RISK-LST',
-          sectionIdPattern: 'RISKB-RISK-xxx',
+          sectionId: 'MIRI-RBDE-LST',
+          sectionIdPattern: 'MIRI-RBDE-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 8,
@@ -27785,8 +27785,8 @@ List<SomMetaNode> _mc$MigrationRisks(Set<String> s) => [
        SomMetaNode(
           className: 'MigrationRisks',
           memberName: 'monitoringProcedures',
-          sectionId: 'MONIT-MONI-LST',
-          sectionIdPattern: 'MONIT-MONI-xxx',
+          sectionId: 'MIRI-MONI-LST',
+          sectionIdPattern: 'MIRI-MONI-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 9,
@@ -27796,8 +27796,8 @@ List<SomMetaNode> _mc$MigrationRisks(Set<String> s) => [
        SomMetaNode(
           className: 'MigrationRisks',
           memberName: 'responseStrategies',
-          sectionId: 'RESPO-RESP-LST',
-          sectionIdPattern: 'RESPO-RESP-xxx',
+          sectionId: 'MIRI-RESP-LST',
+          sectionIdPattern: 'MIRI-RESP-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 10,
@@ -28263,8 +28263,8 @@ List<SomMetaNode> _mc$MonitoringAndAlertingSection(Set<String> s) => [
        SomMetaNode(
           className: 'MonitoringAndAlertingSection',
           memberName: 'alertDefinitions',
-          sectionId: 'ALDEEN-ALER-LST',
-          sectionIdPattern: 'ALDEEN-ALER-xxx',
+          sectionId: 'ALEDEFENT-ALER-LST',
+          sectionIdPattern: 'ALEDEFENT-ALER-xxx',
           kind: SomMetaKind.list,
           typeName: 'AlertDefinitionEntry',
           serializationOrder: 7,
@@ -28338,8 +28338,8 @@ List<SomMetaNode> _mc$MonitoringDashboards(Set<String> s) => [
        SomMetaNode(
           className: 'MonitoringDashboards',
           memberName: 'dashboards',
-          sectionId: 'DAEN-DASH-LST',
-          sectionIdPattern: 'DAEN-DASH-xxx',
+          sectionId: 'DASENT-DASH-LST',
+          sectionIdPattern: 'DASENT-DASH-xxx',
           kind: SomMetaKind.list,
           typeName: 'DashboardEntry',
           serializationOrder: 2,
@@ -28421,8 +28421,8 @@ List<SomMetaNode> _mc$MoscowAnalysis(Set<String> s) => [
        SomMetaNode(
           className: 'MoscowAnalysis',
           memberName: 'items',
-          sectionId: 'MOEN-ITEM-LST',
-          sectionIdPattern: 'MOEN-ITEM-xxx',
+          sectionId: 'ME-ITEM-LST',
+          sectionIdPattern: 'ME-ITEM-xxx',
           kind: SomMetaKind.list,
           typeName: 'MoscowEntry',
           serializationOrder: 2,
@@ -28536,8 +28536,8 @@ List<SomMetaNode> _mc$MultiLanguageSupport(Set<String> s) => [
        SomMetaNode(
           className: 'MultiLanguageSupport',
           memberName: 'supportedLocales',
-          sectionId: 'SULOEN-SUPP-LST',
-          sectionIdPattern: 'SULOEN-SUPP-xxx',
+          sectionId: 'SUPLOCENT-SUPP-LST',
+          sectionIdPattern: 'SUPLOCENT-SUPP-xxx',
           kind: SomMetaKind.list,
           typeName: 'SupportedLocaleEntry',
           serializationOrder: 3,
@@ -29264,8 +29264,8 @@ List<SomMetaNode> _mc$NetworkRequirementsSection(Set<String> s) => [
        SomMetaNode(
           className: 'NetworkRequirementsSection',
           memberName: 'vpnRequirements',
-          sectionId: 'VPREEN-VPNR-LST',
-          sectionIdPattern: 'VPREEN-VPNR-xxx',
+          sectionId: 'VRE-VPNR-LST',
+          sectionIdPattern: 'VRE-VPNR-xxx',
           kind: SomMetaKind.list,
           typeName: 'VpnRequirementEntry',
           serializationOrder: 7,
@@ -30092,8 +30092,8 @@ List<SomMetaNode> _mc$OperationalPainPoints(Set<String> s) => [
        SomMetaNode(
           className: 'OperationalPainPoints',
           memberName: 'items',
-          sectionId: 'OPPAPO-ITEM-LST',
-          sectionIdPattern: 'OPPAPO-ITEM-xxx',
+          sectionId: 'PAPE-ITEM-LST',
+          sectionIdPattern: 'PAPE-ITEM-xxx',
           kind: SomMetaKind.list,
           typeName: 'PainPointEntry',
           serializationOrder: 2,
@@ -30447,8 +30447,8 @@ List<SomMetaNode> _mc$OrganizationalEnvironment(Set<String> s) => [
        SomMetaNode(
           className: 'OrganizationalEnvironment',
           memberName: 'affectedDepartments',
-          sectionId: 'AFDEEN-AFFE-LST',
-          sectionIdPattern: 'AFDEEN-AFFE-xxx',
+          sectionId: 'ADE-AFFE-LST',
+          sectionIdPattern: 'ADE-AFFE-xxx',
           kind: SomMetaKind.list,
           typeName: 'AffectedDepartmentEntry',
           serializationOrder: 4,
@@ -30468,8 +30468,8 @@ List<SomMetaNode> _mc$OrganizationalEnvironment(Set<String> s) => [
        SomMetaNode(
           className: 'OrganizationalEnvironment',
           memberName: 'decisionMakers',
-          sectionId: 'DEMAEN-DECI-LST',
-          sectionIdPattern: 'DEMAEN-DECI-xxx',
+          sectionId: 'DME-DECI-LST',
+          sectionIdPattern: 'DME-DECI-xxx',
           kind: SomMetaKind.list,
           typeName: 'DecisionMakerEntry',
           serializationOrder: 6,
@@ -30480,8 +30480,8 @@ List<SomMetaNode> _mc$OrganizationalEnvironment(Set<String> s) => [
        SomMetaNode(
           className: 'OrganizationalEnvironment',
           memberName: 'culturalConsiderations',
-          sectionId: 'CULTU-CULT-LST',
-          sectionIdPattern: 'CULTU-CULT-xxx',
+          sectionId: 'OREN-CULT-LST',
+          sectionIdPattern: 'OREN-CULT-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 7,
@@ -30491,8 +30491,8 @@ List<SomMetaNode> _mc$OrganizationalEnvironment(Set<String> s) => [
        SomMetaNode(
           className: 'OrganizationalEnvironment',
           memberName: 'communicationPreferences',
-          sectionId: 'COMMU-COMM-LST',
-          sectionIdPattern: 'COMMU-COMM-xxx',
+          sectionId: 'OREN-COMM-LST',
+          sectionIdPattern: 'OREN-COMM-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 8,
@@ -30511,8 +30511,8 @@ List<SomMetaNode> _mc$OrganizationalEnvironment(Set<String> s) => [
        SomMetaNode(
           className: 'OrganizationalEnvironment',
           memberName: 'changeAdvocates',
-          sectionId: 'CHANG-CHAN-LST',
-          sectionIdPattern: 'CHANG-CHAN-xxx',
+          sectionId: 'OREN-CHAN-LST',
+          sectionIdPattern: 'OREN-CHAN-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 10,
@@ -30848,8 +30848,8 @@ List<SomMetaNode> _mc$OutOfScope(Set<String> s) => [
        SomMetaNode(
           className: 'OutOfScope',
           memberName: 'items',
-          sectionId: 'OOSE-ITEM-LST',
-          sectionIdPattern: 'OOSE-ITEM-xxx',
+          sectionId: 'OUOFSCEN-ITEM-LST',
+          sectionIdPattern: 'OUOFSCEN-ITEM-xxx',
           kind: SomMetaKind.list,
           typeName: 'OutOfScopeEntry',
           serializationOrder: 1,
@@ -31848,8 +31848,8 @@ List<SomMetaNode> _mc$PhaseGateReviews(Set<String> s) => [
        SomMetaNode(
           className: 'PhaseGateReviews',
           memberName: 'items',
-          sectionId: 'PGRE-ITEM-LST',
-          sectionIdPattern: 'PGRE-ITEM-xxx',
+          sectionId: 'PHGAREEN-ITEM-LST',
+          sectionIdPattern: 'PHGAREEN-ITEM-xxx',
           kind: SomMetaKind.list,
           typeName: 'PhaseGateReviewEntry',
           serializationOrder: 4,
@@ -32042,8 +32042,8 @@ List<SomMetaNode> _mc$PlatformAndLanguage(Set<String> s) => [
        SomMetaNode(
           className: 'PlatformAndLanguage',
           memberName: 'frameworks',
-          sectionId: 'FWREN-FRAM-LST',
-          sectionIdPattern: 'FWREN-FRAM-xxx',
+          sectionId: 'FRREEN-FRAM-LST',
+          sectionIdPattern: 'FRREEN-FRAM-xxx',
           kind: SomMetaKind.list,
           typeName: 'FrameworkRequirementEntry',
           serializationOrder: 4,
@@ -32066,8 +32066,8 @@ List<SomMetaNode> _mc$PlatformAndLanguage(Set<String> s) => [
        SomMetaNode(
           className: 'PlatformAndLanguage',
           memberName: 'deploymentTargets',
-          sectionId: 'DETAEN-DEPL-LST',
-          sectionIdPattern: 'DETAEN-DEPL-xxx',
+          sectionId: 'DEPTARENT-DEPL-LST',
+          sectionIdPattern: 'DEPTARENT-DEPL-xxx',
           kind: SomMetaKind.list,
           typeName: 'DeploymentTargetEntry',
           serializationOrder: 6,
@@ -32276,8 +32276,8 @@ List<SomMetaNode> _mc$PrintAndExportLayout(Set<String> s) => [
        SomMetaNode(
           className: 'PrintAndExportLayout',
           memberName: 'exportFormats',
-          sectionId: 'EXFOEN-EXPO-LST',
-          sectionIdPattern: 'EXFOEN-EXPO-xxx',
+          sectionId: 'EFE-EXPO-LST',
+          sectionIdPattern: 'EFE-EXPO-xxx',
           kind: SomMetaKind.list,
           typeName: 'ExportFormatEntry',
           serializationOrder: 6,
@@ -32288,8 +32288,8 @@ List<SomMetaNode> _mc$PrintAndExportLayout(Set<String> s) => [
        SomMetaNode(
           className: 'PrintAndExportLayout',
           memberName: 'exportTemplates',
-          sectionId: 'EXTEEN-EXPO-LST',
-          sectionIdPattern: 'EXTEEN-EXPO-xxx',
+          sectionId: 'ETE-EXPO-LST',
+          sectionIdPattern: 'ETE-EXPO-xxx',
           kind: SomMetaKind.list,
           typeName: 'ExportTemplateEntry',
           serializationOrder: 7,
@@ -32426,8 +32426,8 @@ List<SomMetaNode> _mc$ProblemStatement(Set<String> s) => [
        SomMetaNode(
           className: 'ProblemStatement',
           memberName: 'relatedPainPoints',
-          sectionId: 'RPPE-RELA-LST',
-          sectionIdPattern: 'RPPE-RELA-xxx',
+          sectionId: 'PS-RELA-LST',
+          sectionIdPattern: 'PS-RELA-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 2,
@@ -34024,8 +34024,8 @@ List<SomMetaNode> _mc$ProtocolsAndStandardsSection(Set<String> s) => [
        SomMetaNode(
           className: 'ProtocolsAndStandardsSection',
           memberName: 'protocols',
-          sectionId: 'PREN-PROT-LST',
-          sectionIdPattern: 'PREN-PROT-xxx',
+          sectionId: 'PE-PROT-LST',
+          sectionIdPattern: 'PE-PROT-xxx',
           kind: SomMetaKind.list,
           typeName: 'ProtocolEntry',
           serializationOrder: 2,
@@ -34243,8 +34243,8 @@ List<SomMetaNode> _mc$PrototypeFeatureSubset(Set<String> s) => [
        SomMetaNode(
           className: 'PrototypeFeatureSubset',
           memberName: 'features',
-          sectionId: 'PRFEEN-FEAT-LST',
-          sectionIdPattern: 'PRFEEN-FEAT-xxx',
+          sectionId: 'PFE-FEAT-LST',
+          sectionIdPattern: 'PFE-FEAT-xxx',
           kind: SomMetaKind.list,
           typeName: 'PrototypeFeatureEntry',
           serializationOrder: 4,
@@ -34304,8 +34304,8 @@ List<SomMetaNode> _mc$PrototypeGoals(Set<String> s) => [
        SomMetaNode(
           className: 'PrototypeGoals',
           memberName: 'goals',
-          sectionId: 'PRGOEN-GOAL-LST',
-          sectionIdPattern: 'PRGOEN-GOAL-xxx',
+          sectionId: 'PGE-GOAL-LST',
+          sectionIdPattern: 'PGE-GOAL-xxx',
           kind: SomMetaKind.list,
           typeName: 'PrototypeGoalEntry',
           serializationOrder: 4,
@@ -34585,8 +34585,8 @@ List<SomMetaNode> _mc$QualityFramework(Set<String> s) => [
        SomMetaNode(
           className: 'QualityFramework',
           memberName: 'categoryDependencies',
-          sectionId: 'CATEG-CATE-LST',
-          sectionIdPattern: 'CATEG-CATE-xxx',
+          sectionId: 'QLFWK-CATE-LST',
+          sectionIdPattern: 'QLFWK-CATE-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 7,
@@ -35844,8 +35844,8 @@ List<SomMetaNode> _mc$ReportDefinitions(Set<String> s) => [
        SomMetaNode(
           className: 'ReportDefinitions',
           memberName: 'reports',
-          sectionId: 'REEN-REPO-LST',
-          sectionIdPattern: 'REEN-REPO-xxx',
+          sectionId: 'REPENT-REPO-LST',
+          sectionIdPattern: 'REPENT-REPO-xxx',
           kind: SomMetaKind.list,
           typeName: 'ReportEntry',
           serializationOrder: 1,
@@ -36027,8 +36027,8 @@ List<SomMetaNode> _mc$ReportEntry(Set<String> s) => [
        SomMetaNode(
           className: 'ReportEntry',
           memberName: 'sections',
-          sectionId: 'RESEE1-SECT-LST',
-          sectionIdPattern: 'RESEE1-SECT-xxx',
+          sectionId: 'RSE-SECT-LST',
+          sectionIdPattern: 'RSE-SECT-xxx',
           kind: SomMetaKind.list,
           typeName: 'ReportSectionEntry',
           serializationOrder: 13,
@@ -36039,8 +36039,8 @@ List<SomMetaNode> _mc$ReportEntry(Set<String> s) => [
        SomMetaNode(
           className: 'ReportEntry',
           memberName: 'filters',
-          sectionId: 'REFIEN-FILT-LST',
-          sectionIdPattern: 'REFIEN-FILT-xxx',
+          sectionId: 'RFE-FILT-LST',
+          sectionIdPattern: 'RFE-FILT-xxx',
           kind: SomMetaKind.list,
           typeName: 'ReportFilterEntry',
           serializationOrder: 14,
@@ -36051,8 +36051,8 @@ List<SomMetaNode> _mc$ReportEntry(Set<String> s) => [
        SomMetaNode(
           className: 'ReportEntry',
           memberName: 'schedules',
-          sectionId: 'RESCEN-SCHE-LST',
-          sectionIdPattern: 'RESCEN-SCHE-xxx',
+          sectionId: 'REPSCHENT-SCHE-LST',
+          sectionIdPattern: 'REPSCHENT-SCHE-xxx',
           kind: SomMetaKind.list,
           typeName: 'ReportScheduleEntry',
           serializationOrder: 15,
@@ -36063,8 +36063,8 @@ List<SomMetaNode> _mc$ReportEntry(Set<String> s) => [
        SomMetaNode(
           className: 'ReportEntry',
           memberName: 'distributions',
-          sectionId: 'REDIEN-DIST-LST',
-          sectionIdPattern: 'REDIEN-DIST-xxx',
+          sectionId: 'RDE-DIST-LST',
+          sectionIdPattern: 'RDE-DIST-xxx',
           kind: SomMetaKind.list,
           typeName: 'ReportDistributionEntry',
           serializationOrder: 16,
@@ -36075,8 +36075,8 @@ List<SomMetaNode> _mc$ReportEntry(Set<String> s) => [
        SomMetaNode(
           className: 'ReportEntry',
           memberName: 'recipients',
-          sectionId: 'REREEN-RECI-LST',
-          sectionIdPattern: 'REREEN-RECI-xxx',
+          sectionId: 'RRE-RECI-LST',
+          sectionIdPattern: 'RRE-RECI-xxx',
           kind: SomMetaKind.list,
           typeName: 'ReportRecipientEntry',
           serializationOrder: 17,
@@ -36327,8 +36327,8 @@ List<SomMetaNode> _mc$ReportSectionEntry(Set<String> s) => [
        SomMetaNode(
           className: 'ReportSectionEntry',
           memberName: 'columns',
-          sectionId: 'RECOE1-COLU-LST',
-          sectionIdPattern: 'RECOE1-COLU-xxx',
+          sectionId: 'REPCOLENT-COLU-LST',
+          sectionIdPattern: 'REPCOLENT-COLU-xxx',
           kind: SomMetaKind.list,
           typeName: 'ReportColumnEntry',
           serializationOrder: 5,
@@ -36339,8 +36339,8 @@ List<SomMetaNode> _mc$ReportSectionEntry(Set<String> s) => [
        SomMetaNode(
           className: 'ReportSectionEntry',
           memberName: 'charts',
-          sectionId: 'RECHEN-CHAR-LST',
-          sectionIdPattern: 'RECHEN-CHAR-xxx',
+          sectionId: 'REPCHAENT-CHAR-LST',
+          sectionIdPattern: 'REPCHAENT-CHAR-xxx',
           kind: SomMetaKind.list,
           typeName: 'ReportChartEntry',
           serializationOrder: 6,
@@ -36371,8 +36371,8 @@ List<SomMetaNode> _mc$RequirementAcceptanceCriteria(Set<String> s) => [
        SomMetaNode(
           className: 'RequirementAcceptanceCriteria',
           memberName: 'criteria',
-          sectionId: 'ACCR-CRIT-LST',
-          sectionIdPattern: 'ACCR-CRIT-xxx',
+          sectionId: 'ACE-CRIT-LST',
+          sectionIdPattern: 'ACE-CRIT-xxx',
           kind: SomMetaKind.list,
           typeName: 'AcceptanceCriterionEntry',
           serializationOrder: 1,
@@ -36660,8 +36660,8 @@ List<SomMetaNode> _mc$RequirementUiSpecification(Set<String> s) => [
        SomMetaNode(
           className: 'RequirementUiSpecification',
           memberName: 'fields',
-          sectionId: 'SCFLD-FIEL-LST',
-          sectionIdPattern: 'SCFLD-FIEL-xxx',
+          sectionId: 'SFE-FIEL-LST',
+          sectionIdPattern: 'SFE-FIEL-xxx',
           kind: SomMetaKind.list,
           typeName: 'ScreenFieldEntry',
           serializationOrder: 4,
@@ -37409,8 +37409,8 @@ List<SomMetaNode> _mc$ReusableComponentsSection(Set<String> s) => [
        SomMetaNode(
           className: 'ReusableComponentsSection',
           memberName: 'uiComponents',
-          sectionId: 'RUICMP-UICO-LST',
-          sectionIdPattern: 'RUICMP-UICO-xxx',
+          sectionId: 'RUCE-UICO-LST',
+          sectionIdPattern: 'RUCE-UICO-xxx',
           kind: SomMetaKind.list,
           typeName: 'ReusableUiComponentEntry',
           serializationOrder: 4,
@@ -37421,8 +37421,8 @@ List<SomMetaNode> _mc$ReusableComponentsSection(Set<String> s) => [
        SomMetaNode(
           className: 'ReusableComponentsSection',
           memberName: 'businessComponents',
-          sectionId: 'BUCOEN-BUSI-LST',
-          sectionIdPattern: 'BUCOEN-BUSI-xxx',
+          sectionId: 'BUSCOMENT-BUSI-LST',
+          sectionIdPattern: 'BUSCOMENT-BUSI-xxx',
           kind: SomMetaKind.list,
           typeName: 'BusinessComponentEntry',
           serializationOrder: 5,
@@ -37433,8 +37433,8 @@ List<SomMetaNode> _mc$ReusableComponentsSection(Set<String> s) => [
        SomMetaNode(
           className: 'ReusableComponentsSection',
           memberName: 'infrastructureComponents',
-          sectionId: 'INCOEN-INFR-LST',
-          sectionIdPattern: 'INCOEN-INFR-xxx',
+          sectionId: 'INFCOMENT-INFR-LST',
+          sectionIdPattern: 'INFCOMENT-INFR-xxx',
           kind: SomMetaKind.list,
           typeName: 'InfrastructureComponentEntry',
           serializationOrder: 6,
@@ -37900,8 +37900,8 @@ List<SomMetaNode> _mc$RisksAndAssumptions(Set<String> s) => [
        SomMetaNode(
           className: 'RisksAndAssumptions',
           memberName: 'keyRisks',
-          sectionId: 'RIEN-KEYR-LST',
-          sectionIdPattern: 'RIEN-KEYR-xxx',
+          sectionId: 'RISENT-KEYR-LST',
+          sectionIdPattern: 'RISENT-KEYR-xxx',
           kind: SomMetaKind.list,
           typeName: 'RiskEntry',
           serializationOrder: 1,
@@ -39018,8 +39018,8 @@ List<SomMetaNode> _mc$ScopeBoundaries(Set<String> s) => [
        SomMetaNode(
           className: 'ScopeBoundaries',
           memberName: 'inScopeItems',
-          sectionId: 'SCITE-INSC-LST',
-          sectionIdPattern: 'SCITE-INSC-xxx',
+          sectionId: 'SIE-INSC-LST',
+          sectionIdPattern: 'SIE-INSC-xxx',
           kind: SomMetaKind.list,
           typeName: 'ScopeItemEntry',
           serializationOrder: 1,
@@ -39031,8 +39031,8 @@ List<SomMetaNode> _mc$ScopeBoundaries(Set<String> s) => [
        SomMetaNode(
           className: 'ScopeBoundaries',
           memberName: 'outOfScopeItems',
-          sectionId: 'SCITE-OUTO-LST',
-          sectionIdPattern: 'SCITE-OUTO-xxx',
+          sectionId: 'SIE-OUTO-LST',
+          sectionIdPattern: 'SIE-OUTO-xxx',
           kind: SomMetaKind.list,
           typeName: 'ScopeItemEntry',
           serializationOrder: 2,
@@ -39055,8 +39055,8 @@ List<SomMetaNode> _mc$ScopeBoundaries(Set<String> s) => [
        SomMetaNode(
           className: 'ScopeBoundaries',
           memberName: 'scopeAssumptions',
-          sectionId: 'SCOPE-SCOP-LST',
-          sectionIdPattern: 'SCOPE-SCOP-xxx',
+          sectionId: 'SCBND-SCOP-LST',
+          sectionIdPattern: 'SCBND-SCOP-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 4,
@@ -39339,8 +39339,8 @@ List<SomMetaNode> _mc$ScreenElementEntry(Set<String> s) => [
        SomMetaNode(
           className: 'ScreenElementEntry',
           memberName: 'validationRules',
-          sectionId: 'EVRE-VALI-LST',
-          sectionIdPattern: 'EVRE-VALI-xxx',
+          sectionId: 'ELVARUEN-VALI-LST',
+          sectionIdPattern: 'ELVARUEN-VALI-xxx',
           kind: SomMetaKind.list,
           typeName: 'ElementValidationRuleEntry',
           serializationOrder: 9,
@@ -39523,8 +39523,8 @@ List<SomMetaNode> _mc$ScreenEntry(Set<String> s) => [
        SomMetaNode(
           className: 'ScreenEntry',
           memberName: 'userCategories',
-          sectionId: 'SCRUSC-USER-LST',
-          sectionIdPattern: 'SCRUSC-USER-xxx',
+          sectionId: 'SUCE-USER-LST',
+          sectionIdPattern: 'SUCE-USER-xxx',
           kind: SomMetaKind.list,
           typeName: 'ScreenUserCategoryEntry',
           serializationOrder: 9,
@@ -39547,8 +39547,8 @@ List<SomMetaNode> _mc$ScreenEntry(Set<String> s) => [
        SomMetaNode(
           className: 'ScreenEntry',
           memberName: 'responsiveRules',
-          sectionId: 'SRRE-RESP-LST',
-          sectionIdPattern: 'SRRE-RESP-xxx',
+          sectionId: 'SCRERUEN-RESP-LST',
+          sectionIdPattern: 'SCRERUEN-RESP-xxx',
           kind: SomMetaKind.list,
           typeName: 'ScreenResponsiveRuleEntry',
           serializationOrder: 11,
@@ -39956,8 +39956,8 @@ List<SomMetaNode> _mc$SecondaryNavigation(Set<String> s) => [
        SomMetaNode(
           className: 'SecondaryNavigation',
           memberName: 'tabBars',
-          sectionId: 'TBDE-TABB-LST',
-          sectionIdPattern: 'TBDE-TABB-xxx',
+          sectionId: 'TABADEEN-TABB-LST',
+          sectionIdPattern: 'TABADEEN-TABB-xxx',
           kind: SomMetaKind.list,
           typeName: 'TabBarDefinitionEntry',
           serializationOrder: 2,
@@ -40217,8 +40217,8 @@ List<SomMetaNode> _mc$SecurityAuditRequirementsSection(Set<String> s) => [
        SomMetaNode(
           className: 'SecurityAuditRequirementsSection',
           memberName: 'auditEntries',
-          sectionId: 'SEAUEN-AUDI-LST',
-          sectionIdPattern: 'SEAUEN-AUDI-xxx',
+          sectionId: 'SAE-AUDI-LST',
+          sectionIdPattern: 'SAE-AUDI-xxx',
           kind: SomMetaKind.list,
           typeName: 'SecurityAuditEntry',
           serializationOrder: 8,
@@ -40423,8 +40423,8 @@ List<SomMetaNode> _mc$SecurityControls(Set<String> s) => [
        SomMetaNode(
           className: 'SecurityControls',
           memberName: 'controls',
-          sectionId: 'SECCT-CONT-LST',
-          sectionIdPattern: 'SECCT-CONT-xxx',
+          sectionId: 'SECOEN-CONT-LST',
+          sectionIdPattern: 'SECOEN-CONT-xxx',
           kind: SomMetaKind.list,
           typeName: 'SecurityControlEntry',
           serializationOrder: 1,
@@ -41226,8 +41226,8 @@ List<SomMetaNode> _mc$ServerRequirementsSection(Set<String> s) => [
        SomMetaNode(
           className: 'ServerRequirementsSection',
           memberName: 'environments',
-          sectionId: 'SEENEN-ENVI-LST',
-          sectionIdPattern: 'SEENEN-ENVI-xxx',
+          sectionId: 'SEE-ENVI-LST',
+          sectionIdPattern: 'SEE-ENVI-xxx',
           kind: SomMetaKind.list,
           typeName: 'ServerEnvironmentEntry',
           serializationOrder: 2,
@@ -41238,8 +41238,8 @@ List<SomMetaNode> _mc$ServerRequirementsSection(Set<String> s) => [
        SomMetaNode(
           className: 'ServerRequirementsSection',
           memberName: 'serverRoles',
-          sectionId: 'SEROEN-SERV-LST',
-          sectionIdPattern: 'SEROEN-SERV-xxx',
+          sectionId: 'SRE-SERV-LST',
+          sectionIdPattern: 'SRE-SERV-xxx',
           kind: SomMetaKind.list,
           typeName: 'ServerRoleEntry',
           serializationOrder: 3,
@@ -42169,8 +42169,8 @@ List<SomMetaNode> _mc$SlaAndSloMonitoring(Set<String> s) => [
        SomMetaNode(
           className: 'SlaAndSloMonitoring',
           memberName: 'slos',
-          sectionId: 'SLEN-SLOS-LST',
-          sectionIdPattern: 'SLEN-SLOS-xxx',
+          sectionId: 'SE-SLOS-LST',
+          sectionIdPattern: 'SE-SLOS-xxx',
           kind: SomMetaKind.list,
           typeName: 'SloEntry',
           serializationOrder: 3,
@@ -42283,8 +42283,8 @@ List<SomMetaNode> _mc$SoftwareDeliverables(Set<String> s) => [
        SomMetaNode(
           className: 'SoftwareDeliverables',
           memberName: 'items',
-          sectionId: 'SWDLV-ITEM-LST',
-          sectionIdPattern: 'SWDLV-ITEM-xxx',
+          sectionId: 'DLVEN-ITEM-LST',
+          sectionIdPattern: 'DLVEN-ITEM-xxx',
           kind: SomMetaKind.list,
           typeName: 'DeliverableEntry',
           serializationOrder: 1,
@@ -43525,8 +43525,8 @@ List<SomMetaNode> _mc$StagingStrategy(Set<String> s) => [
        SomMetaNode(
           className: 'StagingStrategy',
           memberName: 'keyAssumptions',
-          sectionId: 'KEYAS-KEYA-LST',
-          sectionIdPattern: 'KEYAS-KEYA-xxx',
+          sectionId: 'STAGST-KEYA-LST',
+          sectionIdPattern: 'STAGST-KEYA-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 15,
@@ -43536,8 +43536,8 @@ List<SomMetaNode> _mc$StagingStrategy(Set<String> s) => [
        SomMetaNode(
           className: 'StagingStrategy',
           memberName: 'constraints',
-          sectionId: 'STAGI-CONS-LST',
-          sectionIdPattern: 'STAGI-CONS-xxx',
+          sectionId: 'STAGST-CONS-LST',
+          sectionIdPattern: 'STAGST-CONS-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 16,
@@ -43689,8 +43689,8 @@ List<SomMetaNode> _mc$StakeholdersAndGovernance(Set<String> s) => [
        SomMetaNode(
           className: 'StakeholdersAndGovernance',
           memberName: 'stakeholderRegister',
-          sectionId: 'STKRG-STAK-LST',
-          sectionIdPattern: 'STKRG-STAK-xxx',
+          sectionId: 'STKRE-STAK-LST',
+          sectionIdPattern: 'STKRE-STAK-xxx',
           kind: SomMetaKind.list,
           typeName: 'StakeholderRegisterEntry',
           serializationOrder: 8,
@@ -43763,8 +43763,8 @@ List<SomMetaNode> _mc$StandardsComplianceSection(Set<String> s) => [
        SomMetaNode(
           className: 'StandardsComplianceSection',
           memberName: 'itStandards',
-          sectionId: 'ISCE-ITST-LST',
-          sectionIdPattern: 'ISCE-ITST-xxx',
+          sectionId: 'ITSTCOEN-ITST-LST',
+          sectionIdPattern: 'ITSTCOEN-ITST-xxx',
           kind: SomMetaKind.list,
           typeName: 'ItStandardComplianceEntry',
           serializationOrder: 2,
@@ -43775,8 +43775,8 @@ List<SomMetaNode> _mc$StandardsComplianceSection(Set<String> s) => [
        SomMetaNode(
           className: 'StandardsComplianceSection',
           memberName: 'industryProtocols',
-          sectionId: 'IPCE-INDU-LST',
-          sectionIdPattern: 'IPCE-INDU-xxx',
+          sectionId: 'INPRCOEN-INDU-LST',
+          sectionIdPattern: 'INPRCOEN-INDU-xxx',
           kind: SomMetaKind.list,
           typeName: 'IndustryProtocolComplianceEntry',
           serializationOrder: 3,
@@ -43787,8 +43787,8 @@ List<SomMetaNode> _mc$StandardsComplianceSection(Set<String> s) => [
        SomMetaNode(
           className: 'StandardsComplianceSection',
           memberName: 'interfaceSpecifications',
-          sectionId: 'INSPEN-INTE-LST',
-          sectionIdPattern: 'INSPEN-INTE-xxx',
+          sectionId: 'INTSPEENT-INTE-LST',
+          sectionIdPattern: 'INTSPEENT-INTE-xxx',
           kind: SomMetaKind.list,
           typeName: 'InterfaceSpecificationEntry',
           serializationOrder: 4,
@@ -43799,8 +43799,8 @@ List<SomMetaNode> _mc$StandardsComplianceSection(Set<String> s) => [
        SomMetaNode(
           className: 'StandardsComplianceSection',
           memberName: 'regulatoryCompliance',
-          sectionId: 'RECOEN-REGU-LST',
-          sectionIdPattern: 'RECOEN-REGU-xxx',
+          sectionId: 'RCE-REGU-LST',
+          sectionIdPattern: 'RCE-REGU-xxx',
           kind: SomMetaKind.list,
           typeName: 'RegulatoryComplianceEntry',
           serializationOrder: 5,
@@ -43811,8 +43811,8 @@ List<SomMetaNode> _mc$StandardsComplianceSection(Set<String> s) => [
        SomMetaNode(
           className: 'StandardsComplianceSection',
           memberName: 'securityStandards',
-          sectionId: 'SSCE-SECU-LST',
-          sectionIdPattern: 'SSCE-SECU-xxx',
+          sectionId: 'SESTCOEN-SECU-LST',
+          sectionIdPattern: 'SESTCOEN-SECU-xxx',
           kind: SomMetaKind.list,
           typeName: 'SecurityStandardComplianceEntry',
           serializationOrder: 6,
@@ -43912,8 +43912,8 @@ List<SomMetaNode> _mc$SteeringCommittee(Set<String> s) => [
        SomMetaNode(
           className: 'SteeringCommittee',
           memberName: 'members',
-          sectionId: 'COMMB-MEMB-LST',
-          sectionIdPattern: 'COMMB-MEMB-xxx',
+          sectionId: 'CME-MEMB-LST',
+          sectionIdPattern: 'CME-MEMB-xxx',
           kind: SomMetaKind.list,
           typeName: 'CommitteeMemberEntry',
           serializationOrder: 2,
@@ -43935,8 +43935,8 @@ List<SomMetaNode> _mc$StepUpAuthenticationPolicy(Set<String> s) => [
        SomMetaNode(
           className: 'StepUpAuthenticationPolicy',
           memberName: 'stepUpDetails',
-          sectionId: 'STEPU-STEP-LST',
-          sectionIdPattern: 'STEPU-STEP-xxx',
+          sectionId: 'SUAP-STEP-LST',
+          sectionIdPattern: 'SUAP-STEP-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 1,
@@ -44355,8 +44355,8 @@ List<SomMetaNode> _mc$SupportDeliverables(Set<String> s) => [
        SomMetaNode(
           className: 'SupportDeliverables',
           memberName: 'items',
-          sectionId: 'SPDLV-ITEM-LST',
-          sectionIdPattern: 'SPDLV-ITEM-xxx',
+          sectionId: 'DLVEN-ITEM-LST',
+          sectionIdPattern: 'DLVEN-ITEM-xxx',
           kind: SomMetaKind.list,
           typeName: 'DeliverableEntry',
           serializationOrder: 1,
@@ -44570,8 +44570,8 @@ List<SomMetaNode> _mc$SystemBusinessCriticality(Set<String> s) => [
        SomMetaNode(
           className: 'SystemBusinessCriticality',
           memberName: 'businessUnits',
-          sectionId: 'SBUE-BUSI-LST',
-          sectionIdPattern: 'SBUE-BUSI-xxx',
+          sectionId: 'SYBUUNEN-BUSI-LST',
+          sectionIdPattern: 'SYBUUNEN-BUSI-xxx',
           kind: SomMetaKind.list,
           typeName: 'SystemBusinessUnitEntry',
           serializationOrder: 3,
@@ -44582,8 +44582,8 @@ List<SomMetaNode> _mc$SystemBusinessCriticality(Set<String> s) => [
        SomMetaNode(
           className: 'SystemBusinessCriticality',
           memberName: 'supportedProcesses',
-          sectionId: 'SBPE-SUPP-LST',
-          sectionIdPattern: 'SBPE-SUPP-xxx',
+          sectionId: 'SYBUPREN-SUPP-LST',
+          sectionIdPattern: 'SYBUPREN-SUPP-xxx',
           kind: SomMetaKind.list,
           typeName: 'SystemBusinessProcessEntry',
           serializationOrder: 4,
@@ -44813,8 +44813,8 @@ List<SomMetaNode> _mc$SystemCostAnalysis(Set<String> s) => [
        SomMetaNode(
           className: 'SystemCostAnalysis',
           memberName: 'nonFinancialBenefits',
-          sectionId: 'NONFI-NONF-LST',
-          sectionIdPattern: 'NONFI-NONF-xxx',
+          sectionId: 'SYCOAN-NONF-LST',
+          sectionIdPattern: 'SYCOAN-NONF-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 5,
@@ -44854,8 +44854,8 @@ List<SomMetaNode> _mc$SystemDataScope(Set<String> s) => [
        SomMetaNode(
           className: 'SystemDataScope',
           memberName: 'entities',
-          sectionId: 'DEME-ENTI-LST',
-          sectionIdPattern: 'DEME-ENTI-xxx',
+          sectionId: 'DAENMIEN-ENTI-LST',
+          sectionIdPattern: 'DAENMIEN-ENTI-xxx',
           kind: SomMetaKind.list,
           typeName: 'DataEntityMigrationEntry',
           serializationOrder: 3,
@@ -44866,8 +44866,8 @@ List<SomMetaNode> _mc$SystemDataScope(Set<String> s) => [
        SomMetaNode(
           className: 'SystemDataScope',
           memberName: 'knownQualityIssues',
-          sectionId: 'KNOWN-KNOW-LST',
-          sectionIdPattern: 'KNOWN-KNOW-xxx',
+          sectionId: 'SYDASC-KNOW-LST',
+          sectionIdPattern: 'SYDASC-KNOW-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 4,
@@ -45007,8 +45007,8 @@ List<SomMetaNode> _mc$SystemDescription(Set<String> s) => [
        SomMetaNode(
           className: 'SystemDescription',
           memberName: 'userCategories',
-          sectionId: 'USCA-USER-LST',
-          sectionIdPattern: 'USCA-USER-xxx',
+          sectionId: 'UCE-USER-LST',
+          sectionIdPattern: 'UCE-USER-xxx',
           kind: SomMetaKind.list,
           typeName: 'UserCategoryEntry',
           serializationOrder: 5,
@@ -45161,8 +45161,8 @@ List<SomMetaNode> _mc$SystemErrorDisplay(Set<String> s) => [
        SomMetaNode(
           className: 'SystemErrorDisplay',
           memberName: 'errorPageDesigns',
-          sectionId: 'EPDE-ERRO-LST',
-          sectionIdPattern: 'EPDE-ERRO-xxx',
+          sectionId: 'SYERDI-ERRO-LST',
+          sectionIdPattern: 'SYERDI-ERRO-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 6,
@@ -45172,8 +45172,8 @@ List<SomMetaNode> _mc$SystemErrorDisplay(Set<String> s) => [
        SomMetaNode(
           className: 'SystemErrorDisplay',
           memberName: 'errorCodes',
-          sectionId: 'SECE-ERRO-LST',
-          sectionIdPattern: 'SECE-ERRO-xxx',
+          sectionId: 'SYERCOEN-ERRO-LST',
+          sectionIdPattern: 'SYERCOEN-ERRO-xxx',
           kind: SomMetaKind.list,
           typeName: 'SystemErrorCodeEntry',
           serializationOrder: 7,
@@ -45313,8 +45313,8 @@ List<SomMetaNode> _mc$SystemKnowledgeTransfer(Set<String> s) => [
        SomMetaNode(
           className: 'SystemKnowledgeTransfer',
           memberName: 'criticalKnowledgeAreas',
-          sectionId: 'CRITI-CRIT-LST',
-          sectionIdPattern: 'CRITI-CRIT-xxx',
+          sectionId: 'SYKNTR-CRIT-LST',
+          sectionIdPattern: 'SYKNTR-CRIT-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 1,
@@ -45374,8 +45374,8 @@ List<SomMetaNode> _mc$SystemMigrationPlan(Set<String> s) => [
        SomMetaNode(
           className: 'SystemMigrationPlan',
           memberName: 'risks',
-          sectionId: 'SMRE-RISK-LST',
-          sectionIdPattern: 'SMRE-RISK-xxx',
+          sectionId: 'SYMIRIEN-RISK-LST',
+          sectionIdPattern: 'SYMIRIEN-RISK-xxx',
           kind: SomMetaKind.list,
           typeName: 'SystemMigrationRiskEntry',
           serializationOrder: 3,
@@ -45436,8 +45436,8 @@ List<SomMetaNode> _mc$SystemOperation(Set<String> s) => [
        SomMetaNode(
           className: 'SystemOperation',
           memberName: 'maintenanceProcedures',
-          sectionId: 'MAINT-MAIN-LST',
-          sectionIdPattern: 'MAINT-MAIN-xxx',
+          sectionId: 'SO-MAIN-LST',
+          sectionIdPattern: 'SO-MAIN-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 2,
@@ -45655,8 +45655,8 @@ List<SomMetaNode> _mc$SystemQualityGoals(Set<String> s) => [
        SomMetaNode(
           className: 'SystemQualityGoals',
           memberName: 'attributeInterdependencies',
-          sectionId: 'ATTRI-ATTR-LST',
-          sectionIdPattern: 'ATTRI-ATTR-xxx',
+          sectionId: 'SYQG-ATTR-LST',
+          sectionIdPattern: 'SYQG-ATTR-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 8,
@@ -45873,8 +45873,8 @@ List<SomMetaNode> _mc$SystemReplacementStrategy(Set<String> s) => [
        SomMetaNode(
           className: 'SystemReplacementStrategy',
           memberName: 'predecessorDependencies',
-          sectionId: 'PREDE-PRED-LST',
-          sectionIdPattern: 'PREDE-PRED-xxx',
+          sectionId: 'SYREST-PRED-LST',
+          sectionIdPattern: 'SYREST-PRED-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 4,
@@ -46227,8 +46227,8 @@ List<SomMetaNode> _mc$SystemTaskEntry(Set<String> s) => [
        SomMetaNode(
           className: 'SystemTaskEntry',
           memberName: 'workflowSteps',
-          sectionId: 'SYSTE-WORK-LST',
-          sectionIdPattern: 'SYSTE-WORK-xxx',
+          sectionId: 'SYTS-WORK-LST',
+          sectionIdPattern: 'SYTS-WORK-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 5,
@@ -46238,8 +46238,8 @@ List<SomMetaNode> _mc$SystemTaskEntry(Set<String> s) => [
        SomMetaNode(
           className: 'SystemTaskEntry',
           memberName: 'variationsAndExceptions',
-          sectionId: 'VARIA-VARI-LST',
-          sectionIdPattern: 'VARIA-VARI-xxx',
+          sectionId: 'SYTS-VARI-LST',
+          sectionIdPattern: 'SYTS-VARI-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 6,
@@ -46289,8 +46289,8 @@ List<SomMetaNode> _mc$SystemTechnicalAssessment(Set<String> s) => [
        SomMetaNode(
           className: 'SystemTechnicalAssessment',
           memberName: 'knownIssues',
-          sectionId: 'KIE-KNOW-LST',
-          sectionIdPattern: 'KIE-KNOW-xxx',
+          sectionId: 'SYTEAS-KNOW-LST',
+          sectionIdPattern: 'SYTEAS-KNOW-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 4,
@@ -46300,8 +46300,8 @@ List<SomMetaNode> _mc$SystemTechnicalAssessment(Set<String> s) => [
        SomMetaNode(
           className: 'SystemTechnicalAssessment',
           memberName: 'securityConcerns',
-          sectionId: 'SECUR-SECU-LST',
-          sectionIdPattern: 'SECUR-SECU-xxx',
+          sectionId: 'SYTEAS-SECU-LST',
+          sectionIdPattern: 'SYTEAS-SECU-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 5,
@@ -46519,8 +46519,8 @@ List<SomMetaNode> _mc$SystemUserImpact(Set<String> s) => [
        SomMetaNode(
           className: 'SystemUserImpact',
           memberName: 'userGroups',
-          sectionId: 'UGIE-USER-LST',
-          sectionIdPattern: 'UGIE-USER-xxx',
+          sectionId: 'USGRIMEN-USER-LST',
+          sectionIdPattern: 'USGRIMEN-USER-xxx',
           kind: SomMetaKind.list,
           typeName: 'UserGroupImpactEntry',
           serializationOrder: 4,
@@ -46597,8 +46597,8 @@ List<SomMetaNode> _mc$TabBarDefinitionEntry(Set<String> s) => [
        SomMetaNode(
           className: 'TabBarDefinitionEntry',
           memberName: 'tabs',
-          sectionId: 'TAITEN-TABS-LST',
-          sectionIdPattern: 'TAITEN-TABS-xxx',
+          sectionId: 'TIE-TABS-LST',
+          sectionIdPattern: 'TIE-TABS-xxx',
           kind: SomMetaKind.list,
           typeName: 'TabItemEntry',
           serializationOrder: 3,
@@ -46940,8 +46940,8 @@ List<SomMetaNode> _mc$TechnicalEnvironment(Set<String> s) => [
        SomMetaNode(
           className: 'TechnicalEnvironment',
           memberName: 'datacenters',
-          sectionId: 'DATAC-DATA-LST',
-          sectionIdPattern: 'DATAC-DATA-xxx',
+          sectionId: 'TEEN-DATA-LST',
+          sectionIdPattern: 'TEEN-DATA-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 6,
@@ -46969,8 +46969,8 @@ List<SomMetaNode> _mc$TechnicalEnvironment(Set<String> s) => [
        SomMetaNode(
           className: 'TechnicalEnvironment',
           memberName: 'technologyStandards',
-          sectionId: 'TESTEN-TECH-LST',
-          sectionIdPattern: 'TESTEN-TECH-xxx',
+          sectionId: 'TSE-TECH-LST',
+          sectionIdPattern: 'TSE-TECH-xxx',
           kind: SomMetaKind.list,
           typeName: 'TechnologyStandardEntry',
           serializationOrder: 9,
@@ -46990,8 +46990,8 @@ List<SomMetaNode> _mc$TechnicalEnvironment(Set<String> s) => [
        SomMetaNode(
           className: 'TechnicalEnvironment',
           memberName: 'integrationConstraints',
-          sectionId: 'INCOE1-INTE-LST',
-          sectionIdPattern: 'INCOE1-INTE-xxx',
+          sectionId: 'INTCONENT-INTE-LST',
+          sectionIdPattern: 'INTCONENT-INTE-xxx',
           kind: SomMetaKind.list,
           typeName: 'IntegrationConstraintEntry',
           serializationOrder: 11,
@@ -47012,8 +47012,8 @@ List<SomMetaNode> _mc$TechnicalEnvironmentNetwork(Set<String> s) => [
        SomMetaNode(
           className: 'TechnicalEnvironmentNetwork',
           memberName: 'devopsStandards',
-          sectionId: 'DEVOP-DEVO-LST',
-          sectionIdPattern: 'DEVOP-DEVO-xxx',
+          sectionId: 'TEENNE-DEVO-LST',
+          sectionIdPattern: 'TEENNE-DEVO-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 1,
@@ -47023,8 +47023,8 @@ List<SomMetaNode> _mc$TechnicalEnvironmentNetwork(Set<String> s) => [
        SomMetaNode(
           className: 'TechnicalEnvironmentNetwork',
           memberName: 'observabilityRequirements',
-          sectionId: 'OBSER-OBSE-LST',
-          sectionIdPattern: 'OBSER-OBSE-xxx',
+          sectionId: 'TEENNE-OBSE-LST',
+          sectionIdPattern: 'TEENNE-OBSE-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 2,
@@ -47409,8 +47409,8 @@ List<SomMetaNode> _mc$TechnicalPainPoints(Set<String> s) => [
        SomMetaNode(
           className: 'TechnicalPainPoints',
           memberName: 'items',
-          sectionId: 'TEPAPO-ITEM-LST',
-          sectionIdPattern: 'TEPAPO-ITEM-xxx',
+          sectionId: 'PAPE-ITEM-LST',
+          sectionIdPattern: 'PAPE-ITEM-xxx',
           kind: SomMetaKind.list,
           typeName: 'PainPointEntry',
           serializationOrder: 2,
@@ -48704,8 +48704,8 @@ List<SomMetaNode> _mc$TrainingDeliverableRequirements(Set<String> s) => [
        SomMetaNode(
           className: 'TrainingDeliverableRequirements',
           memberName: 'trainingModules',
-          sectionId: 'TRMOEN-TRAI-LST',
-          sectionIdPattern: 'TRMOEN-TRAI-xxx',
+          sectionId: 'TME-TRAI-LST',
+          sectionIdPattern: 'TME-TRAI-xxx',
           kind: SomMetaKind.list,
           typeName: 'TrainingModuleEntry',
           serializationOrder: 2,
@@ -48727,8 +48727,8 @@ List<SomMetaNode> _mc$TrainingDeliverables(Set<String> s) => [
        SomMetaNode(
           className: 'TrainingDeliverables',
           memberName: 'items',
-          sectionId: 'TRDLV-ITEM-LST',
-          sectionIdPattern: 'TRDLV-ITEM-xxx',
+          sectionId: 'DLVEN-ITEM-LST',
+          sectionIdPattern: 'DLVEN-ITEM-xxx',
           kind: SomMetaKind.list,
           typeName: 'DeliverableEntry',
           serializationOrder: 1,
@@ -48861,8 +48861,8 @@ List<SomMetaNode> _mc$TrainingRequirements(Set<String> s) => [
        SomMetaNode(
           className: 'TrainingRequirements',
           memberName: 'initialTraining',
-          sectionId: 'INITR-INIT-LST',
-          sectionIdPattern: 'INITR-INIT-xxx',
+          sectionId: 'ITE-INIT-LST',
+          sectionIdPattern: 'ITE-INIT-xxx',
           kind: SomMetaKind.list,
           typeName: 'InitialTrainingEntry',
           serializationOrder: 1,
@@ -49349,8 +49349,8 @@ List<SomMetaNode> _mc$TranslationProcess(Set<String> s) => [
        SomMetaNode(
           className: 'TranslationProcess',
           memberName: 'vendors',
-          sectionId: 'TRVEEN-VEND-LST',
-          sectionIdPattern: 'TRVEEN-VEND-xxx',
+          sectionId: 'TVE-VEND-LST',
+          sectionIdPattern: 'TVE-VEND-xxx',
           kind: SomMetaKind.list,
           typeName: 'TranslationVendorEntry',
           serializationOrder: 6,
@@ -49753,8 +49753,8 @@ List<SomMetaNode> _mc$UiComponentEntry(Set<String> s) => [
        SomMetaNode(
           className: 'UiComponentEntry',
           memberName: 'states',
-          sectionId: 'CMST-STAT-LST',
-          sectionIdPattern: 'CMST-STAT-xxx',
+          sectionId: 'COMSTAENT-STAT-LST',
+          sectionIdPattern: 'COMSTAENT-STAT-xxx',
           kind: SomMetaKind.list,
           typeName: 'ComponentStateEntry',
           serializationOrder: 18,
@@ -49765,8 +49765,8 @@ List<SomMetaNode> _mc$UiComponentEntry(Set<String> s) => [
        SomMetaNode(
           className: 'UiComponentEntry',
           memberName: 'variants',
-          sectionId: 'CMVN-VARI-LST',
-          sectionIdPattern: 'CMVN-VARI-xxx',
+          sectionId: 'CVE-VARI-LST',
+          sectionIdPattern: 'CVE-VARI-xxx',
           kind: SomMetaKind.list,
           typeName: 'ComponentVariantEntry',
           serializationOrder: 19,
@@ -49865,8 +49865,8 @@ List<SomMetaNode> _mc$UiComponents(Set<String> s) => [
        SomMetaNode(
           className: 'UiComponents',
           memberName: 'componentSpecs',
-          sectionId: 'UICOEN-COMP-LST',
-          sectionIdPattern: 'UICOEN-COMP-xxx',
+          sectionId: 'UICOMENT-COMP-LST',
+          sectionIdPattern: 'UICOMENT-COMP-xxx',
           kind: SomMetaKind.list,
           typeName: 'UiComponentEntry',
           serializationOrder: 5,
@@ -50470,8 +50470,8 @@ List<SomMetaNode> _mc$UserCategories(Set<String> s) => [
        SomMetaNode(
           className: 'UserCategories',
           memberName: 'categories',
-          sectionId: 'USCA-CATE-LST',
-          sectionIdPattern: 'USCA-CATE-xxx',
+          sectionId: 'UCE-CATE-LST',
+          sectionIdPattern: 'UCE-CATE-xxx',
           kind: SomMetaKind.list,
           typeName: 'UserCategoryEntry',
           serializationOrder: 2,
@@ -50820,8 +50820,8 @@ List<SomMetaNode> _mc$UserJourney(Set<String> s) => [
        SomMetaNode(
           className: 'UserJourney',
           memberName: 'keyTouchpoints',
-          sectionId: 'KEYTO-KEYT-LST',
-          sectionIdPattern: 'KEYTO-KEYT-xxx',
+          sectionId: 'UJ-KEYT-LST',
+          sectionIdPattern: 'UJ-KEYT-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 3,
@@ -50831,8 +50831,8 @@ List<SomMetaNode> _mc$UserJourney(Set<String> s) => [
        SomMetaNode(
           className: 'UserJourney',
           memberName: 'painPoints',
-          sectionId: 'USERJ-PAIN-LST',
-          sectionIdPattern: 'USERJ-PAIN-xxx',
+          sectionId: 'UJ-PAIN-LST',
+          sectionIdPattern: 'UJ-PAIN-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 4,
@@ -51172,8 +51172,8 @@ List<SomMetaNode> _mc$UserPersonaDetails(Set<String> s) => [
        SomMetaNode(
           className: 'UserPersonaDetails',
           memberName: 'representativeQuotes',
-          sectionId: 'REPRE-REPR-LST',
-          sectionIdPattern: 'REPRE-REPR-xxx',
+          sectionId: 'UPD-REPR-LST',
+          sectionIdPattern: 'UPD-REPR-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 6,
@@ -51397,8 +51397,8 @@ List<SomMetaNode> _mc$UtilityNavigation(Set<String> s) => [
        SomMetaNode(
           className: 'UtilityNavigation',
           memberName: 'items',
-          sectionId: 'UNIE-ITEM-LST',
-          sectionIdPattern: 'UNIE-ITEM-xxx',
+          sectionId: 'UTNAITEN-ITEM-LST',
+          sectionIdPattern: 'UTNAITEN-ITEM-xxx',
           kind: SomMetaKind.list,
           typeName: 'UtilityNavigationItemEntry',
           serializationOrder: 1,
@@ -51450,8 +51450,8 @@ List<SomMetaNode> _mc$UtilityNavigationItemEntry(Set<String> s) => [
        SomMetaNode(
           className: 'UtilityNavigationItemEntry',
           memberName: 'menuItems',
-          sectionId: 'UMIE-MENU-LST',
-          sectionIdPattern: 'UMIE-MENU-xxx',
+          sectionId: 'UTMEITEN-MENU-LST',
+          sectionIdPattern: 'UTMEITEN-MENU-xxx',
           kind: SomMetaKind.list,
           typeName: 'UtilityMenuItemEntry',
           serializationOrder: 4,
@@ -51533,8 +51533,8 @@ List<SomMetaNode> _mc$ValidationFeedback(Set<String> s) => [
        SomMetaNode(
           className: 'ValidationFeedback',
           memberName: 'messageTemplates',
-          sectionId: 'VAMETE-MESS-LST',
-          sectionIdPattern: 'VAMETE-MESS-xxx',
+          sectionId: 'VMT-MESS-LST',
+          sectionIdPattern: 'VMT-MESS-xxx',
           kind: SomMetaKind.list,
           typeName: 'ValidationMessageTemplate',
           serializationOrder: 6,
@@ -51545,8 +51545,8 @@ List<SomMetaNode> _mc$ValidationFeedback(Set<String> s) => [
        SomMetaNode(
           className: 'ValidationFeedback',
           memberName: 'fieldValidationRules',
-          sectionId: 'FIELD-FIEL-LST',
-          sectionIdPattern: 'FIELD-FIEL-xxx',
+          sectionId: 'VAFE-FIEL-LST',
+          sectionIdPattern: 'VAFE-FIEL-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 7,
@@ -51604,8 +51604,8 @@ List<SomMetaNode> _mc$ValueProposition(Set<String> s) => [
        SomMetaNode(
           className: 'ValueProposition',
           memberName: 'kpis',
-          sectionId: 'KPIEN-KPIS-LST',
-          sectionIdPattern: 'KPIEN-KPIS-xxx',
+          sectionId: 'VALPX-KPIS-LST',
+          sectionIdPattern: 'VALPX-KPIS-xxx',
           kind: SomMetaKind.list,
           typeName: 'String',
           serializationOrder: 4,
@@ -51966,8 +51966,8 @@ List<SomMetaNode> _mc$WcagCompliance(Set<String> s) => [
        SomMetaNode(
           className: 'WcagCompliance',
           memberName: 'successCriteria',
-          sectionId: 'WSCE-SUCC-LST',
-          sectionIdPattern: 'WSCE-SUCC-xxx',
+          sectionId: 'WCSUCREN-SUCC-LST',
+          sectionIdPattern: 'WCSUCREN-SUCC-xxx',
           kind: SomMetaKind.list,
           typeName: 'WcagSuccessCriterionEntry',
           serializationOrder: 5,
@@ -53326,7 +53326,7 @@ class AlertingConfiguration$Nav extends SomMetaRef {
   SomMetaRef get alertingOverview => SomMetaRef(tree, '$path/ALCO-ALER');
   SomMetaRef get overviewNarrative => SomMetaRef(tree, '$path/overviewNarrative');
   AlertNotificationChannels$Nav get notificationChannels => AlertNotificationChannels$Nav(tree, '$path/notificationChannels');
-  SomListMetaRef<AlertRuleEntry$Nav> get alertRules => SomListMetaRef(tree, '$path/ALRUEN-ALER-LST', AlertRuleEntry$Nav.new);
+  SomListMetaRef<AlertRuleEntry$Nav> get alertRules => SomListMetaRef(tree, '$path/ALERULENT-ALER-LST', AlertRuleEntry$Nav.new);
   AlertEscalationPolicies$Nav get escalationPolicies => AlertEscalationPolicies$Nav(tree, '$path/escalationPolicies');
   SomListMetaRef<AlertSuppressionRules$Nav> get suppressionRules => SomListMetaRef(tree, '$path/ALSURU-SUPP-LST', AlertSuppressionRules$Nav.new);
   OnCallScheduleConfig$Nav get onCallSchedule => OnCallScheduleConfig$Nav(tree, '$path/onCallSchedule');
@@ -53492,7 +53492,7 @@ class ApiVersioningStrategy$Nav extends SomMetaRef {
 class ApplicableRegulationEntry$Nav extends SomMetaRef {
   ApplicableRegulationEntry$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<SomMetaRef> get complianceMeasures => SomListMetaRef(tree, '$path/COMPL-COMP-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get complianceMeasures => SomListMetaRef(tree, '$path/ARE-COMP-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `ApplicationDiagnostics` (SOM §8). Every getter is one
@@ -53630,9 +53630,9 @@ class ArchitectureStyle$Nav extends SomMetaRef {
 class AssumptionConstraintDependencyRegister$Nav extends SomMetaRef {
   AssumptionConstraintDependencyRegister$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<AssumptionRegisterEntry$Nav> get assumptions => SomListMetaRef(tree, '$path/ACRG-ASMP-LST', AssumptionRegisterEntry$Nav.new);
-  SomListMetaRef<ConstraintRegisterEntry$Nav> get constraints => SomListMetaRef(tree, '$path/ACRG-CONS-LST', ConstraintRegisterEntry$Nav.new);
-  SomListMetaRef<DependencyRegisterEntry$Nav> get dependencies => SomListMetaRef(tree, '$path/ACRG-DEPS-LST', DependencyRegisterEntry$Nav.new);
+  SomListMetaRef<AssumptionRegisterEntry$Nav> get assumptions => SomListMetaRef(tree, '$path/ASMRE-ASMP-LST', AssumptionRegisterEntry$Nav.new);
+  SomListMetaRef<ConstraintRegisterEntry$Nav> get constraints => SomListMetaRef(tree, '$path/CONRE-CONS-LST', ConstraintRegisterEntry$Nav.new);
+  SomListMetaRef<DependencyRegisterEntry$Nav> get dependencies => SomListMetaRef(tree, '$path/DEPRE-DEPS-LST', DependencyRegisterEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `AssumptionRegisterEntry` (SOM §8). Every getter is one
@@ -53900,7 +53900,7 @@ class BackupAndRecoverySection$Nav extends SomMetaRef {
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get overview => SomMetaRef(tree, '$path/overview');
   BackupDataClassification$Nav get dataClassification => BackupDataClassification$Nav(tree, '$path/dataClassification');
-  SomListMetaRef<BackupPolicyEntry$Nav> get backupPolicies => SomListMetaRef(tree, '$path/BAPOEN-BACK-LST', BackupPolicyEntry$Nav.new);
+  SomListMetaRef<BackupPolicyEntry$Nav> get backupPolicies => SomListMetaRef(tree, '$path/BPE-BACK-LST', BackupPolicyEntry$Nav.new);
   RpoRtoRequirements$Nav get rpoRtoRequirements => RpoRtoRequirements$Nav(tree, '$path/rpoRtoRequirements');
   BackupInfrastructure$Nav get infrastructure => BackupInfrastructure$Nav(tree, '$path/infrastructure');
   RecoveryProcedures$Nav get recoveryProcedures => RecoveryProcedures$Nav(tree, '$path/recoveryProcedures');
@@ -54068,7 +54068,7 @@ class BoundaryAssumptionEntry$Nav extends SomMetaRef {
 class BoundaryAssumptions$Nav extends SomMetaRef {
   BoundaryAssumptions$Nav(super.tree, super.path);
   SomMetaRef get assumptionApproach => SomMetaRef(tree, '$path/assumptionApproach');
-  SomListMetaRef<BoundaryAssumptionEntry$Nav> get items => SomListMetaRef(tree, '$path/BOASEN-ITEM-LST', BoundaryAssumptionEntry$Nav.new);
+  SomListMetaRef<BoundaryAssumptionEntry$Nav> get items => SomListMetaRef(tree, '$path/BAE-ITEM-LST', BoundaryAssumptionEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `BoundaryInteractionPatterns` (SOM §8). Every getter is one
@@ -54100,7 +54100,7 @@ class BoundedContextEntry$Nav extends SomMetaRef {
 class BreakpointConfiguration$Nav extends SomMetaRef {
   BreakpointConfiguration$Nav(super.tree, super.path);
   SomMetaRef get breakpointOverview => SomMetaRef(tree, '$path/BC-BREA');
-  SomListMetaRef<BreakpointEntry$Nav> get breakpoints => SomListMetaRef(tree, '$path/BRE-BREA-LST', BreakpointEntry$Nav.new);
+  SomListMetaRef<BreakpointEntry$Nav> get breakpoints => SomListMetaRef(tree, '$path/BE-BREA-LST', BreakpointEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `BreakpointEntry` (SOM §8). Every getter is one
@@ -54290,7 +54290,7 @@ class BusinessPainPoints$Nav extends SomMetaRef {
   BusinessPainPoints$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get categorySummary => SomMetaRef(tree, '$path/BPPS');
-  SomListMetaRef<PainPointEntry$Nav> get items => SomListMetaRef(tree, '$path/BUPAPO-ITEM-LST', PainPointEntry$Nav.new);
+  SomListMetaRef<PainPointEntry$Nav> get items => SomListMetaRef(tree, '$path/PAPE-ITEM-LST', PainPointEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `BusinessProcessDescriptions` (SOM §8). Every getter is one
@@ -54661,9 +54661,9 @@ class ChannelIntegrations$Nav extends SomMetaRef {
 class CiCdPipelineConfiguration$Nav extends SomMetaRef {
   CiCdPipelineConfiguration$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<PipelineStageEntry$Nav> get stages => SomListMetaRef(tree, '$path/PISTEN-STAG-LST', PipelineStageEntry$Nav.new);
-  SomListMetaRef<PipelineJobEntry$Nav> get jobs => SomListMetaRef(tree, '$path/PIJOEN-JOBS-LST', PipelineJobEntry$Nav.new);
-  SomListMetaRef<DeploymentEnvironmentEntry$Nav> get environments => SomListMetaRef(tree, '$path/DEENEN-ENVI-LST', DeploymentEnvironmentEntry$Nav.new);
+  SomListMetaRef<PipelineStageEntry$Nav> get stages => SomListMetaRef(tree, '$path/PSE-STAG-LST', PipelineStageEntry$Nav.new);
+  SomListMetaRef<PipelineJobEntry$Nav> get jobs => SomListMetaRef(tree, '$path/PJE-JOBS-LST', PipelineJobEntry$Nav.new);
+  SomListMetaRef<DeploymentEnvironmentEntry$Nav> get environments => SomListMetaRef(tree, '$path/DEE-ENVI-LST', DeploymentEnvironmentEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `CiCdPipelineRequirements` (SOM §8). Every getter is one
@@ -54755,9 +54755,9 @@ class ClientRequirementsSection$Nav extends SomMetaRef {
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get overview => SomMetaRef(tree, '$path/overview');
   SomListMetaRef<ClientApplicationEntry$Nav> get clientApplications => SomListMetaRef(tree, '$path/CLIAPP-CLIE-LST', ClientApplicationEntry$Nav.new);
-  SomListMetaRef<BrowserRequirementEntry$Nav> get browserRequirements => SomListMetaRef(tree, '$path/BRREEN-BROW-LST', BrowserRequirementEntry$Nav.new);
-  SomListMetaRef<DesktopOsRequirementEntry$Nav> get desktopOsRequirements => SomListMetaRef(tree, '$path/DORE1-DESK-LST', DesktopOsRequirementEntry$Nav.new);
-  SomListMetaRef<MobileDeviceRequirementEntry$Nav> get mobileRequirements => SomListMetaRef(tree, '$path/MDRE-MOBI-LST', MobileDeviceRequirementEntry$Nav.new);
+  SomListMetaRef<BrowserRequirementEntry$Nav> get browserRequirements => SomListMetaRef(tree, '$path/BROREQENT-BROW-LST', BrowserRequirementEntry$Nav.new);
+  SomListMetaRef<DesktopOsRequirementEntry$Nav> get desktopOsRequirements => SomListMetaRef(tree, '$path/DEOSREEN-DESK-LST', DesktopOsRequirementEntry$Nav.new);
+  SomListMetaRef<MobileDeviceRequirementEntry$Nav> get mobileRequirements => SomListMetaRef(tree, '$path/MODEREEN-MOBI-LST', MobileDeviceRequirementEntry$Nav.new);
   DisplayRequirements$Nav get displayRequirements => DisplayRequirements$Nav(tree, '$path/displayRequirements');
   ClientNetworkRequirements$Nav get networkRequirements => ClientNetworkRequirements$Nav(tree, '$path/networkRequirements');
   ClientHardwareRequirements$Nav get hardwareRequirements => ClientHardwareRequirements$Nav(tree, '$path/hardwareRequirements');
@@ -55001,14 +55001,14 @@ class CompatibilityRequirementsSection$Nav extends SomMetaRef {
   CompatibilityRequirementsSection$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get overview => SomMetaRef(tree, '$path/overview');
-  SomListMetaRef<OsCompatibilityEntry$Nav> get osCompatibility => SomListMetaRef(tree, '$path/OSCOEN-OSCO-LST', OsCompatibilityEntry$Nav.new);
-  SomListMetaRef<BrowserCompatibilityEntry$Nav> get browserCompatibility => SomListMetaRef(tree, '$path/BRCOEN-BROW-LST', BrowserCompatibilityEntry$Nav.new);
-  SomListMetaRef<DatabaseCompatibilityEntry$Nav> get databaseCompatibility => SomListMetaRef(tree, '$path/DACOEN-DATA-LST', DatabaseCompatibilityEntry$Nav.new);
-  SomListMetaRef<EnterpriseSystemCompatibilityEntry$Nav> get enterpriseSystemCompatibility => SomListMetaRef(tree, '$path/ESCE-ENTE-LST', EnterpriseSystemCompatibilityEntry$Nav.new);
+  SomListMetaRef<OsCompatibilityEntry$Nav> get osCompatibility => SomListMetaRef(tree, '$path/OCE-OSCO-LST', OsCompatibilityEntry$Nav.new);
+  SomListMetaRef<BrowserCompatibilityEntry$Nav> get browserCompatibility => SomListMetaRef(tree, '$path/BROCOMENT-BROW-LST', BrowserCompatibilityEntry$Nav.new);
+  SomListMetaRef<DatabaseCompatibilityEntry$Nav> get databaseCompatibility => SomListMetaRef(tree, '$path/DATCOMENT-DATA-LST', DatabaseCompatibilityEntry$Nav.new);
+  SomListMetaRef<EnterpriseSystemCompatibilityEntry$Nav> get enterpriseSystemCompatibility => SomListMetaRef(tree, '$path/ENSYCOEN-ENTE-LST', EnterpriseSystemCompatibilityEntry$Nav.new);
   SomListMetaRef<ApiCompatibilityEntry$Nav> get apiCompatibility => SomListMetaRef(tree, '$path/APCP-APIC-LST', ApiCompatibilityEntry$Nav.new);
-  SomListMetaRef<LegacyCompatibilityEntry$Nav> get legacyCompatibility => SomListMetaRef(tree, '$path/LECOEN-LEGA-LST', LegacyCompatibilityEntry$Nav.new);
-  SomListMetaRef<MobileCompatibilityEntry$Nav> get mobileCompatibility => SomListMetaRef(tree, '$path/MOCOEN-MOBI-LST', MobileCompatibilityEntry$Nav.new);
-  SomListMetaRef<ThirdPartyCompatibilityEntry$Nav> get thirdPartyCompatibility => SomListMetaRef(tree, '$path/TPCE-THIR-LST', ThirdPartyCompatibilityEntry$Nav.new);
+  SomListMetaRef<LegacyCompatibilityEntry$Nav> get legacyCompatibility => SomListMetaRef(tree, '$path/LCE-LEGA-LST', LegacyCompatibilityEntry$Nav.new);
+  SomListMetaRef<MobileCompatibilityEntry$Nav> get mobileCompatibility => SomListMetaRef(tree, '$path/MOBCOMENT-MOBI-LST', MobileCompatibilityEntry$Nav.new);
+  SomListMetaRef<ThirdPartyCompatibilityEntry$Nav> get thirdPartyCompatibility => SomListMetaRef(tree, '$path/THPACOEN-THIR-LST', ThirdPartyCompatibilityEntry$Nav.new);
   DataFormatCompatibility$Nav get dataFormatCompatibility => DataFormatCompatibility$Nav(tree, '$path/dataFormatCompatibility');
   BackwardsCompatibilityRequirements$Nav get backwardsCompatibility => BackwardsCompatibilityRequirements$Nav(tree, '$path/backwardsCompatibility');
   InteroperabilityRequirements$Nav get interoperability => InteroperabilityRequirements$Nav(tree, '$path/interoperability');
@@ -55628,8 +55628,8 @@ class CurrentArchitecture$Nav extends SomMetaRef {
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get architectureDiagram => SomMetaRef(tree, '$path/CARCH-ARCH');
   SomMetaRef get deploymentTopology => SomMetaRef(tree, '$path/CARCH-DEPL');
-  SomListMetaRef<SomMetaRef> get integrationPatterns => SomListMetaRef(tree, '$path/IPE-INTE-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get sharedServices => SomListMetaRef(tree, '$path/SHARE-SHAR-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get integrationPatterns => SomListMetaRef(tree, '$path/CARCH-INTE-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get sharedServices => SomListMetaRef(tree, '$path/CARCH-SHAR-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `CurrentBusinessProcess` (SOM §8). Every getter is one
@@ -55745,7 +55745,7 @@ class CurrentWorkflowEntry$Nav extends SomMetaRef {
   SomMetaRef get workflowDiagram => SomMetaRef(tree, '$path/CUWF-WORK');
   WorkflowTriggers$Nav get triggers => WorkflowTriggers$Nav(tree, '$path/triggers');
   SomListMetaRef<WorkflowStepEntry$Nav> get steps => SomListMetaRef(tree, '$path/WSE-STEP-LST', WorkflowStepEntry$Nav.new);
-  SomListMetaRef<WorkflowActorEntry$Nav> get actors => SomListMetaRef(tree, '$path/WFAC-ACTO-LST', WorkflowActorEntry$Nav.new);
+  SomListMetaRef<WorkflowActorEntry$Nav> get actors => SomListMetaRef(tree, '$path/WAE-ACTO-LST', WorkflowActorEntry$Nav.new);
   SomListMetaRef<WorkflowInputEntry$Nav> get inputs => SomListMetaRef(tree, '$path/WOINEN-INPU-LST', WorkflowInputEntry$Nav.new);
   SomListMetaRef<WorkflowOutputEntry$Nav> get outputs => SomListMetaRef(tree, '$path/WOOUEN-OUTP-LST', WorkflowOutputEntry$Nav.new);
   SomListMetaRef<WorkflowDecisionPoint$Nav> get decisionPoints => SomListMetaRef(tree, '$path/WODEPO-DECI-LST', WorkflowDecisionPoint$Nav.new);
@@ -56749,7 +56749,7 @@ class DecisionPointEntryResolution$Nav extends SomMetaRef {
   DecisionPointEntryResolution$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get decisionNarrative => SomMetaRef(tree, '$path/decisionNarrative');
-  SomListMetaRef<DecisionOptionEntry$Nav> get options => SomListMetaRef(tree, '$path/DEOPEN-OPTI-LST', DecisionOptionEntry$Nav.new);
+  SomListMetaRef<DecisionOptionEntry$Nav> get options => SomListMetaRef(tree, '$path/DOE-OPTI-LST', DecisionOptionEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `DecisionPoints` (SOM §8). Every getter is one
@@ -56760,7 +56760,7 @@ class DecisionPoints$Nav extends SomMetaRef {
   DecisionPoints$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get decisionFrameworkNarrative => SomMetaRef(tree, '$path/decisionFrameworkNarrative');
-  SomListMetaRef<DecisionPointEntry$Nav> get items => SomListMetaRef(tree, '$path/DEPOEN-ITEM-LST', DecisionPointEntry$Nav.new);
+  SomListMetaRef<DecisionPointEntry$Nav> get items => SomListMetaRef(tree, '$path/DPE-ITEM-LST', DecisionPointEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `DeepLinkPatternEntry` (SOM §8). Every getter is one
@@ -57106,9 +57106,9 @@ class DesignPatternsAndStandards$Nav extends SomMetaRef {
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get overview => SomMetaRef(tree, '$path/overview');
   SomListMetaRef<DesignPatternEntry$Nav> get designPatterns => SomListMetaRef(tree, '$path/DSPT-DESI-LST', DesignPatternEntry$Nav.new);
-  SomListMetaRef<CodingStandardEntry$Nav> get codingStandards => SomListMetaRef(tree, '$path/COSTEN-CODI-LST', CodingStandardEntry$Nav.new);
-  SomListMetaRef<DevelopmentConventionEntry$Nav> get developmentConventions => SomListMetaRef(tree, '$path/DECOEN-DEVE-LST', DevelopmentConventionEntry$Nav.new);
-  SomListMetaRef<IndustryStandardEntry$Nav> get industryStandards => SomListMetaRef(tree, '$path/INSTEN-INDU-LST', IndustryStandardEntry$Nav.new);
+  SomListMetaRef<CodingStandardEntry$Nav> get codingStandards => SomListMetaRef(tree, '$path/CSE-CODI-LST', CodingStandardEntry$Nav.new);
+  SomListMetaRef<DevelopmentConventionEntry$Nav> get developmentConventions => SomListMetaRef(tree, '$path/DCE-DEVE-LST', DevelopmentConventionEntry$Nav.new);
+  SomListMetaRef<IndustryStandardEntry$Nav> get industryStandards => SomListMetaRef(tree, '$path/ISE-INDU-LST', IndustryStandardEntry$Nav.new);
   CodeQualityMetrics$Nav get codeQualityMetrics => CodeQualityMetrics$Nav(tree, '$path/codeQualityMetrics');
   DocumentationStandards$Nav get documentationStandards => DocumentationStandards$Nav(tree, '$path/documentationStandards');
   ErrorHandlingStandards$Nav get errorHandlingStandards => ErrorHandlingStandards$Nav(tree, '$path/errorHandlingStandards');
@@ -57205,7 +57205,7 @@ class DevelopmentEnvironment$Nav extends SomMetaRef {
   DevelopmentEnvironment$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get overview => SomMetaRef(tree, '$path/overview');
-  SomListMetaRef<IdeRequirementEntry$Nav> get ideRequirements => SomListMetaRef(tree, '$path/IDREEN-IDER-LST', IdeRequirementEntry$Nav.new);
+  SomListMetaRef<IdeRequirementEntry$Nav> get ideRequirements => SomListMetaRef(tree, '$path/IRE-IDER-LST', IdeRequirementEntry$Nav.new);
   BuildToolsConfiguration$Nav get buildTools => BuildToolsConfiguration$Nav(tree, '$path/buildTools');
   VersionControlConfiguration$Nav get versionControl => VersionControlConfiguration$Nav(tree, '$path/versionControl');
   CiCdPipelineConfiguration$Nav get cicdPipeline => CiCdPipelineConfiguration$Nav(tree, '$path/cicdPipeline');
@@ -57432,8 +57432,8 @@ class DocumentControl$Nav extends SomMetaRef {
   DocumentControl$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   DocumentHeader$Nav get header => DocumentHeader$Nav(tree, '$path/header');
-  SomListMetaRef<RevisionEntry$Nav> get revisionHistory => SomListMetaRef(tree, '$path/RVHST-REVS-LST', RevisionEntry$Nav.new);
-  SomListMetaRef<ApprovalRecord$Nav> get approvals => SomListMetaRef(tree, '$path/DOCTL-APRV-LST', ApprovalRecord$Nav.new);
+  SomListMetaRef<RevisionEntry$Nav> get revisionHistory => SomListMetaRef(tree, '$path/RVENT-REVS-LST', RevisionEntry$Nav.new);
+  SomListMetaRef<ApprovalRecord$Nav> get approvals => SomListMetaRef(tree, '$path/APREC-APRV-LST', ApprovalRecord$Nav.new);
   ReferenceDocuments$Nav get referenceDocuments => ReferenceDocuments$Nav(tree, '$path/referenceDocuments');
 }
 
@@ -57473,7 +57473,7 @@ class DocumentRelevantSections$Nav extends SomMetaRef {
 class DocumentationDeliverables$Nav extends SomMetaRef {
   DocumentationDeliverables$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<DeliverableEntry$Nav> get items => SomListMetaRef(tree, '$path/DCDLV-ITEM-LST', DeliverableEntry$Nav.new);
+  SomListMetaRef<DeliverableEntry$Nav> get items => SomListMetaRef(tree, '$path/DLVEN-ITEM-LST', DeliverableEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `DocumentationQualityCriteria` (SOM §8). Every getter is one
@@ -57548,7 +57548,7 @@ class DomainBusinessRuleEntry$Nav extends SomMetaRef {
 class DomainBusinessRules$Nav extends SomMetaRef {
   DomainBusinessRules$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<DomainBusinessRuleEntry$Nav> get rules => SomListMetaRef(tree, '$path/DOBIRU-RULE-LST', DomainBusinessRuleEntry$Nav.new);
+  SomListMetaRef<DomainBusinessRuleEntry$Nav> get rules => SomListMetaRef(tree, '$path/DBRE-RULE-LST', DomainBusinessRuleEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `DomainEnumEntry` (SOM §8). Every getter is one
@@ -57638,7 +57638,7 @@ class DomainProcesses$Nav extends SomMetaRef {
   DomainProcesses$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get processOverviewDiagram => SomMetaRef(tree, '$path/DP-PROC');
-  SomListMetaRef<DomainProcessEntry$Nav> get processes => SomListMetaRef(tree, '$path/DOPR-PROC-LST', DomainProcessEntry$Nav.new);
+  SomListMetaRef<DomainProcessEntry$Nav> get processes => SomListMetaRef(tree, '$path/DOPREN-PROC-LST', DomainProcessEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `DomainTermEntry` (SOM §8). Every getter is one
@@ -57917,7 +57917,7 @@ class EquipmentRequirements$Nav extends SomMetaRef {
   SomMetaRef get overview => SomMetaRef(tree, '$path/EQOV');
   SomListMetaRef<ComputingEquipmentEntry$Nav> get primaryComputing => SomListMetaRef(tree, '$path/COEQ-PRIM-LST', ComputingEquipmentEntry$Nav.new);
   SomListMetaRef<DisplayEquipmentEntry$Nav> get displays => SomListMetaRef(tree, '$path/DSEQ-DISP-LST', DisplayEquipmentEntry$Nav.new);
-  SomListMetaRef<InputDeviceEntry$Nav> get inputDevices => SomListMetaRef(tree, '$path/INPDE-INPU-LST', InputDeviceEntry$Nav.new);
+  SomListMetaRef<InputDeviceEntry$Nav> get inputDevices => SomListMetaRef(tree, '$path/IDE-INPU-LST', InputDeviceEntry$Nav.new);
   SomListMetaRef<PeripheralEquipmentEntry$Nav> get peripherals => SomListMetaRef(tree, '$path/PEREQ-PERI-LST', PeripheralEquipmentEntry$Nav.new);
   SomListMetaRef<MobileDeviceEntry$Nav> get mobileDevices => SomListMetaRef(tree, '$path/MOBDE-MOBI-LST', MobileDeviceEntry$Nav.new);
   SomListMetaRef<SpecializedEquipmentEntry$Nav> get specializedEquipment => SomListMetaRef(tree, '$path/SPEQ-SPEC-LST', SpecializedEquipmentEntry$Nav.new);
@@ -57998,7 +57998,7 @@ class ErrorRecovery$Nav extends SomMetaRef {
   SomMetaRef get supportContact => SomMetaRef(tree, '$path/ERSC');
   SomMetaRef get sessionHandling => SomMetaRef(tree, '$path/ERSH');
   SomMetaRef get recoveryNarrative => SomMetaRef(tree, '$path/recoveryNarrative');
-  SomListMetaRef<SomMetaRef> get recoveryFlows => SomListMetaRef(tree, '$path/RECOV-RECO-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get recoveryFlows => SomListMetaRef(tree, '$path/ERRE-RECO-LST', SomMetaRef.new);
   SomListMetaRef<RecoveryScenarioEntry$Nav> get recoveryScenarios => SomListMetaRef(tree, '$path/RCVSCN-RECO-LST', RecoveryScenarioEntry$Nav.new);
 }
 
@@ -58171,7 +58171,7 @@ class ExportFormatEntry$Nav extends SomMetaRef {
   SomMetaRef get output => SomMetaRef(tree, '$path/EXOU');
   SomMetaRef get audit => SomMetaRef(tree, '$path/EXAC');
   AuthorizationRequirementSpec$Nav get access => AuthorizationRequirementSpec$Nav(tree, '$path/access');
-  SomListMetaRef<ExportFieldMappingEntry$Nav> get fieldMappings => SomListMetaRef(tree, '$path/EFME-FIEL-LST', ExportFieldMappingEntry$Nav.new);
+  SomListMetaRef<ExportFieldMappingEntry$Nav> get fieldMappings => SomListMetaRef(tree, '$path/EXFIMAEN-FIEL-LST', ExportFieldMappingEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `ExportSizeSettings` (SOM §8). Every getter is one
@@ -58225,7 +58225,7 @@ class ExternalActorEntry$Nav extends SomMetaRef {
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get interaction => SomMetaRef(tree, '$path/EAEI');
   SomMetaRef get context => SomMetaRef(tree, '$path/EAEC');
-  SomListMetaRef<SomMetaRef> get interactionScenarios => SomListMetaRef(tree, '$path/INTER-INTE-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get interactionScenarios => SomListMetaRef(tree, '$path/EAE-INTE-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `ExternalActors` (SOM §8). Every getter is one
@@ -58246,7 +58246,7 @@ class ExternalConnectivitySection$Nav extends SomMetaRef {
   ExternalConnectivitySection$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get overview => SomMetaRef(tree, '$path/overview');
-  SomListMetaRef<ExternalPartnerConnectionEntry$Nav> get partnerConnections => SomListMetaRef(tree, '$path/EPCE-PART-LST', ExternalPartnerConnectionEntry$Nav.new);
+  SomListMetaRef<ExternalPartnerConnectionEntry$Nav> get partnerConnections => SomListMetaRef(tree, '$path/EXPACOEN-PART-LST', ExternalPartnerConnectionEntry$Nav.new);
   CloudServiceIntegrations$Nav get cloudServices => CloudServiceIntegrations$Nav(tree, '$path/cloudServices');
   ThirdPartyApiIntegrations$Nav get thirdPartyApis => ThirdPartyApiIntegrations$Nav(tree, '$path/thirdPartyApis');
   NetworkSecurityPolicy$Nav get networkSecurity => NetworkSecurityPolicy$Nav(tree, '$path/networkSecurity');
@@ -58280,7 +58280,7 @@ class ExternalInterfaces$Nav extends SomMetaRef {
   SomMetaRef get integrationSummary => SomMetaRef(tree, '$path/integrationSummary');
   SomMetaRef get architectureApproach => SomMetaRef(tree, '$path/architectureApproach');
   SomMetaRef get governanceModel => SomMetaRef(tree, '$path/governanceModel');
-  SomListMetaRef<ExternalInterfaceEntry$Nav> get interfaces => SomListMetaRef(tree, '$path/EXINEN-INTE-LST', ExternalInterfaceEntry$Nav.new);
+  SomListMetaRef<ExternalInterfaceEntry$Nav> get interfaces => SomListMetaRef(tree, '$path/EIE-INTE-LST', ExternalInterfaceEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `ExternalNetworkRequirements` (SOM §8). Every getter is one
@@ -58383,7 +58383,7 @@ class FeatureDependencies$Nav extends SomMetaRef {
   FeatureDependencies$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get dependencyAnalysis => SomMetaRef(tree, '$path/dependencyAnalysis');
-  SomListMetaRef<FeatureDependencyEntry$Nav> get items => SomListMetaRef(tree, '$path/FEDEEN-ITEM-LST', FeatureDependencyEntry$Nav.new);
+  SomListMetaRef<FeatureDependencyEntry$Nav> get items => SomListMetaRef(tree, '$path/FDE-ITEM-LST', FeatureDependencyEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `FeatureDependencyEntry` (SOM §8). Every getter is one
@@ -58454,7 +58454,7 @@ class FeaturePriorityEntry$Nav extends SomMetaRef {
 class FeaturePriorityRegister$Nav extends SomMetaRef {
   FeaturePriorityRegister$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<FeaturePriorityEntry$Nav> get items => SomListMetaRef(tree, '$path/FEPREN-ITEM-LST', FeaturePriorityEntry$Nav.new);
+  SomListMetaRef<FeaturePriorityEntry$Nav> get items => SomListMetaRef(tree, '$path/FPE-ITEM-LST', FeaturePriorityEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `FeatureStageMapping` (SOM §8). Every getter is one
@@ -58478,7 +58478,7 @@ class FeatureStageMatrix$Nav extends SomMetaRef {
   FeatureStageMatrix$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get matrixNarrative => SomMetaRef(tree, '$path/matrixNarrative');
-  SomListMetaRef<FeatureStageMapping$Nav> get items => SomListMetaRef(tree, '$path/FESTM1-ITEM-LST', FeatureStageMapping$Nav.new);
+  SomListMetaRef<FeatureStageMapping$Nav> get items => SomListMetaRef(tree, '$path/FSM-ITEM-LST', FeatureStageMapping$Nav.new);
 }
 
 /// Dot-notation accessors of `FeatureStakeholders` (SOM §8). Every getter is one
@@ -58733,7 +58733,7 @@ class FunctionalResponsibilities$Nav extends SomMetaRef {
   FunctionalResponsibilities$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get matrixOverview => SomMetaRef(tree, '$path/matrixOverview');
-  SomListMetaRef<ResponsibilityEntry$Nav> get items => SomListMetaRef(tree, '$path/REEN1-ITEM-LST', ResponsibilityEntry$Nav.new);
+  SomListMetaRef<ResponsibilityEntry$Nav> get items => SomListMetaRef(tree, '$path/RE-ITEM-LST', ResponsibilityEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `FunctionalSuitabilityCharacteristic` (SOM §8). Every getter is one
@@ -58790,7 +58790,7 @@ class GlobalRoleExclusionEntry$Nav extends SomMetaRef {
 class GlossaryAndAbbreviations$Nav extends SomMetaRef {
   GlossaryAndAbbreviations$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<GlossaryEntry$Nav> get glossary => SomListMetaRef(tree, '$path/GLOSS-ENTR-LST', GlossaryEntry$Nav.new);
+  SomListMetaRef<GlossaryEntry$Nav> get glossary => SomListMetaRef(tree, '$path/GLENT-ENTR-LST', GlossaryEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `GlossaryEntry` (SOM §8). Every getter is one
@@ -59191,7 +59191,7 @@ class InformationArchitecture$Nav extends SomMetaRef {
   SomMetaRef get siteMap => SomMetaRef(tree, '$path/siteMap');
   SomMetaRef get contentHierarchy => SomMetaRef(tree, '$path/contentHierarchy');
   SomMetaRef get navigationStructure => SomMetaRef(tree, '$path/navigationStructure');
-  SomListMetaRef<SomMetaRef> get globalEntryPoints => SomListMetaRef(tree, '$path/GLOBA-GLOB-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get globalEntryPoints => SomListMetaRef(tree, '$path/IA-GLOB-LST', SomMetaRef.new);
   SomMetaRef get architectureDiagram => SomMetaRef(tree, '$path/architectureDiagram');
 }
 
@@ -59342,7 +59342,7 @@ class IntegrationConstraintEntry$Nav extends SomMetaRef {
 class IntegrationHealthSummary$Nav extends SomMetaRef {
   IntegrationHealthSummary$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<SomMetaRef> get fragilePoints => SomListMetaRef(tree, '$path/FRAGI-FRAG-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get fragilePoints => SomListMetaRef(tree, '$path/INHESU-FRAG-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `IntegrationPointEntry` (SOM §8). Every getter is one
@@ -59499,7 +59499,7 @@ class InteractionTestingStrategy$Nav extends SomMetaRef {
 class InterfaceBusinessContext$Nav extends SomMetaRef {
   InterfaceBusinessContext$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<InterfaceBusinessProcessEntry$Nav> get dependentProcesses => SomListMetaRef(tree, '$path/IBPE-DEPE-LST', InterfaceBusinessProcessEntry$Nav.new);
+  SomListMetaRef<InterfaceBusinessProcessEntry$Nav> get dependentProcesses => SomListMetaRef(tree, '$path/INBUPREN-DEPE-LST', InterfaceBusinessProcessEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `InterfaceBusinessProcessEntry` (SOM §8). Every getter is one
@@ -59527,9 +59527,9 @@ class InterfaceDataEntityEntry$Nav extends SomMetaRef {
 class InterfaceDataSpec$Nav extends SomMetaRef {
   InterfaceDataSpec$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<InterfaceDataEntityEntry$Nav> get dataEntities => SomListMetaRef(tree, '$path/IDEE-DATA-LST', InterfaceDataEntityEntry$Nav.new);
-  SomListMetaRef<SomMetaRef> get mappingRules => SomListMetaRef(tree, '$path/MAPPI-MAPP-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get validationRules => SomListMetaRef(tree, '$path/VALID-VALI-LST', SomMetaRef.new);
+  SomListMetaRef<InterfaceDataEntityEntry$Nav> get dataEntities => SomListMetaRef(tree, '$path/INDAENEN-DATA-LST', InterfaceDataEntityEntry$Nav.new);
+  SomListMetaRef<SomMetaRef> get mappingRules => SomListMetaRef(tree, '$path/INDASP-MAPP-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get validationRules => SomListMetaRef(tree, '$path/INDASP-VALI-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `InterfaceErrorHandling` (SOM §8). Every getter is one
@@ -59542,7 +59542,7 @@ class InterfaceErrorHandling$Nav extends SomMetaRef {
   SomMetaRef get retry => SomMetaRef(tree, '$path/IEHR');
   SomMetaRef get fallback => SomMetaRef(tree, '$path/IEHF');
   SomMetaRef get timeout => SomMetaRef(tree, '$path/IEHT');
-  SomListMetaRef<SomMetaRef> get errorProcedures => SomListMetaRef(tree, '$path/ERROR-ERRO-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get errorProcedures => SomListMetaRef(tree, '$path/INERHA-ERRO-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `InterfaceGovernance` (SOM §8). Every getter is one
@@ -59576,7 +59576,7 @@ class InterfaceOperational$Nav extends SomMetaRef {
   SomMetaRef get rateLimiting => SomMetaRef(tree, '$path/IORL');
   SomMetaRef get monitoring => SomMetaRef(tree, '$path/INOPMO');
   SomMetaRef get support => SomMetaRef(tree, '$path/INOPSU');
-  SomListMetaRef<SomMetaRef> get dependencies => SomListMetaRef(tree, '$path/DEPEN-DEPE-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get dependencies => SomListMetaRef(tree, '$path/INOP-DEPE-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `InterfaceSecurity` (SOM §8). Every getter is one
@@ -59614,7 +59614,7 @@ class InterfaceTechnicalSpec$Nav extends SomMetaRef {
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get communication => SomMetaRef(tree, '$path/ITSC');
   SomMetaRef get endpoints => SomMetaRef(tree, '$path/ITSE');
-  SomListMetaRef<InterfaceOperationEntry$Nav> get operations => SomListMetaRef(tree, '$path/INOPEN-OPER-LST', InterfaceOperationEntry$Nav.new);
+  SomListMetaRef<InterfaceOperationEntry$Nav> get operations => SomListMetaRef(tree, '$path/IOE-OPER-LST', InterfaceOperationEntry$Nav.new);
   SomMetaRef get webhookSpec => SomMetaRef(tree, '$path/INWESP');
 }
 
@@ -59636,7 +59636,7 @@ class InterfaceTesting$Nav extends SomMetaRef {
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get data => SomMetaRef(tree, '$path/INTEDA');
   SomMetaRef get strategy => SomMetaRef(tree, '$path/INTEST');
-  SomListMetaRef<InterfaceTestScenarioEntry$Nav> get testScenarios => SomListMetaRef(tree, '$path/ITSE1-TEST-LST', InterfaceTestScenarioEntry$Nav.new);
+  SomListMetaRef<InterfaceTestScenarioEntry$Nav> get testScenarios => SomListMetaRef(tree, '$path/INTESCEN-TEST-LST', InterfaceTestScenarioEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `InternalDependencies` (SOM §8). Every getter is one
@@ -59709,7 +59709,7 @@ class IpOwnershipEntry$Nav extends SomMetaRef {
 class Iso25010Coverage$Nav extends SomMetaRef {
   Iso25010Coverage$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<Iso25010CoverageEntry$Nav> get characteristics => SomListMetaRef(tree, '$path/I25CV-CHAR-LST', Iso25010CoverageEntry$Nav.new);
+  SomListMetaRef<Iso25010CoverageEntry$Nav> get characteristics => SomListMetaRef(tree, '$path/I25CE-CHAR-LST', Iso25010CoverageEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `Iso25010CoverageEntry` (SOM §8). Every getter is one
@@ -59753,7 +59753,7 @@ class ItSecurityStandardsSection$Nav extends SomMetaRef {
   ItSecurityStandardsSection$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get overview => SomMetaRef(tree, '$path/overview');
-  SomListMetaRef<SecurityStandardEntry$Nav> get standards => SomListMetaRef(tree, '$path/SESTEN-STAN-LST', SecurityStandardEntry$Nav.new);
+  SomListMetaRef<SecurityStandardEntry$Nav> get standards => SomListMetaRef(tree, '$path/SSE-STAN-LST', SecurityStandardEntry$Nav.new);
   ApplicationSecurityRequirements$Nav get applicationSecurity => ApplicationSecurityRequirements$Nav(tree, '$path/applicationSecurity');
   InfrastructureSecurityHardening$Nav get infrastructureSecurity => InfrastructureSecurityHardening$Nav(tree, '$path/infrastructureSecurity');
   SecurityDevelopmentLifecycle$Nav get securityDevLifecycle => SecurityDevelopmentLifecycle$Nav(tree, '$path/securityDevLifecycle');
@@ -59782,7 +59782,7 @@ class ItStandardComplianceEntry$Nav extends SomMetaRef {
 class JobDescriptionsAndStaffing$Nav extends SomMetaRef {
   JobDescriptionsAndStaffing$Nav(super.tree, super.path);
   SomMetaRef get overview => SomMetaRef(tree, '$path/JODEOV');
-  SomListMetaRef<NewRoleEntry$Nav> get newRoles => SomListMetaRef(tree, '$path/NWROL-NEWR-LST', NewRoleEntry$Nav.new);
+  SomListMetaRef<NewRoleEntry$Nav> get newRoles => SomListMetaRef(tree, '$path/NRE-NEWR-LST', NewRoleEntry$Nav.new);
   SomListMetaRef<ChangedRoleEntry$Nav> get changedRoles => SomListMetaRef(tree, '$path/CHAROL-CHAN-LST', ChangedRoleEntry$Nav.new);
   SomListMetaRef<RemovedRoleEntry$Nav> get removedRoles => SomListMetaRef(tree, '$path/REMROL-REMO-LST', RemovedRoleEntry$Nav.new);
   StaffingPlan$Nav get staffingPlan => StaffingPlan$Nav(tree, '$path/staffingPlan');
@@ -59962,12 +59962,12 @@ class LayeringAndModuleStructure$Nav extends SomMetaRef {
   LayeringAndModuleStructure$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get overview => SomMetaRef(tree, '$path/overview');
-  SomListMetaRef<SoftwareLayerEntry$Nav> get softwareLayers => SomListMetaRef(tree, '$path/SOLAEN-SOFT-LST', SoftwareLayerEntry$Nav.new);
+  SomListMetaRef<SoftwareLayerEntry$Nav> get softwareLayers => SomListMetaRef(tree, '$path/SLE-SOFT-LST', SoftwareLayerEntry$Nav.new);
   LayerCommunicationRules$Nav get layerCommunicationRules => LayerCommunicationRules$Nav(tree, '$path/layerCommunicationRules');
-  SomListMetaRef<BoundedContextEntry$Nav> get boundedContexts => SomListMetaRef(tree, '$path/BOCOEN-BOUN-LST', BoundedContextEntry$Nav.new);
+  SomListMetaRef<BoundedContextEntry$Nav> get boundedContexts => SomListMetaRef(tree, '$path/BCE-BOUN-LST', BoundedContextEntry$Nav.new);
   PackageOrganization$Nav get packageOrganization => PackageOrganization$Nav(tree, '$path/packageOrganization');
-  SomListMetaRef<ModuleEntry$Nav> get modules => SomListMetaRef(tree, '$path/MOEN1-MODU-LST', ModuleEntry$Nav.new);
-  SomListMetaRef<SharedLibraryEntry$Nav> get sharedLibraries => SomListMetaRef(tree, '$path/SHLIB-SHAR-LST', SharedLibraryEntry$Nav.new);
+  SomListMetaRef<ModuleEntry$Nav> get modules => SomListMetaRef(tree, '$path/MODENT-MODU-LST', ModuleEntry$Nav.new);
+  SomListMetaRef<SharedLibraryEntry$Nav> get sharedLibraries => SomListMetaRef(tree, '$path/SHLIEN-SHAR-LST', SharedLibraryEntry$Nav.new);
   DependencyInjectionStructure$Nav get dependencyInjection => DependencyInjectionStructure$Nav(tree, '$path/dependencyInjection');
   CrossCuttingConcerns$Nav get crossCuttingConcerns => CrossCuttingConcerns$Nav(tree, '$path/crossCuttingConcerns');
   SomListMetaRef<FeatureModuleEntry$Nav> get featureModules => SomListMetaRef(tree, '$path/FTRMOD-FEAT-LST', FeatureModuleEntry$Nav.new);
@@ -60293,7 +60293,7 @@ class MaintenanceWindowsSection$Nav extends SomMetaRef {
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get overview => SomMetaRef(tree, '$path/overview');
   ScheduledMaintenancePolicy$Nav get scheduledMaintenance => ScheduledMaintenancePolicy$Nav(tree, '$path/scheduledMaintenance');
-  SomListMetaRef<MaintenanceWindowEntry$Nav> get maintenanceWindows => SomListMetaRef(tree, '$path/MAWIEN-MAIN-LST', MaintenanceWindowEntry$Nav.new);
+  SomListMetaRef<MaintenanceWindowEntry$Nav> get maintenanceWindows => SomListMetaRef(tree, '$path/MWE-MAIN-LST', MaintenanceWindowEntry$Nav.new);
   EmergencyMaintenanceProcedures$Nav get emergencyMaintenance => EmergencyMaintenanceProcedures$Nav(tree, '$path/emergencyMaintenance');
   MaintenanceChangeManagement$Nav get changeManagement => MaintenanceChangeManagement$Nav(tree, '$path/changeManagement');
   MaintenanceUserImpact$Nav get userImpact => MaintenanceUserImpact$Nav(tree, '$path/userImpact');
@@ -60377,7 +60377,7 @@ class MetricsAndObservability$Nav extends SomMetaRef {
   InfrastructureMetricsSpec$Nav get infrastructureMetrics => InfrastructureMetricsSpec$Nav(tree, '$path/infrastructureMetrics');
   BusinessMetricsSpec$Nav get businessMetrics => BusinessMetricsSpec$Nav(tree, '$path/businessMetrics');
   DistributedTracingSpec$Nav get distributedTracing => DistributedTracingSpec$Nav(tree, '$path/distributedTracing');
-  SomListMetaRef<CustomMetricEntry$Nav> get customMetrics => SomListMetaRef(tree, '$path/CUMEEN-CUST-LST', CustomMetricEntry$Nav.new);
+  SomListMetaRef<CustomMetricEntry$Nav> get customMetrics => SomListMetaRef(tree, '$path/CUSMETENT-CUST-LST', CustomMetricEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `MetricsBaselineEntry` (SOM §8). Every getter is one
@@ -60440,7 +60440,7 @@ class MfaCategoryRequirementEntry$Nav extends SomMetaRef {
 class MfaConfiguration$Nav extends SomMetaRef {
   MfaConfiguration$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<SomMetaRef> get mfaDetails => SomListMetaRef(tree, '$path/MFADE-MFAD-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get mfaDetails => SomListMetaRef(tree, '$path/MC-MFAD-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `MigrationConsiderations` (SOM §8). Every getter is one
@@ -60460,7 +60460,7 @@ class MigrationConsiderations$Nav extends SomMetaRef {
   SomMetaRef get rollbackStrategy => SomMetaRef(tree, '$path/rollbackStrategy');
   SomMetaRef get goNoGosCriteria => SomMetaRef(tree, '$path/goNoGosCriteria');
   SomMetaRef get communicationPlan => SomMetaRef(tree, '$path/communicationPlan');
-  SomListMetaRef<SomMetaRef> get escalationProcedures => SomListMetaRef(tree, '$path/ESCAL-ESCA-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get escalationProcedures => SomListMetaRef(tree, '$path/MIGCON-ESCA-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `MigrationEnvironments` (SOM §8). Every getter is one
@@ -60610,10 +60610,10 @@ class MigrationRisks$Nav extends SomMetaRef {
   SomMetaRef get reporting => SomMetaRef(tree, '$path/MIRIRE');
   SomMetaRef get riskOverview => SomMetaRef(tree, '$path/riskOverview');
   SomMetaRef get assessmentMethodology => SomMetaRef(tree, '$path/assessmentMethodology');
-  SomListMetaRef<SomMetaRef> get riskCategories => SomListMetaRef(tree, '$path/RISKC-RISK-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get riskBasedDecisions => SomListMetaRef(tree, '$path/RISKB-RISK-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get monitoringProcedures => SomListMetaRef(tree, '$path/MONIT-MONI-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get responseStrategies => SomListMetaRef(tree, '$path/RESPO-RESP-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get riskCategories => SomListMetaRef(tree, '$path/MIRI-RISK-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get riskBasedDecisions => SomListMetaRef(tree, '$path/MIRI-RBDE-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get monitoringProcedures => SomListMetaRef(tree, '$path/MIRI-MONI-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get responseStrategies => SomListMetaRef(tree, '$path/MIRI-RESP-LST', SomMetaRef.new);
   SomMetaRef get riskAggregation => SomMetaRef(tree, '$path/riskAggregation');
   SomMetaRef get riskMatrix => SomMetaRef(tree, '$path/riskMatrix');
   SomMetaRef get riskTimeline => SomMetaRef(tree, '$path/riskTimeline');
@@ -60739,7 +60739,7 @@ class MonitoringAndAlertingSection$Nav extends SomMetaRef {
   ApplicationPerformanceMonitoring$Nav get apm => ApplicationPerformanceMonitoring$Nav(tree, '$path/apm');
   LogManagementRequirements$Nav get logManagement => LogManagementRequirements$Nav(tree, '$path/logManagement');
   AlertingRequirements$Nav get alerting => AlertingRequirements$Nav(tree, '$path/alerting');
-  SomListMetaRef<AlertDefinitionEntry$Nav> get alertDefinitions => SomListMetaRef(tree, '$path/ALDEEN-ALER-LST', AlertDefinitionEntry$Nav.new);
+  SomListMetaRef<AlertDefinitionEntry$Nav> get alertDefinitions => SomListMetaRef(tree, '$path/ALEDEFENT-ALER-LST', AlertDefinitionEntry$Nav.new);
   DashboardRequirements$Nav get dashboards => DashboardRequirements$Nav(tree, '$path/dashboards');
   OnCallProcedures$Nav get onCallProcedures => OnCallProcedures$Nav(tree, '$path/onCallProcedures');
   IncidentManagementRequirements$Nav get incidentManagement => IncidentManagementRequirements$Nav(tree, '$path/incidentManagement');
@@ -60754,7 +60754,7 @@ class MonitoringDashboards$Nav extends SomMetaRef {
   MonitoringDashboards$Nav(super.tree, super.path);
   SomMetaRef get dashboardOverview => SomMetaRef(tree, '$path/MODA-DASH');
   SomMetaRef get overviewNarrative => SomMetaRef(tree, '$path/overviewNarrative');
-  SomListMetaRef<DashboardEntry$Nav> get dashboards => SomListMetaRef(tree, '$path/DAEN-DASH-LST', DashboardEntry$Nav.new);
+  SomListMetaRef<DashboardEntry$Nav> get dashboards => SomListMetaRef(tree, '$path/DASENT-DASH-LST', DashboardEntry$Nav.new);
   SomListMetaRef<DashboardTemplates$Nav> get dashboardTemplates => SomListMetaRef(tree, '$path/DATE-DASH-LST', DashboardTemplates$Nav.new);
 }
 
@@ -60778,7 +60778,7 @@ class MoscowAnalysis$Nav extends SomMetaRef {
   MoscowAnalysis$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get moscowRationale => SomMetaRef(tree, '$path/moscowRationale');
-  SomListMetaRef<MoscowEntry$Nav> get items => SomListMetaRef(tree, '$path/MOEN-ITEM-LST', MoscowEntry$Nav.new);
+  SomListMetaRef<MoscowEntry$Nav> get items => SomListMetaRef(tree, '$path/ME-ITEM-LST', MoscowEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `MoscowEntry` (SOM §8). Every getter is one
@@ -60813,7 +60813,7 @@ class MultiLanguageSupport$Nav extends SomMetaRef {
   SomMetaRef get multiLanguageOverview => SomMetaRef(tree, '$path/MLAR-MULT');
   SomMetaRef get overviewNarrative => SomMetaRef(tree, '$path/overviewNarrative');
   LanguageCountrySelection$Nav get languageCountrySelection => LanguageCountrySelection$Nav(tree, '$path/languageCountrySelection');
-  SomListMetaRef<SupportedLocaleEntry$Nav> get supportedLocales => SomListMetaRef(tree, '$path/SULOEN-SUPP-LST', SupportedLocaleEntry$Nav.new);
+  SomListMetaRef<SupportedLocaleEntry$Nav> get supportedLocales => SomListMetaRef(tree, '$path/SUPLOCENT-SUPP-LST', SupportedLocaleEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `MustPassCriteria` (SOM §8). Every getter is one
@@ -61004,7 +61004,7 @@ class NetworkRequirementsSection$Nav extends SomMetaRef {
   BandwidthRequirements$Nav get bandwidthRequirements => BandwidthRequirements$Nav(tree, '$path/bandwidthRequirements');
   NetworkLatencyRequirements$Nav get latencyRequirements => NetworkLatencyRequirements$Nav(tree, '$path/latencyRequirements');
   NetworkAvailabilityRequirements$Nav get availabilityRequirements => NetworkAvailabilityRequirements$Nav(tree, '$path/availabilityRequirements');
-  SomListMetaRef<VpnRequirementEntry$Nav> get vpnRequirements => SomListMetaRef(tree, '$path/VPREEN-VPNR-LST', VpnRequirementEntry$Nav.new);
+  SomListMetaRef<VpnRequirementEntry$Nav> get vpnRequirements => SomListMetaRef(tree, '$path/VRE-VPNR-LST', VpnRequirementEntry$Nav.new);
   FirewallRequirements$Nav get firewallRequirements => FirewallRequirements$Nav(tree, '$path/firewallRequirements');
   GeographicDistributionRequirements$Nav get geographicDistribution => GeographicDistributionRequirements$Nav(tree, '$path/geographicDistribution');
   DnsRequirements$Nav get dnsRequirements => DnsRequirements$Nav(tree, '$path/dnsRequirements');
@@ -61235,7 +61235,7 @@ class OperationalPainPoints$Nav extends SomMetaRef {
   OperationalPainPoints$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get categorySummary => SomMetaRef(tree, '$path/OPPS');
-  SomListMetaRef<PainPointEntry$Nav> get items => SomListMetaRef(tree, '$path/OPPAPO-ITEM-LST', PainPointEntry$Nav.new);
+  SomListMetaRef<PainPointEntry$Nav> get items => SomListMetaRef(tree, '$path/PAPE-ITEM-LST', PainPointEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `OperationsRequirements` (SOM §8). Every getter is one
@@ -61349,13 +61349,13 @@ class OrganizationalEnvironment$Nav extends SomMetaRef {
   SomMetaRef get maturity => SomMetaRef(tree, '$path/ORENMA');
   SomMetaRef get decisionMakingContext => SomMetaRef(tree, '$path/OEDM');
   SomMetaRef get structure => SomMetaRef(tree, '$path/structure');
-  SomListMetaRef<AffectedDepartmentEntry$Nav> get affectedDepartments => SomListMetaRef(tree, '$path/AFDEEN-AFFE-LST', AffectedDepartmentEntry$Nav.new);
+  SomListMetaRef<AffectedDepartmentEntry$Nav> get affectedDepartments => SomListMetaRef(tree, '$path/ADE-AFFE-LST', AffectedDepartmentEntry$Nav.new);
   SomMetaRef get decisionMaking => SomMetaRef(tree, '$path/decisionMaking');
-  SomListMetaRef<DecisionMakerEntry$Nav> get decisionMakers => SomListMetaRef(tree, '$path/DEMAEN-DECI-LST', DecisionMakerEntry$Nav.new);
-  SomListMetaRef<SomMetaRef> get culturalConsiderations => SomListMetaRef(tree, '$path/CULTU-CULT-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get communicationPreferences => SomListMetaRef(tree, '$path/COMMU-COMM-LST', SomMetaRef.new);
+  SomListMetaRef<DecisionMakerEntry$Nav> get decisionMakers => SomListMetaRef(tree, '$path/DME-DECI-LST', DecisionMakerEntry$Nav.new);
+  SomListMetaRef<SomMetaRef> get culturalConsiderations => SomListMetaRef(tree, '$path/OREN-CULT-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get communicationPreferences => SomListMetaRef(tree, '$path/OREN-COMM-LST', SomMetaRef.new);
   SomMetaRef get politicalLandscape => SomMetaRef(tree, '$path/politicalLandscape');
-  SomListMetaRef<SomMetaRef> get changeAdvocates => SomListMetaRef(tree, '$path/CHANG-CHAN-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get changeAdvocates => SomListMetaRef(tree, '$path/OREN-CHAN-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `OrganizationalFramework` (SOM §8). Every getter is one
@@ -61450,7 +61450,7 @@ class OtherAgreementEntry$Nav extends SomMetaRef {
 class OutOfScope$Nav extends SomMetaRef {
   OutOfScope$Nav(super.tree, super.path);
   SomMetaRef get scopePhilosophy => SomMetaRef(tree, '$path/scopePhilosophy');
-  SomListMetaRef<OutOfScopeEntry$Nav> get items => SomListMetaRef(tree, '$path/OOSE-ITEM-LST', OutOfScopeEntry$Nav.new);
+  SomListMetaRef<OutOfScopeEntry$Nav> get items => SomListMetaRef(tree, '$path/OUOFSCEN-ITEM-LST', OutOfScopeEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `OutOfScopeEntry` (SOM §8). Every getter is one
@@ -61788,7 +61788,7 @@ class PhaseGateReviews$Nav extends SomMetaRef {
   SomMetaRef get preparation => SomMetaRef(tree, '$path/PGRP');
   SomMetaRef get outcomes => SomMetaRef(tree, '$path/PGRO');
   SomMetaRef get gateReviewNarrative => SomMetaRef(tree, '$path/gateReviewNarrative');
-  SomListMetaRef<PhaseGateReviewEntry$Nav> get items => SomListMetaRef(tree, '$path/PGRE-ITEM-LST', PhaseGateReviewEntry$Nav.new);
+  SomListMetaRef<PhaseGateReviewEntry$Nav> get items => SomListMetaRef(tree, '$path/PHGAREEN-ITEM-LST', PhaseGateReviewEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `PhysicalWorkplaceRequirements` (SOM §8). Every getter is one
@@ -61847,9 +61847,9 @@ class PlatformAndLanguage$Nav extends SomMetaRef {
   SomMetaRef get overview => SomMetaRef(tree, '$path/overview');
   SomListMetaRef<TargetPlatformEntry$Nav> get targetPlatforms => SomListMetaRef(tree, '$path/TGPLT-TARG-LST', TargetPlatformEntry$Nav.new);
   SomListMetaRef<ProgrammingLanguageEntry$Nav> get programmingLanguages => SomListMetaRef(tree, '$path/PLGEN-PROG-LST', ProgrammingLanguageEntry$Nav.new);
-  SomListMetaRef<FrameworkRequirementEntry$Nav> get frameworks => SomListMetaRef(tree, '$path/FWREN-FRAM-LST', FrameworkRequirementEntry$Nav.new);
+  SomListMetaRef<FrameworkRequirementEntry$Nav> get frameworks => SomListMetaRef(tree, '$path/FRREEN-FRAM-LST', FrameworkRequirementEntry$Nav.new);
   SomListMetaRef<BuildToolchainEntry$Nav> get buildToolchain => SomListMetaRef(tree, '$path/BTCEN-BUIL-LST', BuildToolchainEntry$Nav.new);
-  SomListMetaRef<DeploymentTargetEntry$Nav> get deploymentTargets => SomListMetaRef(tree, '$path/DETAEN-DEPL-LST', DeploymentTargetEntry$Nav.new);
+  SomListMetaRef<DeploymentTargetEntry$Nav> get deploymentTargets => SomListMetaRef(tree, '$path/DEPTARENT-DEPL-LST', DeploymentTargetEntry$Nav.new);
   DependencyManagement$Nav get dependencyManagement => DependencyManagement$Nav(tree, '$path/dependencyManagement');
   RuntimeEnvironment$Nav get runtimeEnvironment => RuntimeEnvironment$Nav(tree, '$path/runtimeEnvironment');
 }
@@ -61918,8 +61918,8 @@ class PrintAndExportLayout$Nav extends SomMetaRef {
   SomMetaRef get watermark => SomMetaRef(tree, '$path/PRLAWA');
   SomMetaRef get headerFooter => SomMetaRef(tree, '$path/PLHF');
   SomMetaRef get archive => SomMetaRef(tree, '$path/PRLAAR');
-  SomListMetaRef<ExportFormatEntry$Nav> get exportFormats => SomListMetaRef(tree, '$path/EXFOEN-EXPO-LST', ExportFormatEntry$Nav.new);
-  SomListMetaRef<ExportTemplateEntry$Nav> get exportTemplates => SomListMetaRef(tree, '$path/EXTEEN-EXPO-LST', ExportTemplateEntry$Nav.new);
+  SomListMetaRef<ExportFormatEntry$Nav> get exportFormats => SomListMetaRef(tree, '$path/EFE-EXPO-LST', ExportFormatEntry$Nav.new);
+  SomListMetaRef<ExportTemplateEntry$Nav> get exportTemplates => SomListMetaRef(tree, '$path/ETE-EXPO-LST', ExportTemplateEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `PrivacyImpactAssessmentProcess` (SOM §8). Every getter is one
@@ -61965,7 +61965,7 @@ class ProblemStatement$Nav extends SomMetaRef {
   ProblemStatement$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get problemDetails => SomMetaRef(tree, '$path/problemDetails');
-  SomListMetaRef<SomMetaRef> get relatedPainPoints => SomListMetaRef(tree, '$path/RPPE-RELA-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get relatedPainPoints => SomListMetaRef(tree, '$path/PS-RELA-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `ProcessAdjustmentDetails` (SOM §8). Every getter is one
@@ -62544,7 +62544,7 @@ class ProtocolsAndStandardsSection$Nav extends SomMetaRef {
   ProtocolsAndStandardsSection$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get overview => SomMetaRef(tree, '$path/overview');
-  SomListMetaRef<ProtocolEntry$Nav> get protocols => SomListMetaRef(tree, '$path/PREN-PROT-LST', ProtocolEntry$Nav.new);
+  SomListMetaRef<ProtocolEntry$Nav> get protocols => SomListMetaRef(tree, '$path/PE-PROT-LST', ProtocolEntry$Nav.new);
   TlsRequirements$Nav get tlsRequirements => TlsRequirements$Nav(tree, '$path/tlsRequirements');
   CertificateManagement$Nav get certificateManagement => CertificateManagement$Nav(tree, '$path/certificateManagement');
   ApiVersioningStrategy$Nav get apiVersioning => ApiVersioningStrategy$Nav(tree, '$path/apiVersioning');
@@ -62589,7 +62589,7 @@ class PrototypeFeatureSubset$Nav extends SomMetaRef {
   SomMetaRef get scope => SomMetaRef(tree, '$path/PFSS');
   SomMetaRef get fidelity => SomMetaRef(tree, '$path/PFSF');
   SomMetaRef get featureNarrative => SomMetaRef(tree, '$path/featureNarrative');
-  SomListMetaRef<PrototypeFeatureEntry$Nav> get features => SomListMetaRef(tree, '$path/PRFEEN-FEAT-LST', PrototypeFeatureEntry$Nav.new);
+  SomListMetaRef<PrototypeFeatureEntry$Nav> get features => SomListMetaRef(tree, '$path/PFE-FEAT-LST', PrototypeFeatureEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `PrototypeGoalEntry` (SOM §8). Every getter is one
@@ -62611,7 +62611,7 @@ class PrototypeGoals$Nav extends SomMetaRef {
   SomMetaRef get riskProfile => SomMetaRef(tree, '$path/PRGORI');
   SomMetaRef get feedbackProfile => SomMetaRef(tree, '$path/PRGOFE');
   SomMetaRef get goalsNarrative => SomMetaRef(tree, '$path/goalsNarrative');
-  SomListMetaRef<PrototypeGoalEntry$Nav> get goals => SomListMetaRef(tree, '$path/PRGOEN-GOAL-LST', PrototypeGoalEntry$Nav.new);
+  SomListMetaRef<PrototypeGoalEntry$Nav> get goals => SomListMetaRef(tree, '$path/PGE-GOAL-LST', PrototypeGoalEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `PrototypeType` (SOM §8). Every getter is one
@@ -62678,7 +62678,7 @@ class QualityFramework$Nav extends SomMetaRef {
   SomMetaRef get qualityObjectivesOverview => SomMetaRef(tree, '$path/qualityObjectivesOverview');
   SomMetaRef get objectivesBreakdown => SomMetaRef(tree, '$path/objectivesBreakdown');
   SomListMetaRef<QualityCategoryEntry$Nav> get qualityCategories => SomListMetaRef(tree, '$path/QCATE-QUAL-LST', QualityCategoryEntry$Nav.new);
-  SomListMetaRef<SomMetaRef> get categoryDependencies => SomListMetaRef(tree, '$path/CATEG-CATE-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get categoryDependencies => SomListMetaRef(tree, '$path/QLFWK-CATE-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `QualityGateAdjustmentDetails` (SOM §8). Every getter is one
@@ -63106,7 +63106,7 @@ class ReportColumnEntry$Nav extends SomMetaRef {
 class ReportDefinitions$Nav extends SomMetaRef {
   ReportDefinitions$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<ReportEntry$Nav> get reports => SomListMetaRef(tree, '$path/REEN-REPO-LST', ReportEntry$Nav.new);
+  SomListMetaRef<ReportEntry$Nav> get reports => SomListMetaRef(tree, '$path/REPENT-REPO-LST', ReportEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `ReportDistributionEntry` (SOM §8). Every getter is one
@@ -63140,11 +63140,11 @@ class ReportEntry$Nav extends SomMetaRef {
   SomMetaRef get security => SomMetaRef(tree, '$path/RESE');
   AuthorizationRequirementSpec$Nav get access => AuthorizationRequirementSpec$Nav(tree, '$path/access');
   SomMetaRef get lifecycle => SomMetaRef(tree, '$path/RELI');
-  SomListMetaRef<ReportSectionEntry$Nav> get sections => SomListMetaRef(tree, '$path/RESEE1-SECT-LST', ReportSectionEntry$Nav.new);
-  SomListMetaRef<ReportFilterEntry$Nav> get filters => SomListMetaRef(tree, '$path/REFIEN-FILT-LST', ReportFilterEntry$Nav.new);
-  SomListMetaRef<ReportScheduleEntry$Nav> get schedules => SomListMetaRef(tree, '$path/RESCEN-SCHE-LST', ReportScheduleEntry$Nav.new);
-  SomListMetaRef<ReportDistributionEntry$Nav> get distributions => SomListMetaRef(tree, '$path/REDIEN-DIST-LST', ReportDistributionEntry$Nav.new);
-  SomListMetaRef<ReportRecipientEntry$Nav> get recipients => SomListMetaRef(tree, '$path/REREEN-RECI-LST', ReportRecipientEntry$Nav.new);
+  SomListMetaRef<ReportSectionEntry$Nav> get sections => SomListMetaRef(tree, '$path/RSE-SECT-LST', ReportSectionEntry$Nav.new);
+  SomListMetaRef<ReportFilterEntry$Nav> get filters => SomListMetaRef(tree, '$path/RFE-FILT-LST', ReportFilterEntry$Nav.new);
+  SomListMetaRef<ReportScheduleEntry$Nav> get schedules => SomListMetaRef(tree, '$path/REPSCHENT-SCHE-LST', ReportScheduleEntry$Nav.new);
+  SomListMetaRef<ReportDistributionEntry$Nav> get distributions => SomListMetaRef(tree, '$path/RDE-DIST-LST', ReportDistributionEntry$Nav.new);
+  SomListMetaRef<ReportRecipientEntry$Nav> get recipients => SomListMetaRef(tree, '$path/RRE-RECI-LST', ReportRecipientEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `ReportFilterEntry` (SOM §8). Every getter is one
@@ -63201,8 +63201,8 @@ class ReportSectionEntry$Nav extends SomMetaRef {
   SomMetaRef get layout => SomMetaRef(tree, '$path/RESELA');
   SomMetaRef get sorting => SomMetaRef(tree, '$path/RESESO');
   SomMetaRef get aggregation => SomMetaRef(tree, '$path/RESEAG');
-  SomListMetaRef<ReportColumnEntry$Nav> get columns => SomListMetaRef(tree, '$path/RECOE1-COLU-LST', ReportColumnEntry$Nav.new);
-  SomListMetaRef<ReportChartEntry$Nav> get charts => SomListMetaRef(tree, '$path/RECHEN-CHAR-LST', ReportChartEntry$Nav.new);
+  SomListMetaRef<ReportColumnEntry$Nav> get columns => SomListMetaRef(tree, '$path/REPCOLENT-COLU-LST', ReportColumnEntry$Nav.new);
+  SomListMetaRef<ReportChartEntry$Nav> get charts => SomListMetaRef(tree, '$path/REPCHAENT-CHAR-LST', ReportChartEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `Requirement` (SOM §8). Every getter is one
@@ -63221,7 +63221,7 @@ class Requirement$Nav extends SomMetaRef {
 class RequirementAcceptanceCriteria$Nav extends SomMetaRef {
   RequirementAcceptanceCriteria$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<AcceptanceCriterionEntry$Nav> get criteria => SomListMetaRef(tree, '$path/ACCR-CRIT-LST', AcceptanceCriterionEntry$Nav.new);
+  SomListMetaRef<AcceptanceCriterionEntry$Nav> get criteria => SomListMetaRef(tree, '$path/ACE-CRIT-LST', AcceptanceCriterionEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `RequirementBusinessRuleEntry` (SOM §8). Every getter is one
@@ -63345,7 +63345,7 @@ class RequirementUiSpecification$Nav extends SomMetaRef {
   SomMetaRef get uiForm => SomMetaRef(tree, '$path/RUS-UIFO');
   SomMetaRef get layoutCode => SomMetaRef(tree, '$path/RUS-LAYO');
   SomMetaRef get mockupDescription => SomMetaRef(tree, '$path/RUS-MOCK');
-  SomListMetaRef<ScreenFieldEntry$Nav> get fields => SomListMetaRef(tree, '$path/SCFLD-FIEL-LST', ScreenFieldEntry$Nav.new);
+  SomListMetaRef<ScreenFieldEntry$Nav> get fields => SomListMetaRef(tree, '$path/SFE-FIEL-LST', ScreenFieldEntry$Nav.new);
   SomListMetaRef<RequirementScreenActionEntry$Nav> get actions => SomListMetaRef(tree, '$path/RQSCAC-ACTI-LST', RequirementScreenActionEntry$Nav.new);
   SomListMetaRef<ScreenBehaviorEntry$Nav> get behaviors => SomListMetaRef(tree, '$path/SCBHV-BEHA-LST', ScreenBehaviorEntry$Nav.new);
 }
@@ -63608,9 +63608,9 @@ class ReusableComponentsSection$Nav extends SomMetaRef {
   SomMetaRef get overview => SomMetaRef(tree, '$path/overview');
   ReusabilityPrinciples$Nav get principles => ReusabilityPrinciples$Nav(tree, '$path/principles');
   SomListMetaRef<SharedLibraryComponentEntry$Nav> get sharedLibraries => SomListMetaRef(tree, '$path/SHLCP-SHAR-LST', SharedLibraryComponentEntry$Nav.new);
-  SomListMetaRef<ReusableUiComponentEntry$Nav> get uiComponents => SomListMetaRef(tree, '$path/RUICMP-UICO-LST', ReusableUiComponentEntry$Nav.new);
-  SomListMetaRef<BusinessComponentEntry$Nav> get businessComponents => SomListMetaRef(tree, '$path/BUCOEN-BUSI-LST', BusinessComponentEntry$Nav.new);
-  SomListMetaRef<InfrastructureComponentEntry$Nav> get infrastructureComponents => SomListMetaRef(tree, '$path/INCOEN-INFR-LST', InfrastructureComponentEntry$Nav.new);
+  SomListMetaRef<ReusableUiComponentEntry$Nav> get uiComponents => SomListMetaRef(tree, '$path/RUCE-UICO-LST', ReusableUiComponentEntry$Nav.new);
+  SomListMetaRef<BusinessComponentEntry$Nav> get businessComponents => SomListMetaRef(tree, '$path/BUSCOMENT-BUSI-LST', BusinessComponentEntry$Nav.new);
+  SomListMetaRef<InfrastructureComponentEntry$Nav> get infrastructureComponents => SomListMetaRef(tree, '$path/INFCOMENT-INFR-LST', InfrastructureComponentEntry$Nav.new);
   SomListMetaRef<ThirdPartyLibraryEntry$Nav> get thirdPartyLibraries => SomListMetaRef(tree, '$path/THPALI-THIR-LST', ThirdPartyLibraryEntry$Nav.new);
   ComponentGovernance$Nav get governance => ComponentGovernance$Nav(tree, '$path/governance');
   ComponentRegistry$Nav get registry => ComponentRegistry$Nav(tree, '$path/registry');
@@ -63759,7 +63759,7 @@ class RiskResponse$Nav extends SomMetaRef {
 class RisksAndAssumptions$Nav extends SomMetaRef {
   RisksAndAssumptions$Nav(super.tree, super.path);
   SomMetaRef get overview => SomMetaRef(tree, '$path/RIOV');
-  SomListMetaRef<RiskEntry$Nav> get keyRisks => SomListMetaRef(tree, '$path/RIEN-KEYR-LST', RiskEntry$Nav.new);
+  SomListMetaRef<RiskEntry$Nav> get keyRisks => SomListMetaRef(tree, '$path/RISENT-KEYR-LST', RiskEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `RoleAdjustmentEntry` (SOM §8). Every getter is one
@@ -64140,10 +64140,10 @@ class SchemaVersioningAndMigration$Nav extends SomMetaRef {
 class ScopeBoundaries$Nav extends SomMetaRef {
   ScopeBoundaries$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<ScopeItemEntry$Nav> get inScopeItems => SomListMetaRef(tree, '$path/SCITE-INSC-LST', ScopeItemEntry$Nav.new);
-  SomListMetaRef<ScopeItemEntry$Nav> get outOfScopeItems => SomListMetaRef(tree, '$path/SCITE-OUTO-LST', ScopeItemEntry$Nav.new);
+  SomListMetaRef<ScopeItemEntry$Nav> get inScopeItems => SomListMetaRef(tree, '$path/SIE-INSC-LST', ScopeItemEntry$Nav.new);
+  SomListMetaRef<ScopeItemEntry$Nav> get outOfScopeItems => SomListMetaRef(tree, '$path/SIE-OUTO-LST', ScopeItemEntry$Nav.new);
   SomListMetaRef<DeferredScopeItemEntry$Nav> get deferredItems => SomListMetaRef(tree, '$path/DFSCP-DEFE-LST', DeferredScopeItemEntry$Nav.new);
-  SomListMetaRef<SomMetaRef> get scopeAssumptions => SomListMetaRef(tree, '$path/SCOPE-SCOP-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get scopeAssumptions => SomListMetaRef(tree, '$path/SCBND-SCOP-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `ScopeItemEntry` (SOM §8). Every getter is one
@@ -64234,7 +64234,7 @@ class ScreenElementEntry$Nav extends SomMetaRef {
   ScreenElementAction$Nav get elementAction => ScreenElementAction$Nav(tree, '$path/elementAction');
   ScreenElementFieldSpec$Nav get fieldSpec => ScreenElementFieldSpec$Nav(tree, '$path/fieldSpec');
   ScreenElementDataDisplay$Nav get dataDisplay => ScreenElementDataDisplay$Nav(tree, '$path/dataDisplay');
-  SomListMetaRef<ElementValidationRuleEntry$Nav> get validationRules => SomListMetaRef(tree, '$path/EVRE-VALI-LST', ElementValidationRuleEntry$Nav.new);
+  SomListMetaRef<ElementValidationRuleEntry$Nav> get validationRules => SomListMetaRef(tree, '$path/ELVARUEN-VALI-LST', ElementValidationRuleEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `ScreenElementFieldSpec` (SOM §8). Every getter is one
@@ -64268,9 +64268,9 @@ class ScreenEntry$Nav extends SomMetaRef {
   ScreenSections$Nav get sections => ScreenSections$Nav(tree, '$path/sections');
   ScreenActions$Nav get actions => ScreenActions$Nav(tree, '$path/actions');
   ScreenStates$Nav get states => ScreenStates$Nav(tree, '$path/states');
-  SomListMetaRef<ScreenUserCategoryEntry$Nav> get userCategories => SomListMetaRef(tree, '$path/SCRUSC-USER-LST', ScreenUserCategoryEntry$Nav.new);
+  SomListMetaRef<ScreenUserCategoryEntry$Nav> get userCategories => SomListMetaRef(tree, '$path/SUCE-USER-LST', ScreenUserCategoryEntry$Nav.new);
   SomListMetaRef<EntryPointEntry$Nav> get entryPoints => SomListMetaRef(tree, '$path/EPNT-ENTR-LST', EntryPointEntry$Nav.new);
-  SomListMetaRef<ScreenResponsiveRuleEntry$Nav> get responsiveRules => SomListMetaRef(tree, '$path/SRRE-RESP-LST', ScreenResponsiveRuleEntry$Nav.new);
+  SomListMetaRef<ScreenResponsiveRuleEntry$Nav> get responsiveRules => SomListMetaRef(tree, '$path/SCRERUEN-RESP-LST', ScreenResponsiveRuleEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `ScreenFieldEntry` (SOM §8). Every getter is one
@@ -64413,7 +64413,7 @@ class SecondaryNavigation$Nav extends SomMetaRef {
   SecondaryNavigation$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get overview => SomMetaRef(tree, '$path/overview');
-  SomListMetaRef<TabBarDefinitionEntry$Nav> get tabBars => SomListMetaRef(tree, '$path/TBDE-TABB-LST', TabBarDefinitionEntry$Nav.new);
+  SomListMetaRef<TabBarDefinitionEntry$Nav> get tabBars => SomListMetaRef(tree, '$path/TABADEEN-TABB-LST', TabBarDefinitionEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `SectionMeta` (SOM §8). Every getter is one
@@ -64478,7 +64478,7 @@ class SecurityAuditRequirementsSection$Nav extends SomMetaRef {
   SecurityCertificationRequirements$Nav get securityCertifications => SecurityCertificationRequirements$Nav(tree, '$path/securityCertifications');
   ComplianceAuditSchedule$Nav get complianceAuditSchedule => ComplianceAuditSchedule$Nav(tree, '$path/complianceAuditSchedule');
   SecurityTestingAutomation$Nav get securityTestingAutomation => SecurityTestingAutomation$Nav(tree, '$path/securityTestingAutomation');
-  SomListMetaRef<SecurityAuditEntry$Nav> get auditEntries => SomListMetaRef(tree, '$path/SEAUEN-AUDI-LST', SecurityAuditEntry$Nav.new);
+  SomListMetaRef<SecurityAuditEntry$Nav> get auditEntries => SomListMetaRef(tree, '$path/SAE-AUDI-LST', SecurityAuditEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `SecurityCertificationRequirements` (SOM §8). Every getter is one
@@ -64546,7 +64546,7 @@ class SecurityControlEntry$Nav extends SomMetaRef {
 class SecurityControls$Nav extends SomMetaRef {
   SecurityControls$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<SecurityControlEntry$Nav> get controls => SomListMetaRef(tree, '$path/SECCT-CONT-LST', SecurityControlEntry$Nav.new);
+  SomListMetaRef<SecurityControlEntry$Nav> get controls => SomListMetaRef(tree, '$path/SECOEN-CONT-LST', SecurityControlEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `SecurityDevelopmentLifecycle` (SOM §8). Every getter is one
@@ -64784,8 +64784,8 @@ class ServerRequirementsSection$Nav extends SomMetaRef {
   ServerRequirementsSection$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get overview => SomMetaRef(tree, '$path/overview');
-  SomListMetaRef<ServerEnvironmentEntry$Nav> get environments => SomListMetaRef(tree, '$path/SEENEN-ENVI-LST', ServerEnvironmentEntry$Nav.new);
-  SomListMetaRef<ServerRoleEntry$Nav> get serverRoles => SomListMetaRef(tree, '$path/SEROEN-SERV-LST', ServerRoleEntry$Nav.new);
+  SomListMetaRef<ServerEnvironmentEntry$Nav> get environments => SomListMetaRef(tree, '$path/SEE-ENVI-LST', ServerEnvironmentEntry$Nav.new);
+  SomListMetaRef<ServerRoleEntry$Nav> get serverRoles => SomListMetaRef(tree, '$path/SRE-SERV-LST', ServerRoleEntry$Nav.new);
   ComputeResourceRequirements$Nav get computeResources => ComputeResourceRequirements$Nav(tree, '$path/computeResources');
   ServerStorageRequirements$Nav get storageRequirements => ServerStorageRequirements$Nav(tree, '$path/storageRequirements');
   LoadProfileRequirements$Nav get loadProfile => LoadProfileRequirements$Nav(tree, '$path/loadProfile');
@@ -65062,7 +65062,7 @@ class SlaAndSloMonitoring$Nav extends SomMetaRef {
   SomMetaRef get slaOverview => SomMetaRef(tree, '$path/SASM-SLAO');
   SomMetaRef get overviewNarrative => SomMetaRef(tree, '$path/overviewNarrative');
   ServiceLevelIndicators$Nav get slis => ServiceLevelIndicators$Nav(tree, '$path/slis');
-  SomListMetaRef<SloEntry$Nav> get slos => SomListMetaRef(tree, '$path/SLEN-SLOS-LST', SloEntry$Nav.new);
+  SomListMetaRef<SloEntry$Nav> get slos => SomListMetaRef(tree, '$path/SE-SLOS-LST', SloEntry$Nav.new);
   ErrorBudgetTracking$Nav get errorBudget => ErrorBudgetTracking$Nav(tree, '$path/errorBudget');
 }
 
@@ -65097,7 +65097,7 @@ class SloEntry$Nav extends SomMetaRef {
 class SoftwareDeliverables$Nav extends SomMetaRef {
   SoftwareDeliverables$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<DeliverableEntry$Nav> get items => SomListMetaRef(tree, '$path/SWDLV-ITEM-LST', DeliverableEntry$Nav.new);
+  SomListMetaRef<DeliverableEntry$Nav> get items => SomListMetaRef(tree, '$path/DLVEN-ITEM-LST', DeliverableEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `SoftwareDesignRequirements` (SOM §8). Every getter is one
@@ -65421,8 +65421,8 @@ class StagingStrategy$Nav extends SomMetaRef {
   SomMetaRef get governance => SomMetaRef(tree, '$path/STAGGV');
   SomMetaRef get stagingApproach => SomMetaRef(tree, '$path/stagingApproach');
   SomMetaRef get rationaleNarrative => SomMetaRef(tree, '$path/rationaleNarrative');
-  SomListMetaRef<SomMetaRef> get keyAssumptions => SomListMetaRef(tree, '$path/KEYAS-KEYA-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get constraints => SomListMetaRef(tree, '$path/STAGI-CONS-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get keyAssumptions => SomListMetaRef(tree, '$path/STAGST-KEYA-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get constraints => SomListMetaRef(tree, '$path/STAGST-CONS-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `StakeholderEntry` (SOM §8). Every getter is one
@@ -65468,7 +65468,7 @@ class StakeholdersAndGovernance$Nav extends SomMetaRef {
   DistributionList$Nav get distributionList => DistributionList$Nav(tree, '$path/distributionList');
   ChangeProcedure$Nav get changeProcedure => ChangeProcedure$Nav(tree, '$path/changeProcedure');
   LegalAndContractualRequirements$Nav get legalAndContractual => LegalAndContractualRequirements$Nav(tree, '$path/legalAndContractual');
-  SomListMetaRef<StakeholderRegisterEntry$Nav> get stakeholderRegister => SomListMetaRef(tree, '$path/STKRG-STAK-LST', StakeholderRegisterEntry$Nav.new);
+  SomListMetaRef<StakeholderRegisterEntry$Nav> get stakeholderRegister => SomListMetaRef(tree, '$path/STKRE-STAK-LST', StakeholderRegisterEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `StakeholdersAndInterests` (SOM §8). Every getter is one
@@ -65499,11 +65499,11 @@ class StandardsComplianceSection$Nav extends SomMetaRef {
   StandardsComplianceSection$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get overview => SomMetaRef(tree, '$path/overview');
-  SomListMetaRef<ItStandardComplianceEntry$Nav> get itStandards => SomListMetaRef(tree, '$path/ISCE-ITST-LST', ItStandardComplianceEntry$Nav.new);
-  SomListMetaRef<IndustryProtocolComplianceEntry$Nav> get industryProtocols => SomListMetaRef(tree, '$path/IPCE-INDU-LST', IndustryProtocolComplianceEntry$Nav.new);
-  SomListMetaRef<InterfaceSpecificationEntry$Nav> get interfaceSpecifications => SomListMetaRef(tree, '$path/INSPEN-INTE-LST', InterfaceSpecificationEntry$Nav.new);
-  SomListMetaRef<RegulatoryComplianceEntry$Nav> get regulatoryCompliance => SomListMetaRef(tree, '$path/RECOEN-REGU-LST', RegulatoryComplianceEntry$Nav.new);
-  SomListMetaRef<SecurityStandardComplianceEntry$Nav> get securityStandards => SomListMetaRef(tree, '$path/SSCE-SECU-LST', SecurityStandardComplianceEntry$Nav.new);
+  SomListMetaRef<ItStandardComplianceEntry$Nav> get itStandards => SomListMetaRef(tree, '$path/ITSTCOEN-ITST-LST', ItStandardComplianceEntry$Nav.new);
+  SomListMetaRef<IndustryProtocolComplianceEntry$Nav> get industryProtocols => SomListMetaRef(tree, '$path/INPRCOEN-INDU-LST', IndustryProtocolComplianceEntry$Nav.new);
+  SomListMetaRef<InterfaceSpecificationEntry$Nav> get interfaceSpecifications => SomListMetaRef(tree, '$path/INTSPEENT-INTE-LST', InterfaceSpecificationEntry$Nav.new);
+  SomListMetaRef<RegulatoryComplianceEntry$Nav> get regulatoryCompliance => SomListMetaRef(tree, '$path/RCE-REGU-LST', RegulatoryComplianceEntry$Nav.new);
+  SomListMetaRef<SecurityStandardComplianceEntry$Nav> get securityStandards => SomListMetaRef(tree, '$path/SESTCOEN-SECU-LST', SecurityStandardComplianceEntry$Nav.new);
   SomListMetaRef<AccessibilityStandardEntry$Nav> get accessibilityStandards => SomListMetaRef(tree, '$path/ACCSTD-ACCE-LST', AccessibilityStandardEntry$Nav.new);
   SomListMetaRef<QualityStandardEntry$Nav> get qualityStandards => SomListMetaRef(tree, '$path/QLSTD-QUAL-LST', QualityStandardEntry$Nav.new);
   DocumentationStandardsSection$Nav get documentationStandards => DocumentationStandardsSection$Nav(tree, '$path/documentationStandards');
@@ -65520,7 +65520,7 @@ class SteeringCommittee$Nav extends SomMetaRef {
   SteeringCommittee$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   CommitteeCharter$Nav get charter => CommitteeCharter$Nav(tree, '$path/charter');
-  SomListMetaRef<CommitteeMemberEntry$Nav> get members => SomListMetaRef(tree, '$path/COMMB-MEMB-LST', CommitteeMemberEntry$Nav.new);
+  SomListMetaRef<CommitteeMemberEntry$Nav> get members => SomListMetaRef(tree, '$path/CME-MEMB-LST', CommitteeMemberEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `StepUpAuthenticationPolicy` (SOM §8). Every getter is one
@@ -65530,7 +65530,7 @@ class SteeringCommittee$Nav extends SomMetaRef {
 class StepUpAuthenticationPolicy$Nav extends SomMetaRef {
   StepUpAuthenticationPolicy$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<SomMetaRef> get stepUpDetails => SomListMetaRef(tree, '$path/STEPU-STEP-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get stepUpDetails => SomListMetaRef(tree, '$path/SUAP-STEP-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `StorageEncryptionPolicy` (SOM §8). Every getter is one
@@ -65660,7 +65660,7 @@ class SupportAccess$Nav extends SomMetaRef {
 class SupportDeliverables$Nav extends SomMetaRef {
   SupportDeliverables$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<DeliverableEntry$Nav> get items => SomListMetaRef(tree, '$path/SPDLV-ITEM-LST', DeliverableEntry$Nav.new);
+  SomListMetaRef<DeliverableEntry$Nav> get items => SomListMetaRef(tree, '$path/DLVEN-ITEM-LST', DeliverableEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `SupportedLocaleEntry` (SOM §8). Every getter is one
@@ -65711,8 +65711,8 @@ class SystemBusinessCriticality$Nav extends SomMetaRef {
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get operations => SomMetaRef(tree, '$path/SBCO');
   SomMetaRef get governance => SomMetaRef(tree, '$path/SBCG');
-  SomListMetaRef<SystemBusinessUnitEntry$Nav> get businessUnits => SomListMetaRef(tree, '$path/SBUE-BUSI-LST', SystemBusinessUnitEntry$Nav.new);
-  SomListMetaRef<SystemBusinessProcessEntry$Nav> get supportedProcesses => SomListMetaRef(tree, '$path/SBPE-SUPP-LST', SystemBusinessProcessEntry$Nav.new);
+  SomListMetaRef<SystemBusinessUnitEntry$Nav> get businessUnits => SomListMetaRef(tree, '$path/SYBUUNEN-BUSI-LST', SystemBusinessUnitEntry$Nav.new);
+  SomListMetaRef<SystemBusinessProcessEntry$Nav> get supportedProcesses => SomListMetaRef(tree, '$path/SYBUPREN-SUPP-LST', SystemBusinessProcessEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `SystemBusinessProcessEntry` (SOM §8). Every getter is one
@@ -65774,7 +65774,7 @@ class SystemCostAnalysis$Nav extends SomMetaRef {
   SomMetaRef get migration => SomMetaRef(tree, '$path/SCAM');
   SomMetaRef get benefits => SomMetaRef(tree, '$path/SCAB');
   SomMetaRef get costBreakdown => SomMetaRef(tree, '$path/costBreakdown');
-  SomListMetaRef<SomMetaRef> get nonFinancialBenefits => SomListMetaRef(tree, '$path/NONFI-NONF-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get nonFinancialBenefits => SomListMetaRef(tree, '$path/SYCOAN-NONF-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `SystemDataScope` (SOM §8). Every getter is one
@@ -65786,8 +65786,8 @@ class SystemDataScope$Nav extends SomMetaRef {
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get governance => SomMetaRef(tree, '$path/SDSG');
   SomMetaRef get migration => SomMetaRef(tree, '$path/SYDASCMI');
-  SomListMetaRef<DataEntityMigrationEntry$Nav> get entities => SomListMetaRef(tree, '$path/DEME-ENTI-LST', DataEntityMigrationEntry$Nav.new);
-  SomListMetaRef<SomMetaRef> get knownQualityIssues => SomListMetaRef(tree, '$path/KNOWN-KNOW-LST', SomMetaRef.new);
+  SomListMetaRef<DataEntityMigrationEntry$Nav> get entities => SomListMetaRef(tree, '$path/DAENMIEN-ENTI-LST', DataEntityMigrationEntry$Nav.new);
+  SomListMetaRef<SomMetaRef> get knownQualityIssues => SomListMetaRef(tree, '$path/SYDASC-KNOW-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `SystemDependencyEntry` (SOM §8). Every getter is one
@@ -65816,7 +65816,7 @@ class SystemDescription$Nav extends SomMetaRef {
   SystemPurpose$Nav get systemPurpose => SystemPurpose$Nav(tree, '$path/systemPurpose');
   SystemContext$Nav get systemContext => SystemContext$Nav(tree, '$path/systemContext');
   BusinessDomain$Nav get businessDomain => BusinessDomain$Nav(tree, '$path/businessDomain');
-  SomListMetaRef<UserCategoryEntry$Nav> get userCategories => SomListMetaRef(tree, '$path/USCA-USER-LST', UserCategoryEntry$Nav.new);
+  SomListMetaRef<UserCategoryEntry$Nav> get userCategories => SomListMetaRef(tree, '$path/UCE-USER-LST', UserCategoryEntry$Nav.new);
   UserInteractionModel$Nav get userInteractionModel => UserInteractionModel$Nav(tree, '$path/userInteractionModel');
 }
 
@@ -65855,8 +65855,8 @@ class SystemErrorDisplay$Nav extends SomMetaRef {
   SomMetaRef get displayContent => SomMetaRef(tree, '$path/SEDC');
   SomMetaRef get fallback => SomMetaRef(tree, '$path/SEDF');
   SomMetaRef get systemErrorNarrative => SomMetaRef(tree, '$path/systemErrorNarrative');
-  SomListMetaRef<SomMetaRef> get errorPageDesigns => SomListMetaRef(tree, '$path/EPDE-ERRO-LST', SomMetaRef.new);
-  SomListMetaRef<SystemErrorCodeEntry$Nav> get errorCodes => SomListMetaRef(tree, '$path/SECE-ERRO-LST', SystemErrorCodeEntry$Nav.new);
+  SomListMetaRef<SomMetaRef> get errorPageDesigns => SomListMetaRef(tree, '$path/SYERDI-ERRO-LST', SomMetaRef.new);
+  SomListMetaRef<SystemErrorCodeEntry$Nav> get errorCodes => SomListMetaRef(tree, '$path/SYERCOEN-ERRO-LST', SystemErrorCodeEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `SystemIntegrationEntry` (SOM §8). Every getter is one
@@ -65893,7 +65893,7 @@ class SystemInventory$Nav extends SomMetaRef {
 class SystemKnowledgeTransfer$Nav extends SomMetaRef {
   SystemKnowledgeTransfer$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<SomMetaRef> get criticalKnowledgeAreas => SomListMetaRef(tree, '$path/CRITI-CRIT-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get criticalKnowledgeAreas => SomListMetaRef(tree, '$path/SYKNTR-CRIT-LST', SomMetaRef.new);
   SomMetaRef get knowledgeTransferPlan => SomMetaRef(tree, '$path/knowledgeTransferPlan');
 }
 
@@ -65915,7 +65915,7 @@ class SystemMigrationPlan$Nav extends SomMetaRef {
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get execution => SomMetaRef(tree, '$path/SMPE');
   SomMetaRef get cutover => SomMetaRef(tree, '$path/SMPC');
-  SomListMetaRef<SystemMigrationRiskEntry$Nav> get risks => SomListMetaRef(tree, '$path/SMRE-RISK-LST', SystemMigrationRiskEntry$Nav.new);
+  SomListMetaRef<SystemMigrationRiskEntry$Nav> get risks => SomListMetaRef(tree, '$path/SYMIRIEN-RISK-LST', SystemMigrationRiskEntry$Nav.new);
   SomMetaRef get rollbackStrategy => SomMetaRef(tree, '$path/rollbackStrategy');
   SomMetaRef get postMigrationValidation => SomMetaRef(tree, '$path/postMigrationValidation');
 }
@@ -65937,7 +65937,7 @@ class SystemOperation$Nav extends SomMetaRef {
   SystemOperation$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   AdministrationRequirementsSection$Nav get administrationRequirements => AdministrationRequirementsSection$Nav(tree, '$path/administrationRequirements');
-  SomListMetaRef<SomMetaRef> get maintenanceProcedures => SomListMetaRef(tree, '$path/MAINT-MAIN-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get maintenanceProcedures => SomListMetaRef(tree, '$path/SO-MAIN-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `SystemOperationAndMonitoring` (SOM §8). Every getter is one
@@ -65982,7 +65982,7 @@ class SystemQualityGoals$Nav extends SomMetaRef {
   SomMetaRef get executiveSummary => SomMetaRef(tree, '$path/executiveSummary');
   SomMetaRef get qualityVision => SomMetaRef(tree, '$path/qualityVision');
   SomMetaRef get qaStrategy => SomMetaRef(tree, '$path/qaStrategy');
-  SomListMetaRef<SomMetaRef> get attributeInterdependencies => SomListMetaRef(tree, '$path/ATTRI-ATTR-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get attributeInterdependencies => SomListMetaRef(tree, '$path/SYQG-ATTR-LST', SomMetaRef.new);
   SomMetaRef get qualityRadar => SomMetaRef(tree, '$path/qualityRadar');
   QualityFramework$Nav get framework => QualityFramework$Nav(tree, '$path/framework');
   FunctionalSuitabilityCharacteristic$Nav get functionalSuitability => FunctionalSuitabilityCharacteristic$Nav(tree, '$path/functionalSuitability');
@@ -66009,7 +66009,7 @@ class SystemReplacementStrategy$Nav extends SomMetaRef {
   SomMetaRef get timeline => SomMetaRef(tree, '$path/SRST');
   SomMetaRef get cutover => SomMetaRef(tree, '$path/SRSC');
   SomListMetaRef<ReplacementPhaseEntry$Nav> get phases => SomListMetaRef(tree, '$path/REPPHS-PHAS-LST', ReplacementPhaseEntry$Nav.new);
-  SomListMetaRef<SomMetaRef> get predecessorDependencies => SomListMetaRef(tree, '$path/PREDE-PRED-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get predecessorDependencies => SomListMetaRef(tree, '$path/SYREST-PRED-LST', SomMetaRef.new);
   SomMetaRef get successCriteria => SomMetaRef(tree, '$path/successCriteria');
 }
 
@@ -66074,8 +66074,8 @@ class SystemTaskEntry$Nav extends SomMetaRef {
   SomMetaRef get data => SomMetaRef(tree, '$path/STED');
   SomMetaRef get context => SomMetaRef(tree, '$path/STEC');
   SomMetaRef get relatedUseCase => SomMetaRef(tree, '$path/SYTS-RELA-REF');
-  SomListMetaRef<SomMetaRef> get workflowSteps => SomListMetaRef(tree, '$path/SYSTE-WORK-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get variationsAndExceptions => SomListMetaRef(tree, '$path/VARIA-VARI-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get workflowSteps => SomListMetaRef(tree, '$path/SYTS-WORK-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get variationsAndExceptions => SomListMetaRef(tree, '$path/SYTS-VARI-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `SystemTechnicalAssessment` (SOM §8). Every getter is one
@@ -66088,8 +66088,8 @@ class SystemTechnicalAssessment$Nav extends SomMetaRef {
   SomMetaRef get platform => SomMetaRef(tree, '$path/STAP');
   SomMetaRef get lifecycle => SomMetaRef(tree, '$path/STAL');
   SomMetaRef get quality => SomMetaRef(tree, '$path/STAQ');
-  SomListMetaRef<SomMetaRef> get knownIssues => SomListMetaRef(tree, '$path/KIE-KNOW-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get securityConcerns => SomListMetaRef(tree, '$path/SECUR-SECU-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get knownIssues => SomListMetaRef(tree, '$path/SYTEAS-KNOW-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get securityConcerns => SomListMetaRef(tree, '$path/SYTEAS-SECU-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `SystemToReplaceEntry` (SOM §8). Every getter is one
@@ -66134,7 +66134,7 @@ class SystemUserImpact$Nav extends SomMetaRef {
   SomMetaRef get changeProfile => SomMetaRef(tree, '$path/SUICP');
   SomMetaRef get enablement => SomMetaRef(tree, '$path/SUIE');
   SomMetaRef get adoption => SomMetaRef(tree, '$path/SUIA');
-  SomListMetaRef<UserGroupImpactEntry$Nav> get userGroups => SomListMetaRef(tree, '$path/UGIE-USER-LST', UserGroupImpactEntry$Nav.new);
+  SomListMetaRef<UserGroupImpactEntry$Nav> get userGroups => SomListMetaRef(tree, '$path/USGRIMEN-USER-LST', UserGroupImpactEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `SystemsToReplace` (SOM §8). Every getter is one
@@ -66157,7 +66157,7 @@ class TabBarDefinitionEntry$Nav extends SomMetaRef {
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get behavior => SomMetaRef(tree, '$path/TBDEB');
   SomMetaRef get loading => SomMetaRef(tree, '$path/TBDEL');
-  SomListMetaRef<TabItemEntry$Nav> get tabs => SomListMetaRef(tree, '$path/TAITEN-TABS-LST', TabItemEntry$Nav.new);
+  SomListMetaRef<TabItemEntry$Nav> get tabs => SomListMetaRef(tree, '$path/TIE-TABS-LST', TabItemEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `TabItemEntry` (SOM §8). Every getter is one
@@ -66286,12 +66286,12 @@ class TechnicalEnvironment$Nav extends SomMetaRef {
   SomMetaRef get security => SomMetaRef(tree, '$path/TES');
   TechnicalEnvironmentNetwork$Nav get network => TechnicalEnvironmentNetwork$Nav(tree, '$path/network');
   SomMetaRef get existingInfrastructure => SomMetaRef(tree, '$path/existingInfrastructure');
-  SomListMetaRef<SomMetaRef> get datacenters => SomListMetaRef(tree, '$path/DATAC-DATA-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get datacenters => SomListMetaRef(tree, '$path/TEEN-DATA-LST', SomMetaRef.new);
   SomMetaRef get networkTopology => SomMetaRef(tree, '$path/networkTopology');
   SomMetaRef get standardsOverview => SomMetaRef(tree, '$path/standardsOverview');
-  SomListMetaRef<TechnologyStandardEntry$Nav> get technologyStandards => SomListMetaRef(tree, '$path/TESTEN-TECH-LST', TechnologyStandardEntry$Nav.new);
+  SomListMetaRef<TechnologyStandardEntry$Nav> get technologyStandards => SomListMetaRef(tree, '$path/TSE-TECH-LST', TechnologyStandardEntry$Nav.new);
   SomMetaRef get integrationOverview => SomMetaRef(tree, '$path/integrationOverview');
-  SomListMetaRef<IntegrationConstraintEntry$Nav> get integrationConstraints => SomListMetaRef(tree, '$path/INCOE1-INTE-LST', IntegrationConstraintEntry$Nav.new);
+  SomListMetaRef<IntegrationConstraintEntry$Nav> get integrationConstraints => SomListMetaRef(tree, '$path/INTCONENT-INTE-LST', IntegrationConstraintEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `TechnicalEnvironmentNetwork` (SOM §8). Every getter is one
@@ -66301,8 +66301,8 @@ class TechnicalEnvironment$Nav extends SomMetaRef {
 class TechnicalEnvironmentNetwork$Nav extends SomMetaRef {
   TechnicalEnvironmentNetwork$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<SomMetaRef> get devopsStandards => SomListMetaRef(tree, '$path/DEVOP-DEVO-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get observabilityRequirements => SomListMetaRef(tree, '$path/OBSER-OBSE-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get devopsStandards => SomListMetaRef(tree, '$path/TEENNE-DEVO-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get observabilityRequirements => SomListMetaRef(tree, '$path/TEENNE-OBSE-LST', SomMetaRef.new);
   SomMetaRef get disasterRecovery => SomMetaRef(tree, '$path/disasterRecovery');
 }
 
@@ -66409,7 +66409,7 @@ class TechnicalPainPoints$Nav extends SomMetaRef {
   TechnicalPainPoints$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get categorySummary => SomMetaRef(tree, '$path/TPPS');
-  SomListMetaRef<PainPointEntry$Nav> get items => SomListMetaRef(tree, '$path/TEPAPO-ITEM-LST', PainPointEntry$Nav.new);
+  SomListMetaRef<PainPointEntry$Nav> get items => SomListMetaRef(tree, '$path/PAPE-ITEM-LST', PainPointEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `TechnicalRequirementEntry` (SOM §8). Every getter is one
@@ -66778,7 +66778,7 @@ class TrainingDeliverableRequirements$Nav extends SomMetaRef {
   TrainingDeliverableRequirements$Nav(super.tree, super.path);
   SomMetaRef get trainingContent => SomMetaRef(tree, '$path/TRMAT-TRAI');
   SomMetaRef get trainingNarrative => SomMetaRef(tree, '$path/trainingNarrative');
-  SomListMetaRef<TrainingModuleEntry$Nav> get trainingModules => SomListMetaRef(tree, '$path/TRMOEN-TRAI-LST', TrainingModuleEntry$Nav.new);
+  SomListMetaRef<TrainingModuleEntry$Nav> get trainingModules => SomListMetaRef(tree, '$path/TME-TRAI-LST', TrainingModuleEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `TrainingDeliverables` (SOM §8). Every getter is one
@@ -66788,7 +66788,7 @@ class TrainingDeliverableRequirements$Nav extends SomMetaRef {
 class TrainingDeliverables$Nav extends SomMetaRef {
   TrainingDeliverables$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<DeliverableEntry$Nav> get items => SomListMetaRef(tree, '$path/TRDLV-ITEM-LST', DeliverableEntry$Nav.new);
+  SomListMetaRef<DeliverableEntry$Nav> get items => SomListMetaRef(tree, '$path/DLVEN-ITEM-LST', DeliverableEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `TrainingEnablementRequirements` (SOM §8). Every getter is one
@@ -66841,7 +66841,7 @@ class TrainingPrototype$Nav extends SomMetaRef {
 class TrainingRequirements$Nav extends SomMetaRef {
   TrainingRequirements$Nav(super.tree, super.path);
   SomMetaRef get overview => SomMetaRef(tree, '$path/TROV');
-  SomListMetaRef<InitialTrainingEntry$Nav> get initialTraining => SomListMetaRef(tree, '$path/INITR-INIT-LST', InitialTrainingEntry$Nav.new);
+  SomListMetaRef<InitialTrainingEntry$Nav> get initialTraining => SomListMetaRef(tree, '$path/ITE-INIT-LST', InitialTrainingEntry$Nav.new);
   SomListMetaRef<OngoingTrainingEntry$Nav> get ongoingTraining => SomListMetaRef(tree, '$path/ONGTR-ONGO-LST', OngoingTrainingEntry$Nav.new);
   SomListMetaRef<SystemTrainingEntry$Nav> get systemTraining => SomListMetaRef(tree, '$path/SYTR-SYST-LST', SystemTrainingEntry$Nav.new);
   SomListMetaRef<CertificationEntry$Nav> get certifications => SomListMetaRef(tree, '$path/CRT-CERT-LST', CertificationEntry$Nav.new);
@@ -67015,7 +67015,7 @@ class TranslationProcess$Nav extends SomMetaRef {
   SomMetaRef get terminology => SomMetaRef(tree, '$path/TRPRTE');
   SomMetaRef get ongoing => SomMetaRef(tree, '$path/TRPRON');
   SomMetaRef get translationNarrative => SomMetaRef(tree, '$path/translationNarrative');
-  SomListMetaRef<TranslationVendorEntry$Nav> get vendors => SomListMetaRef(tree, '$path/TRVEEN-VEND-LST', TranslationVendorEntry$Nav.new);
+  SomListMetaRef<TranslationVendorEntry$Nav> get vendors => SomListMetaRef(tree, '$path/TVE-VEND-LST', TranslationVendorEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `TranslationRequirements` (SOM §8). Every getter is one
@@ -67145,8 +67145,8 @@ class UiComponentEntry$Nav extends SomMetaRef {
   SomMetaRef get resourceIntegration => SomMetaRef(tree, '$path/UICOMENT-RESO');
   SomMetaRef get dataBinding => SomMetaRef(tree, '$path/UICOMENT-DATA');
   SomMetaRef get behaviorNarrative => SomMetaRef(tree, '$path/behaviorNarrative');
-  SomListMetaRef<ComponentStateEntry$Nav> get states => SomListMetaRef(tree, '$path/CMST-STAT-LST', ComponentStateEntry$Nav.new);
-  SomListMetaRef<ComponentVariantEntry$Nav> get variants => SomListMetaRef(tree, '$path/CMVN-VARI-LST', ComponentVariantEntry$Nav.new);
+  SomListMetaRef<ComponentStateEntry$Nav> get states => SomListMetaRef(tree, '$path/COMSTAENT-STAT-LST', ComponentStateEntry$Nav.new);
+  SomListMetaRef<ComponentVariantEntry$Nav> get variants => SomListMetaRef(tree, '$path/CVE-VARI-LST', ComponentVariantEntry$Nav.new);
   SomListMetaRef<ComponentActionEntry$Nav> get actions => SomListMetaRef(tree, '$path/CMAC-ACTI-LST', ComponentActionEntry$Nav.new);
   SomListMetaRef<ComponentSlotEntry$Nav> get slots => SomListMetaRef(tree, '$path/CMSL-SLOT-LST', ComponentSlotEntry$Nav.new);
   SomListMetaRef<ComponentPropertyEntry$Nav> get properties => SomListMetaRef(tree, '$path/CMPR-PROP-LST', ComponentPropertyEntry$Nav.new);
@@ -67163,7 +67163,7 @@ class UiComponents$Nav extends SomMetaRef {
   SomMetaRef get componentApproach => SomMetaRef(tree, '$path/UCCA');
   SomMetaRef get customization => SomMetaRef(tree, '$path/UICOCU');
   ComponentLibrary$Nav get componentLibrary => ComponentLibrary$Nav(tree, '$path/componentLibrary');
-  SomListMetaRef<UiComponentEntry$Nav> get componentSpecs => SomListMetaRef(tree, '$path/UICOEN-COMP-LST', UiComponentEntry$Nav.new);
+  SomListMetaRef<UiComponentEntry$Nav> get componentSpecs => SomListMetaRef(tree, '$path/UICOMENT-COMP-LST', UiComponentEntry$Nav.new);
   SomListMetaRef<ComponentFamilyEntry$Nav> get componentFamilies => SomListMetaRef(tree, '$path/CMFA-COMP-LST', ComponentFamilyEntry$Nav.new);
 }
 
@@ -67325,7 +67325,7 @@ class UserCategories$Nav extends SomMetaRef {
   UserCategories$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get userCategoryDiagram => SomMetaRef(tree, '$path/userCategoryDiagram');
-  SomListMetaRef<UserCategoryEntry$Nav> get categories => SomListMetaRef(tree, '$path/USCA-CATE-LST', UserCategoryEntry$Nav.new);
+  SomListMetaRef<UserCategoryEntry$Nav> get categories => SomListMetaRef(tree, '$path/UCE-CATE-LST', UserCategoryEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `UserCategoryDefinition` (SOM §8). Every getter is one
@@ -67422,8 +67422,8 @@ class UserJourney$Nav extends SomMetaRef {
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
   SomMetaRef get journeyDiagram => SomMetaRef(tree, '$path/UJ-JOUR');
   SomListMetaRef<JourneyStageEntry$Nav> get stages => SomListMetaRef(tree, '$path/JRNST-STAG-LST', JourneyStageEntry$Nav.new);
-  SomListMetaRef<SomMetaRef> get keyTouchpoints => SomListMetaRef(tree, '$path/KEYTO-KEYT-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get painPoints => SomListMetaRef(tree, '$path/USERJ-PAIN-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get keyTouchpoints => SomListMetaRef(tree, '$path/UJ-KEYT-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get painPoints => SomListMetaRef(tree, '$path/UJ-PAIN-LST', SomMetaRef.new);
   SomMetaRef get opportunitiesForDelight => SomMetaRef(tree, '$path/UJ-OPPO');
 }
 
@@ -67512,7 +67512,7 @@ class UserPersonaDetails$Nav extends SomMetaRef {
   SomMetaRef get goals => SomMetaRef(tree, '$path/UPDG');
   SomMetaRef get behavior => SomMetaRef(tree, '$path/UPDB');
   SomMetaRef get visualRepresentation => SomMetaRef(tree, '$path/UPD-VISU');
-  SomListMetaRef<SomMetaRef> get representativeQuotes => SomListMetaRef(tree, '$path/REPRE-REPR-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get representativeQuotes => SomListMetaRef(tree, '$path/UPD-REPR-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `UserPersonas` (SOM §8). Every getter is one
@@ -67598,7 +67598,7 @@ class UtilityMenuItemEntry$Nav extends SomMetaRef {
 class UtilityNavigation$Nav extends SomMetaRef {
   UtilityNavigation$Nav(super.tree, super.path);
   SomMetaRef get content => SomMetaRef(tree, '$path/content');
-  SomListMetaRef<UtilityNavigationItemEntry$Nav> get items => SomListMetaRef(tree, '$path/UNIE-ITEM-LST', UtilityNavigationItemEntry$Nav.new);
+  SomListMetaRef<UtilityNavigationItemEntry$Nav> get items => SomListMetaRef(tree, '$path/UTNAITEN-ITEM-LST', UtilityNavigationItemEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `UtilityNavigationItemEntry` (SOM §8). Every getter is one
@@ -67611,7 +67611,7 @@ class UtilityNavigationItemEntry$Nav extends SomMetaRef {
   SomMetaRef get display => SomMetaRef(tree, '$path/UNIED');
   AuthorizationRequirementSpec$Nav get access => AuthorizationRequirementSpec$Nav(tree, '$path/access');
   SomMetaRef get behavior => SomMetaRef(tree, '$path/UNIEB');
-  SomListMetaRef<UtilityMenuItemEntry$Nav> get menuItems => SomListMetaRef(tree, '$path/UMIE-MENU-LST', UtilityMenuItemEntry$Nav.new);
+  SomListMetaRef<UtilityMenuItemEntry$Nav> get menuItems => SomListMetaRef(tree, '$path/UTMEITEN-MENU-LST', UtilityMenuItemEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `ValidationConstraints` (SOM §8). Every getter is one
@@ -67635,8 +67635,8 @@ class ValidationFeedback$Nav extends SomMetaRef {
   SomMetaRef get guidance => SomMetaRef(tree, '$path/VAFEGU');
   SomMetaRef get behavior => SomMetaRef(tree, '$path/VAFEBE');
   SomMetaRef get validationNarrative => SomMetaRef(tree, '$path/validationNarrative');
-  SomListMetaRef<ValidationMessageTemplate$Nav> get messageTemplates => SomListMetaRef(tree, '$path/VAMETE-MESS-LST', ValidationMessageTemplate$Nav.new);
-  SomListMetaRef<SomMetaRef> get fieldValidationRules => SomListMetaRef(tree, '$path/FIELD-FIEL-LST', SomMetaRef.new);
+  SomListMetaRef<ValidationMessageTemplate$Nav> get messageTemplates => SomListMetaRef(tree, '$path/VMT-MESS-LST', ValidationMessageTemplate$Nav.new);
+  SomListMetaRef<SomMetaRef> get fieldValidationRules => SomListMetaRef(tree, '$path/VAFE-FIEL-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `ValidationMessageTemplate` (SOM §8). Every getter is one
@@ -67658,7 +67658,7 @@ class ValueProposition$Nav extends SomMetaRef {
   SomMetaRef get valueDetails => SomMetaRef(tree, '$path/valueDetails');
   SomMetaRef get benefits => SomMetaRef(tree, '$path/VALBN');
   SomMetaRef get returnProfile => SomMetaRef(tree, '$path/VALRP');
-  SomListMetaRef<SomMetaRef> get kpis => SomListMetaRef(tree, '$path/KPIEN-KPIS-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get kpis => SomListMetaRef(tree, '$path/VALPX-KPIS-LST', SomMetaRef.new);
 }
 
 /// Dot-notation accessors of `VersionControlConfiguration` (SOM §8). Every getter is one
@@ -67766,7 +67766,7 @@ class WcagCompliance$Nav extends SomMetaRef {
   SomMetaRef get understandable => SomMetaRef(tree, '$path/WCCOUN');
   SomMetaRef get robust => SomMetaRef(tree, '$path/WCCORO');
   SomMetaRef get wcagNarrative => SomMetaRef(tree, '$path/wcagNarrative');
-  SomListMetaRef<WcagSuccessCriterionEntry$Nav> get successCriteria => SomListMetaRef(tree, '$path/WSCE-SUCC-LST', WcagSuccessCriterionEntry$Nav.new);
+  SomListMetaRef<WcagSuccessCriterionEntry$Nav> get successCriteria => SomListMetaRef(tree, '$path/WCSUCREN-SUCC-LST', WcagSuccessCriterionEntry$Nav.new);
 }
 
 /// Dot-notation accessors of `WcagSuccessCriterionEntry` (SOM §8). Every getter is one
@@ -68155,7 +68155,7 @@ class ApiCompatibilityEntry$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class ApplicableRegulationEntry$Id extends SomMetaRef {
   ApplicableRegulationEntry$Id(super.tree, super.path);
-  SomListMetaRef<SomMetaRef> get COMPL_COMP_LST => SomListMetaRef(tree, '$path/COMPL-COMP-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get ARE_COMP_LST => SomListMetaRef(tree, '$path/ARE-COMP-LST', SomMetaRef.new);
 }
 
 /// ID-tree accessors of `ApprovalRecord` (SOM §8): getters named by section
@@ -68851,7 +68851,7 @@ class CurrentWorkflowEntry$Id extends SomMetaRef {
   SomMetaRef get CUWF_WORK => SomMetaRef(tree, '$path/CUWF-WORK');
   SomListMetaRef<WorkflowTriggerEntry$Id> get WOTREN_TRIG_LST => SomListMetaRef(tree, '$path/triggers/WOTREN-TRIG-LST', WorkflowTriggerEntry$Id.new);
   SomListMetaRef<WorkflowStepEntry$Id> get WSE_STEP_LST => SomListMetaRef(tree, '$path/WSE-STEP-LST', WorkflowStepEntry$Id.new);
-  SomListMetaRef<WorkflowActorEntry$Id> get WFAC_ACTO_LST => SomListMetaRef(tree, '$path/WFAC-ACTO-LST', WorkflowActorEntry$Id.new);
+  SomListMetaRef<WorkflowActorEntry$Id> get WAE_ACTO_LST => SomListMetaRef(tree, '$path/WAE-ACTO-LST', WorkflowActorEntry$Id.new);
   SomListMetaRef<WorkflowInputEntry$Id> get WOINEN_INPU_LST => SomListMetaRef(tree, '$path/WOINEN-INPU-LST', WorkflowInputEntry$Id.new);
   SomListMetaRef<WorkflowOutputEntry$Id> get WOOUEN_OUTP_LST => SomListMetaRef(tree, '$path/WOOUEN-OUTP-LST', WorkflowOutputEntry$Id.new);
   SomListMetaRef<WorkflowDecisionPoint$Id> get WODEPO_DECI_LST => SomListMetaRef(tree, '$path/WODEPO-DECI-LST', WorkflowDecisionPoint$Id.new);
@@ -68880,8 +68880,8 @@ class CustomMetricEntry$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class D00SolutionBlueprint$Id extends SomMetaRef {
   D00SolutionBlueprint$Id(super.tree, super.path);
-  SomListMetaRef<RevisionEntry$Id> get RVHST_REVS_LST => SomListMetaRef(tree, '$path/documentControl/RVHST-REVS-LST', RevisionEntry$Id.new);
-  SomListMetaRef<ApprovalRecord$Id> get DOCTL_APRV_LST => SomListMetaRef(tree, '$path/documentControl/DOCTL-APRV-LST', ApprovalRecord$Id.new);
+  SomListMetaRef<RevisionEntry$Id> get RVENT_REVS_LST => SomListMetaRef(tree, '$path/documentControl/RVENT-REVS-LST', RevisionEntry$Id.new);
+  SomListMetaRef<ApprovalRecord$Id> get APREC_APRV_LST => SomListMetaRef(tree, '$path/documentControl/APREC-APRV-LST', ApprovalRecord$Id.new);
   SomListMetaRef<ReferenceDocumentEntry$Id> get RFDOC_DOCU_LST => SomListMetaRef(tree, '$path/documentControl/referenceDocuments/RFDOC-DOCU-LST', ReferenceDocumentEntry$Id.new);
   SomMetaRef get SYCLS => SomMetaRef(tree, '$path/introductionAndScope/summary/SYCLS');
   SomMetaRef get SYSCL => SomMetaRef(tree, '$path/introductionAndScope/summary/SYSCL');
@@ -68890,16 +68890,16 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get INSC_SYST => SomMetaRef(tree, '$path/introductionAndScope/INSC-SYST');
   SomMetaRef get SDSM => SomMetaRef(tree, '$path/introductionAndScope/systemDescription/SDSM');
   SomMetaRef get SYPUP_VISI => SomMetaRef(tree, '$path/introductionAndScope/systemDescription/systemPurpose/SYPUP-VISI');
-  SomListMetaRef<SomMetaRef> get RPPE_RELA_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/systemPurpose/problemStatement/RPPE-RELA-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get PS_RELA_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/systemPurpose/problemStatement/PS-RELA-LST', SomMetaRef.new);
   SomListMetaRef<StakeholderEntry$Id> get STKNT_PRIM_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/systemPurpose/stakeholders/STKNT-PRIM-LST', StakeholderEntry$Id.new);
   SomListMetaRef<StakeholderEntry$Id> get STKNT_SECO_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/systemPurpose/stakeholders/STKNT-SECO-LST', StakeholderEntry$Id.new);
   SomMetaRef get VALBN => SomMetaRef(tree, '$path/introductionAndScope/systemDescription/systemPurpose/valueProposition/VALBN');
   SomMetaRef get VALRP => SomMetaRef(tree, '$path/introductionAndScope/systemDescription/systemPurpose/valueProposition/VALRP');
-  SomListMetaRef<SomMetaRef> get KPIEN_KPIS_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/systemPurpose/valueProposition/KPIEN-KPIS-LST', SomMetaRef.new);
-  SomListMetaRef<ScopeItemEntry$Id> get SCITE_INSC_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCITE-INSC-LST', ScopeItemEntry$Id.new);
-  SomListMetaRef<ScopeItemEntry$Id> get SCITE_OUTO_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCITE-OUTO-LST', ScopeItemEntry$Id.new);
+  SomListMetaRef<SomMetaRef> get VALPX_KPIS_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/systemPurpose/valueProposition/VALPX-KPIS-LST', SomMetaRef.new);
+  SomListMetaRef<ScopeItemEntry$Id> get SIE_INSC_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SIE-INSC-LST', ScopeItemEntry$Id.new);
+  SomListMetaRef<ScopeItemEntry$Id> get SIE_OUTO_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SIE-OUTO-LST', ScopeItemEntry$Id.new);
   SomListMetaRef<DeferredScopeItemEntry$Id> get DFSCP_DEFE_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/DFSCP-DEFE-LST', DeferredScopeItemEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get SCOPE_SCOP_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCOPE-SCOP-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get SCBND_SCOP_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCBND-SCOP-LST', SomMetaRef.new);
   SomMetaRef get CD_DIAG => SomMetaRef(tree, '$path/introductionAndScope/systemDescription/systemContext/contextDiagram/CD-DIAG');
   SomMetaRef get CD_LEGE => SomMetaRef(tree, '$path/introductionAndScope/systemDescription/systemContext/contextDiagram/CD-LEGE');
   SomListMetaRef<ExternalActorEntry$Id> get EAE_ACTO_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/systemContext/externalActors/EAE-ACTO-LST', ExternalActorEntry$Id.new);
@@ -68915,11 +68915,11 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get DB_WITH => SomMetaRef(tree, '$path/introductionAndScope/systemDescription/businessDomain/domainBoundaries/DB-WITH');
   SomMetaRef get DB_OUTS => SomMetaRef(tree, '$path/introductionAndScope/systemDescription/businessDomain/domainBoundaries/DB-OUTS');
   SomListMetaRef<DomainInterfaceEntry$Id> get DIE_INTE_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/businessDomain/domainBoundaries/DIE-INTE-LST', DomainInterfaceEntry$Id.new);
-  SomListMetaRef<DomainBusinessRuleEntry$Id> get DOBIRU_RULE_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/businessDomain/businessRules/DOBIRU-RULE-LST', DomainBusinessRuleEntry$Id.new);
+  SomListMetaRef<DomainBusinessRuleEntry$Id> get DBRE_RULE_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/businessDomain/businessRules/DBRE-RULE-LST', DomainBusinessRuleEntry$Id.new);
   SomMetaRef get DP_PROC => SomMetaRef(tree, '$path/introductionAndScope/systemDescription/businessDomain/domainProcesses/DP-PROC');
-  SomListMetaRef<DomainProcessEntry$Id> get DOPR_PROC_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/businessDomain/domainProcesses/DOPR-PROC-LST', DomainProcessEntry$Id.new);
+  SomListMetaRef<DomainProcessEntry$Id> get DOPREN_PROC_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/businessDomain/domainProcesses/DOPREN-PROC-LST', DomainProcessEntry$Id.new);
   SomListMetaRef<DomainEventEntry$Id> get DOEV_EVEN_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/businessDomain/domainEvents/DOEV-EVEN-LST', DomainEventEntry$Id.new);
-  SomListMetaRef<UserCategoryEntry$Id> get USCA_USER_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/USCA-USER-LST', UserCategoryEntry$Id.new);
+  SomListMetaRef<UserCategoryEntry$Id> get UCE_USER_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/UCE-USER-LST', UserCategoryEntry$Id.new);
   SomMetaRef get AC1_CHAN => SomMetaRef(tree, '$path/introductionAndScope/systemDescription/userInteractionModel/accessChannels/AC1-CHAN');
   SomListMetaRef<InteractionChannelEntry$Id> get ICE_CHAN_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/userInteractionModel/accessChannels/ICE-CHAN-LST', InteractionChannelEntry$Id.new);
   SomListMetaRef<InteractionPatternEntry$Id> get INPTN_PATT_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemDescription/userInteractionModel/interactionPatterns/INPTN-PATT-LST', InteractionPatternEntry$Id.new);
@@ -68964,41 +68964,41 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get MIRIAS => SomMetaRef(tree, '$path/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRIAS');
   SomMetaRef get MIRITH => SomMetaRef(tree, '$path/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRITH');
   SomMetaRef get MIRIRE => SomMetaRef(tree, '$path/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRIRE');
-  SomListMetaRef<SomMetaRef> get RISKC_RISK_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKC-RISK-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get RISKB_RISK_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKB-RISK-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get MONIT_MONI_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MONIT-MONI-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get RESPO_RESP_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RESPO-RESP-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get MIRI_RISK_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-RISK-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get MIRI_RBDE_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-RBDE-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get MIRI_MONI_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-MONI-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get MIRI_RESP_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-RESP-LST', SomMetaRef.new);
   SomListMetaRef<MigrationRiskEntry$Id> get MGRSK_ITEM_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MGRSK-ITEM-LST', MigrationRiskEntry$Id.new);
   SomListMetaRef<MigrationMilestoneEntry$Id> get MGMLS_MILE_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemsToReplace/migrationConsiderations/MGMLS-MILE-LST', MigrationMilestoneEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get ESCAL_ESCA_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemsToReplace/migrationConsiderations/ESCAL-ESCA-LST', SomMetaRef.new);
-  SomListMetaRef<ExternalInterfaceEntry$Id> get EXINEN_INTE_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemBoundaries/externalInterfaces/EXINEN-INTE-LST', ExternalInterfaceEntry$Id.new);
-  SomListMetaRef<OutOfScopeEntry$Id> get OOSE_ITEM_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemBoundaries/outOfScope/OOSE-ITEM-LST', OutOfScopeEntry$Id.new);
-  SomListMetaRef<BoundaryAssumptionEntry$Id> get BOASEN_ITEM_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemBoundaries/assumptions/BOASEN-ITEM-LST', BoundaryAssumptionEntry$Id.new);
+  SomListMetaRef<SomMetaRef> get MIGCON_ESCA_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemsToReplace/migrationConsiderations/MIGCON-ESCA-LST', SomMetaRef.new);
+  SomListMetaRef<ExternalInterfaceEntry$Id> get EIE_INTE_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemBoundaries/externalInterfaces/EIE-INTE-LST', ExternalInterfaceEntry$Id.new);
+  SomListMetaRef<OutOfScopeEntry$Id> get OUOFSCEN_ITEM_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemBoundaries/outOfScope/OUOFSCEN-ITEM-LST', OutOfScopeEntry$Id.new);
+  SomListMetaRef<BoundaryAssumptionEntry$Id> get BAE_ITEM_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemBoundaries/assumptions/BAE-ITEM-LST', BoundaryAssumptionEntry$Id.new);
   SomListMetaRef<BoundaryInteractionPatterns$Id> get BOINPA_BOUN_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemBoundaries/BOINPA-BOUN-LST', BoundaryInteractionPatterns$Id.new);
   SomListMetaRef<MigrationInteractions$Id> get MIIN_MIGR_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemBoundaries/MIIN-MIGR-LST', MigrationInteractions$Id.new);
   SomListMetaRef<CrossBoundaryOperationalConsiderations$Id> get CBOC_OPER_LST => SomListMetaRef(tree, '$path/introductionAndScope/systemBoundaries/CBOC-OPER-LST', CrossBoundaryOperationalConsiderations$Id.new);
   SomMetaRef get OREN_ORGA => SomMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-ORGA');
   SomMetaRef get ORENMA => SomMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/organizationalEnvironment/ORENMA');
   SomMetaRef get OEDM => SomMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/organizationalEnvironment/OEDM');
-  SomListMetaRef<AffectedDepartmentEntry$Id> get AFDEEN_AFFE_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/organizationalEnvironment/AFDEEN-AFFE-LST', AffectedDepartmentEntry$Id.new);
-  SomListMetaRef<DecisionMakerEntry$Id> get DEMAEN_DECI_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/organizationalEnvironment/DEMAEN-DECI-LST', DecisionMakerEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get CULTU_CULT_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/organizationalEnvironment/CULTU-CULT-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get COMMU_COMM_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/organizationalEnvironment/COMMU-COMM-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get CHANG_CHAN_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/organizationalEnvironment/CHANG-CHAN-LST', SomMetaRef.new);
-  SomListMetaRef<ResponsibilityEntry$Id> get REEN1_ITEM_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/functionalResponsibilities/REEN1-ITEM-LST', ResponsibilityEntry$Id.new);
+  SomListMetaRef<AffectedDepartmentEntry$Id> get ADE_AFFE_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/organizationalEnvironment/ADE-AFFE-LST', AffectedDepartmentEntry$Id.new);
+  SomListMetaRef<DecisionMakerEntry$Id> get DME_DECI_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/organizationalEnvironment/DME-DECI-LST', DecisionMakerEntry$Id.new);
+  SomListMetaRef<SomMetaRef> get OREN_CULT_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-CULT-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get OREN_COMM_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-COMM-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get OREN_CHAN_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-CHAN-LST', SomMetaRef.new);
+  SomListMetaRef<ResponsibilityEntry$Id> get RE_ITEM_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/functionalResponsibilities/RE-ITEM-LST', ResponsibilityEntry$Id.new);
   SomMetaRef get TEEN_TECH => SomMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/technicalEnvironment/TEEN-TECH');
   SomMetaRef get TEENGO => SomMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/technicalEnvironment/TEENGO');
   SomMetaRef get TEENST => SomMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/technicalEnvironment/TEENST');
   SomMetaRef get TES => SomMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/technicalEnvironment/TES');
-  SomListMetaRef<SomMetaRef> get DEVOP_DEVO_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/technicalEnvironment/network/DEVOP-DEVO-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get OBSER_OBSE_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/technicalEnvironment/network/OBSER-OBSE-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get DATAC_DATA_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/technicalEnvironment/DATAC-DATA-LST', SomMetaRef.new);
-  SomListMetaRef<TechnologyStandardEntry$Id> get TESTEN_TECH_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/technicalEnvironment/TESTEN-TECH-LST', TechnologyStandardEntry$Id.new);
-  SomListMetaRef<IntegrationConstraintEntry$Id> get INCOE1_INTE_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/technicalEnvironment/INCOE1-INTE-LST', IntegrationConstraintEntry$Id.new);
+  SomListMetaRef<SomMetaRef> get TEENNE_DEVO_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/technicalEnvironment/network/TEENNE-DEVO-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get TEENNE_OBSE_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/technicalEnvironment/network/TEENNE-OBSE-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get TEEN_DATA_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/technicalEnvironment/TEEN-DATA-LST', SomMetaRef.new);
+  SomListMetaRef<TechnologyStandardEntry$Id> get TSE_TECH_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/technicalEnvironment/TSE-TECH-LST', TechnologyStandardEntry$Id.new);
+  SomListMetaRef<IntegrationConstraintEntry$Id> get INTCONENT_INTE_LST => SomListMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/technicalEnvironment/INTCONENT-INTE-LST', IntegrationConstraintEntry$Id.new);
   SomMetaRef get COANDE => SomMetaRef(tree, '$path/introductionAndScope/operatingEnvironment/COANDE');
   SomMetaRef get RIOV => SomMetaRef(tree, '$path/introductionAndScope/risksAndAssumptions/RIOV');
-  SomListMetaRef<RiskEntry$Id> get RIEN_KEYR_LST => SomListMetaRef(tree, '$path/introductionAndScope/risksAndAssumptions/RIEN-KEYR-LST', RiskEntry$Id.new);
-  SomListMetaRef<GlossaryEntry$Id> get GLOSS_ENTR_LST => SomListMetaRef(tree, '$path/glossaryAndAbbreviations/GLOSS-ENTR-LST', GlossaryEntry$Id.new);
+  SomListMetaRef<RiskEntry$Id> get RISENT_KEYR_LST => SomListMetaRef(tree, '$path/introductionAndScope/risksAndAssumptions/RISENT-KEYR-LST', RiskEntry$Id.new);
+  SomListMetaRef<GlossaryEntry$Id> get GLENT_ENTR_LST => SomListMetaRef(tree, '$path/glossaryAndAbbreviations/GLENT-ENTR-LST', GlossaryEntry$Id.new);
   SomMetaRef get ADMSM => SomMetaRef(tree, '$path/stakeholdersAndGovernance/ADMSM');
   SomMetaRef get PRPO_METH => SomMetaRef(tree, '$path/stakeholdersAndGovernance/projectOrganizationProcess/PRPO-METH');
   SomMetaRef get MEDSM => SomMetaRef(tree, '$path/stakeholdersAndGovernance/projectOrganizationProcess/MEDSM');
@@ -69017,7 +69017,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomListMetaRef<ToolEntry$Id> get TOLEN_ITEM_LST => SomListMetaRef(tree, '$path/stakeholdersAndGovernance/projectOrganizationProcess/toolingAndEnvironments/tooling/TOLEN-ITEM-LST', ToolEntry$Id.new);
   SomListMetaRef<EnvironmentEntry$Id> get ENVEN_ITEM_LST => SomListMetaRef(tree, '$path/stakeholdersAndGovernance/projectOrganizationProcess/toolingAndEnvironments/environments/ENVEN-ITEM-LST', EnvironmentEntry$Id.new);
   SomListMetaRef<DecisionAuthorityEntry$Id> get DCAUT_DECI_LST => SomListMetaRef(tree, '$path/stakeholdersAndGovernance/projectOrganization/organizationStructure/governanceModel/DCAUT-DECI-LST', DecisionAuthorityEntry$Id.new);
-  SomListMetaRef<CommitteeMemberEntry$Id> get COMMB_MEMB_LST => SomListMetaRef(tree, '$path/stakeholdersAndGovernance/projectOrganization/steeringCommittee/COMMB-MEMB-LST', CommitteeMemberEntry$Id.new);
+  SomListMetaRef<CommitteeMemberEntry$Id> get CME_MEMB_LST => SomListMetaRef(tree, '$path/stakeholdersAndGovernance/projectOrganization/steeringCommittee/CME-MEMB-LST', CommitteeMemberEntry$Id.new);
   SomListMetaRef<TeamMemberEntry$Id> get TMMBE_MEMB_LST => SomListMetaRef(tree, '$path/stakeholdersAndGovernance/projectTeamStaffing/TMMBE-MEMB-LST', TeamMemberEntry$Id.new);
   SomListMetaRef<ResourceRequirementEntry$Id> get RREQE_OPEN_LST => SomListMetaRef(tree, '$path/stakeholdersAndGovernance/projectTeamStaffing/RREQE-OPEN-LST', ResourceRequirementEntry$Id.new);
   SomMetaRef get COMA_COMM => SomMetaRef(tree, '$path/stakeholdersAndGovernance/distributionList/communicationMatrix/COMA-COMM');
@@ -69047,18 +69047,18 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomListMetaRef<InsuranceEntry$Id> get INSURE_INSU_LST => SomListMetaRef(tree, '$path/stakeholdersAndGovernance/legalAndContractual/insuranceLiability/INSURE-INSU-LST', InsuranceEntry$Id.new);
   SomListMetaRef<LiabilityLimitations$Id> get LILI_LIAB_LST => SomListMetaRef(tree, '$path/stakeholdersAndGovernance/legalAndContractual/insuranceLiability/LILI-LIAB-LST', LiabilityLimitations$Id.new);
   SomListMetaRef<OtherAgreementEntry$Id> get OTAGR_OTHE_LST => SomListMetaRef(tree, '$path/stakeholdersAndGovernance/legalAndContractual/OTAGR-OTHE-LST', OtherAgreementEntry$Id.new);
-  SomListMetaRef<StakeholderRegisterEntry$Id> get STKRG_STAK_LST => SomListMetaRef(tree, '$path/stakeholdersAndGovernance/STKRG-STAK-LST', StakeholderRegisterEntry$Id.new);
+  SomListMetaRef<StakeholderRegisterEntry$Id> get STKRE_STAK_LST => SomListMetaRef(tree, '$path/stakeholdersAndGovernance/STKRE-STAK-LST', StakeholderRegisterEntry$Id.new);
   SomListMetaRef<ExistingSystemEntry$Id> get ESENT_SYST_LST => SomListMetaRef(tree, '$path/currentLandscape/existingSystemsLandscape/systemInventory/ESENT-SYST-LST', ExistingSystemEntry$Id.new);
   SomMetaRef get CARCH_ARCH => SomMetaRef(tree, '$path/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-ARCH');
   SomMetaRef get CARCH_DEPL => SomMetaRef(tree, '$path/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-DEPL');
-  SomListMetaRef<SomMetaRef> get IPE_INTE_LST => SomListMetaRef(tree, '$path/currentLandscape/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get SHARE_SHAR_LST => SomListMetaRef(tree, '$path/currentLandscape/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get CARCH_INTE_LST => SomListMetaRef(tree, '$path/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-INTE-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get CARCH_SHAR_LST => SomListMetaRef(tree, '$path/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-SHAR-LST', SomMetaRef.new);
   SomMetaRef get DEPNT_DEPE => SomMetaRef(tree, '$path/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/DEPNT-DEPE');
   SomListMetaRef<SystemDependencyEntry$Id> get SYDE_ITEM_LST => SomListMetaRef(tree, '$path/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/internalDependencies/SYDE-ITEM-LST', SystemDependencyEntry$Id.new);
   SomListMetaRef<ExternalServiceDependencyEntry$Id> get EXSDE_ITEM_LST => SomListMetaRef(tree, '$path/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/externalServiceDependencies/EXSDE-ITEM-LST', ExternalServiceDependencyEntry$Id.new);
   SomListMetaRef<SharedInfrastructureEntry$Id> get SHIEN_ITEM_LST => SomListMetaRef(tree, '$path/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/sharedInfrastructureDependencies/SHIEN-ITEM-LST', SharedInfrastructureEntry$Id.new);
   SomListMetaRef<SystemIntegrationEntry$Id> get SYIN_ITEM_LST => SomListMetaRef(tree, '$path/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/integrations/SYIN-ITEM-LST', SystemIntegrationEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get FRAGI_FRAG_LST => SomListMetaRef(tree, '$path/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get INHESU_FRAG_LST => SomListMetaRef(tree, '$path/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/INHESU-FRAG-LST', SomMetaRef.new);
   SomMetaRef get CUBUPR_PROC => SomMetaRef(tree, '$path/currentLandscape/currentBusinessProcesses/CUBUPR-PROC');
   SomListMetaRef<ProcessScopeEntry$Id> get PRSCEN_INSC_LST => SomListMetaRef(tree, '$path/currentLandscape/currentBusinessProcesses/scopeSummary/PRSCEN-INSC-LST', ProcessScopeEntry$Id.new);
   SomListMetaRef<ProcessScopeEntry$Id> get PRSCEN_OUTO_LST => SomListMetaRef(tree, '$path/currentLandscape/currentBusinessProcesses/scopeSummary/PRSCEN-OUTO-LST', ProcessScopeEntry$Id.new);
@@ -69070,11 +69070,11 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get PPAG_PAINP => SomMetaRef(tree, '$path/currentLandscape/painPointsAndGaps/PPAG-PAINP');
   SomMetaRef get PAPOSU => SomMetaRef(tree, '$path/currentLandscape/painPointsAndGaps/PAPOSU');
   SomMetaRef get OPPS => SomMetaRef(tree, '$path/currentLandscape/painPointsAndGaps/operationalPainPoints/OPPS');
-  SomListMetaRef<PainPointEntry$Id> get OPPAPO_ITEM_LST => SomListMetaRef(tree, '$path/currentLandscape/painPointsAndGaps/operationalPainPoints/OPPAPO-ITEM-LST', PainPointEntry$Id.new);
+  SomListMetaRef<PainPointEntry$Id> get PAPE_ITEM_LST => SomListMetaRef(tree, '$path/currentLandscape/painPointsAndGaps/operationalPainPoints/PAPE-ITEM-LST', PainPointEntry$Id.new);
   SomMetaRef get BPPS => SomMetaRef(tree, '$path/currentLandscape/painPointsAndGaps/businessPainPoints/BPPS');
-  SomListMetaRef<PainPointEntry$Id> get BUPAPO_ITEM_LST => SomListMetaRef(tree, '$path/currentLandscape/painPointsAndGaps/businessPainPoints/BUPAPO-ITEM-LST', PainPointEntry$Id.new);
+  SomListMetaRef<PainPointEntry$Id> get PAPE_ITEM_LST_2 => SomListMetaRef(tree, '$path/currentLandscape/painPointsAndGaps/businessPainPoints/PAPE-ITEM-LST', PainPointEntry$Id.new);
   SomMetaRef get TPPS => SomMetaRef(tree, '$path/currentLandscape/painPointsAndGaps/technicalPainPoints/TPPS');
-  SomListMetaRef<PainPointEntry$Id> get TEPAPO_ITEM_LST => SomListMetaRef(tree, '$path/currentLandscape/painPointsAndGaps/technicalPainPoints/TEPAPO-ITEM-LST', PainPointEntry$Id.new);
+  SomListMetaRef<PainPointEntry$Id> get PAPE_ITEM_LST_3 => SomListMetaRef(tree, '$path/currentLandscape/painPointsAndGaps/technicalPainPoints/PAPE-ITEM-LST', PainPointEntry$Id.new);
   SomListMetaRef<GapEntry$Id> get GAPE_ITEM_LST => SomListMetaRef(tree, '$path/currentLandscape/painPointsAndGaps/GAPE-ITEM-LST', GapEntry$Id.new);
   SomMetaRef get PPGC_CORR => SomMetaRef(tree, '$path/currentLandscape/painPointsAndGaps/painPointGapCorrelation/PPGC-CORR');
   SomListMetaRef<PainPointGapCorrelationEntry$Id> get PPGCE_CORR_LST => SomListMetaRef(tree, '$path/currentLandscape/painPointsAndGaps/painPointGapCorrelation/PPGCE-CORR-LST', PainPointGapCorrelationEntry$Id.new);
@@ -69112,9 +69112,9 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get MDSU => SomMetaRef(tree, '$path/currentLandscape/currentDataLandscape/masterDataManagement/MDSU');
   SomListMetaRef<MasterDataDomainEntry$Id> get MSDDO_MAST_LST => SomListMetaRef(tree, '$path/currentLandscape/currentDataLandscape/masterDataManagement/MSDDO-MAST-LST', MasterDataDomainEntry$Id.new);
   SomListMetaRef<CurrentOperationalMetric$Id> get CUOPME_OPER_LST => SomListMetaRef(tree, '$path/currentLandscape/CUOPME-OPER-LST', CurrentOperationalMetric$Id.new);
-  SomListMetaRef<AssumptionRegisterEntry$Id> get ACRG_ASMP_LST => SomListMetaRef(tree, '$path/assumptionsConstraintsDependencies/register/ACRG-ASMP-LST', AssumptionRegisterEntry$Id.new);
-  SomListMetaRef<ConstraintRegisterEntry$Id> get ACRG_CONS_LST => SomListMetaRef(tree, '$path/assumptionsConstraintsDependencies/register/ACRG-CONS-LST', ConstraintRegisterEntry$Id.new);
-  SomListMetaRef<DependencyRegisterEntry$Id> get ACRG_DEPS_LST => SomListMetaRef(tree, '$path/assumptionsConstraintsDependencies/register/ACRG-DEPS-LST', DependencyRegisterEntry$Id.new);
+  SomListMetaRef<AssumptionRegisterEntry$Id> get ASMRE_ASMP_LST => SomListMetaRef(tree, '$path/assumptionsConstraintsDependencies/register/ASMRE-ASMP-LST', AssumptionRegisterEntry$Id.new);
+  SomListMetaRef<ConstraintRegisterEntry$Id> get CONRE_CONS_LST => SomListMetaRef(tree, '$path/assumptionsConstraintsDependencies/register/CONRE-CONS-LST', ConstraintRegisterEntry$Id.new);
+  SomListMetaRef<DependencyRegisterEntry$Id> get DEPRE_DEPS_LST => SomListMetaRef(tree, '$path/assumptionsConstraintsDependencies/register/DEPRE-DEPS-LST', DependencyRegisterEntry$Id.new);
   SomMetaRef get OCCHG_OVER => SomMetaRef(tree, '$path/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/changesFromCurrentStructure/OCCHG-OVER');
   SomListMetaRef<OrganizationalChangeEntry$Id> get ORGCE_ITEM_LST => SomListMetaRef(tree, '$path/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/changesFromCurrentStructure/ORGCE-ITEM-LST', OrganizationalChangeEntry$Id.new);
   SomMetaRef get TROML => SomMetaRef(tree, '$path/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/overview/TROML');
@@ -69133,7 +69133,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomListMetaRef<TransitionMetricEntry$Id> get TRME_METR_LST => SomListMetaRef(tree, '$path/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/successMetrics/TRME-METR-LST', TransitionMetricEntry$Id.new);
   SomListMetaRef<TransitionRiskEntry$Id> get TRRS_TRAN_LST => SomListMetaRef(tree, '$path/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/organizationStructure/transitionTimeline/TRRS-TRAN-LST', TransitionRiskEntry$Id.new);
   SomMetaRef get JODEOV => SomMetaRef(tree, '$path/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/JODEOV');
-  SomListMetaRef<NewRoleEntry$Id> get NWROL_NEWR_LST => SomListMetaRef(tree, '$path/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/NWROL-NEWR-LST', NewRoleEntry$Id.new);
+  SomListMetaRef<NewRoleEntry$Id> get NRE_NEWR_LST => SomListMetaRef(tree, '$path/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/NRE-NEWR-LST', NewRoleEntry$Id.new);
   SomListMetaRef<ChangedRoleEntry$Id> get CHAROL_CHAN_LST => SomListMetaRef(tree, '$path/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/CHAROL-CHAN-LST', ChangedRoleEntry$Id.new);
   SomListMetaRef<RemovedRoleEntry$Id> get REMROL_REMO_LST => SomListMetaRef(tree, '$path/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/REMROL-REMO-LST', RemovedRoleEntry$Id.new);
   SomMetaRef get STPLOV => SomMetaRef(tree, '$path/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/staffingPlan/STPLOV');
@@ -69198,12 +69198,12 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get DATD => SomMetaRef(tree, '$path/requirements/requirementsFollowUp/informationForUse/userDocumentation/DATD');
   SomMetaRef get DATL => SomMetaRef(tree, '$path/requirements/requirementsFollowUp/informationForUse/userDocumentation/DATL');
   SomMetaRef get TRMAT_TRAI => SomMetaRef(tree, '$path/requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TRMAT-TRAI');
-  SomListMetaRef<TrainingModuleEntry$Id> get TRMOEN_TRAI_LST => SomListMetaRef(tree, '$path/requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TRMOEN-TRAI-LST', TrainingModuleEntry$Id.new);
+  SomListMetaRef<TrainingModuleEntry$Id> get TME_TRAI_LST => SomListMetaRef(tree, '$path/requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TME-TRAI-LST', TrainingModuleEntry$Id.new);
   SomListMetaRef<TargetPlatformEntry$Id> get TGPLT_TARG_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/TGPLT-TARG-LST', TargetPlatformEntry$Id.new);
   SomListMetaRef<ProgrammingLanguageEntry$Id> get PLGEN_PROG_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/PLGEN-PROG-LST', ProgrammingLanguageEntry$Id.new);
-  SomListMetaRef<FrameworkRequirementEntry$Id> get FWREN_FRAM_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/FWREN-FRAM-LST', FrameworkRequirementEntry$Id.new);
+  SomListMetaRef<FrameworkRequirementEntry$Id> get FRREEN_FRAM_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/FRREEN-FRAM-LST', FrameworkRequirementEntry$Id.new);
   SomListMetaRef<BuildToolchainEntry$Id> get BTCEN_BUIL_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/BTCEN-BUIL-LST', BuildToolchainEntry$Id.new);
-  SomListMetaRef<DeploymentTargetEntry$Id> get DETAEN_DEPL_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/DETAEN-DEPL-LST', DeploymentTargetEntry$Id.new);
+  SomListMetaRef<DeploymentTargetEntry$Id> get DEPTARENT_DEPL_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/DEPTARENT-DEPL-LST', DeploymentTargetEntry$Id.new);
   SomMetaRef get DEMAVE => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMAVE');
   SomMetaRef get DEMASE => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMASE');
   SomMetaRef get DEMAIN => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMAIN');
@@ -69253,9 +69253,9 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get DTIAC => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DTIAC');
   SomListMetaRef<ArchitectureDecisionRecord$Id> get ARDE_DECI_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/architectureStyle/ARDE-DECI-LST', ArchitectureDecisionRecord$Id.new);
   SomListMetaRef<DesignPatternEntry$Id> get DSPT_DESI_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/DSPT-DESI-LST', DesignPatternEntry$Id.new);
-  SomListMetaRef<CodingStandardEntry$Id> get COSTEN_CODI_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/COSTEN-CODI-LST', CodingStandardEntry$Id.new);
-  SomListMetaRef<DevelopmentConventionEntry$Id> get DECOEN_DEVE_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/DECOEN-DEVE-LST', DevelopmentConventionEntry$Id.new);
-  SomListMetaRef<IndustryStandardEntry$Id> get INSTEN_INDU_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/INSTEN-INDU-LST', IndustryStandardEntry$Id.new);
+  SomListMetaRef<CodingStandardEntry$Id> get CSE_CODI_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/CSE-CODI-LST', CodingStandardEntry$Id.new);
+  SomListMetaRef<DevelopmentConventionEntry$Id> get DCE_DEVE_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/DCE-DEVE-LST', DevelopmentConventionEntry$Id.new);
+  SomListMetaRef<IndustryStandardEntry$Id> get ISE_INDU_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/ISE-INDU-LST', IndustryStandardEntry$Id.new);
   SomMetaRef get CQMC => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMC');
   SomMetaRef get COQUMECO => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/COQUMECO');
   SomMetaRef get CQMD => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMD');
@@ -69275,17 +69275,17 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get TESTPA => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTPA');
   SomMetaRef get TESTQU => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTQU');
   SomMetaRef get TESTTO => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTTO');
-  SomListMetaRef<SoftwareLayerEntry$Id> get SOLAEN_SOFT_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SOLAEN-SOFT-LST', SoftwareLayerEntry$Id.new);
+  SomListMetaRef<SoftwareLayerEntry$Id> get SLE_SOFT_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SLE-SOFT-LST', SoftwareLayerEntry$Id.new);
   SomMetaRef get LCRI => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRI');
   SomMetaRef get LCRF => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRF');
   SomMetaRef get LCRG => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRG');
-  SomListMetaRef<BoundedContextEntry$Id> get BOCOEN_BOUN_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/BOCOEN-BOUN-LST', BoundedContextEntry$Id.new);
+  SomListMetaRef<BoundedContextEntry$Id> get BCE_BOUN_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/BCE-BOUN-LST', BoundedContextEntry$Id.new);
   SomMetaRef get PAORST => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORST');
   SomMetaRef get PAORTY => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORTY');
   SomMetaRef get PAORDE => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDE');
   SomMetaRef get PAORDO => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDO');
-  SomListMetaRef<ModuleEntry$Id> get MOEN1_MODU_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/MOEN1-MODU-LST', ModuleEntry$Id.new);
-  SomListMetaRef<SharedLibraryEntry$Id> get SHLIB_SHAR_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIB-SHAR-LST', SharedLibraryEntry$Id.new);
+  SomListMetaRef<ModuleEntry$Id> get MODENT_MODU_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/MODENT-MODU-LST', ModuleEntry$Id.new);
+  SomListMetaRef<SharedLibraryEntry$Id> get SHLIEN_SHAR_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIEN-SHAR-LST', SharedLibraryEntry$Id.new);
   SomMetaRef get DISR => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DISR');
   SomMetaRef get DISB => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DISB');
   SomMetaRef get DISC => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DISC');
@@ -69300,7 +69300,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get MVSRM => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MVSRM');
   SomMetaRef get MVSD => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MVSD');
   SomMetaRef get MOVESTCO => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO');
-  SomListMetaRef<IdeRequirementEntry$Id> get IDREEN_IDER_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/IDREEN-IDER-LST', IdeRequirementEntry$Id.new);
+  SomListMetaRef<IdeRequirementEntry$Id> get IRE_IDER_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/IRE-IDER-LST', IdeRequirementEntry$Id.new);
   SomMetaRef get BTCBS => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCBS');
   SomMetaRef get BTCC => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCC');
   SomMetaRef get BTCS => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCS');
@@ -69309,9 +69309,9 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get VCCB => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCB');
   SomMetaRef get VCCC => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCC');
   SomMetaRef get VCCM => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCM');
-  SomListMetaRef<PipelineStageEntry$Id> get PISTEN_STAG_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST', PipelineStageEntry$Id.new);
-  SomListMetaRef<PipelineJobEntry$Id> get PIJOEN_JOBS_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST', PipelineJobEntry$Id.new);
-  SomListMetaRef<DeploymentEnvironmentEntry$Id> get DEENEN_ENVI_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST', DeploymentEnvironmentEntry$Id.new);
+  SomListMetaRef<PipelineStageEntry$Id> get PSE_STAG_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PSE-STAG-LST', PipelineStageEntry$Id.new);
+  SomListMetaRef<PipelineJobEntry$Id> get PJE_JOBS_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PJE-JOBS-LST', PipelineJobEntry$Id.new);
+  SomListMetaRef<DeploymentEnvironmentEntry$Id> get DEE_ENVI_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEE-ENVI-LST', DeploymentEnvironmentEntry$Id.new);
   SomMetaRef get CRPR => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPR');
   SomMetaRef get CRPW => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPW');
   SomMetaRef get CRPA => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPA');
@@ -69345,9 +69345,9 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get REPRVE => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/principles/REPRVE');
   SomMetaRef get REPROW => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/principles/REPROW');
   SomListMetaRef<SharedLibraryComponentEntry$Id> get SHLCP_SHAR_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/SHLCP-SHAR-LST', SharedLibraryComponentEntry$Id.new);
-  SomListMetaRef<ReusableUiComponentEntry$Id> get RUICMP_UICO_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/RUICMP-UICO-LST', ReusableUiComponentEntry$Id.new);
-  SomListMetaRef<BusinessComponentEntry$Id> get BUCOEN_BUSI_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/BUCOEN-BUSI-LST', BusinessComponentEntry$Id.new);
-  SomListMetaRef<InfrastructureComponentEntry$Id> get INCOEN_INFR_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/INCOEN-INFR-LST', InfrastructureComponentEntry$Id.new);
+  SomListMetaRef<ReusableUiComponentEntry$Id> get RUCE_UICO_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/RUCE-UICO-LST', ReusableUiComponentEntry$Id.new);
+  SomListMetaRef<BusinessComponentEntry$Id> get BUSCOMENT_BUSI_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/BUSCOMENT-BUSI-LST', BusinessComponentEntry$Id.new);
+  SomListMetaRef<InfrastructureComponentEntry$Id> get INFCOMENT_INFR_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/INFCOMENT-INFR-LST', InfrastructureComponentEntry$Id.new);
   SomListMetaRef<ThirdPartyLibraryEntry$Id> get THPALI_THIR_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/THPALI-THIR-LST', ThirdPartyLibraryEntry$Id.new);
   SomMetaRef get COGOCO => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/governance/COGOCO');
   SomMetaRef get COGOQU => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/governance/COGOQU');
@@ -69357,14 +69357,14 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get COREDI => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/registry/COREDI');
   SomMetaRef get COREDO => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/registry/COREDO');
   SomMetaRef get COREUP => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/registry/COREUP');
-  SomListMetaRef<OsCompatibilityEntry$Id> get OSCOEN_OSCO_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/OSCOEN-OSCO-LST', OsCompatibilityEntry$Id.new);
-  SomListMetaRef<BrowserCompatibilityEntry$Id> get BRCOEN_BROW_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/BRCOEN-BROW-LST', BrowserCompatibilityEntry$Id.new);
-  SomListMetaRef<DatabaseCompatibilityEntry$Id> get DACOEN_DATA_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/DACOEN-DATA-LST', DatabaseCompatibilityEntry$Id.new);
-  SomListMetaRef<EnterpriseSystemCompatibilityEntry$Id> get ESCE_ENTE_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/ESCE-ENTE-LST', EnterpriseSystemCompatibilityEntry$Id.new);
+  SomListMetaRef<OsCompatibilityEntry$Id> get OCE_OSCO_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST', OsCompatibilityEntry$Id.new);
+  SomListMetaRef<BrowserCompatibilityEntry$Id> get BROCOMENT_BROW_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/BROCOMENT-BROW-LST', BrowserCompatibilityEntry$Id.new);
+  SomListMetaRef<DatabaseCompatibilityEntry$Id> get DATCOMENT_DATA_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/DATCOMENT-DATA-LST', DatabaseCompatibilityEntry$Id.new);
+  SomListMetaRef<EnterpriseSystemCompatibilityEntry$Id> get ENSYCOEN_ENTE_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/ENSYCOEN-ENTE-LST', EnterpriseSystemCompatibilityEntry$Id.new);
   SomListMetaRef<ApiCompatibilityEntry$Id> get APCP_APIC_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/APCP-APIC-LST', ApiCompatibilityEntry$Id.new);
-  SomListMetaRef<LegacyCompatibilityEntry$Id> get LECOEN_LEGA_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/LECOEN-LEGA-LST', LegacyCompatibilityEntry$Id.new);
-  SomListMetaRef<MobileCompatibilityEntry$Id> get MOCOEN_MOBI_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/MOCOEN-MOBI-LST', MobileCompatibilityEntry$Id.new);
-  SomListMetaRef<ThirdPartyCompatibilityEntry$Id> get TPCE_THIR_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/TPCE-THIR-LST', ThirdPartyCompatibilityEntry$Id.new);
+  SomListMetaRef<LegacyCompatibilityEntry$Id> get LCE_LEGA_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/LCE-LEGA-LST', LegacyCompatibilityEntry$Id.new);
+  SomListMetaRef<MobileCompatibilityEntry$Id> get MOBCOMENT_MOBI_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/MOBCOMENT-MOBI-LST', MobileCompatibilityEntry$Id.new);
+  SomListMetaRef<ThirdPartyCompatibilityEntry$Id> get THPACOEN_THIR_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/THPACOEN-THIR-LST', ThirdPartyCompatibilityEntry$Id.new);
   SomMetaRef get DFCF => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCF');
   SomMetaRef get DFCDT => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCDT');
   SomMetaRef get DFCN => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCN');
@@ -69377,11 +69377,11 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get INREST => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREST');
   SomMetaRef get INRETE => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INRETE');
   SomMetaRef get INREGO => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREGO');
-  SomListMetaRef<ItStandardComplianceEntry$Id> get ISCE_ITST_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/ISCE-ITST-LST', ItStandardComplianceEntry$Id.new);
-  SomListMetaRef<IndustryProtocolComplianceEntry$Id> get IPCE_INDU_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/IPCE-INDU-LST', IndustryProtocolComplianceEntry$Id.new);
-  SomListMetaRef<InterfaceSpecificationEntry$Id> get INSPEN_INTE_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INSPEN-INTE-LST', InterfaceSpecificationEntry$Id.new);
-  SomListMetaRef<RegulatoryComplianceEntry$Id> get RECOEN_REGU_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/RECOEN-REGU-LST', RegulatoryComplianceEntry$Id.new);
-  SomListMetaRef<SecurityStandardComplianceEntry$Id> get SSCE_SECU_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/SSCE-SECU-LST', SecurityStandardComplianceEntry$Id.new);
+  SomListMetaRef<ItStandardComplianceEntry$Id> get ITSTCOEN_ITST_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/ITSTCOEN-ITST-LST', ItStandardComplianceEntry$Id.new);
+  SomListMetaRef<IndustryProtocolComplianceEntry$Id> get INPRCOEN_INDU_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INPRCOEN-INDU-LST', IndustryProtocolComplianceEntry$Id.new);
+  SomListMetaRef<InterfaceSpecificationEntry$Id> get INTSPEENT_INTE_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INTSPEENT-INTE-LST', InterfaceSpecificationEntry$Id.new);
+  SomListMetaRef<RegulatoryComplianceEntry$Id> get RCE_REGU_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/RCE-REGU-LST', RegulatoryComplianceEntry$Id.new);
+  SomListMetaRef<SecurityStandardComplianceEntry$Id> get SESTCOEN_SECU_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/SESTCOEN-SECU-LST', SecurityStandardComplianceEntry$Id.new);
   SomListMetaRef<AccessibilityStandardEntry$Id> get ACCSTD_ACCE_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/ACCSTD-ACCE-LST', AccessibilityStandardEntry$Id.new);
   SomListMetaRef<QualityStandardEntry$Id> get QLSTD_QUAL_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/QLSTD-QUAL-LST', QualityStandardEntry$Id.new);
   SomMetaRef get DSST => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/documentationStandards/DSST');
@@ -69402,8 +69402,8 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get CVSA => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSA');
   SomMetaRef get COVESERE => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/COVESERE');
   SomMetaRef get CVSC => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSC');
-  SomListMetaRef<ServerEnvironmentEntry$Id> get SEENEN_ENVI_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SEENEN-ENVI-LST', ServerEnvironmentEntry$Id.new);
-  SomListMetaRef<ServerRoleEntry$Id> get SEROEN_SERV_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SEROEN-SERV-LST', ServerRoleEntry$Id.new);
+  SomListMetaRef<ServerEnvironmentEntry$Id> get SEE_ENVI_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SEE-ENVI-LST', ServerEnvironmentEntry$Id.new);
+  SomListMetaRef<ServerRoleEntry$Id> get SRE_SERV_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SRE-SERV-LST', ServerRoleEntry$Id.new);
   SomMetaRef get CRRM => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/computeResources/CRRM');
   SomMetaRef get CRRG => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/computeResources/CRRG');
   SomMetaRef get CRRS => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/computeResources/CRRS');
@@ -69435,9 +69435,9 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get SORM => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/osRequirements/SORM');
   SomMetaRef get SORL => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/osRequirements/SORL');
   SomListMetaRef<ClientApplicationEntry$Id> get CLIAPP_CLIE_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST', ClientApplicationEntry$Id.new);
-  SomListMetaRef<BrowserRequirementEntry$Id> get BRREEN_BROW_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST', BrowserRequirementEntry$Id.new);
-  SomListMetaRef<DesktopOsRequirementEntry$Id> get DORE1_DESK_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/DORE1-DESK-LST', DesktopOsRequirementEntry$Id.new);
-  SomListMetaRef<MobileDeviceRequirementEntry$Id> get MDRE_MOBI_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/MDRE-MOBI-LST', MobileDeviceRequirementEntry$Id.new);
+  SomListMetaRef<BrowserRequirementEntry$Id> get BROREQENT_BROW_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BROREQENT-BROW-LST', BrowserRequirementEntry$Id.new);
+  SomListMetaRef<DesktopOsRequirementEntry$Id> get DEOSREEN_DESK_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/DEOSREEN-DESK-LST', DesktopOsRequirementEntry$Id.new);
+  SomListMetaRef<MobileDeviceRequirementEntry$Id> get MODEREEN_MOBI_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/MODEREEN-MOBI-LST', MobileDeviceRequirementEntry$Id.new);
   SomMetaRef get DIRELA => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/displayRequirements/DIRELA');
   SomMetaRef get DIRESC => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/displayRequirements/DIRESC');
   SomMetaRef get DIREC1 => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/displayRequirements/DIREC1');
@@ -69489,7 +69489,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get NARF => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/availabilityRequirements/NARF');
   SomMetaRef get NEAVRERE => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/availabilityRequirements/NEAVRERE');
   SomMetaRef get NART => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/availabilityRequirements/NART');
-  SomListMetaRef<VpnRequirementEntry$Id> get VPREEN_VPNR_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/VPREEN-VPNR-LST', VpnRequirementEntry$Id.new);
+  SomListMetaRef<VpnRequirementEntry$Id> get VRE_VPNR_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/VRE-VPNR-LST', VpnRequirementEntry$Id.new);
   SomMetaRef get FIRERU => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/firewallRequirements/FIRERU');
   SomMetaRef get FIREPO => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/firewallRequirements/FIREPO');
   SomMetaRef get FIREAD => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/firewallRequirements/FIREAD');
@@ -69512,7 +69512,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get NSRC => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/networkSecurity/NSRC');
   SomMetaRef get BDCC => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/dataClassification/BDCC');
   SomMetaRef get BDCE => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/dataClassification/BDCE');
-  SomListMetaRef<BackupPolicyEntry$Id> get BAPOEN_BACK_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/BAPOEN-BACK-LST', BackupPolicyEntry$Id.new);
+  SomListMetaRef<BackupPolicyEntry$Id> get BPE_BACK_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/BPE-BACK-LST', BackupPolicyEntry$Id.new);
   SomMetaRef get RRRBT => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/rpoRtoRequirements/RRRBT');
   SomMetaRef get RRRS => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/rpoRtoRequirements/RRRS');
   SomMetaRef get RRRD => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/rpoRtoRequirements/RRRD');
@@ -69586,7 +69586,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get ALREDE => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/alerting/ALREDE');
   SomMetaRef get ALRESU => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/alerting/ALRESU');
   SomMetaRef get ALRERE => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/alerting/ALRERE');
-  SomListMetaRef<AlertDefinitionEntry$Id> get ALDEEN_ALER_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/ALDEEN-ALER-LST', AlertDefinitionEntry$Id.new);
+  SomListMetaRef<AlertDefinitionEntry$Id> get ALEDEFENT_ALER_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/ALEDEFENT-ALER-LST', AlertDefinitionEntry$Id.new);
   SomMetaRef get DAREST => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREST');
   SomMetaRef get DAREAC => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREAC');
   SomMetaRef get DAREFE => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREFE');
@@ -69607,7 +69607,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get SMPD => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPD');
   SomMetaRef get SMPN => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPN');
   SomMetaRef get SMPA => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPA');
-  SomListMetaRef<MaintenanceWindowEntry$Id> get MAWIEN_MAIN_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/MAWIEN-MAIN-LST', MaintenanceWindowEntry$Id.new);
+  SomListMetaRef<MaintenanceWindowEntry$Id> get MWE_MAIN_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/MWE-MAIN-LST', MaintenanceWindowEntry$Id.new);
   SomMetaRef get EMPG => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/emergencyMaintenance/EMPG');
   SomMetaRef get EMPC => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/emergencyMaintenance/EMPC');
   SomMetaRef get EMPE => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/emergencyMaintenance/EMPE');
@@ -69620,7 +69620,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get MUIP => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/userImpact/MUIP');
   SomMetaRef get PMVM => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/postMaintenance/PMVM');
   SomMetaRef get PMVC => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/postMaintenance/PMVC');
-  SomListMetaRef<ProtocolEntry$Id> get PREN_PROT_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/PREN-PROT-LST', ProtocolEntry$Id.new);
+  SomListMetaRef<ProtocolEntry$Id> get PE_PROT_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/PE-PROT-LST', ProtocolEntry$Id.new);
   SomMetaRef get TRCS => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/tlsRequirements/TRCS');
   SomMetaRef get TRCV => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/tlsRequirements/TRCV');
   SomMetaRef get TLRETE => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/tlsRequirements/TLRETE');
@@ -69642,7 +69642,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get PCRC => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/compliance/PCRC');
   SomMetaRef get PCRO => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/compliance/PCRO');
   SomMetaRef get PCRE => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/compliance/PCRE');
-  SomListMetaRef<ExternalPartnerConnectionEntry$Id> get EPCE_PART_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/EPCE-PART-LST', ExternalPartnerConnectionEntry$Id.new);
+  SomListMetaRef<ExternalPartnerConnectionEntry$Id> get EXPACOEN_PART_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/EXPACOEN-PART-LST', ExternalPartnerConnectionEntry$Id.new);
   SomMetaRef get CSIS => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/cloudServices/CSIS');
   SomMetaRef get CSIN => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/cloudServices/CSIN');
   SomMetaRef get CSIC => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/cloudServices/CSIC');
@@ -69680,7 +69680,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get SDTT => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTT');
   SomMetaRef get SDTL => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTL');
   SomMetaRef get SDTSS => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS');
-  SomListMetaRef<SomMetaRef> get MAINT_MAIN_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get SO_MAIN_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/SO-MAIN-LST', SomMetaRef.new);
   SomMetaRef get MONITO_MONI => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/MONITO-MONI');
   SomMetaRef get HCEC => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/healthEndpoints/HCEC');
   SomMetaRef get HCET => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/healthEndpoints/HCET');
@@ -69702,7 +69702,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get ANCD => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCD');
   SomMetaRef get ANCR => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCR');
   SomMetaRef get ANCF => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCF');
-  SomListMetaRef<AlertRuleEntry$Id> get ALRUEN_ALER_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALRUEN-ALER-LST', AlertRuleEntry$Id.new);
+  SomListMetaRef<AlertRuleEntry$Id> get ALERULENT_ALER_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERULENT-ALER-LST', AlertRuleEntry$Id.new);
   SomMetaRef get AEPT => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPT');
   SomMetaRef get AEPB => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPB');
   SomMetaRef get AEPS => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPS');
@@ -69723,15 +69723,15 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get DTSS => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSS');
   SomMetaRef get DITRSPSP => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DITRSPSP');
   SomMetaRef get DTSO => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSO');
-  SomListMetaRef<CustomMetricEntry$Id> get CUMEEN_CUST_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUMEEN-CUST-LST', CustomMetricEntry$Id.new);
+  SomListMetaRef<CustomMetricEntry$Id> get CUSMETENT_CUST_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMETENT-CUST-LST', CustomMetricEntry$Id.new);
   SomMetaRef get MODA_DASH => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH');
-  SomListMetaRef<DashboardEntry$Id> get DAEN_DASH_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/DAEN-DASH-LST', DashboardEntry$Id.new);
+  SomListMetaRef<DashboardEntry$Id> get DASENT_DASH_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/DASENT-DASH-LST', DashboardEntry$Id.new);
   SomListMetaRef<DashboardTemplates$Id> get DATE_DASH_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/DATE-DASH-LST', DashboardTemplates$Id.new);
   SomMetaRef get SASM_SLAO => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SASM-SLAO');
   SomMetaRef get SLIP => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIP');
   SomMetaRef get SLIQ => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIQ');
   SomMetaRef get SLIM => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIM');
-  SomListMetaRef<SloEntry$Id> get SLEN_SLOS_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST', SloEntry$Id.new);
+  SomListMetaRef<SloEntry$Id> get SE_SLOS_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SE-SLOS-LST', SloEntry$Id.new);
   SomMetaRef get EBTM => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/errorBudget/EBTM');
   SomMetaRef get EBTG => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/errorBudget/EBTG');
   SomMetaRef get UGPF => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/capacityPlanning/userGrowth/UGPF');
@@ -69755,7 +69755,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get CAREPRMO => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/capacityPlanning/capacityReview/CAREPRMO');
   SomMetaRef get CRPE => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPE');
   SomMetaRef get CRPP => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPP');
-  SomListMetaRef<SecurityStandardEntry$Id> get SESTEN_STAN_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/security/itSecurityStandards/SESTEN-STAN-LST', SecurityStandardEntry$Id.new);
+  SomListMetaRef<SecurityStandardEntry$Id> get SSE_STAN_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/security/itSecurityStandards/SSE-STAN-LST', SecurityStandardEntry$Id.new);
   SomMetaRef get ASRC => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/security/itSecurityStandards/applicationSecurity/ASRC');
   SomMetaRef get ASRV => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/security/itSecurityStandards/applicationSecurity/ASRV');
   SomMetaRef get ASRA => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/security/itSecurityStandards/applicationSecurity/ASRA');
@@ -69822,7 +69822,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get STAF => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAF');
   SomMetaRef get STAS => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAS');
   SomMetaRef get STAG => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAG');
-  SomListMetaRef<SecurityAuditEntry$Id> get SEAUEN_AUDI_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/SEAUEN-AUDI-LST', SecurityAuditEntry$Id.new);
+  SomListMetaRef<SecurityAuditEntry$Id> get SAE_AUDI_LST => SomListMetaRef(tree, '$path/solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/SAE-AUDI-LST', SecurityAuditEntry$Id.new);
   SomMetaRef get CSVND => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSVND');
   SomMetaRef get CSGOV => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSGOV');
   SomMetaRef get CSPRT => SomMetaRef(tree, '$path/solutionArchitectureAndTechnology/architectureFollowUp/componentsToUse/strategy/CSPRT');
@@ -69856,9 +69856,9 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get SRPA => SomMetaRef(tree, '$path/securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPA');
   SomMetaRef get SRPS => SomMetaRef(tree, '$path/securityAndAccessModel/accessControl/authentication/identification/selfRegistration/SRPS');
   SomListMetaRef<IdentityAttributeMappingEntry$Id> get IDTAM_ATTR_LST => SomListMetaRef(tree, '$path/securityAndAccessModel/accessControl/authentication/identification/IDTAM-ATTR-LST', IdentityAttributeMappingEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get MFADE_MFAD_LST => SomListMetaRef(tree, '$path/securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get MC_MFAD_LST => SomListMetaRef(tree, '$path/securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MC-MFAD-LST', SomMetaRef.new);
   SomListMetaRef<AuthenticationMethodEntry$Id> get ATME_ITEM_LST => SomListMetaRef(tree, '$path/securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/ATME-ITEM-LST', AuthenticationMethodEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get STEPU_STEP_LST => SomListMetaRef(tree, '$path/securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get SUAP_STEP_LST => SomListMetaRef(tree, '$path/securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/SUAP-STEP-LST', SomMetaRef.new);
   SomListMetaRef<LoginFlowStepEntry$Id> get LGFLS_LOGI_LST => SomListMetaRef(tree, '$path/securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/LGFLS-LOGI-LST', LoginFlowStepEntry$Id.new);
   SomListMetaRef<MfaCategoryRequirementEntry$Id> get MFACRQ_MFAC_LST => SomListMetaRef(tree, '$path/securityAndAccessModel/accessControl/authentication/authentication/passwordAndCredentialPolicy/MFACRQ-MFAC-LST', MfaCategoryRequirementEntry$Id.new);
   SomListMetaRef<AuthorizationGroupEntry$Id> get AZGR_GROU_LST => SomListMetaRef(tree, '$path/securityAndAccessModel/accessControl/authorization/AZGR-GROU-LST', AuthorizationGroupEntry$Id.new);
@@ -69873,13 +69873,13 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomListMetaRef<EncryptedDataCategoryEntry$Id> get ENDACA_ENCR_LST => SomListMetaRef(tree, '$path/securityAndAccessModel/securityOperations/encryption/encryptionAtRest/ENDACA-ENCR-LST', EncryptedDataCategoryEntry$Id.new);
   SomListMetaRef<CommunicationChannelEncryptionEntry$Id> get COCHEN_COMM_LST => SomListMetaRef(tree, '$path/securityAndAccessModel/securityOperations/encryption/encryptionInTransit/COCHEN-COMM-LST', CommunicationChannelEncryptionEntry$Id.new);
   SomListMetaRef<ScreenEntry$Id> get SCREN_ITEM_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST', ScreenEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get GLOBA_GLOB_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/GLOBA-GLOB-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get IA_GLOB_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST', SomMetaRef.new);
   SomListMetaRef<NavigationGroupEntry$Id> get NAVGRP_GROU_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/hierarchy/NAVGRP-GROU-LST', NavigationGroupEntry$Id.new);
   SomMetaRef get PRNADR => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNADR');
   SomMetaRef get PNBN => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PNBN');
   SomMetaRef get PRNASI => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI');
-  SomListMetaRef<TabBarDefinitionEntry$Id> get TBDE_TABB_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST', TabBarDefinitionEntry$Id.new);
-  SomListMetaRef<UtilityNavigationItemEntry$Id> get UNIE_ITEM_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST', UtilityNavigationItemEntry$Id.new);
+  SomListMetaRef<TabBarDefinitionEntry$Id> get TABADEEN_TABB_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST', TabBarDefinitionEntry$Id.new);
+  SomListMetaRef<UtilityNavigationItemEntry$Id> get UTNAITEN_ITEM_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST', UtilityNavigationItemEntry$Id.new);
   SomMetaRef get BRCO => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/contextualNavigation/BRCO');
   SomListMetaRef<DeepLinkPatternEntry$Id> get DELNPT_PATT_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/deepLinking/DELNPT-PATT-LST', DeepLinkPatternEntry$Id.new);
   SomListMetaRef<NavigationGuardEntry$Id> get NAVGRD_GUAR_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST', NavigationGuardEntry$Id.new);
@@ -69895,26 +69895,26 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get VAFEME => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEME');
   SomMetaRef get VAFEGU => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEGU');
   SomMetaRef get VAFEBE => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEBE');
-  SomListMetaRef<ValidationMessageTemplate$Id> get VAMETE_MESS_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAMETE-MESS-LST', ValidationMessageTemplate$Id.new);
-  SomListMetaRef<SomMetaRef> get FIELD_FIEL_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/FIELD-FIEL-LST', SomMetaRef.new);
+  SomListMetaRef<ValidationMessageTemplate$Id> get VMT_MESS_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VMT-MESS-LST', ValidationMessageTemplate$Id.new);
+  SomListMetaRef<SomMetaRef> get VAFE_FIEL_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFE-FIEL-LST', SomMetaRef.new);
   SomMetaRef get SYERDI_SYST => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-SYST');
   SomMetaRef get SEDET => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDET');
   SomMetaRef get SEDM => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDM');
   SomMetaRef get SEDC => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDC');
   SomMetaRef get SEDF => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF');
-  SomListMetaRef<SomMetaRef> get EPDE_ERRO_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/EPDE-ERRO-LST', SomMetaRef.new);
-  SomListMetaRef<SystemErrorCodeEntry$Id> get SECE_ERRO_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SECE-ERRO-LST', SystemErrorCodeEntry$Id.new);
+  SomListMetaRef<SomMetaRef> get SYERDI_ERRO_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST', SomMetaRef.new);
+  SomListMetaRef<SystemErrorCodeEntry$Id> get SYERCOEN_ERRO_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST', SystemErrorCodeEntry$Id.new);
   SomMetaRef get ERRE_RECO => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO');
   SomMetaRef get ERDP => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERDP');
   SomMetaRef get ERRM => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRM');
   SomMetaRef get ERGR => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERGR');
   SomMetaRef get ERSC => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERSC');
   SomMetaRef get ERSH => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERSH');
-  SomListMetaRef<SomMetaRef> get RECOV_RECO_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/RECOV-RECO-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get ERRE_RECO_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO-LST', SomMetaRef.new);
   SomListMetaRef<RecoveryScenarioEntry$Id> get RCVSCN_RECO_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/RCVSCN-RECO-LST', RecoveryScenarioEntry$Id.new);
   SomMetaRef get REDE_RESP => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/REDE-RESP');
   SomMetaRef get BC_BREA => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BC-BREA');
-  SomListMetaRef<BreakpointEntry$Id> get BRE_BREA_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BRE-BREA-LST', BreakpointEntry$Id.new);
+  SomListMetaRef<BreakpointEntry$Id> get BE_BREA_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BE-BREA-LST', BreakpointEntry$Id.new);
   SomMetaRef get REBE_LAYO => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBE-LAYO');
   SomMetaRef get REBENA => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBENA');
   SomMetaRef get REBEVI => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBEVI');
@@ -69933,9 +69933,9 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get COLIVI => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COLIVI');
   SomListMetaRef<ColorPaletteEntry$Id> get COPA_COLO_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/COPA-COLO-LST', ColorPaletteEntry$Id.new);
   SomListMetaRef<TypographyStyleEntry$Id> get TYST_TYPO_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST', TypographyStyleEntry$Id.new);
-  SomListMetaRef<UiComponentEntry$Id> get UICOEN_COMP_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOEN-COMP-LST', UiComponentEntry$Id.new);
+  SomListMetaRef<UiComponentEntry$Id> get UICOMENT_COMP_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOMENT-COMP-LST', UiComponentEntry$Id.new);
   SomListMetaRef<ComponentFamilyEntry$Id> get CMFA_COMP_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/CMFA-COMP-LST', ComponentFamilyEntry$Id.new);
-  SomListMetaRef<ReportEntry$Id> get REEN_REPO_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/reportDefinitions/REEN-REPO-LST', ReportEntry$Id.new);
+  SomListMetaRef<ReportEntry$Id> get REPENT_REPO_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/reportDefinitions/REPENT-REPO-LST', ReportEntry$Id.new);
   SomListMetaRef<DesignGoalEntry$Id> get DGOEN_ITEM_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/designVision/designGoals/DGOEN-ITEM-LST', DesignGoalEntry$Id.new);
   SomListMetaRef<DesignPrincipleEntry$Id> get DPEN_ITEM_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/designVision/designPrinciples/DPEN-ITEM-LST', DesignPrincipleEntry$Id.new);
   SomListMetaRef<PersonaEntry$Id> get PEREN_ITEM_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/designVision/personas/PEREN-ITEM-LST', PersonaEntry$Id.new);
@@ -69944,8 +69944,8 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get PRLAWA => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAWA');
   SomMetaRef get PLHF => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/printLayout/PLHF');
   SomMetaRef get PRLAAR => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAAR');
-  SomListMetaRef<ExportFormatEntry$Id> get EXFOEN_EXPO_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/printLayout/EXFOEN-EXPO-LST', ExportFormatEntry$Id.new);
-  SomListMetaRef<ExportTemplateEntry$Id> get EXTEEN_EXPO_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/printLayout/EXTEEN-EXPO-LST', ExportTemplateEntry$Id.new);
+  SomListMetaRef<ExportFormatEntry$Id> get EFE_EXPO_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/printLayout/EFE-EXPO-LST', ExportFormatEntry$Id.new);
+  SomListMetaRef<ExportTemplateEntry$Id> get ETE_EXPO_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/printLayout/ETE-EXPO-LST', ExportTemplateEntry$Id.new);
   SomMetaRef get USAS_HELP => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/userAssistance/USAS-HELP');
   SomMetaRef get USASDE => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/userAssistance/USASDE');
   SomMetaRef get USASIN => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/userAssistance/USASIN');
@@ -69976,7 +69976,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get WCCOOP => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCOOP');
   SomMetaRef get WCCOUN => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCOUN');
   SomMetaRef get WCCORO => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCORO');
-  SomListMetaRef<WcagSuccessCriterionEntry$Id> get WSCE_SUCC_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WSCE-SUCC-LST', WcagSuccessCriterionEntry$Id.new);
+  SomListMetaRef<WcagSuccessCriterionEntry$Id> get WCSUCREN_SUCC_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCSUCREN-SUCC-LST', WcagSuccessCriterionEntry$Id.new);
   SomMetaRef get ACCHLS_CHEC => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/accessibility/accessibilityChecklist/ACCHLS-CHEC');
   SomListMetaRef<AccessibilityCheckEntry$Id> get ACCH_ITEM_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/accessibility/accessibilityChecklist/ACCH-ITEM-LST', AccessibilityCheckEntry$Id.new);
   SomMetaRef get PROTOT_PROT => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/prototype/PROTOT-PROT');
@@ -69986,11 +69986,11 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get PG_GOAL => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PG-GOAL');
   SomMetaRef get PRGORI => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGORI');
   SomMetaRef get PRGOFE => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGOFE');
-  SomListMetaRef<PrototypeGoalEntry$Id> get PRGOEN_GOAL_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGOEN-GOAL-LST', PrototypeGoalEntry$Id.new);
+  SomListMetaRef<PrototypeGoalEntry$Id> get PGE_GOAL_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PGE-GOAL-LST', PrototypeGoalEntry$Id.new);
   SomMetaRef get PRFESU_FEAT => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PRFESU-FEAT');
   SomMetaRef get PFSS => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFSS');
   SomMetaRef get PFSF => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFSF');
-  SomListMetaRef<PrototypeFeatureEntry$Id> get PRFEEN_FEAT_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PRFEEN-FEAT-LST', PrototypeFeatureEntry$Id.new);
+  SomListMetaRef<PrototypeFeatureEntry$Id> get PFE_FEAT_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFE-FEAT-LST', PrototypeFeatureEntry$Id.new);
   SomMetaRef get PRTYSE_PROT => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/PRTYSE-PROT');
   SomMetaRef get REUPRO_REUS => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/reusablePrototype/REUPRO-REUS');
   SomMetaRef get REPRAR => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeType/reusablePrototype/REPRAR');
@@ -70009,19 +70009,19 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get LCSP => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSP');
   SomMetaRef get LCSF => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSF');
   SomMetaRef get LCSU => SomMetaRef(tree, '$path/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSU');
-  SomListMetaRef<SupportedLocaleEntry$Id> get SULOEN_SUPP_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SULOEN-SUPP-LST', SupportedLocaleEntry$Id.new);
+  SomListMetaRef<SupportedLocaleEntry$Id> get SUPLOCENT_SUPP_LST => SomListMetaRef(tree, '$path/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SUPLOCENT-SUPP-LST', SupportedLocaleEntry$Id.new);
   SomMetaRef get SYQG_GOVE => SomMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/SYQG-GOVE');
   SomMetaRef get SQGGV => SomMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/SQGGV');
   SomMetaRef get SQGBS => SomMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/SQGBS');
   SomMetaRef get SQGMS => SomMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/SQGMS');
   SomMetaRef get SQGRS => SomMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/SQGRS');
-  SomListMetaRef<SomMetaRef> get ATTRI_ATTR_LST => SomListMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/ATTRI-ATTR-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get SYQG_ATTR_LST => SomListMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/SYQG-ATTR-LST', SomMetaRef.new);
   SomMetaRef get QLFWK_FRAM => SomMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/framework/QLFWK-FRAM');
   SomMetaRef get QFOBJ => SomMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/framework/QFOBJ');
   SomMetaRef get QFTRD => SomMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/framework/QFTRD');
   SomMetaRef get QFVER => SomMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/framework/QFVER');
   SomListMetaRef<QualityCategoryEntry$Id> get QCATE_QUAL_LST => SomListMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/framework/QCATE-QUAL-LST', QualityCategoryEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get CATEG_CATE_LST => SomListMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/framework/CATEG-CATE-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get QLFWK_CATE_LST => SomListMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/framework/QLFWK-CATE-LST', SomMetaRef.new);
   SomMetaRef get FNSU_FUNC => SomMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/functionalSuitability/FNSU-FUNC');
   SomMetaRef get COQUIN => SomMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/functionalSuitability/correctness/COQUIN');
   SomMetaRef get COQUAC => SomMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/functionalSuitability/correctness/COQUAC');
@@ -70095,10 +70095,10 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get QUGACH_CHEC => SomMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/qualityGateChecklist/QUGACH-CHEC');
   SomListMetaRef<QualityGateCheckEntry$Id> get QGCHK_ITEM_LST => SomListMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/qualityGateChecklist/QGCHK-ITEM-LST', QualityGateCheckEntry$Id.new);
   SomListMetaRef<DeliveryAcceptanceCriterionEntry$Id> get DACEN_ITEM_LST => SomListMetaRef(tree, '$path/qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/detailedCriteria/DACEN-ITEM-LST', DeliveryAcceptanceCriterionEntry$Id.new);
-  SomListMetaRef<DeliverableEntry$Id> get SWDLV_ITEM_LST => SomListMetaRef(tree, '$path/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/softwareDeliverables/SWDLV-ITEM-LST', DeliverableEntry$Id.new);
-  SomListMetaRef<DeliverableEntry$Id> get DCDLV_ITEM_LST => SomListMetaRef(tree, '$path/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/documentationDeliverables/DCDLV-ITEM-LST', DeliverableEntry$Id.new);
-  SomListMetaRef<DeliverableEntry$Id> get TRDLV_ITEM_LST => SomListMetaRef(tree, '$path/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/trainingDeliverables/TRDLV-ITEM-LST', DeliverableEntry$Id.new);
-  SomListMetaRef<DeliverableEntry$Id> get SPDLV_ITEM_LST => SomListMetaRef(tree, '$path/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/supportDeliverables/SPDLV-ITEM-LST', DeliverableEntry$Id.new);
+  SomListMetaRef<DeliverableEntry$Id> get DLVEN_ITEM_LST => SomListMetaRef(tree, '$path/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/softwareDeliverables/DLVEN-ITEM-LST', DeliverableEntry$Id.new);
+  SomListMetaRef<DeliverableEntry$Id> get DLVEN_ITEM_LST_2 => SomListMetaRef(tree, '$path/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/documentationDeliverables/DLVEN-ITEM-LST', DeliverableEntry$Id.new);
+  SomListMetaRef<DeliverableEntry$Id> get DLVEN_ITEM_LST_3 => SomListMetaRef(tree, '$path/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/trainingDeliverables/DLVEN-ITEM-LST', DeliverableEntry$Id.new);
+  SomListMetaRef<DeliverableEntry$Id> get DLVEN_ITEM_LST_4 => SomListMetaRef(tree, '$path/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/supportDeliverables/DLVEN-ITEM-LST', DeliverableEntry$Id.new);
   SomListMetaRef<DeliveryAcceptanceCriterionEntry$Id> get DACEN_ITEM_LST_2 => SomListMetaRef(tree, '$path/qualityAndAcceptanceModel/deliveryAcceptance/acceptancePlan/acceptanceCriteria/DACEN-ITEM-LST', DeliveryAcceptanceCriterionEntry$Id.new);
   SomMetaRef get ACPROV => SomMetaRef(tree, '$path/qualityAndAcceptanceModel/deliveryAcceptance/acceptancePlan/acceptanceProcess/ACPROV');
   SomMetaRef get ACPRPA => SomMetaRef(tree, '$path/qualityAndAcceptanceModel/deliveryAcceptance/acceptancePlan/acceptanceProcess/ACPRPA');
@@ -70135,7 +70135,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get WAPR => SomMetaRef(tree, '$path/qualityAndAcceptanceModel/deliveryAcceptance/acceptancePlan/warranty/WAPR');
   SomMetaRef get WATR => SomMetaRef(tree, '$path/qualityAndAcceptanceModel/deliveryAcceptance/acceptancePlan/warranty/WATR');
   SomMetaRef get WAFI => SomMetaRef(tree, '$path/qualityAndAcceptanceModel/deliveryAcceptance/acceptancePlan/warranty/WAFI');
-  SomListMetaRef<Iso25010CoverageEntry$Id> get I25CV_CHAR_LST => SomListMetaRef(tree, '$path/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST', Iso25010CoverageEntry$Id.new);
+  SomListMetaRef<Iso25010CoverageEntry$Id> get I25CE_CHAR_LST => SomListMetaRef(tree, '$path/qualityAndAcceptanceModel/iso25010Coverage/I25CE-CHAR-LST', Iso25010CoverageEntry$Id.new);
   SomMetaRef get SSPTM => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/SSPTM');
   SomMetaRef get SSPCO => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/SSPCO');
   SomMetaRef get SSPRD => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/SSPRD');
@@ -70151,8 +70151,8 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get STAGFA => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGFA');
   SomListMetaRef<StagingDependencies$Id> get STAGDP_DEPE_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGDP-DEPE-LST', StagingDependencies$Id.new);
   SomMetaRef get STAGGV => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGGV');
-  SomListMetaRef<SomMetaRef> get KEYAS_KEYA_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/strategy/KEYAS-KEYA-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get STAGI_CONS_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGI-CONS-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get STAGST_KEYA_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGST-KEYA-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get STAGST_CONS_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGST-CONS-LST', SomMetaRef.new);
   SomMetaRef get SGOVM => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/stageOverview/SGOVM');
   SomMetaRef get SGOVBS => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/stageOverview/SGOVBS');
   SomMetaRef get SGOVDP => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/stageOverview/SGOVDP');
@@ -70172,10 +70172,10 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get FEPRC1 => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/FEPRC1');
   SomMetaRef get FEPRBA => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/FEPRBA');
   SomMetaRef get FEPRTR => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/FEPRTR');
-  SomListMetaRef<MoscowEntry$Id> get MOEN_ITEM_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/moscowAnalysis/MOEN-ITEM-LST', MoscowEntry$Id.new);
-  SomListMetaRef<FeatureStageMapping$Id> get FESTM1_ITEM_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureStageMatrix/FESTM1-ITEM-LST', FeatureStageMapping$Id.new);
-  SomListMetaRef<FeaturePriorityEntry$Id> get FEPREN_ITEM_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featurePriorityRegister/FEPREN-ITEM-LST', FeaturePriorityEntry$Id.new);
-  SomListMetaRef<FeatureDependencyEntry$Id> get FEDEEN_ITEM_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureDependencies/FEDEEN-ITEM-LST', FeatureDependencyEntry$Id.new);
+  SomListMetaRef<MoscowEntry$Id> get ME_ITEM_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/moscowAnalysis/ME-ITEM-LST', MoscowEntry$Id.new);
+  SomListMetaRef<FeatureStageMapping$Id> get FSM_ITEM_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureStageMatrix/FSM-ITEM-LST', FeatureStageMapping$Id.new);
+  SomListMetaRef<FeaturePriorityEntry$Id> get FPE_ITEM_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST', FeaturePriorityEntry$Id.new);
+  SomListMetaRef<FeatureDependencyEntry$Id> get FDE_ITEM_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureDependencies/FDE-ITEM-LST', FeatureDependencyEntry$Id.new);
   SomMetaRef get MIAP => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/dataMigration/MIAP');
   SomMetaRef get MISC => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/dataMigration/MISC');
   SomListMetaRef<MigrationSystems$Id> get MISY_SYST_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/dataMigration/MISY-SYST-LST', MigrationSystems$Id.new);
@@ -70200,8 +70200,8 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get STGOTR => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/governance/STGOTR');
   SomMetaRef get PGRP => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PGRP');
   SomMetaRef get PGRO => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PGRO');
-  SomListMetaRef<PhaseGateReviewEntry$Id> get PGRE_ITEM_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PGRE-ITEM-LST', PhaseGateReviewEntry$Id.new);
-  SomListMetaRef<DecisionPointEntry$Id> get DEPOEN_ITEM_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/governance/decisionPoints/DEPOEN-ITEM-LST', DecisionPointEntry$Id.new);
+  SomListMetaRef<PhaseGateReviewEntry$Id> get PHGAREEN_ITEM_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PHGAREEN-ITEM-LST', PhaseGateReviewEntry$Id.new);
+  SomListMetaRef<DecisionPointEntry$Id> get DPE_ITEM_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/systemStagePlan/governance/decisionPoints/DPE-ITEM-LST', DecisionPointEntry$Id.new);
   SomMetaRef get LOPR_LOCA => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/localizationTranslationProcess/localizationProcess/LOPR-LOCA');
   SomMetaRef get LOPRR1 => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/localizationTranslationProcess/localizationProcess/LOPRR1');
   SomMetaRef get LOPRFO => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/localizationTranslationProcess/localizationProcess/LOPRFO');
@@ -70211,7 +70211,7 @@ class D00SolutionBlueprint$Id extends SomMetaRef {
   SomMetaRef get TRPRQU => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TRPRQU');
   SomMetaRef get TRPRTE => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TRPRTE');
   SomMetaRef get TRPRON => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TRPRON');
-  SomListMetaRef<TranslationVendorEntry$Id> get TRVEEN_VEND_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TRVEEN-VEND-LST', TranslationVendorEntry$Id.new);
+  SomListMetaRef<TranslationVendorEntry$Id> get TVE_VEND_LST => SomListMetaRef(tree, '$path/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TVE-VEND-LST', TranslationVendorEntry$Id.new);
   SomMetaRef get LOCRP => SomMetaRef(tree, '$path/deliveryTransitionAndRollout/LOCRP');
 }
 
@@ -70223,14 +70223,14 @@ class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
   SomListMetaRef<ExistingSystemEntry$Id> get ESENT_SYST_LST => SomListMetaRef(tree, '$path/existingSystemsLandscape/systemInventory/ESENT-SYST-LST', ExistingSystemEntry$Id.new);
   SomMetaRef get CARCH_ARCH => SomMetaRef(tree, '$path/existingSystemsLandscape/currentArchitecture/CARCH-ARCH');
   SomMetaRef get CARCH_DEPL => SomMetaRef(tree, '$path/existingSystemsLandscape/currentArchitecture/CARCH-DEPL');
-  SomListMetaRef<SomMetaRef> get IPE_INTE_LST => SomListMetaRef(tree, '$path/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get SHARE_SHAR_LST => SomListMetaRef(tree, '$path/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get CARCH_INTE_LST => SomListMetaRef(tree, '$path/existingSystemsLandscape/currentArchitecture/CARCH-INTE-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get CARCH_SHAR_LST => SomListMetaRef(tree, '$path/existingSystemsLandscape/currentArchitecture/CARCH-SHAR-LST', SomMetaRef.new);
   SomMetaRef get DEPNT_DEPE => SomMetaRef(tree, '$path/existingSystemsLandscape/dependenciesAndIntegrations/DEPNT-DEPE');
   SomListMetaRef<SystemDependencyEntry$Id> get SYDE_ITEM_LST => SomListMetaRef(tree, '$path/existingSystemsLandscape/dependenciesAndIntegrations/internalDependencies/SYDE-ITEM-LST', SystemDependencyEntry$Id.new);
   SomListMetaRef<ExternalServiceDependencyEntry$Id> get EXSDE_ITEM_LST => SomListMetaRef(tree, '$path/existingSystemsLandscape/dependenciesAndIntegrations/externalServiceDependencies/EXSDE-ITEM-LST', ExternalServiceDependencyEntry$Id.new);
   SomListMetaRef<SharedInfrastructureEntry$Id> get SHIEN_ITEM_LST => SomListMetaRef(tree, '$path/existingSystemsLandscape/dependenciesAndIntegrations/sharedInfrastructureDependencies/SHIEN-ITEM-LST', SharedInfrastructureEntry$Id.new);
   SomListMetaRef<SystemIntegrationEntry$Id> get SYIN_ITEM_LST => SomListMetaRef(tree, '$path/existingSystemsLandscape/dependenciesAndIntegrations/integrations/SYIN-ITEM-LST', SystemIntegrationEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get FRAGI_FRAG_LST => SomListMetaRef(tree, '$path/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get INHESU_FRAG_LST => SomListMetaRef(tree, '$path/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/INHESU-FRAG-LST', SomMetaRef.new);
   SomMetaRef get CUBUPR_PROC => SomMetaRef(tree, '$path/currentBusinessProcesses/CUBUPR-PROC');
   SomListMetaRef<ProcessScopeEntry$Id> get PRSCEN_INSC_LST => SomListMetaRef(tree, '$path/currentBusinessProcesses/scopeSummary/PRSCEN-INSC-LST', ProcessScopeEntry$Id.new);
   SomListMetaRef<ProcessScopeEntry$Id> get PRSCEN_OUTO_LST => SomListMetaRef(tree, '$path/currentBusinessProcesses/scopeSummary/PRSCEN-OUTO-LST', ProcessScopeEntry$Id.new);
@@ -70242,11 +70242,11 @@ class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
   SomMetaRef get PPAG_PAINP => SomMetaRef(tree, '$path/painPointsAndGaps/PPAG-PAINP');
   SomMetaRef get PAPOSU => SomMetaRef(tree, '$path/painPointsAndGaps/PAPOSU');
   SomMetaRef get OPPS => SomMetaRef(tree, '$path/painPointsAndGaps/operationalPainPoints/OPPS');
-  SomListMetaRef<PainPointEntry$Id> get OPPAPO_ITEM_LST => SomListMetaRef(tree, '$path/painPointsAndGaps/operationalPainPoints/OPPAPO-ITEM-LST', PainPointEntry$Id.new);
+  SomListMetaRef<PainPointEntry$Id> get PAPE_ITEM_LST => SomListMetaRef(tree, '$path/painPointsAndGaps/operationalPainPoints/PAPE-ITEM-LST', PainPointEntry$Id.new);
   SomMetaRef get BPPS => SomMetaRef(tree, '$path/painPointsAndGaps/businessPainPoints/BPPS');
-  SomListMetaRef<PainPointEntry$Id> get BUPAPO_ITEM_LST => SomListMetaRef(tree, '$path/painPointsAndGaps/businessPainPoints/BUPAPO-ITEM-LST', PainPointEntry$Id.new);
+  SomListMetaRef<PainPointEntry$Id> get PAPE_ITEM_LST_2 => SomListMetaRef(tree, '$path/painPointsAndGaps/businessPainPoints/PAPE-ITEM-LST', PainPointEntry$Id.new);
   SomMetaRef get TPPS => SomMetaRef(tree, '$path/painPointsAndGaps/technicalPainPoints/TPPS');
-  SomListMetaRef<PainPointEntry$Id> get TEPAPO_ITEM_LST => SomListMetaRef(tree, '$path/painPointsAndGaps/technicalPainPoints/TEPAPO-ITEM-LST', PainPointEntry$Id.new);
+  SomListMetaRef<PainPointEntry$Id> get PAPE_ITEM_LST_3 => SomListMetaRef(tree, '$path/painPointsAndGaps/technicalPainPoints/PAPE-ITEM-LST', PainPointEntry$Id.new);
   SomListMetaRef<GapEntry$Id> get GAPE_ITEM_LST => SomListMetaRef(tree, '$path/painPointsAndGaps/GAPE-ITEM-LST', GapEntry$Id.new);
   SomMetaRef get PPGC_CORR => SomMetaRef(tree, '$path/painPointsAndGaps/painPointGapCorrelation/PPGC-CORR');
   SomListMetaRef<PainPointGapCorrelationEntry$Id> get PPGCE_CORR_LST => SomListMetaRef(tree, '$path/painPointsAndGaps/painPointGapCorrelation/PPGCE-CORR-LST', PainPointGapCorrelationEntry$Id.new);
@@ -70291,13 +70291,13 @@ class D01CurrentLandscapeAssessment$Id extends SomMetaRef {
   SomMetaRef get MIRIAS => SomMetaRef(tree, '$path/migrationConsiderations/migrationRisks/MIRIAS');
   SomMetaRef get MIRITH => SomMetaRef(tree, '$path/migrationConsiderations/migrationRisks/MIRITH');
   SomMetaRef get MIRIRE => SomMetaRef(tree, '$path/migrationConsiderations/migrationRisks/MIRIRE');
-  SomListMetaRef<SomMetaRef> get RISKC_RISK_LST => SomListMetaRef(tree, '$path/migrationConsiderations/migrationRisks/RISKC-RISK-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get RISKB_RISK_LST => SomListMetaRef(tree, '$path/migrationConsiderations/migrationRisks/RISKB-RISK-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get MONIT_MONI_LST => SomListMetaRef(tree, '$path/migrationConsiderations/migrationRisks/MONIT-MONI-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get RESPO_RESP_LST => SomListMetaRef(tree, '$path/migrationConsiderations/migrationRisks/RESPO-RESP-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get MIRI_RISK_LST => SomListMetaRef(tree, '$path/migrationConsiderations/migrationRisks/MIRI-RISK-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get MIRI_RBDE_LST => SomListMetaRef(tree, '$path/migrationConsiderations/migrationRisks/MIRI-RBDE-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get MIRI_MONI_LST => SomListMetaRef(tree, '$path/migrationConsiderations/migrationRisks/MIRI-MONI-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get MIRI_RESP_LST => SomListMetaRef(tree, '$path/migrationConsiderations/migrationRisks/MIRI-RESP-LST', SomMetaRef.new);
   SomListMetaRef<MigrationRiskEntry$Id> get MGRSK_ITEM_LST => SomListMetaRef(tree, '$path/migrationConsiderations/migrationRisks/MGRSK-ITEM-LST', MigrationRiskEntry$Id.new);
   SomListMetaRef<MigrationMilestoneEntry$Id> get MGMLS_MILE_LST => SomListMetaRef(tree, '$path/migrationConsiderations/MGMLS-MILE-LST', MigrationMilestoneEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get ESCAL_ESCA_LST => SomListMetaRef(tree, '$path/migrationConsiderations/ESCAL-ESCA-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get MIGCON_ESCA_LST => SomListMetaRef(tree, '$path/migrationConsiderations/MIGCON-ESCA-LST', SomMetaRef.new);
 }
 
 /// ID-tree accessors of `D02TargetOperatingModel` (SOM §8): getters named by section
@@ -70385,9 +70385,9 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   D06ArchitectureTechnologySpecification$Id(super.tree, super.path);
   SomListMetaRef<TargetPlatformEntry$Id> get TGPLT_TARG_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/platformAndLanguage/TGPLT-TARG-LST', TargetPlatformEntry$Id.new);
   SomListMetaRef<ProgrammingLanguageEntry$Id> get PLGEN_PROG_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/platformAndLanguage/PLGEN-PROG-LST', ProgrammingLanguageEntry$Id.new);
-  SomListMetaRef<FrameworkRequirementEntry$Id> get FWREN_FRAM_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/platformAndLanguage/FWREN-FRAM-LST', FrameworkRequirementEntry$Id.new);
+  SomListMetaRef<FrameworkRequirementEntry$Id> get FRREEN_FRAM_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/platformAndLanguage/FRREEN-FRAM-LST', FrameworkRequirementEntry$Id.new);
   SomListMetaRef<BuildToolchainEntry$Id> get BTCEN_BUIL_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/platformAndLanguage/BTCEN-BUIL-LST', BuildToolchainEntry$Id.new);
-  SomListMetaRef<DeploymentTargetEntry$Id> get DETAEN_DEPL_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/platformAndLanguage/DETAEN-DEPL-LST', DeploymentTargetEntry$Id.new);
+  SomListMetaRef<DeploymentTargetEntry$Id> get DEPTARENT_DEPL_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/platformAndLanguage/DEPTARENT-DEPL-LST', DeploymentTargetEntry$Id.new);
   SomMetaRef get DEMAVE => SomMetaRef(tree, '$path/basicTechnicalRequirements/platformAndLanguage/dependencyManagement/DEMAVE');
   SomMetaRef get DEMASE => SomMetaRef(tree, '$path/basicTechnicalRequirements/platformAndLanguage/dependencyManagement/DEMASE');
   SomMetaRef get DEMAIN => SomMetaRef(tree, '$path/basicTechnicalRequirements/platformAndLanguage/dependencyManagement/DEMAIN');
@@ -70437,9 +70437,9 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get DTIAC => SomMetaRef(tree, '$path/basicTechnicalRequirements/architectureStyle/deploymentTopology/DTIAC');
   SomListMetaRef<ArchitectureDecisionRecord$Id> get ARDE_DECI_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/architectureStyle/ARDE-DECI-LST', ArchitectureDecisionRecord$Id.new);
   SomListMetaRef<DesignPatternEntry$Id> get DSPT_DESI_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/designPatternsAndStandards/DSPT-DESI-LST', DesignPatternEntry$Id.new);
-  SomListMetaRef<CodingStandardEntry$Id> get COSTEN_CODI_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/designPatternsAndStandards/COSTEN-CODI-LST', CodingStandardEntry$Id.new);
-  SomListMetaRef<DevelopmentConventionEntry$Id> get DECOEN_DEVE_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/designPatternsAndStandards/DECOEN-DEVE-LST', DevelopmentConventionEntry$Id.new);
-  SomListMetaRef<IndustryStandardEntry$Id> get INSTEN_INDU_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/designPatternsAndStandards/INSTEN-INDU-LST', IndustryStandardEntry$Id.new);
+  SomListMetaRef<CodingStandardEntry$Id> get CSE_CODI_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/designPatternsAndStandards/CSE-CODI-LST', CodingStandardEntry$Id.new);
+  SomListMetaRef<DevelopmentConventionEntry$Id> get DCE_DEVE_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/designPatternsAndStandards/DCE-DEVE-LST', DevelopmentConventionEntry$Id.new);
+  SomListMetaRef<IndustryStandardEntry$Id> get ISE_INDU_LST => SomListMetaRef(tree, '$path/basicTechnicalRequirements/designPatternsAndStandards/ISE-INDU-LST', IndustryStandardEntry$Id.new);
   SomMetaRef get CQMC => SomMetaRef(tree, '$path/basicTechnicalRequirements/designPatternsAndStandards/codeQualityMetrics/CQMC');
   SomMetaRef get COQUMECO => SomMetaRef(tree, '$path/basicTechnicalRequirements/designPatternsAndStandards/codeQualityMetrics/COQUMECO');
   SomMetaRef get CQMD => SomMetaRef(tree, '$path/basicTechnicalRequirements/designPatternsAndStandards/codeQualityMetrics/CQMD');
@@ -70459,17 +70459,17 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get TESTPA => SomMetaRef(tree, '$path/basicTechnicalRequirements/designPatternsAndStandards/testingStandards/TESTPA');
   SomMetaRef get TESTQU => SomMetaRef(tree, '$path/basicTechnicalRequirements/designPatternsAndStandards/testingStandards/TESTQU');
   SomMetaRef get TESTTO => SomMetaRef(tree, '$path/basicTechnicalRequirements/designPatternsAndStandards/testingStandards/TESTTO');
-  SomListMetaRef<SoftwareLayerEntry$Id> get SOLAEN_SOFT_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/SOLAEN-SOFT-LST', SoftwareLayerEntry$Id.new);
+  SomListMetaRef<SoftwareLayerEntry$Id> get SLE_SOFT_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/SLE-SOFT-LST', SoftwareLayerEntry$Id.new);
   SomMetaRef get LCRI => SomMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/layerCommunicationRules/LCRI');
   SomMetaRef get LCRF => SomMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/layerCommunicationRules/LCRF');
   SomMetaRef get LCRG => SomMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/layerCommunicationRules/LCRG');
-  SomListMetaRef<BoundedContextEntry$Id> get BOCOEN_BOUN_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/BOCOEN-BOUN-LST', BoundedContextEntry$Id.new);
+  SomListMetaRef<BoundedContextEntry$Id> get BCE_BOUN_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/BCE-BOUN-LST', BoundedContextEntry$Id.new);
   SomMetaRef get PAORST => SomMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/packageOrganization/PAORST');
   SomMetaRef get PAORTY => SomMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/packageOrganization/PAORTY');
   SomMetaRef get PAORDE => SomMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/packageOrganization/PAORDE');
   SomMetaRef get PAORDO => SomMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/packageOrganization/PAORDO');
-  SomListMetaRef<ModuleEntry$Id> get MOEN1_MODU_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/MOEN1-MODU-LST', ModuleEntry$Id.new);
-  SomListMetaRef<SharedLibraryEntry$Id> get SHLIB_SHAR_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/SHLIB-SHAR-LST', SharedLibraryEntry$Id.new);
+  SomListMetaRef<ModuleEntry$Id> get MODENT_MODU_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/MODENT-MODU-LST', ModuleEntry$Id.new);
+  SomListMetaRef<SharedLibraryEntry$Id> get SHLIEN_SHAR_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/SHLIEN-SHAR-LST', SharedLibraryEntry$Id.new);
   SomMetaRef get DISR => SomMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/dependencyInjection/DISR');
   SomMetaRef get DISB => SomMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/dependencyInjection/DISB');
   SomMetaRef get DISC => SomMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/dependencyInjection/DISC');
@@ -70484,7 +70484,7 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get MVSRM => SomMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/moduleVersioningStrategy/MVSRM');
   SomMetaRef get MVSD => SomMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/moduleVersioningStrategy/MVSD');
   SomMetaRef get MOVESTCO => SomMetaRef(tree, '$path/softwareDesignRequirements/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO');
-  SomListMetaRef<IdeRequirementEntry$Id> get IDREEN_IDER_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/developmentEnvironment/IDREEN-IDER-LST', IdeRequirementEntry$Id.new);
+  SomListMetaRef<IdeRequirementEntry$Id> get IRE_IDER_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/developmentEnvironment/IRE-IDER-LST', IdeRequirementEntry$Id.new);
   SomMetaRef get BTCBS => SomMetaRef(tree, '$path/softwareDesignRequirements/developmentEnvironment/buildTools/BTCBS');
   SomMetaRef get BTCC => SomMetaRef(tree, '$path/softwareDesignRequirements/developmentEnvironment/buildTools/BTCC');
   SomMetaRef get BTCS => SomMetaRef(tree, '$path/softwareDesignRequirements/developmentEnvironment/buildTools/BTCS');
@@ -70493,9 +70493,9 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get VCCB => SomMetaRef(tree, '$path/softwareDesignRequirements/developmentEnvironment/versionControl/VCCB');
   SomMetaRef get VCCC => SomMetaRef(tree, '$path/softwareDesignRequirements/developmentEnvironment/versionControl/VCCC');
   SomMetaRef get VCCM => SomMetaRef(tree, '$path/softwareDesignRequirements/developmentEnvironment/versionControl/VCCM');
-  SomListMetaRef<PipelineStageEntry$Id> get PISTEN_STAG_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST', PipelineStageEntry$Id.new);
-  SomListMetaRef<PipelineJobEntry$Id> get PIJOEN_JOBS_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST', PipelineJobEntry$Id.new);
-  SomListMetaRef<DeploymentEnvironmentEntry$Id> get DEENEN_ENVI_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST', DeploymentEnvironmentEntry$Id.new);
+  SomListMetaRef<PipelineStageEntry$Id> get PSE_STAG_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/developmentEnvironment/cicdPipeline/PSE-STAG-LST', PipelineStageEntry$Id.new);
+  SomListMetaRef<PipelineJobEntry$Id> get PJE_JOBS_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/developmentEnvironment/cicdPipeline/PJE-JOBS-LST', PipelineJobEntry$Id.new);
+  SomListMetaRef<DeploymentEnvironmentEntry$Id> get DEE_ENVI_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/developmentEnvironment/cicdPipeline/DEE-ENVI-LST', DeploymentEnvironmentEntry$Id.new);
   SomMetaRef get CRPR => SomMetaRef(tree, '$path/softwareDesignRequirements/developmentEnvironment/codeReviewProcess/CRPR');
   SomMetaRef get CRPW => SomMetaRef(tree, '$path/softwareDesignRequirements/developmentEnvironment/codeReviewProcess/CRPW');
   SomMetaRef get CRPA => SomMetaRef(tree, '$path/softwareDesignRequirements/developmentEnvironment/codeReviewProcess/CRPA');
@@ -70529,9 +70529,9 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get REPRVE => SomMetaRef(tree, '$path/softwareDesignRequirements/reusableComponents/principles/REPRVE');
   SomMetaRef get REPROW => SomMetaRef(tree, '$path/softwareDesignRequirements/reusableComponents/principles/REPROW');
   SomListMetaRef<SharedLibraryComponentEntry$Id> get SHLCP_SHAR_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/reusableComponents/SHLCP-SHAR-LST', SharedLibraryComponentEntry$Id.new);
-  SomListMetaRef<ReusableUiComponentEntry$Id> get RUICMP_UICO_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/reusableComponents/RUICMP-UICO-LST', ReusableUiComponentEntry$Id.new);
-  SomListMetaRef<BusinessComponentEntry$Id> get BUCOEN_BUSI_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/reusableComponents/BUCOEN-BUSI-LST', BusinessComponentEntry$Id.new);
-  SomListMetaRef<InfrastructureComponentEntry$Id> get INCOEN_INFR_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/reusableComponents/INCOEN-INFR-LST', InfrastructureComponentEntry$Id.new);
+  SomListMetaRef<ReusableUiComponentEntry$Id> get RUCE_UICO_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/reusableComponents/RUCE-UICO-LST', ReusableUiComponentEntry$Id.new);
+  SomListMetaRef<BusinessComponentEntry$Id> get BUSCOMENT_BUSI_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/reusableComponents/BUSCOMENT-BUSI-LST', BusinessComponentEntry$Id.new);
+  SomListMetaRef<InfrastructureComponentEntry$Id> get INFCOMENT_INFR_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/reusableComponents/INFCOMENT-INFR-LST', InfrastructureComponentEntry$Id.new);
   SomListMetaRef<ThirdPartyLibraryEntry$Id> get THPALI_THIR_LST => SomListMetaRef(tree, '$path/softwareDesignRequirements/reusableComponents/THPALI-THIR-LST', ThirdPartyLibraryEntry$Id.new);
   SomMetaRef get COGOCO => SomMetaRef(tree, '$path/softwareDesignRequirements/reusableComponents/governance/COGOCO');
   SomMetaRef get COGOQU => SomMetaRef(tree, '$path/softwareDesignRequirements/reusableComponents/governance/COGOQU');
@@ -70541,14 +70541,14 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get COREDI => SomMetaRef(tree, '$path/softwareDesignRequirements/reusableComponents/registry/COREDI');
   SomMetaRef get COREDO => SomMetaRef(tree, '$path/softwareDesignRequirements/reusableComponents/registry/COREDO');
   SomMetaRef get COREUP => SomMetaRef(tree, '$path/softwareDesignRequirements/reusableComponents/registry/COREUP');
-  SomListMetaRef<OsCompatibilityEntry$Id> get OSCOEN_OSCO_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/OSCOEN-OSCO-LST', OsCompatibilityEntry$Id.new);
-  SomListMetaRef<BrowserCompatibilityEntry$Id> get BRCOEN_BROW_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/BRCOEN-BROW-LST', BrowserCompatibilityEntry$Id.new);
-  SomListMetaRef<DatabaseCompatibilityEntry$Id> get DACOEN_DATA_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/DACOEN-DATA-LST', DatabaseCompatibilityEntry$Id.new);
-  SomListMetaRef<EnterpriseSystemCompatibilityEntry$Id> get ESCE_ENTE_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/ESCE-ENTE-LST', EnterpriseSystemCompatibilityEntry$Id.new);
+  SomListMetaRef<OsCompatibilityEntry$Id> get OCE_OSCO_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/OCE-OSCO-LST', OsCompatibilityEntry$Id.new);
+  SomListMetaRef<BrowserCompatibilityEntry$Id> get BROCOMENT_BROW_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/BROCOMENT-BROW-LST', BrowserCompatibilityEntry$Id.new);
+  SomListMetaRef<DatabaseCompatibilityEntry$Id> get DATCOMENT_DATA_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/DATCOMENT-DATA-LST', DatabaseCompatibilityEntry$Id.new);
+  SomListMetaRef<EnterpriseSystemCompatibilityEntry$Id> get ENSYCOEN_ENTE_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/ENSYCOEN-ENTE-LST', EnterpriseSystemCompatibilityEntry$Id.new);
   SomListMetaRef<ApiCompatibilityEntry$Id> get APCP_APIC_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/APCP-APIC-LST', ApiCompatibilityEntry$Id.new);
-  SomListMetaRef<LegacyCompatibilityEntry$Id> get LECOEN_LEGA_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/LECOEN-LEGA-LST', LegacyCompatibilityEntry$Id.new);
-  SomListMetaRef<MobileCompatibilityEntry$Id> get MOCOEN_MOBI_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/MOCOEN-MOBI-LST', MobileCompatibilityEntry$Id.new);
-  SomListMetaRef<ThirdPartyCompatibilityEntry$Id> get TPCE_THIR_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/TPCE-THIR-LST', ThirdPartyCompatibilityEntry$Id.new);
+  SomListMetaRef<LegacyCompatibilityEntry$Id> get LCE_LEGA_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/LCE-LEGA-LST', LegacyCompatibilityEntry$Id.new);
+  SomListMetaRef<MobileCompatibilityEntry$Id> get MOBCOMENT_MOBI_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/MOBCOMENT-MOBI-LST', MobileCompatibilityEntry$Id.new);
+  SomListMetaRef<ThirdPartyCompatibilityEntry$Id> get THPACOEN_THIR_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/THPACOEN-THIR-LST', ThirdPartyCompatibilityEntry$Id.new);
   SomMetaRef get DFCF => SomMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/dataFormatCompatibility/DFCF');
   SomMetaRef get DFCDT => SomMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/dataFormatCompatibility/DFCDT');
   SomMetaRef get DFCN => SomMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/dataFormatCompatibility/DFCN');
@@ -70561,11 +70561,11 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get INREST => SomMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/interoperability/INREST');
   SomMetaRef get INRETE => SomMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/interoperability/INRETE');
   SomMetaRef get INREGO => SomMetaRef(tree, '$path/standardSoftwareRequirements/compatibilityRequirements/interoperability/INREGO');
-  SomListMetaRef<ItStandardComplianceEntry$Id> get ISCE_ITST_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/standardsCompliance/ISCE-ITST-LST', ItStandardComplianceEntry$Id.new);
-  SomListMetaRef<IndustryProtocolComplianceEntry$Id> get IPCE_INDU_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/standardsCompliance/IPCE-INDU-LST', IndustryProtocolComplianceEntry$Id.new);
-  SomListMetaRef<InterfaceSpecificationEntry$Id> get INSPEN_INTE_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/standardsCompliance/INSPEN-INTE-LST', InterfaceSpecificationEntry$Id.new);
-  SomListMetaRef<RegulatoryComplianceEntry$Id> get RECOEN_REGU_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/standardsCompliance/RECOEN-REGU-LST', RegulatoryComplianceEntry$Id.new);
-  SomListMetaRef<SecurityStandardComplianceEntry$Id> get SSCE_SECU_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/standardsCompliance/SSCE-SECU-LST', SecurityStandardComplianceEntry$Id.new);
+  SomListMetaRef<ItStandardComplianceEntry$Id> get ITSTCOEN_ITST_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/standardsCompliance/ITSTCOEN-ITST-LST', ItStandardComplianceEntry$Id.new);
+  SomListMetaRef<IndustryProtocolComplianceEntry$Id> get INPRCOEN_INDU_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/standardsCompliance/INPRCOEN-INDU-LST', IndustryProtocolComplianceEntry$Id.new);
+  SomListMetaRef<InterfaceSpecificationEntry$Id> get INTSPEENT_INTE_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/standardsCompliance/INTSPEENT-INTE-LST', InterfaceSpecificationEntry$Id.new);
+  SomListMetaRef<RegulatoryComplianceEntry$Id> get RCE_REGU_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/standardsCompliance/RCE-REGU-LST', RegulatoryComplianceEntry$Id.new);
+  SomListMetaRef<SecurityStandardComplianceEntry$Id> get SESTCOEN_SECU_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/standardsCompliance/SESTCOEN-SECU-LST', SecurityStandardComplianceEntry$Id.new);
   SomListMetaRef<AccessibilityStandardEntry$Id> get ACCSTD_ACCE_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/standardsCompliance/ACCSTD-ACCE-LST', AccessibilityStandardEntry$Id.new);
   SomListMetaRef<QualityStandardEntry$Id> get QLSTD_QUAL_LST => SomListMetaRef(tree, '$path/standardSoftwareRequirements/standardsCompliance/QLSTD-QUAL-LST', QualityStandardEntry$Id.new);
   SomMetaRef get DSST => SomMetaRef(tree, '$path/standardSoftwareRequirements/standardsCompliance/documentationStandards/DSST');
@@ -70586,8 +70586,8 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get CVSA => SomMetaRef(tree, '$path/standardSoftwareRequirements/standardsCompliance/complianceVerification/CVSA');
   SomMetaRef get COVESERE => SomMetaRef(tree, '$path/standardSoftwareRequirements/standardsCompliance/complianceVerification/COVESERE');
   SomMetaRef get CVSC => SomMetaRef(tree, '$path/standardSoftwareRequirements/standardsCompliance/complianceVerification/CVSC');
-  SomListMetaRef<ServerEnvironmentEntry$Id> get SEENEN_ENVI_LST => SomListMetaRef(tree, '$path/hardwareRequirements/serverRequirements/SEENEN-ENVI-LST', ServerEnvironmentEntry$Id.new);
-  SomListMetaRef<ServerRoleEntry$Id> get SEROEN_SERV_LST => SomListMetaRef(tree, '$path/hardwareRequirements/serverRequirements/SEROEN-SERV-LST', ServerRoleEntry$Id.new);
+  SomListMetaRef<ServerEnvironmentEntry$Id> get SEE_ENVI_LST => SomListMetaRef(tree, '$path/hardwareRequirements/serverRequirements/SEE-ENVI-LST', ServerEnvironmentEntry$Id.new);
+  SomListMetaRef<ServerRoleEntry$Id> get SRE_SERV_LST => SomListMetaRef(tree, '$path/hardwareRequirements/serverRequirements/SRE-SERV-LST', ServerRoleEntry$Id.new);
   SomMetaRef get CRRM => SomMetaRef(tree, '$path/hardwareRequirements/serverRequirements/computeResources/CRRM');
   SomMetaRef get CRRG => SomMetaRef(tree, '$path/hardwareRequirements/serverRequirements/computeResources/CRRG');
   SomMetaRef get CRRS => SomMetaRef(tree, '$path/hardwareRequirements/serverRequirements/computeResources/CRRS');
@@ -70619,9 +70619,9 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get SORM => SomMetaRef(tree, '$path/hardwareRequirements/serverRequirements/osRequirements/SORM');
   SomMetaRef get SORL => SomMetaRef(tree, '$path/hardwareRequirements/serverRequirements/osRequirements/SORL');
   SomListMetaRef<ClientApplicationEntry$Id> get CLIAPP_CLIE_LST => SomListMetaRef(tree, '$path/hardwareRequirements/clientRequirements/CLIAPP-CLIE-LST', ClientApplicationEntry$Id.new);
-  SomListMetaRef<BrowserRequirementEntry$Id> get BRREEN_BROW_LST => SomListMetaRef(tree, '$path/hardwareRequirements/clientRequirements/BRREEN-BROW-LST', BrowserRequirementEntry$Id.new);
-  SomListMetaRef<DesktopOsRequirementEntry$Id> get DORE1_DESK_LST => SomListMetaRef(tree, '$path/hardwareRequirements/clientRequirements/DORE1-DESK-LST', DesktopOsRequirementEntry$Id.new);
-  SomListMetaRef<MobileDeviceRequirementEntry$Id> get MDRE_MOBI_LST => SomListMetaRef(tree, '$path/hardwareRequirements/clientRequirements/MDRE-MOBI-LST', MobileDeviceRequirementEntry$Id.new);
+  SomListMetaRef<BrowserRequirementEntry$Id> get BROREQENT_BROW_LST => SomListMetaRef(tree, '$path/hardwareRequirements/clientRequirements/BROREQENT-BROW-LST', BrowserRequirementEntry$Id.new);
+  SomListMetaRef<DesktopOsRequirementEntry$Id> get DEOSREEN_DESK_LST => SomListMetaRef(tree, '$path/hardwareRequirements/clientRequirements/DEOSREEN-DESK-LST', DesktopOsRequirementEntry$Id.new);
+  SomListMetaRef<MobileDeviceRequirementEntry$Id> get MODEREEN_MOBI_LST => SomListMetaRef(tree, '$path/hardwareRequirements/clientRequirements/MODEREEN-MOBI-LST', MobileDeviceRequirementEntry$Id.new);
   SomMetaRef get DIRELA => SomMetaRef(tree, '$path/hardwareRequirements/clientRequirements/displayRequirements/DIRELA');
   SomMetaRef get DIRESC => SomMetaRef(tree, '$path/hardwareRequirements/clientRequirements/displayRequirements/DIRESC');
   SomMetaRef get DIREC1 => SomMetaRef(tree, '$path/hardwareRequirements/clientRequirements/displayRequirements/DIREC1');
@@ -70673,7 +70673,7 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get NARF => SomMetaRef(tree, '$path/hardwareRequirements/networkRequirements/availabilityRequirements/NARF');
   SomMetaRef get NEAVRERE => SomMetaRef(tree, '$path/hardwareRequirements/networkRequirements/availabilityRequirements/NEAVRERE');
   SomMetaRef get NART => SomMetaRef(tree, '$path/hardwareRequirements/networkRequirements/availabilityRequirements/NART');
-  SomListMetaRef<VpnRequirementEntry$Id> get VPREEN_VPNR_LST => SomListMetaRef(tree, '$path/hardwareRequirements/networkRequirements/VPREEN-VPNR-LST', VpnRequirementEntry$Id.new);
+  SomListMetaRef<VpnRequirementEntry$Id> get VRE_VPNR_LST => SomListMetaRef(tree, '$path/hardwareRequirements/networkRequirements/VRE-VPNR-LST', VpnRequirementEntry$Id.new);
   SomMetaRef get FIRERU => SomMetaRef(tree, '$path/hardwareRequirements/networkRequirements/firewallRequirements/FIRERU');
   SomMetaRef get FIREPO => SomMetaRef(tree, '$path/hardwareRequirements/networkRequirements/firewallRequirements/FIREPO');
   SomMetaRef get FIREAD => SomMetaRef(tree, '$path/hardwareRequirements/networkRequirements/firewallRequirements/FIREAD');
@@ -70696,7 +70696,7 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get NSRC => SomMetaRef(tree, '$path/hardwareRequirements/networkRequirements/networkSecurity/NSRC');
   SomMetaRef get BDCC => SomMetaRef(tree, '$path/operationsRequirements/backupAndRecovery/dataClassification/BDCC');
   SomMetaRef get BDCE => SomMetaRef(tree, '$path/operationsRequirements/backupAndRecovery/dataClassification/BDCE');
-  SomListMetaRef<BackupPolicyEntry$Id> get BAPOEN_BACK_LST => SomListMetaRef(tree, '$path/operationsRequirements/backupAndRecovery/BAPOEN-BACK-LST', BackupPolicyEntry$Id.new);
+  SomListMetaRef<BackupPolicyEntry$Id> get BPE_BACK_LST => SomListMetaRef(tree, '$path/operationsRequirements/backupAndRecovery/BPE-BACK-LST', BackupPolicyEntry$Id.new);
   SomMetaRef get RRRBT => SomMetaRef(tree, '$path/operationsRequirements/backupAndRecovery/rpoRtoRequirements/RRRBT');
   SomMetaRef get RRRS => SomMetaRef(tree, '$path/operationsRequirements/backupAndRecovery/rpoRtoRequirements/RRRS');
   SomMetaRef get RRRD => SomMetaRef(tree, '$path/operationsRequirements/backupAndRecovery/rpoRtoRequirements/RRRD');
@@ -70770,7 +70770,7 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get ALREDE => SomMetaRef(tree, '$path/operationsRequirements/monitoringAndAlerting/alerting/ALREDE');
   SomMetaRef get ALRESU => SomMetaRef(tree, '$path/operationsRequirements/monitoringAndAlerting/alerting/ALRESU');
   SomMetaRef get ALRERE => SomMetaRef(tree, '$path/operationsRequirements/monitoringAndAlerting/alerting/ALRERE');
-  SomListMetaRef<AlertDefinitionEntry$Id> get ALDEEN_ALER_LST => SomListMetaRef(tree, '$path/operationsRequirements/monitoringAndAlerting/ALDEEN-ALER-LST', AlertDefinitionEntry$Id.new);
+  SomListMetaRef<AlertDefinitionEntry$Id> get ALEDEFENT_ALER_LST => SomListMetaRef(tree, '$path/operationsRequirements/monitoringAndAlerting/ALEDEFENT-ALER-LST', AlertDefinitionEntry$Id.new);
   SomMetaRef get DAREST => SomMetaRef(tree, '$path/operationsRequirements/monitoringAndAlerting/dashboards/DAREST');
   SomMetaRef get DAREAC => SomMetaRef(tree, '$path/operationsRequirements/monitoringAndAlerting/dashboards/DAREAC');
   SomMetaRef get DAREFE => SomMetaRef(tree, '$path/operationsRequirements/monitoringAndAlerting/dashboards/DAREFE');
@@ -70791,7 +70791,7 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get SMPD => SomMetaRef(tree, '$path/operationsRequirements/maintenanceWindows/scheduledMaintenance/SMPD');
   SomMetaRef get SMPN => SomMetaRef(tree, '$path/operationsRequirements/maintenanceWindows/scheduledMaintenance/SMPN');
   SomMetaRef get SMPA => SomMetaRef(tree, '$path/operationsRequirements/maintenanceWindows/scheduledMaintenance/SMPA');
-  SomListMetaRef<MaintenanceWindowEntry$Id> get MAWIEN_MAIN_LST => SomListMetaRef(tree, '$path/operationsRequirements/maintenanceWindows/MAWIEN-MAIN-LST', MaintenanceWindowEntry$Id.new);
+  SomListMetaRef<MaintenanceWindowEntry$Id> get MWE_MAIN_LST => SomListMetaRef(tree, '$path/operationsRequirements/maintenanceWindows/MWE-MAIN-LST', MaintenanceWindowEntry$Id.new);
   SomMetaRef get EMPG => SomMetaRef(tree, '$path/operationsRequirements/maintenanceWindows/emergencyMaintenance/EMPG');
   SomMetaRef get EMPC => SomMetaRef(tree, '$path/operationsRequirements/maintenanceWindows/emergencyMaintenance/EMPC');
   SomMetaRef get EMPE => SomMetaRef(tree, '$path/operationsRequirements/maintenanceWindows/emergencyMaintenance/EMPE');
@@ -70804,7 +70804,7 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get MUIP => SomMetaRef(tree, '$path/operationsRequirements/maintenanceWindows/userImpact/MUIP');
   SomMetaRef get PMVM => SomMetaRef(tree, '$path/operationsRequirements/maintenanceWindows/postMaintenance/PMVM');
   SomMetaRef get PMVC => SomMetaRef(tree, '$path/operationsRequirements/maintenanceWindows/postMaintenance/PMVC');
-  SomListMetaRef<ProtocolEntry$Id> get PREN_PROT_LST => SomListMetaRef(tree, '$path/communicationRequirements/protocolsAndStandards/PREN-PROT-LST', ProtocolEntry$Id.new);
+  SomListMetaRef<ProtocolEntry$Id> get PE_PROT_LST => SomListMetaRef(tree, '$path/communicationRequirements/protocolsAndStandards/PE-PROT-LST', ProtocolEntry$Id.new);
   SomMetaRef get TRCS => SomMetaRef(tree, '$path/communicationRequirements/protocolsAndStandards/tlsRequirements/TRCS');
   SomMetaRef get TRCV => SomMetaRef(tree, '$path/communicationRequirements/protocolsAndStandards/tlsRequirements/TRCV');
   SomMetaRef get TLRETE => SomMetaRef(tree, '$path/communicationRequirements/protocolsAndStandards/tlsRequirements/TLRETE');
@@ -70826,7 +70826,7 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get PCRC => SomMetaRef(tree, '$path/communicationRequirements/protocolsAndStandards/compliance/PCRC');
   SomMetaRef get PCRO => SomMetaRef(tree, '$path/communicationRequirements/protocolsAndStandards/compliance/PCRO');
   SomMetaRef get PCRE => SomMetaRef(tree, '$path/communicationRequirements/protocolsAndStandards/compliance/PCRE');
-  SomListMetaRef<ExternalPartnerConnectionEntry$Id> get EPCE_PART_LST => SomListMetaRef(tree, '$path/communicationRequirements/externalConnectivity/EPCE-PART-LST', ExternalPartnerConnectionEntry$Id.new);
+  SomListMetaRef<ExternalPartnerConnectionEntry$Id> get EXPACOEN_PART_LST => SomListMetaRef(tree, '$path/communicationRequirements/externalConnectivity/EXPACOEN-PART-LST', ExternalPartnerConnectionEntry$Id.new);
   SomMetaRef get CSIS => SomMetaRef(tree, '$path/communicationRequirements/externalConnectivity/cloudServices/CSIS');
   SomMetaRef get CSIN => SomMetaRef(tree, '$path/communicationRequirements/externalConnectivity/cloudServices/CSIN');
   SomMetaRef get CSIC => SomMetaRef(tree, '$path/communicationRequirements/externalConnectivity/cloudServices/CSIC');
@@ -70864,7 +70864,7 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get SDTT => SomMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/administrationRequirements/diagnosticTools/SDTT');
   SomMetaRef get SDTL => SomMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/administrationRequirements/diagnosticTools/SDTL');
   SomMetaRef get SDTSS => SomMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/administrationRequirements/diagnosticTools/SDTSS');
-  SomListMetaRef<SomMetaRef> get MAINT_MAIN_LST => SomListMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/MAINT-MAIN-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get SO_MAIN_LST => SomListMetaRef(tree, '$path/systemOperationAndMonitoring/systemOperation/SO-MAIN-LST', SomMetaRef.new);
   SomMetaRef get MONITO_MONI => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/MONITO-MONI');
   SomMetaRef get HCEC => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/healthChecksAndDiagnostics/healthEndpoints/HCEC');
   SomMetaRef get HCET => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/healthChecksAndDiagnostics/healthEndpoints/HCET');
@@ -70886,7 +70886,7 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get ANCD => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/alertingConfiguration/notificationChannels/ANCD');
   SomMetaRef get ANCR => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/alertingConfiguration/notificationChannels/ANCR');
   SomMetaRef get ANCF => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/alertingConfiguration/notificationChannels/ANCF');
-  SomListMetaRef<AlertRuleEntry$Id> get ALRUEN_ALER_LST => SomListMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/alertingConfiguration/ALRUEN-ALER-LST', AlertRuleEntry$Id.new);
+  SomListMetaRef<AlertRuleEntry$Id> get ALERULENT_ALER_LST => SomListMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/alertingConfiguration/ALERULENT-ALER-LST', AlertRuleEntry$Id.new);
   SomMetaRef get AEPT => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/alertingConfiguration/escalationPolicies/AEPT');
   SomMetaRef get AEPB => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/alertingConfiguration/escalationPolicies/AEPB');
   SomMetaRef get AEPS => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/alertingConfiguration/escalationPolicies/AEPS');
@@ -70907,15 +70907,15 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get DTSS => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/metricsAndObservability/distributedTracing/DTSS');
   SomMetaRef get DITRSPSP => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/metricsAndObservability/distributedTracing/DITRSPSP');
   SomMetaRef get DTSO => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/metricsAndObservability/distributedTracing/DTSO');
-  SomListMetaRef<CustomMetricEntry$Id> get CUMEEN_CUST_LST => SomListMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/metricsAndObservability/CUMEEN-CUST-LST', CustomMetricEntry$Id.new);
+  SomListMetaRef<CustomMetricEntry$Id> get CUSMETENT_CUST_LST => SomListMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/metricsAndObservability/CUSMETENT-CUST-LST', CustomMetricEntry$Id.new);
   SomMetaRef get MODA_DASH => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/dashboards/MODA-DASH');
-  SomListMetaRef<DashboardEntry$Id> get DAEN_DASH_LST => SomListMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/dashboards/DAEN-DASH-LST', DashboardEntry$Id.new);
+  SomListMetaRef<DashboardEntry$Id> get DASENT_DASH_LST => SomListMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/dashboards/DASENT-DASH-LST', DashboardEntry$Id.new);
   SomListMetaRef<DashboardTemplates$Id> get DATE_DASH_LST => SomListMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/dashboards/DATE-DASH-LST', DashboardTemplates$Id.new);
   SomMetaRef get SASM_SLAO => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/SASM-SLAO');
   SomMetaRef get SLIP => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/slis/SLIP');
   SomMetaRef get SLIQ => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/slis/SLIQ');
   SomMetaRef get SLIM => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/slis/SLIM');
-  SomListMetaRef<SloEntry$Id> get SLEN_SLOS_LST => SomListMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST', SloEntry$Id.new);
+  SomListMetaRef<SloEntry$Id> get SE_SLOS_LST => SomListMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/SE-SLOS-LST', SloEntry$Id.new);
   SomMetaRef get EBTM => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/errorBudget/EBTM');
   SomMetaRef get EBTG => SomMetaRef(tree, '$path/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/errorBudget/EBTG');
   SomMetaRef get UGPF => SomMetaRef(tree, '$path/systemOperationAndMonitoring/capacityPlanning/userGrowth/UGPF');
@@ -70939,7 +70939,7 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get CAREPRMO => SomMetaRef(tree, '$path/systemOperationAndMonitoring/capacityPlanning/capacityReview/CAREPRMO');
   SomMetaRef get CRPE => SomMetaRef(tree, '$path/systemOperationAndMonitoring/capacityPlanning/capacityReview/CRPE');
   SomMetaRef get CRPP => SomMetaRef(tree, '$path/systemOperationAndMonitoring/capacityPlanning/capacityReview/CRPP');
-  SomListMetaRef<SecurityStandardEntry$Id> get SESTEN_STAN_LST => SomListMetaRef(tree, '$path/technicalSecurityRequirements/itSecurityStandards/SESTEN-STAN-LST', SecurityStandardEntry$Id.new);
+  SomListMetaRef<SecurityStandardEntry$Id> get SSE_STAN_LST => SomListMetaRef(tree, '$path/technicalSecurityRequirements/itSecurityStandards/SSE-STAN-LST', SecurityStandardEntry$Id.new);
   SomMetaRef get ASRC => SomMetaRef(tree, '$path/technicalSecurityRequirements/itSecurityStandards/applicationSecurity/ASRC');
   SomMetaRef get ASRV => SomMetaRef(tree, '$path/technicalSecurityRequirements/itSecurityStandards/applicationSecurity/ASRV');
   SomMetaRef get ASRA => SomMetaRef(tree, '$path/technicalSecurityRequirements/itSecurityStandards/applicationSecurity/ASRA');
@@ -71006,7 +71006,7 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get STAF => SomMetaRef(tree, '$path/technicalSecurityRequirements/securityAuditRequirements/securityTestingAutomation/STAF');
   SomMetaRef get STAS => SomMetaRef(tree, '$path/technicalSecurityRequirements/securityAuditRequirements/securityTestingAutomation/STAS');
   SomMetaRef get STAG => SomMetaRef(tree, '$path/technicalSecurityRequirements/securityAuditRequirements/securityTestingAutomation/STAG');
-  SomListMetaRef<SecurityAuditEntry$Id> get SEAUEN_AUDI_LST => SomListMetaRef(tree, '$path/technicalSecurityRequirements/securityAuditRequirements/SEAUEN-AUDI-LST', SecurityAuditEntry$Id.new);
+  SomListMetaRef<SecurityAuditEntry$Id> get SAE_AUDI_LST => SomListMetaRef(tree, '$path/technicalSecurityRequirements/securityAuditRequirements/SAE-AUDI-LST', SecurityAuditEntry$Id.new);
   SomMetaRef get CSVND => SomMetaRef(tree, '$path/componentsToUse/strategy/CSVND');
   SomMetaRef get CSGOV => SomMetaRef(tree, '$path/componentsToUse/strategy/CSGOV');
   SomMetaRef get CSPRT => SomMetaRef(tree, '$path/componentsToUse/strategy/CSPRT');
@@ -71023,11 +71023,11 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
   SomMetaRef get TEENGO => SomMetaRef(tree, '$path/technicalEnvironment/TEENGO');
   SomMetaRef get TEENST => SomMetaRef(tree, '$path/technicalEnvironment/TEENST');
   SomMetaRef get TES => SomMetaRef(tree, '$path/technicalEnvironment/TES');
-  SomListMetaRef<SomMetaRef> get DEVOP_DEVO_LST => SomListMetaRef(tree, '$path/technicalEnvironment/network/DEVOP-DEVO-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get OBSER_OBSE_LST => SomListMetaRef(tree, '$path/technicalEnvironment/network/OBSER-OBSE-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get DATAC_DATA_LST => SomListMetaRef(tree, '$path/technicalEnvironment/DATAC-DATA-LST', SomMetaRef.new);
-  SomListMetaRef<TechnologyStandardEntry$Id> get TESTEN_TECH_LST => SomListMetaRef(tree, '$path/technicalEnvironment/TESTEN-TECH-LST', TechnologyStandardEntry$Id.new);
-  SomListMetaRef<IntegrationConstraintEntry$Id> get INCOE1_INTE_LST => SomListMetaRef(tree, '$path/technicalEnvironment/INCOE1-INTE-LST', IntegrationConstraintEntry$Id.new);
+  SomListMetaRef<SomMetaRef> get TEENNE_DEVO_LST => SomListMetaRef(tree, '$path/technicalEnvironment/network/TEENNE-DEVO-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get TEENNE_OBSE_LST => SomListMetaRef(tree, '$path/technicalEnvironment/network/TEENNE-OBSE-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get TEEN_DATA_LST => SomListMetaRef(tree, '$path/technicalEnvironment/TEEN-DATA-LST', SomMetaRef.new);
+  SomListMetaRef<TechnologyStandardEntry$Id> get TSE_TECH_LST => SomListMetaRef(tree, '$path/technicalEnvironment/TSE-TECH-LST', TechnologyStandardEntry$Id.new);
+  SomListMetaRef<IntegrationConstraintEntry$Id> get INTCONENT_INTE_LST => SomListMetaRef(tree, '$path/technicalEnvironment/INTCONENT-INTE-LST', IntegrationConstraintEntry$Id.new);
   SomMetaRef get TRAREQ_TRAN => SomMetaRef(tree, '$path/translationRequirements/TRAREQ-TRAN');
   SomMetaRef get TRRERT => SomMetaRef(tree, '$path/translationRequirements/TRRERT');
   SomMetaRef get TRREFO => SomMetaRef(tree, '$path/translationRequirements/TRREFO');
@@ -71040,9 +71040,9 @@ class D06ArchitectureTechnologySpecification$Id extends SomMetaRef {
 /// one step. `.path` and `.meta` agree with the dot-notation surface.
 class D07IntegrationInterfaceSpecification$Id extends SomMetaRef {
   D07IntegrationInterfaceSpecification$Id(super.tree, super.path);
-  SomListMetaRef<ExternalInterfaceEntry$Id> get EXINEN_INTE_LST => SomListMetaRef(tree, '$path/externalInterfaces/EXINEN-INTE-LST', ExternalInterfaceEntry$Id.new);
-  SomListMetaRef<OutOfScopeEntry$Id> get OOSE_ITEM_LST => SomListMetaRef(tree, '$path/outOfScope/OOSE-ITEM-LST', OutOfScopeEntry$Id.new);
-  SomListMetaRef<BoundaryAssumptionEntry$Id> get BOASEN_ITEM_LST => SomListMetaRef(tree, '$path/boundaryAssumptions/BOASEN-ITEM-LST', BoundaryAssumptionEntry$Id.new);
+  SomListMetaRef<ExternalInterfaceEntry$Id> get EIE_INTE_LST => SomListMetaRef(tree, '$path/externalInterfaces/EIE-INTE-LST', ExternalInterfaceEntry$Id.new);
+  SomListMetaRef<OutOfScopeEntry$Id> get OUOFSCEN_ITEM_LST => SomListMetaRef(tree, '$path/outOfScope/OUOFSCEN-ITEM-LST', OutOfScopeEntry$Id.new);
+  SomListMetaRef<BoundaryAssumptionEntry$Id> get BAE_ITEM_LST => SomListMetaRef(tree, '$path/boundaryAssumptions/BAE-ITEM-LST', BoundaryAssumptionEntry$Id.new);
   SomListMetaRef<BoundaryInteractionPatterns$Id> get BOINPA_INTE_LST => SomListMetaRef(tree, '$path/BOINPA-INTE-LST', BoundaryInteractionPatterns$Id.new);
   SomListMetaRef<MigrationInteractions$Id> get MIIN_MIGR_LST => SomListMetaRef(tree, '$path/MIIN-MIGR-LST', MigrationInteractions$Id.new);
   SomListMetaRef<CrossBoundaryOperationalConsiderations$Id> get CBOC_OPER_LST => SomListMetaRef(tree, '$path/CBOC-OPER-LST', CrossBoundaryOperationalConsiderations$Id.new);
@@ -71074,9 +71074,9 @@ class D08SecurityAccessSpecification$Id extends SomMetaRef {
   SomMetaRef get SRPA => SomMetaRef(tree, '$path/identificationAndAuthentication/identification/selfRegistration/SRPA');
   SomMetaRef get SRPS => SomMetaRef(tree, '$path/identificationAndAuthentication/identification/selfRegistration/SRPS');
   SomListMetaRef<IdentityAttributeMappingEntry$Id> get IDTAM_ATTR_LST => SomListMetaRef(tree, '$path/identificationAndAuthentication/identification/IDTAM-ATTR-LST', IdentityAttributeMappingEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get MFADE_MFAD_LST => SomListMetaRef(tree, '$path/identificationAndAuthentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get MC_MFAD_LST => SomListMetaRef(tree, '$path/identificationAndAuthentication/authentication/authenticationMethods/mfaConfiguration/MC-MFAD-LST', SomMetaRef.new);
   SomListMetaRef<AuthenticationMethodEntry$Id> get ATME_ITEM_LST => SomListMetaRef(tree, '$path/identificationAndAuthentication/authentication/authenticationMethods/ATME-ITEM-LST', AuthenticationMethodEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get STEPU_STEP_LST => SomListMetaRef(tree, '$path/identificationAndAuthentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get SUAP_STEP_LST => SomListMetaRef(tree, '$path/identificationAndAuthentication/authentication/authenticationFlow/stepUpAuthentication/SUAP-STEP-LST', SomMetaRef.new);
   SomListMetaRef<LoginFlowStepEntry$Id> get LGFLS_LOGI_LST => SomListMetaRef(tree, '$path/identificationAndAuthentication/authentication/authenticationFlow/LGFLS-LOGI-LST', LoginFlowStepEntry$Id.new);
   SomListMetaRef<MfaCategoryRequirementEntry$Id> get MFACRQ_MFAC_LST => SomListMetaRef(tree, '$path/identificationAndAuthentication/authentication/passwordAndCredentialPolicy/MFACRQ-MFAC-LST', MfaCategoryRequirementEntry$Id.new);
   SomListMetaRef<AuthorizationGroupEntry$Id> get AZGR_GROU_LST => SomListMetaRef(tree, '$path/userAuthorization/AZGR-GROU-LST', AuthorizationGroupEntry$Id.new);
@@ -71101,13 +71101,13 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
   SomListMetaRef<DesignPrincipleEntry$Id> get DPEN_ITEM_LST => SomListMetaRef(tree, '$path/designVision/designPrinciples/DPEN-ITEM-LST', DesignPrincipleEntry$Id.new);
   SomListMetaRef<PersonaEntry$Id> get PEREN_ITEM_LST => SomListMetaRef(tree, '$path/designVision/personas/PEREN-ITEM-LST', PersonaEntry$Id.new);
   SomListMetaRef<ScreenEntry$Id> get SCREN_ITEM_LST => SomListMetaRef(tree, '$path/screens/screenInventory/SCREN-ITEM-LST', ScreenEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get GLOBA_GLOB_LST => SomListMetaRef(tree, '$path/screens/informationArchitecture/GLOBA-GLOB-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get IA_GLOB_LST => SomListMetaRef(tree, '$path/screens/informationArchitecture/IA-GLOB-LST', SomMetaRef.new);
   SomListMetaRef<NavigationGroupEntry$Id> get NAVGRP_GROU_LST => SomListMetaRef(tree, '$path/screenFlow/navigationModel/hierarchy/NAVGRP-GROU-LST', NavigationGroupEntry$Id.new);
   SomMetaRef get PRNADR => SomMetaRef(tree, '$path/screenFlow/navigationModel/primaryNavigation/PRNADR');
   SomMetaRef get PNBN => SomMetaRef(tree, '$path/screenFlow/navigationModel/primaryNavigation/PNBN');
   SomMetaRef get PRNASI => SomMetaRef(tree, '$path/screenFlow/navigationModel/primaryNavigation/PRNASI');
-  SomListMetaRef<TabBarDefinitionEntry$Id> get TBDE_TABB_LST => SomListMetaRef(tree, '$path/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST', TabBarDefinitionEntry$Id.new);
-  SomListMetaRef<UtilityNavigationItemEntry$Id> get UNIE_ITEM_LST => SomListMetaRef(tree, '$path/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST', UtilityNavigationItemEntry$Id.new);
+  SomListMetaRef<TabBarDefinitionEntry$Id> get TABADEEN_TABB_LST => SomListMetaRef(tree, '$path/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST', TabBarDefinitionEntry$Id.new);
+  SomListMetaRef<UtilityNavigationItemEntry$Id> get UTNAITEN_ITEM_LST => SomListMetaRef(tree, '$path/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST', UtilityNavigationItemEntry$Id.new);
   SomMetaRef get BRCO => SomMetaRef(tree, '$path/screenFlow/navigationModel/contextualNavigation/BRCO');
   SomListMetaRef<DeepLinkPatternEntry$Id> get DELNPT_PATT_LST => SomListMetaRef(tree, '$path/screenFlow/navigationModel/deepLinking/DELNPT-PATT-LST', DeepLinkPatternEntry$Id.new);
   SomListMetaRef<NavigationGuardEntry$Id> get NAVGRD_GUAR_LST => SomListMetaRef(tree, '$path/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST', NavigationGuardEntry$Id.new);
@@ -71119,9 +71119,9 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
   SomMetaRef get PRLAWA => SomMetaRef(tree, '$path/printLayout/PRLAWA');
   SomMetaRef get PLHF => SomMetaRef(tree, '$path/printLayout/PLHF');
   SomMetaRef get PRLAAR => SomMetaRef(tree, '$path/printLayout/PRLAAR');
-  SomListMetaRef<ExportFormatEntry$Id> get EXFOEN_EXPO_LST => SomListMetaRef(tree, '$path/printLayout/EXFOEN-EXPO-LST', ExportFormatEntry$Id.new);
-  SomListMetaRef<ExportTemplateEntry$Id> get EXTEEN_EXPO_LST => SomListMetaRef(tree, '$path/printLayout/EXTEEN-EXPO-LST', ExportTemplateEntry$Id.new);
-  SomListMetaRef<ReportEntry$Id> get REEN_REPO_LST => SomListMetaRef(tree, '$path/reportDefinitions/REEN-REPO-LST', ReportEntry$Id.new);
+  SomListMetaRef<ExportFormatEntry$Id> get EFE_EXPO_LST => SomListMetaRef(tree, '$path/printLayout/EFE-EXPO-LST', ExportFormatEntry$Id.new);
+  SomListMetaRef<ExportTemplateEntry$Id> get ETE_EXPO_LST => SomListMetaRef(tree, '$path/printLayout/ETE-EXPO-LST', ExportTemplateEntry$Id.new);
+  SomListMetaRef<ReportEntry$Id> get REPENT_REPO_LST => SomListMetaRef(tree, '$path/reportDefinitions/REPENT-REPO-LST', ReportEntry$Id.new);
   SomMetaRef get ERHACO_ERRO => SomMetaRef(tree, '$path/errorHandling/ERHACO-ERRO');
   SomMetaRef get EHCC => SomMetaRef(tree, '$path/errorHandling/EHCC');
   SomMetaRef get EHCA => SomMetaRef(tree, '$path/errorHandling/EHCA');
@@ -71131,22 +71131,22 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
   SomMetaRef get VAFEME => SomMetaRef(tree, '$path/errorHandling/validationFeedback/VAFEME');
   SomMetaRef get VAFEGU => SomMetaRef(tree, '$path/errorHandling/validationFeedback/VAFEGU');
   SomMetaRef get VAFEBE => SomMetaRef(tree, '$path/errorHandling/validationFeedback/VAFEBE');
-  SomListMetaRef<ValidationMessageTemplate$Id> get VAMETE_MESS_LST => SomListMetaRef(tree, '$path/errorHandling/validationFeedback/VAMETE-MESS-LST', ValidationMessageTemplate$Id.new);
-  SomListMetaRef<SomMetaRef> get FIELD_FIEL_LST => SomListMetaRef(tree, '$path/errorHandling/validationFeedback/FIELD-FIEL-LST', SomMetaRef.new);
+  SomListMetaRef<ValidationMessageTemplate$Id> get VMT_MESS_LST => SomListMetaRef(tree, '$path/errorHandling/validationFeedback/VMT-MESS-LST', ValidationMessageTemplate$Id.new);
+  SomListMetaRef<SomMetaRef> get VAFE_FIEL_LST => SomListMetaRef(tree, '$path/errorHandling/validationFeedback/VAFE-FIEL-LST', SomMetaRef.new);
   SomMetaRef get SYERDI_SYST => SomMetaRef(tree, '$path/errorHandling/systemErrorDisplay/SYERDI-SYST');
   SomMetaRef get SEDET => SomMetaRef(tree, '$path/errorHandling/systemErrorDisplay/SEDET');
   SomMetaRef get SEDM => SomMetaRef(tree, '$path/errorHandling/systemErrorDisplay/SEDM');
   SomMetaRef get SEDC => SomMetaRef(tree, '$path/errorHandling/systemErrorDisplay/SEDC');
   SomMetaRef get SEDF => SomMetaRef(tree, '$path/errorHandling/systemErrorDisplay/SEDF');
-  SomListMetaRef<SomMetaRef> get EPDE_ERRO_LST => SomListMetaRef(tree, '$path/errorHandling/systemErrorDisplay/EPDE-ERRO-LST', SomMetaRef.new);
-  SomListMetaRef<SystemErrorCodeEntry$Id> get SECE_ERRO_LST => SomListMetaRef(tree, '$path/errorHandling/systemErrorDisplay/SECE-ERRO-LST', SystemErrorCodeEntry$Id.new);
+  SomListMetaRef<SomMetaRef> get SYERDI_ERRO_LST => SomListMetaRef(tree, '$path/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST', SomMetaRef.new);
+  SomListMetaRef<SystemErrorCodeEntry$Id> get SYERCOEN_ERRO_LST => SomListMetaRef(tree, '$path/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST', SystemErrorCodeEntry$Id.new);
   SomMetaRef get ERRE_RECO => SomMetaRef(tree, '$path/errorHandling/errorRecovery/ERRE-RECO');
   SomMetaRef get ERDP => SomMetaRef(tree, '$path/errorHandling/errorRecovery/ERDP');
   SomMetaRef get ERRM => SomMetaRef(tree, '$path/errorHandling/errorRecovery/ERRM');
   SomMetaRef get ERGR => SomMetaRef(tree, '$path/errorHandling/errorRecovery/ERGR');
   SomMetaRef get ERSC => SomMetaRef(tree, '$path/errorHandling/errorRecovery/ERSC');
   SomMetaRef get ERSH => SomMetaRef(tree, '$path/errorHandling/errorRecovery/ERSH');
-  SomListMetaRef<SomMetaRef> get RECOV_RECO_LST => SomListMetaRef(tree, '$path/errorHandling/errorRecovery/RECOV-RECO-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get ERRE_RECO_LST => SomListMetaRef(tree, '$path/errorHandling/errorRecovery/ERRE-RECO-LST', SomMetaRef.new);
   SomListMetaRef<RecoveryScenarioEntry$Id> get RCVSCN_RECO_LST => SomListMetaRef(tree, '$path/errorHandling/errorRecovery/RCVSCN-RECO-LST', RecoveryScenarioEntry$Id.new);
   SomMetaRef get USAS_HELP => SomMetaRef(tree, '$path/userAssistance/USAS-HELP');
   SomMetaRef get USASDE => SomMetaRef(tree, '$path/userAssistance/USASDE');
@@ -71178,12 +71178,12 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
   SomMetaRef get WCCOOP => SomMetaRef(tree, '$path/accessibility/wcagComplianceLevel/WCCOOP');
   SomMetaRef get WCCOUN => SomMetaRef(tree, '$path/accessibility/wcagComplianceLevel/WCCOUN');
   SomMetaRef get WCCORO => SomMetaRef(tree, '$path/accessibility/wcagComplianceLevel/WCCORO');
-  SomListMetaRef<WcagSuccessCriterionEntry$Id> get WSCE_SUCC_LST => SomListMetaRef(tree, '$path/accessibility/wcagComplianceLevel/WSCE-SUCC-LST', WcagSuccessCriterionEntry$Id.new);
+  SomListMetaRef<WcagSuccessCriterionEntry$Id> get WCSUCREN_SUCC_LST => SomListMetaRef(tree, '$path/accessibility/wcagComplianceLevel/WCSUCREN-SUCC-LST', WcagSuccessCriterionEntry$Id.new);
   SomMetaRef get ACCHLS_CHEC => SomMetaRef(tree, '$path/accessibility/accessibilityChecklist/ACCHLS-CHEC');
   SomListMetaRef<AccessibilityCheckEntry$Id> get ACCH_ITEM_LST => SomListMetaRef(tree, '$path/accessibility/accessibilityChecklist/ACCH-ITEM-LST', AccessibilityCheckEntry$Id.new);
   SomMetaRef get REDE_RESP => SomMetaRef(tree, '$path/responsiveDesign/REDE-RESP');
   SomMetaRef get BC_BREA => SomMetaRef(tree, '$path/responsiveDesign/breakpointConfig/BC-BREA');
-  SomListMetaRef<BreakpointEntry$Id> get BRE_BREA_LST => SomListMetaRef(tree, '$path/responsiveDesign/breakpointConfig/BRE-BREA-LST', BreakpointEntry$Id.new);
+  SomListMetaRef<BreakpointEntry$Id> get BE_BREA_LST => SomListMetaRef(tree, '$path/responsiveDesign/breakpointConfig/BE-BREA-LST', BreakpointEntry$Id.new);
   SomMetaRef get REBE_LAYO => SomMetaRef(tree, '$path/responsiveDesign/responsiveBehavior/REBE-LAYO');
   SomMetaRef get REBENA => SomMetaRef(tree, '$path/responsiveDesign/responsiveBehavior/REBENA');
   SomMetaRef get REBEVI => SomMetaRef(tree, '$path/responsiveDesign/responsiveBehavior/REBEVI');
@@ -71202,7 +71202,7 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
   SomMetaRef get COLIVI => SomMetaRef(tree, '$path/uiComponents/componentLibrary/COLIVI');
   SomListMetaRef<ColorPaletteEntry$Id> get COPA_COLO_LST => SomListMetaRef(tree, '$path/uiComponents/componentLibrary/COPA-COLO-LST', ColorPaletteEntry$Id.new);
   SomListMetaRef<TypographyStyleEntry$Id> get TYST_TYPO_LST => SomListMetaRef(tree, '$path/uiComponents/componentLibrary/TYST-TYPO-LST', TypographyStyleEntry$Id.new);
-  SomListMetaRef<UiComponentEntry$Id> get UICOEN_COMP_LST => SomListMetaRef(tree, '$path/uiComponents/UICOEN-COMP-LST', UiComponentEntry$Id.new);
+  SomListMetaRef<UiComponentEntry$Id> get UICOMENT_COMP_LST => SomListMetaRef(tree, '$path/uiComponents/UICOMENT-COMP-LST', UiComponentEntry$Id.new);
   SomListMetaRef<ComponentFamilyEntry$Id> get CMFA_COMP_LST => SomListMetaRef(tree, '$path/uiComponents/CMFA-COMP-LST', ComponentFamilyEntry$Id.new);
   SomMetaRef get LACOSE_LANG => SomMetaRef(tree, '$path/languageCountrySelection/LACOSE-LANG');
   SomMetaRef get LCSD => SomMetaRef(tree, '$path/languageCountrySelection/LCSD');
@@ -71216,11 +71216,11 @@ class D09ExperienceDesignSpecification$Id extends SomMetaRef {
   SomMetaRef get PG_GOAL => SomMetaRef(tree, '$path/prototype/prototypeGoals/PG-GOAL');
   SomMetaRef get PRGORI => SomMetaRef(tree, '$path/prototype/prototypeGoals/PRGORI');
   SomMetaRef get PRGOFE => SomMetaRef(tree, '$path/prototype/prototypeGoals/PRGOFE');
-  SomListMetaRef<PrototypeGoalEntry$Id> get PRGOEN_GOAL_LST => SomListMetaRef(tree, '$path/prototype/prototypeGoals/PRGOEN-GOAL-LST', PrototypeGoalEntry$Id.new);
+  SomListMetaRef<PrototypeGoalEntry$Id> get PGE_GOAL_LST => SomListMetaRef(tree, '$path/prototype/prototypeGoals/PGE-GOAL-LST', PrototypeGoalEntry$Id.new);
   SomMetaRef get PRFESU_FEAT => SomMetaRef(tree, '$path/prototype/featureSubset/PRFESU-FEAT');
   SomMetaRef get PFSS => SomMetaRef(tree, '$path/prototype/featureSubset/PFSS');
   SomMetaRef get PFSF => SomMetaRef(tree, '$path/prototype/featureSubset/PFSF');
-  SomListMetaRef<PrototypeFeatureEntry$Id> get PRFEEN_FEAT_LST => SomListMetaRef(tree, '$path/prototype/featureSubset/PRFEEN-FEAT-LST', PrototypeFeatureEntry$Id.new);
+  SomListMetaRef<PrototypeFeatureEntry$Id> get PFE_FEAT_LST => SomListMetaRef(tree, '$path/prototype/featureSubset/PFE-FEAT-LST', PrototypeFeatureEntry$Id.new);
   SomMetaRef get PRTYSE_PROT => SomMetaRef(tree, '$path/prototype/prototypeType/PRTYSE-PROT');
   SomMetaRef get REUPRO_REUS => SomMetaRef(tree, '$path/prototype/prototypeType/reusablePrototype/REUPRO-REUS');
   SomMetaRef get REPRAR => SomMetaRef(tree, '$path/prototype/prototypeType/reusablePrototype/REPRAR');
@@ -71245,7 +71245,7 @@ class D10QualityAcceptancePlan$Id extends SomMetaRef {
   SomMetaRef get QFTRD => SomMetaRef(tree, '$path/qualityFramework/QFTRD');
   SomMetaRef get QFVER => SomMetaRef(tree, '$path/qualityFramework/QFVER');
   SomListMetaRef<QualityCategoryEntry$Id> get QCATE_QUAL_LST => SomListMetaRef(tree, '$path/qualityFramework/QCATE-QUAL-LST', QualityCategoryEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get CATEG_CATE_LST => SomListMetaRef(tree, '$path/qualityFramework/CATEG-CATE-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get QLFWK_CATE_LST => SomListMetaRef(tree, '$path/qualityFramework/QLFWK-CATE-LST', SomMetaRef.new);
   SomMetaRef get FNSU_FUNC => SomMetaRef(tree, '$path/functionalSuitability/FNSU-FUNC');
   SomMetaRef get COQUIN => SomMetaRef(tree, '$path/functionalSuitability/correctness/COQUIN');
   SomMetaRef get COQUAC => SomMetaRef(tree, '$path/functionalSuitability/correctness/COQUAC');
@@ -71374,8 +71374,8 @@ class D11DeliveryRoadmap$Id extends SomMetaRef {
   SomMetaRef get STAGFA => SomMetaRef(tree, '$path/stagingStrategy/STAGFA');
   SomListMetaRef<StagingDependencies$Id> get STAGDP_DEPE_LST => SomListMetaRef(tree, '$path/stagingStrategy/STAGDP-DEPE-LST', StagingDependencies$Id.new);
   SomMetaRef get STAGGV => SomMetaRef(tree, '$path/stagingStrategy/STAGGV');
-  SomListMetaRef<SomMetaRef> get KEYAS_KEYA_LST => SomListMetaRef(tree, '$path/stagingStrategy/KEYAS-KEYA-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get STAGI_CONS_LST => SomListMetaRef(tree, '$path/stagingStrategy/STAGI-CONS-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get STAGST_KEYA_LST => SomListMetaRef(tree, '$path/stagingStrategy/STAGST-KEYA-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get STAGST_CONS_LST => SomListMetaRef(tree, '$path/stagingStrategy/STAGST-CONS-LST', SomMetaRef.new);
   SomMetaRef get SGOVM => SomMetaRef(tree, '$path/stageOverview/SGOVM');
   SomMetaRef get SGOVBS => SomMetaRef(tree, '$path/stageOverview/SGOVBS');
   SomMetaRef get SGOVDP => SomMetaRef(tree, '$path/stageOverview/SGOVDP');
@@ -71395,10 +71395,10 @@ class D11DeliveryRoadmap$Id extends SomMetaRef {
   SomMetaRef get FEPRC1 => SomMetaRef(tree, '$path/featurePrioritization/FEPRC1');
   SomMetaRef get FEPRBA => SomMetaRef(tree, '$path/featurePrioritization/FEPRBA');
   SomMetaRef get FEPRTR => SomMetaRef(tree, '$path/featurePrioritization/FEPRTR');
-  SomListMetaRef<MoscowEntry$Id> get MOEN_ITEM_LST => SomListMetaRef(tree, '$path/featurePrioritization/moscowAnalysis/MOEN-ITEM-LST', MoscowEntry$Id.new);
-  SomListMetaRef<FeatureStageMapping$Id> get FESTM1_ITEM_LST => SomListMetaRef(tree, '$path/featurePrioritization/featureStageMatrix/FESTM1-ITEM-LST', FeatureStageMapping$Id.new);
-  SomListMetaRef<FeaturePriorityEntry$Id> get FEPREN_ITEM_LST => SomListMetaRef(tree, '$path/featurePrioritization/featurePriorityRegister/FEPREN-ITEM-LST', FeaturePriorityEntry$Id.new);
-  SomListMetaRef<FeatureDependencyEntry$Id> get FEDEEN_ITEM_LST => SomListMetaRef(tree, '$path/featurePrioritization/featureDependencies/FEDEEN-ITEM-LST', FeatureDependencyEntry$Id.new);
+  SomListMetaRef<MoscowEntry$Id> get ME_ITEM_LST => SomListMetaRef(tree, '$path/featurePrioritization/moscowAnalysis/ME-ITEM-LST', MoscowEntry$Id.new);
+  SomListMetaRef<FeatureStageMapping$Id> get FSM_ITEM_LST => SomListMetaRef(tree, '$path/featurePrioritization/featureStageMatrix/FSM-ITEM-LST', FeatureStageMapping$Id.new);
+  SomListMetaRef<FeaturePriorityEntry$Id> get FPE_ITEM_LST => SomListMetaRef(tree, '$path/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST', FeaturePriorityEntry$Id.new);
+  SomListMetaRef<FeatureDependencyEntry$Id> get FDE_ITEM_LST => SomListMetaRef(tree, '$path/featurePrioritization/featureDependencies/FDE-ITEM-LST', FeatureDependencyEntry$Id.new);
   SomMetaRef get MIAP => SomMetaRef(tree, '$path/dataMigrationStrategy/MIAP');
   SomMetaRef get MISC => SomMetaRef(tree, '$path/dataMigrationStrategy/MISC');
   SomListMetaRef<MigrationSystems$Id> get MISY_SYST_LST => SomListMetaRef(tree, '$path/dataMigrationStrategy/MISY-SYST-LST', MigrationSystems$Id.new);
@@ -71416,8 +71416,8 @@ class D11DeliveryRoadmap$Id extends SomMetaRef {
   SomListMetaRef<StageMigrationRiskEntry$Id> get STGMRS_ITEM_LST => SomListMetaRef(tree, '$path/dataMigrationStrategy/migrationRisks/STGMRS-ITEM-LST', StageMigrationRiskEntry$Id.new);
   SomMetaRef get PGRP => SomMetaRef(tree, '$path/gateCriteria/PGRP');
   SomMetaRef get PGRO => SomMetaRef(tree, '$path/gateCriteria/PGRO');
-  SomListMetaRef<PhaseGateReviewEntry$Id> get PGRE_ITEM_LST => SomListMetaRef(tree, '$path/gateCriteria/PGRE-ITEM-LST', PhaseGateReviewEntry$Id.new);
-  SomListMetaRef<DecisionPointEntry$Id> get DEPOEN_ITEM_LST => SomListMetaRef(tree, '$path/decisionProcesses/DEPOEN-ITEM-LST', DecisionPointEntry$Id.new);
+  SomListMetaRef<PhaseGateReviewEntry$Id> get PHGAREEN_ITEM_LST => SomListMetaRef(tree, '$path/gateCriteria/PHGAREEN-ITEM-LST', PhaseGateReviewEntry$Id.new);
+  SomListMetaRef<DecisionPointEntry$Id> get DPE_ITEM_LST => SomListMetaRef(tree, '$path/decisionProcesses/DPE-ITEM-LST', DecisionPointEntry$Id.new);
 }
 
 /// ID-tree accessors of `D12TransitionRolloutPlan` (SOM §8): getters named by section
@@ -71434,12 +71434,12 @@ class D12TransitionRolloutPlan$Id extends SomMetaRef {
   SomMetaRef get TRPRQU => SomMetaRef(tree, '$path/translationProcess/TRPRQU');
   SomMetaRef get TRPRTE => SomMetaRef(tree, '$path/translationProcess/TRPRTE');
   SomMetaRef get TRPRON => SomMetaRef(tree, '$path/translationProcess/TRPRON');
-  SomListMetaRef<TranslationVendorEntry$Id> get TRVEEN_VEND_LST => SomListMetaRef(tree, '$path/translationProcess/TRVEEN-VEND-LST', TranslationVendorEntry$Id.new);
+  SomListMetaRef<TranslationVendorEntry$Id> get TVE_VEND_LST => SomListMetaRef(tree, '$path/translationProcess/TVE-VEND-LST', TranslationVendorEntry$Id.new);
   SomMetaRef get DOANTR_DOCU => SomMetaRef(tree, '$path/userDocumentation/DOANTR-DOCU');
   SomMetaRef get DATD => SomMetaRef(tree, '$path/userDocumentation/DATD');
   SomMetaRef get DATL => SomMetaRef(tree, '$path/userDocumentation/DATL');
   SomMetaRef get TRMAT_TRAI => SomMetaRef(tree, '$path/trainingDeliverables/TRMAT-TRAI');
-  SomListMetaRef<TrainingModuleEntry$Id> get TRMOEN_TRAI_LST => SomListMetaRef(tree, '$path/trainingDeliverables/TRMOEN-TRAI-LST', TrainingModuleEntry$Id.new);
+  SomListMetaRef<TrainingModuleEntry$Id> get TME_TRAI_LST => SomListMetaRef(tree, '$path/trainingDeliverables/TME-TRAI-LST', TrainingModuleEntry$Id.new);
 }
 
 /// ID-tree accessors of `D13CodeSpecsProjection` (SOM §8): getters named by section
@@ -71460,9 +71460,9 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomListMetaRef<DataClassificationEntry$Id> get DCLSE_ITEM_LST => SomListMetaRef(tree, '$path/dataModel/dataClassification/DCLSE-ITEM-LST', DataClassificationEntry$Id.new);
   SomListMetaRef<TargetPlatformEntry$Id> get TGPLT_TARG_LST => SomListMetaRef(tree, '$path/technicalFramework/basicRequirements/platformAndLanguage/TGPLT-TARG-LST', TargetPlatformEntry$Id.new);
   SomListMetaRef<ProgrammingLanguageEntry$Id> get PLGEN_PROG_LST => SomListMetaRef(tree, '$path/technicalFramework/basicRequirements/platformAndLanguage/PLGEN-PROG-LST', ProgrammingLanguageEntry$Id.new);
-  SomListMetaRef<FrameworkRequirementEntry$Id> get FWREN_FRAM_LST => SomListMetaRef(tree, '$path/technicalFramework/basicRequirements/platformAndLanguage/FWREN-FRAM-LST', FrameworkRequirementEntry$Id.new);
+  SomListMetaRef<FrameworkRequirementEntry$Id> get FRREEN_FRAM_LST => SomListMetaRef(tree, '$path/technicalFramework/basicRequirements/platformAndLanguage/FRREEN-FRAM-LST', FrameworkRequirementEntry$Id.new);
   SomListMetaRef<BuildToolchainEntry$Id> get BTCEN_BUIL_LST => SomListMetaRef(tree, '$path/technicalFramework/basicRequirements/platformAndLanguage/BTCEN-BUIL-LST', BuildToolchainEntry$Id.new);
-  SomListMetaRef<DeploymentTargetEntry$Id> get DETAEN_DEPL_LST => SomListMetaRef(tree, '$path/technicalFramework/basicRequirements/platformAndLanguage/DETAEN-DEPL-LST', DeploymentTargetEntry$Id.new);
+  SomListMetaRef<DeploymentTargetEntry$Id> get DEPTARENT_DEPL_LST => SomListMetaRef(tree, '$path/technicalFramework/basicRequirements/platformAndLanguage/DEPTARENT-DEPL-LST', DeploymentTargetEntry$Id.new);
   SomMetaRef get DEMAVE => SomMetaRef(tree, '$path/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMAVE');
   SomMetaRef get DEMASE => SomMetaRef(tree, '$path/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMASE');
   SomMetaRef get DEMAIN => SomMetaRef(tree, '$path/technicalFramework/basicRequirements/platformAndLanguage/dependencyManagement/DEMAIN');
@@ -71512,9 +71512,9 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get DTIAC => SomMetaRef(tree, '$path/technicalFramework/basicRequirements/architectureStyle/deploymentTopology/DTIAC');
   SomListMetaRef<ArchitectureDecisionRecord$Id> get ARDE_DECI_LST => SomListMetaRef(tree, '$path/technicalFramework/basicRequirements/architectureStyle/ARDE-DECI-LST', ArchitectureDecisionRecord$Id.new);
   SomListMetaRef<DesignPatternEntry$Id> get DSPT_DESI_LST => SomListMetaRef(tree, '$path/technicalFramework/basicRequirements/designPatternsAndStandards/DSPT-DESI-LST', DesignPatternEntry$Id.new);
-  SomListMetaRef<CodingStandardEntry$Id> get COSTEN_CODI_LST => SomListMetaRef(tree, '$path/technicalFramework/basicRequirements/designPatternsAndStandards/COSTEN-CODI-LST', CodingStandardEntry$Id.new);
-  SomListMetaRef<DevelopmentConventionEntry$Id> get DECOEN_DEVE_LST => SomListMetaRef(tree, '$path/technicalFramework/basicRequirements/designPatternsAndStandards/DECOEN-DEVE-LST', DevelopmentConventionEntry$Id.new);
-  SomListMetaRef<IndustryStandardEntry$Id> get INSTEN_INDU_LST => SomListMetaRef(tree, '$path/technicalFramework/basicRequirements/designPatternsAndStandards/INSTEN-INDU-LST', IndustryStandardEntry$Id.new);
+  SomListMetaRef<CodingStandardEntry$Id> get CSE_CODI_LST => SomListMetaRef(tree, '$path/technicalFramework/basicRequirements/designPatternsAndStandards/CSE-CODI-LST', CodingStandardEntry$Id.new);
+  SomListMetaRef<DevelopmentConventionEntry$Id> get DCE_DEVE_LST => SomListMetaRef(tree, '$path/technicalFramework/basicRequirements/designPatternsAndStandards/DCE-DEVE-LST', DevelopmentConventionEntry$Id.new);
+  SomListMetaRef<IndustryStandardEntry$Id> get ISE_INDU_LST => SomListMetaRef(tree, '$path/technicalFramework/basicRequirements/designPatternsAndStandards/ISE-INDU-LST', IndustryStandardEntry$Id.new);
   SomMetaRef get CQMC => SomMetaRef(tree, '$path/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMC');
   SomMetaRef get COQUMECO => SomMetaRef(tree, '$path/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/COQUMECO');
   SomMetaRef get CQMD => SomMetaRef(tree, '$path/technicalFramework/basicRequirements/designPatternsAndStandards/codeQualityMetrics/CQMD');
@@ -71534,17 +71534,17 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get TESTPA => SomMetaRef(tree, '$path/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTPA');
   SomMetaRef get TESTQU => SomMetaRef(tree, '$path/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTQU');
   SomMetaRef get TESTTO => SomMetaRef(tree, '$path/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTTO');
-  SomListMetaRef<SoftwareLayerEntry$Id> get SOLAEN_SOFT_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/SOLAEN-SOFT-LST', SoftwareLayerEntry$Id.new);
+  SomListMetaRef<SoftwareLayerEntry$Id> get SLE_SOFT_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/SLE-SOFT-LST', SoftwareLayerEntry$Id.new);
   SomMetaRef get LCRI => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRI');
   SomMetaRef get LCRF => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRF');
   SomMetaRef get LCRG => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRG');
-  SomListMetaRef<BoundedContextEntry$Id> get BOCOEN_BOUN_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/BOCOEN-BOUN-LST', BoundedContextEntry$Id.new);
+  SomListMetaRef<BoundedContextEntry$Id> get BCE_BOUN_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/BCE-BOUN-LST', BoundedContextEntry$Id.new);
   SomMetaRef get PAORST => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORST');
   SomMetaRef get PAORTY => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORTY');
   SomMetaRef get PAORDE => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDE');
   SomMetaRef get PAORDO => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDO');
-  SomListMetaRef<ModuleEntry$Id> get MOEN1_MODU_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/MOEN1-MODU-LST', ModuleEntry$Id.new);
-  SomListMetaRef<SharedLibraryEntry$Id> get SHLIB_SHAR_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIB-SHAR-LST', SharedLibraryEntry$Id.new);
+  SomListMetaRef<ModuleEntry$Id> get MODENT_MODU_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/MODENT-MODU-LST', ModuleEntry$Id.new);
+  SomListMetaRef<SharedLibraryEntry$Id> get SHLIEN_SHAR_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIEN-SHAR-LST', SharedLibraryEntry$Id.new);
   SomMetaRef get DISR => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DISR');
   SomMetaRef get DISB => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DISB');
   SomMetaRef get DISC => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/dependencyInjection/DISC');
@@ -71559,7 +71559,7 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get MVSRM => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MVSRM');
   SomMetaRef get MVSD => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MVSD');
   SomMetaRef get MOVESTCO => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO');
-  SomListMetaRef<IdeRequirementEntry$Id> get IDREEN_IDER_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/developmentEnvironment/IDREEN-IDER-LST', IdeRequirementEntry$Id.new);
+  SomListMetaRef<IdeRequirementEntry$Id> get IRE_IDER_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/developmentEnvironment/IRE-IDER-LST', IdeRequirementEntry$Id.new);
   SomMetaRef get BTCBS => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCBS');
   SomMetaRef get BTCC => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCC');
   SomMetaRef get BTCS => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/developmentEnvironment/buildTools/BTCS');
@@ -71568,9 +71568,9 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get VCCB => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCB');
   SomMetaRef get VCCC => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCC');
   SomMetaRef get VCCM => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCM');
-  SomListMetaRef<PipelineStageEntry$Id> get PISTEN_STAG_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST', PipelineStageEntry$Id.new);
-  SomListMetaRef<PipelineJobEntry$Id> get PIJOEN_JOBS_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST', PipelineJobEntry$Id.new);
-  SomListMetaRef<DeploymentEnvironmentEntry$Id> get DEENEN_ENVI_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST', DeploymentEnvironmentEntry$Id.new);
+  SomListMetaRef<PipelineStageEntry$Id> get PSE_STAG_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PSE-STAG-LST', PipelineStageEntry$Id.new);
+  SomListMetaRef<PipelineJobEntry$Id> get PJE_JOBS_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PJE-JOBS-LST', PipelineJobEntry$Id.new);
+  SomListMetaRef<DeploymentEnvironmentEntry$Id> get DEE_ENVI_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEE-ENVI-LST', DeploymentEnvironmentEntry$Id.new);
   SomMetaRef get CRPR => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPR');
   SomMetaRef get CRPW => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPW');
   SomMetaRef get CRPA => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/developmentEnvironment/codeReviewProcess/CRPA');
@@ -71604,9 +71604,9 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get REPRVE => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/reusableComponents/principles/REPRVE');
   SomMetaRef get REPROW => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/reusableComponents/principles/REPROW');
   SomListMetaRef<SharedLibraryComponentEntry$Id> get SHLCP_SHAR_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/reusableComponents/SHLCP-SHAR-LST', SharedLibraryComponentEntry$Id.new);
-  SomListMetaRef<ReusableUiComponentEntry$Id> get RUICMP_UICO_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/reusableComponents/RUICMP-UICO-LST', ReusableUiComponentEntry$Id.new);
-  SomListMetaRef<BusinessComponentEntry$Id> get BUCOEN_BUSI_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/reusableComponents/BUCOEN-BUSI-LST', BusinessComponentEntry$Id.new);
-  SomListMetaRef<InfrastructureComponentEntry$Id> get INCOEN_INFR_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/reusableComponents/INCOEN-INFR-LST', InfrastructureComponentEntry$Id.new);
+  SomListMetaRef<ReusableUiComponentEntry$Id> get RUCE_UICO_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/reusableComponents/RUCE-UICO-LST', ReusableUiComponentEntry$Id.new);
+  SomListMetaRef<BusinessComponentEntry$Id> get BUSCOMENT_BUSI_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/reusableComponents/BUSCOMENT-BUSI-LST', BusinessComponentEntry$Id.new);
+  SomListMetaRef<InfrastructureComponentEntry$Id> get INFCOMENT_INFR_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/reusableComponents/INFCOMENT-INFR-LST', InfrastructureComponentEntry$Id.new);
   SomListMetaRef<ThirdPartyLibraryEntry$Id> get THPALI_THIR_LST => SomListMetaRef(tree, '$path/technicalFramework/softwareDesign/reusableComponents/THPALI-THIR-LST', ThirdPartyLibraryEntry$Id.new);
   SomMetaRef get COGOCO => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/reusableComponents/governance/COGOCO');
   SomMetaRef get COGOQU => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/reusableComponents/governance/COGOQU');
@@ -71616,14 +71616,14 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get COREDI => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/reusableComponents/registry/COREDI');
   SomMetaRef get COREDO => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/reusableComponents/registry/COREDO');
   SomMetaRef get COREUP => SomMetaRef(tree, '$path/technicalFramework/softwareDesign/reusableComponents/registry/COREUP');
-  SomListMetaRef<OsCompatibilityEntry$Id> get OSCOEN_OSCO_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/OSCOEN-OSCO-LST', OsCompatibilityEntry$Id.new);
-  SomListMetaRef<BrowserCompatibilityEntry$Id> get BRCOEN_BROW_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/BRCOEN-BROW-LST', BrowserCompatibilityEntry$Id.new);
-  SomListMetaRef<DatabaseCompatibilityEntry$Id> get DACOEN_DATA_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/DACOEN-DATA-LST', DatabaseCompatibilityEntry$Id.new);
-  SomListMetaRef<EnterpriseSystemCompatibilityEntry$Id> get ESCE_ENTE_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/ESCE-ENTE-LST', EnterpriseSystemCompatibilityEntry$Id.new);
+  SomListMetaRef<OsCompatibilityEntry$Id> get OCE_OSCO_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST', OsCompatibilityEntry$Id.new);
+  SomListMetaRef<BrowserCompatibilityEntry$Id> get BROCOMENT_BROW_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/BROCOMENT-BROW-LST', BrowserCompatibilityEntry$Id.new);
+  SomListMetaRef<DatabaseCompatibilityEntry$Id> get DATCOMENT_DATA_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/DATCOMENT-DATA-LST', DatabaseCompatibilityEntry$Id.new);
+  SomListMetaRef<EnterpriseSystemCompatibilityEntry$Id> get ENSYCOEN_ENTE_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/ENSYCOEN-ENTE-LST', EnterpriseSystemCompatibilityEntry$Id.new);
   SomListMetaRef<ApiCompatibilityEntry$Id> get APCP_APIC_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/APCP-APIC-LST', ApiCompatibilityEntry$Id.new);
-  SomListMetaRef<LegacyCompatibilityEntry$Id> get LECOEN_LEGA_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/LECOEN-LEGA-LST', LegacyCompatibilityEntry$Id.new);
-  SomListMetaRef<MobileCompatibilityEntry$Id> get MOCOEN_MOBI_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/MOCOEN-MOBI-LST', MobileCompatibilityEntry$Id.new);
-  SomListMetaRef<ThirdPartyCompatibilityEntry$Id> get TPCE_THIR_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/TPCE-THIR-LST', ThirdPartyCompatibilityEntry$Id.new);
+  SomListMetaRef<LegacyCompatibilityEntry$Id> get LCE_LEGA_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/LCE-LEGA-LST', LegacyCompatibilityEntry$Id.new);
+  SomListMetaRef<MobileCompatibilityEntry$Id> get MOBCOMENT_MOBI_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/MOBCOMENT-MOBI-LST', MobileCompatibilityEntry$Id.new);
+  SomListMetaRef<ThirdPartyCompatibilityEntry$Id> get THPACOEN_THIR_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/THPACOEN-THIR-LST', ThirdPartyCompatibilityEntry$Id.new);
   SomMetaRef get DFCF => SomMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCF');
   SomMetaRef get DFCDT => SomMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCDT');
   SomMetaRef get DFCN => SomMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/dataFormatCompatibility/DFCN');
@@ -71636,11 +71636,11 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get INREST => SomMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREST');
   SomMetaRef get INRETE => SomMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INRETE');
   SomMetaRef get INREGO => SomMetaRef(tree, '$path/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREGO');
-  SomListMetaRef<ItStandardComplianceEntry$Id> get ISCE_ITST_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/standardsCompliance/ISCE-ITST-LST', ItStandardComplianceEntry$Id.new);
-  SomListMetaRef<IndustryProtocolComplianceEntry$Id> get IPCE_INDU_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/standardsCompliance/IPCE-INDU-LST', IndustryProtocolComplianceEntry$Id.new);
-  SomListMetaRef<InterfaceSpecificationEntry$Id> get INSPEN_INTE_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/standardsCompliance/INSPEN-INTE-LST', InterfaceSpecificationEntry$Id.new);
-  SomListMetaRef<RegulatoryComplianceEntry$Id> get RECOEN_REGU_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/standardsCompliance/RECOEN-REGU-LST', RegulatoryComplianceEntry$Id.new);
-  SomListMetaRef<SecurityStandardComplianceEntry$Id> get SSCE_SECU_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/standardsCompliance/SSCE-SECU-LST', SecurityStandardComplianceEntry$Id.new);
+  SomListMetaRef<ItStandardComplianceEntry$Id> get ITSTCOEN_ITST_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/standardsCompliance/ITSTCOEN-ITST-LST', ItStandardComplianceEntry$Id.new);
+  SomListMetaRef<IndustryProtocolComplianceEntry$Id> get INPRCOEN_INDU_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/standardsCompliance/INPRCOEN-INDU-LST', IndustryProtocolComplianceEntry$Id.new);
+  SomListMetaRef<InterfaceSpecificationEntry$Id> get INTSPEENT_INTE_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/standardsCompliance/INTSPEENT-INTE-LST', InterfaceSpecificationEntry$Id.new);
+  SomListMetaRef<RegulatoryComplianceEntry$Id> get RCE_REGU_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/standardsCompliance/RCE-REGU-LST', RegulatoryComplianceEntry$Id.new);
+  SomListMetaRef<SecurityStandardComplianceEntry$Id> get SESTCOEN_SECU_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/standardsCompliance/SESTCOEN-SECU-LST', SecurityStandardComplianceEntry$Id.new);
   SomListMetaRef<AccessibilityStandardEntry$Id> get ACCSTD_ACCE_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/standardsCompliance/ACCSTD-ACCE-LST', AccessibilityStandardEntry$Id.new);
   SomListMetaRef<QualityStandardEntry$Id> get QLSTD_QUAL_LST => SomListMetaRef(tree, '$path/technicalFramework/standardSoftware/standardsCompliance/QLSTD-QUAL-LST', QualityStandardEntry$Id.new);
   SomMetaRef get DSST => SomMetaRef(tree, '$path/technicalFramework/standardSoftware/standardsCompliance/documentationStandards/DSST');
@@ -71661,8 +71661,8 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get CVSA => SomMetaRef(tree, '$path/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSA');
   SomMetaRef get COVESERE => SomMetaRef(tree, '$path/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/COVESERE');
   SomMetaRef get CVSC => SomMetaRef(tree, '$path/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSC');
-  SomListMetaRef<ServerEnvironmentEntry$Id> get SEENEN_ENVI_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/serverRequirements/SEENEN-ENVI-LST', ServerEnvironmentEntry$Id.new);
-  SomListMetaRef<ServerRoleEntry$Id> get SEROEN_SERV_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/serverRequirements/SEROEN-SERV-LST', ServerRoleEntry$Id.new);
+  SomListMetaRef<ServerEnvironmentEntry$Id> get SEE_ENVI_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/serverRequirements/SEE-ENVI-LST', ServerEnvironmentEntry$Id.new);
+  SomListMetaRef<ServerRoleEntry$Id> get SRE_SERV_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/serverRequirements/SRE-SERV-LST', ServerRoleEntry$Id.new);
   SomMetaRef get CRRM => SomMetaRef(tree, '$path/technicalFramework/hardware/serverRequirements/computeResources/CRRM');
   SomMetaRef get CRRG => SomMetaRef(tree, '$path/technicalFramework/hardware/serverRequirements/computeResources/CRRG');
   SomMetaRef get CRRS => SomMetaRef(tree, '$path/technicalFramework/hardware/serverRequirements/computeResources/CRRS');
@@ -71694,9 +71694,9 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get SORM => SomMetaRef(tree, '$path/technicalFramework/hardware/serverRequirements/osRequirements/SORM');
   SomMetaRef get SORL => SomMetaRef(tree, '$path/technicalFramework/hardware/serverRequirements/osRequirements/SORL');
   SomListMetaRef<ClientApplicationEntry$Id> get CLIAPP_CLIE_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST', ClientApplicationEntry$Id.new);
-  SomListMetaRef<BrowserRequirementEntry$Id> get BRREEN_BROW_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST', BrowserRequirementEntry$Id.new);
-  SomListMetaRef<DesktopOsRequirementEntry$Id> get DORE1_DESK_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/DORE1-DESK-LST', DesktopOsRequirementEntry$Id.new);
-  SomListMetaRef<MobileDeviceRequirementEntry$Id> get MDRE_MOBI_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/MDRE-MOBI-LST', MobileDeviceRequirementEntry$Id.new);
+  SomListMetaRef<BrowserRequirementEntry$Id> get BROREQENT_BROW_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/BROREQENT-BROW-LST', BrowserRequirementEntry$Id.new);
+  SomListMetaRef<DesktopOsRequirementEntry$Id> get DEOSREEN_DESK_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/DEOSREEN-DESK-LST', DesktopOsRequirementEntry$Id.new);
+  SomListMetaRef<MobileDeviceRequirementEntry$Id> get MODEREEN_MOBI_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/MODEREEN-MOBI-LST', MobileDeviceRequirementEntry$Id.new);
   SomMetaRef get DIRELA => SomMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/displayRequirements/DIRELA');
   SomMetaRef get DIRESC => SomMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/displayRequirements/DIRESC');
   SomMetaRef get DIREC1 => SomMetaRef(tree, '$path/technicalFramework/hardware/clientRequirements/displayRequirements/DIREC1');
@@ -71748,7 +71748,7 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get NARF => SomMetaRef(tree, '$path/technicalFramework/hardware/networkRequirements/availabilityRequirements/NARF');
   SomMetaRef get NEAVRERE => SomMetaRef(tree, '$path/technicalFramework/hardware/networkRequirements/availabilityRequirements/NEAVRERE');
   SomMetaRef get NART => SomMetaRef(tree, '$path/technicalFramework/hardware/networkRequirements/availabilityRequirements/NART');
-  SomListMetaRef<VpnRequirementEntry$Id> get VPREEN_VPNR_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/networkRequirements/VPREEN-VPNR-LST', VpnRequirementEntry$Id.new);
+  SomListMetaRef<VpnRequirementEntry$Id> get VRE_VPNR_LST => SomListMetaRef(tree, '$path/technicalFramework/hardware/networkRequirements/VRE-VPNR-LST', VpnRequirementEntry$Id.new);
   SomMetaRef get FIRERU => SomMetaRef(tree, '$path/technicalFramework/hardware/networkRequirements/firewallRequirements/FIRERU');
   SomMetaRef get FIREPO => SomMetaRef(tree, '$path/technicalFramework/hardware/networkRequirements/firewallRequirements/FIREPO');
   SomMetaRef get FIREAD => SomMetaRef(tree, '$path/technicalFramework/hardware/networkRequirements/firewallRequirements/FIREAD');
@@ -71771,7 +71771,7 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get NSRC => SomMetaRef(tree, '$path/technicalFramework/hardware/networkRequirements/networkSecurity/NSRC');
   SomMetaRef get BDCC => SomMetaRef(tree, '$path/technicalFramework/operations/backupAndRecovery/dataClassification/BDCC');
   SomMetaRef get BDCE => SomMetaRef(tree, '$path/technicalFramework/operations/backupAndRecovery/dataClassification/BDCE');
-  SomListMetaRef<BackupPolicyEntry$Id> get BAPOEN_BACK_LST => SomListMetaRef(tree, '$path/technicalFramework/operations/backupAndRecovery/BAPOEN-BACK-LST', BackupPolicyEntry$Id.new);
+  SomListMetaRef<BackupPolicyEntry$Id> get BPE_BACK_LST => SomListMetaRef(tree, '$path/technicalFramework/operations/backupAndRecovery/BPE-BACK-LST', BackupPolicyEntry$Id.new);
   SomMetaRef get RRRBT => SomMetaRef(tree, '$path/technicalFramework/operations/backupAndRecovery/rpoRtoRequirements/RRRBT');
   SomMetaRef get RRRS => SomMetaRef(tree, '$path/technicalFramework/operations/backupAndRecovery/rpoRtoRequirements/RRRS');
   SomMetaRef get RRRD => SomMetaRef(tree, '$path/technicalFramework/operations/backupAndRecovery/rpoRtoRequirements/RRRD');
@@ -71845,7 +71845,7 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get ALREDE => SomMetaRef(tree, '$path/technicalFramework/operations/monitoringAndAlerting/alerting/ALREDE');
   SomMetaRef get ALRESU => SomMetaRef(tree, '$path/technicalFramework/operations/monitoringAndAlerting/alerting/ALRESU');
   SomMetaRef get ALRERE => SomMetaRef(tree, '$path/technicalFramework/operations/monitoringAndAlerting/alerting/ALRERE');
-  SomListMetaRef<AlertDefinitionEntry$Id> get ALDEEN_ALER_LST => SomListMetaRef(tree, '$path/technicalFramework/operations/monitoringAndAlerting/ALDEEN-ALER-LST', AlertDefinitionEntry$Id.new);
+  SomListMetaRef<AlertDefinitionEntry$Id> get ALEDEFENT_ALER_LST => SomListMetaRef(tree, '$path/technicalFramework/operations/monitoringAndAlerting/ALEDEFENT-ALER-LST', AlertDefinitionEntry$Id.new);
   SomMetaRef get DAREST => SomMetaRef(tree, '$path/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREST');
   SomMetaRef get DAREAC => SomMetaRef(tree, '$path/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREAC');
   SomMetaRef get DAREFE => SomMetaRef(tree, '$path/technicalFramework/operations/monitoringAndAlerting/dashboards/DAREFE');
@@ -71866,7 +71866,7 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get SMPD => SomMetaRef(tree, '$path/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPD');
   SomMetaRef get SMPN => SomMetaRef(tree, '$path/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPN');
   SomMetaRef get SMPA => SomMetaRef(tree, '$path/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPA');
-  SomListMetaRef<MaintenanceWindowEntry$Id> get MAWIEN_MAIN_LST => SomListMetaRef(tree, '$path/technicalFramework/operations/maintenanceWindows/MAWIEN-MAIN-LST', MaintenanceWindowEntry$Id.new);
+  SomListMetaRef<MaintenanceWindowEntry$Id> get MWE_MAIN_LST => SomListMetaRef(tree, '$path/technicalFramework/operations/maintenanceWindows/MWE-MAIN-LST', MaintenanceWindowEntry$Id.new);
   SomMetaRef get EMPG => SomMetaRef(tree, '$path/technicalFramework/operations/maintenanceWindows/emergencyMaintenance/EMPG');
   SomMetaRef get EMPC => SomMetaRef(tree, '$path/technicalFramework/operations/maintenanceWindows/emergencyMaintenance/EMPC');
   SomMetaRef get EMPE => SomMetaRef(tree, '$path/technicalFramework/operations/maintenanceWindows/emergencyMaintenance/EMPE');
@@ -71879,7 +71879,7 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get MUIP => SomMetaRef(tree, '$path/technicalFramework/operations/maintenanceWindows/userImpact/MUIP');
   SomMetaRef get PMVM => SomMetaRef(tree, '$path/technicalFramework/operations/maintenanceWindows/postMaintenance/PMVM');
   SomMetaRef get PMVC => SomMetaRef(tree, '$path/technicalFramework/operations/maintenanceWindows/postMaintenance/PMVC');
-  SomListMetaRef<ProtocolEntry$Id> get PREN_PROT_LST => SomListMetaRef(tree, '$path/technicalFramework/communication/protocolsAndStandards/PREN-PROT-LST', ProtocolEntry$Id.new);
+  SomListMetaRef<ProtocolEntry$Id> get PE_PROT_LST => SomListMetaRef(tree, '$path/technicalFramework/communication/protocolsAndStandards/PE-PROT-LST', ProtocolEntry$Id.new);
   SomMetaRef get TRCS => SomMetaRef(tree, '$path/technicalFramework/communication/protocolsAndStandards/tlsRequirements/TRCS');
   SomMetaRef get TRCV => SomMetaRef(tree, '$path/technicalFramework/communication/protocolsAndStandards/tlsRequirements/TRCV');
   SomMetaRef get TLRETE => SomMetaRef(tree, '$path/technicalFramework/communication/protocolsAndStandards/tlsRequirements/TLRETE');
@@ -71901,7 +71901,7 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get PCRC => SomMetaRef(tree, '$path/technicalFramework/communication/protocolsAndStandards/compliance/PCRC');
   SomMetaRef get PCRO => SomMetaRef(tree, '$path/technicalFramework/communication/protocolsAndStandards/compliance/PCRO');
   SomMetaRef get PCRE => SomMetaRef(tree, '$path/technicalFramework/communication/protocolsAndStandards/compliance/PCRE');
-  SomListMetaRef<ExternalPartnerConnectionEntry$Id> get EPCE_PART_LST => SomListMetaRef(tree, '$path/technicalFramework/communication/externalConnectivity/EPCE-PART-LST', ExternalPartnerConnectionEntry$Id.new);
+  SomListMetaRef<ExternalPartnerConnectionEntry$Id> get EXPACOEN_PART_LST => SomListMetaRef(tree, '$path/technicalFramework/communication/externalConnectivity/EXPACOEN-PART-LST', ExternalPartnerConnectionEntry$Id.new);
   SomMetaRef get CSIS => SomMetaRef(tree, '$path/technicalFramework/communication/externalConnectivity/cloudServices/CSIS');
   SomMetaRef get CSIN => SomMetaRef(tree, '$path/technicalFramework/communication/externalConnectivity/cloudServices/CSIN');
   SomMetaRef get CSIC => SomMetaRef(tree, '$path/technicalFramework/communication/externalConnectivity/cloudServices/CSIC');
@@ -71939,7 +71939,7 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get SDTT => SomMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTT');
   SomMetaRef get SDTL => SomMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTL');
   SomMetaRef get SDTSS => SomMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS');
-  SomListMetaRef<SomMetaRef> get MAINT_MAIN_LST => SomListMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get SO_MAIN_LST => SomListMetaRef(tree, '$path/technicalFramework/systemOperation/systemOperation/SO-MAIN-LST', SomMetaRef.new);
   SomMetaRef get MONITO_MONI => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/MONITO-MONI');
   SomMetaRef get HCEC => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/healthEndpoints/HCEC');
   SomMetaRef get HCET => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/healthChecksAndDiagnostics/healthEndpoints/HCET');
@@ -71961,7 +71961,7 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get ANCD => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCD');
   SomMetaRef get ANCR => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCR');
   SomMetaRef get ANCF => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCF');
-  SomListMetaRef<AlertRuleEntry$Id> get ALRUEN_ALER_LST => SomListMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALRUEN-ALER-LST', AlertRuleEntry$Id.new);
+  SomListMetaRef<AlertRuleEntry$Id> get ALERULENT_ALER_LST => SomListMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERULENT-ALER-LST', AlertRuleEntry$Id.new);
   SomMetaRef get AEPT => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPT');
   SomMetaRef get AEPB => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPB');
   SomMetaRef get AEPS => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/alertingConfiguration/escalationPolicies/AEPS');
@@ -71982,15 +71982,15 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get DTSS => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSS');
   SomMetaRef get DITRSPSP => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DITRSPSP');
   SomMetaRef get DTSO => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSO');
-  SomListMetaRef<CustomMetricEntry$Id> get CUMEEN_CUST_LST => SomListMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUMEEN-CUST-LST', CustomMetricEntry$Id.new);
+  SomListMetaRef<CustomMetricEntry$Id> get CUSMETENT_CUST_LST => SomListMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMETENT-CUST-LST', CustomMetricEntry$Id.new);
   SomMetaRef get MODA_DASH => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH');
-  SomListMetaRef<DashboardEntry$Id> get DAEN_DASH_LST => SomListMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/dashboards/DAEN-DASH-LST', DashboardEntry$Id.new);
+  SomListMetaRef<DashboardEntry$Id> get DASENT_DASH_LST => SomListMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/dashboards/DASENT-DASH-LST', DashboardEntry$Id.new);
   SomListMetaRef<DashboardTemplates$Id> get DATE_DASH_LST => SomListMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/dashboards/DATE-DASH-LST', DashboardTemplates$Id.new);
   SomMetaRef get SASM_SLAO => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SASM-SLAO');
   SomMetaRef get SLIP => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIP');
   SomMetaRef get SLIQ => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIQ');
   SomMetaRef get SLIM => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIM');
-  SomListMetaRef<SloEntry$Id> get SLEN_SLOS_LST => SomListMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST', SloEntry$Id.new);
+  SomListMetaRef<SloEntry$Id> get SE_SLOS_LST => SomListMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SE-SLOS-LST', SloEntry$Id.new);
   SomMetaRef get EBTM => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/errorBudget/EBTM');
   SomMetaRef get EBTG => SomMetaRef(tree, '$path/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/errorBudget/EBTG');
   SomMetaRef get UGPF => SomMetaRef(tree, '$path/technicalFramework/systemOperation/capacityPlanning/userGrowth/UGPF');
@@ -72014,7 +72014,7 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get CAREPRMO => SomMetaRef(tree, '$path/technicalFramework/systemOperation/capacityPlanning/capacityReview/CAREPRMO');
   SomMetaRef get CRPE => SomMetaRef(tree, '$path/technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPE');
   SomMetaRef get CRPP => SomMetaRef(tree, '$path/technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPP');
-  SomListMetaRef<SecurityStandardEntry$Id> get SESTEN_STAN_LST => SomListMetaRef(tree, '$path/technicalFramework/security/itSecurityStandards/SESTEN-STAN-LST', SecurityStandardEntry$Id.new);
+  SomListMetaRef<SecurityStandardEntry$Id> get SSE_STAN_LST => SomListMetaRef(tree, '$path/technicalFramework/security/itSecurityStandards/SSE-STAN-LST', SecurityStandardEntry$Id.new);
   SomMetaRef get ASRC => SomMetaRef(tree, '$path/technicalFramework/security/itSecurityStandards/applicationSecurity/ASRC');
   SomMetaRef get ASRV => SomMetaRef(tree, '$path/technicalFramework/security/itSecurityStandards/applicationSecurity/ASRV');
   SomMetaRef get ASRA => SomMetaRef(tree, '$path/technicalFramework/security/itSecurityStandards/applicationSecurity/ASRA');
@@ -72081,7 +72081,7 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get STAF => SomMetaRef(tree, '$path/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAF');
   SomMetaRef get STAS => SomMetaRef(tree, '$path/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAS');
   SomMetaRef get STAG => SomMetaRef(tree, '$path/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAG');
-  SomListMetaRef<SecurityAuditEntry$Id> get SEAUEN_AUDI_LST => SomListMetaRef(tree, '$path/technicalFramework/security/securityAuditRequirements/SEAUEN-AUDI-LST', SecurityAuditEntry$Id.new);
+  SomListMetaRef<SecurityAuditEntry$Id> get SAE_AUDI_LST => SomListMetaRef(tree, '$path/technicalFramework/security/securityAuditRequirements/SAE-AUDI-LST', SecurityAuditEntry$Id.new);
   SomListMetaRef<UserCategoryDefinition$Id> get USCDF_ITEM_LST => SomListMetaRef(tree, '$path/accessControl/userManagement/userCategories/USCDF-ITEM-LST', UserCategoryDefinition$Id.new);
   SomListMetaRef<UserLifecycleTransitionEntry$Id> get ULTRE_ITEM_LST => SomListMetaRef(tree, '$path/accessControl/userManagement/userLifecycle/transitions/ULTRE-ITEM-LST', UserLifecycleTransitionEntry$Id.new);
   SomListMetaRef<ServiceAccountLifecycle$Id> get SACLC_SERV_LST => SomListMetaRef(tree, '$path/accessControl/userManagement/userLifecycle/SACLC-SERV-LST', ServiceAccountLifecycle$Id.new);
@@ -72103,9 +72103,9 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get SRPA => SomMetaRef(tree, '$path/accessControl/authentication/identification/selfRegistration/SRPA');
   SomMetaRef get SRPS => SomMetaRef(tree, '$path/accessControl/authentication/identification/selfRegistration/SRPS');
   SomListMetaRef<IdentityAttributeMappingEntry$Id> get IDTAM_ATTR_LST => SomListMetaRef(tree, '$path/accessControl/authentication/identification/IDTAM-ATTR-LST', IdentityAttributeMappingEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get MFADE_MFAD_LST => SomListMetaRef(tree, '$path/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get MC_MFAD_LST => SomListMetaRef(tree, '$path/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MC-MFAD-LST', SomMetaRef.new);
   SomListMetaRef<AuthenticationMethodEntry$Id> get ATME_ITEM_LST => SomListMetaRef(tree, '$path/accessControl/authentication/authentication/authenticationMethods/ATME-ITEM-LST', AuthenticationMethodEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get STEPU_STEP_LST => SomListMetaRef(tree, '$path/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get SUAP_STEP_LST => SomListMetaRef(tree, '$path/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/SUAP-STEP-LST', SomMetaRef.new);
   SomListMetaRef<LoginFlowStepEntry$Id> get LGFLS_LOGI_LST => SomListMetaRef(tree, '$path/accessControl/authentication/authentication/authenticationFlow/LGFLS-LOGI-LST', LoginFlowStepEntry$Id.new);
   SomListMetaRef<MfaCategoryRequirementEntry$Id> get MFACRQ_MFAC_LST => SomListMetaRef(tree, '$path/accessControl/authentication/authentication/passwordAndCredentialPolicy/MFACRQ-MFAC-LST', MfaCategoryRequirementEntry$Id.new);
   SomListMetaRef<AuthorizationGroupEntry$Id> get AZGR_GROU_LST => SomListMetaRef(tree, '$path/accessControl/authorization/AZGR-GROU-LST', AuthorizationGroupEntry$Id.new);
@@ -72117,7 +72117,7 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomListMetaRef<GlobalRoleExclusionEntry$Id> get GBRLX_GLOB_LST => SomListMetaRef(tree, '$path/accessControl/authorization/roleHierarchy/GBRLX-GLOB-LST', GlobalRoleExclusionEntry$Id.new);
   SomListMetaRef<TenantCustomizationEntry$Id> get TNCS_TENA_LST => SomListMetaRef(tree, '$path/accessControl/authorization/tenantIsolation/TNCS-TENA-LST', TenantCustomizationEntry$Id.new);
   SomListMetaRef<SecurityEventEntry$Id> get SEVT_CUST_LST => SomListMetaRef(tree, '$path/auditAndLogging/securityEvents/SEVT-CUST-LST', SecurityEventEntry$Id.new);
-  SomListMetaRef<ReportEntry$Id> get REEN_REPO_LST => SomListMetaRef(tree, '$path/reportDefinitions/REEN-REPO-LST', ReportEntry$Id.new);
+  SomListMetaRef<ReportEntry$Id> get REPENT_REPO_LST => SomListMetaRef(tree, '$path/reportDefinitions/REPENT-REPO-LST', ReportEntry$Id.new);
   SomListMetaRef<MigrationTargetEntry$Id> get MIGTG_TARG_LST => SomListMetaRef(tree, '$path/schemaVersioningAndMigration/MIGTG-TARG-LST', MigrationTargetEntry$Id.new);
   SomListMetaRef<SchemaMigrationStepEntry$Id> get SCMST_STEP_LST => SomListMetaRef(tree, '$path/schemaVersioningAndMigration/SCMST-STEP-LST', SchemaMigrationStepEntry$Id.new);
   SomListMetaRef<ServerOperationEntry$Id> get SVOPE_OPER_LST => SomListMetaRef(tree, '$path/serverOperationRegistry/SVOPE-OPER-LST', ServerOperationEntry$Id.new);
@@ -72132,13 +72132,13 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get ACDIOV => SomMetaRef(tree, '$path/processStepsAndActorInteractions/actorRelationshipDiagram/ACDIOV');
   SomListMetaRef<EndToEndTestScenario$Id> get ETETS_ENDT_LST => SomListMetaRef(tree, '$path/processStepsAndActorInteractions/ETETS-ENDT-LST', EndToEndTestScenario$Id.new);
   SomListMetaRef<ScreenEntry$Id> get SCREN_ITEM_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST', ScreenEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get GLOBA_GLOB_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/screens/informationArchitecture/GLOBA-GLOB-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get IA_GLOB_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST', SomMetaRef.new);
   SomListMetaRef<NavigationGroupEntry$Id> get NAVGRP_GROU_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/screenFlow/navigationModel/hierarchy/NAVGRP-GROU-LST', NavigationGroupEntry$Id.new);
   SomMetaRef get PRNADR => SomMetaRef(tree, '$path/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNADR');
   SomMetaRef get PNBN => SomMetaRef(tree, '$path/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PNBN');
   SomMetaRef get PRNASI => SomMetaRef(tree, '$path/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI');
-  SomListMetaRef<TabBarDefinitionEntry$Id> get TBDE_TABB_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST', TabBarDefinitionEntry$Id.new);
-  SomListMetaRef<UtilityNavigationItemEntry$Id> get UNIE_ITEM_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST', UtilityNavigationItemEntry$Id.new);
+  SomListMetaRef<TabBarDefinitionEntry$Id> get TABADEEN_TABB_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST', TabBarDefinitionEntry$Id.new);
+  SomListMetaRef<UtilityNavigationItemEntry$Id> get UTNAITEN_ITEM_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST', UtilityNavigationItemEntry$Id.new);
   SomMetaRef get BRCO => SomMetaRef(tree, '$path/experienceCodeSpecs/screenFlow/navigationModel/contextualNavigation/BRCO');
   SomListMetaRef<DeepLinkPatternEntry$Id> get DELNPT_PATT_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/screenFlow/navigationModel/deepLinking/DELNPT-PATT-LST', DeepLinkPatternEntry$Id.new);
   SomListMetaRef<NavigationGuardEntry$Id> get NAVGRD_GUAR_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/screenFlow/navigationModel/navigationGuards/NAVGRD-GUAR-LST', NavigationGuardEntry$Id.new);
@@ -72154,26 +72154,26 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get VAFEME => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/validationFeedback/VAFEME');
   SomMetaRef get VAFEGU => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/validationFeedback/VAFEGU');
   SomMetaRef get VAFEBE => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/validationFeedback/VAFEBE');
-  SomListMetaRef<ValidationMessageTemplate$Id> get VAMETE_MESS_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/validationFeedback/VAMETE-MESS-LST', ValidationMessageTemplate$Id.new);
-  SomListMetaRef<SomMetaRef> get FIELD_FIEL_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/validationFeedback/FIELD-FIEL-LST', SomMetaRef.new);
+  SomListMetaRef<ValidationMessageTemplate$Id> get VMT_MESS_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/validationFeedback/VMT-MESS-LST', ValidationMessageTemplate$Id.new);
+  SomListMetaRef<SomMetaRef> get VAFE_FIEL_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/validationFeedback/VAFE-FIEL-LST', SomMetaRef.new);
   SomMetaRef get SYERDI_SYST => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-SYST');
   SomMetaRef get SEDET => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDET');
   SomMetaRef get SEDM => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDM');
   SomMetaRef get SEDC => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDC');
   SomMetaRef get SEDF => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF');
-  SomListMetaRef<SomMetaRef> get EPDE_ERRO_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/systemErrorDisplay/EPDE-ERRO-LST', SomMetaRef.new);
-  SomListMetaRef<SystemErrorCodeEntry$Id> get SECE_ERRO_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/systemErrorDisplay/SECE-ERRO-LST', SystemErrorCodeEntry$Id.new);
+  SomListMetaRef<SomMetaRef> get SYERDI_ERRO_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST', SomMetaRef.new);
+  SomListMetaRef<SystemErrorCodeEntry$Id> get SYERCOEN_ERRO_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST', SystemErrorCodeEntry$Id.new);
   SomMetaRef get ERRE_RECO => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO');
   SomMetaRef get ERDP => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/errorRecovery/ERDP');
   SomMetaRef get ERRM => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/errorRecovery/ERRM');
   SomMetaRef get ERGR => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/errorRecovery/ERGR');
   SomMetaRef get ERSC => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/errorRecovery/ERSC');
   SomMetaRef get ERSH => SomMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/errorRecovery/ERSH');
-  SomListMetaRef<SomMetaRef> get RECOV_RECO_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/errorRecovery/RECOV-RECO-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get ERRE_RECO_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO-LST', SomMetaRef.new);
   SomListMetaRef<RecoveryScenarioEntry$Id> get RCVSCN_RECO_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/errorHandling/errorRecovery/RCVSCN-RECO-LST', RecoveryScenarioEntry$Id.new);
   SomMetaRef get REDE_RESP => SomMetaRef(tree, '$path/experienceCodeSpecs/responsiveDesign/REDE-RESP');
   SomMetaRef get BC_BREA => SomMetaRef(tree, '$path/experienceCodeSpecs/responsiveDesign/breakpointConfig/BC-BREA');
-  SomListMetaRef<BreakpointEntry$Id> get BRE_BREA_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/responsiveDesign/breakpointConfig/BRE-BREA-LST', BreakpointEntry$Id.new);
+  SomListMetaRef<BreakpointEntry$Id> get BE_BREA_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/responsiveDesign/breakpointConfig/BE-BREA-LST', BreakpointEntry$Id.new);
   SomMetaRef get REBE_LAYO => SomMetaRef(tree, '$path/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBE-LAYO');
   SomMetaRef get REBENA => SomMetaRef(tree, '$path/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBENA');
   SomMetaRef get REBEVI => SomMetaRef(tree, '$path/experienceCodeSpecs/responsiveDesign/responsiveBehavior/REBEVI');
@@ -72192,7 +72192,7 @@ class D13CodeSpecsProjection$Id extends SomMetaRef {
   SomMetaRef get COLIVI => SomMetaRef(tree, '$path/experienceCodeSpecs/uiComponents/componentLibrary/COLIVI');
   SomListMetaRef<ColorPaletteEntry$Id> get COPA_COLO_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/uiComponents/componentLibrary/COPA-COLO-LST', ColorPaletteEntry$Id.new);
   SomListMetaRef<TypographyStyleEntry$Id> get TYST_TYPO_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST', TypographyStyleEntry$Id.new);
-  SomListMetaRef<UiComponentEntry$Id> get UICOEN_COMP_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/uiComponents/UICOEN-COMP-LST', UiComponentEntry$Id.new);
+  SomListMetaRef<UiComponentEntry$Id> get UICOMENT_COMP_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/uiComponents/UICOMENT-COMP-LST', UiComponentEntry$Id.new);
   SomListMetaRef<ComponentFamilyEntry$Id> get CMFA_COMP_LST => SomListMetaRef(tree, '$path/experienceCodeSpecs/uiComponents/CMFA-COMP-LST', ComponentFamilyEntry$Id.new);
 }
 
@@ -72426,7 +72426,7 @@ class DecisionPointEntry$Id extends SomMetaRef {
   SomMetaRef get DPEC => SomMetaRef(tree, '$path/DPEC');
   SomMetaRef get DPES => SomMetaRef(tree, '$path/DPES');
   SomMetaRef get DEPOENCR => SomMetaRef(tree, '$path/DEPOENCR');
-  SomListMetaRef<DecisionOptionEntry$Id> get DEOPEN_OPTI_LST => SomListMetaRef(tree, '$path/resolution/DEOPEN-OPTI-LST', DecisionOptionEntry$Id.new);
+  SomListMetaRef<DecisionOptionEntry$Id> get DOE_OPTI_LST => SomListMetaRef(tree, '$path/resolution/DOE-OPTI-LST', DecisionOptionEntry$Id.new);
 }
 
 /// ID-tree accessors of `DeepLinkPatternEntry` (SOM §8): getters named by section
@@ -72861,7 +72861,7 @@ class ExportFormatEntry$Id extends SomMetaRef {
   SomMetaRef get AZREQ_RKEY => SomMetaRef(tree, '$path/access/AZREQ-RKEY');
   SomMetaRef get AZREQ_CUST => SomMetaRef(tree, '$path/access/AZREQ-CUST');
   SomListMetaRef<GradedAccessLevelEntry$Id> get AZLVL_LEVE_LST => SomListMetaRef(tree, '$path/access/gradedRequirement/AZLVL-LEVE-LST', GradedAccessLevelEntry$Id.new);
-  SomListMetaRef<ExportFieldMappingEntry$Id> get EFME_FIEL_LST => SomListMetaRef(tree, '$path/EFME-FIEL-LST', ExportFieldMappingEntry$Id.new);
+  SomListMetaRef<ExportFieldMappingEntry$Id> get EXFIMAEN_FIEL_LST => SomListMetaRef(tree, '$path/EXFIMAEN-FIEL-LST', ExportFieldMappingEntry$Id.new);
 }
 
 /// ID-tree accessors of `ExportSizeSettings` (SOM §8): getters named by section
@@ -72910,7 +72910,7 @@ class ExternalActorEntry$Id extends SomMetaRef {
   ExternalActorEntry$Id(super.tree, super.path);
   SomMetaRef get EAEI => SomMetaRef(tree, '$path/EAEI');
   SomMetaRef get EAEC => SomMetaRef(tree, '$path/EAEC');
-  SomListMetaRef<SomMetaRef> get INTER_INTE_LST => SomListMetaRef(tree, '$path/INTER-INTE-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get EAE_INTE_LST => SomListMetaRef(tree, '$path/EAE-INTE-LST', SomMetaRef.new);
 }
 
 /// ID-tree accessors of `ExternalInterfaceEntry` (SOM §8): getters named by section
@@ -72919,30 +72919,30 @@ class ExternalActorEntry$Id extends SomMetaRef {
 class ExternalInterfaceEntry$Id extends SomMetaRef {
   ExternalInterfaceEntry$Id(super.tree, super.path);
   SomMetaRef get EIE_IDEN => SomMetaRef(tree, '$path/EIE-IDEN');
-  SomListMetaRef<InterfaceBusinessProcessEntry$Id> get IBPE_DEPE_LST => SomListMetaRef(tree, '$path/businessContext/IBPE-DEPE-LST', InterfaceBusinessProcessEntry$Id.new);
+  SomListMetaRef<InterfaceBusinessProcessEntry$Id> get INBUPREN_DEPE_LST => SomListMetaRef(tree, '$path/businessContext/INBUPREN-DEPE-LST', InterfaceBusinessProcessEntry$Id.new);
   SomMetaRef get ITSC => SomMetaRef(tree, '$path/technicalSpec/ITSC');
   SomMetaRef get ITSE => SomMetaRef(tree, '$path/technicalSpec/ITSE');
-  SomListMetaRef<InterfaceOperationEntry$Id> get INOPEN_OPER_LST => SomListMetaRef(tree, '$path/technicalSpec/INOPEN-OPER-LST', InterfaceOperationEntry$Id.new);
+  SomListMetaRef<InterfaceOperationEntry$Id> get IOE_OPER_LST => SomListMetaRef(tree, '$path/technicalSpec/IOE-OPER-LST', InterfaceOperationEntry$Id.new);
   SomMetaRef get INWESP => SomMetaRef(tree, '$path/technicalSpec/INWESP');
-  SomListMetaRef<InterfaceDataEntityEntry$Id> get IDEE_DATA_LST => SomListMetaRef(tree, '$path/dataSpec/IDEE-DATA-LST', InterfaceDataEntityEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get MAPPI_MAPP_LST => SomListMetaRef(tree, '$path/dataSpec/MAPPI-MAPP-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get VALID_VALI_LST => SomListMetaRef(tree, '$path/dataSpec/VALID-VALI-LST', SomMetaRef.new);
+  SomListMetaRef<InterfaceDataEntityEntry$Id> get INDAENEN_DATA_LST => SomListMetaRef(tree, '$path/dataSpec/INDAENEN-DATA-LST', InterfaceDataEntityEntry$Id.new);
+  SomListMetaRef<SomMetaRef> get INDASP_MAPP_LST => SomListMetaRef(tree, '$path/dataSpec/INDASP-MAPP-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get INDASP_VALI_LST => SomListMetaRef(tree, '$path/dataSpec/INDASP-VALI-LST', SomMetaRef.new);
   SomMetaRef get INSEAU => SomMetaRef(tree, '$path/security/INSEAU');
   SomMetaRef get INSEEN => SomMetaRef(tree, '$path/security/INSEEN');
   SomMetaRef get INSECO => SomMetaRef(tree, '$path/security/INSECO');
   SomMetaRef get IORL => SomMetaRef(tree, '$path/operational/IORL');
   SomMetaRef get INOPMO => SomMetaRef(tree, '$path/operational/INOPMO');
   SomMetaRef get INOPSU => SomMetaRef(tree, '$path/operational/INOPSU');
-  SomListMetaRef<SomMetaRef> get DEPEN_DEPE_LST => SomListMetaRef(tree, '$path/operational/DEPEN-DEPE-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get INOP_DEPE_LST => SomListMetaRef(tree, '$path/operational/INOP-DEPE-LST', SomMetaRef.new);
   SomMetaRef get IEHR => SomMetaRef(tree, '$path/errorHandling/IEHR');
   SomMetaRef get IEHF => SomMetaRef(tree, '$path/errorHandling/IEHF');
   SomMetaRef get IEHT => SomMetaRef(tree, '$path/errorHandling/IEHT');
-  SomListMetaRef<SomMetaRef> get ERROR_ERRO_LST => SomListMetaRef(tree, '$path/errorHandling/ERROR-ERRO-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get INERHA_ERRO_LST => SomListMetaRef(tree, '$path/errorHandling/INERHA-ERRO-LST', SomMetaRef.new);
   SomMetaRef get INGOCO => SomMetaRef(tree, '$path/governance/INGOCO');
   SomMetaRef get INGOLI => SomMetaRef(tree, '$path/governance/INGOLI');
   SomMetaRef get INTEDA => SomMetaRef(tree, '$path/testing/INTEDA');
   SomMetaRef get INTEST => SomMetaRef(tree, '$path/testing/INTEST');
-  SomListMetaRef<InterfaceTestScenarioEntry$Id> get ITSE1_TEST_LST => SomListMetaRef(tree, '$path/testing/ITSE1-TEST-LST', InterfaceTestScenarioEntry$Id.new);
+  SomListMetaRef<InterfaceTestScenarioEntry$Id> get INTESCEN_TEST_LST => SomListMetaRef(tree, '$path/testing/INTESCEN-TEST-LST', InterfaceTestScenarioEntry$Id.new);
 }
 
 /// ID-tree accessors of `ExternalPartnerConnectionEntry` (SOM §8): getters named by section
@@ -73118,13 +73118,13 @@ class FunctionalRequirementEntry$Id extends SomMetaRef {
   SomMetaRef get FREV => SomMetaRef(tree, '$path/FREV');
   SomMetaRef get FREC => SomMetaRef(tree, '$path/FREC');
   SomMetaRef get FREM => SomMetaRef(tree, '$path/FREM');
-  SomListMetaRef<AcceptanceCriterionEntry$Id> get ACCR_CRIT_LST => SomListMetaRef(tree, '$path/acceptanceCriteria/ACCR-CRIT-LST', AcceptanceCriterionEntry$Id.new);
+  SomListMetaRef<AcceptanceCriterionEntry$Id> get ACE_CRIT_LST => SomListMetaRef(tree, '$path/acceptanceCriteria/ACE-CRIT-LST', AcceptanceCriterionEntry$Id.new);
   SomListMetaRef<RequirementBusinessRuleEntry$Id> get RQBIRU_RULE_LST => SomListMetaRef(tree, '$path/businessRules/RQBIRU-RULE-LST', RequirementBusinessRuleEntry$Id.new);
   SomListMetaRef<DataEntityReferenceEntry$Id> get DAENRE_ENTI_LST => SomListMetaRef(tree, '$path/dataRequirements/DAENRE-ENTI-LST', DataEntityReferenceEntry$Id.new);
   SomMetaRef get RUS_UIFO => SomMetaRef(tree, '$path/uiSpecification/RUS-UIFO');
   SomMetaRef get RUS_LAYO => SomMetaRef(tree, '$path/uiSpecification/RUS-LAYO');
   SomMetaRef get RUS_MOCK => SomMetaRef(tree, '$path/uiSpecification/RUS-MOCK');
-  SomListMetaRef<ScreenFieldEntry$Id> get SCFLD_FIEL_LST => SomListMetaRef(tree, '$path/uiSpecification/SCFLD-FIEL-LST', ScreenFieldEntry$Id.new);
+  SomListMetaRef<ScreenFieldEntry$Id> get SFE_FIEL_LST => SomListMetaRef(tree, '$path/uiSpecification/SFE-FIEL-LST', ScreenFieldEntry$Id.new);
   SomListMetaRef<RequirementScreenActionEntry$Id> get RQSCAC_ACTI_LST => SomListMetaRef(tree, '$path/uiSpecification/RQSCAC-ACTI-LST', RequirementScreenActionEntry$Id.new);
   SomListMetaRef<ScreenBehaviorEntry$Id> get SCBHV_BEHA_LST => SomListMetaRef(tree, '$path/uiSpecification/SCBHV-BEHA-LST', ScreenBehaviorEntry$Id.new);
   SomListMetaRef<RequirementDependencyEntry$Id> get RQDEP_ITEM_LST => SomListMetaRef(tree, '$path/dependencies/RQDEP-ITEM-LST', RequirementDependencyEntry$Id.new);
@@ -73922,7 +73922,7 @@ class OrganizationalRequirementEntry$Id extends SomMetaRef {
   SomMetaRef get OREC => SomMetaRef(tree, '$path/OREC');
   SomMetaRef get OREI => SomMetaRef(tree, '$path/OREI');
   SomMetaRef get OREP => SomMetaRef(tree, '$path/OREP');
-  SomListMetaRef<AcceptanceCriterionEntry$Id> get ACCR_CRIT_LST => SomListMetaRef(tree, '$path/acceptanceCriteria/ACCR-CRIT-LST', AcceptanceCriterionEntry$Id.new);
+  SomListMetaRef<AcceptanceCriterionEntry$Id> get ACE_CRIT_LST => SomListMetaRef(tree, '$path/acceptanceCriteria/ACE-CRIT-LST', AcceptanceCriterionEntry$Id.new);
   SomMetaRef get ORIP_PLAN => SomMetaRef(tree, '$path/implementationPlan/ORIP-PLAN');
   SomListMetaRef<OrgImplementationActivity$Id> get ORGIM_ACTI_LST => SomListMetaRef(tree, '$path/implementationPlan/ORGIM-ACTI-LST', OrgImplementationActivity$Id.new);
   SomListMetaRef<RequirementDependencyEntry$Id> get RQDEP_ITEM_LST => SomListMetaRef(tree, '$path/dependencies/RQDEP-ITEM-LST', RequirementDependencyEntry$Id.new);
@@ -74504,11 +74504,11 @@ class ReportEntry$Id extends SomMetaRef {
   SomMetaRef get AZREQ_CUST => SomMetaRef(tree, '$path/access/AZREQ-CUST');
   SomListMetaRef<GradedAccessLevelEntry$Id> get AZLVL_LEVE_LST => SomListMetaRef(tree, '$path/access/gradedRequirement/AZLVL-LEVE-LST', GradedAccessLevelEntry$Id.new);
   SomMetaRef get RELI => SomMetaRef(tree, '$path/RELI');
-  SomListMetaRef<ReportSectionEntry$Id> get RESEE1_SECT_LST => SomListMetaRef(tree, '$path/RESEE1-SECT-LST', ReportSectionEntry$Id.new);
-  SomListMetaRef<ReportFilterEntry$Id> get REFIEN_FILT_LST => SomListMetaRef(tree, '$path/REFIEN-FILT-LST', ReportFilterEntry$Id.new);
-  SomListMetaRef<ReportScheduleEntry$Id> get RESCEN_SCHE_LST => SomListMetaRef(tree, '$path/RESCEN-SCHE-LST', ReportScheduleEntry$Id.new);
-  SomListMetaRef<ReportDistributionEntry$Id> get REDIEN_DIST_LST => SomListMetaRef(tree, '$path/REDIEN-DIST-LST', ReportDistributionEntry$Id.new);
-  SomListMetaRef<ReportRecipientEntry$Id> get REREEN_RECI_LST => SomListMetaRef(tree, '$path/REREEN-RECI-LST', ReportRecipientEntry$Id.new);
+  SomListMetaRef<ReportSectionEntry$Id> get RSE_SECT_LST => SomListMetaRef(tree, '$path/RSE-SECT-LST', ReportSectionEntry$Id.new);
+  SomListMetaRef<ReportFilterEntry$Id> get RFE_FILT_LST => SomListMetaRef(tree, '$path/RFE-FILT-LST', ReportFilterEntry$Id.new);
+  SomListMetaRef<ReportScheduleEntry$Id> get REPSCHENT_SCHE_LST => SomListMetaRef(tree, '$path/REPSCHENT-SCHE-LST', ReportScheduleEntry$Id.new);
+  SomListMetaRef<ReportDistributionEntry$Id> get RDE_DIST_LST => SomListMetaRef(tree, '$path/RDE-DIST-LST', ReportDistributionEntry$Id.new);
+  SomListMetaRef<ReportRecipientEntry$Id> get RRE_RECI_LST => SomListMetaRef(tree, '$path/RRE-RECI-LST', ReportRecipientEntry$Id.new);
 }
 
 /// ID-tree accessors of `ReportFilterEntry` (SOM §8): getters named by section
@@ -74557,8 +74557,8 @@ class ReportSectionEntry$Id extends SomMetaRef {
   SomMetaRef get RESELA => SomMetaRef(tree, '$path/RESELA');
   SomMetaRef get RESESO => SomMetaRef(tree, '$path/RESESO');
   SomMetaRef get RESEAG => SomMetaRef(tree, '$path/RESEAG');
-  SomListMetaRef<ReportColumnEntry$Id> get RECOE1_COLU_LST => SomListMetaRef(tree, '$path/RECOE1-COLU-LST', ReportColumnEntry$Id.new);
-  SomListMetaRef<ReportChartEntry$Id> get RECHEN_CHAR_LST => SomListMetaRef(tree, '$path/RECHEN-CHAR-LST', ReportChartEntry$Id.new);
+  SomListMetaRef<ReportColumnEntry$Id> get REPCOLENT_COLU_LST => SomListMetaRef(tree, '$path/REPCOLENT-COLU-LST', ReportColumnEntry$Id.new);
+  SomListMetaRef<ReportChartEntry$Id> get REPCHAENT_CHAR_LST => SomListMetaRef(tree, '$path/REPCHAENT-CHAR-LST', ReportChartEntry$Id.new);
 }
 
 /// ID-tree accessors of `RequirementBusinessRuleEntry` (SOM §8): getters named by section
@@ -74952,7 +74952,7 @@ class ScreenElementEntry$Id extends SomMetaRef {
   SomMetaRef get SEFSU => SomMetaRef(tree, '$path/fieldSpec/SEFSU');
   SomMetaRef get SEDDB => SomMetaRef(tree, '$path/dataDisplay/SEDDB');
   SomMetaRef get SEDDO => SomMetaRef(tree, '$path/dataDisplay/SEDDO');
-  SomListMetaRef<ElementValidationRuleEntry$Id> get EVRE_VALI_LST => SomListMetaRef(tree, '$path/EVRE-VALI-LST', ElementValidationRuleEntry$Id.new);
+  SomListMetaRef<ElementValidationRuleEntry$Id> get ELVARUEN_VALI_LST => SomListMetaRef(tree, '$path/ELVARUEN-VALI-LST', ElementValidationRuleEntry$Id.new);
 }
 
 /// ID-tree accessors of `ScreenEntry` (SOM §8): getters named by section
@@ -74972,9 +74972,9 @@ class ScreenEntry$Id extends SomMetaRef {
   SomListMetaRef<ScreenSectionEntry$Id> get SCRSC_ITEM_LST => SomListMetaRef(tree, '$path/sections/SCRSC-ITEM-LST', ScreenSectionEntry$Id.new);
   SomListMetaRef<ScreenActionEntry$Id> get SCRAC_ITEM_LST => SomListMetaRef(tree, '$path/actions/SCRAC-ITEM-LST', ScreenActionEntry$Id.new);
   SomListMetaRef<ScreenStateEntry$Id> get SCRST_ITEM_LST => SomListMetaRef(tree, '$path/states/SCRST-ITEM-LST', ScreenStateEntry$Id.new);
-  SomListMetaRef<ScreenUserCategoryEntry$Id> get SCRUSC_USER_LST => SomListMetaRef(tree, '$path/SCRUSC-USER-LST', ScreenUserCategoryEntry$Id.new);
+  SomListMetaRef<ScreenUserCategoryEntry$Id> get SUCE_USER_LST => SomListMetaRef(tree, '$path/SUCE-USER-LST', ScreenUserCategoryEntry$Id.new);
   SomListMetaRef<EntryPointEntry$Id> get EPNT_ENTR_LST => SomListMetaRef(tree, '$path/EPNT-ENTR-LST', EntryPointEntry$Id.new);
-  SomListMetaRef<ScreenResponsiveRuleEntry$Id> get SRRE_RESP_LST => SomListMetaRef(tree, '$path/SRRE-RESP-LST', ScreenResponsiveRuleEntry$Id.new);
+  SomListMetaRef<ScreenResponsiveRuleEntry$Id> get SCRERUEN_RESP_LST => SomListMetaRef(tree, '$path/SCRERUEN-RESP-LST', ScreenResponsiveRuleEntry$Id.new);
 }
 
 /// ID-tree accessors of `ScreenFieldEntry` (SOM §8): getters named by section
@@ -75074,8 +75074,8 @@ class SecurityRequirementEntry$Id extends SomMetaRef {
   SomMetaRef get SEREENCO => SomMetaRef(tree, '$path/SEREENCO');
   SomMetaRef get SREV => SomMetaRef(tree, '$path/SREV');
   SomMetaRef get SEREENST => SomMetaRef(tree, '$path/SEREENST');
-  SomListMetaRef<AcceptanceCriterionEntry$Id> get ACCR_CRIT_LST => SomListMetaRef(tree, '$path/acceptanceCriteria/ACCR-CRIT-LST', AcceptanceCriterionEntry$Id.new);
-  SomListMetaRef<SecurityControlEntry$Id> get SECCT_CONT_LST => SomListMetaRef(tree, '$path/controls/SECCT-CONT-LST', SecurityControlEntry$Id.new);
+  SomListMetaRef<AcceptanceCriterionEntry$Id> get ACE_CRIT_LST => SomListMetaRef(tree, '$path/acceptanceCriteria/ACE-CRIT-LST', AcceptanceCriterionEntry$Id.new);
+  SomListMetaRef<SecurityControlEntry$Id> get SECOEN_CONT_LST => SomListMetaRef(tree, '$path/controls/SECOEN-CONT-LST', SecurityControlEntry$Id.new);
   SomListMetaRef<RequirementDependencyEntry$Id> get RQDEP_ITEM_LST => SomListMetaRef(tree, '$path/dependencies/RQDEP-ITEM-LST', RequirementDependencyEntry$Id.new);
   SomMetaRef get RT_TRAC => SomMetaRef(tree, '$path/traceability/RT-TRAC');
   SomMetaRef get RETRAR => SomMetaRef(tree, '$path/traceability/RETRAR');
@@ -75489,8 +75489,8 @@ class SystemTaskEntry$Id extends SomMetaRef {
   SomMetaRef get STED => SomMetaRef(tree, '$path/STED');
   SomMetaRef get STEC => SomMetaRef(tree, '$path/STEC');
   SomMetaRef get SYTS_RELA_REF => SomMetaRef(tree, '$path/SYTS-RELA-REF');
-  SomListMetaRef<SomMetaRef> get SYSTE_WORK_LST => SomListMetaRef(tree, '$path/SYSTE-WORK-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get VARIA_VARI_LST => SomListMetaRef(tree, '$path/VARIA-VARI-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get SYTS_WORK_LST => SomListMetaRef(tree, '$path/SYTS-WORK-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get SYTS_VARI_LST => SomListMetaRef(tree, '$path/SYTS-VARI-LST', SomMetaRef.new);
 }
 
 /// ID-tree accessors of `SystemToReplaceEntry` (SOM §8): getters named by section
@@ -75504,33 +75504,33 @@ class SystemToReplaceEntry$Id extends SomMetaRef {
   SomMetaRef get STAP => SomMetaRef(tree, '$path/technicalAssessment/STAP');
   SomMetaRef get STAL => SomMetaRef(tree, '$path/technicalAssessment/STAL');
   SomMetaRef get STAQ => SomMetaRef(tree, '$path/technicalAssessment/STAQ');
-  SomListMetaRef<SomMetaRef> get KIE_KNOW_LST => SomListMetaRef(tree, '$path/technicalAssessment/KIE-KNOW-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get SECUR_SECU_LST => SomListMetaRef(tree, '$path/technicalAssessment/SECUR-SECU-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get SYTEAS_KNOW_LST => SomListMetaRef(tree, '$path/technicalAssessment/SYTEAS-KNOW-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get SYTEAS_SECU_LST => SomListMetaRef(tree, '$path/technicalAssessment/SYTEAS-SECU-LST', SomMetaRef.new);
   SomMetaRef get SBCO => SomMetaRef(tree, '$path/businessCriticality/SBCO');
   SomMetaRef get SBCG => SomMetaRef(tree, '$path/businessCriticality/SBCG');
-  SomListMetaRef<SystemBusinessUnitEntry$Id> get SBUE_BUSI_LST => SomListMetaRef(tree, '$path/businessCriticality/SBUE-BUSI-LST', SystemBusinessUnitEntry$Id.new);
-  SomListMetaRef<SystemBusinessProcessEntry$Id> get SBPE_SUPP_LST => SomListMetaRef(tree, '$path/businessCriticality/SBPE-SUPP-LST', SystemBusinessProcessEntry$Id.new);
+  SomListMetaRef<SystemBusinessUnitEntry$Id> get SYBUUNEN_BUSI_LST => SomListMetaRef(tree, '$path/businessCriticality/SYBUUNEN-BUSI-LST', SystemBusinessUnitEntry$Id.new);
+  SomListMetaRef<SystemBusinessProcessEntry$Id> get SYBUPREN_SUPP_LST => SomListMetaRef(tree, '$path/businessCriticality/SYBUPREN-SUPP-LST', SystemBusinessProcessEntry$Id.new);
   SomMetaRef get SRST => SomMetaRef(tree, '$path/replacementStrategy/SRST');
   SomMetaRef get SRSC => SomMetaRef(tree, '$path/replacementStrategy/SRSC');
   SomListMetaRef<ReplacementPhaseEntry$Id> get REPPHS_PHAS_LST => SomListMetaRef(tree, '$path/replacementStrategy/REPPHS-PHAS-LST', ReplacementPhaseEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get PREDE_PRED_LST => SomListMetaRef(tree, '$path/replacementStrategy/PREDE-PRED-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get SYREST_PRED_LST => SomListMetaRef(tree, '$path/replacementStrategy/SYREST-PRED-LST', SomMetaRef.new);
   SomMetaRef get SDSG => SomMetaRef(tree, '$path/dataScope/SDSG');
   SomMetaRef get SYDASCMI => SomMetaRef(tree, '$path/dataScope/SYDASCMI');
-  SomListMetaRef<DataEntityMigrationEntry$Id> get DEME_ENTI_LST => SomListMetaRef(tree, '$path/dataScope/DEME-ENTI-LST', DataEntityMigrationEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get KNOWN_KNOW_LST => SomListMetaRef(tree, '$path/dataScope/KNOWN-KNOW-LST', SomMetaRef.new);
+  SomListMetaRef<DataEntityMigrationEntry$Id> get DAENMIEN_ENTI_LST => SomListMetaRef(tree, '$path/dataScope/DAENMIEN-ENTI-LST', DataEntityMigrationEntry$Id.new);
+  SomListMetaRef<SomMetaRef> get SYDASC_KNOW_LST => SomListMetaRef(tree, '$path/dataScope/SYDASC-KNOW-LST', SomMetaRef.new);
   SomListMetaRef<ReplacementSystemDependencyEntry$Id> get REPSDEP_DEPE_LST => SomListMetaRef(tree, '$path/REPSDEP-DEPE-LST', ReplacementSystemDependencyEntry$Id.new);
   SomMetaRef get SUICP => SomMetaRef(tree, '$path/userImpact/SUICP');
   SomMetaRef get SUIE => SomMetaRef(tree, '$path/userImpact/SUIE');
   SomMetaRef get SUIA => SomMetaRef(tree, '$path/userImpact/SUIA');
-  SomListMetaRef<UserGroupImpactEntry$Id> get UGIE_USER_LST => SomListMetaRef(tree, '$path/userImpact/UGIE-USER-LST', UserGroupImpactEntry$Id.new);
+  SomListMetaRef<UserGroupImpactEntry$Id> get USGRIMEN_USER_LST => SomListMetaRef(tree, '$path/userImpact/USGRIMEN-USER-LST', UserGroupImpactEntry$Id.new);
   SomMetaRef get SCACC => SomMetaRef(tree, '$path/costAnalysis/SCACC');
   SomMetaRef get SCAM => SomMetaRef(tree, '$path/costAnalysis/SCAM');
   SomMetaRef get SCAB => SomMetaRef(tree, '$path/costAnalysis/SCAB');
-  SomListMetaRef<SomMetaRef> get NONFI_NONF_LST => SomListMetaRef(tree, '$path/costAnalysis/NONFI-NONF-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get SYCOAN_NONF_LST => SomListMetaRef(tree, '$path/costAnalysis/SYCOAN-NONF-LST', SomMetaRef.new);
   SomMetaRef get SMPE => SomMetaRef(tree, '$path/migrationPlan/SMPE');
   SomMetaRef get SMPC => SomMetaRef(tree, '$path/migrationPlan/SMPC');
-  SomListMetaRef<SystemMigrationRiskEntry$Id> get SMRE_RISK_LST => SomListMetaRef(tree, '$path/migrationPlan/SMRE-RISK-LST', SystemMigrationRiskEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get CRITI_CRIT_LST => SomListMetaRef(tree, '$path/knowledgeTransfer/CRITI-CRIT-LST', SomMetaRef.new);
+  SomListMetaRef<SystemMigrationRiskEntry$Id> get SYMIRIEN_RISK_LST => SomListMetaRef(tree, '$path/migrationPlan/SYMIRIEN-RISK-LST', SystemMigrationRiskEntry$Id.new);
+  SomListMetaRef<SomMetaRef> get SYKNTR_CRIT_LST => SomListMetaRef(tree, '$path/knowledgeTransfer/SYKNTR-CRIT-LST', SomMetaRef.new);
 }
 
 /// ID-tree accessors of `SystemTrainingEntry` (SOM §8): getters named by section
@@ -75550,7 +75550,7 @@ class TabBarDefinitionEntry$Id extends SomMetaRef {
   TabBarDefinitionEntry$Id(super.tree, super.path);
   SomMetaRef get TBDEB => SomMetaRef(tree, '$path/TBDEB');
   SomMetaRef get TBDEL => SomMetaRef(tree, '$path/TBDEL');
-  SomListMetaRef<TabItemEntry$Id> get TAITEN_TABS_LST => SomListMetaRef(tree, '$path/TAITEN-TABS-LST', TabItemEntry$Id.new);
+  SomListMetaRef<TabItemEntry$Id> get TIE_TABS_LST => SomListMetaRef(tree, '$path/TIE-TABS-LST', TabItemEntry$Id.new);
 }
 
 /// ID-tree accessors of `TabItemEntry` (SOM §8): getters named by section
@@ -75656,7 +75656,7 @@ class TechnicalRequirementEntry$Id extends SomMetaRef {
   SomMetaRef get TREV => SomMetaRef(tree, '$path/TREV');
   SomMetaRef get TREI => SomMetaRef(tree, '$path/TREI');
   SomMetaRef get TREC => SomMetaRef(tree, '$path/TREC');
-  SomListMetaRef<AcceptanceCriterionEntry$Id> get ACCR_CRIT_LST => SomListMetaRef(tree, '$path/acceptanceCriteria/ACCR-CRIT-LST', AcceptanceCriterionEntry$Id.new);
+  SomListMetaRef<AcceptanceCriterionEntry$Id> get ACE_CRIT_LST => SomListMetaRef(tree, '$path/acceptanceCriteria/ACE-CRIT-LST', AcceptanceCriterionEntry$Id.new);
   SomListMetaRef<RequirementDependencyEntry$Id> get RQDEP_ITEM_LST => SomListMetaRef(tree, '$path/dependencies/RQDEP-ITEM-LST', RequirementDependencyEntry$Id.new);
   SomMetaRef get RT_TRAC => SomMetaRef(tree, '$path/traceability/RT-TRAC');
   SomMetaRef get RETRAR => SomMetaRef(tree, '$path/traceability/RETRAR');
@@ -75920,8 +75920,8 @@ class UiComponentEntry$Id extends SomMetaRef {
   SomMetaRef get UICOMENT_AUTH => SomMetaRef(tree, '$path/UICOMENT-AUTH');
   SomMetaRef get UICOMENT_RESO => SomMetaRef(tree, '$path/UICOMENT-RESO');
   SomMetaRef get UICOMENT_DATA => SomMetaRef(tree, '$path/UICOMENT-DATA');
-  SomListMetaRef<ComponentStateEntry$Id> get CMST_STAT_LST => SomListMetaRef(tree, '$path/CMST-STAT-LST', ComponentStateEntry$Id.new);
-  SomListMetaRef<ComponentVariantEntry$Id> get CMVN_VARI_LST => SomListMetaRef(tree, '$path/CMVN-VARI-LST', ComponentVariantEntry$Id.new);
+  SomListMetaRef<ComponentStateEntry$Id> get COMSTAENT_STAT_LST => SomListMetaRef(tree, '$path/COMSTAENT-STAT-LST', ComponentStateEntry$Id.new);
+  SomListMetaRef<ComponentVariantEntry$Id> get CVE_VARI_LST => SomListMetaRef(tree, '$path/CVE-VARI-LST', ComponentVariantEntry$Id.new);
   SomListMetaRef<ComponentActionEntry$Id> get CMAC_ACTI_LST => SomListMetaRef(tree, '$path/CMAC-ACTI-LST', ComponentActionEntry$Id.new);
   SomListMetaRef<ComponentSlotEntry$Id> get CMSL_SLOT_LST => SomListMetaRef(tree, '$path/CMSL-SLOT-LST', ComponentSlotEntry$Id.new);
   SomListMetaRef<ComponentPropertyEntry$Id> get CMPR_PROP_LST => SomListMetaRef(tree, '$path/CMPR-PROP-LST', ComponentPropertyEntry$Id.new);
@@ -75953,7 +75953,7 @@ class UserCategoryEntry$Id extends SomMetaRef {
   SomMetaRef get UPDG => SomMetaRef(tree, '$path/personaDetails/UPDG');
   SomMetaRef get UPDB => SomMetaRef(tree, '$path/personaDetails/UPDB');
   SomMetaRef get UPD_VISU => SomMetaRef(tree, '$path/personaDetails/UPD-VISU');
-  SomListMetaRef<SomMetaRef> get REPRE_REPR_LST => SomListMetaRef(tree, '$path/personaDetails/REPRE-REPR-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get UPD_REPR_LST => SomListMetaRef(tree, '$path/personaDetails/UPD-REPR-LST', SomMetaRef.new);
   SomMetaRef get UCRE => SomMetaRef(tree, '$path/UCRE');
   SomListMetaRef<SystemTaskEntry$Id> get SYTS_SYST_LST => SomListMetaRef(tree, '$path/SYTS-SYST-LST', SystemTaskEntry$Id.new);
   SomMetaRef get UAP_PERM => SomMetaRef(tree, '$path/accessPermissions/UAP-PERM');
@@ -75965,8 +75965,8 @@ class UserCategoryEntry$Id extends SomMetaRef {
   SomMetaRef get UAN_ACCE => SomMetaRef(tree, '$path/accessibilityNeeds/UAN-ACCE');
   SomMetaRef get UJ_JOUR => SomMetaRef(tree, '$path/userJourney/UJ-JOUR');
   SomListMetaRef<JourneyStageEntry$Id> get JRNST_STAG_LST => SomListMetaRef(tree, '$path/userJourney/JRNST-STAG-LST', JourneyStageEntry$Id.new);
-  SomListMetaRef<SomMetaRef> get KEYTO_KEYT_LST => SomListMetaRef(tree, '$path/userJourney/KEYTO-KEYT-LST', SomMetaRef.new);
-  SomListMetaRef<SomMetaRef> get USERJ_PAIN_LST => SomListMetaRef(tree, '$path/userJourney/USERJ-PAIN-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get UJ_KEYT_LST => SomListMetaRef(tree, '$path/userJourney/UJ-KEYT-LST', SomMetaRef.new);
+  SomListMetaRef<SomMetaRef> get UJ_PAIN_LST => SomListMetaRef(tree, '$path/userJourney/UJ-PAIN-LST', SomMetaRef.new);
   SomMetaRef get UJ_OPPO => SomMetaRef(tree, '$path/userJourney/UJ-OPPO');
 }
 
@@ -76029,7 +76029,7 @@ class UtilityNavigationItemEntry$Id extends SomMetaRef {
   SomMetaRef get AZREQ_CUST => SomMetaRef(tree, '$path/access/AZREQ-CUST');
   SomListMetaRef<GradedAccessLevelEntry$Id> get AZLVL_LEVE_LST => SomListMetaRef(tree, '$path/access/gradedRequirement/AZLVL-LEVE-LST', GradedAccessLevelEntry$Id.new);
   SomMetaRef get UNIEB => SomMetaRef(tree, '$path/UNIEB');
-  SomListMetaRef<UtilityMenuItemEntry$Id> get UMIE_MENU_LST => SomListMetaRef(tree, '$path/UMIE-MENU-LST', UtilityMenuItemEntry$Id.new);
+  SomListMetaRef<UtilityMenuItemEntry$Id> get UTMEITEN_MENU_LST => SomListMetaRef(tree, '$path/UTMEITEN-MENU-LST', UtilityMenuItemEntry$Id.new);
 }
 
 /// ID-tree accessors of `ValidationMessageTemplate` (SOM §8): getters named by section
@@ -76166,7 +76166,7 @@ class WorkplaceDescriptionEntry$Id extends SomMetaRef {
   SomMetaRef get EQOV => SomMetaRef(tree, '$path/equipmentRequirements/EQOV');
   SomListMetaRef<ComputingEquipmentEntry$Id> get COEQ_PRIM_LST => SomListMetaRef(tree, '$path/equipmentRequirements/COEQ-PRIM-LST', ComputingEquipmentEntry$Id.new);
   SomListMetaRef<DisplayEquipmentEntry$Id> get DSEQ_DISP_LST => SomListMetaRef(tree, '$path/equipmentRequirements/DSEQ-DISP-LST', DisplayEquipmentEntry$Id.new);
-  SomListMetaRef<InputDeviceEntry$Id> get INPDE_INPU_LST => SomListMetaRef(tree, '$path/equipmentRequirements/INPDE-INPU-LST', InputDeviceEntry$Id.new);
+  SomListMetaRef<InputDeviceEntry$Id> get IDE_INPU_LST => SomListMetaRef(tree, '$path/equipmentRequirements/IDE-INPU-LST', InputDeviceEntry$Id.new);
   SomListMetaRef<PeripheralEquipmentEntry$Id> get PEREQ_PERI_LST => SomListMetaRef(tree, '$path/equipmentRequirements/PEREQ-PERI-LST', PeripheralEquipmentEntry$Id.new);
   SomListMetaRef<MobileDeviceEntry$Id> get MOBDE_MOBI_LST => SomListMetaRef(tree, '$path/equipmentRequirements/MOBDE-MOBI-LST', MobileDeviceEntry$Id.new);
   SomListMetaRef<SpecializedEquipmentEntry$Id> get SPEQ_SPEC_LST => SomListMetaRef(tree, '$path/equipmentRequirements/SPEQ-SPEC-LST', SpecializedEquipmentEntry$Id.new);
@@ -76176,7 +76176,7 @@ class WorkplaceDescriptionEntry$Id extends SomMetaRef {
   SomMetaRef get REACRE => SomMetaRef(tree, '$path/technicalInfrastructure/REACRE');
   SomListMetaRef<CommunicationToolsRequirements$Id> get COTORE_COMM_LST => SomListMetaRef(tree, '$path/technicalInfrastructure/COTORE-COMM-LST', CommunicationToolsRequirements$Id.new);
   SomMetaRef get TROV => SomMetaRef(tree, '$path/trainingRequirements/TROV');
-  SomListMetaRef<InitialTrainingEntry$Id> get INITR_INIT_LST => SomListMetaRef(tree, '$path/trainingRequirements/INITR-INIT-LST', InitialTrainingEntry$Id.new);
+  SomListMetaRef<InitialTrainingEntry$Id> get ITE_INIT_LST => SomListMetaRef(tree, '$path/trainingRequirements/ITE-INIT-LST', InitialTrainingEntry$Id.new);
   SomListMetaRef<OngoingTrainingEntry$Id> get ONGTR_ONGO_LST => SomListMetaRef(tree, '$path/trainingRequirements/ONGTR-ONGO-LST', OngoingTrainingEntry$Id.new);
   SomListMetaRef<SystemTrainingEntry$Id> get SYTR_SYST_LST => SomListMetaRef(tree, '$path/trainingRequirements/SYTR-SYST-LST', SystemTrainingEntry$Id.new);
   SomListMetaRef<CertificationEntry$Id> get CRT_CERT_LST => SomListMetaRef(tree, '$path/trainingRequirements/CRT-CERT-LST', CertificationEntry$Id.new);

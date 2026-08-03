@@ -231,8 +231,8 @@ class SteeringCommittee extends DocSpecsSection {
     'PMBOK — project governance & organizational structure',
     'ISO 21500 — project management (governance, roles & responsibilities)',
   ], 'The roster of steering committee members and their governance roles.')
-  @SectionId('COMMB-MEMB-LST')
-  @SectionIdPattern('COMMB-MEMB-xxx')
+  @SectionId('CME-MEMB-LST')
+  @SectionIdPattern('CME-MEMB-xxx')
   @Min(1)
   @ContentHelp(
     'Add one entry per steering committee member, capturing their '

@@ -312,7 +312,7 @@ int main(int argc, char** argv) {
 
   metaNode("SBP");
   metaNode("SBP/documentControl");
-  metaNode("SBP/documentControl/RVHST-REVS-LST");
+  metaNode("SBP/documentControl/RVENT-REVS-LST");
   metaNode("SBP/introductionAndScope");
   metaNode("SBP/introductionAndScope/goals");
   metaNode("SBP/introductionAndScope/goals/content");
@@ -370,7 +370,7 @@ int main(int argc, char** argv) {
     }
   };
   metaForm("SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST");
-  metaForm("SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST");
+  metaForm("SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CE-CHAR-LST");
   metaForm(
       "SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/"
       "screenRouteMap/SCTREN-TRAN-LST");
@@ -419,7 +419,7 @@ int main(int argc, char** argv) {
   };
 
   m::IdD00SolutionBlueprint idRoot = m::d00SolutionBlueprintMetaId(metaTree);
-  som::SomListMetaRef idRevs = m::idD00SolutionBlueprint_RVHST_REVS_LST(idRoot);
+  som::SomListMetaRef idRevs = m::idD00SolutionBlueprint_RVENT_REVS_LST(idRoot);
   som::SomListMetaRef navRevs = m::navDocumentControl_revisionHistory(navDc);
 
   metaId(idRoot.ref, navRoot.ref);

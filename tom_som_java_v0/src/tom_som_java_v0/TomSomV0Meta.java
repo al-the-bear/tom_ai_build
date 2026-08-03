@@ -3061,8 +3061,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("AlertingConfiguration", SomMetaKind.LIST, "AlertRuleEntry");
         n.memberName = "alertRules";
-        n.sectionId = "ALRUEN-ALER-LST";
-        n.sectionIdPattern = "ALRUEN-ALER-xxx";
+        n.sectionId = "ALERULENT-ALER-LST";
+        n.sectionIdPattern = "ALERULENT-ALER-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per alert rule.";
         n.docComment = "Alert rules catalog.";
@@ -3136,7 +3136,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<AlertRuleEntryNav> alertRules() {
-      return new SomListMetaRef<>(tree, path + "/ALRUEN-ALER-LST", (t, p) -> new AlertRuleEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/ALERULENT-ALER-LST", (t, p) -> new AlertRuleEntryNav(t, p));
     }
 
     public AlertEscalationPoliciesNav escalationPolicies() {
@@ -4021,8 +4021,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ApplicableRegulationEntry", SomMetaKind.LIST, "String");
         n.memberName = "complianceMeasures";
-        n.sectionId = "COMPL-COMP-LST";
-        n.sectionIdPattern = "COMPL-COMP-xxx";
+        n.sectionId = "ARE-COMP-LST";
+        n.sectionIdPattern = "ARE-COMP-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per compliance measure taken to satisfy this regulation.";
         n.docComment = "Specific compliance measures for this regulation.";
@@ -4037,7 +4037,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> complianceMeasures() {
-      return new SomListMetaRef<>(tree, path + "/COMPL-COMP-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/ARE-COMP-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -5046,8 +5046,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("AssumptionConstraintDependencyRegister", SomMetaKind.LIST, "AssumptionRegisterEntry");
         n.memberName = "assumptions";
-        n.sectionId = "ACRG-ASMP-LST";
-        n.sectionIdPattern = "ACRG-ASMP-xxx";
+        n.sectionId = "ASMRE-ASMP-LST";
+        n.sectionIdPattern = "ASMRE-ASMP-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per assumption (ASM-NNN).";
         n.docComment = "Assumptions the solution depends on being true.";
@@ -5065,8 +5065,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("AssumptionConstraintDependencyRegister", SomMetaKind.LIST, "ConstraintRegisterEntry");
         n.memberName = "constraints";
-        n.sectionId = "ACRG-CONS-LST";
-        n.sectionIdPattern = "ACRG-CONS-xxx";
+        n.sectionId = "CONRE-CONS-LST";
+        n.sectionIdPattern = "CONRE-CONS-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per constraint (CON-NNN).";
         n.docComment = "Constraints the solution must operate within.";
@@ -5084,8 +5084,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("AssumptionConstraintDependencyRegister", SomMetaKind.LIST, "DependencyRegisterEntry");
         n.memberName = "dependencies";
-        n.sectionId = "ACRG-DEPS-LST";
-        n.sectionIdPattern = "ACRG-DEPS-xxx";
+        n.sectionId = "DEPRE-DEPS-LST";
+        n.sectionIdPattern = "DEPRE-DEPS-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per dependency (DEP-NNN).";
         n.docComment = "Dependencies the solution relies on (external systems, teams, vendors,\nprerequisite deliverables, framework conditions).";
@@ -5108,15 +5108,15 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<AssumptionRegisterEntryNav> assumptions() {
-      return new SomListMetaRef<>(tree, path + "/ACRG-ASMP-LST", (t, p) -> new AssumptionRegisterEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/ASMRE-ASMP-LST", (t, p) -> new AssumptionRegisterEntryNav(t, p));
     }
 
     public SomListMetaRef<ConstraintRegisterEntryNav> constraints() {
-      return new SomListMetaRef<>(tree, path + "/ACRG-CONS-LST", (t, p) -> new ConstraintRegisterEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/CONRE-CONS-LST", (t, p) -> new ConstraintRegisterEntryNav(t, p));
     }
 
     public SomListMetaRef<DependencyRegisterEntryNav> dependencies() {
-      return new SomListMetaRef<>(tree, path + "/ACRG-DEPS-LST", (t, p) -> new DependencyRegisterEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/DEPRE-DEPS-LST", (t, p) -> new DependencyRegisterEntryNav(t, p));
     }
   }
 
@@ -6913,8 +6913,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("BackupAndRecoverySection", SomMetaKind.LIST, "BackupPolicyEntry");
         n.memberName = "backupPolicies";
-        n.sectionId = "BAPOEN-BACK-LST";
-        n.sectionIdPattern = "BAPOEN-BACK-xxx";
+        n.sectionId = "BPE-BACK-LST";
+        n.sectionIdPattern = "BPE-BACK-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per backup policy.";
         n.docComment = "Backup policies by data type.";
@@ -7012,7 +7012,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<BackupPolicyEntryNav> backupPolicies() {
-      return new SomListMetaRef<>(tree, path + "/BAPOEN-BACK-LST", (t, p) -> new BackupPolicyEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/BPE-BACK-LST", (t, p) -> new BackupPolicyEntryNav(t, p));
     }
 
     public RpoRtoRequirementsNav rpoRtoRequirements() {
@@ -8078,8 +8078,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("BoundaryAssumptions", SomMetaKind.LIST, "BoundaryAssumptionEntry");
         n.memberName = "items";
-        n.sectionId = "BOASEN-ITEM-LST";
-        n.sectionIdPattern = "BOASEN-ITEM-xxx";
+        n.sectionId = "BAE-ITEM-LST";
+        n.sectionIdPattern = "BAE-ITEM-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Each entry records one assumption with its category, validation status, and risk if proven incorrect.";
         n.docComment = "Contains 0+× BoundaryAssumptionEntry.";
@@ -8103,7 +8103,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<BoundaryAssumptionEntryNav> items() {
-      return new SomListMetaRef<>(tree, path + "/BOASEN-ITEM-LST", (t, p) -> new BoundaryAssumptionEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/BAE-ITEM-LST", (t, p) -> new BoundaryAssumptionEntryNav(t, p));
     }
   }
 
@@ -8272,8 +8272,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("BreakpointConfiguration", SomMetaKind.LIST, "BreakpointEntry");
         n.memberName = "breakpoints";
-        n.sectionId = "BRE-BREA-LST";
-        n.sectionIdPattern = "BRE-BREA-xxx";
+        n.sectionId = "BE-BREA-LST";
+        n.sectionIdPattern = "BE-BREA-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per layout breakpoint.";
         n.docComment = "Breakpoint entries.";
@@ -8297,7 +8297,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<BreakpointEntryNav> breakpoints() {
-      return new SomListMetaRef<>(tree, path + "/BRE-BREA-LST", (t, p) -> new BreakpointEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/BE-BREA-LST", (t, p) -> new BreakpointEntryNav(t, p));
     }
   }
 
@@ -9846,8 +9846,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("BusinessPainPoints", SomMetaKind.LIST, "PainPointEntry");
         n.memberName = "items";
-        n.sectionId = "BUPAPO-ITEM-LST";
-        n.sectionIdPattern = "BUPAPO-ITEM-xxx";
+        n.sectionId = "PAPE-ITEM-LST";
+        n.sectionIdPattern = "PAPE-ITEM-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per distinct business problem, each with its own root cause, quantified impact, and resolution outlook. Scope entries to strategic and financial outcomes rather than operational or technical detail.";
         n.docComment = "Contains 0+× PainPoint.";
@@ -9875,7 +9875,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<PainPointEntryNav> items() {
-      return new SomListMetaRef<>(tree, path + "/BUPAPO-ITEM-LST", (t, p) -> new PainPointEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/PAPE-ITEM-LST", (t, p) -> new PainPointEntryNav(t, p));
     }
   }
 
@@ -12619,8 +12619,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("CiCdPipelineConfiguration", SomMetaKind.LIST, "PipelineStageEntry");
         n.memberName = "stages";
-        n.sectionId = "PISTEN-STAG-LST";
-        n.sectionIdPattern = "PISTEN-STAG-xxx";
+        n.sectionId = "PSE-STAG-LST";
+        n.sectionIdPattern = "PSE-STAG-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per pipeline stage.";
         n.docComment = "Pipeline stages.";
@@ -12639,8 +12639,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("CiCdPipelineConfiguration", SomMetaKind.LIST, "PipelineJobEntry");
         n.memberName = "jobs";
-        n.sectionId = "PIJOEN-JOBS-LST";
-        n.sectionIdPattern = "PIJOEN-JOBS-xxx";
+        n.sectionId = "PJE-JOBS-LST";
+        n.sectionIdPattern = "PJE-JOBS-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per pipeline job.";
         n.docComment = "Build jobs.";
@@ -12659,8 +12659,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("CiCdPipelineConfiguration", SomMetaKind.LIST, "DeploymentEnvironmentEntry");
         n.memberName = "environments";
-        n.sectionId = "DEENEN-ENVI-LST";
-        n.sectionIdPattern = "DEENEN-ENVI-xxx";
+        n.sectionId = "DEE-ENVI-LST";
+        n.sectionIdPattern = "DEE-ENVI-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per deployment environment.";
         n.docComment = "Deployment environments.";
@@ -12684,15 +12684,15 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<PipelineStageEntryNav> stages() {
-      return new SomListMetaRef<>(tree, path + "/PISTEN-STAG-LST", (t, p) -> new PipelineStageEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/PSE-STAG-LST", (t, p) -> new PipelineStageEntryNav(t, p));
     }
 
     public SomListMetaRef<PipelineJobEntryNav> jobs() {
-      return new SomListMetaRef<>(tree, path + "/PIJOEN-JOBS-LST", (t, p) -> new PipelineJobEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/PJE-JOBS-LST", (t, p) -> new PipelineJobEntryNav(t, p));
     }
 
     public SomListMetaRef<DeploymentEnvironmentEntryNav> environments() {
-      return new SomListMetaRef<>(tree, path + "/DEENEN-ENVI-LST", (t, p) -> new DeploymentEnvironmentEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/DEE-ENVI-LST", (t, p) -> new DeploymentEnvironmentEntryNav(t, p));
     }
   }
 
@@ -13274,8 +13274,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ClientRequirementsSection", SomMetaKind.LIST, "BrowserRequirementEntry");
         n.memberName = "browserRequirements";
-        n.sectionId = "BRREEN-BROW-LST";
-        n.sectionIdPattern = "BRREEN-BROW-xxx";
+        n.sectionId = "BROREQENT-BROW-LST";
+        n.sectionIdPattern = "BROREQENT-BROW-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per supported web browser.";
         n.docComment = "Web browser requirements.";
@@ -13294,8 +13294,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ClientRequirementsSection", SomMetaKind.LIST, "DesktopOsRequirementEntry");
         n.memberName = "desktopOsRequirements";
-        n.sectionId = "DORE1-DESK-LST";
-        n.sectionIdPattern = "DORE1-DESK-xxx";
+        n.sectionId = "DEOSREEN-DESK-LST";
+        n.sectionIdPattern = "DEOSREEN-DESK-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per supported desktop operating system.";
         n.docComment = "Desktop operating system requirements.";
@@ -13314,8 +13314,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ClientRequirementsSection", SomMetaKind.LIST, "MobileDeviceRequirementEntry");
         n.memberName = "mobileRequirements";
-        n.sectionId = "MDRE-MOBI-LST";
-        n.sectionIdPattern = "MDRE-MOBI-xxx";
+        n.sectionId = "MODEREEN-MOBI-LST";
+        n.sectionIdPattern = "MODEREEN-MOBI-xxx";
         n.serializationOrder = 5;
         n.contentHelp = "Add one entry per supported mobile platform.";
         n.docComment = "Mobile device requirements.";
@@ -13457,15 +13457,15 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<BrowserRequirementEntryNav> browserRequirements() {
-      return new SomListMetaRef<>(tree, path + "/BRREEN-BROW-LST", (t, p) -> new BrowserRequirementEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/BROREQENT-BROW-LST", (t, p) -> new BrowserRequirementEntryNav(t, p));
     }
 
     public SomListMetaRef<DesktopOsRequirementEntryNav> desktopOsRequirements() {
-      return new SomListMetaRef<>(tree, path + "/DORE1-DESK-LST", (t, p) -> new DesktopOsRequirementEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/DEOSREEN-DESK-LST", (t, p) -> new DesktopOsRequirementEntryNav(t, p));
     }
 
     public SomListMetaRef<MobileDeviceRequirementEntryNav> mobileRequirements() {
-      return new SomListMetaRef<>(tree, path + "/MDRE-MOBI-LST", (t, p) -> new MobileDeviceRequirementEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/MODEREEN-MOBI-LST", (t, p) -> new MobileDeviceRequirementEntryNav(t, p));
     }
 
     public DisplayRequirementsNav displayRequirements() {
@@ -14938,8 +14938,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("CompatibilityRequirementsSection", SomMetaKind.LIST, "OsCompatibilityEntry");
         n.memberName = "osCompatibility";
-        n.sectionId = "OSCOEN-OSCO-LST";
-        n.sectionIdPattern = "OSCOEN-OSCO-xxx";
+        n.sectionId = "OCE-OSCO-LST";
+        n.sectionIdPattern = "OCE-OSCO-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per supported operating system.";
         n.docComment = "Operating system compatibility requirements.";
@@ -14958,8 +14958,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("CompatibilityRequirementsSection", SomMetaKind.LIST, "BrowserCompatibilityEntry");
         n.memberName = "browserCompatibility";
-        n.sectionId = "BRCOEN-BROW-LST";
-        n.sectionIdPattern = "BRCOEN-BROW-xxx";
+        n.sectionId = "BROCOMENT-BROW-LST";
+        n.sectionIdPattern = "BROCOMENT-BROW-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per supported browser.";
         n.docComment = "Browser compatibility requirements.";
@@ -14978,8 +14978,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("CompatibilityRequirementsSection", SomMetaKind.LIST, "DatabaseCompatibilityEntry");
         n.memberName = "databaseCompatibility";
-        n.sectionId = "DACOEN-DATA-LST";
-        n.sectionIdPattern = "DACOEN-DATA-xxx";
+        n.sectionId = "DATCOMENT-DATA-LST";
+        n.sectionIdPattern = "DATCOMENT-DATA-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per supported database.";
         n.docComment = "Database compatibility requirements.";
@@ -14998,8 +14998,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("CompatibilityRequirementsSection", SomMetaKind.LIST, "EnterpriseSystemCompatibilityEntry");
         n.memberName = "enterpriseSystemCompatibility";
-        n.sectionId = "ESCE-ENTE-LST";
-        n.sectionIdPattern = "ESCE-ENTE-xxx";
+        n.sectionId = "ENSYCOEN-ENTE-LST";
+        n.sectionIdPattern = "ENSYCOEN-ENTE-xxx";
         n.serializationOrder = 5;
         n.contentHelp = "Add one entry per enterprise system.";
         n.docComment = "Enterprise system compatibility requirements.";
@@ -15038,8 +15038,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("CompatibilityRequirementsSection", SomMetaKind.LIST, "LegacyCompatibilityEntry");
         n.memberName = "legacyCompatibility";
-        n.sectionId = "LECOEN-LEGA-LST";
-        n.sectionIdPattern = "LECOEN-LEGA-xxx";
+        n.sectionId = "LCE-LEGA-LST";
+        n.sectionIdPattern = "LCE-LEGA-xxx";
         n.serializationOrder = 7;
         n.contentHelp = "Add one entry per legacy system.";
         n.docComment = "Legacy system compatibility requirements.";
@@ -15058,8 +15058,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("CompatibilityRequirementsSection", SomMetaKind.LIST, "MobileCompatibilityEntry");
         n.memberName = "mobileCompatibility";
-        n.sectionId = "MOCOEN-MOBI-LST";
-        n.sectionIdPattern = "MOCOEN-MOBI-xxx";
+        n.sectionId = "MOBCOMENT-MOBI-LST";
+        n.sectionIdPattern = "MOBCOMENT-MOBI-xxx";
         n.serializationOrder = 8;
         n.contentHelp = "Add one entry per supported mobile platform.";
         n.docComment = "Mobile device compatibility requirements.";
@@ -15078,8 +15078,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("CompatibilityRequirementsSection", SomMetaKind.LIST, "ThirdPartyCompatibilityEntry");
         n.memberName = "thirdPartyCompatibility";
-        n.sectionId = "TPCE-THIR-LST";
-        n.sectionIdPattern = "TPCE-THIR-xxx";
+        n.sectionId = "THPACOEN-THIR-LST";
+        n.sectionIdPattern = "THPACOEN-THIR-xxx";
         n.serializationOrder = 9;
         n.contentHelp = "Add one entry per third-party software product.";
         n.docComment = "Third-party software compatibility requirements.";
@@ -15140,19 +15140,19 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<OsCompatibilityEntryNav> osCompatibility() {
-      return new SomListMetaRef<>(tree, path + "/OSCOEN-OSCO-LST", (t, p) -> new OsCompatibilityEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/OCE-OSCO-LST", (t, p) -> new OsCompatibilityEntryNav(t, p));
     }
 
     public SomListMetaRef<BrowserCompatibilityEntryNav> browserCompatibility() {
-      return new SomListMetaRef<>(tree, path + "/BRCOEN-BROW-LST", (t, p) -> new BrowserCompatibilityEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/BROCOMENT-BROW-LST", (t, p) -> new BrowserCompatibilityEntryNav(t, p));
     }
 
     public SomListMetaRef<DatabaseCompatibilityEntryNav> databaseCompatibility() {
-      return new SomListMetaRef<>(tree, path + "/DACOEN-DATA-LST", (t, p) -> new DatabaseCompatibilityEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/DATCOMENT-DATA-LST", (t, p) -> new DatabaseCompatibilityEntryNav(t, p));
     }
 
     public SomListMetaRef<EnterpriseSystemCompatibilityEntryNav> enterpriseSystemCompatibility() {
-      return new SomListMetaRef<>(tree, path + "/ESCE-ENTE-LST", (t, p) -> new EnterpriseSystemCompatibilityEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/ENSYCOEN-ENTE-LST", (t, p) -> new EnterpriseSystemCompatibilityEntryNav(t, p));
     }
 
     public SomListMetaRef<ApiCompatibilityEntryNav> apiCompatibility() {
@@ -15160,15 +15160,15 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<LegacyCompatibilityEntryNav> legacyCompatibility() {
-      return new SomListMetaRef<>(tree, path + "/LECOEN-LEGA-LST", (t, p) -> new LegacyCompatibilityEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/LCE-LEGA-LST", (t, p) -> new LegacyCompatibilityEntryNav(t, p));
     }
 
     public SomListMetaRef<MobileCompatibilityEntryNav> mobileCompatibility() {
-      return new SomListMetaRef<>(tree, path + "/MOCOEN-MOBI-LST", (t, p) -> new MobileCompatibilityEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/MOBCOMENT-MOBI-LST", (t, p) -> new MobileCompatibilityEntryNav(t, p));
     }
 
     public SomListMetaRef<ThirdPartyCompatibilityEntryNav> thirdPartyCompatibility() {
-      return new SomListMetaRef<>(tree, path + "/TPCE-THIR-LST", (t, p) -> new ThirdPartyCompatibilityEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/THPACOEN-THIR-LST", (t, p) -> new ThirdPartyCompatibilityEntryNav(t, p));
     }
 
     public DataFormatCompatibilityNav dataFormatCompatibility() {
@@ -19339,8 +19339,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("CurrentArchitecture", SomMetaKind.LIST, "String");
         n.memberName = "integrationPatterns";
-        n.sectionId = "IPE-INTE-LST";
-        n.sectionIdPattern = "IPE-INTE-xxx";
+        n.sectionId = "CARCH-INTE-LST";
+        n.sectionIdPattern = "CARCH-INTE-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why.";
         n.docComment = "Integration patterns used.";
@@ -19350,8 +19350,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("CurrentArchitecture", SomMetaKind.LIST, "String");
         n.memberName = "sharedServices";
-        n.sectionId = "SHARE-SHAR-LST";
-        n.sectionIdPattern = "SHARE-SHAR-xxx";
+        n.sectionId = "CARCH-SHAR-LST";
+        n.sectionIdPattern = "CARCH-SHAR-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per shared service used by more than one system (e.g. authentication, logging, notifications). Capture which systems consume it.";
         n.docComment = "Shared services inventory.";
@@ -19374,11 +19374,11 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> integrationPatterns() {
-      return new SomListMetaRef<>(tree, path + "/IPE-INTE-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/CARCH-INTE-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<SomMetaRef> sharedServices() {
-      return new SomListMetaRef<>(tree, path + "/SHARE-SHAR-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/CARCH-SHAR-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -20222,8 +20222,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("CurrentWorkflowEntry", SomMetaKind.LIST, "WorkflowActorEntry");
         n.memberName = "actors";
-        n.sectionId = "WFAC-ACTO-LST";
-        n.sectionIdPattern = "WFAC-ACTO-xxx";
+        n.sectionId = "WAE-ACTO-LST";
+        n.sectionIdPattern = "WAE-ACTO-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per actor (role, system, department, external) taking part in this workflow, with their responsibilities and authorization level.";
         n.docComment = "Workflow actors and responsibilities.";
@@ -20367,7 +20367,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<WorkflowActorEntryNav> actors() {
-      return new SomListMetaRef<>(tree, path + "/WFAC-ACTO-LST", (t, p) -> new WorkflowActorEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/WAE-ACTO-LST", (t, p) -> new WorkflowActorEntryNav(t, p));
     }
 
     public SomListMetaRef<WorkflowInputEntryNav> inputs() {
@@ -28623,8 +28623,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("DecisionPointEntryResolution", SomMetaKind.LIST, "DecisionOptionEntry");
         n.memberName = "options";
-        n.sectionId = "DEOPEN-OPTI-LST";
-        n.sectionIdPattern = "DEOPEN-OPTI-xxx";
+        n.sectionId = "DOE-OPTI-LST";
+        n.sectionIdPattern = "DOE-OPTI-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per decision option.";
         n.docComment = "Contains 0+× DecisionOptionEntry.";
@@ -28652,7 +28652,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<DecisionOptionEntryNav> options() {
-      return new SomListMetaRef<>(tree, path + "/DEOPEN-OPTI-LST", (t, p) -> new DecisionOptionEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/DOE-OPTI-LST", (t, p) -> new DecisionOptionEntryNav(t, p));
     }
   }
 
@@ -28694,8 +28694,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("DecisionPoints", SomMetaKind.LIST, "DecisionPointEntry");
         n.memberName = "items";
-        n.sectionId = "DEPOEN-ITEM-LST";
-        n.sectionIdPattern = "DEPOEN-ITEM-xxx";
+        n.sectionId = "DPE-ITEM-LST";
+        n.sectionIdPattern = "DPE-ITEM-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per decision point.";
         n.docComment = "Contains 0+× DecisionPointEntry.";
@@ -28723,7 +28723,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<DecisionPointEntryNav> items() {
-      return new SomListMetaRef<>(tree, path + "/DEPOEN-ITEM-LST", (t, p) -> new DecisionPointEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/DPE-ITEM-LST", (t, p) -> new DecisionPointEntryNav(t, p));
     }
   }
 
@@ -31141,8 +31141,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("DesignPatternsAndStandards", SomMetaKind.LIST, "CodingStandardEntry");
         n.memberName = "codingStandards";
-        n.sectionId = "COSTEN-CODI-LST";
-        n.sectionIdPattern = "COSTEN-CODI-xxx";
+        n.sectionId = "CSE-CODI-LST";
+        n.sectionIdPattern = "CSE-CODI-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per coding standard.";
         n.docComment = "Coding standards and style guidelines.";
@@ -31161,8 +31161,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("DesignPatternsAndStandards", SomMetaKind.LIST, "DevelopmentConventionEntry");
         n.memberName = "developmentConventions";
-        n.sectionId = "DECOEN-DEVE-LST";
-        n.sectionIdPattern = "DECOEN-DEVE-xxx";
+        n.sectionId = "DCE-DEVE-LST";
+        n.sectionIdPattern = "DCE-DEVE-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per development convention.";
         n.docComment = "Development conventions and best practices.";
@@ -31181,8 +31181,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("DesignPatternsAndStandards", SomMetaKind.LIST, "IndustryStandardEntry");
         n.memberName = "industryStandards";
-        n.sectionId = "INSTEN-INDU-LST";
-        n.sectionIdPattern = "INSTEN-INDU-xxx";
+        n.sectionId = "ISE-INDU-LST";
+        n.sectionIdPattern = "ISE-INDU-xxx";
         n.serializationOrder = 5;
         n.contentHelp = "Add one entry per industry standard.";
         n.docComment = "Industry standards compliance requirements.";
@@ -31258,15 +31258,15 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<CodingStandardEntryNav> codingStandards() {
-      return new SomListMetaRef<>(tree, path + "/COSTEN-CODI-LST", (t, p) -> new CodingStandardEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/CSE-CODI-LST", (t, p) -> new CodingStandardEntryNav(t, p));
     }
 
     public SomListMetaRef<DevelopmentConventionEntryNav> developmentConventions() {
-      return new SomListMetaRef<>(tree, path + "/DECOEN-DEVE-LST", (t, p) -> new DevelopmentConventionEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/DCE-DEVE-LST", (t, p) -> new DevelopmentConventionEntryNav(t, p));
     }
 
     public SomListMetaRef<IndustryStandardEntryNav> industryStandards() {
-      return new SomListMetaRef<>(tree, path + "/INSTEN-INDU-LST", (t, p) -> new IndustryStandardEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/ISE-INDU-LST", (t, p) -> new IndustryStandardEntryNav(t, p));
     }
 
     public CodeQualityMetricsNav codeQualityMetrics() {
@@ -31854,8 +31854,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("DevelopmentEnvironment", SomMetaKind.LIST, "IdeRequirementEntry");
         n.memberName = "ideRequirements";
-        n.sectionId = "IDREEN-IDER-LST";
-        n.sectionIdPattern = "IDREEN-IDER-xxx";
+        n.sectionId = "IRE-IDER-LST";
+        n.sectionIdPattern = "IRE-IDER-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per IDE or editor.";
         n.docComment = "IDE and editor requirements.";
@@ -31982,7 +31982,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<IdeRequirementEntryNav> ideRequirements() {
-      return new SomListMetaRef<>(tree, path + "/IDREEN-IDER-LST", (t, p) -> new IdeRequirementEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/IRE-IDER-LST", (t, p) -> new IdeRequirementEntryNav(t, p));
     }
 
     public BuildToolsConfigurationNav buildTools() {
@@ -33499,8 +33499,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("DocumentControl", SomMetaKind.LIST, "RevisionEntry");
         n.memberName = "revisionHistory";
-        n.sectionId = "RVHST-REVS-LST";
-        n.sectionIdPattern = "RVHST-REVS-xxx";
+        n.sectionId = "RVENT-REVS-LST";
+        n.sectionIdPattern = "RVENT-REVS-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per revision, newest last. Each entry captures the version, date, author, and a short summary of what changed.";
         n.docComment = "Chronological revision history of this document.";
@@ -33519,8 +33519,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("DocumentControl", SomMetaKind.LIST, "ApprovalRecord");
         n.memberName = "approvals";
-        n.sectionId = "DOCTL-APRV-LST";
-        n.sectionIdPattern = "DOCTL-APRV-xxx";
+        n.sectionId = "APREC-APRV-LST";
+        n.sectionIdPattern = "APREC-APRV-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per required sign-off (e.g. sponsor, product owner, architecture board). The document is not released until every listed approval is recorded.";
         n.docComment = "Formal approvals (sign-offs) recorded for this document.";
@@ -33559,11 +33559,11 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<RevisionEntryNav> revisionHistory() {
-      return new SomListMetaRef<>(tree, path + "/RVHST-REVS-LST", (t, p) -> new RevisionEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/RVENT-REVS-LST", (t, p) -> new RevisionEntryNav(t, p));
     }
 
     public SomListMetaRef<ApprovalRecordNav> approvals() {
-      return new SomListMetaRef<>(tree, path + "/DOCTL-APRV-LST", (t, p) -> new ApprovalRecordNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/APREC-APRV-LST", (t, p) -> new ApprovalRecordNav(t, p));
     }
 
     public ReferenceDocumentsNav referenceDocuments() {
@@ -33737,8 +33737,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("DocumentationDeliverables", SomMetaKind.LIST, "DeliverableEntry");
         n.memberName = "items";
-        n.sectionId = "DCDLV-ITEM-LST";
-        n.sectionIdPattern = "DCDLV-ITEM-xxx";
+        n.sectionId = "DLVEN-ITEM-LST";
+        n.sectionIdPattern = "DLVEN-ITEM-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per documentation deliverable.";
         n.docComment = "Contains 0+× Deliverable.";
@@ -33762,7 +33762,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<DeliverableEntryNav> items() {
-      return new SomListMetaRef<>(tree, path + "/DCDLV-ITEM-LST", (t, p) -> new DeliverableEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/DLVEN-ITEM-LST", (t, p) -> new DeliverableEntryNav(t, p));
     }
   }
 
@@ -34275,8 +34275,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("DomainBusinessRules", SomMetaKind.LIST, "DomainBusinessRuleEntry");
         n.memberName = "rules";
-        n.sectionId = "DOBIRU-RULE-LST";
-        n.sectionIdPattern = "DOBIRU-RULE-xxx";
+        n.sectionId = "DBRE-RULE-LST";
+        n.sectionIdPattern = "DBRE-RULE-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per business rule. Be specific and unambiguous.";
         n.docComment = "Business rule entries — contains 0+× BusinessRuleEntry.";
@@ -34300,7 +34300,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<DomainBusinessRuleEntryNav> rules() {
-      return new SomListMetaRef<>(tree, path + "/DOBIRU-RULE-LST", (t, p) -> new DomainBusinessRuleEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/DBRE-RULE-LST", (t, p) -> new DomainBusinessRuleEntryNav(t, p));
     }
   }
 
@@ -34733,8 +34733,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("DomainProcesses", SomMetaKind.LIST, "DomainProcessEntry");
         n.memberName = "processes";
-        n.sectionId = "DOPR-PROC-LST";
-        n.sectionIdPattern = "DOPR-PROC-xxx";
+        n.sectionId = "DOPREN-PROC-LST";
+        n.sectionIdPattern = "DOPREN-PROC-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per major business process in this domain.";
         n.docComment = "Domain process entries — contains 0+× DomainProcessEntry.";
@@ -34762,7 +34762,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<DomainProcessEntryNav> processes() {
-      return new SomListMetaRef<>(tree, path + "/DOPR-PROC-LST", (t, p) -> new DomainProcessEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/DOPREN-PROC-LST", (t, p) -> new DomainProcessEntryNav(t, p));
     }
   }
 
@@ -36659,8 +36659,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("EquipmentRequirements", SomMetaKind.LIST, "InputDeviceEntry");
         n.memberName = "inputDevices";
-        n.sectionId = "INPDE-INPU-LST";
-        n.sectionIdPattern = "INPDE-INPU-xxx";
+        n.sectionId = "IDE-INPU-LST";
+        n.sectionIdPattern = "IDE-INPU-xxx";
         n.serializationOrder = 3;
         n.docComment = "Input devices.";
         n.elementNode = metaCx("InputDeviceEntry", s, InputDeviceEntryNav::metaChildren, (r, c) -> {
@@ -36744,7 +36744,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<InputDeviceEntryNav> inputDevices() {
-      return new SomListMetaRef<>(tree, path + "/INPDE-INPU-LST", (t, p) -> new InputDeviceEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/IDE-INPU-LST", (t, p) -> new InputDeviceEntryNav(t, p));
     }
 
     public SomListMetaRef<PeripheralEquipmentEntryNav> peripherals() {
@@ -37305,8 +37305,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ErrorRecovery", SomMetaKind.LIST, "String");
         n.memberName = "recoveryFlows";
-        n.sectionId = "RECOV-RECO-LST";
-        n.sectionIdPattern = "RECOV-RECO-xxx";
+        n.sectionId = "ERRE-RECO-LST";
+        n.sectionIdPattern = "ERRE-RECO-xxx";
         n.serializationOrder = 7;
         n.contentHelp = "Add one entry per recovery flow.";
         n.docComment = "Recovery flow diagrams.";
@@ -37365,7 +37365,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> recoveryFlows() {
-      return new SomListMetaRef<>(tree, path + "/RECOV-RECO-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/ERRE-RECO-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<RecoveryScenarioEntryNav> recoveryScenarios() {
@@ -38687,8 +38687,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ExportFormatEntry", SomMetaKind.LIST, "ExportFieldMappingEntry");
         n.memberName = "fieldMappings";
-        n.sectionId = "EFME-FIEL-LST";
-        n.sectionIdPattern = "EFME-FIEL-xxx";
+        n.sectionId = "EXFIMAEN-FIEL-LST";
+        n.sectionIdPattern = "EXFIMAEN-FIEL-xxx";
         n.serializationOrder = 10;
         n.contentHelp = "Add one entry per export field mapping.";
         n.docComment = "Contains 0+× Export Field Mapping.";
@@ -38748,7 +38748,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ExportFieldMappingEntryNav> fieldMappings() {
-      return new SomListMetaRef<>(tree, path + "/EFME-FIEL-LST", (t, p) -> new ExportFieldMappingEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/EXFIMAEN-FIEL-LST", (t, p) -> new ExportFieldMappingEntryNav(t, p));
     }
   }
 
@@ -39048,8 +39048,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ExternalActorEntry", SomMetaKind.LIST, "String");
         n.memberName = "interactionScenarios";
-        n.sectionId = "INTER-INTE-LST";
-        n.sectionIdPattern = "INTER-INTE-xxx";
+        n.sectionId = "EAE-INTE-LST";
+        n.sectionIdPattern = "EAE-INTE-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per interaction scenario between this actor and the system.";
         n.docComment = "Interaction scenarios for this actor.";
@@ -39072,7 +39072,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> interactionScenarios() {
-      return new SomListMetaRef<>(tree, path + "/INTER-INTE-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/EAE-INTE-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -39161,8 +39161,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ExternalConnectivitySection", SomMetaKind.LIST, "ExternalPartnerConnectionEntry");
         n.memberName = "partnerConnections";
-        n.sectionId = "EPCE-PART-LST";
-        n.sectionIdPattern = "EPCE-PART-xxx";
+        n.sectionId = "EXPACOEN-PART-LST";
+        n.sectionIdPattern = "EXPACOEN-PART-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per external partner connection.";
         n.docComment = "External partner connections — contains 0+× ExternalPartnerConnection.";
@@ -39245,7 +39245,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ExternalPartnerConnectionEntryNav> partnerConnections() {
-      return new SomListMetaRef<>(tree, path + "/EPCE-PART-LST", (t, p) -> new ExternalPartnerConnectionEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/EXPACOEN-PART-LST", (t, p) -> new ExternalPartnerConnectionEntryNav(t, p));
     }
 
     public CloudServiceIntegrationsNav cloudServices() {
@@ -39469,8 +39469,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ExternalInterfaces", SomMetaKind.LIST, "ExternalInterfaceEntry");
         n.memberName = "interfaces";
-        n.sectionId = "EXINEN-INTE-LST";
-        n.sectionIdPattern = "EXINEN-INTE-xxx";
+        n.sectionId = "EIE-INTE-LST";
+        n.sectionIdPattern = "EIE-INTE-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per external system interface, each documenting identification, technical, data, security, and governance details.";
         n.docComment = "Contains 0+× ExternalInterfaceEntry.";
@@ -39502,7 +39502,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ExternalInterfaceEntryNav> interfaces() {
-      return new SomListMetaRef<>(tree, path + "/EXINEN-INTE-LST", (t, p) -> new ExternalInterfaceEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/EIE-INTE-LST", (t, p) -> new ExternalInterfaceEntryNav(t, p));
     }
   }
 
@@ -40158,8 +40158,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("FeatureDependencies", SomMetaKind.LIST, "FeatureDependencyEntry");
         n.memberName = "items";
-        n.sectionId = "FEDEEN-ITEM-LST";
-        n.sectionIdPattern = "FEDEEN-ITEM-xxx";
+        n.sectionId = "FDE-ITEM-LST";
+        n.sectionIdPattern = "FDE-ITEM-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per feature dependency.";
         n.docComment = "Contains 0+× FeatureDependencyEntry.";
@@ -40187,7 +40187,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<FeatureDependencyEntryNav> items() {
-      return new SomListMetaRef<>(tree, path + "/FEDEEN-ITEM-LST", (t, p) -> new FeatureDependencyEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/FDE-ITEM-LST", (t, p) -> new FeatureDependencyEntryNav(t, p));
     }
   }
 
@@ -40797,8 +40797,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("FeaturePriorityRegister", SomMetaKind.LIST, "FeaturePriorityEntry");
         n.memberName = "items";
-        n.sectionId = "FEPREN-ITEM-LST";
-        n.sectionIdPattern = "FEPREN-ITEM-xxx";
+        n.sectionId = "FPE-ITEM-LST";
+        n.sectionIdPattern = "FPE-ITEM-xxx";
         n.serializationOrder = 1;
         n.min = 1;
         n.contentHelp = "Add one entry per prioritized feature.";
@@ -40823,7 +40823,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<FeaturePriorityEntryNav> items() {
-      return new SomListMetaRef<>(tree, path + "/FEPREN-ITEM-LST", (t, p) -> new FeaturePriorityEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/FPE-ITEM-LST", (t, p) -> new FeaturePriorityEntryNav(t, p));
     }
   }
 
@@ -40964,8 +40964,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("FeatureStageMatrix", SomMetaKind.LIST, "FeatureStageMapping");
         n.memberName = "items";
-        n.sectionId = "FESTM1-ITEM-LST";
-        n.sectionIdPattern = "FESTM1-ITEM-xxx";
+        n.sectionId = "FSM-ITEM-LST";
+        n.sectionIdPattern = "FSM-ITEM-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per feature-stage mapping.";
         n.docComment = "Contains 0+× FeatureStageMapping.";
@@ -40993,7 +40993,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<FeatureStageMappingNav> items() {
-      return new SomListMetaRef<>(tree, path + "/FESTM1-ITEM-LST", (t, p) -> new FeatureStageMappingNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/FSM-ITEM-LST", (t, p) -> new FeatureStageMappingNav(t, p));
     }
   }
 
@@ -42616,8 +42616,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("FunctionalResponsibilities", SomMetaKind.LIST, "ResponsibilityEntry");
         n.memberName = "items";
-        n.sectionId = "REEN1-ITEM-LST";
-        n.sectionIdPattern = "REEN1-ITEM-xxx";
+        n.sectionId = "RE-ITEM-LST";
+        n.sectionIdPattern = "RE-ITEM-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per functional area, capturing its RACI assignment, contacts, and related systems.";
         n.docComment = "Contains 0+× Responsibility.";
@@ -42645,7 +42645,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ResponsibilityEntryNav> items() {
-      return new SomListMetaRef<>(tree, path + "/REEN1-ITEM-LST", (t, p) -> new ResponsibilityEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/RE-ITEM-LST", (t, p) -> new ResponsibilityEntryNav(t, p));
     }
   }
 
@@ -42985,8 +42985,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("GlossaryAndAbbreviations", SomMetaKind.LIST, "GlossaryEntry");
         n.memberName = "glossary";
-        n.sectionId = "GLOSS-ENTR-LST";
-        n.sectionIdPattern = "GLOSS-ENTR-xxx";
+        n.sectionId = "GLENT-ENTR-LST";
+        n.sectionIdPattern = "GLENT-ENTR-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per term or acronym, alphabetically ordered.";
         n.docComment = "The set of defined terms and abbreviations.";
@@ -43010,7 +43010,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<GlossaryEntryNav> glossary() {
-      return new SomListMetaRef<>(tree, path + "/GLOSS-ENTR-LST", (t, p) -> new GlossaryEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/GLENT-ENTR-LST", (t, p) -> new GlossaryEntryNav(t, p));
     }
   }
 
@@ -45677,8 +45677,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("InformationArchitecture", SomMetaKind.LIST, "String");
         n.memberName = "globalEntryPoints";
-        n.sectionId = "GLOBA-GLOB-LST";
-        n.sectionIdPattern = "GLOBA-GLOB-xxx";
+        n.sectionId = "IA-GLOB-LST";
+        n.sectionIdPattern = "IA-GLOB-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per global entry point.";
         n.docComment = "Global entry points.";
@@ -45713,7 +45713,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> globalEntryPoints() {
-      return new SomListMetaRef<>(tree, path + "/GLOBA-GLOB-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/IA-GLOB-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef architectureDiagram() {
@@ -46692,8 +46692,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("IntegrationHealthSummary", SomMetaKind.LIST, "String");
         n.memberName = "fragilePoints";
-        n.sectionId = "FRAGI-FRAG-LST";
-        n.sectionIdPattern = "FRAGI-FRAG-xxx";
+        n.sectionId = "INHESU-FRAG-LST";
+        n.sectionIdPattern = "INHESU-FRAG-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per fragile or high-risk integration point — brittle interfaces, undocumented links, or single points of failure that threaten operations or the new system implementation.";
         n.docComment = "Fragile integration points requiring attention.";
@@ -46708,7 +46708,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> fragilePoints() {
-      return new SomListMetaRef<>(tree, path + "/FRAGI-FRAG-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/INHESU-FRAG-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -47757,8 +47757,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("InterfaceBusinessContext", SomMetaKind.LIST, "InterfaceBusinessProcessEntry");
         n.memberName = "dependentProcesses";
-        n.sectionId = "IBPE-DEPE-LST";
-        n.sectionIdPattern = "IBPE-DEPE-xxx";
+        n.sectionId = "INBUPREN-DEPE-LST";
+        n.sectionIdPattern = "INBUPREN-DEPE-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "List business processes that depend on this interface, noting dependency type and fallback if the interface is unavailable.";
         n.docComment = "Business processes that depend on this interface.";
@@ -47782,7 +47782,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<InterfaceBusinessProcessEntryNav> dependentProcesses() {
-      return new SomListMetaRef<>(tree, path + "/IBPE-DEPE-LST", (t, p) -> new InterfaceBusinessProcessEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/INBUPREN-DEPE-LST", (t, p) -> new InterfaceBusinessProcessEntryNav(t, p));
     }
   }
 
@@ -47886,8 +47886,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("InterfaceDataSpec", SomMetaKind.LIST, "InterfaceDataEntityEntry");
         n.memberName = "dataEntities";
-        n.sectionId = "IDEE-DATA-LST";
-        n.sectionIdPattern = "IDEE-DATA-xxx";
+        n.sectionId = "INDAENEN-DATA-LST";
+        n.sectionIdPattern = "INDAENEN-DATA-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "List each data entity exchanged, noting direction, field count, sensitive fields, and the internal entity it maps to.";
         n.docComment = "Data entities exchanged.";
@@ -47906,8 +47906,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("InterfaceDataSpec", SomMetaKind.LIST, "String");
         n.memberName = "mappingRules";
-        n.sectionId = "MAPPI-MAPP-LST";
-        n.sectionIdPattern = "MAPPI-MAPP-xxx";
+        n.sectionId = "INDASP-MAPP-LST";
+        n.sectionIdPattern = "INDASP-MAPP-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "List data mapping and transformation rules between external and internal representations.";
         n.docComment = "Data mapping and transformation rules.";
@@ -47917,8 +47917,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("InterfaceDataSpec", SomMetaKind.LIST, "String");
         n.memberName = "validationRules";
-        n.sectionId = "VALID-VALI-LST";
-        n.sectionIdPattern = "VALID-VALI-xxx";
+        n.sectionId = "INDASP-VALI-LST";
+        n.sectionIdPattern = "INDASP-VALI-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "List data validation rules applied to inbound and outbound payloads at the interface boundary.";
         n.docComment = "Data validation rules.";
@@ -47933,15 +47933,15 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<InterfaceDataEntityEntryNav> dataEntities() {
-      return new SomListMetaRef<>(tree, path + "/IDEE-DATA-LST", (t, p) -> new InterfaceDataEntityEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/INDAENEN-DATA-LST", (t, p) -> new InterfaceDataEntityEntryNav(t, p));
     }
 
     public SomListMetaRef<SomMetaRef> mappingRules() {
-      return new SomListMetaRef<>(tree, path + "/MAPPI-MAPP-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/INDASP-MAPP-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<SomMetaRef> validationRules() {
-      return new SomListMetaRef<>(tree, path + "/VALID-VALI-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/INDASP-VALI-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -48012,8 +48012,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("InterfaceErrorHandling", SomMetaKind.LIST, "String");
         n.memberName = "errorProcedures";
-        n.sectionId = "ERROR-ERRO-LST";
-        n.sectionIdPattern = "ERROR-ERRO-xxx";
+        n.sectionId = "INERHA-ERRO-LST";
+        n.sectionIdPattern = "INERHA-ERRO-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "List error-handling procedures for the interface, mapping error conditions to detection and recovery steps.";
         n.docComment = "Error handling procedures.";
@@ -48040,7 +48040,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> errorProcedures() {
-      return new SomListMetaRef<>(tree, path + "/ERROR-ERRO-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/INERHA-ERRO-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -48231,8 +48231,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("InterfaceOperational", SomMetaKind.LIST, "String");
         n.memberName = "dependencies";
-        n.sectionId = "DEPEN-DEPE-LST";
-        n.sectionIdPattern = "DEPEN-DEPE-xxx";
+        n.sectionId = "INOP-DEPE-LST";
+        n.sectionIdPattern = "INOP-DEPE-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "List operational dependencies of the interface, such as upstream services, network paths, and shared infrastructure.";
         n.docComment = "Operational dependencies.";
@@ -48259,7 +48259,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> dependencies() {
-      return new SomListMetaRef<>(tree, path + "/DEPEN-DEPE-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/INOP-DEPE-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -48514,8 +48514,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("InterfaceTechnicalSpec", SomMetaKind.LIST, "InterfaceOperationEntry");
         n.memberName = "operations";
-        n.sectionId = "INOPEN-OPER-LST";
-        n.sectionIdPattern = "INOPEN-OPER-xxx";
+        n.sectionId = "IOE-OPER-LST";
+        n.sectionIdPattern = "IOE-OPER-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "List the API operations or methods used: each with method, path, purpose, and request/response formats.";
         n.docComment = "API operations/methods exposed or consumed.";
@@ -48563,7 +48563,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<InterfaceOperationEntryNav> operations() {
-      return new SomListMetaRef<>(tree, path + "/INOPEN-OPER-LST", (t, p) -> new InterfaceOperationEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/IOE-OPER-LST", (t, p) -> new InterfaceOperationEntryNav(t, p));
     }
 
     public SomMetaRef webhookSpec() {
@@ -48661,8 +48661,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("InterfaceTesting", SomMetaKind.LIST, "InterfaceTestScenarioEntry");
         n.memberName = "testScenarios";
-        n.sectionId = "ITSE1-TEST-LST";
-        n.sectionIdPattern = "ITSE1-TEST-xxx";
+        n.sectionId = "INTESCEN-TEST-LST";
+        n.sectionIdPattern = "INTESCEN-TEST-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "List test scenarios for the interface, each with type, preconditions, steps, and expected result.";
         n.docComment = "Test scenarios.";
@@ -48694,7 +48694,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<InterfaceTestScenarioEntryNav> testScenarios() {
-      return new SomListMetaRef<>(tree, path + "/ITSE1-TEST-LST", (t, p) -> new InterfaceTestScenarioEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/INTESCEN-TEST-LST", (t, p) -> new InterfaceTestScenarioEntryNav(t, p));
     }
   }
 
@@ -49176,8 +49176,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("Iso25010Coverage", SomMetaKind.LIST, "Iso25010CoverageEntry");
         n.memberName = "characteristics";
-        n.sectionId = "I25CV-CHAR-LST";
-        n.sectionIdPattern = "I25CV-CHAR-xxx";
+        n.sectionId = "I25CE-CHAR-LST";
+        n.sectionIdPattern = "I25CE-CHAR-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per ISO/IEC 25010:2023 characteristic (functional suitability, performance efficiency, compatibility, interaction capability, reliability, security, maintainability, flexibility).";
         n.docComment = "One entry per ISO/IEC 25010:2023 characteristic addressed.";
@@ -49200,7 +49200,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<Iso25010CoverageEntryNav> characteristics() {
-      return new SomListMetaRef<>(tree, path + "/I25CV-CHAR-LST", (t, p) -> new Iso25010CoverageEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/I25CE-CHAR-LST", (t, p) -> new Iso25010CoverageEntryNav(t, p));
     }
   }
 
@@ -49431,8 +49431,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ItSecurityStandardsSection", SomMetaKind.LIST, "SecurityStandardEntry");
         n.memberName = "standards";
-        n.sectionId = "SESTEN-STAN-LST";
-        n.sectionIdPattern = "SESTEN-STAN-xxx";
+        n.sectionId = "SSE-STAN-LST";
+        n.sectionIdPattern = "SSE-STAN-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per security standard.";
         n.docComment = "Security standards and frameworks — contains 0+× SecurityStandard.";
@@ -49515,7 +49515,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SecurityStandardEntryNav> standards() {
-      return new SomListMetaRef<>(tree, path + "/SESTEN-STAN-LST", (t, p) -> new SecurityStandardEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SSE-STAN-LST", (t, p) -> new SecurityStandardEntryNav(t, p));
     }
 
     public ApplicationSecurityRequirementsNav applicationSecurity() {
@@ -49689,8 +49689,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("JobDescriptionsAndStaffing", SomMetaKind.LIST, "NewRoleEntry");
         n.memberName = "newRoles";
-        n.sectionId = "NWROL-NEWR-LST";
-        n.sectionIdPattern = "NWROL-NEWR-xxx";
+        n.sectionId = "NRE-NEWR-LST";
+        n.sectionIdPattern = "NRE-NEWR-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per new role being created.";
         n.docComment = "5.2.1. New Roles — contains 0+× New Role.";
@@ -49776,7 +49776,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<NewRoleEntryNav> newRoles() {
-      return new SomListMetaRef<>(tree, path + "/NWROL-NEWR-LST", (t, p) -> new NewRoleEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/NRE-NEWR-LST", (t, p) -> new NewRoleEntryNav(t, p));
     }
 
     public SomListMetaRef<ChangedRoleEntryNav> changedRoles() {
@@ -50788,8 +50788,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("LayeringAndModuleStructure", SomMetaKind.LIST, "SoftwareLayerEntry");
         n.memberName = "softwareLayers";
-        n.sectionId = "SOLAEN-SOFT-LST";
-        n.sectionIdPattern = "SOLAEN-SOFT-xxx";
+        n.sectionId = "SLE-SOFT-LST";
+        n.sectionIdPattern = "SLE-SOFT-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per software layer.";
         n.docComment = "Software layer definitions.";
@@ -50819,8 +50819,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("LayeringAndModuleStructure", SomMetaKind.LIST, "BoundedContextEntry");
         n.memberName = "boundedContexts";
-        n.sectionId = "BOCOEN-BOUN-LST";
-        n.sectionIdPattern = "BOCOEN-BOUN-xxx";
+        n.sectionId = "BCE-BOUN-LST";
+        n.sectionIdPattern = "BCE-BOUN-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per bounded context.";
         n.docComment = "Bounded contexts (DDD) definitions.";
@@ -50850,8 +50850,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("LayeringAndModuleStructure", SomMetaKind.LIST, "ModuleEntry");
         n.memberName = "modules";
-        n.sectionId = "MOEN1-MODU-LST";
-        n.sectionIdPattern = "MOEN1-MODU-xxx";
+        n.sectionId = "MODENT-MODU-LST";
+        n.sectionIdPattern = "MODENT-MODU-xxx";
         n.serializationOrder = 6;
         n.contentHelp = "Add one entry per module.";
         n.docComment = "Module catalog with dependency information.";
@@ -50870,8 +50870,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("LayeringAndModuleStructure", SomMetaKind.LIST, "SharedLibraryEntry");
         n.memberName = "sharedLibraries";
-        n.sectionId = "SHLIB-SHAR-LST";
-        n.sectionIdPattern = "SHLIB-SHAR-xxx";
+        n.sectionId = "SHLIEN-SHAR-LST";
+        n.sectionIdPattern = "SHLIEN-SHAR-xxx";
         n.serializationOrder = 7;
         n.contentHelp = "Add one entry per shared library.";
         n.docComment = "Shared libraries and common code.";
@@ -50952,7 +50952,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SoftwareLayerEntryNav> softwareLayers() {
-      return new SomListMetaRef<>(tree, path + "/SOLAEN-SOFT-LST", (t, p) -> new SoftwareLayerEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SLE-SOFT-LST", (t, p) -> new SoftwareLayerEntryNav(t, p));
     }
 
     public LayerCommunicationRulesNav layerCommunicationRules() {
@@ -50960,7 +50960,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<BoundedContextEntryNav> boundedContexts() {
-      return new SomListMetaRef<>(tree, path + "/BOCOEN-BOUN-LST", (t, p) -> new BoundedContextEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/BCE-BOUN-LST", (t, p) -> new BoundedContextEntryNav(t, p));
     }
 
     public PackageOrganizationNav packageOrganization() {
@@ -50968,11 +50968,11 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ModuleEntryNav> modules() {
-      return new SomListMetaRef<>(tree, path + "/MOEN1-MODU-LST", (t, p) -> new ModuleEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/MODENT-MODU-LST", (t, p) -> new ModuleEntryNav(t, p));
     }
 
     public SomListMetaRef<SharedLibraryEntryNav> sharedLibraries() {
-      return new SomListMetaRef<>(tree, path + "/SHLIB-SHAR-LST", (t, p) -> new SharedLibraryEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SHLIEN-SHAR-LST", (t, p) -> new SharedLibraryEntryNav(t, p));
     }
 
     public DependencyInjectionStructureNav dependencyInjection() {
@@ -53012,8 +53012,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("MaintenanceWindowsSection", SomMetaKind.LIST, "MaintenanceWindowEntry");
         n.memberName = "maintenanceWindows";
-        n.sectionId = "MAWIEN-MAIN-LST";
-        n.sectionIdPattern = "MAWIEN-MAIN-xxx";
+        n.sectionId = "MWE-MAIN-LST";
+        n.sectionIdPattern = "MWE-MAIN-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per maintenance window.";
         n.docComment = "Maintenance window definitions.";
@@ -53089,7 +53089,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<MaintenanceWindowEntryNav> maintenanceWindows() {
-      return new SomListMetaRef<>(tree, path + "/MAWIEN-MAIN-LST", (t, p) -> new MaintenanceWindowEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/MWE-MAIN-LST", (t, p) -> new MaintenanceWindowEntryNav(t, p));
     }
 
     public EmergencyMaintenanceProceduresNav emergencyMaintenance() {
@@ -53596,8 +53596,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("MetricsAndObservability", SomMetaKind.LIST, "CustomMetricEntry");
         n.memberName = "customMetrics";
-        n.sectionId = "CUMEEN-CUST-LST";
-        n.sectionIdPattern = "CUMEEN-CUST-xxx";
+        n.sectionId = "CUSMETENT-CUST-LST";
+        n.sectionIdPattern = "CUSMETENT-CUST-xxx";
         n.serializationOrder = 6;
         n.contentHelp = "Add one entry per custom metric.";
         n.docComment = "Custom metrics catalog.";
@@ -53641,7 +53641,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<CustomMetricEntryNav> customMetrics() {
-      return new SomListMetaRef<>(tree, path + "/CUMEEN-CUST-LST", (t, p) -> new CustomMetricEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/CUSMETENT-CUST-LST", (t, p) -> new CustomMetricEntryNav(t, p));
     }
   }
 
@@ -53978,8 +53978,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("MfaConfiguration", SomMetaKind.LIST, "String");
         n.memberName = "mfaDetails";
-        n.sectionId = "MFADE-MFAD-LST";
-        n.sectionIdPattern = "MFADE-MFAD-xxx";
+        n.sectionId = "MC-MFAD-LST";
+        n.sectionIdPattern = "MC-MFAD-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per MFA method definition.";
         n.docComment = "MFA Implementation Details (text).";
@@ -53994,7 +53994,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> mfaDetails() {
-      return new SomListMetaRef<>(tree, path + "/MFADE-MFAD-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/MC-MFAD-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -54126,8 +54126,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("MigrationConsiderations", SomMetaKind.LIST, "String");
         n.memberName = "escalationProcedures";
-        n.sectionId = "ESCAL-ESCA-LST";
-        n.sectionIdPattern = "ESCAL-ESCA-xxx";
+        n.sectionId = "MIGCON-ESCA-LST";
+        n.sectionIdPattern = "MIGCON-ESCA-xxx";
         n.serializationOrder = 11;
         n.contentHelp = "Add one entry per escalation procedure, describing the trigger condition, the escalation path, and the responsible decision authority.";
         n.docComment = "Escalation procedures during migration.";
@@ -54182,7 +54182,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> escalationProcedures() {
-      return new SomListMetaRef<>(tree, path + "/ESCAL-ESCA-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/MIGCON-ESCA-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -55197,8 +55197,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("MigrationRisks", SomMetaKind.LIST, "String");
         n.memberName = "riskCategories";
-        n.sectionId = "RISKC-RISK-LST";
-        n.sectionIdPattern = "RISKC-RISK-xxx";
+        n.sectionId = "MIRI-RISK-LST";
+        n.sectionIdPattern = "MIRI-RISK-xxx";
         n.serializationOrder = 7;
         n.contentHelp = "Add one entry per risk category, naming the category and the kinds of migration risks it groups.";
         n.docComment = "Risk categories and taxonomy.";
@@ -55208,8 +55208,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("MigrationRisks", SomMetaKind.LIST, "String");
         n.memberName = "riskBasedDecisions";
-        n.sectionId = "RISKB-RISK-LST";
-        n.sectionIdPattern = "RISKB-RISK-xxx";
+        n.sectionId = "MIRI-RBDE-LST";
+        n.sectionIdPattern = "MIRI-RBDE-xxx";
         n.serializationOrder = 8;
         n.contentHelp = "Add one entry per risk-based decision rule, describing the threshold or criterion and the decision it triggers.";
         n.docComment = "Risk-based decision making criteria.";
@@ -55219,8 +55219,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("MigrationRisks", SomMetaKind.LIST, "String");
         n.memberName = "monitoringProcedures";
-        n.sectionId = "MONIT-MONI-LST";
-        n.sectionIdPattern = "MONIT-MONI-xxx";
+        n.sectionId = "MIRI-MONI-LST";
+        n.sectionIdPattern = "MIRI-MONI-xxx";
         n.serializationOrder = 9;
         n.contentHelp = "Add one entry per monitoring procedure, describing what is tracked, how often, and the control action taken.";
         n.docComment = "Risk monitoring and control procedures.";
@@ -55230,8 +55230,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("MigrationRisks", SomMetaKind.LIST, "String");
         n.memberName = "responseStrategies";
-        n.sectionId = "RESPO-RESP-LST";
-        n.sectionIdPattern = "RESPO-RESP-xxx";
+        n.sectionId = "MIRI-RESP-LST";
+        n.sectionIdPattern = "MIRI-RESP-xxx";
         n.serializationOrder = 10;
         n.contentHelp = "Add one entry per response strategy, mapping a risk category to its chosen response approach and rationale.";
         n.docComment = "Risk response strategies by category.";
@@ -55317,19 +55317,19 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> riskCategories() {
-      return new SomListMetaRef<>(tree, path + "/RISKC-RISK-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/MIRI-RISK-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<SomMetaRef> riskBasedDecisions() {
-      return new SomListMetaRef<>(tree, path + "/RISKB-RISK-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/MIRI-RBDE-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<SomMetaRef> monitoringProcedures() {
-      return new SomListMetaRef<>(tree, path + "/MONIT-MONI-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/MIRI-MONI-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<SomMetaRef> responseStrategies() {
-      return new SomListMetaRef<>(tree, path + "/RESPO-RESP-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/MIRI-RESP-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef riskAggregation() {
@@ -56144,8 +56144,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("MonitoringAndAlertingSection", SomMetaKind.LIST, "AlertDefinitionEntry");
         n.memberName = "alertDefinitions";
-        n.sectionId = "ALDEEN-ALER-LST";
-        n.sectionIdPattern = "ALDEEN-ALER-xxx";
+        n.sectionId = "ALEDEFENT-ALER-LST";
+        n.sectionIdPattern = "ALEDEFENT-ALER-xxx";
         n.serializationOrder = 7;
         n.contentHelp = "Add one entry per alert definition.";
         n.docComment = "Alert definitions.";
@@ -56237,7 +56237,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<AlertDefinitionEntryNav> alertDefinitions() {
-      return new SomListMetaRef<>(tree, path + "/ALDEEN-ALER-LST", (t, p) -> new AlertDefinitionEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/ALEDEFENT-ALER-LST", (t, p) -> new AlertDefinitionEntryNav(t, p));
     }
 
     public DashboardRequirementsNav dashboards() {
@@ -56299,8 +56299,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("MonitoringDashboards", SomMetaKind.LIST, "DashboardEntry");
         n.memberName = "dashboards";
-        n.sectionId = "DAEN-DASH-LST";
-        n.sectionIdPattern = "DAEN-DASH-xxx";
+        n.sectionId = "DASENT-DASH-LST";
+        n.sectionIdPattern = "DASENT-DASH-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per dashboard.";
         n.docComment = "Dashboard catalog.";
@@ -56348,7 +56348,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<DashboardEntryNav> dashboards() {
-      return new SomListMetaRef<>(tree, path + "/DAEN-DASH-LST", (t, p) -> new DashboardEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/DASENT-DASH-LST", (t, p) -> new DashboardEntryNav(t, p));
     }
 
     public SomListMetaRef<DashboardTemplatesNav> dashboardTemplates() {
@@ -56482,8 +56482,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("MoscowAnalysis", SomMetaKind.LIST, "MoscowEntry");
         n.memberName = "items";
-        n.sectionId = "MOEN-ITEM-LST";
-        n.sectionIdPattern = "MOEN-ITEM-xxx";
+        n.sectionId = "ME-ITEM-LST";
+        n.sectionIdPattern = "ME-ITEM-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per MoSCoW-classified feature.";
         n.docComment = "Contains 0+× MoscowEntry.";
@@ -56511,7 +56511,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<MoscowEntryNav> items() {
-      return new SomListMetaRef<>(tree, path + "/MOEN-ITEM-LST", (t, p) -> new MoscowEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/ME-ITEM-LST", (t, p) -> new MoscowEntryNav(t, p));
     }
   }
 
@@ -56715,8 +56715,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("MultiLanguageSupport", SomMetaKind.LIST, "SupportedLocaleEntry");
         n.memberName = "supportedLocales";
-        n.sectionId = "SULOEN-SUPP-LST";
-        n.sectionIdPattern = "SULOEN-SUPP-xxx";
+        n.sectionId = "SUPLOCENT-SUPP-LST";
+        n.sectionIdPattern = "SUPLOCENT-SUPP-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per supported locale.";
         n.docComment = "Supported locale entries.";
@@ -56748,7 +56748,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SupportedLocaleEntryNav> supportedLocales() {
-      return new SomListMetaRef<>(tree, path + "/SULOEN-SUPP-LST", (t, p) -> new SupportedLocaleEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SUPLOCENT-SUPP-LST", (t, p) -> new SupportedLocaleEntryNav(t, p));
     }
   }
 
@@ -58102,8 +58102,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("NetworkRequirementsSection", SomMetaKind.LIST, "VpnRequirementEntry");
         n.memberName = "vpnRequirements";
-        n.sectionId = "VPREEN-VPNR-LST";
-        n.sectionIdPattern = "VPREEN-VPNR-xxx";
+        n.sectionId = "VRE-VPNR-LST";
+        n.sectionIdPattern = "VRE-VPNR-xxx";
         n.serializationOrder = 7;
         n.contentHelp = "Add one entry per VPN requirement.";
         n.docComment = "VPN requirements.";
@@ -58206,7 +58206,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<VpnRequirementEntryNav> vpnRequirements() {
-      return new SomListMetaRef<>(tree, path + "/VPREEN-VPNR-LST", (t, p) -> new VpnRequirementEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/VRE-VPNR-LST", (t, p) -> new VpnRequirementEntryNav(t, p));
     }
 
     public FirewallRequirementsNav firewallRequirements() {
@@ -59831,8 +59831,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("OperationalPainPoints", SomMetaKind.LIST, "PainPointEntry");
         n.memberName = "items";
-        n.sectionId = "OPPAPO-ITEM-LST";
-        n.sectionIdPattern = "OPPAPO-ITEM-xxx";
+        n.sectionId = "PAPE-ITEM-LST";
+        n.sectionIdPattern = "PAPE-ITEM-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per distinct operational problem, each with its own root cause, impact, and workaround. Keep entries scoped to day-to-day operations rather than business or technical concerns.";
         n.docComment = "Contains 0+× PainPoint.";
@@ -59860,7 +59860,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<PainPointEntryNav> items() {
-      return new SomListMetaRef<>(tree, path + "/OPPAPO-ITEM-LST", (t, p) -> new PainPointEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/PAPE-ITEM-LST", (t, p) -> new PainPointEntryNav(t, p));
     }
   }
 
@@ -60564,8 +60564,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("OrganizationalEnvironment", SomMetaKind.LIST, "AffectedDepartmentEntry");
         n.memberName = "affectedDepartments";
-        n.sectionId = "AFDEEN-AFFE-LST";
-        n.sectionIdPattern = "AFDEEN-AFFE-xxx";
+        n.sectionId = "ADE-AFFE-LST";
+        n.sectionIdPattern = "ADE-AFFE-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "List each affected department with its role, impact level, and key contacts so organizational reach is fully documented.";
         n.docComment = "Departments and business units affected.";
@@ -60593,8 +60593,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("OrganizationalEnvironment", SomMetaKind.LIST, "DecisionMakerEntry");
         n.memberName = "decisionMakers";
-        n.sectionId = "DEMAEN-DECI-LST";
-        n.sectionIdPattern = "DEMAEN-DECI-xxx";
+        n.sectionId = "DME-DECI-LST";
+        n.sectionIdPattern = "DME-DECI-xxx";
         n.serializationOrder = 6;
         n.contentHelp = "List each decision maker with their decision authority, domains, and influence level to map governance and approval paths.";
         n.docComment = "Key decision makers and their roles.";
@@ -60613,8 +60613,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("OrganizationalEnvironment", SomMetaKind.LIST, "String");
         n.memberName = "culturalConsiderations";
-        n.sectionId = "CULTU-CULT-LST";
-        n.sectionIdPattern = "CULTU-CULT-xxx";
+        n.sectionId = "OREN-CULT-LST";
+        n.sectionIdPattern = "OREN-CULT-xxx";
         n.serializationOrder = 7;
         n.contentHelp = "List cultural factors and organizational dynamics that could affect project adoption, collaboration, or change readiness.";
         n.docComment = "Cultural considerations and organizational dynamics.";
@@ -60624,8 +60624,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("OrganizationalEnvironment", SomMetaKind.LIST, "String");
         n.memberName = "communicationPreferences";
-        n.sectionId = "COMMU-COMM-LST";
-        n.sectionIdPattern = "COMMU-COMM-xxx";
+        n.sectionId = "OREN-COMM-LST";
+        n.sectionIdPattern = "OREN-COMM-xxx";
         n.serializationOrder = 8;
         n.contentHelp = "List communication preferences per stakeholder group to guide engagement channels, frequency, and reporting style.";
         n.docComment = "Stakeholder communication preferences.";
@@ -60644,8 +60644,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("OrganizationalEnvironment", SomMetaKind.LIST, "String");
         n.memberName = "changeAdvocates";
-        n.sectionId = "CHANG-CHAN-LST";
-        n.sectionIdPattern = "CHANG-CHAN-xxx";
+        n.sectionId = "OREN-CHAN-LST";
+        n.sectionIdPattern = "OREN-CHAN-xxx";
         n.serializationOrder = 10;
         n.contentHelp = "List change champions and sponsors, noting their influence and role in driving adoption across the organization.";
         n.docComment = "Change champions and sponsors.";
@@ -60672,7 +60672,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<AffectedDepartmentEntryNav> affectedDepartments() {
-      return new SomListMetaRef<>(tree, path + "/AFDEEN-AFFE-LST", (t, p) -> new AffectedDepartmentEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/ADE-AFFE-LST", (t, p) -> new AffectedDepartmentEntryNav(t, p));
     }
 
     public SomMetaRef decisionMaking() {
@@ -60680,15 +60680,15 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<DecisionMakerEntryNav> decisionMakers() {
-      return new SomListMetaRef<>(tree, path + "/DEMAEN-DECI-LST", (t, p) -> new DecisionMakerEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/DME-DECI-LST", (t, p) -> new DecisionMakerEntryNav(t, p));
     }
 
     public SomListMetaRef<SomMetaRef> culturalConsiderations() {
-      return new SomListMetaRef<>(tree, path + "/CULTU-CULT-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/OREN-CULT-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<SomMetaRef> communicationPreferences() {
-      return new SomListMetaRef<>(tree, path + "/COMMU-COMM-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/OREN-COMM-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef politicalLandscape() {
@@ -60696,7 +60696,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> changeAdvocates() {
-      return new SomListMetaRef<>(tree, path + "/CHANG-CHAN-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/OREN-CHAN-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -61353,8 +61353,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("OutOfScope", SomMetaKind.LIST, "OutOfScopeEntry");
         n.memberName = "items";
-        n.sectionId = "OOSE-ITEM-LST";
-        n.sectionIdPattern = "OOSE-ITEM-xxx";
+        n.sectionId = "OUOFSCEN-ITEM-LST";
+        n.sectionIdPattern = "OUOFSCEN-ITEM-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Each entry records one excluded feature, system, or integration along with its exclusion rationale.";
         n.docComment = "Contains 0+× OutOfScopeEntry.";
@@ -61378,7 +61378,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<OutOfScopeEntryNav> items() {
-      return new SomListMetaRef<>(tree, path + "/OOSE-ITEM-LST", (t, p) -> new OutOfScopeEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/OUOFSCEN-ITEM-LST", (t, p) -> new OutOfScopeEntryNav(t, p));
     }
   }
 
@@ -63433,8 +63433,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("PhaseGateReviews", SomMetaKind.LIST, "PhaseGateReviewEntry");
         n.memberName = "items";
-        n.sectionId = "PGRE-ITEM-LST";
-        n.sectionIdPattern = "PGRE-ITEM-xxx";
+        n.sectionId = "PHGAREEN-ITEM-LST";
+        n.sectionIdPattern = "PHGAREEN-ITEM-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per phase gate review.";
         n.docComment = "Contains 0+× PhaseGateReviewEntry.";
@@ -63470,7 +63470,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<PhaseGateReviewEntryNav> items() {
-      return new SomListMetaRef<>(tree, path + "/PGRE-ITEM-LST", (t, p) -> new PhaseGateReviewEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/PHGAREEN-ITEM-LST", (t, p) -> new PhaseGateReviewEntryNav(t, p));
     }
   }
 
@@ -63839,8 +63839,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("PlatformAndLanguage", SomMetaKind.LIST, "FrameworkRequirementEntry");
         n.memberName = "frameworks";
-        n.sectionId = "FWREN-FRAM-LST";
-        n.sectionIdPattern = "FWREN-FRAM-xxx";
+        n.sectionId = "FRREEN-FRAM-LST";
+        n.sectionIdPattern = "FRREEN-FRAM-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per framework or library.";
         n.docComment = "Framework and library requirements.";
@@ -63879,8 +63879,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("PlatformAndLanguage", SomMetaKind.LIST, "DeploymentTargetEntry");
         n.memberName = "deploymentTargets";
-        n.sectionId = "DETAEN-DEPL-LST";
-        n.sectionIdPattern = "DETAEN-DEPL-xxx";
+        n.sectionId = "DEPTARENT-DEPL-LST";
+        n.sectionIdPattern = "DEPTARENT-DEPL-xxx";
         n.serializationOrder = 6;
         n.contentHelp = "Add one entry per deployment target.";
         n.docComment = "Deployment target specifications.";
@@ -63938,7 +63938,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<FrameworkRequirementEntryNav> frameworks() {
-      return new SomListMetaRef<>(tree, path + "/FWREN-FRAM-LST", (t, p) -> new FrameworkRequirementEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/FRREEN-FRAM-LST", (t, p) -> new FrameworkRequirementEntryNav(t, p));
     }
 
     public SomListMetaRef<BuildToolchainEntryNav> buildToolchain() {
@@ -63946,7 +63946,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<DeploymentTargetEntryNav> deploymentTargets() {
-      return new SomListMetaRef<>(tree, path + "/DETAEN-DEPL-LST", (t, p) -> new DeploymentTargetEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/DEPTARENT-DEPL-LST", (t, p) -> new DeploymentTargetEntryNav(t, p));
     }
 
     public DependencyManagementNav dependencyManagement() {
@@ -64343,8 +64343,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("PrintAndExportLayout", SomMetaKind.LIST, "ExportFormatEntry");
         n.memberName = "exportFormats";
-        n.sectionId = "EXFOEN-EXPO-LST";
-        n.sectionIdPattern = "EXFOEN-EXPO-xxx";
+        n.sectionId = "EFE-EXPO-LST";
+        n.sectionIdPattern = "EFE-EXPO-xxx";
         n.serializationOrder = 6;
         n.contentHelp = "Add one entry per export format.";
         n.docComment = "10.4.1. Export Formats — contains 0+× Export Format.";
@@ -64363,8 +64363,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("PrintAndExportLayout", SomMetaKind.LIST, "ExportTemplateEntry");
         n.memberName = "exportTemplates";
-        n.sectionId = "EXTEEN-EXPO-LST";
-        n.sectionIdPattern = "EXTEEN-EXPO-xxx";
+        n.sectionId = "ETE-EXPO-LST";
+        n.sectionIdPattern = "ETE-EXPO-xxx";
         n.serializationOrder = 7;
         n.contentHelp = "Add one entry per export template.";
         n.docComment = "10.4.2. Export Templates — contains 0+× Export\nTemplate.";
@@ -64408,11 +64408,11 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ExportFormatEntryNav> exportFormats() {
-      return new SomListMetaRef<>(tree, path + "/EXFOEN-EXPO-LST", (t, p) -> new ExportFormatEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/EFE-EXPO-LST", (t, p) -> new ExportFormatEntryNav(t, p));
     }
 
     public SomListMetaRef<ExportTemplateEntryNav> exportTemplates() {
-      return new SomListMetaRef<>(tree, path + "/EXTEEN-EXPO-LST", (t, p) -> new ExportTemplateEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/ETE-EXPO-LST", (t, p) -> new ExportTemplateEntryNav(t, p));
     }
   }
 
@@ -64691,8 +64691,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ProblemStatement", SomMetaKind.LIST, "String");
         n.memberName = "relatedPainPoints";
-        n.sectionId = "RPPE-RELA-LST";
-        n.sectionIdPattern = "RPPE-RELA-xxx";
+        n.sectionId = "PS-RELA-LST";
+        n.sectionIdPattern = "PS-RELA-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per related pain point identified in the Current State Analysis that this problem statement connects to.";
         n.docComment = "Related pain points from Current State Analysis.";
@@ -64711,7 +64711,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> relatedPainPoints() {
-      return new SomListMetaRef<>(tree, path + "/RPPE-RELA-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/PS-RELA-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -68282,8 +68282,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ProtocolsAndStandardsSection", SomMetaKind.LIST, "ProtocolEntry");
         n.memberName = "protocols";
-        n.sectionId = "PREN-PROT-LST";
-        n.sectionIdPattern = "PREN-PROT-xxx";
+        n.sectionId = "PE-PROT-LST";
+        n.sectionIdPattern = "PE-PROT-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per protocol.";
         n.docComment = "Protocol catalog — contains 0+× Protocol.";
@@ -68377,7 +68377,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ProtocolEntryNav> protocols() {
-      return new SomListMetaRef<>(tree, path + "/PREN-PROT-LST", (t, p) -> new ProtocolEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/PE-PROT-LST", (t, p) -> new ProtocolEntryNav(t, p));
     }
 
     public TlsRequirementsNav tlsRequirements() {
@@ -68658,8 +68658,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("PrototypeFeatureSubset", SomMetaKind.LIST, "PrototypeFeatureEntry");
         n.memberName = "features";
-        n.sectionId = "PRFEEN-FEAT-LST";
-        n.sectionIdPattern = "PRFEEN-FEAT-xxx";
+        n.sectionId = "PFE-FEAT-LST";
+        n.sectionIdPattern = "PFE-FEAT-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per prototype feature.";
         n.docComment = "Prototype feature entries.";
@@ -68695,7 +68695,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<PrototypeFeatureEntryNav> features() {
-      return new SomListMetaRef<>(tree, path + "/PRFEEN-FEAT-LST", (t, p) -> new PrototypeFeatureEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/PFE-FEAT-LST", (t, p) -> new PrototypeFeatureEntryNav(t, p));
     }
   }
 
@@ -68798,8 +68798,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("PrototypeGoals", SomMetaKind.LIST, "PrototypeGoalEntry");
         n.memberName = "goals";
-        n.sectionId = "PRGOEN-GOAL-LST";
-        n.sectionIdPattern = "PRGOEN-GOAL-xxx";
+        n.sectionId = "PGE-GOAL-LST";
+        n.sectionIdPattern = "PGE-GOAL-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per prototype goal.";
         n.docComment = "Individual goal entries.";
@@ -68835,7 +68835,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<PrototypeGoalEntryNav> goals() {
-      return new SomListMetaRef<>(tree, path + "/PRGOEN-GOAL-LST", (t, p) -> new PrototypeGoalEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/PGE-GOAL-LST", (t, p) -> new PrototypeGoalEntryNav(t, p));
     }
   }
 
@@ -69315,8 +69315,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("QualityFramework", SomMetaKind.LIST, "String");
         n.memberName = "categoryDependencies";
-        n.sectionId = "CATEG-CATE-LST";
-        n.sectionIdPattern = "CATEG-CATE-xxx";
+        n.sectionId = "QLFWK-CATE-LST";
+        n.sectionIdPattern = "QLFWK-CATE-xxx";
         n.serializationOrder = 7;
         n.contentHelp = "Add one entry per category dependency.";
         n.docComment = "Quality dependencies map.";
@@ -69355,7 +69355,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> categoryDependencies() {
-      return new SomListMetaRef<>(tree, path + "/CATEG-CATE-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/QLFWK-CATE-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -72066,8 +72066,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ReportDefinitions", SomMetaKind.LIST, "ReportEntry");
         n.memberName = "reports";
-        n.sectionId = "REEN-REPO-LST";
-        n.sectionIdPattern = "REEN-REPO-xxx";
+        n.sectionId = "REPENT-REPO-LST";
+        n.sectionIdPattern = "REPENT-REPO-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per report.";
         n.docComment = "10.2.1. Reports — contains 0+× Report.";
@@ -72091,7 +72091,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ReportEntryNav> reports() {
-      return new SomListMetaRef<>(tree, path + "/REEN-REPO-LST", (t, p) -> new ReportEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/REPENT-REPO-LST", (t, p) -> new ReportEntryNav(t, p));
     }
   }
 
@@ -72375,8 +72375,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ReportEntry", SomMetaKind.LIST, "ReportSectionEntry");
         n.memberName = "sections";
-        n.sectionId = "RESEE1-SECT-LST";
-        n.sectionIdPattern = "RESEE1-SECT-xxx";
+        n.sectionId = "RSE-SECT-LST";
+        n.sectionIdPattern = "RSE-SECT-xxx";
         n.serializationOrder = 13;
         n.contentHelp = "Add one entry per report section.";
         n.docComment = "Contains 0+× Report Section.";
@@ -72395,8 +72395,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ReportEntry", SomMetaKind.LIST, "ReportFilterEntry");
         n.memberName = "filters";
-        n.sectionId = "REFIEN-FILT-LST";
-        n.sectionIdPattern = "REFIEN-FILT-xxx";
+        n.sectionId = "RFE-FILT-LST";
+        n.sectionIdPattern = "RFE-FILT-xxx";
         n.serializationOrder = 14;
         n.contentHelp = "Add one entry per report data filter.";
         n.docComment = "Contains 0+× Report Filter.";
@@ -72415,8 +72415,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ReportEntry", SomMetaKind.LIST, "ReportScheduleEntry");
         n.memberName = "schedules";
-        n.sectionId = "RESCEN-SCHE-LST";
-        n.sectionIdPattern = "RESCEN-SCHE-xxx";
+        n.sectionId = "REPSCHENT-SCHE-LST";
+        n.sectionIdPattern = "REPSCHENT-SCHE-xxx";
         n.serializationOrder = 15;
         n.contentHelp = "Add one entry per report generation schedule.";
         n.docComment = "Contains 0+× Report Schedule.";
@@ -72435,8 +72435,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ReportEntry", SomMetaKind.LIST, "ReportDistributionEntry");
         n.memberName = "distributions";
-        n.sectionId = "REDIEN-DIST-LST";
-        n.sectionIdPattern = "REDIEN-DIST-xxx";
+        n.sectionId = "RDE-DIST-LST";
+        n.sectionIdPattern = "RDE-DIST-xxx";
         n.serializationOrder = 16;
         n.contentHelp = "Add one entry per report distribution channel.";
         n.docComment = "Contains 0+× Report Distribution.";
@@ -72455,8 +72455,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ReportEntry", SomMetaKind.LIST, "ReportRecipientEntry");
         n.memberName = "recipients";
-        n.sectionId = "REREEN-RECI-LST";
-        n.sectionIdPattern = "REREEN-RECI-xxx";
+        n.sectionId = "RRE-RECI-LST";
+        n.sectionIdPattern = "RRE-RECI-xxx";
         n.serializationOrder = 17;
         n.contentHelp = "Add one entry per report recipient.";
         n.docComment = "Contains 0+× Recipient.";
@@ -72528,23 +72528,23 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ReportSectionEntryNav> sections() {
-      return new SomListMetaRef<>(tree, path + "/RESEE1-SECT-LST", (t, p) -> new ReportSectionEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/RSE-SECT-LST", (t, p) -> new ReportSectionEntryNav(t, p));
     }
 
     public SomListMetaRef<ReportFilterEntryNav> filters() {
-      return new SomListMetaRef<>(tree, path + "/REFIEN-FILT-LST", (t, p) -> new ReportFilterEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/RFE-FILT-LST", (t, p) -> new ReportFilterEntryNav(t, p));
     }
 
     public SomListMetaRef<ReportScheduleEntryNav> schedules() {
-      return new SomListMetaRef<>(tree, path + "/RESCEN-SCHE-LST", (t, p) -> new ReportScheduleEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/REPSCHENT-SCHE-LST", (t, p) -> new ReportScheduleEntryNav(t, p));
     }
 
     public SomListMetaRef<ReportDistributionEntryNav> distributions() {
-      return new SomListMetaRef<>(tree, path + "/REDIEN-DIST-LST", (t, p) -> new ReportDistributionEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/RDE-DIST-LST", (t, p) -> new ReportDistributionEntryNav(t, p));
     }
 
     public SomListMetaRef<ReportRecipientEntryNav> recipients() {
-      return new SomListMetaRef<>(tree, path + "/REREEN-RECI-LST", (t, p) -> new ReportRecipientEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/RRE-RECI-LST", (t, p) -> new ReportRecipientEntryNav(t, p));
     }
   }
 
@@ -73015,8 +73015,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ReportSectionEntry", SomMetaKind.LIST, "ReportColumnEntry");
         n.memberName = "columns";
-        n.sectionId = "RECOE1-COLU-LST";
-        n.sectionIdPattern = "RECOE1-COLU-xxx";
+        n.sectionId = "REPCOLENT-COLU-LST";
+        n.sectionIdPattern = "REPCOLENT-COLU-xxx";
         n.serializationOrder = 5;
         n.contentHelp = "Add one entry per column in the section table.";
         n.docComment = "Contains 0+× Report Column.";
@@ -73035,8 +73035,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ReportSectionEntry", SomMetaKind.LIST, "ReportChartEntry");
         n.memberName = "charts";
-        n.sectionId = "RECHEN-CHAR-LST";
-        n.sectionIdPattern = "RECHEN-CHAR-xxx";
+        n.sectionId = "REPCHAENT-CHAR-LST";
+        n.sectionIdPattern = "REPCHAENT-CHAR-xxx";
         n.serializationOrder = 6;
         n.contentHelp = "Add one entry per chart shown in the section.";
         n.docComment = "Contains 0+× Report Chart.";
@@ -73076,11 +73076,11 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ReportColumnEntryNav> columns() {
-      return new SomListMetaRef<>(tree, path + "/RECOE1-COLU-LST", (t, p) -> new ReportColumnEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/REPCOLENT-COLU-LST", (t, p) -> new ReportColumnEntryNav(t, p));
     }
 
     public SomListMetaRef<ReportChartEntryNav> charts() {
-      return new SomListMetaRef<>(tree, path + "/RECHEN-CHAR-LST", (t, p) -> new ReportChartEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/REPCHAENT-CHAR-LST", (t, p) -> new ReportChartEntryNav(t, p));
     }
   }
 
@@ -73143,8 +73143,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("RequirementAcceptanceCriteria", SomMetaKind.LIST, "AcceptanceCriterionEntry");
         n.memberName = "criteria";
-        n.sectionId = "ACCR-CRIT-LST";
-        n.sectionIdPattern = "ACCR-CRIT-xxx";
+        n.sectionId = "ACE-CRIT-LST";
+        n.sectionIdPattern = "ACE-CRIT-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one criterion per testable condition.";
         n.docComment = "Acceptance criterion entries — contains 0+× AcceptanceCriterionEntry.";
@@ -73168,7 +73168,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<AcceptanceCriterionEntryNav> criteria() {
-      return new SomListMetaRef<>(tree, path + "/ACCR-CRIT-LST", (t, p) -> new AcceptanceCriterionEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/ACE-CRIT-LST", (t, p) -> new AcceptanceCriterionEntryNav(t, p));
     }
   }
 
@@ -73808,8 +73808,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("RequirementUiSpecification", SomMetaKind.LIST, "ScreenFieldEntry");
         n.memberName = "fields";
-        n.sectionId = "SCFLD-FIEL-LST";
-        n.sectionIdPattern = "SCFLD-FIEL-xxx";
+        n.sectionId = "SFE-FIEL-LST";
+        n.sectionIdPattern = "SFE-FIEL-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Define each field in the UI.";
         n.docComment = "Screen field entries — contains 0+× ScreenFieldEntry.";
@@ -73885,7 +73885,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ScreenFieldEntryNav> fields() {
-      return new SomListMetaRef<>(tree, path + "/SCFLD-FIEL-LST", (t, p) -> new ScreenFieldEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SFE-FIEL-LST", (t, p) -> new ScreenFieldEntryNav(t, p));
     }
 
     public SomListMetaRef<RequirementScreenActionEntryNav> actions() {
@@ -75412,8 +75412,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ReusableComponentsSection", SomMetaKind.LIST, "ReusableUiComponentEntry");
         n.memberName = "uiComponents";
-        n.sectionId = "RUICMP-UICO-LST";
-        n.sectionIdPattern = "RUICMP-UICO-xxx";
+        n.sectionId = "RUCE-UICO-LST";
+        n.sectionIdPattern = "RUCE-UICO-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per UI component.";
         n.docComment = "UI component library entries.";
@@ -75432,8 +75432,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ReusableComponentsSection", SomMetaKind.LIST, "BusinessComponentEntry");
         n.memberName = "businessComponents";
-        n.sectionId = "BUCOEN-BUSI-LST";
-        n.sectionIdPattern = "BUCOEN-BUSI-xxx";
+        n.sectionId = "BUSCOMENT-BUSI-LST";
+        n.sectionIdPattern = "BUSCOMENT-BUSI-xxx";
         n.serializationOrder = 5;
         n.contentHelp = "Add one entry per business component.";
         n.docComment = "Business logic components.";
@@ -75452,8 +75452,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ReusableComponentsSection", SomMetaKind.LIST, "InfrastructureComponentEntry");
         n.memberName = "infrastructureComponents";
-        n.sectionId = "INCOEN-INFR-LST";
-        n.sectionIdPattern = "INCOEN-INFR-xxx";
+        n.sectionId = "INFCOMENT-INFR-LST";
+        n.sectionIdPattern = "INFCOMENT-INFR-xxx";
         n.serializationOrder = 6;
         n.contentHelp = "Add one entry per infrastructure component.";
         n.docComment = "Infrastructure components.";
@@ -75531,15 +75531,15 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ReusableUiComponentEntryNav> uiComponents() {
-      return new SomListMetaRef<>(tree, path + "/RUICMP-UICO-LST", (t, p) -> new ReusableUiComponentEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/RUCE-UICO-LST", (t, p) -> new ReusableUiComponentEntryNav(t, p));
     }
 
     public SomListMetaRef<BusinessComponentEntryNav> businessComponents() {
-      return new SomListMetaRef<>(tree, path + "/BUCOEN-BUSI-LST", (t, p) -> new BusinessComponentEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/BUSCOMENT-BUSI-LST", (t, p) -> new BusinessComponentEntryNav(t, p));
     }
 
     public SomListMetaRef<InfrastructureComponentEntryNav> infrastructureComponents() {
-      return new SomListMetaRef<>(tree, path + "/INCOEN-INFR-LST", (t, p) -> new InfrastructureComponentEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/INFCOMENT-INFR-LST", (t, p) -> new InfrastructureComponentEntryNav(t, p));
     }
 
     public SomListMetaRef<ThirdPartyLibraryEntryNav> thirdPartyLibraries() {
@@ -76478,8 +76478,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("RisksAndAssumptions", SomMetaKind.LIST, "RiskEntry");
         n.memberName = "keyRisks";
-        n.sectionId = "RIEN-KEYR-LST";
-        n.sectionIdPattern = "RIEN-KEYR-xxx";
+        n.sectionId = "RISENT-KEYR-LST";
+        n.sectionIdPattern = "RISENT-KEYR-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "List of identified project risks, each capturing analysis, response, ownership, and monitoring detail.";
         n.docComment = "4.7.1. Key Risks — contains 0+× Risk.";
@@ -76503,7 +76503,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<RiskEntryNav> keyRisks() {
-      return new SomListMetaRef<>(tree, path + "/RIEN-KEYR-LST", (t, p) -> new RiskEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/RISENT-KEYR-LST", (t, p) -> new RiskEntryNav(t, p));
     }
   }
 
@@ -78888,8 +78888,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ScopeBoundaries", SomMetaKind.LIST, "ScopeItemEntry");
         n.memberName = "inScopeItems";
-        n.sectionId = "SCITE-INSC-LST";
-        n.sectionIdPattern = "SCITE-INSC-xxx";
+        n.sectionId = "SIE-INSC-LST";
+        n.sectionIdPattern = "SIE-INSC-xxx";
         n.serializationOrder = 1;
         n.min = 1;
         n.contentHelp = "List all items that are explicitly in scope for this project. Be specific about features, processes, user groups, and systems.";
@@ -78909,8 +78909,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ScopeBoundaries", SomMetaKind.LIST, "ScopeItemEntry");
         n.memberName = "outOfScopeItems";
-        n.sectionId = "SCITE-OUTO-LST";
-        n.sectionIdPattern = "SCITE-OUTO-xxx";
+        n.sectionId = "SIE-OUTO-LST";
+        n.sectionIdPattern = "SIE-OUTO-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "List items explicitly excluded. This is as important as in-scope items to prevent misunderstandings and scope creep.";
         n.docComment = "Out-of-Scope Items — contains 0+× ScopeItem.";
@@ -78949,8 +78949,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ScopeBoundaries", SomMetaKind.LIST, "String");
         n.memberName = "scopeAssumptions";
-        n.sectionId = "SCOPE-SCOP-LST";
-        n.sectionIdPattern = "SCOPE-SCOP-xxx";
+        n.sectionId = "SCBND-SCOP-LST";
+        n.sectionIdPattern = "SCBND-SCOP-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per assumption that underpins the scope boundaries. State what is assumed and the impact if it proves false.";
         n.docComment = "Scope Assumptions.";
@@ -78965,11 +78965,11 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ScopeItemEntryNav> inScopeItems() {
-      return new SomListMetaRef<>(tree, path + "/SCITE-INSC-LST", (t, p) -> new ScopeItemEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SIE-INSC-LST", (t, p) -> new ScopeItemEntryNav(t, p));
     }
 
     public SomListMetaRef<ScopeItemEntryNav> outOfScopeItems() {
-      return new SomListMetaRef<>(tree, path + "/SCITE-OUTO-LST", (t, p) -> new ScopeItemEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SIE-OUTO-LST", (t, p) -> new ScopeItemEntryNav(t, p));
     }
 
     public SomListMetaRef<DeferredScopeItemEntryNav> deferredItems() {
@@ -78977,7 +78977,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> scopeAssumptions() {
-      return new SomListMetaRef<>(tree, path + "/SCOPE-SCOP-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/SCBND-SCOP-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -79514,8 +79514,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ScreenElementEntry", SomMetaKind.LIST, "ElementValidationRuleEntry");
         n.memberName = "validationRules";
-        n.sectionId = "EVRE-VALI-LST";
-        n.sectionIdPattern = "EVRE-VALI-xxx";
+        n.sectionId = "ELVARUEN-VALI-LST";
+        n.sectionIdPattern = "ELVARUEN-VALI-xxx";
         n.serializationOrder = 9;
         n.contentHelp = "Add one entry per validation rule.";
         n.docComment = "Contains 0+× ElementValidationRule.";
@@ -79571,7 +79571,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ElementValidationRuleEntryNav> validationRules() {
-      return new SomListMetaRef<>(tree, path + "/EVRE-VALI-LST", (t, p) -> new ElementValidationRuleEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/ELVARUEN-VALI-LST", (t, p) -> new ElementValidationRuleEntryNav(t, p));
     }
   }
 
@@ -79849,8 +79849,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ScreenEntry", SomMetaKind.LIST, "ScreenUserCategoryEntry");
         n.memberName = "userCategories";
-        n.sectionId = "SCRUSC-USER-LST";
-        n.sectionIdPattern = "SCRUSC-USER-xxx";
+        n.sectionId = "SUCE-USER-LST";
+        n.sectionIdPattern = "SUCE-USER-xxx";
         n.serializationOrder = 9;
         n.contentHelp = "Add one entry per user category.";
         n.docComment = "Contains 0+× ScreenUserCategory.";
@@ -79889,8 +79889,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ScreenEntry", SomMetaKind.LIST, "ScreenResponsiveRuleEntry");
         n.memberName = "responsiveRules";
-        n.sectionId = "SRRE-RESP-LST";
-        n.sectionIdPattern = "SRRE-RESP-xxx";
+        n.sectionId = "SCRERUEN-RESP-LST";
+        n.sectionIdPattern = "SCRERUEN-RESP-xxx";
         n.serializationOrder = 11;
         n.contentHelp = "Add one entry per responsive rule.";
         n.docComment = "Contains 0+× ScreenResponsiveRule.";
@@ -79946,7 +79946,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ScreenUserCategoryEntryNav> userCategories() {
-      return new SomListMetaRef<>(tree, path + "/SCRUSC-USER-LST", (t, p) -> new ScreenUserCategoryEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SUCE-USER-LST", (t, p) -> new ScreenUserCategoryEntryNav(t, p));
     }
 
     public SomListMetaRef<EntryPointEntryNav> entryPoints() {
@@ -79954,7 +79954,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ScreenResponsiveRuleEntryNav> responsiveRules() {
-      return new SomListMetaRef<>(tree, path + "/SRRE-RESP-LST", (t, p) -> new ScreenResponsiveRuleEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SCRERUEN-RESP-LST", (t, p) -> new ScreenResponsiveRuleEntryNav(t, p));
     }
   }
 
@@ -80811,8 +80811,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SecondaryNavigation", SomMetaKind.LIST, "TabBarDefinitionEntry");
         n.memberName = "tabBars";
-        n.sectionId = "TBDE-TABB-LST";
-        n.sectionIdPattern = "TBDE-TABB-xxx";
+        n.sectionId = "TABADEEN-TABB-LST";
+        n.sectionIdPattern = "TABADEEN-TABB-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per tab bar or segmented control.";
         n.docComment = "Contains 0+× TabBarDefinition.";
@@ -80840,7 +80840,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<TabBarDefinitionEntryNav> tabBars() {
-      return new SomListMetaRef<>(tree, path + "/TBDE-TABB-LST", (t, p) -> new TabBarDefinitionEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/TABADEEN-TABB-LST", (t, p) -> new TabBarDefinitionEntryNav(t, p));
     }
   }
 
@@ -81260,8 +81260,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SecurityAuditRequirementsSection", SomMetaKind.LIST, "SecurityAuditEntry");
         n.memberName = "auditEntries";
-        n.sectionId = "SEAUEN-AUDI-LST";
-        n.sectionIdPattern = "SEAUEN-AUDI-xxx";
+        n.sectionId = "SAE-AUDI-LST";
+        n.sectionIdPattern = "SAE-AUDI-xxx";
         n.serializationOrder = 8;
         n.contentHelp = "Add one entry per security audit requirement.";
         n.docComment = "Individual security audit requirement entries — contains 0+× SecurityAudit.";
@@ -81313,7 +81313,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SecurityAuditEntryNav> auditEntries() {
-      return new SomListMetaRef<>(tree, path + "/SEAUEN-AUDI-LST", (t, p) -> new SecurityAuditEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SAE-AUDI-LST", (t, p) -> new SecurityAuditEntryNav(t, p));
     }
   }
 
@@ -81708,8 +81708,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SecurityControls", SomMetaKind.LIST, "SecurityControlEntry");
         n.memberName = "controls";
-        n.sectionId = "SECCT-CONT-LST";
-        n.sectionIdPattern = "SECCT-CONT-xxx";
+        n.sectionId = "SECOEN-CONT-LST";
+        n.sectionIdPattern = "SECOEN-CONT-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per security control implementing this requirement.";
         n.docComment = "Security control entries — contains 0+× SecurityControlEntry.";
@@ -81733,7 +81733,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SecurityControlEntryNav> controls() {
-      return new SomListMetaRef<>(tree, path + "/SECCT-CONT-LST", (t, p) -> new SecurityControlEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SECOEN-CONT-LST", (t, p) -> new SecurityControlEntryNav(t, p));
     }
   }
 
@@ -83328,8 +83328,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ServerRequirementsSection", SomMetaKind.LIST, "ServerEnvironmentEntry");
         n.memberName = "environments";
-        n.sectionId = "SEENEN-ENVI-LST";
-        n.sectionIdPattern = "SEENEN-ENVI-xxx";
+        n.sectionId = "SEE-ENVI-LST";
+        n.sectionIdPattern = "SEE-ENVI-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per server environment.";
         n.docComment = "Server environment tiers (dev, staging, production, DR).";
@@ -83348,8 +83348,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ServerRequirementsSection", SomMetaKind.LIST, "ServerRoleEntry");
         n.memberName = "serverRoles";
-        n.sectionId = "SEROEN-SERV-LST";
-        n.sectionIdPattern = "SEROEN-SERV-xxx";
+        n.sectionId = "SRE-SERV-LST";
+        n.sectionIdPattern = "SRE-SERV-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per server role.";
         n.docComment = "Server role definitions (app server, db server, web server).";
@@ -83465,11 +83465,11 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ServerEnvironmentEntryNav> environments() {
-      return new SomListMetaRef<>(tree, path + "/SEENEN-ENVI-LST", (t, p) -> new ServerEnvironmentEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SEE-ENVI-LST", (t, p) -> new ServerEnvironmentEntryNav(t, p));
     }
 
     public SomListMetaRef<ServerRoleEntryNav> serverRoles() {
-      return new SomListMetaRef<>(tree, path + "/SEROEN-SERV-LST", (t, p) -> new ServerRoleEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SRE-SERV-LST", (t, p) -> new ServerRoleEntryNav(t, p));
     }
 
     public ComputeResourceRequirementsNav computeResources() {
@@ -85189,8 +85189,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SlaAndSloMonitoring", SomMetaKind.LIST, "SloEntry");
         n.memberName = "slos";
-        n.sectionId = "SLEN-SLOS-LST";
-        n.sectionIdPattern = "SLEN-SLOS-xxx";
+        n.sectionId = "SE-SLOS-LST";
+        n.sectionIdPattern = "SE-SLOS-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per SLO.";
         n.docComment = "SLO catalog.";
@@ -85233,7 +85233,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SloEntryNav> slos() {
-      return new SomListMetaRef<>(tree, path + "/SLEN-SLOS-LST", (t, p) -> new SloEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SE-SLOS-LST", (t, p) -> new SloEntryNav(t, p));
     }
 
     public ErrorBudgetTrackingNav errorBudget() {
@@ -85433,8 +85433,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SoftwareDeliverables", SomMetaKind.LIST, "DeliverableEntry");
         n.memberName = "items";
-        n.sectionId = "SWDLV-ITEM-LST";
-        n.sectionIdPattern = "SWDLV-ITEM-xxx";
+        n.sectionId = "DLVEN-ITEM-LST";
+        n.sectionIdPattern = "DLVEN-ITEM-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per software deliverable.";
         n.docComment = "Contains 0+× Deliverable.";
@@ -85458,7 +85458,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<DeliverableEntryNav> items() {
-      return new SomListMetaRef<>(tree, path + "/SWDLV-ITEM-LST", (t, p) -> new DeliverableEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/DLVEN-ITEM-LST", (t, p) -> new DeliverableEntryNav(t, p));
     }
   }
 
@@ -87961,8 +87961,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("StagingStrategy", SomMetaKind.LIST, "String");
         n.memberName = "keyAssumptions";
-        n.sectionId = "KEYAS-KEYA-LST";
-        n.sectionIdPattern = "KEYAS-KEYA-xxx";
+        n.sectionId = "STAGST-KEYA-LST";
+        n.sectionIdPattern = "STAGST-KEYA-xxx";
         n.serializationOrder = 15;
         n.contentHelp = "Add one entry per key assumption.";
         n.docComment = "13.1.3. Key Assumptions.";
@@ -87972,8 +87972,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("StagingStrategy", SomMetaKind.LIST, "String");
         n.memberName = "constraints";
-        n.sectionId = "STAGI-CONS-LST";
-        n.sectionIdPattern = "STAGI-CONS-xxx";
+        n.sectionId = "STAGST-CONS-LST";
+        n.sectionIdPattern = "STAGST-CONS-xxx";
         n.serializationOrder = 16;
         n.contentHelp = "Add one entry per staging constraint.";
         n.docComment = "13.1.4. Constraints.";
@@ -88044,11 +88044,11 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> keyAssumptions() {
-      return new SomListMetaRef<>(tree, path + "/KEYAS-KEYA-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/STAGST-KEYA-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<SomMetaRef> constraints() {
-      return new SomListMetaRef<>(tree, path + "/STAGI-CONS-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/STAGST-CONS-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -88305,8 +88305,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("StakeholdersAndGovernance", SomMetaKind.LIST, "StakeholderRegisterEntry");
         n.memberName = "stakeholderRegister";
-        n.sectionId = "STKRG-STAK-LST";
-        n.sectionIdPattern = "STKRG-STAK-xxx";
+        n.sectionId = "STKRE-STAK-LST";
+        n.sectionIdPattern = "STKRE-STAK-xxx";
         n.serializationOrder = 8;
         n.contentHelp = "Add one entry per stakeholder or group (STK-NNN).";
         n.docComment = "Stakeholder register.";
@@ -88358,7 +88358,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<StakeholderRegisterEntryNav> stakeholderRegister() {
-      return new SomListMetaRef<>(tree, path + "/STKRG-STAK-LST", (t, p) -> new StakeholderRegisterEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/STKRE-STAK-LST", (t, p) -> new StakeholderRegisterEntryNav(t, p));
     }
   }
 
@@ -88487,8 +88487,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("StandardsComplianceSection", SomMetaKind.LIST, "ItStandardComplianceEntry");
         n.memberName = "itStandards";
-        n.sectionId = "ISCE-ITST-LST";
-        n.sectionIdPattern = "ISCE-ITST-xxx";
+        n.sectionId = "ITSTCOEN-ITST-LST";
+        n.sectionIdPattern = "ITSTCOEN-ITST-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per IT standard.";
         n.docComment = "IT standards compliance (ISO, IEEE, NIST).";
@@ -88507,8 +88507,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("StandardsComplianceSection", SomMetaKind.LIST, "IndustryProtocolComplianceEntry");
         n.memberName = "industryProtocols";
-        n.sectionId = "IPCE-INDU-LST";
-        n.sectionIdPattern = "IPCE-INDU-xxx";
+        n.sectionId = "INPRCOEN-INDU-LST";
+        n.sectionIdPattern = "INPRCOEN-INDU-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per industry protocol.";
         n.docComment = "Industry protocols compliance.";
@@ -88527,8 +88527,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("StandardsComplianceSection", SomMetaKind.LIST, "InterfaceSpecificationEntry");
         n.memberName = "interfaceSpecifications";
-        n.sectionId = "INSPEN-INTE-LST";
-        n.sectionIdPattern = "INSPEN-INTE-xxx";
+        n.sectionId = "INTSPEENT-INTE-LST";
+        n.sectionIdPattern = "INTSPEENT-INTE-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per interface specification.";
         n.docComment = "Interface specification standards.";
@@ -88547,8 +88547,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("StandardsComplianceSection", SomMetaKind.LIST, "RegulatoryComplianceEntry");
         n.memberName = "regulatoryCompliance";
-        n.sectionId = "RECOEN-REGU-LST";
-        n.sectionIdPattern = "RECOEN-REGU-xxx";
+        n.sectionId = "RCE-REGU-LST";
+        n.sectionIdPattern = "RCE-REGU-xxx";
         n.serializationOrder = 5;
         n.contentHelp = "Add one entry per regulation.";
         n.docComment = "Regulatory compliance requirements.";
@@ -88567,8 +88567,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("StandardsComplianceSection", SomMetaKind.LIST, "SecurityStandardComplianceEntry");
         n.memberName = "securityStandards";
-        n.sectionId = "SSCE-SECU-LST";
-        n.sectionIdPattern = "SSCE-SECU-xxx";
+        n.sectionId = "SESTCOEN-SECU-LST";
+        n.sectionIdPattern = "SESTCOEN-SECU-xxx";
         n.serializationOrder = 6;
         n.contentHelp = "Add one entry per security standard.";
         n.docComment = "Security standards compliance.";
@@ -88680,23 +88680,23 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ItStandardComplianceEntryNav> itStandards() {
-      return new SomListMetaRef<>(tree, path + "/ISCE-ITST-LST", (t, p) -> new ItStandardComplianceEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/ITSTCOEN-ITST-LST", (t, p) -> new ItStandardComplianceEntryNav(t, p));
     }
 
     public SomListMetaRef<IndustryProtocolComplianceEntryNav> industryProtocols() {
-      return new SomListMetaRef<>(tree, path + "/IPCE-INDU-LST", (t, p) -> new IndustryProtocolComplianceEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/INPRCOEN-INDU-LST", (t, p) -> new IndustryProtocolComplianceEntryNav(t, p));
     }
 
     public SomListMetaRef<InterfaceSpecificationEntryNav> interfaceSpecifications() {
-      return new SomListMetaRef<>(tree, path + "/INSPEN-INTE-LST", (t, p) -> new InterfaceSpecificationEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/INTSPEENT-INTE-LST", (t, p) -> new InterfaceSpecificationEntryNav(t, p));
     }
 
     public SomListMetaRef<RegulatoryComplianceEntryNav> regulatoryCompliance() {
-      return new SomListMetaRef<>(tree, path + "/RECOEN-REGU-LST", (t, p) -> new RegulatoryComplianceEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/RCE-REGU-LST", (t, p) -> new RegulatoryComplianceEntryNav(t, p));
     }
 
     public SomListMetaRef<SecurityStandardComplianceEntryNav> securityStandards() {
-      return new SomListMetaRef<>(tree, path + "/SSCE-SECU-LST", (t, p) -> new SecurityStandardComplianceEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SESTCOEN-SECU-LST", (t, p) -> new SecurityStandardComplianceEntryNav(t, p));
     }
 
     public SomListMetaRef<AccessibilityStandardEntryNav> accessibilityStandards() {
@@ -88758,8 +88758,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SteeringCommittee", SomMetaKind.LIST, "CommitteeMemberEntry");
         n.memberName = "members";
-        n.sectionId = "COMMB-MEMB-LST";
-        n.sectionIdPattern = "COMMB-MEMB-xxx";
+        n.sectionId = "CME-MEMB-LST";
+        n.sectionIdPattern = "CME-MEMB-xxx";
         n.serializationOrder = 2;
         n.min = 1;
         n.contentHelp = "Add one entry per steering committee member, capturing their organizational and committee role, decision authority, and contact.";
@@ -88788,7 +88788,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<CommitteeMemberEntryNav> members() {
-      return new SomListMetaRef<>(tree, path + "/COMMB-MEMB-LST", (t, p) -> new CommitteeMemberEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/CME-MEMB-LST", (t, p) -> new CommitteeMemberEntryNav(t, p));
     }
   }
 
@@ -88815,8 +88815,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("StepUpAuthenticationPolicy", SomMetaKind.LIST, "String");
         n.memberName = "stepUpDetails";
-        n.sectionId = "STEPU-STEP-LST";
-        n.sectionIdPattern = "STEPU-STEP-xxx";
+        n.sectionId = "SUAP-STEP-LST";
+        n.sectionIdPattern = "SUAP-STEP-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per step-up authentication step.";
         n.docComment = "Step-Up Authentication Details (text).";
@@ -88831,7 +88831,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> stepUpDetails() {
-      return new SomListMetaRef<>(tree, path + "/STEPU-STEP-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/SUAP-STEP-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -89686,8 +89686,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SupportDeliverables", SomMetaKind.LIST, "DeliverableEntry");
         n.memberName = "items";
-        n.sectionId = "SPDLV-ITEM-LST";
-        n.sectionIdPattern = "SPDLV-ITEM-xxx";
+        n.sectionId = "DLVEN-ITEM-LST";
+        n.sectionIdPattern = "DLVEN-ITEM-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per support deliverable.";
         n.docComment = "Contains 0+× Deliverable.";
@@ -89711,7 +89711,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<DeliverableEntryNav> items() {
-      return new SomListMetaRef<>(tree, path + "/SPDLV-ITEM-LST", (t, p) -> new DeliverableEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/DLVEN-ITEM-LST", (t, p) -> new DeliverableEntryNav(t, p));
     }
   }
 
@@ -90082,8 +90082,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemBusinessCriticality", SomMetaKind.LIST, "SystemBusinessUnitEntry");
         n.memberName = "businessUnits";
-        n.sectionId = "SBUE-BUSI-LST";
-        n.sectionIdPattern = "SBUE-BUSI-xxx";
+        n.sectionId = "SYBUUNEN-BUSI-LST";
+        n.sectionIdPattern = "SYBUUNEN-BUSI-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per business unit using the system; note user count and dependency level.";
         n.docComment = "Business units and departments using this system.";
@@ -90102,8 +90102,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemBusinessCriticality", SomMetaKind.LIST, "SystemBusinessProcessEntry");
         n.memberName = "supportedProcesses";
-        n.sectionId = "SBPE-SUPP-LST";
-        n.sectionIdPattern = "SBPE-SUPP-xxx";
+        n.sectionId = "SYBUPREN-SUPP-LST";
+        n.sectionIdPattern = "SYBUPREN-SUPP-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per business process the system supports; note its role and execution frequency.";
         n.docComment = "Business processes supported by this system.";
@@ -90135,11 +90135,11 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SystemBusinessUnitEntryNav> businessUnits() {
-      return new SomListMetaRef<>(tree, path + "/SBUE-BUSI-LST", (t, p) -> new SystemBusinessUnitEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SYBUUNEN-BUSI-LST", (t, p) -> new SystemBusinessUnitEntryNav(t, p));
     }
 
     public SomListMetaRef<SystemBusinessProcessEntryNav> supportedProcesses() {
-      return new SomListMetaRef<>(tree, path + "/SBPE-SUPP-LST", (t, p) -> new SystemBusinessProcessEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SYBUPREN-SUPP-LST", (t, p) -> new SystemBusinessProcessEntryNav(t, p));
     }
   }
 
@@ -90541,8 +90541,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemCostAnalysis", SomMetaKind.LIST, "String");
         n.memberName = "nonFinancialBenefits";
-        n.sectionId = "NONFI-NONF-LST";
-        n.sectionIdPattern = "NONFI-NONF-xxx";
+        n.sectionId = "SYCOAN-NONF-LST";
+        n.sectionIdPattern = "SYCOAN-NONF-xxx";
         n.serializationOrder = 5;
         n.contentHelp = "Add one entry per non-financial benefit (e.g. risk reduction, agility) to weigh in the ROI case.";
         n.docComment = "Non-financial benefits to include in ROI.";
@@ -90573,7 +90573,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> nonFinancialBenefits() {
-      return new SomListMetaRef<>(tree, path + "/NONFI-NONF-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/SYCOAN-NONF-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -90632,8 +90632,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemDataScope", SomMetaKind.LIST, "DataEntityMigrationEntry");
         n.memberName = "entities";
-        n.sectionId = "DEME-ENTI-LST";
-        n.sectionIdPattern = "DEME-ENTI-xxx";
+        n.sectionId = "DAENMIEN-ENTI-LST";
+        n.sectionIdPattern = "DAENMIEN-ENTI-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per data entity to migrate; capture record count, target mapping, and transformation rules.";
         n.docComment = "Data entities to migrate.";
@@ -90652,8 +90652,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemDataScope", SomMetaKind.LIST, "String");
         n.memberName = "knownQualityIssues";
-        n.sectionId = "KNOWN-KNOW-LST";
-        n.sectionIdPattern = "KNOWN-KNOW-xxx";
+        n.sectionId = "SYDASC-KNOW-LST";
+        n.sectionIdPattern = "SYDASC-KNOW-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per data-quality issue to address; note severity and remediation approach.";
         n.docComment = "Data quality issues to address.";
@@ -90676,11 +90676,11 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<DataEntityMigrationEntryNav> entities() {
-      return new SomListMetaRef<>(tree, path + "/DEME-ENTI-LST", (t, p) -> new DataEntityMigrationEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/DAENMIEN-ENTI-LST", (t, p) -> new DataEntityMigrationEntryNav(t, p));
     }
 
     public SomListMetaRef<SomMetaRef> knownQualityIssues() {
-      return new SomListMetaRef<>(tree, path + "/KNOWN-KNOW-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/SYDASC-KNOW-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -90904,8 +90904,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemDescription", SomMetaKind.LIST, "UserCategoryEntry");
         n.memberName = "userCategories";
-        n.sectionId = "USCA-USER-LST";
-        n.sectionIdPattern = "USCA-USER-xxx";
+        n.sectionId = "UCE-USER-LST";
+        n.sectionIdPattern = "UCE-USER-xxx";
         n.serializationOrder = 5;
         n.min = 1;
         n.contentHelp = "Add one entry per distinct category of user, distinguished by role, access level, or interaction pattern with the system.";
@@ -90957,7 +90957,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<UserCategoryEntryNav> userCategories() {
-      return new SomListMetaRef<>(tree, path + "/USCA-USER-LST", (t, p) -> new UserCategoryEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/UCE-USER-LST", (t, p) -> new UserCategoryEntryNav(t, p));
     }
 
     public UserInteractionModelNav userInteractionModel() {
@@ -91210,8 +91210,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemErrorDisplay", SomMetaKind.LIST, "String");
         n.memberName = "errorPageDesigns";
-        n.sectionId = "EPDE-ERRO-LST";
-        n.sectionIdPattern = "EPDE-ERRO-xxx";
+        n.sectionId = "SYERDI-ERRO-LST";
+        n.sectionIdPattern = "SYERDI-ERRO-xxx";
         n.serializationOrder = 6;
         n.contentHelp = "Add one entry per error page design.";
         n.docComment = "Error page designs.";
@@ -91221,8 +91221,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemErrorDisplay", SomMetaKind.LIST, "SystemErrorCodeEntry");
         n.memberName = "errorCodes";
-        n.sectionId = "SECE-ERRO-LST";
-        n.sectionIdPattern = "SECE-ERRO-xxx";
+        n.sectionId = "SYERCOEN-ERRO-LST";
+        n.sectionIdPattern = "SYERCOEN-ERRO-xxx";
         n.serializationOrder = 7;
         n.contentHelp = "Add one entry per system error code.";
         n.docComment = "Error codes catalog.";
@@ -91266,11 +91266,11 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> errorPageDesigns() {
-      return new SomListMetaRef<>(tree, path + "/EPDE-ERRO-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/SYERDI-ERRO-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<SystemErrorCodeEntryNav> errorCodes() {
-      return new SomListMetaRef<>(tree, path + "/SECE-ERRO-LST", (t, p) -> new SystemErrorCodeEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SYERCOEN-ERRO-LST", (t, p) -> new SystemErrorCodeEntryNav(t, p));
     }
   }
 
@@ -91532,8 +91532,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemKnowledgeTransfer", SomMetaKind.LIST, "String");
         n.memberName = "criticalKnowledgeAreas";
-        n.sectionId = "CRITI-CRIT-LST";
-        n.sectionIdPattern = "CRITI-CRIT-xxx";
+        n.sectionId = "SYKNTR-CRIT-LST";
+        n.sectionIdPattern = "SYKNTR-CRIT-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per critical knowledge area at risk of being lost when the system is retired.";
         n.docComment = "Critical knowledge areas to preserve.";
@@ -91557,7 +91557,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> criticalKnowledgeAreas() {
-      return new SomListMetaRef<>(tree, path + "/CRITI-CRIT-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/SYKNTR-CRIT-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef knowledgeTransferPlan() {
@@ -91648,8 +91648,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemMigrationPlan", SomMetaKind.LIST, "SystemMigrationRiskEntry");
         n.memberName = "risks";
-        n.sectionId = "SMRE-RISK-LST";
-        n.sectionIdPattern = "SMRE-RISK-xxx";
+        n.sectionId = "SYMIRIEN-RISK-LST";
+        n.sectionIdPattern = "SYMIRIEN-RISK-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per migration risk; capture probability, impact, mitigation, and contingency.";
         n.docComment = "Contains 0+× MigrationRiskEntry — per-system migration risks.";
@@ -91699,7 +91699,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SystemMigrationRiskEntryNav> risks() {
-      return new SomListMetaRef<>(tree, path + "/SMRE-RISK-LST", (t, p) -> new SystemMigrationRiskEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/SYMIRIEN-RISK-LST", (t, p) -> new SystemMigrationRiskEntryNav(t, p));
     }
 
     public SomMetaRef rollbackStrategy() {
@@ -91782,8 +91782,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemOperation", SomMetaKind.LIST, "String");
         n.memberName = "maintenanceProcedures";
-        n.sectionId = "MAINT-MAIN-LST";
-        n.sectionIdPattern = "MAINT-MAIN-xxx";
+        n.sectionId = "SO-MAIN-LST";
+        n.sectionIdPattern = "SO-MAIN-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per maintenance procedure.";
         n.docComment = "Maintenance Procedures.";
@@ -91802,7 +91802,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> maintenanceProcedures() {
-      return new SomListMetaRef<>(tree, path + "/MAINT-MAIN-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/SO-MAIN-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -92122,8 +92122,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemQualityGoals", SomMetaKind.LIST, "String");
         n.memberName = "attributeInterdependencies";
-        n.sectionId = "ATTRI-ATTR-LST";
-        n.sectionIdPattern = "ATTRI-ATTR-xxx";
+        n.sectionId = "SYQG-ATTR-LST";
+        n.sectionIdPattern = "SYQG-ATTR-xxx";
         n.serializationOrder = 8;
         n.contentHelp = "Add one entry per quality attribute interdependency.";
         n.docComment = "Quality attribute interdependencies.";
@@ -92331,7 +92331,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> attributeInterdependencies() {
-      return new SomListMetaRef<>(tree, path + "/ATTRI-ATTR-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/SYQG-ATTR-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef qualityRadar() {
@@ -92465,8 +92465,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemReplacementStrategy", SomMetaKind.LIST, "String");
         n.memberName = "predecessorDependencies";
-        n.sectionId = "PREDE-PRED-LST";
-        n.sectionIdPattern = "PREDE-PRED-xxx";
+        n.sectionId = "SYREST-PRED-LST";
+        n.sectionIdPattern = "SYREST-PRED-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per predecessor system that must be replaced or addressed before this system can proceed.";
         n.docComment = "Predecessor systems that must be addressed first.";
@@ -92502,7 +92502,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> predecessorDependencies() {
-      return new SomListMetaRef<>(tree, path + "/PREDE-PRED-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/SYREST-PRED-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef successCriteria() {
@@ -93057,8 +93057,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemTaskEntry", SomMetaKind.LIST, "String");
         n.memberName = "workflowSteps";
-        n.sectionId = "SYSTE-WORK-LST";
-        n.sectionIdPattern = "SYSTE-WORK-xxx";
+        n.sectionId = "SYTS-WORK-LST";
+        n.sectionIdPattern = "SYTS-WORK-xxx";
         n.serializationOrder = 5;
         n.contentHelp = "Add one entry per step in the task workflow, in the order the user performs them.";
         n.docComment = "Task workflow steps.";
@@ -93068,8 +93068,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemTaskEntry", SomMetaKind.LIST, "String");
         n.memberName = "variationsAndExceptions";
-        n.sectionId = "VARIA-VARI-LST";
-        n.sectionIdPattern = "VARIA-VARI-xxx";
+        n.sectionId = "SYTS-VARI-LST";
+        n.sectionIdPattern = "SYTS-VARI-xxx";
         n.serializationOrder = 6;
         n.contentHelp = "Add one entry per variation or exception to the normal task flow.";
         n.docComment = "Variations and exceptions.";
@@ -93100,11 +93100,11 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> workflowSteps() {
-      return new SomListMetaRef<>(tree, path + "/SYSTE-WORK-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/SYTS-WORK-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<SomMetaRef> variationsAndExceptions() {
-      return new SomListMetaRef<>(tree, path + "/VARIA-VARI-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/SYTS-VARI-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -93178,8 +93178,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemTechnicalAssessment", SomMetaKind.LIST, "String");
         n.memberName = "knownIssues";
-        n.sectionId = "KIE-KNOW-LST";
-        n.sectionIdPattern = "KIE-KNOW-xxx";
+        n.sectionId = "SYTEAS-KNOW-LST";
+        n.sectionIdPattern = "SYTEAS-KNOW-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per significant known technical issue, defect, or deficiency affecting the system.";
         n.docComment = "Known technical issues and deficiencies.";
@@ -93189,8 +93189,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemTechnicalAssessment", SomMetaKind.LIST, "String");
         n.memberName = "securityConcerns";
-        n.sectionId = "SECUR-SECU-LST";
-        n.sectionIdPattern = "SECUR-SECU-xxx";
+        n.sectionId = "SYTEAS-SECU-LST";
+        n.sectionIdPattern = "SYTEAS-SECU-xxx";
         n.serializationOrder = 5;
         n.contentHelp = "Add one entry per security vulnerability or compliance gap; note severity and remediation status.";
         n.docComment = "Security vulnerabilities and compliance gaps.";
@@ -93217,11 +93217,11 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> knownIssues() {
-      return new SomListMetaRef<>(tree, path + "/KIE-KNOW-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/SYTEAS-KNOW-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<SomMetaRef> securityConcerns() {
-      return new SomListMetaRef<>(tree, path + "/SECUR-SECU-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/SYTEAS-SECU-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -93585,8 +93585,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("SystemUserImpact", SomMetaKind.LIST, "UserGroupImpactEntry");
         n.memberName = "userGroups";
-        n.sectionId = "UGIE-USER-LST";
-        n.sectionIdPattern = "UGIE-USER-xxx";
+        n.sectionId = "USGRIMEN-USER-LST";
+        n.sectionIdPattern = "USGRIMEN-USER-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per user group needing special handling; note impact level and special considerations.";
         n.docComment = "User groups requiring specific handling.";
@@ -93622,7 +93622,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<UserGroupImpactEntryNav> userGroups() {
-      return new SomListMetaRef<>(tree, path + "/UGIE-USER-LST", (t, p) -> new UserGroupImpactEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/USGRIMEN-USER-LST", (t, p) -> new UserGroupImpactEntryNav(t, p));
     }
   }
 
@@ -93742,8 +93742,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("TabBarDefinitionEntry", SomMetaKind.LIST, "TabItemEntry");
         n.memberName = "tabs";
-        n.sectionId = "TAITEN-TABS-LST";
-        n.sectionIdPattern = "TAITEN-TABS-xxx";
+        n.sectionId = "TIE-TABS-LST";
+        n.sectionIdPattern = "TIE-TABS-xxx";
         n.serializationOrder = 3;
         n.min = 1;
         n.contentHelp = "Add one entry per tab item in the tab bar.";
@@ -93776,7 +93776,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<TabItemEntryNav> tabs() {
-      return new SomListMetaRef<>(tree, path + "/TAITEN-TABS-LST", (t, p) -> new TabItemEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/TIE-TABS-LST", (t, p) -> new TabItemEntryNav(t, p));
     }
   }
 
@@ -94496,8 +94496,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("TechnicalEnvironment", SomMetaKind.LIST, "String");
         n.memberName = "datacenters";
-        n.sectionId = "DATAC-DATA-LST";
-        n.sectionIdPattern = "DATAC-DATA-xxx";
+        n.sectionId = "TEEN-DATA-LST";
+        n.sectionIdPattern = "TEEN-DATA-xxx";
         n.serializationOrder = 6;
         n.contentHelp = "List data centers and hosting environments: location, ownership, capacity, and any reuse or integration constraints.";
         n.docComment = "Data center and hosting environment details.";
@@ -94525,8 +94525,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("TechnicalEnvironment", SomMetaKind.LIST, "TechnologyStandardEntry");
         n.memberName = "technologyStandards";
-        n.sectionId = "TESTEN-TECH-LST";
-        n.sectionIdPattern = "TESTEN-TECH-xxx";
+        n.sectionId = "TSE-TECH-LST";
+        n.sectionIdPattern = "TSE-TECH-xxx";
         n.serializationOrder = 9;
         n.contentHelp = "List technology standards the solution must follow, with their scope, mandate level, and compliance expectations.";
         n.docComment = "Technology standards — contains 0+× TechnologyStandard.";
@@ -94554,8 +94554,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("TechnicalEnvironment", SomMetaKind.LIST, "IntegrationConstraintEntry");
         n.memberName = "integrationConstraints";
-        n.sectionId = "INCOE1-INTE-LST";
-        n.sectionIdPattern = "INCOE1-INTE-xxx";
+        n.sectionId = "INTCONENT-INTE-LST";
+        n.sectionIdPattern = "INTCONENT-INTE-xxx";
         n.serializationOrder = 11;
         n.contentHelp = "List integration constraints: protocol and format requirements, platform mandates, and the interfaces they affect.";
         n.docComment = "Integration constraints — contains 0+× IntegrationConstraint.";
@@ -94599,7 +94599,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> datacenters() {
-      return new SomListMetaRef<>(tree, path + "/DATAC-DATA-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/TEEN-DATA-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef networkTopology() {
@@ -94611,7 +94611,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<TechnologyStandardEntryNav> technologyStandards() {
-      return new SomListMetaRef<>(tree, path + "/TESTEN-TECH-LST", (t, p) -> new TechnologyStandardEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/TSE-TECH-LST", (t, p) -> new TechnologyStandardEntryNav(t, p));
     }
 
     public SomMetaRef integrationOverview() {
@@ -94619,7 +94619,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<IntegrationConstraintEntryNav> integrationConstraints() {
-      return new SomListMetaRef<>(tree, path + "/INCOE1-INTE-LST", (t, p) -> new IntegrationConstraintEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/INTCONENT-INTE-LST", (t, p) -> new IntegrationConstraintEntryNav(t, p));
     }
   }
 
@@ -94651,8 +94651,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("TechnicalEnvironmentNetwork", SomMetaKind.LIST, "String");
         n.memberName = "devopsStandards";
-        n.sectionId = "DEVOP-DEVO-LST";
-        n.sectionIdPattern = "DEVOP-DEVO-xxx";
+        n.sectionId = "TEENNE-DEVO-LST";
+        n.sectionIdPattern = "TEENNE-DEVO-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "List DevOps and deployment standards: CI/CD tooling, release process, and environment promotion rules.";
         n.docComment = "DevOps and deployment standards.";
@@ -94662,8 +94662,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("TechnicalEnvironmentNetwork", SomMetaKind.LIST, "String");
         n.memberName = "observabilityRequirements";
-        n.sectionId = "OBSER-OBSE-LST";
-        n.sectionIdPattern = "OBSER-OBSE-xxx";
+        n.sectionId = "TEENNE-OBSE-LST";
+        n.sectionIdPattern = "TEENNE-OBSE-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "List observability requirements: metrics, logging, tracing, alerting standards, and required monitoring platforms.";
         n.docComment = "Monitoring and observability requirements.";
@@ -94687,11 +94687,11 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> devopsStandards() {
-      return new SomListMetaRef<>(tree, path + "/DEVOP-DEVO-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/TEENNE-DEVO-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<SomMetaRef> observabilityRequirements() {
-      return new SomListMetaRef<>(tree, path + "/OBSER-OBSE-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/TEENNE-OBSE-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef disasterRecovery() {
@@ -95412,8 +95412,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("TechnicalPainPoints", SomMetaKind.LIST, "PainPointEntry");
         n.memberName = "items";
-        n.sectionId = "TEPAPO-ITEM-LST";
-        n.sectionIdPattern = "TEPAPO-ITEM-xxx";
+        n.sectionId = "PAPE-ITEM-LST";
+        n.sectionIdPattern = "PAPE-ITEM-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per distinct technical problem, each with its own root cause, impact, and resolution outlook. Scope entries to technology, architecture, security, and maintainability concerns.";
         n.docComment = "Contains 0+× PainPoint.";
@@ -95441,7 +95441,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<PainPointEntryNav> items() {
-      return new SomListMetaRef<>(tree, path + "/TEPAPO-ITEM-LST", (t, p) -> new PainPointEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/PAPE-ITEM-LST", (t, p) -> new PainPointEntryNav(t, p));
     }
   }
 
@@ -98094,8 +98094,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("TrainingDeliverableRequirements", SomMetaKind.LIST, "TrainingModuleEntry");
         n.memberName = "trainingModules";
-        n.sectionId = "TRMOEN-TRAI-LST";
-        n.sectionIdPattern = "TRMOEN-TRAI-xxx";
+        n.sectionId = "TME-TRAI-LST";
+        n.sectionIdPattern = "TME-TRAI-xxx";
         n.serializationOrder = 2;
         n.contentHelp = "Add one entry per training module.";
         n.docComment = "Training module entries.";
@@ -98123,7 +98123,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<TrainingModuleEntryNav> trainingModules() {
-      return new SomListMetaRef<>(tree, path + "/TRMOEN-TRAI-LST", (t, p) -> new TrainingModuleEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/TME-TRAI-LST", (t, p) -> new TrainingModuleEntryNav(t, p));
     }
   }
 
@@ -98151,8 +98151,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("TrainingDeliverables", SomMetaKind.LIST, "DeliverableEntry");
         n.memberName = "items";
-        n.sectionId = "TRDLV-ITEM-LST";
-        n.sectionIdPattern = "TRDLV-ITEM-xxx";
+        n.sectionId = "DLVEN-ITEM-LST";
+        n.sectionIdPattern = "DLVEN-ITEM-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per training deliverable.";
         n.docComment = "Contains 0+× Deliverable.";
@@ -98176,7 +98176,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<DeliverableEntryNav> items() {
-      return new SomListMetaRef<>(tree, path + "/TRDLV-ITEM-LST", (t, p) -> new DeliverableEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/DLVEN-ITEM-LST", (t, p) -> new DeliverableEntryNav(t, p));
     }
   }
 
@@ -98463,8 +98463,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("TrainingRequirements", SomMetaKind.LIST, "InitialTrainingEntry");
         n.memberName = "initialTraining";
-        n.sectionId = "INITR-INIT-LST";
-        n.sectionIdPattern = "INITR-INIT-xxx";
+        n.sectionId = "ITE-INIT-LST";
+        n.sectionIdPattern = "ITE-INIT-xxx";
         n.serializationOrder = 1;
         n.docComment = "Initial/onboarding training.";
         n.elementNode = metaCx("InitialTrainingEntry", s, InitialTrainingEntryNav::metaChildren, (r, c) -> {
@@ -98562,7 +98562,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<InitialTrainingEntryNav> initialTraining() {
-      return new SomListMetaRef<>(tree, path + "/INITR-INIT-LST", (t, p) -> new InitialTrainingEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/ITE-INIT-LST", (t, p) -> new InitialTrainingEntryNav(t, p));
     }
 
     public SomListMetaRef<OngoingTrainingEntryNav> ongoingTraining() {
@@ -99575,8 +99575,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("TranslationProcess", SomMetaKind.LIST, "TranslationVendorEntry");
         n.memberName = "vendors";
-        n.sectionId = "TRVEEN-VEND-LST";
-        n.sectionIdPattern = "TRVEEN-VEND-xxx";
+        n.sectionId = "TVE-VEND-LST";
+        n.sectionIdPattern = "TVE-VEND-xxx";
         n.serializationOrder = 6;
         n.contentHelp = "Add one entry per translation vendor.";
         n.docComment = "Translation vendor entries.";
@@ -99620,7 +99620,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<TranslationVendorEntryNav> vendors() {
-      return new SomListMetaRef<>(tree, path + "/TRVEEN-VEND-LST", (t, p) -> new TranslationVendorEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/TVE-VEND-LST", (t, p) -> new TranslationVendorEntryNav(t, p));
     }
   }
 
@@ -100427,8 +100427,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("UiComponentEntry", SomMetaKind.LIST, "ComponentStateEntry");
         n.memberName = "states";
-        n.sectionId = "CMST-STAT-LST";
-        n.sectionIdPattern = "CMST-STAT-xxx";
+        n.sectionId = "COMSTAENT-STAT-LST";
+        n.sectionIdPattern = "COMSTAENT-STAT-xxx";
         n.serializationOrder = 18;
         n.contentHelp = "Add one entry per component state.";
         n.docComment = "Contains 0+× ComponentState.";
@@ -100447,8 +100447,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("UiComponentEntry", SomMetaKind.LIST, "ComponentVariantEntry");
         n.memberName = "variants";
-        n.sectionId = "CMVN-VARI-LST";
-        n.sectionIdPattern = "CMVN-VARI-xxx";
+        n.sectionId = "CVE-VARI-LST";
+        n.sectionIdPattern = "CVE-VARI-xxx";
         n.serializationOrder = 19;
         n.contentHelp = "Add one entry per component variant.";
         n.docComment = "Contains 0+× ComponentVariant.";
@@ -100600,11 +100600,11 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ComponentStateEntryNav> states() {
-      return new SomListMetaRef<>(tree, path + "/CMST-STAT-LST", (t, p) -> new ComponentStateEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/COMSTAENT-STAT-LST", (t, p) -> new ComponentStateEntryNav(t, p));
     }
 
     public SomListMetaRef<ComponentVariantEntryNav> variants() {
-      return new SomListMetaRef<>(tree, path + "/CMVN-VARI-LST", (t, p) -> new ComponentVariantEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/CVE-VARI-LST", (t, p) -> new ComponentVariantEntryNav(t, p));
     }
 
     public SomListMetaRef<ComponentActionEntryNav> actions() {
@@ -100698,8 +100698,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("UiComponents", SomMetaKind.LIST, "UiComponentEntry");
         n.memberName = "componentSpecs";
-        n.sectionId = "UICOEN-COMP-LST";
-        n.sectionIdPattern = "UICOEN-COMP-xxx";
+        n.sectionId = "UICOMENT-COMP-LST";
+        n.sectionIdPattern = "UICOMENT-COMP-xxx";
         n.serializationOrder = 5;
         n.contentHelp = "Add one entry per catalog component.";
         n.docComment = "10.11.2. Component Specifications — contains 0+×.";
@@ -100759,7 +100759,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<UiComponentEntryNav> componentSpecs() {
-      return new SomListMetaRef<>(tree, path + "/UICOEN-COMP-LST", (t, p) -> new UiComponentEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/UICOMENT-COMP-LST", (t, p) -> new UiComponentEntryNav(t, p));
     }
 
     public SomListMetaRef<ComponentFamilyEntryNav> componentFamilies() {
@@ -101922,8 +101922,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("UserCategories", SomMetaKind.LIST, "UserCategoryEntry");
         n.memberName = "categories";
-        n.sectionId = "USCA-CATE-LST";
-        n.sectionIdPattern = "USCA-CATE-xxx";
+        n.sectionId = "UCE-CATE-LST";
+        n.sectionIdPattern = "UCE-CATE-xxx";
         n.serializationOrder = 2;
         n.min = 1;
         n.contentHelp = "Add one entry per distinct user category. Categories should be mutually exclusive where possible, with clear distinguishing characteristics.";
@@ -101952,7 +101952,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<UserCategoryEntryNav> categories() {
-      return new SomListMetaRef<>(tree, path + "/USCA-CATE-LST", (t, p) -> new UserCategoryEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/UCE-CATE-LST", (t, p) -> new UserCategoryEntryNav(t, p));
     }
   }
 
@@ -102592,8 +102592,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("UserJourney", SomMetaKind.LIST, "String");
         n.memberName = "keyTouchpoints";
-        n.sectionId = "KEYTO-KEYT-LST";
-        n.sectionIdPattern = "KEYTO-KEYT-xxx";
+        n.sectionId = "UJ-KEYT-LST";
+        n.sectionIdPattern = "UJ-KEYT-xxx";
         n.serializationOrder = 3;
         n.contentHelp = "Add one entry per key touchpoint in the user journey.";
         n.docComment = "Key touchpoints.";
@@ -102603,8 +102603,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("UserJourney", SomMetaKind.LIST, "String");
         n.memberName = "painPoints";
-        n.sectionId = "USERJ-PAIN-LST";
-        n.sectionIdPattern = "USERJ-PAIN-xxx";
+        n.sectionId = "UJ-PAIN-LST";
+        n.sectionIdPattern = "UJ-PAIN-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per pain point or friction in the user journey.";
         n.docComment = "Pain points in the journey.";
@@ -102636,11 +102636,11 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> keyTouchpoints() {
-      return new SomListMetaRef<>(tree, path + "/KEYTO-KEYT-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/UJ-KEYT-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<SomMetaRef> painPoints() {
-      return new SomListMetaRef<>(tree, path + "/USERJ-PAIN-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/UJ-PAIN-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef opportunitiesForDelight() {
@@ -103211,8 +103211,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("UserPersonaDetails", SomMetaKind.LIST, "String");
         n.memberName = "representativeQuotes";
-        n.sectionId = "REPRE-REPR-LST";
-        n.sectionIdPattern = "REPRE-REPR-xxx";
+        n.sectionId = "UPD-REPR-LST";
+        n.sectionIdPattern = "UPD-REPR-xxx";
         n.serializationOrder = 6;
         n.contentHelp = "Add quotes that capture how this persona thinks and speaks, to make the persona vivid for designers.";
         n.docComment = "Key quotes that represent this persona's mindset.";
@@ -103247,7 +103247,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> representativeQuotes() {
-      return new SomListMetaRef<>(tree, path + "/REPRE-REPR-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/UPD-REPR-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -103719,8 +103719,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("UtilityNavigation", SomMetaKind.LIST, "UtilityNavigationItemEntry");
         n.memberName = "items";
-        n.sectionId = "UNIE-ITEM-LST";
-        n.sectionIdPattern = "UNIE-ITEM-xxx";
+        n.sectionId = "UTNAITEN-ITEM-LST";
+        n.sectionIdPattern = "UTNAITEN-ITEM-xxx";
         n.serializationOrder = 1;
         n.contentHelp = "Add one entry per utility navigation item.";
         n.docComment = "Contains 0+× UtilityNavigationItem.";
@@ -103744,7 +103744,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<UtilityNavigationItemEntryNav> items() {
-      return new SomListMetaRef<>(tree, path + "/UNIE-ITEM-LST", (t, p) -> new UtilityNavigationItemEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/UTNAITEN-ITEM-LST", (t, p) -> new UtilityNavigationItemEntryNav(t, p));
     }
   }
 
@@ -103813,8 +103813,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("UtilityNavigationItemEntry", SomMetaKind.LIST, "UtilityMenuItemEntry");
         n.memberName = "menuItems";
-        n.sectionId = "UMIE-MENU-LST";
-        n.sectionIdPattern = "UMIE-MENU-xxx";
+        n.sectionId = "UTMEITEN-MENU-LST";
+        n.sectionIdPattern = "UTMEITEN-MENU-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per utility menu item.";
         n.docComment = "Contains 0+× UtilityMenuItem.";
@@ -103850,7 +103850,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<UtilityMenuItemEntryNav> menuItems() {
-      return new SomListMetaRef<>(tree, path + "/UMIE-MENU-LST", (t, p) -> new UtilityMenuItemEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/UTMEITEN-MENU-LST", (t, p) -> new UtilityMenuItemEntryNav(t, p));
     }
   }
 
@@ -103975,8 +103975,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ValidationFeedback", SomMetaKind.LIST, "ValidationMessageTemplate");
         n.memberName = "messageTemplates";
-        n.sectionId = "VAMETE-MESS-LST";
-        n.sectionIdPattern = "VAMETE-MESS-xxx";
+        n.sectionId = "VMT-MESS-LST";
+        n.sectionIdPattern = "VMT-MESS-xxx";
         n.serializationOrder = 6;
         n.contentHelp = "Add one entry per validation message template.";
         n.docComment = "Validation message templates.";
@@ -103995,8 +103995,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ValidationFeedback", SomMetaKind.LIST, "String");
         n.memberName = "fieldValidationRules";
-        n.sectionId = "FIELD-FIEL-LST";
-        n.sectionIdPattern = "FIELD-FIEL-xxx";
+        n.sectionId = "VAFE-FIEL-LST";
+        n.sectionIdPattern = "VAFE-FIEL-xxx";
         n.serializationOrder = 7;
         n.contentHelp = "Add one entry per field validation rule.";
         n.docComment = "Field validation rules by type.";
@@ -104031,11 +104031,11 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<ValidationMessageTemplateNav> messageTemplates() {
-      return new SomListMetaRef<>(tree, path + "/VAMETE-MESS-LST", (t, p) -> new ValidationMessageTemplateNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/VMT-MESS-LST", (t, p) -> new ValidationMessageTemplateNav(t, p));
     }
 
     public SomListMetaRef<SomMetaRef> fieldValidationRules() {
-      return new SomListMetaRef<>(tree, path + "/FIELD-FIEL-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/VAFE-FIEL-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -104139,8 +104139,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("ValueProposition", SomMetaKind.LIST, "String");
         n.memberName = "kpis";
-        n.sectionId = "KPIEN-KPIS-LST";
-        n.sectionIdPattern = "KPIEN-KPIS-xxx";
+        n.sectionId = "VALPX-KPIS-LST";
+        n.sectionIdPattern = "VALPX-KPIS-xxx";
         n.serializationOrder = 4;
         n.contentHelp = "Add one entry per KPI used to measure delivered value. Include the metric, its baseline, and its target.";
         n.docComment = "Key Performance Indicators for value measurement.";
@@ -104167,7 +104167,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<SomMetaRef> kpis() {
-      return new SomListMetaRef<>(tree, path + "/KPIEN-KPIS-LST", (t, p) -> new SomMetaRef(t, p));
+      return new SomListMetaRef<>(tree, path + "/VALPX-KPIS-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -104885,8 +104885,8 @@ public final class TomSomV0Meta {
       {
         SomMetaNode n = new SomMetaNode("WcagCompliance", SomMetaKind.LIST, "WcagSuccessCriterionEntry");
         n.memberName = "successCriteria";
-        n.sectionId = "WSCE-SUCC-LST";
-        n.sectionIdPattern = "WSCE-SUCC-xxx";
+        n.sectionId = "WCSUCREN-SUCC-LST";
+        n.sectionIdPattern = "WCSUCREN-SUCC-xxx";
         n.serializationOrder = 5;
         n.contentHelp = "Add one entry per WCAG success criterion.";
         n.docComment = "WCAG success criteria mapping.";
@@ -104926,7 +104926,7 @@ public final class TomSomV0Meta {
     }
 
     public SomListMetaRef<WcagSuccessCriterionEntryNav> successCriteria() {
-      return new SomListMetaRef<>(tree, path + "/WSCE-SUCC-LST", (t, p) -> new WcagSuccessCriterionEntryNav(t, p));
+      return new SomListMetaRef<>(tree, path + "/WCSUCREN-SUCC-LST", (t, p) -> new WcagSuccessCriterionEntryNav(t, p));
     }
   }
 
@@ -106430,8 +106430,8 @@ public final class TomSomV0Meta {
       super(tree, path);
     }
 
-    public SomListMetaRef<SomMetaRef> COMPL_COMP_LST() {
-      return new SomListMetaRef<>(tree, path + "/COMPL-COMP-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> ARE_COMP_LST() {
+      return new SomListMetaRef<>(tree, path + "/ARE-COMP-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -107972,8 +107972,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/WSE-STEP-LST", (t, p) -> new WorkflowStepEntryId(t, p));
     }
 
-    public SomListMetaRef<WorkflowActorEntryId> WFAC_ACTO_LST() {
-      return new SomListMetaRef<>(tree, path + "/WFAC-ACTO-LST", (t, p) -> new WorkflowActorEntryId(t, p));
+    public SomListMetaRef<WorkflowActorEntryId> WAE_ACTO_LST() {
+      return new SomListMetaRef<>(tree, path + "/WAE-ACTO-LST", (t, p) -> new WorkflowActorEntryId(t, p));
     }
 
     public SomListMetaRef<WorkflowInputEntryId> WOINEN_INPU_LST() {
@@ -108034,12 +108034,12 @@ public final class TomSomV0Meta {
       super(tree, path);
     }
 
-    public SomListMetaRef<RevisionEntryId> RVHST_REVS_LST() {
-      return new SomListMetaRef<>(tree, path + "/documentControl/RVHST-REVS-LST", (t, p) -> new RevisionEntryId(t, p));
+    public SomListMetaRef<RevisionEntryId> RVENT_REVS_LST() {
+      return new SomListMetaRef<>(tree, path + "/documentControl/RVENT-REVS-LST", (t, p) -> new RevisionEntryId(t, p));
     }
 
-    public SomListMetaRef<ApprovalRecordId> DOCTL_APRV_LST() {
-      return new SomListMetaRef<>(tree, path + "/documentControl/DOCTL-APRV-LST", (t, p) -> new ApprovalRecordId(t, p));
+    public SomListMetaRef<ApprovalRecordId> APREC_APRV_LST() {
+      return new SomListMetaRef<>(tree, path + "/documentControl/APREC-APRV-LST", (t, p) -> new ApprovalRecordId(t, p));
     }
 
     public SomListMetaRef<ReferenceDocumentEntryId> RFDOC_DOCU_LST() {
@@ -108074,8 +108074,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/introductionAndScope/systemDescription/systemPurpose/SYPUP-VISI");
     }
 
-    public SomListMetaRef<SomMetaRef> RPPE_RELA_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/systemPurpose/problemStatement/RPPE-RELA-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> PS_RELA_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/systemPurpose/problemStatement/PS-RELA-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<StakeholderEntryId> STKNT_PRIM_LST() {
@@ -108094,24 +108094,24 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/introductionAndScope/systemDescription/systemPurpose/valueProposition/VALRP");
     }
 
-    public SomListMetaRef<SomMetaRef> KPIEN_KPIS_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/systemPurpose/valueProposition/KPIEN-KPIS-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> VALPX_KPIS_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/systemPurpose/valueProposition/VALPX-KPIS-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<ScopeItemEntryId> SCITE_INSC_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCITE-INSC-LST", (t, p) -> new ScopeItemEntryId(t, p));
+    public SomListMetaRef<ScopeItemEntryId> SIE_INSC_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SIE-INSC-LST", (t, p) -> new ScopeItemEntryId(t, p));
     }
 
-    public SomListMetaRef<ScopeItemEntryId> SCITE_OUTO_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCITE-OUTO-LST", (t, p) -> new ScopeItemEntryId(t, p));
+    public SomListMetaRef<ScopeItemEntryId> SIE_OUTO_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SIE-OUTO-LST", (t, p) -> new ScopeItemEntryId(t, p));
     }
 
     public SomListMetaRef<DeferredScopeItemEntryId> DFSCP_DEFE_LST() {
       return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/DFSCP-DEFE-LST", (t, p) -> new DeferredScopeItemEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> SCOPE_SCOP_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCOPE-SCOP-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SCBND_SCOP_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/systemPurpose/scopeBoundaries/SCBND-SCOP-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef CD_DIAG() {
@@ -108174,24 +108174,24 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/businessDomain/domainBoundaries/DIE-INTE-LST", (t, p) -> new DomainInterfaceEntryId(t, p));
     }
 
-    public SomListMetaRef<DomainBusinessRuleEntryId> DOBIRU_RULE_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/businessDomain/businessRules/DOBIRU-RULE-LST", (t, p) -> new DomainBusinessRuleEntryId(t, p));
+    public SomListMetaRef<DomainBusinessRuleEntryId> DBRE_RULE_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/businessDomain/businessRules/DBRE-RULE-LST", (t, p) -> new DomainBusinessRuleEntryId(t, p));
     }
 
     public SomMetaRef DP_PROC() {
       return new SomMetaRef(tree, path + "/introductionAndScope/systemDescription/businessDomain/domainProcesses/DP-PROC");
     }
 
-    public SomListMetaRef<DomainProcessEntryId> DOPR_PROC_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/businessDomain/domainProcesses/DOPR-PROC-LST", (t, p) -> new DomainProcessEntryId(t, p));
+    public SomListMetaRef<DomainProcessEntryId> DOPREN_PROC_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/businessDomain/domainProcesses/DOPREN-PROC-LST", (t, p) -> new DomainProcessEntryId(t, p));
     }
 
     public SomListMetaRef<DomainEventEntryId> DOEV_EVEN_LST() {
       return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/businessDomain/domainEvents/DOEV-EVEN-LST", (t, p) -> new DomainEventEntryId(t, p));
     }
 
-    public SomListMetaRef<UserCategoryEntryId> USCA_USER_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/USCA-USER-LST", (t, p) -> new UserCategoryEntryId(t, p));
+    public SomListMetaRef<UserCategoryEntryId> UCE_USER_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemDescription/UCE-USER-LST", (t, p) -> new UserCategoryEntryId(t, p));
     }
 
     public SomMetaRef AC1_CHAN() {
@@ -108370,20 +108370,20 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRIRE");
     }
 
-    public SomListMetaRef<SomMetaRef> RISKC_RISK_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKC-RISK-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> MIRI_RISK_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-RISK-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> RISKB_RISK_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RISKB-RISK-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> MIRI_RBDE_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-RBDE-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> MONIT_MONI_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MONIT-MONI-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> MIRI_MONI_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-MONI-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> RESPO_RESP_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/RESPO-RESP-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> MIRI_RESP_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemsToReplace/migrationConsiderations/migrationRisks/MIRI-RESP-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<MigrationRiskEntryId> MGRSK_ITEM_LST() {
@@ -108394,20 +108394,20 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemsToReplace/migrationConsiderations/MGMLS-MILE-LST", (t, p) -> new MigrationMilestoneEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> ESCAL_ESCA_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemsToReplace/migrationConsiderations/ESCAL-ESCA-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> MIGCON_ESCA_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemsToReplace/migrationConsiderations/MIGCON-ESCA-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<ExternalInterfaceEntryId> EXINEN_INTE_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemBoundaries/externalInterfaces/EXINEN-INTE-LST", (t, p) -> new ExternalInterfaceEntryId(t, p));
+    public SomListMetaRef<ExternalInterfaceEntryId> EIE_INTE_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemBoundaries/externalInterfaces/EIE-INTE-LST", (t, p) -> new ExternalInterfaceEntryId(t, p));
     }
 
-    public SomListMetaRef<OutOfScopeEntryId> OOSE_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemBoundaries/outOfScope/OOSE-ITEM-LST", (t, p) -> new OutOfScopeEntryId(t, p));
+    public SomListMetaRef<OutOfScopeEntryId> OUOFSCEN_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemBoundaries/outOfScope/OUOFSCEN-ITEM-LST", (t, p) -> new OutOfScopeEntryId(t, p));
     }
 
-    public SomListMetaRef<BoundaryAssumptionEntryId> BOASEN_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemBoundaries/assumptions/BOASEN-ITEM-LST", (t, p) -> new BoundaryAssumptionEntryId(t, p));
+    public SomListMetaRef<BoundaryAssumptionEntryId> BAE_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/systemBoundaries/assumptions/BAE-ITEM-LST", (t, p) -> new BoundaryAssumptionEntryId(t, p));
     }
 
     public SomListMetaRef<BoundaryInteractionPatternsId> BOINPA_BOUN_LST() {
@@ -108434,28 +108434,28 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/OEDM");
     }
 
-    public SomListMetaRef<AffectedDepartmentEntryId> AFDEEN_AFFE_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/AFDEEN-AFFE-LST", (t, p) -> new AffectedDepartmentEntryId(t, p));
+    public SomListMetaRef<AffectedDepartmentEntryId> ADE_AFFE_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/ADE-AFFE-LST", (t, p) -> new AffectedDepartmentEntryId(t, p));
     }
 
-    public SomListMetaRef<DecisionMakerEntryId> DEMAEN_DECI_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/DEMAEN-DECI-LST", (t, p) -> new DecisionMakerEntryId(t, p));
+    public SomListMetaRef<DecisionMakerEntryId> DME_DECI_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/DME-DECI-LST", (t, p) -> new DecisionMakerEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> CULTU_CULT_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/CULTU-CULT-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> OREN_CULT_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-CULT-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> COMMU_COMM_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/COMMU-COMM-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> OREN_COMM_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-COMM-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> CHANG_CHAN_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/CHANG-CHAN-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> OREN_CHAN_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/organizationalEnvironment/OREN-CHAN-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<ResponsibilityEntryId> REEN1_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/functionalResponsibilities/REEN1-ITEM-LST", (t, p) -> new ResponsibilityEntryId(t, p));
+    public SomListMetaRef<ResponsibilityEntryId> RE_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/functionalResponsibilities/RE-ITEM-LST", (t, p) -> new ResponsibilityEntryId(t, p));
     }
 
     public SomMetaRef TEEN_TECH() {
@@ -108474,24 +108474,24 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/TES");
     }
 
-    public SomListMetaRef<SomMetaRef> DEVOP_DEVO_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/network/DEVOP-DEVO-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> TEENNE_DEVO_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/network/TEENNE-DEVO-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> OBSER_OBSE_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/network/OBSER-OBSE-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> TEENNE_OBSE_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/network/TEENNE-OBSE-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> DATAC_DATA_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/DATAC-DATA-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> TEEN_DATA_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/TEEN-DATA-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<TechnologyStandardEntryId> TESTEN_TECH_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/TESTEN-TECH-LST", (t, p) -> new TechnologyStandardEntryId(t, p));
+    public SomListMetaRef<TechnologyStandardEntryId> TSE_TECH_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/TSE-TECH-LST", (t, p) -> new TechnologyStandardEntryId(t, p));
     }
 
-    public SomListMetaRef<IntegrationConstraintEntryId> INCOE1_INTE_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/INCOE1-INTE-LST", (t, p) -> new IntegrationConstraintEntryId(t, p));
+    public SomListMetaRef<IntegrationConstraintEntryId> INTCONENT_INTE_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/operatingEnvironment/technicalEnvironment/INTCONENT-INTE-LST", (t, p) -> new IntegrationConstraintEntryId(t, p));
     }
 
     public SomMetaRef COANDE() {
@@ -108502,12 +108502,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/introductionAndScope/risksAndAssumptions/RIOV");
     }
 
-    public SomListMetaRef<RiskEntryId> RIEN_KEYR_LST() {
-      return new SomListMetaRef<>(tree, path + "/introductionAndScope/risksAndAssumptions/RIEN-KEYR-LST", (t, p) -> new RiskEntryId(t, p));
+    public SomListMetaRef<RiskEntryId> RISENT_KEYR_LST() {
+      return new SomListMetaRef<>(tree, path + "/introductionAndScope/risksAndAssumptions/RISENT-KEYR-LST", (t, p) -> new RiskEntryId(t, p));
     }
 
-    public SomListMetaRef<GlossaryEntryId> GLOSS_ENTR_LST() {
-      return new SomListMetaRef<>(tree, path + "/glossaryAndAbbreviations/GLOSS-ENTR-LST", (t, p) -> new GlossaryEntryId(t, p));
+    public SomListMetaRef<GlossaryEntryId> GLENT_ENTR_LST() {
+      return new SomListMetaRef<>(tree, path + "/glossaryAndAbbreviations/GLENT-ENTR-LST", (t, p) -> new GlossaryEntryId(t, p));
     }
 
     public SomMetaRef ADMSM() {
@@ -108582,8 +108582,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/stakeholdersAndGovernance/projectOrganization/organizationStructure/governanceModel/DCAUT-DECI-LST", (t, p) -> new DecisionAuthorityEntryId(t, p));
     }
 
-    public SomListMetaRef<CommitteeMemberEntryId> COMMB_MEMB_LST() {
-      return new SomListMetaRef<>(tree, path + "/stakeholdersAndGovernance/projectOrganization/steeringCommittee/COMMB-MEMB-LST", (t, p) -> new CommitteeMemberEntryId(t, p));
+    public SomListMetaRef<CommitteeMemberEntryId> CME_MEMB_LST() {
+      return new SomListMetaRef<>(tree, path + "/stakeholdersAndGovernance/projectOrganization/steeringCommittee/CME-MEMB-LST", (t, p) -> new CommitteeMemberEntryId(t, p));
     }
 
     public SomListMetaRef<TeamMemberEntryId> TMMBE_MEMB_LST() {
@@ -108702,8 +108702,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/stakeholdersAndGovernance/legalAndContractual/OTAGR-OTHE-LST", (t, p) -> new OtherAgreementEntryId(t, p));
     }
 
-    public SomListMetaRef<StakeholderRegisterEntryId> STKRG_STAK_LST() {
-      return new SomListMetaRef<>(tree, path + "/stakeholdersAndGovernance/STKRG-STAK-LST", (t, p) -> new StakeholderRegisterEntryId(t, p));
+    public SomListMetaRef<StakeholderRegisterEntryId> STKRE_STAK_LST() {
+      return new SomListMetaRef<>(tree, path + "/stakeholdersAndGovernance/STKRE-STAK-LST", (t, p) -> new StakeholderRegisterEntryId(t, p));
     }
 
     public SomListMetaRef<ExistingSystemEntryId> ESENT_SYST_LST() {
@@ -108718,12 +108718,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-DEPL");
     }
 
-    public SomListMetaRef<SomMetaRef> IPE_INTE_LST() {
-      return new SomListMetaRef<>(tree, path + "/currentLandscape/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> CARCH_INTE_LST() {
+      return new SomListMetaRef<>(tree, path + "/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-INTE-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> SHARE_SHAR_LST() {
-      return new SomListMetaRef<>(tree, path + "/currentLandscape/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> CARCH_SHAR_LST() {
+      return new SomListMetaRef<>(tree, path + "/currentLandscape/existingSystemsLandscape/currentArchitecture/CARCH-SHAR-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef DEPNT_DEPE() {
@@ -108746,8 +108746,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/integrations/SYIN-ITEM-LST", (t, p) -> new SystemIntegrationEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> FRAGI_FRAG_LST() {
-      return new SomListMetaRef<>(tree, path + "/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> INHESU_FRAG_LST() {
+      return new SomListMetaRef<>(tree, path + "/currentLandscape/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/INHESU-FRAG-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef CUBUPR_PROC() {
@@ -108794,24 +108794,24 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/currentLandscape/painPointsAndGaps/operationalPainPoints/OPPS");
     }
 
-    public SomListMetaRef<PainPointEntryId> OPPAPO_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/currentLandscape/painPointsAndGaps/operationalPainPoints/OPPAPO-ITEM-LST", (t, p) -> new PainPointEntryId(t, p));
+    public SomListMetaRef<PainPointEntryId> PAPE_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/currentLandscape/painPointsAndGaps/operationalPainPoints/PAPE-ITEM-LST", (t, p) -> new PainPointEntryId(t, p));
     }
 
     public SomMetaRef BPPS() {
       return new SomMetaRef(tree, path + "/currentLandscape/painPointsAndGaps/businessPainPoints/BPPS");
     }
 
-    public SomListMetaRef<PainPointEntryId> BUPAPO_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/currentLandscape/painPointsAndGaps/businessPainPoints/BUPAPO-ITEM-LST", (t, p) -> new PainPointEntryId(t, p));
+    public SomListMetaRef<PainPointEntryId> PAPE_ITEM_LST_2() {
+      return new SomListMetaRef<>(tree, path + "/currentLandscape/painPointsAndGaps/businessPainPoints/PAPE-ITEM-LST", (t, p) -> new PainPointEntryId(t, p));
     }
 
     public SomMetaRef TPPS() {
       return new SomMetaRef(tree, path + "/currentLandscape/painPointsAndGaps/technicalPainPoints/TPPS");
     }
 
-    public SomListMetaRef<PainPointEntryId> TEPAPO_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/currentLandscape/painPointsAndGaps/technicalPainPoints/TEPAPO-ITEM-LST", (t, p) -> new PainPointEntryId(t, p));
+    public SomListMetaRef<PainPointEntryId> PAPE_ITEM_LST_3() {
+      return new SomListMetaRef<>(tree, path + "/currentLandscape/painPointsAndGaps/technicalPainPoints/PAPE-ITEM-LST", (t, p) -> new PainPointEntryId(t, p));
     }
 
     public SomListMetaRef<GapEntryId> GAPE_ITEM_LST() {
@@ -108962,16 +108962,16 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/currentLandscape/CUOPME-OPER-LST", (t, p) -> new CurrentOperationalMetricId(t, p));
     }
 
-    public SomListMetaRef<AssumptionRegisterEntryId> ACRG_ASMP_LST() {
-      return new SomListMetaRef<>(tree, path + "/assumptionsConstraintsDependencies/register/ACRG-ASMP-LST", (t, p) -> new AssumptionRegisterEntryId(t, p));
+    public SomListMetaRef<AssumptionRegisterEntryId> ASMRE_ASMP_LST() {
+      return new SomListMetaRef<>(tree, path + "/assumptionsConstraintsDependencies/register/ASMRE-ASMP-LST", (t, p) -> new AssumptionRegisterEntryId(t, p));
     }
 
-    public SomListMetaRef<ConstraintRegisterEntryId> ACRG_CONS_LST() {
-      return new SomListMetaRef<>(tree, path + "/assumptionsConstraintsDependencies/register/ACRG-CONS-LST", (t, p) -> new ConstraintRegisterEntryId(t, p));
+    public SomListMetaRef<ConstraintRegisterEntryId> CONRE_CONS_LST() {
+      return new SomListMetaRef<>(tree, path + "/assumptionsConstraintsDependencies/register/CONRE-CONS-LST", (t, p) -> new ConstraintRegisterEntryId(t, p));
     }
 
-    public SomListMetaRef<DependencyRegisterEntryId> ACRG_DEPS_LST() {
-      return new SomListMetaRef<>(tree, path + "/assumptionsConstraintsDependencies/register/ACRG-DEPS-LST", (t, p) -> new DependencyRegisterEntryId(t, p));
+    public SomListMetaRef<DependencyRegisterEntryId> DEPRE_DEPS_LST() {
+      return new SomListMetaRef<>(tree, path + "/assumptionsConstraintsDependencies/register/DEPRE-DEPS-LST", (t, p) -> new DependencyRegisterEntryId(t, p));
     }
 
     public SomMetaRef OCCHG_OVER() {
@@ -109046,8 +109046,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/JODEOV");
     }
 
-    public SomListMetaRef<NewRoleEntryId> NWROL_NEWR_LST() {
-      return new SomListMetaRef<>(tree, path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/NWROL-NEWR-LST", (t, p) -> new NewRoleEntryId(t, p));
+    public SomListMetaRef<NewRoleEntryId> NRE_NEWR_LST() {
+      return new SomListMetaRef<>(tree, path + "/targetOperatingModelConcept/organizationAndProcess/organizationalFramework/jobDescriptions/NRE-NEWR-LST", (t, p) -> new NewRoleEntryId(t, p));
     }
 
     public SomListMetaRef<ChangedRoleEntryId> CHAROL_CHAN_LST() {
@@ -109306,8 +109306,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TRMAT-TRAI");
     }
 
-    public SomListMetaRef<TrainingModuleEntryId> TRMOEN_TRAI_LST() {
-      return new SomListMetaRef<>(tree, path + "/requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TRMOEN-TRAI-LST", (t, p) -> new TrainingModuleEntryId(t, p));
+    public SomListMetaRef<TrainingModuleEntryId> TME_TRAI_LST() {
+      return new SomListMetaRef<>(tree, path + "/requirements/requirementsFollowUp/trainingEnablement/trainingDeliverables/TME-TRAI-LST", (t, p) -> new TrainingModuleEntryId(t, p));
     }
 
     public SomListMetaRef<TargetPlatformEntryId> TGPLT_TARG_LST() {
@@ -109318,16 +109318,16 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/PLGEN-PROG-LST", (t, p) -> new ProgrammingLanguageEntryId(t, p));
     }
 
-    public SomListMetaRef<FrameworkRequirementEntryId> FWREN_FRAM_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/FWREN-FRAM-LST", (t, p) -> new FrameworkRequirementEntryId(t, p));
+    public SomListMetaRef<FrameworkRequirementEntryId> FRREEN_FRAM_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/FRREEN-FRAM-LST", (t, p) -> new FrameworkRequirementEntryId(t, p));
     }
 
     public SomListMetaRef<BuildToolchainEntryId> BTCEN_BUIL_LST() {
       return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/BTCEN-BUIL-LST", (t, p) -> new BuildToolchainEntryId(t, p));
     }
 
-    public SomListMetaRef<DeploymentTargetEntryId> DETAEN_DEPL_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/DETAEN-DEPL-LST", (t, p) -> new DeploymentTargetEntryId(t, p));
+    public SomListMetaRef<DeploymentTargetEntryId> DEPTARENT_DEPL_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/platformAndLanguage/DEPTARENT-DEPL-LST", (t, p) -> new DeploymentTargetEntryId(t, p));
     }
 
     public SomMetaRef DEMAVE() {
@@ -109526,16 +109526,16 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/DSPT-DESI-LST", (t, p) -> new DesignPatternEntryId(t, p));
     }
 
-    public SomListMetaRef<CodingStandardEntryId> COSTEN_CODI_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/COSTEN-CODI-LST", (t, p) -> new CodingStandardEntryId(t, p));
+    public SomListMetaRef<CodingStandardEntryId> CSE_CODI_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/CSE-CODI-LST", (t, p) -> new CodingStandardEntryId(t, p));
     }
 
-    public SomListMetaRef<DevelopmentConventionEntryId> DECOEN_DEVE_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/DECOEN-DEVE-LST", (t, p) -> new DevelopmentConventionEntryId(t, p));
+    public SomListMetaRef<DevelopmentConventionEntryId> DCE_DEVE_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/DCE-DEVE-LST", (t, p) -> new DevelopmentConventionEntryId(t, p));
     }
 
-    public SomListMetaRef<IndustryStandardEntryId> INSTEN_INDU_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/INSTEN-INDU-LST", (t, p) -> new IndustryStandardEntryId(t, p));
+    public SomListMetaRef<IndustryStandardEntryId> ISE_INDU_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/ISE-INDU-LST", (t, p) -> new IndustryStandardEntryId(t, p));
     }
 
     public SomMetaRef CQMC() {
@@ -109614,8 +109614,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTTO");
     }
 
-    public SomListMetaRef<SoftwareLayerEntryId> SOLAEN_SOFT_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SOLAEN-SOFT-LST", (t, p) -> new SoftwareLayerEntryId(t, p));
+    public SomListMetaRef<SoftwareLayerEntryId> SLE_SOFT_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SLE-SOFT-LST", (t, p) -> new SoftwareLayerEntryId(t, p));
     }
 
     public SomMetaRef LCRI() {
@@ -109630,8 +109630,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRG");
     }
 
-    public SomListMetaRef<BoundedContextEntryId> BOCOEN_BOUN_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/BOCOEN-BOUN-LST", (t, p) -> new BoundedContextEntryId(t, p));
+    public SomListMetaRef<BoundedContextEntryId> BCE_BOUN_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/BCE-BOUN-LST", (t, p) -> new BoundedContextEntryId(t, p));
     }
 
     public SomMetaRef PAORST() {
@@ -109650,12 +109650,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDO");
     }
 
-    public SomListMetaRef<ModuleEntryId> MOEN1_MODU_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/MOEN1-MODU-LST", (t, p) -> new ModuleEntryId(t, p));
+    public SomListMetaRef<ModuleEntryId> MODENT_MODU_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/MODENT-MODU-LST", (t, p) -> new ModuleEntryId(t, p));
     }
 
-    public SomListMetaRef<SharedLibraryEntryId> SHLIB_SHAR_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIB-SHAR-LST", (t, p) -> new SharedLibraryEntryId(t, p));
+    public SomListMetaRef<SharedLibraryEntryId> SHLIEN_SHAR_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIEN-SHAR-LST", (t, p) -> new SharedLibraryEntryId(t, p));
     }
 
     public SomMetaRef DISR() {
@@ -109714,8 +109714,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO");
     }
 
-    public SomListMetaRef<IdeRequirementEntryId> IDREEN_IDER_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/IDREEN-IDER-LST", (t, p) -> new IdeRequirementEntryId(t, p));
+    public SomListMetaRef<IdeRequirementEntryId> IRE_IDER_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/IRE-IDER-LST", (t, p) -> new IdeRequirementEntryId(t, p));
     }
 
     public SomMetaRef BTCBS() {
@@ -109750,16 +109750,16 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCM");
     }
 
-    public SomListMetaRef<PipelineStageEntryId> PISTEN_STAG_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST", (t, p) -> new PipelineStageEntryId(t, p));
+    public SomListMetaRef<PipelineStageEntryId> PSE_STAG_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PSE-STAG-LST", (t, p) -> new PipelineStageEntryId(t, p));
     }
 
-    public SomListMetaRef<PipelineJobEntryId> PIJOEN_JOBS_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST", (t, p) -> new PipelineJobEntryId(t, p));
+    public SomListMetaRef<PipelineJobEntryId> PJE_JOBS_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PJE-JOBS-LST", (t, p) -> new PipelineJobEntryId(t, p));
     }
 
-    public SomListMetaRef<DeploymentEnvironmentEntryId> DEENEN_ENVI_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST", (t, p) -> new DeploymentEnvironmentEntryId(t, p));
+    public SomListMetaRef<DeploymentEnvironmentEntryId> DEE_ENVI_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEE-ENVI-LST", (t, p) -> new DeploymentEnvironmentEntryId(t, p));
     }
 
     public SomMetaRef CRPR() {
@@ -109894,16 +109894,16 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/SHLCP-SHAR-LST", (t, p) -> new SharedLibraryComponentEntryId(t, p));
     }
 
-    public SomListMetaRef<ReusableUiComponentEntryId> RUICMP_UICO_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/RUICMP-UICO-LST", (t, p) -> new ReusableUiComponentEntryId(t, p));
+    public SomListMetaRef<ReusableUiComponentEntryId> RUCE_UICO_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/RUCE-UICO-LST", (t, p) -> new ReusableUiComponentEntryId(t, p));
     }
 
-    public SomListMetaRef<BusinessComponentEntryId> BUCOEN_BUSI_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/BUCOEN-BUSI-LST", (t, p) -> new BusinessComponentEntryId(t, p));
+    public SomListMetaRef<BusinessComponentEntryId> BUSCOMENT_BUSI_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/BUSCOMENT-BUSI-LST", (t, p) -> new BusinessComponentEntryId(t, p));
     }
 
-    public SomListMetaRef<InfrastructureComponentEntryId> INCOEN_INFR_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/INCOEN-INFR-LST", (t, p) -> new InfrastructureComponentEntryId(t, p));
+    public SomListMetaRef<InfrastructureComponentEntryId> INFCOMENT_INFR_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/INFCOMENT-INFR-LST", (t, p) -> new InfrastructureComponentEntryId(t, p));
     }
 
     public SomListMetaRef<ThirdPartyLibraryEntryId> THPALI_THIR_LST() {
@@ -109942,36 +109942,36 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/softwareDesign/reusableComponents/registry/COREUP");
     }
 
-    public SomListMetaRef<OsCompatibilityEntryId> OSCOEN_OSCO_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/OSCOEN-OSCO-LST", (t, p) -> new OsCompatibilityEntryId(t, p));
+    public SomListMetaRef<OsCompatibilityEntryId> OCE_OSCO_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST", (t, p) -> new OsCompatibilityEntryId(t, p));
     }
 
-    public SomListMetaRef<BrowserCompatibilityEntryId> BRCOEN_BROW_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/BRCOEN-BROW-LST", (t, p) -> new BrowserCompatibilityEntryId(t, p));
+    public SomListMetaRef<BrowserCompatibilityEntryId> BROCOMENT_BROW_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/BROCOMENT-BROW-LST", (t, p) -> new BrowserCompatibilityEntryId(t, p));
     }
 
-    public SomListMetaRef<DatabaseCompatibilityEntryId> DACOEN_DATA_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/DACOEN-DATA-LST", (t, p) -> new DatabaseCompatibilityEntryId(t, p));
+    public SomListMetaRef<DatabaseCompatibilityEntryId> DATCOMENT_DATA_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/DATCOMENT-DATA-LST", (t, p) -> new DatabaseCompatibilityEntryId(t, p));
     }
 
-    public SomListMetaRef<EnterpriseSystemCompatibilityEntryId> ESCE_ENTE_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/ESCE-ENTE-LST", (t, p) -> new EnterpriseSystemCompatibilityEntryId(t, p));
+    public SomListMetaRef<EnterpriseSystemCompatibilityEntryId> ENSYCOEN_ENTE_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/ENSYCOEN-ENTE-LST", (t, p) -> new EnterpriseSystemCompatibilityEntryId(t, p));
     }
 
     public SomListMetaRef<ApiCompatibilityEntryId> APCP_APIC_LST() {
       return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/APCP-APIC-LST", (t, p) -> new ApiCompatibilityEntryId(t, p));
     }
 
-    public SomListMetaRef<LegacyCompatibilityEntryId> LECOEN_LEGA_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/LECOEN-LEGA-LST", (t, p) -> new LegacyCompatibilityEntryId(t, p));
+    public SomListMetaRef<LegacyCompatibilityEntryId> LCE_LEGA_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/LCE-LEGA-LST", (t, p) -> new LegacyCompatibilityEntryId(t, p));
     }
 
-    public SomListMetaRef<MobileCompatibilityEntryId> MOCOEN_MOBI_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/MOCOEN-MOBI-LST", (t, p) -> new MobileCompatibilityEntryId(t, p));
+    public SomListMetaRef<MobileCompatibilityEntryId> MOBCOMENT_MOBI_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/MOBCOMENT-MOBI-LST", (t, p) -> new MobileCompatibilityEntryId(t, p));
     }
 
-    public SomListMetaRef<ThirdPartyCompatibilityEntryId> TPCE_THIR_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/TPCE-THIR-LST", (t, p) -> new ThirdPartyCompatibilityEntryId(t, p));
+    public SomListMetaRef<ThirdPartyCompatibilityEntryId> THPACOEN_THIR_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/THPACOEN-THIR-LST", (t, p) -> new ThirdPartyCompatibilityEntryId(t, p));
     }
 
     public SomMetaRef DFCF() {
@@ -110022,24 +110022,24 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREGO");
     }
 
-    public SomListMetaRef<ItStandardComplianceEntryId> ISCE_ITST_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/ISCE-ITST-LST", (t, p) -> new ItStandardComplianceEntryId(t, p));
+    public SomListMetaRef<ItStandardComplianceEntryId> ITSTCOEN_ITST_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/ITSTCOEN-ITST-LST", (t, p) -> new ItStandardComplianceEntryId(t, p));
     }
 
-    public SomListMetaRef<IndustryProtocolComplianceEntryId> IPCE_INDU_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/IPCE-INDU-LST", (t, p) -> new IndustryProtocolComplianceEntryId(t, p));
+    public SomListMetaRef<IndustryProtocolComplianceEntryId> INPRCOEN_INDU_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INPRCOEN-INDU-LST", (t, p) -> new IndustryProtocolComplianceEntryId(t, p));
     }
 
-    public SomListMetaRef<InterfaceSpecificationEntryId> INSPEN_INTE_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INSPEN-INTE-LST", (t, p) -> new InterfaceSpecificationEntryId(t, p));
+    public SomListMetaRef<InterfaceSpecificationEntryId> INTSPEENT_INTE_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/INTSPEENT-INTE-LST", (t, p) -> new InterfaceSpecificationEntryId(t, p));
     }
 
-    public SomListMetaRef<RegulatoryComplianceEntryId> RECOEN_REGU_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/RECOEN-REGU-LST", (t, p) -> new RegulatoryComplianceEntryId(t, p));
+    public SomListMetaRef<RegulatoryComplianceEntryId> RCE_REGU_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/RCE-REGU-LST", (t, p) -> new RegulatoryComplianceEntryId(t, p));
     }
 
-    public SomListMetaRef<SecurityStandardComplianceEntryId> SSCE_SECU_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/SSCE-SECU-LST", (t, p) -> new SecurityStandardComplianceEntryId(t, p));
+    public SomListMetaRef<SecurityStandardComplianceEntryId> SESTCOEN_SECU_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/SESTCOEN-SECU-LST", (t, p) -> new SecurityStandardComplianceEntryId(t, p));
     }
 
     public SomListMetaRef<AccessibilityStandardEntryId> ACCSTD_ACCE_LST() {
@@ -110122,12 +110122,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSC");
     }
 
-    public SomListMetaRef<ServerEnvironmentEntryId> SEENEN_ENVI_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SEENEN-ENVI-LST", (t, p) -> new ServerEnvironmentEntryId(t, p));
+    public SomListMetaRef<ServerEnvironmentEntryId> SEE_ENVI_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SEE-ENVI-LST", (t, p) -> new ServerEnvironmentEntryId(t, p));
     }
 
-    public SomListMetaRef<ServerRoleEntryId> SEROEN_SERV_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SEROEN-SERV-LST", (t, p) -> new ServerRoleEntryId(t, p));
+    public SomListMetaRef<ServerRoleEntryId> SRE_SERV_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/serverRequirements/SRE-SERV-LST", (t, p) -> new ServerRoleEntryId(t, p));
     }
 
     public SomMetaRef CRRM() {
@@ -110254,16 +110254,16 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST", (t, p) -> new ClientApplicationEntryId(t, p));
     }
 
-    public SomListMetaRef<BrowserRequirementEntryId> BRREEN_BROW_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST", (t, p) -> new BrowserRequirementEntryId(t, p));
+    public SomListMetaRef<BrowserRequirementEntryId> BROREQENT_BROW_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/BROREQENT-BROW-LST", (t, p) -> new BrowserRequirementEntryId(t, p));
     }
 
-    public SomListMetaRef<DesktopOsRequirementEntryId> DORE1_DESK_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/DORE1-DESK-LST", (t, p) -> new DesktopOsRequirementEntryId(t, p));
+    public SomListMetaRef<DesktopOsRequirementEntryId> DEOSREEN_DESK_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/DEOSREEN-DESK-LST", (t, p) -> new DesktopOsRequirementEntryId(t, p));
     }
 
-    public SomListMetaRef<MobileDeviceRequirementEntryId> MDRE_MOBI_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/MDRE-MOBI-LST", (t, p) -> new MobileDeviceRequirementEntryId(t, p));
+    public SomListMetaRef<MobileDeviceRequirementEntryId> MODEREEN_MOBI_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/clientRequirements/MODEREEN-MOBI-LST", (t, p) -> new MobileDeviceRequirementEntryId(t, p));
     }
 
     public SomMetaRef DIRELA() {
@@ -110470,8 +110470,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/availabilityRequirements/NART");
     }
 
-    public SomListMetaRef<VpnRequirementEntryId> VPREEN_VPNR_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/VPREEN-VPNR-LST", (t, p) -> new VpnRequirementEntryId(t, p));
+    public SomListMetaRef<VpnRequirementEntryId> VRE_VPNR_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/hardware/networkRequirements/VRE-VPNR-LST", (t, p) -> new VpnRequirementEntryId(t, p));
     }
 
     public SomMetaRef FIRERU() {
@@ -110562,8 +110562,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/dataClassification/BDCE");
     }
 
-    public SomListMetaRef<BackupPolicyEntryId> BAPOEN_BACK_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/BAPOEN-BACK-LST", (t, p) -> new BackupPolicyEntryId(t, p));
+    public SomListMetaRef<BackupPolicyEntryId> BPE_BACK_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/operations/backupAndRecovery/BPE-BACK-LST", (t, p) -> new BackupPolicyEntryId(t, p));
     }
 
     public SomMetaRef RRRBT() {
@@ -110858,8 +110858,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/alerting/ALRERE");
     }
 
-    public SomListMetaRef<AlertDefinitionEntryId> ALDEEN_ALER_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/ALDEEN-ALER-LST", (t, p) -> new AlertDefinitionEntryId(t, p));
+    public SomListMetaRef<AlertDefinitionEntryId> ALEDEFENT_ALER_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/operations/monitoringAndAlerting/ALEDEFENT-ALER-LST", (t, p) -> new AlertDefinitionEntryId(t, p));
     }
 
     public SomMetaRef DAREST() {
@@ -110942,8 +110942,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPA");
     }
 
-    public SomListMetaRef<MaintenanceWindowEntryId> MAWIEN_MAIN_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/MAWIEN-MAIN-LST", (t, p) -> new MaintenanceWindowEntryId(t, p));
+    public SomListMetaRef<MaintenanceWindowEntryId> MWE_MAIN_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/MWE-MAIN-LST", (t, p) -> new MaintenanceWindowEntryId(t, p));
     }
 
     public SomMetaRef EMPG() {
@@ -110994,8 +110994,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/operations/maintenanceWindows/postMaintenance/PMVC");
     }
 
-    public SomListMetaRef<ProtocolEntryId> PREN_PROT_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/PREN-PROT-LST", (t, p) -> new ProtocolEntryId(t, p));
+    public SomListMetaRef<ProtocolEntryId> PE_PROT_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/PE-PROT-LST", (t, p) -> new ProtocolEntryId(t, p));
     }
 
     public SomMetaRef TRCS() {
@@ -111082,8 +111082,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/communication/protocolsAndStandards/compliance/PCRE");
     }
 
-    public SomListMetaRef<ExternalPartnerConnectionEntryId> EPCE_PART_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/EPCE-PART-LST", (t, p) -> new ExternalPartnerConnectionEntryId(t, p));
+    public SomListMetaRef<ExternalPartnerConnectionEntryId> EXPACOEN_PART_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/communication/externalConnectivity/EXPACOEN-PART-LST", (t, p) -> new ExternalPartnerConnectionEntryId(t, p));
     }
 
     public SomMetaRef CSIS() {
@@ -111234,8 +111234,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS");
     }
 
-    public SomListMetaRef<SomMetaRef> MAINT_MAIN_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SO_MAIN_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/systemOperation/SO-MAIN-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef MONITO_MONI() {
@@ -111322,8 +111322,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCF");
     }
 
-    public SomListMetaRef<AlertRuleEntryId> ALRUEN_ALER_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALRUEN-ALER-LST", (t, p) -> new AlertRuleEntryId(t, p));
+    public SomListMetaRef<AlertRuleEntryId> ALERULENT_ALER_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERULENT-ALER-LST", (t, p) -> new AlertRuleEntryId(t, p));
     }
 
     public SomMetaRef AEPT() {
@@ -111406,16 +111406,16 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSO");
     }
 
-    public SomListMetaRef<CustomMetricEntryId> CUMEEN_CUST_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUMEEN-CUST-LST", (t, p) -> new CustomMetricEntryId(t, p));
+    public SomListMetaRef<CustomMetricEntryId> CUSMETENT_CUST_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMETENT-CUST-LST", (t, p) -> new CustomMetricEntryId(t, p));
     }
 
     public SomMetaRef MODA_DASH() {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH");
     }
 
-    public SomListMetaRef<DashboardEntryId> DAEN_DASH_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/DAEN-DASH-LST", (t, p) -> new DashboardEntryId(t, p));
+    public SomListMetaRef<DashboardEntryId> DASENT_DASH_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/dashboards/DASENT-DASH-LST", (t, p) -> new DashboardEntryId(t, p));
     }
 
     public SomListMetaRef<DashboardTemplatesId> DATE_DASH_LST() {
@@ -111438,8 +111438,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIM");
     }
 
-    public SomListMetaRef<SloEntryId> SLEN_SLOS_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST", (t, p) -> new SloEntryId(t, p));
+    public SomListMetaRef<SloEntryId> SE_SLOS_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SE-SLOS-LST", (t, p) -> new SloEntryId(t, p));
     }
 
     public SomMetaRef EBTM() {
@@ -111534,8 +111534,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPP");
     }
 
-    public SomListMetaRef<SecurityStandardEntryId> SESTEN_STAN_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/security/itSecurityStandards/SESTEN-STAN-LST", (t, p) -> new SecurityStandardEntryId(t, p));
+    public SomListMetaRef<SecurityStandardEntryId> SSE_STAN_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/security/itSecurityStandards/SSE-STAN-LST", (t, p) -> new SecurityStandardEntryId(t, p));
     }
 
     public SomMetaRef ASRC() {
@@ -111802,8 +111802,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAG");
     }
 
-    public SomListMetaRef<SecurityAuditEntryId> SEAUEN_AUDI_LST() {
-      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/SEAUEN-AUDI-LST", (t, p) -> new SecurityAuditEntryId(t, p));
+    public SomListMetaRef<SecurityAuditEntryId> SAE_AUDI_LST() {
+      return new SomListMetaRef<>(tree, path + "/solutionArchitectureAndTechnology/technicalFramework/security/securityAuditRequirements/SAE-AUDI-LST", (t, p) -> new SecurityAuditEntryId(t, p));
     }
 
     public SomMetaRef CSVND() {
@@ -111938,16 +111938,16 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/securityAndAccessModel/accessControl/authentication/identification/IDTAM-ATTR-LST", (t, p) -> new IdentityAttributeMappingEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> MFADE_MFAD_LST() {
-      return new SomListMetaRef<>(tree, path + "/securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> MC_MFAD_LST() {
+      return new SomListMetaRef<>(tree, path + "/securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MC-MFAD-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<AuthenticationMethodEntryId> ATME_ITEM_LST() {
       return new SomListMetaRef<>(tree, path + "/securityAndAccessModel/accessControl/authentication/authentication/authenticationMethods/ATME-ITEM-LST", (t, p) -> new AuthenticationMethodEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> STEPU_STEP_LST() {
-      return new SomListMetaRef<>(tree, path + "/securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SUAP_STEP_LST() {
+      return new SomListMetaRef<>(tree, path + "/securityAndAccessModel/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/SUAP-STEP-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<LoginFlowStepEntryId> LGFLS_LOGI_LST() {
@@ -112006,8 +112006,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST", (t, p) -> new ScreenEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> GLOBA_GLOB_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/GLOBA-GLOB-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> IA_GLOB_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<NavigationGroupEntryId> NAVGRP_GROU_LST() {
@@ -112026,12 +112026,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI");
     }
 
-    public SomListMetaRef<TabBarDefinitionEntryId> TBDE_TABB_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST", (t, p) -> new TabBarDefinitionEntryId(t, p));
+    public SomListMetaRef<TabBarDefinitionEntryId> TABADEEN_TABB_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST", (t, p) -> new TabBarDefinitionEntryId(t, p));
     }
 
-    public SomListMetaRef<UtilityNavigationItemEntryId> UNIE_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST", (t, p) -> new UtilityNavigationItemEntryId(t, p));
+    public SomListMetaRef<UtilityNavigationItemEntryId> UTNAITEN_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST", (t, p) -> new UtilityNavigationItemEntryId(t, p));
     }
 
     public SomMetaRef BRCO() {
@@ -112094,12 +112094,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFEBE");
     }
 
-    public SomListMetaRef<ValidationMessageTemplateId> VAMETE_MESS_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAMETE-MESS-LST", (t, p) -> new ValidationMessageTemplateId(t, p));
+    public SomListMetaRef<ValidationMessageTemplateId> VMT_MESS_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VMT-MESS-LST", (t, p) -> new ValidationMessageTemplateId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> FIELD_FIEL_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/FIELD-FIEL-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> VAFE_FIEL_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/validationFeedback/VAFE-FIEL-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef SYERDI_SYST() {
@@ -112122,12 +112122,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF");
     }
 
-    public SomListMetaRef<SomMetaRef> EPDE_ERRO_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SYERDI_ERRO_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SystemErrorCodeEntryId> SECE_ERRO_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SECE-ERRO-LST", (t, p) -> new SystemErrorCodeEntryId(t, p));
+    public SomListMetaRef<SystemErrorCodeEntryId> SYERCOEN_ERRO_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST", (t, p) -> new SystemErrorCodeEntryId(t, p));
     }
 
     public SomMetaRef ERRE_RECO() {
@@ -112154,8 +112154,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERSH");
     }
 
-    public SomListMetaRef<SomMetaRef> RECOV_RECO_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/RECOV-RECO-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> ERRE_RECO_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<RecoveryScenarioEntryId> RCVSCN_RECO_LST() {
@@ -112170,8 +112170,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BC-BREA");
     }
 
-    public SomListMetaRef<BreakpointEntryId> BRE_BREA_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BRE-BREA-LST", (t, p) -> new BreakpointEntryId(t, p));
+    public SomListMetaRef<BreakpointEntryId> BE_BREA_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/responsiveDesign/breakpointConfig/BE-BREA-LST", (t, p) -> new BreakpointEntryId(t, p));
     }
 
     public SomMetaRef REBE_LAYO() {
@@ -112246,16 +112246,16 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST", (t, p) -> new TypographyStyleEntryId(t, p));
     }
 
-    public SomListMetaRef<UiComponentEntryId> UICOEN_COMP_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOEN-COMP-LST", (t, p) -> new UiComponentEntryId(t, p));
+    public SomListMetaRef<UiComponentEntryId> UICOMENT_COMP_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/UICOMENT-COMP-LST", (t, p) -> new UiComponentEntryId(t, p));
     }
 
     public SomListMetaRef<ComponentFamilyEntryId> CMFA_COMP_LST() {
       return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/experienceCodeSpecs/uiComponents/CMFA-COMP-LST", (t, p) -> new ComponentFamilyEntryId(t, p));
     }
 
-    public SomListMetaRef<ReportEntryId> REEN_REPO_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/reportDefinitions/REEN-REPO-LST", (t, p) -> new ReportEntryId(t, p));
+    public SomListMetaRef<ReportEntryId> REPENT_REPO_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/reportDefinitions/REPENT-REPO-LST", (t, p) -> new ReportEntryId(t, p));
     }
 
     public SomListMetaRef<DesignGoalEntryId> DGOEN_ITEM_LST() {
@@ -112290,12 +112290,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/PRLAAR");
     }
 
-    public SomListMetaRef<ExportFormatEntryId> EXFOEN_EXPO_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/EXFOEN-EXPO-LST", (t, p) -> new ExportFormatEntryId(t, p));
+    public SomListMetaRef<ExportFormatEntryId> EFE_EXPO_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/EFE-EXPO-LST", (t, p) -> new ExportFormatEntryId(t, p));
     }
 
-    public SomListMetaRef<ExportTemplateEntryId> EXTEEN_EXPO_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/EXTEEN-EXPO-LST", (t, p) -> new ExportTemplateEntryId(t, p));
+    public SomListMetaRef<ExportTemplateEntryId> ETE_EXPO_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/designFollowUp/printLayout/ETE-EXPO-LST", (t, p) -> new ExportTemplateEntryId(t, p));
     }
 
     public SomMetaRef USAS_HELP() {
@@ -112418,8 +112418,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCCORO");
     }
 
-    public SomListMetaRef<WcagSuccessCriterionEntryId> WSCE_SUCC_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WSCE-SUCC-LST", (t, p) -> new WcagSuccessCriterionEntryId(t, p));
+    public SomListMetaRef<WcagSuccessCriterionEntryId> WCSUCREN_SUCC_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/designFollowUp/accessibility/wcagComplianceLevel/WCSUCREN-SUCC-LST", (t, p) -> new WcagSuccessCriterionEntryId(t, p));
     }
 
     public SomMetaRef ACCHLS_CHEC() {
@@ -112458,8 +112458,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGOFE");
     }
 
-    public SomListMetaRef<PrototypeGoalEntryId> PRGOEN_GOAL_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PRGOEN-GOAL-LST", (t, p) -> new PrototypeGoalEntryId(t, p));
+    public SomListMetaRef<PrototypeGoalEntryId> PGE_GOAL_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/designFollowUp/prototype/prototypeGoals/PGE-GOAL-LST", (t, p) -> new PrototypeGoalEntryId(t, p));
     }
 
     public SomMetaRef PRFESU_FEAT() {
@@ -112474,8 +112474,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFSF");
     }
 
-    public SomListMetaRef<PrototypeFeatureEntryId> PRFEEN_FEAT_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PRFEEN-FEAT-LST", (t, p) -> new PrototypeFeatureEntryId(t, p));
+    public SomListMetaRef<PrototypeFeatureEntryId> PFE_FEAT_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/designFollowUp/prototype/featureSubset/PFE-FEAT-LST", (t, p) -> new PrototypeFeatureEntryId(t, p));
     }
 
     public SomMetaRef PRTYSE_PROT() {
@@ -112550,8 +112550,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/languageCountrySelection/LCSU");
     }
 
-    public SomListMetaRef<SupportedLocaleEntryId> SULOEN_SUPP_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SULOEN-SUPP-LST", (t, p) -> new SupportedLocaleEntryId(t, p));
+    public SomListMetaRef<SupportedLocaleEntryId> SUPLOCENT_SUPP_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceAndInterfaceDesign/localizationFollowUp/multiLanguageSupport/SUPLOCENT-SUPP-LST", (t, p) -> new SupportedLocaleEntryId(t, p));
     }
 
     public SomMetaRef SYQG_GOVE() {
@@ -112574,8 +112574,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/qualityAndAcceptanceModel/systemQualityGoals/SQGRS");
     }
 
-    public SomListMetaRef<SomMetaRef> ATTRI_ATTR_LST() {
-      return new SomListMetaRef<>(tree, path + "/qualityAndAcceptanceModel/systemQualityGoals/ATTRI-ATTR-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SYQG_ATTR_LST() {
+      return new SomListMetaRef<>(tree, path + "/qualityAndAcceptanceModel/systemQualityGoals/SYQG-ATTR-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef QLFWK_FRAM() {
@@ -112598,8 +112598,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/qualityAndAcceptanceModel/systemQualityGoals/framework/QCATE-QUAL-LST", (t, p) -> new QualityCategoryEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> CATEG_CATE_LST() {
-      return new SomListMetaRef<>(tree, path + "/qualityAndAcceptanceModel/systemQualityGoals/framework/CATEG-CATE-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> QLFWK_CATE_LST() {
+      return new SomListMetaRef<>(tree, path + "/qualityAndAcceptanceModel/systemQualityGoals/framework/QLFWK-CATE-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef FNSU_FUNC() {
@@ -112894,20 +112894,20 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/qualityAndAcceptanceModel/systemQualityGoals/acceptanceCriteria/detailedCriteria/DACEN-ITEM-LST", (t, p) -> new DeliveryAcceptanceCriterionEntryId(t, p));
     }
 
-    public SomListMetaRef<DeliverableEntryId> SWDLV_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/softwareDeliverables/SWDLV-ITEM-LST", (t, p) -> new DeliverableEntryId(t, p));
+    public SomListMetaRef<DeliverableEntryId> DLVEN_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/softwareDeliverables/DLVEN-ITEM-LST", (t, p) -> new DeliverableEntryId(t, p));
     }
 
-    public SomListMetaRef<DeliverableEntryId> DCDLV_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/documentationDeliverables/DCDLV-ITEM-LST", (t, p) -> new DeliverableEntryId(t, p));
+    public SomListMetaRef<DeliverableEntryId> DLVEN_ITEM_LST_2() {
+      return new SomListMetaRef<>(tree, path + "/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/documentationDeliverables/DLVEN-ITEM-LST", (t, p) -> new DeliverableEntryId(t, p));
     }
 
-    public SomListMetaRef<DeliverableEntryId> TRDLV_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/trainingDeliverables/TRDLV-ITEM-LST", (t, p) -> new DeliverableEntryId(t, p));
+    public SomListMetaRef<DeliverableEntryId> DLVEN_ITEM_LST_3() {
+      return new SomListMetaRef<>(tree, path + "/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/trainingDeliverables/DLVEN-ITEM-LST", (t, p) -> new DeliverableEntryId(t, p));
     }
 
-    public SomListMetaRef<DeliverableEntryId> SPDLV_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/supportDeliverables/SPDLV-ITEM-LST", (t, p) -> new DeliverableEntryId(t, p));
+    public SomListMetaRef<DeliverableEntryId> DLVEN_ITEM_LST_4() {
+      return new SomListMetaRef<>(tree, path + "/qualityAndAcceptanceModel/deliveryAcceptance/deliveryScope/supportDeliverables/DLVEN-ITEM-LST", (t, p) -> new DeliverableEntryId(t, p));
     }
 
     public SomListMetaRef<DeliveryAcceptanceCriterionEntryId> DACEN_ITEM_LST_2() {
@@ -113054,8 +113054,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/qualityAndAcceptanceModel/deliveryAcceptance/acceptancePlan/warranty/WAFI");
     }
 
-    public SomListMetaRef<Iso25010CoverageEntryId> I25CV_CHAR_LST() {
-      return new SomListMetaRef<>(tree, path + "/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST", (t, p) -> new Iso25010CoverageEntryId(t, p));
+    public SomListMetaRef<Iso25010CoverageEntryId> I25CE_CHAR_LST() {
+      return new SomListMetaRef<>(tree, path + "/qualityAndAcceptanceModel/iso25010Coverage/I25CE-CHAR-LST", (t, p) -> new Iso25010CoverageEntryId(t, p));
     }
 
     public SomMetaRef SSPTM() {
@@ -113118,12 +113118,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGGV");
     }
 
-    public SomListMetaRef<SomMetaRef> KEYAS_KEYA_LST() {
-      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/strategy/KEYAS-KEYA-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> STAGST_KEYA_LST() {
+      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGST-KEYA-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> STAGI_CONS_LST() {
-      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGI-CONS-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> STAGST_CONS_LST() {
+      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/strategy/STAGST-CONS-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef SGOVM() {
@@ -113202,20 +113202,20 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/FEPRTR");
     }
 
-    public SomListMetaRef<MoscowEntryId> MOEN_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/moscowAnalysis/MOEN-ITEM-LST", (t, p) -> new MoscowEntryId(t, p));
+    public SomListMetaRef<MoscowEntryId> ME_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/moscowAnalysis/ME-ITEM-LST", (t, p) -> new MoscowEntryId(t, p));
     }
 
-    public SomListMetaRef<FeatureStageMappingId> FESTM1_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureStageMatrix/FESTM1-ITEM-LST", (t, p) -> new FeatureStageMappingId(t, p));
+    public SomListMetaRef<FeatureStageMappingId> FSM_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureStageMatrix/FSM-ITEM-LST", (t, p) -> new FeatureStageMappingId(t, p));
     }
 
-    public SomListMetaRef<FeaturePriorityEntryId> FEPREN_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featurePriorityRegister/FEPREN-ITEM-LST", (t, p) -> new FeaturePriorityEntryId(t, p));
+    public SomListMetaRef<FeaturePriorityEntryId> FPE_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST", (t, p) -> new FeaturePriorityEntryId(t, p));
     }
 
-    public SomListMetaRef<FeatureDependencyEntryId> FEDEEN_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureDependencies/FEDEEN-ITEM-LST", (t, p) -> new FeatureDependencyEntryId(t, p));
+    public SomListMetaRef<FeatureDependencyEntryId> FDE_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/featurePrioritization/featureDependencies/FDE-ITEM-LST", (t, p) -> new FeatureDependencyEntryId(t, p));
     }
 
     public SomMetaRef MIAP() {
@@ -113314,12 +113314,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PGRO");
     }
 
-    public SomListMetaRef<PhaseGateReviewEntryId> PGRE_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PGRE-ITEM-LST", (t, p) -> new PhaseGateReviewEntryId(t, p));
+    public SomListMetaRef<PhaseGateReviewEntryId> PHGAREEN_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/governance/phaseGateReviews/PHGAREEN-ITEM-LST", (t, p) -> new PhaseGateReviewEntryId(t, p));
     }
 
-    public SomListMetaRef<DecisionPointEntryId> DEPOEN_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/governance/decisionPoints/DEPOEN-ITEM-LST", (t, p) -> new DecisionPointEntryId(t, p));
+    public SomListMetaRef<DecisionPointEntryId> DPE_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/systemStagePlan/governance/decisionPoints/DPE-ITEM-LST", (t, p) -> new DecisionPointEntryId(t, p));
     }
 
     public SomMetaRef LOPR_LOCA() {
@@ -113358,8 +113358,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TRPRON");
     }
 
-    public SomListMetaRef<TranslationVendorEntryId> TRVEEN_VEND_LST() {
-      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TRVEEN-VEND-LST", (t, p) -> new TranslationVendorEntryId(t, p));
+    public SomListMetaRef<TranslationVendorEntryId> TVE_VEND_LST() {
+      return new SomListMetaRef<>(tree, path + "/deliveryTransitionAndRollout/localizationTranslationProcess/translationProcess/TVE-VEND-LST", (t, p) -> new TranslationVendorEntryId(t, p));
     }
 
     public SomMetaRef LOCRP() {
@@ -113388,12 +113388,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/existingSystemsLandscape/currentArchitecture/CARCH-DEPL");
     }
 
-    public SomListMetaRef<SomMetaRef> IPE_INTE_LST() {
-      return new SomListMetaRef<>(tree, path + "/existingSystemsLandscape/currentArchitecture/IPE-INTE-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> CARCH_INTE_LST() {
+      return new SomListMetaRef<>(tree, path + "/existingSystemsLandscape/currentArchitecture/CARCH-INTE-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> SHARE_SHAR_LST() {
-      return new SomListMetaRef<>(tree, path + "/existingSystemsLandscape/currentArchitecture/SHARE-SHAR-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> CARCH_SHAR_LST() {
+      return new SomListMetaRef<>(tree, path + "/existingSystemsLandscape/currentArchitecture/CARCH-SHAR-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef DEPNT_DEPE() {
@@ -113416,8 +113416,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/existingSystemsLandscape/dependenciesAndIntegrations/integrations/SYIN-ITEM-LST", (t, p) -> new SystemIntegrationEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> FRAGI_FRAG_LST() {
-      return new SomListMetaRef<>(tree, path + "/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/FRAGI-FRAG-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> INHESU_FRAG_LST() {
+      return new SomListMetaRef<>(tree, path + "/existingSystemsLandscape/dependenciesAndIntegrations/healthSummary/INHESU-FRAG-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef CUBUPR_PROC() {
@@ -113464,24 +113464,24 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/painPointsAndGaps/operationalPainPoints/OPPS");
     }
 
-    public SomListMetaRef<PainPointEntryId> OPPAPO_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/painPointsAndGaps/operationalPainPoints/OPPAPO-ITEM-LST", (t, p) -> new PainPointEntryId(t, p));
+    public SomListMetaRef<PainPointEntryId> PAPE_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/painPointsAndGaps/operationalPainPoints/PAPE-ITEM-LST", (t, p) -> new PainPointEntryId(t, p));
     }
 
     public SomMetaRef BPPS() {
       return new SomMetaRef(tree, path + "/painPointsAndGaps/businessPainPoints/BPPS");
     }
 
-    public SomListMetaRef<PainPointEntryId> BUPAPO_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/painPointsAndGaps/businessPainPoints/BUPAPO-ITEM-LST", (t, p) -> new PainPointEntryId(t, p));
+    public SomListMetaRef<PainPointEntryId> PAPE_ITEM_LST_2() {
+      return new SomListMetaRef<>(tree, path + "/painPointsAndGaps/businessPainPoints/PAPE-ITEM-LST", (t, p) -> new PainPointEntryId(t, p));
     }
 
     public SomMetaRef TPPS() {
       return new SomMetaRef(tree, path + "/painPointsAndGaps/technicalPainPoints/TPPS");
     }
 
-    public SomListMetaRef<PainPointEntryId> TEPAPO_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/painPointsAndGaps/technicalPainPoints/TEPAPO-ITEM-LST", (t, p) -> new PainPointEntryId(t, p));
+    public SomListMetaRef<PainPointEntryId> PAPE_ITEM_LST_3() {
+      return new SomListMetaRef<>(tree, path + "/painPointsAndGaps/technicalPainPoints/PAPE-ITEM-LST", (t, p) -> new PainPointEntryId(t, p));
     }
 
     public SomListMetaRef<GapEntryId> GAPE_ITEM_LST() {
@@ -113660,20 +113660,20 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/migrationConsiderations/migrationRisks/MIRIRE");
     }
 
-    public SomListMetaRef<SomMetaRef> RISKC_RISK_LST() {
-      return new SomListMetaRef<>(tree, path + "/migrationConsiderations/migrationRisks/RISKC-RISK-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> MIRI_RISK_LST() {
+      return new SomListMetaRef<>(tree, path + "/migrationConsiderations/migrationRisks/MIRI-RISK-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> RISKB_RISK_LST() {
-      return new SomListMetaRef<>(tree, path + "/migrationConsiderations/migrationRisks/RISKB-RISK-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> MIRI_RBDE_LST() {
+      return new SomListMetaRef<>(tree, path + "/migrationConsiderations/migrationRisks/MIRI-RBDE-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> MONIT_MONI_LST() {
-      return new SomListMetaRef<>(tree, path + "/migrationConsiderations/migrationRisks/MONIT-MONI-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> MIRI_MONI_LST() {
+      return new SomListMetaRef<>(tree, path + "/migrationConsiderations/migrationRisks/MIRI-MONI-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> RESPO_RESP_LST() {
-      return new SomListMetaRef<>(tree, path + "/migrationConsiderations/migrationRisks/RESPO-RESP-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> MIRI_RESP_LST() {
+      return new SomListMetaRef<>(tree, path + "/migrationConsiderations/migrationRisks/MIRI-RESP-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<MigrationRiskEntryId> MGRSK_ITEM_LST() {
@@ -113684,8 +113684,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/migrationConsiderations/MGMLS-MILE-LST", (t, p) -> new MigrationMilestoneEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> ESCAL_ESCA_LST() {
-      return new SomListMetaRef<>(tree, path + "/migrationConsiderations/ESCAL-ESCA-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> MIGCON_ESCA_LST() {
+      return new SomListMetaRef<>(tree, path + "/migrationConsiderations/MIGCON-ESCA-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -113946,16 +113946,16 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/basicTechnicalRequirements/platformAndLanguage/PLGEN-PROG-LST", (t, p) -> new ProgrammingLanguageEntryId(t, p));
     }
 
-    public SomListMetaRef<FrameworkRequirementEntryId> FWREN_FRAM_LST() {
-      return new SomListMetaRef<>(tree, path + "/basicTechnicalRequirements/platformAndLanguage/FWREN-FRAM-LST", (t, p) -> new FrameworkRequirementEntryId(t, p));
+    public SomListMetaRef<FrameworkRequirementEntryId> FRREEN_FRAM_LST() {
+      return new SomListMetaRef<>(tree, path + "/basicTechnicalRequirements/platformAndLanguage/FRREEN-FRAM-LST", (t, p) -> new FrameworkRequirementEntryId(t, p));
     }
 
     public SomListMetaRef<BuildToolchainEntryId> BTCEN_BUIL_LST() {
       return new SomListMetaRef<>(tree, path + "/basicTechnicalRequirements/platformAndLanguage/BTCEN-BUIL-LST", (t, p) -> new BuildToolchainEntryId(t, p));
     }
 
-    public SomListMetaRef<DeploymentTargetEntryId> DETAEN_DEPL_LST() {
-      return new SomListMetaRef<>(tree, path + "/basicTechnicalRequirements/platformAndLanguage/DETAEN-DEPL-LST", (t, p) -> new DeploymentTargetEntryId(t, p));
+    public SomListMetaRef<DeploymentTargetEntryId> DEPTARENT_DEPL_LST() {
+      return new SomListMetaRef<>(tree, path + "/basicTechnicalRequirements/platformAndLanguage/DEPTARENT-DEPL-LST", (t, p) -> new DeploymentTargetEntryId(t, p));
     }
 
     public SomMetaRef DEMAVE() {
@@ -114154,16 +114154,16 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/basicTechnicalRequirements/designPatternsAndStandards/DSPT-DESI-LST", (t, p) -> new DesignPatternEntryId(t, p));
     }
 
-    public SomListMetaRef<CodingStandardEntryId> COSTEN_CODI_LST() {
-      return new SomListMetaRef<>(tree, path + "/basicTechnicalRequirements/designPatternsAndStandards/COSTEN-CODI-LST", (t, p) -> new CodingStandardEntryId(t, p));
+    public SomListMetaRef<CodingStandardEntryId> CSE_CODI_LST() {
+      return new SomListMetaRef<>(tree, path + "/basicTechnicalRequirements/designPatternsAndStandards/CSE-CODI-LST", (t, p) -> new CodingStandardEntryId(t, p));
     }
 
-    public SomListMetaRef<DevelopmentConventionEntryId> DECOEN_DEVE_LST() {
-      return new SomListMetaRef<>(tree, path + "/basicTechnicalRequirements/designPatternsAndStandards/DECOEN-DEVE-LST", (t, p) -> new DevelopmentConventionEntryId(t, p));
+    public SomListMetaRef<DevelopmentConventionEntryId> DCE_DEVE_LST() {
+      return new SomListMetaRef<>(tree, path + "/basicTechnicalRequirements/designPatternsAndStandards/DCE-DEVE-LST", (t, p) -> new DevelopmentConventionEntryId(t, p));
     }
 
-    public SomListMetaRef<IndustryStandardEntryId> INSTEN_INDU_LST() {
-      return new SomListMetaRef<>(tree, path + "/basicTechnicalRequirements/designPatternsAndStandards/INSTEN-INDU-LST", (t, p) -> new IndustryStandardEntryId(t, p));
+    public SomListMetaRef<IndustryStandardEntryId> ISE_INDU_LST() {
+      return new SomListMetaRef<>(tree, path + "/basicTechnicalRequirements/designPatternsAndStandards/ISE-INDU-LST", (t, p) -> new IndustryStandardEntryId(t, p));
     }
 
     public SomMetaRef CQMC() {
@@ -114242,8 +114242,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/basicTechnicalRequirements/designPatternsAndStandards/testingStandards/TESTTO");
     }
 
-    public SomListMetaRef<SoftwareLayerEntryId> SOLAEN_SOFT_LST() {
-      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/layeringAndModuleStructure/SOLAEN-SOFT-LST", (t, p) -> new SoftwareLayerEntryId(t, p));
+    public SomListMetaRef<SoftwareLayerEntryId> SLE_SOFT_LST() {
+      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/layeringAndModuleStructure/SLE-SOFT-LST", (t, p) -> new SoftwareLayerEntryId(t, p));
     }
 
     public SomMetaRef LCRI() {
@@ -114258,8 +114258,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/softwareDesignRequirements/layeringAndModuleStructure/layerCommunicationRules/LCRG");
     }
 
-    public SomListMetaRef<BoundedContextEntryId> BOCOEN_BOUN_LST() {
-      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/layeringAndModuleStructure/BOCOEN-BOUN-LST", (t, p) -> new BoundedContextEntryId(t, p));
+    public SomListMetaRef<BoundedContextEntryId> BCE_BOUN_LST() {
+      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/layeringAndModuleStructure/BCE-BOUN-LST", (t, p) -> new BoundedContextEntryId(t, p));
     }
 
     public SomMetaRef PAORST() {
@@ -114278,12 +114278,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/softwareDesignRequirements/layeringAndModuleStructure/packageOrganization/PAORDO");
     }
 
-    public SomListMetaRef<ModuleEntryId> MOEN1_MODU_LST() {
-      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/layeringAndModuleStructure/MOEN1-MODU-LST", (t, p) -> new ModuleEntryId(t, p));
+    public SomListMetaRef<ModuleEntryId> MODENT_MODU_LST() {
+      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/layeringAndModuleStructure/MODENT-MODU-LST", (t, p) -> new ModuleEntryId(t, p));
     }
 
-    public SomListMetaRef<SharedLibraryEntryId> SHLIB_SHAR_LST() {
-      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/layeringAndModuleStructure/SHLIB-SHAR-LST", (t, p) -> new SharedLibraryEntryId(t, p));
+    public SomListMetaRef<SharedLibraryEntryId> SHLIEN_SHAR_LST() {
+      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/layeringAndModuleStructure/SHLIEN-SHAR-LST", (t, p) -> new SharedLibraryEntryId(t, p));
     }
 
     public SomMetaRef DISR() {
@@ -114342,8 +114342,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/softwareDesignRequirements/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO");
     }
 
-    public SomListMetaRef<IdeRequirementEntryId> IDREEN_IDER_LST() {
-      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/developmentEnvironment/IDREEN-IDER-LST", (t, p) -> new IdeRequirementEntryId(t, p));
+    public SomListMetaRef<IdeRequirementEntryId> IRE_IDER_LST() {
+      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/developmentEnvironment/IRE-IDER-LST", (t, p) -> new IdeRequirementEntryId(t, p));
     }
 
     public SomMetaRef BTCBS() {
@@ -114378,16 +114378,16 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/softwareDesignRequirements/developmentEnvironment/versionControl/VCCM");
     }
 
-    public SomListMetaRef<PipelineStageEntryId> PISTEN_STAG_LST() {
-      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST", (t, p) -> new PipelineStageEntryId(t, p));
+    public SomListMetaRef<PipelineStageEntryId> PSE_STAG_LST() {
+      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/developmentEnvironment/cicdPipeline/PSE-STAG-LST", (t, p) -> new PipelineStageEntryId(t, p));
     }
 
-    public SomListMetaRef<PipelineJobEntryId> PIJOEN_JOBS_LST() {
-      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST", (t, p) -> new PipelineJobEntryId(t, p));
+    public SomListMetaRef<PipelineJobEntryId> PJE_JOBS_LST() {
+      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/developmentEnvironment/cicdPipeline/PJE-JOBS-LST", (t, p) -> new PipelineJobEntryId(t, p));
     }
 
-    public SomListMetaRef<DeploymentEnvironmentEntryId> DEENEN_ENVI_LST() {
-      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST", (t, p) -> new DeploymentEnvironmentEntryId(t, p));
+    public SomListMetaRef<DeploymentEnvironmentEntryId> DEE_ENVI_LST() {
+      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/developmentEnvironment/cicdPipeline/DEE-ENVI-LST", (t, p) -> new DeploymentEnvironmentEntryId(t, p));
     }
 
     public SomMetaRef CRPR() {
@@ -114522,16 +114522,16 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/reusableComponents/SHLCP-SHAR-LST", (t, p) -> new SharedLibraryComponentEntryId(t, p));
     }
 
-    public SomListMetaRef<ReusableUiComponentEntryId> RUICMP_UICO_LST() {
-      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/reusableComponents/RUICMP-UICO-LST", (t, p) -> new ReusableUiComponentEntryId(t, p));
+    public SomListMetaRef<ReusableUiComponentEntryId> RUCE_UICO_LST() {
+      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/reusableComponents/RUCE-UICO-LST", (t, p) -> new ReusableUiComponentEntryId(t, p));
     }
 
-    public SomListMetaRef<BusinessComponentEntryId> BUCOEN_BUSI_LST() {
-      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/reusableComponents/BUCOEN-BUSI-LST", (t, p) -> new BusinessComponentEntryId(t, p));
+    public SomListMetaRef<BusinessComponentEntryId> BUSCOMENT_BUSI_LST() {
+      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/reusableComponents/BUSCOMENT-BUSI-LST", (t, p) -> new BusinessComponentEntryId(t, p));
     }
 
-    public SomListMetaRef<InfrastructureComponentEntryId> INCOEN_INFR_LST() {
-      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/reusableComponents/INCOEN-INFR-LST", (t, p) -> new InfrastructureComponentEntryId(t, p));
+    public SomListMetaRef<InfrastructureComponentEntryId> INFCOMENT_INFR_LST() {
+      return new SomListMetaRef<>(tree, path + "/softwareDesignRequirements/reusableComponents/INFCOMENT-INFR-LST", (t, p) -> new InfrastructureComponentEntryId(t, p));
     }
 
     public SomListMetaRef<ThirdPartyLibraryEntryId> THPALI_THIR_LST() {
@@ -114570,36 +114570,36 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/softwareDesignRequirements/reusableComponents/registry/COREUP");
     }
 
-    public SomListMetaRef<OsCompatibilityEntryId> OSCOEN_OSCO_LST() {
-      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/compatibilityRequirements/OSCOEN-OSCO-LST", (t, p) -> new OsCompatibilityEntryId(t, p));
+    public SomListMetaRef<OsCompatibilityEntryId> OCE_OSCO_LST() {
+      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/compatibilityRequirements/OCE-OSCO-LST", (t, p) -> new OsCompatibilityEntryId(t, p));
     }
 
-    public SomListMetaRef<BrowserCompatibilityEntryId> BRCOEN_BROW_LST() {
-      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/compatibilityRequirements/BRCOEN-BROW-LST", (t, p) -> new BrowserCompatibilityEntryId(t, p));
+    public SomListMetaRef<BrowserCompatibilityEntryId> BROCOMENT_BROW_LST() {
+      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/compatibilityRequirements/BROCOMENT-BROW-LST", (t, p) -> new BrowserCompatibilityEntryId(t, p));
     }
 
-    public SomListMetaRef<DatabaseCompatibilityEntryId> DACOEN_DATA_LST() {
-      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/compatibilityRequirements/DACOEN-DATA-LST", (t, p) -> new DatabaseCompatibilityEntryId(t, p));
+    public SomListMetaRef<DatabaseCompatibilityEntryId> DATCOMENT_DATA_LST() {
+      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/compatibilityRequirements/DATCOMENT-DATA-LST", (t, p) -> new DatabaseCompatibilityEntryId(t, p));
     }
 
-    public SomListMetaRef<EnterpriseSystemCompatibilityEntryId> ESCE_ENTE_LST() {
-      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/compatibilityRequirements/ESCE-ENTE-LST", (t, p) -> new EnterpriseSystemCompatibilityEntryId(t, p));
+    public SomListMetaRef<EnterpriseSystemCompatibilityEntryId> ENSYCOEN_ENTE_LST() {
+      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/compatibilityRequirements/ENSYCOEN-ENTE-LST", (t, p) -> new EnterpriseSystemCompatibilityEntryId(t, p));
     }
 
     public SomListMetaRef<ApiCompatibilityEntryId> APCP_APIC_LST() {
       return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/compatibilityRequirements/APCP-APIC-LST", (t, p) -> new ApiCompatibilityEntryId(t, p));
     }
 
-    public SomListMetaRef<LegacyCompatibilityEntryId> LECOEN_LEGA_LST() {
-      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/compatibilityRequirements/LECOEN-LEGA-LST", (t, p) -> new LegacyCompatibilityEntryId(t, p));
+    public SomListMetaRef<LegacyCompatibilityEntryId> LCE_LEGA_LST() {
+      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/compatibilityRequirements/LCE-LEGA-LST", (t, p) -> new LegacyCompatibilityEntryId(t, p));
     }
 
-    public SomListMetaRef<MobileCompatibilityEntryId> MOCOEN_MOBI_LST() {
-      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/compatibilityRequirements/MOCOEN-MOBI-LST", (t, p) -> new MobileCompatibilityEntryId(t, p));
+    public SomListMetaRef<MobileCompatibilityEntryId> MOBCOMENT_MOBI_LST() {
+      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/compatibilityRequirements/MOBCOMENT-MOBI-LST", (t, p) -> new MobileCompatibilityEntryId(t, p));
     }
 
-    public SomListMetaRef<ThirdPartyCompatibilityEntryId> TPCE_THIR_LST() {
-      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/compatibilityRequirements/TPCE-THIR-LST", (t, p) -> new ThirdPartyCompatibilityEntryId(t, p));
+    public SomListMetaRef<ThirdPartyCompatibilityEntryId> THPACOEN_THIR_LST() {
+      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/compatibilityRequirements/THPACOEN-THIR-LST", (t, p) -> new ThirdPartyCompatibilityEntryId(t, p));
     }
 
     public SomMetaRef DFCF() {
@@ -114650,24 +114650,24 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/standardSoftwareRequirements/compatibilityRequirements/interoperability/INREGO");
     }
 
-    public SomListMetaRef<ItStandardComplianceEntryId> ISCE_ITST_LST() {
-      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/standardsCompliance/ISCE-ITST-LST", (t, p) -> new ItStandardComplianceEntryId(t, p));
+    public SomListMetaRef<ItStandardComplianceEntryId> ITSTCOEN_ITST_LST() {
+      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/standardsCompliance/ITSTCOEN-ITST-LST", (t, p) -> new ItStandardComplianceEntryId(t, p));
     }
 
-    public SomListMetaRef<IndustryProtocolComplianceEntryId> IPCE_INDU_LST() {
-      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/standardsCompliance/IPCE-INDU-LST", (t, p) -> new IndustryProtocolComplianceEntryId(t, p));
+    public SomListMetaRef<IndustryProtocolComplianceEntryId> INPRCOEN_INDU_LST() {
+      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/standardsCompliance/INPRCOEN-INDU-LST", (t, p) -> new IndustryProtocolComplianceEntryId(t, p));
     }
 
-    public SomListMetaRef<InterfaceSpecificationEntryId> INSPEN_INTE_LST() {
-      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/standardsCompliance/INSPEN-INTE-LST", (t, p) -> new InterfaceSpecificationEntryId(t, p));
+    public SomListMetaRef<InterfaceSpecificationEntryId> INTSPEENT_INTE_LST() {
+      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/standardsCompliance/INTSPEENT-INTE-LST", (t, p) -> new InterfaceSpecificationEntryId(t, p));
     }
 
-    public SomListMetaRef<RegulatoryComplianceEntryId> RECOEN_REGU_LST() {
-      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/standardsCompliance/RECOEN-REGU-LST", (t, p) -> new RegulatoryComplianceEntryId(t, p));
+    public SomListMetaRef<RegulatoryComplianceEntryId> RCE_REGU_LST() {
+      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/standardsCompliance/RCE-REGU-LST", (t, p) -> new RegulatoryComplianceEntryId(t, p));
     }
 
-    public SomListMetaRef<SecurityStandardComplianceEntryId> SSCE_SECU_LST() {
-      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/standardsCompliance/SSCE-SECU-LST", (t, p) -> new SecurityStandardComplianceEntryId(t, p));
+    public SomListMetaRef<SecurityStandardComplianceEntryId> SESTCOEN_SECU_LST() {
+      return new SomListMetaRef<>(tree, path + "/standardSoftwareRequirements/standardsCompliance/SESTCOEN-SECU-LST", (t, p) -> new SecurityStandardComplianceEntryId(t, p));
     }
 
     public SomListMetaRef<AccessibilityStandardEntryId> ACCSTD_ACCE_LST() {
@@ -114750,12 +114750,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/standardSoftwareRequirements/standardsCompliance/complianceVerification/CVSC");
     }
 
-    public SomListMetaRef<ServerEnvironmentEntryId> SEENEN_ENVI_LST() {
-      return new SomListMetaRef<>(tree, path + "/hardwareRequirements/serverRequirements/SEENEN-ENVI-LST", (t, p) -> new ServerEnvironmentEntryId(t, p));
+    public SomListMetaRef<ServerEnvironmentEntryId> SEE_ENVI_LST() {
+      return new SomListMetaRef<>(tree, path + "/hardwareRequirements/serverRequirements/SEE-ENVI-LST", (t, p) -> new ServerEnvironmentEntryId(t, p));
     }
 
-    public SomListMetaRef<ServerRoleEntryId> SEROEN_SERV_LST() {
-      return new SomListMetaRef<>(tree, path + "/hardwareRequirements/serverRequirements/SEROEN-SERV-LST", (t, p) -> new ServerRoleEntryId(t, p));
+    public SomListMetaRef<ServerRoleEntryId> SRE_SERV_LST() {
+      return new SomListMetaRef<>(tree, path + "/hardwareRequirements/serverRequirements/SRE-SERV-LST", (t, p) -> new ServerRoleEntryId(t, p));
     }
 
     public SomMetaRef CRRM() {
@@ -114882,16 +114882,16 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/hardwareRequirements/clientRequirements/CLIAPP-CLIE-LST", (t, p) -> new ClientApplicationEntryId(t, p));
     }
 
-    public SomListMetaRef<BrowserRequirementEntryId> BRREEN_BROW_LST() {
-      return new SomListMetaRef<>(tree, path + "/hardwareRequirements/clientRequirements/BRREEN-BROW-LST", (t, p) -> new BrowserRequirementEntryId(t, p));
+    public SomListMetaRef<BrowserRequirementEntryId> BROREQENT_BROW_LST() {
+      return new SomListMetaRef<>(tree, path + "/hardwareRequirements/clientRequirements/BROREQENT-BROW-LST", (t, p) -> new BrowserRequirementEntryId(t, p));
     }
 
-    public SomListMetaRef<DesktopOsRequirementEntryId> DORE1_DESK_LST() {
-      return new SomListMetaRef<>(tree, path + "/hardwareRequirements/clientRequirements/DORE1-DESK-LST", (t, p) -> new DesktopOsRequirementEntryId(t, p));
+    public SomListMetaRef<DesktopOsRequirementEntryId> DEOSREEN_DESK_LST() {
+      return new SomListMetaRef<>(tree, path + "/hardwareRequirements/clientRequirements/DEOSREEN-DESK-LST", (t, p) -> new DesktopOsRequirementEntryId(t, p));
     }
 
-    public SomListMetaRef<MobileDeviceRequirementEntryId> MDRE_MOBI_LST() {
-      return new SomListMetaRef<>(tree, path + "/hardwareRequirements/clientRequirements/MDRE-MOBI-LST", (t, p) -> new MobileDeviceRequirementEntryId(t, p));
+    public SomListMetaRef<MobileDeviceRequirementEntryId> MODEREEN_MOBI_LST() {
+      return new SomListMetaRef<>(tree, path + "/hardwareRequirements/clientRequirements/MODEREEN-MOBI-LST", (t, p) -> new MobileDeviceRequirementEntryId(t, p));
     }
 
     public SomMetaRef DIRELA() {
@@ -115098,8 +115098,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/hardwareRequirements/networkRequirements/availabilityRequirements/NART");
     }
 
-    public SomListMetaRef<VpnRequirementEntryId> VPREEN_VPNR_LST() {
-      return new SomListMetaRef<>(tree, path + "/hardwareRequirements/networkRequirements/VPREEN-VPNR-LST", (t, p) -> new VpnRequirementEntryId(t, p));
+    public SomListMetaRef<VpnRequirementEntryId> VRE_VPNR_LST() {
+      return new SomListMetaRef<>(tree, path + "/hardwareRequirements/networkRequirements/VRE-VPNR-LST", (t, p) -> new VpnRequirementEntryId(t, p));
     }
 
     public SomMetaRef FIRERU() {
@@ -115190,8 +115190,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/operationsRequirements/backupAndRecovery/dataClassification/BDCE");
     }
 
-    public SomListMetaRef<BackupPolicyEntryId> BAPOEN_BACK_LST() {
-      return new SomListMetaRef<>(tree, path + "/operationsRequirements/backupAndRecovery/BAPOEN-BACK-LST", (t, p) -> new BackupPolicyEntryId(t, p));
+    public SomListMetaRef<BackupPolicyEntryId> BPE_BACK_LST() {
+      return new SomListMetaRef<>(tree, path + "/operationsRequirements/backupAndRecovery/BPE-BACK-LST", (t, p) -> new BackupPolicyEntryId(t, p));
     }
 
     public SomMetaRef RRRBT() {
@@ -115486,8 +115486,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/operationsRequirements/monitoringAndAlerting/alerting/ALRERE");
     }
 
-    public SomListMetaRef<AlertDefinitionEntryId> ALDEEN_ALER_LST() {
-      return new SomListMetaRef<>(tree, path + "/operationsRequirements/monitoringAndAlerting/ALDEEN-ALER-LST", (t, p) -> new AlertDefinitionEntryId(t, p));
+    public SomListMetaRef<AlertDefinitionEntryId> ALEDEFENT_ALER_LST() {
+      return new SomListMetaRef<>(tree, path + "/operationsRequirements/monitoringAndAlerting/ALEDEFENT-ALER-LST", (t, p) -> new AlertDefinitionEntryId(t, p));
     }
 
     public SomMetaRef DAREST() {
@@ -115570,8 +115570,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/operationsRequirements/maintenanceWindows/scheduledMaintenance/SMPA");
     }
 
-    public SomListMetaRef<MaintenanceWindowEntryId> MAWIEN_MAIN_LST() {
-      return new SomListMetaRef<>(tree, path + "/operationsRequirements/maintenanceWindows/MAWIEN-MAIN-LST", (t, p) -> new MaintenanceWindowEntryId(t, p));
+    public SomListMetaRef<MaintenanceWindowEntryId> MWE_MAIN_LST() {
+      return new SomListMetaRef<>(tree, path + "/operationsRequirements/maintenanceWindows/MWE-MAIN-LST", (t, p) -> new MaintenanceWindowEntryId(t, p));
     }
 
     public SomMetaRef EMPG() {
@@ -115622,8 +115622,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/operationsRequirements/maintenanceWindows/postMaintenance/PMVC");
     }
 
-    public SomListMetaRef<ProtocolEntryId> PREN_PROT_LST() {
-      return new SomListMetaRef<>(tree, path + "/communicationRequirements/protocolsAndStandards/PREN-PROT-LST", (t, p) -> new ProtocolEntryId(t, p));
+    public SomListMetaRef<ProtocolEntryId> PE_PROT_LST() {
+      return new SomListMetaRef<>(tree, path + "/communicationRequirements/protocolsAndStandards/PE-PROT-LST", (t, p) -> new ProtocolEntryId(t, p));
     }
 
     public SomMetaRef TRCS() {
@@ -115710,8 +115710,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/communicationRequirements/protocolsAndStandards/compliance/PCRE");
     }
 
-    public SomListMetaRef<ExternalPartnerConnectionEntryId> EPCE_PART_LST() {
-      return new SomListMetaRef<>(tree, path + "/communicationRequirements/externalConnectivity/EPCE-PART-LST", (t, p) -> new ExternalPartnerConnectionEntryId(t, p));
+    public SomListMetaRef<ExternalPartnerConnectionEntryId> EXPACOEN_PART_LST() {
+      return new SomListMetaRef<>(tree, path + "/communicationRequirements/externalConnectivity/EXPACOEN-PART-LST", (t, p) -> new ExternalPartnerConnectionEntryId(t, p));
     }
 
     public SomMetaRef CSIS() {
@@ -115862,8 +115862,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/systemOperationAndMonitoring/systemOperation/administrationRequirements/diagnosticTools/SDTSS");
     }
 
-    public SomListMetaRef<SomMetaRef> MAINT_MAIN_LST() {
-      return new SomListMetaRef<>(tree, path + "/systemOperationAndMonitoring/systemOperation/MAINT-MAIN-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SO_MAIN_LST() {
+      return new SomListMetaRef<>(tree, path + "/systemOperationAndMonitoring/systemOperation/SO-MAIN-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef MONITO_MONI() {
@@ -115950,8 +115950,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/systemOperationAndMonitoring/monitoring/alertingConfiguration/notificationChannels/ANCF");
     }
 
-    public SomListMetaRef<AlertRuleEntryId> ALRUEN_ALER_LST() {
-      return new SomListMetaRef<>(tree, path + "/systemOperationAndMonitoring/monitoring/alertingConfiguration/ALRUEN-ALER-LST", (t, p) -> new AlertRuleEntryId(t, p));
+    public SomListMetaRef<AlertRuleEntryId> ALERULENT_ALER_LST() {
+      return new SomListMetaRef<>(tree, path + "/systemOperationAndMonitoring/monitoring/alertingConfiguration/ALERULENT-ALER-LST", (t, p) -> new AlertRuleEntryId(t, p));
     }
 
     public SomMetaRef AEPT() {
@@ -116034,16 +116034,16 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/systemOperationAndMonitoring/monitoring/metricsAndObservability/distributedTracing/DTSO");
     }
 
-    public SomListMetaRef<CustomMetricEntryId> CUMEEN_CUST_LST() {
-      return new SomListMetaRef<>(tree, path + "/systemOperationAndMonitoring/monitoring/metricsAndObservability/CUMEEN-CUST-LST", (t, p) -> new CustomMetricEntryId(t, p));
+    public SomListMetaRef<CustomMetricEntryId> CUSMETENT_CUST_LST() {
+      return new SomListMetaRef<>(tree, path + "/systemOperationAndMonitoring/monitoring/metricsAndObservability/CUSMETENT-CUST-LST", (t, p) -> new CustomMetricEntryId(t, p));
     }
 
     public SomMetaRef MODA_DASH() {
       return new SomMetaRef(tree, path + "/systemOperationAndMonitoring/monitoring/dashboards/MODA-DASH");
     }
 
-    public SomListMetaRef<DashboardEntryId> DAEN_DASH_LST() {
-      return new SomListMetaRef<>(tree, path + "/systemOperationAndMonitoring/monitoring/dashboards/DAEN-DASH-LST", (t, p) -> new DashboardEntryId(t, p));
+    public SomListMetaRef<DashboardEntryId> DASENT_DASH_LST() {
+      return new SomListMetaRef<>(tree, path + "/systemOperationAndMonitoring/monitoring/dashboards/DASENT-DASH-LST", (t, p) -> new DashboardEntryId(t, p));
     }
 
     public SomListMetaRef<DashboardTemplatesId> DATE_DASH_LST() {
@@ -116066,8 +116066,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/slis/SLIM");
     }
 
-    public SomListMetaRef<SloEntryId> SLEN_SLOS_LST() {
-      return new SomListMetaRef<>(tree, path + "/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST", (t, p) -> new SloEntryId(t, p));
+    public SomListMetaRef<SloEntryId> SE_SLOS_LST() {
+      return new SomListMetaRef<>(tree, path + "/systemOperationAndMonitoring/monitoring/slaAndSloMonitoring/SE-SLOS-LST", (t, p) -> new SloEntryId(t, p));
     }
 
     public SomMetaRef EBTM() {
@@ -116162,8 +116162,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/systemOperationAndMonitoring/capacityPlanning/capacityReview/CRPP");
     }
 
-    public SomListMetaRef<SecurityStandardEntryId> SESTEN_STAN_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalSecurityRequirements/itSecurityStandards/SESTEN-STAN-LST", (t, p) -> new SecurityStandardEntryId(t, p));
+    public SomListMetaRef<SecurityStandardEntryId> SSE_STAN_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalSecurityRequirements/itSecurityStandards/SSE-STAN-LST", (t, p) -> new SecurityStandardEntryId(t, p));
     }
 
     public SomMetaRef ASRC() {
@@ -116430,8 +116430,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalSecurityRequirements/securityAuditRequirements/securityTestingAutomation/STAG");
     }
 
-    public SomListMetaRef<SecurityAuditEntryId> SEAUEN_AUDI_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalSecurityRequirements/securityAuditRequirements/SEAUEN-AUDI-LST", (t, p) -> new SecurityAuditEntryId(t, p));
+    public SomListMetaRef<SecurityAuditEntryId> SAE_AUDI_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalSecurityRequirements/securityAuditRequirements/SAE-AUDI-LST", (t, p) -> new SecurityAuditEntryId(t, p));
     }
 
     public SomMetaRef CSVND() {
@@ -116498,24 +116498,24 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalEnvironment/TES");
     }
 
-    public SomListMetaRef<SomMetaRef> DEVOP_DEVO_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalEnvironment/network/DEVOP-DEVO-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> TEENNE_DEVO_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalEnvironment/network/TEENNE-DEVO-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> OBSER_OBSE_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalEnvironment/network/OBSER-OBSE-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> TEENNE_OBSE_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalEnvironment/network/TEENNE-OBSE-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> DATAC_DATA_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalEnvironment/DATAC-DATA-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> TEEN_DATA_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalEnvironment/TEEN-DATA-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<TechnologyStandardEntryId> TESTEN_TECH_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalEnvironment/TESTEN-TECH-LST", (t, p) -> new TechnologyStandardEntryId(t, p));
+    public SomListMetaRef<TechnologyStandardEntryId> TSE_TECH_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalEnvironment/TSE-TECH-LST", (t, p) -> new TechnologyStandardEntryId(t, p));
     }
 
-    public SomListMetaRef<IntegrationConstraintEntryId> INCOE1_INTE_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalEnvironment/INCOE1-INTE-LST", (t, p) -> new IntegrationConstraintEntryId(t, p));
+    public SomListMetaRef<IntegrationConstraintEntryId> INTCONENT_INTE_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalEnvironment/INTCONENT-INTE-LST", (t, p) -> new IntegrationConstraintEntryId(t, p));
     }
 
     public SomMetaRef TRAREQ_TRAN() {
@@ -116548,16 +116548,16 @@ public final class TomSomV0Meta {
       super(tree, path);
     }
 
-    public SomListMetaRef<ExternalInterfaceEntryId> EXINEN_INTE_LST() {
-      return new SomListMetaRef<>(tree, path + "/externalInterfaces/EXINEN-INTE-LST", (t, p) -> new ExternalInterfaceEntryId(t, p));
+    public SomListMetaRef<ExternalInterfaceEntryId> EIE_INTE_LST() {
+      return new SomListMetaRef<>(tree, path + "/externalInterfaces/EIE-INTE-LST", (t, p) -> new ExternalInterfaceEntryId(t, p));
     }
 
-    public SomListMetaRef<OutOfScopeEntryId> OOSE_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/outOfScope/OOSE-ITEM-LST", (t, p) -> new OutOfScopeEntryId(t, p));
+    public SomListMetaRef<OutOfScopeEntryId> OUOFSCEN_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/outOfScope/OUOFSCEN-ITEM-LST", (t, p) -> new OutOfScopeEntryId(t, p));
     }
 
-    public SomListMetaRef<BoundaryAssumptionEntryId> BOASEN_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/boundaryAssumptions/BOASEN-ITEM-LST", (t, p) -> new BoundaryAssumptionEntryId(t, p));
+    public SomListMetaRef<BoundaryAssumptionEntryId> BAE_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/boundaryAssumptions/BAE-ITEM-LST", (t, p) -> new BoundaryAssumptionEntryId(t, p));
     }
 
     public SomListMetaRef<BoundaryInteractionPatternsId> BOINPA_INTE_LST() {
@@ -116666,16 +116666,16 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/identificationAndAuthentication/identification/IDTAM-ATTR-LST", (t, p) -> new IdentityAttributeMappingEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> MFADE_MFAD_LST() {
-      return new SomListMetaRef<>(tree, path + "/identificationAndAuthentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> MC_MFAD_LST() {
+      return new SomListMetaRef<>(tree, path + "/identificationAndAuthentication/authentication/authenticationMethods/mfaConfiguration/MC-MFAD-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<AuthenticationMethodEntryId> ATME_ITEM_LST() {
       return new SomListMetaRef<>(tree, path + "/identificationAndAuthentication/authentication/authenticationMethods/ATME-ITEM-LST", (t, p) -> new AuthenticationMethodEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> STEPU_STEP_LST() {
-      return new SomListMetaRef<>(tree, path + "/identificationAndAuthentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SUAP_STEP_LST() {
+      return new SomListMetaRef<>(tree, path + "/identificationAndAuthentication/authentication/authenticationFlow/stepUpAuthentication/SUAP-STEP-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<LoginFlowStepEntryId> LGFLS_LOGI_LST() {
@@ -116756,8 +116756,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/screens/screenInventory/SCREN-ITEM-LST", (t, p) -> new ScreenEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> GLOBA_GLOB_LST() {
-      return new SomListMetaRef<>(tree, path + "/screens/informationArchitecture/GLOBA-GLOB-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> IA_GLOB_LST() {
+      return new SomListMetaRef<>(tree, path + "/screens/informationArchitecture/IA-GLOB-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<NavigationGroupEntryId> NAVGRP_GROU_LST() {
@@ -116776,12 +116776,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/screenFlow/navigationModel/primaryNavigation/PRNASI");
     }
 
-    public SomListMetaRef<TabBarDefinitionEntryId> TBDE_TABB_LST() {
-      return new SomListMetaRef<>(tree, path + "/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST", (t, p) -> new TabBarDefinitionEntryId(t, p));
+    public SomListMetaRef<TabBarDefinitionEntryId> TABADEEN_TABB_LST() {
+      return new SomListMetaRef<>(tree, path + "/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST", (t, p) -> new TabBarDefinitionEntryId(t, p));
     }
 
-    public SomListMetaRef<UtilityNavigationItemEntryId> UNIE_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST", (t, p) -> new UtilityNavigationItemEntryId(t, p));
+    public SomListMetaRef<UtilityNavigationItemEntryId> UTNAITEN_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST", (t, p) -> new UtilityNavigationItemEntryId(t, p));
     }
 
     public SomMetaRef BRCO() {
@@ -116828,16 +116828,16 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/printLayout/PRLAAR");
     }
 
-    public SomListMetaRef<ExportFormatEntryId> EXFOEN_EXPO_LST() {
-      return new SomListMetaRef<>(tree, path + "/printLayout/EXFOEN-EXPO-LST", (t, p) -> new ExportFormatEntryId(t, p));
+    public SomListMetaRef<ExportFormatEntryId> EFE_EXPO_LST() {
+      return new SomListMetaRef<>(tree, path + "/printLayout/EFE-EXPO-LST", (t, p) -> new ExportFormatEntryId(t, p));
     }
 
-    public SomListMetaRef<ExportTemplateEntryId> EXTEEN_EXPO_LST() {
-      return new SomListMetaRef<>(tree, path + "/printLayout/EXTEEN-EXPO-LST", (t, p) -> new ExportTemplateEntryId(t, p));
+    public SomListMetaRef<ExportTemplateEntryId> ETE_EXPO_LST() {
+      return new SomListMetaRef<>(tree, path + "/printLayout/ETE-EXPO-LST", (t, p) -> new ExportTemplateEntryId(t, p));
     }
 
-    public SomListMetaRef<ReportEntryId> REEN_REPO_LST() {
-      return new SomListMetaRef<>(tree, path + "/reportDefinitions/REEN-REPO-LST", (t, p) -> new ReportEntryId(t, p));
+    public SomListMetaRef<ReportEntryId> REPENT_REPO_LST() {
+      return new SomListMetaRef<>(tree, path + "/reportDefinitions/REPENT-REPO-LST", (t, p) -> new ReportEntryId(t, p));
     }
 
     public SomMetaRef ERHACO_ERRO() {
@@ -116876,12 +116876,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/errorHandling/validationFeedback/VAFEBE");
     }
 
-    public SomListMetaRef<ValidationMessageTemplateId> VAMETE_MESS_LST() {
-      return new SomListMetaRef<>(tree, path + "/errorHandling/validationFeedback/VAMETE-MESS-LST", (t, p) -> new ValidationMessageTemplateId(t, p));
+    public SomListMetaRef<ValidationMessageTemplateId> VMT_MESS_LST() {
+      return new SomListMetaRef<>(tree, path + "/errorHandling/validationFeedback/VMT-MESS-LST", (t, p) -> new ValidationMessageTemplateId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> FIELD_FIEL_LST() {
-      return new SomListMetaRef<>(tree, path + "/errorHandling/validationFeedback/FIELD-FIEL-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> VAFE_FIEL_LST() {
+      return new SomListMetaRef<>(tree, path + "/errorHandling/validationFeedback/VAFE-FIEL-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef SYERDI_SYST() {
@@ -116904,12 +116904,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/errorHandling/systemErrorDisplay/SEDF");
     }
 
-    public SomListMetaRef<SomMetaRef> EPDE_ERRO_LST() {
-      return new SomListMetaRef<>(tree, path + "/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SYERDI_ERRO_LST() {
+      return new SomListMetaRef<>(tree, path + "/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SystemErrorCodeEntryId> SECE_ERRO_LST() {
-      return new SomListMetaRef<>(tree, path + "/errorHandling/systemErrorDisplay/SECE-ERRO-LST", (t, p) -> new SystemErrorCodeEntryId(t, p));
+    public SomListMetaRef<SystemErrorCodeEntryId> SYERCOEN_ERRO_LST() {
+      return new SomListMetaRef<>(tree, path + "/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST", (t, p) -> new SystemErrorCodeEntryId(t, p));
     }
 
     public SomMetaRef ERRE_RECO() {
@@ -116936,8 +116936,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/errorHandling/errorRecovery/ERSH");
     }
 
-    public SomListMetaRef<SomMetaRef> RECOV_RECO_LST() {
-      return new SomListMetaRef<>(tree, path + "/errorHandling/errorRecovery/RECOV-RECO-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> ERRE_RECO_LST() {
+      return new SomListMetaRef<>(tree, path + "/errorHandling/errorRecovery/ERRE-RECO-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<RecoveryScenarioEntryId> RCVSCN_RECO_LST() {
@@ -117064,8 +117064,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/accessibility/wcagComplianceLevel/WCCORO");
     }
 
-    public SomListMetaRef<WcagSuccessCriterionEntryId> WSCE_SUCC_LST() {
-      return new SomListMetaRef<>(tree, path + "/accessibility/wcagComplianceLevel/WSCE-SUCC-LST", (t, p) -> new WcagSuccessCriterionEntryId(t, p));
+    public SomListMetaRef<WcagSuccessCriterionEntryId> WCSUCREN_SUCC_LST() {
+      return new SomListMetaRef<>(tree, path + "/accessibility/wcagComplianceLevel/WCSUCREN-SUCC-LST", (t, p) -> new WcagSuccessCriterionEntryId(t, p));
     }
 
     public SomMetaRef ACCHLS_CHEC() {
@@ -117084,8 +117084,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/responsiveDesign/breakpointConfig/BC-BREA");
     }
 
-    public SomListMetaRef<BreakpointEntryId> BRE_BREA_LST() {
-      return new SomListMetaRef<>(tree, path + "/responsiveDesign/breakpointConfig/BRE-BREA-LST", (t, p) -> new BreakpointEntryId(t, p));
+    public SomListMetaRef<BreakpointEntryId> BE_BREA_LST() {
+      return new SomListMetaRef<>(tree, path + "/responsiveDesign/breakpointConfig/BE-BREA-LST", (t, p) -> new BreakpointEntryId(t, p));
     }
 
     public SomMetaRef REBE_LAYO() {
@@ -117160,8 +117160,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/uiComponents/componentLibrary/TYST-TYPO-LST", (t, p) -> new TypographyStyleEntryId(t, p));
     }
 
-    public SomListMetaRef<UiComponentEntryId> UICOEN_COMP_LST() {
-      return new SomListMetaRef<>(tree, path + "/uiComponents/UICOEN-COMP-LST", (t, p) -> new UiComponentEntryId(t, p));
+    public SomListMetaRef<UiComponentEntryId> UICOMENT_COMP_LST() {
+      return new SomListMetaRef<>(tree, path + "/uiComponents/UICOMENT-COMP-LST", (t, p) -> new UiComponentEntryId(t, p));
     }
 
     public SomListMetaRef<ComponentFamilyEntryId> CMFA_COMP_LST() {
@@ -117216,8 +117216,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/prototype/prototypeGoals/PRGOFE");
     }
 
-    public SomListMetaRef<PrototypeGoalEntryId> PRGOEN_GOAL_LST() {
-      return new SomListMetaRef<>(tree, path + "/prototype/prototypeGoals/PRGOEN-GOAL-LST", (t, p) -> new PrototypeGoalEntryId(t, p));
+    public SomListMetaRef<PrototypeGoalEntryId> PGE_GOAL_LST() {
+      return new SomListMetaRef<>(tree, path + "/prototype/prototypeGoals/PGE-GOAL-LST", (t, p) -> new PrototypeGoalEntryId(t, p));
     }
 
     public SomMetaRef PRFESU_FEAT() {
@@ -117232,8 +117232,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/prototype/featureSubset/PFSF");
     }
 
-    public SomListMetaRef<PrototypeFeatureEntryId> PRFEEN_FEAT_LST() {
-      return new SomListMetaRef<>(tree, path + "/prototype/featureSubset/PRFEEN-FEAT-LST", (t, p) -> new PrototypeFeatureEntryId(t, p));
+    public SomListMetaRef<PrototypeFeatureEntryId> PFE_FEAT_LST() {
+      return new SomListMetaRef<>(tree, path + "/prototype/featureSubset/PFE-FEAT-LST", (t, p) -> new PrototypeFeatureEntryId(t, p));
     }
 
     public SomMetaRef PRTYSE_PROT() {
@@ -117314,8 +117314,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/qualityFramework/QCATE-QUAL-LST", (t, p) -> new QualityCategoryEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> CATEG_CATE_LST() {
-      return new SomListMetaRef<>(tree, path + "/qualityFramework/CATEG-CATE-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> QLFWK_CATE_LST() {
+      return new SomListMetaRef<>(tree, path + "/qualityFramework/QLFWK-CATE-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef FNSU_FUNC() {
@@ -117812,12 +117812,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/stagingStrategy/STAGGV");
     }
 
-    public SomListMetaRef<SomMetaRef> KEYAS_KEYA_LST() {
-      return new SomListMetaRef<>(tree, path + "/stagingStrategy/KEYAS-KEYA-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> STAGST_KEYA_LST() {
+      return new SomListMetaRef<>(tree, path + "/stagingStrategy/STAGST-KEYA-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> STAGI_CONS_LST() {
-      return new SomListMetaRef<>(tree, path + "/stagingStrategy/STAGI-CONS-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> STAGST_CONS_LST() {
+      return new SomListMetaRef<>(tree, path + "/stagingStrategy/STAGST-CONS-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef SGOVM() {
@@ -117896,20 +117896,20 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/featurePrioritization/FEPRTR");
     }
 
-    public SomListMetaRef<MoscowEntryId> MOEN_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/featurePrioritization/moscowAnalysis/MOEN-ITEM-LST", (t, p) -> new MoscowEntryId(t, p));
+    public SomListMetaRef<MoscowEntryId> ME_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/featurePrioritization/moscowAnalysis/ME-ITEM-LST", (t, p) -> new MoscowEntryId(t, p));
     }
 
-    public SomListMetaRef<FeatureStageMappingId> FESTM1_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/featurePrioritization/featureStageMatrix/FESTM1-ITEM-LST", (t, p) -> new FeatureStageMappingId(t, p));
+    public SomListMetaRef<FeatureStageMappingId> FSM_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/featurePrioritization/featureStageMatrix/FSM-ITEM-LST", (t, p) -> new FeatureStageMappingId(t, p));
     }
 
-    public SomListMetaRef<FeaturePriorityEntryId> FEPREN_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/featurePrioritization/featurePriorityRegister/FEPREN-ITEM-LST", (t, p) -> new FeaturePriorityEntryId(t, p));
+    public SomListMetaRef<FeaturePriorityEntryId> FPE_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/featurePrioritization/featurePriorityRegister/FPE-ITEM-LST", (t, p) -> new FeaturePriorityEntryId(t, p));
     }
 
-    public SomListMetaRef<FeatureDependencyEntryId> FEDEEN_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/featurePrioritization/featureDependencies/FEDEEN-ITEM-LST", (t, p) -> new FeatureDependencyEntryId(t, p));
+    public SomListMetaRef<FeatureDependencyEntryId> FDE_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/featurePrioritization/featureDependencies/FDE-ITEM-LST", (t, p) -> new FeatureDependencyEntryId(t, p));
     }
 
     public SomMetaRef MIAP() {
@@ -117980,12 +117980,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/gateCriteria/PGRO");
     }
 
-    public SomListMetaRef<PhaseGateReviewEntryId> PGRE_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/gateCriteria/PGRE-ITEM-LST", (t, p) -> new PhaseGateReviewEntryId(t, p));
+    public SomListMetaRef<PhaseGateReviewEntryId> PHGAREEN_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/gateCriteria/PHGAREEN-ITEM-LST", (t, p) -> new PhaseGateReviewEntryId(t, p));
     }
 
-    public SomListMetaRef<DecisionPointEntryId> DEPOEN_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/decisionProcesses/DEPOEN-ITEM-LST", (t, p) -> new DecisionPointEntryId(t, p));
+    public SomListMetaRef<DecisionPointEntryId> DPE_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/decisionProcesses/DPE-ITEM-LST", (t, p) -> new DecisionPointEntryId(t, p));
     }
   }
 
@@ -118034,8 +118034,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/translationProcess/TRPRON");
     }
 
-    public SomListMetaRef<TranslationVendorEntryId> TRVEEN_VEND_LST() {
-      return new SomListMetaRef<>(tree, path + "/translationProcess/TRVEEN-VEND-LST", (t, p) -> new TranslationVendorEntryId(t, p));
+    public SomListMetaRef<TranslationVendorEntryId> TVE_VEND_LST() {
+      return new SomListMetaRef<>(tree, path + "/translationProcess/TVE-VEND-LST", (t, p) -> new TranslationVendorEntryId(t, p));
     }
 
     public SomMetaRef DOANTR_DOCU() {
@@ -118054,8 +118054,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/trainingDeliverables/TRMAT-TRAI");
     }
 
-    public SomListMetaRef<TrainingModuleEntryId> TRMOEN_TRAI_LST() {
-      return new SomListMetaRef<>(tree, path + "/trainingDeliverables/TRMOEN-TRAI-LST", (t, p) -> new TrainingModuleEntryId(t, p));
+    public SomListMetaRef<TrainingModuleEntryId> TME_TRAI_LST() {
+      return new SomListMetaRef<>(tree, path + "/trainingDeliverables/TME-TRAI-LST", (t, p) -> new TrainingModuleEntryId(t, p));
     }
   }
 
@@ -118120,16 +118120,16 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/technicalFramework/basicRequirements/platformAndLanguage/PLGEN-PROG-LST", (t, p) -> new ProgrammingLanguageEntryId(t, p));
     }
 
-    public SomListMetaRef<FrameworkRequirementEntryId> FWREN_FRAM_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/basicRequirements/platformAndLanguage/FWREN-FRAM-LST", (t, p) -> new FrameworkRequirementEntryId(t, p));
+    public SomListMetaRef<FrameworkRequirementEntryId> FRREEN_FRAM_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/basicRequirements/platformAndLanguage/FRREEN-FRAM-LST", (t, p) -> new FrameworkRequirementEntryId(t, p));
     }
 
     public SomListMetaRef<BuildToolchainEntryId> BTCEN_BUIL_LST() {
       return new SomListMetaRef<>(tree, path + "/technicalFramework/basicRequirements/platformAndLanguage/BTCEN-BUIL-LST", (t, p) -> new BuildToolchainEntryId(t, p));
     }
 
-    public SomListMetaRef<DeploymentTargetEntryId> DETAEN_DEPL_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/basicRequirements/platformAndLanguage/DETAEN-DEPL-LST", (t, p) -> new DeploymentTargetEntryId(t, p));
+    public SomListMetaRef<DeploymentTargetEntryId> DEPTARENT_DEPL_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/basicRequirements/platformAndLanguage/DEPTARENT-DEPL-LST", (t, p) -> new DeploymentTargetEntryId(t, p));
     }
 
     public SomMetaRef DEMAVE() {
@@ -118328,16 +118328,16 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/technicalFramework/basicRequirements/designPatternsAndStandards/DSPT-DESI-LST", (t, p) -> new DesignPatternEntryId(t, p));
     }
 
-    public SomListMetaRef<CodingStandardEntryId> COSTEN_CODI_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/basicRequirements/designPatternsAndStandards/COSTEN-CODI-LST", (t, p) -> new CodingStandardEntryId(t, p));
+    public SomListMetaRef<CodingStandardEntryId> CSE_CODI_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/basicRequirements/designPatternsAndStandards/CSE-CODI-LST", (t, p) -> new CodingStandardEntryId(t, p));
     }
 
-    public SomListMetaRef<DevelopmentConventionEntryId> DECOEN_DEVE_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/basicRequirements/designPatternsAndStandards/DECOEN-DEVE-LST", (t, p) -> new DevelopmentConventionEntryId(t, p));
+    public SomListMetaRef<DevelopmentConventionEntryId> DCE_DEVE_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/basicRequirements/designPatternsAndStandards/DCE-DEVE-LST", (t, p) -> new DevelopmentConventionEntryId(t, p));
     }
 
-    public SomListMetaRef<IndustryStandardEntryId> INSTEN_INDU_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/basicRequirements/designPatternsAndStandards/INSTEN-INDU-LST", (t, p) -> new IndustryStandardEntryId(t, p));
+    public SomListMetaRef<IndustryStandardEntryId> ISE_INDU_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/basicRequirements/designPatternsAndStandards/ISE-INDU-LST", (t, p) -> new IndustryStandardEntryId(t, p));
     }
 
     public SomMetaRef CQMC() {
@@ -118416,8 +118416,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/basicRequirements/designPatternsAndStandards/testingStandards/TESTTO");
     }
 
-    public SomListMetaRef<SoftwareLayerEntryId> SOLAEN_SOFT_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/SOLAEN-SOFT-LST", (t, p) -> new SoftwareLayerEntryId(t, p));
+    public SomListMetaRef<SoftwareLayerEntryId> SLE_SOFT_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/SLE-SOFT-LST", (t, p) -> new SoftwareLayerEntryId(t, p));
     }
 
     public SomMetaRef LCRI() {
@@ -118432,8 +118432,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/layerCommunicationRules/LCRG");
     }
 
-    public SomListMetaRef<BoundedContextEntryId> BOCOEN_BOUN_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/BOCOEN-BOUN-LST", (t, p) -> new BoundedContextEntryId(t, p));
+    public SomListMetaRef<BoundedContextEntryId> BCE_BOUN_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/BCE-BOUN-LST", (t, p) -> new BoundedContextEntryId(t, p));
     }
 
     public SomMetaRef PAORST() {
@@ -118452,12 +118452,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/packageOrganization/PAORDO");
     }
 
-    public SomListMetaRef<ModuleEntryId> MOEN1_MODU_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/MOEN1-MODU-LST", (t, p) -> new ModuleEntryId(t, p));
+    public SomListMetaRef<ModuleEntryId> MODENT_MODU_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/MODENT-MODU-LST", (t, p) -> new ModuleEntryId(t, p));
     }
 
-    public SomListMetaRef<SharedLibraryEntryId> SHLIB_SHAR_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIB-SHAR-LST", (t, p) -> new SharedLibraryEntryId(t, p));
+    public SomListMetaRef<SharedLibraryEntryId> SHLIEN_SHAR_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/SHLIEN-SHAR-LST", (t, p) -> new SharedLibraryEntryId(t, p));
     }
 
     public SomMetaRef DISR() {
@@ -118516,8 +118516,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/softwareDesign/layeringAndModuleStructure/moduleVersioningStrategy/MOVESTCO");
     }
 
-    public SomListMetaRef<IdeRequirementEntryId> IDREEN_IDER_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/developmentEnvironment/IDREEN-IDER-LST", (t, p) -> new IdeRequirementEntryId(t, p));
+    public SomListMetaRef<IdeRequirementEntryId> IRE_IDER_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/developmentEnvironment/IRE-IDER-LST", (t, p) -> new IdeRequirementEntryId(t, p));
     }
 
     public SomMetaRef BTCBS() {
@@ -118552,16 +118552,16 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/softwareDesign/developmentEnvironment/versionControl/VCCM");
     }
 
-    public SomListMetaRef<PipelineStageEntryId> PISTEN_STAG_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PISTEN-STAG-LST", (t, p) -> new PipelineStageEntryId(t, p));
+    public SomListMetaRef<PipelineStageEntryId> PSE_STAG_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PSE-STAG-LST", (t, p) -> new PipelineStageEntryId(t, p));
     }
 
-    public SomListMetaRef<PipelineJobEntryId> PIJOEN_JOBS_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PIJOEN-JOBS-LST", (t, p) -> new PipelineJobEntryId(t, p));
+    public SomListMetaRef<PipelineJobEntryId> PJE_JOBS_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/PJE-JOBS-LST", (t, p) -> new PipelineJobEntryId(t, p));
     }
 
-    public SomListMetaRef<DeploymentEnvironmentEntryId> DEENEN_ENVI_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEENEN-ENVI-LST", (t, p) -> new DeploymentEnvironmentEntryId(t, p));
+    public SomListMetaRef<DeploymentEnvironmentEntryId> DEE_ENVI_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/developmentEnvironment/cicdPipeline/DEE-ENVI-LST", (t, p) -> new DeploymentEnvironmentEntryId(t, p));
     }
 
     public SomMetaRef CRPR() {
@@ -118696,16 +118696,16 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/reusableComponents/SHLCP-SHAR-LST", (t, p) -> new SharedLibraryComponentEntryId(t, p));
     }
 
-    public SomListMetaRef<ReusableUiComponentEntryId> RUICMP_UICO_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/reusableComponents/RUICMP-UICO-LST", (t, p) -> new ReusableUiComponentEntryId(t, p));
+    public SomListMetaRef<ReusableUiComponentEntryId> RUCE_UICO_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/reusableComponents/RUCE-UICO-LST", (t, p) -> new ReusableUiComponentEntryId(t, p));
     }
 
-    public SomListMetaRef<BusinessComponentEntryId> BUCOEN_BUSI_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/reusableComponents/BUCOEN-BUSI-LST", (t, p) -> new BusinessComponentEntryId(t, p));
+    public SomListMetaRef<BusinessComponentEntryId> BUSCOMENT_BUSI_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/reusableComponents/BUSCOMENT-BUSI-LST", (t, p) -> new BusinessComponentEntryId(t, p));
     }
 
-    public SomListMetaRef<InfrastructureComponentEntryId> INCOEN_INFR_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/reusableComponents/INCOEN-INFR-LST", (t, p) -> new InfrastructureComponentEntryId(t, p));
+    public SomListMetaRef<InfrastructureComponentEntryId> INFCOMENT_INFR_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/softwareDesign/reusableComponents/INFCOMENT-INFR-LST", (t, p) -> new InfrastructureComponentEntryId(t, p));
     }
 
     public SomListMetaRef<ThirdPartyLibraryEntryId> THPALI_THIR_LST() {
@@ -118744,36 +118744,36 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/softwareDesign/reusableComponents/registry/COREUP");
     }
 
-    public SomListMetaRef<OsCompatibilityEntryId> OSCOEN_OSCO_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/compatibilityRequirements/OSCOEN-OSCO-LST", (t, p) -> new OsCompatibilityEntryId(t, p));
+    public SomListMetaRef<OsCompatibilityEntryId> OCE_OSCO_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/compatibilityRequirements/OCE-OSCO-LST", (t, p) -> new OsCompatibilityEntryId(t, p));
     }
 
-    public SomListMetaRef<BrowserCompatibilityEntryId> BRCOEN_BROW_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/compatibilityRequirements/BRCOEN-BROW-LST", (t, p) -> new BrowserCompatibilityEntryId(t, p));
+    public SomListMetaRef<BrowserCompatibilityEntryId> BROCOMENT_BROW_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/compatibilityRequirements/BROCOMENT-BROW-LST", (t, p) -> new BrowserCompatibilityEntryId(t, p));
     }
 
-    public SomListMetaRef<DatabaseCompatibilityEntryId> DACOEN_DATA_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/compatibilityRequirements/DACOEN-DATA-LST", (t, p) -> new DatabaseCompatibilityEntryId(t, p));
+    public SomListMetaRef<DatabaseCompatibilityEntryId> DATCOMENT_DATA_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/compatibilityRequirements/DATCOMENT-DATA-LST", (t, p) -> new DatabaseCompatibilityEntryId(t, p));
     }
 
-    public SomListMetaRef<EnterpriseSystemCompatibilityEntryId> ESCE_ENTE_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/compatibilityRequirements/ESCE-ENTE-LST", (t, p) -> new EnterpriseSystemCompatibilityEntryId(t, p));
+    public SomListMetaRef<EnterpriseSystemCompatibilityEntryId> ENSYCOEN_ENTE_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/compatibilityRequirements/ENSYCOEN-ENTE-LST", (t, p) -> new EnterpriseSystemCompatibilityEntryId(t, p));
     }
 
     public SomListMetaRef<ApiCompatibilityEntryId> APCP_APIC_LST() {
       return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/compatibilityRequirements/APCP-APIC-LST", (t, p) -> new ApiCompatibilityEntryId(t, p));
     }
 
-    public SomListMetaRef<LegacyCompatibilityEntryId> LECOEN_LEGA_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/compatibilityRequirements/LECOEN-LEGA-LST", (t, p) -> new LegacyCompatibilityEntryId(t, p));
+    public SomListMetaRef<LegacyCompatibilityEntryId> LCE_LEGA_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/compatibilityRequirements/LCE-LEGA-LST", (t, p) -> new LegacyCompatibilityEntryId(t, p));
     }
 
-    public SomListMetaRef<MobileCompatibilityEntryId> MOCOEN_MOBI_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/compatibilityRequirements/MOCOEN-MOBI-LST", (t, p) -> new MobileCompatibilityEntryId(t, p));
+    public SomListMetaRef<MobileCompatibilityEntryId> MOBCOMENT_MOBI_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/compatibilityRequirements/MOBCOMENT-MOBI-LST", (t, p) -> new MobileCompatibilityEntryId(t, p));
     }
 
-    public SomListMetaRef<ThirdPartyCompatibilityEntryId> TPCE_THIR_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/compatibilityRequirements/TPCE-THIR-LST", (t, p) -> new ThirdPartyCompatibilityEntryId(t, p));
+    public SomListMetaRef<ThirdPartyCompatibilityEntryId> THPACOEN_THIR_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/compatibilityRequirements/THPACOEN-THIR-LST", (t, p) -> new ThirdPartyCompatibilityEntryId(t, p));
     }
 
     public SomMetaRef DFCF() {
@@ -118824,24 +118824,24 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/standardSoftware/compatibilityRequirements/interoperability/INREGO");
     }
 
-    public SomListMetaRef<ItStandardComplianceEntryId> ISCE_ITST_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/standardsCompliance/ISCE-ITST-LST", (t, p) -> new ItStandardComplianceEntryId(t, p));
+    public SomListMetaRef<ItStandardComplianceEntryId> ITSTCOEN_ITST_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/standardsCompliance/ITSTCOEN-ITST-LST", (t, p) -> new ItStandardComplianceEntryId(t, p));
     }
 
-    public SomListMetaRef<IndustryProtocolComplianceEntryId> IPCE_INDU_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/standardsCompliance/IPCE-INDU-LST", (t, p) -> new IndustryProtocolComplianceEntryId(t, p));
+    public SomListMetaRef<IndustryProtocolComplianceEntryId> INPRCOEN_INDU_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/standardsCompliance/INPRCOEN-INDU-LST", (t, p) -> new IndustryProtocolComplianceEntryId(t, p));
     }
 
-    public SomListMetaRef<InterfaceSpecificationEntryId> INSPEN_INTE_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/standardsCompliance/INSPEN-INTE-LST", (t, p) -> new InterfaceSpecificationEntryId(t, p));
+    public SomListMetaRef<InterfaceSpecificationEntryId> INTSPEENT_INTE_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/standardsCompliance/INTSPEENT-INTE-LST", (t, p) -> new InterfaceSpecificationEntryId(t, p));
     }
 
-    public SomListMetaRef<RegulatoryComplianceEntryId> RECOEN_REGU_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/standardsCompliance/RECOEN-REGU-LST", (t, p) -> new RegulatoryComplianceEntryId(t, p));
+    public SomListMetaRef<RegulatoryComplianceEntryId> RCE_REGU_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/standardsCompliance/RCE-REGU-LST", (t, p) -> new RegulatoryComplianceEntryId(t, p));
     }
 
-    public SomListMetaRef<SecurityStandardComplianceEntryId> SSCE_SECU_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/standardsCompliance/SSCE-SECU-LST", (t, p) -> new SecurityStandardComplianceEntryId(t, p));
+    public SomListMetaRef<SecurityStandardComplianceEntryId> SESTCOEN_SECU_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/standardSoftware/standardsCompliance/SESTCOEN-SECU-LST", (t, p) -> new SecurityStandardComplianceEntryId(t, p));
     }
 
     public SomListMetaRef<AccessibilityStandardEntryId> ACCSTD_ACCE_LST() {
@@ -118924,12 +118924,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/standardSoftware/standardsCompliance/complianceVerification/CVSC");
     }
 
-    public SomListMetaRef<ServerEnvironmentEntryId> SEENEN_ENVI_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/hardware/serverRequirements/SEENEN-ENVI-LST", (t, p) -> new ServerEnvironmentEntryId(t, p));
+    public SomListMetaRef<ServerEnvironmentEntryId> SEE_ENVI_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/hardware/serverRequirements/SEE-ENVI-LST", (t, p) -> new ServerEnvironmentEntryId(t, p));
     }
 
-    public SomListMetaRef<ServerRoleEntryId> SEROEN_SERV_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/hardware/serverRequirements/SEROEN-SERV-LST", (t, p) -> new ServerRoleEntryId(t, p));
+    public SomListMetaRef<ServerRoleEntryId> SRE_SERV_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/hardware/serverRequirements/SRE-SERV-LST", (t, p) -> new ServerRoleEntryId(t, p));
     }
 
     public SomMetaRef CRRM() {
@@ -119056,16 +119056,16 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/technicalFramework/hardware/clientRequirements/CLIAPP-CLIE-LST", (t, p) -> new ClientApplicationEntryId(t, p));
     }
 
-    public SomListMetaRef<BrowserRequirementEntryId> BRREEN_BROW_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/hardware/clientRequirements/BRREEN-BROW-LST", (t, p) -> new BrowserRequirementEntryId(t, p));
+    public SomListMetaRef<BrowserRequirementEntryId> BROREQENT_BROW_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/hardware/clientRequirements/BROREQENT-BROW-LST", (t, p) -> new BrowserRequirementEntryId(t, p));
     }
 
-    public SomListMetaRef<DesktopOsRequirementEntryId> DORE1_DESK_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/hardware/clientRequirements/DORE1-DESK-LST", (t, p) -> new DesktopOsRequirementEntryId(t, p));
+    public SomListMetaRef<DesktopOsRequirementEntryId> DEOSREEN_DESK_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/hardware/clientRequirements/DEOSREEN-DESK-LST", (t, p) -> new DesktopOsRequirementEntryId(t, p));
     }
 
-    public SomListMetaRef<MobileDeviceRequirementEntryId> MDRE_MOBI_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/hardware/clientRequirements/MDRE-MOBI-LST", (t, p) -> new MobileDeviceRequirementEntryId(t, p));
+    public SomListMetaRef<MobileDeviceRequirementEntryId> MODEREEN_MOBI_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/hardware/clientRequirements/MODEREEN-MOBI-LST", (t, p) -> new MobileDeviceRequirementEntryId(t, p));
     }
 
     public SomMetaRef DIRELA() {
@@ -119272,8 +119272,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/hardware/networkRequirements/availabilityRequirements/NART");
     }
 
-    public SomListMetaRef<VpnRequirementEntryId> VPREEN_VPNR_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/hardware/networkRequirements/VPREEN-VPNR-LST", (t, p) -> new VpnRequirementEntryId(t, p));
+    public SomListMetaRef<VpnRequirementEntryId> VRE_VPNR_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/hardware/networkRequirements/VRE-VPNR-LST", (t, p) -> new VpnRequirementEntryId(t, p));
     }
 
     public SomMetaRef FIRERU() {
@@ -119364,8 +119364,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/operations/backupAndRecovery/dataClassification/BDCE");
     }
 
-    public SomListMetaRef<BackupPolicyEntryId> BAPOEN_BACK_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/operations/backupAndRecovery/BAPOEN-BACK-LST", (t, p) -> new BackupPolicyEntryId(t, p));
+    public SomListMetaRef<BackupPolicyEntryId> BPE_BACK_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/operations/backupAndRecovery/BPE-BACK-LST", (t, p) -> new BackupPolicyEntryId(t, p));
     }
 
     public SomMetaRef RRRBT() {
@@ -119660,8 +119660,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/operations/monitoringAndAlerting/alerting/ALRERE");
     }
 
-    public SomListMetaRef<AlertDefinitionEntryId> ALDEEN_ALER_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/operations/monitoringAndAlerting/ALDEEN-ALER-LST", (t, p) -> new AlertDefinitionEntryId(t, p));
+    public SomListMetaRef<AlertDefinitionEntryId> ALEDEFENT_ALER_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/operations/monitoringAndAlerting/ALEDEFENT-ALER-LST", (t, p) -> new AlertDefinitionEntryId(t, p));
     }
 
     public SomMetaRef DAREST() {
@@ -119744,8 +119744,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/operations/maintenanceWindows/scheduledMaintenance/SMPA");
     }
 
-    public SomListMetaRef<MaintenanceWindowEntryId> MAWIEN_MAIN_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/operations/maintenanceWindows/MAWIEN-MAIN-LST", (t, p) -> new MaintenanceWindowEntryId(t, p));
+    public SomListMetaRef<MaintenanceWindowEntryId> MWE_MAIN_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/operations/maintenanceWindows/MWE-MAIN-LST", (t, p) -> new MaintenanceWindowEntryId(t, p));
     }
 
     public SomMetaRef EMPG() {
@@ -119796,8 +119796,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/operations/maintenanceWindows/postMaintenance/PMVC");
     }
 
-    public SomListMetaRef<ProtocolEntryId> PREN_PROT_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/communication/protocolsAndStandards/PREN-PROT-LST", (t, p) -> new ProtocolEntryId(t, p));
+    public SomListMetaRef<ProtocolEntryId> PE_PROT_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/communication/protocolsAndStandards/PE-PROT-LST", (t, p) -> new ProtocolEntryId(t, p));
     }
 
     public SomMetaRef TRCS() {
@@ -119884,8 +119884,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/communication/protocolsAndStandards/compliance/PCRE");
     }
 
-    public SomListMetaRef<ExternalPartnerConnectionEntryId> EPCE_PART_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/communication/externalConnectivity/EPCE-PART-LST", (t, p) -> new ExternalPartnerConnectionEntryId(t, p));
+    public SomListMetaRef<ExternalPartnerConnectionEntryId> EXPACOEN_PART_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/communication/externalConnectivity/EXPACOEN-PART-LST", (t, p) -> new ExternalPartnerConnectionEntryId(t, p));
     }
 
     public SomMetaRef CSIS() {
@@ -120036,8 +120036,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/systemOperation/systemOperation/administrationRequirements/diagnosticTools/SDTSS");
     }
 
-    public SomListMetaRef<SomMetaRef> MAINT_MAIN_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/systemOperation/systemOperation/MAINT-MAIN-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SO_MAIN_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/systemOperation/systemOperation/SO-MAIN-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef MONITO_MONI() {
@@ -120124,8 +120124,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/notificationChannels/ANCF");
     }
 
-    public SomListMetaRef<AlertRuleEntryId> ALRUEN_ALER_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALRUEN-ALER-LST", (t, p) -> new AlertRuleEntryId(t, p));
+    public SomListMetaRef<AlertRuleEntryId> ALERULENT_ALER_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/systemOperation/monitoring/alertingConfiguration/ALERULENT-ALER-LST", (t, p) -> new AlertRuleEntryId(t, p));
     }
 
     public SomMetaRef AEPT() {
@@ -120208,16 +120208,16 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/distributedTracing/DTSO");
     }
 
-    public SomListMetaRef<CustomMetricEntryId> CUMEEN_CUST_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUMEEN-CUST-LST", (t, p) -> new CustomMetricEntryId(t, p));
+    public SomListMetaRef<CustomMetricEntryId> CUSMETENT_CUST_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/systemOperation/monitoring/metricsAndObservability/CUSMETENT-CUST-LST", (t, p) -> new CustomMetricEntryId(t, p));
     }
 
     public SomMetaRef MODA_DASH() {
       return new SomMetaRef(tree, path + "/technicalFramework/systemOperation/monitoring/dashboards/MODA-DASH");
     }
 
-    public SomListMetaRef<DashboardEntryId> DAEN_DASH_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/systemOperation/monitoring/dashboards/DAEN-DASH-LST", (t, p) -> new DashboardEntryId(t, p));
+    public SomListMetaRef<DashboardEntryId> DASENT_DASH_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/systemOperation/monitoring/dashboards/DASENT-DASH-LST", (t, p) -> new DashboardEntryId(t, p));
     }
 
     public SomListMetaRef<DashboardTemplatesId> DATE_DASH_LST() {
@@ -120240,8 +120240,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/slis/SLIM");
     }
 
-    public SomListMetaRef<SloEntryId> SLEN_SLOS_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SLEN-SLOS-LST", (t, p) -> new SloEntryId(t, p));
+    public SomListMetaRef<SloEntryId> SE_SLOS_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/systemOperation/monitoring/slaAndSloMonitoring/SE-SLOS-LST", (t, p) -> new SloEntryId(t, p));
     }
 
     public SomMetaRef EBTM() {
@@ -120336,8 +120336,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/systemOperation/capacityPlanning/capacityReview/CRPP");
     }
 
-    public SomListMetaRef<SecurityStandardEntryId> SESTEN_STAN_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/security/itSecurityStandards/SESTEN-STAN-LST", (t, p) -> new SecurityStandardEntryId(t, p));
+    public SomListMetaRef<SecurityStandardEntryId> SSE_STAN_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/security/itSecurityStandards/SSE-STAN-LST", (t, p) -> new SecurityStandardEntryId(t, p));
     }
 
     public SomMetaRef ASRC() {
@@ -120604,8 +120604,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalFramework/security/securityAuditRequirements/securityTestingAutomation/STAG");
     }
 
-    public SomListMetaRef<SecurityAuditEntryId> SEAUEN_AUDI_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalFramework/security/securityAuditRequirements/SEAUEN-AUDI-LST", (t, p) -> new SecurityAuditEntryId(t, p));
+    public SomListMetaRef<SecurityAuditEntryId> SAE_AUDI_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalFramework/security/securityAuditRequirements/SAE-AUDI-LST", (t, p) -> new SecurityAuditEntryId(t, p));
     }
 
     public SomListMetaRef<UserCategoryDefinitionId> USCDF_ITEM_LST() {
@@ -120692,16 +120692,16 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/accessControl/authentication/identification/IDTAM-ATTR-LST", (t, p) -> new IdentityAttributeMappingEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> MFADE_MFAD_LST() {
-      return new SomListMetaRef<>(tree, path + "/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MFADE-MFAD-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> MC_MFAD_LST() {
+      return new SomListMetaRef<>(tree, path + "/accessControl/authentication/authentication/authenticationMethods/mfaConfiguration/MC-MFAD-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<AuthenticationMethodEntryId> ATME_ITEM_LST() {
       return new SomListMetaRef<>(tree, path + "/accessControl/authentication/authentication/authenticationMethods/ATME-ITEM-LST", (t, p) -> new AuthenticationMethodEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> STEPU_STEP_LST() {
-      return new SomListMetaRef<>(tree, path + "/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/STEPU-STEP-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SUAP_STEP_LST() {
+      return new SomListMetaRef<>(tree, path + "/accessControl/authentication/authentication/authenticationFlow/stepUpAuthentication/SUAP-STEP-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<LoginFlowStepEntryId> LGFLS_LOGI_LST() {
@@ -120748,8 +120748,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/auditAndLogging/securityEvents/SEVT-CUST-LST", (t, p) -> new SecurityEventEntryId(t, p));
     }
 
-    public SomListMetaRef<ReportEntryId> REEN_REPO_LST() {
-      return new SomListMetaRef<>(tree, path + "/reportDefinitions/REEN-REPO-LST", (t, p) -> new ReportEntryId(t, p));
+    public SomListMetaRef<ReportEntryId> REPENT_REPO_LST() {
+      return new SomListMetaRef<>(tree, path + "/reportDefinitions/REPENT-REPO-LST", (t, p) -> new ReportEntryId(t, p));
     }
 
     public SomListMetaRef<MigrationTargetEntryId> MIGTG_TARG_LST() {
@@ -120808,8 +120808,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/screens/screenInventory/SCREN-ITEM-LST", (t, p) -> new ScreenEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> GLOBA_GLOB_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/screens/informationArchitecture/GLOBA-GLOB-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> IA_GLOB_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/screens/informationArchitecture/IA-GLOB-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<NavigationGroupEntryId> NAVGRP_GROU_LST() {
@@ -120828,12 +120828,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/experienceCodeSpecs/screenFlow/navigationModel/primaryNavigation/PRNASI");
     }
 
-    public SomListMetaRef<TabBarDefinitionEntryId> TBDE_TABB_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TBDE-TABB-LST", (t, p) -> new TabBarDefinitionEntryId(t, p));
+    public SomListMetaRef<TabBarDefinitionEntryId> TABADEEN_TABB_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/screenFlow/navigationModel/secondaryNavigation/TABADEEN-TABB-LST", (t, p) -> new TabBarDefinitionEntryId(t, p));
     }
 
-    public SomListMetaRef<UtilityNavigationItemEntryId> UNIE_ITEM_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UNIE-ITEM-LST", (t, p) -> new UtilityNavigationItemEntryId(t, p));
+    public SomListMetaRef<UtilityNavigationItemEntryId> UTNAITEN_ITEM_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/screenFlow/navigationModel/utilityNavigation/UTNAITEN-ITEM-LST", (t, p) -> new UtilityNavigationItemEntryId(t, p));
     }
 
     public SomMetaRef BRCO() {
@@ -120896,12 +120896,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/experienceCodeSpecs/errorHandling/validationFeedback/VAFEBE");
     }
 
-    public SomListMetaRef<ValidationMessageTemplateId> VAMETE_MESS_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/errorHandling/validationFeedback/VAMETE-MESS-LST", (t, p) -> new ValidationMessageTemplateId(t, p));
+    public SomListMetaRef<ValidationMessageTemplateId> VMT_MESS_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/errorHandling/validationFeedback/VMT-MESS-LST", (t, p) -> new ValidationMessageTemplateId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> FIELD_FIEL_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/errorHandling/validationFeedback/FIELD-FIEL-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> VAFE_FIEL_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/errorHandling/validationFeedback/VAFE-FIEL-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef SYERDI_SYST() {
@@ -120924,12 +120924,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/SEDF");
     }
 
-    public SomListMetaRef<SomMetaRef> EPDE_ERRO_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/EPDE-ERRO-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SYERDI_ERRO_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERDI-ERRO-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SystemErrorCodeEntryId> SECE_ERRO_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/SECE-ERRO-LST", (t, p) -> new SystemErrorCodeEntryId(t, p));
+    public SomListMetaRef<SystemErrorCodeEntryId> SYERCOEN_ERRO_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/errorHandling/systemErrorDisplay/SYERCOEN-ERRO-LST", (t, p) -> new SystemErrorCodeEntryId(t, p));
     }
 
     public SomMetaRef ERRE_RECO() {
@@ -120956,8 +120956,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERSH");
     }
 
-    public SomListMetaRef<SomMetaRef> RECOV_RECO_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/errorHandling/errorRecovery/RECOV-RECO-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> ERRE_RECO_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/errorHandling/errorRecovery/ERRE-RECO-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<RecoveryScenarioEntryId> RCVSCN_RECO_LST() {
@@ -120972,8 +120972,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/experienceCodeSpecs/responsiveDesign/breakpointConfig/BC-BREA");
     }
 
-    public SomListMetaRef<BreakpointEntryId> BRE_BREA_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/responsiveDesign/breakpointConfig/BRE-BREA-LST", (t, p) -> new BreakpointEntryId(t, p));
+    public SomListMetaRef<BreakpointEntryId> BE_BREA_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/responsiveDesign/breakpointConfig/BE-BREA-LST", (t, p) -> new BreakpointEntryId(t, p));
     }
 
     public SomMetaRef REBE_LAYO() {
@@ -121048,8 +121048,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/uiComponents/componentLibrary/TYST-TYPO-LST", (t, p) -> new TypographyStyleEntryId(t, p));
     }
 
-    public SomListMetaRef<UiComponentEntryId> UICOEN_COMP_LST() {
-      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/uiComponents/UICOEN-COMP-LST", (t, p) -> new UiComponentEntryId(t, p));
+    public SomListMetaRef<UiComponentEntryId> UICOMENT_COMP_LST() {
+      return new SomListMetaRef<>(tree, path + "/experienceCodeSpecs/uiComponents/UICOMENT-COMP-LST", (t, p) -> new UiComponentEntryId(t, p));
     }
 
     public SomListMetaRef<ComponentFamilyEntryId> CMFA_COMP_LST() {
@@ -121552,8 +121552,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/DEPOENCR");
     }
 
-    public SomListMetaRef<DecisionOptionEntryId> DEOPEN_OPTI_LST() {
-      return new SomListMetaRef<>(tree, path + "/resolution/DEOPEN-OPTI-LST", (t, p) -> new DecisionOptionEntryId(t, p));
+    public SomListMetaRef<DecisionOptionEntryId> DOE_OPTI_LST() {
+      return new SomListMetaRef<>(tree, path + "/resolution/DOE-OPTI-LST", (t, p) -> new DecisionOptionEntryId(t, p));
     }
   }
 
@@ -122482,8 +122482,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/access/gradedRequirement/AZLVL-LEVE-LST", (t, p) -> new GradedAccessLevelEntryId(t, p));
     }
 
-    public SomListMetaRef<ExportFieldMappingEntryId> EFME_FIEL_LST() {
-      return new SomListMetaRef<>(tree, path + "/EFME-FIEL-LST", (t, p) -> new ExportFieldMappingEntryId(t, p));
+    public SomListMetaRef<ExportFieldMappingEntryId> EXFIMAEN_FIEL_LST() {
+      return new SomListMetaRef<>(tree, path + "/EXFIMAEN-FIEL-LST", (t, p) -> new ExportFieldMappingEntryId(t, p));
     }
   }
 
@@ -122588,8 +122588,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/EAEC");
     }
 
-    public SomListMetaRef<SomMetaRef> INTER_INTE_LST() {
-      return new SomListMetaRef<>(tree, path + "/INTER-INTE-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> EAE_INTE_LST() {
+      return new SomListMetaRef<>(tree, path + "/EAE-INTE-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -122606,8 +122606,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/EIE-IDEN");
     }
 
-    public SomListMetaRef<InterfaceBusinessProcessEntryId> IBPE_DEPE_LST() {
-      return new SomListMetaRef<>(tree, path + "/businessContext/IBPE-DEPE-LST", (t, p) -> new InterfaceBusinessProcessEntryId(t, p));
+    public SomListMetaRef<InterfaceBusinessProcessEntryId> INBUPREN_DEPE_LST() {
+      return new SomListMetaRef<>(tree, path + "/businessContext/INBUPREN-DEPE-LST", (t, p) -> new InterfaceBusinessProcessEntryId(t, p));
     }
 
     public SomMetaRef ITSC() {
@@ -122618,24 +122618,24 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalSpec/ITSE");
     }
 
-    public SomListMetaRef<InterfaceOperationEntryId> INOPEN_OPER_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalSpec/INOPEN-OPER-LST", (t, p) -> new InterfaceOperationEntryId(t, p));
+    public SomListMetaRef<InterfaceOperationEntryId> IOE_OPER_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalSpec/IOE-OPER-LST", (t, p) -> new InterfaceOperationEntryId(t, p));
     }
 
     public SomMetaRef INWESP() {
       return new SomMetaRef(tree, path + "/technicalSpec/INWESP");
     }
 
-    public SomListMetaRef<InterfaceDataEntityEntryId> IDEE_DATA_LST() {
-      return new SomListMetaRef<>(tree, path + "/dataSpec/IDEE-DATA-LST", (t, p) -> new InterfaceDataEntityEntryId(t, p));
+    public SomListMetaRef<InterfaceDataEntityEntryId> INDAENEN_DATA_LST() {
+      return new SomListMetaRef<>(tree, path + "/dataSpec/INDAENEN-DATA-LST", (t, p) -> new InterfaceDataEntityEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> MAPPI_MAPP_LST() {
-      return new SomListMetaRef<>(tree, path + "/dataSpec/MAPPI-MAPP-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> INDASP_MAPP_LST() {
+      return new SomListMetaRef<>(tree, path + "/dataSpec/INDASP-MAPP-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> VALID_VALI_LST() {
-      return new SomListMetaRef<>(tree, path + "/dataSpec/VALID-VALI-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> INDASP_VALI_LST() {
+      return new SomListMetaRef<>(tree, path + "/dataSpec/INDASP-VALI-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef INSEAU() {
@@ -122662,8 +122662,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/operational/INOPSU");
     }
 
-    public SomListMetaRef<SomMetaRef> DEPEN_DEPE_LST() {
-      return new SomListMetaRef<>(tree, path + "/operational/DEPEN-DEPE-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> INOP_DEPE_LST() {
+      return new SomListMetaRef<>(tree, path + "/operational/INOP-DEPE-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef IEHR() {
@@ -122678,8 +122678,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/errorHandling/IEHT");
     }
 
-    public SomListMetaRef<SomMetaRef> ERROR_ERRO_LST() {
-      return new SomListMetaRef<>(tree, path + "/errorHandling/ERROR-ERRO-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> INERHA_ERRO_LST() {
+      return new SomListMetaRef<>(tree, path + "/errorHandling/INERHA-ERRO-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef INGOCO() {
@@ -122698,8 +122698,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/testing/INTEST");
     }
 
-    public SomListMetaRef<InterfaceTestScenarioEntryId> ITSE1_TEST_LST() {
-      return new SomListMetaRef<>(tree, path + "/testing/ITSE1-TEST-LST", (t, p) -> new InterfaceTestScenarioEntryId(t, p));
+    public SomListMetaRef<InterfaceTestScenarioEntryId> INTESCEN_TEST_LST() {
+      return new SomListMetaRef<>(tree, path + "/testing/INTESCEN-TEST-LST", (t, p) -> new InterfaceTestScenarioEntryId(t, p));
     }
   }
 
@@ -123078,8 +123078,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/FREM");
     }
 
-    public SomListMetaRef<AcceptanceCriterionEntryId> ACCR_CRIT_LST() {
-      return new SomListMetaRef<>(tree, path + "/acceptanceCriteria/ACCR-CRIT-LST", (t, p) -> new AcceptanceCriterionEntryId(t, p));
+    public SomListMetaRef<AcceptanceCriterionEntryId> ACE_CRIT_LST() {
+      return new SomListMetaRef<>(tree, path + "/acceptanceCriteria/ACE-CRIT-LST", (t, p) -> new AcceptanceCriterionEntryId(t, p));
     }
 
     public SomListMetaRef<RequirementBusinessRuleEntryId> RQBIRU_RULE_LST() {
@@ -123102,8 +123102,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/uiSpecification/RUS-MOCK");
     }
 
-    public SomListMetaRef<ScreenFieldEntryId> SCFLD_FIEL_LST() {
-      return new SomListMetaRef<>(tree, path + "/uiSpecification/SCFLD-FIEL-LST", (t, p) -> new ScreenFieldEntryId(t, p));
+    public SomListMetaRef<ScreenFieldEntryId> SFE_FIEL_LST() {
+      return new SomListMetaRef<>(tree, path + "/uiSpecification/SFE-FIEL-LST", (t, p) -> new ScreenFieldEntryId(t, p));
     }
 
     public SomListMetaRef<RequirementScreenActionEntryId> RQSCAC_ACTI_LST() {
@@ -124782,8 +124782,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/OREP");
     }
 
-    public SomListMetaRef<AcceptanceCriterionEntryId> ACCR_CRIT_LST() {
-      return new SomListMetaRef<>(tree, path + "/acceptanceCriteria/ACCR-CRIT-LST", (t, p) -> new AcceptanceCriterionEntryId(t, p));
+    public SomListMetaRef<AcceptanceCriterionEntryId> ACE_CRIT_LST() {
+      return new SomListMetaRef<>(tree, path + "/acceptanceCriteria/ACE-CRIT-LST", (t, p) -> new AcceptanceCriterionEntryId(t, p));
     }
 
     public SomMetaRef ORIP_PLAN() {
@@ -125940,24 +125940,24 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/RELI");
     }
 
-    public SomListMetaRef<ReportSectionEntryId> RESEE1_SECT_LST() {
-      return new SomListMetaRef<>(tree, path + "/RESEE1-SECT-LST", (t, p) -> new ReportSectionEntryId(t, p));
+    public SomListMetaRef<ReportSectionEntryId> RSE_SECT_LST() {
+      return new SomListMetaRef<>(tree, path + "/RSE-SECT-LST", (t, p) -> new ReportSectionEntryId(t, p));
     }
 
-    public SomListMetaRef<ReportFilterEntryId> REFIEN_FILT_LST() {
-      return new SomListMetaRef<>(tree, path + "/REFIEN-FILT-LST", (t, p) -> new ReportFilterEntryId(t, p));
+    public SomListMetaRef<ReportFilterEntryId> RFE_FILT_LST() {
+      return new SomListMetaRef<>(tree, path + "/RFE-FILT-LST", (t, p) -> new ReportFilterEntryId(t, p));
     }
 
-    public SomListMetaRef<ReportScheduleEntryId> RESCEN_SCHE_LST() {
-      return new SomListMetaRef<>(tree, path + "/RESCEN-SCHE-LST", (t, p) -> new ReportScheduleEntryId(t, p));
+    public SomListMetaRef<ReportScheduleEntryId> REPSCHENT_SCHE_LST() {
+      return new SomListMetaRef<>(tree, path + "/REPSCHENT-SCHE-LST", (t, p) -> new ReportScheduleEntryId(t, p));
     }
 
-    public SomListMetaRef<ReportDistributionEntryId> REDIEN_DIST_LST() {
-      return new SomListMetaRef<>(tree, path + "/REDIEN-DIST-LST", (t, p) -> new ReportDistributionEntryId(t, p));
+    public SomListMetaRef<ReportDistributionEntryId> RDE_DIST_LST() {
+      return new SomListMetaRef<>(tree, path + "/RDE-DIST-LST", (t, p) -> new ReportDistributionEntryId(t, p));
     }
 
-    public SomListMetaRef<ReportRecipientEntryId> REREEN_RECI_LST() {
-      return new SomListMetaRef<>(tree, path + "/REREEN-RECI-LST", (t, p) -> new ReportRecipientEntryId(t, p));
+    public SomListMetaRef<ReportRecipientEntryId> RRE_RECI_LST() {
+      return new SomListMetaRef<>(tree, path + "/RRE-RECI-LST", (t, p) -> new ReportRecipientEntryId(t, p));
     }
   }
 
@@ -126080,12 +126080,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/RESEAG");
     }
 
-    public SomListMetaRef<ReportColumnEntryId> RECOE1_COLU_LST() {
-      return new SomListMetaRef<>(tree, path + "/RECOE1-COLU-LST", (t, p) -> new ReportColumnEntryId(t, p));
+    public SomListMetaRef<ReportColumnEntryId> REPCOLENT_COLU_LST() {
+      return new SomListMetaRef<>(tree, path + "/REPCOLENT-COLU-LST", (t, p) -> new ReportColumnEntryId(t, p));
     }
 
-    public SomListMetaRef<ReportChartEntryId> RECHEN_CHAR_LST() {
-      return new SomListMetaRef<>(tree, path + "/RECHEN-CHAR-LST", (t, p) -> new ReportChartEntryId(t, p));
+    public SomListMetaRef<ReportChartEntryId> REPCHAENT_CHAR_LST() {
+      return new SomListMetaRef<>(tree, path + "/REPCHAENT-CHAR-LST", (t, p) -> new ReportChartEntryId(t, p));
     }
   }
 
@@ -126868,8 +126868,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/dataDisplay/SEDDO");
     }
 
-    public SomListMetaRef<ElementValidationRuleEntryId> EVRE_VALI_LST() {
-      return new SomListMetaRef<>(tree, path + "/EVRE-VALI-LST", (t, p) -> new ElementValidationRuleEntryId(t, p));
+    public SomListMetaRef<ElementValidationRuleEntryId> ELVARUEN_VALI_LST() {
+      return new SomListMetaRef<>(tree, path + "/ELVARUEN-VALI-LST", (t, p) -> new ElementValidationRuleEntryId(t, p));
     }
   }
 
@@ -126930,16 +126930,16 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/states/SCRST-ITEM-LST", (t, p) -> new ScreenStateEntryId(t, p));
     }
 
-    public SomListMetaRef<ScreenUserCategoryEntryId> SCRUSC_USER_LST() {
-      return new SomListMetaRef<>(tree, path + "/SCRUSC-USER-LST", (t, p) -> new ScreenUserCategoryEntryId(t, p));
+    public SomListMetaRef<ScreenUserCategoryEntryId> SUCE_USER_LST() {
+      return new SomListMetaRef<>(tree, path + "/SUCE-USER-LST", (t, p) -> new ScreenUserCategoryEntryId(t, p));
     }
 
     public SomListMetaRef<EntryPointEntryId> EPNT_ENTR_LST() {
       return new SomListMetaRef<>(tree, path + "/EPNT-ENTR-LST", (t, p) -> new EntryPointEntryId(t, p));
     }
 
-    public SomListMetaRef<ScreenResponsiveRuleEntryId> SRRE_RESP_LST() {
-      return new SomListMetaRef<>(tree, path + "/SRRE-RESP-LST", (t, p) -> new ScreenResponsiveRuleEntryId(t, p));
+    public SomListMetaRef<ScreenResponsiveRuleEntryId> SCRERUEN_RESP_LST() {
+      return new SomListMetaRef<>(tree, path + "/SCRERUEN-RESP-LST", (t, p) -> new ScreenResponsiveRuleEntryId(t, p));
     }
   }
 
@@ -127140,12 +127140,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/SEREENST");
     }
 
-    public SomListMetaRef<AcceptanceCriterionEntryId> ACCR_CRIT_LST() {
-      return new SomListMetaRef<>(tree, path + "/acceptanceCriteria/ACCR-CRIT-LST", (t, p) -> new AcceptanceCriterionEntryId(t, p));
+    public SomListMetaRef<AcceptanceCriterionEntryId> ACE_CRIT_LST() {
+      return new SomListMetaRef<>(tree, path + "/acceptanceCriteria/ACE-CRIT-LST", (t, p) -> new AcceptanceCriterionEntryId(t, p));
     }
 
-    public SomListMetaRef<SecurityControlEntryId> SECCT_CONT_LST() {
-      return new SomListMetaRef<>(tree, path + "/controls/SECCT-CONT-LST", (t, p) -> new SecurityControlEntryId(t, p));
+    public SomListMetaRef<SecurityControlEntryId> SECOEN_CONT_LST() {
+      return new SomListMetaRef<>(tree, path + "/controls/SECOEN-CONT-LST", (t, p) -> new SecurityControlEntryId(t, p));
     }
 
     public SomListMetaRef<RequirementDependencyEntryId> RQDEP_ITEM_LST() {
@@ -128026,12 +128026,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/SYTS-RELA-REF");
     }
 
-    public SomListMetaRef<SomMetaRef> SYSTE_WORK_LST() {
-      return new SomListMetaRef<>(tree, path + "/SYSTE-WORK-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SYTS_WORK_LST() {
+      return new SomListMetaRef<>(tree, path + "/SYTS-WORK-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> VARIA_VARI_LST() {
-      return new SomListMetaRef<>(tree, path + "/VARIA-VARI-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SYTS_VARI_LST() {
+      return new SomListMetaRef<>(tree, path + "/SYTS-VARI-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -128068,12 +128068,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/technicalAssessment/STAQ");
     }
 
-    public SomListMetaRef<SomMetaRef> KIE_KNOW_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalAssessment/KIE-KNOW-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SYTEAS_KNOW_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalAssessment/SYTEAS-KNOW-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> SECUR_SECU_LST() {
-      return new SomListMetaRef<>(tree, path + "/technicalAssessment/SECUR-SECU-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SYTEAS_SECU_LST() {
+      return new SomListMetaRef<>(tree, path + "/technicalAssessment/SYTEAS-SECU-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef SBCO() {
@@ -128084,12 +128084,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/businessCriticality/SBCG");
     }
 
-    public SomListMetaRef<SystemBusinessUnitEntryId> SBUE_BUSI_LST() {
-      return new SomListMetaRef<>(tree, path + "/businessCriticality/SBUE-BUSI-LST", (t, p) -> new SystemBusinessUnitEntryId(t, p));
+    public SomListMetaRef<SystemBusinessUnitEntryId> SYBUUNEN_BUSI_LST() {
+      return new SomListMetaRef<>(tree, path + "/businessCriticality/SYBUUNEN-BUSI-LST", (t, p) -> new SystemBusinessUnitEntryId(t, p));
     }
 
-    public SomListMetaRef<SystemBusinessProcessEntryId> SBPE_SUPP_LST() {
-      return new SomListMetaRef<>(tree, path + "/businessCriticality/SBPE-SUPP-LST", (t, p) -> new SystemBusinessProcessEntryId(t, p));
+    public SomListMetaRef<SystemBusinessProcessEntryId> SYBUPREN_SUPP_LST() {
+      return new SomListMetaRef<>(tree, path + "/businessCriticality/SYBUPREN-SUPP-LST", (t, p) -> new SystemBusinessProcessEntryId(t, p));
     }
 
     public SomMetaRef SRST() {
@@ -128104,8 +128104,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/replacementStrategy/REPPHS-PHAS-LST", (t, p) -> new ReplacementPhaseEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> PREDE_PRED_LST() {
-      return new SomListMetaRef<>(tree, path + "/replacementStrategy/PREDE-PRED-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SYREST_PRED_LST() {
+      return new SomListMetaRef<>(tree, path + "/replacementStrategy/SYREST-PRED-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef SDSG() {
@@ -128116,12 +128116,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/dataScope/SYDASCMI");
     }
 
-    public SomListMetaRef<DataEntityMigrationEntryId> DEME_ENTI_LST() {
-      return new SomListMetaRef<>(tree, path + "/dataScope/DEME-ENTI-LST", (t, p) -> new DataEntityMigrationEntryId(t, p));
+    public SomListMetaRef<DataEntityMigrationEntryId> DAENMIEN_ENTI_LST() {
+      return new SomListMetaRef<>(tree, path + "/dataScope/DAENMIEN-ENTI-LST", (t, p) -> new DataEntityMigrationEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> KNOWN_KNOW_LST() {
-      return new SomListMetaRef<>(tree, path + "/dataScope/KNOWN-KNOW-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SYDASC_KNOW_LST() {
+      return new SomListMetaRef<>(tree, path + "/dataScope/SYDASC-KNOW-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomListMetaRef<ReplacementSystemDependencyEntryId> REPSDEP_DEPE_LST() {
@@ -128140,8 +128140,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/userImpact/SUIA");
     }
 
-    public SomListMetaRef<UserGroupImpactEntryId> UGIE_USER_LST() {
-      return new SomListMetaRef<>(tree, path + "/userImpact/UGIE-USER-LST", (t, p) -> new UserGroupImpactEntryId(t, p));
+    public SomListMetaRef<UserGroupImpactEntryId> USGRIMEN_USER_LST() {
+      return new SomListMetaRef<>(tree, path + "/userImpact/USGRIMEN-USER-LST", (t, p) -> new UserGroupImpactEntryId(t, p));
     }
 
     public SomMetaRef SCACC() {
@@ -128156,8 +128156,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/costAnalysis/SCAB");
     }
 
-    public SomListMetaRef<SomMetaRef> NONFI_NONF_LST() {
-      return new SomListMetaRef<>(tree, path + "/costAnalysis/NONFI-NONF-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SYCOAN_NONF_LST() {
+      return new SomListMetaRef<>(tree, path + "/costAnalysis/SYCOAN-NONF-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef SMPE() {
@@ -128168,12 +128168,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/migrationPlan/SMPC");
     }
 
-    public SomListMetaRef<SystemMigrationRiskEntryId> SMRE_RISK_LST() {
-      return new SomListMetaRef<>(tree, path + "/migrationPlan/SMRE-RISK-LST", (t, p) -> new SystemMigrationRiskEntryId(t, p));
+    public SomListMetaRef<SystemMigrationRiskEntryId> SYMIRIEN_RISK_LST() {
+      return new SomListMetaRef<>(tree, path + "/migrationPlan/SYMIRIEN-RISK-LST", (t, p) -> new SystemMigrationRiskEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> CRITI_CRIT_LST() {
-      return new SomListMetaRef<>(tree, path + "/knowledgeTransfer/CRITI-CRIT-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> SYKNTR_CRIT_LST() {
+      return new SomListMetaRef<>(tree, path + "/knowledgeTransfer/SYKNTR-CRIT-LST", (t, p) -> new SomMetaRef(t, p));
     }
   }
 
@@ -128216,8 +128216,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/TBDEL");
     }
 
-    public SomListMetaRef<TabItemEntryId> TAITEN_TABS_LST() {
-      return new SomListMetaRef<>(tree, path + "/TAITEN-TABS-LST", (t, p) -> new TabItemEntryId(t, p));
+    public SomListMetaRef<TabItemEntryId> TIE_TABS_LST() {
+      return new SomListMetaRef<>(tree, path + "/TIE-TABS-LST", (t, p) -> new TabItemEntryId(t, p));
     }
   }
 
@@ -128442,8 +128442,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/TREC");
     }
 
-    public SomListMetaRef<AcceptanceCriterionEntryId> ACCR_CRIT_LST() {
-      return new SomListMetaRef<>(tree, path + "/acceptanceCriteria/ACCR-CRIT-LST", (t, p) -> new AcceptanceCriterionEntryId(t, p));
+    public SomListMetaRef<AcceptanceCriterionEntryId> ACE_CRIT_LST() {
+      return new SomListMetaRef<>(tree, path + "/acceptanceCriteria/ACE-CRIT-LST", (t, p) -> new AcceptanceCriterionEntryId(t, p));
     }
 
     public SomListMetaRef<RequirementDependencyEntryId> RQDEP_ITEM_LST() {
@@ -129012,12 +129012,12 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/UICOMENT-DATA");
     }
 
-    public SomListMetaRef<ComponentStateEntryId> CMST_STAT_LST() {
-      return new SomListMetaRef<>(tree, path + "/CMST-STAT-LST", (t, p) -> new ComponentStateEntryId(t, p));
+    public SomListMetaRef<ComponentStateEntryId> COMSTAENT_STAT_LST() {
+      return new SomListMetaRef<>(tree, path + "/COMSTAENT-STAT-LST", (t, p) -> new ComponentStateEntryId(t, p));
     }
 
-    public SomListMetaRef<ComponentVariantEntryId> CMVN_VARI_LST() {
-      return new SomListMetaRef<>(tree, path + "/CMVN-VARI-LST", (t, p) -> new ComponentVariantEntryId(t, p));
+    public SomListMetaRef<ComponentVariantEntryId> CVE_VARI_LST() {
+      return new SomListMetaRef<>(tree, path + "/CVE-VARI-LST", (t, p) -> new ComponentVariantEntryId(t, p));
     }
 
     public SomListMetaRef<ComponentActionEntryId> CMAC_ACTI_LST() {
@@ -129090,8 +129090,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/personaDetails/UPD-VISU");
     }
 
-    public SomListMetaRef<SomMetaRef> REPRE_REPR_LST() {
-      return new SomListMetaRef<>(tree, path + "/personaDetails/REPRE-REPR-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> UPD_REPR_LST() {
+      return new SomListMetaRef<>(tree, path + "/personaDetails/UPD-REPR-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef UCRE() {
@@ -129138,12 +129138,12 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/userJourney/JRNST-STAG-LST", (t, p) -> new JourneyStageEntryId(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> KEYTO_KEYT_LST() {
-      return new SomListMetaRef<>(tree, path + "/userJourney/KEYTO-KEYT-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> UJ_KEYT_LST() {
+      return new SomListMetaRef<>(tree, path + "/userJourney/UJ-KEYT-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
-    public SomListMetaRef<SomMetaRef> USERJ_PAIN_LST() {
-      return new SomListMetaRef<>(tree, path + "/userJourney/USERJ-PAIN-LST", (t, p) -> new SomMetaRef(t, p));
+    public SomListMetaRef<SomMetaRef> UJ_PAIN_LST() {
+      return new SomListMetaRef<>(tree, path + "/userJourney/UJ-PAIN-LST", (t, p) -> new SomMetaRef(t, p));
     }
 
     public SomMetaRef UJ_OPPO() {
@@ -129286,8 +129286,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/UNIEB");
     }
 
-    public SomListMetaRef<UtilityMenuItemEntryId> UMIE_MENU_LST() {
-      return new SomListMetaRef<>(tree, path + "/UMIE-MENU-LST", (t, p) -> new UtilityMenuItemEntryId(t, p));
+    public SomListMetaRef<UtilityMenuItemEntryId> UTMEITEN_MENU_LST() {
+      return new SomListMetaRef<>(tree, path + "/UTMEITEN-MENU-LST", (t, p) -> new UtilityMenuItemEntryId(t, p));
     }
   }
 
@@ -129528,8 +129528,8 @@ public final class TomSomV0Meta {
       return new SomListMetaRef<>(tree, path + "/equipmentRequirements/DSEQ-DISP-LST", (t, p) -> new DisplayEquipmentEntryId(t, p));
     }
 
-    public SomListMetaRef<InputDeviceEntryId> INPDE_INPU_LST() {
-      return new SomListMetaRef<>(tree, path + "/equipmentRequirements/INPDE-INPU-LST", (t, p) -> new InputDeviceEntryId(t, p));
+    public SomListMetaRef<InputDeviceEntryId> IDE_INPU_LST() {
+      return new SomListMetaRef<>(tree, path + "/equipmentRequirements/IDE-INPU-LST", (t, p) -> new InputDeviceEntryId(t, p));
     }
 
     public SomListMetaRef<PeripheralEquipmentEntryId> PEREQ_PERI_LST() {
@@ -129568,8 +129568,8 @@ public final class TomSomV0Meta {
       return new SomMetaRef(tree, path + "/trainingRequirements/TROV");
     }
 
-    public SomListMetaRef<InitialTrainingEntryId> INITR_INIT_LST() {
-      return new SomListMetaRef<>(tree, path + "/trainingRequirements/INITR-INIT-LST", (t, p) -> new InitialTrainingEntryId(t, p));
+    public SomListMetaRef<InitialTrainingEntryId> ITE_INIT_LST() {
+      return new SomListMetaRef<>(tree, path + "/trainingRequirements/ITE-INIT-LST", (t, p) -> new InitialTrainingEntryId(t, p));
     }
 
     public SomListMetaRef<OngoingTrainingEntryId> ONGTR_ONGO_LST() {

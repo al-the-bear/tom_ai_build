@@ -256,7 +256,7 @@ function main() {
 
   metaNode('SBP');
   metaNode('SBP/documentControl');
-  metaNode('SBP/documentControl/RVHST-REVS-LST');
+  metaNode('SBP/documentControl/RVENT-REVS-LST');
   metaNode('SBP/introductionAndScope');
   metaNode('SBP/introductionAndScope/goals');
   metaNode('SBP/introductionAndScope/goals/content');
@@ -303,7 +303,7 @@ function main() {
 
   metaForm(
     'SBP/introductionAndScope/requirements/functionalRequirements/FRE-REQU-LST');
-  metaForm('SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CV-CHAR-LST');
+  metaForm('SBP/qualityAndAcceptanceModel/iso25010Coverage/I25CE-CHAR-LST');
   metaForm('SBP/experienceAndInterfaceDesign/experienceCodeSpecs/screenFlow/' +
     'screenRouteMap/SCTREN-TRAN-LST');
 
@@ -346,9 +346,9 @@ function main() {
   }
 
   metaId(m.SBP, m.d00SolutionBlueprint);
-  metaId(m.SBP.RVHST_REVS_LST,
+  metaId(m.SBP.RVENT_REVS_LST,
     m.d00SolutionBlueprint.documentControl.revisionHistory);
-  metaId(m.SBP.RVHST_REVS_LST.item(0),
+  metaId(m.SBP.RVENT_REVS_LST.item(0),
     m.d00SolutionBlueprint.documentControl.revisionHistory.item(0));
 
   out.push('SECTION\tdocspecs');

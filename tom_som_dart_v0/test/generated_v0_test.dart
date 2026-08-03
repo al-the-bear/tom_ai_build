@@ -432,7 +432,7 @@ void main() {
           reason: 'nav did not resolve to the byPath node');
 
       // Hoisted-id accessor agrees with the dot-notation position.
-      final idRef = SBP.RVHST_REVS_LST.item(0);
+      final idRef = SBP.RVENT_REVS_LST.item(0);
       final navItem =
           d00SolutionBlueprint.documentControl.revisionHistory.item(0);
       expect(idRef.path, navItem.path);

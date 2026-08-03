@@ -2502,8 +2502,8 @@ class JobDescriptionsAndStaffing extends DocSpecsSection {
     'The set of brand-new roles the system introduces, each defined through '
     'job analysis (tasks, skills, and knowledge requirements).',
   )
-  @SectionId('NWROL-NEWR-LST')
-  @SectionIdPattern('NWROL-NEWR-xxx')
+  @SectionId('NRE-NEWR-LST')
+  @SectionIdPattern('NRE-NEWR-xxx')
   @ContentHelp('Add one entry per new role being created.')
   @SerializationOrder(1)
   List<NewRoleEntry> newRoles = [];
@@ -4981,8 +4981,8 @@ class EquipmentRequirements extends DocSpecsSection {
   List<DisplayEquipmentEntry> displays = [];
 
   /// Input devices.
-  @SectionId('INPDE-INPU-LST')
-  @SectionIdPattern('INPDE-INPU-xxx')
+  @SectionId('IDE-INPU-LST')
+  @SectionIdPattern('IDE-INPU-xxx')
   @SerializationOrder(3)
   List<InputDeviceEntry> inputDevices = [];
 
@@ -5577,8 +5577,8 @@ class TrainingRequirements extends DocSpecsSection {
   DocSpecsSection? overview;
 
   /// Initial/onboarding training.
-  @SectionId('INITR-INIT-LST')
-  @SectionIdPattern('INITR-INIT-xxx')
+  @SectionId('ITE-INIT-LST')
+  @SectionIdPattern('ITE-INIT-xxx')
   @SerializationOrder(1)
   List<InitialTrainingEntry> initialTraining = [];
 

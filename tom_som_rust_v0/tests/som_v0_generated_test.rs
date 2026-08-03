@@ -490,7 +490,7 @@ fn live_document_case() {
 
     // Hoisted-id accessor agrees with the dot-notation position.
     let sbp_id = meta::SBP(&tree);
-    let id_item = sbp_id.RVHST_REVS_LST().item(0);
+    let id_item = sbp_id.RVENT_REVS_LST().item(0);
     let nav_item = nav.document_control().revision_history().item(0);
     assert_eq!(id_item.path(), nav_item.path(), "id item path vs nav item path");
     let id_node = id_item.meta().expect("id item meta");
