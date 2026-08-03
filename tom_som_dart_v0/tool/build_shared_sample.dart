@@ -255,12 +255,13 @@ parallel-run gate passes.''');
   // override.
   _normalizeListItemIds(doc, d00SolutionBlueprintMetaTree);
 
-  // YRD3/YRD6: stored headlines + stored item section ids in the committed
-  // sample. Since YRD6 (reversed) the functional-requirement entries author
-  // their stored ids and headlines directly through the generic `$sectionId` /
-  // `$headline` stores above — no role form field restates either. The
-  // Functional Requirements fixed section keeps its renamed headline as the
-  // fixed-section stored-headline fixture.
+  // Stored headlines + stored item section ids in the committed sample. Every
+  // requirement family — functional, technical, security, organizational —
+  // authors its stored id and headline through the generic `$sectionId` /
+  // `$headline` stores above; no form field restates either
+  // (`tom_specs_model_rules.md` §8 rule 4). The Functional Requirements fixed
+  // section keeps its renamed headline as the fixed-section stored-headline
+  // fixture.
   final freList =
       doc.listPaths.singleWhere((p) => p.endsWith('/FRE-REQU-LST'));
   final frSection = freList.substring(0, freList.lastIndexOf('/'));
@@ -320,22 +321,34 @@ String _p(String raw) =>
 /// Never single-line blobs.
 String _md(String raw) => raw.trim();
 
+/// Lists whose items this builder authors semantic, deterministic section ids
+/// for (`FRE-REQU-ORDER-CAPTURE`, `TERQ-REQU-CONFIRM-LATENCY`, …) straight onto
+/// each item's `$sectionId` store. They are exempt from renumbering, which
+/// would destroy those authored values. Every other patterned list carries only
+/// the AA1 date-lettered auto-ids (e.g. `UCE-USER-GR1`), which churn per build.
+///
+/// All four requirement families are here because none of them keeps its id in
+/// a form field — the stored item section id is the sole slot
+/// (`tom_specs_model_rules.md` §8 rule 4).
+const _authoredItemIdLists = {
+  'FRE-REQU-LST',
+  'TERQ-REQU-LST',
+  'SECRQ-REQU-LST',
+  'ORRQ-REQU-LST',
+};
+
 /// Renumbers every patterned list item's stored section id to the anonymous
 /// 1-based form (`<PATTERN with xxx→pos>`), making the committed sample
 /// deterministic (independent of the build date) and schema-valid against
-/// the generated `pattern-check-id` regexes.
+/// the generated `pattern-check-id` regexes. Lists in [_authoredItemIdLists]
+/// keep the ids the builder authored.
 void _normalizeListItemIds(SpecDocument doc, SomMetaTree tree) {
   for (final listPath in doc.listPaths) {
     final node = tree.byPath(listPath);
     final pattern = node?.sectionIdPattern ?? node?.elementNode?.sectionIdPattern;
     if (pattern == null) continue;
-    // The functional-requirement list authors semantic, deterministic ids
-    // (`FRE-REQU-ORDER-CAPTURE`, …) straight onto each item's `$sectionId`
-    // store, so it is exempt: renumbering would destroy those authored values.
-    // Every other patterned list carries only the AA1 date-lettered auto-ids
-    // (e.g. `UCE-USER-GR1`), which churn per build and must be renumbered to
-    // the deterministic `<stem>-<pos>` form.
-    if (listPath.endsWith('/FRE-REQU-LST')) continue;
+    if (_authoredItemIdLists
+        .any((listId) => listPath.endsWith('/$listId'))) continue;
     final items = doc.listItems(listPath);
     for (var i = 0; i < items.length; i++) {
       doc.setItemSectionId(items[i], pattern.replaceAll('xxx', '${i + 1}'));
@@ -540,10 +553,9 @@ into the lifecycle, recording a reason that is attached to the audit trail.''')
   final tr = reqs.technicalRequirements.requirements;
 
   final tr1 = tr.add();
-  tr1.content
-    ..requirementId = 'TR-01'
-    ..title = 'Confirmation latency budget'
-    ..status = 'Approved';
+  tr1.content.status = 'Approved';
+  tr1.$sectionId = 'TERQ-REQU-CONFIRM-LATENCY';
+  tr1.$headline = 'TR-01 — Confirmation latency budget';
   tr1.details
     ..description = 'The 95th-percentile order-confirmation latency must stay within budget under peak load.'
     ..category = 'Performance'
@@ -560,10 +572,9 @@ into the lifecycle, recording a reason that is attached to the audit trail.''')
     ..measurementFrequency = 'Per release + continuous in production';
 
   final tr2 = tr.add();
-  tr2.content
-    ..requirementId = 'TR-02'
-    ..title = 'Capture API availability'
-    ..status = 'Approved';
+  tr2.content.status = 'Approved';
+  tr2.$sectionId = 'TERQ-REQU-CAPTURE-AVAILABILITY';
+  tr2.$headline = 'TR-02 — Capture API availability';
   tr2.details
     ..description = 'The order-capture API must meet a 99.9% monthly availability target.'
     ..category = 'Reliability'
@@ -578,10 +589,9 @@ into the lifecycle, recording a reason that is attached to the audit trail.''')
     ..measurementFrequency = 'Monthly';
 
   final tr3 = tr.add();
-  tr3.content
-    ..requirementId = 'TR-03'
-    ..title = 'Event-sourced order service'
-    ..status = 'Approved';
+  tr3.content.status = 'Approved';
+  tr3.$sectionId = 'TERQ-REQU-EVENT-SOURCED';
+  tr3.$headline = 'TR-03 — Event-sourced order service';
   tr3.details
     ..description = _p('''
 The order service must be event-sourced: the append-only event log is the system
@@ -596,13 +606,12 @@ of record and all read models are projections rebuildable from the log.''')
   final sr = reqs.securityRequirements.requirements;
 
   final sr1 = sr.add();
-  sr1.content
-    ..requirementId = 'SR-01'
-    ..title = 'Role-based access control'
-    ..description = _p('''
+  sr1.content.description = _p('''
 Access is governed by the roles Order Clerk, Order Supervisor, Pricing Admin,
 and Integration (machine) accounts scoped to specific channels; every state
 transition is attributed to an authenticated principal.''');
+  sr1.$sectionId = 'SECRQ-REQU-RBAC';
+  sr1.$headline = 'SR-01 — Role-based access control';
   sr1.classification
     ..category = 'Access Control'
     ..subcategory = 'Authorization'
@@ -617,10 +626,10 @@ transition is attributed to an authenticated principal.''');
     ..complianceReference = 'Corporate IAM policy v3';
 
   final sr2 = sr.add();
-  sr2.content
-    ..requirementId = 'SR-02'
-    ..title = 'Encrypt customer PII at rest'
-    ..description = 'All customer personally identifiable information must be encrypted at rest.';
+  sr2.content.description =
+      'All customer personally identifiable information must be encrypted at rest.';
+  sr2.$sectionId = 'SECRQ-REQU-PII-AT-REST';
+  sr2.$headline = 'SR-02 — Encrypt customer PII at rest';
   sr2.classification
     ..category = 'Data Protection'
     ..subcategory = 'Encryption'
@@ -634,12 +643,11 @@ transition is attributed to an authenticated principal.''');
     ..complianceReference = 'GDPR Art. 32';
 
   final sr3 = sr.add();
-  sr3.content
-    ..requirementId = 'SR-03'
-    ..title = 'OAuth2 client credentials on the public API'
-    ..description = _p('''
+  sr3.content.description = _p('''
 The public order API must authenticate partners with OAuth2 client-credentials
 tokens and enforce per-partner rate limits at the gateway.''');
+  sr3.$sectionId = 'SECRQ-REQU-OAUTH2-PARTNERS';
+  sr3.$headline = 'SR-03 — OAuth2 client credentials on the public API';
   sr3.classification
     ..category = 'API Security'
     ..subcategory = 'Authentication'
@@ -656,12 +664,11 @@ tokens and enforce per-partner rate limits at the gateway.''');
   final orq = reqs.organizationalRequirements.requirements;
 
   final or1 = orq.add();
-  or1.content
-    ..requirementId = 'OR-01'
-    ..title = 'Train the operations desk on MOM'
-    ..description = _p('''
+  or1.content.description = _p('''
 Before cutover the order-operations desk must be trained to run the full order
 lifecycle on MOM alone, including hold release and amendments.''');
+  or1.$sectionId = 'ORRQ-REQU-TRAIN-OPS-DESK';
+  or1.$headline = 'OR-01 — Train the operations desk on MOM';
   or1.impact
     ..impactedGroups = 'Order Operations desk'
     ..impactedUserCount = '25'
@@ -670,12 +677,11 @@ lifecycle on MOM alone, including hold release and amendments.''');
     ..resistance = 'Low';
 
   final or2 = orq.add();
-  or2.content
-    ..requirementId = 'OR-02'
-    ..title = 'Staff the parallel run'
-    ..description = _p('''
+  or2.content.description = _p('''
 The two-week parallel run against OrderDesk requires staffing to reconcile both
 systems daily until the < 0.1% variance gate passes.''');
+  or2.$sectionId = 'ORRQ-REQU-PARALLEL-RUN-STAFFING';
+  or2.$headline = 'OR-02 — Staff the parallel run';
   or2.impact
     ..impactedGroups = 'Order Operations, Finance'
     ..impactedUserCount = '30'

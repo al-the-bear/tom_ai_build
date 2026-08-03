@@ -115149,22 +115149,6 @@ class OrganizationalRequirementEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def requirementId(self) -> str:
-        return self.doc.form_field(self.path, "requirementId") or ""
-
-    @requirementId.setter
-    def requirementId(self, value):
-        self.doc.set_form_field(self.path, "requirementId", value)
-
-    @property
-    def title(self) -> str:
-        return self.doc.form_field(self.path, "title") or ""
-
-    @title.setter
-    def title(self, value):
-        self.doc.set_form_field(self.path, "title", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -144372,22 +144356,6 @@ class SecurityRequirementEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def requirementId(self) -> str:
-        return self.doc.form_field(self.path, "requirementId") or ""
-
-    @requirementId.setter
-    def requirementId(self, value):
-        self.doc.set_form_field(self.path, "requirementId", value)
-
-    @property
-    def title(self) -> str:
-        return self.doc.form_field(self.path, "title") or ""
-
-    @title.setter
-    def title(self, value):
-        self.doc.set_form_field(self.path, "title", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -161639,22 +161607,6 @@ class TechnicalRequirementEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def requirementId(self) -> str:
-        return self.doc.form_field(self.path, "requirementId") or ""
-
-    @requirementId.setter
-    def requirementId(self, value):
-        self.doc.set_form_field(self.path, "requirementId", value)
-
-    @property
-    def title(self) -> str:
-        return self.doc.form_field(self.path, "title") or ""
-
-    @title.setter
-    def title(self, value):
-        self.doc.set_form_field(self.path, "title", value)
 
     @property
     def status(self) -> str:

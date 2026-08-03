@@ -1144,15 +1144,14 @@ class ScopeItemEntry extends DocSpecsSection {
       'relatedRequirements',
       String,
       'Related Requirements (requirement IDs if applicable)',
-      hint: 'Requirement ids related to this item, comma-separated — a '
-          'functional requirement section id (FRE-REQU-…), or a '
-          'technical/security/organizational requirement id '
-          '(REQ-T001 / REQ-S001 / REQ-O001)',
+      hint: 'Requirement ids related to this item, comma-separated — each is a '
+          'requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / '
+          'ORRQ-REQU-…)',
       refersTo: [
         'FRE.@sectionId',
-        'TERQ.requirementId',
-        'SECRQ.requirementId',
-        'ORRQ.requirementId',
+        'TERQ.@sectionId',
+        'SECRQ.@sectionId',
+        'ORRQ.@sectionId',
       ],
     ),
   ])
@@ -8168,14 +8167,13 @@ class SuccessCriterionRelationships extends DocSpecsSection {
       String,
       'Related Requirements',
       hint: 'Requirement ids that contribute to this criterion, '
-          'comma-separated — a functional requirement section id '
-          '(FRE-REQU-…), or a technical/security/organizational requirement id '
-          '(REQ-T001 / REQ-S001 / REQ-O001)',
+          'comma-separated — each is a requirement section id (FRE-REQU-… / '
+          'TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)',
       refersTo: [
         'FRE.@sectionId',
-        'TERQ.requirementId',
-        'SECRQ.requirementId',
-        'ORRQ.requirementId',
+        'TERQ.@sectionId',
+        'SECRQ.@sectionId',
+        'ORRQ.@sectionId',
       ],
     ),
     Field(
@@ -8450,7 +8448,8 @@ class FunctionalRequirementEntry extends DocSpecsSection {
   // requirement's title and id — the id lives solely in the item's stored
   // section id (the owning list's `@SectionIdPattern('FRE-REQU-xxx')`), the
   // title solely in the item heading. No form field restates either
-  // (tom_specs_model_rules.md §8, YRD6 reversed).
+  // (tom_specs_model_rules.md §8 rule 4); a short human code such as
+  // FR-01 belongs in that heading, not in a field.
   @Form([
     Field(
       'status',
@@ -10390,21 +10389,13 @@ class TechnicalRequirements extends DocSpecsSection {
 )
 @SectionId('TERQ')
 class TechnicalRequirementEntry extends DocSpecsSection {
+  // Why: there is a single authoritative storage slot for each of the
+  // requirement's title and id — the id lives solely in the item's stored
+  // section id (the owning list's `@SectionIdPattern('TERQ-REQU-xxx')`), the
+  // title solely in the item heading. No form field restates either
+  // (tom_specs_model_rules.md §8 rule 4); a short human code such as
+  // REQ-T001 belongs in that heading, not in a field.
   @Form([
-    Field(
-      'requirementId',
-      String,
-      'Requirement ID (unique, e.g., REQ-T001)',
-      required: true,
-      hint: 'Stable unique identifier, e.g., REQ-T001',
-    ),
-    Field(
-      'title',
-      String,
-      'Title',
-      required: true,
-      hint: 'Short descriptive name for the requirement',
-    ),
     Field(
       'status',
       String,
@@ -10744,21 +10735,13 @@ class SecurityRequirements extends DocSpecsSection {
 )
 @SectionId('SECRQ')
 class SecurityRequirementEntry extends DocSpecsSection {
+  // Why: there is a single authoritative storage slot for each of the
+  // requirement's title and id — the id lives solely in the item's stored
+  // section id (the owning list's `@SectionIdPattern('SECRQ-REQU-xxx')`), the
+  // title solely in the item heading. No form field restates either
+  // (tom_specs_model_rules.md §8 rule 4); a short human code such as
+  // REQ-S001 belongs in that heading, not in a field.
   @Form([
-    Field(
-      'requirementId',
-      String,
-      'Requirement ID (unique, e.g., REQ-S001)',
-      required: true,
-      hint: 'Stable unique identifier, e.g., REQ-S001',
-    ),
-    Field(
-      'title',
-      String,
-      'Title',
-      required: true,
-      hint: 'Short descriptive name for the requirement',
-    ),
     Field(
       'description',
       String,
@@ -11239,21 +11222,13 @@ class OrganizationalRequirements extends DocSpecsSection {
 )
 @SectionId('ORRQ')
 class OrganizationalRequirementEntry extends DocSpecsSection {
+  // Why: there is a single authoritative storage slot for each of the
+  // requirement's title and id — the id lives solely in the item's stored
+  // section id (the owning list's `@SectionIdPattern('ORRQ-REQU-xxx')`), the
+  // title solely in the item heading. No form field restates either
+  // (tom_specs_model_rules.md §8 rule 4); a short human code such as
+  // REQ-O001 belongs in that heading, not in a field.
   @Form([
-    Field(
-      'requirementId',
-      String,
-      'Requirement ID (unique, e.g., REQ-O001)',
-      required: true,
-      hint: 'Stable unique identifier, e.g., REQ-O001',
-    ),
-    Field(
-      'title',
-      String,
-      'Title',
-      required: true,
-      hint: 'Short descriptive name for the requirement',
-    ),
     Field(
       'description',
       String,

@@ -26756,7 +26756,7 @@ void buildDeliveryAcceptanceCriterionEntryChildren(som::SomMetaNode& parent, std
     (*n).serializationOrder = 3;
     (*n).docComment = "Traceability links.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requirementRef", "String", "Requirement Reference", false, "Requirement ids, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 0, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"requirementRef", "String", "Requirement Reference", false, "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"deliverableRef", "String", "Deliverable Reference", false, "Linked deliverable ID — e.g. DEL-SOF-001", 1, std::vector<std::string>{}, std::vector<std::string>{"DLVEN.deliverableId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"testScenarioRef", "String", "Test Scenario Reference", false, "UAT scenario ID that validates this criterion", 2, std::vector<std::string>{}, std::vector<std::string>{"TSSC.scenarioId"}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability between test items, requirements, and acceptance criteria\",\"IEEE 829-2008 — the standard for software and system test documentation defines traceability references in acceptance-test documents\"],\"connotation\":\"Captures the requirement, deliverable, and test-scenario references that trace an acceptance criterion.\"}", nullptr)});
@@ -36413,7 +36413,7 @@ void buildFeaturePriorityEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).serializationOrder = 8;
     (*n).docComment = "Traceability.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedRequirements", "String", "Linked Requirements", false, "Requirement ids, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 0, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedRequirements", "String", "Linked Requirements", false, "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedUseCases", "String", "Linked Use Cases", false, "Use case IDs", 1, std::vector<std::string>{}, std::vector<std::string>{"INEN.interactionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedBusinessProcesses", "String", "Linked Business Processes", false, "Business process IDs", 2, std::vector<std::string>{}, std::vector<std::string>{"PRIDN.processId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedUserStories", "String", "Linked User Stories (external)", false, "Story ids from the delivery backlog — owned by the delivery tooling, not declared in this blueprint", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -42126,7 +42126,7 @@ void buildInteractionEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).docComment = "Related elements and traceability.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedProcess", "String", "Related Process — TOM-xxx", false, "TOM-xxx process this interaction realizes", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements", false, "Requirement ids satisfied here, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 1, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements", false, "Requirement ids satisfied here, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 1, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedUseCase", "String", "Related Use Case — ISC-xxx in ISC document", false, "ISC-xxx use case in the ISC document", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDataEntities", "String", "Related Data Entities — entity names", false, "Data entities read or written", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedBusinessObjects", "String", "Related Business Objects — BO-xxx", false, "BO-xxx business objects involved", 4, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -49793,7 +49793,7 @@ void buildMoscowEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).serializationOrder = 4;
     (*n).docComment = "Traceability and notes.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedRequirements", "String", "Linked Requirements", false, "Requirement ids this feature traces to, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 0, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedRequirements", "String", "Linked Requirements", false, "Requirement ids this feature traces to, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedUseCases", "String", "Linked Use Cases", false, "Use case IDs this feature implements", 1, std::vector<std::string>{}, std::vector<std::string>{"INEN.interactionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnFeatures", "String", "Depends on Features", false, "Feature IDs that must be delivered before this one", 2, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional notes or caveats", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -53406,9 +53406,7 @@ void buildOrganizationalRequirementEntryChildren(som::SomMetaNode& parent, std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requirementId", "String", "Requirement ID (unique, e.g., REQ-O001)", true, "Stable unique identifier, e.g., REQ-O001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"title", "String", "Title", true, "Short descriptive name for the requirement", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description (detailed statement)", true, "Full statement of the organizational change needed", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description (detailed statement)", true, "Full statement of the organizational change needed", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -68418,7 +68416,7 @@ void buildScopeItemEntryChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).form->fields.push_back(som::SomFormFieldMeta{"itemDescription", "String", "Item Description", true, "Describe the feature, process, or system in scope or excluded", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category (Feature, Process, User Group, System, Data, Geography, etc.)", false, "Feature, Process, User Group, System, Data, Geography, etc.", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"rationale", "String", "Rationale (why included or excluded)", false, "Why this item is included or excluded", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements (requirement IDs if applicable)", false, "Requirement ids related to this item, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 3, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements (requirement IDs if applicable)", false, "Requirement ids related to this item, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 3, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}});
     parent.addChild(std::move(n));
   }
 }
@@ -69128,7 +69126,7 @@ void buildScreenEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).docComment = "Traceability metadata.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedUseCases", "String", "Related Use Cases", false, "ISC references this screen serves", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements", false, "Requirement ids this screen satisfies, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 1, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements", false, "Requirement ids this screen satisfies, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 1, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedBusinessProcesses", "String", "Related Business Processes", false, "TOM references where this screen appears", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dataEntities", "String", "Data Entities", false, "IFM entity references displayed/edited", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryAction", "String", "Primary Action", false, "Main user action on this screen", 4, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -71073,9 +71071,7 @@ void buildSecurityRequirementEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requirementId", "String", "Requirement ID (unique, e.g., REQ-S001)", true, "Stable unique identifier, e.g., REQ-S001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"title", "String", "Title", true, "Short descriptive name for the requirement", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description (The system shall... detailed statement)", true, "Full requirement statement, e.g., The system shall encrypt data at rest", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description (The system shall... detailed statement)", true, "Full requirement statement, e.g., The system shall encrypt data at rest", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -77443,7 +77439,7 @@ void buildSuccessCriterionRelationshipsChildren(som::SomMetaNode& parent, std::v
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedGoals", "String", "Related Goals", false, "Which business/technical goals this supports", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements", false, "Requirement ids that contribute to this criterion, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 1, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements", false, "Requirement ids that contribute to this criterion, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 1, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencies", "String", "Dependencies", false, "Other criteria this depends on", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"stakeholders", "String", "Key Stakeholders", false, "Who cares most about this criterion", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -82683,9 +82679,7 @@ void buildTechnicalRequirementEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requirementId", "String", "Requirement ID (unique, e.g., REQ-T001)", true, "Stable unique identifier, e.g., REQ-T001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"title", "String", "Title", true, "Short descriptive name for the requirement", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Draft, Proposed, Approved, Verified, Deferred)", true, "Draft, Proposed, Approved, Verified, or Deferred", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Draft, Proposed, Approved, Verified, Deferred)", true, "Draft, Proposed, Approved, Verified, or Deferred", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -83368,7 +83362,7 @@ void buildTestScenarioEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).serializationOrder = 3;
     (*n).docComment = "Traceability.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requirementRef", "String", "Requirement Reference", false, "Requirement ids, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 0, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"requirementRef", "String", "Requirement Reference", false, "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"useCaseRef", "String", "Use Case Reference", false, "Related use case ID", 1, std::vector<std::string>{}, std::vector<std::string>{"INEN.interactionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"acceptanceCriterionRef", "String", "Acceptance Criterion Reference", false, "Linked criterion ID", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"designRef", "String", "Design / Screen Reference", false, "UI screens or mockup references", 3, std::vector<std::string>{}, std::vector<std::string>{}});

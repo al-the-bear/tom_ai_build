@@ -49261,10 +49261,6 @@ void organizational_requirement_entry_content_form_free(OrganizationalRequiremen
 // The section's own free-text content, before the form fields (owned).
 char *organizational_requirement_entry_content_form_content(const OrganizationalRequirementEntryContentForm *self);
 void organizational_requirement_entry_content_form_set_content(OrganizationalRequirementEntryContentForm *self, const char *value);
-char *organizational_requirement_entry_content_form_requirement_id(const OrganizationalRequirementEntryContentForm *self);
-void organizational_requirement_entry_content_form_set_requirement_id(OrganizationalRequirementEntryContentForm *self, const char *value);
-char *organizational_requirement_entry_content_form_title(const OrganizationalRequirementEntryContentForm *self);
-void organizational_requirement_entry_content_form_set_title(OrganizationalRequirementEntryContentForm *self, const char *value);
 char *organizational_requirement_entry_content_form_description(const OrganizationalRequirementEntryContentForm *self);
 void organizational_requirement_entry_content_form_set_description(OrganizationalRequirementEntryContentForm *self, const char *value);
 
@@ -57990,10 +57986,6 @@ void security_requirement_entry_content_form_free(SecurityRequirementEntryConten
 // The section's own free-text content, before the form fields (owned).
 char *security_requirement_entry_content_form_content(const SecurityRequirementEntryContentForm *self);
 void security_requirement_entry_content_form_set_content(SecurityRequirementEntryContentForm *self, const char *value);
-char *security_requirement_entry_content_form_requirement_id(const SecurityRequirementEntryContentForm *self);
-void security_requirement_entry_content_form_set_requirement_id(SecurityRequirementEntryContentForm *self, const char *value);
-char *security_requirement_entry_content_form_title(const SecurityRequirementEntryContentForm *self);
-void security_requirement_entry_content_form_set_title(SecurityRequirementEntryContentForm *self, const char *value);
 char *security_requirement_entry_content_form_description(const SecurityRequirementEntryContentForm *self);
 void security_requirement_entry_content_form_set_description(SecurityRequirementEntryContentForm *self, const char *value);
 
@@ -63128,10 +63120,6 @@ void technical_requirement_entry_content_form_free(TechnicalRequirementEntryCont
 // The section's own free-text content, before the form fields (owned).
 char *technical_requirement_entry_content_form_content(const TechnicalRequirementEntryContentForm *self);
 void technical_requirement_entry_content_form_set_content(TechnicalRequirementEntryContentForm *self, const char *value);
-char *technical_requirement_entry_content_form_requirement_id(const TechnicalRequirementEntryContentForm *self);
-void technical_requirement_entry_content_form_set_requirement_id(TechnicalRequirementEntryContentForm *self, const char *value);
-char *technical_requirement_entry_content_form_title(const TechnicalRequirementEntryContentForm *self);
-void technical_requirement_entry_content_form_set_title(TechnicalRequirementEntryContentForm *self, const char *value);
 char *technical_requirement_entry_content_form_status(const TechnicalRequirementEntryContentForm *self);
 void technical_requirement_entry_content_form_set_status(TechnicalRequirementEntryContentForm *self, const char *value);
 

@@ -54173,10 +54173,6 @@ class OrganizationalRequirementEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string requirementId() const;
-  void setRequirementId(const std::string& value);
-  std::string title() const;
-  void setTitle(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
 };
@@ -64591,10 +64587,6 @@ class SecurityRequirementEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string requirementId() const;
-  void setRequirementId(const std::string& value);
-  std::string title() const;
-  void setTitle(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
 };
@@ -70725,10 +70717,6 @@ class TechnicalRequirementEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string requirementId() const;
-  void setRequirementId(const std::string& value);
-  std::string title() const;
-  void setTitle(const std::string& value);
   std::string status() const;
   void setStatus(const std::string& value);
 };

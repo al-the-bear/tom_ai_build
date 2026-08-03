@@ -130818,24 +130818,6 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String requirementId() {
-      String v = doc.formField(path, "requirementId");
-      return v == null ? "" : v;
-    }
-
-    public void requirementId(String value) {
-      doc.setFormField(path, "requirementId", value);
-    }
-
-    public String title() {
-      String v = doc.formField(path, "title");
-      return v == null ? "" : v;
-    }
-
-    public void title(String value) {
-      doc.setFormField(path, "title", value);
-    }
-
     public String description() {
       String v = doc.formField(path, "description");
       return v == null ? "" : v;
@@ -164875,24 +164857,6 @@ public final class TomSomV0 {
       doc.setContent(path, value);
     }
 
-    public String requirementId() {
-      String v = doc.formField(path, "requirementId");
-      return v == null ? "" : v;
-    }
-
-    public void requirementId(String value) {
-      doc.setFormField(path, "requirementId", value);
-    }
-
-    public String title() {
-      String v = doc.formField(path, "title");
-      return v == null ? "" : v;
-    }
-
-    public void title(String value) {
-      doc.setFormField(path, "title", value);
-    }
-
     public String description() {
       String v = doc.formField(path, "description");
       return v == null ? "" : v;
@@ -184944,24 +184908,6 @@ public final class TomSomV0 {
 
     public void content(String value) {
       doc.setContent(path, value);
-    }
-
-    public String requirementId() {
-      String v = doc.formField(path, "requirementId");
-      return v == null ? "" : v;
-    }
-
-    public void requirementId(String value) {
-      doc.setFormField(path, "requirementId", value);
-    }
-
-    public String title() {
-      String v = doc.formField(path, "title");
-      return v == null ? "" : v;
-    }
-
-    public void title(String value) {
-      doc.setFormField(path, "title", value);
     }
 
     public String status() {

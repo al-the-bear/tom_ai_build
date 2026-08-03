@@ -1882,7 +1882,7 @@ form-types:
   fetr-form:
     fields:
       - fieldname: linkedRequirements
-        description: "Requirement ids, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)"
+        description: "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
       - fieldname: linkedUseCases
         description: Use case IDs
       - fieldname: linkedBusinessProcesses
@@ -1932,7 +1932,7 @@ form-types:
   moentr-form:
     fields:
       - fieldname: linkedRequirements
-        description: "Requirement ids this feature traces to, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)"
+        description: "Requirement ids this feature traces to, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
       - fieldname: linkedUseCases
         description: Use case IDs this feature implements
       - fieldname: dependsOnFeatures

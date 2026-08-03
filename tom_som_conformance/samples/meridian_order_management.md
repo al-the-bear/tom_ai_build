@@ -358,10 +358,8 @@ Status: Draft
 
 ##### <!--[TERQ-REQU-LST]--> Requirements
 
-###### <!--[TERQ-REQU-1]--> Technical Requirement 1
+###### <!--[TERQ-REQU-CONFIRM-LATENCY]--> TR-01 — Confirmation latency budget
 
-RequirementId: TR-01
-Title: Confirmation latency budget
 Status: Approved
 
 ####### <!--[TRED]--> Details
@@ -382,10 +380,8 @@ MeasurementMethod: Distributed tracing over the confirmation span
 MeasurementEnvironment: Load test at 3x peak-hour volume
 MeasurementFrequency: Per release + continuous in production
 
-###### <!--[TERQ-REQU-2]--> Technical Requirement 2
+###### <!--[TERQ-REQU-CAPTURE-AVAILABILITY]--> TR-02 — Capture API availability
 
-RequirementId: TR-02
-Title: Capture API availability
 Status: Approved
 
 ####### <!--[TRED]--> Details
@@ -404,10 +400,8 @@ TargetValue: >= 99.9%
 MeasurementMethod: Synthetic probes + gateway success-rate metrics
 MeasurementFrequency: Monthly
 
-###### <!--[TERQ-REQU-3]--> Technical Requirement 3
+###### <!--[TERQ-REQU-EVENT-SOURCED]--> TR-03 — Event-sourced order service
 
-RequirementId: TR-03
-Title: Event-sourced order service
 Status: Approved
 
 ####### <!--[TRED]--> Details
@@ -423,10 +417,8 @@ Rationale: Reproducible history and rebuildable projections are core to auditabi
 
 ##### <!--[SECRQ-REQU-LST]--> Requirements
 
-###### <!--[SECRQ-REQU-1]--> Security Requirement 1
+###### <!--[SECRQ-REQU-RBAC]--> SR-01 — Role-based access control
 
-RequirementId: SR-01
-Title: Role-based access control
 Description: Access is governed by the roles Order Clerk, Order Supervisor, Pricing Admin, and Integration (machine) accounts scoped to specific channels; every state transition is attributed to an authenticated principal.
 
 ####### <!--[SEREENCL]--> Classification
@@ -445,10 +437,8 @@ OwaspCategory: A01:2021 Broken Access Control
 NistControl: AC-6
 ComplianceReference: Corporate IAM policy v3
 
-###### <!--[SECRQ-REQU-2]--> Security Requirement 2
+###### <!--[SECRQ-REQU-PII-AT-REST]--> SR-02 — Encrypt customer PII at rest
 
-RequirementId: SR-02
-Title: Encrypt customer PII at rest
 Description: All customer personally identifiable information must be encrypted at rest.
 
 ####### <!--[SEREENCL]--> Classification
@@ -466,10 +456,8 @@ DataClassification: Confidential
 NistControl: SC-28
 ComplianceReference: GDPR Art. 32
 
-###### <!--[SECRQ-REQU-3]--> Security Requirement 3
+###### <!--[SECRQ-REQU-OAUTH2-PARTNERS]--> SR-03 — OAuth2 client credentials on the public API
 
-RequirementId: SR-03
-Title: OAuth2 client credentials on the public API
 Description: The public order API must authenticate partners with OAuth2 client-credentials tokens and enforce per-partner rate limits at the gateway.
 
 ####### <!--[SEREENCL]--> Classification
@@ -491,10 +479,8 @@ NistControl: IA-5
 
 ##### <!--[ORRQ-REQU-LST]--> Requirements
 
-###### <!--[ORRQ-REQU-1]--> Organizational Requirement 1
+###### <!--[ORRQ-REQU-TRAIN-OPS-DESK]--> OR-01 — Train the operations desk on MOM
 
-RequirementId: OR-01
-Title: Train the operations desk on MOM
 Description: Before cutover the order-operations desk must be trained to run the full order lifecycle on MOM alone, including hold release and amendments.
 
 ####### <!--[OREI]--> Impact
@@ -505,10 +491,8 @@ ChangeType: Process + tooling
 ChangeComplexity: Medium
 Resistance: Low
 
-###### <!--[ORRQ-REQU-2]--> Organizational Requirement 2
+###### <!--[ORRQ-REQU-PARALLEL-RUN-STAFFING]--> OR-02 — Staff the parallel run
 
-RequirementId: OR-02
-Title: Staff the parallel run
 Description: The two-week parallel run against OrderDesk requires staffing to reconcile both systems daily until the < 0.1% variance gate passes.
 
 ####### <!--[OREI]--> Impact

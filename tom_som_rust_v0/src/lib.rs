@@ -159796,24 +159796,6 @@ impl OrganizationalRequirementEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn requirement_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requirementId")
-    }
-
-    pub fn set_requirement_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requirementId", value);
-    }
-
-    pub fn title(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "title")
-    }
-
-    pub fn set_title(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "title", value);
-    }
-
     pub fn description(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "description")
     }
@@ -198482,24 +198464,6 @@ impl SecurityRequirementEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn requirement_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requirementId")
-    }
-
-    pub fn set_requirement_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requirementId", value);
-    }
-
-    pub fn title(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "title")
-    }
-
-    pub fn set_title(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "title", value);
-    }
-
     pub fn description(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "description")
     }
@@ -221311,24 +221275,6 @@ impl TechnicalRequirementEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn requirement_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requirementId")
-    }
-
-    pub fn set_requirement_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requirementId", value);
-    }
-
-    pub fn title(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "title")
-    }
-
-    pub fn set_title(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "title", value);
     }
 
     pub fn status(&self) -> String {

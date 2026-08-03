@@ -3173,15 +3173,14 @@ class MoscowEntry extends DocSpecsSection {
       'linkedRequirements',
       String,
       'Linked Requirements',
-      hint: 'Requirement ids this feature traces to, comma-separated — a '
-          'functional requirement section id (FRE-REQU-…), or a '
-          'technical/security/organizational requirement id '
-          '(REQ-T001 / REQ-S001 / REQ-O001)',
+      hint: 'Requirement ids this feature traces to, comma-separated — each is '
+          'a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / '
+          'ORRQ-REQU-…)',
       refersTo: [
         'FRE.@sectionId',
-        'TERQ.requirementId',
-        'SECRQ.requirementId',
-        'ORRQ.requirementId',
+        'TERQ.@sectionId',
+        'SECRQ.@sectionId',
+        'ORRQ.@sectionId',
       ],
     ),
     Field(
@@ -3900,14 +3899,13 @@ class FeaturePriorityEntry extends DocSpecsSection {
       'linkedRequirements',
       String,
       'Linked Requirements',
-      hint: 'Requirement ids, comma-separated — a functional requirement '
-          'section id (FRE-REQU-…), or a technical/security/organizational '
-          'requirement id (REQ-T001 / REQ-S001 / REQ-O001)',
+      hint: 'Requirement ids, comma-separated — each is a requirement section '
+          'id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)',
       refersTo: [
         'FRE.@sectionId',
-        'TERQ.requirementId',
-        'SECRQ.requirementId',
-        'ORRQ.requirementId',
+        'TERQ.@sectionId',
+        'SECRQ.@sectionId',
+        'ORRQ.@sectionId',
       ],
     ),
     Field(

@@ -64451,12 +64451,6 @@ class OrganizationalRequirementEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get requirementId => doc.formField(path, 'requirementId') ?? '';
-  set requirementId(String value) => doc.setFormField(path, 'requirementId', value);
-
-  String get title => doc.formField(path, 'title') ?? '';
-  set title(String value) => doc.setFormField(path, 'title', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 }
@@ -78952,12 +78946,6 @@ class SecurityRequirementEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get requirementId => doc.formField(path, 'requirementId') ?? '';
-  set requirementId(String value) => doc.setFormField(path, 'requirementId', value);
-
-  String get title => doc.formField(path, 'title') ?? '';
-  set title(String value) => doc.setFormField(path, 'title', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 }
@@ -87488,12 +87476,6 @@ class TechnicalRequirementEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get requirementId => doc.formField(path, 'requirementId') ?? '';
-  set requirementId(String value) => doc.setFormField(path, 'requirementId', value);
-
-  String get title => doc.formField(path, 'title') ?? '';
-  set title(String value) => doc.setFormField(path, 'title', value);
 
   String get status => doc.formField(path, 'status') ?? '';
   set status(String value) => doc.setFormField(path, 'status', value);

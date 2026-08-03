@@ -2070,7 +2070,7 @@ form-types:
   dacet-form:
     fields:
       - fieldname: requirementRef
-        description: "Requirement ids, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)"
+        description: "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
       - fieldname: deliverableRef
         description: Linked deliverable ID — e.g. DEL-SOF-001
       - fieldname: testScenarioRef
@@ -2310,7 +2310,7 @@ form-types:
   tesctr-form:
     fields:
       - fieldname: requirementRef
-        description: "Requirement ids, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)"
+        description: "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
       - fieldname: useCaseRef
         description: Related use case ID
       - fieldname: acceptanceCriterionRef

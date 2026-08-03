@@ -75747,14 +75747,14 @@
             {
               "name": "requirementRef",
               "label": "Requirement Reference",
-              "hint": "Requirement ids, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)",
+              "hint": "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)",
               "type": "String",
               "required": false,
               "refersTo": [
                 "FRE.@sectionId",
-                "TERQ.requirementId",
-                "SECRQ.requirementId",
-                "ORRQ.requirementId"
+                "TERQ.@sectionId",
+                "SECRQ.@sectionId",
+                "ORRQ.@sectionId"
               ]
             },
             {
@@ -106974,14 +106974,14 @@
             {
               "name": "linkedRequirements",
               "label": "Linked Requirements",
-              "hint": "Requirement ids, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)",
+              "hint": "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)",
               "type": "String",
               "required": false,
               "refersTo": [
                 "FRE.@sectionId",
-                "TERQ.requirementId",
-                "SECRQ.requirementId",
-                "ORRQ.requirementId"
+                "TERQ.@sectionId",
+                "SECRQ.@sectionId",
+                "ORRQ.@sectionId"
               ]
             },
             {
@@ -125813,14 +125813,14 @@
             {
               "name": "relatedRequirements",
               "label": "Related Requirements",
-              "hint": "Requirement ids satisfied here, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)",
+              "hint": "Requirement ids satisfied here, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)",
               "type": "String",
               "required": false,
               "refersTo": [
                 "FRE.@sectionId",
-                "TERQ.requirementId",
-                "SECRQ.requirementId",
-                "ORRQ.requirementId"
+                "TERQ.@sectionId",
+                "SECRQ.@sectionId",
+                "ORRQ.@sectionId"
               ]
             },
             {
@@ -151232,14 +151232,14 @@
             {
               "name": "linkedRequirements",
               "label": "Linked Requirements",
-              "hint": "Requirement ids this feature traces to, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)",
+              "hint": "Requirement ids this feature traces to, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)",
               "type": "String",
               "required": false,
               "refersTo": [
                 "FRE.@sectionId",
-                "TERQ.requirementId",
-                "SECRQ.requirementId",
-                "ORRQ.requirementId"
+                "TERQ.@sectionId",
+                "SECRQ.@sectionId",
+                "ORRQ.@sectionId"
               ]
             },
             {
@@ -162830,20 +162830,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "requirementId",
-              "label": "Requirement ID (unique, e.g., REQ-O001)",
-              "hint": "Stable unique identifier, e.g., REQ-O001",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "title",
-              "label": "Title",
-              "hint": "Short descriptive name for the requirement",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Description (detailed statement)",
@@ -197743,13 +197729,13 @@
     "Requirement": {
       "name": "Requirement",
       "sectionId": "REQ",
-      "doc": "Base requirement shared across documents.\n\nDocument-specific requirement types extend this with additional fields.\nFor example, Solution Blueprint functional requirements add\n[relatedUseCase], [relatedBusinessProcess], and [affectedDataEntities].",
+      "doc": "Base requirement shared across documents.\n\nDocument-specific requirement types add fields to this shape — the\nSolution Blueprint's `FunctionalRequirementEntry` elaborates it with\ntraceability, acceptance criteria, UI specification, and business rules.\nIts id is its section id and its title its stored headline, in common with\nevery requirement family (`tom_specs_model_rules.md` §8 rule 4).",
       "standardReferences": {
         "standards": [
           "ISO/IEC/IEEE 29148:2018 §5 — requirement attributes",
           "INCOSE Guide for Writing Requirements"
         ],
-        "connotation": "The base requirement shared across documents, capturing id, title, description, priority, source, rationale, acceptance criteria, and status."
+        "connotation": "The base requirement shared across documents, capturing description, priority, source, rationale, acceptance criteria, and status."
       },
       "annotations": [
         {
@@ -197759,7 +197745,7 @@
               "ISO/IEC/IEEE 29148:2018 §5 — requirement attributes",
               "INCOSE Guide for Writing Requirements"
             ],
-            "connotation": "The base requirement shared across documents, capturing id, title, description, priority, source, rationale, acceptance criteria, and status."
+            "connotation": "The base requirement shared across documents, capturing description, priority, source, rationale, acceptance criteria, and status."
           }
         },
         {
@@ -197789,18 +197775,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "requirementId",
-              "label": "Requirement ID (REQ-NNN; NFR-NNN for non-functional)",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "title",
-              "label": "Title",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Short description",
@@ -214872,14 +214846,14 @@
             {
               "name": "relatedRequirements",
               "label": "Related Requirements (requirement IDs if applicable)",
-              "hint": "Requirement ids related to this item, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)",
+              "hint": "Requirement ids related to this item, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)",
               "type": "String",
               "required": false,
               "refersTo": [
                 "FRE.@sectionId",
-                "TERQ.requirementId",
-                "SECRQ.requirementId",
-                "ORRQ.requirementId"
+                "TERQ.@sectionId",
+                "SECRQ.@sectionId",
+                "ORRQ.@sectionId"
               ]
             }
           ]
@@ -217596,14 +217570,14 @@
             {
               "name": "relatedRequirements",
               "label": "Related Requirements",
-              "hint": "Requirement ids this screen satisfies, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)",
+              "hint": "Requirement ids this screen satisfies, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)",
               "type": "String",
               "required": false,
               "refersTo": [
                 "FRE.@sectionId",
-                "TERQ.requirementId",
-                "SECRQ.requirementId",
-                "ORRQ.requirementId"
+                "TERQ.@sectionId",
+                "SECRQ.@sectionId",
+                "ORRQ.@sectionId"
               ]
             },
             {
@@ -223510,20 +223484,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "requirementId",
-              "label": "Requirement ID (unique, e.g., REQ-S001)",
-              "hint": "Stable unique identifier, e.g., REQ-S001",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "title",
-              "label": "Title",
-              "hint": "Short descriptive name for the requirement",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Description (The system shall... detailed statement)",
@@ -244211,14 +244171,14 @@
             {
               "name": "relatedRequirements",
               "label": "Related Requirements",
-              "hint": "Requirement ids that contribute to this criterion, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)",
+              "hint": "Requirement ids that contribute to this criterion, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)",
               "type": "String",
               "required": false,
               "refersTo": [
                 "FRE.@sectionId",
-                "TERQ.requirementId",
-                "SECRQ.requirementId",
-                "ORRQ.requirementId"
+                "TERQ.@sectionId",
+                "SECRQ.@sectionId",
+                "ORRQ.@sectionId"
               ]
             },
             {
@@ -259007,20 +258967,6 @@
           ],
           "formFields": [
             {
-              "name": "requirementId",
-              "label": "Requirement ID (unique, e.g., REQ-T001)",
-              "hint": "Stable unique identifier, e.g., REQ-T001",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "title",
-              "label": "Title",
-              "hint": "Short descriptive name for the requirement",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "status",
               "label": "Status (Draft, Proposed, Approved, Verified, Deferred)",
               "hint": "Draft, Proposed, Approved, Verified, or Deferred",
@@ -261082,14 +261028,14 @@
             {
               "name": "requirementRef",
               "label": "Requirement Reference",
-              "hint": "Requirement ids, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)",
+              "hint": "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)",
               "type": "String",
               "required": false,
               "refersTo": [
                 "FRE.@sectionId",
-                "TERQ.requirementId",
-                "SECRQ.requirementId",
-                "ORRQ.requirementId"
+                "TERQ.@sectionId",
+                "SECRQ.@sectionId",
+                "ORRQ.@sectionId"
               ]
             },
             {

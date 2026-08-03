@@ -2710,8 +2710,9 @@ void main() {
     });
 
     test('@sectionId and form-field targets mix in one disjunction', () {
-      // The shape the requirement references use: a functional requirement by
-      // section id, the other three families by their `requirementId` field.
+      // Mixing slot kinds in one disjunction stays legal: a registry that
+      // stores its id as the section id resolves beside one that keeps it in a
+      // required form field.
       final classes = model(
         refersTo: ['RTEN.$_sectionIdSlot', 'OKEN.requiredId'],
         rootExtraFields: [

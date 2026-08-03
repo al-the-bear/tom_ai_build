@@ -29272,7 +29272,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 3;
         n.docComment = "Traceability links.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("requirementRef", "String", "Requirement Reference", false, "Requirement ids, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 0, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId")),
+            new SomFormFieldMeta("requirementRef", "String", "Requirement Reference", false, "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 0, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId")),
             new SomFormFieldMeta("deliverableRef", "String", "Deliverable Reference", false, "Linked deliverable ID — e.g. DEL-SOF-001", 1, java.util.List.of(), java.util.List.of("DLVEN.deliverableId")),
             new SomFormFieldMeta("testScenarioRef", "String", "Test Scenario Reference", false, "UAT scenario ID that validates this criterion", 2, java.util.List.of(), java.util.List.of("TSSC.scenarioId"))));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability between test items, requirements, and acceptance criteria", "IEEE 829-2008 — the standard for software and system test documentation defines traceability references in acceptance-test documents"), "connotation", "Captures the requirement, deliverable, and test-scenario references that trace an acceptance criterion.")));
@@ -40720,7 +40720,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 8;
         n.docComment = "Traceability.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("linkedRequirements", "String", "Linked Requirements", false, "Requirement ids, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 0, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId")),
+            new SomFormFieldMeta("linkedRequirements", "String", "Linked Requirements", false, "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 0, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId")),
             new SomFormFieldMeta("linkedUseCases", "String", "Linked Use Cases", false, "Use case IDs", 1, java.util.List.of(), java.util.List.of("INEN.interactionId")),
             new SomFormFieldMeta("linkedBusinessProcesses", "String", "Linked Business Processes", false, "Business process IDs", 2, java.util.List.of(), java.util.List.of("PRIDN.processId")),
             new SomFormFieldMeta("linkedUserStories", "String", "Linked User Stories (external)", false, "Story ids from the delivery backlog — owned by the delivery tooling, not declared in this blueprint", 3),
@@ -47495,7 +47495,7 @@ public final class TomSomV0Meta {
         n.docComment = "Related elements and traceability.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("relatedProcess", "String", "Related Process — TOM-xxx", false, "TOM-xxx process this interaction realizes", 0),
-            new SomFormFieldMeta("relatedRequirements", "String", "Related Requirements", false, "Requirement ids satisfied here, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 1, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId")),
+            new SomFormFieldMeta("relatedRequirements", "String", "Related Requirements", false, "Requirement ids satisfied here, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 1, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId")),
             new SomFormFieldMeta("relatedUseCase", "String", "Related Use Case — ISC-xxx in ISC document", false, "ISC-xxx use case in the ISC document", 2),
             new SomFormFieldMeta("relatedDataEntities", "String", "Related Data Entities — entity names", false, "Data entities read or written", 3),
             new SomFormFieldMeta("relatedBusinessObjects", "String", "Related Business Objects — BO-xxx", false, "BO-xxx business objects involved", 4),
@@ -56595,7 +56595,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 4;
         n.docComment = "Traceability and notes.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("linkedRequirements", "String", "Linked Requirements", false, "Requirement ids this feature traces to, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 0, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId")),
+            new SomFormFieldMeta("linkedRequirements", "String", "Linked Requirements", false, "Requirement ids this feature traces to, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 0, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId")),
             new SomFormFieldMeta("linkedUseCases", "String", "Linked Use Cases", false, "Use case IDs this feature implements", 1, java.util.List.of(), java.util.List.of("INEN.interactionId")),
             new SomFormFieldMeta("dependsOnFeatures", "String", "Depends on Features", false, "Feature IDs that must be delivered before this one", 2, java.util.List.of(), java.util.List.of("FPE.featureId")),
             new SomFormFieldMeta("notes", "String", "Notes", false, "Additional notes or caveats", 3)));
@@ -60814,9 +60814,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("requirementId", "String", "Requirement ID (unique, e.g., REQ-O001)", true, "Stable unique identifier, e.g., REQ-O001", 0),
-            new SomFormFieldMeta("title", "String", "Title", true, "Short descriptive name for the requirement", 1),
-            new SomFormFieldMeta("description", "String", "Description (detailed statement)", true, "Full statement of the organizational change needed", 2)));
+            new SomFormFieldMeta("description", "String", "Description (detailed statement)", true, "Full statement of the organizational change needed", 0)));
         out.add(n);
       }
       {
@@ -73114,14 +73112,12 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("requirementId", "String", "Requirement ID (REQ-NNN; NFR-NNN for non-functional)", true, null, 0),
-            new SomFormFieldMeta("title", "String", "Title", true, null, 1),
-            new SomFormFieldMeta("description", "String", "Short description", false, null, 2),
-            new SomFormFieldMeta("priority", "Priority", "Priority level", false, null, 3, java.util.List.of("must", "should", "could", "wontThisTime")),
-            new SomFormFieldMeta("source", "String", "Source", false, null, 4),
-            new SomFormFieldMeta("rationale", "String", "Rationale", false, null, 5),
-            new SomFormFieldMeta("acceptanceCriteria", "String", "Acceptance Criteria", false, null, 6),
-            new SomFormFieldMeta("status", "Status", "Current status", false, null, 7, java.util.List.of("draft", "proposed", "approved", "implemented", "verified", "deferred", "rejected"))));
+            new SomFormFieldMeta("description", "String", "Short description", false, null, 0),
+            new SomFormFieldMeta("priority", "Priority", "Priority level", false, null, 1, java.util.List.of("must", "should", "could", "wontThisTime")),
+            new SomFormFieldMeta("source", "String", "Source", false, null, 2),
+            new SomFormFieldMeta("rationale", "String", "Rationale", false, null, 3),
+            new SomFormFieldMeta("acceptanceCriteria", "String", "Acceptance Criteria", false, null, 4),
+            new SomFormFieldMeta("status", "Status", "Current status", false, null, 5, java.util.List.of("draft", "proposed", "approved", "implemented", "verified", "deferred", "rejected"))));
         out.add(n);
       }
       return out;
@@ -79014,7 +79010,7 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("itemDescription", "String", "Item Description", true, "Describe the feature, process, or system in scope or excluded", 0),
             new SomFormFieldMeta("category", "String", "Category (Feature, Process, User Group, System, Data, Geography, etc.)", false, "Feature, Process, User Group, System, Data, Geography, etc.", 1),
             new SomFormFieldMeta("rationale", "String", "Rationale (why included or excluded)", false, "Why this item is included or excluded", 2),
-            new SomFormFieldMeta("relatedRequirements", "String", "Related Requirements (requirement IDs if applicable)", false, "Requirement ids related to this item, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 3, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId"))));
+            new SomFormFieldMeta("relatedRequirements", "String", "Related Requirements (requirement IDs if applicable)", false, "Requirement ids related to this item, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 3, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"))));
         out.add(n);
       }
       return out;
@@ -79796,7 +79792,7 @@ public final class TomSomV0Meta {
         n.docComment = "Traceability metadata.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("relatedUseCases", "String", "Related Use Cases", false, "ISC references this screen serves", 0),
-            new SomFormFieldMeta("relatedRequirements", "String", "Related Requirements", false, "Requirement ids this screen satisfies, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 1, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId")),
+            new SomFormFieldMeta("relatedRequirements", "String", "Related Requirements", false, "Requirement ids this screen satisfies, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 1, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId")),
             new SomFormFieldMeta("relatedBusinessProcesses", "String", "Related Business Processes", false, "TOM references where this screen appears", 2),
             new SomFormFieldMeta("dataEntities", "String", "Data Entities", false, "IFM entity references displayed/edited", 3),
             new SomFormFieldMeta("primaryAction", "String", "Primary Action", false, "Main user action on this screen", 4)));
@@ -82121,9 +82117,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("requirementId", "String", "Requirement ID (unique, e.g., REQ-S001)", true, "Stable unique identifier, e.g., REQ-S001", 0),
-            new SomFormFieldMeta("title", "String", "Title", true, "Short descriptive name for the requirement", 1),
-            new SomFormFieldMeta("description", "String", "Description (The system shall... detailed statement)", true, "Full requirement statement, e.g., The system shall encrypt data at rest", 2)));
+            new SomFormFieldMeta("description", "String", "Description (The system shall... detailed statement)", true, "Full requirement statement, e.g., The system shall encrypt data at rest", 0)));
         out.add(n);
       }
       {
@@ -89527,7 +89521,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("relatedGoals", "String", "Related Goals", false, "Which business/technical goals this supports", 0),
-            new SomFormFieldMeta("relatedRequirements", "String", "Related Requirements", false, "Requirement ids that contribute to this criterion, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 1, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId")),
+            new SomFormFieldMeta("relatedRequirements", "String", "Related Requirements", false, "Requirement ids that contribute to this criterion, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 1, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId")),
             new SomFormFieldMeta("dependencies", "String", "Dependencies", false, "Other criteria this depends on", 2),
             new SomFormFieldMeta("stakeholders", "String", "Key Stakeholders", false, "Who cares most about this criterion", 3)));
         out.add(n);
@@ -95475,9 +95469,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("requirementId", "String", "Requirement ID (unique, e.g., REQ-T001)", true, "Stable unique identifier, e.g., REQ-T001", 0),
-            new SomFormFieldMeta("title", "String", "Title", true, "Short descriptive name for the requirement", 1),
-            new SomFormFieldMeta("status", "String", "Status (Draft, Proposed, Approved, Verified, Deferred)", true, "Draft, Proposed, Approved, Verified, or Deferred", 2)));
+            new SomFormFieldMeta("status", "String", "Status (Draft, Proposed, Approved, Verified, Deferred)", true, "Draft, Proposed, Approved, Verified, or Deferred", 0)));
         out.add(n);
       }
       {
@@ -96283,7 +96275,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 3;
         n.docComment = "Traceability.";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("requirementRef", "String", "Requirement Reference", false, "Requirement ids, comma-separated — a functional requirement section id (FRE-REQU-…), or a technical/security/organizational requirement id (REQ-T001 / REQ-S001 / REQ-O001)", 0, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.requirementId", "SECRQ.requirementId", "ORRQ.requirementId")),
+            new SomFormFieldMeta("requirementRef", "String", "Requirement Reference", false, "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 0, java.util.List.of(), java.util.List.of("FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId")),
             new SomFormFieldMeta("useCaseRef", "String", "Use Case Reference", false, "Related use case ID", 1, java.util.List.of(), java.util.List.of("INEN.interactionId")),
             new SomFormFieldMeta("acceptanceCriterionRef", "String", "Acceptance Criterion Reference", false, "Linked criterion ID", 2),
             new SomFormFieldMeta("designRef", "String", "Design / Screen Reference", false, "UI screens or mockup references", 3)));

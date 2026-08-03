@@ -1441,12 +1441,13 @@ A list field annotated with `@ForEach` has a bidirectional relationship with a
 registry section type. This is shown with a `⟷` marker:
 
 ```
--: implementations:ImplementationEntry   ⟷ RequirementEntry.requirementId
+-: implementations:ImplementationEntry   ⟷ PRIDN.processId
 ```
 
-This means: for every entry of type `RequirementEntry` (matched by its
-`requirementId` field), there must be a corresponding item in the
-`implementations` list, and vice versa.
+This means: for every entry identified by `PRIDN.processId`, there must be a
+corresponding item in the `implementations` list, and vice versa. The key is a
+form field, so it obeys §6.2 rules 4 and 5 — the field must exist, be
+`required`, and be enumerated.
 
 #### 11.2.13 Outline visibility
 
@@ -1645,7 +1646,7 @@ SolutionBlueprint
         -> requirements:RequirementsOverview  ← (Seeds → RC)
             -> content
             (1,)-: functionalRequirements:FunctionalRequirementEntry
-                -> content, requirementId, title, description,
+                -> content, description,
                     priority: Priority (must, should, could, wontThisTime),
                     source, rationale, acceptanceCriteria,
                     status: Status (draft, proposed, approved,
@@ -1653,7 +1654,7 @@ SolutionBlueprint
                     relatedUseCase, relatedBusinessProcess,
                     affectedDataEntities
             -: nonFunctionalRequirements:NonFunctionalRequirementEntry
-                -> content, requirementId, title, description,
+                -> content, description,
                     priority: Priority (must, should, could, wontThisTime),
                     source, rationale, acceptanceCriteria,
                     status: Status (draft, proposed, approved,

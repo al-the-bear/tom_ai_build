@@ -72219,18 +72219,6 @@ std::string OrganizationalRequirementEntryContentForm::content() const {
 void OrganizationalRequirementEntryContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string OrganizationalRequirementEntryContentForm::requirementId() const {
-  return doc().formField(path(), "requirementId");
-}
-void OrganizationalRequirementEntryContentForm::setRequirementId(const std::string& value) {
-  doc().setFormField(path(), "requirementId", value);
-}
-std::string OrganizationalRequirementEntryContentForm::title() const {
-  return doc().formField(path(), "title");
-}
-void OrganizationalRequirementEntryContentForm::setTitle(const std::string& value) {
-  doc().setFormField(path(), "title", value);
-}
 std::string OrganizationalRequirementEntryContentForm::description() const {
   return doc().formField(path(), "description");
 }
@@ -91900,18 +91888,6 @@ std::string SecurityRequirementEntryContentForm::content() const {
 void SecurityRequirementEntryContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
 }
-std::string SecurityRequirementEntryContentForm::requirementId() const {
-  return doc().formField(path(), "requirementId");
-}
-void SecurityRequirementEntryContentForm::setRequirementId(const std::string& value) {
-  doc().setFormField(path(), "requirementId", value);
-}
-std::string SecurityRequirementEntryContentForm::title() const {
-  return doc().formField(path(), "title");
-}
-void SecurityRequirementEntryContentForm::setTitle(const std::string& value) {
-  doc().setFormField(path(), "title", value);
-}
 std::string SecurityRequirementEntryContentForm::description() const {
   return doc().formField(path(), "description");
 }
@@ -103537,18 +103513,6 @@ std::string TechnicalRequirementEntryContentForm::content() const {
 }
 void TechnicalRequirementEntryContentForm::setContent(const std::string& value) {
   doc().setContent(path(), value);
-}
-std::string TechnicalRequirementEntryContentForm::requirementId() const {
-  return doc().formField(path(), "requirementId");
-}
-void TechnicalRequirementEntryContentForm::setRequirementId(const std::string& value) {
-  doc().setFormField(path(), "requirementId", value);
-}
-std::string TechnicalRequirementEntryContentForm::title() const {
-  return doc().formField(path(), "title");
-}
-void TechnicalRequirementEntryContentForm::setTitle(const std::string& value) {
-  doc().setFormField(path(), "title", value);
 }
 std::string TechnicalRequirementEntryContentForm::status() const {
   return doc().formField(path(), "status");

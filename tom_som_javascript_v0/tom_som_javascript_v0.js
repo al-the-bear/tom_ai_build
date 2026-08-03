@@ -119632,22 +119632,6 @@ class OrganizationalRequirementEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get requirementId() {
-    return this.doc.formField(this.path, "requirementId") || '';
-  }
-
-  set requirementId(value) {
-    this.doc.setFormField(this.path, "requirementId", value);
-  }
-
-  get title() {
-    return this.doc.formField(this.path, "title") || '';
-  }
-
-  set title(value) {
-    this.doc.setFormField(this.path, "title", value);
-  }
-
   get description() {
     return this.doc.formField(this.path, "description") || '';
   }
@@ -149606,22 +149590,6 @@ class SecurityRequirementEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get requirementId() {
-    return this.doc.formField(this.path, "requirementId") || '';
-  }
-
-  set requirementId(value) {
-    this.doc.setFormField(this.path, "requirementId", value);
-  }
-
-  get title() {
-    return this.doc.formField(this.path, "title") || '';
-  }
-
-  set title(value) {
-    this.doc.setFormField(this.path, "title", value);
-  }
-
   get description() {
     return this.doc.formField(this.path, "description") || '';
   }
@@ -167272,22 +167240,6 @@ class TechnicalRequirementEntryContentForm extends SomNode {
 
   set content(value) {
     this.doc.setContent(this.path, value);
-  }
-
-  get requirementId() {
-    return this.doc.formField(this.path, "requirementId") || '';
-  }
-
-  set requirementId(value) {
-    this.doc.setFormField(this.path, "requirementId", value);
-  }
-
-  get title() {
-    return this.doc.formField(this.path, "title") || '';
-  }
-
-  set title(value) {
-    this.doc.setFormField(this.path, "title", value);
   }
 
   get status() {

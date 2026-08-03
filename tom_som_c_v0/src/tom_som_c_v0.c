@@ -115276,20 +115276,6 @@ char *organizational_requirement_entry_content_form_content(const Organizational
 void organizational_requirement_entry_content_form_set_content(OrganizationalRequirementEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *organizational_requirement_entry_content_form_requirement_id(const OrganizationalRequirementEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requirementId");
-  return som_strdup(v != NULL ? v : "");
-}
-void organizational_requirement_entry_content_form_set_requirement_id(OrganizationalRequirementEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requirementId", value);
-}
-char *organizational_requirement_entry_content_form_title(const OrganizationalRequirementEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "title");
-  return som_strdup(v != NULL ? v : "");
-}
-void organizational_requirement_entry_content_form_set_title(OrganizationalRequirementEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "title", value);
-}
 char *organizational_requirement_entry_content_form_description(const OrganizationalRequirementEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -140066,20 +140052,6 @@ char *security_requirement_entry_content_form_content(const SecurityRequirementE
 void security_requirement_entry_content_form_set_content(SecurityRequirementEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *security_requirement_entry_content_form_requirement_id(const SecurityRequirementEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requirementId");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_requirement_entry_content_form_set_requirement_id(SecurityRequirementEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requirementId", value);
-}
-char *security_requirement_entry_content_form_title(const SecurityRequirementEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "title");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_requirement_entry_content_form_set_title(SecurityRequirementEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "title", value);
-}
 char *security_requirement_entry_content_form_description(const SecurityRequirementEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -154668,20 +154640,6 @@ char *technical_requirement_entry_content_form_content(const TechnicalRequiremen
 }
 void technical_requirement_entry_content_form_set_content(TechnicalRequirementEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *technical_requirement_entry_content_form_requirement_id(const TechnicalRequirementEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "requirementId");
-  return som_strdup(v != NULL ? v : "");
-}
-void technical_requirement_entry_content_form_set_requirement_id(TechnicalRequirementEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "requirementId", value);
-}
-char *technical_requirement_entry_content_form_title(const TechnicalRequirementEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "title");
-  return som_strdup(v != NULL ? v : "");
-}
-void technical_requirement_entry_content_form_set_title(TechnicalRequirementEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "title", value);
 }
 char *technical_requirement_entry_content_form_status(const TechnicalRequirementEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "status");

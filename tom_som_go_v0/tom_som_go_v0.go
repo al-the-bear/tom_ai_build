@@ -141314,22 +141314,6 @@ func (x *OrganizationalRequirementEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *OrganizationalRequirementEntryContentForm) RequirementId() string {
-	return x.Doc().FormFieldOr(x.Path(), "requirementId")
-}
-
-func (x *OrganizationalRequirementEntryContentForm) SetRequirementId(value string) {
-	x.Doc().SetFormField(x.Path(), "requirementId", value)
-}
-
-func (x *OrganizationalRequirementEntryContentForm) Title() string {
-	return x.Doc().FormFieldOr(x.Path(), "title")
-}
-
-func (x *OrganizationalRequirementEntryContentForm) SetTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "title", value)
-}
-
 func (x *OrganizationalRequirementEntryContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -176654,22 +176638,6 @@ func (x *SecurityRequirementEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *SecurityRequirementEntryContentForm) RequirementId() string {
-	return x.Doc().FormFieldOr(x.Path(), "requirementId")
-}
-
-func (x *SecurityRequirementEntryContentForm) SetRequirementId(value string) {
-	x.Doc().SetFormField(x.Path(), "requirementId", value)
-}
-
-func (x *SecurityRequirementEntryContentForm) Title() string {
-	return x.Doc().FormFieldOr(x.Path(), "title")
-}
-
-func (x *SecurityRequirementEntryContentForm) SetTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "title", value)
-}
-
 func (x *SecurityRequirementEntryContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -197839,22 +197807,6 @@ func (x *TechnicalRequirementEntryContentForm) Content() string {
 
 func (x *TechnicalRequirementEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *TechnicalRequirementEntryContentForm) RequirementId() string {
-	return x.Doc().FormFieldOr(x.Path(), "requirementId")
-}
-
-func (x *TechnicalRequirementEntryContentForm) SetRequirementId(value string) {
-	x.Doc().SetFormField(x.Path(), "requirementId", value)
-}
-
-func (x *TechnicalRequirementEntryContentForm) Title() string {
-	return x.Doc().FormFieldOr(x.Path(), "title")
-}
-
-func (x *TechnicalRequirementEntryContentForm) SetTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "title", value)
 }
 
 func (x *TechnicalRequirementEntryContentForm) Status() string {

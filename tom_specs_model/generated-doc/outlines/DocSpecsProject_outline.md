@@ -274,7 +274,7 @@
         - `TechnicalRequirements`
           - content, summaryForm
           - requirements: `TechnicalRequirementEntry`
-            - content @Form(requirementId, title, status), details, measurement, verification, impact, constraints
+            - content @Form(status), details, measurement, verification, impact, constraints
             - acceptanceCriteria: `RequirementAcceptanceCriteria`
               - content @description
               - criteria: `AcceptanceCriterionEntry`
@@ -288,7 +288,7 @@
         - `SecurityRequirements`
           - content, summaryForm
           - requirements: `SecurityRequirementEntry`
-            - content @Form(requirementId, title, description), classification, compliance, verification, statusInfo
+            - content @Form(description), classification, compliance, verification, statusInfo
             - acceptanceCriteria: `RequirementAcceptanceCriteria`
               - content @description
               - criteria: `AcceptanceCriterionEntry`
@@ -306,7 +306,7 @@
         - `OrganizationalRequirements`
           - content, summaryForm
           - requirements: `OrganizationalRequirementEntry`
-            - content @Form(requirementId, title, description), classification, impact, planning
+            - content @Form(description), classification, impact, planning
             - acceptanceCriteria: `RequirementAcceptanceCriteria`
               - content @description
               - criteria: `AcceptanceCriterionEntry`
@@ -4252,7 +4252,7 @@
     - `TechnicalRequirements`
       - content, summaryForm
       - requirements: `TechnicalRequirementEntry`
-        - content @Form(requirementId, title, status), details, measurement, verification, impact, constraints
+        - content @Form(status), details, measurement, verification, impact, constraints
         - acceptanceCriteria: `RequirementAcceptanceCriteria`
           - content @description
           - criteria: `AcceptanceCriterionEntry`
@@ -4266,7 +4266,7 @@
     - `SecurityRequirements`
       - content, summaryForm
       - requirements: `SecurityRequirementEntry`
-        - content @Form(requirementId, title, description), classification, compliance, verification, statusInfo
+        - content @Form(description), classification, compliance, verification, statusInfo
         - acceptanceCriteria: `RequirementAcceptanceCriteria`
           - content @description
           - criteria: `AcceptanceCriterionEntry`
@@ -4284,7 +4284,7 @@
     - `OrganizationalRequirements`
       - content, summaryForm
       - requirements: `OrganizationalRequirementEntry`
-        - content @Form(requirementId, title, description), classification, impact, planning
+        - content @Form(description), classification, impact, planning
         - acceptanceCriteria: `RequirementAcceptanceCriteria`
           - content @description
           - criteria: `AcceptanceCriterionEntry`

@@ -118957,22 +118957,6 @@ export class OrganizationalRequirementEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get requirementId(): string {
-    return this.doc.formField(this.path, "requirementId") || '';
-  }
-
-  set requirementId(value: string) {
-    this.doc.setFormField(this.path, "requirementId", value);
-  }
-
-  get title(): string {
-    return this.doc.formField(this.path, "title") || '';
-  }
-
-  set title(value: string) {
-    this.doc.setFormField(this.path, "title", value);
-  }
-
   get description(): string {
     return this.doc.formField(this.path, "description") || '';
   }
@@ -148931,22 +148915,6 @@ export class SecurityRequirementEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get requirementId(): string {
-    return this.doc.formField(this.path, "requirementId") || '';
-  }
-
-  set requirementId(value: string) {
-    this.doc.setFormField(this.path, "requirementId", value);
-  }
-
-  get title(): string {
-    return this.doc.formField(this.path, "title") || '';
-  }
-
-  set title(value: string) {
-    this.doc.setFormField(this.path, "title", value);
-  }
-
   get description(): string {
     return this.doc.formField(this.path, "description") || '';
   }
@@ -166597,22 +166565,6 @@ export class TechnicalRequirementEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get requirementId(): string {
-    return this.doc.formField(this.path, "requirementId") || '';
-  }
-
-  set requirementId(value: string) {
-    this.doc.setFormField(this.path, "requirementId", value);
-  }
-
-  get title(): string {
-    return this.doc.formField(this.path, "title") || '';
-  }
-
-  set title(value: string) {
-    this.doc.setFormField(this.path, "title", value);
   }
 
   get status(): string {

@@ -448,12 +448,10 @@ document:
                         Draft
         TR1 technicalRequirements:
           TERQ-REQU-LST requirements:
-            TERQ-REQU-1:
+            TERQ-REQU-CONFIRM-LATENCY:
+              headline: |2-
+                TR-01 — Confirmation latency budget
               content:
-                requirementId: |2-
-                  TR-01
-                title: |2-
-                  Confirmation latency budget
                 status: |2-
                   Approved
               TRED details:
@@ -482,12 +480,10 @@ document:
                   Load test at 3x peak-hour volume
                 measurementFrequency: |2-
                   Per release + continuous in production
-            TERQ-REQU-2:
+            TERQ-REQU-CAPTURE-AVAILABILITY:
+              headline: |2-
+                TR-02 — Capture API availability
               content:
-                requirementId: |2-
-                  TR-02
-                title: |2-
-                  Capture API availability
                 status: |2-
                   Approved
               TRED details:
@@ -512,12 +508,10 @@ document:
                   Synthetic probes + gateway success-rate metrics
                 measurementFrequency: |2-
                   Monthly
-            TERQ-REQU-3:
+            TERQ-REQU-EVENT-SOURCED:
+              headline: |2-
+                TR-03 — Event-sourced order service
               content:
-                requirementId: |2-
-                  TR-03
-                title: |2-
-                  Event-sourced order service
                 status: |2-
                   Approved
               TRED details:
@@ -535,12 +529,10 @@ document:
                   Reproducible history and rebuildable projections are core to auditability.
         SR1 securityRequirements:
           SECRQ-REQU-LST requirements:
-            SECRQ-REQU-1:
+            SECRQ-REQU-RBAC:
+              headline: |2-
+                SR-01 — Role-based access control
               content:
-                requirementId: |2-
-                  SR-01
-                title: |2-
-                  Role-based access control
                 description: |2-
                   Access is governed by the roles Order Clerk, Order Supervisor, Pricing Admin, and Integration (machine) accounts scoped to specific channels; every state transition is attributed to an authenticated principal.
               SEREENCL classification:
@@ -565,12 +557,10 @@ document:
                   AC-6
                 complianceReference: |2-
                   Corporate IAM policy v3
-            SECRQ-REQU-2:
+            SECRQ-REQU-PII-AT-REST:
+              headline: |2-
+                SR-02 — Encrypt customer PII at rest
               content:
-                requirementId: |2-
-                  SR-02
-                title: |2-
-                  Encrypt customer PII at rest
                 description: |2-
                   All customer personally identifiable information must be encrypted at rest.
               SEREENCL classification:
@@ -593,12 +583,10 @@ document:
                   SC-28
                 complianceReference: |2-
                   GDPR Art. 32
-            SECRQ-REQU-3:
+            SECRQ-REQU-OAUTH2-PARTNERS:
+              headline: |2-
+                SR-03 — OAuth2 client credentials on the public API
               content:
-                requirementId: |2-
-                  SR-03
-                title: |2-
-                  OAuth2 client credentials on the public API
                 description: |2-
                   The public order API must authenticate partners with OAuth2 client-credentials tokens and enforce per-partner rate limits at the gateway.
               SEREENCL classification:
@@ -623,12 +611,10 @@ document:
                   IA-5
         OR organizationalRequirements:
           ORRQ-REQU-LST requirements:
-            ORRQ-REQU-1:
+            ORRQ-REQU-TRAIN-OPS-DESK:
+              headline: |2-
+                OR-01 — Train the operations desk on MOM
               content:
-                requirementId: |2-
-                  OR-01
-                title: |2-
-                  Train the operations desk on MOM
                 description: |2-
                   Before cutover the order-operations desk must be trained to run the full order lifecycle on MOM alone, including hold release and amendments.
               OREI impact:
@@ -642,12 +628,10 @@ document:
                   Medium
                 resistance: |2-
                   Low
-            ORRQ-REQU-2:
+            ORRQ-REQU-PARALLEL-RUN-STAFFING:
+              headline: |2-
+                OR-02 — Staff the parallel run
               content:
-                requirementId: |2-
-                  OR-02
-                title: |2-
-                  Staff the parallel run
                 description: |2-
                   The two-week parallel run against OrderDesk requires staffing to reconcile both systems daily until the < 0.1% variance gate passes.
               OREI impact:
