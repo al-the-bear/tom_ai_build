@@ -213,13 +213,6 @@ class OrganizationalChangeEntry extends DocSpecsSection {
       hint: 'Unique identifier for this structural change',
     ),
     Field(
-      'changeName',
-      String,
-      'Change Name',
-      required: true,
-      hint: 'Short descriptive name for the change',
-    ),
-    Field(
       'changeType',
       String,
       'Change Type',
@@ -853,13 +846,6 @@ class TransitionPhaseIdentification extends DocSpecsSection {
       hint: 'Unique identifier for the phase, e.g. PH-01',
     ),
     Field(
-      'phaseName',
-      String,
-      'Phase Name',
-      required: true,
-      hint: 'Short descriptive name for the transition phase',
-    ),
-    Field(
       'phaseType',
       String,
       'Phase Type — Preparation, Pilot, Rollout, Stabilization, Closure',
@@ -1089,13 +1075,6 @@ class TransitionMilestoneEntry extends DocSpecsSection {
       'Milestone ID (e.g., MS-01)',
       required: true,
       hint: 'Unique identifier for the milestone, e.g. MS-01',
-    ),
-    Field(
-      'milestoneName',
-      String,
-      'Milestone Name',
-      required: true,
-      hint: 'Short descriptive name for the milestone',
     ),
     Field(
       'milestoneType',
@@ -1568,13 +1547,6 @@ class CommunicationEventEntry extends DocSpecsSection {
       hint: 'A unique identifier for this communication event',
     ),
     Field(
-      'eventName',
-      String,
-      'Event Name',
-      required: true,
-      hint: 'A short descriptive name for this communication event',
-    ),
-    Field(
       'eventType',
       String,
       'Event Type — Announcement, Town Hall, Email, Workshop, Newsletter',
@@ -1911,12 +1883,6 @@ class TransitionSupportResourceEntry extends DocSpecsSection {
           'Walker, Coach, FAQ, etc.',
     ),
     Field(
-      'resourceName',
-      String,
-      'Resource Name/Title',
-      hint: 'The name or title of this support resource',
-    ),
-    Field(
       'availabilityPeriod',
       String,
       'Availability Period — start/end dates',
@@ -2147,13 +2113,6 @@ class TransitionMetricEntry extends DocSpecsSection {
       hint: 'A unique identifier for this success metric',
     ),
     Field(
-      'metricName',
-      String,
-      'Metric Name',
-      required: true,
-      hint: 'A short descriptive name for this success metric',
-    ),
-    Field(
       'category',
       String,
       'Category — Adoption, Performance, Quality, Satisfaction, Efficiency',
@@ -2287,13 +2246,6 @@ class TransitionRiskEntry extends DocSpecsSection {
       'Risk ID',
       required: true,
       hint: 'A unique identifier for this transition risk',
-    ),
-    Field(
-      'riskName',
-      String,
-      'Risk Name',
-      required: true,
-      hint: 'A short descriptive name for this transition risk',
     ),
     Field(
       'riskCategory',
@@ -3089,13 +3041,6 @@ class CompetencyEntry extends DocSpecsSection {
       required: true,
     ),
     Field(
-      'competencyName',
-      String,
-      'Competency Name',
-      hint: 'Short name of the competency',
-      required: true,
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -3174,13 +3119,6 @@ class NewRoleEntry extends DocSpecsSection {
       'Role ID (e.g., NR-001)',
       required: true,
       hint: 'Unique identifier for this new role',
-    ),
-    Field(
-      'roleTitle',
-      String,
-      'Role Title',
-      required: true,
-      hint: 'Official job title for the role',
     ),
     Field(
       'roleFamily',
@@ -3822,13 +3760,6 @@ class RoleCompetencyEntry extends DocSpecsSection {
       hint: 'Unique identifier for this competency',
     ),
     Field(
-      'competencyName',
-      String,
-      'Competency Name',
-      required: true,
-      hint: 'Name of the competency',
-    ),
-    Field(
       'competencyType',
       String,
       'Competency Type — Core, Technical, Leadership',
@@ -4047,13 +3978,6 @@ class ChangedRoleIdentification extends DocSpecsSection {
       'Role ID (e.g., CR-001)',
       required: true,
       hint: 'Unique identifier for this changed role',
-    ),
-    Field(
-      'roleTitle',
-      String,
-      'Current Role Title',
-      required: true,
-      hint: 'The role title before the change',
     ),
     Field(
       'newRoleTitle',
@@ -4410,13 +4334,6 @@ class ChangedRoleCompetencies extends DocSpecsSection {
 class CompetencyLevelChangeEntry extends DocSpecsSection {
   @Form([
     Field(
-      'competencyName',
-      String,
-      'Competency Name',
-      required: true,
-      hint: 'The competency whose required level is changing',
-    ),
-    Field(
       'currentLevel',
       String,
       'Current Required Level',
@@ -4586,13 +4503,6 @@ class RemovedRoleEntry extends DocSpecsSection {
       'Role ID',
       required: true,
       hint: 'Unique identifier for the role being removed',
-    ),
-    Field(
-      'roleTitle',
-      String,
-      'Role Title',
-      required: true,
-      hint: 'Title of the role being removed',
     ),
     Field(
       'department',
@@ -5614,7 +5524,6 @@ class TrainingRequirements extends DocSpecsSection {
 class InitialTrainingEntry extends DocSpecsSection {
   @Form([
     Field('trainingId', String, 'Training ID', required: true),
-    Field('trainingName', String, 'Training Name', required: true),
     Field('description', String, 'Description'),
   ])
   @override
@@ -5715,7 +5624,6 @@ class InitialTrainingEntry extends DocSpecsSection {
 class OngoingTrainingEntry extends DocSpecsSection {
   @Form([
     Field('trainingId', String, 'Training ID', required: true),
-    Field('trainingName', String, 'Training Name', required: true),
     Field('description', String, 'Description'),
     Field('targetAudience', String, 'Target Audience'),
   ])
@@ -5790,7 +5698,6 @@ class OngoingTrainingEntry extends DocSpecsSection {
 class SystemTrainingEntry extends DocSpecsSection {
   @Form([
     Field('trainingId', String, 'Training ID', required: true),
-    Field('systemName', String, 'System Name', required: true),
     Field(
       'modulesCovered',
       String,
@@ -5872,7 +5779,6 @@ class SystemTrainingEntry extends DocSpecsSection {
 class CertificationEntry extends DocSpecsSection {
   @Form([
     Field('certificationId', String, 'Certification ID', required: true),
-    Field('certificationName', String, 'Certification Name', required: true),
     Field('issuingBody', String, 'Issuing Body — who certifies'),
   ])
   @override

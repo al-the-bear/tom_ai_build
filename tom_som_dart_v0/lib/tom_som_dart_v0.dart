@@ -25417,9 +25417,6 @@ class AcceptanceCriterionEntryContentForm extends SomNode {
   String get criterionId => doc.formField(path, 'criterionId') ?? '';
   set criterionId(String value) => doc.setFormField(path, 'criterionId', value);
 
-  String get criterionTitle => doc.formField(path, 'criterionTitle') ?? '';
-  set criterionTitle(String value) => doc.setFormField(path, 'criterionTitle', value);
-
   String get given => doc.formField(path, 'given') ?? '';
   set given(String value) => doc.setFormField(path, 'given', value);
 
@@ -25620,9 +25617,6 @@ class AcceptanceStepEntryContentForm extends SomNode {
   String get stepNumber => doc.formField(path, 'stepNumber') ?? '';
   set stepNumber(String value) => doc.setFormField(path, 'stepNumber', value);
 
-  String get stepName => doc.formField(path, 'stepName') ?? '';
-  set stepName(String value) => doc.setFormField(path, 'stepName', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
@@ -25688,9 +25682,6 @@ class AccessLevelEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get levelName => doc.formField(path, 'levelName') ?? '';
-  set levelName(String value) => doc.setFormField(path, 'levelName', value);
 
   String get levelId => doc.formField(path, 'levelId') ?? '';
   set levelId(String value) => doc.setFormField(path, 'levelId', value);
@@ -25970,9 +25961,6 @@ class AccessibilityStandardEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get standardName => doc.formField(path, 'standardName') ?? '';
-  set standardName(String value) => doc.setFormField(path, 'standardName', value);
-
   String get version => doc.formField(path, 'version') ?? '';
   set version(String value) => doc.setFormField(path, 'version', value);
 
@@ -26152,9 +26140,6 @@ class ActionParameterEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get parameterName => doc.formField(path, 'parameterName') ?? '';
-  set parameterName(String value) => doc.setFormField(path, 'parameterName', value);
-
   String get sourceType => doc.formField(path, 'sourceType') ?? '';
   set sourceType(String value) => doc.setFormField(path, 'sourceType', value);
 
@@ -26254,9 +26239,6 @@ class ActorEntryIdentificationForm extends SomNode {
 
   String get actorId => doc.formField(path, 'actorId') ?? '';
   set actorId(String value) => doc.setFormField(path, 'actorId', value);
-
-  String get actorName => doc.formField(path, 'actorName') ?? '';
-  set actorName(String value) => doc.setFormField(path, 'actorName', value);
 
   String get actorType => doc.formField(path, 'actorType') ?? '';
   set actorType(String value) => doc.setFormField(path, 'actorType', value);
@@ -26707,9 +26689,6 @@ class AffectedDepartmentEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get departmentName => doc.formField(path, 'departmentName') ?? '';
-  set departmentName(String value) => doc.setFormField(path, 'departmentName', value);
-
   String get departmentHead => doc.formField(path, 'departmentHead') ?? '';
   set departmentHead(String value) => doc.setFormField(path, 'departmentHead', value);
 
@@ -26747,9 +26726,6 @@ class AffectedFunctionEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get functionName => doc.formField(path, 'functionName') ?? '';
-  set functionName(String value) => doc.setFormField(path, 'functionName', value);
-
   String get triggerPoint => doc.formField(path, 'triggerPoint') ?? '';
   set triggerPoint(String value) => doc.setFormField(path, 'triggerPoint', value);
 
@@ -26771,9 +26747,6 @@ class AffectedObjectEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get objectName => doc.formField(path, 'objectName') ?? '';
-  set objectName(String value) => doc.setFormField(path, 'objectName', value);
 
   String get affectedAttributes => doc.formField(path, 'affectedAttributes') ?? '';
   set affectedAttributes(String value) => doc.setFormField(path, 'affectedAttributes', value);
@@ -26824,9 +26797,6 @@ class AlertDefinitionEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get alertName => doc.formField(path, 'alertName') ?? '';
-  set alertName(String value) => doc.setFormField(path, 'alertName', value);
 
   String get alertDescription => doc.formField(path, 'alertDescription') ?? '';
   set alertDescription(String value) => doc.setFormField(path, 'alertDescription', value);
@@ -27087,9 +27057,6 @@ class AlertRuleEntryContentForm extends SomNode {
 
   String get alertId => doc.formField(path, 'alertId') ?? '';
   set alertId(String value) => doc.setFormField(path, 'alertId', value);
-
-  String get alertName => doc.formField(path, 'alertName') ?? '';
-  set alertName(String value) => doc.setFormField(path, 'alertName', value);
 
   String get alertDescription => doc.formField(path, 'alertDescription') ?? '';
   set alertDescription(String value) => doc.setFormField(path, 'alertDescription', value);
@@ -27387,9 +27354,6 @@ class AlternativeFlowEntryContentForm extends SomNode {
   String get flowId => doc.formField(path, 'flowId') ?? '';
   set flowId(String value) => doc.setFormField(path, 'flowId', value);
 
-  String get flowName => doc.formField(path, 'flowName') ?? '';
-  set flowName(String value) => doc.setFormField(path, 'flowName', value);
-
   String get flowType => doc.formField(path, 'flowType') ?? '';
   set flowType(String value) => doc.setFormField(path, 'flowType', value);
 
@@ -27482,9 +27446,6 @@ class ApiCompatibilityEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get apiName => doc.formField(path, 'apiName') ?? '';
-  set apiName(String value) => doc.setFormField(path, 'apiName', value);
 
   String get apiType => doc.formField(path, 'apiType') ?? '';
   set apiType(String value) => doc.setFormField(path, 'apiType', value);
@@ -27689,9 +27650,6 @@ class ApplicableRegulationEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get regulationName => doc.formField(path, 'regulationName') ?? '';
-  set regulationName(String value) => doc.setFormField(path, 'regulationName', value);
 
   String get regulationCode => doc.formField(path, 'regulationCode') ?? '';
   set regulationCode(String value) => doc.setFormField(path, 'regulationCode', value);
@@ -28143,9 +28101,6 @@ class ApprovalRecordContentForm extends SomNode {
   String get role => doc.formField(path, 'role') ?? '';
   set role(String value) => doc.setFormField(path, 'role', value);
 
-  String get name => doc.formField(path, 'name') ?? '';
-  set name(String value) => doc.setFormField(path, 'name', value);
-
   String get date => doc.formField(path, 'date') ?? '';
   set date(String value) => doc.setFormField(path, 'date', value);
 
@@ -28186,9 +28141,6 @@ class ArchitectureComponentEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get componentName => doc.formField(path, 'componentName') ?? '';
-  set componentName(String value) => doc.setFormField(path, 'componentName', value);
 
   String get componentType => doc.formField(path, 'componentType') ?? '';
   set componentType(String value) => doc.setFormField(path, 'componentType', value);
@@ -28327,9 +28279,6 @@ class ArchitectureDecisionRecordContentForm extends SomNode {
 
   String get decisionId => doc.formField(path, 'decisionId') ?? '';
   set decisionId(String value) => doc.setFormField(path, 'decisionId', value);
-
-  String get title => doc.formField(path, 'title') ?? '';
-  set title(String value) => doc.setFormField(path, 'title', value);
 
   String get date => doc.formField(path, 'date') ?? '';
   set date(String value) => doc.setFormField(path, 'date', value);
@@ -28532,9 +28481,6 @@ class ArchitecturePrincipleEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get principleName => doc.formField(path, 'principleName') ?? '';
-  set principleName(String value) => doc.setFormField(path, 'principleName', value);
-
   String get category => doc.formField(path, 'category') ?? '';
   set category(String value) => doc.setFormField(path, 'category', value);
 
@@ -28634,9 +28580,6 @@ class AuditEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get auditName => doc.formField(path, 'auditName') ?? '';
-  set auditName(String value) => doc.setFormField(path, 'auditName', value);
 
   String get auditType => doc.formField(path, 'auditType') ?? '';
   set auditType(String value) => doc.setFormField(path, 'auditType', value);
@@ -28772,9 +28715,6 @@ class AuthenticationMethodEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get methodName => doc.formField(path, 'methodName') ?? '';
-  set methodName(String value) => doc.setFormField(path, 'methodName', value);
-
   String get methodType => doc.formField(path, 'methodType') ?? '';
   set methodType(String value) => doc.setFormField(path, 'methodType', value);
 
@@ -28905,9 +28845,6 @@ class AuthorizationGroupEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get groupName => doc.formField(path, 'groupName') ?? '';
-  set groupName(String value) => doc.setFormField(path, 'groupName', value);
 
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
@@ -29587,9 +29524,6 @@ class BackupPolicyEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get policyName => doc.formField(path, 'policyName') ?? '';
-  set policyName(String value) => doc.setFormField(path, 'policyName', value);
-
   String get dataScope => doc.formField(path, 'dataScope') ?? '';
   set dataScope(String value) => doc.setFormField(path, 'dataScope', value);
 
@@ -30219,9 +30153,6 @@ class BoundedContextEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get contextName => doc.formField(path, 'contextName') ?? '';
-  set contextName(String value) => doc.setFormField(path, 'contextName', value);
-
   String get domainArea => doc.formField(path, 'domainArea') ?? '';
   set domainArea(String value) => doc.setFormField(path, 'domainArea', value);
 
@@ -30359,9 +30290,6 @@ class BreakpointEntryContentForm extends SomNode {
   String get breakpointId => doc.formField(path, 'breakpointId') ?? '';
   set breakpointId(String value) => doc.setFormField(path, 'breakpointId', value);
 
-  String get breakpointName => doc.formField(path, 'breakpointName') ?? '';
-  set breakpointName(String value) => doc.setFormField(path, 'breakpointName', value);
-
   String get minWidth => doc.formField(path, 'minWidth') ?? '';
   set minWidth(String value) => doc.setFormField(path, 'minWidth', value);
 
@@ -30430,9 +30358,6 @@ class BrowserCompatibilityEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get browserName => doc.formField(path, 'browserName') ?? '';
-  set browserName(String value) => doc.setFormField(path, 'browserName', value);
 
   String get browserEngine => doc.formField(path, 'browserEngine') ?? '';
   set browserEngine(String value) => doc.setFormField(path, 'browserEngine', value);
@@ -30685,9 +30610,6 @@ class BuildToolchainEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get toolName => doc.formField(path, 'toolName') ?? '';
-  set toolName(String value) => doc.setFormField(path, 'toolName', value);
-
   String get toolCategory => doc.formField(path, 'toolCategory') ?? '';
   set toolCategory(String value) => doc.setFormField(path, 'toolCategory', value);
 
@@ -30921,9 +30843,6 @@ class BusinessComponentEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get componentName => doc.formField(path, 'componentName') ?? '';
-  set componentName(String value) => doc.setFormField(path, 'componentName', value);
-
   String get componentType => doc.formField(path, 'componentType') ?? '';
   set componentType(String value) => doc.setFormField(path, 'componentType', value);
 
@@ -31058,9 +30977,6 @@ class BusinessGoalEntryContentForm extends SomNode {
 
   String get goalId => doc.formField(path, 'goalId') ?? '';
   set goalId(String value) => doc.setFormField(path, 'goalId', value);
-
-  String get goalName => doc.formField(path, 'goalName') ?? '';
-  set goalName(String value) => doc.setFormField(path, 'goalName', value);
 
   String get goalCategory => doc.formField(path, 'goalCategory') ?? '';
   set goalCategory(String value) => doc.setFormField(path, 'goalCategory', value);
@@ -31288,9 +31204,6 @@ class BusinessObjectAttributeEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get attributeName => doc.formField(path, 'attributeName') ?? '';
-  set attributeName(String value) => doc.setFormField(path, 'attributeName', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
@@ -31403,9 +31316,6 @@ class BusinessObjectEntryIdentityForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get objectName => doc.formField(path, 'objectName') ?? '';
-  set objectName(String value) => doc.setFormField(path, 'objectName', value);
 
   String get objectAlias => doc.formField(path, 'objectAlias') ?? '';
   set objectAlias(String value) => doc.setFormField(path, 'objectAlias', value);
@@ -31603,9 +31513,6 @@ class BusinessRuleEntryIdentityForm extends SomNode {
   String get ruleId => doc.formField(path, 'ruleId') ?? '';
   set ruleId(String value) => doc.setFormField(path, 'ruleId', value);
 
-  String get ruleName => doc.formField(path, 'ruleName') ?? '';
-  set ruleName(String value) => doc.setFormField(path, 'ruleName', value);
-
   String get ruleVersion => doc.formField(path, 'ruleVersion') ?? '';
   set ruleVersion(String value) => doc.setFormField(path, 'ruleVersion', value);
 
@@ -31686,9 +31593,6 @@ class BusinessRuleReferenceEntryContentForm extends SomNode {
 
   String get ruleId => doc.formField(path, 'ruleId') ?? '';
   set ruleId(String value) => doc.setFormField(path, 'ruleId', value);
-
-  String get ruleName => doc.formField(path, 'ruleName') ?? '';
-  set ruleName(String value) => doc.setFormField(path, 'ruleName', value);
 
   String get ruleType => doc.formField(path, 'ruleType') ?? '';
   set ruleType(String value) => doc.setFormField(path, 'ruleType', value);
@@ -31811,9 +31715,6 @@ class CcbMemberEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get name => doc.formField(path, 'name') ?? '';
-  set name(String value) => doc.setFormField(path, 'name', value);
 
   String get role => doc.formField(path, 'role') ?? '';
   set role(String value) => doc.setFormField(path, 'role', value);
@@ -31961,9 +31862,6 @@ class CertificationEntryContentForm extends SomNode {
 
   String get certificationId => doc.formField(path, 'certificationId') ?? '';
   set certificationId(String value) => doc.setFormField(path, 'certificationId', value);
-
-  String get certificationName => doc.formField(path, 'certificationName') ?? '';
-  set certificationName(String value) => doc.setFormField(path, 'certificationName', value);
 
   String get issuingBody => doc.formField(path, 'issuingBody') ?? '';
   set issuingBody(String value) => doc.setFormField(path, 'issuingBody', value);
@@ -32206,9 +32104,6 @@ class ChangeCategoryEntryContentForm extends SomNode {
 
   String get categoryId => doc.formField(path, 'categoryId') ?? '';
   set categoryId(String value) => doc.setFormField(path, 'categoryId', value);
-
-  String get categoryName => doc.formField(path, 'categoryName') ?? '';
-  set categoryName(String value) => doc.setFormField(path, 'categoryName', value);
 
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
@@ -32663,9 +32558,6 @@ class ChangeRoleEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get roleName => doc.formField(path, 'roleName') ?? '';
-  set roleName(String value) => doc.setFormField(path, 'roleName', value);
-
   String get responsibility => doc.formField(path, 'responsibility') ?? '';
   set responsibility(String value) => doc.setFormField(path, 'responsibility', value);
 
@@ -32721,9 +32613,6 @@ class ChangeStepEntryContentForm extends SomNode {
 
   int? get stepNumber => somParseInt(doc.formField(path, 'stepNumber'));
   set stepNumber(int? value) => doc.setFormField(path, 'stepNumber', somFormatInt(value));
-
-  String get stepName => doc.formField(path, 'stepName') ?? '';
-  set stepName(String value) => doc.setFormField(path, 'stepName', value);
 
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
@@ -32929,9 +32818,6 @@ class ChangedRoleIdentificationContentForm extends SomNode {
 
   String get roleId => doc.formField(path, 'roleId') ?? '';
   set roleId(String value) => doc.setFormField(path, 'roleId', value);
-
-  String get roleTitle => doc.formField(path, 'roleTitle') ?? '';
-  set roleTitle(String value) => doc.setFormField(path, 'roleTitle', value);
 
   String get newRoleTitle => doc.formField(path, 'newRoleTitle') ?? '';
   set newRoleTitle(String value) => doc.setFormField(path, 'newRoleTitle', value);
@@ -33401,9 +33287,6 @@ class ClientApplicationEntryContentForm extends SomNode {
 
   String get clientId => doc.formField(path, 'clientId') ?? '';
   set clientId(String value) => doc.setFormField(path, 'clientId', value);
-
-  String get clientName => doc.formField(path, 'clientName') ?? '';
-  set clientName(String value) => doc.setFormField(path, 'clientName', value);
 
   ClientApplicationKind? get clientKind => _parseClientApplicationKind(doc.formField(path, 'clientKind'));
   set clientKind(ClientApplicationKind? value) => doc.setFormField(path, 'clientKind', value?.name ?? '');
@@ -34273,9 +34156,6 @@ class CodingStandardEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get standardName => doc.formField(path, 'standardName') ?? '';
-  set standardName(String value) => doc.setFormField(path, 'standardName', value);
-
   String get standardCategory => doc.formField(path, 'standardCategory') ?? '';
   set standardCategory(String value) => doc.setFormField(path, 'standardCategory', value);
 
@@ -34518,9 +34398,6 @@ class ColorPaletteEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get paletteName => doc.formField(path, 'paletteName') ?? '';
-  set paletteName(String value) => doc.setFormField(path, 'paletteName', value);
-
   String get paletteRole => doc.formField(path, 'paletteRole') ?? '';
   set paletteRole(String value) => doc.setFormField(path, 'paletteRole', value);
 
@@ -34586,9 +34463,6 @@ class CommitteeMemberEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get name => doc.formField(path, 'name') ?? '';
-  set name(String value) => doc.setFormField(path, 'name', value);
-
   String get organizationRole => doc.formField(path, 'organizationRole') ?? '';
   set organizationRole(String value) => doc.setFormField(path, 'organizationRole', value);
 
@@ -34648,9 +34522,6 @@ class CommunicationChannelEncryptionEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get channelName => doc.formField(path, 'channelName') ?? '';
-  set channelName(String value) => doc.setFormField(path, 'channelName', value);
-
   String get channelType => doc.formField(path, 'channelType') ?? '';
   set channelType(String value) => doc.setFormField(path, 'channelType', value);
 
@@ -34687,9 +34558,6 @@ class CommunicationEventEntryContentForm extends SomNode {
 
   String get eventId => doc.formField(path, 'eventId') ?? '';
   set eventId(String value) => doc.setFormField(path, 'eventId', value);
-
-  String get eventName => doc.formField(path, 'eventName') ?? '';
-  set eventName(String value) => doc.setFormField(path, 'eventName', value);
 
   String get eventType => doc.formField(path, 'eventType') ?? '';
   set eventType(String value) => doc.setFormField(path, 'eventType', value);
@@ -35040,9 +34908,6 @@ class CompetencyEntryContentForm extends SomNode {
   String get competencyId => doc.formField(path, 'competencyId') ?? '';
   set competencyId(String value) => doc.setFormField(path, 'competencyId', value);
 
-  String get competencyName => doc.formField(path, 'competencyName') ?? '';
-  set competencyName(String value) => doc.setFormField(path, 'competencyName', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
@@ -35104,9 +34969,6 @@ class CompetencyLevelChangeEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get competencyName => doc.formField(path, 'competencyName') ?? '';
-  set competencyName(String value) => doc.setFormField(path, 'competencyName', value);
 
   String get currentLevel => doc.formField(path, 'currentLevel') ?? '';
   set currentLevel(String value) => doc.setFormField(path, 'currentLevel', value);
@@ -35229,9 +35091,6 @@ class ComplianceMilestoneEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get milestoneName => doc.formField(path, 'milestoneName') ?? '';
-  set milestoneName(String value) => doc.setFormField(path, 'milestoneName', value);
 
   String get regulation => doc.formField(path, 'regulation') ?? '';
   set regulation(String value) => doc.setFormField(path, 'regulation', value);
@@ -35424,9 +35283,6 @@ class ComponentActionEntryContentForm extends SomNode {
   String get actionId => doc.formField(path, 'actionId') ?? '';
   set actionId(String value) => doc.setFormField(path, 'actionId', value);
 
-  String get actionName => doc.formField(path, 'actionName') ?? '';
-  set actionName(String value) => doc.setFormField(path, 'actionName', value);
-
   String get actionTrigger => doc.formField(path, 'actionTrigger') ?? '';
   set actionTrigger(String value) => doc.setFormField(path, 'actionTrigger', value);
 
@@ -35542,9 +35398,6 @@ class ComponentEntryContentForm extends SomNode {
 
   String get componentId => doc.formField(path, 'componentId') ?? '';
   set componentId(String value) => doc.setFormField(path, 'componentId', value);
-
-  String get componentName => doc.formField(path, 'componentName') ?? '';
-  set componentName(String value) => doc.setFormField(path, 'componentName', value);
 
   String get category => doc.formField(path, 'category') ?? '';
   set category(String value) => doc.setFormField(path, 'category', value);
@@ -35713,9 +35566,6 @@ class ComponentFamilyEntryContentForm extends SomNode {
   String get familyId => doc.formField(path, 'familyId') ?? '';
   set familyId(String value) => doc.setFormField(path, 'familyId', value);
 
-  String get familyName => doc.formField(path, 'familyName') ?? '';
-  set familyName(String value) => doc.setFormField(path, 'familyName', value);
-
   String get familyDescription => doc.formField(path, 'familyDescription') ?? '';
   set familyDescription(String value) => doc.setFormField(path, 'familyDescription', value);
 
@@ -35853,9 +35703,6 @@ class ComponentInterfaceEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get interfaceName => doc.formField(path, 'interfaceName') ?? '';
-  set interfaceName(String value) => doc.setFormField(path, 'interfaceName', value);
 
   String get interfaceType => doc.formField(path, 'interfaceType') ?? '';
   set interfaceType(String value) => doc.setFormField(path, 'interfaceType', value);
@@ -36368,9 +36215,6 @@ class ComponentPropertyEntryContentForm extends SomNode {
   String get propertyId => doc.formField(path, 'propertyId') ?? '';
   set propertyId(String value) => doc.setFormField(path, 'propertyId', value);
 
-  String get propertyName => doc.formField(path, 'propertyName') ?? '';
-  set propertyName(String value) => doc.setFormField(path, 'propertyName', value);
-
   String get propertyType => doc.formField(path, 'propertyType') ?? '';
   set propertyType(String value) => doc.setFormField(path, 'propertyType', value);
 
@@ -36670,9 +36514,6 @@ class ComponentRiskEntryContentForm extends SomNode {
 
   String get componentRef => doc.formField(path, 'componentRef') ?? '';
   set componentRef(String value) => doc.setFormField(path, 'componentRef', value);
-
-  String get riskTitle => doc.formField(path, 'riskTitle') ?? '';
-  set riskTitle(String value) => doc.setFormField(path, 'riskTitle', value);
 }
 
 /// Generated section facade for the `description` `@Form` section:
@@ -36784,9 +36625,6 @@ class ComponentSlotEntryContentForm extends SomNode {
   String get slotId => doc.formField(path, 'slotId') ?? '';
   set slotId(String value) => doc.setFormField(path, 'slotId', value);
 
-  String get slotName => doc.formField(path, 'slotName') ?? '';
-  set slotName(String value) => doc.setFormField(path, 'slotName', value);
-
   String get slotDescription => doc.formField(path, 'slotDescription') ?? '';
   set slotDescription(String value) => doc.setFormField(path, 'slotDescription', value);
 
@@ -36839,9 +36677,6 @@ class ComponentStateEntryContentForm extends SomNode {
 
   String get stateId => doc.formField(path, 'stateId') ?? '';
   set stateId(String value) => doc.setFormField(path, 'stateId', value);
-
-  String get stateName => doc.formField(path, 'stateName') ?? '';
-  set stateName(String value) => doc.setFormField(path, 'stateName', value);
 
   String get stateDescription => doc.formField(path, 'stateDescription') ?? '';
   set stateDescription(String value) => doc.setFormField(path, 'stateDescription', value);
@@ -37074,9 +36909,6 @@ class ComponentVariantEntryContentForm extends SomNode {
 
   String get variantId => doc.formField(path, 'variantId') ?? '';
   set variantId(String value) => doc.setFormField(path, 'variantId', value);
-
-  String get variantName => doc.formField(path, 'variantName') ?? '';
-  set variantName(String value) => doc.setFormField(path, 'variantName', value);
 
   String get variantDescription => doc.formField(path, 'variantDescription') ?? '';
   set variantDescription(String value) => doc.setFormField(path, 'variantDescription', value);
@@ -37315,9 +37147,6 @@ class ConfidentialInfoCategoryEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get categoryName => doc.formField(path, 'categoryName') ?? '';
-  set categoryName(String value) => doc.setFormField(path, 'categoryName', value);
 
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
@@ -37955,9 +37784,6 @@ class ContingencyPlanEntryContentForm extends SomNode {
   String get contingencyId => doc.formField(path, 'contingencyId') ?? '';
   set contingencyId(String value) => doc.setFormField(path, 'contingencyId', value);
 
-  String get planTitle => doc.formField(path, 'planTitle') ?? '';
-  set planTitle(String value) => doc.setFormField(path, 'planTitle', value);
-
   String get triggerCondition => doc.formField(path, 'triggerCondition') ?? '';
   set triggerCondition(String value) => doc.setFormField(path, 'triggerCondition', value);
 }
@@ -38275,9 +38101,6 @@ class CurrentBusinessProcessContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get processName => doc.formField(path, 'processName') ?? '';
-  set processName(String value) => doc.setFormField(path, 'processName', value);
-
   String get processOwner => doc.formField(path, 'processOwner') ?? '';
   set processOwner(String value) => doc.setFormField(path, 'processOwner', value);
 
@@ -38448,9 +38271,6 @@ class CurrentWorkflowEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get workflowName => doc.formField(path, 'workflowName') ?? '';
-  set workflowName(String value) => doc.setFormField(path, 'workflowName', value);
-
   String get workflowId => doc.formField(path, 'workflowId') ?? '';
   set workflowId(String value) => doc.setFormField(path, 'workflowId', value);
 
@@ -38513,9 +38333,6 @@ class CustomDistributionGroupContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get groupName => doc.formField(path, 'groupName') ?? '';
-  set groupName(String value) => doc.setFormField(path, 'groupName', value);
-
   String get purpose => doc.formField(path, 'purpose') ?? '';
   set purpose(String value) => doc.setFormField(path, 'purpose', value);
 
@@ -38540,9 +38357,6 @@ class CustomMetricEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get metricName => doc.formField(path, 'metricName') ?? '';
-  set metricName(String value) => doc.setFormField(path, 'metricName', value);
 
   String get metricType => doc.formField(path, 'metricType') ?? '';
   set metricType(String value) => doc.setFormField(path, 'metricType', value);
@@ -38608,9 +38422,6 @@ class DashboardEntryContentForm extends SomNode {
 
   String get dashboardId => doc.formField(path, 'dashboardId') ?? '';
   set dashboardId(String value) => doc.setFormField(path, 'dashboardId', value);
-
-  String get dashboardName => doc.formField(path, 'dashboardName') ?? '';
-  set dashboardName(String value) => doc.setFormField(path, 'dashboardName', value);
 
   String get dashboardCategory => doc.formField(path, 'dashboardCategory') ?? '';
   set dashboardCategory(String value) => doc.setFormField(path, 'dashboardCategory', value);
@@ -39119,9 +38930,6 @@ class DataAttributeEntryIdentityForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get attributeName => doc.formField(path, 'attributeName') ?? '';
-  set attributeName(String value) => doc.setFormField(path, 'attributeName', value);
-
   String get columnName => doc.formField(path, 'columnName') ?? '';
   set columnName(String value) => doc.setFormField(path, 'columnName', value);
 
@@ -39310,9 +39118,6 @@ class DataClassificationEntryIdentityForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get classificationName => doc.formField(path, 'classificationName') ?? '';
-  set classificationName(String value) => doc.setFormField(path, 'classificationName', value);
-
   String get classificationLevel => doc.formField(path, 'classificationLevel') ?? '';
   set classificationLevel(String value) => doc.setFormField(path, 'classificationLevel', value);
 
@@ -39393,9 +39198,6 @@ class DataClassificationLevelEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get levelName => doc.formField(path, 'levelName') ?? '';
-  set levelName(String value) => doc.setFormField(path, 'levelName', value);
 
   int? get levelOrder => somParseInt(doc.formField(path, 'levelOrder'));
   set levelOrder(int? value) => doc.setFormField(path, 'levelOrder', somFormatInt(value));
@@ -39742,9 +39544,6 @@ class DataEntityMigrationEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get entityName => doc.formField(path, 'entityName') ?? '';
-  set entityName(String value) => doc.setFormField(path, 'entityName', value);
-
   String get recordCount => doc.formField(path, 'recordCount') ?? '';
   set recordCount(String value) => doc.setFormField(path, 'recordCount', value);
 
@@ -39772,9 +39571,6 @@ class DataEntityReferenceEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get entityName => doc.formField(path, 'entityName') ?? '';
-  set entityName(String value) => doc.setFormField(path, 'entityName', value);
 
   String get crudOperations => doc.formField(path, 'crudOperations') ?? '';
   set crudOperations(String value) => doc.setFormField(path, 'crudOperations', value);
@@ -39963,9 +39759,6 @@ class DataGovernancePolicyEntryContentForm extends SomNode {
   String get policyId => doc.formField(path, 'policyId') ?? '';
   set policyId(String value) => doc.setFormField(path, 'policyId', value);
 
-  String get policyName => doc.formField(path, 'policyName') ?? '';
-  set policyName(String value) => doc.setFormField(path, 'policyName', value);
-
   String get policyArea => doc.formField(path, 'policyArea') ?? '';
   set policyArea(String value) => doc.setFormField(path, 'policyArea', value);
 
@@ -40147,9 +39940,6 @@ class DataIntegrationEntryContentForm extends SomNode {
 
   String get integrationId => doc.formField(path, 'integrationId') ?? '';
   set integrationId(String value) => doc.setFormField(path, 'integrationId', value);
-
-  String get integrationName => doc.formField(path, 'integrationName') ?? '';
-  set integrationName(String value) => doc.setFormField(path, 'integrationName', value);
 
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
@@ -40977,9 +40767,6 @@ class DataQualityInitiativeEntryContentForm extends SomNode {
   String get initiativeId => doc.formField(path, 'initiativeId') ?? '';
   set initiativeId(String value) => doc.setFormField(path, 'initiativeId', value);
 
-  String get initiativeName => doc.formField(path, 'initiativeName') ?? '';
-  set initiativeName(String value) => doc.setFormField(path, 'initiativeName', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
@@ -41032,9 +40819,6 @@ class DataQualityIssueEntryContentForm extends SomNode {
 
   String get issueId => doc.formField(path, 'issueId') ?? '';
   set issueId(String value) => doc.setFormField(path, 'issueId', value);
-
-  String get issueTitle => doc.formField(path, 'issueTitle') ?? '';
-  set issueTitle(String value) => doc.setFormField(path, 'issueTitle', value);
 
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
@@ -41238,9 +41022,6 @@ class DataSourceEntityEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get entityName => doc.formField(path, 'entityName') ?? '';
-  set entityName(String value) => doc.setFormField(path, 'entityName', value);
 
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
@@ -41802,9 +41583,6 @@ class DatabaseCompatibilityEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get databaseName => doc.formField(path, 'databaseName') ?? '';
-  set databaseName(String value) => doc.setFormField(path, 'databaseName', value);
-
   String get databaseType => doc.formField(path, 'databaseType') ?? '';
   set databaseType(String value) => doc.setFormField(path, 'databaseType', value);
 
@@ -42052,12 +41830,6 @@ class DecisionMakerEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get name => doc.formField(path, 'name') ?? '';
-  set name(String value) => doc.setFormField(path, 'name', value);
-
-  String get title => doc.formField(path, 'title') ?? '';
-  set title(String value) => doc.setFormField(path, 'title', value);
 
   String get department => doc.formField(path, 'department') ?? '';
   set department(String value) => doc.setFormField(path, 'department', value);
@@ -42588,9 +42360,6 @@ class DeliverableEntryContentForm extends SomNode {
 
   String get deliverableId => doc.formField(path, 'deliverableId') ?? '';
   set deliverableId(String value) => doc.setFormField(path, 'deliverableId', value);
-
-  String get deliverableName => doc.formField(path, 'deliverableName') ?? '';
-  set deliverableName(String value) => doc.setFormField(path, 'deliverableName', value);
 
   String get priority => doc.formField(path, 'priority') ?? '';
   set priority(String value) => doc.setFormField(path, 'priority', value);
@@ -43455,9 +43224,6 @@ class DeploymentEnvironmentEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get environmentName => doc.formField(path, 'environmentName') ?? '';
-  set environmentName(String value) => doc.setFormField(path, 'environmentName', value);
-
   String get environmentType => doc.formField(path, 'environmentType') ?? '';
   set environmentType(String value) => doc.setFormField(path, 'environmentType', value);
 
@@ -43815,9 +43581,6 @@ class DeploymentTargetEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get targetName => doc.formField(path, 'targetName') ?? '';
-  set targetName(String value) => doc.setFormField(path, 'targetName', value);
-
   String get targetCategory => doc.formField(path, 'targetCategory') ?? '';
   set targetCategory(String value) => doc.setFormField(path, 'targetCategory', value);
 
@@ -44060,9 +43823,6 @@ class DesignGoalEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get goalName => doc.formField(path, 'goalName') ?? '';
-  set goalName(String value) => doc.setFormField(path, 'goalName', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
@@ -44112,9 +43872,6 @@ class DesignPatternEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get patternName => doc.formField(path, 'patternName') ?? '';
-  set patternName(String value) => doc.setFormField(path, 'patternName', value);
 
   String get patternCategory => doc.formField(path, 'patternCategory') ?? '';
   set patternCategory(String value) => doc.setFormField(path, 'patternCategory', value);
@@ -44222,9 +43979,6 @@ class DesignPrincipleEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get principleName => doc.formField(path, 'principleName') ?? '';
-  set principleName(String value) => doc.setFormField(path, 'principleName', value);
 
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
@@ -44526,9 +44280,6 @@ class DevelopmentConventionEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get conventionName => doc.formField(path, 'conventionName') ?? '';
-  set conventionName(String value) => doc.setFormField(path, 'conventionName', value);
 
   String get conventionCategory => doc.formField(path, 'conventionCategory') ?? '';
   set conventionCategory(String value) => doc.setFormField(path, 'conventionCategory', value);
@@ -45001,9 +44752,6 @@ class DisplayPropertyEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get displayLabel => doc.formField(path, 'displayLabel') ?? '';
-  set displayLabel(String value) => doc.setFormField(path, 'displayLabel', value);
-
   String get displayOrder => doc.formField(path, 'displayOrder') ?? '';
   set displayOrder(String value) => doc.setFormField(path, 'displayOrder', value);
 
@@ -45347,9 +45095,6 @@ class DistributionRecipientEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get name => doc.formField(path, 'name') ?? '';
-  set name(String value) => doc.setFormField(path, 'name', value);
 
   String get role => doc.formField(path, 'role') ?? '';
   set role(String value) => doc.setFormField(path, 'role', value);
@@ -46077,9 +45822,6 @@ class DomainBusinessRuleEntryContentForm extends SomNode {
   String get ruleId => doc.formField(path, 'ruleId') ?? '';
   set ruleId(String value) => doc.setFormField(path, 'ruleId', value);
 
-  String get ruleName => doc.formField(path, 'ruleName') ?? '';
-  set ruleName(String value) => doc.setFormField(path, 'ruleName', value);
-
   String get ruleType => doc.formField(path, 'ruleType') ?? '';
   set ruleType(String value) => doc.setFormField(path, 'ruleType', value);
 
@@ -46199,9 +45941,6 @@ class DomainEventEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get eventName => doc.formField(path, 'eventName') ?? '';
-  set eventName(String value) => doc.setFormField(path, 'eventName', value);
-
   String get eventDescription => doc.formField(path, 'eventDescription') ?? '';
   set eventDescription(String value) => doc.setFormField(path, 'eventDescription', value);
 
@@ -46315,9 +46054,6 @@ class DomainProcessEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get processName => doc.formField(path, 'processName') ?? '';
-  set processName(String value) => doc.setFormField(path, 'processName', value);
 
   String get processDescription => doc.formField(path, 'processDescription') ?? '';
   set processDescription(String value) => doc.setFormField(path, 'processDescription', value);
@@ -46647,9 +46383,6 @@ class EncryptedDataCategoryEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get categoryName => doc.formField(path, 'categoryName') ?? '';
-  set categoryName(String value) => doc.setFormField(path, 'categoryName', value);
-
   String get dataClassification => doc.formField(path, 'dataClassification') ?? '';
   set dataClassification(String value) => doc.setFormField(path, 'dataClassification', value);
 
@@ -46683,9 +46416,6 @@ class EnterpriseSystemCompatibilityEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get systemName => doc.formField(path, 'systemName') ?? '';
-  set systemName(String value) => doc.setFormField(path, 'systemName', value);
 
   String get systemType => doc.formField(path, 'systemType') ?? '';
   set systemType(String value) => doc.setFormField(path, 'systemType', value);
@@ -46850,9 +46580,6 @@ class EntityConstraintEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get constraintName => doc.formField(path, 'constraintName') ?? '';
-  set constraintName(String value) => doc.setFormField(path, 'constraintName', value);
-
   String get constraintType => doc.formField(path, 'constraintType') ?? '';
   set constraintType(String value) => doc.setFormField(path, 'constraintType', value);
 
@@ -46884,9 +46611,6 @@ class EntityFollowUpEntryEntityRefForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get entityName => doc.formField(path, 'entityName') ?? '';
-  set entityName(String value) => doc.setFormField(path, 'entityName', value);
-
   String get entityAlias => doc.formField(path, 'entityAlias') ?? '';
   set entityAlias(String value) => doc.setFormField(path, 'entityAlias', value);
 }
@@ -46902,9 +46626,6 @@ class EntityIndexEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get indexName => doc.formField(path, 'indexName') ?? '';
-  set indexName(String value) => doc.setFormField(path, 'indexName', value);
 
   String get indexType => doc.formField(path, 'indexType') ?? '';
   set indexType(String value) => doc.setFormField(path, 'indexType', value);
@@ -46973,9 +46694,6 @@ class EntityRelationshipEntryIdentityForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get relationshipName => doc.formField(path, 'relationshipName') ?? '';
-  set relationshipName(String value) => doc.setFormField(path, 'relationshipName', value);
 
   String get relationshipType => doc.formField(path, 'relationshipType') ?? '';
   set relationshipType(String value) => doc.setFormField(path, 'relationshipType', value);
@@ -47200,9 +46918,6 @@ class EnvironmentEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get environmentName => doc.formField(path, 'environmentName') ?? '';
-  set environmentName(String value) => doc.setFormField(path, 'environmentName', value);
 
   String get environmentId => doc.formField(path, 'environmentId') ?? '';
   set environmentId(String value) => doc.setFormField(path, 'environmentId', value);
@@ -48419,9 +48134,6 @@ class ExistingSystemEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get systemName => doc.formField(path, 'systemName') ?? '';
-  set systemName(String value) => doc.setFormField(path, 'systemName', value);
-
   String get systemId => doc.formField(path, 'systemId') ?? '';
   set systemId(String value) => doc.setFormField(path, 'systemId', value);
 
@@ -48927,9 +48639,6 @@ class ExportFormatEntryContentForm extends SomNode {
   String get exportId => doc.formField(path, 'exportId') ?? '';
   set exportId(String value) => doc.setFormField(path, 'exportId', value);
 
-  String get formatName => doc.formField(path, 'formatName') ?? '';
-  set formatName(String value) => doc.setFormField(path, 'formatName', value);
-
   String get formatType => doc.formField(path, 'formatType') ?? '';
   set formatType(String value) => doc.setFormField(path, 'formatType', value);
 }
@@ -49124,9 +48833,6 @@ class ExportTemplateEntryContentForm extends SomNode {
   String get templateId => doc.formField(path, 'templateId') ?? '';
   set templateId(String value) => doc.setFormField(path, 'templateId', value);
 
-  String get templateName => doc.formField(path, 'templateName') ?? '';
-  set templateName(String value) => doc.setFormField(path, 'templateName', value);
-
   String get baseFormatType => doc.formField(path, 'baseFormatType') ?? '';
   set baseFormatType(String value) => doc.setFormField(path, 'baseFormatType', value);
 }
@@ -49308,9 +49014,6 @@ class ExternalActorEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get actorName => doc.formField(path, 'actorName') ?? '';
-  set actorName(String value) => doc.setFormField(path, 'actorName', value);
-
   String get actorType => doc.formField(path, 'actorType') ?? '';
   set actorType(String value) => doc.setFormField(path, 'actorType', value);
 
@@ -49382,9 +49085,6 @@ class ExternalInterfaceEntryIdentificationContentForm extends SomNode {
 
   String get interfaceId => doc.formField(path, 'interfaceId') ?? '';
   set interfaceId(String value) => doc.setFormField(path, 'interfaceId', value);
-
-  String get interfaceName => doc.formField(path, 'interfaceName') ?? '';
-  set interfaceName(String value) => doc.setFormField(path, 'interfaceName', value);
 
   String get externalSystem => doc.formField(path, 'externalSystem') ?? '';
   set externalSystem(String value) => doc.setFormField(path, 'externalSystem', value);
@@ -49552,9 +49252,6 @@ class ExternalPartnerConnectionEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get partnerName => doc.formField(path, 'partnerName') ?? '';
-  set partnerName(String value) => doc.setFormField(path, 'partnerName', value);
-
   String get partnerType => doc.formField(path, 'partnerType') ?? '';
   set partnerType(String value) => doc.setFormField(path, 'partnerType', value);
 
@@ -49702,9 +49399,6 @@ class ExternalServiceDependencyEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get serviceName => doc.formField(path, 'serviceName') ?? '';
-  set serviceName(String value) => doc.setFormField(path, 'serviceName', value);
-
   String get serviceProvider => doc.formField(path, 'serviceProvider') ?? '';
   set serviceProvider(String value) => doc.setFormField(path, 'serviceProvider', value);
 
@@ -49808,9 +49502,6 @@ class ExternalSystemContextEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get systemName => doc.formField(path, 'systemName') ?? '';
-  set systemName(String value) => doc.setFormField(path, 'systemName', value);
-
   String get systemOwner => doc.formField(path, 'systemOwner') ?? '';
   set systemOwner(String value) => doc.setFormField(path, 'systemOwner', value);
 
@@ -49901,9 +49592,6 @@ class FamilyComponentRefContentForm extends SomNode {
 
   String get componentId => doc.formField(path, 'componentId') ?? '';
   set componentId(String value) => doc.setFormField(path, 'componentId', value);
-
-  String get componentName => doc.formField(path, 'componentName') ?? '';
-  set componentName(String value) => doc.setFormField(path, 'componentName', value);
 
   String get familyRole => doc.formField(path, 'familyRole') ?? '';
   set familyRole(String value) => doc.setFormField(path, 'familyRole', value);
@@ -50016,9 +49704,6 @@ class FeatureModuleEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get featureName => doc.formField(path, 'featureName') ?? '';
-  set featureName(String value) => doc.setFormField(path, 'featureName', value);
 
   String get featureArea => doc.formField(path, 'featureArea') ?? '';
   set featureArea(String value) => doc.setFormField(path, 'featureArea', value);
@@ -50344,9 +50029,6 @@ class FeaturePriorityEntryContentForm extends SomNode {
 
   String get featureId => doc.formField(path, 'featureId') ?? '';
   set featureId(String value) => doc.setFormField(path, 'featureId', value);
-
-  String get featureName => doc.formField(path, 'featureName') ?? '';
-  set featureName(String value) => doc.setFormField(path, 'featureName', value);
 
   String get priorityRank => doc.formField(path, 'priorityRank') ?? '';
   set priorityRank(String value) => doc.setFormField(path, 'priorityRank', value);
@@ -50763,9 +50445,6 @@ class FeatureTourEntryContentForm extends SomNode {
   String get tourId => doc.formField(path, 'tourId') ?? '';
   set tourId(String value) => doc.setFormField(path, 'tourId', value);
 
-  String get tourName => doc.formField(path, 'tourName') ?? '';
-  set tourName(String value) => doc.setFormField(path, 'tourName', value);
-
   String get tourDescription => doc.formField(path, 'tourDescription') ?? '';
   set tourDescription(String value) => doc.setFormField(path, 'tourDescription', value);
 
@@ -50802,9 +50481,6 @@ class FieldHelpEntryContentForm extends SomNode {
 
   String get fieldId => doc.formField(path, 'fieldId') ?? '';
   set fieldId(String value) => doc.setFormField(path, 'fieldId', value);
-
-  String get fieldLabel => doc.formField(path, 'fieldLabel') ?? '';
-  set fieldLabel(String value) => doc.setFormField(path, 'fieldLabel', value);
 
   String get tooltipText => doc.formField(path, 'tooltipText') ?? '';
   set tooltipText(String value) => doc.setFormField(path, 'tooltipText', value);
@@ -51135,9 +50811,6 @@ class FrameworkRequirementEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get frameworkName => doc.formField(path, 'frameworkName') ?? '';
-  set frameworkName(String value) => doc.setFormField(path, 'frameworkName', value);
-
   String get frameworkCategory => doc.formField(path, 'frameworkCategory') ?? '';
   set frameworkCategory(String value) => doc.setFormField(path, 'frameworkCategory', value);
 
@@ -51276,9 +50949,6 @@ class FunctionDataMatrixEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get functionName => doc.formField(path, 'functionName') ?? '';
-  set functionName(String value) => doc.setFormField(path, 'functionName', value);
-
   String get entityName => doc.formField(path, 'entityName') ?? '';
   set entityName(String value) => doc.setFormField(path, 'entityName', value);
 
@@ -51331,9 +51001,6 @@ class FunctionEntryContentForm extends SomNode {
 
   String get functionId => doc.formField(path, 'functionId') ?? '';
   set functionId(String value) => doc.setFormField(path, 'functionId', value);
-
-  String get functionName => doc.formField(path, 'functionName') ?? '';
-  set functionName(String value) => doc.setFormField(path, 'functionName', value);
 
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
@@ -51720,9 +51387,6 @@ class GapEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get gapName => doc.formField(path, 'gapName') ?? '';
-  set gapName(String value) => doc.setFormField(path, 'gapName', value);
-
   String get gapCategory => doc.formField(path, 'gapCategory') ?? '';
   set gapCategory(String value) => doc.setFormField(path, 'gapCategory', value);
 
@@ -52020,9 +51684,6 @@ class GoalDependencyEntryContentForm extends SomNode {
   String get dependencyType => doc.formField(path, 'dependencyType') ?? '';
   set dependencyType(String value) => doc.setFormField(path, 'dependencyType', value);
 
-  String get dependencyName => doc.formField(path, 'dependencyName') ?? '';
-  set dependencyName(String value) => doc.setFormField(path, 'dependencyName', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
@@ -52056,9 +51717,6 @@ class GoalMilestoneEntryContentForm extends SomNode {
 
   String get milestoneId => doc.formField(path, 'milestoneId') ?? '';
   set milestoneId(String value) => doc.setFormField(path, 'milestoneId', value);
-
-  String get milestoneName => doc.formField(path, 'milestoneName') ?? '';
-  set milestoneName(String value) => doc.setFormField(path, 'milestoneName', value);
 
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
@@ -52152,9 +51810,6 @@ class GoalRiskEntryContentForm extends SomNode {
 
   String get riskId => doc.formField(path, 'riskId') ?? '';
   set riskId(String value) => doc.setFormField(path, 'riskId', value);
-
-  String get riskName => doc.formField(path, 'riskName') ?? '';
-  set riskName(String value) => doc.setFormField(path, 'riskName', value);
 
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
@@ -52630,9 +52285,6 @@ class IdeRequirementEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get ideName => doc.formField(path, 'ideName') ?? '';
-  set ideName(String value) => doc.setFormField(path, 'ideName', value);
-
   String get version => doc.formField(path, 'version') ?? '';
   set version(String value) => doc.setFormField(path, 'version', value);
 
@@ -52883,9 +52535,6 @@ class IdentityProviderEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get providerName => doc.formField(path, 'providerName') ?? '';
-  set providerName(String value) => doc.setFormField(path, 'providerName', value);
-
   String get providerType => doc.formField(path, 'providerType') ?? '';
   set providerType(String value) => doc.setFormField(path, 'providerType', value);
 
@@ -53007,9 +52656,6 @@ class IdentitySourceEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get sourceName => doc.formField(path, 'sourceName') ?? '';
-  set sourceName(String value) => doc.setFormField(path, 'sourceName', value);
 
   String get sourceType => doc.formField(path, 'sourceType') ?? '';
   set sourceType(String value) => doc.setFormField(path, 'sourceType', value);
@@ -53478,9 +53124,6 @@ class IndustryProtocolComplianceEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get protocolName => doc.formField(path, 'protocolName') ?? '';
-  set protocolName(String value) => doc.setFormField(path, 'protocolName', value);
-
   String get category => doc.formField(path, 'category') ?? '';
   set category(String value) => doc.setFormField(path, 'category', value);
 
@@ -53637,9 +53280,6 @@ class IndustryStandardEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get standardName => doc.formField(path, 'standardName') ?? '';
-  set standardName(String value) => doc.setFormField(path, 'standardName', value);
 
   String get standardBody => doc.formField(path, 'standardBody') ?? '';
   set standardBody(String value) => doc.setFormField(path, 'standardBody', value);
@@ -53863,9 +53503,6 @@ class InfrastructureComponentEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get componentName => doc.formField(path, 'componentName') ?? '';
-  set componentName(String value) => doc.setFormField(path, 'componentName', value);
 
   String get componentType => doc.formField(path, 'componentType') ?? '';
   set componentType(String value) => doc.setFormField(path, 'componentType', value);
@@ -54224,9 +53861,6 @@ class InitialTrainingEntryContentForm extends SomNode {
   String get trainingId => doc.formField(path, 'trainingId') ?? '';
   set trainingId(String value) => doc.setFormField(path, 'trainingId', value);
 
-  String get trainingName => doc.formField(path, 'trainingName') ?? '';
-  set trainingName(String value) => doc.setFormField(path, 'trainingName', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 }
@@ -54539,9 +54173,6 @@ class IntegrationConstraintEntryContentForm extends SomNode {
 
   String get constraintId => doc.formField(path, 'constraintId') ?? '';
   set constraintId(String value) => doc.setFormField(path, 'constraintId', value);
-
-  String get constraintName => doc.formField(path, 'constraintName') ?? '';
-  set constraintName(String value) => doc.setFormField(path, 'constraintName', value);
 
   String get constraintDescription => doc.formField(path, 'constraintDescription') ?? '';
   set constraintDescription(String value) => doc.setFormField(path, 'constraintDescription', value);
@@ -54910,9 +54541,6 @@ class InteractionChannelEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get channelName => doc.formField(path, 'channelName') ?? '';
-  set channelName(String value) => doc.setFormField(path, 'channelName', value);
-
   String get channelId => doc.formField(path, 'channelId') ?? '';
   set channelId(String value) => doc.setFormField(path, 'channelId', value);
 
@@ -55223,9 +54851,6 @@ class InteractionPatternEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get patternName => doc.formField(path, 'patternName') ?? '';
-  set patternName(String value) => doc.setFormField(path, 'patternName', value);
-
   String get patternId => doc.formField(path, 'patternId') ?? '';
   set patternId(String value) => doc.setFormField(path, 'patternId', value);
 
@@ -55339,9 +54964,6 @@ class InterfaceBusinessProcessEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get processName => doc.formField(path, 'processName') ?? '';
-  set processName(String value) => doc.setFormField(path, 'processName', value);
-
   String get processId => doc.formField(path, 'processId') ?? '';
   set processId(String value) => doc.setFormField(path, 'processId', value);
 
@@ -55363,9 +54985,6 @@ class InterfaceDataEntityEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get entityName => doc.formField(path, 'entityName') ?? '';
-  set entityName(String value) => doc.setFormField(path, 'entityName', value);
 
   String get direction => doc.formField(path, 'direction') ?? '';
   set direction(String value) => doc.setFormField(path, 'direction', value);
@@ -55616,9 +55235,6 @@ class InterfaceOperationEntryContentForm extends SomNode {
   String get operationId => doc.formField(path, 'operationId') ?? '';
   set operationId(String value) => doc.setFormField(path, 'operationId', value);
 
-  String get operationName => doc.formField(path, 'operationName') ?? '';
-  set operationName(String value) => doc.setFormField(path, 'operationName', value);
-
   String get httpMethod => doc.formField(path, 'httpMethod') ?? '';
   set httpMethod(String value) => doc.setFormField(path, 'httpMethod', value);
 
@@ -55844,9 +55460,6 @@ class InterfaceSpecificationEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get specificationName => doc.formField(path, 'specificationName') ?? '';
-  set specificationName(String value) => doc.setFormField(path, 'specificationName', value);
-
   String get specificationVersion => doc.formField(path, 'specificationVersion') ?? '';
   set specificationVersion(String value) => doc.setFormField(path, 'specificationVersion', value);
 
@@ -56068,9 +55681,6 @@ class InterfaceTestScenarioEntryContentForm extends SomNode {
 
   String get scenarioId => doc.formField(path, 'scenarioId') ?? '';
   set scenarioId(String value) => doc.setFormField(path, 'scenarioId', value);
-
-  String get scenarioName => doc.formField(path, 'scenarioName') ?? '';
-  set scenarioName(String value) => doc.setFormField(path, 'scenarioName', value);
 
   String get scenarioType => doc.formField(path, 'scenarioType') ?? '';
   set scenarioType(String value) => doc.setFormField(path, 'scenarioType', value);
@@ -56610,9 +56220,6 @@ class ItStandardComplianceEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get standardName => doc.formField(path, 'standardName') ?? '';
-  set standardName(String value) => doc.setFormField(path, 'standardName', value);
-
   String get standardBody => doc.formField(path, 'standardBody') ?? '';
   set standardBody(String value) => doc.setFormField(path, 'standardBody', value);
 
@@ -56779,9 +56386,6 @@ class JourneyStageEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get stageName => doc.formField(path, 'stageName') ?? '';
-  set stageName(String value) => doc.setFormField(path, 'stageName', value);
-
   String get stageDescription => doc.formField(path, 'stageDescription') ?? '';
   set stageDescription(String value) => doc.setFormField(path, 'stageDescription', value);
 
@@ -56818,9 +56422,6 @@ class KeyAttributeEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get keyName => doc.formField(path, 'keyName') ?? '';
-  set keyName(String value) => doc.setFormField(path, 'keyName', value);
 
   String get keyType => doc.formField(path, 'keyType') ?? '';
   set keyType(String value) => doc.setFormField(path, 'keyType', value);
@@ -56943,9 +56544,6 @@ class KeyConceptEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get conceptName => doc.formField(path, 'conceptName') ?? '';
-  set conceptName(String value) => doc.setFormField(path, 'conceptName', value);
 
   String get conceptType => doc.formField(path, 'conceptType') ?? '';
   set conceptType(String value) => doc.setFormField(path, 'conceptType', value);
@@ -57554,9 +57152,6 @@ class LifecycleTransitionEntryContentForm extends SomNode {
 
   String get transitionId => doc.formField(path, 'transitionId') ?? '';
   set transitionId(String value) => doc.setFormField(path, 'transitionId', value);
-
-  String get transitionName => doc.formField(path, 'transitionName') ?? '';
-  set transitionName(String value) => doc.setFormField(path, 'transitionName', value);
 
   String get fromState => doc.formField(path, 'fromState') ?? '';
   set fromState(String value) => doc.setFormField(path, 'fromState', value);
@@ -58337,9 +57932,6 @@ class LoginFlowStepEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get stepName => doc.formField(path, 'stepName') ?? '';
-  set stepName(String value) => doc.setFormField(path, 'stepName', value);
-
   String get stepOrder => doc.formField(path, 'stepOrder') ?? '';
   set stepOrder(String value) => doc.setFormField(path, 'stepOrder', value);
 
@@ -58726,9 +58318,6 @@ class MaintenanceDependencyEntryContentForm extends SomNode {
   String get dependencyId => doc.formField(path, 'dependencyId') ?? '';
   set dependencyId(String value) => doc.setFormField(path, 'dependencyId', value);
 
-  String get name => doc.formField(path, 'name') ?? '';
-  set name(String value) => doc.setFormField(path, 'name', value);
-
   String get version => doc.formField(path, 'version') ?? '';
   set version(String value) => doc.setFormField(path, 'version', value);
 
@@ -58898,9 +58487,6 @@ class MaintenanceWindowEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get windowName => doc.formField(path, 'windowName') ?? '';
-  set windowName(String value) => doc.setFormField(path, 'windowName', value);
-
   String get windowType => doc.formField(path, 'windowType') ?? '';
   set windowType(String value) => doc.setFormField(path, 'windowType', value);
 
@@ -59019,9 +58605,6 @@ class MasterDataDomainEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get domainName => doc.formField(path, 'domainName') ?? '';
-  set domainName(String value) => doc.setFormField(path, 'domainName', value);
 
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
@@ -59356,9 +58939,6 @@ class MetricsBaselineEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get metricName => doc.formField(path, 'metricName') ?? '';
-  set metricName(String value) => doc.setFormField(path, 'metricName', value);
 
   String get baselineValue => doc.formField(path, 'baselineValue') ?? '';
   set baselineValue(String value) => doc.setFormField(path, 'baselineValue', value);
@@ -59740,9 +59320,6 @@ class MigrationMilestoneEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get milestoneName => doc.formField(path, 'milestoneName') ?? '';
-  set milestoneName(String value) => doc.setFormField(path, 'milestoneName', value);
-
   String get targetDate => doc.formField(path, 'targetDate') ?? '';
   set targetDate(String value) => doc.setFormField(path, 'targetDate', value);
 
@@ -59829,9 +59406,6 @@ class MigrationPhaseEntryContentForm extends SomNode {
 
   String get phaseNumber => doc.formField(path, 'phaseNumber') ?? '';
   set phaseNumber(String value) => doc.setFormField(path, 'phaseNumber', value);
-
-  String get phaseName => doc.formField(path, 'phaseName') ?? '';
-  set phaseName(String value) => doc.setFormField(path, 'phaseName', value);
 
   String get phaseType => doc.formField(path, 'phaseType') ?? '';
   set phaseType(String value) => doc.setFormField(path, 'phaseType', value);
@@ -60201,9 +59775,6 @@ class MigrationRiskEntryContentForm extends SomNode {
 
   String get riskId => doc.formField(path, 'riskId') ?? '';
   set riskId(String value) => doc.setFormField(path, 'riskId', value);
-
-  String get riskTitle => doc.formField(path, 'riskTitle') ?? '';
-  set riskTitle(String value) => doc.setFormField(path, 'riskTitle', value);
 
   String get riskOwner => doc.formField(path, 'riskOwner') ?? '';
   set riskOwner(String value) => doc.setFormField(path, 'riskOwner', value);
@@ -61075,9 +60646,6 @@ class ModuleEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get moduleName => doc.formField(path, 'moduleName') ?? '';
-  set moduleName(String value) => doc.setFormField(path, 'moduleName', value);
-
   String get moduleType => doc.formField(path, 'moduleType') ?? '';
   set moduleType(String value) => doc.setFormField(path, 'moduleType', value);
 
@@ -61727,9 +61295,6 @@ class MustPassCriterionEntryContentForm extends SomNode {
   String get criterionId => doc.formField(path, 'criterionId') ?? '';
   set criterionId(String value) => doc.setFormField(path, 'criterionId', value);
 
-  String get criterionName => doc.formField(path, 'criterionName') ?? '';
-  set criterionName(String value) => doc.setFormField(path, 'criterionName', value);
-
   String get verificationMethod => doc.formField(path, 'verificationMethod') ?? '';
   set verificationMethod(String value) => doc.setFormField(path, 'verificationMethod', value);
 }
@@ -62042,9 +61607,6 @@ class NavigationGuardEntryContentForm extends SomNode {
 
   String get guardId => doc.formField(path, 'guardId') ?? '';
   set guardId(String value) => doc.setFormField(path, 'guardId', value);
-
-  String get guardName => doc.formField(path, 'guardName') ?? '';
-  set guardName(String value) => doc.setFormField(path, 'guardName', value);
 
   String get guardType => doc.formField(path, 'guardType') ?? '';
   set guardType(String value) => doc.setFormField(path, 'guardType', value);
@@ -62880,9 +62442,6 @@ class NewRoleEntryIdentificationForm extends SomNode {
   String get roleId => doc.formField(path, 'roleId') ?? '';
   set roleId(String value) => doc.setFormField(path, 'roleId', value);
 
-  String get roleTitle => doc.formField(path, 'roleTitle') ?? '';
-  set roleTitle(String value) => doc.setFormField(path, 'roleTitle', value);
-
   String get roleFamily => doc.formField(path, 'roleFamily') ?? '';
   set roleFamily(String value) => doc.setFormField(path, 'roleFamily', value);
 
@@ -63183,9 +62742,6 @@ class NotificationChannelEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get channelName => doc.formField(path, 'channelName') ?? '';
-  set channelName(String value) => doc.setFormField(path, 'channelName', value);
-
   String get channelId => doc.formField(path, 'channelId') ?? '';
   set channelId(String value) => doc.setFormField(path, 'channelId', value);
 
@@ -63263,9 +62819,6 @@ class ObjectInvariantEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get invariantName => doc.formField(path, 'invariantName') ?? '';
-  set invariantName(String value) => doc.setFormField(path, 'invariantName', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
@@ -63296,9 +62849,6 @@ class ObjectOperationEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get operationName => doc.formField(path, 'operationName') ?? '';
-  set operationName(String value) => doc.setFormField(path, 'operationName', value);
 
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
@@ -63387,9 +62937,6 @@ class ObjectStateEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get stateName => doc.formField(path, 'stateName') ?? '';
-  set stateName(String value) => doc.setFormField(path, 'stateName', value);
 
   String get stateCode => doc.formField(path, 'stateCode') ?? '';
   set stateCode(String value) => doc.setFormField(path, 'stateCode', value);
@@ -63788,9 +63335,6 @@ class OngoingTrainingEntryContentForm extends SomNode {
   String get trainingId => doc.formField(path, 'trainingId') ?? '';
   set trainingId(String value) => doc.setFormField(path, 'trainingId', value);
 
-  String get trainingName => doc.formField(path, 'trainingName') ?? '';
-  set trainingName(String value) => doc.setFormField(path, 'trainingName', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
@@ -64072,9 +63616,6 @@ class OrgImplementationActivityContentForm extends SomNode {
   String get activityId => doc.formField(path, 'activityId') ?? '';
   set activityId(String value) => doc.setFormField(path, 'activityId', value);
 
-  String get activityName => doc.formField(path, 'activityName') ?? '';
-  set activityName(String value) => doc.setFormField(path, 'activityName', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
@@ -64151,9 +63692,6 @@ class OrganizationalChangeEntryContentForm extends SomNode {
 
   String get changeId => doc.formField(path, 'changeId') ?? '';
   set changeId(String value) => doc.setFormField(path, 'changeId', value);
-
-  String get changeName => doc.formField(path, 'changeName') ?? '';
-  set changeName(String value) => doc.setFormField(path, 'changeName', value);
 
   String get changeType => doc.formField(path, 'changeType') ?? '';
   set changeType(String value) => doc.setFormField(path, 'changeType', value);
@@ -64563,9 +64101,6 @@ class OrganizationalUnitContextEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get unitName => doc.formField(path, 'unitName') ?? '';
-  set unitName(String value) => doc.setFormField(path, 'unitName', value);
-
   String get unitType => doc.formField(path, 'unitType') ?? '';
   set unitType(String value) => doc.setFormField(path, 'unitType', value);
 
@@ -64599,9 +64134,6 @@ class OsCompatibilityEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get osName => doc.formField(path, 'osName') ?? '';
-  set osName(String value) => doc.setFormField(path, 'osName', value);
 
   String get osFamily => doc.formField(path, 'osFamily') ?? '';
   set osFamily(String value) => doc.setFormField(path, 'osFamily', value);
@@ -64715,9 +64247,6 @@ class OtherAgreementEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get agreementTitle => doc.formField(path, 'agreementTitle') ?? '';
-  set agreementTitle(String value) => doc.setFormField(path, 'agreementTitle', value);
 
   String get agreementType => doc.formField(path, 'agreementType') ?? '';
   set agreementType(String value) => doc.setFormField(path, 'agreementType', value);
@@ -65576,9 +65105,6 @@ class PersonaEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get personaName => doc.formField(path, 'personaName') ?? '';
-  set personaName(String value) => doc.setFormField(path, 'personaName', value);
-
   String get age => doc.formField(path, 'age') ?? '';
   set age(String value) => doc.setFormField(path, 'age', value);
 
@@ -65729,9 +65255,6 @@ class PersonaScenarioEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get scenarioName => doc.formField(path, 'scenarioName') ?? '';
-  set scenarioName(String value) => doc.setFormField(path, 'scenarioName', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
@@ -65787,9 +65310,6 @@ class PhaseGateReviewEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get gateName => doc.formField(path, 'gateName') ?? '';
-  set gateName(String value) => doc.setFormField(path, 'gateName', value);
 
   String get gateId => doc.formField(path, 'gateId') ?? '';
   set gateId(String value) => doc.setFormField(path, 'gateId', value);
@@ -66076,9 +65596,6 @@ class PipelineJobEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get jobName => doc.formField(path, 'jobName') ?? '';
-  set jobName(String value) => doc.setFormField(path, 'jobName', value);
-
   String get parentStage => doc.formField(path, 'parentStage') ?? '';
   set parentStage(String value) => doc.setFormField(path, 'parentStage', value);
 
@@ -66207,9 +65724,6 @@ class PipelineStageEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get stageName => doc.formField(path, 'stageName') ?? '';
-  set stageName(String value) => doc.setFormField(path, 'stageName', value);
 
   String get stageOrder => doc.formField(path, 'stageOrder') ?? '';
   set stageOrder(String value) => doc.setFormField(path, 'stageOrder', value);
@@ -67404,9 +66918,6 @@ class ProcessControlEntryContentForm extends SomNode {
   String get controlId => doc.formField(path, 'controlId') ?? '';
   set controlId(String value) => doc.setFormField(path, 'controlId', value);
 
-  String get controlName => doc.formField(path, 'controlName') ?? '';
-  set controlName(String value) => doc.setFormField(path, 'controlName', value);
-
   String get controlType => doc.formField(path, 'controlType') ?? '';
   set controlType(String value) => doc.setFormField(path, 'controlType', value);
 
@@ -67553,9 +67064,6 @@ class ProcessDesignPrincipleEntryContentForm extends SomNode {
   String get principleId => doc.formField(path, 'principleId') ?? '';
   set principleId(String value) => doc.setFormField(path, 'principleId', value);
 
-  String get principleName => doc.formField(path, 'principleName') ?? '';
-  set principleName(String value) => doc.setFormField(path, 'principleName', value);
-
   String get category => doc.formField(path, 'category') ?? '';
   set category(String value) => doc.setFormField(path, 'category', value);
 
@@ -67621,9 +67129,6 @@ class ProcessEndEventEntryContentForm extends SomNode {
   String get endEventId => doc.formField(path, 'endEventId') ?? '';
   set endEventId(String value) => doc.setFormField(path, 'endEventId', value);
 
-  String get endEventName => doc.formField(path, 'endEventName') ?? '';
-  set endEventName(String value) => doc.setFormField(path, 'endEventName', value);
-
   String get endEventType => doc.formField(path, 'endEventType') ?? '';
   set endEventType(String value) => doc.setFormField(path, 'endEventType', value);
 
@@ -67679,9 +67184,6 @@ class ProcessExceptionEntryContentForm extends SomNode {
 
   String get exceptionId => doc.formField(path, 'exceptionId') ?? '';
   set exceptionId(String value) => doc.setFormField(path, 'exceptionId', value);
-
-  String get exceptionName => doc.formField(path, 'exceptionName') ?? '';
-  set exceptionName(String value) => doc.setFormField(path, 'exceptionName', value);
 
   String get exceptionType => doc.formField(path, 'exceptionType') ?? '';
   set exceptionType(String value) => doc.setFormField(path, 'exceptionType', value);
@@ -67789,9 +67291,6 @@ class ProcessIdentificationContentForm extends SomNode {
   String get processId => doc.formField(path, 'processId') ?? '';
   set processId(String value) => doc.setFormField(path, 'processId', value);
 
-  String get processName => doc.formField(path, 'processName') ?? '';
-  set processName(String value) => doc.setFormField(path, 'processName', value);
-
   String get processLevel => doc.formField(path, 'processLevel') ?? '';
   set processLevel(String value) => doc.setFormField(path, 'processLevel', value);
 }
@@ -67885,9 +67384,6 @@ class ProcessImprovementEntryContentForm extends SomNode {
 
   String get improvementId => doc.formField(path, 'improvementId') ?? '';
   set improvementId(String value) => doc.setFormField(path, 'improvementId', value);
-
-  String get improvementName => doc.formField(path, 'improvementName') ?? '';
-  set improvementName(String value) => doc.setFormField(path, 'improvementName', value);
 
   String get category => doc.formField(path, 'category') ?? '';
   set category(String value) => doc.setFormField(path, 'category', value);
@@ -67998,9 +67494,6 @@ class ProcessInputEntryContentForm extends SomNode {
   String get inputId => doc.formField(path, 'inputId') ?? '';
   set inputId(String value) => doc.setFormField(path, 'inputId', value);
 
-  String get inputName => doc.formField(path, 'inputName') ?? '';
-  set inputName(String value) => doc.setFormField(path, 'inputName', value);
-
   String get inputType => doc.formField(path, 'inputType') ?? '';
   set inputType(String value) => doc.setFormField(path, 'inputType', value);
 
@@ -68062,9 +67555,6 @@ class ProcessKpiEntryContentForm extends SomNode {
 
   String get kpiId => doc.formField(path, 'kpiId') ?? '';
   set kpiId(String value) => doc.setFormField(path, 'kpiId', value);
-
-  String get kpiName => doc.formField(path, 'kpiName') ?? '';
-  set kpiName(String value) => doc.setFormField(path, 'kpiName', value);
 
   String get category => doc.formField(path, 'category') ?? '';
   set category(String value) => doc.setFormField(path, 'category', value);
@@ -68134,9 +67624,6 @@ class ProcessMetricEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get metricName => doc.formField(path, 'metricName') ?? '';
-  set metricName(String value) => doc.setFormField(path, 'metricName', value);
 
   String get metricId => doc.formField(path, 'metricId') ?? '';
   set metricId(String value) => doc.setFormField(path, 'metricId', value);
@@ -68209,9 +67696,6 @@ class ProcessOutputEntryContentForm extends SomNode {
 
   String get outputId => doc.formField(path, 'outputId') ?? '';
   set outputId(String value) => doc.setFormField(path, 'outputId', value);
-
-  String get outputName => doc.formField(path, 'outputName') ?? '';
-  set outputName(String value) => doc.setFormField(path, 'outputName', value);
 
   String get outputType => doc.formField(path, 'outputType') ?? '';
   set outputType(String value) => doc.setFormField(path, 'outputType', value);
@@ -68392,9 +67876,6 @@ class ProcessRoleEntryContentForm extends SomNode {
   String get roleId => doc.formField(path, 'roleId') ?? '';
   set roleId(String value) => doc.setFormField(path, 'roleId', value);
 
-  String get roleName => doc.formField(path, 'roleName') ?? '';
-  set roleName(String value) => doc.setFormField(path, 'roleName', value);
-
   String get raciType => doc.formField(path, 'raciType') ?? '';
   set raciType(String value) => doc.setFormField(path, 'raciType', value);
 
@@ -68492,9 +67973,6 @@ class ProcessScopeEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get processName => doc.formField(path, 'processName') ?? '';
-  set processName(String value) => doc.setFormField(path, 'processName', value);
-
   String get rationale => doc.formField(path, 'rationale') ?? '';
   set rationale(String value) => doc.setFormField(path, 'rationale', value);
 
@@ -68547,9 +68025,6 @@ class ProcessSlaEntryContentForm extends SomNode {
 
   String get slaId => doc.formField(path, 'slaId') ?? '';
   set slaId(String value) => doc.setFormField(path, 'slaId', value);
-
-  String get slaName => doc.formField(path, 'slaName') ?? '';
-  set slaName(String value) => doc.setFormField(path, 'slaName', value);
 
   String get serviceDescription => doc.formField(path, 'serviceDescription') ?? '';
   set serviceDescription(String value) => doc.setFormField(path, 'serviceDescription', value);
@@ -68700,9 +68175,6 @@ class ProcessTriggerEntryContentForm extends SomNode {
   String get triggerId => doc.formField(path, 'triggerId') ?? '';
   set triggerId(String value) => doc.setFormField(path, 'triggerId', value);
 
-  String get triggerName => doc.formField(path, 'triggerName') ?? '';
-  set triggerName(String value) => doc.setFormField(path, 'triggerName', value);
-
   String get triggerType => doc.formField(path, 'triggerType') ?? '';
   set triggerType(String value) => doc.setFormField(path, 'triggerType', value);
 
@@ -68838,9 +68310,6 @@ class ProgrammingLanguageEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get languageName => doc.formField(path, 'languageName') ?? '';
-  set languageName(String value) => doc.setFormField(path, 'languageName', value);
 
   String get languageVariant => doc.formField(path, 'languageVariant') ?? '';
   set languageVariant(String value) => doc.setFormField(path, 'languageVariant', value);
@@ -69114,9 +68583,6 @@ class ProtocolEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get protocolName => doc.formField(path, 'protocolName') ?? '';
-  set protocolName(String value) => doc.setFormField(path, 'protocolName', value);
-
   String get protocolType => doc.formField(path, 'protocolType') ?? '';
   set protocolType(String value) => doc.setFormField(path, 'protocolType', value);
 
@@ -69147,9 +68613,6 @@ class PrototypeFeatureEntryContentForm extends SomNode {
 
   String get featureId => doc.formField(path, 'featureId') ?? '';
   set featureId(String value) => doc.setFormField(path, 'featureId', value);
-
-  String get featureName => doc.formField(path, 'featureName') ?? '';
-  set featureName(String value) => doc.setFormField(path, 'featureName', value);
 
   String get inclusionReason => doc.formField(path, 'inclusionReason') ?? '';
   set inclusionReason(String value) => doc.setFormField(path, 'inclusionReason', value);
@@ -69600,9 +69063,6 @@ class QualityCategoryEntryContentForm extends SomNode {
 
   String get categoryId => doc.formField(path, 'categoryId') ?? '';
   set categoryId(String value) => doc.setFormField(path, 'categoryId', value);
-
-  String get categoryName => doc.formField(path, 'categoryName') ?? '';
-  set categoryName(String value) => doc.setFormField(path, 'categoryName', value);
 
   int? get categoryWeight => somParseInt(doc.formField(path, 'categoryWeight'));
   set categoryWeight(int? value) => doc.setFormField(path, 'categoryWeight', somFormatInt(value));
@@ -70179,9 +69639,6 @@ class QualityScenarioEntryContentForm extends SomNode {
   String get scenarioId => doc.formField(path, 'scenarioId') ?? '';
   set scenarioId(String value) => doc.setFormField(path, 'scenarioId', value);
 
-  String get scenarioName => doc.formField(path, 'scenarioName') ?? '';
-  set scenarioName(String value) => doc.setFormField(path, 'scenarioName', value);
-
   String get source => doc.formField(path, 'source') ?? '';
   set source(String value) => doc.setFormField(path, 'source', value);
 
@@ -70240,9 +69697,6 @@ class QualityStandardEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get standardName => doc.formField(path, 'standardName') ?? '';
-  set standardName(String value) => doc.setFormField(path, 'standardName', value);
 
   String get maturityLevel => doc.formField(path, 'maturityLevel') ?? '';
   set maturityLevel(String value) => doc.setFormField(path, 'maturityLevel', value);
@@ -70732,9 +70186,6 @@ class RecoveryScenarioEntryContentForm extends SomNode {
   String get scenarioId => doc.formField(path, 'scenarioId') ?? '';
   set scenarioId(String value) => doc.setFormField(path, 'scenarioId', value);
 
-  String get scenarioName => doc.formField(path, 'scenarioName') ?? '';
-  set scenarioName(String value) => doc.setFormField(path, 'scenarioName', value);
-
   String get triggerCondition => doc.formField(path, 'triggerCondition') ?? '';
   set triggerCondition(String value) => doc.setFormField(path, 'triggerCondition', value);
 
@@ -70768,9 +70219,6 @@ class ReferenceDocumentEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get documentTitle => doc.formField(path, 'documentTitle') ?? '';
-  set documentTitle(String value) => doc.setFormField(path, 'documentTitle', value);
 
   String get documentId => doc.formField(path, 'documentId') ?? '';
   set documentId(String value) => doc.setFormField(path, 'documentId', value);
@@ -71065,9 +70513,6 @@ class RelatedDocumentEntryContentForm extends SomNode {
   String get relatedDocumentId => doc.formField(path, 'relatedDocumentId') ?? '';
   set relatedDocumentId(String value) => doc.setFormField(path, 'relatedDocumentId', value);
 
-  String get relatedDocumentTitle => doc.formField(path, 'relatedDocumentTitle') ?? '';
-  set relatedDocumentTitle(String value) => doc.setFormField(path, 'relatedDocumentTitle', value);
-
   String get relationshipType => doc.formField(path, 'relationshipType') ?? '';
   set relationshipType(String value) => doc.setFormField(path, 'relationshipType', value);
 
@@ -71240,9 +70685,6 @@ class RelevantSectionEntryContentForm extends SomNode {
   String get sectionReference => doc.formField(path, 'sectionReference') ?? '';
   set sectionReference(String value) => doc.setFormField(path, 'sectionReference', value);
 
-  String get sectionTitle => doc.formField(path, 'sectionTitle') ?? '';
-  set sectionTitle(String value) => doc.setFormField(path, 'sectionTitle', value);
-
   String get relevance => doc.formField(path, 'relevance') ?? '';
   set relevance(String value) => doc.setFormField(path, 'relevance', value);
 
@@ -71412,9 +70854,6 @@ class RemovedRoleEntryContentForm extends SomNode {
   String get roleId => doc.formField(path, 'roleId') ?? '';
   set roleId(String value) => doc.setFormField(path, 'roleId', value);
 
-  String get roleTitle => doc.formField(path, 'roleTitle') ?? '';
-  set roleTitle(String value) => doc.setFormField(path, 'roleTitle', value);
-
   String get department => doc.formField(path, 'department') ?? '';
   set department(String value) => doc.setFormField(path, 'department', value);
 
@@ -71505,9 +70944,6 @@ class ReplacementPhaseEntryContentForm extends SomNode {
 
   int? get phaseNumber => somParseInt(doc.formField(path, 'phaseNumber'));
   set phaseNumber(int? value) => doc.setFormField(path, 'phaseNumber', somFormatInt(value));
-
-  String get phaseName => doc.formField(path, 'phaseName') ?? '';
-  set phaseName(String value) => doc.setFormField(path, 'phaseName', value);
 
   String get phaseScope => doc.formField(path, 'phaseScope') ?? '';
   set phaseScope(String value) => doc.setFormField(path, 'phaseScope', value);
@@ -71637,9 +71073,6 @@ class ReportChartEntryContentForm extends SomNode {
 
   String get chartId => doc.formField(path, 'chartId') ?? '';
   set chartId(String value) => doc.setFormField(path, 'chartId', value);
-
-  String get title => doc.formField(path, 'title') ?? '';
-  set title(String value) => doc.setFormField(path, 'title', value);
 
   String get chartType => doc.formField(path, 'chartType') ?? '';
   set chartType(String value) => doc.setFormField(path, 'chartType', value);
@@ -71800,9 +71233,6 @@ class ReportColumnEntryContentForm extends SomNode {
 
   String get columnId => doc.formField(path, 'columnId') ?? '';
   set columnId(String value) => doc.setFormField(path, 'columnId', value);
-
-  String get columnName => doc.formField(path, 'columnName') ?? '';
-  set columnName(String value) => doc.setFormField(path, 'columnName', value);
 
   String get displayLabel => doc.formField(path, 'displayLabel') ?? '';
   set displayLabel(String value) => doc.setFormField(path, 'displayLabel', value);
@@ -72107,9 +71537,6 @@ class ReportEntryContentForm extends SomNode {
 
   String get reportId => doc.formField(path, 'reportId') ?? '';
   set reportId(String value) => doc.setFormField(path, 'reportId', value);
-
-  String get reportName => doc.formField(path, 'reportName') ?? '';
-  set reportName(String value) => doc.setFormField(path, 'reportName', value);
 
   String get reportType => doc.formField(path, 'reportType') ?? '';
   set reportType(String value) => doc.setFormField(path, 'reportType', value);
@@ -72452,9 +71879,6 @@ class ReportFilterEntryContentForm extends SomNode {
   String get filterId => doc.formField(path, 'filterId') ?? '';
   set filterId(String value) => doc.setFormField(path, 'filterId', value);
 
-  String get filterName => doc.formField(path, 'filterName') ?? '';
-  set filterName(String value) => doc.setFormField(path, 'filterName', value);
-
   String get displayLabel => doc.formField(path, 'displayLabel') ?? '';
   set displayLabel(String value) => doc.setFormField(path, 'displayLabel', value);
 }
@@ -72637,9 +72061,6 @@ class ReportRecipientEntryContentForm extends SomNode {
   String get recipientId => doc.formField(path, 'recipientId') ?? '';
   set recipientId(String value) => doc.setFormField(path, 'recipientId', value);
 
-  String get recipientName => doc.formField(path, 'recipientName') ?? '';
-  set recipientName(String value) => doc.setFormField(path, 'recipientName', value);
-
   String get recipientType => doc.formField(path, 'recipientType') ?? '';
   set recipientType(String value) => doc.setFormField(path, 'recipientType', value);
 
@@ -72733,9 +72154,6 @@ class ReportScheduleEntryContentForm extends SomNode {
 
   String get scheduleId => doc.formField(path, 'scheduleId') ?? '';
   set scheduleId(String value) => doc.setFormField(path, 'scheduleId', value);
-
-  String get scheduleName => doc.formField(path, 'scheduleName') ?? '';
-  set scheduleName(String value) => doc.setFormField(path, 'scheduleName', value);
 
   String get frequency => doc.formField(path, 'frequency') ?? '';
   set frequency(String value) => doc.setFormField(path, 'frequency', value);
@@ -72890,9 +72308,6 @@ class ReportSectionEntryContentForm extends SomNode {
   String get sectionId => doc.formField(path, 'sectionId') ?? '';
   set sectionId(String value) => doc.setFormField(path, 'sectionId', value);
 
-  String get title => doc.formField(path, 'title') ?? '';
-  set title(String value) => doc.setFormField(path, 'title', value);
-
   String get sectionType => doc.formField(path, 'sectionType') ?? '';
   set sectionType(String value) => doc.setFormField(path, 'sectionType', value);
 }
@@ -73002,9 +72417,6 @@ class RequirementBusinessRuleEntryContentForm extends SomNode {
   String get ruleId => doc.formField(path, 'ruleId') ?? '';
   set ruleId(String value) => doc.setFormField(path, 'ruleId', value);
 
-  String get ruleName => doc.formField(path, 'ruleName') ?? '';
-  set ruleName(String value) => doc.setFormField(path, 'ruleName', value);
-
   String get ruleType => doc.formField(path, 'ruleType') ?? '';
   set ruleType(String value) => doc.setFormField(path, 'ruleType', value);
 
@@ -73066,9 +72478,6 @@ class RequirementScreenActionEntryContentForm extends SomNode {
 
   String get actionId => doc.formField(path, 'actionId') ?? '';
   set actionId(String value) => doc.setFormField(path, 'actionId', value);
-
-  String get actionLabel => doc.formField(path, 'actionLabel') ?? '';
-  set actionLabel(String value) => doc.setFormField(path, 'actionLabel', value);
 
   String get actionType => doc.formField(path, 'actionType') ?? '';
   set actionType(String value) => doc.setFormField(path, 'actionType', value);
@@ -73161,9 +72570,6 @@ class RequirementTestCaseEntryContentForm extends SomNode {
 
   String get testCaseId => doc.formField(path, 'testCaseId') ?? '';
   set testCaseId(String value) => doc.setFormField(path, 'testCaseId', value);
-
-  String get testCaseName => doc.formField(path, 'testCaseName') ?? '';
-  set testCaseName(String value) => doc.setFormField(path, 'testCaseName', value);
 
   String get testType => doc.formField(path, 'testType') ?? '';
   set testType(String value) => doc.setFormField(path, 'testType', value);
@@ -73348,9 +72754,6 @@ class ResourceAllocationEntryContentForm extends SomNode {
 
   String get resourceType => doc.formField(path, 'resourceType') ?? '';
   set resourceType(String value) => doc.setFormField(path, 'resourceType', value);
-
-  String get resourceName => doc.formField(path, 'resourceName') ?? '';
-  set resourceName(String value) => doc.setFormField(path, 'resourceName', value);
 
   String get quantity => doc.formField(path, 'quantity') ?? '';
   set quantity(String value) => doc.setFormField(path, 'quantity', value);
@@ -73976,9 +73379,6 @@ class ResponsiveScreenRuleEntryContentForm extends SomNode {
   String get screenId => doc.formField(path, 'screenId') ?? '';
   set screenId(String value) => doc.setFormField(path, 'screenId', value);
 
-  String get screenName => doc.formField(path, 'screenName') ?? '';
-  set screenName(String value) => doc.setFormField(path, 'screenName', value);
-
   String get mobileLayout => doc.formField(path, 'mobileLayout') ?? '';
   set mobileLayout(String value) => doc.setFormField(path, 'mobileLayout', value);
 
@@ -74364,9 +73764,6 @@ class ReusableUiComponentEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get componentName => doc.formField(path, 'componentName') ?? '';
-  set componentName(String value) => doc.setFormField(path, 'componentName', value);
 
   String get componentCategory => doc.formField(path, 'componentCategory') ?? '';
   set componentCategory(String value) => doc.setFormField(path, 'componentCategory', value);
@@ -74858,9 +74255,6 @@ class RiskIdentificationContentForm extends SomNode {
   String get riskId => doc.formField(path, 'riskId') ?? '';
   set riskId(String value) => doc.setFormField(path, 'riskId', value);
 
-  String get riskName => doc.formField(path, 'riskName') ?? '';
-  set riskName(String value) => doc.setFormField(path, 'riskName', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
@@ -75347,9 +74741,6 @@ class RoleCompetencyEntryContentForm extends SomNode {
   String get competencyId => doc.formField(path, 'competencyId') ?? '';
   set competencyId(String value) => doc.setFormField(path, 'competencyId', value);
 
-  String get competencyName => doc.formField(path, 'competencyName') ?? '';
-  set competencyName(String value) => doc.setFormField(path, 'competencyName', value);
-
   String get competencyType => doc.formField(path, 'competencyType') ?? '';
   set competencyType(String value) => doc.setFormField(path, 'competencyType', value);
 
@@ -75763,9 +75154,6 @@ class RuleExampleEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get exampleName => doc.formField(path, 'exampleName') ?? '';
-  set exampleName(String value) => doc.setFormField(path, 'exampleName', value);
-
   String get scenario => doc.formField(path, 'scenario') ?? '';
   set scenario(String value) => doc.setFormField(path, 'scenario', value);
 
@@ -75815,9 +75203,6 @@ class RuntimeDependencyEntryContentForm extends SomNode {
 
   String get dependencyId => doc.formField(path, 'dependencyId') ?? '';
   set dependencyId(String value) => doc.setFormField(path, 'dependencyId', value);
-
-  String get name => doc.formField(path, 'name') ?? '';
-  set name(String value) => doc.setFormField(path, 'name', value);
 
   String get version => doc.formField(path, 'version') ?? '';
   set version(String value) => doc.setFormField(path, 'version', value);
@@ -76504,9 +75889,6 @@ class ScenarioEntryIdentificationForm extends SomNode {
   String get scenarioId => doc.formField(path, 'scenarioId') ?? '';
   set scenarioId(String value) => doc.setFormField(path, 'scenarioId', value);
 
-  String get scenarioName => doc.formField(path, 'scenarioName') ?? '';
-  set scenarioName(String value) => doc.setFormField(path, 'scenarioName', value);
-
   String get scenarioType => doc.formField(path, 'scenarioType') ?? '';
   set scenarioType(String value) => doc.setFormField(path, 'scenarioType', value);
 
@@ -76721,9 +76103,6 @@ class ScheduledJobEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get jobName => doc.formField(path, 'jobName') ?? '';
-  set jobName(String value) => doc.setFormField(path, 'jobName', value);
 
   String get purpose => doc.formField(path, 'purpose') ?? '';
   set purpose(String value) => doc.setFormField(path, 'purpose', value);
@@ -77154,9 +76533,6 @@ class ScreenActionEntryContentForm extends SomNode {
   String get actionId => doc.formField(path, 'actionId') ?? '';
   set actionId(String value) => doc.setFormField(path, 'actionId', value);
 
-  String get actionName => doc.formField(path, 'actionName') ?? '';
-  set actionName(String value) => doc.setFormField(path, 'actionName', value);
-
   String get actionType => doc.formField(path, 'actionType') ?? '';
   set actionType(String value) => doc.setFormField(path, 'actionType', value);
 }
@@ -77200,9 +76576,6 @@ class ScreenBehaviorEntryContentForm extends SomNode {
 
   String get behaviorId => doc.formField(path, 'behaviorId') ?? '';
   set behaviorId(String value) => doc.setFormField(path, 'behaviorId', value);
-
-  String get behaviorName => doc.formField(path, 'behaviorName') ?? '';
-  set behaviorName(String value) => doc.setFormField(path, 'behaviorName', value);
 
   String get behaviorType => doc.formField(path, 'behaviorType') ?? '';
   set behaviorType(String value) => doc.setFormField(path, 'behaviorType', value);
@@ -77418,9 +76791,6 @@ class ScreenElementEntryContentForm extends SomNode {
 
   String get elementId => doc.formField(path, 'elementId') ?? '';
   set elementId(String value) => doc.setFormField(path, 'elementId', value);
-
-  String get elementName => doc.formField(path, 'elementName') ?? '';
-  set elementName(String value) => doc.setFormField(path, 'elementName', value);
 
   ScreenElementKind? get elementType => _parseScreenElementKind(doc.formField(path, 'elementType'));
   set elementType(ScreenElementKind? value) => doc.setFormField(path, 'elementType', value?.name ?? '');
@@ -77729,9 +77099,6 @@ class ScreenEntryContentForm extends SomNode {
   String get screenId => doc.formField(path, 'screenId') ?? '';
   set screenId(String value) => doc.setFormField(path, 'screenId', value);
 
-  String get screenName => doc.formField(path, 'screenName') ?? '';
-  set screenName(String value) => doc.setFormField(path, 'screenName', value);
-
   String get purpose => doc.formField(path, 'purpose') ?? '';
   set purpose(String value) => doc.setFormField(path, 'purpose', value);
 }
@@ -77853,9 +77220,6 @@ class ScreenFieldEntryContentForm extends SomNode {
 
   String get fieldId => doc.formField(path, 'fieldId') ?? '';
   set fieldId(String value) => doc.setFormField(path, 'fieldId', value);
-
-  String get fieldLabel => doc.formField(path, 'fieldLabel') ?? '';
-  set fieldLabel(String value) => doc.setFormField(path, 'fieldLabel', value);
 
   ScreenFieldKind? get fieldType => _parseScreenFieldKind(doc.formField(path, 'fieldType'));
   set fieldType(ScreenFieldKind? value) => doc.setFormField(path, 'fieldType', value?.name ?? '');
@@ -78052,9 +77416,6 @@ class ScreenRouteEntryContentForm extends SomNode {
   String get routePath => doc.formField(path, 'routePath') ?? '';
   set routePath(String value) => doc.setFormField(path, 'routePath', value);
 
-  String get routeTitle => doc.formField(path, 'routeTitle') ?? '';
-  set routeTitle(String value) => doc.setFormField(path, 'routeTitle', value);
-
   String get screenId => doc.formField(path, 'screenId') ?? '';
   set screenId(String value) => doc.setFormField(path, 'screenId', value);
 
@@ -78099,9 +77460,6 @@ class ScreenSectionEntryContentForm extends SomNode {
   String get sectionId => doc.formField(path, 'sectionId') ?? '';
   set sectionId(String value) => doc.setFormField(path, 'sectionId', value);
 
-  String get sectionName => doc.formField(path, 'sectionName') ?? '';
-  set sectionName(String value) => doc.setFormField(path, 'sectionName', value);
-
   String get purpose => doc.formField(path, 'purpose') ?? '';
   set purpose(String value) => doc.setFormField(path, 'purpose', value);
 
@@ -78145,9 +77503,6 @@ class ScreenStateEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get stateName => doc.formField(path, 'stateName') ?? '';
-  set stateName(String value) => doc.setFormField(path, 'stateName', value);
 
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
@@ -78214,9 +77569,6 @@ class ScreenUserCategoryEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get categoryName => doc.formField(path, 'categoryName') ?? '';
-  set categoryName(String value) => doc.setFormField(path, 'categoryName', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
@@ -78235,9 +77587,6 @@ class SecurityAuditEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get auditName => doc.formField(path, 'auditName') ?? '';
-  set auditName(String value) => doc.setFormField(path, 'auditName', value);
 
   String get auditCategory => doc.formField(path, 'auditCategory') ?? '';
   set auditCategory(String value) => doc.setFormField(path, 'auditCategory', value);
@@ -78650,9 +77999,6 @@ class SecurityControlEntryContentForm extends SomNode {
   String get controlId => doc.formField(path, 'controlId') ?? '';
   set controlId(String value) => doc.setFormField(path, 'controlId', value);
 
-  String get controlName => doc.formField(path, 'controlName') ?? '';
-  set controlName(String value) => doc.setFormField(path, 'controlName', value);
-
   String get controlType => doc.formField(path, 'controlType') ?? '';
   set controlType(String value) => doc.setFormField(path, 'controlType', value);
 
@@ -78818,9 +78164,6 @@ class SecurityEventEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get eventName => doc.formField(path, 'eventName') ?? '';
-  set eventName(String value) => doc.setFormField(path, 'eventName', value);
 
   String get eventCategory => doc.formField(path, 'eventCategory') ?? '';
   set eventCategory(String value) => doc.setFormField(path, 'eventCategory', value);
@@ -79065,9 +78408,6 @@ class SecurityStandardComplianceEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get standardName => doc.formField(path, 'standardName') ?? '';
-  set standardName(String value) => doc.setFormField(path, 'standardName', value);
-
   String get standardType => doc.formField(path, 'standardType') ?? '';
   set standardType(String value) => doc.setFormField(path, 'standardType', value);
 
@@ -79155,9 +78495,6 @@ class SecurityStandardEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get standardName => doc.formField(path, 'standardName') ?? '';
-  set standardName(String value) => doc.setFormField(path, 'standardName', value);
 
   String get standardVersion => doc.formField(path, 'standardVersion') ?? '';
   set standardVersion(String value) => doc.setFormField(path, 'standardVersion', value);
@@ -79604,9 +78941,6 @@ class ServerEnvironmentEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get environmentName => doc.formField(path, 'environmentName') ?? '';
-  set environmentName(String value) => doc.setFormField(path, 'environmentName', value);
-
   String get environmentType => doc.formField(path, 'environmentType') ?? '';
   set environmentType(String value) => doc.setFormField(path, 'environmentType', value);
 
@@ -79698,9 +79032,6 @@ class ServerOperationEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get operationName => doc.formField(path, 'operationName') ?? '';
-  set operationName(String value) => doc.setFormField(path, 'operationName', value);
-
   String get purpose => doc.formField(path, 'purpose') ?? '';
   set purpose(String value) => doc.setFormField(path, 'purpose', value);
 
@@ -79725,9 +79056,6 @@ class ServerOperationMemberEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get memberName => doc.formField(path, 'memberName') ?? '';
-  set memberName(String value) => doc.setFormField(path, 'memberName', value);
 
   String get memberType => doc.formField(path, 'memberType') ?? '';
   set memberType(String value) => doc.setFormField(path, 'memberType', value);
@@ -79897,9 +79225,6 @@ class ServerRoleEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get roleName => doc.formField(path, 'roleName') ?? '';
-  set roleName(String value) => doc.setFormField(path, 'roleName', value);
 
   String get roleType => doc.formField(path, 'roleType') ?? '';
   set roleType(String value) => doc.setFormField(path, 'roleType', value);
@@ -80603,9 +79928,6 @@ class SharedLibraryComponentEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get componentName => doc.formField(path, 'componentName') ?? '';
-  set componentName(String value) => doc.setFormField(path, 'componentName', value);
-
   String get componentType => doc.formField(path, 'componentType') ?? '';
   set componentType(String value) => doc.setFormField(path, 'componentType', value);
 
@@ -80752,9 +80074,6 @@ class SharedLibraryEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get libraryName => doc.formField(path, 'libraryName') ?? '';
-  set libraryName(String value) => doc.setFormField(path, 'libraryName', value);
 
   String get libraryType => doc.formField(path, 'libraryType') ?? '';
   set libraryType(String value) => doc.setFormField(path, 'libraryType', value);
@@ -81238,9 +80557,6 @@ class SloEntryContentForm extends SomNode {
   String get sloId => doc.formField(path, 'sloId') ?? '';
   set sloId(String value) => doc.setFormField(path, 'sloId', value);
 
-  String get sloName => doc.formField(path, 'sloName') ?? '';
-  set sloName(String value) => doc.setFormField(path, 'sloName', value);
-
   String get sloDescription => doc.formField(path, 'sloDescription') ?? '';
   set sloDescription(String value) => doc.setFormField(path, 'sloDescription', value);
 
@@ -81331,9 +80647,6 @@ class SoftwareLayerEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get layerName => doc.formField(path, 'layerName') ?? '';
-  set layerName(String value) => doc.setFormField(path, 'layerName', value);
 
   String get layerLevel => doc.formField(path, 'layerLevel') ?? '';
   set layerLevel(String value) => doc.setFormField(path, 'layerLevel', value);
@@ -81794,9 +81107,6 @@ class StageEntryContentForm extends SomNode {
   String get stageNumber => doc.formField(path, 'stageNumber') ?? '';
   set stageNumber(String value) => doc.setFormField(path, 'stageNumber', value);
 
-  String get stageName => doc.formField(path, 'stageName') ?? '';
-  set stageName(String value) => doc.setFormField(path, 'stageName', value);
-
   String get currentStatus => doc.formField(path, 'currentStatus') ?? '';
   set currentStatus(String value) => doc.setFormField(path, 'currentStatus', value);
 }
@@ -82245,9 +81555,6 @@ class StageMigrationRiskEntryContentForm extends SomNode {
 
   String get riskId => doc.formField(path, 'riskId') ?? '';
   set riskId(String value) => doc.setFormField(path, 'riskId', value);
-
-  String get riskName => doc.formField(path, 'riskName') ?? '';
-  set riskName(String value) => doc.setFormField(path, 'riskName', value);
 
   String get riskCategory => doc.formField(path, 'riskCategory') ?? '';
   set riskCategory(String value) => doc.setFormField(path, 'riskCategory', value);
@@ -83058,9 +82365,6 @@ class StageSummaryEntryContentForm extends SomNode {
   String get stageNumber => doc.formField(path, 'stageNumber') ?? '';
   set stageNumber(String value) => doc.setFormField(path, 'stageNumber', value);
 
-  String get stageName => doc.formField(path, 'stageName') ?? '';
-  set stageName(String value) => doc.setFormField(path, 'stageName', value);
-
   String get scopeSummary => doc.formField(path, 'scopeSummary') ?? '';
   set scopeSummary(String value) => doc.setFormField(path, 'scopeSummary', value);
 }
@@ -83591,9 +82895,6 @@ class StakeholderEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get stakeholderName => doc.formField(path, 'stakeholderName') ?? '';
-  set stakeholderName(String value) => doc.setFormField(path, 'stakeholderName', value);
-
   String get stakeholderType => doc.formField(path, 'stakeholderType') ?? '';
   set stakeholderType(String value) => doc.setFormField(path, 'stakeholderType', value);
 
@@ -83615,9 +82916,6 @@ class StakeholderRegisterEntryContentForm extends SomNode {
 
   String get stakeholderId => doc.formField(path, 'stakeholderId') ?? '';
   set stakeholderId(String value) => doc.setFormField(path, 'stakeholderId', value);
-
-  String get name => doc.formField(path, 'name') ?? '';
-  set name(String value) => doc.setFormField(path, 'name', value);
 
   String get role => doc.formField(path, 'role') ?? '';
   set role(String value) => doc.setFormField(path, 'role', value);
@@ -83761,9 +83059,6 @@ class SubFunctionEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get subFunctionName => doc.formField(path, 'subFunctionName') ?? '';
-  set subFunctionName(String value) => doc.setFormField(path, 'subFunctionName', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
@@ -83785,9 +83080,6 @@ class SubStageEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get name => doc.formField(path, 'name') ?? '';
-  set name(String value) => doc.setFormField(path, 'name', value);
 
   String get subStageType => doc.formField(path, 'subStageType') ?? '';
   set subStageType(String value) => doc.setFormField(path, 'subStageType', value);
@@ -84049,9 +83341,6 @@ class SuccessCriterionEntryContentForm extends SomNode {
 
   String get criterionId => doc.formField(path, 'criterionId') ?? '';
   set criterionId(String value) => doc.setFormField(path, 'criterionId', value);
-
-  String get criterionName => doc.formField(path, 'criterionName') ?? '';
-  set criterionName(String value) => doc.setFormField(path, 'criterionName', value);
 
   String get category => doc.formField(path, 'category') ?? '';
   set category(String value) => doc.setFormField(path, 'category', value);
@@ -84516,9 +83805,6 @@ class SystemBusinessProcessEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get processName => doc.formField(path, 'processName') ?? '';
-  set processName(String value) => doc.setFormField(path, 'processName', value);
-
   String get processId => doc.formField(path, 'processId') ?? '';
   set processId(String value) => doc.setFormField(path, 'processId', value);
 
@@ -84543,9 +83829,6 @@ class SystemBusinessUnitEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get unitName => doc.formField(path, 'unitName') ?? '';
-  set unitName(String value) => doc.setFormField(path, 'unitName', value);
 
   int? get userCount => somParseInt(doc.formField(path, 'userCount'));
   set userCount(int? value) => doc.setFormField(path, 'userCount', somFormatInt(value));
@@ -84834,9 +84117,6 @@ class SystemDependencyEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get dependencyName => doc.formField(path, 'dependencyName') ?? '';
-  set dependencyName(String value) => doc.setFormField(path, 'dependencyName', value);
 
   String get dependencyType => doc.formField(path, 'dependencyType') ?? '';
   set dependencyType(String value) => doc.setFormField(path, 'dependencyType', value);
@@ -85311,9 +84591,6 @@ class SystemIntegrationEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get integrationName => doc.formField(path, 'integrationName') ?? '';
-  set integrationName(String value) => doc.setFormField(path, 'integrationName', value);
 
   String get integrationType => doc.formField(path, 'integrationType') ?? '';
   set integrationType(String value) => doc.setFormField(path, 'integrationType', value);
@@ -86046,9 +85323,6 @@ class SystemTaskEntryContentForm extends SomNode {
   String get taskId => doc.formField(path, 'taskId') ?? '';
   set taskId(String value) => doc.setFormField(path, 'taskId', value);
 
-  String get taskName => doc.formField(path, 'taskName') ?? '';
-  set taskName(String value) => doc.setFormField(path, 'taskName', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 }
@@ -86240,9 +85514,6 @@ class SystemToReplaceEntryIdentificationContentForm extends SomNode {
   String get systemId => doc.formField(path, 'systemId') ?? '';
   set systemId(String value) => doc.setFormField(path, 'systemId', value);
 
-  String get systemName => doc.formField(path, 'systemName') ?? '';
-  set systemName(String value) => doc.setFormField(path, 'systemName', value);
-
   String get officialName => doc.formField(path, 'officialName') ?? '';
   set officialName(String value) => doc.setFormField(path, 'officialName', value);
 
@@ -86311,9 +85582,6 @@ class SystemTrainingEntryContentForm extends SomNode {
 
   String get trainingId => doc.formField(path, 'trainingId') ?? '';
   set trainingId(String value) => doc.setFormField(path, 'trainingId', value);
-
-  String get systemName => doc.formField(path, 'systemName') ?? '';
-  set systemName(String value) => doc.setFormField(path, 'systemName', value);
 
   String get modulesCovered => doc.formField(path, 'modulesCovered') ?? '';
   set modulesCovered(String value) => doc.setFormField(path, 'modulesCovered', value);
@@ -86525,9 +85793,6 @@ class TabBarDefinitionEntryContentForm extends SomNode {
   String get tabBarId => doc.formField(path, 'tabBarId') ?? '';
   set tabBarId(String value) => doc.setFormField(path, 'tabBarId', value);
 
-  String get tabBarName => doc.formField(path, 'tabBarName') ?? '';
-  set tabBarName(String value) => doc.setFormField(path, 'tabBarName', value);
-
   String get hostScreenId => doc.formField(path, 'hostScreenId') ?? '';
   set hostScreenId(String value) => doc.setFormField(path, 'hostScreenId', value);
 
@@ -86624,9 +85889,6 @@ class TargetPlatformEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get platformName => doc.formField(path, 'platformName') ?? '';
-  set platformName(String value) => doc.setFormField(path, 'platformName', value);
 
   String get platformCategory => doc.formField(path, 'platformCategory') ?? '';
   set platformCategory(String value) => doc.setFormField(path, 'platformCategory', value);
@@ -86797,9 +86059,6 @@ class TeamMemberEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get name => doc.formField(path, 'name') ?? '';
-  set name(String value) => doc.setFormField(path, 'name', value);
-
   String get projectRole => doc.formField(path, 'projectRole') ?? '';
   set projectRole(String value) => doc.setFormField(path, 'projectRole', value);
 
@@ -86865,9 +86124,6 @@ class TeamMemberSkillEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get skillName => doc.formField(path, 'skillName') ?? '';
-  set skillName(String value) => doc.setFormField(path, 'skillName', value);
 
   String get proficiencyLevel => doc.formField(path, 'proficiencyLevel') ?? '';
   set proficiencyLevel(String value) => doc.setFormField(path, 'proficiencyLevel', value);
@@ -86984,9 +86240,6 @@ class TechnicalConstraintEntryContentForm extends SomNode {
   String get constraintId => doc.formField(path, 'constraintId') ?? '';
   set constraintId(String value) => doc.setFormField(path, 'constraintId', value);
 
-  String get constraintName => doc.formField(path, 'constraintName') ?? '';
-  set constraintName(String value) => doc.setFormField(path, 'constraintName', value);
-
   String get constraintType => doc.formField(path, 'constraintType') ?? '';
   set constraintType(String value) => doc.setFormField(path, 'constraintType', value);
 
@@ -87020,9 +86273,6 @@ class TechnicalDependencyEntryContentForm extends SomNode {
 
   String get dependencyId => doc.formField(path, 'dependencyId') ?? '';
   set dependencyId(String value) => doc.setFormField(path, 'dependencyId', value);
-
-  String get dependencyName => doc.formField(path, 'dependencyName') ?? '';
-  set dependencyName(String value) => doc.setFormField(path, 'dependencyName', value);
 
   String get dependencyType => doc.formField(path, 'dependencyType') ?? '';
   set dependencyType(String value) => doc.setFormField(path, 'dependencyType', value);
@@ -87183,9 +86433,6 @@ class TechnicalGoalEntryContentForm extends SomNode {
   String get goalId => doc.formField(path, 'goalId') ?? '';
   set goalId(String value) => doc.setFormField(path, 'goalId', value);
 
-  String get goalName => doc.formField(path, 'goalName') ?? '';
-  set goalName(String value) => doc.setFormField(path, 'goalName', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
@@ -87269,9 +86516,6 @@ class TechnicalGoalTestCaseEntryContentForm extends SomNode {
 
   String get testCaseId => doc.formField(path, 'testCaseId') ?? '';
   set testCaseId(String value) => doc.setFormField(path, 'testCaseId', value);
-
-  String get testCaseName => doc.formField(path, 'testCaseName') ?? '';
-  set testCaseName(String value) => doc.setFormField(path, 'testCaseName', value);
 
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
@@ -87686,9 +86930,6 @@ class TechnologyStandardEntryContentForm extends SomNode {
   String get standardId => doc.formField(path, 'standardId') ?? '';
   set standardId(String value) => doc.setFormField(path, 'standardId', value);
 
-  String get standardName => doc.formField(path, 'standardName') ?? '';
-  set standardName(String value) => doc.setFormField(path, 'standardName', value);
-
   String get standardCategory => doc.formField(path, 'standardCategory') ?? '';
   set standardCategory(String value) => doc.setFormField(path, 'standardCategory', value);
 }
@@ -87847,9 +87088,6 @@ class TestScenarioEntryContentForm extends SomNode {
 
   String get scenarioId => doc.formField(path, 'scenarioId') ?? '';
   set scenarioId(String value) => doc.setFormField(path, 'scenarioId', value);
-
-  String get scenarioName => doc.formField(path, 'scenarioName') ?? '';
-  set scenarioName(String value) => doc.setFormField(path, 'scenarioName', value);
 
   String get priority => doc.formField(path, 'priority') ?? '';
   set priority(String value) => doc.setFormField(path, 'priority', value);
@@ -88397,9 +87635,6 @@ class ThirdPartyLibraryEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get libraryName => doc.formField(path, 'libraryName') ?? '';
-  set libraryName(String value) => doc.setFormField(path, 'libraryName', value);
-
   String get packageSource => doc.formField(path, 'packageSource') ?? '';
   set packageSource(String value) => doc.setFormField(path, 'packageSource', value);
 
@@ -88846,9 +88081,6 @@ class ToolEntryContentForm extends SomNode {
 
   String get toolId => doc.formField(path, 'toolId') ?? '';
   set toolId(String value) => doc.setFormField(path, 'toolId', value);
-
-  String get toolName => doc.formField(path, 'toolName') ?? '';
-  set toolName(String value) => doc.setFormField(path, 'toolName', value);
 
   String get notes => doc.formField(path, 'notes') ?? '';
   set notes(String value) => doc.setFormField(path, 'notes', value);
@@ -89421,9 +88653,6 @@ class TourStepEntryContentForm extends SomNode {
   String get targetElement => doc.formField(path, 'targetElement') ?? '';
   set targetElement(String value) => doc.setFormField(path, 'targetElement', value);
 
-  String get stepTitle => doc.formField(path, 'stepTitle') ?? '';
-  set stepTitle(String value) => doc.setFormField(path, 'stepTitle', value);
-
   String get stepContent => doc.formField(path, 'stepContent') ?? '';
   set stepContent(String value) => doc.setFormField(path, 'stepContent', value);
 
@@ -89476,9 +88705,6 @@ class TradeOffDecisionEntryContentForm extends SomNode {
 
   String get decisionId => doc.formField(path, 'decisionId') ?? '';
   set decisionId(String value) => doc.setFormField(path, 'decisionId', value);
-
-  String get decisionTitle => doc.formField(path, 'decisionTitle') ?? '';
-  set decisionTitle(String value) => doc.setFormField(path, 'decisionTitle', value);
 
   String get decisionStatus => doc.formField(path, 'decisionStatus') ?? '';
   set decisionStatus(String value) => doc.setFormField(path, 'decisionStatus', value);
@@ -89880,9 +89106,6 @@ class TrainingModuleEntryContentForm extends SomNode {
   String get moduleId => doc.formField(path, 'moduleId') ?? '';
   set moduleId(String value) => doc.setFormField(path, 'moduleId', value);
 
-  String get moduleName => doc.formField(path, 'moduleName') ?? '';
-  set moduleName(String value) => doc.setFormField(path, 'moduleName', value);
-
   String get targetAudience => doc.formField(path, 'targetAudience') ?? '';
   set targetAudience(String value) => doc.setFormField(path, 'targetAudience', value);
 
@@ -90029,9 +89252,6 @@ class TrainingTopicEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get topicName => doc.formField(path, 'topicName') ?? '';
-  set topicName(String value) => doc.setFormField(path, 'topicName', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
@@ -90165,9 +89385,6 @@ class TransitionMetricEntryContentForm extends SomNode {
   String get metricId => doc.formField(path, 'metricId') ?? '';
   set metricId(String value) => doc.setFormField(path, 'metricId', value);
 
-  String get metricName => doc.formField(path, 'metricName') ?? '';
-  set metricName(String value) => doc.setFormField(path, 'metricName', value);
-
   String get category => doc.formField(path, 'category') ?? '';
   set category(String value) => doc.setFormField(path, 'category', value);
 
@@ -90245,9 +89462,6 @@ class TransitionMilestoneEntryContentForm extends SomNode {
 
   String get milestoneId => doc.formField(path, 'milestoneId') ?? '';
   set milestoneId(String value) => doc.setFormField(path, 'milestoneId', value);
-
-  String get milestoneName => doc.formField(path, 'milestoneName') ?? '';
-  set milestoneName(String value) => doc.setFormField(path, 'milestoneName', value);
 
   String get milestoneType => doc.formField(path, 'milestoneType') ?? '';
   set milestoneType(String value) => doc.setFormField(path, 'milestoneType', value);
@@ -90477,9 +89691,6 @@ class TransitionPhaseIdentificationContentForm extends SomNode {
   String get phaseId => doc.formField(path, 'phaseId') ?? '';
   set phaseId(String value) => doc.setFormField(path, 'phaseId', value);
 
-  String get phaseName => doc.formField(path, 'phaseName') ?? '';
-  set phaseName(String value) => doc.setFormField(path, 'phaseName', value);
-
   String get phaseType => doc.formField(path, 'phaseType') ?? '';
   set phaseType(String value) => doc.setFormField(path, 'phaseType', value);
 
@@ -90605,9 +89816,6 @@ class TransitionRiskEntryContentForm extends SomNode {
   String get riskId => doc.formField(path, 'riskId') ?? '';
   set riskId(String value) => doc.setFormField(path, 'riskId', value);
 
-  String get riskName => doc.formField(path, 'riskName') ?? '';
-  set riskName(String value) => doc.setFormField(path, 'riskName', value);
-
   String get riskCategory => doc.formField(path, 'riskCategory') ?? '';
   set riskCategory(String value) => doc.setFormField(path, 'riskCategory', value);
 
@@ -90688,9 +89896,6 @@ class TransitionSupportResourceEntryContentForm extends SomNode {
 
   String get resourceType => doc.formField(path, 'resourceType') ?? '';
   set resourceType(String value) => doc.setFormField(path, 'resourceType', value);
-
-  String get resourceName => doc.formField(path, 'resourceName') ?? '';
-  set resourceName(String value) => doc.setFormField(path, 'resourceName', value);
 
   String get availabilityPeriod => doc.formField(path, 'availabilityPeriod') ?? '';
   set availabilityPeriod(String value) => doc.setFormField(path, 'availabilityPeriod', value);
@@ -90995,9 +90200,6 @@ class TranslationVendorEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get vendorName => doc.formField(path, 'vendorName') ?? '';
-  set vendorName(String value) => doc.setFormField(path, 'vendorName', value);
-
   String get vendorType => doc.formField(path, 'vendorType') ?? '';
   set vendorType(String value) => doc.setFormField(path, 'vendorType', value);
 
@@ -91120,9 +90322,6 @@ class TrustBoundaryEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get boundaryName => doc.formField(path, 'boundaryName') ?? '';
-  set boundaryName(String value) => doc.setFormField(path, 'boundaryName', value);
-
   String get boundaryType => doc.formField(path, 'boundaryType') ?? '';
   set boundaryType(String value) => doc.setFormField(path, 'boundaryType', value);
 
@@ -91153,9 +90352,6 @@ class TypographyStyleEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get styleName => doc.formField(path, 'styleName') ?? '';
-  set styleName(String value) => doc.setFormField(path, 'styleName', value);
 
   String get fontFamily => doc.formField(path, 'fontFamily') ?? '';
   set fontFamily(String value) => doc.setFormField(path, 'fontFamily', value);
@@ -91227,9 +90423,6 @@ class UatTestCycleEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get cycleName => doc.formField(path, 'cycleName') ?? '';
-  set cycleName(String value) => doc.setFormField(path, 'cycleName', value);
 
   String get cycleObjective => doc.formField(path, 'cycleObjective') ?? '';
   set cycleObjective(String value) => doc.setFormField(path, 'cycleObjective', value);
@@ -91513,9 +90706,6 @@ class UiComponentEntryIdentityForm extends SomNode {
 
   String get componentId => doc.formField(path, 'componentId') ?? '';
   set componentId(String value) => doc.setFormField(path, 'componentId', value);
-
-  String get componentName => doc.formField(path, 'componentName') ?? '';
-  set componentName(String value) => doc.setFormField(path, 'componentName', value);
 
   String get componentFamily => doc.formField(path, 'componentFamily') ?? '';
   set componentFamily(String value) => doc.setFormField(path, 'componentFamily', value);
@@ -92505,9 +91695,6 @@ class UserAttributeEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get attributeName => doc.formField(path, 'attributeName') ?? '';
-  set attributeName(String value) => doc.setFormField(path, 'attributeName', value);
-
   String get dataType => doc.formField(path, 'dataType') ?? '';
   set dataType(String value) => doc.setFormField(path, 'dataType', value);
 
@@ -92536,9 +91723,6 @@ class UserCategoryDefinitionContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get categoryName => doc.formField(path, 'categoryName') ?? '';
-  set categoryName(String value) => doc.setFormField(path, 'categoryName', value);
-
   String get description => doc.formField(path, 'description') ?? '';
   set description(String value) => doc.setFormField(path, 'description', value);
 
@@ -92560,9 +91744,6 @@ class UserCategoryEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get categoryName => doc.formField(path, 'categoryName') ?? '';
-  set categoryName(String value) => doc.setFormField(path, 'categoryName', value);
 
   String get categoryId => doc.formField(path, 'categoryId') ?? '';
   set categoryId(String value) => doc.setFormField(path, 'categoryId', value);
@@ -92751,9 +91932,6 @@ class UserGroupImpactEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get groupName => doc.formField(path, 'groupName') ?? '';
-  set groupName(String value) => doc.setFormField(path, 'groupName', value);
-
   int? get userCount => somParseInt(doc.formField(path, 'userCount'));
   set userCount(int? value) => doc.setFormField(path, 'userCount', somFormatInt(value));
 
@@ -92916,9 +92094,6 @@ class UserLifecycleTransitionEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get transitionName => doc.formField(path, 'transitionName') ?? '';
-  set transitionName(String value) => doc.setFormField(path, 'transitionName', value);
 
   String get fromState => doc.formField(path, 'fromState') ?? '';
   set fromState(String value) => doc.setFormField(path, 'fromState', value);
@@ -93276,9 +92451,6 @@ class UtilityMenuItemEntryContentForm extends SomNode {
   String get menuItemId => doc.formField(path, 'menuItemId') ?? '';
   set menuItemId(String value) => doc.setFormField(path, 'menuItemId', value);
 
-  String get label => doc.formField(path, 'label') ?? '';
-  set label(String value) => doc.setFormField(path, 'label', value);
-
   String get icon => doc.formField(path, 'icon') ?? '';
   set icon(String value) => doc.setFormField(path, 'icon', value);
 
@@ -93325,9 +92497,6 @@ class UtilityNavigationItemEntryContentForm extends SomNode {
 
   String get utilityId => doc.formField(path, 'utilityId') ?? '';
   set utilityId(String value) => doc.setFormField(path, 'utilityId', value);
-
-  String get label => doc.formField(path, 'label') ?? '';
-  set label(String value) => doc.setFormField(path, 'label', value);
 
   String get icon => doc.formField(path, 'icon') ?? '';
   set icon(String value) => doc.setFormField(path, 'icon', value);
@@ -93898,9 +93067,6 @@ class VpnRequirementEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get vpnName => doc.formField(path, 'vpnName') ?? '';
-  set vpnName(String value) => doc.setFormField(path, 'vpnName', value);
-
   String get vpnType => doc.formField(path, 'vpnType') ?? '';
   set vpnType(String value) => doc.setFormField(path, 'vpnType', value);
 
@@ -94343,9 +93509,6 @@ class WcagSuccessCriterionEntryContentForm extends SomNode {
   String get criterionId => doc.formField(path, 'criterionId') ?? '';
   set criterionId(String value) => doc.setFormField(path, 'criterionId', value);
 
-  String get criterionName => doc.formField(path, 'criterionName') ?? '';
-  set criterionName(String value) => doc.setFormField(path, 'criterionName', value);
-
   String get level => doc.formField(path, 'level') ?? '';
   set level(String value) => doc.setFormField(path, 'level', value);
 
@@ -94405,9 +93568,6 @@ class WorkflowActorEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get actorName => doc.formField(path, 'actorName') ?? '';
-  set actorName(String value) => doc.setFormField(path, 'actorName', value);
-
   String get actorType => doc.formField(path, 'actorType') ?? '';
   set actorType(String value) => doc.setFormField(path, 'actorType', value);
 
@@ -94442,9 +93602,6 @@ class WorkflowBusinessRuleContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get ruleName => doc.formField(path, 'ruleName') ?? '';
-  set ruleName(String value) => doc.setFormField(path, 'ruleName', value);
-
   String get ruleDescription => doc.formField(path, 'ruleDescription') ?? '';
   set ruleDescription(String value) => doc.setFormField(path, 'ruleDescription', value);
 
@@ -94469,9 +93626,6 @@ class WorkflowDecisionPointContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get decisionName => doc.formField(path, 'decisionName') ?? '';
-  set decisionName(String value) => doc.setFormField(path, 'decisionName', value);
 
   String get decisionCriteria => doc.formField(path, 'decisionCriteria') ?? '';
   set decisionCriteria(String value) => doc.setFormField(path, 'decisionCriteria', value);
@@ -94501,9 +93655,6 @@ class WorkflowExceptionEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get exceptionName => doc.formField(path, 'exceptionName') ?? '';
-  set exceptionName(String value) => doc.setFormField(path, 'exceptionName', value);
-
   String get exceptionType => doc.formField(path, 'exceptionType') ?? '';
   set exceptionType(String value) => doc.setFormField(path, 'exceptionType', value);
 
@@ -94531,9 +93682,6 @@ class WorkflowInputEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get inputName => doc.formField(path, 'inputName') ?? '';
-  set inputName(String value) => doc.setFormField(path, 'inputName', value);
 
   String get inputType => doc.formField(path, 'inputType') ?? '';
   set inputType(String value) => doc.setFormField(path, 'inputType', value);
@@ -94563,9 +93711,6 @@ class WorkflowOutputEntryContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get outputName => doc.formField(path, 'outputName') ?? '';
-  set outputName(String value) => doc.setFormField(path, 'outputName', value);
-
   String get outputType => doc.formField(path, 'outputType') ?? '';
   set outputType(String value) => doc.setFormField(path, 'outputType', value);
 
@@ -94590,9 +93735,6 @@ class WorkflowStepEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get stepName => doc.formField(path, 'stepName') ?? '';
-  set stepName(String value) => doc.setFormField(path, 'stepName', value);
 
   int? get stepNumber => somParseInt(doc.formField(path, 'stepNumber'));
   set stepNumber(int? value) => doc.setFormField(path, 'stepNumber', somFormatInt(value));
@@ -94631,9 +93773,6 @@ class WorkflowStepIssueContentForm extends SomNode {
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
 
-  String get issueName => doc.formField(path, 'issueName') ?? '';
-  set issueName(String value) => doc.setFormField(path, 'issueName', value);
-
   String get issueDescription => doc.formField(path, 'issueDescription') ?? '';
   set issueDescription(String value) => doc.setFormField(path, 'issueDescription', value);
 
@@ -94658,9 +93797,6 @@ class WorkflowSummaryEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get workflowName => doc.formField(path, 'workflowName') ?? '';
-  set workflowName(String value) => doc.setFormField(path, 'workflowName', value);
 
   String get workflowType => doc.formField(path, 'workflowType') ?? '';
   set workflowType(String value) => doc.setFormField(path, 'workflowType', value);
@@ -94726,9 +93862,6 @@ class WorkflowTriggerEntryContentForm extends SomNode {
   /// The section's own free-text content, before the form fields.
   String get content => doc.content(path) ?? '';
   set content(String value) => doc.setContent(path, value);
-
-  String get triggerName => doc.formField(path, 'triggerName') ?? '';
-  set triggerName(String value) => doc.setFormField(path, 'triggerName', value);
 
   String get triggerType => doc.formField(path, 'triggerType') ?? '';
   set triggerType(String value) => doc.setFormField(path, 'triggerType', value);

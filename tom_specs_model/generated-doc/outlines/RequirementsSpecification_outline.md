@@ -10,29 +10,28 @@
       - acceptanceCriteria: `RequirementAcceptanceCriteria`
         - content @description
         - criteria: `AcceptanceCriterionEntry`
-          - content @Form(criterionId, criterionTitle, given, when, then, and, verificationMethod, testType, priority, status)
+          - content @Form(criterionId, given, when, then, and, verificationMethod, testType, priority, status)
       - businessRules: `RequirementBusinessRules`
         - content @description
         - rules: `RequirementBusinessRuleEntry`
-          - content @Form(ruleId, ruleName, ruleType, ruleStatement, source, effectiveDate, expirationDate, exceptions, enforcement, impact)
+          - content @Form(ruleId, ruleType, ruleStatement, source, effectiveDate, expirationDate, exceptions, enforcement, impact)
       - dataRequirements: `RequirementDataRequirements`
         - content @description
         - entities: `DataEntityReferenceEntry`
-          - content @Form(entityName, crudOperations, attributes, volumeEstimate, dataQualityRules, dataOwner),
-            relatedEntity
+          - content @Form(crudOperations, attributes, volumeEstimate, dataQualityRules, dataOwner), relatedEntity
       - uiSpecification: `RequirementUiSpecification`
         - content, uiForm, layoutCode, mockupDescription
         - fields: `ScreenFieldEntry`
-          - content @Form(fieldId, fieldLabel, fieldType), dataBinding, conditions, validation, textConstraints,
+          - content @Form(fieldId, fieldType), dataBinding, conditions, validation, textConstraints,
             numericConstraints, temporalConstraints, choiceOptions, fileConstraints, layout
           - validationRules: `FieldValidationRule`
             - content @Form(ruleType, ruleExpression, errorCode, errorMessage, severity, triggerEvent)
         - actions: `RequirementScreenActionEntry`
-          - content @Form(actionId, actionLabel, actionType, icon, iconPosition, buttonStyle, placement, keyboardShortcut, enabled, enabledCondition, visible, visibilityCondition, confirmationRequired, confirmationMessage, successMessage, errorMessage, navigationTarget, apiEndpoint, requiredPermission, auditLogging)
+          - content @Form(actionId, actionType, icon, iconPosition, buttonStyle, placement, keyboardShortcut, enabled, enabledCondition, visible, visibilityCondition, confirmationRequired, confirmationMessage, successMessage, errorMessage, navigationTarget, apiEndpoint, requiredPermission, auditLogging)
           - parameters: `ActionParameterEntry`
-            - content @Form(parameterName, sourceType, sourceValue, required)
+            - content @Form(sourceType, sourceValue, required)
         - behaviors: `ScreenBehaviorEntry`
-          - content @Form(behaviorId, behaviorName, behaviorType, triggerEvent, triggerField, condition, affectedFields, action, formula, description)
+          - content @Form(behaviorId, behaviorType, triggerEvent, triggerField, condition, affectedFields, action, formula, description)
       - dependencies: `RequirementDependencies`
         - content @description
         - items: `RequirementDependencyEntry`
@@ -42,8 +41,7 @@
       - testCases: `RequirementTestCases`
         - content @description
         - testCases: `RequirementTestCaseEntry`
-          - content @Form(testCaseId, testCaseName, testType, testCategory, preconditions), execution, automation,
-            relatedCriterion
+          - content @Form(testCaseId, testType, testCategory, preconditions), execution, automation, relatedCriterion
   - `TechnicalRequirements`
     - content, summaryForm
     - requirements: `TechnicalRequirementEntry`
@@ -51,7 +49,7 @@
       - acceptanceCriteria: `RequirementAcceptanceCriteria`
         - content @description
         - criteria: `AcceptanceCriterionEntry`
-          - content @Form(criterionId, criterionTitle, given, when, then, and, verificationMethod, testType, priority, status)
+          - content @Form(criterionId, given, when, then, and, verificationMethod, testType, priority, status)
       - dependencies: `RequirementDependencies`
         - content @description
         - items: `RequirementDependencyEntry`
@@ -65,11 +63,11 @@
       - acceptanceCriteria: `RequirementAcceptanceCriteria`
         - content @description
         - criteria: `AcceptanceCriterionEntry`
-          - content @Form(criterionId, criterionTitle, given, when, then, and, verificationMethod, testType, priority, status)
+          - content @Form(criterionId, given, when, then, and, verificationMethod, testType, priority, status)
       - controls: `SecurityControls`
         - content @description
         - controls: `SecurityControlEntry`
-          - content @Form(controlId, controlName, controlType, implementationType), implementation, verification
+          - content @Form(controlId, controlType, implementationType), implementation, verification
       - dependencies: `RequirementDependencies`
         - content @description
         - items: `RequirementDependencyEntry`
@@ -83,11 +81,11 @@
       - acceptanceCriteria: `RequirementAcceptanceCriteria`
         - content @description
         - criteria: `AcceptanceCriterionEntry`
-          - content @Form(criterionId, criterionTitle, given, when, then, and, verificationMethod, testType, priority, status)
+          - content @Form(criterionId, given, when, then, and, verificationMethod, testType, priority, status)
       - implementationPlan: `OrgRequirementImplementationPlan`
         - content, planForm
         - activities: `OrgImplementationActivity`
-          - content @Form(activityId, activityName, description, owner, startDate, endDate, deliverable, status)
+          - content @Form(activityId, description, owner, startDate, endDate, deliverable, status)
       - dependencies: `RequirementDependencies`
         - content @description
         - items: `RequirementDependencyEntry`

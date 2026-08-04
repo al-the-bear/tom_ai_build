@@ -1162,9 +1162,6 @@ form-types:
         description: Relationships that cross bounded context boundaries
   daatt-iden-form:
     fields:
-      - fieldname: attributeName
-        required: true
-        description: Logical attribute name in camelCase
       - fieldname: columnName
         description: "Database column name if different (e.g., snake_case)"
       - fieldname: description
@@ -1279,9 +1276,6 @@ form-types:
         description: "Whether constraint check can be deferred: Yes | No"
   enrle-iden-form:
     fields:
-      - fieldname: relationshipName
-        required: true
-        description: "Verb phrase describing the relationship (e.g., \"places\", \"contains\")"
       - fieldname: relationshipType
         description: "Association | Aggregation | Composition | Generalization | Dependency"
       - fieldname: description
@@ -1342,9 +1336,6 @@ form-types:
         description: "How often classifications are reviewed: Annually | Quarterly | OnChange"
   dclse-iden-form:
     fields:
-      - fieldname: classificationName
-        required: true
-        description: Name of this classification level
       - fieldname: classificationLevel
         description: "Sensitivity: Public | Internal | Confidential | Restricted | TopSecret"
       - fieldname: description
@@ -1401,9 +1392,6 @@ form-types:
         description: "Applicable rights: Access | Rectification | Erasure | Portability"
   bjoen-iden-form:
     fields:
-      - fieldname: objectName
-        required: true
-        description: "Business name in PascalCase (e.g., Order, Customer)"
       - fieldname: objectAlias
         description: "Short alias for diagrams (e.g., ORD, CUST)"
       - fieldname: description
@@ -1551,9 +1539,6 @@ form-types:
       - fieldname: ruleId
         required: true
         description: "Unique rule identifier (e.g., BR-001)"
-      - fieldname: ruleName
-        required: true
-        description: Descriptive name
       - fieldname: ruleVersion
         description: Version number for change tracking
       - fieldname: description

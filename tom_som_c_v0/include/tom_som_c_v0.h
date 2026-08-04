@@ -25825,8 +25825,6 @@ char *acceptance_criterion_entry_content_form_content(const AcceptanceCriterionE
 void acceptance_criterion_entry_content_form_set_content(AcceptanceCriterionEntryContentForm *self, const char *value);
 char *acceptance_criterion_entry_content_form_criterion_id(const AcceptanceCriterionEntryContentForm *self);
 void acceptance_criterion_entry_content_form_set_criterion_id(AcceptanceCriterionEntryContentForm *self, const char *value);
-char *acceptance_criterion_entry_content_form_criterion_title(const AcceptanceCriterionEntryContentForm *self);
-void acceptance_criterion_entry_content_form_set_criterion_title(AcceptanceCriterionEntryContentForm *self, const char *value);
 char *acceptance_criterion_entry_content_form_given(const AcceptanceCriterionEntryContentForm *self);
 void acceptance_criterion_entry_content_form_set_given(AcceptanceCriterionEntryContentForm *self, const char *value);
 char *acceptance_criterion_entry_content_form_when(const AcceptanceCriterionEntryContentForm *self);
@@ -25947,8 +25945,6 @@ char *acceptance_step_entry_content_form_content(const AcceptanceStepEntryConten
 void acceptance_step_entry_content_form_set_content(AcceptanceStepEntryContentForm *self, const char *value);
 char *acceptance_step_entry_content_form_step_number(const AcceptanceStepEntryContentForm *self);
 void acceptance_step_entry_content_form_set_step_number(AcceptanceStepEntryContentForm *self, const char *value);
-char *acceptance_step_entry_content_form_step_name(const AcceptanceStepEntryContentForm *self);
-void acceptance_step_entry_content_form_set_step_name(AcceptanceStepEntryContentForm *self, const char *value);
 char *acceptance_step_entry_content_form_description(const AcceptanceStepEntryContentForm *self);
 void acceptance_step_entry_content_form_set_description(AcceptanceStepEntryContentForm *self, const char *value);
 char *acceptance_step_entry_content_form_responsible_role(const AcceptanceStepEntryContentForm *self);
@@ -25988,8 +25984,6 @@ void access_level_entry_content_form_free(AccessLevelEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *access_level_entry_content_form_content(const AccessLevelEntryContentForm *self);
 void access_level_entry_content_form_set_content(AccessLevelEntryContentForm *self, const char *value);
-char *access_level_entry_content_form_level_name(const AccessLevelEntryContentForm *self);
-void access_level_entry_content_form_set_level_name(AccessLevelEntryContentForm *self, const char *value);
 char *access_level_entry_content_form_level_id(const AccessLevelEntryContentForm *self);
 void access_level_entry_content_form_set_level_id(AccessLevelEntryContentForm *self, const char *value);
 long access_level_entry_content_form_level_rank(const AccessLevelEntryContentForm *self);
@@ -26157,8 +26151,6 @@ void accessibility_standard_entry_content_form_free(AccessibilityStandardEntryCo
 // The section's own free-text content, before the form fields (owned).
 char *accessibility_standard_entry_content_form_content(const AccessibilityStandardEntryContentForm *self);
 void accessibility_standard_entry_content_form_set_content(AccessibilityStandardEntryContentForm *self, const char *value);
-char *accessibility_standard_entry_content_form_standard_name(const AccessibilityStandardEntryContentForm *self);
-void accessibility_standard_entry_content_form_set_standard_name(AccessibilityStandardEntryContentForm *self, const char *value);
 char *accessibility_standard_entry_content_form_version(const AccessibilityStandardEntryContentForm *self);
 void accessibility_standard_entry_content_form_set_version(AccessibilityStandardEntryContentForm *self, const char *value);
 char *accessibility_standard_entry_content_form_conformance_level(const AccessibilityStandardEntryContentForm *self);
@@ -26265,8 +26257,6 @@ void action_parameter_entry_content_form_free(ActionParameterEntryContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *action_parameter_entry_content_form_content(const ActionParameterEntryContentForm *self);
 void action_parameter_entry_content_form_set_content(ActionParameterEntryContentForm *self, const char *value);
-char *action_parameter_entry_content_form_parameter_name(const ActionParameterEntryContentForm *self);
-void action_parameter_entry_content_form_set_parameter_name(ActionParameterEntryContentForm *self, const char *value);
 char *action_parameter_entry_content_form_source_type(const ActionParameterEntryContentForm *self);
 void action_parameter_entry_content_form_set_source_type(ActionParameterEntryContentForm *self, const char *value);
 char *action_parameter_entry_content_form_source_value(const ActionParameterEntryContentForm *self);
@@ -26327,8 +26317,6 @@ char *actor_entry_identification_form_content(const ActorEntryIdentificationForm
 void actor_entry_identification_form_set_content(ActorEntryIdentificationForm *self, const char *value);
 char *actor_entry_identification_form_actor_id(const ActorEntryIdentificationForm *self);
 void actor_entry_identification_form_set_actor_id(ActorEntryIdentificationForm *self, const char *value);
-char *actor_entry_identification_form_actor_name(const ActorEntryIdentificationForm *self);
-void actor_entry_identification_form_set_actor_name(ActorEntryIdentificationForm *self, const char *value);
 char *actor_entry_identification_form_actor_type(const ActorEntryIdentificationForm *self);
 void actor_entry_identification_form_set_actor_type(ActorEntryIdentificationForm *self, const char *value);
 char *actor_entry_identification_form_category(const ActorEntryIdentificationForm *self);
@@ -26605,8 +26593,6 @@ void affected_department_entry_content_form_free(AffectedDepartmentEntryContentF
 // The section's own free-text content, before the form fields (owned).
 char *affected_department_entry_content_form_content(const AffectedDepartmentEntryContentForm *self);
 void affected_department_entry_content_form_set_content(AffectedDepartmentEntryContentForm *self, const char *value);
-char *affected_department_entry_content_form_department_name(const AffectedDepartmentEntryContentForm *self);
-void affected_department_entry_content_form_set_department_name(AffectedDepartmentEntryContentForm *self, const char *value);
 char *affected_department_entry_content_form_department_head(const AffectedDepartmentEntryContentForm *self);
 void affected_department_entry_content_form_set_department_head(AffectedDepartmentEntryContentForm *self, const char *value);
 long affected_department_entry_content_form_employee_count(const AffectedDepartmentEntryContentForm *self);
@@ -26630,8 +26616,6 @@ void affected_function_entry_content_form_free(AffectedFunctionEntryContentForm 
 // The section's own free-text content, before the form fields (owned).
 char *affected_function_entry_content_form_content(const AffectedFunctionEntryContentForm *self);
 void affected_function_entry_content_form_set_content(AffectedFunctionEntryContentForm *self, const char *value);
-char *affected_function_entry_content_form_function_name(const AffectedFunctionEntryContentForm *self);
-void affected_function_entry_content_form_set_function_name(AffectedFunctionEntryContentForm *self, const char *value);
 char *affected_function_entry_content_form_trigger_point(const AffectedFunctionEntryContentForm *self);
 void affected_function_entry_content_form_set_trigger_point(AffectedFunctionEntryContentForm *self, const char *value);
 char *affected_function_entry_content_form_impact(const AffectedFunctionEntryContentForm *self);
@@ -26645,8 +26629,6 @@ void affected_object_entry_content_form_free(AffectedObjectEntryContentForm *sel
 // The section's own free-text content, before the form fields (owned).
 char *affected_object_entry_content_form_content(const AffectedObjectEntryContentForm *self);
 void affected_object_entry_content_form_set_content(AffectedObjectEntryContentForm *self, const char *value);
-char *affected_object_entry_content_form_object_name(const AffectedObjectEntryContentForm *self);
-void affected_object_entry_content_form_set_object_name(AffectedObjectEntryContentForm *self, const char *value);
 char *affected_object_entry_content_form_affected_attributes(const AffectedObjectEntryContentForm *self);
 void affected_object_entry_content_form_set_affected_attributes(AffectedObjectEntryContentForm *self, const char *value);
 char *affected_object_entry_content_form_impact(const AffectedObjectEntryContentForm *self);
@@ -26677,8 +26659,6 @@ void alert_definition_entry_content_form_free(AlertDefinitionEntryContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *alert_definition_entry_content_form_content(const AlertDefinitionEntryContentForm *self);
 void alert_definition_entry_content_form_set_content(AlertDefinitionEntryContentForm *self, const char *value);
-char *alert_definition_entry_content_form_alert_name(const AlertDefinitionEntryContentForm *self);
-void alert_definition_entry_content_form_set_alert_name(AlertDefinitionEntryContentForm *self, const char *value);
 char *alert_definition_entry_content_form_alert_description(const AlertDefinitionEntryContentForm *self);
 void alert_definition_entry_content_form_set_alert_description(AlertDefinitionEntryContentForm *self, const char *value);
 char *alert_definition_entry_content_form_severity(const AlertDefinitionEntryContentForm *self);
@@ -26834,8 +26814,6 @@ char *alert_rule_entry_content_form_content(const AlertRuleEntryContentForm *sel
 void alert_rule_entry_content_form_set_content(AlertRuleEntryContentForm *self, const char *value);
 char *alert_rule_entry_content_form_alert_id(const AlertRuleEntryContentForm *self);
 void alert_rule_entry_content_form_set_alert_id(AlertRuleEntryContentForm *self, const char *value);
-char *alert_rule_entry_content_form_alert_name(const AlertRuleEntryContentForm *self);
-void alert_rule_entry_content_form_set_alert_name(AlertRuleEntryContentForm *self, const char *value);
 char *alert_rule_entry_content_form_alert_description(const AlertRuleEntryContentForm *self);
 void alert_rule_entry_content_form_set_alert_description(AlertRuleEntryContentForm *self, const char *value);
 char *alert_rule_entry_content_form_severity(const AlertRuleEntryContentForm *self);
@@ -27015,8 +26993,6 @@ char *alternative_flow_entry_content_form_content(const AlternativeFlowEntryCont
 void alternative_flow_entry_content_form_set_content(AlternativeFlowEntryContentForm *self, const char *value);
 char *alternative_flow_entry_content_form_flow_id(const AlternativeFlowEntryContentForm *self);
 void alternative_flow_entry_content_form_set_flow_id(AlternativeFlowEntryContentForm *self, const char *value);
-char *alternative_flow_entry_content_form_flow_name(const AlternativeFlowEntryContentForm *self);
-void alternative_flow_entry_content_form_set_flow_name(AlternativeFlowEntryContentForm *self, const char *value);
 char *alternative_flow_entry_content_form_flow_type(const AlternativeFlowEntryContentForm *self);
 void alternative_flow_entry_content_form_set_flow_type(AlternativeFlowEntryContentForm *self, const char *value);
 char *alternative_flow_entry_content_form_branch_point(const AlternativeFlowEntryContentForm *self);
@@ -27074,8 +27050,6 @@ void api_compatibility_entry_content_form_free(ApiCompatibilityEntryContentForm 
 // The section's own free-text content, before the form fields (owned).
 char *api_compatibility_entry_content_form_content(const ApiCompatibilityEntryContentForm *self);
 void api_compatibility_entry_content_form_set_content(ApiCompatibilityEntryContentForm *self, const char *value);
-char *api_compatibility_entry_content_form_api_name(const ApiCompatibilityEntryContentForm *self);
-void api_compatibility_entry_content_form_set_api_name(ApiCompatibilityEntryContentForm *self, const char *value);
 char *api_compatibility_entry_content_form_api_type(const ApiCompatibilityEntryContentForm *self);
 void api_compatibility_entry_content_form_set_api_type(ApiCompatibilityEntryContentForm *self, const char *value);
 char *api_compatibility_entry_content_form_version(const ApiCompatibilityEntryContentForm *self);
@@ -27197,8 +27171,6 @@ void applicable_regulation_entry_content_form_free(ApplicableRegulationEntryCont
 // The section's own free-text content, before the form fields (owned).
 char *applicable_regulation_entry_content_form_content(const ApplicableRegulationEntryContentForm *self);
 void applicable_regulation_entry_content_form_set_content(ApplicableRegulationEntryContentForm *self, const char *value);
-char *applicable_regulation_entry_content_form_regulation_name(const ApplicableRegulationEntryContentForm *self);
-void applicable_regulation_entry_content_form_set_regulation_name(ApplicableRegulationEntryContentForm *self, const char *value);
 char *applicable_regulation_entry_content_form_regulation_code(const ApplicableRegulationEntryContentForm *self);
 void applicable_regulation_entry_content_form_set_regulation_code(ApplicableRegulationEntryContentForm *self, const char *value);
 char *applicable_regulation_entry_content_form_regulation_type(const ApplicableRegulationEntryContentForm *self);
@@ -27469,8 +27441,6 @@ char *approval_record_content_form_content(const ApprovalRecordContentForm *self
 void approval_record_content_form_set_content(ApprovalRecordContentForm *self, const char *value);
 char *approval_record_content_form_role(const ApprovalRecordContentForm *self);
 void approval_record_content_form_set_role(ApprovalRecordContentForm *self, const char *value);
-char *approval_record_content_form_name(const ApprovalRecordContentForm *self);
-void approval_record_content_form_set_name(ApprovalRecordContentForm *self, const char *value);
 char *approval_record_content_form_date(const ApprovalRecordContentForm *self);
 void approval_record_content_form_set_date(ApprovalRecordContentForm *self, const char *value);
 char *approval_record_content_form_status(const ApprovalRecordContentForm *self);
@@ -27495,8 +27465,6 @@ void architecture_component_entry_content_form_free(ArchitectureComponentEntryCo
 // The section's own free-text content, before the form fields (owned).
 char *architecture_component_entry_content_form_content(const ArchitectureComponentEntryContentForm *self);
 void architecture_component_entry_content_form_set_content(ArchitectureComponentEntryContentForm *self, const char *value);
-char *architecture_component_entry_content_form_component_name(const ArchitectureComponentEntryContentForm *self);
-void architecture_component_entry_content_form_set_component_name(ArchitectureComponentEntryContentForm *self, const char *value);
 char *architecture_component_entry_content_form_component_type(const ArchitectureComponentEntryContentForm *self);
 void architecture_component_entry_content_form_set_component_type(ArchitectureComponentEntryContentForm *self, const char *value);
 char *architecture_component_entry_content_form_domain(const ArchitectureComponentEntryContentForm *self);
@@ -27579,8 +27547,6 @@ char *architecture_decision_record_content_form_content(const ArchitectureDecisi
 void architecture_decision_record_content_form_set_content(ArchitectureDecisionRecordContentForm *self, const char *value);
 char *architecture_decision_record_content_form_decision_id(const ArchitectureDecisionRecordContentForm *self);
 void architecture_decision_record_content_form_set_decision_id(ArchitectureDecisionRecordContentForm *self, const char *value);
-char *architecture_decision_record_content_form_title(const ArchitectureDecisionRecordContentForm *self);
-void architecture_decision_record_content_form_set_title(ArchitectureDecisionRecordContentForm *self, const char *value);
 char *architecture_decision_record_content_form_date(const ArchitectureDecisionRecordContentForm *self);
 void architecture_decision_record_content_form_set_date(ArchitectureDecisionRecordContentForm *self, const char *value);
 char *architecture_decision_record_content_form_status(const ArchitectureDecisionRecordContentForm *self);
@@ -27700,8 +27666,6 @@ void architecture_principle_entry_content_form_free(ArchitecturePrincipleEntryCo
 // The section's own free-text content, before the form fields (owned).
 char *architecture_principle_entry_content_form_content(const ArchitecturePrincipleEntryContentForm *self);
 void architecture_principle_entry_content_form_set_content(ArchitecturePrincipleEntryContentForm *self, const char *value);
-char *architecture_principle_entry_content_form_principle_name(const ArchitecturePrincipleEntryContentForm *self);
-void architecture_principle_entry_content_form_set_principle_name(ArchitecturePrincipleEntryContentForm *self, const char *value);
 char *architecture_principle_entry_content_form_category(const ArchitecturePrincipleEntryContentForm *self);
 void architecture_principle_entry_content_form_set_category(ArchitecturePrincipleEntryContentForm *self, const char *value);
 char *architecture_principle_entry_content_form_statement(const ArchitecturePrincipleEntryContentForm *self);
@@ -27762,8 +27726,6 @@ void audit_entry_content_form_free(AuditEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *audit_entry_content_form_content(const AuditEntryContentForm *self);
 void audit_entry_content_form_set_content(AuditEntryContentForm *self, const char *value);
-char *audit_entry_content_form_audit_name(const AuditEntryContentForm *self);
-void audit_entry_content_form_set_audit_name(AuditEntryContentForm *self, const char *value);
 char *audit_entry_content_form_audit_type(const AuditEntryContentForm *self);
 void audit_entry_content_form_set_audit_type(AuditEntryContentForm *self, const char *value);
 char *audit_entry_content_form_auditor(const AuditEntryContentForm *self);
@@ -27845,8 +27807,6 @@ void authentication_method_entry_content_form_free(AuthenticationMethodEntryCont
 // The section's own free-text content, before the form fields (owned).
 char *authentication_method_entry_content_form_content(const AuthenticationMethodEntryContentForm *self);
 void authentication_method_entry_content_form_set_content(AuthenticationMethodEntryContentForm *self, const char *value);
-char *authentication_method_entry_content_form_method_name(const AuthenticationMethodEntryContentForm *self);
-void authentication_method_entry_content_form_set_method_name(AuthenticationMethodEntryContentForm *self, const char *value);
 char *authentication_method_entry_content_form_method_type(const AuthenticationMethodEntryContentForm *self);
 void authentication_method_entry_content_form_set_method_type(AuthenticationMethodEntryContentForm *self, const char *value);
 char *authentication_method_entry_content_form_authentication_factor(const AuthenticationMethodEntryContentForm *self);
@@ -27926,8 +27886,6 @@ void authorization_group_entry_content_form_free(AuthorizationGroupEntryContentF
 // The section's own free-text content, before the form fields (owned).
 char *authorization_group_entry_content_form_content(const AuthorizationGroupEntryContentForm *self);
 void authorization_group_entry_content_form_set_content(AuthorizationGroupEntryContentForm *self, const char *value);
-char *authorization_group_entry_content_form_group_name(const AuthorizationGroupEntryContentForm *self);
-void authorization_group_entry_content_form_set_group_name(AuthorizationGroupEntryContentForm *self, const char *value);
 char *authorization_group_entry_content_form_description(const AuthorizationGroupEntryContentForm *self);
 void authorization_group_entry_content_form_set_description(AuthorizationGroupEntryContentForm *self, const char *value);
 char *authorization_group_entry_content_form_membership_criteria(const AuthorizationGroupEntryContentForm *self);
@@ -28330,8 +28288,6 @@ void backup_policy_entry_content_form_free(BackupPolicyEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *backup_policy_entry_content_form_content(const BackupPolicyEntryContentForm *self);
 void backup_policy_entry_content_form_set_content(BackupPolicyEntryContentForm *self, const char *value);
-char *backup_policy_entry_content_form_policy_name(const BackupPolicyEntryContentForm *self);
-void backup_policy_entry_content_form_set_policy_name(BackupPolicyEntryContentForm *self, const char *value);
 char *backup_policy_entry_content_form_data_scope(const BackupPolicyEntryContentForm *self);
 void backup_policy_entry_content_form_set_data_scope(BackupPolicyEntryContentForm *self, const char *value);
 char *backup_policy_entry_content_form_priority(const BackupPolicyEntryContentForm *self);
@@ -28708,8 +28664,6 @@ void bounded_context_entry_content_form_free(BoundedContextEntryContentForm *sel
 // The section's own free-text content, before the form fields (owned).
 char *bounded_context_entry_content_form_content(const BoundedContextEntryContentForm *self);
 void bounded_context_entry_content_form_set_content(BoundedContextEntryContentForm *self, const char *value);
-char *bounded_context_entry_content_form_context_name(const BoundedContextEntryContentForm *self);
-void bounded_context_entry_content_form_set_context_name(BoundedContextEntryContentForm *self, const char *value);
 char *bounded_context_entry_content_form_domain_area(const BoundedContextEntryContentForm *self);
 void bounded_context_entry_content_form_set_domain_area(BoundedContextEntryContentForm *self, const char *value);
 char *bounded_context_entry_content_form_owning_team(const BoundedContextEntryContentForm *self);
@@ -28793,8 +28747,6 @@ char *breakpoint_entry_content_form_content(const BreakpointEntryContentForm *se
 void breakpoint_entry_content_form_set_content(BreakpointEntryContentForm *self, const char *value);
 char *breakpoint_entry_content_form_breakpoint_id(const BreakpointEntryContentForm *self);
 void breakpoint_entry_content_form_set_breakpoint_id(BreakpointEntryContentForm *self, const char *value);
-char *breakpoint_entry_content_form_breakpoint_name(const BreakpointEntryContentForm *self);
-void breakpoint_entry_content_form_set_breakpoint_name(BreakpointEntryContentForm *self, const char *value);
 char *breakpoint_entry_content_form_min_width(const BreakpointEntryContentForm *self);
 void breakpoint_entry_content_form_set_min_width(BreakpointEntryContentForm *self, const char *value);
 char *breakpoint_entry_content_form_max_width(const BreakpointEntryContentForm *self);
@@ -28836,8 +28788,6 @@ void browser_compatibility_entry_content_form_free(BrowserCompatibilityEntryCont
 // The section's own free-text content, before the form fields (owned).
 char *browser_compatibility_entry_content_form_content(const BrowserCompatibilityEntryContentForm *self);
 void browser_compatibility_entry_content_form_set_content(BrowserCompatibilityEntryContentForm *self, const char *value);
-char *browser_compatibility_entry_content_form_browser_name(const BrowserCompatibilityEntryContentForm *self);
-void browser_compatibility_entry_content_form_set_browser_name(BrowserCompatibilityEntryContentForm *self, const char *value);
 char *browser_compatibility_entry_content_form_browser_engine(const BrowserCompatibilityEntryContentForm *self);
 void browser_compatibility_entry_content_form_set_browser_engine(BrowserCompatibilityEntryContentForm *self, const char *value);
 char *browser_compatibility_entry_content_form_min_version(const BrowserCompatibilityEntryContentForm *self);
@@ -28987,8 +28937,6 @@ void build_toolchain_entry_content_form_free(BuildToolchainEntryContentForm *sel
 // The section's own free-text content, before the form fields (owned).
 char *build_toolchain_entry_content_form_content(const BuildToolchainEntryContentForm *self);
 void build_toolchain_entry_content_form_set_content(BuildToolchainEntryContentForm *self, const char *value);
-char *build_toolchain_entry_content_form_tool_name(const BuildToolchainEntryContentForm *self);
-void build_toolchain_entry_content_form_set_tool_name(BuildToolchainEntryContentForm *self, const char *value);
 char *build_toolchain_entry_content_form_tool_category(const BuildToolchainEntryContentForm *self);
 void build_toolchain_entry_content_form_set_tool_category(BuildToolchainEntryContentForm *self, const char *value);
 char *build_toolchain_entry_content_form_platform(const BuildToolchainEntryContentForm *self);
@@ -29126,8 +29074,6 @@ void business_component_entry_content_form_free(BusinessComponentEntryContentFor
 // The section's own free-text content, before the form fields (owned).
 char *business_component_entry_content_form_content(const BusinessComponentEntryContentForm *self);
 void business_component_entry_content_form_set_content(BusinessComponentEntryContentForm *self, const char *value);
-char *business_component_entry_content_form_component_name(const BusinessComponentEntryContentForm *self);
-void business_component_entry_content_form_set_component_name(BusinessComponentEntryContentForm *self, const char *value);
 char *business_component_entry_content_form_component_type(const BusinessComponentEntryContentForm *self);
 void business_component_entry_content_form_set_component_type(BusinessComponentEntryContentForm *self, const char *value);
 char *business_component_entry_content_form_bounded_context(const BusinessComponentEntryContentForm *self);
@@ -29208,8 +29154,6 @@ char *business_goal_entry_content_form_content(const BusinessGoalEntryContentFor
 void business_goal_entry_content_form_set_content(BusinessGoalEntryContentForm *self, const char *value);
 char *business_goal_entry_content_form_goal_id(const BusinessGoalEntryContentForm *self);
 void business_goal_entry_content_form_set_goal_id(BusinessGoalEntryContentForm *self, const char *value);
-char *business_goal_entry_content_form_goal_name(const BusinessGoalEntryContentForm *self);
-void business_goal_entry_content_form_set_goal_name(BusinessGoalEntryContentForm *self, const char *value);
 char *business_goal_entry_content_form_goal_category(const BusinessGoalEntryContentForm *self);
 void business_goal_entry_content_form_set_goal_category(BusinessGoalEntryContentForm *self, const char *value);
 
@@ -29344,8 +29288,6 @@ void business_object_attribute_entry_content_form_free(BusinessObjectAttributeEn
 // The section's own free-text content, before the form fields (owned).
 char *business_object_attribute_entry_content_form_content(const BusinessObjectAttributeEntryContentForm *self);
 void business_object_attribute_entry_content_form_set_content(BusinessObjectAttributeEntryContentForm *self, const char *value);
-char *business_object_attribute_entry_content_form_attribute_name(const BusinessObjectAttributeEntryContentForm *self);
-void business_object_attribute_entry_content_form_set_attribute_name(BusinessObjectAttributeEntryContentForm *self, const char *value);
 char *business_object_attribute_entry_content_form_description(const BusinessObjectAttributeEntryContentForm *self);
 void business_object_attribute_entry_content_form_set_description(BusinessObjectAttributeEntryContentForm *self, const char *value);
 char *business_object_attribute_entry_content_form_type(const BusinessObjectAttributeEntryContentForm *self);
@@ -29413,8 +29355,6 @@ void business_object_entry_identity_form_free(BusinessObjectEntryIdentityForm *s
 // The section's own free-text content, before the form fields (owned).
 char *business_object_entry_identity_form_content(const BusinessObjectEntryIdentityForm *self);
 void business_object_entry_identity_form_set_content(BusinessObjectEntryIdentityForm *self, const char *value);
-char *business_object_entry_identity_form_object_name(const BusinessObjectEntryIdentityForm *self);
-void business_object_entry_identity_form_set_object_name(BusinessObjectEntryIdentityForm *self, const char *value);
 char *business_object_entry_identity_form_object_alias(const BusinessObjectEntryIdentityForm *self);
 void business_object_entry_identity_form_set_object_alias(BusinessObjectEntryIdentityForm *self, const char *value);
 char *business_object_entry_identity_form_description(const BusinessObjectEntryIdentityForm *self);
@@ -29534,8 +29474,6 @@ char *business_rule_entry_identity_form_content(const BusinessRuleEntryIdentityF
 void business_rule_entry_identity_form_set_content(BusinessRuleEntryIdentityForm *self, const char *value);
 char *business_rule_entry_identity_form_rule_id(const BusinessRuleEntryIdentityForm *self);
 void business_rule_entry_identity_form_set_rule_id(BusinessRuleEntryIdentityForm *self, const char *value);
-char *business_rule_entry_identity_form_rule_name(const BusinessRuleEntryIdentityForm *self);
-void business_rule_entry_identity_form_set_rule_name(BusinessRuleEntryIdentityForm *self, const char *value);
 char *business_rule_entry_identity_form_rule_version(const BusinessRuleEntryIdentityForm *self);
 void business_rule_entry_identity_form_set_rule_version(BusinessRuleEntryIdentityForm *self, const char *value);
 char *business_rule_entry_identity_form_description(const BusinessRuleEntryIdentityForm *self);
@@ -29585,8 +29523,6 @@ char *business_rule_reference_entry_content_form_content(const BusinessRuleRefer
 void business_rule_reference_entry_content_form_set_content(BusinessRuleReferenceEntryContentForm *self, const char *value);
 char *business_rule_reference_entry_content_form_rule_id(const BusinessRuleReferenceEntryContentForm *self);
 void business_rule_reference_entry_content_form_set_rule_id(BusinessRuleReferenceEntryContentForm *self, const char *value);
-char *business_rule_reference_entry_content_form_rule_name(const BusinessRuleReferenceEntryContentForm *self);
-void business_rule_reference_entry_content_form_set_rule_name(BusinessRuleReferenceEntryContentForm *self, const char *value);
 char *business_rule_reference_entry_content_form_rule_type(const BusinessRuleReferenceEntryContentForm *self);
 void business_rule_reference_entry_content_form_set_rule_type(BusinessRuleReferenceEntryContentForm *self, const char *value);
 char *business_rule_reference_entry_content_form_description(const BusinessRuleReferenceEntryContentForm *self);
@@ -29660,8 +29596,6 @@ void ccb_member_entry_content_form_free(CcbMemberEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *ccb_member_entry_content_form_content(const CcbMemberEntryContentForm *self);
 void ccb_member_entry_content_form_set_content(CcbMemberEntryContentForm *self, const char *value);
-char *ccb_member_entry_content_form_name(const CcbMemberEntryContentForm *self);
-void ccb_member_entry_content_form_set_name(CcbMemberEntryContentForm *self, const char *value);
 char *ccb_member_entry_content_form_role(const CcbMemberEntryContentForm *self);
 void ccb_member_entry_content_form_set_role(CcbMemberEntryContentForm *self, const char *value);
 char *ccb_member_entry_content_form_ccb_role(const CcbMemberEntryContentForm *self);
@@ -29750,8 +29684,6 @@ char *certification_entry_content_form_content(const CertificationEntryContentFo
 void certification_entry_content_form_set_content(CertificationEntryContentForm *self, const char *value);
 char *certification_entry_content_form_certification_id(const CertificationEntryContentForm *self);
 void certification_entry_content_form_set_certification_id(CertificationEntryContentForm *self, const char *value);
-char *certification_entry_content_form_certification_name(const CertificationEntryContentForm *self);
-void certification_entry_content_form_set_certification_name(CertificationEntryContentForm *self, const char *value);
 char *certification_entry_content_form_issuing_body(const CertificationEntryContentForm *self);
 void certification_entry_content_form_set_issuing_body(CertificationEntryContentForm *self, const char *value);
 
@@ -29895,8 +29827,6 @@ char *change_category_entry_content_form_content(const ChangeCategoryEntryConten
 void change_category_entry_content_form_set_content(ChangeCategoryEntryContentForm *self, const char *value);
 char *change_category_entry_content_form_category_id(const ChangeCategoryEntryContentForm *self);
 void change_category_entry_content_form_set_category_id(ChangeCategoryEntryContentForm *self, const char *value);
-char *change_category_entry_content_form_category_name(const ChangeCategoryEntryContentForm *self);
-void change_category_entry_content_form_set_category_name(ChangeCategoryEntryContentForm *self, const char *value);
 char *change_category_entry_content_form_description(const ChangeCategoryEntryContentForm *self);
 void change_category_entry_content_form_set_description(ChangeCategoryEntryContentForm *self, const char *value);
 
@@ -30169,8 +30099,6 @@ void change_role_entry_content_form_free(ChangeRoleEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *change_role_entry_content_form_content(const ChangeRoleEntryContentForm *self);
 void change_role_entry_content_form_set_content(ChangeRoleEntryContentForm *self, const char *value);
-char *change_role_entry_content_form_role_name(const ChangeRoleEntryContentForm *self);
-void change_role_entry_content_form_set_role_name(ChangeRoleEntryContentForm *self, const char *value);
 char *change_role_entry_content_form_responsibility(const ChangeRoleEntryContentForm *self);
 void change_role_entry_content_form_set_responsibility(ChangeRoleEntryContentForm *self, const char *value);
 char *change_role_entry_content_form_authority(const ChangeRoleEntryContentForm *self);
@@ -30205,8 +30133,6 @@ char *change_step_entry_content_form_content(const ChangeStepEntryContentForm *s
 void change_step_entry_content_form_set_content(ChangeStepEntryContentForm *self, const char *value);
 long change_step_entry_content_form_step_number(const ChangeStepEntryContentForm *self);
 void change_step_entry_content_form_set_step_number(ChangeStepEntryContentForm *self, long value);
-char *change_step_entry_content_form_step_name(const ChangeStepEntryContentForm *self);
-void change_step_entry_content_form_set_step_name(ChangeStepEntryContentForm *self, const char *value);
 char *change_step_entry_content_form_description(const ChangeStepEntryContentForm *self);
 void change_step_entry_content_form_set_description(ChangeStepEntryContentForm *self, const char *value);
 
@@ -30332,8 +30258,6 @@ char *changed_role_identification_content_form_content(const ChangedRoleIdentifi
 void changed_role_identification_content_form_set_content(ChangedRoleIdentificationContentForm *self, const char *value);
 char *changed_role_identification_content_form_role_id(const ChangedRoleIdentificationContentForm *self);
 void changed_role_identification_content_form_set_role_id(ChangedRoleIdentificationContentForm *self, const char *value);
-char *changed_role_identification_content_form_role_title(const ChangedRoleIdentificationContentForm *self);
-void changed_role_identification_content_form_set_role_title(ChangedRoleIdentificationContentForm *self, const char *value);
 char *changed_role_identification_content_form_new_role_title(const ChangedRoleIdentificationContentForm *self);
 void changed_role_identification_content_form_set_new_role_title(ChangedRoleIdentificationContentForm *self, const char *value);
 char *changed_role_identification_content_form_change_rationale(const ChangedRoleIdentificationContentForm *self);
@@ -30615,8 +30539,6 @@ char *client_application_entry_content_form_content(const ClientApplicationEntry
 void client_application_entry_content_form_set_content(ClientApplicationEntryContentForm *self, const char *value);
 char *client_application_entry_content_form_client_id(const ClientApplicationEntryContentForm *self);
 void client_application_entry_content_form_set_client_id(ClientApplicationEntryContentForm *self, const char *value);
-char *client_application_entry_content_form_client_name(const ClientApplicationEntryContentForm *self);
-void client_application_entry_content_form_set_client_name(ClientApplicationEntryContentForm *self, const char *value);
 char *client_application_entry_content_form_client_kind(const ClientApplicationEntryContentForm *self);
 void client_application_entry_content_form_set_client_kind(ClientApplicationEntryContentForm *self, const char *value);
 char *client_application_entry_content_form_purpose(const ClientApplicationEntryContentForm *self);
@@ -31134,8 +31056,6 @@ void coding_standard_entry_content_form_free(CodingStandardEntryContentForm *sel
 // The section's own free-text content, before the form fields (owned).
 char *coding_standard_entry_content_form_content(const CodingStandardEntryContentForm *self);
 void coding_standard_entry_content_form_set_content(CodingStandardEntryContentForm *self, const char *value);
-char *coding_standard_entry_content_form_standard_name(const CodingStandardEntryContentForm *self);
-void coding_standard_entry_content_form_set_standard_name(CodingStandardEntryContentForm *self, const char *value);
 char *coding_standard_entry_content_form_standard_category(const CodingStandardEntryContentForm *self);
 void coding_standard_entry_content_form_set_standard_category(CodingStandardEntryContentForm *self, const char *value);
 char *coding_standard_entry_content_form_applicable_language(const CodingStandardEntryContentForm *self);
@@ -31279,8 +31199,6 @@ void color_palette_entry_content_form_free(ColorPaletteEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *color_palette_entry_content_form_content(const ColorPaletteEntryContentForm *self);
 void color_palette_entry_content_form_set_content(ColorPaletteEntryContentForm *self, const char *value);
-char *color_palette_entry_content_form_palette_name(const ColorPaletteEntryContentForm *self);
-void color_palette_entry_content_form_set_palette_name(ColorPaletteEntryContentForm *self, const char *value);
 char *color_palette_entry_content_form_palette_role(const ColorPaletteEntryContentForm *self);
 void color_palette_entry_content_form_set_palette_role(ColorPaletteEntryContentForm *self, const char *value);
 long color_palette_entry_content_form_color_count(const ColorPaletteEntryContentForm *self);
@@ -31321,8 +31239,6 @@ void committee_member_entry_content_form_free(CommitteeMemberEntryContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *committee_member_entry_content_form_content(const CommitteeMemberEntryContentForm *self);
 void committee_member_entry_content_form_set_content(CommitteeMemberEntryContentForm *self, const char *value);
-char *committee_member_entry_content_form_name(const CommitteeMemberEntryContentForm *self);
-void committee_member_entry_content_form_set_name(CommitteeMemberEntryContentForm *self, const char *value);
 char *committee_member_entry_content_form_organization_role(const CommitteeMemberEntryContentForm *self);
 void committee_member_entry_content_form_set_organization_role(CommitteeMemberEntryContentForm *self, const char *value);
 char *committee_member_entry_content_form_department(const CommitteeMemberEntryContentForm *self);
@@ -31359,8 +31275,6 @@ void communication_channel_encryption_entry_content_form_free(CommunicationChann
 // The section's own free-text content, before the form fields (owned).
 char *communication_channel_encryption_entry_content_form_content(const CommunicationChannelEncryptionEntryContentForm *self);
 void communication_channel_encryption_entry_content_form_set_content(CommunicationChannelEncryptionEntryContentForm *self, const char *value);
-char *communication_channel_encryption_entry_content_form_channel_name(const CommunicationChannelEncryptionEntryContentForm *self);
-void communication_channel_encryption_entry_content_form_set_channel_name(CommunicationChannelEncryptionEntryContentForm *self, const char *value);
 char *communication_channel_encryption_entry_content_form_channel_type(const CommunicationChannelEncryptionEntryContentForm *self);
 void communication_channel_encryption_entry_content_form_set_channel_type(CommunicationChannelEncryptionEntryContentForm *self, const char *value);
 bool communication_channel_encryption_entry_content_form_tls_required(const CommunicationChannelEncryptionEntryContentForm *self);
@@ -31384,8 +31298,6 @@ char *communication_event_entry_content_form_content(const CommunicationEventEnt
 void communication_event_entry_content_form_set_content(CommunicationEventEntryContentForm *self, const char *value);
 char *communication_event_entry_content_form_event_id(const CommunicationEventEntryContentForm *self);
 void communication_event_entry_content_form_set_event_id(CommunicationEventEntryContentForm *self, const char *value);
-char *communication_event_entry_content_form_event_name(const CommunicationEventEntryContentForm *self);
-void communication_event_entry_content_form_set_event_name(CommunicationEventEntryContentForm *self, const char *value);
 char *communication_event_entry_content_form_event_type(const CommunicationEventEntryContentForm *self);
 void communication_event_entry_content_form_set_event_type(CommunicationEventEntryContentForm *self, const char *value);
 char *communication_event_entry_content_form_target_audience(const CommunicationEventEntryContentForm *self);
@@ -31597,8 +31509,6 @@ char *competency_entry_content_form_content(const CompetencyEntryContentForm *se
 void competency_entry_content_form_set_content(CompetencyEntryContentForm *self, const char *value);
 char *competency_entry_content_form_competency_id(const CompetencyEntryContentForm *self);
 void competency_entry_content_form_set_competency_id(CompetencyEntryContentForm *self, const char *value);
-char *competency_entry_content_form_competency_name(const CompetencyEntryContentForm *self);
-void competency_entry_content_form_set_competency_name(CompetencyEntryContentForm *self, const char *value);
 char *competency_entry_content_form_description(const CompetencyEntryContentForm *self);
 void competency_entry_content_form_set_description(CompetencyEntryContentForm *self, const char *value);
 char *competency_entry_content_form_behavioral_indicators(const CompetencyEntryContentForm *self);
@@ -31637,8 +31547,6 @@ void competency_level_change_entry_content_form_free(CompetencyLevelChangeEntryC
 // The section's own free-text content, before the form fields (owned).
 char *competency_level_change_entry_content_form_content(const CompetencyLevelChangeEntryContentForm *self);
 void competency_level_change_entry_content_form_set_content(CompetencyLevelChangeEntryContentForm *self, const char *value);
-char *competency_level_change_entry_content_form_competency_name(const CompetencyLevelChangeEntryContentForm *self);
-void competency_level_change_entry_content_form_set_competency_name(CompetencyLevelChangeEntryContentForm *self, const char *value);
 char *competency_level_change_entry_content_form_current_level(const CompetencyLevelChangeEntryContentForm *self);
 void competency_level_change_entry_content_form_set_current_level(CompetencyLevelChangeEntryContentForm *self, const char *value);
 char *competency_level_change_entry_content_form_new_level(const CompetencyLevelChangeEntryContentForm *self);
@@ -31712,8 +31620,6 @@ void compliance_milestone_entry_content_form_free(ComplianceMilestoneEntryConten
 // The section's own free-text content, before the form fields (owned).
 char *compliance_milestone_entry_content_form_content(const ComplianceMilestoneEntryContentForm *self);
 void compliance_milestone_entry_content_form_set_content(ComplianceMilestoneEntryContentForm *self, const char *value);
-char *compliance_milestone_entry_content_form_milestone_name(const ComplianceMilestoneEntryContentForm *self);
-void compliance_milestone_entry_content_form_set_milestone_name(ComplianceMilestoneEntryContentForm *self, const char *value);
 char *compliance_milestone_entry_content_form_regulation(const ComplianceMilestoneEntryContentForm *self);
 void compliance_milestone_entry_content_form_set_regulation(ComplianceMilestoneEntryContentForm *self, const char *value);
 char *compliance_milestone_entry_content_form_due_date(const ComplianceMilestoneEntryContentForm *self);
@@ -31828,8 +31734,6 @@ char *component_action_entry_content_form_content(const ComponentActionEntryCont
 void component_action_entry_content_form_set_content(ComponentActionEntryContentForm *self, const char *value);
 char *component_action_entry_content_form_action_id(const ComponentActionEntryContentForm *self);
 void component_action_entry_content_form_set_action_id(ComponentActionEntryContentForm *self, const char *value);
-char *component_action_entry_content_form_action_name(const ComponentActionEntryContentForm *self);
-void component_action_entry_content_form_set_action_name(ComponentActionEntryContentForm *self, const char *value);
 char *component_action_entry_content_form_action_trigger(const ComponentActionEntryContentForm *self);
 void component_action_entry_content_form_set_action_trigger(ComponentActionEntryContentForm *self, const char *value);
 char *component_action_entry_content_form_action_payload(const ComponentActionEntryContentForm *self);
@@ -31899,8 +31803,6 @@ char *component_entry_content_form_content(const ComponentEntryContentForm *self
 void component_entry_content_form_set_content(ComponentEntryContentForm *self, const char *value);
 char *component_entry_content_form_component_id(const ComponentEntryContentForm *self);
 void component_entry_content_form_set_component_id(ComponentEntryContentForm *self, const char *value);
-char *component_entry_content_form_component_name(const ComponentEntryContentForm *self);
-void component_entry_content_form_set_component_name(ComponentEntryContentForm *self, const char *value);
 char *component_entry_content_form_category(const ComponentEntryContentForm *self);
 void component_entry_content_form_set_category(ComponentEntryContentForm *self, const char *value);
 
@@ -31999,8 +31901,6 @@ char *component_family_entry_content_form_content(const ComponentFamilyEntryCont
 void component_family_entry_content_form_set_content(ComponentFamilyEntryContentForm *self, const char *value);
 char *component_family_entry_content_form_family_id(const ComponentFamilyEntryContentForm *self);
 void component_family_entry_content_form_set_family_id(ComponentFamilyEntryContentForm *self, const char *value);
-char *component_family_entry_content_form_family_name(const ComponentFamilyEntryContentForm *self);
-void component_family_entry_content_form_set_family_name(ComponentFamilyEntryContentForm *self, const char *value);
 char *component_family_entry_content_form_family_description(const ComponentFamilyEntryContentForm *self);
 void component_family_entry_content_form_set_family_description(ComponentFamilyEntryContentForm *self, const char *value);
 long component_family_entry_content_form_component_count(const ComponentFamilyEntryContentForm *self);
@@ -32083,8 +31983,6 @@ void component_interface_entry_content_form_free(ComponentInterfaceEntryContentF
 // The section's own free-text content, before the form fields (owned).
 char *component_interface_entry_content_form_content(const ComponentInterfaceEntryContentForm *self);
 void component_interface_entry_content_form_set_content(ComponentInterfaceEntryContentForm *self, const char *value);
-char *component_interface_entry_content_form_interface_name(const ComponentInterfaceEntryContentForm *self);
-void component_interface_entry_content_form_set_interface_name(ComponentInterfaceEntryContentForm *self, const char *value);
 char *component_interface_entry_content_form_interface_type(const ComponentInterfaceEntryContentForm *self);
 void component_interface_entry_content_form_set_interface_type(ComponentInterfaceEntryContentForm *self, const char *value);
 char *component_interface_entry_content_form_protocol(const ComponentInterfaceEntryContentForm *self);
@@ -32389,8 +32287,6 @@ char *component_property_entry_content_form_content(const ComponentPropertyEntry
 void component_property_entry_content_form_set_content(ComponentPropertyEntryContentForm *self, const char *value);
 char *component_property_entry_content_form_property_id(const ComponentPropertyEntryContentForm *self);
 void component_property_entry_content_form_set_property_id(ComponentPropertyEntryContentForm *self, const char *value);
-char *component_property_entry_content_form_property_name(const ComponentPropertyEntryContentForm *self);
-void component_property_entry_content_form_set_property_name(ComponentPropertyEntryContentForm *self, const char *value);
 char *component_property_entry_content_form_property_type(const ComponentPropertyEntryContentForm *self);
 void component_property_entry_content_form_set_property_type(ComponentPropertyEntryContentForm *self, const char *value);
 char *component_property_entry_content_form_default_value(const ComponentPropertyEntryContentForm *self);
@@ -32571,8 +32467,6 @@ char *component_risk_entry_content_form_risk_id(const ComponentRiskEntryContentF
 void component_risk_entry_content_form_set_risk_id(ComponentRiskEntryContentForm *self, const char *value);
 char *component_risk_entry_content_form_component_ref(const ComponentRiskEntryContentForm *self);
 void component_risk_entry_content_form_set_component_ref(ComponentRiskEntryContentForm *self, const char *value);
-char *component_risk_entry_content_form_risk_title(const ComponentRiskEntryContentForm *self);
-void component_risk_entry_content_form_set_risk_title(ComponentRiskEntryContentForm *self, const char *value);
 
 // ComponentRiskEntryDescriptionForm is the generated section facade for the `description` @Form section: its own `content` text followed by one typed member per form field.
 void component_risk_entry_description_form_init(ComponentRiskEntryDescriptionForm *self, SpecDocument *doc, const char *path);
@@ -32638,8 +32532,6 @@ char *component_slot_entry_content_form_content(const ComponentSlotEntryContentF
 void component_slot_entry_content_form_set_content(ComponentSlotEntryContentForm *self, const char *value);
 char *component_slot_entry_content_form_slot_id(const ComponentSlotEntryContentForm *self);
 void component_slot_entry_content_form_set_slot_id(ComponentSlotEntryContentForm *self, const char *value);
-char *component_slot_entry_content_form_slot_name(const ComponentSlotEntryContentForm *self);
-void component_slot_entry_content_form_set_slot_name(ComponentSlotEntryContentForm *self, const char *value);
 char *component_slot_entry_content_form_slot_description(const ComponentSlotEntryContentForm *self);
 void component_slot_entry_content_form_set_slot_description(ComponentSlotEntryContentForm *self, const char *value);
 bool component_slot_entry_content_form_slot_required(const ComponentSlotEntryContentForm *self);
@@ -32672,8 +32564,6 @@ char *component_state_entry_content_form_content(const ComponentStateEntryConten
 void component_state_entry_content_form_set_content(ComponentStateEntryContentForm *self, const char *value);
 char *component_state_entry_content_form_state_id(const ComponentStateEntryContentForm *self);
 void component_state_entry_content_form_set_state_id(ComponentStateEntryContentForm *self, const char *value);
-char *component_state_entry_content_form_state_name(const ComponentStateEntryContentForm *self);
-void component_state_entry_content_form_set_state_name(ComponentStateEntryContentForm *self, const char *value);
 char *component_state_entry_content_form_state_description(const ComponentStateEntryContentForm *self);
 void component_state_entry_content_form_set_state_description(ComponentStateEntryContentForm *self, const char *value);
 
@@ -32812,8 +32702,6 @@ char *component_variant_entry_content_form_content(const ComponentVariantEntryCo
 void component_variant_entry_content_form_set_content(ComponentVariantEntryContentForm *self, const char *value);
 char *component_variant_entry_content_form_variant_id(const ComponentVariantEntryContentForm *self);
 void component_variant_entry_content_form_set_variant_id(ComponentVariantEntryContentForm *self, const char *value);
-char *component_variant_entry_content_form_variant_name(const ComponentVariantEntryContentForm *self);
-void component_variant_entry_content_form_set_variant_name(ComponentVariantEntryContentForm *self, const char *value);
 char *component_variant_entry_content_form_variant_description(const ComponentVariantEntryContentForm *self);
 void component_variant_entry_content_form_set_variant_description(ComponentVariantEntryContentForm *self, const char *value);
 char *component_variant_entry_content_form_visual_differences(const ComponentVariantEntryContentForm *self);
@@ -32956,8 +32844,6 @@ void confidential_info_category_entry_content_form_free(ConfidentialInfoCategory
 // The section's own free-text content, before the form fields (owned).
 char *confidential_info_category_entry_content_form_content(const ConfidentialInfoCategoryEntryContentForm *self);
 void confidential_info_category_entry_content_form_set_content(ConfidentialInfoCategoryEntryContentForm *self, const char *value);
-char *confidential_info_category_entry_content_form_category_name(const ConfidentialInfoCategoryEntryContentForm *self);
-void confidential_info_category_entry_content_form_set_category_name(ConfidentialInfoCategoryEntryContentForm *self, const char *value);
 char *confidential_info_category_entry_content_form_description(const ConfidentialInfoCategoryEntryContentForm *self);
 void confidential_info_category_entry_content_form_set_description(ConfidentialInfoCategoryEntryContentForm *self, const char *value);
 char *confidential_info_category_entry_content_form_classification_level(const ConfidentialInfoCategoryEntryContentForm *self);
@@ -33337,8 +33223,6 @@ char *contingency_plan_entry_content_form_content(const ContingencyPlanEntryCont
 void contingency_plan_entry_content_form_set_content(ContingencyPlanEntryContentForm *self, const char *value);
 char *contingency_plan_entry_content_form_contingency_id(const ContingencyPlanEntryContentForm *self);
 void contingency_plan_entry_content_form_set_contingency_id(ContingencyPlanEntryContentForm *self, const char *value);
-char *contingency_plan_entry_content_form_plan_title(const ContingencyPlanEntryContentForm *self);
-void contingency_plan_entry_content_form_set_plan_title(ContingencyPlanEntryContentForm *self, const char *value);
 char *contingency_plan_entry_content_form_trigger_condition(const ContingencyPlanEntryContentForm *self);
 void contingency_plan_entry_content_form_set_trigger_condition(ContingencyPlanEntryContentForm *self, const char *value);
 
@@ -33527,8 +33411,6 @@ void current_business_process_content_form_free(CurrentBusinessProcessContentFor
 // The section's own free-text content, before the form fields (owned).
 char *current_business_process_content_form_content(const CurrentBusinessProcessContentForm *self);
 void current_business_process_content_form_set_content(CurrentBusinessProcessContentForm *self, const char *value);
-char *current_business_process_content_form_process_name(const CurrentBusinessProcessContentForm *self);
-void current_business_process_content_form_set_process_name(CurrentBusinessProcessContentForm *self, const char *value);
 char *current_business_process_content_form_process_owner(const CurrentBusinessProcessContentForm *self);
 void current_business_process_content_form_set_process_owner(CurrentBusinessProcessContentForm *self, const char *value);
 char *current_business_process_content_form_process_category(const CurrentBusinessProcessContentForm *self);
@@ -33634,8 +33516,6 @@ void current_workflow_entry_content_form_free(CurrentWorkflowEntryContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *current_workflow_entry_content_form_content(const CurrentWorkflowEntryContentForm *self);
 void current_workflow_entry_content_form_set_content(CurrentWorkflowEntryContentForm *self, const char *value);
-char *current_workflow_entry_content_form_workflow_name(const CurrentWorkflowEntryContentForm *self);
-void current_workflow_entry_content_form_set_workflow_name(CurrentWorkflowEntryContentForm *self, const char *value);
 char *current_workflow_entry_content_form_workflow_id(const CurrentWorkflowEntryContentForm *self);
 void current_workflow_entry_content_form_set_workflow_id(CurrentWorkflowEntryContentForm *self, const char *value);
 char *current_workflow_entry_content_form_workflow_type(const CurrentWorkflowEntryContentForm *self);
@@ -33674,8 +33554,6 @@ void custom_distribution_group_content_form_free(CustomDistributionGroupContentF
 // The section's own free-text content, before the form fields (owned).
 char *custom_distribution_group_content_form_content(const CustomDistributionGroupContentForm *self);
 void custom_distribution_group_content_form_set_content(CustomDistributionGroupContentForm *self, const char *value);
-char *custom_distribution_group_content_form_group_name(const CustomDistributionGroupContentForm *self);
-void custom_distribution_group_content_form_set_group_name(CustomDistributionGroupContentForm *self, const char *value);
 char *custom_distribution_group_content_form_purpose(const CustomDistributionGroupContentForm *self);
 void custom_distribution_group_content_form_set_purpose(CustomDistributionGroupContentForm *self, const char *value);
 char *custom_distribution_group_content_form_information_scope(const CustomDistributionGroupContentForm *self);
@@ -33691,8 +33569,6 @@ void custom_metric_entry_content_form_free(CustomMetricEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *custom_metric_entry_content_form_content(const CustomMetricEntryContentForm *self);
 void custom_metric_entry_content_form_set_content(CustomMetricEntryContentForm *self, const char *value);
-char *custom_metric_entry_content_form_metric_name(const CustomMetricEntryContentForm *self);
-void custom_metric_entry_content_form_set_metric_name(CustomMetricEntryContentForm *self, const char *value);
 char *custom_metric_entry_content_form_metric_type(const CustomMetricEntryContentForm *self);
 void custom_metric_entry_content_form_set_metric_type(CustomMetricEntryContentForm *self, const char *value);
 char *custom_metric_entry_content_form_metric_description(const CustomMetricEntryContentForm *self);
@@ -33733,8 +33609,6 @@ char *dashboard_entry_content_form_content(const DashboardEntryContentForm *self
 void dashboard_entry_content_form_set_content(DashboardEntryContentForm *self, const char *value);
 char *dashboard_entry_content_form_dashboard_id(const DashboardEntryContentForm *self);
 void dashboard_entry_content_form_set_dashboard_id(DashboardEntryContentForm *self, const char *value);
-char *dashboard_entry_content_form_dashboard_name(const DashboardEntryContentForm *self);
-void dashboard_entry_content_form_set_dashboard_name(DashboardEntryContentForm *self, const char *value);
 char *dashboard_entry_content_form_dashboard_category(const DashboardEntryContentForm *self);
 void dashboard_entry_content_form_set_dashboard_category(DashboardEntryContentForm *self, const char *value);
 char *dashboard_entry_content_form_target_audience(const DashboardEntryContentForm *self);
@@ -34038,8 +33912,6 @@ void data_attribute_entry_identity_form_free(DataAttributeEntryIdentityForm *sel
 // The section's own free-text content, before the form fields (owned).
 char *data_attribute_entry_identity_form_content(const DataAttributeEntryIdentityForm *self);
 void data_attribute_entry_identity_form_set_content(DataAttributeEntryIdentityForm *self, const char *value);
-char *data_attribute_entry_identity_form_attribute_name(const DataAttributeEntryIdentityForm *self);
-void data_attribute_entry_identity_form_set_attribute_name(DataAttributeEntryIdentityForm *self, const char *value);
 char *data_attribute_entry_identity_form_column_name(const DataAttributeEntryIdentityForm *self);
 void data_attribute_entry_identity_form_set_column_name(DataAttributeEntryIdentityForm *self, const char *value);
 char *data_attribute_entry_identity_form_description(const DataAttributeEntryIdentityForm *self);
@@ -34152,8 +34024,6 @@ void data_classification_entry_identity_form_free(DataClassificationEntryIdentit
 // The section's own free-text content, before the form fields (owned).
 char *data_classification_entry_identity_form_content(const DataClassificationEntryIdentityForm *self);
 void data_classification_entry_identity_form_set_content(DataClassificationEntryIdentityForm *self, const char *value);
-char *data_classification_entry_identity_form_classification_name(const DataClassificationEntryIdentityForm *self);
-void data_classification_entry_identity_form_set_classification_name(DataClassificationEntryIdentityForm *self, const char *value);
 char *data_classification_entry_identity_form_classification_level(const DataClassificationEntryIdentityForm *self);
 void data_classification_entry_identity_form_set_classification_level(DataClassificationEntryIdentityForm *self, const char *value);
 char *data_classification_entry_identity_form_description(const DataClassificationEntryIdentityForm *self);
@@ -34203,8 +34073,6 @@ void data_classification_level_entry_content_form_free(DataClassificationLevelEn
 // The section's own free-text content, before the form fields (owned).
 char *data_classification_level_entry_content_form_content(const DataClassificationLevelEntryContentForm *self);
 void data_classification_level_entry_content_form_set_content(DataClassificationLevelEntryContentForm *self, const char *value);
-char *data_classification_level_entry_content_form_level_name(const DataClassificationLevelEntryContentForm *self);
-void data_classification_level_entry_content_form_set_level_name(DataClassificationLevelEntryContentForm *self, const char *value);
 long data_classification_level_entry_content_form_level_order(const DataClassificationLevelEntryContentForm *self);
 void data_classification_level_entry_content_form_set_level_order(DataClassificationLevelEntryContentForm *self, long value);
 char *data_classification_level_entry_content_form_description(const DataClassificationLevelEntryContentForm *self);
@@ -34415,8 +34283,6 @@ void data_entity_migration_entry_content_form_free(DataEntityMigrationEntryConte
 // The section's own free-text content, before the form fields (owned).
 char *data_entity_migration_entry_content_form_content(const DataEntityMigrationEntryContentForm *self);
 void data_entity_migration_entry_content_form_set_content(DataEntityMigrationEntryContentForm *self, const char *value);
-char *data_entity_migration_entry_content_form_entity_name(const DataEntityMigrationEntryContentForm *self);
-void data_entity_migration_entry_content_form_set_entity_name(DataEntityMigrationEntryContentForm *self, const char *value);
 char *data_entity_migration_entry_content_form_record_count(const DataEntityMigrationEntryContentForm *self);
 void data_entity_migration_entry_content_form_set_record_count(DataEntityMigrationEntryContentForm *self, const char *value);
 char *data_entity_migration_entry_content_form_target_mapping(const DataEntityMigrationEntryContentForm *self);
@@ -34434,8 +34300,6 @@ void data_entity_reference_entry_content_form_free(DataEntityReferenceEntryConte
 // The section's own free-text content, before the form fields (owned).
 char *data_entity_reference_entry_content_form_content(const DataEntityReferenceEntryContentForm *self);
 void data_entity_reference_entry_content_form_set_content(DataEntityReferenceEntryContentForm *self, const char *value);
-char *data_entity_reference_entry_content_form_entity_name(const DataEntityReferenceEntryContentForm *self);
-void data_entity_reference_entry_content_form_set_entity_name(DataEntityReferenceEntryContentForm *self, const char *value);
 char *data_entity_reference_entry_content_form_crud_operations(const DataEntityReferenceEntryContentForm *self);
 void data_entity_reference_entry_content_form_set_crud_operations(DataEntityReferenceEntryContentForm *self, const char *value);
 char *data_entity_reference_entry_content_form_attributes(const DataEntityReferenceEntryContentForm *self);
@@ -34549,8 +34413,6 @@ char *data_governance_policy_entry_content_form_content(const DataGovernancePoli
 void data_governance_policy_entry_content_form_set_content(DataGovernancePolicyEntryContentForm *self, const char *value);
 char *data_governance_policy_entry_content_form_policy_id(const DataGovernancePolicyEntryContentForm *self);
 void data_governance_policy_entry_content_form_set_policy_id(DataGovernancePolicyEntryContentForm *self, const char *value);
-char *data_governance_policy_entry_content_form_policy_name(const DataGovernancePolicyEntryContentForm *self);
-void data_governance_policy_entry_content_form_set_policy_name(DataGovernancePolicyEntryContentForm *self, const char *value);
 char *data_governance_policy_entry_content_form_policy_area(const DataGovernancePolicyEntryContentForm *self);
 void data_governance_policy_entry_content_form_set_policy_area(DataGovernancePolicyEntryContentForm *self, const char *value);
 char *data_governance_policy_entry_content_form_description(const DataGovernancePolicyEntryContentForm *self);
@@ -34659,8 +34521,6 @@ char *data_integration_entry_content_form_content(const DataIntegrationEntryCont
 void data_integration_entry_content_form_set_content(DataIntegrationEntryContentForm *self, const char *value);
 char *data_integration_entry_content_form_integration_id(const DataIntegrationEntryContentForm *self);
 void data_integration_entry_content_form_set_integration_id(DataIntegrationEntryContentForm *self, const char *value);
-char *data_integration_entry_content_form_integration_name(const DataIntegrationEntryContentForm *self);
-void data_integration_entry_content_form_set_integration_name(DataIntegrationEntryContentForm *self, const char *value);
 char *data_integration_entry_content_form_description(const DataIntegrationEntryContentForm *self);
 void data_integration_entry_content_form_set_description(DataIntegrationEntryContentForm *self, const char *value);
 
@@ -35160,8 +35020,6 @@ char *data_quality_initiative_entry_content_form_content(const DataQualityInitia
 void data_quality_initiative_entry_content_form_set_content(DataQualityInitiativeEntryContentForm *self, const char *value);
 char *data_quality_initiative_entry_content_form_initiative_id(const DataQualityInitiativeEntryContentForm *self);
 void data_quality_initiative_entry_content_form_set_initiative_id(DataQualityInitiativeEntryContentForm *self, const char *value);
-char *data_quality_initiative_entry_content_form_initiative_name(const DataQualityInitiativeEntryContentForm *self);
-void data_quality_initiative_entry_content_form_set_initiative_name(DataQualityInitiativeEntryContentForm *self, const char *value);
 char *data_quality_initiative_entry_content_form_description(const DataQualityInitiativeEntryContentForm *self);
 void data_quality_initiative_entry_content_form_set_description(DataQualityInitiativeEntryContentForm *self, const char *value);
 char *data_quality_initiative_entry_content_form_target_issues(const DataQualityInitiativeEntryContentForm *self);
@@ -35194,8 +35052,6 @@ char *data_quality_issue_entry_content_form_content(const DataQualityIssueEntryC
 void data_quality_issue_entry_content_form_set_content(DataQualityIssueEntryContentForm *self, const char *value);
 char *data_quality_issue_entry_content_form_issue_id(const DataQualityIssueEntryContentForm *self);
 void data_quality_issue_entry_content_form_set_issue_id(DataQualityIssueEntryContentForm *self, const char *value);
-char *data_quality_issue_entry_content_form_issue_title(const DataQualityIssueEntryContentForm *self);
-void data_quality_issue_entry_content_form_set_issue_title(DataQualityIssueEntryContentForm *self, const char *value);
 char *data_quality_issue_entry_content_form_description(const DataQualityIssueEntryContentForm *self);
 void data_quality_issue_entry_content_form_set_description(DataQualityIssueEntryContentForm *self, const char *value);
 char *data_quality_issue_entry_content_form_affected_data_source(const DataQualityIssueEntryContentForm *self);
@@ -35318,8 +35174,6 @@ void data_source_entity_entry_content_form_free(DataSourceEntityEntryContentForm
 // The section's own free-text content, before the form fields (owned).
 char *data_source_entity_entry_content_form_content(const DataSourceEntityEntryContentForm *self);
 void data_source_entity_entry_content_form_set_content(DataSourceEntityEntryContentForm *self, const char *value);
-char *data_source_entity_entry_content_form_entity_name(const DataSourceEntityEntryContentForm *self);
-void data_source_entity_entry_content_form_set_entity_name(DataSourceEntityEntryContentForm *self, const char *value);
 char *data_source_entity_entry_content_form_description(const DataSourceEntityEntryContentForm *self);
 void data_source_entity_entry_content_form_set_description(DataSourceEntityEntryContentForm *self, const char *value);
 char *data_source_entity_entry_content_form_record_count(const DataSourceEntityEntryContentForm *self);
@@ -35655,8 +35509,6 @@ void database_compatibility_entry_content_form_free(DatabaseCompatibilityEntryCo
 // The section's own free-text content, before the form fields (owned).
 char *database_compatibility_entry_content_form_content(const DatabaseCompatibilityEntryContentForm *self);
 void database_compatibility_entry_content_form_set_content(DatabaseCompatibilityEntryContentForm *self, const char *value);
-char *database_compatibility_entry_content_form_database_name(const DatabaseCompatibilityEntryContentForm *self);
-void database_compatibility_entry_content_form_set_database_name(DatabaseCompatibilityEntryContentForm *self, const char *value);
 char *database_compatibility_entry_content_form_database_type(const DatabaseCompatibilityEntryContentForm *self);
 void database_compatibility_entry_content_form_set_database_type(DatabaseCompatibilityEntryContentForm *self, const char *value);
 char *database_compatibility_entry_content_form_min_version(const DatabaseCompatibilityEntryContentForm *self);
@@ -35804,10 +35656,6 @@ void decision_maker_entry_content_form_free(DecisionMakerEntryContentForm *self)
 // The section's own free-text content, before the form fields (owned).
 char *decision_maker_entry_content_form_content(const DecisionMakerEntryContentForm *self);
 void decision_maker_entry_content_form_set_content(DecisionMakerEntryContentForm *self, const char *value);
-char *decision_maker_entry_content_form_name(const DecisionMakerEntryContentForm *self);
-void decision_maker_entry_content_form_set_name(DecisionMakerEntryContentForm *self, const char *value);
-char *decision_maker_entry_content_form_title(const DecisionMakerEntryContentForm *self);
-void decision_maker_entry_content_form_set_title(DecisionMakerEntryContentForm *self, const char *value);
 char *decision_maker_entry_content_form_department(const DecisionMakerEntryContentForm *self);
 void decision_maker_entry_content_form_set_department(DecisionMakerEntryContentForm *self, const char *value);
 char *decision_maker_entry_content_form_decision_authority(const DecisionMakerEntryContentForm *self);
@@ -36128,8 +35976,6 @@ char *deliverable_entry_content_form_content(const DeliverableEntryContentForm *
 void deliverable_entry_content_form_set_content(DeliverableEntryContentForm *self, const char *value);
 char *deliverable_entry_content_form_deliverable_id(const DeliverableEntryContentForm *self);
 void deliverable_entry_content_form_set_deliverable_id(DeliverableEntryContentForm *self, const char *value);
-char *deliverable_entry_content_form_deliverable_name(const DeliverableEntryContentForm *self);
-void deliverable_entry_content_form_set_deliverable_name(DeliverableEntryContentForm *self, const char *value);
 char *deliverable_entry_content_form_priority(const DeliverableEntryContentForm *self);
 void deliverable_entry_content_form_set_priority(DeliverableEntryContentForm *self, const char *value);
 
@@ -36642,8 +36488,6 @@ void deployment_environment_entry_content_form_free(DeploymentEnvironmentEntryCo
 // The section's own free-text content, before the form fields (owned).
 char *deployment_environment_entry_content_form_content(const DeploymentEnvironmentEntryContentForm *self);
 void deployment_environment_entry_content_form_set_content(DeploymentEnvironmentEntryContentForm *self, const char *value);
-char *deployment_environment_entry_content_form_environment_name(const DeploymentEnvironmentEntryContentForm *self);
-void deployment_environment_entry_content_form_set_environment_name(DeploymentEnvironmentEntryContentForm *self, const char *value);
 char *deployment_environment_entry_content_form_environment_type(const DeploymentEnvironmentEntryContentForm *self);
 void deployment_environment_entry_content_form_set_environment_type(DeploymentEnvironmentEntryContentForm *self, const char *value);
 char *deployment_environment_entry_content_form_url(const DeploymentEnvironmentEntryContentForm *self);
@@ -36857,8 +36701,6 @@ void deployment_target_entry_content_form_free(DeploymentTargetEntryContentForm 
 // The section's own free-text content, before the form fields (owned).
 char *deployment_target_entry_content_form_content(const DeploymentTargetEntryContentForm *self);
 void deployment_target_entry_content_form_set_content(DeploymentTargetEntryContentForm *self, const char *value);
-char *deployment_target_entry_content_form_target_name(const DeploymentTargetEntryContentForm *self);
-void deployment_target_entry_content_form_set_target_name(DeploymentTargetEntryContentForm *self, const char *value);
 char *deployment_target_entry_content_form_target_category(const DeploymentTargetEntryContentForm *self);
 void deployment_target_entry_content_form_set_target_category(DeploymentTargetEntryContentForm *self, const char *value);
 char *deployment_target_entry_content_form_target_environment(const DeploymentTargetEntryContentForm *self);
@@ -37002,8 +36844,6 @@ void design_goal_entry_content_form_free(DesignGoalEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *design_goal_entry_content_form_content(const DesignGoalEntryContentForm *self);
 void design_goal_entry_content_form_set_content(DesignGoalEntryContentForm *self, const char *value);
-char *design_goal_entry_content_form_goal_name(const DesignGoalEntryContentForm *self);
-void design_goal_entry_content_form_set_goal_name(DesignGoalEntryContentForm *self, const char *value);
 char *design_goal_entry_content_form_description(const DesignGoalEntryContentForm *self);
 void design_goal_entry_content_form_set_description(DesignGoalEntryContentForm *self, const char *value);
 char *design_goal_entry_content_form_priority(const DesignGoalEntryContentForm *self);
@@ -37034,8 +36874,6 @@ void design_pattern_entry_content_form_free(DesignPatternEntryContentForm *self)
 // The section's own free-text content, before the form fields (owned).
 char *design_pattern_entry_content_form_content(const DesignPatternEntryContentForm *self);
 void design_pattern_entry_content_form_set_content(DesignPatternEntryContentForm *self, const char *value);
-char *design_pattern_entry_content_form_pattern_name(const DesignPatternEntryContentForm *self);
-void design_pattern_entry_content_form_set_pattern_name(DesignPatternEntryContentForm *self, const char *value);
 char *design_pattern_entry_content_form_pattern_category(const DesignPatternEntryContentForm *self);
 void design_pattern_entry_content_form_set_pattern_category(DesignPatternEntryContentForm *self, const char *value);
 char *design_pattern_entry_content_form_pattern_source(const DesignPatternEntryContentForm *self);
@@ -37099,8 +36937,6 @@ void design_principle_entry_content_form_free(DesignPrincipleEntryContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *design_principle_entry_content_form_content(const DesignPrincipleEntryContentForm *self);
 void design_principle_entry_content_form_set_content(DesignPrincipleEntryContentForm *self, const char *value);
-char *design_principle_entry_content_form_principle_name(const DesignPrincipleEntryContentForm *self);
-void design_principle_entry_content_form_set_principle_name(DesignPrincipleEntryContentForm *self, const char *value);
 char *design_principle_entry_content_form_description(const DesignPrincipleEntryContentForm *self);
 void design_principle_entry_content_form_set_description(DesignPrincipleEntryContentForm *self, const char *value);
 char *design_principle_entry_content_form_rationale(const DesignPrincipleEntryContentForm *self);
@@ -37280,8 +37116,6 @@ void development_convention_entry_content_form_free(DevelopmentConventionEntryCo
 // The section's own free-text content, before the form fields (owned).
 char *development_convention_entry_content_form_content(const DevelopmentConventionEntryContentForm *self);
 void development_convention_entry_content_form_set_content(DevelopmentConventionEntryContentForm *self, const char *value);
-char *development_convention_entry_content_form_convention_name(const DevelopmentConventionEntryContentForm *self);
-void development_convention_entry_content_form_set_convention_name(DevelopmentConventionEntryContentForm *self, const char *value);
 char *development_convention_entry_content_form_convention_category(const DevelopmentConventionEntryContentForm *self);
 void development_convention_entry_content_form_set_convention_category(DevelopmentConventionEntryContentForm *self, const char *value);
 char *development_convention_entry_content_form_description(const DevelopmentConventionEntryContentForm *self);
@@ -37561,8 +37395,6 @@ void display_property_entry_content_form_free(DisplayPropertyEntryContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *display_property_entry_content_form_content(const DisplayPropertyEntryContentForm *self);
 void display_property_entry_content_form_set_content(DisplayPropertyEntryContentForm *self, const char *value);
-char *display_property_entry_content_form_display_label(const DisplayPropertyEntryContentForm *self);
-void display_property_entry_content_form_set_display_label(DisplayPropertyEntryContentForm *self, const char *value);
 char *display_property_entry_content_form_display_order(const DisplayPropertyEntryContentForm *self);
 void display_property_entry_content_form_set_display_order(DisplayPropertyEntryContentForm *self, const char *value);
 char *display_property_entry_content_form_display_group(const DisplayPropertyEntryContentForm *self);
@@ -37769,8 +37601,6 @@ void distribution_recipient_entry_content_form_free(DistributionRecipientEntryCo
 // The section's own free-text content, before the form fields (owned).
 char *distribution_recipient_entry_content_form_content(const DistributionRecipientEntryContentForm *self);
 void distribution_recipient_entry_content_form_set_content(DistributionRecipientEntryContentForm *self, const char *value);
-char *distribution_recipient_entry_content_form_name(const DistributionRecipientEntryContentForm *self);
-void distribution_recipient_entry_content_form_set_name(DistributionRecipientEntryContentForm *self, const char *value);
 char *distribution_recipient_entry_content_form_role(const DistributionRecipientEntryContentForm *self);
 void distribution_recipient_entry_content_form_set_role(DistributionRecipientEntryContentForm *self, const char *value);
 char *distribution_recipient_entry_content_form_organization(const DistributionRecipientEntryContentForm *self);
@@ -38205,8 +38035,6 @@ char *domain_business_rule_entry_content_form_content(const DomainBusinessRuleEn
 void domain_business_rule_entry_content_form_set_content(DomainBusinessRuleEntryContentForm *self, const char *value);
 char *domain_business_rule_entry_content_form_rule_id(const DomainBusinessRuleEntryContentForm *self);
 void domain_business_rule_entry_content_form_set_rule_id(DomainBusinessRuleEntryContentForm *self, const char *value);
-char *domain_business_rule_entry_content_form_rule_name(const DomainBusinessRuleEntryContentForm *self);
-void domain_business_rule_entry_content_form_set_rule_name(DomainBusinessRuleEntryContentForm *self, const char *value);
 char *domain_business_rule_entry_content_form_rule_type(const DomainBusinessRuleEntryContentForm *self);
 void domain_business_rule_entry_content_form_set_rule_type(DomainBusinessRuleEntryContentForm *self, const char *value);
 char *domain_business_rule_entry_content_form_description(const DomainBusinessRuleEntryContentForm *self);
@@ -38278,8 +38106,6 @@ void domain_event_entry_content_form_free(DomainEventEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *domain_event_entry_content_form_content(const DomainEventEntryContentForm *self);
 void domain_event_entry_content_form_set_content(DomainEventEntryContentForm *self, const char *value);
-char *domain_event_entry_content_form_event_name(const DomainEventEntryContentForm *self);
-void domain_event_entry_content_form_set_event_name(DomainEventEntryContentForm *self, const char *value);
 char *domain_event_entry_content_form_event_description(const DomainEventEntryContentForm *self);
 void domain_event_entry_content_form_set_event_description(DomainEventEntryContentForm *self, const char *value);
 char *domain_event_entry_content_form_event_type(const DomainEventEntryContentForm *self);
@@ -38351,8 +38177,6 @@ void domain_process_entry_content_form_free(DomainProcessEntryContentForm *self)
 // The section's own free-text content, before the form fields (owned).
 char *domain_process_entry_content_form_content(const DomainProcessEntryContentForm *self);
 void domain_process_entry_content_form_set_content(DomainProcessEntryContentForm *self, const char *value);
-char *domain_process_entry_content_form_process_name(const DomainProcessEntryContentForm *self);
-void domain_process_entry_content_form_set_process_name(DomainProcessEntryContentForm *self, const char *value);
 char *domain_process_entry_content_form_process_description(const DomainProcessEntryContentForm *self);
 void domain_process_entry_content_form_set_process_description(DomainProcessEntryContentForm *self, const char *value);
 char *domain_process_entry_content_form_process_type(const DomainProcessEntryContentForm *self);
@@ -38550,8 +38374,6 @@ void encrypted_data_category_entry_content_form_free(EncryptedDataCategoryEntryC
 // The section's own free-text content, before the form fields (owned).
 char *encrypted_data_category_entry_content_form_content(const EncryptedDataCategoryEntryContentForm *self);
 void encrypted_data_category_entry_content_form_set_content(EncryptedDataCategoryEntryContentForm *self, const char *value);
-char *encrypted_data_category_entry_content_form_category_name(const EncryptedDataCategoryEntryContentForm *self);
-void encrypted_data_category_entry_content_form_set_category_name(EncryptedDataCategoryEntryContentForm *self, const char *value);
 char *encrypted_data_category_entry_content_form_data_classification(const EncryptedDataCategoryEntryContentForm *self);
 void encrypted_data_category_entry_content_form_set_data_classification(EncryptedDataCategoryEntryContentForm *self, const char *value);
 char *encrypted_data_category_entry_content_form_encryption_approach(const EncryptedDataCategoryEntryContentForm *self);
@@ -38573,8 +38395,6 @@ void enterprise_system_compatibility_entry_content_form_free(EnterpriseSystemCom
 // The section's own free-text content, before the form fields (owned).
 char *enterprise_system_compatibility_entry_content_form_content(const EnterpriseSystemCompatibilityEntryContentForm *self);
 void enterprise_system_compatibility_entry_content_form_set_content(EnterpriseSystemCompatibilityEntryContentForm *self, const char *value);
-char *enterprise_system_compatibility_entry_content_form_system_name(const EnterpriseSystemCompatibilityEntryContentForm *self);
-void enterprise_system_compatibility_entry_content_form_set_system_name(EnterpriseSystemCompatibilityEntryContentForm *self, const char *value);
 char *enterprise_system_compatibility_entry_content_form_system_type(const EnterpriseSystemCompatibilityEntryContentForm *self);
 void enterprise_system_compatibility_entry_content_form_set_system_type(EnterpriseSystemCompatibilityEntryContentForm *self, const char *value);
 char *enterprise_system_compatibility_entry_content_form_vendor(const EnterpriseSystemCompatibilityEntryContentForm *self);
@@ -38672,8 +38492,6 @@ void entity_constraint_entry_content_form_free(EntityConstraintEntryContentForm 
 // The section's own free-text content, before the form fields (owned).
 char *entity_constraint_entry_content_form_content(const EntityConstraintEntryContentForm *self);
 void entity_constraint_entry_content_form_set_content(EntityConstraintEntryContentForm *self, const char *value);
-char *entity_constraint_entry_content_form_constraint_name(const EntityConstraintEntryContentForm *self);
-void entity_constraint_entry_content_form_set_constraint_name(EntityConstraintEntryContentForm *self, const char *value);
 char *entity_constraint_entry_content_form_constraint_type(const EntityConstraintEntryContentForm *self);
 void entity_constraint_entry_content_form_set_constraint_type(EntityConstraintEntryContentForm *self, const char *value);
 char *entity_constraint_entry_content_form_expression(const EntityConstraintEntryContentForm *self);
@@ -38693,8 +38511,6 @@ void entity_follow_up_entry_entity_ref_form_free(EntityFollowUpEntryEntityRefFor
 // The section's own free-text content, before the form fields (owned).
 char *entity_follow_up_entry_entity_ref_form_content(const EntityFollowUpEntryEntityRefForm *self);
 void entity_follow_up_entry_entity_ref_form_set_content(EntityFollowUpEntryEntityRefForm *self, const char *value);
-char *entity_follow_up_entry_entity_ref_form_entity_name(const EntityFollowUpEntryEntityRefForm *self);
-void entity_follow_up_entry_entity_ref_form_set_entity_name(EntityFollowUpEntryEntityRefForm *self, const char *value);
 char *entity_follow_up_entry_entity_ref_form_entity_alias(const EntityFollowUpEntryEntityRefForm *self);
 void entity_follow_up_entry_entity_ref_form_set_entity_alias(EntityFollowUpEntryEntityRefForm *self, const char *value);
 
@@ -38704,8 +38520,6 @@ void entity_index_entry_content_form_free(EntityIndexEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *entity_index_entry_content_form_content(const EntityIndexEntryContentForm *self);
 void entity_index_entry_content_form_set_content(EntityIndexEntryContentForm *self, const char *value);
-char *entity_index_entry_content_form_index_name(const EntityIndexEntryContentForm *self);
-void entity_index_entry_content_form_set_index_name(EntityIndexEntryContentForm *self, const char *value);
 char *entity_index_entry_content_form_index_type(const EntityIndexEntryContentForm *self);
 void entity_index_entry_content_form_set_index_type(EntityIndexEntryContentForm *self, const char *value);
 char *entity_index_entry_content_form_columns(const EntityIndexEntryContentForm *self);
@@ -38748,8 +38562,6 @@ void entity_relationship_entry_identity_form_free(EntityRelationshipEntryIdentit
 // The section's own free-text content, before the form fields (owned).
 char *entity_relationship_entry_identity_form_content(const EntityRelationshipEntryIdentityForm *self);
 void entity_relationship_entry_identity_form_set_content(EntityRelationshipEntryIdentityForm *self, const char *value);
-char *entity_relationship_entry_identity_form_relationship_name(const EntityRelationshipEntryIdentityForm *self);
-void entity_relationship_entry_identity_form_set_relationship_name(EntityRelationshipEntryIdentityForm *self, const char *value);
 char *entity_relationship_entry_identity_form_relationship_type(const EntityRelationshipEntryIdentityForm *self);
 void entity_relationship_entry_identity_form_set_relationship_type(EntityRelationshipEntryIdentityForm *self, const char *value);
 char *entity_relationship_entry_identity_form_description(const EntityRelationshipEntryIdentityForm *self);
@@ -38886,8 +38698,6 @@ void environment_entry_content_form_free(EnvironmentEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *environment_entry_content_form_content(const EnvironmentEntryContentForm *self);
 void environment_entry_content_form_set_content(EnvironmentEntryContentForm *self, const char *value);
-char *environment_entry_content_form_environment_name(const EnvironmentEntryContentForm *self);
-void environment_entry_content_form_set_environment_name(EnvironmentEntryContentForm *self, const char *value);
 char *environment_entry_content_form_environment_id(const EnvironmentEntryContentForm *self);
 void environment_entry_content_form_set_environment_id(EnvironmentEntryContentForm *self, const char *value);
 char *environment_entry_content_form_environment_type(const EnvironmentEntryContentForm *self);
@@ -39618,8 +39428,6 @@ void existing_system_entry_content_form_free(ExistingSystemEntryContentForm *sel
 // The section's own free-text content, before the form fields (owned).
 char *existing_system_entry_content_form_content(const ExistingSystemEntryContentForm *self);
 void existing_system_entry_content_form_set_content(ExistingSystemEntryContentForm *self, const char *value);
-char *existing_system_entry_content_form_system_name(const ExistingSystemEntryContentForm *self);
-void existing_system_entry_content_form_set_system_name(ExistingSystemEntryContentForm *self, const char *value);
 char *existing_system_entry_content_form_system_id(const ExistingSystemEntryContentForm *self);
 void existing_system_entry_content_form_set_system_id(ExistingSystemEntryContentForm *self, const char *value);
 char *existing_system_entry_content_form_system_version(const ExistingSystemEntryContentForm *self);
@@ -39925,8 +39733,6 @@ char *export_format_entry_content_form_content(const ExportFormatEntryContentFor
 void export_format_entry_content_form_set_content(ExportFormatEntryContentForm *self, const char *value);
 char *export_format_entry_content_form_export_id(const ExportFormatEntryContentForm *self);
 void export_format_entry_content_form_set_export_id(ExportFormatEntryContentForm *self, const char *value);
-char *export_format_entry_content_form_format_name(const ExportFormatEntryContentForm *self);
-void export_format_entry_content_form_set_format_name(ExportFormatEntryContentForm *self, const char *value);
 char *export_format_entry_content_form_format_type(const ExportFormatEntryContentForm *self);
 void export_format_entry_content_form_set_format_type(ExportFormatEntryContentForm *self, const char *value);
 
@@ -40043,8 +39849,6 @@ char *export_template_entry_content_form_content(const ExportTemplateEntryConten
 void export_template_entry_content_form_set_content(ExportTemplateEntryContentForm *self, const char *value);
 char *export_template_entry_content_form_template_id(const ExportTemplateEntryContentForm *self);
 void export_template_entry_content_form_set_template_id(ExportTemplateEntryContentForm *self, const char *value);
-char *export_template_entry_content_form_template_name(const ExportTemplateEntryContentForm *self);
-void export_template_entry_content_form_set_template_name(ExportTemplateEntryContentForm *self, const char *value);
 char *export_template_entry_content_form_base_format_type(const ExportTemplateEntryContentForm *self);
 void export_template_entry_content_form_set_base_format_type(ExportTemplateEntryContentForm *self, const char *value);
 
@@ -40154,8 +39958,6 @@ void external_actor_entry_content_form_free(ExternalActorEntryContentForm *self)
 // The section's own free-text content, before the form fields (owned).
 char *external_actor_entry_content_form_content(const ExternalActorEntryContentForm *self);
 void external_actor_entry_content_form_set_content(ExternalActorEntryContentForm *self, const char *value);
-char *external_actor_entry_content_form_actor_name(const ExternalActorEntryContentForm *self);
-void external_actor_entry_content_form_set_actor_name(ExternalActorEntryContentForm *self, const char *value);
 char *external_actor_entry_content_form_actor_type(const ExternalActorEntryContentForm *self);
 void external_actor_entry_content_form_set_actor_type(ExternalActorEntryContentForm *self, const char *value);
 char *external_actor_entry_content_form_description(const ExternalActorEntryContentForm *self);
@@ -40199,8 +40001,6 @@ char *external_interface_entry_identification_content_form_content(const Externa
 void external_interface_entry_identification_content_form_set_content(ExternalInterfaceEntryIdentificationContentForm *self, const char *value);
 char *external_interface_entry_identification_content_form_interface_id(const ExternalInterfaceEntryIdentificationContentForm *self);
 void external_interface_entry_identification_content_form_set_interface_id(ExternalInterfaceEntryIdentificationContentForm *self, const char *value);
-char *external_interface_entry_identification_content_form_interface_name(const ExternalInterfaceEntryIdentificationContentForm *self);
-void external_interface_entry_identification_content_form_set_interface_name(ExternalInterfaceEntryIdentificationContentForm *self, const char *value);
 char *external_interface_entry_identification_content_form_external_system(const ExternalInterfaceEntryIdentificationContentForm *self);
 void external_interface_entry_identification_content_form_set_external_system(ExternalInterfaceEntryIdentificationContentForm *self, const char *value);
 char *external_interface_entry_identification_content_form_external_system_vendor(const ExternalInterfaceEntryIdentificationContentForm *self);
@@ -40300,8 +40100,6 @@ void external_partner_connection_entry_content_form_free(ExternalPartnerConnecti
 // The section's own free-text content, before the form fields (owned).
 char *external_partner_connection_entry_content_form_content(const ExternalPartnerConnectionEntryContentForm *self);
 void external_partner_connection_entry_content_form_set_content(ExternalPartnerConnectionEntryContentForm *self, const char *value);
-char *external_partner_connection_entry_content_form_partner_name(const ExternalPartnerConnectionEntryContentForm *self);
-void external_partner_connection_entry_content_form_set_partner_name(ExternalPartnerConnectionEntryContentForm *self, const char *value);
 char *external_partner_connection_entry_content_form_partner_type(const ExternalPartnerConnectionEntryContentForm *self);
 void external_partner_connection_entry_content_form_set_partner_type(ExternalPartnerConnectionEntryContentForm *self, const char *value);
 char *external_partner_connection_entry_content_form_connection_purpose(const ExternalPartnerConnectionEntryContentForm *self);
@@ -40390,8 +40188,6 @@ void external_service_dependency_entry_content_form_free(ExternalServiceDependen
 // The section's own free-text content, before the form fields (owned).
 char *external_service_dependency_entry_content_form_content(const ExternalServiceDependencyEntryContentForm *self);
 void external_service_dependency_entry_content_form_set_content(ExternalServiceDependencyEntryContentForm *self, const char *value);
-char *external_service_dependency_entry_content_form_service_name(const ExternalServiceDependencyEntryContentForm *self);
-void external_service_dependency_entry_content_form_set_service_name(ExternalServiceDependencyEntryContentForm *self, const char *value);
 char *external_service_dependency_entry_content_form_service_provider(const ExternalServiceDependencyEntryContentForm *self);
 void external_service_dependency_entry_content_form_set_service_provider(ExternalServiceDependencyEntryContentForm *self, const char *value);
 char *external_service_dependency_entry_content_form_service_type(const ExternalServiceDependencyEntryContentForm *self);
@@ -40454,8 +40250,6 @@ void external_system_context_entry_content_form_free(ExternalSystemContextEntryC
 // The section's own free-text content, before the form fields (owned).
 char *external_system_context_entry_content_form_content(const ExternalSystemContextEntryContentForm *self);
 void external_system_context_entry_content_form_set_content(ExternalSystemContextEntryContentForm *self, const char *value);
-char *external_system_context_entry_content_form_system_name(const ExternalSystemContextEntryContentForm *self);
-void external_system_context_entry_content_form_set_system_name(ExternalSystemContextEntryContentForm *self, const char *value);
 char *external_system_context_entry_content_form_system_owner(const ExternalSystemContextEntryContentForm *self);
 void external_system_context_entry_content_form_set_system_owner(ExternalSystemContextEntryContentForm *self, const char *value);
 char *external_system_context_entry_content_form_system_type(const ExternalSystemContextEntryContentForm *self);
@@ -40510,8 +40304,6 @@ char *family_component_ref_content_form_content(const FamilyComponentRefContentF
 void family_component_ref_content_form_set_content(FamilyComponentRefContentForm *self, const char *value);
 char *family_component_ref_content_form_component_id(const FamilyComponentRefContentForm *self);
 void family_component_ref_content_form_set_component_id(FamilyComponentRefContentForm *self, const char *value);
-char *family_component_ref_content_form_component_name(const FamilyComponentRefContentForm *self);
-void family_component_ref_content_form_set_component_name(FamilyComponentRefContentForm *self, const char *value);
 char *family_component_ref_content_form_family_role(const FamilyComponentRefContentForm *self);
 void family_component_ref_content_form_set_family_role(FamilyComponentRefContentForm *self, const char *value);
 char *family_component_ref_content_form_relation_to_others(const FamilyComponentRefContentForm *self);
@@ -40580,8 +40372,6 @@ void feature_module_entry_content_form_free(FeatureModuleEntryContentForm *self)
 // The section's own free-text content, before the form fields (owned).
 char *feature_module_entry_content_form_content(const FeatureModuleEntryContentForm *self);
 void feature_module_entry_content_form_set_content(FeatureModuleEntryContentForm *self, const char *value);
-char *feature_module_entry_content_form_feature_name(const FeatureModuleEntryContentForm *self);
-void feature_module_entry_content_form_set_feature_name(FeatureModuleEntryContentForm *self, const char *value);
 char *feature_module_entry_content_form_feature_area(const FeatureModuleEntryContentForm *self);
 void feature_module_entry_content_form_set_feature_area(FeatureModuleEntryContentForm *self, const char *value);
 char *feature_module_entry_content_form_bounded_context(const FeatureModuleEntryContentForm *self);
@@ -40777,8 +40567,6 @@ char *feature_priority_entry_content_form_content(const FeaturePriorityEntryCont
 void feature_priority_entry_content_form_set_content(FeaturePriorityEntryContentForm *self, const char *value);
 char *feature_priority_entry_content_form_feature_id(const FeaturePriorityEntryContentForm *self);
 void feature_priority_entry_content_form_set_feature_id(FeaturePriorityEntryContentForm *self, const char *value);
-char *feature_priority_entry_content_form_feature_name(const FeaturePriorityEntryContentForm *self);
-void feature_priority_entry_content_form_set_feature_name(FeaturePriorityEntryContentForm *self, const char *value);
 char *feature_priority_entry_content_form_priority_rank(const FeaturePriorityEntryContentForm *self);
 void feature_priority_entry_content_form_set_priority_rank(FeaturePriorityEntryContentForm *self, const char *value);
 
@@ -41029,8 +40817,6 @@ char *feature_tour_entry_content_form_content(const FeatureTourEntryContentForm 
 void feature_tour_entry_content_form_set_content(FeatureTourEntryContentForm *self, const char *value);
 char *feature_tour_entry_content_form_tour_id(const FeatureTourEntryContentForm *self);
 void feature_tour_entry_content_form_set_tour_id(FeatureTourEntryContentForm *self, const char *value);
-char *feature_tour_entry_content_form_tour_name(const FeatureTourEntryContentForm *self);
-void feature_tour_entry_content_form_set_tour_name(FeatureTourEntryContentForm *self, const char *value);
 char *feature_tour_entry_content_form_tour_description(const FeatureTourEntryContentForm *self);
 void feature_tour_entry_content_form_set_tour_description(FeatureTourEntryContentForm *self, const char *value);
 char *feature_tour_entry_content_form_target_audience(const FeatureTourEntryContentForm *self);
@@ -41054,8 +40840,6 @@ char *field_help_entry_content_form_content(const FieldHelpEntryContentForm *sel
 void field_help_entry_content_form_set_content(FieldHelpEntryContentForm *self, const char *value);
 char *field_help_entry_content_form_field_id(const FieldHelpEntryContentForm *self);
 void field_help_entry_content_form_set_field_id(FieldHelpEntryContentForm *self, const char *value);
-char *field_help_entry_content_form_field_label(const FieldHelpEntryContentForm *self);
-void field_help_entry_content_form_set_field_label(FieldHelpEntryContentForm *self, const char *value);
 char *field_help_entry_content_form_tooltip_text(const FieldHelpEntryContentForm *self);
 void field_help_entry_content_form_set_tooltip_text(FieldHelpEntryContentForm *self, const char *value);
 char *field_help_entry_content_form_inline_help_text(const FieldHelpEntryContentForm *self);
@@ -41252,8 +41036,6 @@ void framework_requirement_entry_content_form_free(FrameworkRequirementEntryCont
 // The section's own free-text content, before the form fields (owned).
 char *framework_requirement_entry_content_form_content(const FrameworkRequirementEntryContentForm *self);
 void framework_requirement_entry_content_form_set_content(FrameworkRequirementEntryContentForm *self, const char *value);
-char *framework_requirement_entry_content_form_framework_name(const FrameworkRequirementEntryContentForm *self);
-void framework_requirement_entry_content_form_set_framework_name(FrameworkRequirementEntryContentForm *self, const char *value);
 char *framework_requirement_entry_content_form_framework_category(const FrameworkRequirementEntryContentForm *self);
 void framework_requirement_entry_content_form_set_framework_category(FrameworkRequirementEntryContentForm *self, const char *value);
 char *framework_requirement_entry_content_form_purpose(const FrameworkRequirementEntryContentForm *self);
@@ -41336,8 +41118,6 @@ void function_data_matrix_entry_content_form_free(FunctionDataMatrixEntryContent
 // The section's own free-text content, before the form fields (owned).
 char *function_data_matrix_entry_content_form_content(const FunctionDataMatrixEntryContentForm *self);
 void function_data_matrix_entry_content_form_set_content(FunctionDataMatrixEntryContentForm *self, const char *value);
-char *function_data_matrix_entry_content_form_function_name(const FunctionDataMatrixEntryContentForm *self);
-void function_data_matrix_entry_content_form_set_function_name(FunctionDataMatrixEntryContentForm *self, const char *value);
 char *function_data_matrix_entry_content_form_entity_name(const FunctionDataMatrixEntryContentForm *self);
 void function_data_matrix_entry_content_form_set_entity_name(FunctionDataMatrixEntryContentForm *self, const char *value);
 char *function_data_matrix_entry_content_form_access_type(const FunctionDataMatrixEntryContentForm *self);
@@ -41370,8 +41150,6 @@ char *function_entry_content_form_content(const FunctionEntryContentForm *self);
 void function_entry_content_form_set_content(FunctionEntryContentForm *self, const char *value);
 char *function_entry_content_form_function_id(const FunctionEntryContentForm *self);
 void function_entry_content_form_set_function_id(FunctionEntryContentForm *self, const char *value);
-char *function_entry_content_form_function_name(const FunctionEntryContentForm *self);
-void function_entry_content_form_set_function_name(FunctionEntryContentForm *self, const char *value);
 char *function_entry_content_form_description(const FunctionEntryContentForm *self);
 void function_entry_content_form_set_description(FunctionEntryContentForm *self, const char *value);
 char *function_entry_content_form_parent_function(const FunctionEntryContentForm *self);
@@ -41602,8 +41380,6 @@ void gap_entry_content_form_free(GapEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *gap_entry_content_form_content(const GapEntryContentForm *self);
 void gap_entry_content_form_set_content(GapEntryContentForm *self, const char *value);
-char *gap_entry_content_form_gap_name(const GapEntryContentForm *self);
-void gap_entry_content_form_set_gap_name(GapEntryContentForm *self, const char *value);
 char *gap_entry_content_form_gap_category(const GapEntryContentForm *self);
 void gap_entry_content_form_set_gap_category(GapEntryContentForm *self, const char *value);
 char *gap_entry_content_form_severity(const GapEntryContentForm *self);
@@ -41782,8 +41558,6 @@ char *goal_dependency_entry_content_form_dependency_id(const GoalDependencyEntry
 void goal_dependency_entry_content_form_set_dependency_id(GoalDependencyEntryContentForm *self, const char *value);
 char *goal_dependency_entry_content_form_dependency_type(const GoalDependencyEntryContentForm *self);
 void goal_dependency_entry_content_form_set_dependency_type(GoalDependencyEntryContentForm *self, const char *value);
-char *goal_dependency_entry_content_form_dependency_name(const GoalDependencyEntryContentForm *self);
-void goal_dependency_entry_content_form_set_dependency_name(GoalDependencyEntryContentForm *self, const char *value);
 char *goal_dependency_entry_content_form_description(const GoalDependencyEntryContentForm *self);
 void goal_dependency_entry_content_form_set_description(GoalDependencyEntryContentForm *self, const char *value);
 char *goal_dependency_entry_content_form_owner(const GoalDependencyEntryContentForm *self);
@@ -41805,8 +41579,6 @@ char *goal_milestone_entry_content_form_content(const GoalMilestoneEntryContentF
 void goal_milestone_entry_content_form_set_content(GoalMilestoneEntryContentForm *self, const char *value);
 char *goal_milestone_entry_content_form_milestone_id(const GoalMilestoneEntryContentForm *self);
 void goal_milestone_entry_content_form_set_milestone_id(GoalMilestoneEntryContentForm *self, const char *value);
-char *goal_milestone_entry_content_form_milestone_name(const GoalMilestoneEntryContentForm *self);
-void goal_milestone_entry_content_form_set_milestone_name(GoalMilestoneEntryContentForm *self, const char *value);
 char *goal_milestone_entry_content_form_description(const GoalMilestoneEntryContentForm *self);
 void goal_milestone_entry_content_form_set_description(GoalMilestoneEntryContentForm *self, const char *value);
 char *goal_milestone_entry_content_form_target_date(const GoalMilestoneEntryContentForm *self);
@@ -41864,8 +41636,6 @@ char *goal_risk_entry_content_form_content(const GoalRiskEntryContentForm *self)
 void goal_risk_entry_content_form_set_content(GoalRiskEntryContentForm *self, const char *value);
 char *goal_risk_entry_content_form_risk_id(const GoalRiskEntryContentForm *self);
 void goal_risk_entry_content_form_set_risk_id(GoalRiskEntryContentForm *self, const char *value);
-char *goal_risk_entry_content_form_risk_name(const GoalRiskEntryContentForm *self);
-void goal_risk_entry_content_form_set_risk_name(GoalRiskEntryContentForm *self, const char *value);
 char *goal_risk_entry_content_form_description(const GoalRiskEntryContentForm *self);
 void goal_risk_entry_content_form_set_description(GoalRiskEntryContentForm *self, const char *value);
 char *goal_risk_entry_content_form_risk_category(const GoalRiskEntryContentForm *self);
@@ -42147,8 +41917,6 @@ void ide_requirement_entry_content_form_free(IdeRequirementEntryContentForm *sel
 // The section's own free-text content, before the form fields (owned).
 char *ide_requirement_entry_content_form_content(const IdeRequirementEntryContentForm *self);
 void ide_requirement_entry_content_form_set_content(IdeRequirementEntryContentForm *self, const char *value);
-char *ide_requirement_entry_content_form_ide_name(const IdeRequirementEntryContentForm *self);
-void ide_requirement_entry_content_form_set_ide_name(IdeRequirementEntryContentForm *self, const char *value);
 char *ide_requirement_entry_content_form_version(const IdeRequirementEntryContentForm *self);
 void ide_requirement_entry_content_form_set_version(IdeRequirementEntryContentForm *self, const char *value);
 char *ide_requirement_entry_content_form_platform(const IdeRequirementEntryContentForm *self);
@@ -42299,8 +42067,6 @@ void identity_provider_entry_content_form_free(IdentityProviderEntryContentForm 
 // The section's own free-text content, before the form fields (owned).
 char *identity_provider_entry_content_form_content(const IdentityProviderEntryContentForm *self);
 void identity_provider_entry_content_form_set_content(IdentityProviderEntryContentForm *self, const char *value);
-char *identity_provider_entry_content_form_provider_name(const IdentityProviderEntryContentForm *self);
-void identity_provider_entry_content_form_set_provider_name(IdentityProviderEntryContentForm *self, const char *value);
 char *identity_provider_entry_content_form_provider_type(const IdentityProviderEntryContentForm *self);
 void identity_provider_entry_content_form_set_provider_type(IdentityProviderEntryContentForm *self, const char *value);
 char *identity_provider_entry_content_form_enabled(const IdentityProviderEntryContentForm *self);
@@ -42374,8 +42140,6 @@ void identity_source_entry_content_form_free(IdentitySourceEntryContentForm *sel
 // The section's own free-text content, before the form fields (owned).
 char *identity_source_entry_content_form_content(const IdentitySourceEntryContentForm *self);
 void identity_source_entry_content_form_set_content(IdentitySourceEntryContentForm *self, const char *value);
-char *identity_source_entry_content_form_source_name(const IdentitySourceEntryContentForm *self);
-void identity_source_entry_content_form_set_source_name(IdentitySourceEntryContentForm *self, const char *value);
 char *identity_source_entry_content_form_source_type(const IdentitySourceEntryContentForm *self);
 void identity_source_entry_content_form_set_source_type(IdentitySourceEntryContentForm *self, const char *value);
 char *identity_source_entry_content_form_source_product(const IdentitySourceEntryContentForm *self);
@@ -42654,8 +42418,6 @@ void industry_protocol_compliance_entry_content_form_free(IndustryProtocolCompli
 // The section's own free-text content, before the form fields (owned).
 char *industry_protocol_compliance_entry_content_form_content(const IndustryProtocolComplianceEntryContentForm *self);
 void industry_protocol_compliance_entry_content_form_set_content(IndustryProtocolComplianceEntryContentForm *self, const char *value);
-char *industry_protocol_compliance_entry_content_form_protocol_name(const IndustryProtocolComplianceEntryContentForm *self);
-void industry_protocol_compliance_entry_content_form_set_protocol_name(IndustryProtocolComplianceEntryContentForm *self, const char *value);
 char *industry_protocol_compliance_entry_content_form_category(const IndustryProtocolComplianceEntryContentForm *self);
 void industry_protocol_compliance_entry_content_form_set_category(IndustryProtocolComplianceEntryContentForm *self, const char *value);
 char *industry_protocol_compliance_entry_content_form_specification_version(const IndustryProtocolComplianceEntryContentForm *self);
@@ -42749,8 +42511,6 @@ void industry_standard_entry_content_form_free(IndustryStandardEntryContentForm 
 // The section's own free-text content, before the form fields (owned).
 char *industry_standard_entry_content_form_content(const IndustryStandardEntryContentForm *self);
 void industry_standard_entry_content_form_set_content(IndustryStandardEntryContentForm *self, const char *value);
-char *industry_standard_entry_content_form_standard_name(const IndustryStandardEntryContentForm *self);
-void industry_standard_entry_content_form_set_standard_name(IndustryStandardEntryContentForm *self, const char *value);
 char *industry_standard_entry_content_form_standard_body(const IndustryStandardEntryContentForm *self);
 void industry_standard_entry_content_form_set_standard_body(IndustryStandardEntryContentForm *self, const char *value);
 char *industry_standard_entry_content_form_version(const IndustryStandardEntryContentForm *self);
@@ -42883,8 +42643,6 @@ void infrastructure_component_entry_content_form_free(InfrastructureComponentEnt
 // The section's own free-text content, before the form fields (owned).
 char *infrastructure_component_entry_content_form_content(const InfrastructureComponentEntryContentForm *self);
 void infrastructure_component_entry_content_form_set_content(InfrastructureComponentEntryContentForm *self, const char *value);
-char *infrastructure_component_entry_content_form_component_name(const InfrastructureComponentEntryContentForm *self);
-void infrastructure_component_entry_content_form_set_component_name(InfrastructureComponentEntryContentForm *self, const char *value);
 char *infrastructure_component_entry_content_form_component_type(const InfrastructureComponentEntryContentForm *self);
 void infrastructure_component_entry_content_form_set_component_type(InfrastructureComponentEntryContentForm *self, const char *value);
 char *infrastructure_component_entry_content_form_layer(const InfrastructureComponentEntryContentForm *self);
@@ -43098,8 +42856,6 @@ char *initial_training_entry_content_form_content(const InitialTrainingEntryCont
 void initial_training_entry_content_form_set_content(InitialTrainingEntryContentForm *self, const char *value);
 char *initial_training_entry_content_form_training_id(const InitialTrainingEntryContentForm *self);
 void initial_training_entry_content_form_set_training_id(InitialTrainingEntryContentForm *self, const char *value);
-char *initial_training_entry_content_form_training_name(const InitialTrainingEntryContentForm *self);
-void initial_training_entry_content_form_set_training_name(InitialTrainingEntryContentForm *self, const char *value);
 char *initial_training_entry_content_form_description(const InitialTrainingEntryContentForm *self);
 void initial_training_entry_content_form_set_description(InitialTrainingEntryContentForm *self, const char *value);
 
@@ -43287,8 +43043,6 @@ char *integration_constraint_entry_content_form_content(const IntegrationConstra
 void integration_constraint_entry_content_form_set_content(IntegrationConstraintEntryContentForm *self, const char *value);
 char *integration_constraint_entry_content_form_constraint_id(const IntegrationConstraintEntryContentForm *self);
 void integration_constraint_entry_content_form_set_constraint_id(IntegrationConstraintEntryContentForm *self, const char *value);
-char *integration_constraint_entry_content_form_constraint_name(const IntegrationConstraintEntryContentForm *self);
-void integration_constraint_entry_content_form_set_constraint_name(IntegrationConstraintEntryContentForm *self, const char *value);
 char *integration_constraint_entry_content_form_constraint_description(const IntegrationConstraintEntryContentForm *self);
 void integration_constraint_entry_content_form_set_constraint_description(IntegrationConstraintEntryContentForm *self, const char *value);
 
@@ -43512,8 +43266,6 @@ void interaction_channel_entry_content_form_free(InteractionChannelEntryContentF
 // The section's own free-text content, before the form fields (owned).
 char *interaction_channel_entry_content_form_content(const InteractionChannelEntryContentForm *self);
 void interaction_channel_entry_content_form_set_content(InteractionChannelEntryContentForm *self, const char *value);
-char *interaction_channel_entry_content_form_channel_name(const InteractionChannelEntryContentForm *self);
-void interaction_channel_entry_content_form_set_channel_name(InteractionChannelEntryContentForm *self, const char *value);
 char *interaction_channel_entry_content_form_channel_id(const InteractionChannelEntryContentForm *self);
 void interaction_channel_entry_content_form_set_channel_id(InteractionChannelEntryContentForm *self, const char *value);
 char *interaction_channel_entry_content_form_channel_type(const InteractionChannelEntryContentForm *self);
@@ -43704,8 +43456,6 @@ void interaction_pattern_entry_content_form_free(InteractionPatternEntryContentF
 // The section's own free-text content, before the form fields (owned).
 char *interaction_pattern_entry_content_form_content(const InteractionPatternEntryContentForm *self);
 void interaction_pattern_entry_content_form_set_content(InteractionPatternEntryContentForm *self, const char *value);
-char *interaction_pattern_entry_content_form_pattern_name(const InteractionPatternEntryContentForm *self);
-void interaction_pattern_entry_content_form_set_pattern_name(InteractionPatternEntryContentForm *self, const char *value);
 char *interaction_pattern_entry_content_form_pattern_id(const InteractionPatternEntryContentForm *self);
 void interaction_pattern_entry_content_form_set_pattern_id(InteractionPatternEntryContentForm *self, const char *value);
 char *interaction_pattern_entry_content_form_pattern_type(const InteractionPatternEntryContentForm *self);
@@ -43773,8 +43523,6 @@ void interface_business_process_entry_content_form_free(InterfaceBusinessProcess
 // The section's own free-text content, before the form fields (owned).
 char *interface_business_process_entry_content_form_content(const InterfaceBusinessProcessEntryContentForm *self);
 void interface_business_process_entry_content_form_set_content(InterfaceBusinessProcessEntryContentForm *self, const char *value);
-char *interface_business_process_entry_content_form_process_name(const InterfaceBusinessProcessEntryContentForm *self);
-void interface_business_process_entry_content_form_set_process_name(InterfaceBusinessProcessEntryContentForm *self, const char *value);
 char *interface_business_process_entry_content_form_process_id(const InterfaceBusinessProcessEntryContentForm *self);
 void interface_business_process_entry_content_form_set_process_id(InterfaceBusinessProcessEntryContentForm *self, const char *value);
 char *interface_business_process_entry_content_form_dependency_type(const InterfaceBusinessProcessEntryContentForm *self);
@@ -43788,8 +43536,6 @@ void interface_data_entity_entry_content_form_free(InterfaceDataEntityEntryConte
 // The section's own free-text content, before the form fields (owned).
 char *interface_data_entity_entry_content_form_content(const InterfaceDataEntityEntryContentForm *self);
 void interface_data_entity_entry_content_form_set_content(InterfaceDataEntityEntryContentForm *self, const char *value);
-char *interface_data_entity_entry_content_form_entity_name(const InterfaceDataEntityEntryContentForm *self);
-void interface_data_entity_entry_content_form_set_entity_name(InterfaceDataEntityEntryContentForm *self, const char *value);
 char *interface_data_entity_entry_content_form_direction(const InterfaceDataEntityEntryContentForm *self);
 void interface_data_entity_entry_content_form_set_direction(InterfaceDataEntityEntryContentForm *self, const char *value);
 long interface_data_entity_entry_content_form_field_count(const InterfaceDataEntityEntryContentForm *self);
@@ -43941,8 +43687,6 @@ char *interface_operation_entry_content_form_content(const InterfaceOperationEnt
 void interface_operation_entry_content_form_set_content(InterfaceOperationEntryContentForm *self, const char *value);
 char *interface_operation_entry_content_form_operation_id(const InterfaceOperationEntryContentForm *self);
 void interface_operation_entry_content_form_set_operation_id(InterfaceOperationEntryContentForm *self, const char *value);
-char *interface_operation_entry_content_form_operation_name(const InterfaceOperationEntryContentForm *self);
-void interface_operation_entry_content_form_set_operation_name(InterfaceOperationEntryContentForm *self, const char *value);
 char *interface_operation_entry_content_form_http_method(const InterfaceOperationEntryContentForm *self);
 void interface_operation_entry_content_form_set_http_method(InterfaceOperationEntryContentForm *self, const char *value);
 char *interface_operation_entry_content_form_path(const InterfaceOperationEntryContentForm *self);
@@ -44078,8 +43822,6 @@ void interface_specification_entry_content_form_free(InterfaceSpecificationEntry
 // The section's own free-text content, before the form fields (owned).
 char *interface_specification_entry_content_form_content(const InterfaceSpecificationEntryContentForm *self);
 void interface_specification_entry_content_form_set_content(InterfaceSpecificationEntryContentForm *self, const char *value);
-char *interface_specification_entry_content_form_specification_name(const InterfaceSpecificationEntryContentForm *self);
-void interface_specification_entry_content_form_set_specification_name(InterfaceSpecificationEntryContentForm *self, const char *value);
 char *interface_specification_entry_content_form_specification_version(const InterfaceSpecificationEntryContentForm *self);
 void interface_specification_entry_content_form_set_specification_version(InterfaceSpecificationEntryContentForm *self, const char *value);
 char *interface_specification_entry_content_form_standards_body(const InterfaceSpecificationEntryContentForm *self);
@@ -44213,8 +43955,6 @@ char *interface_test_scenario_entry_content_form_content(const InterfaceTestScen
 void interface_test_scenario_entry_content_form_set_content(InterfaceTestScenarioEntryContentForm *self, const char *value);
 char *interface_test_scenario_entry_content_form_scenario_id(const InterfaceTestScenarioEntryContentForm *self);
 void interface_test_scenario_entry_content_form_set_scenario_id(InterfaceTestScenarioEntryContentForm *self, const char *value);
-char *interface_test_scenario_entry_content_form_scenario_name(const InterfaceTestScenarioEntryContentForm *self);
-void interface_test_scenario_entry_content_form_set_scenario_name(InterfaceTestScenarioEntryContentForm *self, const char *value);
 char *interface_test_scenario_entry_content_form_scenario_type(const InterfaceTestScenarioEntryContentForm *self);
 void interface_test_scenario_entry_content_form_set_scenario_type(InterfaceTestScenarioEntryContentForm *self, const char *value);
 char *interface_test_scenario_entry_content_form_preconditions(const InterfaceTestScenarioEntryContentForm *self);
@@ -44537,8 +44277,6 @@ void it_standard_compliance_entry_content_form_free(ItStandardComplianceEntryCon
 // The section's own free-text content, before the form fields (owned).
 char *it_standard_compliance_entry_content_form_content(const ItStandardComplianceEntryContentForm *self);
 void it_standard_compliance_entry_content_form_set_content(ItStandardComplianceEntryContentForm *self, const char *value);
-char *it_standard_compliance_entry_content_form_standard_name(const ItStandardComplianceEntryContentForm *self);
-void it_standard_compliance_entry_content_form_set_standard_name(ItStandardComplianceEntryContentForm *self, const char *value);
 char *it_standard_compliance_entry_content_form_standard_body(const ItStandardComplianceEntryContentForm *self);
 void it_standard_compliance_entry_content_form_set_standard_body(ItStandardComplianceEntryContentForm *self, const char *value);
 char *it_standard_compliance_entry_content_form_standard_id(const ItStandardComplianceEntryContentForm *self);
@@ -44638,8 +44376,6 @@ void journey_stage_entry_content_form_free(JourneyStageEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *journey_stage_entry_content_form_content(const JourneyStageEntryContentForm *self);
 void journey_stage_entry_content_form_set_content(JourneyStageEntryContentForm *self, const char *value);
-char *journey_stage_entry_content_form_stage_name(const JourneyStageEntryContentForm *self);
-void journey_stage_entry_content_form_set_stage_name(JourneyStageEntryContentForm *self, const char *value);
 char *journey_stage_entry_content_form_stage_description(const JourneyStageEntryContentForm *self);
 void journey_stage_entry_content_form_set_stage_description(JourneyStageEntryContentForm *self, const char *value);
 char *journey_stage_entry_content_form_user_goal(const JourneyStageEntryContentForm *self);
@@ -44663,8 +44399,6 @@ void key_attribute_entry_content_form_free(KeyAttributeEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *key_attribute_entry_content_form_content(const KeyAttributeEntryContentForm *self);
 void key_attribute_entry_content_form_set_content(KeyAttributeEntryContentForm *self, const char *value);
-char *key_attribute_entry_content_form_key_name(const KeyAttributeEntryContentForm *self);
-void key_attribute_entry_content_form_set_key_name(KeyAttributeEntryContentForm *self, const char *value);
 char *key_attribute_entry_content_form_key_type(const KeyAttributeEntryContentForm *self);
 void key_attribute_entry_content_form_set_key_type(KeyAttributeEntryContentForm *self, const char *value);
 char *key_attribute_entry_content_form_key_columns(const KeyAttributeEntryContentForm *self);
@@ -44738,8 +44472,6 @@ void key_concept_entry_content_form_free(KeyConceptEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *key_concept_entry_content_form_content(const KeyConceptEntryContentForm *self);
 void key_concept_entry_content_form_set_content(KeyConceptEntryContentForm *self, const char *value);
-char *key_concept_entry_content_form_concept_name(const KeyConceptEntryContentForm *self);
-void key_concept_entry_content_form_set_concept_name(KeyConceptEntryContentForm *self, const char *value);
 char *key_concept_entry_content_form_concept_type(const KeyConceptEntryContentForm *self);
 void key_concept_entry_content_form_set_concept_type(KeyConceptEntryContentForm *self, const char *value);
 char *key_concept_entry_content_form_description(const KeyConceptEntryContentForm *self);
@@ -45107,8 +44839,6 @@ char *lifecycle_transition_entry_content_form_content(const LifecycleTransitionE
 void lifecycle_transition_entry_content_form_set_content(LifecycleTransitionEntryContentForm *self, const char *value);
 char *lifecycle_transition_entry_content_form_transition_id(const LifecycleTransitionEntryContentForm *self);
 void lifecycle_transition_entry_content_form_set_transition_id(LifecycleTransitionEntryContentForm *self, const char *value);
-char *lifecycle_transition_entry_content_form_transition_name(const LifecycleTransitionEntryContentForm *self);
-void lifecycle_transition_entry_content_form_set_transition_name(LifecycleTransitionEntryContentForm *self, const char *value);
 char *lifecycle_transition_entry_content_form_from_state(const LifecycleTransitionEntryContentForm *self);
 void lifecycle_transition_entry_content_form_set_from_state(LifecycleTransitionEntryContentForm *self, const char *value);
 char *lifecycle_transition_entry_content_form_to_state(const LifecycleTransitionEntryContentForm *self);
@@ -45575,8 +45305,6 @@ void login_flow_step_entry_content_form_free(LoginFlowStepEntryContentForm *self
 // The section's own free-text content, before the form fields (owned).
 char *login_flow_step_entry_content_form_content(const LoginFlowStepEntryContentForm *self);
 void login_flow_step_entry_content_form_set_content(LoginFlowStepEntryContentForm *self, const char *value);
-char *login_flow_step_entry_content_form_step_name(const LoginFlowStepEntryContentForm *self);
-void login_flow_step_entry_content_form_set_step_name(LoginFlowStepEntryContentForm *self, const char *value);
 char *login_flow_step_entry_content_form_step_order(const LoginFlowStepEntryContentForm *self);
 void login_flow_step_entry_content_form_set_step_order(LoginFlowStepEntryContentForm *self, const char *value);
 char *login_flow_step_entry_content_form_step_type(const LoginFlowStepEntryContentForm *self);
@@ -45806,8 +45534,6 @@ char *maintenance_dependency_entry_content_form_content(const MaintenanceDepende
 void maintenance_dependency_entry_content_form_set_content(MaintenanceDependencyEntryContentForm *self, const char *value);
 char *maintenance_dependency_entry_content_form_dependency_id(const MaintenanceDependencyEntryContentForm *self);
 void maintenance_dependency_entry_content_form_set_dependency_id(MaintenanceDependencyEntryContentForm *self, const char *value);
-char *maintenance_dependency_entry_content_form_name(const MaintenanceDependencyEntryContentForm *self);
-void maintenance_dependency_entry_content_form_set_name(MaintenanceDependencyEntryContentForm *self, const char *value);
 char *maintenance_dependency_entry_content_form_version(const MaintenanceDependencyEntryContentForm *self);
 void maintenance_dependency_entry_content_form_set_version(MaintenanceDependencyEntryContentForm *self, const char *value);
 char *maintenance_dependency_entry_content_form_version_constraint(const MaintenanceDependencyEntryContentForm *self);
@@ -45909,8 +45635,6 @@ void maintenance_window_entry_content_form_free(MaintenanceWindowEntryContentFor
 // The section's own free-text content, before the form fields (owned).
 char *maintenance_window_entry_content_form_content(const MaintenanceWindowEntryContentForm *self);
 void maintenance_window_entry_content_form_set_content(MaintenanceWindowEntryContentForm *self, const char *value);
-char *maintenance_window_entry_content_form_window_name(const MaintenanceWindowEntryContentForm *self);
-void maintenance_window_entry_content_form_set_window_name(MaintenanceWindowEntryContentForm *self, const char *value);
 char *maintenance_window_entry_content_form_window_type(const MaintenanceWindowEntryContentForm *self);
 void maintenance_window_entry_content_form_set_window_type(MaintenanceWindowEntryContentForm *self, const char *value);
 char *maintenance_window_entry_content_form_priority(const MaintenanceWindowEntryContentForm *self);
@@ -45982,8 +45706,6 @@ void master_data_domain_entry_content_form_free(MasterDataDomainEntryContentForm
 // The section's own free-text content, before the form fields (owned).
 char *master_data_domain_entry_content_form_content(const MasterDataDomainEntryContentForm *self);
 void master_data_domain_entry_content_form_set_content(MasterDataDomainEntryContentForm *self, const char *value);
-char *master_data_domain_entry_content_form_domain_name(const MasterDataDomainEntryContentForm *self);
-void master_data_domain_entry_content_form_set_domain_name(MasterDataDomainEntryContentForm *self, const char *value);
 char *master_data_domain_entry_content_form_description(const MasterDataDomainEntryContentForm *self);
 void master_data_domain_entry_content_form_set_description(MasterDataDomainEntryContentForm *self, const char *value);
 char *master_data_domain_entry_content_form_golden_record_source(const MasterDataDomainEntryContentForm *self);
@@ -46185,8 +45907,6 @@ void metrics_baseline_entry_content_form_free(MetricsBaselineEntryContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *metrics_baseline_entry_content_form_content(const MetricsBaselineEntryContentForm *self);
 void metrics_baseline_entry_content_form_set_content(MetricsBaselineEntryContentForm *self, const char *value);
-char *metrics_baseline_entry_content_form_metric_name(const MetricsBaselineEntryContentForm *self);
-void metrics_baseline_entry_content_form_set_metric_name(MetricsBaselineEntryContentForm *self, const char *value);
 char *metrics_baseline_entry_content_form_baseline_value(const MetricsBaselineEntryContentForm *self);
 void metrics_baseline_entry_content_form_set_baseline_value(MetricsBaselineEntryContentForm *self, const char *value);
 char *metrics_baseline_entry_content_form_baseline_date(const MetricsBaselineEntryContentForm *self);
@@ -46417,8 +46137,6 @@ void migration_milestone_entry_content_form_free(MigrationMilestoneEntryContentF
 // The section's own free-text content, before the form fields (owned).
 char *migration_milestone_entry_content_form_content(const MigrationMilestoneEntryContentForm *self);
 void migration_milestone_entry_content_form_set_content(MigrationMilestoneEntryContentForm *self, const char *value);
-char *migration_milestone_entry_content_form_milestone_name(const MigrationMilestoneEntryContentForm *self);
-void migration_milestone_entry_content_form_set_milestone_name(MigrationMilestoneEntryContentForm *self, const char *value);
 char *migration_milestone_entry_content_form_target_date(const MigrationMilestoneEntryContentForm *self);
 void migration_milestone_entry_content_form_set_target_date(MigrationMilestoneEntryContentForm *self, const char *value);
 char *migration_milestone_entry_content_form_systems_included(const MigrationMilestoneEntryContentForm *self);
@@ -46472,8 +46190,6 @@ char *migration_phase_entry_content_form_content(const MigrationPhaseEntryConten
 void migration_phase_entry_content_form_set_content(MigrationPhaseEntryContentForm *self, const char *value);
 char *migration_phase_entry_content_form_phase_number(const MigrationPhaseEntryContentForm *self);
 void migration_phase_entry_content_form_set_phase_number(MigrationPhaseEntryContentForm *self, const char *value);
-char *migration_phase_entry_content_form_phase_name(const MigrationPhaseEntryContentForm *self);
-void migration_phase_entry_content_form_set_phase_name(MigrationPhaseEntryContentForm *self, const char *value);
 char *migration_phase_entry_content_form_phase_type(const MigrationPhaseEntryContentForm *self);
 void migration_phase_entry_content_form_set_phase_type(MigrationPhaseEntryContentForm *self, const char *value);
 
@@ -46700,8 +46416,6 @@ char *migration_risk_entry_content_form_content(const MigrationRiskEntryContentF
 void migration_risk_entry_content_form_set_content(MigrationRiskEntryContentForm *self, const char *value);
 char *migration_risk_entry_content_form_risk_id(const MigrationRiskEntryContentForm *self);
 void migration_risk_entry_content_form_set_risk_id(MigrationRiskEntryContentForm *self, const char *value);
-char *migration_risk_entry_content_form_risk_title(const MigrationRiskEntryContentForm *self);
-void migration_risk_entry_content_form_set_risk_title(MigrationRiskEntryContentForm *self, const char *value);
 char *migration_risk_entry_content_form_risk_owner(const MigrationRiskEntryContentForm *self);
 void migration_risk_entry_content_form_set_risk_owner(MigrationRiskEntryContentForm *self, const char *value);
 
@@ -47227,8 +46941,6 @@ void module_entry_content_form_free(ModuleEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *module_entry_content_form_content(const ModuleEntryContentForm *self);
 void module_entry_content_form_set_content(ModuleEntryContentForm *self, const char *value);
-char *module_entry_content_form_module_name(const ModuleEntryContentForm *self);
-void module_entry_content_form_set_module_name(ModuleEntryContentForm *self, const char *value);
 char *module_entry_content_form_module_type(const ModuleEntryContentForm *self);
 void module_entry_content_form_set_module_type(ModuleEntryContentForm *self, const char *value);
 char *module_entry_content_form_version(const ModuleEntryContentForm *self);
@@ -47620,8 +47332,6 @@ char *must_pass_criterion_entry_content_form_content(const MustPassCriterionEntr
 void must_pass_criterion_entry_content_form_set_content(MustPassCriterionEntryContentForm *self, const char *value);
 char *must_pass_criterion_entry_content_form_criterion_id(const MustPassCriterionEntryContentForm *self);
 void must_pass_criterion_entry_content_form_set_criterion_id(MustPassCriterionEntryContentForm *self, const char *value);
-char *must_pass_criterion_entry_content_form_criterion_name(const MustPassCriterionEntryContentForm *self);
-void must_pass_criterion_entry_content_form_set_criterion_name(MustPassCriterionEntryContentForm *self, const char *value);
 char *must_pass_criterion_entry_content_form_verification_method(const MustPassCriterionEntryContentForm *self);
 void must_pass_criterion_entry_content_form_set_verification_method(MustPassCriterionEntryContentForm *self, const char *value);
 
@@ -47809,8 +47519,6 @@ char *navigation_guard_entry_content_form_content(const NavigationGuardEntryCont
 void navigation_guard_entry_content_form_set_content(NavigationGuardEntryContentForm *self, const char *value);
 char *navigation_guard_entry_content_form_guard_id(const NavigationGuardEntryContentForm *self);
 void navigation_guard_entry_content_form_set_guard_id(NavigationGuardEntryContentForm *self, const char *value);
-char *navigation_guard_entry_content_form_guard_name(const NavigationGuardEntryContentForm *self);
-void navigation_guard_entry_content_form_set_guard_name(NavigationGuardEntryContentForm *self, const char *value);
 char *navigation_guard_entry_content_form_guard_type(const NavigationGuardEntryContentForm *self);
 void navigation_guard_entry_content_form_set_guard_type(NavigationGuardEntryContentForm *self, const char *value);
 char *navigation_guard_entry_content_form_trigger_condition(const NavigationGuardEntryContentForm *self);
@@ -48307,8 +48015,6 @@ char *new_role_entry_identification_form_content(const NewRoleEntryIdentificatio
 void new_role_entry_identification_form_set_content(NewRoleEntryIdentificationForm *self, const char *value);
 char *new_role_entry_identification_form_role_id(const NewRoleEntryIdentificationForm *self);
 void new_role_entry_identification_form_set_role_id(NewRoleEntryIdentificationForm *self, const char *value);
-char *new_role_entry_identification_form_role_title(const NewRoleEntryIdentificationForm *self);
-void new_role_entry_identification_form_set_role_title(NewRoleEntryIdentificationForm *self, const char *value);
 char *new_role_entry_identification_form_role_family(const NewRoleEntryIdentificationForm *self);
 void new_role_entry_identification_form_set_role_family(NewRoleEntryIdentificationForm *self, const char *value);
 char *new_role_entry_identification_form_job_level(const NewRoleEntryIdentificationForm *self);
@@ -48494,8 +48200,6 @@ void notification_channel_entry_content_form_free(NotificationChannelEntryConten
 // The section's own free-text content, before the form fields (owned).
 char *notification_channel_entry_content_form_content(const NotificationChannelEntryContentForm *self);
 void notification_channel_entry_content_form_set_content(NotificationChannelEntryContentForm *self, const char *value);
-char *notification_channel_entry_content_form_channel_name(const NotificationChannelEntryContentForm *self);
-void notification_channel_entry_content_form_set_channel_name(NotificationChannelEntryContentForm *self, const char *value);
 char *notification_channel_entry_content_form_channel_id(const NotificationChannelEntryContentForm *self);
 void notification_channel_entry_content_form_set_channel_id(NotificationChannelEntryContentForm *self, const char *value);
 char *notification_channel_entry_content_form_description(const NotificationChannelEntryContentForm *self);
@@ -48544,8 +48248,6 @@ void object_invariant_entry_content_form_free(ObjectInvariantEntryContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *object_invariant_entry_content_form_content(const ObjectInvariantEntryContentForm *self);
 void object_invariant_entry_content_form_set_content(ObjectInvariantEntryContentForm *self, const char *value);
-char *object_invariant_entry_content_form_invariant_name(const ObjectInvariantEntryContentForm *self);
-void object_invariant_entry_content_form_set_invariant_name(ObjectInvariantEntryContentForm *self, const char *value);
 char *object_invariant_entry_content_form_description(const ObjectInvariantEntryContentForm *self);
 void object_invariant_entry_content_form_set_description(ObjectInvariantEntryContentForm *self, const char *value);
 char *object_invariant_entry_content_form_expression(const ObjectInvariantEntryContentForm *self);
@@ -48565,8 +48267,6 @@ void object_operation_entry_content_form_free(ObjectOperationEntryContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *object_operation_entry_content_form_content(const ObjectOperationEntryContentForm *self);
 void object_operation_entry_content_form_set_content(ObjectOperationEntryContentForm *self, const char *value);
-char *object_operation_entry_content_form_operation_name(const ObjectOperationEntryContentForm *self);
-void object_operation_entry_content_form_set_operation_name(ObjectOperationEntryContentForm *self, const char *value);
 char *object_operation_entry_content_form_description(const ObjectOperationEntryContentForm *self);
 void object_operation_entry_content_form_set_description(ObjectOperationEntryContentForm *self, const char *value);
 char *object_operation_entry_content_form_operation_type(const ObjectOperationEntryContentForm *self);
@@ -48619,8 +48319,6 @@ void object_state_entry_content_form_free(ObjectStateEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *object_state_entry_content_form_content(const ObjectStateEntryContentForm *self);
 void object_state_entry_content_form_set_content(ObjectStateEntryContentForm *self, const char *value);
-char *object_state_entry_content_form_state_name(const ObjectStateEntryContentForm *self);
-void object_state_entry_content_form_set_state_name(ObjectStateEntryContentForm *self, const char *value);
 char *object_state_entry_content_form_state_code(const ObjectStateEntryContentForm *self);
 void object_state_entry_content_form_set_state_code(ObjectStateEntryContentForm *self, const char *value);
 char *object_state_entry_content_form_description(const ObjectStateEntryContentForm *self);
@@ -48859,8 +48557,6 @@ char *ongoing_training_entry_content_form_content(const OngoingTrainingEntryCont
 void ongoing_training_entry_content_form_set_content(OngoingTrainingEntryContentForm *self, const char *value);
 char *ongoing_training_entry_content_form_training_id(const OngoingTrainingEntryContentForm *self);
 void ongoing_training_entry_content_form_set_training_id(OngoingTrainingEntryContentForm *self, const char *value);
-char *ongoing_training_entry_content_form_training_name(const OngoingTrainingEntryContentForm *self);
-void ongoing_training_entry_content_form_set_training_name(OngoingTrainingEntryContentForm *self, const char *value);
 char *ongoing_training_entry_content_form_description(const OngoingTrainingEntryContentForm *self);
 void ongoing_training_entry_content_form_set_description(OngoingTrainingEntryContentForm *self, const char *value);
 char *ongoing_training_entry_content_form_target_audience(const OngoingTrainingEntryContentForm *self);
@@ -49030,8 +48726,6 @@ char *org_implementation_activity_content_form_content(const OrgImplementationAc
 void org_implementation_activity_content_form_set_content(OrgImplementationActivityContentForm *self, const char *value);
 char *org_implementation_activity_content_form_activity_id(const OrgImplementationActivityContentForm *self);
 void org_implementation_activity_content_form_set_activity_id(OrgImplementationActivityContentForm *self, const char *value);
-char *org_implementation_activity_content_form_activity_name(const OrgImplementationActivityContentForm *self);
-void org_implementation_activity_content_form_set_activity_name(OrgImplementationActivityContentForm *self, const char *value);
 char *org_implementation_activity_content_form_description(const OrgImplementationActivityContentForm *self);
 void org_implementation_activity_content_form_set_description(OrgImplementationActivityContentForm *self, const char *value);
 char *org_implementation_activity_content_form_owner(const OrgImplementationActivityContentForm *self);
@@ -49080,8 +48774,6 @@ char *organizational_change_entry_content_form_content(const OrganizationalChang
 void organizational_change_entry_content_form_set_content(OrganizationalChangeEntryContentForm *self, const char *value);
 char *organizational_change_entry_content_form_change_id(const OrganizationalChangeEntryContentForm *self);
 void organizational_change_entry_content_form_set_change_id(OrganizationalChangeEntryContentForm *self, const char *value);
-char *organizational_change_entry_content_form_change_name(const OrganizationalChangeEntryContentForm *self);
-void organizational_change_entry_content_form_set_change_name(OrganizationalChangeEntryContentForm *self, const char *value);
 char *organizational_change_entry_content_form_change_type(const OrganizationalChangeEntryContentForm *self);
 void organizational_change_entry_content_form_set_change_type(OrganizationalChangeEntryContentForm *self, const char *value);
 
@@ -49329,8 +49021,6 @@ void organizational_unit_context_entry_content_form_free(OrganizationalUnitConte
 // The section's own free-text content, before the form fields (owned).
 char *organizational_unit_context_entry_content_form_content(const OrganizationalUnitContextEntryContentForm *self);
 void organizational_unit_context_entry_content_form_set_content(OrganizationalUnitContextEntryContentForm *self, const char *value);
-char *organizational_unit_context_entry_content_form_unit_name(const OrganizationalUnitContextEntryContentForm *self);
-void organizational_unit_context_entry_content_form_set_unit_name(OrganizationalUnitContextEntryContentForm *self, const char *value);
 char *organizational_unit_context_entry_content_form_unit_type(const OrganizationalUnitContextEntryContentForm *self);
 void organizational_unit_context_entry_content_form_set_unit_type(OrganizationalUnitContextEntryContentForm *self, const char *value);
 char *organizational_unit_context_entry_content_form_role(const OrganizationalUnitContextEntryContentForm *self);
@@ -49352,8 +49042,6 @@ void os_compatibility_entry_content_form_free(OsCompatibilityEntryContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *os_compatibility_entry_content_form_content(const OsCompatibilityEntryContentForm *self);
 void os_compatibility_entry_content_form_set_content(OsCompatibilityEntryContentForm *self, const char *value);
-char *os_compatibility_entry_content_form_os_name(const OsCompatibilityEntryContentForm *self);
-void os_compatibility_entry_content_form_set_os_name(OsCompatibilityEntryContentForm *self, const char *value);
 char *os_compatibility_entry_content_form_os_family(const OsCompatibilityEntryContentForm *self);
 void os_compatibility_entry_content_form_set_os_family(OsCompatibilityEntryContentForm *self, const char *value);
 char *os_compatibility_entry_content_form_min_version(const OsCompatibilityEntryContentForm *self);
@@ -49421,8 +49109,6 @@ void other_agreement_entry_content_form_free(OtherAgreementEntryContentForm *sel
 // The section's own free-text content, before the form fields (owned).
 char *other_agreement_entry_content_form_content(const OtherAgreementEntryContentForm *self);
 void other_agreement_entry_content_form_set_content(OtherAgreementEntryContentForm *self, const char *value);
-char *other_agreement_entry_content_form_agreement_title(const OtherAgreementEntryContentForm *self);
-void other_agreement_entry_content_form_set_agreement_title(OtherAgreementEntryContentForm *self, const char *value);
 char *other_agreement_entry_content_form_agreement_type(const OtherAgreementEntryContentForm *self);
 void other_agreement_entry_content_form_set_agreement_type(OtherAgreementEntryContentForm *self, const char *value);
 char *other_agreement_entry_content_form_parties(const OtherAgreementEntryContentForm *self);
@@ -49941,8 +49627,6 @@ void persona_entry_content_form_free(PersonaEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *persona_entry_content_form_content(const PersonaEntryContentForm *self);
 void persona_entry_content_form_set_content(PersonaEntryContentForm *self, const char *value);
-char *persona_entry_content_form_persona_name(const PersonaEntryContentForm *self);
-void persona_entry_content_form_set_persona_name(PersonaEntryContentForm *self, const char *value);
 char *persona_entry_content_form_age(const PersonaEntryContentForm *self);
 void persona_entry_content_form_set_age(PersonaEntryContentForm *self, const char *value);
 char *persona_entry_content_form_role(const PersonaEntryContentForm *self);
@@ -50033,8 +49717,6 @@ void persona_scenario_entry_content_form_free(PersonaScenarioEntryContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *persona_scenario_entry_content_form_content(const PersonaScenarioEntryContentForm *self);
 void persona_scenario_entry_content_form_set_content(PersonaScenarioEntryContentForm *self, const char *value);
-char *persona_scenario_entry_content_form_scenario_name(const PersonaScenarioEntryContentForm *self);
-void persona_scenario_entry_content_form_set_scenario_name(PersonaScenarioEntryContentForm *self, const char *value);
 char *persona_scenario_entry_content_form_description(const PersonaScenarioEntryContentForm *self);
 void persona_scenario_entry_content_form_set_description(PersonaScenarioEntryContentForm *self, const char *value);
 char *persona_scenario_entry_content_form_frequency(const PersonaScenarioEntryContentForm *self);
@@ -50069,8 +49751,6 @@ void phase_gate_review_entry_content_form_free(PhaseGateReviewEntryContentForm *
 // The section's own free-text content, before the form fields (owned).
 char *phase_gate_review_entry_content_form_content(const PhaseGateReviewEntryContentForm *self);
 void phase_gate_review_entry_content_form_set_content(PhaseGateReviewEntryContentForm *self, const char *value);
-char *phase_gate_review_entry_content_form_gate_name(const PhaseGateReviewEntryContentForm *self);
-void phase_gate_review_entry_content_form_set_gate_name(PhaseGateReviewEntryContentForm *self, const char *value);
 char *phase_gate_review_entry_content_form_gate_id(const PhaseGateReviewEntryContentForm *self);
 void phase_gate_review_entry_content_form_set_gate_id(PhaseGateReviewEntryContentForm *self, const char *value);
 char *phase_gate_review_entry_content_form_stage(const PhaseGateReviewEntryContentForm *self);
@@ -50241,8 +49921,6 @@ void pipeline_job_entry_content_form_free(PipelineJobEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *pipeline_job_entry_content_form_content(const PipelineJobEntryContentForm *self);
 void pipeline_job_entry_content_form_set_content(PipelineJobEntryContentForm *self, const char *value);
-char *pipeline_job_entry_content_form_job_name(const PipelineJobEntryContentForm *self);
-void pipeline_job_entry_content_form_set_job_name(PipelineJobEntryContentForm *self, const char *value);
 char *pipeline_job_entry_content_form_parent_stage(const PipelineJobEntryContentForm *self);
 void pipeline_job_entry_content_form_set_parent_stage(PipelineJobEntryContentForm *self, const char *value);
 char *pipeline_job_entry_content_form_description(const PipelineJobEntryContentForm *self);
@@ -50319,8 +49997,6 @@ void pipeline_stage_entry_content_form_free(PipelineStageEntryContentForm *self)
 // The section's own free-text content, before the form fields (owned).
 char *pipeline_stage_entry_content_form_content(const PipelineStageEntryContentForm *self);
 void pipeline_stage_entry_content_form_set_content(PipelineStageEntryContentForm *self, const char *value);
-char *pipeline_stage_entry_content_form_stage_name(const PipelineStageEntryContentForm *self);
-void pipeline_stage_entry_content_form_set_stage_name(PipelineStageEntryContentForm *self, const char *value);
 char *pipeline_stage_entry_content_form_stage_order(const PipelineStageEntryContentForm *self);
 void pipeline_stage_entry_content_form_set_stage_order(PipelineStageEntryContentForm *self, const char *value);
 char *pipeline_stage_entry_content_form_description(const PipelineStageEntryContentForm *self);
@@ -51043,8 +50719,6 @@ char *process_control_entry_content_form_content(const ProcessControlEntryConten
 void process_control_entry_content_form_set_content(ProcessControlEntryContentForm *self, const char *value);
 char *process_control_entry_content_form_control_id(const ProcessControlEntryContentForm *self);
 void process_control_entry_content_form_set_control_id(ProcessControlEntryContentForm *self, const char *value);
-char *process_control_entry_content_form_control_name(const ProcessControlEntryContentForm *self);
-void process_control_entry_content_form_set_control_name(ProcessControlEntryContentForm *self, const char *value);
 char *process_control_entry_content_form_control_type(const ProcessControlEntryContentForm *self);
 void process_control_entry_content_form_set_control_type(ProcessControlEntryContentForm *self, const char *value);
 char *process_control_entry_content_form_control_category(const ProcessControlEntryContentForm *self);
@@ -51134,8 +50808,6 @@ char *process_design_principle_entry_content_form_content(const ProcessDesignPri
 void process_design_principle_entry_content_form_set_content(ProcessDesignPrincipleEntryContentForm *self, const char *value);
 char *process_design_principle_entry_content_form_principle_id(const ProcessDesignPrincipleEntryContentForm *self);
 void process_design_principle_entry_content_form_set_principle_id(ProcessDesignPrincipleEntryContentForm *self, const char *value);
-char *process_design_principle_entry_content_form_principle_name(const ProcessDesignPrincipleEntryContentForm *self);
-void process_design_principle_entry_content_form_set_principle_name(ProcessDesignPrincipleEntryContentForm *self, const char *value);
 char *process_design_principle_entry_content_form_category(const ProcessDesignPrincipleEntryContentForm *self);
 void process_design_principle_entry_content_form_set_category(ProcessDesignPrincipleEntryContentForm *self, const char *value);
 char *process_design_principle_entry_content_form_statement(const ProcessDesignPrincipleEntryContentForm *self);
@@ -51176,8 +50848,6 @@ char *process_end_event_entry_content_form_content(const ProcessEndEventEntryCon
 void process_end_event_entry_content_form_set_content(ProcessEndEventEntryContentForm *self, const char *value);
 char *process_end_event_entry_content_form_end_event_id(const ProcessEndEventEntryContentForm *self);
 void process_end_event_entry_content_form_set_end_event_id(ProcessEndEventEntryContentForm *self, const char *value);
-char *process_end_event_entry_content_form_end_event_name(const ProcessEndEventEntryContentForm *self);
-void process_end_event_entry_content_form_set_end_event_name(ProcessEndEventEntryContentForm *self, const char *value);
 char *process_end_event_entry_content_form_end_event_type(const ProcessEndEventEntryContentForm *self);
 void process_end_event_entry_content_form_set_end_event_type(ProcessEndEventEntryContentForm *self, const char *value);
 char *process_end_event_entry_content_form_outcome(const ProcessEndEventEntryContentForm *self);
@@ -51212,8 +50882,6 @@ char *process_exception_entry_content_form_content(const ProcessExceptionEntryCo
 void process_exception_entry_content_form_set_content(ProcessExceptionEntryContentForm *self, const char *value);
 char *process_exception_entry_content_form_exception_id(const ProcessExceptionEntryContentForm *self);
 void process_exception_entry_content_form_set_exception_id(ProcessExceptionEntryContentForm *self, const char *value);
-char *process_exception_entry_content_form_exception_name(const ProcessExceptionEntryContentForm *self);
-void process_exception_entry_content_form_set_exception_name(ProcessExceptionEntryContentForm *self, const char *value);
 char *process_exception_entry_content_form_exception_type(const ProcessExceptionEntryContentForm *self);
 void process_exception_entry_content_form_set_exception_type(ProcessExceptionEntryContentForm *self, const char *value);
 char *process_exception_entry_content_form_trigger_condition(const ProcessExceptionEntryContentForm *self);
@@ -51278,8 +50946,6 @@ char *process_identification_content_form_content(const ProcessIdentificationCon
 void process_identification_content_form_set_content(ProcessIdentificationContentForm *self, const char *value);
 char *process_identification_content_form_process_id(const ProcessIdentificationContentForm *self);
 void process_identification_content_form_set_process_id(ProcessIdentificationContentForm *self, const char *value);
-char *process_identification_content_form_process_name(const ProcessIdentificationContentForm *self);
-void process_identification_content_form_set_process_name(ProcessIdentificationContentForm *self, const char *value);
 char *process_identification_content_form_process_level(const ProcessIdentificationContentForm *self);
 void process_identification_content_form_set_process_level(ProcessIdentificationContentForm *self, const char *value);
 
@@ -51336,8 +51002,6 @@ char *process_improvement_entry_content_form_content(const ProcessImprovementEnt
 void process_improvement_entry_content_form_set_content(ProcessImprovementEntryContentForm *self, const char *value);
 char *process_improvement_entry_content_form_improvement_id(const ProcessImprovementEntryContentForm *self);
 void process_improvement_entry_content_form_set_improvement_id(ProcessImprovementEntryContentForm *self, const char *value);
-char *process_improvement_entry_content_form_improvement_name(const ProcessImprovementEntryContentForm *self);
-void process_improvement_entry_content_form_set_improvement_name(ProcessImprovementEntryContentForm *self, const char *value);
 char *process_improvement_entry_content_form_category(const ProcessImprovementEntryContentForm *self);
 void process_improvement_entry_content_form_set_category(ProcessImprovementEntryContentForm *self, const char *value);
 char *process_improvement_entry_content_form_current_state(const ProcessImprovementEntryContentForm *self);
@@ -51404,8 +51068,6 @@ char *process_input_entry_content_form_content(const ProcessInputEntryContentFor
 void process_input_entry_content_form_set_content(ProcessInputEntryContentForm *self, const char *value);
 char *process_input_entry_content_form_input_id(const ProcessInputEntryContentForm *self);
 void process_input_entry_content_form_set_input_id(ProcessInputEntryContentForm *self, const char *value);
-char *process_input_entry_content_form_input_name(const ProcessInputEntryContentForm *self);
-void process_input_entry_content_form_set_input_name(ProcessInputEntryContentForm *self, const char *value);
 char *process_input_entry_content_form_input_type(const ProcessInputEntryContentForm *self);
 void process_input_entry_content_form_set_input_type(ProcessInputEntryContentForm *self, const char *value);
 char *process_input_entry_content_form_source(const ProcessInputEntryContentForm *self);
@@ -51444,8 +51106,6 @@ char *process_kpi_entry_content_form_content(const ProcessKpiEntryContentForm *s
 void process_kpi_entry_content_form_set_content(ProcessKpiEntryContentForm *self, const char *value);
 char *process_kpi_entry_content_form_kpi_id(const ProcessKpiEntryContentForm *self);
 void process_kpi_entry_content_form_set_kpi_id(ProcessKpiEntryContentForm *self, const char *value);
-char *process_kpi_entry_content_form_kpi_name(const ProcessKpiEntryContentForm *self);
-void process_kpi_entry_content_form_set_kpi_name(ProcessKpiEntryContentForm *self, const char *value);
 char *process_kpi_entry_content_form_category(const ProcessKpiEntryContentForm *self);
 void process_kpi_entry_content_form_set_category(ProcessKpiEntryContentForm *self, const char *value);
 char *process_kpi_entry_content_form_definition(const ProcessKpiEntryContentForm *self);
@@ -51487,8 +51147,6 @@ void process_metric_entry_content_form_free(ProcessMetricEntryContentForm *self)
 // The section's own free-text content, before the form fields (owned).
 char *process_metric_entry_content_form_content(const ProcessMetricEntryContentForm *self);
 void process_metric_entry_content_form_set_content(ProcessMetricEntryContentForm *self, const char *value);
-char *process_metric_entry_content_form_metric_name(const ProcessMetricEntryContentForm *self);
-void process_metric_entry_content_form_set_metric_name(ProcessMetricEntryContentForm *self, const char *value);
 char *process_metric_entry_content_form_metric_id(const ProcessMetricEntryContentForm *self);
 void process_metric_entry_content_form_set_metric_id(ProcessMetricEntryContentForm *self, const char *value);
 char *process_metric_entry_content_form_metric_category(const ProcessMetricEntryContentForm *self);
@@ -51532,8 +51190,6 @@ char *process_output_entry_content_form_content(const ProcessOutputEntryContentF
 void process_output_entry_content_form_set_content(ProcessOutputEntryContentForm *self, const char *value);
 char *process_output_entry_content_form_output_id(const ProcessOutputEntryContentForm *self);
 void process_output_entry_content_form_set_output_id(ProcessOutputEntryContentForm *self, const char *value);
-char *process_output_entry_content_form_output_name(const ProcessOutputEntryContentForm *self);
-void process_output_entry_content_form_set_output_name(ProcessOutputEntryContentForm *self, const char *value);
 char *process_output_entry_content_form_output_type(const ProcessOutputEntryContentForm *self);
 void process_output_entry_content_form_set_output_type(ProcessOutputEntryContentForm *self, const char *value);
 char *process_output_entry_content_form_destination(const ProcessOutputEntryContentForm *self);
@@ -51645,8 +51301,6 @@ char *process_role_entry_content_form_content(const ProcessRoleEntryContentForm 
 void process_role_entry_content_form_set_content(ProcessRoleEntryContentForm *self, const char *value);
 char *process_role_entry_content_form_role_id(const ProcessRoleEntryContentForm *self);
 void process_role_entry_content_form_set_role_id(ProcessRoleEntryContentForm *self, const char *value);
-char *process_role_entry_content_form_role_name(const ProcessRoleEntryContentForm *self);
-void process_role_entry_content_form_set_role_name(ProcessRoleEntryContentForm *self, const char *value);
 char *process_role_entry_content_form_raci_type(const ProcessRoleEntryContentForm *self);
 void process_role_entry_content_form_set_raci_type(ProcessRoleEntryContentForm *self, const char *value);
 char *process_role_entry_content_form_responsibilities(const ProcessRoleEntryContentForm *self);
@@ -51705,8 +51359,6 @@ void process_scope_entry_content_form_free(ProcessScopeEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *process_scope_entry_content_form_content(const ProcessScopeEntryContentForm *self);
 void process_scope_entry_content_form_set_content(ProcessScopeEntryContentForm *self, const char *value);
-char *process_scope_entry_content_form_process_name(const ProcessScopeEntryContentForm *self);
-void process_scope_entry_content_form_set_process_name(ProcessScopeEntryContentForm *self, const char *value);
 char *process_scope_entry_content_form_rationale(const ProcessScopeEntryContentForm *self);
 void process_scope_entry_content_form_set_rationale(ProcessScopeEntryContentForm *self, const char *value);
 char *process_scope_entry_content_form_impact_if_excluded(const ProcessScopeEntryContentForm *self);
@@ -51739,8 +51391,6 @@ char *process_sla_entry_content_form_content(const ProcessSlaEntryContentForm *s
 void process_sla_entry_content_form_set_content(ProcessSlaEntryContentForm *self, const char *value);
 char *process_sla_entry_content_form_sla_id(const ProcessSlaEntryContentForm *self);
 void process_sla_entry_content_form_set_sla_id(ProcessSlaEntryContentForm *self, const char *value);
-char *process_sla_entry_content_form_sla_name(const ProcessSlaEntryContentForm *self);
-void process_sla_entry_content_form_set_sla_name(ProcessSlaEntryContentForm *self, const char *value);
 char *process_sla_entry_content_form_service_description(const ProcessSlaEntryContentForm *self);
 void process_sla_entry_content_form_set_service_description(ProcessSlaEntryContentForm *self, const char *value);
 char *process_sla_entry_content_form_target_level(const ProcessSlaEntryContentForm *self);
@@ -51832,8 +51482,6 @@ char *process_trigger_entry_content_form_content(const ProcessTriggerEntryConten
 void process_trigger_entry_content_form_set_content(ProcessTriggerEntryContentForm *self, const char *value);
 char *process_trigger_entry_content_form_trigger_id(const ProcessTriggerEntryContentForm *self);
 void process_trigger_entry_content_form_set_trigger_id(ProcessTriggerEntryContentForm *self, const char *value);
-char *process_trigger_entry_content_form_trigger_name(const ProcessTriggerEntryContentForm *self);
-void process_trigger_entry_content_form_set_trigger_name(ProcessTriggerEntryContentForm *self, const char *value);
 char *process_trigger_entry_content_form_trigger_type(const ProcessTriggerEntryContentForm *self);
 void process_trigger_entry_content_form_set_trigger_type(ProcessTriggerEntryContentForm *self, const char *value);
 char *process_trigger_entry_content_form_trigger_source(const ProcessTriggerEntryContentForm *self);
@@ -51918,8 +51566,6 @@ void programming_language_entry_content_form_free(ProgrammingLanguageEntryConten
 // The section's own free-text content, before the form fields (owned).
 char *programming_language_entry_content_form_content(const ProgrammingLanguageEntryContentForm *self);
 void programming_language_entry_content_form_set_content(ProgrammingLanguageEntryContentForm *self, const char *value);
-char *programming_language_entry_content_form_language_name(const ProgrammingLanguageEntryContentForm *self);
-void programming_language_entry_content_form_set_language_name(ProgrammingLanguageEntryContentForm *self, const char *value);
 char *programming_language_entry_content_form_language_variant(const ProgrammingLanguageEntryContentForm *self);
 void programming_language_entry_content_form_set_language_variant(ProgrammingLanguageEntryContentForm *self, const char *value);
 char *programming_language_entry_content_form_minimum_version(const ProgrammingLanguageEntryContentForm *self);
@@ -52083,8 +51729,6 @@ void protocol_entry_content_form_free(ProtocolEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *protocol_entry_content_form_content(const ProtocolEntryContentForm *self);
 void protocol_entry_content_form_set_content(ProtocolEntryContentForm *self, const char *value);
-char *protocol_entry_content_form_protocol_name(const ProtocolEntryContentForm *self);
-void protocol_entry_content_form_set_protocol_name(ProtocolEntryContentForm *self, const char *value);
 char *protocol_entry_content_form_protocol_type(const ProtocolEntryContentForm *self);
 void protocol_entry_content_form_set_protocol_type(ProtocolEntryContentForm *self, const char *value);
 char *protocol_entry_content_form_protocol_version(const ProtocolEntryContentForm *self);
@@ -52104,8 +51748,6 @@ char *prototype_feature_entry_content_form_content(const PrototypeFeatureEntryCo
 void prototype_feature_entry_content_form_set_content(PrototypeFeatureEntryContentForm *self, const char *value);
 char *prototype_feature_entry_content_form_feature_id(const PrototypeFeatureEntryContentForm *self);
 void prototype_feature_entry_content_form_set_feature_id(PrototypeFeatureEntryContentForm *self, const char *value);
-char *prototype_feature_entry_content_form_feature_name(const PrototypeFeatureEntryContentForm *self);
-void prototype_feature_entry_content_form_set_feature_name(PrototypeFeatureEntryContentForm *self, const char *value);
 char *prototype_feature_entry_content_form_inclusion_reason(const PrototypeFeatureEntryContentForm *self);
 void prototype_feature_entry_content_form_set_inclusion_reason(PrototypeFeatureEntryContentForm *self, const char *value);
 char *prototype_feature_entry_content_form_fidelity_level(const PrototypeFeatureEntryContentForm *self);
@@ -52376,8 +52018,6 @@ char *quality_category_entry_content_form_content(const QualityCategoryEntryCont
 void quality_category_entry_content_form_set_content(QualityCategoryEntryContentForm *self, const char *value);
 char *quality_category_entry_content_form_category_id(const QualityCategoryEntryContentForm *self);
 void quality_category_entry_content_form_set_category_id(QualityCategoryEntryContentForm *self, const char *value);
-char *quality_category_entry_content_form_category_name(const QualityCategoryEntryContentForm *self);
-void quality_category_entry_content_form_set_category_name(QualityCategoryEntryContentForm *self, const char *value);
 long quality_category_entry_content_form_category_weight(const QualityCategoryEntryContentForm *self);
 void quality_category_entry_content_form_set_category_weight(QualityCategoryEntryContentForm *self, long value);
 
@@ -52723,8 +52363,6 @@ char *quality_scenario_entry_content_form_content(const QualityScenarioEntryCont
 void quality_scenario_entry_content_form_set_content(QualityScenarioEntryContentForm *self, const char *value);
 char *quality_scenario_entry_content_form_scenario_id(const QualityScenarioEntryContentForm *self);
 void quality_scenario_entry_content_form_set_scenario_id(QualityScenarioEntryContentForm *self, const char *value);
-char *quality_scenario_entry_content_form_scenario_name(const QualityScenarioEntryContentForm *self);
-void quality_scenario_entry_content_form_set_scenario_name(QualityScenarioEntryContentForm *self, const char *value);
 char *quality_scenario_entry_content_form_source(const QualityScenarioEntryContentForm *self);
 void quality_scenario_entry_content_form_set_source(QualityScenarioEntryContentForm *self, const char *value);
 char *quality_scenario_entry_content_form_stimulus(const QualityScenarioEntryContentForm *self);
@@ -52761,8 +52399,6 @@ void quality_standard_entry_content_form_free(QualityStandardEntryContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *quality_standard_entry_content_form_content(const QualityStandardEntryContentForm *self);
 void quality_standard_entry_content_form_set_content(QualityStandardEntryContentForm *self, const char *value);
-char *quality_standard_entry_content_form_standard_name(const QualityStandardEntryContentForm *self);
-void quality_standard_entry_content_form_set_standard_name(QualityStandardEntryContentForm *self, const char *value);
 char *quality_standard_entry_content_form_maturity_level(const QualityStandardEntryContentForm *self);
 void quality_standard_entry_content_form_set_maturity_level(QualityStandardEntryContentForm *self, const char *value);
 char *quality_standard_entry_content_form_version(const QualityStandardEntryContentForm *self);
@@ -53055,8 +52691,6 @@ char *recovery_scenario_entry_content_form_content(const RecoveryScenarioEntryCo
 void recovery_scenario_entry_content_form_set_content(RecoveryScenarioEntryContentForm *self, const char *value);
 char *recovery_scenario_entry_content_form_scenario_id(const RecoveryScenarioEntryContentForm *self);
 void recovery_scenario_entry_content_form_set_scenario_id(RecoveryScenarioEntryContentForm *self, const char *value);
-char *recovery_scenario_entry_content_form_scenario_name(const RecoveryScenarioEntryContentForm *self);
-void recovery_scenario_entry_content_form_set_scenario_name(RecoveryScenarioEntryContentForm *self, const char *value);
 char *recovery_scenario_entry_content_form_trigger_condition(const RecoveryScenarioEntryContentForm *self);
 void recovery_scenario_entry_content_form_set_trigger_condition(RecoveryScenarioEntryContentForm *self, const char *value);
 char *recovery_scenario_entry_content_form_user_impact(const RecoveryScenarioEntryContentForm *self);
@@ -53078,8 +52712,6 @@ void reference_document_entry_content_form_free(ReferenceDocumentEntryContentFor
 // The section's own free-text content, before the form fields (owned).
 char *reference_document_entry_content_form_content(const ReferenceDocumentEntryContentForm *self);
 void reference_document_entry_content_form_set_content(ReferenceDocumentEntryContentForm *self, const char *value);
-char *reference_document_entry_content_form_document_title(const ReferenceDocumentEntryContentForm *self);
-void reference_document_entry_content_form_set_document_title(ReferenceDocumentEntryContentForm *self, const char *value);
 char *reference_document_entry_content_form_document_id(const ReferenceDocumentEntryContentForm *self);
 void reference_document_entry_content_form_set_document_id(ReferenceDocumentEntryContentForm *self, const char *value);
 char *reference_document_entry_content_form_version(const ReferenceDocumentEntryContentForm *self);
@@ -53257,8 +52889,6 @@ char *related_document_entry_content_form_content(const RelatedDocumentEntryCont
 void related_document_entry_content_form_set_content(RelatedDocumentEntryContentForm *self, const char *value);
 char *related_document_entry_content_form_related_document_id(const RelatedDocumentEntryContentForm *self);
 void related_document_entry_content_form_set_related_document_id(RelatedDocumentEntryContentForm *self, const char *value);
-char *related_document_entry_content_form_related_document_title(const RelatedDocumentEntryContentForm *self);
-void related_document_entry_content_form_set_related_document_title(RelatedDocumentEntryContentForm *self, const char *value);
 char *related_document_entry_content_form_relationship_type(const RelatedDocumentEntryContentForm *self);
 void related_document_entry_content_form_set_relationship_type(RelatedDocumentEntryContentForm *self, const char *value);
 char *related_document_entry_content_form_relationship_description(const RelatedDocumentEntryContentForm *self);
@@ -53362,8 +52992,6 @@ char *relevant_section_entry_content_form_content(const RelevantSectionEntryCont
 void relevant_section_entry_content_form_set_content(RelevantSectionEntryContentForm *self, const char *value);
 char *relevant_section_entry_content_form_section_reference(const RelevantSectionEntryContentForm *self);
 void relevant_section_entry_content_form_set_section_reference(RelevantSectionEntryContentForm *self, const char *value);
-char *relevant_section_entry_content_form_section_title(const RelevantSectionEntryContentForm *self);
-void relevant_section_entry_content_form_set_section_title(RelevantSectionEntryContentForm *self, const char *value);
 char *relevant_section_entry_content_form_relevance(const RelevantSectionEntryContentForm *self);
 void relevant_section_entry_content_form_set_relevance(RelevantSectionEntryContentForm *self, const char *value);
 char *relevant_section_entry_content_form_extract_summary(const RelevantSectionEntryContentForm *self);
@@ -53465,8 +53093,6 @@ char *removed_role_entry_content_form_content(const RemovedRoleEntryContentForm 
 void removed_role_entry_content_form_set_content(RemovedRoleEntryContentForm *self, const char *value);
 char *removed_role_entry_content_form_role_id(const RemovedRoleEntryContentForm *self);
 void removed_role_entry_content_form_set_role_id(RemovedRoleEntryContentForm *self, const char *value);
-char *removed_role_entry_content_form_role_title(const RemovedRoleEntryContentForm *self);
-void removed_role_entry_content_form_set_role_title(RemovedRoleEntryContentForm *self, const char *value);
 char *removed_role_entry_content_form_department(const RemovedRoleEntryContentForm *self);
 void removed_role_entry_content_form_set_department(RemovedRoleEntryContentForm *self, const char *value);
 char *removed_role_entry_content_form_removal_reason(const RemovedRoleEntryContentForm *self);
@@ -53521,8 +53147,6 @@ char *replacement_phase_entry_content_form_content(const ReplacementPhaseEntryCo
 void replacement_phase_entry_content_form_set_content(ReplacementPhaseEntryContentForm *self, const char *value);
 long replacement_phase_entry_content_form_phase_number(const ReplacementPhaseEntryContentForm *self);
 void replacement_phase_entry_content_form_set_phase_number(ReplacementPhaseEntryContentForm *self, long value);
-char *replacement_phase_entry_content_form_phase_name(const ReplacementPhaseEntryContentForm *self);
-void replacement_phase_entry_content_form_set_phase_name(ReplacementPhaseEntryContentForm *self, const char *value);
 char *replacement_phase_entry_content_form_phase_scope(const ReplacementPhaseEntryContentForm *self);
 void replacement_phase_entry_content_form_set_phase_scope(ReplacementPhaseEntryContentForm *self, const char *value);
 char *replacement_phase_entry_content_form_start_date(const ReplacementPhaseEntryContentForm *self);
@@ -53604,8 +53228,6 @@ char *report_chart_entry_content_form_content(const ReportChartEntryContentForm 
 void report_chart_entry_content_form_set_content(ReportChartEntryContentForm *self, const char *value);
 char *report_chart_entry_content_form_chart_id(const ReportChartEntryContentForm *self);
 void report_chart_entry_content_form_set_chart_id(ReportChartEntryContentForm *self, const char *value);
-char *report_chart_entry_content_form_title(const ReportChartEntryContentForm *self);
-void report_chart_entry_content_form_set_title(ReportChartEntryContentForm *self, const char *value);
 char *report_chart_entry_content_form_chart_type(const ReportChartEntryContentForm *self);
 void report_chart_entry_content_form_set_chart_type(ReportChartEntryContentForm *self, const char *value);
 
@@ -53701,8 +53323,6 @@ char *report_column_entry_content_form_content(const ReportColumnEntryContentFor
 void report_column_entry_content_form_set_content(ReportColumnEntryContentForm *self, const char *value);
 char *report_column_entry_content_form_column_id(const ReportColumnEntryContentForm *self);
 void report_column_entry_content_form_set_column_id(ReportColumnEntryContentForm *self, const char *value);
-char *report_column_entry_content_form_column_name(const ReportColumnEntryContentForm *self);
-void report_column_entry_content_form_set_column_name(ReportColumnEntryContentForm *self, const char *value);
 char *report_column_entry_content_form_display_label(const ReportColumnEntryContentForm *self);
 void report_column_entry_content_form_set_display_label(ReportColumnEntryContentForm *self, const char *value);
 
@@ -53884,8 +53504,6 @@ char *report_entry_content_form_content(const ReportEntryContentForm *self);
 void report_entry_content_form_set_content(ReportEntryContentForm *self, const char *value);
 char *report_entry_content_form_report_id(const ReportEntryContentForm *self);
 void report_entry_content_form_set_report_id(ReportEntryContentForm *self, const char *value);
-char *report_entry_content_form_report_name(const ReportEntryContentForm *self);
-void report_entry_content_form_set_report_name(ReportEntryContentForm *self, const char *value);
 char *report_entry_content_form_report_type(const ReportEntryContentForm *self);
 void report_entry_content_form_set_report_type(ReportEntryContentForm *self, const char *value);
 
@@ -54090,8 +53708,6 @@ char *report_filter_entry_content_form_content(const ReportFilterEntryContentFor
 void report_filter_entry_content_form_set_content(ReportFilterEntryContentForm *self, const char *value);
 char *report_filter_entry_content_form_filter_id(const ReportFilterEntryContentForm *self);
 void report_filter_entry_content_form_set_filter_id(ReportFilterEntryContentForm *self, const char *value);
-char *report_filter_entry_content_form_filter_name(const ReportFilterEntryContentForm *self);
-void report_filter_entry_content_form_set_filter_name(ReportFilterEntryContentForm *self, const char *value);
 char *report_filter_entry_content_form_display_label(const ReportFilterEntryContentForm *self);
 void report_filter_entry_content_form_set_display_label(ReportFilterEntryContentForm *self, const char *value);
 
@@ -54200,8 +53816,6 @@ char *report_recipient_entry_content_form_content(const ReportRecipientEntryCont
 void report_recipient_entry_content_form_set_content(ReportRecipientEntryContentForm *self, const char *value);
 char *report_recipient_entry_content_form_recipient_id(const ReportRecipientEntryContentForm *self);
 void report_recipient_entry_content_form_set_recipient_id(ReportRecipientEntryContentForm *self, const char *value);
-char *report_recipient_entry_content_form_recipient_name(const ReportRecipientEntryContentForm *self);
-void report_recipient_entry_content_form_set_recipient_name(ReportRecipientEntryContentForm *self, const char *value);
 char *report_recipient_entry_content_form_recipient_type(const ReportRecipientEntryContentForm *self);
 void report_recipient_entry_content_form_set_recipient_type(ReportRecipientEntryContentForm *self, const char *value);
 char *report_recipient_entry_content_form_recipient_reference(const ReportRecipientEntryContentForm *self);
@@ -54258,8 +53872,6 @@ char *report_schedule_entry_content_form_content(const ReportScheduleEntryConten
 void report_schedule_entry_content_form_set_content(ReportScheduleEntryContentForm *self, const char *value);
 char *report_schedule_entry_content_form_schedule_id(const ReportScheduleEntryContentForm *self);
 void report_schedule_entry_content_form_set_schedule_id(ReportScheduleEntryContentForm *self, const char *value);
-char *report_schedule_entry_content_form_schedule_name(const ReportScheduleEntryContentForm *self);
-void report_schedule_entry_content_form_set_schedule_name(ReportScheduleEntryContentForm *self, const char *value);
 char *report_schedule_entry_content_form_frequency(const ReportScheduleEntryContentForm *self);
 void report_schedule_entry_content_form_set_frequency(ReportScheduleEntryContentForm *self, const char *value);
 
@@ -54352,8 +53964,6 @@ char *report_section_entry_content_form_content(const ReportSectionEntryContentF
 void report_section_entry_content_form_set_content(ReportSectionEntryContentForm *self, const char *value);
 char *report_section_entry_content_form_section_id(const ReportSectionEntryContentForm *self);
 void report_section_entry_content_form_set_section_id(ReportSectionEntryContentForm *self, const char *value);
-char *report_section_entry_content_form_title(const ReportSectionEntryContentForm *self);
-void report_section_entry_content_form_set_title(ReportSectionEntryContentForm *self, const char *value);
 char *report_section_entry_content_form_section_type(const ReportSectionEntryContentForm *self);
 void report_section_entry_content_form_set_section_type(ReportSectionEntryContentForm *self, const char *value);
 
@@ -54420,8 +54030,6 @@ char *requirement_business_rule_entry_content_form_content(const RequirementBusi
 void requirement_business_rule_entry_content_form_set_content(RequirementBusinessRuleEntryContentForm *self, const char *value);
 char *requirement_business_rule_entry_content_form_rule_id(const RequirementBusinessRuleEntryContentForm *self);
 void requirement_business_rule_entry_content_form_set_rule_id(RequirementBusinessRuleEntryContentForm *self, const char *value);
-char *requirement_business_rule_entry_content_form_rule_name(const RequirementBusinessRuleEntryContentForm *self);
-void requirement_business_rule_entry_content_form_set_rule_name(RequirementBusinessRuleEntryContentForm *self, const char *value);
 char *requirement_business_rule_entry_content_form_rule_type(const RequirementBusinessRuleEntryContentForm *self);
 void requirement_business_rule_entry_content_form_set_rule_type(RequirementBusinessRuleEntryContentForm *self, const char *value);
 char *requirement_business_rule_entry_content_form_rule_statement(const RequirementBusinessRuleEntryContentForm *self);
@@ -54460,8 +54068,6 @@ char *requirement_screen_action_entry_content_form_content(const RequirementScre
 void requirement_screen_action_entry_content_form_set_content(RequirementScreenActionEntryContentForm *self, const char *value);
 char *requirement_screen_action_entry_content_form_action_id(const RequirementScreenActionEntryContentForm *self);
 void requirement_screen_action_entry_content_form_set_action_id(RequirementScreenActionEntryContentForm *self, const char *value);
-char *requirement_screen_action_entry_content_form_action_label(const RequirementScreenActionEntryContentForm *self);
-void requirement_screen_action_entry_content_form_set_action_label(RequirementScreenActionEntryContentForm *self, const char *value);
 char *requirement_screen_action_entry_content_form_action_type(const RequirementScreenActionEntryContentForm *self);
 void requirement_screen_action_entry_content_form_set_action_type(RequirementScreenActionEntryContentForm *self, const char *value);
 char *requirement_screen_action_entry_content_form_icon(const RequirementScreenActionEntryContentForm *self);
@@ -54520,8 +54126,6 @@ char *requirement_test_case_entry_content_form_content(const RequirementTestCase
 void requirement_test_case_entry_content_form_set_content(RequirementTestCaseEntryContentForm *self, const char *value);
 char *requirement_test_case_entry_content_form_test_case_id(const RequirementTestCaseEntryContentForm *self);
 void requirement_test_case_entry_content_form_set_test_case_id(RequirementTestCaseEntryContentForm *self, const char *value);
-char *requirement_test_case_entry_content_form_test_case_name(const RequirementTestCaseEntryContentForm *self);
-void requirement_test_case_entry_content_form_set_test_case_name(RequirementTestCaseEntryContentForm *self, const char *value);
 char *requirement_test_case_entry_content_form_test_type(const RequirementTestCaseEntryContentForm *self);
 void requirement_test_case_entry_content_form_set_test_type(RequirementTestCaseEntryContentForm *self, const char *value);
 char *requirement_test_case_entry_content_form_test_category(const RequirementTestCaseEntryContentForm *self);
@@ -54633,8 +54237,6 @@ char *resource_allocation_entry_content_form_content(const ResourceAllocationEnt
 void resource_allocation_entry_content_form_set_content(ResourceAllocationEntryContentForm *self, const char *value);
 char *resource_allocation_entry_content_form_resource_type(const ResourceAllocationEntryContentForm *self);
 void resource_allocation_entry_content_form_set_resource_type(ResourceAllocationEntryContentForm *self, const char *value);
-char *resource_allocation_entry_content_form_resource_name(const ResourceAllocationEntryContentForm *self);
-void resource_allocation_entry_content_form_set_resource_name(ResourceAllocationEntryContentForm *self, const char *value);
 char *resource_allocation_entry_content_form_quantity(const ResourceAllocationEntryContentForm *self);
 void resource_allocation_entry_content_form_set_quantity(ResourceAllocationEntryContentForm *self, const char *value);
 char *resource_allocation_entry_content_form_duration(const ResourceAllocationEntryContentForm *self);
@@ -55011,8 +54613,6 @@ char *responsive_screen_rule_entry_content_form_content(const ResponsiveScreenRu
 void responsive_screen_rule_entry_content_form_set_content(ResponsiveScreenRuleEntryContentForm *self, const char *value);
 char *responsive_screen_rule_entry_content_form_screen_id(const ResponsiveScreenRuleEntryContentForm *self);
 void responsive_screen_rule_entry_content_form_set_screen_id(ResponsiveScreenRuleEntryContentForm *self, const char *value);
-char *responsive_screen_rule_entry_content_form_screen_name(const ResponsiveScreenRuleEntryContentForm *self);
-void responsive_screen_rule_entry_content_form_set_screen_name(ResponsiveScreenRuleEntryContentForm *self, const char *value);
 char *responsive_screen_rule_entry_content_form_mobile_layout(const ResponsiveScreenRuleEntryContentForm *self);
 void responsive_screen_rule_entry_content_form_set_mobile_layout(ResponsiveScreenRuleEntryContentForm *self, const char *value);
 char *responsive_screen_rule_entry_content_form_tablet_layout(const ResponsiveScreenRuleEntryContentForm *self);
@@ -55242,8 +54842,6 @@ void reusable_ui_component_entry_content_form_free(ReusableUiComponentEntryConte
 // The section's own free-text content, before the form fields (owned).
 char *reusable_ui_component_entry_content_form_content(const ReusableUiComponentEntryContentForm *self);
 void reusable_ui_component_entry_content_form_set_content(ReusableUiComponentEntryContentForm *self, const char *value);
-char *reusable_ui_component_entry_content_form_component_name(const ReusableUiComponentEntryContentForm *self);
-void reusable_ui_component_entry_content_form_set_component_name(ReusableUiComponentEntryContentForm *self, const char *value);
 char *reusable_ui_component_entry_content_form_component_category(const ReusableUiComponentEntryContentForm *self);
 void reusable_ui_component_entry_content_form_set_component_category(ReusableUiComponentEntryContentForm *self, const char *value);
 char *reusable_ui_component_entry_content_form_purpose(const ReusableUiComponentEntryContentForm *self);
@@ -55539,8 +55137,6 @@ char *risk_identification_content_form_content(const RiskIdentificationContentFo
 void risk_identification_content_form_set_content(RiskIdentificationContentForm *self, const char *value);
 char *risk_identification_content_form_risk_id(const RiskIdentificationContentForm *self);
 void risk_identification_content_form_set_risk_id(RiskIdentificationContentForm *self, const char *value);
-char *risk_identification_content_form_risk_name(const RiskIdentificationContentForm *self);
-void risk_identification_content_form_set_risk_name(RiskIdentificationContentForm *self, const char *value);
 char *risk_identification_content_form_description(const RiskIdentificationContentForm *self);
 void risk_identification_content_form_set_description(RiskIdentificationContentForm *self, const char *value);
 char *risk_identification_content_form_category(const RiskIdentificationContentForm *self);
@@ -55835,8 +55431,6 @@ char *role_competency_entry_content_form_content(const RoleCompetencyEntryConten
 void role_competency_entry_content_form_set_content(RoleCompetencyEntryContentForm *self, const char *value);
 char *role_competency_entry_content_form_competency_id(const RoleCompetencyEntryContentForm *self);
 void role_competency_entry_content_form_set_competency_id(RoleCompetencyEntryContentForm *self, const char *value);
-char *role_competency_entry_content_form_competency_name(const RoleCompetencyEntryContentForm *self);
-void role_competency_entry_content_form_set_competency_name(RoleCompetencyEntryContentForm *self, const char *value);
 char *role_competency_entry_content_form_competency_type(const RoleCompetencyEntryContentForm *self);
 void role_competency_entry_content_form_set_competency_type(RoleCompetencyEntryContentForm *self, const char *value);
 char *role_competency_entry_content_form_required_level(const RoleCompetencyEntryContentForm *self);
@@ -56084,8 +55678,6 @@ void rule_example_entry_content_form_free(RuleExampleEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *rule_example_entry_content_form_content(const RuleExampleEntryContentForm *self);
 void rule_example_entry_content_form_set_content(RuleExampleEntryContentForm *self, const char *value);
-char *rule_example_entry_content_form_example_name(const RuleExampleEntryContentForm *self);
-void rule_example_entry_content_form_set_example_name(RuleExampleEntryContentForm *self, const char *value);
 char *rule_example_entry_content_form_scenario(const RuleExampleEntryContentForm *self);
 void rule_example_entry_content_form_set_scenario(RuleExampleEntryContentForm *self, const char *value);
 char *rule_example_entry_content_form_input_data(const RuleExampleEntryContentForm *self);
@@ -56116,8 +55708,6 @@ char *runtime_dependency_entry_content_form_content(const RuntimeDependencyEntry
 void runtime_dependency_entry_content_form_set_content(RuntimeDependencyEntryContentForm *self, const char *value);
 char *runtime_dependency_entry_content_form_dependency_id(const RuntimeDependencyEntryContentForm *self);
 void runtime_dependency_entry_content_form_set_dependency_id(RuntimeDependencyEntryContentForm *self, const char *value);
-char *runtime_dependency_entry_content_form_name(const RuntimeDependencyEntryContentForm *self);
-void runtime_dependency_entry_content_form_set_name(RuntimeDependencyEntryContentForm *self, const char *value);
 char *runtime_dependency_entry_content_form_version(const RuntimeDependencyEntryContentForm *self);
 void runtime_dependency_entry_content_form_set_version(RuntimeDependencyEntryContentForm *self, const char *value);
 char *runtime_dependency_entry_content_form_dependency_type(const RuntimeDependencyEntryContentForm *self);
@@ -56523,8 +56113,6 @@ char *scenario_entry_identification_form_content(const ScenarioEntryIdentificati
 void scenario_entry_identification_form_set_content(ScenarioEntryIdentificationForm *self, const char *value);
 char *scenario_entry_identification_form_scenario_id(const ScenarioEntryIdentificationForm *self);
 void scenario_entry_identification_form_set_scenario_id(ScenarioEntryIdentificationForm *self, const char *value);
-char *scenario_entry_identification_form_scenario_name(const ScenarioEntryIdentificationForm *self);
-void scenario_entry_identification_form_set_scenario_name(ScenarioEntryIdentificationForm *self, const char *value);
 char *scenario_entry_identification_form_scenario_type(const ScenarioEntryIdentificationForm *self);
 void scenario_entry_identification_form_set_scenario_type(ScenarioEntryIdentificationForm *self, const char *value);
 char *scenario_entry_identification_form_description(const ScenarioEntryIdentificationForm *self);
@@ -56655,8 +56243,6 @@ void scheduled_job_entry_content_form_free(ScheduledJobEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *scheduled_job_entry_content_form_content(const ScheduledJobEntryContentForm *self);
 void scheduled_job_entry_content_form_set_content(ScheduledJobEntryContentForm *self, const char *value);
-char *scheduled_job_entry_content_form_job_name(const ScheduledJobEntryContentForm *self);
-void scheduled_job_entry_content_form_set_job_name(ScheduledJobEntryContentForm *self, const char *value);
 char *scheduled_job_entry_content_form_purpose(const ScheduledJobEntryContentForm *self);
 void scheduled_job_entry_content_form_set_purpose(ScheduledJobEntryContentForm *self, const char *value);
 char *scheduled_job_entry_content_form_trigger_kind(const ScheduledJobEntryContentForm *self);
@@ -56913,8 +56499,6 @@ char *screen_action_entry_content_form_content(const ScreenActionEntryContentFor
 void screen_action_entry_content_form_set_content(ScreenActionEntryContentForm *self, const char *value);
 char *screen_action_entry_content_form_action_id(const ScreenActionEntryContentForm *self);
 void screen_action_entry_content_form_set_action_id(ScreenActionEntryContentForm *self, const char *value);
-char *screen_action_entry_content_form_action_name(const ScreenActionEntryContentForm *self);
-void screen_action_entry_content_form_set_action_name(ScreenActionEntryContentForm *self, const char *value);
 char *screen_action_entry_content_form_action_type(const ScreenActionEntryContentForm *self);
 void screen_action_entry_content_form_set_action_type(ScreenActionEntryContentForm *self, const char *value);
 
@@ -56941,8 +56525,6 @@ char *screen_behavior_entry_content_form_content(const ScreenBehaviorEntryConten
 void screen_behavior_entry_content_form_set_content(ScreenBehaviorEntryContentForm *self, const char *value);
 char *screen_behavior_entry_content_form_behavior_id(const ScreenBehaviorEntryContentForm *self);
 void screen_behavior_entry_content_form_set_behavior_id(ScreenBehaviorEntryContentForm *self, const char *value);
-char *screen_behavior_entry_content_form_behavior_name(const ScreenBehaviorEntryContentForm *self);
-void screen_behavior_entry_content_form_set_behavior_name(ScreenBehaviorEntryContentForm *self, const char *value);
 char *screen_behavior_entry_content_form_behavior_type(const ScreenBehaviorEntryContentForm *self);
 void screen_behavior_entry_content_form_set_behavior_type(ScreenBehaviorEntryContentForm *self, const char *value);
 char *screen_behavior_entry_content_form_trigger_event(const ScreenBehaviorEntryContentForm *self);
@@ -57073,8 +56655,6 @@ char *screen_element_entry_content_form_content(const ScreenElementEntryContentF
 void screen_element_entry_content_form_set_content(ScreenElementEntryContentForm *self, const char *value);
 char *screen_element_entry_content_form_element_id(const ScreenElementEntryContentForm *self);
 void screen_element_entry_content_form_set_element_id(ScreenElementEntryContentForm *self, const char *value);
-char *screen_element_entry_content_form_element_name(const ScreenElementEntryContentForm *self);
-void screen_element_entry_content_form_set_element_name(ScreenElementEntryContentForm *self, const char *value);
 char *screen_element_entry_content_form_element_type(const ScreenElementEntryContentForm *self);
 void screen_element_entry_content_form_set_element_type(ScreenElementEntryContentForm *self, const char *value);
 
@@ -57258,8 +56838,6 @@ char *screen_entry_content_form_content(const ScreenEntryContentForm *self);
 void screen_entry_content_form_set_content(ScreenEntryContentForm *self, const char *value);
 char *screen_entry_content_form_screen_id(const ScreenEntryContentForm *self);
 void screen_entry_content_form_set_screen_id(ScreenEntryContentForm *self, const char *value);
-char *screen_entry_content_form_screen_name(const ScreenEntryContentForm *self);
-void screen_entry_content_form_set_screen_name(ScreenEntryContentForm *self, const char *value);
 char *screen_entry_content_form_purpose(const ScreenEntryContentForm *self);
 void screen_entry_content_form_set_purpose(ScreenEntryContentForm *self, const char *value);
 
@@ -57333,8 +56911,6 @@ char *screen_field_entry_content_form_content(const ScreenFieldEntryContentForm 
 void screen_field_entry_content_form_set_content(ScreenFieldEntryContentForm *self, const char *value);
 char *screen_field_entry_content_form_field_id(const ScreenFieldEntryContentForm *self);
 void screen_field_entry_content_form_set_field_id(ScreenFieldEntryContentForm *self, const char *value);
-char *screen_field_entry_content_form_field_label(const ScreenFieldEntryContentForm *self);
-void screen_field_entry_content_form_set_field_label(ScreenFieldEntryContentForm *self, const char *value);
 char *screen_field_entry_content_form_field_type(const ScreenFieldEntryContentForm *self);
 void screen_field_entry_content_form_set_field_type(ScreenFieldEntryContentForm *self, const char *value);
 
@@ -57450,8 +57026,6 @@ char *screen_route_entry_content_form_route_id(const ScreenRouteEntryContentForm
 void screen_route_entry_content_form_set_route_id(ScreenRouteEntryContentForm *self, const char *value);
 char *screen_route_entry_content_form_route_path(const ScreenRouteEntryContentForm *self);
 void screen_route_entry_content_form_set_route_path(ScreenRouteEntryContentForm *self, const char *value);
-char *screen_route_entry_content_form_route_title(const ScreenRouteEntryContentForm *self);
-void screen_route_entry_content_form_set_route_title(ScreenRouteEntryContentForm *self, const char *value);
 char *screen_route_entry_content_form_screen_id(const ScreenRouteEntryContentForm *self);
 void screen_route_entry_content_form_set_screen_id(ScreenRouteEntryContentForm *self, const char *value);
 char *screen_route_entry_content_form_route_parameters(const ScreenRouteEntryContentForm *self);
@@ -57478,8 +57052,6 @@ char *screen_section_entry_content_form_content(const ScreenSectionEntryContentF
 void screen_section_entry_content_form_set_content(ScreenSectionEntryContentForm *self, const char *value);
 char *screen_section_entry_content_form_section_id(const ScreenSectionEntryContentForm *self);
 void screen_section_entry_content_form_set_section_id(ScreenSectionEntryContentForm *self, const char *value);
-char *screen_section_entry_content_form_section_name(const ScreenSectionEntryContentForm *self);
-void screen_section_entry_content_form_set_section_name(ScreenSectionEntryContentForm *self, const char *value);
 char *screen_section_entry_content_form_purpose(const ScreenSectionEntryContentForm *self);
 void screen_section_entry_content_form_set_purpose(ScreenSectionEntryContentForm *self, const char *value);
 char *screen_section_entry_content_form_section_type(const ScreenSectionEntryContentForm *self);
@@ -57506,8 +57078,6 @@ void screen_state_entry_content_form_free(ScreenStateEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *screen_state_entry_content_form_content(const ScreenStateEntryContentForm *self);
 void screen_state_entry_content_form_set_content(ScreenStateEntryContentForm *self, const char *value);
-char *screen_state_entry_content_form_state_name(const ScreenStateEntryContentForm *self);
-void screen_state_entry_content_form_set_state_name(ScreenStateEntryContentForm *self, const char *value);
 char *screen_state_entry_content_form_description(const ScreenStateEntryContentForm *self);
 void screen_state_entry_content_form_set_description(ScreenStateEntryContentForm *self, const char *value);
 char *screen_state_entry_content_form_message_resource(const ScreenStateEntryContentForm *self);
@@ -57548,8 +57118,6 @@ void screen_user_category_entry_content_form_free(ScreenUserCategoryEntryContent
 // The section's own free-text content, before the form fields (owned).
 char *screen_user_category_entry_content_form_content(const ScreenUserCategoryEntryContentForm *self);
 void screen_user_category_entry_content_form_set_content(ScreenUserCategoryEntryContentForm *self, const char *value);
-char *screen_user_category_entry_content_form_category_name(const ScreenUserCategoryEntryContentForm *self);
-void screen_user_category_entry_content_form_set_category_name(ScreenUserCategoryEntryContentForm *self, const char *value);
 char *screen_user_category_entry_content_form_description(const ScreenUserCategoryEntryContentForm *self);
 void screen_user_category_entry_content_form_set_description(ScreenUserCategoryEntryContentForm *self, const char *value);
 char *screen_user_category_entry_content_form_content_variations(const ScreenUserCategoryEntryContentForm *self);
@@ -57561,8 +57129,6 @@ void security_audit_entry_content_form_free(SecurityAuditEntryContentForm *self)
 // The section's own free-text content, before the form fields (owned).
 char *security_audit_entry_content_form_content(const SecurityAuditEntryContentForm *self);
 void security_audit_entry_content_form_set_content(SecurityAuditEntryContentForm *self, const char *value);
-char *security_audit_entry_content_form_audit_name(const SecurityAuditEntryContentForm *self);
-void security_audit_entry_content_form_set_audit_name(SecurityAuditEntryContentForm *self, const char *value);
 char *security_audit_entry_content_form_audit_category(const SecurityAuditEntryContentForm *self);
 void security_audit_entry_content_form_set_audit_category(SecurityAuditEntryContentForm *self, const char *value);
 char *security_audit_entry_content_form_audit_description(const SecurityAuditEntryContentForm *self);
@@ -57807,8 +57373,6 @@ char *security_control_entry_content_form_content(const SecurityControlEntryCont
 void security_control_entry_content_form_set_content(SecurityControlEntryContentForm *self, const char *value);
 char *security_control_entry_content_form_control_id(const SecurityControlEntryContentForm *self);
 void security_control_entry_content_form_set_control_id(SecurityControlEntryContentForm *self, const char *value);
-char *security_control_entry_content_form_control_name(const SecurityControlEntryContentForm *self);
-void security_control_entry_content_form_set_control_name(SecurityControlEntryContentForm *self, const char *value);
 char *security_control_entry_content_form_control_type(const SecurityControlEntryContentForm *self);
 void security_control_entry_content_form_set_control_type(SecurityControlEntryContentForm *self, const char *value);
 char *security_control_entry_content_form_implementation_type(const SecurityControlEntryContentForm *self);
@@ -57908,8 +57472,6 @@ void security_event_entry_content_form_free(SecurityEventEntryContentForm *self)
 // The section's own free-text content, before the form fields (owned).
 char *security_event_entry_content_form_content(const SecurityEventEntryContentForm *self);
 void security_event_entry_content_form_set_content(SecurityEventEntryContentForm *self, const char *value);
-char *security_event_entry_content_form_event_name(const SecurityEventEntryContentForm *self);
-void security_event_entry_content_form_set_event_name(SecurityEventEntryContentForm *self, const char *value);
 char *security_event_entry_content_form_event_category(const SecurityEventEntryContentForm *self);
 void security_event_entry_content_form_set_event_category(SecurityEventEntryContentForm *self, const char *value);
 char *security_event_entry_content_form_description(const SecurityEventEntryContentForm *self);
@@ -58057,8 +57619,6 @@ void security_standard_compliance_entry_content_form_free(SecurityStandardCompli
 // The section's own free-text content, before the form fields (owned).
 char *security_standard_compliance_entry_content_form_content(const SecurityStandardComplianceEntryContentForm *self);
 void security_standard_compliance_entry_content_form_set_content(SecurityStandardComplianceEntryContentForm *self, const char *value);
-char *security_standard_compliance_entry_content_form_standard_name(const SecurityStandardComplianceEntryContentForm *self);
-void security_standard_compliance_entry_content_form_set_standard_name(SecurityStandardComplianceEntryContentForm *self, const char *value);
 char *security_standard_compliance_entry_content_form_standard_type(const SecurityStandardComplianceEntryContentForm *self);
 void security_standard_compliance_entry_content_form_set_standard_type(SecurityStandardComplianceEntryContentForm *self, const char *value);
 char *security_standard_compliance_entry_content_form_version(const SecurityStandardComplianceEntryContentForm *self);
@@ -58111,8 +57671,6 @@ void security_standard_entry_content_form_free(SecurityStandardEntryContentForm 
 // The section's own free-text content, before the form fields (owned).
 char *security_standard_entry_content_form_content(const SecurityStandardEntryContentForm *self);
 void security_standard_entry_content_form_set_content(SecurityStandardEntryContentForm *self, const char *value);
-char *security_standard_entry_content_form_standard_name(const SecurityStandardEntryContentForm *self);
-void security_standard_entry_content_form_set_standard_name(SecurityStandardEntryContentForm *self, const char *value);
 char *security_standard_entry_content_form_standard_version(const SecurityStandardEntryContentForm *self);
 void security_standard_entry_content_form_set_standard_version(SecurityStandardEntryContentForm *self, const char *value);
 char *security_standard_entry_content_form_standard_type(const SecurityStandardEntryContentForm *self);
@@ -58378,8 +57936,6 @@ void server_environment_entry_content_form_free(ServerEnvironmentEntryContentFor
 // The section's own free-text content, before the form fields (owned).
 char *server_environment_entry_content_form_content(const ServerEnvironmentEntryContentForm *self);
 void server_environment_entry_content_form_set_content(ServerEnvironmentEntryContentForm *self, const char *value);
-char *server_environment_entry_content_form_environment_name(const ServerEnvironmentEntryContentForm *self);
-void server_environment_entry_content_form_set_environment_name(ServerEnvironmentEntryContentForm *self, const char *value);
 char *server_environment_entry_content_form_environment_type(const ServerEnvironmentEntryContentForm *self);
 void server_environment_entry_content_form_set_environment_type(ServerEnvironmentEntryContentForm *self, const char *value);
 char *server_environment_entry_content_form_environment_code(const ServerEnvironmentEntryContentForm *self);
@@ -58434,8 +57990,6 @@ void server_operation_entry_content_form_free(ServerOperationEntryContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *server_operation_entry_content_form_content(const ServerOperationEntryContentForm *self);
 void server_operation_entry_content_form_set_content(ServerOperationEntryContentForm *self, const char *value);
-char *server_operation_entry_content_form_operation_name(const ServerOperationEntryContentForm *self);
-void server_operation_entry_content_form_set_operation_name(ServerOperationEntryContentForm *self, const char *value);
 char *server_operation_entry_content_form_purpose(const ServerOperationEntryContentForm *self);
 void server_operation_entry_content_form_set_purpose(ServerOperationEntryContentForm *self, const char *value);
 char *server_operation_entry_content_form_primary_data_entity(const ServerOperationEntryContentForm *self);
@@ -58451,8 +58005,6 @@ void server_operation_member_entry_content_form_free(ServerOperationMemberEntryC
 // The section's own free-text content, before the form fields (owned).
 char *server_operation_member_entry_content_form_content(const ServerOperationMemberEntryContentForm *self);
 void server_operation_member_entry_content_form_set_content(ServerOperationMemberEntryContentForm *self, const char *value);
-char *server_operation_member_entry_content_form_member_name(const ServerOperationMemberEntryContentForm *self);
-void server_operation_member_entry_content_form_set_member_name(ServerOperationMemberEntryContentForm *self, const char *value);
 char *server_operation_member_entry_content_form_member_type(const ServerOperationMemberEntryContentForm *self);
 void server_operation_member_entry_content_form_set_member_type(ServerOperationMemberEntryContentForm *self, const char *value);
 bool server_operation_member_entry_content_form_multi_valued(const ServerOperationMemberEntryContentForm *self);
@@ -58554,8 +58106,6 @@ void server_role_entry_content_form_free(ServerRoleEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *server_role_entry_content_form_content(const ServerRoleEntryContentForm *self);
 void server_role_entry_content_form_set_content(ServerRoleEntryContentForm *self, const char *value);
-char *server_role_entry_content_form_role_name(const ServerRoleEntryContentForm *self);
-void server_role_entry_content_form_set_role_name(ServerRoleEntryContentForm *self, const char *value);
 char *server_role_entry_content_form_role_type(const ServerRoleEntryContentForm *self);
 void server_role_entry_content_form_set_role_type(ServerRoleEntryContentForm *self, const char *value);
 char *server_role_entry_content_form_role_abbreviation(const ServerRoleEntryContentForm *self);
@@ -58974,8 +58524,6 @@ void shared_library_component_entry_content_form_free(SharedLibraryComponentEntr
 // The section's own free-text content, before the form fields (owned).
 char *shared_library_component_entry_content_form_content(const SharedLibraryComponentEntryContentForm *self);
 void shared_library_component_entry_content_form_set_content(SharedLibraryComponentEntryContentForm *self, const char *value);
-char *shared_library_component_entry_content_form_component_name(const SharedLibraryComponentEntryContentForm *self);
-void shared_library_component_entry_content_form_set_component_name(SharedLibraryComponentEntryContentForm *self, const char *value);
 char *shared_library_component_entry_content_form_component_type(const SharedLibraryComponentEntryContentForm *self);
 void shared_library_component_entry_content_form_set_component_type(SharedLibraryComponentEntryContentForm *self, const char *value);
 char *shared_library_component_entry_content_form_version(const SharedLibraryComponentEntryContentForm *self);
@@ -59064,8 +58612,6 @@ void shared_library_entry_content_form_free(SharedLibraryEntryContentForm *self)
 // The section's own free-text content, before the form fields (owned).
 char *shared_library_entry_content_form_content(const SharedLibraryEntryContentForm *self);
 void shared_library_entry_content_form_set_content(SharedLibraryEntryContentForm *self, const char *value);
-char *shared_library_entry_content_form_library_name(const SharedLibraryEntryContentForm *self);
-void shared_library_entry_content_form_set_library_name(SharedLibraryEntryContentForm *self, const char *value);
 char *shared_library_entry_content_form_library_type(const SharedLibraryEntryContentForm *self);
 void shared_library_entry_content_form_set_library_type(SharedLibraryEntryContentForm *self, const char *value);
 char *shared_library_entry_content_form_version(const SharedLibraryEntryContentForm *self);
@@ -59354,8 +58900,6 @@ char *slo_entry_content_form_content(const SloEntryContentForm *self);
 void slo_entry_content_form_set_content(SloEntryContentForm *self, const char *value);
 char *slo_entry_content_form_slo_id(const SloEntryContentForm *self);
 void slo_entry_content_form_set_slo_id(SloEntryContentForm *self, const char *value);
-char *slo_entry_content_form_slo_name(const SloEntryContentForm *self);
-void slo_entry_content_form_set_slo_name(SloEntryContentForm *self, const char *value);
 char *slo_entry_content_form_slo_description(const SloEntryContentForm *self);
 void slo_entry_content_form_set_slo_description(SloEntryContentForm *self, const char *value);
 char *slo_entry_content_form_service_name(const SloEntryContentForm *self);
@@ -59410,8 +58954,6 @@ void software_layer_entry_content_form_free(SoftwareLayerEntryContentForm *self)
 // The section's own free-text content, before the form fields (owned).
 char *software_layer_entry_content_form_content(const SoftwareLayerEntryContentForm *self);
 void software_layer_entry_content_form_set_content(SoftwareLayerEntryContentForm *self, const char *value);
-char *software_layer_entry_content_form_layer_name(const SoftwareLayerEntryContentForm *self);
-void software_layer_entry_content_form_set_layer_name(SoftwareLayerEntryContentForm *self, const char *value);
 char *software_layer_entry_content_form_layer_level(const SoftwareLayerEntryContentForm *self);
 void software_layer_entry_content_form_set_layer_level(SoftwareLayerEntryContentForm *self, const char *value);
 char *software_layer_entry_content_form_layer_pattern(const SoftwareLayerEntryContentForm *self);
@@ -59688,8 +59230,6 @@ char *stage_entry_content_form_content(const StageEntryContentForm *self);
 void stage_entry_content_form_set_content(StageEntryContentForm *self, const char *value);
 char *stage_entry_content_form_stage_number(const StageEntryContentForm *self);
 void stage_entry_content_form_set_stage_number(StageEntryContentForm *self, const char *value);
-char *stage_entry_content_form_stage_name(const StageEntryContentForm *self);
-void stage_entry_content_form_set_stage_name(StageEntryContentForm *self, const char *value);
 char *stage_entry_content_form_current_status(const StageEntryContentForm *self);
 void stage_entry_content_form_set_current_status(StageEntryContentForm *self, const char *value);
 
@@ -59961,8 +59501,6 @@ char *stage_migration_risk_entry_content_form_content(const StageMigrationRiskEn
 void stage_migration_risk_entry_content_form_set_content(StageMigrationRiskEntryContentForm *self, const char *value);
 char *stage_migration_risk_entry_content_form_risk_id(const StageMigrationRiskEntryContentForm *self);
 void stage_migration_risk_entry_content_form_set_risk_id(StageMigrationRiskEntryContentForm *self, const char *value);
-char *stage_migration_risk_entry_content_form_risk_name(const StageMigrationRiskEntryContentForm *self);
-void stage_migration_risk_entry_content_form_set_risk_name(StageMigrationRiskEntryContentForm *self, const char *value);
 char *stage_migration_risk_entry_content_form_risk_category(const StageMigrationRiskEntryContentForm *self);
 void stage_migration_risk_entry_content_form_set_risk_category(StageMigrationRiskEntryContentForm *self, const char *value);
 
@@ -60454,8 +59992,6 @@ char *stage_summary_entry_content_form_content(const StageSummaryEntryContentFor
 void stage_summary_entry_content_form_set_content(StageSummaryEntryContentForm *self, const char *value);
 char *stage_summary_entry_content_form_stage_number(const StageSummaryEntryContentForm *self);
 void stage_summary_entry_content_form_set_stage_number(StageSummaryEntryContentForm *self, const char *value);
-char *stage_summary_entry_content_form_stage_name(const StageSummaryEntryContentForm *self);
-void stage_summary_entry_content_form_set_stage_name(StageSummaryEntryContentForm *self, const char *value);
 char *stage_summary_entry_content_form_scope_summary(const StageSummaryEntryContentForm *self);
 void stage_summary_entry_content_form_set_scope_summary(StageSummaryEntryContentForm *self, const char *value);
 
@@ -60776,8 +60312,6 @@ void stakeholder_entry_content_form_free(StakeholderEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *stakeholder_entry_content_form_content(const StakeholderEntryContentForm *self);
 void stakeholder_entry_content_form_set_content(StakeholderEntryContentForm *self, const char *value);
-char *stakeholder_entry_content_form_stakeholder_name(const StakeholderEntryContentForm *self);
-void stakeholder_entry_content_form_set_stakeholder_name(StakeholderEntryContentForm *self, const char *value);
 char *stakeholder_entry_content_form_stakeholder_type(const StakeholderEntryContentForm *self);
 void stakeholder_entry_content_form_set_stakeholder_type(StakeholderEntryContentForm *self, const char *value);
 char *stakeholder_entry_content_form_expected_benefits(const StakeholderEntryContentForm *self);
@@ -60791,8 +60325,6 @@ char *stakeholder_register_entry_content_form_content(const StakeholderRegisterE
 void stakeholder_register_entry_content_form_set_content(StakeholderRegisterEntryContentForm *self, const char *value);
 char *stakeholder_register_entry_content_form_stakeholder_id(const StakeholderRegisterEntryContentForm *self);
 void stakeholder_register_entry_content_form_set_stakeholder_id(StakeholderRegisterEntryContentForm *self, const char *value);
-char *stakeholder_register_entry_content_form_name(const StakeholderRegisterEntryContentForm *self);
-void stakeholder_register_entry_content_form_set_name(StakeholderRegisterEntryContentForm *self, const char *value);
 char *stakeholder_register_entry_content_form_role(const StakeholderRegisterEntryContentForm *self);
 void stakeholder_register_entry_content_form_set_role(StakeholderRegisterEntryContentForm *self, const char *value);
 char *stakeholder_register_entry_content_form_interest(const StakeholderRegisterEntryContentForm *self);
@@ -60881,8 +60413,6 @@ void sub_function_entry_content_form_free(SubFunctionEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *sub_function_entry_content_form_content(const SubFunctionEntryContentForm *self);
 void sub_function_entry_content_form_set_content(SubFunctionEntryContentForm *self, const char *value);
-char *sub_function_entry_content_form_sub_function_name(const SubFunctionEntryContentForm *self);
-void sub_function_entry_content_form_set_sub_function_name(SubFunctionEntryContentForm *self, const char *value);
 char *sub_function_entry_content_form_description(const SubFunctionEntryContentForm *self);
 void sub_function_entry_content_form_set_description(SubFunctionEntryContentForm *self, const char *value);
 char *sub_function_entry_content_form_data_access(const SubFunctionEntryContentForm *self);
@@ -60896,8 +60426,6 @@ void sub_stage_entry_content_form_free(SubStageEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *sub_stage_entry_content_form_content(const SubStageEntryContentForm *self);
 void sub_stage_entry_content_form_set_content(SubStageEntryContentForm *self, const char *value);
-char *sub_stage_entry_content_form_name(const SubStageEntryContentForm *self);
-void sub_stage_entry_content_form_set_name(SubStageEntryContentForm *self, const char *value);
 char *sub_stage_entry_content_form_sub_stage_type(const SubStageEntryContentForm *self);
 void sub_stage_entry_content_form_set_sub_stage_type(SubStageEntryContentForm *self, const char *value);
 char *sub_stage_entry_content_form_sequence_number(const SubStageEntryContentForm *self);
@@ -61057,8 +60585,6 @@ char *success_criterion_entry_content_form_content(const SuccessCriterionEntryCo
 void success_criterion_entry_content_form_set_content(SuccessCriterionEntryContentForm *self, const char *value);
 char *success_criterion_entry_content_form_criterion_id(const SuccessCriterionEntryContentForm *self);
 void success_criterion_entry_content_form_set_criterion_id(SuccessCriterionEntryContentForm *self, const char *value);
-char *success_criterion_entry_content_form_criterion_name(const SuccessCriterionEntryContentForm *self);
-void success_criterion_entry_content_form_set_criterion_name(SuccessCriterionEntryContentForm *self, const char *value);
 char *success_criterion_entry_content_form_category(const SuccessCriterionEntryContentForm *self);
 void success_criterion_entry_content_form_set_category(SuccessCriterionEntryContentForm *self, const char *value);
 
@@ -61336,8 +60862,6 @@ void system_business_process_entry_content_form_free(SystemBusinessProcessEntryC
 // The section's own free-text content, before the form fields (owned).
 char *system_business_process_entry_content_form_content(const SystemBusinessProcessEntryContentForm *self);
 void system_business_process_entry_content_form_set_content(SystemBusinessProcessEntryContentForm *self, const char *value);
-char *system_business_process_entry_content_form_process_name(const SystemBusinessProcessEntryContentForm *self);
-void system_business_process_entry_content_form_set_process_name(SystemBusinessProcessEntryContentForm *self, const char *value);
 char *system_business_process_entry_content_form_process_id(const SystemBusinessProcessEntryContentForm *self);
 void system_business_process_entry_content_form_set_process_id(SystemBusinessProcessEntryContentForm *self, const char *value);
 char *system_business_process_entry_content_form_system_role(const SystemBusinessProcessEntryContentForm *self);
@@ -61353,8 +60877,6 @@ void system_business_unit_entry_content_form_free(SystemBusinessUnitEntryContent
 // The section's own free-text content, before the form fields (owned).
 char *system_business_unit_entry_content_form_content(const SystemBusinessUnitEntryContentForm *self);
 void system_business_unit_entry_content_form_set_content(SystemBusinessUnitEntryContentForm *self, const char *value);
-char *system_business_unit_entry_content_form_unit_name(const SystemBusinessUnitEntryContentForm *self);
-void system_business_unit_entry_content_form_set_unit_name(SystemBusinessUnitEntryContentForm *self, const char *value);
 long system_business_unit_entry_content_form_user_count(const SystemBusinessUnitEntryContentForm *self);
 void system_business_unit_entry_content_form_set_user_count(SystemBusinessUnitEntryContentForm *self, long value);
 char *system_business_unit_entry_content_form_usage_pattern(const SystemBusinessUnitEntryContentForm *self);
@@ -61527,8 +61049,6 @@ void system_dependency_entry_content_form_free(SystemDependencyEntryContentForm 
 // The section's own free-text content, before the form fields (owned).
 char *system_dependency_entry_content_form_content(const SystemDependencyEntryContentForm *self);
 void system_dependency_entry_content_form_set_content(SystemDependencyEntryContentForm *self, const char *value);
-char *system_dependency_entry_content_form_dependency_name(const SystemDependencyEntryContentForm *self);
-void system_dependency_entry_content_form_set_dependency_name(SystemDependencyEntryContentForm *self, const char *value);
 char *system_dependency_entry_content_form_dependency_type(const SystemDependencyEntryContentForm *self);
 void system_dependency_entry_content_form_set_dependency_type(SystemDependencyEntryContentForm *self, const char *value);
 char *system_dependency_entry_content_form_direction(const SystemDependencyEntryContentForm *self);
@@ -61815,8 +61335,6 @@ void system_integration_entry_content_form_free(SystemIntegrationEntryContentFor
 // The section's own free-text content, before the form fields (owned).
 char *system_integration_entry_content_form_content(const SystemIntegrationEntryContentForm *self);
 void system_integration_entry_content_form_set_content(SystemIntegrationEntryContentForm *self, const char *value);
-char *system_integration_entry_content_form_integration_name(const SystemIntegrationEntryContentForm *self);
-void system_integration_entry_content_form_set_integration_name(SystemIntegrationEntryContentForm *self, const char *value);
 char *system_integration_entry_content_form_integration_type(const SystemIntegrationEntryContentForm *self);
 void system_integration_entry_content_form_set_integration_type(SystemIntegrationEntryContentForm *self, const char *value);
 char *system_integration_entry_content_form_integration_pattern(const SystemIntegrationEntryContentForm *self);
@@ -62256,8 +61774,6 @@ char *system_task_entry_content_form_content(const SystemTaskEntryContentForm *s
 void system_task_entry_content_form_set_content(SystemTaskEntryContentForm *self, const char *value);
 char *system_task_entry_content_form_task_id(const SystemTaskEntryContentForm *self);
 void system_task_entry_content_form_set_task_id(SystemTaskEntryContentForm *self, const char *value);
-char *system_task_entry_content_form_task_name(const SystemTaskEntryContentForm *self);
-void system_task_entry_content_form_set_task_name(SystemTaskEntryContentForm *self, const char *value);
 char *system_task_entry_content_form_description(const SystemTaskEntryContentForm *self);
 void system_task_entry_content_form_set_description(SystemTaskEntryContentForm *self, const char *value);
 
@@ -62372,8 +61888,6 @@ char *system_to_replace_entry_identification_content_form_content(const SystemTo
 void system_to_replace_entry_identification_content_form_set_content(SystemToReplaceEntryIdentificationContentForm *self, const char *value);
 char *system_to_replace_entry_identification_content_form_system_id(const SystemToReplaceEntryIdentificationContentForm *self);
 void system_to_replace_entry_identification_content_form_set_system_id(SystemToReplaceEntryIdentificationContentForm *self, const char *value);
-char *system_to_replace_entry_identification_content_form_system_name(const SystemToReplaceEntryIdentificationContentForm *self);
-void system_to_replace_entry_identification_content_form_set_system_name(SystemToReplaceEntryIdentificationContentForm *self, const char *value);
 char *system_to_replace_entry_identification_content_form_official_name(const SystemToReplaceEntryIdentificationContentForm *self);
 void system_to_replace_entry_identification_content_form_set_official_name(SystemToReplaceEntryIdentificationContentForm *self, const char *value);
 char *system_to_replace_entry_identification_content_form_system_description(const SystemToReplaceEntryIdentificationContentForm *self);
@@ -62415,8 +61929,6 @@ char *system_training_entry_content_form_content(const SystemTrainingEntryConten
 void system_training_entry_content_form_set_content(SystemTrainingEntryContentForm *self, const char *value);
 char *system_training_entry_content_form_training_id(const SystemTrainingEntryContentForm *self);
 void system_training_entry_content_form_set_training_id(SystemTrainingEntryContentForm *self, const char *value);
-char *system_training_entry_content_form_system_name(const SystemTrainingEntryContentForm *self);
-void system_training_entry_content_form_set_system_name(SystemTrainingEntryContentForm *self, const char *value);
 char *system_training_entry_content_form_modules_covered(const SystemTrainingEntryContentForm *self);
 void system_training_entry_content_form_set_modules_covered(SystemTrainingEntryContentForm *self, const char *value);
 char *system_training_entry_content_form_user_role_focus(const SystemTrainingEntryContentForm *self);
@@ -62542,8 +62054,6 @@ char *tab_bar_definition_entry_content_form_content(const TabBarDefinitionEntryC
 void tab_bar_definition_entry_content_form_set_content(TabBarDefinitionEntryContentForm *self, const char *value);
 char *tab_bar_definition_entry_content_form_tab_bar_id(const TabBarDefinitionEntryContentForm *self);
 void tab_bar_definition_entry_content_form_set_tab_bar_id(TabBarDefinitionEntryContentForm *self, const char *value);
-char *tab_bar_definition_entry_content_form_tab_bar_name(const TabBarDefinitionEntryContentForm *self);
-void tab_bar_definition_entry_content_form_set_tab_bar_name(TabBarDefinitionEntryContentForm *self, const char *value);
 char *tab_bar_definition_entry_content_form_host_screen_id(const TabBarDefinitionEntryContentForm *self);
 void tab_bar_definition_entry_content_form_set_host_screen_id(TabBarDefinitionEntryContentForm *self, const char *value);
 char *tab_bar_definition_entry_content_form_tab_bar_style(const TabBarDefinitionEntryContentForm *self);
@@ -62602,8 +62112,6 @@ void target_platform_entry_content_form_free(TargetPlatformEntryContentForm *sel
 // The section's own free-text content, before the form fields (owned).
 char *target_platform_entry_content_form_content(const TargetPlatformEntryContentForm *self);
 void target_platform_entry_content_form_set_content(TargetPlatformEntryContentForm *self, const char *value);
-char *target_platform_entry_content_form_platform_name(const TargetPlatformEntryContentForm *self);
-void target_platform_entry_content_form_set_platform_name(TargetPlatformEntryContentForm *self, const char *value);
 char *target_platform_entry_content_form_platform_category(const TargetPlatformEntryContentForm *self);
 void target_platform_entry_content_form_set_platform_category(TargetPlatformEntryContentForm *self, const char *value);
 char *target_platform_entry_content_form_platform_type(const TargetPlatformEntryContentForm *self);
@@ -62705,8 +62213,6 @@ void team_member_entry_content_form_free(TeamMemberEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *team_member_entry_content_form_content(const TeamMemberEntryContentForm *self);
 void team_member_entry_content_form_set_content(TeamMemberEntryContentForm *self, const char *value);
-char *team_member_entry_content_form_name(const TeamMemberEntryContentForm *self);
-void team_member_entry_content_form_set_name(TeamMemberEntryContentForm *self, const char *value);
 char *team_member_entry_content_form_project_role(const TeamMemberEntryContentForm *self);
 void team_member_entry_content_form_set_project_role(TeamMemberEntryContentForm *self, const char *value);
 char *team_member_entry_content_form_organization(const TeamMemberEntryContentForm *self);
@@ -62746,8 +62252,6 @@ void team_member_skill_entry_content_form_free(TeamMemberSkillEntryContentForm *
 // The section's own free-text content, before the form fields (owned).
 char *team_member_skill_entry_content_form_content(const TeamMemberSkillEntryContentForm *self);
 void team_member_skill_entry_content_form_set_content(TeamMemberSkillEntryContentForm *self, const char *value);
-char *team_member_skill_entry_content_form_skill_name(const TeamMemberSkillEntryContentForm *self);
-void team_member_skill_entry_content_form_set_skill_name(TeamMemberSkillEntryContentForm *self, const char *value);
 char *team_member_skill_entry_content_form_proficiency_level(const TeamMemberSkillEntryContentForm *self);
 void team_member_skill_entry_content_form_set_proficiency_level(TeamMemberSkillEntryContentForm *self, const char *value);
 long team_member_skill_entry_content_form_years_using(const TeamMemberSkillEntryContentForm *self);
@@ -62818,8 +62322,6 @@ char *technical_constraint_entry_content_form_content(const TechnicalConstraintE
 void technical_constraint_entry_content_form_set_content(TechnicalConstraintEntryContentForm *self, const char *value);
 char *technical_constraint_entry_content_form_constraint_id(const TechnicalConstraintEntryContentForm *self);
 void technical_constraint_entry_content_form_set_constraint_id(TechnicalConstraintEntryContentForm *self, const char *value);
-char *technical_constraint_entry_content_form_constraint_name(const TechnicalConstraintEntryContentForm *self);
-void technical_constraint_entry_content_form_set_constraint_name(TechnicalConstraintEntryContentForm *self, const char *value);
 char *technical_constraint_entry_content_form_constraint_type(const TechnicalConstraintEntryContentForm *self);
 void technical_constraint_entry_content_form_set_constraint_type(TechnicalConstraintEntryContentForm *self, const char *value);
 char *technical_constraint_entry_content_form_description(const TechnicalConstraintEntryContentForm *self);
@@ -62841,8 +62343,6 @@ char *technical_dependency_entry_content_form_content(const TechnicalDependencyE
 void technical_dependency_entry_content_form_set_content(TechnicalDependencyEntryContentForm *self, const char *value);
 char *technical_dependency_entry_content_form_dependency_id(const TechnicalDependencyEntryContentForm *self);
 void technical_dependency_entry_content_form_set_dependency_id(TechnicalDependencyEntryContentForm *self, const char *value);
-char *technical_dependency_entry_content_form_dependency_name(const TechnicalDependencyEntryContentForm *self);
-void technical_dependency_entry_content_form_set_dependency_name(TechnicalDependencyEntryContentForm *self, const char *value);
 char *technical_dependency_entry_content_form_dependency_type(const TechnicalDependencyEntryContentForm *self);
 void technical_dependency_entry_content_form_set_dependency_type(TechnicalDependencyEntryContentForm *self, const char *value);
 char *technical_dependency_entry_content_form_description(const TechnicalDependencyEntryContentForm *self);
@@ -62939,8 +62439,6 @@ char *technical_goal_entry_content_form_content(const TechnicalGoalEntryContentF
 void technical_goal_entry_content_form_set_content(TechnicalGoalEntryContentForm *self, const char *value);
 char *technical_goal_entry_content_form_goal_id(const TechnicalGoalEntryContentForm *self);
 void technical_goal_entry_content_form_set_goal_id(TechnicalGoalEntryContentForm *self, const char *value);
-char *technical_goal_entry_content_form_goal_name(const TechnicalGoalEntryContentForm *self);
-void technical_goal_entry_content_form_set_goal_name(TechnicalGoalEntryContentForm *self, const char *value);
 char *technical_goal_entry_content_form_description(const TechnicalGoalEntryContentForm *self);
 void technical_goal_entry_content_form_set_description(TechnicalGoalEntryContentForm *self, const char *value);
 char *technical_goal_entry_content_form_goal_category(const TechnicalGoalEntryContentForm *self);
@@ -62992,8 +62490,6 @@ char *technical_goal_test_case_entry_content_form_content(const TechnicalGoalTes
 void technical_goal_test_case_entry_content_form_set_content(TechnicalGoalTestCaseEntryContentForm *self, const char *value);
 char *technical_goal_test_case_entry_content_form_test_case_id(const TechnicalGoalTestCaseEntryContentForm *self);
 void technical_goal_test_case_entry_content_form_set_test_case_id(TechnicalGoalTestCaseEntryContentForm *self, const char *value);
-char *technical_goal_test_case_entry_content_form_test_case_name(const TechnicalGoalTestCaseEntryContentForm *self);
-void technical_goal_test_case_entry_content_form_set_test_case_name(TechnicalGoalTestCaseEntryContentForm *self, const char *value);
 char *technical_goal_test_case_entry_content_form_description(const TechnicalGoalTestCaseEntryContentForm *self);
 void technical_goal_test_case_entry_content_form_set_description(TechnicalGoalTestCaseEntryContentForm *self, const char *value);
 char *technical_goal_test_case_entry_content_form_test_procedure(const TechnicalGoalTestCaseEntryContentForm *self);
@@ -63246,8 +62742,6 @@ char *technology_standard_entry_content_form_content(const TechnologyStandardEnt
 void technology_standard_entry_content_form_set_content(TechnologyStandardEntryContentForm *self, const char *value);
 char *technology_standard_entry_content_form_standard_id(const TechnologyStandardEntryContentForm *self);
 void technology_standard_entry_content_form_set_standard_id(TechnologyStandardEntryContentForm *self, const char *value);
-char *technology_standard_entry_content_form_standard_name(const TechnologyStandardEntryContentForm *self);
-void technology_standard_entry_content_form_set_standard_name(TechnologyStandardEntryContentForm *self, const char *value);
 char *technology_standard_entry_content_form_standard_category(const TechnologyStandardEntryContentForm *self);
 void technology_standard_entry_content_form_set_standard_category(TechnologyStandardEntryContentForm *self, const char *value);
 
@@ -63344,8 +62838,6 @@ char *test_scenario_entry_content_form_content(const TestScenarioEntryContentFor
 void test_scenario_entry_content_form_set_content(TestScenarioEntryContentForm *self, const char *value);
 char *test_scenario_entry_content_form_scenario_id(const TestScenarioEntryContentForm *self);
 void test_scenario_entry_content_form_set_scenario_id(TestScenarioEntryContentForm *self, const char *value);
-char *test_scenario_entry_content_form_scenario_name(const TestScenarioEntryContentForm *self);
-void test_scenario_entry_content_form_set_scenario_name(TestScenarioEntryContentForm *self, const char *value);
 char *test_scenario_entry_content_form_priority(const TestScenarioEntryContentForm *self);
 void test_scenario_entry_content_form_set_priority(TestScenarioEntryContentForm *self, const char *value);
 
@@ -63670,8 +63162,6 @@ void third_party_library_entry_content_form_free(ThirdPartyLibraryEntryContentFo
 // The section's own free-text content, before the form fields (owned).
 char *third_party_library_entry_content_form_content(const ThirdPartyLibraryEntryContentForm *self);
 void third_party_library_entry_content_form_set_content(ThirdPartyLibraryEntryContentForm *self, const char *value);
-char *third_party_library_entry_content_form_library_name(const ThirdPartyLibraryEntryContentForm *self);
-void third_party_library_entry_content_form_set_library_name(ThirdPartyLibraryEntryContentForm *self, const char *value);
 char *third_party_library_entry_content_form_package_source(const ThirdPartyLibraryEntryContentForm *self);
 void third_party_library_entry_content_form_set_package_source(ThirdPartyLibraryEntryContentForm *self, const char *value);
 char *third_party_library_entry_content_form_version(const ThirdPartyLibraryEntryContentForm *self);
@@ -63940,8 +63430,6 @@ char *tool_entry_content_form_content(const ToolEntryContentForm *self);
 void tool_entry_content_form_set_content(ToolEntryContentForm *self, const char *value);
 char *tool_entry_content_form_tool_id(const ToolEntryContentForm *self);
 void tool_entry_content_form_set_tool_id(ToolEntryContentForm *self, const char *value);
-char *tool_entry_content_form_tool_name(const ToolEntryContentForm *self);
-void tool_entry_content_form_set_tool_name(ToolEntryContentForm *self, const char *value);
 char *tool_entry_content_form_notes(const ToolEntryContentForm *self);
 void tool_entry_content_form_set_notes(ToolEntryContentForm *self, const char *value);
 
@@ -64296,8 +63784,6 @@ long tour_step_entry_content_form_step_order(const TourStepEntryContentForm *sel
 void tour_step_entry_content_form_set_step_order(TourStepEntryContentForm *self, long value);
 char *tour_step_entry_content_form_target_element(const TourStepEntryContentForm *self);
 void tour_step_entry_content_form_set_target_element(TourStepEntryContentForm *self, const char *value);
-char *tour_step_entry_content_form_step_title(const TourStepEntryContentForm *self);
-void tour_step_entry_content_form_set_step_title(TourStepEntryContentForm *self, const char *value);
 char *tour_step_entry_content_form_step_content(const TourStepEntryContentForm *self);
 void tour_step_entry_content_form_set_step_content(TourStepEntryContentForm *self, const char *value);
 char *tour_step_entry_content_form_placement(const TourStepEntryContentForm *self);
@@ -64330,8 +63816,6 @@ char *trade_off_decision_entry_content_form_content(const TradeOffDecisionEntryC
 void trade_off_decision_entry_content_form_set_content(TradeOffDecisionEntryContentForm *self, const char *value);
 char *trade_off_decision_entry_content_form_decision_id(const TradeOffDecisionEntryContentForm *self);
 void trade_off_decision_entry_content_form_set_decision_id(TradeOffDecisionEntryContentForm *self, const char *value);
-char *trade_off_decision_entry_content_form_decision_title(const TradeOffDecisionEntryContentForm *self);
-void trade_off_decision_entry_content_form_set_decision_title(TradeOffDecisionEntryContentForm *self, const char *value);
 char *trade_off_decision_entry_content_form_decision_status(const TradeOffDecisionEntryContentForm *self);
 void trade_off_decision_entry_content_form_set_decision_status(TradeOffDecisionEntryContentForm *self, const char *value);
 
@@ -64572,8 +64056,6 @@ char *training_module_entry_content_form_content(const TrainingModuleEntryConten
 void training_module_entry_content_form_set_content(TrainingModuleEntryContentForm *self, const char *value);
 char *training_module_entry_content_form_module_id(const TrainingModuleEntryContentForm *self);
 void training_module_entry_content_form_set_module_id(TrainingModuleEntryContentForm *self, const char *value);
-char *training_module_entry_content_form_module_name(const TrainingModuleEntryContentForm *self);
-void training_module_entry_content_form_set_module_name(TrainingModuleEntryContentForm *self, const char *value);
 char *training_module_entry_content_form_target_audience(const TrainingModuleEntryContentForm *self);
 void training_module_entry_content_form_set_target_audience(TrainingModuleEntryContentForm *self, const char *value);
 char *training_module_entry_content_form_duration(const TrainingModuleEntryContentForm *self);
@@ -64663,8 +64145,6 @@ void training_topic_entry_content_form_free(TrainingTopicEntryContentForm *self)
 // The section's own free-text content, before the form fields (owned).
 char *training_topic_entry_content_form_content(const TrainingTopicEntryContentForm *self);
 void training_topic_entry_content_form_set_content(TrainingTopicEntryContentForm *self, const char *value);
-char *training_topic_entry_content_form_topic_name(const TrainingTopicEntryContentForm *self);
-void training_topic_entry_content_form_set_topic_name(TrainingTopicEntryContentForm *self, const char *value);
 char *training_topic_entry_content_form_description(const TrainingTopicEntryContentForm *self);
 void training_topic_entry_content_form_set_description(TrainingTopicEntryContentForm *self, const char *value);
 char *training_topic_entry_content_form_learning_objectives(const TrainingTopicEntryContentForm *self);
@@ -64747,8 +64227,6 @@ char *transition_metric_entry_content_form_content(const TransitionMetricEntryCo
 void transition_metric_entry_content_form_set_content(TransitionMetricEntryContentForm *self, const char *value);
 char *transition_metric_entry_content_form_metric_id(const TransitionMetricEntryContentForm *self);
 void transition_metric_entry_content_form_set_metric_id(TransitionMetricEntryContentForm *self, const char *value);
-char *transition_metric_entry_content_form_metric_name(const TransitionMetricEntryContentForm *self);
-void transition_metric_entry_content_form_set_metric_name(TransitionMetricEntryContentForm *self, const char *value);
 char *transition_metric_entry_content_form_category(const TransitionMetricEntryContentForm *self);
 void transition_metric_entry_content_form_set_category(TransitionMetricEntryContentForm *self, const char *value);
 char *transition_metric_entry_content_form_description(const TransitionMetricEntryContentForm *self);
@@ -64796,8 +64274,6 @@ char *transition_milestone_entry_content_form_content(const TransitionMilestoneE
 void transition_milestone_entry_content_form_set_content(TransitionMilestoneEntryContentForm *self, const char *value);
 char *transition_milestone_entry_content_form_milestone_id(const TransitionMilestoneEntryContentForm *self);
 void transition_milestone_entry_content_form_set_milestone_id(TransitionMilestoneEntryContentForm *self, const char *value);
-char *transition_milestone_entry_content_form_milestone_name(const TransitionMilestoneEntryContentForm *self);
-void transition_milestone_entry_content_form_set_milestone_name(TransitionMilestoneEntryContentForm *self, const char *value);
 char *transition_milestone_entry_content_form_milestone_type(const TransitionMilestoneEntryContentForm *self);
 void transition_milestone_entry_content_form_set_milestone_type(TransitionMilestoneEntryContentForm *self, const char *value);
 char *transition_milestone_entry_content_form_target_date(const TransitionMilestoneEntryContentForm *self);
@@ -64935,8 +64411,6 @@ char *transition_phase_identification_content_form_content(const TransitionPhase
 void transition_phase_identification_content_form_set_content(TransitionPhaseIdentificationContentForm *self, const char *value);
 char *transition_phase_identification_content_form_phase_id(const TransitionPhaseIdentificationContentForm *self);
 void transition_phase_identification_content_form_set_phase_id(TransitionPhaseIdentificationContentForm *self, const char *value);
-char *transition_phase_identification_content_form_phase_name(const TransitionPhaseIdentificationContentForm *self);
-void transition_phase_identification_content_form_set_phase_name(TransitionPhaseIdentificationContentForm *self, const char *value);
 char *transition_phase_identification_content_form_phase_type(const TransitionPhaseIdentificationContentForm *self);
 void transition_phase_identification_content_form_set_phase_type(TransitionPhaseIdentificationContentForm *self, const char *value);
 char *transition_phase_identification_content_form_phase_owner(const TransitionPhaseIdentificationContentForm *self);
@@ -65012,8 +64486,6 @@ char *transition_risk_entry_content_form_content(const TransitionRiskEntryConten
 void transition_risk_entry_content_form_set_content(TransitionRiskEntryContentForm *self, const char *value);
 char *transition_risk_entry_content_form_risk_id(const TransitionRiskEntryContentForm *self);
 void transition_risk_entry_content_form_set_risk_id(TransitionRiskEntryContentForm *self, const char *value);
-char *transition_risk_entry_content_form_risk_name(const TransitionRiskEntryContentForm *self);
-void transition_risk_entry_content_form_set_risk_name(TransitionRiskEntryContentForm *self, const char *value);
 char *transition_risk_entry_content_form_risk_category(const TransitionRiskEntryContentForm *self);
 void transition_risk_entry_content_form_set_risk_category(TransitionRiskEntryContentForm *self, const char *value);
 char *transition_risk_entry_content_form_description(const TransitionRiskEntryContentForm *self);
@@ -65063,8 +64535,6 @@ char *transition_support_resource_entry_content_form_content(const TransitionSup
 void transition_support_resource_entry_content_form_set_content(TransitionSupportResourceEntryContentForm *self, const char *value);
 char *transition_support_resource_entry_content_form_resource_type(const TransitionSupportResourceEntryContentForm *self);
 void transition_support_resource_entry_content_form_set_resource_type(TransitionSupportResourceEntryContentForm *self, const char *value);
-char *transition_support_resource_entry_content_form_resource_name(const TransitionSupportResourceEntryContentForm *self);
-void transition_support_resource_entry_content_form_set_resource_name(TransitionSupportResourceEntryContentForm *self, const char *value);
 char *transition_support_resource_entry_content_form_availability_period(const TransitionSupportResourceEntryContentForm *self);
 void transition_support_resource_entry_content_form_set_availability_period(TransitionSupportResourceEntryContentForm *self, const char *value);
 char *transition_support_resource_entry_content_form_coverage(const TransitionSupportResourceEntryContentForm *self);
@@ -65247,8 +64717,6 @@ void translation_vendor_entry_content_form_free(TranslationVendorEntryContentFor
 // The section's own free-text content, before the form fields (owned).
 char *translation_vendor_entry_content_form_content(const TranslationVendorEntryContentForm *self);
 void translation_vendor_entry_content_form_set_content(TranslationVendorEntryContentForm *self, const char *value);
-char *translation_vendor_entry_content_form_vendor_name(const TranslationVendorEntryContentForm *self);
-void translation_vendor_entry_content_form_set_vendor_name(TranslationVendorEntryContentForm *self, const char *value);
 char *translation_vendor_entry_content_form_vendor_type(const TranslationVendorEntryContentForm *self);
 void translation_vendor_entry_content_form_set_vendor_type(TranslationVendorEntryContentForm *self, const char *value);
 char *translation_vendor_entry_content_form_languages(const TranslationVendorEntryContentForm *self);
@@ -65322,8 +64790,6 @@ void trust_boundary_entry_content_form_free(TrustBoundaryEntryContentForm *self)
 // The section's own free-text content, before the form fields (owned).
 char *trust_boundary_entry_content_form_content(const TrustBoundaryEntryContentForm *self);
 void trust_boundary_entry_content_form_set_content(TrustBoundaryEntryContentForm *self, const char *value);
-char *trust_boundary_entry_content_form_boundary_name(const TrustBoundaryEntryContentForm *self);
-void trust_boundary_entry_content_form_set_boundary_name(TrustBoundaryEntryContentForm *self, const char *value);
 char *trust_boundary_entry_content_form_boundary_type(const TrustBoundaryEntryContentForm *self);
 void trust_boundary_entry_content_form_set_boundary_type(TrustBoundaryEntryContentForm *self, const char *value);
 char *trust_boundary_entry_content_form_description(const TrustBoundaryEntryContentForm *self);
@@ -65343,8 +64809,6 @@ void typography_style_entry_content_form_free(TypographyStyleEntryContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *typography_style_entry_content_form_content(const TypographyStyleEntryContentForm *self);
 void typography_style_entry_content_form_set_content(TypographyStyleEntryContentForm *self, const char *value);
-char *typography_style_entry_content_form_style_name(const TypographyStyleEntryContentForm *self);
-void typography_style_entry_content_form_set_style_name(TypographyStyleEntryContentForm *self, const char *value);
 char *typography_style_entry_content_form_font_family(const TypographyStyleEntryContentForm *self);
 void typography_style_entry_content_form_set_font_family(TypographyStyleEntryContentForm *self, const char *value);
 char *typography_style_entry_content_form_font_size(const TypographyStyleEntryContentForm *self);
@@ -65389,8 +64853,6 @@ void uat_test_cycle_entry_content_form_free(UatTestCycleEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *uat_test_cycle_entry_content_form_content(const UatTestCycleEntryContentForm *self);
 void uat_test_cycle_entry_content_form_set_content(UatTestCycleEntryContentForm *self, const char *value);
-char *uat_test_cycle_entry_content_form_cycle_name(const UatTestCycleEntryContentForm *self);
-void uat_test_cycle_entry_content_form_set_cycle_name(UatTestCycleEntryContentForm *self, const char *value);
 char *uat_test_cycle_entry_content_form_cycle_objective(const UatTestCycleEntryContentForm *self);
 void uat_test_cycle_entry_content_form_set_cycle_objective(UatTestCycleEntryContentForm *self, const char *value);
 char *uat_test_cycle_entry_content_form_planned_start_date(const UatTestCycleEntryContentForm *self);
@@ -65563,8 +65025,6 @@ char *ui_component_entry_identity_form_content(const UiComponentEntryIdentityFor
 void ui_component_entry_identity_form_set_content(UiComponentEntryIdentityForm *self, const char *value);
 char *ui_component_entry_identity_form_component_id(const UiComponentEntryIdentityForm *self);
 void ui_component_entry_identity_form_set_component_id(UiComponentEntryIdentityForm *self, const char *value);
-char *ui_component_entry_identity_form_component_name(const UiComponentEntryIdentityForm *self);
-void ui_component_entry_identity_form_set_component_name(UiComponentEntryIdentityForm *self, const char *value);
 char *ui_component_entry_identity_form_component_family(const UiComponentEntryIdentityForm *self);
 void ui_component_entry_identity_form_set_component_family(UiComponentEntryIdentityForm *self, const char *value);
 char *ui_component_entry_identity_form_base_component(const UiComponentEntryIdentityForm *self);
@@ -66157,8 +65617,6 @@ void user_attribute_entry_content_form_free(UserAttributeEntryContentForm *self)
 // The section's own free-text content, before the form fields (owned).
 char *user_attribute_entry_content_form_content(const UserAttributeEntryContentForm *self);
 void user_attribute_entry_content_form_set_content(UserAttributeEntryContentForm *self, const char *value);
-char *user_attribute_entry_content_form_attribute_name(const UserAttributeEntryContentForm *self);
-void user_attribute_entry_content_form_set_attribute_name(UserAttributeEntryContentForm *self, const char *value);
 char *user_attribute_entry_content_form_data_type(const UserAttributeEntryContentForm *self);
 void user_attribute_entry_content_form_set_data_type(UserAttributeEntryContentForm *self, const char *value);
 char *user_attribute_entry_content_form_placement(const UserAttributeEntryContentForm *self);
@@ -66176,8 +65634,6 @@ void user_category_definition_content_form_free(UserCategoryDefinitionContentFor
 // The section's own free-text content, before the form fields (owned).
 char *user_category_definition_content_form_content(const UserCategoryDefinitionContentForm *self);
 void user_category_definition_content_form_set_content(UserCategoryDefinitionContentForm *self, const char *value);
-char *user_category_definition_content_form_category_name(const UserCategoryDefinitionContentForm *self);
-void user_category_definition_content_form_set_category_name(UserCategoryDefinitionContentForm *self, const char *value);
 char *user_category_definition_content_form_description(const UserCategoryDefinitionContentForm *self);
 void user_category_definition_content_form_set_description(UserCategoryDefinitionContentForm *self, const char *value);
 char *user_category_definition_content_form_access_level(const UserCategoryDefinitionContentForm *self);
@@ -66191,8 +65647,6 @@ void user_category_entry_content_form_free(UserCategoryEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *user_category_entry_content_form_content(const UserCategoryEntryContentForm *self);
 void user_category_entry_content_form_set_content(UserCategoryEntryContentForm *self, const char *value);
-char *user_category_entry_content_form_category_name(const UserCategoryEntryContentForm *self);
-void user_category_entry_content_form_set_category_name(UserCategoryEntryContentForm *self, const char *value);
 char *user_category_entry_content_form_category_id(const UserCategoryEntryContentForm *self);
 void user_category_entry_content_form_set_category_id(UserCategoryEntryContentForm *self, const char *value);
 char *user_category_entry_content_form_description(const UserCategoryEntryContentForm *self);
@@ -66306,8 +65760,6 @@ void user_group_impact_entry_content_form_free(UserGroupImpactEntryContentForm *
 // The section's own free-text content, before the form fields (owned).
 char *user_group_impact_entry_content_form_content(const UserGroupImpactEntryContentForm *self);
 void user_group_impact_entry_content_form_set_content(UserGroupImpactEntryContentForm *self, const char *value);
-char *user_group_impact_entry_content_form_group_name(const UserGroupImpactEntryContentForm *self);
-void user_group_impact_entry_content_form_set_group_name(UserGroupImpactEntryContentForm *self, const char *value);
 long user_group_impact_entry_content_form_user_count(const UserGroupImpactEntryContentForm *self);
 void user_group_impact_entry_content_form_set_user_count(UserGroupImpactEntryContentForm *self, long value);
 char *user_group_impact_entry_content_form_impact_level(const UserGroupImpactEntryContentForm *self);
@@ -66405,8 +65857,6 @@ void user_lifecycle_transition_entry_content_form_free(UserLifecycleTransitionEn
 // The section's own free-text content, before the form fields (owned).
 char *user_lifecycle_transition_entry_content_form_content(const UserLifecycleTransitionEntryContentForm *self);
 void user_lifecycle_transition_entry_content_form_set_content(UserLifecycleTransitionEntryContentForm *self, const char *value);
-char *user_lifecycle_transition_entry_content_form_transition_name(const UserLifecycleTransitionEntryContentForm *self);
-void user_lifecycle_transition_entry_content_form_set_transition_name(UserLifecycleTransitionEntryContentForm *self, const char *value);
 char *user_lifecycle_transition_entry_content_form_from_state(const UserLifecycleTransitionEntryContentForm *self);
 void user_lifecycle_transition_entry_content_form_set_from_state(UserLifecycleTransitionEntryContentForm *self, const char *value);
 char *user_lifecycle_transition_entry_content_form_to_state(const UserLifecycleTransitionEntryContentForm *self);
@@ -66621,8 +66071,6 @@ char *utility_menu_item_entry_content_form_content(const UtilityMenuItemEntryCon
 void utility_menu_item_entry_content_form_set_content(UtilityMenuItemEntryContentForm *self, const char *value);
 char *utility_menu_item_entry_content_form_menu_item_id(const UtilityMenuItemEntryContentForm *self);
 void utility_menu_item_entry_content_form_set_menu_item_id(UtilityMenuItemEntryContentForm *self, const char *value);
-char *utility_menu_item_entry_content_form_label(const UtilityMenuItemEntryContentForm *self);
-void utility_menu_item_entry_content_form_set_label(UtilityMenuItemEntryContentForm *self, const char *value);
 char *utility_menu_item_entry_content_form_icon(const UtilityMenuItemEntryContentForm *self);
 void utility_menu_item_entry_content_form_set_icon(UtilityMenuItemEntryContentForm *self, const char *value);
 long utility_menu_item_entry_content_form_display_order(const UtilityMenuItemEntryContentForm *self);
@@ -66651,8 +66099,6 @@ char *utility_navigation_item_entry_content_form_content(const UtilityNavigation
 void utility_navigation_item_entry_content_form_set_content(UtilityNavigationItemEntryContentForm *self, const char *value);
 char *utility_navigation_item_entry_content_form_utility_id(const UtilityNavigationItemEntryContentForm *self);
 void utility_navigation_item_entry_content_form_set_utility_id(UtilityNavigationItemEntryContentForm *self, const char *value);
-char *utility_navigation_item_entry_content_form_label(const UtilityNavigationItemEntryContentForm *self);
-void utility_navigation_item_entry_content_form_set_label(UtilityNavigationItemEntryContentForm *self, const char *value);
 char *utility_navigation_item_entry_content_form_icon(const UtilityNavigationItemEntryContentForm *self);
 void utility_navigation_item_entry_content_form_set_icon(UtilityNavigationItemEntryContentForm *self, const char *value);
 char *utility_navigation_item_entry_content_form_position(const UtilityNavigationItemEntryContentForm *self);
@@ -66994,8 +66440,6 @@ void vpn_requirement_entry_content_form_free(VpnRequirementEntryContentForm *sel
 // The section's own free-text content, before the form fields (owned).
 char *vpn_requirement_entry_content_form_content(const VpnRequirementEntryContentForm *self);
 void vpn_requirement_entry_content_form_set_content(VpnRequirementEntryContentForm *self, const char *value);
-char *vpn_requirement_entry_content_form_vpn_name(const VpnRequirementEntryContentForm *self);
-void vpn_requirement_entry_content_form_set_vpn_name(VpnRequirementEntryContentForm *self, const char *value);
 char *vpn_requirement_entry_content_form_vpn_type(const VpnRequirementEntryContentForm *self);
 void vpn_requirement_entry_content_form_set_vpn_type(VpnRequirementEntryContentForm *self, const char *value);
 char *vpn_requirement_entry_content_form_purpose(const VpnRequirementEntryContentForm *self);
@@ -67259,8 +66703,6 @@ char *wcag_success_criterion_entry_content_form_content(const WcagSuccessCriteri
 void wcag_success_criterion_entry_content_form_set_content(WcagSuccessCriterionEntryContentForm *self, const char *value);
 char *wcag_success_criterion_entry_content_form_criterion_id(const WcagSuccessCriterionEntryContentForm *self);
 void wcag_success_criterion_entry_content_form_set_criterion_id(WcagSuccessCriterionEntryContentForm *self, const char *value);
-char *wcag_success_criterion_entry_content_form_criterion_name(const WcagSuccessCriterionEntryContentForm *self);
-void wcag_success_criterion_entry_content_form_set_criterion_name(WcagSuccessCriterionEntryContentForm *self, const char *value);
 char *wcag_success_criterion_entry_content_form_level(const WcagSuccessCriterionEntryContentForm *self);
 void wcag_success_criterion_entry_content_form_set_level(WcagSuccessCriterionEntryContentForm *self, const char *value);
 char *wcag_success_criterion_entry_content_form_applicability(const WcagSuccessCriterionEntryContentForm *self);
@@ -67297,8 +66739,6 @@ void workflow_actor_entry_content_form_free(WorkflowActorEntryContentForm *self)
 // The section's own free-text content, before the form fields (owned).
 char *workflow_actor_entry_content_form_content(const WorkflowActorEntryContentForm *self);
 void workflow_actor_entry_content_form_set_content(WorkflowActorEntryContentForm *self, const char *value);
-char *workflow_actor_entry_content_form_actor_name(const WorkflowActorEntryContentForm *self);
-void workflow_actor_entry_content_form_set_actor_name(WorkflowActorEntryContentForm *self, const char *value);
 char *workflow_actor_entry_content_form_actor_type(const WorkflowActorEntryContentForm *self);
 void workflow_actor_entry_content_form_set_actor_type(WorkflowActorEntryContentForm *self, const char *value);
 char *workflow_actor_entry_content_form_role(const WorkflowActorEntryContentForm *self);
@@ -67320,8 +66760,6 @@ void workflow_business_rule_content_form_free(WorkflowBusinessRuleContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *workflow_business_rule_content_form_content(const WorkflowBusinessRuleContentForm *self);
 void workflow_business_rule_content_form_set_content(WorkflowBusinessRuleContentForm *self, const char *value);
-char *workflow_business_rule_content_form_rule_name(const WorkflowBusinessRuleContentForm *self);
-void workflow_business_rule_content_form_set_rule_name(WorkflowBusinessRuleContentForm *self, const char *value);
 char *workflow_business_rule_content_form_rule_description(const WorkflowBusinessRuleContentForm *self);
 void workflow_business_rule_content_form_set_rule_description(WorkflowBusinessRuleContentForm *self, const char *value);
 char *workflow_business_rule_content_form_rule_logic(const WorkflowBusinessRuleContentForm *self);
@@ -67337,8 +66775,6 @@ void workflow_decision_point_content_form_free(WorkflowDecisionPointContentForm 
 // The section's own free-text content, before the form fields (owned).
 char *workflow_decision_point_content_form_content(const WorkflowDecisionPointContentForm *self);
 void workflow_decision_point_content_form_set_content(WorkflowDecisionPointContentForm *self, const char *value);
-char *workflow_decision_point_content_form_decision_name(const WorkflowDecisionPointContentForm *self);
-void workflow_decision_point_content_form_set_decision_name(WorkflowDecisionPointContentForm *self, const char *value);
 char *workflow_decision_point_content_form_decision_criteria(const WorkflowDecisionPointContentForm *self);
 void workflow_decision_point_content_form_set_decision_criteria(WorkflowDecisionPointContentForm *self, const char *value);
 char *workflow_decision_point_content_form_decision_maker(const WorkflowDecisionPointContentForm *self);
@@ -67356,8 +66792,6 @@ void workflow_exception_entry_content_form_free(WorkflowExceptionEntryContentFor
 // The section's own free-text content, before the form fields (owned).
 char *workflow_exception_entry_content_form_content(const WorkflowExceptionEntryContentForm *self);
 void workflow_exception_entry_content_form_set_content(WorkflowExceptionEntryContentForm *self, const char *value);
-char *workflow_exception_entry_content_form_exception_name(const WorkflowExceptionEntryContentForm *self);
-void workflow_exception_entry_content_form_set_exception_name(WorkflowExceptionEntryContentForm *self, const char *value);
 char *workflow_exception_entry_content_form_exception_type(const WorkflowExceptionEntryContentForm *self);
 void workflow_exception_entry_content_form_set_exception_type(WorkflowExceptionEntryContentForm *self, const char *value);
 char *workflow_exception_entry_content_form_frequency(const WorkflowExceptionEntryContentForm *self);
@@ -67375,8 +66809,6 @@ void workflow_input_entry_content_form_free(WorkflowInputEntryContentForm *self)
 // The section's own free-text content, before the form fields (owned).
 char *workflow_input_entry_content_form_content(const WorkflowInputEntryContentForm *self);
 void workflow_input_entry_content_form_set_content(WorkflowInputEntryContentForm *self, const char *value);
-char *workflow_input_entry_content_form_input_name(const WorkflowInputEntryContentForm *self);
-void workflow_input_entry_content_form_set_input_name(WorkflowInputEntryContentForm *self, const char *value);
 char *workflow_input_entry_content_form_input_type(const WorkflowInputEntryContentForm *self);
 void workflow_input_entry_content_form_set_input_type(WorkflowInputEntryContentForm *self, const char *value);
 char *workflow_input_entry_content_form_source(const WorkflowInputEntryContentForm *self);
@@ -67394,8 +66826,6 @@ void workflow_output_entry_content_form_free(WorkflowOutputEntryContentForm *sel
 // The section's own free-text content, before the form fields (owned).
 char *workflow_output_entry_content_form_content(const WorkflowOutputEntryContentForm *self);
 void workflow_output_entry_content_form_set_content(WorkflowOutputEntryContentForm *self, const char *value);
-char *workflow_output_entry_content_form_output_name(const WorkflowOutputEntryContentForm *self);
-void workflow_output_entry_content_form_set_output_name(WorkflowOutputEntryContentForm *self, const char *value);
 char *workflow_output_entry_content_form_output_type(const WorkflowOutputEntryContentForm *self);
 void workflow_output_entry_content_form_set_output_type(WorkflowOutputEntryContentForm *self, const char *value);
 char *workflow_output_entry_content_form_destination(const WorkflowOutputEntryContentForm *self);
@@ -67411,8 +66841,6 @@ void workflow_step_entry_content_form_free(WorkflowStepEntryContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *workflow_step_entry_content_form_content(const WorkflowStepEntryContentForm *self);
 void workflow_step_entry_content_form_set_content(WorkflowStepEntryContentForm *self, const char *value);
-char *workflow_step_entry_content_form_step_name(const WorkflowStepEntryContentForm *self);
-void workflow_step_entry_content_form_set_step_name(WorkflowStepEntryContentForm *self, const char *value);
 long workflow_step_entry_content_form_step_number(const WorkflowStepEntryContentForm *self);
 void workflow_step_entry_content_form_set_step_number(WorkflowStepEntryContentForm *self, long value);
 char *workflow_step_entry_content_form_description(const WorkflowStepEntryContentForm *self);
@@ -67436,8 +66864,6 @@ void workflow_step_issue_content_form_free(WorkflowStepIssueContentForm *self);
 // The section's own free-text content, before the form fields (owned).
 char *workflow_step_issue_content_form_content(const WorkflowStepIssueContentForm *self);
 void workflow_step_issue_content_form_set_content(WorkflowStepIssueContentForm *self, const char *value);
-char *workflow_step_issue_content_form_issue_name(const WorkflowStepIssueContentForm *self);
-void workflow_step_issue_content_form_set_issue_name(WorkflowStepIssueContentForm *self, const char *value);
 char *workflow_step_issue_content_form_issue_description(const WorkflowStepIssueContentForm *self);
 void workflow_step_issue_content_form_set_issue_description(WorkflowStepIssueContentForm *self, const char *value);
 char *workflow_step_issue_content_form_frequency(const WorkflowStepIssueContentForm *self);
@@ -67453,8 +66879,6 @@ void workflow_summary_entry_content_form_free(WorkflowSummaryEntryContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *workflow_summary_entry_content_form_content(const WorkflowSummaryEntryContentForm *self);
 void workflow_summary_entry_content_form_set_content(WorkflowSummaryEntryContentForm *self, const char *value);
-char *workflow_summary_entry_content_form_workflow_name(const WorkflowSummaryEntryContentForm *self);
-void workflow_summary_entry_content_form_set_workflow_name(WorkflowSummaryEntryContentForm *self, const char *value);
 char *workflow_summary_entry_content_form_workflow_type(const WorkflowSummaryEntryContentForm *self);
 void workflow_summary_entry_content_form_set_workflow_type(WorkflowSummaryEntryContentForm *self, const char *value);
 char *workflow_summary_entry_content_form_frequency(const WorkflowSummaryEntryContentForm *self);
@@ -67495,8 +66919,6 @@ void workflow_trigger_entry_content_form_free(WorkflowTriggerEntryContentForm *s
 // The section's own free-text content, before the form fields (owned).
 char *workflow_trigger_entry_content_form_content(const WorkflowTriggerEntryContentForm *self);
 void workflow_trigger_entry_content_form_set_content(WorkflowTriggerEntryContentForm *self, const char *value);
-char *workflow_trigger_entry_content_form_trigger_name(const WorkflowTriggerEntryContentForm *self);
-void workflow_trigger_entry_content_form_set_trigger_name(WorkflowTriggerEntryContentForm *self, const char *value);
 char *workflow_trigger_entry_content_form_trigger_type(const WorkflowTriggerEntryContentForm *self);
 void workflow_trigger_entry_content_form_set_trigger_type(WorkflowTriggerEntryContentForm *self, const char *value);
 char *workflow_trigger_entry_content_form_trigger_source(const WorkflowTriggerEntryContentForm *self);

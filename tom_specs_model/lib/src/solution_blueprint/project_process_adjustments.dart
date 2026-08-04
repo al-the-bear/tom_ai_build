@@ -1461,13 +1461,6 @@ class ToolEntry extends DocSpecsSection {
       required: true,
     ),
     Field(
-      'toolName',
-      String,
-      'Tool Name',
-      hint: 'Official product name, e.g. GitHub, Jira, VS Code',
-      required: true,
-    ),
-    Field(
       'notes',
       String,
       'Notes',
@@ -2629,13 +2622,6 @@ class Environments extends DocSpecsSection {
 @SectionId('ENVEN')
 class EnvironmentEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'environmentName',
-      String,
-      'Environment Name',
-      hint: 'Canonical name, e.g. Production, Staging-EU, Dev-Feature',
-      required: true,
-    ),
     Field(
       'environmentId',
       String,

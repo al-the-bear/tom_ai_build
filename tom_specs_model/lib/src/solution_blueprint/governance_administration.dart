@@ -309,13 +309,6 @@ class CommitteeCharter extends DocSpecsSection {
 class CommitteeMemberEntry extends DocSpecsSection {
   @Form([
     Field(
-      'name',
-      String,
-      'Name',
-      required: true,
-      hint: 'Full name of the committee member',
-    ),
-    Field(
       'organizationRole',
       String,
       'Organization Role',
@@ -618,13 +611,6 @@ class ResourceRequirementEntry extends DocSpecsSection {
 class TeamMemberEntry extends DocSpecsSection {
   @Form([
     Field(
-      'name',
-      String,
-      'Name',
-      required: true,
-      hint: 'Full name of the team member',
-    ),
-    Field(
       'projectRole',
       String,
       'Project Role',
@@ -868,13 +854,6 @@ class TeamMemberSkills extends DocSpecsSection {
 @SectionId('TMSKE')
 class TeamMemberSkillEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'skillName',
-      String,
-      'Skill Name',
-      required: true,
-      hint: 'Name of the skill or competency',
-    ),
     Field(
       'proficiencyLevel',
       String,
@@ -1169,13 +1148,6 @@ class CommunicationTypeEntry extends DocSpecsSection {
 @SectionId('CSDSGR')
 class CustomDistributionGroup extends DocSpecsSection {
   @Form([
-    Field(
-      'groupName',
-      String,
-      'Group Name',
-      required: true,
-      hint: 'Name of the distribution group',
-    ),
     Field('purpose', String, 'Purpose', hint: 'Why this group exists'),
     Field(
       'informationScope',
@@ -1353,13 +1325,6 @@ class DistributionGroupSummary extends DocSpecsSection {
 @SectionId('DSRC')
 class DistributionRecipientEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'name',
-      String,
-      'Name',
-      required: true,
-      hint: 'Full name of the recipient',
-    ),
     Field('role', String, 'Role', hint: 'Project or organizational role'),
     Field(
       'organization',
@@ -1926,13 +1891,6 @@ class ChangeNotificationRules extends DocSpecsSection {
 class ChangeRoleEntry extends DocSpecsSection {
   @Form([
     Field(
-      'roleName',
-      String,
-      'Role Name',
-      required: true,
-      hint: 'Name of the role in change process',
-    ),
-    Field(
       'responsibility',
       String,
       'Responsibility',
@@ -1986,13 +1944,6 @@ class ChangeStepEntry extends DocSpecsSection {
       'Step Number',
       hint: 'Order of this step in the process',
       required: true,
-    ),
-    Field(
-      'stepName',
-      String,
-      'Step Name',
-      required: true,
-      hint: 'Name of the process step',
     ),
     Field(
       'description',
@@ -2605,13 +2556,6 @@ and decision-making rules.
 @SectionId('CCME')
 class CcbMemberEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'name',
-      String,
-      'Name',
-      required: true,
-      hint: 'Name of the CCB member',
-    ),
     Field('role', String, 'Role', hint: 'Role in the organization'),
     Field(
       'ccbRole',
@@ -2667,13 +2611,6 @@ class ChangeCategoryEntry extends DocSpecsSection {
       'Category ID',
       hint: 'Unique identifier for this category',
       required: true,
-    ),
-    Field(
-      'categoryName',
-      String,
-      'Category Name',
-      required: true,
-      hint: 'Name of the change category',
     ),
     Field(
       'description',
@@ -3096,13 +3033,6 @@ class ConfidentialityRequirements extends DocSpecsSection {
 class ConfidentialInfoCategoryEntry extends DocSpecsSection {
   @Form([
     Field(
-      'categoryName',
-      String,
-      'Category Name',
-      required: true,
-      hint: 'Name of the confidential information category',
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -3276,13 +3206,6 @@ class RegulatoryRequirementEntry extends DocSpecsSection {
 class ComplianceMilestoneEntry extends DocSpecsSection {
   @Form([
     Field(
-      'milestoneName',
-      String,
-      'Milestone Name',
-      required: true,
-      hint: 'Name of the compliance milestone',
-    ),
-    Field(
       'regulation',
       String,
       'Related Regulation',
@@ -3361,13 +3284,6 @@ class AuditRequirements extends DocSpecsSection {
 @SectionId('AUD')
 class AuditEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'auditName',
-      String,
-      'Audit Name',
-      required: true,
-      hint: 'Name of the audit',
-    ),
     Field(
       'auditType',
       String,
@@ -3649,13 +3565,6 @@ class LiabilityLimitations extends DocSpecsSection {
 @SectionId('OTAGR')
 class OtherAgreementEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'agreementTitle',
-      String,
-      'Agreement Title',
-      required: true,
-      hint: 'Title of the agreement',
-    ),
     Field(
       'agreementType',
       String,

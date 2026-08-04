@@ -49336,13 +49336,6 @@ char *acceptance_criterion_entry_content_form_criterion_id(const AcceptanceCrite
 void acceptance_criterion_entry_content_form_set_criterion_id(AcceptanceCriterionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "criterionId", value);
 }
-char *acceptance_criterion_entry_content_form_criterion_title(const AcceptanceCriterionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "criterionTitle");
-  return som_strdup(v != NULL ? v : "");
-}
-void acceptance_criterion_entry_content_form_set_criterion_title(AcceptanceCriterionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "criterionTitle", value);
-}
 char *acceptance_criterion_entry_content_form_given(const AcceptanceCriterionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "given");
   return som_strdup(v != NULL ? v : "");
@@ -49679,13 +49672,6 @@ char *acceptance_step_entry_content_form_step_number(const AcceptanceStepEntryCo
 void acceptance_step_entry_content_form_set_step_number(AcceptanceStepEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "stepNumber", value);
 }
-char *acceptance_step_entry_content_form_step_name(const AcceptanceStepEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stepName");
-  return som_strdup(v != NULL ? v : "");
-}
-void acceptance_step_entry_content_form_set_step_name(AcceptanceStepEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "stepName", value);
-}
 char *acceptance_step_entry_content_form_description(const AcceptanceStepEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -49790,13 +49776,6 @@ char *access_level_entry_content_form_content(const AccessLevelEntryContentForm 
 }
 void access_level_entry_content_form_set_content(AccessLevelEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *access_level_entry_content_form_level_name(const AccessLevelEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "levelName");
-  return som_strdup(v != NULL ? v : "");
-}
-void access_level_entry_content_form_set_level_name(AccessLevelEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "levelName", value);
 }
 char *access_level_entry_content_form_level_id(const AccessLevelEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "levelId");
@@ -50269,13 +50248,6 @@ char *accessibility_standard_entry_content_form_content(const AccessibilityStand
 void accessibility_standard_entry_content_form_set_content(AccessibilityStandardEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *accessibility_standard_entry_content_form_standard_name(const AccessibilityStandardEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "standardName");
-  return som_strdup(v != NULL ? v : "");
-}
-void accessibility_standard_entry_content_form_set_standard_name(AccessibilityStandardEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "standardName", value);
-}
 char *accessibility_standard_entry_content_form_version(const AccessibilityStandardEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "version");
   return som_strdup(v != NULL ? v : "");
@@ -50563,13 +50535,6 @@ char *action_parameter_entry_content_form_content(const ActionParameterEntryCont
 void action_parameter_entry_content_form_set_content(ActionParameterEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *action_parameter_entry_content_form_parameter_name(const ActionParameterEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "parameterName");
-  return som_strdup(v != NULL ? v : "");
-}
-void action_parameter_entry_content_form_set_parameter_name(ActionParameterEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "parameterName", value);
-}
 char *action_parameter_entry_content_form_source_type(const ActionParameterEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "sourceType");
   return som_strdup(v != NULL ? v : "");
@@ -50737,13 +50702,6 @@ char *actor_entry_identification_form_actor_id(const ActorEntryIdentificationFor
 }
 void actor_entry_identification_form_set_actor_id(ActorEntryIdentificationForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "actorId", value);
-}
-char *actor_entry_identification_form_actor_name(const ActorEntryIdentificationForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "actorName");
-  return som_strdup(v != NULL ? v : "");
-}
-void actor_entry_identification_form_set_actor_name(ActorEntryIdentificationForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "actorName", value);
 }
 char *actor_entry_identification_form_actor_type(const ActorEntryIdentificationForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "actorType");
@@ -51572,13 +51530,6 @@ char *affected_department_entry_content_form_content(const AffectedDepartmentEnt
 void affected_department_entry_content_form_set_content(AffectedDepartmentEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *affected_department_entry_content_form_department_name(const AffectedDepartmentEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "departmentName");
-  return som_strdup(v != NULL ? v : "");
-}
-void affected_department_entry_content_form_set_department_name(AffectedDepartmentEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "departmentName", value);
-}
 char *affected_department_entry_content_form_department_head(const AffectedDepartmentEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "departmentHead");
   return som_strdup(v != NULL ? v : "");
@@ -51651,13 +51602,6 @@ char *affected_function_entry_content_form_content(const AffectedFunctionEntryCo
 void affected_function_entry_content_form_set_content(AffectedFunctionEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *affected_function_entry_content_form_function_name(const AffectedFunctionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "functionName");
-  return som_strdup(v != NULL ? v : "");
-}
-void affected_function_entry_content_form_set_function_name(AffectedFunctionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "functionName", value);
-}
 char *affected_function_entry_content_form_trigger_point(const AffectedFunctionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "triggerPoint");
   return som_strdup(v != NULL ? v : "");
@@ -51692,13 +51636,6 @@ char *affected_object_entry_content_form_content(const AffectedObjectEntryConten
 }
 void affected_object_entry_content_form_set_content(AffectedObjectEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *affected_object_entry_content_form_object_name(const AffectedObjectEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "objectName");
-  return som_strdup(v != NULL ? v : "");
-}
-void affected_object_entry_content_form_set_object_name(AffectedObjectEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "objectName", value);
 }
 char *affected_object_entry_content_form_affected_attributes(const AffectedObjectEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "affectedAttributes");
@@ -51783,13 +51720,6 @@ char *alert_definition_entry_content_form_content(const AlertDefinitionEntryCont
 }
 void alert_definition_entry_content_form_set_content(AlertDefinitionEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *alert_definition_entry_content_form_alert_name(const AlertDefinitionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "alertName");
-  return som_strdup(v != NULL ? v : "");
-}
-void alert_definition_entry_content_form_set_alert_name(AlertDefinitionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "alertName", value);
 }
 char *alert_definition_entry_content_form_alert_description(const AlertDefinitionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "alertDescription");
@@ -52217,13 +52147,6 @@ char *alert_rule_entry_content_form_alert_id(const AlertRuleEntryContentForm *se
 }
 void alert_rule_entry_content_form_set_alert_id(AlertRuleEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "alertId", value);
-}
-char *alert_rule_entry_content_form_alert_name(const AlertRuleEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "alertName");
-  return som_strdup(v != NULL ? v : "");
-}
-void alert_rule_entry_content_form_set_alert_name(AlertRuleEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "alertName", value);
 }
 char *alert_rule_entry_content_form_alert_description(const AlertRuleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "alertDescription");
@@ -52736,13 +52659,6 @@ char *alternative_flow_entry_content_form_flow_id(const AlternativeFlowEntryCont
 void alternative_flow_entry_content_form_set_flow_id(AlternativeFlowEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "flowId", value);
 }
-char *alternative_flow_entry_content_form_flow_name(const AlternativeFlowEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "flowName");
-  return som_strdup(v != NULL ? v : "");
-}
-void alternative_flow_entry_content_form_set_flow_name(AlternativeFlowEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "flowName", value);
-}
 char *alternative_flow_entry_content_form_flow_type(const AlternativeFlowEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "flowType");
   return som_strdup(v != NULL ? v : "");
@@ -52910,13 +52826,6 @@ char *api_compatibility_entry_content_form_content(const ApiCompatibilityEntryCo
 }
 void api_compatibility_entry_content_form_set_content(ApiCompatibilityEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *api_compatibility_entry_content_form_api_name(const ApiCompatibilityEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "apiName");
-  return som_strdup(v != NULL ? v : "");
-}
-void api_compatibility_entry_content_form_set_api_name(ApiCompatibilityEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "apiName", value);
 }
 char *api_compatibility_entry_content_form_api_type(const ApiCompatibilityEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "apiType");
@@ -53246,13 +53155,6 @@ char *applicable_regulation_entry_content_form_content(const ApplicableRegulatio
 }
 void applicable_regulation_entry_content_form_set_content(ApplicableRegulationEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *applicable_regulation_entry_content_form_regulation_name(const ApplicableRegulationEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "regulationName");
-  return som_strdup(v != NULL ? v : "");
-}
-void applicable_regulation_entry_content_form_set_regulation_name(ApplicableRegulationEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "regulationName", value);
 }
 char *applicable_regulation_entry_content_form_regulation_code(const ApplicableRegulationEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "regulationCode");
@@ -54010,13 +53912,6 @@ char *approval_record_content_form_role(const ApprovalRecordContentForm *self) {
 void approval_record_content_form_set_role(ApprovalRecordContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "role", value);
 }
-char *approval_record_content_form_name(const ApprovalRecordContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "name");
-  return som_strdup(v != NULL ? v : "");
-}
-void approval_record_content_form_set_name(ApprovalRecordContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "name", value);
-}
 char *approval_record_content_form_date(const ApprovalRecordContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "date");
   return som_strdup(v != NULL ? v : "");
@@ -54079,13 +53974,6 @@ char *architecture_component_entry_content_form_content(const ArchitectureCompon
 }
 void architecture_component_entry_content_form_set_content(ArchitectureComponentEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *architecture_component_entry_content_form_component_name(const ArchitectureComponentEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "componentName");
-  return som_strdup(v != NULL ? v : "");
-}
-void architecture_component_entry_content_form_set_component_name(ArchitectureComponentEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "componentName", value);
 }
 char *architecture_component_entry_content_form_component_type(const ArchitectureComponentEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "componentType");
@@ -54310,13 +54198,6 @@ char *architecture_decision_record_content_form_decision_id(const ArchitectureDe
 }
 void architecture_decision_record_content_form_set_decision_id(ArchitectureDecisionRecordContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "decisionId", value);
-}
-char *architecture_decision_record_content_form_title(const ArchitectureDecisionRecordContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "title");
-  return som_strdup(v != NULL ? v : "");
-}
-void architecture_decision_record_content_form_set_title(ArchitectureDecisionRecordContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "title", value);
 }
 char *architecture_decision_record_content_form_date(const ArchitectureDecisionRecordContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "date");
@@ -54640,13 +54521,6 @@ char *architecture_principle_entry_content_form_content(const ArchitecturePrinci
 void architecture_principle_entry_content_form_set_content(ArchitecturePrincipleEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *architecture_principle_entry_content_form_principle_name(const ArchitecturePrincipleEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "principleName");
-  return som_strdup(v != NULL ? v : "");
-}
-void architecture_principle_entry_content_form_set_principle_name(ArchitecturePrincipleEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "principleName", value);
-}
 char *architecture_principle_entry_content_form_category(const ArchitecturePrincipleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "category");
   return som_strdup(v != NULL ? v : "");
@@ -54814,13 +54688,6 @@ char *audit_entry_content_form_content(const AuditEntryContentForm *self) {
 }
 void audit_entry_content_form_set_content(AuditEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *audit_entry_content_form_audit_name(const AuditEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "auditName");
-  return som_strdup(v != NULL ? v : "");
-}
-void audit_entry_content_form_set_audit_name(AuditEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "auditName", value);
 }
 char *audit_entry_content_form_audit_type(const AuditEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "auditType");
@@ -55053,13 +54920,6 @@ char *authentication_method_entry_content_form_content(const AuthenticationMetho
 void authentication_method_entry_content_form_set_content(AuthenticationMethodEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *authentication_method_entry_content_form_method_name(const AuthenticationMethodEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "methodName");
-  return som_strdup(v != NULL ? v : "");
-}
-void authentication_method_entry_content_form_set_method_name(AuthenticationMethodEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "methodName", value);
-}
 char *authentication_method_entry_content_form_method_type(const AuthenticationMethodEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "methodType");
   return som_strdup(v != NULL ? v : "");
@@ -55283,13 +55143,6 @@ char *authorization_group_entry_content_form_content(const AuthorizationGroupEnt
 }
 void authorization_group_entry_content_form_set_content(AuthorizationGroupEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *authorization_group_entry_content_form_group_name(const AuthorizationGroupEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "groupName");
-  return som_strdup(v != NULL ? v : "");
-}
-void authorization_group_entry_content_form_set_group_name(AuthorizationGroupEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "groupName", value);
 }
 char *authorization_group_entry_content_form_description(const AuthorizationGroupEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
@@ -56385,13 +56238,6 @@ char *backup_policy_entry_content_form_content(const BackupPolicyEntryContentFor
 void backup_policy_entry_content_form_set_content(BackupPolicyEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *backup_policy_entry_content_form_policy_name(const BackupPolicyEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "policyName");
-  return som_strdup(v != NULL ? v : "");
-}
-void backup_policy_entry_content_form_set_policy_name(BackupPolicyEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "policyName", value);
-}
 char *backup_policy_entry_content_form_data_scope(const BackupPolicyEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "dataScope");
   return som_strdup(v != NULL ? v : "");
@@ -57435,13 +57281,6 @@ char *bounded_context_entry_content_form_content(const BoundedContextEntryConten
 void bounded_context_entry_content_form_set_content(BoundedContextEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *bounded_context_entry_content_form_context_name(const BoundedContextEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "contextName");
-  return som_strdup(v != NULL ? v : "");
-}
-void bounded_context_entry_content_form_set_context_name(BoundedContextEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "contextName", value);
-}
 char *bounded_context_entry_content_form_domain_area(const BoundedContextEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "domainArea");
   return som_strdup(v != NULL ? v : "");
@@ -57680,13 +57519,6 @@ char *breakpoint_entry_content_form_breakpoint_id(const BreakpointEntryContentFo
 void breakpoint_entry_content_form_set_breakpoint_id(BreakpointEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "breakpointId", value);
 }
-char *breakpoint_entry_content_form_breakpoint_name(const BreakpointEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "breakpointName");
-  return som_strdup(v != NULL ? v : "");
-}
-void breakpoint_entry_content_form_set_breakpoint_name(BreakpointEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "breakpointName", value);
-}
 char *breakpoint_entry_content_form_min_width(const BreakpointEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "minWidth");
   return som_strdup(v != NULL ? v : "");
@@ -57800,13 +57632,6 @@ char *browser_compatibility_entry_content_form_content(const BrowserCompatibilit
 }
 void browser_compatibility_entry_content_form_set_content(BrowserCompatibilityEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *browser_compatibility_entry_content_form_browser_name(const BrowserCompatibilityEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "browserName");
-  return som_strdup(v != NULL ? v : "");
-}
-void browser_compatibility_entry_content_form_set_browser_name(BrowserCompatibilityEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "browserName", value);
 }
 char *browser_compatibility_entry_content_form_browser_engine(const BrowserCompatibilityEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "browserEngine");
@@ -58214,13 +58039,6 @@ char *build_toolchain_entry_content_form_content(const BuildToolchainEntryConten
 void build_toolchain_entry_content_form_set_content(BuildToolchainEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *build_toolchain_entry_content_form_tool_name(const BuildToolchainEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "toolName");
-  return som_strdup(v != NULL ? v : "");
-}
-void build_toolchain_entry_content_form_set_tool_name(BuildToolchainEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "toolName", value);
-}
 char *build_toolchain_entry_content_form_tool_category(const BuildToolchainEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "toolCategory");
   return som_strdup(v != NULL ? v : "");
@@ -58585,13 +58403,6 @@ char *business_component_entry_content_form_content(const BusinessComponentEntry
 void business_component_entry_content_form_set_content(BusinessComponentEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *business_component_entry_content_form_component_name(const BusinessComponentEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "componentName");
-  return som_strdup(v != NULL ? v : "");
-}
-void business_component_entry_content_form_set_component_name(BusinessComponentEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "componentName", value);
-}
 char *business_component_entry_content_form_component_type(const BusinessComponentEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "componentType");
   return som_strdup(v != NULL ? v : "");
@@ -58808,13 +58619,6 @@ char *business_goal_entry_content_form_goal_id(const BusinessGoalEntryContentFor
 }
 void business_goal_entry_content_form_set_goal_id(BusinessGoalEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "goalId", value);
-}
-char *business_goal_entry_content_form_goal_name(const BusinessGoalEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "goalName");
-  return som_strdup(v != NULL ? v : "");
-}
-void business_goal_entry_content_form_set_goal_name(BusinessGoalEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "goalName", value);
 }
 char *business_goal_entry_content_form_goal_category(const BusinessGoalEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "goalCategory");
@@ -59180,13 +58984,6 @@ char *business_object_attribute_entry_content_form_content(const BusinessObjectA
 void business_object_attribute_entry_content_form_set_content(BusinessObjectAttributeEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *business_object_attribute_entry_content_form_attribute_name(const BusinessObjectAttributeEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "attributeName");
-  return som_strdup(v != NULL ? v : "");
-}
-void business_object_attribute_entry_content_form_set_attribute_name(BusinessObjectAttributeEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "attributeName", value);
-}
 char *business_object_attribute_entry_content_form_description(const BusinessObjectAttributeEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -59368,13 +59165,6 @@ char *business_object_entry_identity_form_content(const BusinessObjectEntryIdent
 }
 void business_object_entry_identity_form_set_content(BusinessObjectEntryIdentityForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *business_object_entry_identity_form_object_name(const BusinessObjectEntryIdentityForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "objectName");
-  return som_strdup(v != NULL ? v : "");
-}
-void business_object_entry_identity_form_set_object_name(BusinessObjectEntryIdentityForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "objectName", value);
 }
 char *business_object_entry_identity_form_object_alias(const BusinessObjectEntryIdentityForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "objectAlias");
@@ -59719,13 +59509,6 @@ char *business_rule_entry_identity_form_rule_id(const BusinessRuleEntryIdentityF
 void business_rule_entry_identity_form_set_rule_id(BusinessRuleEntryIdentityForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "ruleId", value);
 }
-char *business_rule_entry_identity_form_rule_name(const BusinessRuleEntryIdentityForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ruleName");
-  return som_strdup(v != NULL ? v : "");
-}
-void business_rule_entry_identity_form_set_rule_name(BusinessRuleEntryIdentityForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "ruleName", value);
-}
 char *business_rule_entry_identity_form_rule_version(const BusinessRuleEntryIdentityForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "ruleVersion");
   return som_strdup(v != NULL ? v : "");
@@ -59865,13 +59648,6 @@ char *business_rule_reference_entry_content_form_rule_id(const BusinessRuleRefer
 }
 void business_rule_reference_entry_content_form_set_rule_id(BusinessRuleReferenceEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "ruleId", value);
-}
-char *business_rule_reference_entry_content_form_rule_name(const BusinessRuleReferenceEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ruleName");
-  return som_strdup(v != NULL ? v : "");
-}
-void business_rule_reference_entry_content_form_set_rule_name(BusinessRuleReferenceEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "ruleName", value);
 }
 char *business_rule_reference_entry_content_form_rule_type(const BusinessRuleReferenceEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "ruleType");
@@ -60075,13 +59851,6 @@ char *ccb_member_entry_content_form_content(const CcbMemberEntryContentForm *sel
 }
 void ccb_member_entry_content_form_set_content(CcbMemberEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *ccb_member_entry_content_form_name(const CcbMemberEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "name");
-  return som_strdup(v != NULL ? v : "");
-}
-void ccb_member_entry_content_form_set_name(CcbMemberEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "name", value);
 }
 char *ccb_member_entry_content_form_role(const CcbMemberEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "role");
@@ -60327,13 +60096,6 @@ char *certification_entry_content_form_certification_id(const CertificationEntry
 }
 void certification_entry_content_form_set_certification_id(CertificationEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "certificationId", value);
-}
-char *certification_entry_content_form_certification_name(const CertificationEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "certificationName");
-  return som_strdup(v != NULL ? v : "");
-}
-void certification_entry_content_form_set_certification_name(CertificationEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "certificationName", value);
 }
 char *certification_entry_content_form_issuing_body(const CertificationEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "issuingBody");
@@ -60719,13 +60481,6 @@ char *change_category_entry_content_form_category_id(const ChangeCategoryEntryCo
 }
 void change_category_entry_content_form_set_category_id(ChangeCategoryEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "categoryId", value);
-}
-char *change_category_entry_content_form_category_name(const ChangeCategoryEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "categoryName");
-  return som_strdup(v != NULL ? v : "");
-}
-void change_category_entry_content_form_set_category_name(ChangeCategoryEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "categoryName", value);
 }
 char *change_category_entry_content_form_description(const ChangeCategoryEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
@@ -61502,13 +61257,6 @@ char *change_role_entry_content_form_content(const ChangeRoleEntryContentForm *s
 void change_role_entry_content_form_set_content(ChangeRoleEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *change_role_entry_content_form_role_name(const ChangeRoleEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "roleName");
-  return som_strdup(v != NULL ? v : "");
-}
-void change_role_entry_content_form_set_role_name(ChangeRoleEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "roleName", value);
-}
 char *change_role_entry_content_form_responsibility(const ChangeRoleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "responsibility");
   return som_strdup(v != NULL ? v : "");
@@ -61608,13 +61356,6 @@ void change_step_entry_content_form_set_step_number(ChangeStepEntryContentForm *
   char buf[32];
   snprintf(buf, sizeof(buf), "%ld", value);
   spec_document_set_form_field(self->node.doc, self->node.path, "stepNumber", buf);
-}
-char *change_step_entry_content_form_step_name(const ChangeStepEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stepName");
-  return som_strdup(v != NULL ? v : "");
-}
-void change_step_entry_content_form_set_step_name(ChangeStepEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "stepName", value);
 }
 char *change_step_entry_content_form_description(const ChangeStepEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
@@ -61981,13 +61722,6 @@ char *changed_role_identification_content_form_role_id(const ChangedRoleIdentifi
 }
 void changed_role_identification_content_form_set_role_id(ChangedRoleIdentificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "roleId", value);
-}
-char *changed_role_identification_content_form_role_title(const ChangedRoleIdentificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "roleTitle");
-  return som_strdup(v != NULL ? v : "");
-}
-void changed_role_identification_content_form_set_role_title(ChangedRoleIdentificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "roleTitle", value);
 }
 char *changed_role_identification_content_form_new_role_title(const ChangedRoleIdentificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "newRoleTitle");
@@ -62774,13 +62508,6 @@ char *client_application_entry_content_form_client_id(const ClientApplicationEnt
 }
 void client_application_entry_content_form_set_client_id(ClientApplicationEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "clientId", value);
-}
-char *client_application_entry_content_form_client_name(const ClientApplicationEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "clientName");
-  return som_strdup(v != NULL ? v : "");
-}
-void client_application_entry_content_form_set_client_name(ClientApplicationEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "clientName", value);
 }
 char *client_application_entry_content_form_client_kind(const ClientApplicationEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "clientKind");
@@ -64203,13 +63930,6 @@ char *coding_standard_entry_content_form_content(const CodingStandardEntryConten
 void coding_standard_entry_content_form_set_content(CodingStandardEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *coding_standard_entry_content_form_standard_name(const CodingStandardEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "standardName");
-  return som_strdup(v != NULL ? v : "");
-}
-void coding_standard_entry_content_form_set_standard_name(CodingStandardEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "standardName", value);
-}
 char *coding_standard_entry_content_form_standard_category(const CodingStandardEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "standardCategory");
   return som_strdup(v != NULL ? v : "");
@@ -64595,13 +64315,6 @@ char *color_palette_entry_content_form_content(const ColorPaletteEntryContentFor
 void color_palette_entry_content_form_set_content(ColorPaletteEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *color_palette_entry_content_form_palette_name(const ColorPaletteEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "paletteName");
-  return som_strdup(v != NULL ? v : "");
-}
-void color_palette_entry_content_form_set_palette_name(ColorPaletteEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "paletteName", value);
-}
 char *color_palette_entry_content_form_palette_role(const ColorPaletteEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "paletteRole");
   return som_strdup(v != NULL ? v : "");
@@ -64723,13 +64436,6 @@ char *committee_member_entry_content_form_content(const CommitteeMemberEntryCont
 void committee_member_entry_content_form_set_content(CommitteeMemberEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *committee_member_entry_content_form_name(const CommitteeMemberEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "name");
-  return som_strdup(v != NULL ? v : "");
-}
-void committee_member_entry_content_form_set_name(CommitteeMemberEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "name", value);
-}
 char *committee_member_entry_content_form_organization_role(const CommitteeMemberEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "organizationRole");
   return som_strdup(v != NULL ? v : "");
@@ -64835,13 +64541,6 @@ char *communication_channel_encryption_entry_content_form_content(const Communic
 void communication_channel_encryption_entry_content_form_set_content(CommunicationChannelEncryptionEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *communication_channel_encryption_entry_content_form_channel_name(const CommunicationChannelEncryptionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "channelName");
-  return som_strdup(v != NULL ? v : "");
-}
-void communication_channel_encryption_entry_content_form_set_channel_name(CommunicationChannelEncryptionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "channelName", value);
-}
 char *communication_channel_encryption_entry_content_form_channel_type(const CommunicationChannelEncryptionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "channelType");
   return som_strdup(v != NULL ? v : "");
@@ -64911,13 +64610,6 @@ char *communication_event_entry_content_form_event_id(const CommunicationEventEn
 }
 void communication_event_entry_content_form_set_event_id(CommunicationEventEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "eventId", value);
-}
-char *communication_event_entry_content_form_event_name(const CommunicationEventEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "eventName");
-  return som_strdup(v != NULL ? v : "");
-}
-void communication_event_entry_content_form_set_event_name(CommunicationEventEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "eventName", value);
 }
 char *communication_event_entry_content_form_event_type(const CommunicationEventEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "eventType");
@@ -65521,13 +65213,6 @@ char *competency_entry_content_form_competency_id(const CompetencyEntryContentFo
 void competency_entry_content_form_set_competency_id(CompetencyEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "competencyId", value);
 }
-char *competency_entry_content_form_competency_name(const CompetencyEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "competencyName");
-  return som_strdup(v != NULL ? v : "");
-}
-void competency_entry_content_form_set_competency_name(CompetencyEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "competencyName", value);
-}
 char *competency_entry_content_form_description(const CompetencyEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -65639,13 +65324,6 @@ char *competency_level_change_entry_content_form_content(const CompetencyLevelCh
 }
 void competency_level_change_entry_content_form_set_content(CompetencyLevelChangeEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *competency_level_change_entry_content_form_competency_name(const CompetencyLevelChangeEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "competencyName");
-  return som_strdup(v != NULL ? v : "");
-}
-void competency_level_change_entry_content_form_set_competency_name(CompetencyLevelChangeEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "competencyName", value);
 }
 char *competency_level_change_entry_content_form_current_level(const CompetencyLevelChangeEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "currentLevel");
@@ -65849,13 +65527,6 @@ char *compliance_milestone_entry_content_form_content(const ComplianceMilestoneE
 }
 void compliance_milestone_entry_content_form_set_content(ComplianceMilestoneEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *compliance_milestone_entry_content_form_milestone_name(const ComplianceMilestoneEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "milestoneName");
-  return som_strdup(v != NULL ? v : "");
-}
-void compliance_milestone_entry_content_form_set_milestone_name(ComplianceMilestoneEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "milestoneName", value);
 }
 char *compliance_milestone_entry_content_form_regulation(const ComplianceMilestoneEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "regulation");
@@ -66172,13 +65843,6 @@ char *component_action_entry_content_form_action_id(const ComponentActionEntryCo
 void component_action_entry_content_form_set_action_id(ComponentActionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "actionId", value);
 }
-char *component_action_entry_content_form_action_name(const ComponentActionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "actionName");
-  return som_strdup(v != NULL ? v : "");
-}
-void component_action_entry_content_form_set_action_name(ComponentActionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "actionName", value);
-}
 char *component_action_entry_content_form_action_trigger(const ComponentActionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "actionTrigger");
   return som_strdup(v != NULL ? v : "");
@@ -66367,13 +66031,6 @@ char *component_entry_content_form_component_id(const ComponentEntryContentForm 
 }
 void component_entry_content_form_set_component_id(ComponentEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "componentId", value);
-}
-char *component_entry_content_form_component_name(const ComponentEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "componentName");
-  return som_strdup(v != NULL ? v : "");
-}
-void component_entry_content_form_set_component_name(ComponentEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "componentName", value);
 }
 char *component_entry_content_form_category(const ComponentEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "category");
@@ -66634,13 +66291,6 @@ char *component_family_entry_content_form_family_id(const ComponentFamilyEntryCo
 void component_family_entry_content_form_set_family_id(ComponentFamilyEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "familyId", value);
 }
-char *component_family_entry_content_form_family_name(const ComponentFamilyEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "familyName");
-  return som_strdup(v != NULL ? v : "");
-}
-void component_family_entry_content_form_set_family_name(ComponentFamilyEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "familyName", value);
-}
 char *component_family_entry_content_form_family_description(const ComponentFamilyEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "familyDescription");
   return som_strdup(v != NULL ? v : "");
@@ -66866,13 +66516,6 @@ char *component_interface_entry_content_form_content(const ComponentInterfaceEnt
 }
 void component_interface_entry_content_form_set_content(ComponentInterfaceEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *component_interface_entry_content_form_interface_name(const ComponentInterfaceEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "interfaceName");
-  return som_strdup(v != NULL ? v : "");
-}
-void component_interface_entry_content_form_set_interface_name(ComponentInterfaceEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "interfaceName", value);
 }
 char *component_interface_entry_content_form_interface_type(const ComponentInterfaceEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "interfaceType");
@@ -67711,13 +67354,6 @@ char *component_property_entry_content_form_property_id(const ComponentPropertyE
 void component_property_entry_content_form_set_property_id(ComponentPropertyEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "propertyId", value);
 }
-char *component_property_entry_content_form_property_name(const ComponentPropertyEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "propertyName");
-  return som_strdup(v != NULL ? v : "");
-}
-void component_property_entry_content_form_set_property_name(ComponentPropertyEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "propertyName", value);
-}
 char *component_property_entry_content_form_property_type(const ComponentPropertyEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "propertyType");
   return som_strdup(v != NULL ? v : "");
@@ -68224,13 +67860,6 @@ char *component_risk_entry_content_form_component_ref(const ComponentRiskEntryCo
 void component_risk_entry_content_form_set_component_ref(ComponentRiskEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "componentRef", value);
 }
-char *component_risk_entry_content_form_risk_title(const ComponentRiskEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "riskTitle");
-  return som_strdup(v != NULL ? v : "");
-}
-void component_risk_entry_content_form_set_risk_title(ComponentRiskEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "riskTitle", value);
-}
 
 void component_risk_entry_description_form_init(ComponentRiskEntryDescriptionForm *self, SpecDocument *doc, const char *path) {
   som_node_init(&self->node, doc, path);
@@ -68406,13 +68035,6 @@ char *component_slot_entry_content_form_slot_id(const ComponentSlotEntryContentF
 void component_slot_entry_content_form_set_slot_id(ComponentSlotEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "slotId", value);
 }
-char *component_slot_entry_content_form_slot_name(const ComponentSlotEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "slotName");
-  return som_strdup(v != NULL ? v : "");
-}
-void component_slot_entry_content_form_set_slot_name(ComponentSlotEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "slotName", value);
-}
 char *component_slot_entry_content_form_slot_description(const ComponentSlotEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "slotDescription");
   return som_strdup(v != NULL ? v : "");
@@ -68503,13 +68125,6 @@ char *component_state_entry_content_form_state_id(const ComponentStateEntryConte
 }
 void component_state_entry_content_form_set_state_id(ComponentStateEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "stateId", value);
-}
-char *component_state_entry_content_form_state_name(const ComponentStateEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stateName");
-  return som_strdup(v != NULL ? v : "");
-}
-void component_state_entry_content_form_set_state_name(ComponentStateEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "stateName", value);
 }
 char *component_state_entry_content_form_state_description(const ComponentStateEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "stateDescription");
@@ -68890,13 +68505,6 @@ char *component_variant_entry_content_form_variant_id(const ComponentVariantEntr
 }
 void component_variant_entry_content_form_set_variant_id(ComponentVariantEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "variantId", value);
-}
-char *component_variant_entry_content_form_variant_name(const ComponentVariantEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "variantName");
-  return som_strdup(v != NULL ? v : "");
-}
-void component_variant_entry_content_form_set_variant_name(ComponentVariantEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "variantName", value);
 }
 char *component_variant_entry_content_form_variant_description(const ComponentVariantEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "variantDescription");
@@ -69295,13 +68903,6 @@ char *confidential_info_category_entry_content_form_content(const ConfidentialIn
 }
 void confidential_info_category_entry_content_form_set_content(ConfidentialInfoCategoryEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *confidential_info_category_entry_content_form_category_name(const ConfidentialInfoCategoryEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "categoryName");
-  return som_strdup(v != NULL ? v : "");
-}
-void confidential_info_category_entry_content_form_set_category_name(ConfidentialInfoCategoryEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "categoryName", value);
 }
 char *confidential_info_category_entry_content_form_description(const ConfidentialInfoCategoryEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
@@ -70348,13 +69949,6 @@ char *contingency_plan_entry_content_form_contingency_id(const ContingencyPlanEn
 void contingency_plan_entry_content_form_set_contingency_id(ContingencyPlanEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "contingencyId", value);
 }
-char *contingency_plan_entry_content_form_plan_title(const ContingencyPlanEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "planTitle");
-  return som_strdup(v != NULL ? v : "");
-}
-void contingency_plan_entry_content_form_set_plan_title(ContingencyPlanEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "planTitle", value);
-}
 char *contingency_plan_entry_content_form_trigger_condition(const ContingencyPlanEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "triggerCondition");
   return som_strdup(v != NULL ? v : "");
@@ -70866,13 +70460,6 @@ char *current_business_process_content_form_content(const CurrentBusinessProcess
 void current_business_process_content_form_set_content(CurrentBusinessProcessContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *current_business_process_content_form_process_name(const CurrentBusinessProcessContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "processName");
-  return som_strdup(v != NULL ? v : "");
-}
-void current_business_process_content_form_set_process_name(CurrentBusinessProcessContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "processName", value);
-}
 char *current_business_process_content_form_process_owner(const CurrentBusinessProcessContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "processOwner");
   return som_strdup(v != NULL ? v : "");
@@ -71194,13 +70781,6 @@ char *current_workflow_entry_content_form_content(const CurrentWorkflowEntryCont
 void current_workflow_entry_content_form_set_content(CurrentWorkflowEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *current_workflow_entry_content_form_workflow_name(const CurrentWorkflowEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "workflowName");
-  return som_strdup(v != NULL ? v : "");
-}
-void current_workflow_entry_content_form_set_workflow_name(CurrentWorkflowEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "workflowName", value);
-}
 char *current_workflow_entry_content_form_workflow_id(const CurrentWorkflowEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "workflowId");
   return som_strdup(v != NULL ? v : "");
@@ -71313,13 +70893,6 @@ char *custom_distribution_group_content_form_content(const CustomDistributionGro
 void custom_distribution_group_content_form_set_content(CustomDistributionGroupContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *custom_distribution_group_content_form_group_name(const CustomDistributionGroupContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "groupName");
-  return som_strdup(v != NULL ? v : "");
-}
-void custom_distribution_group_content_form_set_group_name(CustomDistributionGroupContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "groupName", value);
-}
 char *custom_distribution_group_content_form_purpose(const CustomDistributionGroupContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "purpose");
   return som_strdup(v != NULL ? v : "");
@@ -71361,13 +70934,6 @@ char *custom_metric_entry_content_form_content(const CustomMetricEntryContentFor
 }
 void custom_metric_entry_content_form_set_content(CustomMetricEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *custom_metric_entry_content_form_metric_name(const CustomMetricEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "metricName");
-  return som_strdup(v != NULL ? v : "");
-}
-void custom_metric_entry_content_form_set_metric_name(CustomMetricEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "metricName", value);
 }
 char *custom_metric_entry_content_form_metric_type(const CustomMetricEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "metricType");
@@ -71487,13 +71053,6 @@ char *dashboard_entry_content_form_dashboard_id(const DashboardEntryContentForm 
 }
 void dashboard_entry_content_form_set_dashboard_id(DashboardEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "dashboardId", value);
-}
-char *dashboard_entry_content_form_dashboard_name(const DashboardEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dashboardName");
-  return som_strdup(v != NULL ? v : "");
-}
-void dashboard_entry_content_form_set_dashboard_name(DashboardEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dashboardName", value);
 }
 char *dashboard_entry_content_form_dashboard_category(const DashboardEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "dashboardCategory");
@@ -72335,13 +71894,6 @@ char *data_attribute_entry_identity_form_content(const DataAttributeEntryIdentit
 void data_attribute_entry_identity_form_set_content(DataAttributeEntryIdentityForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *data_attribute_entry_identity_form_attribute_name(const DataAttributeEntryIdentityForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "attributeName");
-  return som_strdup(v != NULL ? v : "");
-}
-void data_attribute_entry_identity_form_set_attribute_name(DataAttributeEntryIdentityForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "attributeName", value);
-}
 char *data_attribute_entry_identity_form_column_name(const DataAttributeEntryIdentityForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "columnName");
   return som_strdup(v != NULL ? v : "");
@@ -72650,13 +72202,6 @@ char *data_classification_entry_identity_form_content(const DataClassificationEn
 void data_classification_entry_identity_form_set_content(DataClassificationEntryIdentityForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *data_classification_entry_identity_form_classification_name(const DataClassificationEntryIdentityForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "classificationName");
-  return som_strdup(v != NULL ? v : "");
-}
-void data_classification_entry_identity_form_set_classification_name(DataClassificationEntryIdentityForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "classificationName", value);
-}
 char *data_classification_entry_identity_form_classification_level(const DataClassificationEntryIdentityForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "classificationLevel");
   return som_strdup(v != NULL ? v : "");
@@ -72796,13 +72341,6 @@ char *data_classification_level_entry_content_form_content(const DataClassificat
 }
 void data_classification_level_entry_content_form_set_content(DataClassificationLevelEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *data_classification_level_entry_content_form_level_name(const DataClassificationLevelEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "levelName");
-  return som_strdup(v != NULL ? v : "");
-}
-void data_classification_level_entry_content_form_set_level_name(DataClassificationLevelEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "levelName", value);
 }
 long data_classification_level_entry_content_form_level_order(const DataClassificationLevelEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "levelOrder");
@@ -73421,13 +72959,6 @@ char *data_entity_migration_entry_content_form_content(const DataEntityMigration
 void data_entity_migration_entry_content_form_set_content(DataEntityMigrationEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *data_entity_migration_entry_content_form_entity_name(const DataEntityMigrationEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "entityName");
-  return som_strdup(v != NULL ? v : "");
-}
-void data_entity_migration_entry_content_form_set_entity_name(DataEntityMigrationEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "entityName", value);
-}
 char *data_entity_migration_entry_content_form_record_count(const DataEntityMigrationEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "recordCount");
   return som_strdup(v != NULL ? v : "");
@@ -73476,13 +73007,6 @@ char *data_entity_reference_entry_content_form_content(const DataEntityReference
 }
 void data_entity_reference_entry_content_form_set_content(DataEntityReferenceEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *data_entity_reference_entry_content_form_entity_name(const DataEntityReferenceEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "entityName");
-  return som_strdup(v != NULL ? v : "");
-}
-void data_entity_reference_entry_content_form_set_entity_name(DataEntityReferenceEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "entityName", value);
 }
 char *data_entity_reference_entry_content_form_crud_operations(const DataEntityReferenceEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "crudOperations");
@@ -73806,13 +73330,6 @@ char *data_governance_policy_entry_content_form_policy_id(const DataGovernancePo
 void data_governance_policy_entry_content_form_set_policy_id(DataGovernancePolicyEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "policyId", value);
 }
-char *data_governance_policy_entry_content_form_policy_name(const DataGovernancePolicyEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "policyName");
-  return som_strdup(v != NULL ? v : "");
-}
-void data_governance_policy_entry_content_form_set_policy_name(DataGovernancePolicyEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "policyName", value);
-}
 char *data_governance_policy_entry_content_form_policy_area(const DataGovernancePolicyEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "policyArea");
   return som_strdup(v != NULL ? v : "");
@@ -74106,13 +73623,6 @@ char *data_integration_entry_content_form_integration_id(const DataIntegrationEn
 }
 void data_integration_entry_content_form_set_integration_id(DataIntegrationEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "integrationId", value);
-}
-char *data_integration_entry_content_form_integration_name(const DataIntegrationEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "integrationName");
-  return som_strdup(v != NULL ? v : "");
-}
-void data_integration_entry_content_form_set_integration_name(DataIntegrationEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "integrationName", value);
 }
 char *data_integration_entry_content_form_description(const DataIntegrationEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
@@ -75551,13 +75061,6 @@ char *data_quality_initiative_entry_content_form_initiative_id(const DataQuality
 void data_quality_initiative_entry_content_form_set_initiative_id(DataQualityInitiativeEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "initiativeId", value);
 }
-char *data_quality_initiative_entry_content_form_initiative_name(const DataQualityInitiativeEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "initiativeName");
-  return som_strdup(v != NULL ? v : "");
-}
-void data_quality_initiative_entry_content_form_set_initiative_name(DataQualityInitiativeEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "initiativeName", value);
-}
 char *data_quality_initiative_entry_content_form_description(const DataQualityInitiativeEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -75648,13 +75151,6 @@ char *data_quality_issue_entry_content_form_issue_id(const DataQualityIssueEntry
 }
 void data_quality_issue_entry_content_form_set_issue_id(DataQualityIssueEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "issueId", value);
-}
-char *data_quality_issue_entry_content_form_issue_title(const DataQualityIssueEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "issueTitle");
-  return som_strdup(v != NULL ? v : "");
-}
-void data_quality_issue_entry_content_form_set_issue_title(DataQualityIssueEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "issueTitle", value);
 }
 char *data_quality_issue_entry_content_form_description(const DataQualityIssueEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
@@ -75998,13 +75494,6 @@ char *data_source_entity_entry_content_form_content(const DataSourceEntityEntryC
 }
 void data_source_entity_entry_content_form_set_content(DataSourceEntityEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *data_source_entity_entry_content_form_entity_name(const DataSourceEntityEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "entityName");
-  return som_strdup(v != NULL ? v : "");
-}
-void data_source_entity_entry_content_form_set_entity_name(DataSourceEntityEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "entityName", value);
 }
 char *data_source_entity_entry_content_form_description(const DataSourceEntityEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
@@ -76937,13 +76426,6 @@ char *database_compatibility_entry_content_form_content(const DatabaseCompatibil
 void database_compatibility_entry_content_form_set_content(DatabaseCompatibilityEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *database_compatibility_entry_content_form_database_name(const DatabaseCompatibilityEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "databaseName");
-  return som_strdup(v != NULL ? v : "");
-}
-void database_compatibility_entry_content_form_set_database_name(DatabaseCompatibilityEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "databaseName", value);
-}
 char *database_compatibility_entry_content_form_database_type(const DatabaseCompatibilityEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "databaseType");
   return som_strdup(v != NULL ? v : "");
@@ -77342,20 +76824,6 @@ char *decision_maker_entry_content_form_content(const DecisionMakerEntryContentF
 }
 void decision_maker_entry_content_form_set_content(DecisionMakerEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *decision_maker_entry_content_form_name(const DecisionMakerEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "name");
-  return som_strdup(v != NULL ? v : "");
-}
-void decision_maker_entry_content_form_set_name(DecisionMakerEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "name", value);
-}
-char *decision_maker_entry_content_form_title(const DecisionMakerEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "title");
-  return som_strdup(v != NULL ? v : "");
-}
-void decision_maker_entry_content_form_set_title(DecisionMakerEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "title", value);
 }
 char *decision_maker_entry_content_form_department(const DecisionMakerEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "department");
@@ -78266,13 +77734,6 @@ char *deliverable_entry_content_form_deliverable_id(const DeliverableEntryConten
 }
 void deliverable_entry_content_form_set_deliverable_id(DeliverableEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "deliverableId", value);
-}
-char *deliverable_entry_content_form_deliverable_name(const DeliverableEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "deliverableName");
-  return som_strdup(v != NULL ? v : "");
-}
-void deliverable_entry_content_form_set_deliverable_name(DeliverableEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "deliverableName", value);
 }
 char *deliverable_entry_content_form_priority(const DeliverableEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "priority");
@@ -79667,13 +79128,6 @@ char *deployment_environment_entry_content_form_content(const DeploymentEnvironm
 void deployment_environment_entry_content_form_set_content(DeploymentEnvironmentEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *deployment_environment_entry_content_form_environment_name(const DeploymentEnvironmentEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "environmentName");
-  return som_strdup(v != NULL ? v : "");
-}
-void deployment_environment_entry_content_form_set_environment_name(DeploymentEnvironmentEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "environmentName", value);
-}
 char *deployment_environment_entry_content_form_environment_type(const DeploymentEnvironmentEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "environmentType");
   return som_strdup(v != NULL ? v : "");
@@ -80262,13 +79716,6 @@ char *deployment_target_entry_content_form_content(const DeploymentTargetEntryCo
 void deployment_target_entry_content_form_set_content(DeploymentTargetEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *deployment_target_entry_content_form_target_name(const DeploymentTargetEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "targetName");
-  return som_strdup(v != NULL ? v : "");
-}
-void deployment_target_entry_content_form_set_target_name(DeploymentTargetEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "targetName", value);
-}
 char *deployment_target_entry_content_form_target_category(const DeploymentTargetEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "targetCategory");
   return som_strdup(v != NULL ? v : "");
@@ -80654,13 +80101,6 @@ char *design_goal_entry_content_form_content(const DesignGoalEntryContentForm *s
 void design_goal_entry_content_form_set_content(DesignGoalEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *design_goal_entry_content_form_goal_name(const DesignGoalEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "goalName");
-  return som_strdup(v != NULL ? v : "");
-}
-void design_goal_entry_content_form_set_goal_name(DesignGoalEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "goalName", value);
-}
 char *design_goal_entry_content_form_description(const DesignGoalEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -80744,13 +80184,6 @@ char *design_pattern_entry_content_form_content(const DesignPatternEntryContentF
 }
 void design_pattern_entry_content_form_set_content(DesignPatternEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *design_pattern_entry_content_form_pattern_name(const DesignPatternEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "patternName");
-  return som_strdup(v != NULL ? v : "");
-}
-void design_pattern_entry_content_form_set_pattern_name(DesignPatternEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "patternName", value);
 }
 char *design_pattern_entry_content_form_pattern_category(const DesignPatternEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "patternCategory");
@@ -80919,13 +80352,6 @@ char *design_principle_entry_content_form_content(const DesignPrincipleEntryCont
 }
 void design_principle_entry_content_form_set_content(DesignPrincipleEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *design_principle_entry_content_form_principle_name(const DesignPrincipleEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "principleName");
-  return som_strdup(v != NULL ? v : "");
-}
-void design_principle_entry_content_form_set_principle_name(DesignPrincipleEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "principleName", value);
 }
 char *design_principle_entry_content_form_description(const DesignPrincipleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
@@ -81416,13 +80842,6 @@ char *development_convention_entry_content_form_content(const DevelopmentConvent
 }
 void development_convention_entry_content_form_set_content(DevelopmentConventionEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *development_convention_entry_content_form_convention_name(const DevelopmentConventionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "conventionName");
-  return som_strdup(v != NULL ? v : "");
-}
-void development_convention_entry_content_form_set_convention_name(DevelopmentConventionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "conventionName", value);
 }
 char *development_convention_entry_content_form_convention_category(const DevelopmentConventionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "conventionCategory");
@@ -82182,13 +81601,6 @@ char *display_property_entry_content_form_content(const DisplayPropertyEntryCont
 void display_property_entry_content_form_set_content(DisplayPropertyEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *display_property_entry_content_form_display_label(const DisplayPropertyEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "displayLabel");
-  return som_strdup(v != NULL ? v : "");
-}
-void display_property_entry_content_form_set_display_label(DisplayPropertyEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "displayLabel", value);
-}
 char *display_property_entry_content_form_display_order(const DisplayPropertyEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "displayOrder");
   return som_strdup(v != NULL ? v : "");
@@ -82768,13 +82180,6 @@ char *distribution_recipient_entry_content_form_content(const DistributionRecipi
 }
 void distribution_recipient_entry_content_form_set_content(DistributionRecipientEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *distribution_recipient_entry_content_form_name(const DistributionRecipientEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "name");
-  return som_strdup(v != NULL ? v : "");
-}
-void distribution_recipient_entry_content_form_set_name(DistributionRecipientEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "name", value);
 }
 char *distribution_recipient_entry_content_form_role(const DistributionRecipientEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "role");
@@ -83980,13 +83385,6 @@ char *domain_business_rule_entry_content_form_rule_id(const DomainBusinessRuleEn
 void domain_business_rule_entry_content_form_set_rule_id(DomainBusinessRuleEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "ruleId", value);
 }
-char *domain_business_rule_entry_content_form_rule_name(const DomainBusinessRuleEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ruleName");
-  return som_strdup(v != NULL ? v : "");
-}
-void domain_business_rule_entry_content_form_set_rule_name(DomainBusinessRuleEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "ruleName", value);
-}
 char *domain_business_rule_entry_content_form_rule_type(const DomainBusinessRuleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "ruleType");
   return som_strdup(v != NULL ? v : "");
@@ -84182,13 +83580,6 @@ char *domain_event_entry_content_form_content(const DomainEventEntryContentForm 
 }
 void domain_event_entry_content_form_set_content(DomainEventEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *domain_event_entry_content_form_event_name(const DomainEventEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "eventName");
-  return som_strdup(v != NULL ? v : "");
-}
-void domain_event_entry_content_form_set_event_name(DomainEventEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "eventName", value);
 }
 char *domain_event_entry_content_form_event_description(const DomainEventEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "eventDescription");
@@ -84406,13 +83797,6 @@ char *domain_process_entry_content_form_content(const DomainProcessEntryContentF
 }
 void domain_process_entry_content_form_set_content(DomainProcessEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *domain_process_entry_content_form_process_name(const DomainProcessEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "processName");
-  return som_strdup(v != NULL ? v : "");
-}
-void domain_process_entry_content_form_set_process_name(DomainProcessEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "processName", value);
 }
 char *domain_process_entry_content_form_process_description(const DomainProcessEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "processDescription");
@@ -84967,13 +84351,6 @@ char *encrypted_data_category_entry_content_form_content(const EncryptedDataCate
 void encrypted_data_category_entry_content_form_set_content(EncryptedDataCategoryEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *encrypted_data_category_entry_content_form_category_name(const EncryptedDataCategoryEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "categoryName");
-  return som_strdup(v != NULL ? v : "");
-}
-void encrypted_data_category_entry_content_form_set_category_name(EncryptedDataCategoryEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "categoryName", value);
-}
 char *encrypted_data_category_entry_content_form_data_classification(const EncryptedDataCategoryEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "dataClassification");
   return som_strdup(v != NULL ? v : "");
@@ -85038,13 +84415,6 @@ char *enterprise_system_compatibility_entry_content_form_content(const Enterpris
 }
 void enterprise_system_compatibility_entry_content_form_set_content(EnterpriseSystemCompatibilityEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *enterprise_system_compatibility_entry_content_form_system_name(const EnterpriseSystemCompatibilityEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "systemName");
-  return som_strdup(v != NULL ? v : "");
-}
-void enterprise_system_compatibility_entry_content_form_set_system_name(EnterpriseSystemCompatibilityEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "systemName", value);
 }
 char *enterprise_system_compatibility_entry_content_form_system_type(const EnterpriseSystemCompatibilityEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "systemType");
@@ -85312,13 +84682,6 @@ char *entity_constraint_entry_content_form_content(const EntityConstraintEntryCo
 void entity_constraint_entry_content_form_set_content(EntityConstraintEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *entity_constraint_entry_content_form_constraint_name(const EntityConstraintEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintName");
-  return som_strdup(v != NULL ? v : "");
-}
-void entity_constraint_entry_content_form_set_constraint_name(EntityConstraintEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "constraintName", value);
-}
 char *entity_constraint_entry_content_form_constraint_type(const EntityConstraintEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintType");
   return som_strdup(v != NULL ? v : "");
@@ -85375,13 +84738,6 @@ char *entity_follow_up_entry_entity_ref_form_content(const EntityFollowUpEntryEn
 void entity_follow_up_entry_entity_ref_form_set_content(EntityFollowUpEntryEntityRefForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *entity_follow_up_entry_entity_ref_form_entity_name(const EntityFollowUpEntryEntityRefForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "entityName");
-  return som_strdup(v != NULL ? v : "");
-}
-void entity_follow_up_entry_entity_ref_form_set_entity_name(EntityFollowUpEntryEntityRefForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "entityName", value);
-}
 char *entity_follow_up_entry_entity_ref_form_entity_alias(const EntityFollowUpEntryEntityRefForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "entityAlias");
   return som_strdup(v != NULL ? v : "");
@@ -85402,13 +84758,6 @@ char *entity_index_entry_content_form_content(const EntityIndexEntryContentForm 
 }
 void entity_index_entry_content_form_set_content(EntityIndexEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *entity_index_entry_content_form_index_name(const EntityIndexEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "indexName");
-  return som_strdup(v != NULL ? v : "");
-}
-void entity_index_entry_content_form_set_index_name(EntityIndexEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "indexName", value);
 }
 char *entity_index_entry_content_form_index_type(const EntityIndexEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "indexType");
@@ -85535,13 +84884,6 @@ char *entity_relationship_entry_identity_form_content(const EntityRelationshipEn
 }
 void entity_relationship_entry_identity_form_set_content(EntityRelationshipEntryIdentityForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *entity_relationship_entry_identity_form_relationship_name(const EntityRelationshipEntryIdentityForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "relationshipName");
-  return som_strdup(v != NULL ? v : "");
-}
-void entity_relationship_entry_identity_form_set_relationship_name(EntityRelationshipEntryIdentityForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "relationshipName", value);
 }
 char *entity_relationship_entry_identity_form_relationship_type(const EntityRelationshipEntryIdentityForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "relationshipType");
@@ -85934,13 +85276,6 @@ char *environment_entry_content_form_content(const EnvironmentEntryContentForm *
 }
 void environment_entry_content_form_set_content(EnvironmentEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *environment_entry_content_form_environment_name(const EnvironmentEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "environmentName");
-  return som_strdup(v != NULL ? v : "");
-}
-void environment_entry_content_form_set_environment_name(EnvironmentEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "environmentName", value);
 }
 char *environment_entry_content_form_environment_id(const EnvironmentEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "environmentId");
@@ -87999,13 +87334,6 @@ char *existing_system_entry_content_form_content(const ExistingSystemEntryConten
 void existing_system_entry_content_form_set_content(ExistingSystemEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *existing_system_entry_content_form_system_name(const ExistingSystemEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "systemName");
-  return som_strdup(v != NULL ? v : "");
-}
-void existing_system_entry_content_form_set_system_name(ExistingSystemEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "systemName", value);
-}
 char *existing_system_entry_content_form_system_id(const ExistingSystemEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "systemId");
   return som_strdup(v != NULL ? v : "");
@@ -88892,13 +88220,6 @@ char *export_format_entry_content_form_export_id(const ExportFormatEntryContentF
 void export_format_entry_content_form_set_export_id(ExportFormatEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "exportId", value);
 }
-char *export_format_entry_content_form_format_name(const ExportFormatEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "formatName");
-  return som_strdup(v != NULL ? v : "");
-}
-void export_format_entry_content_form_set_format_name(ExportFormatEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "formatName", value);
-}
 char *export_format_entry_content_form_format_type(const ExportFormatEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "formatType");
   return som_strdup(v != NULL ? v : "");
@@ -89223,13 +88544,6 @@ char *export_template_entry_content_form_template_id(const ExportTemplateEntryCo
 void export_template_entry_content_form_set_template_id(ExportTemplateEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "templateId", value);
 }
-char *export_template_entry_content_form_template_name(const ExportTemplateEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "templateName");
-  return som_strdup(v != NULL ? v : "");
-}
-void export_template_entry_content_form_set_template_name(ExportTemplateEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "templateName", value);
-}
 char *export_template_entry_content_form_base_format_type(const ExportTemplateEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "baseFormatType");
   return som_strdup(v != NULL ? v : "");
@@ -89538,13 +88852,6 @@ char *external_actor_entry_content_form_content(const ExternalActorEntryContentF
 void external_actor_entry_content_form_set_content(ExternalActorEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *external_actor_entry_content_form_actor_name(const ExternalActorEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "actorName");
-  return som_strdup(v != NULL ? v : "");
-}
-void external_actor_entry_content_form_set_actor_name(ExternalActorEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "actorName", value);
-}
 char *external_actor_entry_content_form_actor_type(const ExternalActorEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "actorType");
   return som_strdup(v != NULL ? v : "");
@@ -89663,13 +88970,6 @@ char *external_interface_entry_identification_content_form_interface_id(const Ex
 }
 void external_interface_entry_identification_content_form_set_interface_id(ExternalInterfaceEntryIdentificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "interfaceId", value);
-}
-char *external_interface_entry_identification_content_form_interface_name(const ExternalInterfaceEntryIdentificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "interfaceName");
-  return som_strdup(v != NULL ? v : "");
-}
-void external_interface_entry_identification_content_form_set_interface_name(ExternalInterfaceEntryIdentificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "interfaceName", value);
 }
 char *external_interface_entry_identification_content_form_external_system(const ExternalInterfaceEntryIdentificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "externalSystem");
@@ -89944,13 +89244,6 @@ char *external_partner_connection_entry_content_form_content(const ExternalPartn
 void external_partner_connection_entry_content_form_set_content(ExternalPartnerConnectionEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *external_partner_connection_entry_content_form_partner_name(const ExternalPartnerConnectionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "partnerName");
-  return som_strdup(v != NULL ? v : "");
-}
-void external_partner_connection_entry_content_form_set_partner_name(ExternalPartnerConnectionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "partnerName", value);
-}
 char *external_partner_connection_entry_content_form_partner_type(const ExternalPartnerConnectionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "partnerType");
   return som_strdup(v != NULL ? v : "");
@@ -90196,13 +89489,6 @@ char *external_service_dependency_entry_content_form_content(const ExternalServi
 void external_service_dependency_entry_content_form_set_content(ExternalServiceDependencyEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *external_service_dependency_entry_content_form_service_name(const ExternalServiceDependencyEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "serviceName");
-  return som_strdup(v != NULL ? v : "");
-}
-void external_service_dependency_entry_content_form_set_service_name(ExternalServiceDependencyEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "serviceName", value);
-}
 char *external_service_dependency_entry_content_form_service_provider(const ExternalServiceDependencyEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "serviceProvider");
   return som_strdup(v != NULL ? v : "");
@@ -90378,13 +89664,6 @@ char *external_system_context_entry_content_form_content(const ExternalSystemCon
 void external_system_context_entry_content_form_set_content(ExternalSystemContextEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *external_system_context_entry_content_form_system_name(const ExternalSystemContextEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "systemName");
-  return som_strdup(v != NULL ? v : "");
-}
-void external_system_context_entry_content_form_set_system_name(ExternalSystemContextEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "systemName", value);
-}
 char *external_system_context_entry_content_form_system_owner(const ExternalSystemContextEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "systemOwner");
   return som_strdup(v != NULL ? v : "");
@@ -90531,13 +89810,6 @@ char *family_component_ref_content_form_component_id(const FamilyComponentRefCon
 }
 void family_component_ref_content_form_set_component_id(FamilyComponentRefContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "componentId", value);
-}
-char *family_component_ref_content_form_component_name(const FamilyComponentRefContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "componentName");
-  return som_strdup(v != NULL ? v : "");
-}
-void family_component_ref_content_form_set_component_name(FamilyComponentRefContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "componentName", value);
 }
 char *family_component_ref_content_form_family_role(const FamilyComponentRefContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "familyRole");
@@ -90734,13 +90006,6 @@ char *feature_module_entry_content_form_content(const FeatureModuleEntryContentF
 }
 void feature_module_entry_content_form_set_content(FeatureModuleEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *feature_module_entry_content_form_feature_name(const FeatureModuleEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "featureName");
-  return som_strdup(v != NULL ? v : "");
-}
-void feature_module_entry_content_form_set_feature_name(FeatureModuleEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "featureName", value);
 }
 char *feature_module_entry_content_form_feature_area(const FeatureModuleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "featureArea");
@@ -91287,13 +90552,6 @@ char *feature_priority_entry_content_form_feature_id(const FeaturePriorityEntryC
 }
 void feature_priority_entry_content_form_set_feature_id(FeaturePriorityEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "featureId", value);
-}
-char *feature_priority_entry_content_form_feature_name(const FeaturePriorityEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "featureName");
-  return som_strdup(v != NULL ? v : "");
-}
-void feature_priority_entry_content_form_set_feature_name(FeaturePriorityEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "featureName", value);
 }
 char *feature_priority_entry_content_form_priority_rank(const FeaturePriorityEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "priorityRank");
@@ -92002,13 +91260,6 @@ char *feature_tour_entry_content_form_tour_id(const FeatureTourEntryContentForm 
 void feature_tour_entry_content_form_set_tour_id(FeatureTourEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "tourId", value);
 }
-char *feature_tour_entry_content_form_tour_name(const FeatureTourEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "tourName");
-  return som_strdup(v != NULL ? v : "");
-}
-void feature_tour_entry_content_form_set_tour_name(FeatureTourEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "tourName", value);
-}
 char *feature_tour_entry_content_form_tour_description(const FeatureTourEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "tourDescription");
   return som_strdup(v != NULL ? v : "");
@@ -92080,13 +91331,6 @@ char *field_help_entry_content_form_field_id(const FieldHelpEntryContentForm *se
 }
 void field_help_entry_content_form_set_field_id(FieldHelpEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "fieldId", value);
-}
-char *field_help_entry_content_form_field_label(const FieldHelpEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "fieldLabel");
-  return som_strdup(v != NULL ? v : "");
-}
-void field_help_entry_content_form_set_field_label(FieldHelpEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "fieldLabel", value);
 }
 char *field_help_entry_content_form_tooltip_text(const FieldHelpEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "tooltipText");
@@ -92627,13 +91871,6 @@ char *framework_requirement_entry_content_form_content(const FrameworkRequiremen
 void framework_requirement_entry_content_form_set_content(FrameworkRequirementEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *framework_requirement_entry_content_form_framework_name(const FrameworkRequirementEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "frameworkName");
-  return som_strdup(v != NULL ? v : "");
-}
-void framework_requirement_entry_content_form_set_framework_name(FrameworkRequirementEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "frameworkName", value);
-}
 char *framework_requirement_entry_content_form_framework_category(const FrameworkRequirementEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "frameworkCategory");
   return som_strdup(v != NULL ? v : "");
@@ -92858,13 +92095,6 @@ char *function_data_matrix_entry_content_form_content(const FunctionDataMatrixEn
 void function_data_matrix_entry_content_form_set_content(FunctionDataMatrixEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *function_data_matrix_entry_content_form_function_name(const FunctionDataMatrixEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "functionName");
-  return som_strdup(v != NULL ? v : "");
-}
-void function_data_matrix_entry_content_form_set_function_name(FunctionDataMatrixEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "functionName", value);
-}
 char *function_data_matrix_entry_content_form_entity_name(const FunctionDataMatrixEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "entityName");
   return som_strdup(v != NULL ? v : "");
@@ -92955,13 +92185,6 @@ char *function_entry_content_form_function_id(const FunctionEntryContentForm *se
 }
 void function_entry_content_form_set_function_id(FunctionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "functionId", value);
-}
-char *function_entry_content_form_function_name(const FunctionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "functionName");
-  return som_strdup(v != NULL ? v : "");
-}
-void function_entry_content_form_set_function_name(FunctionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "functionName", value);
 }
 char *function_entry_content_form_description(const FunctionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
@@ -93602,13 +92825,6 @@ char *gap_entry_content_form_content(const GapEntryContentForm *self) {
 void gap_entry_content_form_set_content(GapEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *gap_entry_content_form_gap_name(const GapEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "gapName");
-  return som_strdup(v != NULL ? v : "");
-}
-void gap_entry_content_form_set_gap_name(GapEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "gapName", value);
-}
 char *gap_entry_content_form_gap_category(const GapEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "gapCategory");
   return som_strdup(v != NULL ? v : "");
@@ -94106,13 +93322,6 @@ char *goal_dependency_entry_content_form_dependency_type(const GoalDependencyEnt
 void goal_dependency_entry_content_form_set_dependency_type(GoalDependencyEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "dependencyType", value);
 }
-char *goal_dependency_entry_content_form_dependency_name(const GoalDependencyEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependencyName");
-  return som_strdup(v != NULL ? v : "");
-}
-void goal_dependency_entry_content_form_set_dependency_name(GoalDependencyEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dependencyName", value);
-}
 char *goal_dependency_entry_content_form_description(const GoalDependencyEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -94175,13 +93384,6 @@ char *goal_milestone_entry_content_form_milestone_id(const GoalMilestoneEntryCon
 }
 void goal_milestone_entry_content_form_set_milestone_id(GoalMilestoneEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "milestoneId", value);
-}
-char *goal_milestone_entry_content_form_milestone_name(const GoalMilestoneEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "milestoneName");
-  return som_strdup(v != NULL ? v : "");
-}
-void goal_milestone_entry_content_form_set_milestone_name(GoalMilestoneEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "milestoneName", value);
 }
 char *goal_milestone_entry_content_form_description(const GoalMilestoneEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
@@ -94350,13 +93552,6 @@ char *goal_risk_entry_content_form_risk_id(const GoalRiskEntryContentForm *self)
 }
 void goal_risk_entry_content_form_set_risk_id(GoalRiskEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "riskId", value);
-}
-char *goal_risk_entry_content_form_risk_name(const GoalRiskEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "riskName");
-  return som_strdup(v != NULL ? v : "");
-}
-void goal_risk_entry_content_form_set_risk_name(GoalRiskEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "riskName", value);
 }
 char *goal_risk_entry_content_form_description(const GoalRiskEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
@@ -95131,13 +94326,6 @@ char *ide_requirement_entry_content_form_content(const IdeRequirementEntryConten
 void ide_requirement_entry_content_form_set_content(IdeRequirementEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *ide_requirement_entry_content_form_ide_name(const IdeRequirementEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ideName");
-  return som_strdup(v != NULL ? v : "");
-}
-void ide_requirement_entry_content_form_set_ide_name(IdeRequirementEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "ideName", value);
-}
 char *ide_requirement_entry_content_form_version(const IdeRequirementEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "version");
   return som_strdup(v != NULL ? v : "");
@@ -95558,13 +94746,6 @@ char *identity_provider_entry_content_form_content(const IdentityProviderEntryCo
 void identity_provider_entry_content_form_set_content(IdentityProviderEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *identity_provider_entry_content_form_provider_name(const IdentityProviderEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "providerName");
-  return som_strdup(v != NULL ? v : "");
-}
-void identity_provider_entry_content_form_set_provider_name(IdentityProviderEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "providerName", value);
-}
 char *identity_provider_entry_content_form_provider_type(const IdentityProviderEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "providerType");
   return som_strdup(v != NULL ? v : "");
@@ -95767,13 +94948,6 @@ char *identity_source_entry_content_form_content(const IdentitySourceEntryConten
 }
 void identity_source_entry_content_form_set_content(IdentitySourceEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *identity_source_entry_content_form_source_name(const IdentitySourceEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "sourceName");
-  return som_strdup(v != NULL ? v : "");
-}
-void identity_source_entry_content_form_set_source_name(IdentitySourceEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "sourceName", value);
 }
 char *identity_source_entry_content_form_source_type(const IdentitySourceEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "sourceType");
@@ -96540,13 +95714,6 @@ char *industry_protocol_compliance_entry_content_form_content(const IndustryProt
 void industry_protocol_compliance_entry_content_form_set_content(IndustryProtocolComplianceEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *industry_protocol_compliance_entry_content_form_protocol_name(const IndustryProtocolComplianceEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "protocolName");
-  return som_strdup(v != NULL ? v : "");
-}
-void industry_protocol_compliance_entry_content_form_set_protocol_name(IndustryProtocolComplianceEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "protocolName", value);
-}
 char *industry_protocol_compliance_entry_content_form_category(const IndustryProtocolComplianceEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "category");
   return som_strdup(v != NULL ? v : "");
@@ -96798,13 +95965,6 @@ char *industry_standard_entry_content_form_content(const IndustryStandardEntryCo
 }
 void industry_standard_entry_content_form_set_content(IndustryStandardEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *industry_standard_entry_content_form_standard_name(const IndustryStandardEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "standardName");
-  return som_strdup(v != NULL ? v : "");
-}
-void industry_standard_entry_content_form_set_standard_name(IndustryStandardEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "standardName", value);
 }
 char *industry_standard_entry_content_form_standard_body(const IndustryStandardEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "standardBody");
@@ -97162,13 +96322,6 @@ char *infrastructure_component_entry_content_form_content(const InfrastructureCo
 }
 void infrastructure_component_entry_content_form_set_content(InfrastructureComponentEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *infrastructure_component_entry_content_form_component_name(const InfrastructureComponentEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "componentName");
-  return som_strdup(v != NULL ? v : "");
-}
-void infrastructure_component_entry_content_form_set_component_name(InfrastructureComponentEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "componentName", value);
 }
 char *infrastructure_component_entry_content_form_component_type(const InfrastructureComponentEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "componentType");
@@ -97758,13 +96911,6 @@ char *initial_training_entry_content_form_training_id(const InitialTrainingEntry
 void initial_training_entry_content_form_set_training_id(InitialTrainingEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "trainingId", value);
 }
-char *initial_training_entry_content_form_training_name(const InitialTrainingEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "trainingName");
-  return som_strdup(v != NULL ? v : "");
-}
-void initial_training_entry_content_form_set_training_name(InitialTrainingEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "trainingName", value);
-}
 char *initial_training_entry_content_form_description(const InitialTrainingEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -98286,13 +97432,6 @@ char *integration_constraint_entry_content_form_constraint_id(const IntegrationC
 }
 void integration_constraint_entry_content_form_set_constraint_id(IntegrationConstraintEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "constraintId", value);
-}
-char *integration_constraint_entry_content_form_constraint_name(const IntegrationConstraintEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintName");
-  return som_strdup(v != NULL ? v : "");
-}
-void integration_constraint_entry_content_form_set_constraint_name(IntegrationConstraintEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "constraintName", value);
 }
 char *integration_constraint_entry_content_form_constraint_description(const IntegrationConstraintEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintDescription");
@@ -98956,13 +98095,6 @@ char *interaction_channel_entry_content_form_content(const InteractionChannelEnt
 void interaction_channel_entry_content_form_set_content(InteractionChannelEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *interaction_channel_entry_content_form_channel_name(const InteractionChannelEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "channelName");
-  return som_strdup(v != NULL ? v : "");
-}
-void interaction_channel_entry_content_form_set_channel_name(InteractionChannelEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "channelName", value);
-}
 char *interaction_channel_entry_content_form_channel_id(const InteractionChannelEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "channelId");
   return som_strdup(v != NULL ? v : "");
@@ -99523,13 +98655,6 @@ char *interaction_pattern_entry_content_form_content(const InteractionPatternEnt
 void interaction_pattern_entry_content_form_set_content(InteractionPatternEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *interaction_pattern_entry_content_form_pattern_name(const InteractionPatternEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "patternName");
-  return som_strdup(v != NULL ? v : "");
-}
-void interaction_pattern_entry_content_form_set_pattern_name(InteractionPatternEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "patternName", value);
-}
 char *interaction_pattern_entry_content_form_pattern_id(const InteractionPatternEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "patternId");
   return som_strdup(v != NULL ? v : "");
@@ -99712,13 +98837,6 @@ char *interface_business_process_entry_content_form_content(const InterfaceBusin
 void interface_business_process_entry_content_form_set_content(InterfaceBusinessProcessEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *interface_business_process_entry_content_form_process_name(const InterfaceBusinessProcessEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "processName");
-  return som_strdup(v != NULL ? v : "");
-}
-void interface_business_process_entry_content_form_set_process_name(InterfaceBusinessProcessEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "processName", value);
-}
 char *interface_business_process_entry_content_form_process_id(const InterfaceBusinessProcessEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "processId");
   return som_strdup(v != NULL ? v : "");
@@ -99753,13 +98871,6 @@ char *interface_data_entity_entry_content_form_content(const InterfaceDataEntity
 }
 void interface_data_entity_entry_content_form_set_content(InterfaceDataEntityEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *interface_data_entity_entry_content_form_entity_name(const InterfaceDataEntityEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "entityName");
-  return som_strdup(v != NULL ? v : "");
-}
-void interface_data_entity_entry_content_form_set_entity_name(InterfaceDataEntityEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "entityName", value);
 }
 char *interface_data_entity_entry_content_form_direction(const InterfaceDataEntityEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "direction");
@@ -100199,13 +99310,6 @@ char *interface_operation_entry_content_form_operation_id(const InterfaceOperati
 void interface_operation_entry_content_form_set_operation_id(InterfaceOperationEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "operationId", value);
 }
-char *interface_operation_entry_content_form_operation_name(const InterfaceOperationEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "operationName");
-  return som_strdup(v != NULL ? v : "");
-}
-void interface_operation_entry_content_form_set_operation_name(InterfaceOperationEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "operationName", value);
-}
 char *interface_operation_entry_content_form_http_method(const InterfaceOperationEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "httpMethod");
   return som_strdup(v != NULL ? v : "");
@@ -100584,13 +99688,6 @@ char *interface_specification_entry_content_form_content(const InterfaceSpecific
 void interface_specification_entry_content_form_set_content(InterfaceSpecificationEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *interface_specification_entry_content_form_specification_name(const InterfaceSpecificationEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "specificationName");
-  return som_strdup(v != NULL ? v : "");
-}
-void interface_specification_entry_content_form_set_specification_name(InterfaceSpecificationEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "specificationName", value);
-}
 char *interface_specification_entry_content_form_specification_version(const InterfaceSpecificationEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "specificationVersion");
   return som_strdup(v != NULL ? v : "");
@@ -100961,13 +100058,6 @@ char *interface_test_scenario_entry_content_form_scenario_id(const InterfaceTest
 }
 void interface_test_scenario_entry_content_form_set_scenario_id(InterfaceTestScenarioEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "scenarioId", value);
-}
-char *interface_test_scenario_entry_content_form_scenario_name(const InterfaceTestScenarioEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "scenarioName");
-  return som_strdup(v != NULL ? v : "");
-}
-void interface_test_scenario_entry_content_form_set_scenario_name(InterfaceTestScenarioEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "scenarioName", value);
 }
 char *interface_test_scenario_entry_content_form_scenario_type(const InterfaceTestScenarioEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "scenarioType");
@@ -101865,13 +100955,6 @@ char *it_standard_compliance_entry_content_form_content(const ItStandardComplian
 void it_standard_compliance_entry_content_form_set_content(ItStandardComplianceEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *it_standard_compliance_entry_content_form_standard_name(const ItStandardComplianceEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "standardName");
-  return som_strdup(v != NULL ? v : "");
-}
-void it_standard_compliance_entry_content_form_set_standard_name(ItStandardComplianceEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "standardName", value);
-}
 char *it_standard_compliance_entry_content_form_standard_body(const ItStandardComplianceEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "standardBody");
   return som_strdup(v != NULL ? v : "");
@@ -102145,13 +101228,6 @@ char *journey_stage_entry_content_form_content(const JourneyStageEntryContentFor
 void journey_stage_entry_content_form_set_content(JourneyStageEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *journey_stage_entry_content_form_stage_name(const JourneyStageEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stageName");
-  return som_strdup(v != NULL ? v : "");
-}
-void journey_stage_entry_content_form_set_stage_name(JourneyStageEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "stageName", value);
-}
 char *journey_stage_entry_content_form_stage_description(const JourneyStageEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "stageDescription");
   return som_strdup(v != NULL ? v : "");
@@ -102221,13 +101297,6 @@ char *key_attribute_entry_content_form_content(const KeyAttributeEntryContentFor
 }
 void key_attribute_entry_content_form_set_content(KeyAttributeEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *key_attribute_entry_content_form_key_name(const KeyAttributeEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "keyName");
-  return som_strdup(v != NULL ? v : "");
-}
-void key_attribute_entry_content_form_set_key_name(KeyAttributeEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "keyName", value);
 }
 char *key_attribute_entry_content_form_key_type(const KeyAttributeEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "keyType");
@@ -102431,13 +101500,6 @@ char *key_concept_entry_content_form_content(const KeyConceptEntryContentForm *s
 }
 void key_concept_entry_content_form_set_content(KeyConceptEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *key_concept_entry_content_form_concept_name(const KeyConceptEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "conceptName");
-  return som_strdup(v != NULL ? v : "");
-}
-void key_concept_entry_content_form_set_concept_name(KeyConceptEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "conceptName", value);
 }
 char *key_concept_entry_content_form_concept_type(const KeyConceptEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "conceptType");
@@ -103483,13 +102545,6 @@ char *lifecycle_transition_entry_content_form_transition_id(const LifecycleTrans
 }
 void lifecycle_transition_entry_content_form_set_transition_id(LifecycleTransitionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "transitionId", value);
-}
-char *lifecycle_transition_entry_content_form_transition_name(const LifecycleTransitionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "transitionName");
-  return som_strdup(v != NULL ? v : "");
-}
-void lifecycle_transition_entry_content_form_set_transition_name(LifecycleTransitionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "transitionName", value);
 }
 char *lifecycle_transition_entry_content_form_from_state(const LifecycleTransitionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "fromState");
@@ -104786,13 +103841,6 @@ char *login_flow_step_entry_content_form_content(const LoginFlowStepEntryContent
 void login_flow_step_entry_content_form_set_content(LoginFlowStepEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *login_flow_step_entry_content_form_step_name(const LoginFlowStepEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stepName");
-  return som_strdup(v != NULL ? v : "");
-}
-void login_flow_step_entry_content_form_set_step_name(LoginFlowStepEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "stepName", value);
-}
 char *login_flow_step_entry_content_form_step_order(const LoginFlowStepEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "stepOrder");
   return som_strdup(v != NULL ? v : "");
@@ -105420,13 +104468,6 @@ char *maintenance_dependency_entry_content_form_dependency_id(const MaintenanceD
 void maintenance_dependency_entry_content_form_set_dependency_id(MaintenanceDependencyEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "dependencyId", value);
 }
-char *maintenance_dependency_entry_content_form_name(const MaintenanceDependencyEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "name");
-  return som_strdup(v != NULL ? v : "");
-}
-void maintenance_dependency_entry_content_form_set_name(MaintenanceDependencyEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "name", value);
-}
 char *maintenance_dependency_entry_content_form_version(const MaintenanceDependencyEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "version");
   return som_strdup(v != NULL ? v : "");
@@ -105707,13 +104748,6 @@ char *maintenance_window_entry_content_form_content(const MaintenanceWindowEntry
 void maintenance_window_entry_content_form_set_content(MaintenanceWindowEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *maintenance_window_entry_content_form_window_name(const MaintenanceWindowEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "windowName");
-  return som_strdup(v != NULL ? v : "");
-}
-void maintenance_window_entry_content_form_set_window_name(MaintenanceWindowEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "windowName", value);
-}
 char *maintenance_window_entry_content_form_window_type(const MaintenanceWindowEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "windowType");
   return som_strdup(v != NULL ? v : "");
@@ -105909,13 +104943,6 @@ char *master_data_domain_entry_content_form_content(const MasterDataDomainEntryC
 }
 void master_data_domain_entry_content_form_set_content(MasterDataDomainEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *master_data_domain_entry_content_form_domain_name(const MasterDataDomainEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "domainName");
-  return som_strdup(v != NULL ? v : "");
-}
-void master_data_domain_entry_content_form_set_domain_name(MasterDataDomainEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "domainName", value);
 }
 char *master_data_domain_entry_content_form_description(const MasterDataDomainEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
@@ -106485,13 +105512,6 @@ char *metrics_baseline_entry_content_form_content(const MetricsBaselineEntryCont
 }
 void metrics_baseline_entry_content_form_set_content(MetricsBaselineEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *metrics_baseline_entry_content_form_metric_name(const MetricsBaselineEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "metricName");
-  return som_strdup(v != NULL ? v : "");
-}
-void metrics_baseline_entry_content_form_set_metric_name(MetricsBaselineEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "metricName", value);
 }
 char *metrics_baseline_entry_content_form_baseline_value(const MetricsBaselineEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "baselineValue");
@@ -107151,13 +106171,6 @@ char *migration_milestone_entry_content_form_content(const MigrationMilestoneEnt
 void migration_milestone_entry_content_form_set_content(MigrationMilestoneEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *migration_milestone_entry_content_form_milestone_name(const MigrationMilestoneEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "milestoneName");
-  return som_strdup(v != NULL ? v : "");
-}
-void migration_milestone_entry_content_form_set_milestone_name(MigrationMilestoneEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "milestoneName", value);
-}
 char *migration_milestone_entry_content_form_target_date(const MigrationMilestoneEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "targetDate");
   return som_strdup(v != NULL ? v : "");
@@ -107311,13 +106324,6 @@ char *migration_phase_entry_content_form_phase_number(const MigrationPhaseEntryC
 }
 void migration_phase_entry_content_form_set_phase_number(MigrationPhaseEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "phaseNumber", value);
-}
-char *migration_phase_entry_content_form_phase_name(const MigrationPhaseEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "phaseName");
-  return som_strdup(v != NULL ? v : "");
-}
-void migration_phase_entry_content_form_set_phase_name(MigrationPhaseEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "phaseName", value);
 }
 char *migration_phase_entry_content_form_phase_type(const MigrationPhaseEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "phaseType");
@@ -107983,13 +106989,6 @@ char *migration_risk_entry_content_form_risk_id(const MigrationRiskEntryContentF
 }
 void migration_risk_entry_content_form_set_risk_id(MigrationRiskEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "riskId", value);
-}
-char *migration_risk_entry_content_form_risk_title(const MigrationRiskEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "riskTitle");
-  return som_strdup(v != NULL ? v : "");
-}
-void migration_risk_entry_content_form_set_risk_title(MigrationRiskEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "riskTitle", value);
 }
 char *migration_risk_entry_content_form_risk_owner(const MigrationRiskEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "riskOwner");
@@ -109498,13 +108497,6 @@ char *module_entry_content_form_content(const ModuleEntryContentForm *self) {
 void module_entry_content_form_set_content(ModuleEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *module_entry_content_form_module_name(const ModuleEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "moduleName");
-  return som_strdup(v != NULL ? v : "");
-}
-void module_entry_content_form_set_module_name(ModuleEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "moduleName", value);
-}
 char *module_entry_content_form_module_type(const ModuleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "moduleType");
   return som_strdup(v != NULL ? v : "");
@@ -110613,13 +109605,6 @@ char *must_pass_criterion_entry_content_form_criterion_id(const MustPassCriterio
 void must_pass_criterion_entry_content_form_set_criterion_id(MustPassCriterionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "criterionId", value);
 }
-char *must_pass_criterion_entry_content_form_criterion_name(const MustPassCriterionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "criterionName");
-  return som_strdup(v != NULL ? v : "");
-}
-void must_pass_criterion_entry_content_form_set_criterion_name(MustPassCriterionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "criterionName", value);
-}
 char *must_pass_criterion_entry_content_form_verification_method(const MustPassCriterionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "verificationMethod");
   return som_strdup(v != NULL ? v : "");
@@ -111139,13 +110124,6 @@ char *navigation_guard_entry_content_form_guard_id(const NavigationGuardEntryCon
 }
 void navigation_guard_entry_content_form_set_guard_id(NavigationGuardEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "guardId", value);
-}
-char *navigation_guard_entry_content_form_guard_name(const NavigationGuardEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "guardName");
-  return som_strdup(v != NULL ? v : "");
-}
-void navigation_guard_entry_content_form_set_guard_name(NavigationGuardEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "guardName", value);
 }
 char *navigation_guard_entry_content_form_guard_type(const NavigationGuardEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "guardType");
@@ -112515,13 +111493,6 @@ char *new_role_entry_identification_form_role_id(const NewRoleEntryIdentificatio
 void new_role_entry_identification_form_set_role_id(NewRoleEntryIdentificationForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "roleId", value);
 }
-char *new_role_entry_identification_form_role_title(const NewRoleEntryIdentificationForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "roleTitle");
-  return som_strdup(v != NULL ? v : "");
-}
-void new_role_entry_identification_form_set_role_title(NewRoleEntryIdentificationForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "roleTitle", value);
-}
 char *new_role_entry_identification_form_role_family(const NewRoleEntryIdentificationForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "roleFamily");
   return som_strdup(v != NULL ? v : "");
@@ -113075,13 +112046,6 @@ char *notification_channel_entry_content_form_content(const NotificationChannelE
 void notification_channel_entry_content_form_set_content(NotificationChannelEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *notification_channel_entry_content_form_channel_name(const NotificationChannelEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "channelName");
-  return som_strdup(v != NULL ? v : "");
-}
-void notification_channel_entry_content_form_set_channel_name(NotificationChannelEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "channelName", value);
-}
 char *notification_channel_entry_content_form_channel_id(const NotificationChannelEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "channelId");
   return som_strdup(v != NULL ? v : "");
@@ -113229,13 +112193,6 @@ char *object_invariant_entry_content_form_content(const ObjectInvariantEntryCont
 void object_invariant_entry_content_form_set_content(ObjectInvariantEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *object_invariant_entry_content_form_invariant_name(const ObjectInvariantEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "invariantName");
-  return som_strdup(v != NULL ? v : "");
-}
-void object_invariant_entry_content_form_set_invariant_name(ObjectInvariantEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "invariantName", value);
-}
 char *object_invariant_entry_content_form_description(const ObjectInvariantEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -113291,13 +112248,6 @@ char *object_operation_entry_content_form_content(const ObjectOperationEntryCont
 }
 void object_operation_entry_content_form_set_content(ObjectOperationEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *object_operation_entry_content_form_operation_name(const ObjectOperationEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "operationName");
-  return som_strdup(v != NULL ? v : "");
-}
-void object_operation_entry_content_form_set_operation_name(ObjectOperationEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "operationName", value);
 }
 char *object_operation_entry_content_form_description(const ObjectOperationEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
@@ -113438,13 +112388,6 @@ char *object_state_entry_content_form_content(const ObjectStateEntryContentForm 
 }
 void object_state_entry_content_form_set_content(ObjectStateEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *object_state_entry_content_form_state_name(const ObjectStateEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stateName");
-  return som_strdup(v != NULL ? v : "");
-}
-void object_state_entry_content_form_set_state_name(ObjectStateEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "stateName", value);
 }
 char *object_state_entry_content_form_state_code(const ObjectStateEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "stateCode");
@@ -114111,13 +113054,6 @@ char *ongoing_training_entry_content_form_training_id(const OngoingTrainingEntry
 void ongoing_training_entry_content_form_set_training_id(OngoingTrainingEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "trainingId", value);
 }
-char *ongoing_training_entry_content_form_training_name(const OngoingTrainingEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "trainingName");
-  return som_strdup(v != NULL ? v : "");
-}
-void ongoing_training_entry_content_form_set_training_name(OngoingTrainingEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "trainingName", value);
-}
 char *ongoing_training_entry_content_form_description(const OngoingTrainingEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -114598,13 +113534,6 @@ char *org_implementation_activity_content_form_activity_id(const OrgImplementati
 void org_implementation_activity_content_form_set_activity_id(OrgImplementationActivityContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "activityId", value);
 }
-char *org_implementation_activity_content_form_activity_name(const OrgImplementationActivityContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "activityName");
-  return som_strdup(v != NULL ? v : "");
-}
-void org_implementation_activity_content_form_set_activity_name(OrgImplementationActivityContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "activityName", value);
-}
 char *org_implementation_activity_content_form_description(const OrgImplementationActivityContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -114751,13 +113680,6 @@ char *organizational_change_entry_content_form_change_id(const OrganizationalCha
 }
 void organizational_change_entry_content_form_set_change_id(OrganizationalChangeEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "changeId", value);
-}
-char *organizational_change_entry_content_form_change_name(const OrganizationalChangeEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "changeName");
-  return som_strdup(v != NULL ? v : "");
-}
-void organizational_change_entry_content_form_set_change_name(OrganizationalChangeEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "changeName", value);
 }
 char *organizational_change_entry_content_form_change_type(const OrganizationalChangeEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "changeType");
@@ -115472,13 +114394,6 @@ char *organizational_unit_context_entry_content_form_content(const Organizationa
 void organizational_unit_context_entry_content_form_set_content(OrganizationalUnitContextEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *organizational_unit_context_entry_content_form_unit_name(const OrganizationalUnitContextEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "unitName");
-  return som_strdup(v != NULL ? v : "");
-}
-void organizational_unit_context_entry_content_form_set_unit_name(OrganizationalUnitContextEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "unitName", value);
-}
 char *organizational_unit_context_entry_content_form_unit_type(const OrganizationalUnitContextEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "unitType");
   return som_strdup(v != NULL ? v : "");
@@ -115541,13 +114456,6 @@ char *os_compatibility_entry_content_form_content(const OsCompatibilityEntryCont
 }
 void os_compatibility_entry_content_form_set_content(OsCompatibilityEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *os_compatibility_entry_content_form_os_name(const OsCompatibilityEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "osName");
-  return som_strdup(v != NULL ? v : "");
-}
-void os_compatibility_entry_content_form_set_os_name(OsCompatibilityEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "osName", value);
 }
 char *os_compatibility_entry_content_form_os_family(const OsCompatibilityEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "osFamily");
@@ -115730,13 +114638,6 @@ char *other_agreement_entry_content_form_content(const OtherAgreementEntryConten
 }
 void other_agreement_entry_content_form_set_content(OtherAgreementEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *other_agreement_entry_content_form_agreement_title(const OtherAgreementEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "agreementTitle");
-  return som_strdup(v != NULL ? v : "");
-}
-void other_agreement_entry_content_form_set_agreement_title(OtherAgreementEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "agreementTitle", value);
 }
 char *other_agreement_entry_content_form_agreement_type(const OtherAgreementEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "agreementType");
@@ -117233,13 +116134,6 @@ char *persona_entry_content_form_content(const PersonaEntryContentForm *self) {
 void persona_entry_content_form_set_content(PersonaEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *persona_entry_content_form_persona_name(const PersonaEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "personaName");
-  return som_strdup(v != NULL ? v : "");
-}
-void persona_entry_content_form_set_persona_name(PersonaEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "personaName", value);
-}
 char *persona_entry_content_form_age(const PersonaEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "age");
   return som_strdup(v != NULL ? v : "");
@@ -117492,13 +116386,6 @@ char *persona_scenario_entry_content_form_content(const PersonaScenarioEntryCont
 void persona_scenario_entry_content_form_set_content(PersonaScenarioEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *persona_scenario_entry_content_form_scenario_name(const PersonaScenarioEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "scenarioName");
-  return som_strdup(v != NULL ? v : "");
-}
-void persona_scenario_entry_content_form_set_scenario_name(PersonaScenarioEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "scenarioName", value);
-}
 char *persona_scenario_entry_content_form_description(const PersonaScenarioEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -117596,13 +116483,6 @@ char *phase_gate_review_entry_content_form_content(const PhaseGateReviewEntryCon
 }
 void phase_gate_review_entry_content_form_set_content(PhaseGateReviewEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *phase_gate_review_entry_content_form_gate_name(const PhaseGateReviewEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "gateName");
-  return som_strdup(v != NULL ? v : "");
-}
-void phase_gate_review_entry_content_form_set_gate_name(PhaseGateReviewEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "gateName", value);
 }
 char *phase_gate_review_entry_content_form_gate_id(const PhaseGateReviewEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "gateId");
@@ -118073,13 +116953,6 @@ char *pipeline_job_entry_content_form_content(const PipelineJobEntryContentForm 
 void pipeline_job_entry_content_form_set_content(PipelineJobEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *pipeline_job_entry_content_form_job_name(const PipelineJobEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "jobName");
-  return som_strdup(v != NULL ? v : "");
-}
-void pipeline_job_entry_content_form_set_job_name(PipelineJobEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "jobName", value);
-}
 char *pipeline_job_entry_content_form_parent_stage(const PipelineJobEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "parentStage");
   return som_strdup(v != NULL ? v : "");
@@ -118282,13 +117155,6 @@ char *pipeline_stage_entry_content_form_content(const PipelineStageEntryContentF
 }
 void pipeline_stage_entry_content_form_set_content(PipelineStageEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *pipeline_stage_entry_content_form_stage_name(const PipelineStageEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stageName");
-  return som_strdup(v != NULL ? v : "");
-}
-void pipeline_stage_entry_content_form_set_stage_name(PipelineStageEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "stageName", value);
 }
 char *pipeline_stage_entry_content_form_stage_order(const PipelineStageEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "stageOrder");
@@ -120373,13 +119239,6 @@ char *process_control_entry_content_form_control_id(const ProcessControlEntryCon
 void process_control_entry_content_form_set_control_id(ProcessControlEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "controlId", value);
 }
-char *process_control_entry_content_form_control_name(const ProcessControlEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "controlName");
-  return som_strdup(v != NULL ? v : "");
-}
-void process_control_entry_content_form_set_control_name(ProcessControlEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "controlName", value);
-}
 char *process_control_entry_content_form_control_type(const ProcessControlEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "controlType");
   return som_strdup(v != NULL ? v : "");
@@ -120639,13 +119498,6 @@ char *process_design_principle_entry_content_form_principle_id(const ProcessDesi
 void process_design_principle_entry_content_form_set_principle_id(ProcessDesignPrincipleEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "principleId", value);
 }
-char *process_design_principle_entry_content_form_principle_name(const ProcessDesignPrincipleEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "principleName");
-  return som_strdup(v != NULL ? v : "");
-}
-void process_design_principle_entry_content_form_set_principle_name(ProcessDesignPrincipleEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "principleName", value);
-}
 char *process_design_principle_entry_content_form_category(const ProcessDesignPrincipleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "category");
   return som_strdup(v != NULL ? v : "");
@@ -120765,13 +119617,6 @@ char *process_end_event_entry_content_form_end_event_id(const ProcessEndEventEnt
 void process_end_event_entry_content_form_set_end_event_id(ProcessEndEventEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "endEventId", value);
 }
-char *process_end_event_entry_content_form_end_event_name(const ProcessEndEventEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "endEventName");
-  return som_strdup(v != NULL ? v : "");
-}
-void process_end_event_entry_content_form_set_end_event_name(ProcessEndEventEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "endEventName", value);
-}
 char *process_end_event_entry_content_form_end_event_type(const ProcessEndEventEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "endEventType");
   return som_strdup(v != NULL ? v : "");
@@ -120869,13 +119714,6 @@ char *process_exception_entry_content_form_exception_id(const ProcessExceptionEn
 }
 void process_exception_entry_content_form_set_exception_id(ProcessExceptionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "exceptionId", value);
-}
-char *process_exception_entry_content_form_exception_name(const ProcessExceptionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "exceptionName");
-  return som_strdup(v != NULL ? v : "");
-}
-void process_exception_entry_content_form_set_exception_name(ProcessExceptionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "exceptionName", value);
 }
 char *process_exception_entry_content_form_exception_type(const ProcessExceptionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "exceptionType");
@@ -121059,13 +119897,6 @@ char *process_identification_content_form_process_id(const ProcessIdentification
 void process_identification_content_form_set_process_id(ProcessIdentificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "processId", value);
 }
-char *process_identification_content_form_process_name(const ProcessIdentificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "processName");
-  return som_strdup(v != NULL ? v : "");
-}
-void process_identification_content_form_set_process_name(ProcessIdentificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "processName", value);
-}
 char *process_identification_content_form_process_level(const ProcessIdentificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "processLevel");
   return som_strdup(v != NULL ? v : "");
@@ -121219,13 +120050,6 @@ char *process_improvement_entry_content_form_improvement_id(const ProcessImprove
 }
 void process_improvement_entry_content_form_set_improvement_id(ProcessImprovementEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "improvementId", value);
-}
-char *process_improvement_entry_content_form_improvement_name(const ProcessImprovementEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "improvementName");
-  return som_strdup(v != NULL ? v : "");
-}
-void process_improvement_entry_content_form_set_improvement_name(ProcessImprovementEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "improvementName", value);
 }
 char *process_improvement_entry_content_form_category(const ProcessImprovementEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "category");
@@ -121416,13 +120240,6 @@ char *process_input_entry_content_form_input_id(const ProcessInputEntryContentFo
 void process_input_entry_content_form_set_input_id(ProcessInputEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "inputId", value);
 }
-char *process_input_entry_content_form_input_name(const ProcessInputEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "inputName");
-  return som_strdup(v != NULL ? v : "");
-}
-void process_input_entry_content_form_set_input_name(ProcessInputEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "inputName", value);
-}
 char *process_input_entry_content_form_input_type(const ProcessInputEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "inputType");
   return som_strdup(v != NULL ? v : "");
@@ -121535,13 +120352,6 @@ char *process_kpi_entry_content_form_kpi_id(const ProcessKpiEntryContentForm *se
 void process_kpi_entry_content_form_set_kpi_id(ProcessKpiEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "kpiId", value);
 }
-char *process_kpi_entry_content_form_kpi_name(const ProcessKpiEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "kpiName");
-  return som_strdup(v != NULL ? v : "");
-}
-void process_kpi_entry_content_form_set_kpi_name(ProcessKpiEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "kpiName", value);
-}
 char *process_kpi_entry_content_form_category(const ProcessKpiEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "category");
   return som_strdup(v != NULL ? v : "");
@@ -121653,13 +120463,6 @@ char *process_metric_entry_content_form_content(const ProcessMetricEntryContentF
 }
 void process_metric_entry_content_form_set_content(ProcessMetricEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *process_metric_entry_content_form_metric_name(const ProcessMetricEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "metricName");
-  return som_strdup(v != NULL ? v : "");
-}
-void process_metric_entry_content_form_set_metric_name(ProcessMetricEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "metricName", value);
 }
 char *process_metric_entry_content_form_metric_id(const ProcessMetricEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "metricId");
@@ -121779,13 +120582,6 @@ char *process_output_entry_content_form_output_id(const ProcessOutputEntryConten
 }
 void process_output_entry_content_form_set_output_id(ProcessOutputEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "outputId", value);
-}
-char *process_output_entry_content_form_output_name(const ProcessOutputEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "outputName");
-  return som_strdup(v != NULL ? v : "");
-}
-void process_output_entry_content_form_set_output_name(ProcessOutputEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "outputName", value);
 }
 char *process_output_entry_content_form_output_type(const ProcessOutputEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "outputType");
@@ -122131,13 +120927,6 @@ char *process_role_entry_content_form_role_id(const ProcessRoleEntryContentForm 
 void process_role_entry_content_form_set_role_id(ProcessRoleEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "roleId", value);
 }
-char *process_role_entry_content_form_role_name(const ProcessRoleEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "roleName");
-  return som_strdup(v != NULL ? v : "");
-}
-void process_role_entry_content_form_set_role_name(ProcessRoleEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "roleName", value);
-}
 char *process_role_entry_content_form_raci_type(const ProcessRoleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "raciType");
   return som_strdup(v != NULL ? v : "");
@@ -122299,13 +121088,6 @@ char *process_scope_entry_content_form_content(const ProcessScopeEntryContentFor
 void process_scope_entry_content_form_set_content(ProcessScopeEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *process_scope_entry_content_form_process_name(const ProcessScopeEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "processName");
-  return som_strdup(v != NULL ? v : "");
-}
-void process_scope_entry_content_form_set_process_name(ProcessScopeEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "processName", value);
-}
 char *process_scope_entry_content_form_rationale(const ProcessScopeEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "rationale");
   return som_strdup(v != NULL ? v : "");
@@ -122402,13 +121184,6 @@ char *process_sla_entry_content_form_sla_id(const ProcessSlaEntryContentForm *se
 }
 void process_sla_entry_content_form_set_sla_id(ProcessSlaEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "slaId", value);
-}
-char *process_sla_entry_content_form_sla_name(const ProcessSlaEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "slaName");
-  return som_strdup(v != NULL ? v : "");
-}
-void process_sla_entry_content_form_set_sla_name(ProcessSlaEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "slaName", value);
 }
 char *process_sla_entry_content_form_service_description(const ProcessSlaEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "serviceDescription");
@@ -122676,13 +121451,6 @@ char *process_trigger_entry_content_form_trigger_id(const ProcessTriggerEntryCon
 void process_trigger_entry_content_form_set_trigger_id(ProcessTriggerEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "triggerId", value);
 }
-char *process_trigger_entry_content_form_trigger_name(const ProcessTriggerEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "triggerName");
-  return som_strdup(v != NULL ? v : "");
-}
-void process_trigger_entry_content_form_set_trigger_name(ProcessTriggerEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "triggerName", value);
-}
 char *process_trigger_entry_content_form_trigger_type(const ProcessTriggerEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "triggerType");
   return som_strdup(v != NULL ? v : "");
@@ -122934,13 +121702,6 @@ char *programming_language_entry_content_form_content(const ProgrammingLanguageE
 }
 void programming_language_entry_content_form_set_content(ProgrammingLanguageEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *programming_language_entry_content_form_language_name(const ProgrammingLanguageEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "languageName");
-  return som_strdup(v != NULL ? v : "");
-}
-void programming_language_entry_content_form_set_language_name(ProgrammingLanguageEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "languageName", value);
 }
 char *programming_language_entry_content_form_language_variant(const ProgrammingLanguageEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "languageVariant");
@@ -123403,13 +122164,6 @@ char *protocol_entry_content_form_content(const ProtocolEntryContentForm *self) 
 void protocol_entry_content_form_set_content(ProtocolEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *protocol_entry_content_form_protocol_name(const ProtocolEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "protocolName");
-  return som_strdup(v != NULL ? v : "");
-}
-void protocol_entry_content_form_set_protocol_name(ProtocolEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "protocolName", value);
-}
 char *protocol_entry_content_form_protocol_type(const ProtocolEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "protocolType");
   return som_strdup(v != NULL ? v : "");
@@ -123465,13 +122219,6 @@ char *prototype_feature_entry_content_form_feature_id(const PrototypeFeatureEntr
 }
 void prototype_feature_entry_content_form_set_feature_id(PrototypeFeatureEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "featureId", value);
-}
-char *prototype_feature_entry_content_form_feature_name(const PrototypeFeatureEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "featureName");
-  return som_strdup(v != NULL ? v : "");
-}
-void prototype_feature_entry_content_form_set_feature_name(PrototypeFeatureEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "featureName", value);
 }
 char *prototype_feature_entry_content_form_inclusion_reason(const PrototypeFeatureEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "inclusionReason");
@@ -124228,13 +122975,6 @@ char *quality_category_entry_content_form_category_id(const QualityCategoryEntry
 }
 void quality_category_entry_content_form_set_category_id(QualityCategoryEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "categoryId", value);
-}
-char *quality_category_entry_content_form_category_name(const QualityCategoryEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "categoryName");
-  return som_strdup(v != NULL ? v : "");
-}
-void quality_category_entry_content_form_set_category_name(QualityCategoryEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "categoryName", value);
 }
 long quality_category_entry_content_form_category_weight(const QualityCategoryEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "categoryWeight");
@@ -125214,13 +123954,6 @@ char *quality_scenario_entry_content_form_scenario_id(const QualityScenarioEntry
 void quality_scenario_entry_content_form_set_scenario_id(QualityScenarioEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "scenarioId", value);
 }
-char *quality_scenario_entry_content_form_scenario_name(const QualityScenarioEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "scenarioName");
-  return som_strdup(v != NULL ? v : "");
-}
-void quality_scenario_entry_content_form_set_scenario_name(QualityScenarioEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "scenarioName", value);
-}
 char *quality_scenario_entry_content_form_source(const QualityScenarioEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "source");
   return som_strdup(v != NULL ? v : "");
@@ -125325,13 +124058,6 @@ char *quality_standard_entry_content_form_content(const QualityStandardEntryCont
 }
 void quality_standard_entry_content_form_set_content(QualityStandardEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *quality_standard_entry_content_form_standard_name(const QualityStandardEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "standardName");
-  return som_strdup(v != NULL ? v : "");
-}
-void quality_standard_entry_content_form_set_standard_name(QualityStandardEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "standardName", value);
 }
 char *quality_standard_entry_content_form_maturity_level(const QualityStandardEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "maturityLevel");
@@ -126147,13 +124873,6 @@ char *recovery_scenario_entry_content_form_scenario_id(const RecoveryScenarioEnt
 void recovery_scenario_entry_content_form_set_scenario_id(RecoveryScenarioEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "scenarioId", value);
 }
-char *recovery_scenario_entry_content_form_scenario_name(const RecoveryScenarioEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "scenarioName");
-  return som_strdup(v != NULL ? v : "");
-}
-void recovery_scenario_entry_content_form_set_scenario_name(RecoveryScenarioEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "scenarioName", value);
-}
 char *recovery_scenario_entry_content_form_trigger_condition(const RecoveryScenarioEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "triggerCondition");
   return som_strdup(v != NULL ? v : "");
@@ -126216,13 +124935,6 @@ char *reference_document_entry_content_form_content(const ReferenceDocumentEntry
 }
 void reference_document_entry_content_form_set_content(ReferenceDocumentEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *reference_document_entry_content_form_document_title(const ReferenceDocumentEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "documentTitle");
-  return som_strdup(v != NULL ? v : "");
-}
-void reference_document_entry_content_form_set_document_title(ReferenceDocumentEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "documentTitle", value);
 }
 char *reference_document_entry_content_form_document_id(const ReferenceDocumentEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "documentId");
@@ -126728,13 +125440,6 @@ char *related_document_entry_content_form_related_document_id(const RelatedDocum
 void related_document_entry_content_form_set_related_document_id(RelatedDocumentEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "relatedDocumentId", value);
 }
-char *related_document_entry_content_form_related_document_title(const RelatedDocumentEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "relatedDocumentTitle");
-  return som_strdup(v != NULL ? v : "");
-}
-void related_document_entry_content_form_set_related_document_title(RelatedDocumentEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "relatedDocumentTitle", value);
-}
 char *related_document_entry_content_form_relationship_type(const RelatedDocumentEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "relationshipType");
   return som_strdup(v != NULL ? v : "");
@@ -127022,13 +125727,6 @@ char *relevant_section_entry_content_form_section_reference(const RelevantSectio
 void relevant_section_entry_content_form_set_section_reference(RelevantSectionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "sectionReference", value);
 }
-char *relevant_section_entry_content_form_section_title(const RelevantSectionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "sectionTitle");
-  return som_strdup(v != NULL ? v : "");
-}
-void relevant_section_entry_content_form_set_section_title(RelevantSectionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "sectionTitle", value);
-}
 char *relevant_section_entry_content_form_relevance(const RelevantSectionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "relevance");
   return som_strdup(v != NULL ? v : "");
@@ -127309,13 +126007,6 @@ char *removed_role_entry_content_form_role_id(const RemovedRoleEntryContentForm 
 void removed_role_entry_content_form_set_role_id(RemovedRoleEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "roleId", value);
 }
-char *removed_role_entry_content_form_role_title(const RemovedRoleEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "roleTitle");
-  return som_strdup(v != NULL ? v : "");
-}
-void removed_role_entry_content_form_set_role_title(RemovedRoleEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "roleTitle", value);
-}
 char *removed_role_entry_content_form_department(const RemovedRoleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "department");
   return som_strdup(v != NULL ? v : "");
@@ -127466,13 +126157,6 @@ void replacement_phase_entry_content_form_set_phase_number(ReplacementPhaseEntry
   char buf[32];
   snprintf(buf, sizeof(buf), "%ld", value);
   spec_document_set_form_field(self->node.doc, self->node.path, "phaseNumber", buf);
-}
-char *replacement_phase_entry_content_form_phase_name(const ReplacementPhaseEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "phaseName");
-  return som_strdup(v != NULL ? v : "");
-}
-void replacement_phase_entry_content_form_set_phase_name(ReplacementPhaseEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "phaseName", value);
 }
 char *replacement_phase_entry_content_form_phase_scope(const ReplacementPhaseEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "phaseScope");
@@ -127725,13 +126409,6 @@ char *report_chart_entry_content_form_chart_id(const ReportChartEntryContentForm
 }
 void report_chart_entry_content_form_set_chart_id(ReportChartEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "chartId", value);
-}
-char *report_chart_entry_content_form_title(const ReportChartEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "title");
-  return som_strdup(v != NULL ? v : "");
-}
-void report_chart_entry_content_form_set_title(ReportChartEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "title", value);
 }
 char *report_chart_entry_content_form_chart_type(const ReportChartEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "chartType");
@@ -127991,13 +126668,6 @@ char *report_column_entry_content_form_column_id(const ReportColumnEntryContentF
 }
 void report_column_entry_content_form_set_column_id(ReportColumnEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "columnId", value);
-}
-char *report_column_entry_content_form_column_name(const ReportColumnEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "columnName");
-  return som_strdup(v != NULL ? v : "");
-}
-void report_column_entry_content_form_set_column_name(ReportColumnEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "columnName", value);
 }
 char *report_column_entry_content_form_display_label(const ReportColumnEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "displayLabel");
@@ -128501,13 +127171,6 @@ char *report_entry_content_form_report_id(const ReportEntryContentForm *self) {
 }
 void report_entry_content_form_set_report_id(ReportEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "reportId", value);
-}
-char *report_entry_content_form_report_name(const ReportEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "reportName");
-  return som_strdup(v != NULL ? v : "");
-}
-void report_entry_content_form_set_report_name(ReportEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "reportName", value);
 }
 char *report_entry_content_form_report_type(const ReportEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "reportType");
@@ -129082,13 +127745,6 @@ char *report_filter_entry_content_form_filter_id(const ReportFilterEntryContentF
 void report_filter_entry_content_form_set_filter_id(ReportFilterEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "filterId", value);
 }
-char *report_filter_entry_content_form_filter_name(const ReportFilterEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "filterName");
-  return som_strdup(v != NULL ? v : "");
-}
-void report_filter_entry_content_form_set_filter_name(ReportFilterEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "filterName", value);
-}
 char *report_filter_entry_content_form_display_label(const ReportFilterEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "displayLabel");
   return som_strdup(v != NULL ? v : "");
@@ -129385,13 +128041,6 @@ char *report_recipient_entry_content_form_recipient_id(const ReportRecipientEntr
 void report_recipient_entry_content_form_set_recipient_id(ReportRecipientEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "recipientId", value);
 }
-char *report_recipient_entry_content_form_recipient_name(const ReportRecipientEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "recipientName");
-  return som_strdup(v != NULL ? v : "");
-}
-void report_recipient_entry_content_form_set_recipient_name(ReportRecipientEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "recipientName", value);
-}
 char *report_recipient_entry_content_form_recipient_type(const ReportRecipientEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "recipientType");
   return som_strdup(v != NULL ? v : "");
@@ -129545,13 +128194,6 @@ char *report_schedule_entry_content_form_schedule_id(const ReportScheduleEntryCo
 }
 void report_schedule_entry_content_form_set_schedule_id(ReportScheduleEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "scheduleId", value);
-}
-char *report_schedule_entry_content_form_schedule_name(const ReportScheduleEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "scheduleName");
-  return som_strdup(v != NULL ? v : "");
-}
-void report_schedule_entry_content_form_set_schedule_name(ReportScheduleEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "scheduleName", value);
 }
 char *report_schedule_entry_content_form_frequency(const ReportScheduleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "frequency");
@@ -129816,13 +128458,6 @@ char *report_section_entry_content_form_section_id(const ReportSectionEntryConte
 void report_section_entry_content_form_set_section_id(ReportSectionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "sectionId", value);
 }
-char *report_section_entry_content_form_title(const ReportSectionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "title");
-  return som_strdup(v != NULL ? v : "");
-}
-void report_section_entry_content_form_set_title(ReportSectionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "title", value);
-}
 char *report_section_entry_content_form_section_type(const ReportSectionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "sectionType");
   return som_strdup(v != NULL ? v : "");
@@ -130014,13 +128649,6 @@ char *requirement_business_rule_entry_content_form_rule_id(const RequirementBusi
 void requirement_business_rule_entry_content_form_set_rule_id(RequirementBusinessRuleEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "ruleId", value);
 }
-char *requirement_business_rule_entry_content_form_rule_name(const RequirementBusinessRuleEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ruleName");
-  return som_strdup(v != NULL ? v : "");
-}
-void requirement_business_rule_entry_content_form_set_rule_name(RequirementBusinessRuleEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "ruleName", value);
-}
 char *requirement_business_rule_entry_content_form_rule_type(const RequirementBusinessRuleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "ruleType");
   return som_strdup(v != NULL ? v : "");
@@ -130132,13 +128760,6 @@ char *requirement_screen_action_entry_content_form_action_id(const RequirementSc
 }
 void requirement_screen_action_entry_content_form_set_action_id(RequirementScreenActionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "actionId", value);
-}
-char *requirement_screen_action_entry_content_form_action_label(const RequirementScreenActionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "actionLabel");
-  return som_strdup(v != NULL ? v : "");
-}
-void requirement_screen_action_entry_content_form_set_action_label(RequirementScreenActionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "actionLabel", value);
 }
 char *requirement_screen_action_entry_content_form_action_type(const RequirementScreenActionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "actionType");
@@ -130321,13 +128942,6 @@ char *requirement_test_case_entry_content_form_test_case_id(const RequirementTes
 }
 void requirement_test_case_entry_content_form_set_test_case_id(RequirementTestCaseEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "testCaseId", value);
-}
-char *requirement_test_case_entry_content_form_test_case_name(const RequirementTestCaseEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "testCaseName");
-  return som_strdup(v != NULL ? v : "");
-}
-void requirement_test_case_entry_content_form_set_test_case_name(RequirementTestCaseEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "testCaseName", value);
 }
 char *requirement_test_case_entry_content_form_test_type(const RequirementTestCaseEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "testType");
@@ -130643,13 +129257,6 @@ char *resource_allocation_entry_content_form_resource_type(const ResourceAllocat
 }
 void resource_allocation_entry_content_form_set_resource_type(ResourceAllocationEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "resourceType", value);
-}
-char *resource_allocation_entry_content_form_resource_name(const ResourceAllocationEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "resourceName");
-  return som_strdup(v != NULL ? v : "");
-}
-void resource_allocation_entry_content_form_set_resource_name(ResourceAllocationEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "resourceName", value);
 }
 char *resource_allocation_entry_content_form_quantity(const ResourceAllocationEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "quantity");
@@ -131715,13 +130322,6 @@ char *responsive_screen_rule_entry_content_form_screen_id(const ResponsiveScreen
 void responsive_screen_rule_entry_content_form_set_screen_id(ResponsiveScreenRuleEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "screenId", value);
 }
-char *responsive_screen_rule_entry_content_form_screen_name(const ResponsiveScreenRuleEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "screenName");
-  return som_strdup(v != NULL ? v : "");
-}
-void responsive_screen_rule_entry_content_form_set_screen_name(ResponsiveScreenRuleEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "screenName", value);
-}
 char *responsive_screen_rule_entry_content_form_mobile_layout(const ResponsiveScreenRuleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "mobileLayout");
   return som_strdup(v != NULL ? v : "");
@@ -132344,13 +130944,6 @@ char *reusable_ui_component_entry_content_form_content(const ReusableUiComponent
 }
 void reusable_ui_component_entry_content_form_set_content(ReusableUiComponentEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *reusable_ui_component_entry_content_form_component_name(const ReusableUiComponentEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "componentName");
-  return som_strdup(v != NULL ? v : "");
-}
-void reusable_ui_component_entry_content_form_set_component_name(ReusableUiComponentEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "componentName", value);
 }
 char *reusable_ui_component_entry_content_form_component_category(const ReusableUiComponentEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "componentCategory");
@@ -133196,13 +131789,6 @@ char *risk_identification_content_form_risk_id(const RiskIdentificationContentFo
 }
 void risk_identification_content_form_set_risk_id(RiskIdentificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "riskId", value);
-}
-char *risk_identification_content_form_risk_name(const RiskIdentificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "riskName");
-  return som_strdup(v != NULL ? v : "");
-}
-void risk_identification_content_form_set_risk_name(RiskIdentificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "riskName", value);
 }
 char *risk_identification_content_form_description(const RiskIdentificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
@@ -134056,13 +132642,6 @@ char *role_competency_entry_content_form_competency_id(const RoleCompetencyEntry
 void role_competency_entry_content_form_set_competency_id(RoleCompetencyEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "competencyId", value);
 }
-char *role_competency_entry_content_form_competency_name(const RoleCompetencyEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "competencyName");
-  return som_strdup(v != NULL ? v : "");
-}
-void role_competency_entry_content_form_set_competency_name(RoleCompetencyEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "competencyName", value);
-}
 char *role_competency_entry_content_form_competency_type(const RoleCompetencyEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "competencyType");
   return som_strdup(v != NULL ? v : "");
@@ -134751,13 +133330,6 @@ char *rule_example_entry_content_form_content(const RuleExampleEntryContentForm 
 void rule_example_entry_content_form_set_content(RuleExampleEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *rule_example_entry_content_form_example_name(const RuleExampleEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "exampleName");
-  return som_strdup(v != NULL ? v : "");
-}
-void rule_example_entry_content_form_set_example_name(RuleExampleEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "exampleName", value);
-}
 char *rule_example_entry_content_form_scenario(const RuleExampleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "scenario");
   return som_strdup(v != NULL ? v : "");
@@ -134841,13 +133413,6 @@ char *runtime_dependency_entry_content_form_dependency_id(const RuntimeDependenc
 }
 void runtime_dependency_entry_content_form_set_dependency_id(RuntimeDependencyEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "dependencyId", value);
-}
-char *runtime_dependency_entry_content_form_name(const RuntimeDependencyEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "name");
-  return som_strdup(v != NULL ? v : "");
-}
-void runtime_dependency_entry_content_form_set_name(RuntimeDependencyEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "name", value);
 }
 char *runtime_dependency_entry_content_form_version(const RuntimeDependencyEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "version");
@@ -135955,13 +134520,6 @@ char *scenario_entry_identification_form_scenario_id(const ScenarioEntryIdentifi
 void scenario_entry_identification_form_set_scenario_id(ScenarioEntryIdentificationForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "scenarioId", value);
 }
-char *scenario_entry_identification_form_scenario_name(const ScenarioEntryIdentificationForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "scenarioName");
-  return som_strdup(v != NULL ? v : "");
-}
-void scenario_entry_identification_form_set_scenario_name(ScenarioEntryIdentificationForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "scenarioName", value);
-}
 char *scenario_entry_identification_form_scenario_type(const ScenarioEntryIdentificationForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "scenarioType");
   return som_strdup(v != NULL ? v : "");
@@ -136334,13 +134892,6 @@ char *scheduled_job_entry_content_form_content(const ScheduledJobEntryContentFor
 }
 void scheduled_job_entry_content_form_set_content(ScheduledJobEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *scheduled_job_entry_content_form_job_name(const ScheduledJobEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "jobName");
-  return som_strdup(v != NULL ? v : "");
-}
-void scheduled_job_entry_content_form_set_job_name(ScheduledJobEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "jobName", value);
 }
 char *scheduled_job_entry_content_form_purpose(const ScheduledJobEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "purpose");
@@ -137051,13 +135602,6 @@ char *screen_action_entry_content_form_action_id(const ScreenActionEntryContentF
 void screen_action_entry_content_form_set_action_id(ScreenActionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "actionId", value);
 }
-char *screen_action_entry_content_form_action_name(const ScreenActionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "actionName");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_action_entry_content_form_set_action_name(ScreenActionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "actionName", value);
-}
 char *screen_action_entry_content_form_action_type(const ScreenActionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "actionType");
   return som_strdup(v != NULL ? v : "");
@@ -137127,13 +135671,6 @@ char *screen_behavior_entry_content_form_behavior_id(const ScreenBehaviorEntryCo
 }
 void screen_behavior_entry_content_form_set_behavior_id(ScreenBehaviorEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "behaviorId", value);
-}
-char *screen_behavior_entry_content_form_behavior_name(const ScreenBehaviorEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "behaviorName");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_behavior_entry_content_form_set_behavior_name(ScreenBehaviorEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "behaviorName", value);
 }
 char *screen_behavior_entry_content_form_behavior_type(const ScreenBehaviorEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "behaviorType");
@@ -137507,13 +136044,6 @@ char *screen_element_entry_content_form_element_id(const ScreenElementEntryConte
 }
 void screen_element_entry_content_form_set_element_id(ScreenElementEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "elementId", value);
-}
-char *screen_element_entry_content_form_element_name(const ScreenElementEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "elementName");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_element_entry_content_form_set_element_name(ScreenElementEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "elementName", value);
 }
 char *screen_element_entry_content_form_element_type(const ScreenElementEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "elementType");
@@ -138027,13 +136557,6 @@ char *screen_entry_content_form_screen_id(const ScreenEntryContentForm *self) {
 void screen_entry_content_form_set_screen_id(ScreenEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "screenId", value);
 }
-char *screen_entry_content_form_screen_name(const ScreenEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "screenName");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_entry_content_form_set_screen_name(ScreenEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "screenName", value);
-}
 char *screen_entry_content_form_purpose(const ScreenEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "purpose");
   return som_strdup(v != NULL ? v : "");
@@ -138236,13 +136759,6 @@ char *screen_field_entry_content_form_field_id(const ScreenFieldEntryContentForm
 }
 void screen_field_entry_content_form_set_field_id(ScreenFieldEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "fieldId", value);
-}
-char *screen_field_entry_content_form_field_label(const ScreenFieldEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "fieldLabel");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_field_entry_content_form_set_field_label(ScreenFieldEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "fieldLabel", value);
 }
 char *screen_field_entry_content_form_field_type(const ScreenFieldEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "fieldType");
@@ -138552,13 +137068,6 @@ char *screen_route_entry_content_form_route_path(const ScreenRouteEntryContentFo
 void screen_route_entry_content_form_set_route_path(ScreenRouteEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "routePath", value);
 }
-char *screen_route_entry_content_form_route_title(const ScreenRouteEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "routeTitle");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_route_entry_content_form_set_route_title(ScreenRouteEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "routeTitle", value);
-}
 char *screen_route_entry_content_form_screen_id(const ScreenRouteEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "screenId");
   return som_strdup(v != NULL ? v : "");
@@ -138628,13 +137137,6 @@ char *screen_section_entry_content_form_section_id(const ScreenSectionEntryConte
 }
 void screen_section_entry_content_form_set_section_id(ScreenSectionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "sectionId", value);
-}
-char *screen_section_entry_content_form_section_name(const ScreenSectionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "sectionName");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_section_entry_content_form_set_section_name(ScreenSectionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "sectionName", value);
 }
 char *screen_section_entry_content_form_purpose(const ScreenSectionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "purpose");
@@ -138707,13 +137209,6 @@ char *screen_state_entry_content_form_content(const ScreenStateEntryContentForm 
 }
 void screen_state_entry_content_form_set_content(ScreenStateEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *screen_state_entry_content_form_state_name(const ScreenStateEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stateName");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_state_entry_content_form_set_state_name(ScreenStateEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "stateName", value);
 }
 char *screen_state_entry_content_form_description(const ScreenStateEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
@@ -138834,13 +137329,6 @@ char *screen_user_category_entry_content_form_content(const ScreenUserCategoryEn
 void screen_user_category_entry_content_form_set_content(ScreenUserCategoryEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *screen_user_category_entry_content_form_category_name(const ScreenUserCategoryEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "categoryName");
-  return som_strdup(v != NULL ? v : "");
-}
-void screen_user_category_entry_content_form_set_category_name(ScreenUserCategoryEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "categoryName", value);
-}
 char *screen_user_category_entry_content_form_description(const ScreenUserCategoryEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -138868,13 +137356,6 @@ char *security_audit_entry_content_form_content(const SecurityAuditEntryContentF
 }
 void security_audit_entry_content_form_set_content(SecurityAuditEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *security_audit_entry_content_form_audit_name(const SecurityAuditEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "auditName");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_audit_entry_content_form_set_audit_name(SecurityAuditEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "auditName", value);
 }
 char *security_audit_entry_content_form_audit_category(const SecurityAuditEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "auditCategory");
@@ -139541,13 +138022,6 @@ char *security_control_entry_content_form_control_id(const SecurityControlEntryC
 void security_control_entry_content_form_set_control_id(SecurityControlEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "controlId", value);
 }
-char *security_control_entry_content_form_control_name(const SecurityControlEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "controlName");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_control_entry_content_form_set_control_name(SecurityControlEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "controlName", value);
-}
 char *security_control_entry_content_form_control_type(const SecurityControlEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "controlType");
   return som_strdup(v != NULL ? v : "");
@@ -139820,13 +138294,6 @@ char *security_event_entry_content_form_content(const SecurityEventEntryContentF
 }
 void security_event_entry_content_form_set_content(SecurityEventEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *security_event_entry_content_form_event_name(const SecurityEventEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "eventName");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_event_entry_content_form_set_event_name(SecurityEventEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "eventName", value);
 }
 char *security_event_entry_content_form_event_category(const SecurityEventEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "eventCategory");
@@ -140248,13 +138715,6 @@ char *security_standard_compliance_entry_content_form_content(const SecurityStan
 void security_standard_compliance_entry_content_form_set_content(SecurityStandardComplianceEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *security_standard_compliance_entry_content_form_standard_name(const SecurityStandardComplianceEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "standardName");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_standard_compliance_entry_content_form_set_standard_name(SecurityStandardComplianceEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "standardName", value);
-}
 char *security_standard_compliance_entry_content_form_standard_type(const SecurityStandardComplianceEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "standardType");
   return som_strdup(v != NULL ? v : "");
@@ -140394,13 +138854,6 @@ char *security_standard_entry_content_form_content(const SecurityStandardEntryCo
 }
 void security_standard_entry_content_form_set_content(SecurityStandardEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *security_standard_entry_content_form_standard_name(const SecurityStandardEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "standardName");
-  return som_strdup(v != NULL ? v : "");
-}
-void security_standard_entry_content_form_set_standard_name(SecurityStandardEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "standardName", value);
 }
 char *security_standard_entry_content_form_standard_version(const SecurityStandardEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "standardVersion");
@@ -141130,13 +139583,6 @@ char *server_environment_entry_content_form_content(const ServerEnvironmentEntry
 void server_environment_entry_content_form_set_content(ServerEnvironmentEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *server_environment_entry_content_form_environment_name(const ServerEnvironmentEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "environmentName");
-  return som_strdup(v != NULL ? v : "");
-}
-void server_environment_entry_content_form_set_environment_name(ServerEnvironmentEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "environmentName", value);
-}
 char *server_environment_entry_content_form_environment_type(const ServerEnvironmentEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "environmentType");
   return som_strdup(v != NULL ? v : "");
@@ -141286,13 +139732,6 @@ char *server_operation_entry_content_form_content(const ServerOperationEntryCont
 void server_operation_entry_content_form_set_content(ServerOperationEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *server_operation_entry_content_form_operation_name(const ServerOperationEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "operationName");
-  return som_strdup(v != NULL ? v : "");
-}
-void server_operation_entry_content_form_set_operation_name(ServerOperationEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "operationName", value);
-}
 char *server_operation_entry_content_form_purpose(const ServerOperationEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "purpose");
   return som_strdup(v != NULL ? v : "");
@@ -141334,13 +139773,6 @@ char *server_operation_member_entry_content_form_content(const ServerOperationMe
 }
 void server_operation_member_entry_content_form_set_content(ServerOperationMemberEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *server_operation_member_entry_content_form_member_name(const ServerOperationMemberEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "memberName");
-  return som_strdup(v != NULL ? v : "");
-}
-void server_operation_member_entry_content_form_set_member_name(ServerOperationMemberEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "memberName", value);
 }
 char *server_operation_member_entry_content_form_member_type(const ServerOperationMemberEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "memberType");
@@ -141625,13 +140057,6 @@ char *server_role_entry_content_form_content(const ServerRoleEntryContentForm *s
 }
 void server_role_entry_content_form_set_content(ServerRoleEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *server_role_entry_content_form_role_name(const ServerRoleEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "roleName");
-  return som_strdup(v != NULL ? v : "");
-}
-void server_role_entry_content_form_set_role_name(ServerRoleEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "roleName", value);
 }
 char *server_role_entry_content_form_role_type(const ServerRoleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "roleType");
@@ -142789,13 +141214,6 @@ char *shared_library_component_entry_content_form_content(const SharedLibraryCom
 void shared_library_component_entry_content_form_set_content(SharedLibraryComponentEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *shared_library_component_entry_content_form_component_name(const SharedLibraryComponentEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "componentName");
-  return som_strdup(v != NULL ? v : "");
-}
-void shared_library_component_entry_content_form_set_component_name(SharedLibraryComponentEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "componentName", value);
-}
 char *shared_library_component_entry_content_form_component_type(const SharedLibraryComponentEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "componentType");
   return som_strdup(v != NULL ? v : "");
@@ -143040,13 +141458,6 @@ char *shared_library_entry_content_form_content(const SharedLibraryEntryContentF
 }
 void shared_library_entry_content_form_set_content(SharedLibraryEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *shared_library_entry_content_form_library_name(const SharedLibraryEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "libraryName");
-  return som_strdup(v != NULL ? v : "");
-}
-void shared_library_entry_content_form_set_library_name(SharedLibraryEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "libraryName", value);
 }
 char *shared_library_entry_content_form_library_type(const SharedLibraryEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "libraryType");
@@ -143846,13 +142257,6 @@ char *slo_entry_content_form_slo_id(const SloEntryContentForm *self) {
 void slo_entry_content_form_set_slo_id(SloEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "sloId", value);
 }
-char *slo_entry_content_form_slo_name(const SloEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "sloName");
-  return som_strdup(v != NULL ? v : "");
-}
-void slo_entry_content_form_set_slo_name(SloEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "sloName", value);
-}
 char *slo_entry_content_form_slo_description(const SloEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "sloDescription");
   return som_strdup(v != NULL ? v : "");
@@ -143999,13 +142403,6 @@ char *software_layer_entry_content_form_content(const SoftwareLayerEntryContentF
 }
 void software_layer_entry_content_form_set_content(SoftwareLayerEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *software_layer_entry_content_form_layer_name(const SoftwareLayerEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "layerName");
-  return som_strdup(v != NULL ? v : "");
-}
-void software_layer_entry_content_form_set_layer_name(SoftwareLayerEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "layerName", value);
 }
 char *software_layer_entry_content_form_layer_level(const SoftwareLayerEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "layerLevel");
@@ -144790,13 +143187,6 @@ char *stage_entry_content_form_stage_number(const StageEntryContentForm *self) {
 void stage_entry_content_form_set_stage_number(StageEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "stageNumber", value);
 }
-char *stage_entry_content_form_stage_name(const StageEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stageName");
-  return som_strdup(v != NULL ? v : "");
-}
-void stage_entry_content_form_set_stage_name(StageEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "stageName", value);
-}
 char *stage_entry_content_form_current_status(const StageEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "currentStatus");
   return som_strdup(v != NULL ? v : "");
@@ -145566,13 +143956,6 @@ char *stage_migration_risk_entry_content_form_risk_id(const StageMigrationRiskEn
 }
 void stage_migration_risk_entry_content_form_set_risk_id(StageMigrationRiskEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "riskId", value);
-}
-char *stage_migration_risk_entry_content_form_risk_name(const StageMigrationRiskEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "riskName");
-  return som_strdup(v != NULL ? v : "");
-}
-void stage_migration_risk_entry_content_form_set_risk_name(StageMigrationRiskEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "riskName", value);
 }
 char *stage_migration_risk_entry_content_form_risk_category(const StageMigrationRiskEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "riskCategory");
@@ -146988,13 +145371,6 @@ char *stage_summary_entry_content_form_stage_number(const StageSummaryEntryConte
 void stage_summary_entry_content_form_set_stage_number(StageSummaryEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "stageNumber", value);
 }
-char *stage_summary_entry_content_form_stage_name(const StageSummaryEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stageName");
-  return som_strdup(v != NULL ? v : "");
-}
-void stage_summary_entry_content_form_set_stage_name(StageSummaryEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "stageName", value);
-}
 char *stage_summary_entry_content_form_scope_summary(const StageSummaryEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "scopeSummary");
   return som_strdup(v != NULL ? v : "");
@@ -147905,13 +146281,6 @@ char *stakeholder_entry_content_form_content(const StakeholderEntryContentForm *
 void stakeholder_entry_content_form_set_content(StakeholderEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *stakeholder_entry_content_form_stakeholder_name(const StakeholderEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stakeholderName");
-  return som_strdup(v != NULL ? v : "");
-}
-void stakeholder_entry_content_form_set_stakeholder_name(StakeholderEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "stakeholderName", value);
-}
 char *stakeholder_entry_content_form_stakeholder_type(const StakeholderEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "stakeholderType");
   return som_strdup(v != NULL ? v : "");
@@ -147946,13 +146315,6 @@ char *stakeholder_register_entry_content_form_stakeholder_id(const StakeholderRe
 }
 void stakeholder_register_entry_content_form_set_stakeholder_id(StakeholderRegisterEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "stakeholderId", value);
-}
-char *stakeholder_register_entry_content_form_name(const StakeholderRegisterEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "name");
-  return som_strdup(v != NULL ? v : "");
-}
-void stakeholder_register_entry_content_form_set_name(StakeholderRegisterEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "name", value);
 }
 char *stakeholder_register_entry_content_form_role(const StakeholderRegisterEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "role");
@@ -148232,13 +146594,6 @@ char *sub_function_entry_content_form_content(const SubFunctionEntryContentForm 
 void sub_function_entry_content_form_set_content(SubFunctionEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *sub_function_entry_content_form_sub_function_name(const SubFunctionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "subFunctionName");
-  return som_strdup(v != NULL ? v : "");
-}
-void sub_function_entry_content_form_set_sub_function_name(SubFunctionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "subFunctionName", value);
-}
 char *sub_function_entry_content_form_description(const SubFunctionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -148273,13 +146628,6 @@ char *sub_stage_entry_content_form_content(const SubStageEntryContentForm *self)
 }
 void sub_stage_entry_content_form_set_content(SubStageEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *sub_stage_entry_content_form_name(const SubStageEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "name");
-  return som_strdup(v != NULL ? v : "");
-}
-void sub_stage_entry_content_form_set_name(SubStageEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "name", value);
 }
 char *sub_stage_entry_content_form_sub_stage_type(const SubStageEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "subStageType");
@@ -148760,13 +147108,6 @@ char *success_criterion_entry_content_form_criterion_id(const SuccessCriterionEn
 }
 void success_criterion_entry_content_form_set_criterion_id(SuccessCriterionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "criterionId", value);
-}
-char *success_criterion_entry_content_form_criterion_name(const SuccessCriterionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "criterionName");
-  return som_strdup(v != NULL ? v : "");
-}
-void success_criterion_entry_content_form_set_criterion_name(SuccessCriterionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "criterionName", value);
 }
 char *success_criterion_entry_content_form_category(const SuccessCriterionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "category");
@@ -149544,13 +147885,6 @@ char *system_business_process_entry_content_form_content(const SystemBusinessPro
 void system_business_process_entry_content_form_set_content(SystemBusinessProcessEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *system_business_process_entry_content_form_process_name(const SystemBusinessProcessEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "processName");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_business_process_entry_content_form_set_process_name(SystemBusinessProcessEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "processName", value);
-}
 char *system_business_process_entry_content_form_process_id(const SystemBusinessProcessEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "processId");
   return som_strdup(v != NULL ? v : "");
@@ -149592,13 +147926,6 @@ char *system_business_unit_entry_content_form_content(const SystemBusinessUnitEn
 }
 void system_business_unit_entry_content_form_set_content(SystemBusinessUnitEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *system_business_unit_entry_content_form_unit_name(const SystemBusinessUnitEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "unitName");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_business_unit_entry_content_form_set_unit_name(SystemBusinessUnitEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "unitName", value);
 }
 long system_business_unit_entry_content_form_user_count(const SystemBusinessUnitEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "userCount");
@@ -150077,13 +148404,6 @@ char *system_dependency_entry_content_form_content(const SystemDependencyEntryCo
 }
 void system_dependency_entry_content_form_set_content(SystemDependencyEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *system_dependency_entry_content_form_dependency_name(const SystemDependencyEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependencyName");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_dependency_entry_content_form_set_dependency_name(SystemDependencyEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dependencyName", value);
 }
 char *system_dependency_entry_content_form_dependency_type(const SystemDependencyEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependencyType");
@@ -150902,13 +149222,6 @@ char *system_integration_entry_content_form_content(const SystemIntegrationEntry
 }
 void system_integration_entry_content_form_set_content(SystemIntegrationEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *system_integration_entry_content_form_integration_name(const SystemIntegrationEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "integrationName");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_integration_entry_content_form_set_integration_name(SystemIntegrationEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "integrationName", value);
 }
 char *system_integration_entry_content_form_integration_type(const SystemIntegrationEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "integrationType");
@@ -152152,13 +150465,6 @@ char *system_task_entry_content_form_task_id(const SystemTaskEntryContentForm *s
 void system_task_entry_content_form_set_task_id(SystemTaskEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "taskId", value);
 }
-char *system_task_entry_content_form_task_name(const SystemTaskEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "taskName");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_task_entry_content_form_set_task_name(SystemTaskEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "taskName", value);
-}
 char *system_task_entry_content_form_description(const SystemTaskEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -152476,13 +150782,6 @@ char *system_to_replace_entry_identification_content_form_system_id(const System
 void system_to_replace_entry_identification_content_form_set_system_id(SystemToReplaceEntryIdentificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "systemId", value);
 }
-char *system_to_replace_entry_identification_content_form_system_name(const SystemToReplaceEntryIdentificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "systemName");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_to_replace_entry_identification_content_form_set_system_name(SystemToReplaceEntryIdentificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "systemName", value);
-}
 char *system_to_replace_entry_identification_content_form_official_name(const SystemToReplaceEntryIdentificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "officialName");
   return som_strdup(v != NULL ? v : "");
@@ -152594,13 +150893,6 @@ char *system_training_entry_content_form_training_id(const SystemTrainingEntryCo
 }
 void system_training_entry_content_form_set_training_id(SystemTrainingEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "trainingId", value);
-}
-char *system_training_entry_content_form_system_name(const SystemTrainingEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "systemName");
-  return som_strdup(v != NULL ? v : "");
-}
-void system_training_entry_content_form_set_system_name(SystemTrainingEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "systemName", value);
 }
 char *system_training_entry_content_form_modules_covered(const SystemTrainingEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "modulesCovered");
@@ -152955,13 +151247,6 @@ char *tab_bar_definition_entry_content_form_tab_bar_id(const TabBarDefinitionEnt
 void tab_bar_definition_entry_content_form_set_tab_bar_id(TabBarDefinitionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "tabBarId", value);
 }
-char *tab_bar_definition_entry_content_form_tab_bar_name(const TabBarDefinitionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "tabBarName");
-  return som_strdup(v != NULL ? v : "");
-}
-void tab_bar_definition_entry_content_form_set_tab_bar_name(TabBarDefinitionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "tabBarName", value);
-}
 char *tab_bar_definition_entry_content_form_host_screen_id(const TabBarDefinitionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "hostScreenId");
   return som_strdup(v != NULL ? v : "");
@@ -153124,13 +151409,6 @@ char *target_platform_entry_content_form_content(const TargetPlatformEntryConten
 }
 void target_platform_entry_content_form_set_content(TargetPlatformEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *target_platform_entry_content_form_platform_name(const TargetPlatformEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "platformName");
-  return som_strdup(v != NULL ? v : "");
-}
-void target_platform_entry_content_form_set_platform_name(TargetPlatformEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "platformName", value);
 }
 char *target_platform_entry_content_form_platform_category(const TargetPlatformEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "platformCategory");
@@ -153412,13 +151690,6 @@ char *team_member_entry_content_form_content(const TeamMemberEntryContentForm *s
 void team_member_entry_content_form_set_content(TeamMemberEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *team_member_entry_content_form_name(const TeamMemberEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "name");
-  return som_strdup(v != NULL ? v : "");
-}
-void team_member_entry_content_form_set_name(TeamMemberEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "name", value);
-}
 char *team_member_entry_content_form_project_role(const TeamMemberEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "projectRole");
   return som_strdup(v != NULL ? v : "");
@@ -153523,13 +151794,6 @@ char *team_member_skill_entry_content_form_content(const TeamMemberSkillEntryCon
 }
 void team_member_skill_entry_content_form_set_content(TeamMemberSkillEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *team_member_skill_entry_content_form_skill_name(const TeamMemberSkillEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "skillName");
-  return som_strdup(v != NULL ? v : "");
-}
-void team_member_skill_entry_content_form_set_skill_name(TeamMemberSkillEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "skillName", value);
 }
 char *team_member_skill_entry_content_form_proficiency_level(const TeamMemberSkillEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "proficiencyLevel");
@@ -153744,13 +152008,6 @@ char *technical_constraint_entry_content_form_constraint_id(const TechnicalConst
 void technical_constraint_entry_content_form_set_constraint_id(TechnicalConstraintEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "constraintId", value);
 }
-char *technical_constraint_entry_content_form_constraint_name(const TechnicalConstraintEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintName");
-  return som_strdup(v != NULL ? v : "");
-}
-void technical_constraint_entry_content_form_set_constraint_name(TechnicalConstraintEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "constraintName", value);
-}
 char *technical_constraint_entry_content_form_constraint_type(const TechnicalConstraintEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "constraintType");
   return som_strdup(v != NULL ? v : "");
@@ -153813,13 +152070,6 @@ char *technical_dependency_entry_content_form_dependency_id(const TechnicalDepen
 }
 void technical_dependency_entry_content_form_set_dependency_id(TechnicalDependencyEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "dependencyId", value);
-}
-char *technical_dependency_entry_content_form_dependency_name(const TechnicalDependencyEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependencyName");
-  return som_strdup(v != NULL ? v : "");
-}
-void technical_dependency_entry_content_form_set_dependency_name(TechnicalDependencyEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "dependencyName", value);
 }
 char *technical_dependency_entry_content_form_dependency_type(const TechnicalDependencyEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "dependencyType");
@@ -154094,13 +152344,6 @@ char *technical_goal_entry_content_form_goal_id(const TechnicalGoalEntryContentF
 void technical_goal_entry_content_form_set_goal_id(TechnicalGoalEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "goalId", value);
 }
-char *technical_goal_entry_content_form_goal_name(const TechnicalGoalEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "goalName");
-  return som_strdup(v != NULL ? v : "");
-}
-void technical_goal_entry_content_form_set_goal_name(TechnicalGoalEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "goalName", value);
-}
 char *technical_goal_entry_content_form_description(const TechnicalGoalEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -154247,13 +152490,6 @@ char *technical_goal_test_case_entry_content_form_test_case_id(const TechnicalGo
 }
 void technical_goal_test_case_entry_content_form_set_test_case_id(TechnicalGoalTestCaseEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "testCaseId", value);
-}
-char *technical_goal_test_case_entry_content_form_test_case_name(const TechnicalGoalTestCaseEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "testCaseName");
-  return som_strdup(v != NULL ? v : "");
-}
-void technical_goal_test_case_entry_content_form_set_test_case_name(TechnicalGoalTestCaseEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "testCaseName", value);
 }
 char *technical_goal_test_case_entry_content_form_description(const TechnicalGoalTestCaseEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
@@ -154998,13 +153234,6 @@ char *technology_standard_entry_content_form_standard_id(const TechnologyStandar
 void technology_standard_entry_content_form_set_standard_id(TechnologyStandardEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "standardId", value);
 }
-char *technology_standard_entry_content_form_standard_name(const TechnologyStandardEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "standardName");
-  return som_strdup(v != NULL ? v : "");
-}
-void technology_standard_entry_content_form_set_standard_name(TechnologyStandardEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "standardName", value);
-}
 char *technology_standard_entry_content_form_standard_category(const TechnologyStandardEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "standardCategory");
   return som_strdup(v != NULL ? v : "");
@@ -155277,13 +153506,6 @@ char *test_scenario_entry_content_form_scenario_id(const TestScenarioEntryConten
 }
 void test_scenario_entry_content_form_set_scenario_id(TestScenarioEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "scenarioId", value);
-}
-char *test_scenario_entry_content_form_scenario_name(const TestScenarioEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "scenarioName");
-  return som_strdup(v != NULL ? v : "");
-}
-void test_scenario_entry_content_form_set_scenario_name(TestScenarioEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "scenarioName", value);
 }
 char *test_scenario_entry_content_form_priority(const TestScenarioEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "priority");
@@ -156167,13 +154389,6 @@ char *third_party_library_entry_content_form_content(const ThirdPartyLibraryEntr
 void third_party_library_entry_content_form_set_content(ThirdPartyLibraryEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *third_party_library_entry_content_form_library_name(const ThirdPartyLibraryEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "libraryName");
-  return som_strdup(v != NULL ? v : "");
-}
-void third_party_library_entry_content_form_set_library_name(ThirdPartyLibraryEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "libraryName", value);
-}
 char *third_party_library_entry_content_form_package_source(const ThirdPartyLibraryEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "packageSource");
   return som_strdup(v != NULL ? v : "");
@@ -156922,13 +155137,6 @@ char *tool_entry_content_form_tool_id(const ToolEntryContentForm *self) {
 }
 void tool_entry_content_form_set_tool_id(ToolEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "toolId", value);
-}
-char *tool_entry_content_form_tool_name(const ToolEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "toolName");
-  return som_strdup(v != NULL ? v : "");
-}
-void tool_entry_content_form_set_tool_name(ToolEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "toolName", value);
 }
 char *tool_entry_content_form_notes(const ToolEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "notes");
@@ -158003,13 +156211,6 @@ char *tour_step_entry_content_form_target_element(const TourStepEntryContentForm
 void tour_step_entry_content_form_set_target_element(TourStepEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "targetElement", value);
 }
-char *tour_step_entry_content_form_step_title(const TourStepEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stepTitle");
-  return som_strdup(v != NULL ? v : "");
-}
-void tour_step_entry_content_form_set_step_title(TourStepEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "stepTitle", value);
-}
 char *tour_step_entry_content_form_step_content(const TourStepEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "stepContent");
   return som_strdup(v != NULL ? v : "");
@@ -158100,13 +156301,6 @@ char *trade_off_decision_entry_content_form_decision_id(const TradeOffDecisionEn
 }
 void trade_off_decision_entry_content_form_set_decision_id(TradeOffDecisionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "decisionId", value);
-}
-char *trade_off_decision_entry_content_form_decision_title(const TradeOffDecisionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "decisionTitle");
-  return som_strdup(v != NULL ? v : "");
-}
-void trade_off_decision_entry_content_form_set_decision_title(TradeOffDecisionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "decisionTitle", value);
 }
 char *trade_off_decision_entry_content_form_decision_status(const TradeOffDecisionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "decisionStatus");
@@ -158780,13 +156974,6 @@ char *training_module_entry_content_form_module_id(const TrainingModuleEntryCont
 void training_module_entry_content_form_set_module_id(TrainingModuleEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "moduleId", value);
 }
-char *training_module_entry_content_form_module_name(const TrainingModuleEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "moduleName");
-  return som_strdup(v != NULL ? v : "");
-}
-void training_module_entry_content_form_set_module_name(TrainingModuleEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "moduleName", value);
-}
 char *training_module_entry_content_form_target_audience(const TrainingModuleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "targetAudience");
   return som_strdup(v != NULL ? v : "");
@@ -159046,13 +157233,6 @@ char *training_topic_entry_content_form_content(const TrainingTopicEntryContentF
 void training_topic_entry_content_form_set_content(TrainingTopicEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *training_topic_entry_content_form_topic_name(const TrainingTopicEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "topicName");
-  return som_strdup(v != NULL ? v : "");
-}
-void training_topic_entry_content_form_set_topic_name(TrainingTopicEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "topicName", value);
-}
 char *training_topic_entry_content_form_description(const TrainingTopicEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -159298,13 +157478,6 @@ char *transition_metric_entry_content_form_metric_id(const TransitionMetricEntry
 void transition_metric_entry_content_form_set_metric_id(TransitionMetricEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "metricId", value);
 }
-char *transition_metric_entry_content_form_metric_name(const TransitionMetricEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "metricName");
-  return som_strdup(v != NULL ? v : "");
-}
-void transition_metric_entry_content_form_set_metric_name(TransitionMetricEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "metricName", value);
-}
 char *transition_metric_entry_content_form_category(const TransitionMetricEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "category");
   return som_strdup(v != NULL ? v : "");
@@ -159437,13 +157610,6 @@ char *transition_milestone_entry_content_form_milestone_id(const TransitionMiles
 }
 void transition_milestone_entry_content_form_set_milestone_id(TransitionMilestoneEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "milestoneId", value);
-}
-char *transition_milestone_entry_content_form_milestone_name(const TransitionMilestoneEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "milestoneName");
-  return som_strdup(v != NULL ? v : "");
-}
-void transition_milestone_entry_content_form_set_milestone_name(TransitionMilestoneEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "milestoneName", value);
 }
 char *transition_milestone_entry_content_form_milestone_type(const TransitionMilestoneEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "milestoneType");
@@ -159830,13 +157996,6 @@ char *transition_phase_identification_content_form_phase_id(const TransitionPhas
 void transition_phase_identification_content_form_set_phase_id(TransitionPhaseIdentificationContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "phaseId", value);
 }
-char *transition_phase_identification_content_form_phase_name(const TransitionPhaseIdentificationContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "phaseName");
-  return som_strdup(v != NULL ? v : "");
-}
-void transition_phase_identification_content_form_set_phase_name(TransitionPhaseIdentificationContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "phaseName", value);
-}
 char *transition_phase_identification_content_form_phase_type(const TransitionPhaseIdentificationContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "phaseType");
   return som_strdup(v != NULL ? v : "");
@@ -160049,13 +158208,6 @@ char *transition_risk_entry_content_form_risk_id(const TransitionRiskEntryConten
 void transition_risk_entry_content_form_set_risk_id(TransitionRiskEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "riskId", value);
 }
-char *transition_risk_entry_content_form_risk_name(const TransitionRiskEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "riskName");
-  return som_strdup(v != NULL ? v : "");
-}
-void transition_risk_entry_content_form_set_risk_name(TransitionRiskEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "riskName", value);
-}
 char *transition_risk_entry_content_form_risk_category(const TransitionRiskEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "riskCategory");
   return som_strdup(v != NULL ? v : "");
@@ -160195,13 +158347,6 @@ char *transition_support_resource_entry_content_form_resource_type(const Transit
 }
 void transition_support_resource_entry_content_form_set_resource_type(TransitionSupportResourceEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "resourceType", value);
-}
-char *transition_support_resource_entry_content_form_resource_name(const TransitionSupportResourceEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "resourceName");
-  return som_strdup(v != NULL ? v : "");
-}
-void transition_support_resource_entry_content_form_set_resource_name(TransitionSupportResourceEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "resourceName", value);
 }
 char *transition_support_resource_entry_content_form_availability_period(const TransitionSupportResourceEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "availabilityPeriod");
@@ -160714,13 +158859,6 @@ char *translation_vendor_entry_content_form_content(const TranslationVendorEntry
 void translation_vendor_entry_content_form_set_content(TranslationVendorEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *translation_vendor_entry_content_form_vendor_name(const TranslationVendorEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "vendorName");
-  return som_strdup(v != NULL ? v : "");
-}
-void translation_vendor_entry_content_form_set_vendor_name(TranslationVendorEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "vendorName", value);
-}
 char *translation_vendor_entry_content_form_vendor_type(const TranslationVendorEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "vendorType");
   return som_strdup(v != NULL ? v : "");
@@ -160924,13 +159062,6 @@ char *trust_boundary_entry_content_form_content(const TrustBoundaryEntryContentF
 void trust_boundary_entry_content_form_set_content(TrustBoundaryEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *trust_boundary_entry_content_form_boundary_name(const TrustBoundaryEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "boundaryName");
-  return som_strdup(v != NULL ? v : "");
-}
-void trust_boundary_entry_content_form_set_boundary_name(TrustBoundaryEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "boundaryName", value);
-}
 char *trust_boundary_entry_content_form_boundary_type(const TrustBoundaryEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "boundaryType");
   return som_strdup(v != NULL ? v : "");
@@ -160986,13 +159117,6 @@ char *typography_style_entry_content_form_content(const TypographyStyleEntryCont
 }
 void typography_style_entry_content_form_set_content(TypographyStyleEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *typography_style_entry_content_form_style_name(const TypographyStyleEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "styleName");
-  return som_strdup(v != NULL ? v : "");
-}
-void typography_style_entry_content_form_set_style_name(TypographyStyleEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "styleName", value);
 }
 char *typography_style_entry_content_form_font_family(const TypographyStyleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "fontFamily");
@@ -161126,13 +159250,6 @@ char *uat_test_cycle_entry_content_form_content(const UatTestCycleEntryContentFo
 }
 void uat_test_cycle_entry_content_form_set_content(UatTestCycleEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *uat_test_cycle_entry_content_form_cycle_name(const UatTestCycleEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "cycleName");
-  return som_strdup(v != NULL ? v : "");
-}
-void uat_test_cycle_entry_content_form_set_cycle_name(UatTestCycleEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "cycleName", value);
 }
 char *uat_test_cycle_entry_content_form_cycle_objective(const UatTestCycleEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "cycleObjective");
@@ -161630,13 +159747,6 @@ char *ui_component_entry_identity_form_component_id(const UiComponentEntryIdenti
 }
 void ui_component_entry_identity_form_set_component_id(UiComponentEntryIdentityForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "componentId", value);
-}
-char *ui_component_entry_identity_form_component_name(const UiComponentEntryIdentityForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "componentName");
-  return som_strdup(v != NULL ? v : "");
-}
-void ui_component_entry_identity_form_set_component_name(UiComponentEntryIdentityForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "componentName", value);
 }
 char *ui_component_entry_identity_form_component_family(const UiComponentEntryIdentityForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "componentFamily");
@@ -163292,13 +161402,6 @@ char *user_attribute_entry_content_form_content(const UserAttributeEntryContentF
 void user_attribute_entry_content_form_set_content(UserAttributeEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *user_attribute_entry_content_form_attribute_name(const UserAttributeEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "attributeName");
-  return som_strdup(v != NULL ? v : "");
-}
-void user_attribute_entry_content_form_set_attribute_name(UserAttributeEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "attributeName", value);
-}
 char *user_attribute_entry_content_form_data_type(const UserAttributeEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "dataType");
   return som_strdup(v != NULL ? v : "");
@@ -163348,13 +161451,6 @@ char *user_category_definition_content_form_content(const UserCategoryDefinition
 void user_category_definition_content_form_set_content(UserCategoryDefinitionContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *user_category_definition_content_form_category_name(const UserCategoryDefinitionContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "categoryName");
-  return som_strdup(v != NULL ? v : "");
-}
-void user_category_definition_content_form_set_category_name(UserCategoryDefinitionContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "categoryName", value);
-}
 char *user_category_definition_content_form_description(const UserCategoryDefinitionContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "description");
   return som_strdup(v != NULL ? v : "");
@@ -163389,13 +161485,6 @@ char *user_category_entry_content_form_content(const UserCategoryEntryContentFor
 }
 void user_category_entry_content_form_set_content(UserCategoryEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *user_category_entry_content_form_category_name(const UserCategoryEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "categoryName");
-  return som_strdup(v != NULL ? v : "");
-}
-void user_category_entry_content_form_set_category_name(UserCategoryEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "categoryName", value);
 }
 char *user_category_entry_content_form_category_id(const UserCategoryEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "categoryId");
@@ -163719,13 +161808,6 @@ char *user_group_impact_entry_content_form_content(const UserGroupImpactEntryCon
 void user_group_impact_entry_content_form_set_content(UserGroupImpactEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *user_group_impact_entry_content_form_group_name(const UserGroupImpactEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "groupName");
-  return som_strdup(v != NULL ? v : "");
-}
-void user_group_impact_entry_content_form_set_group_name(UserGroupImpactEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "groupName", value);
-}
 long user_group_impact_entry_content_form_user_count(const UserGroupImpactEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "userCount");
   return (v != NULL && *v) ? atol(v) : 0;
@@ -164011,13 +162093,6 @@ char *user_lifecycle_transition_entry_content_form_content(const UserLifecycleTr
 }
 void user_lifecycle_transition_entry_content_form_set_content(UserLifecycleTransitionEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *user_lifecycle_transition_entry_content_form_transition_name(const UserLifecycleTransitionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "transitionName");
-  return som_strdup(v != NULL ? v : "");
-}
-void user_lifecycle_transition_entry_content_form_set_transition_name(UserLifecycleTransitionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "transitionName", value);
 }
 char *user_lifecycle_transition_entry_content_form_from_state(const UserLifecycleTransitionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "fromState");
@@ -164621,13 +162696,6 @@ char *utility_menu_item_entry_content_form_menu_item_id(const UtilityMenuItemEnt
 void utility_menu_item_entry_content_form_set_menu_item_id(UtilityMenuItemEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "menuItemId", value);
 }
-char *utility_menu_item_entry_content_form_label(const UtilityMenuItemEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "label");
-  return som_strdup(v != NULL ? v : "");
-}
-void utility_menu_item_entry_content_form_set_label(UtilityMenuItemEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "label", value);
-}
 char *utility_menu_item_entry_content_form_icon(const UtilityMenuItemEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "icon");
   return som_strdup(v != NULL ? v : "");
@@ -164706,13 +162774,6 @@ char *utility_navigation_item_entry_content_form_utility_id(const UtilityNavigat
 }
 void utility_navigation_item_entry_content_form_set_utility_id(UtilityNavigationItemEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "utilityId", value);
-}
-char *utility_navigation_item_entry_content_form_label(const UtilityNavigationItemEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "label");
-  return som_strdup(v != NULL ? v : "");
-}
-void utility_navigation_item_entry_content_form_set_label(UtilityNavigationItemEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "label", value);
 }
 char *utility_navigation_item_entry_content_form_icon(const UtilityNavigationItemEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "icon");
@@ -165668,13 +163729,6 @@ char *vpn_requirement_entry_content_form_content(const VpnRequirementEntryConten
 void vpn_requirement_entry_content_form_set_content(VpnRequirementEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *vpn_requirement_entry_content_form_vpn_name(const VpnRequirementEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "vpnName");
-  return som_strdup(v != NULL ? v : "");
-}
-void vpn_requirement_entry_content_form_set_vpn_name(VpnRequirementEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "vpnName", value);
-}
 char *vpn_requirement_entry_content_form_vpn_type(const VpnRequirementEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "vpnType");
   return som_strdup(v != NULL ? v : "");
@@ -166398,13 +164452,6 @@ char *wcag_success_criterion_entry_content_form_criterion_id(const WcagSuccessCr
 void wcag_success_criterion_entry_content_form_set_criterion_id(WcagSuccessCriterionEntryContentForm *self, const char *value) {
   spec_document_set_form_field(self->node.doc, self->node.path, "criterionId", value);
 }
-char *wcag_success_criterion_entry_content_form_criterion_name(const WcagSuccessCriterionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "criterionName");
-  return som_strdup(v != NULL ? v : "");
-}
-void wcag_success_criterion_entry_content_form_set_criterion_name(WcagSuccessCriterionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "criterionName", value);
-}
 char *wcag_success_criterion_entry_content_form_level(const WcagSuccessCriterionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "level");
   return som_strdup(v != NULL ? v : "");
@@ -166510,13 +164557,6 @@ char *workflow_actor_entry_content_form_content(const WorkflowActorEntryContentF
 void workflow_actor_entry_content_form_set_content(WorkflowActorEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *workflow_actor_entry_content_form_actor_name(const WorkflowActorEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "actorName");
-  return som_strdup(v != NULL ? v : "");
-}
-void workflow_actor_entry_content_form_set_actor_name(WorkflowActorEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "actorName", value);
-}
 char *workflow_actor_entry_content_form_actor_type(const WorkflowActorEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "actorType");
   return som_strdup(v != NULL ? v : "");
@@ -166582,13 +164622,6 @@ char *workflow_business_rule_content_form_content(const WorkflowBusinessRuleCont
 void workflow_business_rule_content_form_set_content(WorkflowBusinessRuleContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *workflow_business_rule_content_form_rule_name(const WorkflowBusinessRuleContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "ruleName");
-  return som_strdup(v != NULL ? v : "");
-}
-void workflow_business_rule_content_form_set_rule_name(WorkflowBusinessRuleContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "ruleName", value);
-}
 char *workflow_business_rule_content_form_rule_description(const WorkflowBusinessRuleContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "ruleDescription");
   return som_strdup(v != NULL ? v : "");
@@ -166630,13 +164663,6 @@ char *workflow_decision_point_content_form_content(const WorkflowDecisionPointCo
 }
 void workflow_decision_point_content_form_set_content(WorkflowDecisionPointContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *workflow_decision_point_content_form_decision_name(const WorkflowDecisionPointContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "decisionName");
-  return som_strdup(v != NULL ? v : "");
-}
-void workflow_decision_point_content_form_set_decision_name(WorkflowDecisionPointContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "decisionName", value);
 }
 char *workflow_decision_point_content_form_decision_criteria(const WorkflowDecisionPointContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "decisionCriteria");
@@ -166687,13 +164713,6 @@ char *workflow_exception_entry_content_form_content(const WorkflowExceptionEntry
 void workflow_exception_entry_content_form_set_content(WorkflowExceptionEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *workflow_exception_entry_content_form_exception_name(const WorkflowExceptionEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "exceptionName");
-  return som_strdup(v != NULL ? v : "");
-}
-void workflow_exception_entry_content_form_set_exception_name(WorkflowExceptionEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "exceptionName", value);
-}
 char *workflow_exception_entry_content_form_exception_type(const WorkflowExceptionEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "exceptionType");
   return som_strdup(v != NULL ? v : "");
@@ -166742,13 +164761,6 @@ char *workflow_input_entry_content_form_content(const WorkflowInputEntryContentF
 }
 void workflow_input_entry_content_form_set_content(WorkflowInputEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *workflow_input_entry_content_form_input_name(const WorkflowInputEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "inputName");
-  return som_strdup(v != NULL ? v : "");
-}
-void workflow_input_entry_content_form_set_input_name(WorkflowInputEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "inputName", value);
 }
 char *workflow_input_entry_content_form_input_type(const WorkflowInputEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "inputType");
@@ -166799,13 +164811,6 @@ char *workflow_output_entry_content_form_content(const WorkflowOutputEntryConten
 void workflow_output_entry_content_form_set_content(WorkflowOutputEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *workflow_output_entry_content_form_output_name(const WorkflowOutputEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "outputName");
-  return som_strdup(v != NULL ? v : "");
-}
-void workflow_output_entry_content_form_set_output_name(WorkflowOutputEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "outputName", value);
-}
 char *workflow_output_entry_content_form_output_type(const WorkflowOutputEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "outputType");
   return som_strdup(v != NULL ? v : "");
@@ -166847,13 +164852,6 @@ char *workflow_step_entry_content_form_content(const WorkflowStepEntryContentFor
 }
 void workflow_step_entry_content_form_set_content(WorkflowStepEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *workflow_step_entry_content_form_step_name(const WorkflowStepEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "stepName");
-  return som_strdup(v != NULL ? v : "");
-}
-void workflow_step_entry_content_form_set_step_name(WorkflowStepEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "stepName", value);
 }
 long workflow_step_entry_content_form_step_number(const WorkflowStepEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "stepNumber");
@@ -166927,13 +164925,6 @@ char *workflow_step_issue_content_form_content(const WorkflowStepIssueContentFor
 void workflow_step_issue_content_form_set_content(WorkflowStepIssueContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
 }
-char *workflow_step_issue_content_form_issue_name(const WorkflowStepIssueContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "issueName");
-  return som_strdup(v != NULL ? v : "");
-}
-void workflow_step_issue_content_form_set_issue_name(WorkflowStepIssueContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "issueName", value);
-}
 char *workflow_step_issue_content_form_issue_description(const WorkflowStepIssueContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "issueDescription");
   return som_strdup(v != NULL ? v : "");
@@ -166975,13 +164966,6 @@ char *workflow_summary_entry_content_form_content(const WorkflowSummaryEntryCont
 }
 void workflow_summary_entry_content_form_set_content(WorkflowSummaryEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *workflow_summary_entry_content_form_workflow_name(const WorkflowSummaryEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "workflowName");
-  return som_strdup(v != NULL ? v : "");
-}
-void workflow_summary_entry_content_form_set_workflow_name(WorkflowSummaryEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "workflowName", value);
 }
 char *workflow_summary_entry_content_form_workflow_type(const WorkflowSummaryEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "workflowType");
@@ -167113,13 +165097,6 @@ char *workflow_trigger_entry_content_form_content(const WorkflowTriggerEntryCont
 }
 void workflow_trigger_entry_content_form_set_content(WorkflowTriggerEntryContentForm *self, const char *value) {
   spec_document_set_content(self->node.doc, self->node.path, value);
-}
-char *workflow_trigger_entry_content_form_trigger_name(const WorkflowTriggerEntryContentForm *self) {
-  const char *v = spec_document_form_field(self->node.doc, self->node.path, "triggerName");
-  return som_strdup(v != NULL ? v : "");
-}
-void workflow_trigger_entry_content_form_set_trigger_name(WorkflowTriggerEntryContentForm *self, const char *value) {
-  spec_document_set_form_field(self->node.doc, self->node.path, "triggerName", value);
 }
 char *workflow_trigger_entry_content_form_trigger_type(const WorkflowTriggerEntryContentForm *self) {
   const char *v = spec_document_form_field(self->node.doc, self->node.path, "triggerType");

@@ -4813,9 +4813,6 @@ form-types:
       - fieldname: componentId
         required: true
         description: "Unique identifier (e.g., CMP-DTT-001)"
-      - fieldname: componentName
-        required: true
-        description: Human-readable name
       - fieldname: componentFamily
         description: "Button, Input, Table, Navigation, etc."
       - fieldname: baseComponent

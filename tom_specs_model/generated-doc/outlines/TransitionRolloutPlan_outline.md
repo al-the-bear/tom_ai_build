@@ -9,13 +9,13 @@
   - `TranslationProcess`
     - translationProcessContent, workflow, quality, terminology, ongoing, translationNarrative @text
     - vendors: `TranslationVendorEntry`
-      - content @Form(vendorName, vendorType, languages, specializations, turnaroundTime, qualityRating, contactInfo)
+      - content @Form(vendorType, languages, specializations, turnaroundTime, qualityRating, contactInfo)
   - userDocumentation: `UserDocumentationRequirements`
     - documentationContent, deliverables, localization, documentationNarrative @text
   - trainingDeliverables: `TrainingDeliverableRequirements`
     - trainingContent, trainingNarrative @text
     - trainingModules: `TrainingModuleEntry`
-      - content @Form(moduleId, moduleName, targetAudience, duration, deliveryMethod, prerequisites, learningObjectives, assessmentMethod)
+      - content @Form(moduleId, targetAudience, duration, deliveryMethod, prerequisites, learningObjectives, assessmentMethod)
   - `RolloutPlan`
     - content
   - `MigrationPlan`

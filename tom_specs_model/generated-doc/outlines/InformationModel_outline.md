@@ -11,13 +11,13 @@
       - constraints: `DataAttributeConstraintEntry`
         - content @Form(mandatory, nullable, unique, defaultValue, validationRules, constraintExpression, allowedValues, patternRegex)
       - displayProperties: `DisplayPropertyEntry`
-        - content @Form(displayLabel, displayOrder, displayGroup, helpText)
+        - content @Form(displayOrder, displayGroup, helpText)
     - keyAttributes: `KeyAttributeEntry`
-      - content @Form(keyName, keyType, keyColumns, description), generation, reference, governance, referencedEntityRef
+      - content @Form(keyType, keyColumns, description), generation, reference, governance, referencedEntityRef
     - indexes: `EntityIndexEntry`
-      - content @Form(indexName, indexType, columns, includeColumns, isUnique, isClustered, filterCondition, purpose, estimatedSize)
+      - content @Form(indexType, columns, includeColumns, isUnique, isClustered, filterCondition, purpose, estimatedSize)
     - constraints: `EntityConstraintEntry`
-      - content @Form(constraintName, constraintType, expression, errorMessage, enforcementLevel, isDeferred, businessRule)
+      - content @Form(constraintType, expression, errorMessage, enforcementLevel, isDeferred, businessRule)
   - `EntityRelationships`
     - content
     - items: `EntityRelationshipEntry`
@@ -41,32 +41,32 @@
     - integrationPoints: `IntegrationPointEntry`
       - content @Form(exposedInApis, eventPublished, eventSubscribed, externalSystemMapping)
     - attributes: `BusinessObjectAttributeEntry`
-      - content @Form(attributeName, description, type), definition, validation, governance
+      - content @Form(description, type), definition, validation, governance
     - keyStates: `ObjectStateEntry`
-      - content @Form(stateName, stateCode, description, stateType, entryConditions, exitConditions, allowedOperations, restrictedOperations, slaRequirements, notificationTriggers)
+      - content @Form(stateCode, description, stateType, entryConditions, exitConditions, allowedOperations, restrictedOperations, slaRequirements, notificationTriggers)
     - keyBusinessRules: `BusinessRuleReferenceEntry`
-      - content @Form(ruleId, ruleName, ruleType, description, enforcement, triggerCondition, affectedAttributes, consequenceOnViolation),
+      - content @Form(ruleId, ruleType, description, enforcement, triggerCondition, affectedAttributes, consequenceOnViolation),
         ruleRef
     - lifecycleTransitions: `LifecycleTransitionEntry`
-      - content @Form(transitionId, transitionName, fromState, toState), trigger, conditions, execution
+      - content @Form(transitionId, fromState, toState), trigger, conditions, execution
     - operations: `ObjectOperationEntry`
-      - content @Form(operationName, description, operationType), execution, lifecycle, governance
+      - content @Form(description, operationType), execution, lifecycle, governance
     - invariants: `ObjectInvariantEntry`
-      - content @Form(invariantName, description, expression, scope, enforcementPoint, violationAction, businessJustification)
+      - content @Form(description, expression, scope, enforcementPoint, violationAction, businessJustification)
   - functionDecomposition: `FunctionEntry`
-    - content @Form(functionId, functionName, description, parentFunction), classification, operations, implementation
+    - content @Form(functionId, description, parentFunction), classification, operations, implementation
     - subFunctions: `SubFunctionEntry`
-      - content @Form(subFunctionName, description, dataAccess, systemSupport)
+      - content @Form(description, dataAccess, systemSupport)
   - functionToDataMatrix: `FunctionDataMatrixEntry`
-    - content @Form(functionName, entityName, accessType, accessFrequency, isOwner, accessReason)
+    - content @Form(entityName, accessType, accessFrequency, isOwner, accessReason)
   - [1,] businessRules: `BusinessRuleEntry`
     - identity, classification, ruleLogic, implementation, exceptionHandling, governance
     - affectedObjects: `AffectedObjectEntry`
-      - content @Form(objectName, affectedAttributes, impact, accessType), objectRef
+      - content @Form(affectedAttributes, impact, accessType), objectRef
     - affectedFunctions: `AffectedFunctionEntry`
-      - content @Form(functionName, triggerPoint, impact, isMandatory), functionRef
+      - content @Form(triggerPoint, impact, isMandatory), functionRef
     - examples: `RuleExampleEntry`
-      - content @Form(exampleName, scenario, inputData, expectedOutcome, exampleType)
+      - content @Form(scenario, inputData, expectedOutcome, exampleType)
   - `DataDictionary`
     - content
   - `ValidationConstraints`
@@ -96,7 +96,7 @@
   - `ServerOperationRegistry`
     - content
     - operations: `ServerOperationEntry`
-      - content @Form(operationName, purpose, primaryDataEntity, descriptionKey, errorCodes)
+      - content @Form(purpose, primaryDataEntity, descriptionKey, errorCodes)
       - authorization: `AuthorizationRequirementSpec`
         - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
           resourceKeyRequirement, customRequirement
@@ -106,9 +106,9 @@
             - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement, entitlementRequirement,
               resourceKeyRequirement, customRequirement
       - requestMembers: `ServerOperationMemberEntry`
-        - content @Form(memberName, memberType, multiValued, required, dataEntity, domainEnum, description)
+        - content @Form(memberType, multiValued, required, dataEntity, domainEnum, description)
       - responseMembers: `ServerOperationMemberEntry`
-        - content @Form(memberName, memberType, multiValued, required, dataEntity, domainEnum, description)
+        - content @Form(memberType, multiValued, required, dataEntity, domainEnum, description)
   - `SchemaVersioningAndMigration`
     - content @Form(versioningStrategy, forwardOnly, baselineVersion, zeroDowntimeApproach)
     - migrationTargets: `MigrationTargetEntry`

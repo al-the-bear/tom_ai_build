@@ -794,13 +794,6 @@ class StakeholdersAndBeneficiaries extends DocSpecsSection {
 class StakeholderEntry extends DocSpecsSection {
   @Form([
     Field(
-      'stakeholderName',
-      String,
-      'Stakeholder Name or Group',
-      required: true,
-      hint: 'Name of the stakeholder individual or group',
-    ),
-    Field(
       'stakeholderType',
       String,
       'Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)',
@@ -1475,13 +1468,6 @@ class ExternalActors extends DocSpecsSection {
 class ExternalActorEntry extends DocSpecsSection {
   @Form([
     Field(
-      'actorName',
-      String,
-      'Actor Name',
-      required: true,
-      hint: 'The name of this external actor',
-    ),
-    Field(
       'actorType',
       String,
       'Actor Type (Internal User, External User, Organization, '
@@ -1645,13 +1631,6 @@ class ExternalSystemsContext extends DocSpecsSection {
 @SectionId('EXSYCO')
 class ExternalSystemContextEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'systemName',
-      String,
-      'System Name',
-      required: true,
-      hint: 'The name of this external system',
-    ),
     Field(
       'systemOwner',
       String,
@@ -1840,13 +1819,6 @@ class TrustBoundaries extends DocSpecsSection {
 class TrustBoundaryEntry extends DocSpecsSection {
   @Form([
     Field(
-      'boundaryName',
-      String,
-      'Boundary Name',
-      required: true,
-      hint: 'The name of this trust boundary',
-    ),
-    Field(
       'boundaryType',
       String,
       'Boundary Type (Network Zone, Authentication Domain, '
@@ -1946,13 +1918,6 @@ class OrganizationalContext extends DocSpecsSection {
 @SectionId('OUCE')
 class OrganizationalUnitContextEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'unitName',
-      String,
-      'Unit Name',
-      required: true,
-      hint: 'The name of this organizational unit',
-    ),
     Field(
       'unitType',
       String,
@@ -2149,13 +2114,6 @@ class RegulatoryContext extends DocSpecsSection {
 @SectionId('ARE')
 class ApplicableRegulationEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'regulationName',
-      String,
-      'Regulation Name',
-      required: true,
-      hint: 'The name of this regulation',
-    ),
     Field(
       'regulationCode',
       String,
@@ -2561,13 +2519,6 @@ class KeyConcepts extends DocSpecsSection {
 class KeyConceptEntry extends DocSpecsSection {
   @Form([
     Field(
-      'conceptName',
-      String,
-      'Concept Name',
-      required: true,
-      hint: 'Name of the business concept or entity',
-    ),
-    Field(
       'conceptType',
       String,
       'Concept Type (Entity, Value Object, Aggregate Root, Event, Service)',
@@ -2837,13 +2788,6 @@ class DomainBusinessRuleEntry extends DocSpecsSection {
       hint: 'Unique identifier for this business rule',
     ),
     Field(
-      'ruleName',
-      String,
-      'Rule Name',
-      required: true,
-      hint: 'Short descriptive name for this rule',
-    ),
-    Field(
       'ruleType',
       String,
       'Rule Type (Constraint, Calculation, Derivation, Action-Trigger, '
@@ -3005,13 +2949,6 @@ class DomainProcesses extends DocSpecsSection {
 class DomainProcessEntry extends DocSpecsSection {
   @Form([
     Field(
-      'processName',
-      String,
-      'Process Name',
-      required: true,
-      hint: 'Name of the business process',
-    ),
-    Field(
       'processDescription',
       String,
       'Process Description',
@@ -3164,13 +3101,6 @@ class DomainEvents extends DocSpecsSection {
 @SectionId('DOEV')
 class DomainEventEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'eventName',
-      String,
-      'Event Name (past tense, e.g., OrderPlaced)',
-      required: true,
-      hint: 'Past-tense event name, e.g., OrderPlaced',
-    ),
     Field(
       'eventDescription',
       String,
@@ -3440,13 +3370,6 @@ class AccessChannels extends DocSpecsSection {
 @SectionId('ICE')
 class InteractionChannelEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'channelName',
-      String,
-      'Channel Name',
-      required: true,
-      hint: 'e.g., Customer Web Portal, Mobile App, Admin API',
-    ),
     Field(
       'channelId',
       String,
@@ -3822,13 +3745,6 @@ class InteractionPatterns extends DocSpecsSection {
 @SectionId('INPTN')
 class InteractionPatternEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'patternName',
-      String,
-      'Pattern Name',
-      required: true,
-      hint: 'e.g., Real-time Form Submission, Batch Report Generation',
-    ),
     Field('patternId', String, 'Pattern ID', hint: 'Unique identifier'),
     Field(
       'patternType',
@@ -4041,13 +3957,6 @@ class AccessLevels extends DocSpecsSection {
 @SectionId('ACLV')
 class AccessLevelEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'levelName',
-      String,
-      'Access Level Name',
-      required: true,
-      hint: 'e.g., Administrator, Power User, Standard User, Guest',
-    ),
     Field('levelId', String, 'Level ID', hint: 'Unique identifier'),
     Field(
       'levelRank',
@@ -4388,13 +4297,6 @@ class NotificationModel extends DocSpecsSection {
 @SectionId('NTFCH')
 class NotificationChannelEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'channelName',
-      String,
-      'Channel Name',
-      required: true,
-      hint: 'Email, SMS, Push Notification, In-App, Slack, Teams',
-    ),
     Field(
       'channelId',
       String,
@@ -4750,13 +4652,6 @@ class UserCategories extends DocSpecsSection {
 @SectionId('UCE')
 class UserCategoryEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'categoryName',
-      String,
-      'Category Name',
-      required: true,
-      hint: 'Descriptive name of this user category',
-    ),
     Field(
       'categoryId',
       String,
@@ -5166,13 +5061,6 @@ class SystemTaskEntry extends DocSpecsSection {
       'Task ID',
       required: true,
       hint: 'Unique identifier for this task',
-    ),
-    Field(
-      'taskName',
-      String,
-      'Task Name',
-      required: true,
-      hint: 'Short descriptive name of the task',
     ),
     Field(
       'description',
@@ -5604,13 +5492,6 @@ class UserTrainingRequirements extends DocSpecsSection {
 class TrainingTopicEntry extends DocSpecsSection {
   @Form([
     Field(
-      'topicName',
-      String,
-      'Topic Name',
-      required: true,
-      hint: 'Name of the training topic',
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -5816,13 +5697,6 @@ class UserJourney extends DocSpecsSection {
 class JourneyStageEntry extends DocSpecsSection {
   @Form([
     Field(
-      'stageName',
-      String,
-      'Stage Name',
-      required: true,
-      hint: 'Name of this journey stage',
-    ),
-    Field(
       'stageDescription',
       String,
       'Stage Description',
@@ -6010,13 +5884,6 @@ class BusinessGoalEntry extends DocSpecsSection {
       'Goal ID (unique identifier, e.g., BG-001)',
       required: true,
       hint: 'Unique goal identifier, e.g., BG-001',
-    ),
-    Field(
-      'goalName',
-      String,
-      'Goal Name (concise objective statement)',
-      required: true,
-      hint: 'Concise one-line objective statement',
     ),
     Field(
       'goalCategory',
@@ -6378,13 +6245,6 @@ class GoalMilestoneEntry extends DocSpecsSection {
       hint: 'Unique identifier for this milestone',
     ),
     Field(
-      'milestoneName',
-      String,
-      'Milestone Name',
-      required: true,
-      hint: 'Short descriptive name for the milestone',
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -6492,13 +6352,6 @@ class GoalDependencyEntry extends DocSpecsSection {
       hint: 'e.g., Internal Goal, External Project, Resource, Regulatory',
     ),
     Field(
-      'dependencyName',
-      String,
-      'Dependency Name (what we depend on)',
-      required: true,
-      hint: 'Name of the thing this goal depends on',
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -6592,13 +6445,6 @@ class GoalRiskEntry extends DocSpecsSection {
       'Risk ID',
       required: true,
       hint: 'Unique identifier for this risk',
-    ),
-    Field(
-      'riskName',
-      String,
-      'Risk Name',
-      required: true,
-      hint: 'Short descriptive name for the risk',
     ),
     Field(
       'description',
@@ -6780,13 +6626,6 @@ class ResourceAllocationEntry extends DocSpecsSection {
       hint: 'Personnel, Budget, Tool, System, or External',
     ),
     Field(
-      'resourceName',
-      String,
-      'Resource Name',
-      required: true,
-      hint: 'Name of the specific resource',
-    ),
-    Field(
       'quantity',
       String,
       'Quantity or Allocation',
@@ -6901,13 +6740,6 @@ class TechnicalGoalEntry extends DocSpecsSection {
       'Goal ID (unique identifier, e.g., TG-001)',
       required: true,
       hint: 'Unique identifier, e.g. TG-001',
-    ),
-    Field(
-      'goalName',
-      String,
-      'Goal Name (concise statement)',
-      required: true,
-      hint: 'Concise statement of the technical goal',
     ),
     Field(
       'description',
@@ -7112,13 +6944,6 @@ class QualityScenarioEntry extends DocSpecsSection {
       hint: 'Unique identifier for the scenario',
     ),
     Field(
-      'scenarioName',
-      String,
-      'Scenario Name',
-      required: true,
-      hint: 'Short descriptive name',
-    ),
-    Field(
       'source',
       String,
       'Source (who/what generates the stimulus)',
@@ -7296,13 +7121,6 @@ class TechnicalGoalTestCaseEntry extends DocSpecsSection {
       hint: 'Unique identifier for the test case',
     ),
     Field(
-      'testCaseName',
-      String,
-      'Test Case Name',
-      required: true,
-      hint: 'Short descriptive name',
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -7390,13 +7208,6 @@ class TechnicalDependencyEntry extends DocSpecsSection {
       'Dependency ID',
       required: true,
       hint: 'Unique identifier for the dependency',
-    ),
-    Field(
-      'dependencyName',
-      String,
-      'Dependency Name',
-      required: true,
-      hint: 'Name of the dependency',
     ),
     Field(
       'dependencyType',
@@ -7500,13 +7311,6 @@ class TechnicalConstraintEntry extends DocSpecsSection {
       'Constraint ID',
       required: true,
       hint: 'Unique identifier for the constraint',
-    ),
-    Field(
-      'constraintName',
-      String,
-      'Constraint Name',
-      required: true,
-      hint: 'Short descriptive name',
     ),
     Field(
       'constraintType',
@@ -7915,13 +7719,6 @@ class SuccessCriterionEntry extends DocSpecsSection {
       'Criterion ID',
       required: true,
       hint: 'Unique identifier (e.g., SC-001)',
-    ),
-    Field(
-      'criterionName',
-      String,
-      'Criterion Name',
-      required: true,
-      hint: 'Short descriptive name',
     ),
     Field(
       'category',
@@ -8760,13 +8557,6 @@ class AcceptanceCriterionEntry extends DocSpecsSection {
       hint: 'Unique identifier for this criterion',
     ),
     Field(
-      'criterionTitle',
-      String,
-      'Criterion Title',
-      required: true,
-      hint: 'Short title describing the criterion',
-    ),
-    Field(
       'given',
       String,
       'Given (precondition/context)',
@@ -8890,13 +8680,6 @@ class RequirementBusinessRuleEntry extends DocSpecsSection {
       hint: 'Unique identifier for this business rule',
     ),
     Field(
-      'ruleName',
-      String,
-      'Rule Name',
-      required: true,
-      hint: 'Short descriptive name for the rule',
-    ),
-    Field(
       'ruleType',
       String,
       'Rule Type (Constraint, Computation, Derivation, Inference, '
@@ -9010,13 +8793,6 @@ class RequirementDataRequirements extends DocSpecsSection {
 )
 class DataEntityReferenceEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'entityName',
-      String,
-      'Entity Name',
-      required: true,
-      hint: 'Name of the data entity referenced',
-    ),
     Field(
       'crudOperations',
       String,
@@ -9214,13 +8990,6 @@ class ScreenFieldEntry extends DocSpecsSection {
       'Field ID',
       required: true,
       hint: 'Unique identifier for this field',
-    ),
-    Field(
-      'fieldLabel',
-      String,
-      'Field Label (display text)',
-      required: true,
-      hint: 'Display text shown for the field',
     ),
     Field(
       'fieldType',
@@ -9658,13 +9427,6 @@ class RequirementScreenActionEntry extends DocSpecsSection {
       hint: 'Unique identifier for this action',
     ),
     Field(
-      'actionLabel',
-      String,
-      'Action Label (button text)',
-      required: true,
-      hint: 'Button or link text for the action',
-    ),
-    Field(
       'actionType',
       String,
       'Action Type (Submit, Cancel, Navigate, API Call, Dialog, '
@@ -9808,13 +9570,6 @@ class RequirementScreenActionEntry extends DocSpecsSection {
 class ActionParameterEntry extends DocSpecsSection {
   @Form([
     Field(
-      'parameterName',
-      String,
-      'Parameter Name',
-      required: true,
-      hint: 'Name of the parameter',
-    ),
-    Field(
       'sourceType',
       String,
       'Source Type (Field, Constant, Context, User)',
@@ -9866,13 +9621,6 @@ class ScreenBehaviorEntry extends DocSpecsSection {
       'Behavior ID',
       required: true,
       hint: 'Unique identifier for this behavior',
-    ),
-    Field(
-      'behaviorName',
-      String,
-      'Behavior Name',
-      required: true,
-      hint: 'Short descriptive name for the behavior',
     ),
     Field(
       'behaviorType',
@@ -10180,13 +9928,6 @@ class RequirementTestCaseEntry extends DocSpecsSection {
       'Test Case ID',
       required: true,
       hint: 'Unique identifier for the test case',
-    ),
-    Field(
-      'testCaseName',
-      String,
-      'Test Case Name',
-      required: true,
-      hint: 'Short descriptive name for the test case',
     ),
     Field(
       'testType',
@@ -11015,13 +10756,6 @@ class SecurityControlEntry extends DocSpecsSection {
       hint: 'Stable unique identifier for the control',
     ),
     Field(
-      'controlName',
-      String,
-      'Control Name',
-      required: true,
-      hint: 'Short descriptive name for the control',
-    ),
-    Field(
       'controlType',
       String,
       'Control Type (Preventive, Detective, Corrective, Deterrent, '
@@ -11538,13 +11272,6 @@ class OrgImplementationActivity extends DocSpecsSection {
       hint: 'Stable unique identifier for the activity',
     ),
     Field(
-      'activityName',
-      String,
-      'Activity Name',
-      required: true,
-      hint: 'Short descriptive name for the activity',
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -11699,13 +11426,6 @@ class SystemToReplaceEntry extends DocSpecsSection {
       'System ID (e.g., SYS-CRM-001)',
       required: true,
       hint: 'Stable identifier for the legacy system being replaced',
-    ),
-    Field(
-      'systemName',
-      String,
-      'System Name',
-      required: true,
-      hint: 'Common name the organization uses for this system',
     ),
     Field(
       'officialName',
@@ -12183,13 +11903,6 @@ class SystemBusinessCriticality extends DocSpecsSection {
 @SectionId('SYBUUN')
 class SystemBusinessUnitEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'unitName',
-      String,
-      'Business Unit',
-      required: true,
-      hint: 'Name of the business unit',
-    ),
     Field('userCount', int, 'User Count', hint: 'Number of users in this unit'),
     Field(
       'usagePattern',
@@ -12224,13 +11937,6 @@ class SystemBusinessUnitEntry extends DocSpecsSection {
 @SectionId('SYBUPR')
 class SystemBusinessProcessEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'processName',
-      String,
-      'Process Name',
-      required: true,
-      hint: 'Name of the supported business process',
-    ),
     Field(
       'processId',
       String,
@@ -12427,13 +12133,6 @@ class ReplacementPhaseEntry extends DocSpecsSection {
       required: true,
       hint: 'Ordinal position of the phase',
     ),
-    Field(
-      'phaseName',
-      String,
-      'Phase Name',
-      required: true,
-      hint: 'Descriptive name for the phase',
-    ),
     Field('phaseScope', String, 'Scope', hint: 'What this phase covers'),
     Field('startDate', String, 'Start Date', hint: 'When the phase begins'),
     Field('endDate', String, 'End Date', hint: 'When the phase ends'),
@@ -12602,13 +12301,6 @@ class SystemDataScope extends DocSpecsSection {
 @SectionId('DAENMI')
 class DataEntityMigrationEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'entityName',
-      String,
-      'Entity Name',
-      required: true,
-      hint: 'Name of the data entity',
-    ),
     Field(
       'recordCount',
       String,
@@ -12893,13 +12585,6 @@ class SystemUserImpact extends DocSpecsSection {
 @SectionId('USGRIM')
 class UserGroupImpactEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'groupName',
-      String,
-      'User Group',
-      required: true,
-      hint: 'Name of the user group',
-    ),
     Field('userCount', int, 'User Count', hint: 'Number of users in the group'),
     Field(
       'impactLevel',
@@ -13617,13 +13302,6 @@ class MigrationResources extends DocSpecsSection {
 class MigrationMilestoneEntry extends DocSpecsSection {
   @Form([
     Field(
-      'milestoneName',
-      String,
-      'Milestone Name',
-      required: true,
-      hint: 'Concise name for the milestone',
-    ),
-    Field(
       'targetDate',
       String,
       'Target Date',
@@ -13998,13 +13676,6 @@ class MigrationRiskEntry extends DocSpecsSection {
       'Risk ID',
       required: true,
       hint: 'Unique identifier (e.g., MIG-RISK-001)',
-    ),
-    Field(
-      'riskTitle',
-      String,
-      'Risk Title',
-      required: true,
-      hint: 'Concise risk name',
     ),
     Field(
       'riskOwner',
@@ -14831,13 +14502,6 @@ class ExternalInterfaceEntry extends DocSpecsSection {
       hint: 'Unique stable identifier for this interface',
     ),
     Field(
-      'interfaceName',
-      String,
-      'Interface Name',
-      required: true,
-      hint: 'Human-readable name of the interface',
-    ),
-    Field(
       'externalSystem',
       String,
       'External System Name',
@@ -15020,13 +14684,6 @@ class InterfaceBusinessContext extends DocSpecsSection {
 @SectionId('INBUPR')
 class InterfaceBusinessProcessEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'processName',
-      String,
-      'Process Name',
-      required: true,
-      hint: 'Name of the dependent business process',
-    ),
     Field(
       'processId',
       String,
@@ -15262,13 +14919,6 @@ class InterfaceOperationEntry extends DocSpecsSection {
       hint: 'Unique identifier for the operation',
     ),
     Field(
-      'operationName',
-      String,
-      'Operation Name',
-      required: true,
-      hint: 'Human-readable operation name',
-    ),
-    Field(
       'httpMethod',
       String,
       'HTTP Method (GET, POST, PUT, DELETE, etc.)',
@@ -15447,13 +15097,6 @@ class InterfaceDataSpec extends DocSpecsSection {
 @SectionId('INDAEN')
 class InterfaceDataEntityEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'entityName',
-      String,
-      'Entity Name',
-      required: true,
-      hint: 'Name of the exchanged data entity',
-    ),
     Field(
       'direction',
       String,
@@ -16198,13 +15841,6 @@ class InterfaceTestScenarioEntry extends DocSpecsSection {
       hint: 'Unique identifier for the scenario',
     ),
     Field(
-      'scenarioName',
-      String,
-      'Scenario Name',
-      required: true,
-      hint: 'Human-readable scenario name',
-    ),
-    Field(
       'scenarioType',
       String,
       'Type (Happy Path, Error, Edge Case)',
@@ -16918,13 +16554,6 @@ class OrganizationalEnvironment extends DocSpecsSection {
 class AffectedDepartmentEntry extends DocSpecsSection {
   @Form([
     Field(
-      'departmentName',
-      String,
-      'Department Name',
-      required: true,
-      hint: 'Name of the affected department or business unit',
-    ),
-    Field(
       'departmentHead',
       String,
       'Department Head',
@@ -16989,19 +16618,6 @@ class AffectedDepartmentEntry extends DocSpecsSection {
 @SectionId('DME')
 class DecisionMakerEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'name',
-      String,
-      'Name',
-      required: true,
-      hint: 'Full name of the decision maker',
-    ),
-    Field(
-      'title',
-      String,
-      'Title/Role',
-      hint: 'Formal title or organizational role',
-    ),
     Field(
       'department',
       String,
@@ -17827,13 +17443,6 @@ class TechnologyStandardEntry extends DocSpecsSection {
       hint: 'Unique identifier, e.g. STD-SEC-001, STD-DEV-001',
     ),
     Field(
-      'standardName',
-      String,
-      'Standard Name',
-      required: true,
-      hint: 'Short descriptive name',
-    ),
-    Field(
       'standardCategory',
       String,
       'Category',
@@ -18011,13 +17620,6 @@ class IntegrationConstraintEntry extends DocSpecsSection {
       'Constraint ID',
       required: true,
       hint: 'Unique identifier, e.g. INT-CON-001',
-    ),
-    Field(
-      'constraintName',
-      String,
-      'Constraint Name',
-      required: true,
-      hint: 'Short descriptive name',
     ),
     Field(
       'constraintDescription',
@@ -18463,13 +18065,6 @@ class RiskIdentification extends DocSpecsSection {
       'Risk ID (e.g., RISK-001, TR-001)',
       required: true,
       hint: 'Unique identifier for this risk',
-    ),
-    Field(
-      'riskName',
-      String,
-      'Risk Name — short descriptive name',
-      required: true,
-      hint: 'Short descriptive name for the risk',
     ),
     Field(
       'description',

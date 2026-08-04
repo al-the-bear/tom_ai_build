@@ -358,14 +358,6 @@ class EntityFollowUpEntry extends DocSpecsSection {
   @SectionId('DMFUE-ENTI')
   @Form([
     Field(
-      'entityName',
-      String,
-      'Entity Name',
-      required: true,
-      hint:
-          'Name of the data entity these facets apply to (matches dataModel.entities)',
-    ),
-    Field(
       'entityAlias',
       String,
       'Alias/Abbreviation',
@@ -715,13 +707,6 @@ class DataAttributeEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   @SectionId('DAATT-IDEN')
   @Form([
-    Field(
-      'attributeName',
-      String,
-      'Attribute Name',
-      required: true,
-      hint: 'Logical attribute name in camelCase',
-    ),
     Field(
       'columnName',
       String,
@@ -1155,13 +1140,6 @@ class DataAttributeEntry extends DocSpecsSection {
 class KeyAttributeEntry extends DocSpecsSection {
   @Form([
     Field(
-      'keyName',
-      String,
-      'Key Name',
-      required: true,
-      hint: 'Identifier for this key constraint',
-    ),
-    Field(
       'keyType',
       String,
       'Key Type',
@@ -1292,13 +1270,6 @@ class KeyAttributeEntry extends DocSpecsSection {
 class EntityIndexEntry extends DocSpecsSection {
   @Form([
     Field(
-      'indexName',
-      String,
-      'Index Name',
-      required: true,
-      hint: 'Unique identifier for the index',
-    ),
-    Field(
       'indexType',
       String,
       'Index Type',
@@ -1365,13 +1336,6 @@ class EntityIndexEntry extends DocSpecsSection {
     note: 'DB-level constraint on the table; distinct from CE-VA field rules.')
 class EntityConstraintEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'constraintName',
-      String,
-      'Constraint Name',
-      required: true,
-      hint: 'Unique identifier for the constraint',
-    ),
     Field(
       'constraintType',
       String,
@@ -1564,14 +1528,6 @@ class EntityRelationshipEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   @SectionId('ENRLE-IDEN')
   @Form([
-    Field(
-      'relationshipName',
-      String,
-      'Relationship Name',
-      required: true,
-      hint:
-          'Verb phrase describing the relationship (e.g., "places", "contains")',
-    ),
     Field(
       'relationshipType',
       String,
@@ -1851,13 +1807,6 @@ class DataClassificationEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   @SectionId('DCLSE-IDEN')
   @Form([
-    Field(
-      'classificationName',
-      String,
-      'Classification Name',
-      required: true,
-      hint: 'Name of this classification level',
-    ),
     Field(
       'classificationLevel',
       String,
@@ -2265,13 +2214,6 @@ class BusinessObjectEntry extends DocSpecsSection {
   @SectionId('BJOEN-IDEN')
   @Form([
     Field(
-      'objectName',
-      String,
-      'Object Name',
-      required: true,
-      hint: 'Business name in PascalCase (e.g., Order, Customer)',
-    ),
-    Field(
       'objectAlias',
       String,
       'Alias/Abbreviation',
@@ -2534,13 +2476,6 @@ class BusinessObjectEntry extends DocSpecsSection {
 class BusinessObjectAttributeEntry extends DocSpecsSection {
   @Form([
     Field(
-      'attributeName',
-      String,
-      'Attribute Name',
-      required: true,
-      hint: 'Business attribute name',
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -2665,13 +2600,6 @@ class BusinessObjectAttributeEntry extends DocSpecsSection {
 class ObjectStateEntry extends DocSpecsSection {
   @Form([
     Field(
-      'stateName',
-      String,
-      'State Name',
-      required: true,
-      hint: 'Name of the state (e.g., Draft, Submitted)',
-    ),
-    Field(
       'stateCode',
       String,
       'State Code',
@@ -2750,13 +2678,6 @@ class BusinessRuleReferenceEntry extends DocSpecsSection {
       refersTo: ['BIRU.ruleId'],
     ),
     Field(
-      'ruleName',
-      String,
-      'Rule Name',
-      required: true,
-      hint: 'Name of the business rule',
-    ),
-    Field(
       'ruleType',
       String,
       'Rule Type',
@@ -2821,12 +2742,6 @@ class LifecycleTransitionEntry extends DocSpecsSection {
       String,
       'Transition ID',
       hint: 'Unique identifier for this transition',
-    ),
-    Field(
-      'transitionName',
-      String,
-      'Transition Name',
-      hint: 'Descriptive name (e.g., "Submit Order")',
     ),
     Field(
       'fromState',
@@ -2945,13 +2860,6 @@ class LifecycleTransitionEntry extends DocSpecsSection {
         'CE-SC/CE-SU (derived).')
 class ObjectOperationEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'operationName',
-      String,
-      'Operation Name',
-      required: true,
-      hint: 'Name of the operation (e.g., Submit, Approve)',
-    ),
     Field(
       'description',
       String,
@@ -3087,13 +2995,6 @@ class ObjectOperationEntry extends DocSpecsSection {
     note: 'Object invariant (must-always-hold) → validation rule.')
 class ObjectInvariantEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'invariantName',
-      String,
-      'Invariant Name',
-      required: true,
-      hint: 'Name of the invariant',
-    ),
     Field(
       'description',
       String,
@@ -3280,13 +3181,6 @@ class FunctionEntry extends DocSpecsSection {
       hint: 'Unique function identifier',
     ),
     Field(
-      'functionName',
-      String,
-      'Function Name',
-      required: true,
-      hint: 'Verb-noun phrase (e.g., Process Order)',
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -3399,13 +3293,6 @@ class FunctionEntry extends DocSpecsSection {
 class SubFunctionEntry extends DocSpecsSection {
   @Form([
     Field(
-      'subFunctionName',
-      String,
-      'Sub-Function Name',
-      required: true,
-      hint: 'Name of the sub-function',
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -3442,13 +3329,6 @@ class SubFunctionEntry extends DocSpecsSection {
         'derivation.')
 class FunctionDataMatrixEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'functionName',
-      String,
-      'Function Name',
-      required: true,
-      hint: 'Function being mapped',
-    ),
     Field(
       'entityName',
       String,
@@ -3511,13 +3391,6 @@ class BusinessRuleEntry extends DocSpecsSection {
       'Rule ID',
       required: true,
       hint: 'Unique rule identifier (e.g., BR-001)',
-    ),
-    Field(
-      'ruleName',
-      String,
-      'Rule Name',
-      required: true,
-      hint: 'Descriptive name',
     ),
     Field(
       'ruleVersion',
@@ -3772,13 +3645,6 @@ class BusinessRuleEntry extends DocSpecsSection {
 class AffectedObjectEntry extends DocSpecsSection {
   @Form([
     Field(
-      'objectName',
-      String,
-      'Object Name',
-      required: true,
-      hint: 'Name of the affected business object',
-    ),
-    Field(
       'affectedAttributes',
       String,
       'Affected Attributes',
@@ -3815,13 +3681,6 @@ class AffectedObjectEntry extends DocSpecsSection {
 class AffectedFunctionEntry extends DocSpecsSection {
   @Form([
     Field(
-      'functionName',
-      String,
-      'Function Name',
-      required: true,
-      hint: 'Name of the affected function',
-    ),
-    Field(
       'triggerPoint',
       String,
       'Trigger Point',
@@ -3856,13 +3715,6 @@ class AffectedFunctionEntry extends DocSpecsSection {
     note: 'Rule example → validation test case (Phase 5 derivation).')
 class RuleExampleEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'exampleName',
-      String,
-      'Example Name',
-      required: true,
-      hint: 'Name for this example',
-    ),
     Field(
       'scenario',
       String,
@@ -4178,12 +4030,6 @@ class DataAttributeConstraintEntry extends DocSpecsSection {
         'label/help copy also feeds CE-TX.')
 class DisplayPropertyEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'displayLabel',
-      String,
-      'Display Label',
-      hint: 'User-friendly label for UI',
-    ),
     Field(
       'displayOrder',
       String,
@@ -5524,15 +5370,6 @@ systems are inventoried under External Interfaces (EXIN) instead.
 class ServerOperationEntry extends DocSpecsSection {
   @Form([
     Field(
-      'operationName',
-      String,
-      'Operation Name',
-      required: true,
-      hint: 'Dotted, namespaced operation name (e.g. customer.save, '
-          'order.submit) — the one operation identifier. Callers cite this '
-          'name; no transport method or path is authored.',
-    ),
-    Field(
       'purpose',
       String,
       'Purpose',
@@ -5629,14 +5466,6 @@ class ServerOperationEntry extends DocSpecsSection {
 )
 class ServerOperationMemberEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'memberName',
-      String,
-      'Member Name',
-      required: true,
-      hint: 'Name of the member within the shape (e.g. customerId, '
-          'includeArchived)',
-    ),
     Field(
       'memberType',
       String,

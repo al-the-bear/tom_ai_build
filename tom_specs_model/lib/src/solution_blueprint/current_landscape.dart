@@ -252,13 +252,6 @@ class ExistingSystemEntry extends DocSpecsSection {
 
   @Form([
     Field(
-      'systemName',
-      String,
-      'System Name',
-      required: true,
-      hint: 'Common name of the system, e.g. "SAP ERP", "Salesforce CRM".',
-    ),
-    Field(
       'systemId',
       String,
       'System ID/Code (internal identifier)',
@@ -911,13 +904,6 @@ class ExternalServiceDependencies extends DocSpecsSection {
 class ExternalServiceDependencyEntry extends DocSpecsSection {
   @Form([
     Field(
-      'serviceName',
-      String,
-      'External Service Name',
-      required: true,
-      hint: 'Name of the external service, e.g. "Stripe Payments".',
-    ),
-    Field(
       'serviceProvider',
       String,
       'Service Provider/Vendor',
@@ -1360,13 +1346,6 @@ class Integrations extends DocSpecsSection {
 class SystemDependencyEntry extends DocSpecsSection {
   @Form([
     Field(
-      'dependencyName',
-      String,
-      'Dependency Name',
-      hint: 'Descriptive name, e.g. CRM → ERP order sync',
-      required: true,
-    ),
-    Field(
       'dependencyType',
       String,
       'Dependency Type',
@@ -1568,13 +1547,6 @@ class SystemDependencyEntry extends DocSpecsSection {
 @SectionId('SYIN')
 class SystemIntegrationEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'integrationName',
-      String,
-      'Integration Name',
-      hint: 'Descriptive name, e.g. Real-time inventory sync',
-      required: true,
-    ),
     Field(
       'integrationType',
       String,
@@ -1950,7 +1922,6 @@ class ProcessScopeSummary extends DocSpecsSection {
 @SectionId('PRSCEN')
 class ProcessScopeEntry extends DocSpecsSection {
   @Form([
-    Field('processName', String, 'Process Name', required: true),
     Field(
       'rationale',
       String,
@@ -2136,7 +2107,6 @@ class ProcessPerformanceSummary extends DocSpecsSection {
 @SectionId('CUBIPR')
 class CurrentBusinessProcess extends DocSpecsSection {
   @Form([
-    Field('processName', String, 'Process Name', required: true),
     Field('processOwner', String, 'Process Owner'),
     Field(
       'processCategory',
@@ -2379,7 +2349,6 @@ class WorkflowSummaryTable extends DocSpecsSection {
 @SectionId('WOSUEN')
 class WorkflowSummaryEntry extends DocSpecsSection {
   @Form([
-    Field('workflowName', String, 'Workflow Name', required: true),
     Field('workflowType', String, 'Type'),
     Field('frequency', String, 'Frequency'),
     Field('averageCycleTime', String, 'Average Cycle Time'),
@@ -2414,7 +2383,6 @@ class WorkflowSummaryEntry extends DocSpecsSection {
 @SectionId('CUWF')
 class CurrentWorkflowEntry extends DocSpecsSection {
   @Form([
-    Field('workflowName', String, 'Workflow Name', required: true),
     Field('workflowId', String, 'Workflow ID (internal identifier)'),
     Field(
       'workflowType',
@@ -2593,7 +2561,6 @@ class WorkflowTriggers extends DocSpecsSection {
 @SectionId('WOTREN')
 class WorkflowTriggerEntry extends DocSpecsSection {
   @Form([
-    Field('triggerName', String, 'Trigger Name', required: true),
     Field(
       'triggerType',
       String,
@@ -2642,7 +2609,6 @@ class WorkflowStepSystem extends DocSpecsSection {
 @SectionId('WSE')
 class WorkflowStepEntry extends DocSpecsSection {
   @Form([
-    Field('stepName', String, 'Step Name', required: true),
     Field('stepNumber', int, 'Step Number (sequence order)'),
     Field('description', String, 'Description'),
     Field('responsibleActor', String, 'Responsible Actor'),
@@ -2744,7 +2710,6 @@ class WorkflowStepEntry extends DocSpecsSection {
 @SectionId('WOSTIS')
 class WorkflowStepIssue extends DocSpecsSection {
   @Form([
-    Field('issueName', String, 'Issue Name', required: true),
     Field('issueDescription', String, 'Description'),
     Field('frequency', String, 'Frequency of occurrence'),
     Field('impact', String, 'Business Impact'),
@@ -2770,7 +2735,6 @@ class WorkflowStepIssue extends DocSpecsSection {
 @SectionId('WAE')
 class WorkflowActorEntry extends DocSpecsSection {
   @Form([
-    Field('actorName', String, 'Actor Name', required: true),
     Field(
       'actorType',
       String,
@@ -2803,7 +2767,6 @@ class WorkflowActorEntry extends DocSpecsSection {
 @SectionId('WOINEN')
 class WorkflowInputEntry extends DocSpecsSection {
   @Form([
-    Field('inputName', String, 'Input Name', required: true),
     Field('inputType', String, 'Type (data type or document type)'),
     Field('source', String, 'Source'),
     Field('format', String, 'Format (e.g., PDF, XML, Manual Entry)'),
@@ -2824,7 +2787,6 @@ class WorkflowInputEntry extends DocSpecsSection {
 @SectionId('WOOUEN')
 class WorkflowOutputEntry extends DocSpecsSection {
   @Form([
-    Field('outputName', String, 'Output Name', required: true),
     Field('outputType', String, 'Type (data type or document type)'),
     Field('destination', String, 'Destination'),
     Field('format', String, 'Format'),
@@ -2847,7 +2809,6 @@ class WorkflowOutputEntry extends DocSpecsSection {
 @SectionId('WODEPO')
 class WorkflowDecisionPoint extends DocSpecsSection {
   @Form([
-    Field('decisionName', String, 'Decision Name', required: true),
     Field('decisionCriteria', String, 'Decision Criteria'),
     Field('decisionMaker', String, 'Decision Maker'),
     Field('outcomes', String, 'Possible Outcomes (comma-separated)'),
@@ -2868,7 +2829,6 @@ class WorkflowDecisionPoint extends DocSpecsSection {
 @SectionId('WOBURU')
 class WorkflowBusinessRule extends DocSpecsSection {
   @Form([
-    Field('ruleName', String, 'Rule Name', required: true),
     Field('ruleDescription', String, 'Description'),
     Field('ruleLogic', String, 'Rule Logic (business logic in plain language)'),
     Field('ruleSource', String, 'Source (e.g., Policy, Regulation, SOP)'),
@@ -2917,7 +2877,6 @@ class WorkflowExceptions extends DocSpecsSection {
 @SectionId('WOEXEN')
 class WorkflowExceptionEntry extends DocSpecsSection {
   @Form([
-    Field('exceptionName', String, 'Exception Name', required: true),
     Field('exceptionType', String, 'Type (e.g., Validation, System, Business)'),
     Field('frequency', String, 'Frequency'),
     Field('handlingProcedure', String, 'Handling Procedure'),
@@ -3167,7 +3126,6 @@ class MetricsBaselineTable extends DocSpecsSection {
 @SectionId('MEBAEN')
 class MetricsBaselineEntry extends DocSpecsSection {
   @Form([
-    Field('metricName', String, 'Metric Name', required: true),
     Field('baselineValue', String, 'Baseline Value (current state)'),
     Field('baselineDate', String, 'Baseline Date'),
     Field('targetValue', String, 'Target Value'),
@@ -3236,7 +3194,6 @@ class ProcessMetricCategory extends DocSpecsSection {
 @SectionId('PME')
 class ProcessMetricEntry extends DocSpecsSection {
   @Form([
-    Field('metricName', String, 'Metric Name', required: true),
     Field('metricId', String, 'Metric ID'),
     Field(
       'metricCategory',
@@ -4181,13 +4138,6 @@ class PainPointGapCorrelationEntry extends DocSpecsSection {
 class GapEntry extends DocSpecsSection {
   @Form([
     Field(
-      'gapName',
-      String,
-      'Gap Name',
-      hint: 'Concise name for the identified gap',
-      required: true,
-    ),
-    Field(
       'gapCategory',
       String,
       'Gap Category',
@@ -4949,13 +4899,6 @@ class DataSourceEntry extends DocSpecsSection {
 class DataSourceEntityEntry extends DocSpecsSection {
   @Form([
     Field(
-      'entityName',
-      String,
-      'Entity Name',
-      hint: 'Name of the entity/table/collection',
-      required: true,
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -5151,13 +5094,6 @@ class DataQualityIssueEntry extends DocSpecsSection {
       required: true,
     ),
     Field(
-      'issueTitle',
-      String,
-      'Issue Title',
-      hint: 'Brief description of the quality issue',
-      required: true,
-    ),
-    Field(
       'description',
       String,
       'Detailed Description',
@@ -5293,13 +5229,6 @@ class DataQualityIssueEntry extends DocSpecsSection {
 class DataQualityInitiativeEntry extends DocSpecsSection {
   @Form([
     Field('initiativeId', String, 'Initiative ID', hint: 'Unique identifier'),
-    Field(
-      'initiativeName',
-      String,
-      'Initiative Name',
-      hint: 'Name of the improvement initiative',
-      required: true,
-    ),
     Field(
       'description',
       String,
@@ -6407,13 +6336,6 @@ class DataGovernancePolicyEntry extends DocSpecsSection {
   @Form([
     Field('policyId', String, 'Policy ID', hint: 'Unique identifier'),
     Field(
-      'policyName',
-      String,
-      'Policy Name',
-      hint: 'Name of the governance policy',
-      required: true,
-    ),
-    Field(
       'policyArea',
       String,
       'Policy Area',
@@ -6625,13 +6547,6 @@ coverage.
 @SectionId('DCLE')
 class DataClassificationLevelEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'levelName',
-      String,
-      'Level Name',
-      hint: 'E.g. Public, Internal, Confidential, Restricted',
-      required: true,
-    ),
     Field(
       'levelOrder',
       int,
@@ -6873,13 +6788,6 @@ class DataIntegrationEntry extends DocSpecsSection {
       String,
       'Integration ID',
       hint: 'Unique identifier',
-      required: true,
-    ),
-    Field(
-      'integrationName',
-      String,
-      'Integration Name',
-      hint: 'Name of the integration',
       required: true,
     ),
     Field(
@@ -7166,13 +7074,6 @@ approach.
 @SectionId('MSDDO')
 class MasterDataDomainEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'domainName',
-      String,
-      'Domain Name',
-      hint: 'E.g. Customer, Product, Vendor, Employee, Location',
-      required: true,
-    ),
     Field(
       'description',
       String,

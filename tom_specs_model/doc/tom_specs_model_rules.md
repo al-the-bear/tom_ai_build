@@ -1065,13 +1065,64 @@ Headline storage and rendering are governed by five rules:
    its heading (e.g. `FR-01 — Capture orders`), not in a form field. Such an id
    is still **referenceable**: `refersTo: ['FRE.@sectionId']` resolves against
    the stored item id directly (§6.2 rule 6), so the single-slot rule costs no
-   enforceability.
+   enforceability. See §8.1 for what the rule does *not* cover — a name-shaped
+   field is only a violation when the name it holds is the entry's own.
 5. **Editor strict mode** — headlines and ids are editable only for list-entry
    sections; fixed sections show their stored/default headline read-only.
 
 The md parser compares parsed heading text against the *effective default*
 (stored > `@Headline` > derivation) and stages a stored headline only on
 difference, so untouched documents stay byte-stable.
+
+### 8.1 Which name fields rule 4 forbids
+
+Rule 4 bites on **a name-shaped form field holding the name of the list entry
+it sits in**. Most name-shaped fields hold something else and are perfectly
+legal, and the two look identical in source — so the boundary is drawn
+structurally, and the static tier draws it (§10.2 invariant 11).
+
+**Where the rule applies.** Only beneath a **list-entry class**: the element
+type of a complex list carrying `@SectionIdPattern`. Such a section's headline
+is per-instance free text (rule 1) — it *is* the entry's name, so a form field
+holding that same name is a second storage slot for one value. A field on a
+**fixed** section is never a violation: its heading is predetermined by
+`@Headline` or derivation, so it stores no name and the form field is the only
+slot the name has. `SystemSummary.systemName` and `DomainOverview.domainName`
+are legal for exactly this reason.
+
+The scope is **transitive**. An entry's identification block is as often an
+extracted class (`BusinessProcessEntry.identification` → `ProcessIdentification`)
+as an inline `@Form` member (`ActorEntry.identification`), and the two must be
+judged alike — otherwise extracting a class defeats the rule. A field is
+therefore weighed against the nearest enclosing list-entry class, not against
+the class that happens to declare it.
+
+**What counts as name-shaped.** A form field named exactly `name`, `title` or
+`label`, or whose name ends in `Name`, `Title` or `Label`.
+
+**When it names the entry itself.** A bare `name`/`title`/`label` can mean
+nothing else, so the shape alone decides. Otherwise the field's *stem* — its
+name with the trailing `Name`/`Title`/`Label` removed — is compared against the
+entry's *subject*, its class name with a trailing `Entry`, `Record`, `Spec`,
+`Section`, `Item`, `Ref` or `Details` dropped. `ComponentEntry.componentName`
+restates its heading; `ComponentEntry.vendorName` does not.
+
+**Two exemptions**, both read off the field rather than declared, so neither can
+drift out of step with what it describes:
+
+- **(b) The field is a registry key** — some `refersTo` elsewhere in the model
+  resolves to it (`AZRO.roleName`, `DAENT.entityName`). Its value is then a
+  stable identifier other sections are matched against, not merely the entry's
+  display title, and the exact-match contract it carries is not one a free-text
+  heading can meet.
+- **(c) The field is itself a reference** — it declares a `refersTo` of its own,
+  so it names the section it points at rather than the one it sits in
+  (`RoleReferenceEntry.roleName`). Where such a value reads like the entry's
+  heading, the reference field is the authoritative slot and the heading renders
+  it, so there is still exactly one authority.
+
+Everything else name-shaped beneath a list entry is a duplicate, and the
+headline carries it.
 
 ---
 
@@ -1245,6 +1296,11 @@ The validator enforces the following structural invariants (implementation:
     **co-reachability**: every target must be reachable together with its
     referring class from at least one `@Document` root (§6.2.1). A non-`String`
     reference field is a warning; the rest are errors.
+11. **No list entry restates its own headline** (§8 rule 4) — a name-shaped form
+    field beneath a list-entry class, whose stem is that entry's own subject, is
+    an error unless it is a registry key or carries a `refersTo` of its own
+    (§8.1). This is the half of rule 4 that source alone cannot show: a
+    self-naming field and a legitimate one are written identically.
 
 **What the validator does *not* check:** the two mnemonics themselves. It
 recomputes a container id's `<elementId>` prefix from the element class (check

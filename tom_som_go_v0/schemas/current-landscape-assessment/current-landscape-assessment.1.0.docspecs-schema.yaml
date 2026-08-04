@@ -3499,9 +3499,6 @@ form-types:
       - fieldname: systemId
         required: true
         description: Stable identifier for the legacy system being replaced
-      - fieldname: systemName
-        required: true
-        description: Common name the organization uses for this system
       - fieldname: officialName
         description: "Vendor/product name and edition, if a commercial system"
       - fieldname: systemDescription

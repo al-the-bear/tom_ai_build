@@ -508,13 +508,6 @@ class QualityCategoryEntry extends DocSpecsSection {
       hint: 'Unique identifier (e.g., QC-USER-01)',
     ),
     Field(
-      'categoryName',
-      String,
-      'Category Name',
-      required: true,
-      hint: 'User-Related, Technical, Operational, Documentation',
-    ),
-    Field(
       'categoryWeight',
       int,
       'Category Weight (1-100)',
@@ -3936,7 +3929,6 @@ class TradeOffDecisionEntry extends DocSpecsSection {
       'Decision ID',
       hint: 'Unique identifier (e.g., TRADEOFF-001)',
     ),
-    Field('decisionTitle', String, 'Decision Title', required: true),
     Field(
       'decisionStatus',
       String,
@@ -4318,7 +4310,6 @@ class MustPassCriterionEntry extends DocSpecsSection {
       'Criterion ID',
       hint: 'Unique identifier (e.g., MP-001)',
     ),
-    Field('criterionName', String, 'Criterion Name', required: true),
     Field(
       'verificationMethod',
       String,

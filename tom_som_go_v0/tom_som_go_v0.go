@@ -44630,14 +44630,6 @@ func (x *AcceptanceCriterionEntryContentForm) SetCriterionId(value string) {
 	x.Doc().SetFormField(x.Path(), "criterionId", value)
 }
 
-func (x *AcceptanceCriterionEntryContentForm) CriterionTitle() string {
-	return x.Doc().FormFieldOr(x.Path(), "criterionTitle")
-}
-
-func (x *AcceptanceCriterionEntryContentForm) SetCriterionTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "criterionTitle", value)
-}
-
 func (x *AcceptanceCriterionEntryContentForm) Given() string {
 	return x.Doc().FormFieldOr(x.Path(), "given")
 }
@@ -45102,14 +45094,6 @@ func (x *AcceptanceStepEntryContentForm) SetStepNumber(value string) {
 	x.Doc().SetFormField(x.Path(), "stepNumber", value)
 }
 
-func (x *AcceptanceStepEntryContentForm) StepName() string {
-	return x.Doc().FormFieldOr(x.Path(), "stepName")
-}
-
-func (x *AcceptanceStepEntryContentForm) SetStepName(value string) {
-	x.Doc().SetFormField(x.Path(), "stepName", value)
-}
-
 func (x *AcceptanceStepEntryContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -45258,14 +45242,6 @@ func (x *AccessLevelEntryContentForm) Content() string {
 
 func (x *AccessLevelEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *AccessLevelEntryContentForm) LevelName() string {
-	return x.Doc().FormFieldOr(x.Path(), "levelName")
-}
-
-func (x *AccessLevelEntryContentForm) SetLevelName(value string) {
-	x.Doc().SetFormField(x.Path(), "levelName", value)
 }
 
 func (x *AccessLevelEntryContentForm) LevelId() string {
@@ -45939,14 +45915,6 @@ func (x *AccessibilityStandardEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *AccessibilityStandardEntryContentForm) StandardName() string {
-	return x.Doc().FormFieldOr(x.Path(), "standardName")
-}
-
-func (x *AccessibilityStandardEntryContentForm) SetStandardName(value string) {
-	x.Doc().SetFormField(x.Path(), "standardName", value)
-}
-
 func (x *AccessibilityStandardEntryContentForm) Version() string {
 	return x.Doc().FormFieldOr(x.Path(), "version")
 }
@@ -46368,14 +46336,6 @@ func (x *ActionParameterEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ActionParameterEntryContentForm) ParameterName() string {
-	return x.Doc().FormFieldOr(x.Path(), "parameterName")
-}
-
-func (x *ActionParameterEntryContentForm) SetParameterName(value string) {
-	x.Doc().SetFormField(x.Path(), "parameterName", value)
-}
-
 func (x *ActionParameterEntryContentForm) SourceType() string {
 	return x.Doc().FormFieldOr(x.Path(), "sourceType")
 }
@@ -46606,14 +46566,6 @@ func (x *ActorEntryIdentificationForm) ActorId() string {
 
 func (x *ActorEntryIdentificationForm) SetActorId(value string) {
 	x.Doc().SetFormField(x.Path(), "actorId", value)
-}
-
-func (x *ActorEntryIdentificationForm) ActorName() string {
-	return x.Doc().FormFieldOr(x.Path(), "actorName")
-}
-
-func (x *ActorEntryIdentificationForm) SetActorName(value string) {
-	x.Doc().SetFormField(x.Path(), "actorName", value)
 }
 
 func (x *ActorEntryIdentificationForm) ActorType() string {
@@ -47870,14 +47822,6 @@ func (x *AffectedDepartmentEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *AffectedDepartmentEntryContentForm) DepartmentName() string {
-	return x.Doc().FormFieldOr(x.Path(), "departmentName")
-}
-
-func (x *AffectedDepartmentEntryContentForm) SetDepartmentName(value string) {
-	x.Doc().SetFormField(x.Path(), "departmentName", value)
-}
-
 func (x *AffectedDepartmentEntryContentForm) DepartmentHead() string {
 	return x.Doc().FormFieldOr(x.Path(), "departmentHead")
 }
@@ -47980,14 +47924,6 @@ func (x *AffectedFunctionEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *AffectedFunctionEntryContentForm) FunctionName() string {
-	return x.Doc().FormFieldOr(x.Path(), "functionName")
-}
-
-func (x *AffectedFunctionEntryContentForm) SetFunctionName(value string) {
-	x.Doc().SetFormField(x.Path(), "functionName", value)
-}
-
 func (x *AffectedFunctionEntryContentForm) TriggerPoint() string {
 	return x.Doc().FormFieldOr(x.Path(), "triggerPoint")
 }
@@ -48036,14 +47972,6 @@ func (x *AffectedObjectEntryContentForm) Content() string {
 
 func (x *AffectedObjectEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *AffectedObjectEntryContentForm) ObjectName() string {
-	return x.Doc().FormFieldOr(x.Path(), "objectName")
-}
-
-func (x *AffectedObjectEntryContentForm) SetObjectName(value string) {
-	x.Doc().SetFormField(x.Path(), "objectName", value)
 }
 
 func (x *AffectedObjectEntryContentForm) AffectedAttributes() string {
@@ -48160,14 +48088,6 @@ func (x *AlertDefinitionEntryContentForm) Content() string {
 
 func (x *AlertDefinitionEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *AlertDefinitionEntryContentForm) AlertName() string {
-	return x.Doc().FormFieldOr(x.Path(), "alertName")
-}
-
-func (x *AlertDefinitionEntryContentForm) SetAlertName(value string) {
-	x.Doc().SetFormField(x.Path(), "alertName", value)
 }
 
 func (x *AlertDefinitionEntryContentForm) AlertDescription() string {
@@ -48805,14 +48725,6 @@ func (x *AlertRuleEntryContentForm) AlertId() string {
 
 func (x *AlertRuleEntryContentForm) SetAlertId(value string) {
 	x.Doc().SetFormField(x.Path(), "alertId", value)
-}
-
-func (x *AlertRuleEntryContentForm) AlertName() string {
-	return x.Doc().FormFieldOr(x.Path(), "alertName")
-}
-
-func (x *AlertRuleEntryContentForm) SetAlertName(value string) {
-	x.Doc().SetFormField(x.Path(), "alertName", value)
 }
 
 func (x *AlertRuleEntryContentForm) AlertDescription() string {
@@ -49613,14 +49525,6 @@ func (x *AlternativeFlowEntryContentForm) SetFlowId(value string) {
 	x.Doc().SetFormField(x.Path(), "flowId", value)
 }
 
-func (x *AlternativeFlowEntryContentForm) FlowName() string {
-	return x.Doc().FormFieldOr(x.Path(), "flowName")
-}
-
-func (x *AlternativeFlowEntryContentForm) SetFlowName(value string) {
-	x.Doc().SetFormField(x.Path(), "flowName", value)
-}
-
 func (x *AlternativeFlowEntryContentForm) FlowType() string {
 	return x.Doc().FormFieldOr(x.Path(), "flowType")
 }
@@ -49841,14 +49745,6 @@ func (x *ApiCompatibilityEntryContentForm) Content() string {
 
 func (x *ApiCompatibilityEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ApiCompatibilityEntryContentForm) ApiName() string {
-	return x.Doc().FormFieldOr(x.Path(), "apiName")
-}
-
-func (x *ApiCompatibilityEntryContentForm) SetApiName(value string) {
-	x.Doc().SetFormField(x.Path(), "apiName", value)
 }
 
 func (x *ApiCompatibilityEntryContentForm) ApiType() string {
@@ -50341,14 +50237,6 @@ func (x *ApplicableRegulationEntryContentForm) Content() string {
 
 func (x *ApplicableRegulationEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ApplicableRegulationEntryContentForm) RegulationName() string {
-	return x.Doc().FormFieldOr(x.Path(), "regulationName")
-}
-
-func (x *ApplicableRegulationEntryContentForm) SetRegulationName(value string) {
-	x.Doc().SetFormField(x.Path(), "regulationName", value)
 }
 
 func (x *ApplicableRegulationEntryContentForm) RegulationCode() string {
@@ -51759,14 +51647,6 @@ func (x *ApprovalRecordContentForm) SetRole(value string) {
 	x.Doc().SetFormField(x.Path(), "role", value)
 }
 
-func (x *ApprovalRecordContentForm) Name() string {
-	return x.Doc().FormFieldOr(x.Path(), "name")
-}
-
-func (x *ApprovalRecordContentForm) SetName(value string) {
-	x.Doc().SetFormField(x.Path(), "name", value)
-}
-
 func (x *ApprovalRecordContentForm) Date() string {
 	return x.Doc().FormFieldOr(x.Path(), "date")
 }
@@ -51857,14 +51737,6 @@ func (x *ArchitectureComponentEntryContentForm) Content() string {
 
 func (x *ArchitectureComponentEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ArchitectureComponentEntryContentForm) ComponentName() string {
-	return x.Doc().FormFieldOr(x.Path(), "componentName")
-}
-
-func (x *ArchitectureComponentEntryContentForm) SetComponentName(value string) {
-	x.Doc().SetFormField(x.Path(), "componentName", value)
 }
 
 func (x *ArchitectureComponentEntryContentForm) ComponentType() string {
@@ -52181,14 +52053,6 @@ func (x *ArchitectureDecisionRecordContentForm) DecisionId() string {
 
 func (x *ArchitectureDecisionRecordContentForm) SetDecisionId(value string) {
 	x.Doc().SetFormField(x.Path(), "decisionId", value)
-}
-
-func (x *ArchitectureDecisionRecordContentForm) Title() string {
-	return x.Doc().FormFieldOr(x.Path(), "title")
-}
-
-func (x *ArchitectureDecisionRecordContentForm) SetTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "title", value)
 }
 
 func (x *ArchitectureDecisionRecordContentForm) Date() string {
@@ -52649,14 +52513,6 @@ func (x *ArchitecturePrincipleEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ArchitecturePrincipleEntryContentForm) PrincipleName() string {
-	return x.Doc().FormFieldOr(x.Path(), "principleName")
-}
-
-func (x *ArchitecturePrincipleEntryContentForm) SetPrincipleName(value string) {
-	x.Doc().SetFormField(x.Path(), "principleName", value)
-}
-
 func (x *ArchitecturePrincipleEntryContentForm) Category() string {
 	return x.Doc().FormFieldOr(x.Path(), "category")
 }
@@ -52887,14 +52743,6 @@ func (x *AuditEntryContentForm) Content() string {
 
 func (x *AuditEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *AuditEntryContentForm) AuditName() string {
-	return x.Doc().FormFieldOr(x.Path(), "auditName")
-}
-
-func (x *AuditEntryContentForm) SetAuditName(value string) {
-	x.Doc().SetFormField(x.Path(), "auditName", value)
 }
 
 func (x *AuditEntryContentForm) AuditType() string {
@@ -53211,14 +53059,6 @@ func (x *AuthenticationMethodEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *AuthenticationMethodEntryContentForm) MethodName() string {
-	return x.Doc().FormFieldOr(x.Path(), "methodName")
-}
-
-func (x *AuthenticationMethodEntryContentForm) SetMethodName(value string) {
-	x.Doc().SetFormField(x.Path(), "methodName", value)
-}
-
 func (x *AuthenticationMethodEntryContentForm) MethodType() string {
 	return x.Doc().FormFieldOr(x.Path(), "methodType")
 }
@@ -53523,14 +53363,6 @@ func (x *AuthorizationGroupEntryContentForm) Content() string {
 
 func (x *AuthorizationGroupEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *AuthorizationGroupEntryContentForm) GroupName() string {
-	return x.Doc().FormFieldOr(x.Path(), "groupName")
-}
-
-func (x *AuthorizationGroupEntryContentForm) SetGroupName(value string) {
-	x.Doc().SetFormField(x.Path(), "groupName", value)
 }
 
 func (x *AuthorizationGroupEntryContentForm) Description() string {
@@ -55262,14 +55094,6 @@ func (x *BackupPolicyEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *BackupPolicyEntryContentForm) PolicyName() string {
-	return x.Doc().FormFieldOr(x.Path(), "policyName")
-}
-
-func (x *BackupPolicyEntryContentForm) SetPolicyName(value string) {
-	x.Doc().SetFormField(x.Path(), "policyName", value)
-}
-
 func (x *BackupPolicyEntryContentForm) DataScope() string {
 	return x.Doc().FormFieldOr(x.Path(), "dataScope")
 }
@@ -56865,14 +56689,6 @@ func (x *BoundedContextEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *BoundedContextEntryContentForm) ContextName() string {
-	return x.Doc().FormFieldOr(x.Path(), "contextName")
-}
-
-func (x *BoundedContextEntryContentForm) SetContextName(value string) {
-	x.Doc().SetFormField(x.Path(), "contextName", value)
-}
-
 func (x *BoundedContextEntryContentForm) DomainArea() string {
 	return x.Doc().FormFieldOr(x.Path(), "domainArea")
 }
@@ -57195,14 +57011,6 @@ func (x *BreakpointEntryContentForm) SetBreakpointId(value string) {
 	x.Doc().SetFormField(x.Path(), "breakpointId", value)
 }
 
-func (x *BreakpointEntryContentForm) BreakpointName() string {
-	return x.Doc().FormFieldOr(x.Path(), "breakpointName")
-}
-
-func (x *BreakpointEntryContentForm) SetBreakpointName(value string) {
-	x.Doc().SetFormField(x.Path(), "breakpointName", value)
-}
-
 func (x *BreakpointEntryContentForm) MinWidth() string {
 	return x.Doc().FormFieldOr(x.Path(), "minWidth")
 }
@@ -57371,14 +57179,6 @@ func (x *BrowserCompatibilityEntryContentForm) Content() string {
 
 func (x *BrowserCompatibilityEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *BrowserCompatibilityEntryContentForm) BrowserName() string {
-	return x.Doc().FormFieldOr(x.Path(), "browserName")
-}
-
-func (x *BrowserCompatibilityEntryContentForm) SetBrowserName(value string) {
-	x.Doc().SetFormField(x.Path(), "browserName", value)
 }
 
 func (x *BrowserCompatibilityEntryContentForm) BrowserEngine() string {
@@ -57968,14 +57768,6 @@ func (x *BuildToolchainEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *BuildToolchainEntryContentForm) ToolName() string {
-	return x.Doc().FormFieldOr(x.Path(), "toolName")
-}
-
-func (x *BuildToolchainEntryContentForm) SetToolName(value string) {
-	x.Doc().SetFormField(x.Path(), "toolName", value)
-}
-
 func (x *BuildToolchainEntryContentForm) ToolCategory() string {
 	return x.Doc().FormFieldOr(x.Path(), "toolCategory")
 }
@@ -58502,14 +58294,6 @@ func (x *BusinessComponentEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *BusinessComponentEntryContentForm) ComponentName() string {
-	return x.Doc().FormFieldOr(x.Path(), "componentName")
-}
-
-func (x *BusinessComponentEntryContentForm) SetComponentName(value string) {
-	x.Doc().SetFormField(x.Path(), "componentName", value)
-}
-
 func (x *BusinessComponentEntryContentForm) ComponentType() string {
 	return x.Doc().FormFieldOr(x.Path(), "componentType")
 }
@@ -58816,14 +58600,6 @@ func (x *BusinessGoalEntryContentForm) GoalId() string {
 
 func (x *BusinessGoalEntryContentForm) SetGoalId(value string) {
 	x.Doc().SetFormField(x.Path(), "goalId", value)
-}
-
-func (x *BusinessGoalEntryContentForm) GoalName() string {
-	return x.Doc().FormFieldOr(x.Path(), "goalName")
-}
-
-func (x *BusinessGoalEntryContentForm) SetGoalName(value string) {
-	x.Doc().SetFormField(x.Path(), "goalName", value)
 }
 
 func (x *BusinessGoalEntryContentForm) GoalCategory() string {
@@ -59511,14 +59287,6 @@ func (x *BusinessObjectAttributeEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *BusinessObjectAttributeEntryContentForm) AttributeName() string {
-	return x.Doc().FormFieldOr(x.Path(), "attributeName")
-}
-
-func (x *BusinessObjectAttributeEntryContentForm) SetAttributeName(value string) {
-	x.Doc().SetFormField(x.Path(), "attributeName", value)
-}
-
 func (x *BusinessObjectAttributeEntryContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -59775,14 +59543,6 @@ func (x *BusinessObjectEntryIdentityForm) Content() string {
 
 func (x *BusinessObjectEntryIdentityForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *BusinessObjectEntryIdentityForm) ObjectName() string {
-	return x.Doc().FormFieldOr(x.Path(), "objectName")
-}
-
-func (x *BusinessObjectEntryIdentityForm) SetObjectName(value string) {
-	x.Doc().SetFormField(x.Path(), "objectName", value)
 }
 
 func (x *BusinessObjectEntryIdentityForm) ObjectAlias() string {
@@ -60247,14 +60007,6 @@ func (x *BusinessRuleEntryIdentityForm) SetRuleId(value string) {
 	x.Doc().SetFormField(x.Path(), "ruleId", value)
 }
 
-func (x *BusinessRuleEntryIdentityForm) RuleName() string {
-	return x.Doc().FormFieldOr(x.Path(), "ruleName")
-}
-
-func (x *BusinessRuleEntryIdentityForm) SetRuleName(value string) {
-	x.Doc().SetFormField(x.Path(), "ruleName", value)
-}
-
 func (x *BusinessRuleEntryIdentityForm) RuleVersion() string {
 	return x.Doc().FormFieldOr(x.Path(), "ruleVersion")
 }
@@ -60443,14 +60195,6 @@ func (x *BusinessRuleReferenceEntryContentForm) RuleId() string {
 
 func (x *BusinessRuleReferenceEntryContentForm) SetRuleId(value string) {
 	x.Doc().SetFormField(x.Path(), "ruleId", value)
-}
-
-func (x *BusinessRuleReferenceEntryContentForm) RuleName() string {
-	return x.Doc().FormFieldOr(x.Path(), "ruleName")
-}
-
-func (x *BusinessRuleReferenceEntryContentForm) SetRuleName(value string) {
-	x.Doc().SetFormField(x.Path(), "ruleName", value)
 }
 
 func (x *BusinessRuleReferenceEntryContentForm) RuleType() string {
@@ -60785,14 +60529,6 @@ func (x *CcbMemberEntryContentForm) Content() string {
 
 func (x *CcbMemberEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *CcbMemberEntryContentForm) Name() string {
-	return x.Doc().FormFieldOr(x.Path(), "name")
-}
-
-func (x *CcbMemberEntryContentForm) SetName(value string) {
-	x.Doc().SetFormField(x.Path(), "name", value)
 }
 
 func (x *CcbMemberEntryContentForm) Role() string {
@@ -61159,14 +60895,6 @@ func (x *CertificationEntryContentForm) CertificationId() string {
 
 func (x *CertificationEntryContentForm) SetCertificationId(value string) {
 	x.Doc().SetFormField(x.Path(), "certificationId", value)
-}
-
-func (x *CertificationEntryContentForm) CertificationName() string {
-	return x.Doc().FormFieldOr(x.Path(), "certificationName")
-}
-
-func (x *CertificationEntryContentForm) SetCertificationName(value string) {
-	x.Doc().SetFormField(x.Path(), "certificationName", value)
 }
 
 func (x *CertificationEntryContentForm) IssuingBody() string {
@@ -61717,14 +61445,6 @@ func (x *ChangeCategoryEntryContentForm) CategoryId() string {
 
 func (x *ChangeCategoryEntryContentForm) SetCategoryId(value string) {
 	x.Doc().SetFormField(x.Path(), "categoryId", value)
-}
-
-func (x *ChangeCategoryEntryContentForm) CategoryName() string {
-	return x.Doc().FormFieldOr(x.Path(), "categoryName")
-}
-
-func (x *ChangeCategoryEntryContentForm) SetCategoryName(value string) {
-	x.Doc().SetFormField(x.Path(), "categoryName", value)
 }
 
 func (x *ChangeCategoryEntryContentForm) Description() string {
@@ -62851,14 +62571,6 @@ func (x *ChangeRoleEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ChangeRoleEntryContentForm) RoleName() string {
-	return x.Doc().FormFieldOr(x.Path(), "roleName")
-}
-
-func (x *ChangeRoleEntryContentForm) SetRoleName(value string) {
-	x.Doc().SetFormField(x.Path(), "roleName", value)
-}
-
 func (x *ChangeRoleEntryContentForm) Responsibility() string {
 	return x.Doc().FormFieldOr(x.Path(), "responsibility")
 }
@@ -63001,14 +62713,6 @@ func (x *ChangeStepEntryContentForm) SetStepNumber(value *int) {
 		return
 	}
 	x.Doc().SetFormField(x.Path(), "stepNumber", strconv.Itoa(*value))
-}
-
-func (x *ChangeStepEntryContentForm) StepName() string {
-	return x.Doc().FormFieldOr(x.Path(), "stepName")
-}
-
-func (x *ChangeStepEntryContentForm) SetStepName(value string) {
-	x.Doc().SetFormField(x.Path(), "stepName", value)
 }
 
 func (x *ChangeStepEntryContentForm) Description() string {
@@ -63507,14 +63211,6 @@ func (x *ChangedRoleIdentificationContentForm) RoleId() string {
 
 func (x *ChangedRoleIdentificationContentForm) SetRoleId(value string) {
 	x.Doc().SetFormField(x.Path(), "roleId", value)
-}
-
-func (x *ChangedRoleIdentificationContentForm) RoleTitle() string {
-	return x.Doc().FormFieldOr(x.Path(), "roleTitle")
-}
-
-func (x *ChangedRoleIdentificationContentForm) SetRoleTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "roleTitle", value)
 }
 
 func (x *ChangedRoleIdentificationContentForm) NewRoleTitle() string {
@@ -64769,14 +64465,6 @@ func (x *ClientApplicationEntryContentForm) ClientId() string {
 
 func (x *ClientApplicationEntryContentForm) SetClientId(value string) {
 	x.Doc().SetFormField(x.Path(), "clientId", value)
-}
-
-func (x *ClientApplicationEntryContentForm) ClientName() string {
-	return x.Doc().FormFieldOr(x.Path(), "clientName")
-}
-
-func (x *ClientApplicationEntryContentForm) SetClientName(value string) {
-	x.Doc().SetFormField(x.Path(), "clientName", value)
 }
 
 func (x *ClientApplicationEntryContentForm) ClientKind() string {
@@ -67007,14 +66695,6 @@ func (x *CodingStandardEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *CodingStandardEntryContentForm) StandardName() string {
-	return x.Doc().FormFieldOr(x.Path(), "standardName")
-}
-
-func (x *CodingStandardEntryContentForm) SetStandardName(value string) {
-	x.Doc().SetFormField(x.Path(), "standardName", value)
-}
-
 func (x *CodingStandardEntryContentForm) StandardCategory() string {
 	return x.Doc().FormFieldOr(x.Path(), "standardCategory")
 }
@@ -67578,14 +67258,6 @@ func (x *ColorPaletteEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ColorPaletteEntryContentForm) PaletteName() string {
-	return x.Doc().FormFieldOr(x.Path(), "paletteName")
-}
-
-func (x *ColorPaletteEntryContentForm) SetPaletteName(value string) {
-	x.Doc().SetFormField(x.Path(), "paletteName", value)
-}
-
 func (x *ColorPaletteEntryContentForm) PaletteRole() string {
 	return x.Doc().FormFieldOr(x.Path(), "paletteRole")
 }
@@ -67754,14 +67426,6 @@ func (x *CommitteeMemberEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *CommitteeMemberEntryContentForm) Name() string {
-	return x.Doc().FormFieldOr(x.Path(), "name")
-}
-
-func (x *CommitteeMemberEntryContentForm) SetName(value string) {
-	x.Doc().SetFormField(x.Path(), "name", value)
-}
-
 func (x *CommitteeMemberEntryContentForm) OrganizationRole() string {
 	return x.Doc().FormFieldOr(x.Path(), "organizationRole")
 }
@@ -67902,14 +67566,6 @@ func (x *CommunicationChannelEncryptionEntryContentForm) SetContent(value string
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *CommunicationChannelEncryptionEntryContentForm) ChannelName() string {
-	return x.Doc().FormFieldOr(x.Path(), "channelName")
-}
-
-func (x *CommunicationChannelEncryptionEntryContentForm) SetChannelName(value string) {
-	x.Doc().SetFormField(x.Path(), "channelName", value)
-}
-
 func (x *CommunicationChannelEncryptionEntryContentForm) ChannelType() string {
 	return x.Doc().FormFieldOr(x.Path(), "channelType")
 }
@@ -68037,14 +67693,6 @@ func (x *CommunicationEventEntryContentForm) EventId() string {
 
 func (x *CommunicationEventEntryContentForm) SetEventId(value string) {
 	x.Doc().SetFormField(x.Path(), "eventId", value)
-}
-
-func (x *CommunicationEventEntryContentForm) EventName() string {
-	return x.Doc().FormFieldOr(x.Path(), "eventName")
-}
-
-func (x *CommunicationEventEntryContentForm) SetEventName(value string) {
-	x.Doc().SetFormField(x.Path(), "eventName", value)
 }
 
 func (x *CommunicationEventEntryContentForm) EventType() string {
@@ -68865,14 +68513,6 @@ func (x *CompetencyEntryContentForm) SetCompetencyId(value string) {
 	x.Doc().SetFormField(x.Path(), "competencyId", value)
 }
 
-func (x *CompetencyEntryContentForm) CompetencyName() string {
-	return x.Doc().FormFieldOr(x.Path(), "competencyName")
-}
-
-func (x *CompetencyEntryContentForm) SetCompetencyName(value string) {
-	x.Doc().SetFormField(x.Path(), "competencyName", value)
-}
-
 func (x *CompetencyEntryContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -69019,14 +68659,6 @@ func (x *CompetencyLevelChangeEntryContentForm) Content() string {
 
 func (x *CompetencyLevelChangeEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *CompetencyLevelChangeEntryContentForm) CompetencyName() string {
-	return x.Doc().FormFieldOr(x.Path(), "competencyName")
-}
-
-func (x *CompetencyLevelChangeEntryContentForm) SetCompetencyName(value string) {
-	x.Doc().SetFormField(x.Path(), "competencyName", value)
 }
 
 func (x *CompetencyLevelChangeEntryContentForm) CurrentLevel() string {
@@ -69309,14 +68941,6 @@ func (x *ComplianceMilestoneEntryContentForm) Content() string {
 
 func (x *ComplianceMilestoneEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ComplianceMilestoneEntryContentForm) MilestoneName() string {
-	return x.Doc().FormFieldOr(x.Path(), "milestoneName")
-}
-
-func (x *ComplianceMilestoneEntryContentForm) SetMilestoneName(value string) {
-	x.Doc().SetFormField(x.Path(), "milestoneName", value)
 }
 
 func (x *ComplianceMilestoneEntryContentForm) Regulation() string {
@@ -69759,14 +69383,6 @@ func (x *ComponentActionEntryContentForm) SetActionId(value string) {
 	x.Doc().SetFormField(x.Path(), "actionId", value)
 }
 
-func (x *ComponentActionEntryContentForm) ActionName() string {
-	return x.Doc().FormFieldOr(x.Path(), "actionName")
-}
-
-func (x *ComponentActionEntryContentForm) SetActionName(value string) {
-	x.Doc().SetFormField(x.Path(), "actionName", value)
-}
-
 func (x *ComponentActionEntryContentForm) ActionTrigger() string {
 	return x.Doc().FormFieldOr(x.Path(), "actionTrigger")
 }
@@ -70057,14 +69673,6 @@ func (x *ComponentEntryContentForm) ComponentId() string {
 
 func (x *ComponentEntryContentForm) SetComponentId(value string) {
 	x.Doc().SetFormField(x.Path(), "componentId", value)
-}
-
-func (x *ComponentEntryContentForm) ComponentName() string {
-	return x.Doc().FormFieldOr(x.Path(), "componentName")
-}
-
-func (x *ComponentEntryContentForm) SetComponentName(value string) {
-	x.Doc().SetFormField(x.Path(), "componentName", value)
 }
 
 func (x *ComponentEntryContentForm) Category() string {
@@ -70443,14 +70051,6 @@ func (x *ComponentFamilyEntryContentForm) SetFamilyId(value string) {
 	x.Doc().SetFormField(x.Path(), "familyId", value)
 }
 
-func (x *ComponentFamilyEntryContentForm) FamilyName() string {
-	return x.Doc().FormFieldOr(x.Path(), "familyName")
-}
-
-func (x *ComponentFamilyEntryContentForm) SetFamilyName(value string) {
-	x.Doc().SetFormField(x.Path(), "familyName", value)
-}
-
 func (x *ComponentFamilyEntryContentForm) FamilyDescription() string {
 	return x.Doc().FormFieldOr(x.Path(), "familyDescription")
 }
@@ -70777,14 +70377,6 @@ func (x *ComponentInterfaceEntryContentForm) Content() string {
 
 func (x *ComponentInterfaceEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ComponentInterfaceEntryContentForm) InterfaceName() string {
-	return x.Doc().FormFieldOr(x.Path(), "interfaceName")
-}
-
-func (x *ComponentInterfaceEntryContentForm) SetInterfaceName(value string) {
-	x.Doc().SetFormField(x.Path(), "interfaceName", value)
 }
 
 func (x *ComponentInterfaceEntryContentForm) InterfaceType() string {
@@ -71983,14 +71575,6 @@ func (x *ComponentPropertyEntryContentForm) SetPropertyId(value string) {
 	x.Doc().SetFormField(x.Path(), "propertyId", value)
 }
 
-func (x *ComponentPropertyEntryContentForm) PropertyName() string {
-	return x.Doc().FormFieldOr(x.Path(), "propertyName")
-}
-
-func (x *ComponentPropertyEntryContentForm) SetPropertyName(value string) {
-	x.Doc().SetFormField(x.Path(), "propertyName", value)
-}
-
 func (x *ComponentPropertyEntryContentForm) PropertyType() string {
 	return x.Doc().FormFieldOr(x.Path(), "propertyType")
 }
@@ -72751,14 +72335,6 @@ func (x *ComponentRiskEntryContentForm) SetComponentRef(value string) {
 	x.Doc().SetFormField(x.Path(), "componentRef", value)
 }
 
-func (x *ComponentRiskEntryContentForm) RiskTitle() string {
-	return x.Doc().FormFieldOr(x.Path(), "riskTitle")
-}
-
-func (x *ComponentRiskEntryContentForm) SetRiskTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "riskTitle", value)
-}
-
 // ComponentRiskEntryDescriptionForm is the generated section facade for the `description` @Form section: its own
 // content text followed by one typed member per form field.
 type ComponentRiskEntryDescriptionForm struct {
@@ -73009,14 +72585,6 @@ func (x *ComponentSlotEntryContentForm) SetSlotId(value string) {
 	x.Doc().SetFormField(x.Path(), "slotId", value)
 }
 
-func (x *ComponentSlotEntryContentForm) SlotName() string {
-	return x.Doc().FormFieldOr(x.Path(), "slotName")
-}
-
-func (x *ComponentSlotEntryContentForm) SetSlotName(value string) {
-	x.Doc().SetFormField(x.Path(), "slotName", value)
-}
-
 func (x *ComponentSlotEntryContentForm) SlotDescription() string {
 	return x.Doc().FormFieldOr(x.Path(), "slotDescription")
 }
@@ -73152,14 +72720,6 @@ func (x *ComponentStateEntryContentForm) StateId() string {
 
 func (x *ComponentStateEntryContentForm) SetStateId(value string) {
 	x.Doc().SetFormField(x.Path(), "stateId", value)
-}
-
-func (x *ComponentStateEntryContentForm) StateName() string {
-	return x.Doc().FormFieldOr(x.Path(), "stateName")
-}
-
-func (x *ComponentStateEntryContentForm) SetStateName(value string) {
-	x.Doc().SetFormField(x.Path(), "stateName", value)
 }
 
 func (x *ComponentStateEntryContentForm) StateDescription() string {
@@ -73704,14 +73264,6 @@ func (x *ComponentVariantEntryContentForm) VariantId() string {
 
 func (x *ComponentVariantEntryContentForm) SetVariantId(value string) {
 	x.Doc().SetFormField(x.Path(), "variantId", value)
-}
-
-func (x *ComponentVariantEntryContentForm) VariantName() string {
-	return x.Doc().FormFieldOr(x.Path(), "variantName")
-}
-
-func (x *ComponentVariantEntryContentForm) SetVariantName(value string) {
-	x.Doc().SetFormField(x.Path(), "variantName", value)
 }
 
 func (x *ComponentVariantEntryContentForm) VariantDescription() string {
@@ -74348,14 +73900,6 @@ func (x *ConfidentialInfoCategoryEntryContentForm) Content() string {
 
 func (x *ConfidentialInfoCategoryEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ConfidentialInfoCategoryEntryContentForm) CategoryName() string {
-	return x.Doc().FormFieldOr(x.Path(), "categoryName")
-}
-
-func (x *ConfidentialInfoCategoryEntryContentForm) SetCategoryName(value string) {
-	x.Doc().SetFormField(x.Path(), "categoryName", value)
 }
 
 func (x *ConfidentialInfoCategoryEntryContentForm) Description() string {
@@ -75962,14 +75506,6 @@ func (x *ContingencyPlanEntryContentForm) SetContingencyId(value string) {
 	x.Doc().SetFormField(x.Path(), "contingencyId", value)
 }
 
-func (x *ContingencyPlanEntryContentForm) PlanTitle() string {
-	return x.Doc().FormFieldOr(x.Path(), "planTitle")
-}
-
-func (x *ContingencyPlanEntryContentForm) SetPlanTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "planTitle", value)
-}
-
 func (x *ContingencyPlanEntryContentForm) TriggerCondition() string {
 	return x.Doc().FormFieldOr(x.Path(), "triggerCondition")
 }
@@ -76694,14 +76230,6 @@ func (x *CurrentBusinessProcessContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *CurrentBusinessProcessContentForm) ProcessName() string {
-	return x.Doc().FormFieldOr(x.Path(), "processName")
-}
-
-func (x *CurrentBusinessProcessContentForm) SetProcessName(value string) {
-	x.Doc().SetFormField(x.Path(), "processName", value)
-}
-
 func (x *CurrentBusinessProcessContentForm) ProcessOwner() string {
 	return x.Doc().FormFieldOr(x.Path(), "processOwner")
 }
@@ -77148,14 +76676,6 @@ func (x *CurrentWorkflowEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *CurrentWorkflowEntryContentForm) WorkflowName() string {
-	return x.Doc().FormFieldOr(x.Path(), "workflowName")
-}
-
-func (x *CurrentWorkflowEntryContentForm) SetWorkflowName(value string) {
-	x.Doc().SetFormField(x.Path(), "workflowName", value)
-}
-
 func (x *CurrentWorkflowEntryContentForm) WorkflowId() string {
 	return x.Doc().FormFieldOr(x.Path(), "workflowId")
 }
@@ -77304,14 +76824,6 @@ func (x *CustomDistributionGroupContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *CustomDistributionGroupContentForm) GroupName() string {
-	return x.Doc().FormFieldOr(x.Path(), "groupName")
-}
-
-func (x *CustomDistributionGroupContentForm) SetGroupName(value string) {
-	x.Doc().SetFormField(x.Path(), "groupName", value)
-}
-
 func (x *CustomDistributionGroupContentForm) Purpose() string {
 	return x.Doc().FormFieldOr(x.Path(), "purpose")
 }
@@ -77368,14 +76880,6 @@ func (x *CustomMetricEntryContentForm) Content() string {
 
 func (x *CustomMetricEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *CustomMetricEntryContentForm) MetricName() string {
-	return x.Doc().FormFieldOr(x.Path(), "metricName")
-}
-
-func (x *CustomMetricEntryContentForm) SetMetricName(value string) {
-	x.Doc().SetFormField(x.Path(), "metricName", value)
 }
 
 func (x *CustomMetricEntryContentForm) MetricType() string {
@@ -77545,14 +77049,6 @@ func (x *DashboardEntryContentForm) DashboardId() string {
 
 func (x *DashboardEntryContentForm) SetDashboardId(value string) {
 	x.Doc().SetFormField(x.Path(), "dashboardId", value)
-}
-
-func (x *DashboardEntryContentForm) DashboardName() string {
-	return x.Doc().FormFieldOr(x.Path(), "dashboardName")
-}
-
-func (x *DashboardEntryContentForm) SetDashboardName(value string) {
-	x.Doc().SetFormField(x.Path(), "dashboardName", value)
 }
 
 func (x *DashboardEntryContentForm) DashboardCategory() string {
@@ -78855,14 +78351,6 @@ func (x *DataAttributeEntryIdentityForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *DataAttributeEntryIdentityForm) AttributeName() string {
-	return x.Doc().FormFieldOr(x.Path(), "attributeName")
-}
-
-func (x *DataAttributeEntryIdentityForm) SetAttributeName(value string) {
-	x.Doc().SetFormField(x.Path(), "attributeName", value)
-}
-
 func (x *DataAttributeEntryIdentityForm) ColumnName() string {
 	return x.Doc().FormFieldOr(x.Path(), "columnName")
 }
@@ -79295,14 +78783,6 @@ func (x *DataClassificationEntryIdentityForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *DataClassificationEntryIdentityForm) ClassificationName() string {
-	return x.Doc().FormFieldOr(x.Path(), "classificationName")
-}
-
-func (x *DataClassificationEntryIdentityForm) SetClassificationName(value string) {
-	x.Doc().SetFormField(x.Path(), "classificationName", value)
-}
-
 func (x *DataClassificationEntryIdentityForm) ClassificationLevel() string {
 	return x.Doc().FormFieldOr(x.Path(), "classificationLevel")
 }
@@ -79491,14 +78971,6 @@ func (x *DataClassificationLevelEntryContentForm) Content() string {
 
 func (x *DataClassificationLevelEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *DataClassificationLevelEntryContentForm) LevelName() string {
-	return x.Doc().FormFieldOr(x.Path(), "levelName")
-}
-
-func (x *DataClassificationLevelEntryContentForm) SetLevelName(value string) {
-	x.Doc().SetFormField(x.Path(), "levelName", value)
 }
 
 func (x *DataClassificationLevelEntryContentForm) LevelOrder() *int {
@@ -80365,14 +79837,6 @@ func (x *DataEntityMigrationEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *DataEntityMigrationEntryContentForm) EntityName() string {
-	return x.Doc().FormFieldOr(x.Path(), "entityName")
-}
-
-func (x *DataEntityMigrationEntryContentForm) SetEntityName(value string) {
-	x.Doc().SetFormField(x.Path(), "entityName", value)
-}
-
 func (x *DataEntityMigrationEntryContentForm) RecordCount() string {
 	return x.Doc().FormFieldOr(x.Path(), "recordCount")
 }
@@ -80437,14 +79901,6 @@ func (x *DataEntityReferenceEntryContentForm) Content() string {
 
 func (x *DataEntityReferenceEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *DataEntityReferenceEntryContentForm) EntityName() string {
-	return x.Doc().FormFieldOr(x.Path(), "entityName")
-}
-
-func (x *DataEntityReferenceEntryContentForm) SetEntityName(value string) {
-	x.Doc().SetFormField(x.Path(), "entityName", value)
 }
 
 func (x *DataEntityReferenceEntryContentForm) CrudOperations() string {
@@ -80898,14 +80354,6 @@ func (x *DataGovernancePolicyEntryContentForm) SetPolicyId(value string) {
 	x.Doc().SetFormField(x.Path(), "policyId", value)
 }
 
-func (x *DataGovernancePolicyEntryContentForm) PolicyName() string {
-	return x.Doc().FormFieldOr(x.Path(), "policyName")
-}
-
-func (x *DataGovernancePolicyEntryContentForm) SetPolicyName(value string) {
-	x.Doc().SetFormField(x.Path(), "policyName", value)
-}
-
 func (x *DataGovernancePolicyEntryContentForm) PolicyArea() string {
 	return x.Doc().FormFieldOr(x.Path(), "policyArea")
 }
@@ -81320,14 +80768,6 @@ func (x *DataIntegrationEntryContentForm) IntegrationId() string {
 
 func (x *DataIntegrationEntryContentForm) SetIntegrationId(value string) {
 	x.Doc().SetFormField(x.Path(), "integrationId", value)
-}
-
-func (x *DataIntegrationEntryContentForm) IntegrationName() string {
-	return x.Doc().FormFieldOr(x.Path(), "integrationName")
-}
-
-func (x *DataIntegrationEntryContentForm) SetIntegrationName(value string) {
-	x.Doc().SetFormField(x.Path(), "integrationName", value)
 }
 
 func (x *DataIntegrationEntryContentForm) Description() string {
@@ -83360,14 +82800,6 @@ func (x *DataQualityInitiativeEntryContentForm) SetInitiativeId(value string) {
 	x.Doc().SetFormField(x.Path(), "initiativeId", value)
 }
 
-func (x *DataQualityInitiativeEntryContentForm) InitiativeName() string {
-	return x.Doc().FormFieldOr(x.Path(), "initiativeName")
-}
-
-func (x *DataQualityInitiativeEntryContentForm) SetInitiativeName(value string) {
-	x.Doc().SetFormField(x.Path(), "initiativeName", value)
-}
-
 func (x *DataQualityInitiativeEntryContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -83490,14 +82922,6 @@ func (x *DataQualityIssueEntryContentForm) IssueId() string {
 
 func (x *DataQualityIssueEntryContentForm) SetIssueId(value string) {
 	x.Doc().SetFormField(x.Path(), "issueId", value)
-}
-
-func (x *DataQualityIssueEntryContentForm) IssueTitle() string {
-	return x.Doc().FormFieldOr(x.Path(), "issueTitle")
-}
-
-func (x *DataQualityIssueEntryContentForm) SetIssueTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "issueTitle", value)
 }
 
 func (x *DataQualityIssueEntryContentForm) Description() string {
@@ -83970,14 +83394,6 @@ func (x *DataSourceEntityEntryContentForm) Content() string {
 
 func (x *DataSourceEntityEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *DataSourceEntityEntryContentForm) EntityName() string {
-	return x.Doc().FormFieldOr(x.Path(), "entityName")
-}
-
-func (x *DataSourceEntityEntryContentForm) SetEntityName(value string) {
-	x.Doc().SetFormField(x.Path(), "entityName", value)
 }
 
 func (x *DataSourceEntityEntryContentForm) Description() string {
@@ -85274,14 +84690,6 @@ func (x *DatabaseCompatibilityEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *DatabaseCompatibilityEntryContentForm) DatabaseName() string {
-	return x.Doc().FormFieldOr(x.Path(), "databaseName")
-}
-
-func (x *DatabaseCompatibilityEntryContentForm) SetDatabaseName(value string) {
-	x.Doc().SetFormField(x.Path(), "databaseName", value)
-}
-
 func (x *DatabaseCompatibilityEntryContentForm) DatabaseType() string {
 	return x.Doc().FormFieldOr(x.Path(), "databaseType")
 }
@@ -85872,22 +85280,6 @@ func (x *DecisionMakerEntryContentForm) Content() string {
 
 func (x *DecisionMakerEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *DecisionMakerEntryContentForm) Name() string {
-	return x.Doc().FormFieldOr(x.Path(), "name")
-}
-
-func (x *DecisionMakerEntryContentForm) SetName(value string) {
-	x.Doc().SetFormField(x.Path(), "name", value)
-}
-
-func (x *DecisionMakerEntryContentForm) Title() string {
-	return x.Doc().FormFieldOr(x.Path(), "title")
-}
-
-func (x *DecisionMakerEntryContentForm) SetTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "title", value)
 }
 
 func (x *DecisionMakerEntryContentForm) Department() string {
@@ -87128,14 +86520,6 @@ func (x *DeliverableEntryContentForm) DeliverableId() string {
 
 func (x *DeliverableEntryContentForm) SetDeliverableId(value string) {
 	x.Doc().SetFormField(x.Path(), "deliverableId", value)
-}
-
-func (x *DeliverableEntryContentForm) DeliverableName() string {
-	return x.Doc().FormFieldOr(x.Path(), "deliverableName")
-}
-
-func (x *DeliverableEntryContentForm) SetDeliverableName(value string) {
-	x.Doc().SetFormField(x.Path(), "deliverableName", value)
 }
 
 func (x *DeliverableEntryContentForm) Priority() string {
@@ -89188,14 +88572,6 @@ func (x *DeploymentEnvironmentEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *DeploymentEnvironmentEntryContentForm) EnvironmentName() string {
-	return x.Doc().FormFieldOr(x.Path(), "environmentName")
-}
-
-func (x *DeploymentEnvironmentEntryContentForm) SetEnvironmentName(value string) {
-	x.Doc().SetFormField(x.Path(), "environmentName", value)
-}
-
 func (x *DeploymentEnvironmentEntryContentForm) EnvironmentType() string {
 	return x.Doc().FormFieldOr(x.Path(), "environmentType")
 }
@@ -90109,14 +89485,6 @@ func (x *DeploymentTargetEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *DeploymentTargetEntryContentForm) TargetName() string {
-	return x.Doc().FormFieldOr(x.Path(), "targetName")
-}
-
-func (x *DeploymentTargetEntryContentForm) SetTargetName(value string) {
-	x.Doc().SetFormField(x.Path(), "targetName", value)
-}
-
 func (x *DeploymentTargetEntryContentForm) TargetCategory() string {
 	return x.Doc().FormFieldOr(x.Path(), "targetCategory")
 }
@@ -90667,14 +90035,6 @@ func (x *DesignGoalEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *DesignGoalEntryContentForm) GoalName() string {
-	return x.Doc().FormFieldOr(x.Path(), "goalName")
-}
-
-func (x *DesignGoalEntryContentForm) SetGoalName(value string) {
-	x.Doc().SetFormField(x.Path(), "goalName", value)
-}
-
 func (x *DesignGoalEntryContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -90789,14 +90149,6 @@ func (x *DesignPatternEntryContentForm) Content() string {
 
 func (x *DesignPatternEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *DesignPatternEntryContentForm) PatternName() string {
-	return x.Doc().FormFieldOr(x.Path(), "patternName")
-}
-
-func (x *DesignPatternEntryContentForm) SetPatternName(value string) {
-	x.Doc().SetFormField(x.Path(), "patternName", value)
 }
 
 func (x *DesignPatternEntryContentForm) PatternCategory() string {
@@ -91039,14 +90391,6 @@ func (x *DesignPrincipleEntryContentForm) Content() string {
 
 func (x *DesignPrincipleEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *DesignPrincipleEntryContentForm) PrincipleName() string {
-	return x.Doc().FormFieldOr(x.Path(), "principleName")
-}
-
-func (x *DesignPrincipleEntryContentForm) SetPrincipleName(value string) {
-	x.Doc().SetFormField(x.Path(), "principleName", value)
 }
 
 func (x *DesignPrincipleEntryContentForm) Description() string {
@@ -91776,14 +91120,6 @@ func (x *DevelopmentConventionEntryContentForm) Content() string {
 
 func (x *DevelopmentConventionEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *DevelopmentConventionEntryContentForm) ConventionName() string {
-	return x.Doc().FormFieldOr(x.Path(), "conventionName")
-}
-
-func (x *DevelopmentConventionEntryContentForm) SetConventionName(value string) {
-	x.Doc().SetFormField(x.Path(), "conventionName", value)
 }
 
 func (x *DevelopmentConventionEntryContentForm) ConventionCategory() string {
@@ -92911,14 +92247,6 @@ func (x *DisplayPropertyEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *DisplayPropertyEntryContentForm) DisplayLabel() string {
-	return x.Doc().FormFieldOr(x.Path(), "displayLabel")
-}
-
-func (x *DisplayPropertyEntryContentForm) SetDisplayLabel(value string) {
-	x.Doc().SetFormField(x.Path(), "displayLabel", value)
-}
-
 func (x *DisplayPropertyEntryContentForm) DisplayOrder() string {
 	return x.Doc().FormFieldOr(x.Path(), "displayOrder")
 }
@@ -93853,14 +93181,6 @@ func (x *DistributionRecipientEntryContentForm) Content() string {
 
 func (x *DistributionRecipientEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *DistributionRecipientEntryContentForm) Name() string {
-	return x.Doc().FormFieldOr(x.Path(), "name")
-}
-
-func (x *DistributionRecipientEntryContentForm) SetName(value string) {
-	x.Doc().SetFormField(x.Path(), "name", value)
 }
 
 func (x *DistributionRecipientEntryContentForm) Role() string {
@@ -95747,14 +95067,6 @@ func (x *DomainBusinessRuleEntryContentForm) SetRuleId(value string) {
 	x.Doc().SetFormField(x.Path(), "ruleId", value)
 }
 
-func (x *DomainBusinessRuleEntryContentForm) RuleName() string {
-	return x.Doc().FormFieldOr(x.Path(), "ruleName")
-}
-
-func (x *DomainBusinessRuleEntryContentForm) SetRuleName(value string) {
-	x.Doc().SetFormField(x.Path(), "ruleName", value)
-}
-
 func (x *DomainBusinessRuleEntryContentForm) RuleType() string {
 	return x.Doc().FormFieldOr(x.Path(), "ruleType")
 }
@@ -96027,14 +95339,6 @@ func (x *DomainEventEntryContentForm) Content() string {
 
 func (x *DomainEventEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *DomainEventEntryContentForm) EventName() string {
-	return x.Doc().FormFieldOr(x.Path(), "eventName")
-}
-
-func (x *DomainEventEntryContentForm) SetEventName(value string) {
-	x.Doc().SetFormField(x.Path(), "eventName", value)
 }
 
 func (x *DomainEventEntryContentForm) EventDescription() string {
@@ -96313,14 +95617,6 @@ func (x *DomainProcessEntryContentForm) Content() string {
 
 func (x *DomainProcessEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *DomainProcessEntryContentForm) ProcessName() string {
-	return x.Doc().FormFieldOr(x.Path(), "processName")
-}
-
-func (x *DomainProcessEntryContentForm) SetProcessName(value string) {
-	x.Doc().SetFormField(x.Path(), "processName", value)
 }
 
 func (x *DomainProcessEntryContentForm) ProcessDescription() string {
@@ -97098,14 +96394,6 @@ func (x *EncryptedDataCategoryEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *EncryptedDataCategoryEntryContentForm) CategoryName() string {
-	return x.Doc().FormFieldOr(x.Path(), "categoryName")
-}
-
-func (x *EncryptedDataCategoryEntryContentForm) SetCategoryName(value string) {
-	x.Doc().SetFormField(x.Path(), "categoryName", value)
-}
-
 func (x *EncryptedDataCategoryEntryContentForm) DataClassification() string {
 	return x.Doc().FormFieldOr(x.Path(), "dataClassification")
 }
@@ -97211,14 +96499,6 @@ func (x *EnterpriseSystemCompatibilityEntryContentForm) Content() string {
 
 func (x *EnterpriseSystemCompatibilityEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *EnterpriseSystemCompatibilityEntryContentForm) SystemName() string {
-	return x.Doc().FormFieldOr(x.Path(), "systemName")
-}
-
-func (x *EnterpriseSystemCompatibilityEntryContentForm) SetSystemName(value string) {
-	x.Doc().SetFormField(x.Path(), "systemName", value)
 }
 
 func (x *EnterpriseSystemCompatibilityEntryContentForm) SystemType() string {
@@ -97595,14 +96875,6 @@ func (x *EntityConstraintEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *EntityConstraintEntryContentForm) ConstraintName() string {
-	return x.Doc().FormFieldOr(x.Path(), "constraintName")
-}
-
-func (x *EntityConstraintEntryContentForm) SetConstraintName(value string) {
-	x.Doc().SetFormField(x.Path(), "constraintName", value)
-}
-
 func (x *EntityConstraintEntryContentForm) ConstraintType() string {
 	return x.Doc().FormFieldOr(x.Path(), "constraintType")
 }
@@ -97677,14 +96949,6 @@ func (x *EntityFollowUpEntryEntityRefForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *EntityFollowUpEntryEntityRefForm) EntityName() string {
-	return x.Doc().FormFieldOr(x.Path(), "entityName")
-}
-
-func (x *EntityFollowUpEntryEntityRefForm) SetEntityName(value string) {
-	x.Doc().SetFormField(x.Path(), "entityName", value)
-}
-
 func (x *EntityFollowUpEntryEntityRefForm) EntityAlias() string {
 	return x.Doc().FormFieldOr(x.Path(), "entityAlias")
 }
@@ -97717,14 +96981,6 @@ func (x *EntityIndexEntryContentForm) Content() string {
 
 func (x *EntityIndexEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *EntityIndexEntryContentForm) IndexName() string {
-	return x.Doc().FormFieldOr(x.Path(), "indexName")
-}
-
-func (x *EntityIndexEntryContentForm) SetIndexName(value string) {
-	x.Doc().SetFormField(x.Path(), "indexName", value)
 }
 
 func (x *EntityIndexEntryContentForm) IndexType() string {
@@ -97889,14 +97145,6 @@ func (x *EntityRelationshipEntryIdentityForm) Content() string {
 
 func (x *EntityRelationshipEntryIdentityForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *EntityRelationshipEntryIdentityForm) RelationshipName() string {
-	return x.Doc().FormFieldOr(x.Path(), "relationshipName")
-}
-
-func (x *EntityRelationshipEntryIdentityForm) SetRelationshipName(value string) {
-	x.Doc().SetFormField(x.Path(), "relationshipName", value)
 }
 
 func (x *EntityRelationshipEntryIdentityForm) RelationshipType() string {
@@ -98425,14 +97673,6 @@ func (x *EnvironmentEntryContentForm) Content() string {
 
 func (x *EnvironmentEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *EnvironmentEntryContentForm) EnvironmentName() string {
-	return x.Doc().FormFieldOr(x.Path(), "environmentName")
-}
-
-func (x *EnvironmentEntryContentForm) SetEnvironmentName(value string) {
-	x.Doc().SetFormField(x.Path(), "environmentName", value)
 }
 
 func (x *EnvironmentEntryContentForm) EnvironmentId() string {
@@ -101503,14 +100743,6 @@ func (x *ExistingSystemEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ExistingSystemEntryContentForm) SystemName() string {
-	return x.Doc().FormFieldOr(x.Path(), "systemName")
-}
-
-func (x *ExistingSystemEntryContentForm) SetSystemName(value string) {
-	x.Doc().SetFormField(x.Path(), "systemName", value)
-}
-
 func (x *ExistingSystemEntryContentForm) SystemId() string {
 	return x.Doc().FormFieldOr(x.Path(), "systemId")
 }
@@ -102814,14 +102046,6 @@ func (x *ExportFormatEntryContentForm) SetExportId(value string) {
 	x.Doc().SetFormField(x.Path(), "exportId", value)
 }
 
-func (x *ExportFormatEntryContentForm) FormatName() string {
-	return x.Doc().FormFieldOr(x.Path(), "formatName")
-}
-
-func (x *ExportFormatEntryContentForm) SetFormatName(value string) {
-	x.Doc().SetFormField(x.Path(), "formatName", value)
-}
-
 func (x *ExportFormatEntryContentForm) FormatType() string {
 	return x.Doc().FormFieldOr(x.Path(), "formatType")
 }
@@ -103282,14 +102506,6 @@ func (x *ExportTemplateEntryContentForm) SetTemplateId(value string) {
 	x.Doc().SetFormField(x.Path(), "templateId", value)
 }
 
-func (x *ExportTemplateEntryContentForm) TemplateName() string {
-	return x.Doc().FormFieldOr(x.Path(), "templateName")
-}
-
-func (x *ExportTemplateEntryContentForm) SetTemplateName(value string) {
-	x.Doc().SetFormField(x.Path(), "templateName", value)
-}
-
 func (x *ExportTemplateEntryContentForm) BaseFormatType() string {
 	return x.Doc().FormFieldOr(x.Path(), "baseFormatType")
 }
@@ -103712,14 +102928,6 @@ func (x *ExternalActorEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ExternalActorEntryContentForm) ActorName() string {
-	return x.Doc().FormFieldOr(x.Path(), "actorName")
-}
-
-func (x *ExternalActorEntryContentForm) SetActorName(value string) {
-	x.Doc().SetFormField(x.Path(), "actorName", value)
-}
-
 func (x *ExternalActorEntryContentForm) ActorType() string {
 	return x.Doc().FormFieldOr(x.Path(), "actorType")
 }
@@ -103884,14 +103092,6 @@ func (x *ExternalInterfaceEntryIdentificationContentForm) InterfaceId() string {
 
 func (x *ExternalInterfaceEntryIdentificationContentForm) SetInterfaceId(value string) {
 	x.Doc().SetFormField(x.Path(), "interfaceId", value)
-}
-
-func (x *ExternalInterfaceEntryIdentificationContentForm) InterfaceName() string {
-	return x.Doc().FormFieldOr(x.Path(), "interfaceName")
-}
-
-func (x *ExternalInterfaceEntryIdentificationContentForm) SetInterfaceName(value string) {
-	x.Doc().SetFormField(x.Path(), "interfaceName", value)
 }
 
 func (x *ExternalInterfaceEntryIdentificationContentForm) ExternalSystem() string {
@@ -104289,14 +103489,6 @@ func (x *ExternalPartnerConnectionEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ExternalPartnerConnectionEntryContentForm) PartnerName() string {
-	return x.Doc().FormFieldOr(x.Path(), "partnerName")
-}
-
-func (x *ExternalPartnerConnectionEntryContentForm) SetPartnerName(value string) {
-	x.Doc().SetFormField(x.Path(), "partnerName", value)
-}
-
 func (x *ExternalPartnerConnectionEntryContentForm) PartnerType() string {
 	return x.Doc().FormFieldOr(x.Path(), "partnerType")
 }
@@ -104663,14 +103855,6 @@ func (x *ExternalServiceDependencyEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ExternalServiceDependencyEntryContentForm) ServiceName() string {
-	return x.Doc().FormFieldOr(x.Path(), "serviceName")
-}
-
-func (x *ExternalServiceDependencyEntryContentForm) SetServiceName(value string) {
-	x.Doc().SetFormField(x.Path(), "serviceName", value)
-}
-
 func (x *ExternalServiceDependencyEntryContentForm) ServiceProvider() string {
 	return x.Doc().FormFieldOr(x.Path(), "serviceProvider")
 }
@@ -104911,14 +104095,6 @@ func (x *ExternalSystemContextEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ExternalSystemContextEntryContentForm) SystemName() string {
-	return x.Doc().FormFieldOr(x.Path(), "systemName")
-}
-
-func (x *ExternalSystemContextEntryContentForm) SetSystemName(value string) {
-	x.Doc().SetFormField(x.Path(), "systemName", value)
-}
-
 func (x *ExternalSystemContextEntryContentForm) SystemOwner() string {
 	return x.Doc().FormFieldOr(x.Path(), "systemOwner")
 }
@@ -105125,14 +104301,6 @@ func (x *FamilyComponentRefContentForm) ComponentId() string {
 
 func (x *FamilyComponentRefContentForm) SetComponentId(value string) {
 	x.Doc().SetFormField(x.Path(), "componentId", value)
-}
-
-func (x *FamilyComponentRefContentForm) ComponentName() string {
-	return x.Doc().FormFieldOr(x.Path(), "componentName")
-}
-
-func (x *FamilyComponentRefContentForm) SetComponentName(value string) {
-	x.Doc().SetFormField(x.Path(), "componentName", value)
 }
 
 func (x *FamilyComponentRefContentForm) FamilyRole() string {
@@ -105397,14 +104565,6 @@ func (x *FeatureModuleEntryContentForm) Content() string {
 
 func (x *FeatureModuleEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *FeatureModuleEntryContentForm) FeatureName() string {
-	return x.Doc().FormFieldOr(x.Path(), "featureName")
-}
-
-func (x *FeatureModuleEntryContentForm) SetFeatureName(value string) {
-	x.Doc().SetFormField(x.Path(), "featureName", value)
 }
 
 func (x *FeatureModuleEntryContentForm) FeatureArea() string {
@@ -106159,14 +105319,6 @@ func (x *FeaturePriorityEntryContentForm) FeatureId() string {
 
 func (x *FeaturePriorityEntryContentForm) SetFeatureId(value string) {
 	x.Doc().SetFormField(x.Path(), "featureId", value)
-}
-
-func (x *FeaturePriorityEntryContentForm) FeatureName() string {
-	return x.Doc().FormFieldOr(x.Path(), "featureName")
-}
-
-func (x *FeaturePriorityEntryContentForm) SetFeatureName(value string) {
-	x.Doc().SetFormField(x.Path(), "featureName", value)
 }
 
 func (x *FeaturePriorityEntryContentForm) PriorityRank() string {
@@ -107137,14 +106289,6 @@ func (x *FeatureTourEntryContentForm) SetTourId(value string) {
 	x.Doc().SetFormField(x.Path(), "tourId", value)
 }
 
-func (x *FeatureTourEntryContentForm) TourName() string {
-	return x.Doc().FormFieldOr(x.Path(), "tourName")
-}
-
-func (x *FeatureTourEntryContentForm) SetTourName(value string) {
-	x.Doc().SetFormField(x.Path(), "tourName", value)
-}
-
 func (x *FeatureTourEntryContentForm) TourDescription() string {
 	return x.Doc().FormFieldOr(x.Path(), "tourDescription")
 }
@@ -107258,14 +106402,6 @@ func (x *FieldHelpEntryContentForm) FieldId() string {
 
 func (x *FieldHelpEntryContentForm) SetFieldId(value string) {
 	x.Doc().SetFormField(x.Path(), "fieldId", value)
-}
-
-func (x *FieldHelpEntryContentForm) FieldLabel() string {
-	return x.Doc().FormFieldOr(x.Path(), "fieldLabel")
-}
-
-func (x *FieldHelpEntryContentForm) SetFieldLabel(value string) {
-	x.Doc().SetFormField(x.Path(), "fieldLabel", value)
 }
 
 func (x *FieldHelpEntryContentForm) TooltipText() string {
@@ -108063,14 +107199,6 @@ func (x *FrameworkRequirementEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *FrameworkRequirementEntryContentForm) FrameworkName() string {
-	return x.Doc().FormFieldOr(x.Path(), "frameworkName")
-}
-
-func (x *FrameworkRequirementEntryContentForm) SetFrameworkName(value string) {
-	x.Doc().SetFormField(x.Path(), "frameworkName", value)
-}
-
 func (x *FrameworkRequirementEntryContentForm) FrameworkCategory() string {
 	return x.Doc().FormFieldOr(x.Path(), "frameworkCategory")
 }
@@ -108387,14 +107515,6 @@ func (x *FunctionDataMatrixEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *FunctionDataMatrixEntryContentForm) FunctionName() string {
-	return x.Doc().FormFieldOr(x.Path(), "functionName")
-}
-
-func (x *FunctionDataMatrixEntryContentForm) SetFunctionName(value string) {
-	x.Doc().SetFormField(x.Path(), "functionName", value)
-}
-
 func (x *FunctionDataMatrixEntryContentForm) EntityName() string {
 	return x.Doc().FormFieldOr(x.Path(), "entityName")
 }
@@ -108517,14 +107637,6 @@ func (x *FunctionEntryContentForm) FunctionId() string {
 
 func (x *FunctionEntryContentForm) SetFunctionId(value string) {
 	x.Doc().SetFormField(x.Path(), "functionId", value)
-}
-
-func (x *FunctionEntryContentForm) FunctionName() string {
-	return x.Doc().FormFieldOr(x.Path(), "functionName")
-}
-
-func (x *FunctionEntryContentForm) SetFunctionName(value string) {
-	x.Doc().SetFormField(x.Path(), "functionName", value)
 }
 
 func (x *FunctionEntryContentForm) Description() string {
@@ -109427,14 +108539,6 @@ func (x *GapEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *GapEntryContentForm) GapName() string {
-	return x.Doc().FormFieldOr(x.Path(), "gapName")
-}
-
-func (x *GapEntryContentForm) SetGapName(value string) {
-	x.Doc().SetFormField(x.Path(), "gapName", value)
-}
-
 func (x *GapEntryContentForm) GapCategory() string {
 	return x.Doc().FormFieldOr(x.Path(), "gapCategory")
 }
@@ -110149,14 +109253,6 @@ func (x *GoalDependencyEntryContentForm) SetDependencyType(value string) {
 	x.Doc().SetFormField(x.Path(), "dependencyType", value)
 }
 
-func (x *GoalDependencyEntryContentForm) DependencyName() string {
-	return x.Doc().FormFieldOr(x.Path(), "dependencyName")
-}
-
-func (x *GoalDependencyEntryContentForm) SetDependencyName(value string) {
-	x.Doc().SetFormField(x.Path(), "dependencyName", value)
-}
-
 func (x *GoalDependencyEntryContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -110237,14 +109333,6 @@ func (x *GoalMilestoneEntryContentForm) MilestoneId() string {
 
 func (x *GoalMilestoneEntryContentForm) SetMilestoneId(value string) {
 	x.Doc().SetFormField(x.Path(), "milestoneId", value)
-}
-
-func (x *GoalMilestoneEntryContentForm) MilestoneName() string {
-	return x.Doc().FormFieldOr(x.Path(), "milestoneName")
-}
-
-func (x *GoalMilestoneEntryContentForm) SetMilestoneName(value string) {
-	x.Doc().SetFormField(x.Path(), "milestoneName", value)
 }
 
 func (x *GoalMilestoneEntryContentForm) Description() string {
@@ -110467,14 +109555,6 @@ func (x *GoalRiskEntryContentForm) RiskId() string {
 
 func (x *GoalRiskEntryContentForm) SetRiskId(value string) {
 	x.Doc().SetFormField(x.Path(), "riskId", value)
-}
-
-func (x *GoalRiskEntryContentForm) RiskName() string {
-	return x.Doc().FormFieldOr(x.Path(), "riskName")
-}
-
-func (x *GoalRiskEntryContentForm) SetRiskName(value string) {
-	x.Doc().SetFormField(x.Path(), "riskName", value)
 }
 
 func (x *GoalRiskEntryContentForm) Description() string {
@@ -111710,14 +110790,6 @@ func (x *IdeRequirementEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *IdeRequirementEntryContentForm) IdeName() string {
-	return x.Doc().FormFieldOr(x.Path(), "ideName")
-}
-
-func (x *IdeRequirementEntryContentForm) SetIdeName(value string) {
-	x.Doc().SetFormField(x.Path(), "ideName", value)
-}
-
 func (x *IdeRequirementEntryContentForm) Version() string {
 	return x.Doc().FormFieldOr(x.Path(), "version")
 }
@@ -112311,14 +111383,6 @@ func (x *IdentityProviderEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *IdentityProviderEntryContentForm) ProviderName() string {
-	return x.Doc().FormFieldOr(x.Path(), "providerName")
-}
-
-func (x *IdentityProviderEntryContentForm) SetProviderName(value string) {
-	x.Doc().SetFormField(x.Path(), "providerName", value)
-}
-
 func (x *IdentityProviderEntryContentForm) ProviderType() string {
 	return x.Doc().FormFieldOr(x.Path(), "providerType")
 }
@@ -112599,14 +111663,6 @@ func (x *IdentitySourceEntryContentForm) Content() string {
 
 func (x *IdentitySourceEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *IdentitySourceEntryContentForm) SourceName() string {
-	return x.Doc().FormFieldOr(x.Path(), "sourceName")
-}
-
-func (x *IdentitySourceEntryContentForm) SetSourceName(value string) {
-	x.Doc().SetFormField(x.Path(), "sourceName", value)
 }
 
 func (x *IdentitySourceEntryContentForm) SourceType() string {
@@ -113719,14 +112775,6 @@ func (x *IndustryProtocolComplianceEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *IndustryProtocolComplianceEntryContentForm) ProtocolName() string {
-	return x.Doc().FormFieldOr(x.Path(), "protocolName")
-}
-
-func (x *IndustryProtocolComplianceEntryContentForm) SetProtocolName(value string) {
-	x.Doc().SetFormField(x.Path(), "protocolName", value)
-}
-
 func (x *IndustryProtocolComplianceEntryContentForm) Category() string {
 	return x.Doc().FormFieldOr(x.Path(), "category")
 }
@@ -114096,14 +113144,6 @@ func (x *IndustryStandardEntryContentForm) Content() string {
 
 func (x *IndustryStandardEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *IndustryStandardEntryContentForm) StandardName() string {
-	return x.Doc().FormFieldOr(x.Path(), "standardName")
-}
-
-func (x *IndustryStandardEntryContentForm) SetStandardName(value string) {
-	x.Doc().SetFormField(x.Path(), "standardName", value)
 }
 
 func (x *IndustryStandardEntryContentForm) StandardBody() string {
@@ -114638,14 +113678,6 @@ func (x *InfrastructureComponentEntryContentForm) Content() string {
 
 func (x *InfrastructureComponentEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *InfrastructureComponentEntryContentForm) ComponentName() string {
-	return x.Doc().FormFieldOr(x.Path(), "componentName")
-}
-
-func (x *InfrastructureComponentEntryContentForm) SetComponentName(value string) {
-	x.Doc().SetFormField(x.Path(), "componentName", value)
 }
 
 func (x *InfrastructureComponentEntryContentForm) ComponentType() string {
@@ -115665,14 +114697,6 @@ func (x *InitialTrainingEntryContentForm) SetTrainingId(value string) {
 	x.Doc().SetFormField(x.Path(), "trainingId", value)
 }
 
-func (x *InitialTrainingEntryContentForm) TrainingName() string {
-	return x.Doc().FormFieldOr(x.Path(), "trainingName")
-}
-
-func (x *InitialTrainingEntryContentForm) SetTrainingName(value string) {
-	x.Doc().SetFormField(x.Path(), "trainingName", value)
-}
-
 func (x *InitialTrainingEntryContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -116443,14 +115467,6 @@ func (x *IntegrationConstraintEntryContentForm) ConstraintId() string {
 
 func (x *IntegrationConstraintEntryContentForm) SetConstraintId(value string) {
 	x.Doc().SetFormField(x.Path(), "constraintId", value)
-}
-
-func (x *IntegrationConstraintEntryContentForm) ConstraintName() string {
-	return x.Doc().FormFieldOr(x.Path(), "constraintName")
-}
-
-func (x *IntegrationConstraintEntryContentForm) SetConstraintName(value string) {
-	x.Doc().SetFormField(x.Path(), "constraintName", value)
 }
 
 func (x *IntegrationConstraintEntryContentForm) ConstraintDescription() string {
@@ -117427,14 +116443,6 @@ func (x *InteractionChannelEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *InteractionChannelEntryContentForm) ChannelName() string {
-	return x.Doc().FormFieldOr(x.Path(), "channelName")
-}
-
-func (x *InteractionChannelEntryContentForm) SetChannelName(value string) {
-	x.Doc().SetFormField(x.Path(), "channelName", value)
-}
-
 func (x *InteractionChannelEntryContentForm) ChannelId() string {
 	return x.Doc().FormFieldOr(x.Path(), "channelId")
 }
@@ -118175,14 +117183,6 @@ func (x *InteractionPatternEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *InteractionPatternEntryContentForm) PatternName() string {
-	return x.Doc().FormFieldOr(x.Path(), "patternName")
-}
-
-func (x *InteractionPatternEntryContentForm) SetPatternName(value string) {
-	x.Doc().SetFormField(x.Path(), "patternName", value)
-}
-
 func (x *InteractionPatternEntryContentForm) PatternId() string {
 	return x.Doc().FormFieldOr(x.Path(), "patternId")
 }
@@ -118441,14 +117441,6 @@ func (x *InterfaceBusinessProcessEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *InterfaceBusinessProcessEntryContentForm) ProcessName() string {
-	return x.Doc().FormFieldOr(x.Path(), "processName")
-}
-
-func (x *InterfaceBusinessProcessEntryContentForm) SetProcessName(value string) {
-	x.Doc().SetFormField(x.Path(), "processName", value)
-}
-
 func (x *InterfaceBusinessProcessEntryContentForm) ProcessId() string {
 	return x.Doc().FormFieldOr(x.Path(), "processId")
 }
@@ -118497,14 +117489,6 @@ func (x *InterfaceDataEntityEntryContentForm) Content() string {
 
 func (x *InterfaceDataEntityEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *InterfaceDataEntityEntryContentForm) EntityName() string {
-	return x.Doc().FormFieldOr(x.Path(), "entityName")
-}
-
-func (x *InterfaceDataEntityEntryContentForm) SetEntityName(value string) {
-	x.Doc().SetFormField(x.Path(), "entityName", value)
 }
 
 func (x *InterfaceDataEntityEntryContentForm) Direction() string {
@@ -119117,14 +118101,6 @@ func (x *InterfaceOperationEntryContentForm) SetOperationId(value string) {
 	x.Doc().SetFormField(x.Path(), "operationId", value)
 }
 
-func (x *InterfaceOperationEntryContentForm) OperationName() string {
-	return x.Doc().FormFieldOr(x.Path(), "operationName")
-}
-
-func (x *InterfaceOperationEntryContentForm) SetOperationName(value string) {
-	x.Doc().SetFormField(x.Path(), "operationName", value)
-}
-
 func (x *InterfaceOperationEntryContentForm) HttpMethod() string {
 	return x.Doc().FormFieldOr(x.Path(), "httpMethod")
 }
@@ -119671,14 +118647,6 @@ func (x *InterfaceSpecificationEntryContentForm) Content() string {
 
 func (x *InterfaceSpecificationEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *InterfaceSpecificationEntryContentForm) SpecificationName() string {
-	return x.Doc().FormFieldOr(x.Path(), "specificationName")
-}
-
-func (x *InterfaceSpecificationEntryContentForm) SetSpecificationName(value string) {
-	x.Doc().SetFormField(x.Path(), "specificationName", value)
 }
 
 func (x *InterfaceSpecificationEntryContentForm) SpecificationVersion() string {
@@ -120232,14 +119200,6 @@ func (x *InterfaceTestScenarioEntryContentForm) ScenarioId() string {
 
 func (x *InterfaceTestScenarioEntryContentForm) SetScenarioId(value string) {
 	x.Doc().SetFormField(x.Path(), "scenarioId", value)
-}
-
-func (x *InterfaceTestScenarioEntryContentForm) ScenarioName() string {
-	return x.Doc().FormFieldOr(x.Path(), "scenarioName")
-}
-
-func (x *InterfaceTestScenarioEntryContentForm) SetScenarioName(value string) {
-	x.Doc().SetFormField(x.Path(), "scenarioName", value)
 }
 
 func (x *InterfaceTestScenarioEntryContentForm) ScenarioType() string {
@@ -121603,14 +120563,6 @@ func (x *ItStandardComplianceEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ItStandardComplianceEntryContentForm) StandardName() string {
-	return x.Doc().FormFieldOr(x.Path(), "standardName")
-}
-
-func (x *ItStandardComplianceEntryContentForm) SetStandardName(value string) {
-	x.Doc().SetFormField(x.Path(), "standardName", value)
-}
-
 func (x *ItStandardComplianceEntryContentForm) StandardBody() string {
 	return x.Doc().FormFieldOr(x.Path(), "standardBody")
 }
@@ -121993,14 +120945,6 @@ func (x *JourneyStageEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *JourneyStageEntryContentForm) StageName() string {
-	return x.Doc().FormFieldOr(x.Path(), "stageName")
-}
-
-func (x *JourneyStageEntryContentForm) SetStageName(value string) {
-	x.Doc().SetFormField(x.Path(), "stageName", value)
-}
-
 func (x *JourneyStageEntryContentForm) StageDescription() string {
 	return x.Doc().FormFieldOr(x.Path(), "stageDescription")
 }
@@ -122089,14 +121033,6 @@ func (x *KeyAttributeEntryContentForm) Content() string {
 
 func (x *KeyAttributeEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *KeyAttributeEntryContentForm) KeyName() string {
-	return x.Doc().FormFieldOr(x.Path(), "keyName")
-}
-
-func (x *KeyAttributeEntryContentForm) SetKeyName(value string) {
-	x.Doc().SetFormField(x.Path(), "keyName", value)
 }
 
 func (x *KeyAttributeEntryContentForm) KeyType() string {
@@ -122379,14 +121315,6 @@ func (x *KeyConceptEntryContentForm) Content() string {
 
 func (x *KeyConceptEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *KeyConceptEntryContentForm) ConceptName() string {
-	return x.Doc().FormFieldOr(x.Path(), "conceptName")
-}
-
-func (x *KeyConceptEntryContentForm) SetConceptName(value string) {
-	x.Doc().SetFormField(x.Path(), "conceptName", value)
 }
 
 func (x *KeyConceptEntryContentForm) ConceptType() string {
@@ -123860,14 +122788,6 @@ func (x *LifecycleTransitionEntryContentForm) TransitionId() string {
 
 func (x *LifecycleTransitionEntryContentForm) SetTransitionId(value string) {
 	x.Doc().SetFormField(x.Path(), "transitionId", value)
-}
-
-func (x *LifecycleTransitionEntryContentForm) TransitionName() string {
-	return x.Doc().FormFieldOr(x.Path(), "transitionName")
-}
-
-func (x *LifecycleTransitionEntryContentForm) SetTransitionName(value string) {
-	x.Doc().SetFormField(x.Path(), "transitionName", value)
 }
 
 func (x *LifecycleTransitionEntryContentForm) FromState() string {
@@ -125826,14 +124746,6 @@ func (x *LoginFlowStepEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *LoginFlowStepEntryContentForm) StepName() string {
-	return x.Doc().FormFieldOr(x.Path(), "stepName")
-}
-
-func (x *LoginFlowStepEntryContentForm) SetStepName(value string) {
-	x.Doc().SetFormField(x.Path(), "stepName", value)
-}
-
 func (x *LoginFlowStepEntryContentForm) StepOrder() string {
 	return x.Doc().FormFieldOr(x.Path(), "stepOrder")
 }
@@ -126844,14 +125756,6 @@ func (x *MaintenanceDependencyEntryContentForm) SetDependencyId(value string) {
 	x.Doc().SetFormField(x.Path(), "dependencyId", value)
 }
 
-func (x *MaintenanceDependencyEntryContentForm) Name() string {
-	return x.Doc().FormFieldOr(x.Path(), "name")
-}
-
-func (x *MaintenanceDependencyEntryContentForm) SetName(value string) {
-	x.Doc().SetFormField(x.Path(), "name", value)
-}
-
 func (x *MaintenanceDependencyEntryContentForm) Version() string {
 	return x.Doc().FormFieldOr(x.Path(), "version")
 }
@@ -127385,14 +126289,6 @@ func (x *MaintenanceWindowEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *MaintenanceWindowEntryContentForm) WindowName() string {
-	return x.Doc().FormFieldOr(x.Path(), "windowName")
-}
-
-func (x *MaintenanceWindowEntryContentForm) SetWindowName(value string) {
-	x.Doc().SetFormField(x.Path(), "windowName", value)
-}
-
 func (x *MaintenanceWindowEntryContentForm) WindowType() string {
 	return x.Doc().FormFieldOr(x.Path(), "windowType")
 }
@@ -127665,14 +126561,6 @@ func (x *MasterDataDomainEntryContentForm) Content() string {
 
 func (x *MasterDataDomainEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *MasterDataDomainEntryContentForm) DomainName() string {
-	return x.Doc().FormFieldOr(x.Path(), "domainName")
-}
-
-func (x *MasterDataDomainEntryContentForm) SetDomainName(value string) {
-	x.Doc().SetFormField(x.Path(), "domainName", value)
 }
 
 func (x *MasterDataDomainEntryContentForm) Description() string {
@@ -128528,14 +127416,6 @@ func (x *MetricsBaselineEntryContentForm) Content() string {
 
 func (x *MetricsBaselineEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *MetricsBaselineEntryContentForm) MetricName() string {
-	return x.Doc().FormFieldOr(x.Path(), "metricName")
-}
-
-func (x *MetricsBaselineEntryContentForm) SetMetricName(value string) {
-	x.Doc().SetFormField(x.Path(), "metricName", value)
 }
 
 func (x *MetricsBaselineEntryContentForm) BaselineValue() string {
@@ -129586,14 +128466,6 @@ func (x *MigrationMilestoneEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *MigrationMilestoneEntryContentForm) MilestoneName() string {
-	return x.Doc().FormFieldOr(x.Path(), "milestoneName")
-}
-
-func (x *MigrationMilestoneEntryContentForm) SetMilestoneName(value string) {
-	x.Doc().SetFormField(x.Path(), "milestoneName", value)
-}
-
 func (x *MigrationMilestoneEntryContentForm) TargetDate() string {
 	return x.Doc().FormFieldOr(x.Path(), "targetDate")
 }
@@ -129798,14 +128670,6 @@ func (x *MigrationPhaseEntryContentForm) PhaseNumber() string {
 
 func (x *MigrationPhaseEntryContentForm) SetPhaseNumber(value string) {
 	x.Doc().SetFormField(x.Path(), "phaseNumber", value)
-}
-
-func (x *MigrationPhaseEntryContentForm) PhaseName() string {
-	return x.Doc().FormFieldOr(x.Path(), "phaseName")
-}
-
-func (x *MigrationPhaseEntryContentForm) SetPhaseName(value string) {
-	x.Doc().SetFormField(x.Path(), "phaseName", value)
 }
 
 func (x *MigrationPhaseEntryContentForm) PhaseType() string {
@@ -130686,14 +129550,6 @@ func (x *MigrationRiskEntryContentForm) RiskId() string {
 
 func (x *MigrationRiskEntryContentForm) SetRiskId(value string) {
 	x.Doc().SetFormField(x.Path(), "riskId", value)
-}
-
-func (x *MigrationRiskEntryContentForm) RiskTitle() string {
-	return x.Doc().FormFieldOr(x.Path(), "riskTitle")
-}
-
-func (x *MigrationRiskEntryContentForm) SetRiskTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "riskTitle", value)
 }
 
 func (x *MigrationRiskEntryContentForm) RiskOwner() string {
@@ -132852,14 +131708,6 @@ func (x *ModuleEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ModuleEntryContentForm) ModuleName() string {
-	return x.Doc().FormFieldOr(x.Path(), "moduleName")
-}
-
-func (x *ModuleEntryContentForm) SetModuleName(value string) {
-	x.Doc().SetFormField(x.Path(), "moduleName", value)
-}
-
 func (x *ModuleEntryContentForm) ModuleType() string {
 	return x.Doc().FormFieldOr(x.Path(), "moduleType")
 }
@@ -134503,14 +133351,6 @@ func (x *MustPassCriterionEntryContentForm) SetCriterionId(value string) {
 	x.Doc().SetFormField(x.Path(), "criterionId", value)
 }
 
-func (x *MustPassCriterionEntryContentForm) CriterionName() string {
-	return x.Doc().FormFieldOr(x.Path(), "criterionName")
-}
-
-func (x *MustPassCriterionEntryContentForm) SetCriterionName(value string) {
-	x.Doc().SetFormField(x.Path(), "criterionName", value)
-}
-
 func (x *MustPassCriterionEntryContentForm) VerificationMethod() string {
 	return x.Doc().FormFieldOr(x.Path(), "verificationMethod")
 }
@@ -135334,14 +134174,6 @@ func (x *NavigationGuardEntryContentForm) GuardId() string {
 
 func (x *NavigationGuardEntryContentForm) SetGuardId(value string) {
 	x.Doc().SetFormField(x.Path(), "guardId", value)
-}
-
-func (x *NavigationGuardEntryContentForm) GuardName() string {
-	return x.Doc().FormFieldOr(x.Path(), "guardName")
-}
-
-func (x *NavigationGuardEntryContentForm) SetGuardName(value string) {
-	x.Doc().SetFormField(x.Path(), "guardName", value)
 }
 
 func (x *NavigationGuardEntryContentForm) GuardType() string {
@@ -137446,14 +136278,6 @@ func (x *NewRoleEntryIdentificationForm) SetRoleId(value string) {
 	x.Doc().SetFormField(x.Path(), "roleId", value)
 }
 
-func (x *NewRoleEntryIdentificationForm) RoleTitle() string {
-	return x.Doc().FormFieldOr(x.Path(), "roleTitle")
-}
-
-func (x *NewRoleEntryIdentificationForm) SetRoleTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "roleTitle", value)
-}
-
 func (x *NewRoleEntryIdentificationForm) RoleFamily() string {
 	return x.Doc().FormFieldOr(x.Path(), "roleFamily")
 }
@@ -138176,14 +137000,6 @@ func (x *NotificationChannelEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *NotificationChannelEntryContentForm) ChannelName() string {
-	return x.Doc().FormFieldOr(x.Path(), "channelName")
-}
-
-func (x *NotificationChannelEntryContentForm) SetChannelName(value string) {
-	x.Doc().SetFormField(x.Path(), "channelName", value)
-}
-
 func (x *NotificationChannelEntryContentForm) ChannelId() string {
 	return x.Doc().FormFieldOr(x.Path(), "channelId")
 }
@@ -138372,14 +137188,6 @@ func (x *ObjectInvariantEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ObjectInvariantEntryContentForm) InvariantName() string {
-	return x.Doc().FormFieldOr(x.Path(), "invariantName")
-}
-
-func (x *ObjectInvariantEntryContentForm) SetInvariantName(value string) {
-	x.Doc().SetFormField(x.Path(), "invariantName", value)
-}
-
 func (x *ObjectInvariantEntryContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -138452,14 +137260,6 @@ func (x *ObjectOperationEntryContentForm) Content() string {
 
 func (x *ObjectOperationEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ObjectOperationEntryContentForm) OperationName() string {
-	return x.Doc().FormFieldOr(x.Path(), "operationName")
-}
-
-func (x *ObjectOperationEntryContentForm) SetOperationName(value string) {
-	x.Doc().SetFormField(x.Path(), "operationName", value)
 }
 
 func (x *ObjectOperationEntryContentForm) Description() string {
@@ -138660,14 +137460,6 @@ func (x *ObjectStateEntryContentForm) Content() string {
 
 func (x *ObjectStateEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ObjectStateEntryContentForm) StateName() string {
-	return x.Doc().FormFieldOr(x.Path(), "stateName")
-}
-
-func (x *ObjectStateEntryContentForm) SetStateName(value string) {
-	x.Doc().SetFormField(x.Path(), "stateName", value)
 }
 
 func (x *ObjectStateEntryContentForm) StateCode() string {
@@ -139694,14 +138486,6 @@ func (x *OngoingTrainingEntryContentForm) SetTrainingId(value string) {
 	x.Doc().SetFormField(x.Path(), "trainingId", value)
 }
 
-func (x *OngoingTrainingEntryContentForm) TrainingName() string {
-	return x.Doc().FormFieldOr(x.Path(), "trainingName")
-}
-
-func (x *OngoingTrainingEntryContentForm) SetTrainingName(value string) {
-	x.Doc().SetFormField(x.Path(), "trainingName", value)
-}
-
 func (x *OngoingTrainingEntryContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -140380,14 +139164,6 @@ func (x *OrgImplementationActivityContentForm) SetActivityId(value string) {
 	x.Doc().SetFormField(x.Path(), "activityId", value)
 }
 
-func (x *OrgImplementationActivityContentForm) ActivityName() string {
-	return x.Doc().FormFieldOr(x.Path(), "activityName")
-}
-
-func (x *OrgImplementationActivityContentForm) SetActivityName(value string) {
-	x.Doc().SetFormField(x.Path(), "activityName", value)
-}
-
 func (x *OrgImplementationActivityContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -140574,14 +139350,6 @@ func (x *OrganizationalChangeEntryContentForm) ChangeId() string {
 
 func (x *OrganizationalChangeEntryContentForm) SetChangeId(value string) {
 	x.Doc().SetFormField(x.Path(), "changeId", value)
-}
-
-func (x *OrganizationalChangeEntryContentForm) ChangeName() string {
-	return x.Doc().FormFieldOr(x.Path(), "changeName")
-}
-
-func (x *OrganizationalChangeEntryContentForm) SetChangeName(value string) {
-	x.Doc().SetFormField(x.Path(), "changeName", value)
 }
 
 func (x *OrganizationalChangeEntryContentForm) ChangeType() string {
@@ -141578,14 +140346,6 @@ func (x *OrganizationalUnitContextEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *OrganizationalUnitContextEntryContentForm) UnitName() string {
-	return x.Doc().FormFieldOr(x.Path(), "unitName")
-}
-
-func (x *OrganizationalUnitContextEntryContentForm) SetUnitName(value string) {
-	x.Doc().SetFormField(x.Path(), "unitName", value)
-}
-
 func (x *OrganizationalUnitContextEntryContentForm) UnitType() string {
 	return x.Doc().FormFieldOr(x.Path(), "unitType")
 }
@@ -141666,14 +140426,6 @@ func (x *OsCompatibilityEntryContentForm) Content() string {
 
 func (x *OsCompatibilityEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *OsCompatibilityEntryContentForm) OsName() string {
-	return x.Doc().FormFieldOr(x.Path(), "osName")
-}
-
-func (x *OsCompatibilityEntryContentForm) SetOsName(value string) {
-	x.Doc().SetFormField(x.Path(), "osName", value)
 }
 
 func (x *OsCompatibilityEntryContentForm) OsFamily() string {
@@ -141932,14 +140684,6 @@ func (x *OtherAgreementEntryContentForm) Content() string {
 
 func (x *OtherAgreementEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *OtherAgreementEntryContentForm) AgreementTitle() string {
-	return x.Doc().FormFieldOr(x.Path(), "agreementTitle")
-}
-
-func (x *OtherAgreementEntryContentForm) SetAgreementTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "agreementTitle", value)
 }
 
 func (x *OtherAgreementEntryContentForm) AgreementType() string {
@@ -144058,14 +142802,6 @@ func (x *PersonaEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *PersonaEntryContentForm) PersonaName() string {
-	return x.Doc().FormFieldOr(x.Path(), "personaName")
-}
-
-func (x *PersonaEntryContentForm) SetPersonaName(value string) {
-	x.Doc().SetFormField(x.Path(), "personaName", value)
-}
-
 func (x *PersonaEntryContentForm) Age() string {
 	return x.Doc().FormFieldOr(x.Path(), "age")
 }
@@ -144414,14 +143150,6 @@ func (x *PersonaScenarioEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *PersonaScenarioEntryContentForm) ScenarioName() string {
-	return x.Doc().FormFieldOr(x.Path(), "scenarioName")
-}
-
-func (x *PersonaScenarioEntryContentForm) SetScenarioName(value string) {
-	x.Doc().SetFormField(x.Path(), "scenarioName", value)
-}
-
 func (x *PersonaScenarioEntryContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -144552,14 +143280,6 @@ func (x *PhaseGateReviewEntryContentForm) Content() string {
 
 func (x *PhaseGateReviewEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *PhaseGateReviewEntryContentForm) GateName() string {
-	return x.Doc().FormFieldOr(x.Path(), "gateName")
-}
-
-func (x *PhaseGateReviewEntryContentForm) SetGateName(value string) {
-	x.Doc().SetFormField(x.Path(), "gateName", value)
 }
 
 func (x *PhaseGateReviewEntryContentForm) GateId() string {
@@ -145218,14 +143938,6 @@ func (x *PipelineJobEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *PipelineJobEntryContentForm) JobName() string {
-	return x.Doc().FormFieldOr(x.Path(), "jobName")
-}
-
-func (x *PipelineJobEntryContentForm) SetJobName(value string) {
-	x.Doc().SetFormField(x.Path(), "jobName", value)
-}
-
 func (x *PipelineJobEntryContentForm) ParentStage() string {
 	return x.Doc().FormFieldOr(x.Path(), "parentStage")
 }
@@ -145516,14 +144228,6 @@ func (x *PipelineStageEntryContentForm) Content() string {
 
 func (x *PipelineStageEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *PipelineStageEntryContentForm) StageName() string {
-	return x.Doc().FormFieldOr(x.Path(), "stageName")
-}
-
-func (x *PipelineStageEntryContentForm) SetStageName(value string) {
-	x.Doc().SetFormField(x.Path(), "stageName", value)
 }
 
 func (x *PipelineStageEntryContentForm) StageOrder() string {
@@ -148551,14 +147255,6 @@ func (x *ProcessControlEntryContentForm) SetControlId(value string) {
 	x.Doc().SetFormField(x.Path(), "controlId", value)
 }
 
-func (x *ProcessControlEntryContentForm) ControlName() string {
-	return x.Doc().FormFieldOr(x.Path(), "controlName")
-}
-
-func (x *ProcessControlEntryContentForm) SetControlName(value string) {
-	x.Doc().SetFormField(x.Path(), "controlName", value)
-}
-
 func (x *ProcessControlEntryContentForm) ControlType() string {
 	return x.Doc().FormFieldOr(x.Path(), "controlType")
 }
@@ -148905,14 +147601,6 @@ func (x *ProcessDesignPrincipleEntryContentForm) SetPrincipleId(value string) {
 	x.Doc().SetFormField(x.Path(), "principleId", value)
 }
 
-func (x *ProcessDesignPrincipleEntryContentForm) PrincipleName() string {
-	return x.Doc().FormFieldOr(x.Path(), "principleName")
-}
-
-func (x *ProcessDesignPrincipleEntryContentForm) SetPrincipleName(value string) {
-	x.Doc().SetFormField(x.Path(), "principleName", value)
-}
-
 func (x *ProcessDesignPrincipleEntryContentForm) Category() string {
 	return x.Doc().FormFieldOr(x.Path(), "category")
 }
@@ -149069,14 +147757,6 @@ func (x *ProcessEndEventEntryContentForm) SetEndEventId(value string) {
 	x.Doc().SetFormField(x.Path(), "endEventId", value)
 }
 
-func (x *ProcessEndEventEntryContentForm) EndEventName() string {
-	return x.Doc().FormFieldOr(x.Path(), "endEventName")
-}
-
-func (x *ProcessEndEventEntryContentForm) SetEndEventName(value string) {
-	x.Doc().SetFormField(x.Path(), "endEventName", value)
-}
-
 func (x *ProcessEndEventEntryContentForm) EndEventType() string {
 	return x.Doc().FormFieldOr(x.Path(), "endEventType")
 }
@@ -149207,14 +147887,6 @@ func (x *ProcessExceptionEntryContentForm) ExceptionId() string {
 
 func (x *ProcessExceptionEntryContentForm) SetExceptionId(value string) {
 	x.Doc().SetFormField(x.Path(), "exceptionId", value)
-}
-
-func (x *ProcessExceptionEntryContentForm) ExceptionName() string {
-	return x.Doc().FormFieldOr(x.Path(), "exceptionName")
-}
-
-func (x *ProcessExceptionEntryContentForm) SetExceptionName(value string) {
-	x.Doc().SetFormField(x.Path(), "exceptionName", value)
 }
 
 func (x *ProcessExceptionEntryContentForm) ExceptionType() string {
@@ -149465,14 +148137,6 @@ func (x *ProcessIdentificationContentForm) SetProcessId(value string) {
 	x.Doc().SetFormField(x.Path(), "processId", value)
 }
 
-func (x *ProcessIdentificationContentForm) ProcessName() string {
-	return x.Doc().FormFieldOr(x.Path(), "processName")
-}
-
-func (x *ProcessIdentificationContentForm) SetProcessName(value string) {
-	x.Doc().SetFormField(x.Path(), "processName", value)
-}
-
 func (x *ProcessIdentificationContentForm) ProcessLevel() string {
 	return x.Doc().FormFieldOr(x.Path(), "processLevel")
 }
@@ -149687,14 +148351,6 @@ func (x *ProcessImprovementEntryContentForm) ImprovementId() string {
 
 func (x *ProcessImprovementEntryContentForm) SetImprovementId(value string) {
 	x.Doc().SetFormField(x.Path(), "improvementId", value)
-}
-
-func (x *ProcessImprovementEntryContentForm) ImprovementName() string {
-	return x.Doc().FormFieldOr(x.Path(), "improvementName")
-}
-
-func (x *ProcessImprovementEntryContentForm) SetImprovementName(value string) {
-	x.Doc().SetFormField(x.Path(), "improvementName", value)
 }
 
 func (x *ProcessImprovementEntryContentForm) Category() string {
@@ -149953,14 +148609,6 @@ func (x *ProcessInputEntryContentForm) SetInputId(value string) {
 	x.Doc().SetFormField(x.Path(), "inputId", value)
 }
 
-func (x *ProcessInputEntryContentForm) InputName() string {
-	return x.Doc().FormFieldOr(x.Path(), "inputName")
-}
-
-func (x *ProcessInputEntryContentForm) SetInputName(value string) {
-	x.Doc().SetFormField(x.Path(), "inputName", value)
-}
-
 func (x *ProcessInputEntryContentForm) InputType() string {
 	return x.Doc().FormFieldOr(x.Path(), "inputType")
 }
@@ -150107,14 +148755,6 @@ func (x *ProcessKpiEntryContentForm) KpiId() string {
 
 func (x *ProcessKpiEntryContentForm) SetKpiId(value string) {
 	x.Doc().SetFormField(x.Path(), "kpiId", value)
-}
-
-func (x *ProcessKpiEntryContentForm) KpiName() string {
-	return x.Doc().FormFieldOr(x.Path(), "kpiName")
-}
-
-func (x *ProcessKpiEntryContentForm) SetKpiName(value string) {
-	x.Doc().SetFormField(x.Path(), "kpiName", value)
 }
 
 func (x *ProcessKpiEntryContentForm) Category() string {
@@ -150273,14 +148913,6 @@ func (x *ProcessMetricEntryContentForm) Content() string {
 
 func (x *ProcessMetricEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ProcessMetricEntryContentForm) MetricName() string {
-	return x.Doc().FormFieldOr(x.Path(), "metricName")
-}
-
-func (x *ProcessMetricEntryContentForm) SetMetricName(value string) {
-	x.Doc().SetFormField(x.Path(), "metricName", value)
 }
 
 func (x *ProcessMetricEntryContentForm) MetricId() string {
@@ -150447,14 +149079,6 @@ func (x *ProcessOutputEntryContentForm) OutputId() string {
 
 func (x *ProcessOutputEntryContentForm) SetOutputId(value string) {
 	x.Doc().SetFormField(x.Path(), "outputId", value)
-}
-
-func (x *ProcessOutputEntryContentForm) OutputName() string {
-	return x.Doc().FormFieldOr(x.Path(), "outputName")
-}
-
-func (x *ProcessOutputEntryContentForm) SetOutputName(value string) {
-	x.Doc().SetFormField(x.Path(), "outputName", value)
 }
 
 func (x *ProcessOutputEntryContentForm) OutputType() string {
@@ -150939,14 +149563,6 @@ func (x *ProcessRoleEntryContentForm) SetRoleId(value string) {
 	x.Doc().SetFormField(x.Path(), "roleId", value)
 }
 
-func (x *ProcessRoleEntryContentForm) RoleName() string {
-	return x.Doc().FormFieldOr(x.Path(), "roleName")
-}
-
-func (x *ProcessRoleEntryContentForm) SetRoleName(value string) {
-	x.Doc().SetFormField(x.Path(), "roleName", value)
-}
-
 func (x *ProcessRoleEntryContentForm) RaciType() string {
 	return x.Doc().FormFieldOr(x.Path(), "raciType")
 }
@@ -151171,14 +149787,6 @@ func (x *ProcessScopeEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ProcessScopeEntryContentForm) ProcessName() string {
-	return x.Doc().FormFieldOr(x.Path(), "processName")
-}
-
-func (x *ProcessScopeEntryContentForm) SetProcessName(value string) {
-	x.Doc().SetFormField(x.Path(), "processName", value)
-}
-
 func (x *ProcessScopeEntryContentForm) Rationale() string {
 	return x.Doc().FormFieldOr(x.Path(), "rationale")
 }
@@ -151337,14 +149945,6 @@ func (x *ProcessSlaEntryContentForm) SlaId() string {
 
 func (x *ProcessSlaEntryContentForm) SetSlaId(value string) {
 	x.Doc().SetFormField(x.Path(), "slaId", value)
-}
-
-func (x *ProcessSlaEntryContentForm) SlaName() string {
-	return x.Doc().FormFieldOr(x.Path(), "slaName")
-}
-
-func (x *ProcessSlaEntryContentForm) SetSlaName(value string) {
-	x.Doc().SetFormField(x.Path(), "slaName", value)
 }
 
 func (x *ProcessSlaEntryContentForm) ServiceDescription() string {
@@ -151701,14 +150301,6 @@ func (x *ProcessTriggerEntryContentForm) SetTriggerId(value string) {
 	x.Doc().SetFormField(x.Path(), "triggerId", value)
 }
 
-func (x *ProcessTriggerEntryContentForm) TriggerName() string {
-	return x.Doc().FormFieldOr(x.Path(), "triggerName")
-}
-
-func (x *ProcessTriggerEntryContentForm) SetTriggerName(value string) {
-	x.Doc().SetFormField(x.Path(), "triggerName", value)
-}
-
 func (x *ProcessTriggerEntryContentForm) TriggerType() string {
 	return x.Doc().FormFieldOr(x.Path(), "triggerType")
 }
@@ -152035,14 +150627,6 @@ func (x *ProgrammingLanguageEntryContentForm) Content() string {
 
 func (x *ProgrammingLanguageEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ProgrammingLanguageEntryContentForm) LanguageName() string {
-	return x.Doc().FormFieldOr(x.Path(), "languageName")
-}
-
-func (x *ProgrammingLanguageEntryContentForm) SetLanguageName(value string) {
-	x.Doc().SetFormField(x.Path(), "languageName", value)
 }
 
 func (x *ProgrammingLanguageEntryContentForm) LanguageVariant() string {
@@ -152724,14 +151308,6 @@ func (x *ProtocolEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ProtocolEntryContentForm) ProtocolName() string {
-	return x.Doc().FormFieldOr(x.Path(), "protocolName")
-}
-
-func (x *ProtocolEntryContentForm) SetProtocolName(value string) {
-	x.Doc().SetFormField(x.Path(), "protocolName", value)
-}
-
 func (x *ProtocolEntryContentForm) ProtocolType() string {
 	return x.Doc().FormFieldOr(x.Path(), "protocolType")
 }
@@ -152804,14 +151380,6 @@ func (x *PrototypeFeatureEntryContentForm) FeatureId() string {
 
 func (x *PrototypeFeatureEntryContentForm) SetFeatureId(value string) {
 	x.Doc().SetFormField(x.Path(), "featureId", value)
-}
-
-func (x *PrototypeFeatureEntryContentForm) FeatureName() string {
-	return x.Doc().FormFieldOr(x.Path(), "featureName")
-}
-
-func (x *PrototypeFeatureEntryContentForm) SetFeatureName(value string) {
-	x.Doc().SetFormField(x.Path(), "featureName", value)
 }
 
 func (x *PrototypeFeatureEntryContentForm) InclusionReason() string {
@@ -153973,14 +152541,6 @@ func (x *QualityCategoryEntryContentForm) CategoryId() string {
 
 func (x *QualityCategoryEntryContentForm) SetCategoryId(value string) {
 	x.Doc().SetFormField(x.Path(), "categoryId", value)
-}
-
-func (x *QualityCategoryEntryContentForm) CategoryName() string {
-	return x.Doc().FormFieldOr(x.Path(), "categoryName")
-}
-
-func (x *QualityCategoryEntryContentForm) SetCategoryName(value string) {
-	x.Doc().SetFormField(x.Path(), "categoryName", value)
 }
 
 func (x *QualityCategoryEntryContentForm) CategoryWeight() *int {
@@ -155415,14 +153975,6 @@ func (x *QualityScenarioEntryContentForm) SetScenarioId(value string) {
 	x.Doc().SetFormField(x.Path(), "scenarioId", value)
 }
 
-func (x *QualityScenarioEntryContentForm) ScenarioName() string {
-	return x.Doc().FormFieldOr(x.Path(), "scenarioName")
-}
-
-func (x *QualityScenarioEntryContentForm) SetScenarioName(value string) {
-	x.Doc().SetFormField(x.Path(), "scenarioName", value)
-}
-
 func (x *QualityScenarioEntryContentForm) Source() string {
 	return x.Doc().FormFieldOr(x.Path(), "source")
 }
@@ -155561,14 +154113,6 @@ func (x *QualityStandardEntryContentForm) Content() string {
 
 func (x *QualityStandardEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *QualityStandardEntryContentForm) StandardName() string {
-	return x.Doc().FormFieldOr(x.Path(), "standardName")
-}
-
-func (x *QualityStandardEntryContentForm) SetStandardName(value string) {
-	x.Doc().SetFormField(x.Path(), "standardName", value)
 }
 
 func (x *QualityStandardEntryContentForm) MaturityLevel() string {
@@ -156789,14 +155333,6 @@ func (x *RecoveryScenarioEntryContentForm) SetScenarioId(value string) {
 	x.Doc().SetFormField(x.Path(), "scenarioId", value)
 }
 
-func (x *RecoveryScenarioEntryContentForm) ScenarioName() string {
-	return x.Doc().FormFieldOr(x.Path(), "scenarioName")
-}
-
-func (x *RecoveryScenarioEntryContentForm) SetScenarioName(value string) {
-	x.Doc().SetFormField(x.Path(), "scenarioName", value)
-}
-
 func (x *RecoveryScenarioEntryContentForm) TriggerCondition() string {
 	return x.Doc().FormFieldOr(x.Path(), "triggerCondition")
 }
@@ -156877,14 +155413,6 @@ func (x *ReferenceDocumentEntryContentForm) Content() string {
 
 func (x *ReferenceDocumentEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ReferenceDocumentEntryContentForm) DocumentTitle() string {
-	return x.Doc().FormFieldOr(x.Path(), "documentTitle")
-}
-
-func (x *ReferenceDocumentEntryContentForm) SetDocumentTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "documentTitle", value)
 }
 
 func (x *ReferenceDocumentEntryContentForm) DocumentId() string {
@@ -157573,14 +156101,6 @@ func (x *RelatedDocumentEntryContentForm) SetRelatedDocumentId(value string) {
 	x.Doc().SetFormField(x.Path(), "relatedDocumentId", value)
 }
 
-func (x *RelatedDocumentEntryContentForm) RelatedDocumentTitle() string {
-	return x.Doc().FormFieldOr(x.Path(), "relatedDocumentTitle")
-}
-
-func (x *RelatedDocumentEntryContentForm) SetRelatedDocumentTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "relatedDocumentTitle", value)
-}
-
 func (x *RelatedDocumentEntryContentForm) RelationshipType() string {
 	return x.Doc().FormFieldOr(x.Path(), "relationshipType")
 }
@@ -158018,14 +156538,6 @@ func (x *RelevantSectionEntryContentForm) SetSectionReference(value string) {
 	x.Doc().SetFormField(x.Path(), "sectionReference", value)
 }
 
-func (x *RelevantSectionEntryContentForm) SectionTitle() string {
-	return x.Doc().FormFieldOr(x.Path(), "sectionTitle")
-}
-
-func (x *RelevantSectionEntryContentForm) SetSectionTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "sectionTitle", value)
-}
-
 func (x *RelevantSectionEntryContentForm) Relevance() string {
 	return x.Doc().FormFieldOr(x.Path(), "relevance")
 }
@@ -158429,14 +156941,6 @@ func (x *RemovedRoleEntryContentForm) SetRoleId(value string) {
 	x.Doc().SetFormField(x.Path(), "roleId", value)
 }
 
-func (x *RemovedRoleEntryContentForm) RoleTitle() string {
-	return x.Doc().FormFieldOr(x.Path(), "roleTitle")
-}
-
-func (x *RemovedRoleEntryContentForm) SetRoleTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "roleTitle", value)
-}
-
 func (x *RemovedRoleEntryContentForm) Department() string {
 	return x.Doc().FormFieldOr(x.Path(), "department")
 }
@@ -158667,14 +157171,6 @@ func (x *ReplacementPhaseEntryContentForm) SetPhaseNumber(value *int) {
 		return
 	}
 	x.Doc().SetFormField(x.Path(), "phaseNumber", strconv.Itoa(*value))
-}
-
-func (x *ReplacementPhaseEntryContentForm) PhaseName() string {
-	return x.Doc().FormFieldOr(x.Path(), "phaseName")
-}
-
-func (x *ReplacementPhaseEntryContentForm) SetPhaseName(value string) {
-	x.Doc().SetFormField(x.Path(), "phaseName", value)
 }
 
 func (x *ReplacementPhaseEntryContentForm) PhaseScope() string {
@@ -158993,14 +157489,6 @@ func (x *ReportChartEntryContentForm) ChartId() string {
 
 func (x *ReportChartEntryContentForm) SetChartId(value string) {
 	x.Doc().SetFormField(x.Path(), "chartId", value)
-}
-
-func (x *ReportChartEntryContentForm) Title() string {
-	return x.Doc().FormFieldOr(x.Path(), "title")
-}
-
-func (x *ReportChartEntryContentForm) SetTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "title", value)
 }
 
 func (x *ReportChartEntryContentForm) ChartType() string {
@@ -159367,14 +157855,6 @@ func (x *ReportColumnEntryContentForm) ColumnId() string {
 
 func (x *ReportColumnEntryContentForm) SetColumnId(value string) {
 	x.Doc().SetFormField(x.Path(), "columnId", value)
-}
-
-func (x *ReportColumnEntryContentForm) ColumnName() string {
-	return x.Doc().FormFieldOr(x.Path(), "columnName")
-}
-
-func (x *ReportColumnEntryContentForm) SetColumnName(value string) {
-	x.Doc().SetFormField(x.Path(), "columnName", value)
 }
 
 func (x *ReportColumnEntryContentForm) DisplayLabel() string {
@@ -160109,14 +158589,6 @@ func (x *ReportEntryContentForm) ReportId() string {
 
 func (x *ReportEntryContentForm) SetReportId(value string) {
 	x.Doc().SetFormField(x.Path(), "reportId", value)
-}
-
-func (x *ReportEntryContentForm) ReportName() string {
-	return x.Doc().FormFieldOr(x.Path(), "reportName")
-}
-
-func (x *ReportEntryContentForm) SetReportName(value string) {
-	x.Doc().SetFormField(x.Path(), "reportName", value)
 }
 
 func (x *ReportEntryContentForm) ReportType() string {
@@ -160943,14 +159415,6 @@ func (x *ReportFilterEntryContentForm) SetFilterId(value string) {
 	x.Doc().SetFormField(x.Path(), "filterId", value)
 }
 
-func (x *ReportFilterEntryContentForm) FilterName() string {
-	return x.Doc().FormFieldOr(x.Path(), "filterName")
-}
-
-func (x *ReportFilterEntryContentForm) SetFilterName(value string) {
-	x.Doc().SetFormField(x.Path(), "filterName", value)
-}
-
 func (x *ReportFilterEntryContentForm) DisplayLabel() string {
 	return x.Doc().FormFieldOr(x.Path(), "displayLabel")
 }
@@ -161379,14 +159843,6 @@ func (x *ReportRecipientEntryContentForm) SetRecipientId(value string) {
 	x.Doc().SetFormField(x.Path(), "recipientId", value)
 }
 
-func (x *ReportRecipientEntryContentForm) RecipientName() string {
-	return x.Doc().FormFieldOr(x.Path(), "recipientName")
-}
-
-func (x *ReportRecipientEntryContentForm) SetRecipientName(value string) {
-	x.Doc().SetFormField(x.Path(), "recipientName", value)
-}
-
 func (x *ReportRecipientEntryContentForm) RecipientType() string {
 	return x.Doc().FormFieldOr(x.Path(), "recipientType")
 }
@@ -161601,14 +160057,6 @@ func (x *ReportScheduleEntryContentForm) ScheduleId() string {
 
 func (x *ReportScheduleEntryContentForm) SetScheduleId(value string) {
 	x.Doc().SetFormField(x.Path(), "scheduleId", value)
-}
-
-func (x *ReportScheduleEntryContentForm) ScheduleName() string {
-	return x.Doc().FormFieldOr(x.Path(), "scheduleName")
-}
-
-func (x *ReportScheduleEntryContentForm) SetScheduleName(value string) {
-	x.Doc().SetFormField(x.Path(), "scheduleName", value)
 }
 
 func (x *ReportScheduleEntryContentForm) Frequency() string {
@@ -161991,14 +160439,6 @@ func (x *ReportSectionEntryContentForm) SetSectionId(value string) {
 	x.Doc().SetFormField(x.Path(), "sectionId", value)
 }
 
-func (x *ReportSectionEntryContentForm) Title() string {
-	return x.Doc().FormFieldOr(x.Path(), "title")
-}
-
-func (x *ReportSectionEntryContentForm) SetTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "title", value)
-}
-
 func (x *ReportSectionEntryContentForm) SectionType() string {
 	return x.Doc().FormFieldOr(x.Path(), "sectionType")
 }
@@ -162267,14 +160707,6 @@ func (x *RequirementBusinessRuleEntryContentForm) SetRuleId(value string) {
 	x.Doc().SetFormField(x.Path(), "ruleId", value)
 }
 
-func (x *RequirementBusinessRuleEntryContentForm) RuleName() string {
-	return x.Doc().FormFieldOr(x.Path(), "ruleName")
-}
-
-func (x *RequirementBusinessRuleEntryContentForm) SetRuleName(value string) {
-	x.Doc().SetFormField(x.Path(), "ruleName", value)
-}
-
 func (x *RequirementBusinessRuleEntryContentForm) RuleType() string {
 	return x.Doc().FormFieldOr(x.Path(), "ruleType")
 }
@@ -162421,14 +160853,6 @@ func (x *RequirementScreenActionEntryContentForm) ActionId() string {
 
 func (x *RequirementScreenActionEntryContentForm) SetActionId(value string) {
 	x.Doc().SetFormField(x.Path(), "actionId", value)
-}
-
-func (x *RequirementScreenActionEntryContentForm) ActionLabel() string {
-	return x.Doc().FormFieldOr(x.Path(), "actionLabel")
-}
-
-func (x *RequirementScreenActionEntryContentForm) SetActionLabel(value string) {
-	x.Doc().SetFormField(x.Path(), "actionLabel", value)
 }
 
 func (x *RequirementScreenActionEntryContentForm) ActionType() string {
@@ -162657,14 +161081,6 @@ func (x *RequirementTestCaseEntryContentForm) TestCaseId() string {
 
 func (x *RequirementTestCaseEntryContentForm) SetTestCaseId(value string) {
 	x.Doc().SetFormField(x.Path(), "testCaseId", value)
-}
-
-func (x *RequirementTestCaseEntryContentForm) TestCaseName() string {
-	return x.Doc().FormFieldOr(x.Path(), "testCaseName")
-}
-
-func (x *RequirementTestCaseEntryContentForm) SetTestCaseName(value string) {
-	x.Doc().SetFormField(x.Path(), "testCaseName", value)
 }
 
 func (x *RequirementTestCaseEntryContentForm) TestType() string {
@@ -163095,14 +161511,6 @@ func (x *ResourceAllocationEntryContentForm) ResourceType() string {
 
 func (x *ResourceAllocationEntryContentForm) SetResourceType(value string) {
 	x.Doc().SetFormField(x.Path(), "resourceType", value)
-}
-
-func (x *ResourceAllocationEntryContentForm) ResourceName() string {
-	return x.Doc().FormFieldOr(x.Path(), "resourceName")
-}
-
-func (x *ResourceAllocationEntryContentForm) SetResourceName(value string) {
-	x.Doc().SetFormField(x.Path(), "resourceName", value)
 }
 
 func (x *ResourceAllocationEntryContentForm) Quantity() string {
@@ -164561,14 +162969,6 @@ func (x *ResponsiveScreenRuleEntryContentForm) SetScreenId(value string) {
 	x.Doc().SetFormField(x.Path(), "screenId", value)
 }
 
-func (x *ResponsiveScreenRuleEntryContentForm) ScreenName() string {
-	return x.Doc().FormFieldOr(x.Path(), "screenName")
-}
-
-func (x *ResponsiveScreenRuleEntryContentForm) SetScreenName(value string) {
-	x.Doc().SetFormField(x.Path(), "screenName", value)
-}
-
 func (x *ResponsiveScreenRuleEntryContentForm) MobileLayout() string {
 	return x.Doc().FormFieldOr(x.Path(), "mobileLayout")
 }
@@ -165488,14 +163888,6 @@ func (x *ReusableUiComponentEntryContentForm) Content() string {
 
 func (x *ReusableUiComponentEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ReusableUiComponentEntryContentForm) ComponentName() string {
-	return x.Doc().FormFieldOr(x.Path(), "componentName")
-}
-
-func (x *ReusableUiComponentEntryContentForm) SetComponentName(value string) {
-	x.Doc().SetFormField(x.Path(), "componentName", value)
 }
 
 func (x *ReusableUiComponentEntryContentForm) ComponentCategory() string {
@@ -166725,14 +165117,6 @@ func (x *RiskIdentificationContentForm) SetRiskId(value string) {
 	x.Doc().SetFormField(x.Path(), "riskId", value)
 }
 
-func (x *RiskIdentificationContentForm) RiskName() string {
-	return x.Doc().FormFieldOr(x.Path(), "riskName")
-}
-
-func (x *RiskIdentificationContentForm) SetRiskName(value string) {
-	x.Doc().SetFormField(x.Path(), "riskName", value)
-}
-
 func (x *RiskIdentificationContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -167945,14 +166329,6 @@ func (x *RoleCompetencyEntryContentForm) SetCompetencyId(value string) {
 	x.Doc().SetFormField(x.Path(), "competencyId", value)
 }
 
-func (x *RoleCompetencyEntryContentForm) CompetencyName() string {
-	return x.Doc().FormFieldOr(x.Path(), "competencyName")
-}
-
-func (x *RoleCompetencyEntryContentForm) SetCompetencyName(value string) {
-	x.Doc().SetFormField(x.Path(), "competencyName", value)
-}
-
 func (x *RoleCompetencyEntryContentForm) CompetencyType() string {
 	return x.Doc().FormFieldOr(x.Path(), "competencyType")
 }
@@ -168958,14 +167334,6 @@ func (x *RuleExampleEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *RuleExampleEntryContentForm) ExampleName() string {
-	return x.Doc().FormFieldOr(x.Path(), "exampleName")
-}
-
-func (x *RuleExampleEntryContentForm) SetExampleName(value string) {
-	x.Doc().SetFormField(x.Path(), "exampleName", value)
-}
-
 func (x *RuleExampleEntryContentForm) Scenario() string {
 	return x.Doc().FormFieldOr(x.Path(), "scenario")
 }
@@ -169080,14 +167448,6 @@ func (x *RuntimeDependencyEntryContentForm) DependencyId() string {
 
 func (x *RuntimeDependencyEntryContentForm) SetDependencyId(value string) {
 	x.Doc().SetFormField(x.Path(), "dependencyId", value)
-}
-
-func (x *RuntimeDependencyEntryContentForm) Name() string {
-	return x.Doc().FormFieldOr(x.Path(), "name")
-}
-
-func (x *RuntimeDependencyEntryContentForm) SetName(value string) {
-	x.Doc().SetFormField(x.Path(), "name", value)
 }
 
 func (x *RuntimeDependencyEntryContentForm) Version() string {
@@ -170771,14 +169131,6 @@ func (x *ScenarioEntryIdentificationForm) SetScenarioId(value string) {
 	x.Doc().SetFormField(x.Path(), "scenarioId", value)
 }
 
-func (x *ScenarioEntryIdentificationForm) ScenarioName() string {
-	return x.Doc().FormFieldOr(x.Path(), "scenarioName")
-}
-
-func (x *ScenarioEntryIdentificationForm) SetScenarioName(value string) {
-	x.Doc().SetFormField(x.Path(), "scenarioName", value)
-}
-
 func (x *ScenarioEntryIdentificationForm) ScenarioType() string {
 	return x.Doc().FormFieldOr(x.Path(), "scenarioType")
 }
@@ -171293,14 +169645,6 @@ func (x *ScheduledJobEntryContentForm) Content() string {
 
 func (x *ScheduledJobEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ScheduledJobEntryContentForm) JobName() string {
-	return x.Doc().FormFieldOr(x.Path(), "jobName")
-}
-
-func (x *ScheduledJobEntryContentForm) SetJobName(value string) {
-	x.Doc().SetFormField(x.Path(), "jobName", value)
 }
 
 func (x *ScheduledJobEntryContentForm) Purpose() string {
@@ -172368,14 +170712,6 @@ func (x *ScreenActionEntryContentForm) SetActionId(value string) {
 	x.Doc().SetFormField(x.Path(), "actionId", value)
 }
 
-func (x *ScreenActionEntryContentForm) ActionName() string {
-	return x.Doc().FormFieldOr(x.Path(), "actionName")
-}
-
-func (x *ScreenActionEntryContentForm) SetActionName(value string) {
-	x.Doc().SetFormField(x.Path(), "actionName", value)
-}
-
 func (x *ScreenActionEntryContentForm) ActionType() string {
 	return x.Doc().FormFieldOr(x.Path(), "actionType")
 }
@@ -172474,14 +170810,6 @@ func (x *ScreenBehaviorEntryContentForm) BehaviorId() string {
 
 func (x *ScreenBehaviorEntryContentForm) SetBehaviorId(value string) {
 	x.Doc().SetFormField(x.Path(), "behaviorId", value)
-}
-
-func (x *ScreenBehaviorEntryContentForm) BehaviorName() string {
-	return x.Doc().FormFieldOr(x.Path(), "behaviorName")
-}
-
-func (x *ScreenBehaviorEntryContentForm) SetBehaviorName(value string) {
-	x.Doc().SetFormField(x.Path(), "behaviorName", value)
 }
 
 func (x *ScreenBehaviorEntryContentForm) BehaviorType() string {
@@ -172998,14 +171326,6 @@ func (x *ScreenElementEntryContentForm) ElementId() string {
 
 func (x *ScreenElementEntryContentForm) SetElementId(value string) {
 	x.Doc().SetFormField(x.Path(), "elementId", value)
-}
-
-func (x *ScreenElementEntryContentForm) ElementName() string {
-	return x.Doc().FormFieldOr(x.Path(), "elementName")
-}
-
-func (x *ScreenElementEntryContentForm) SetElementName(value string) {
-	x.Doc().SetFormField(x.Path(), "elementName", value)
 }
 
 func (x *ScreenElementEntryContentForm) ElementType() string {
@@ -173762,14 +172082,6 @@ func (x *ScreenEntryContentForm) SetScreenId(value string) {
 	x.Doc().SetFormField(x.Path(), "screenId", value)
 }
 
-func (x *ScreenEntryContentForm) ScreenName() string {
-	return x.Doc().FormFieldOr(x.Path(), "screenName")
-}
-
-func (x *ScreenEntryContentForm) SetScreenName(value string) {
-	x.Doc().SetFormField(x.Path(), "screenName", value)
-}
-
 func (x *ScreenEntryContentForm) Purpose() string {
 	return x.Doc().FormFieldOr(x.Path(), "purpose")
 }
@@ -174050,14 +172362,6 @@ func (x *ScreenFieldEntryContentForm) FieldId() string {
 
 func (x *ScreenFieldEntryContentForm) SetFieldId(value string) {
 	x.Doc().SetFormField(x.Path(), "fieldId", value)
-}
-
-func (x *ScreenFieldEntryContentForm) FieldLabel() string {
-	return x.Doc().FormFieldOr(x.Path(), "fieldLabel")
-}
-
-func (x *ScreenFieldEntryContentForm) SetFieldLabel(value string) {
-	x.Doc().SetFormField(x.Path(), "fieldLabel", value)
 }
 
 func (x *ScreenFieldEntryContentForm) FieldType() string {
@@ -174502,14 +172806,6 @@ func (x *ScreenRouteEntryContentForm) SetRoutePath(value string) {
 	x.Doc().SetFormField(x.Path(), "routePath", value)
 }
 
-func (x *ScreenRouteEntryContentForm) RouteTitle() string {
-	return x.Doc().FormFieldOr(x.Path(), "routeTitle")
-}
-
-func (x *ScreenRouteEntryContentForm) SetRouteTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "routeTitle", value)
-}
-
 func (x *ScreenRouteEntryContentForm) ScreenId() string {
 	return x.Doc().FormFieldOr(x.Path(), "screenId")
 }
@@ -174608,14 +172904,6 @@ func (x *ScreenSectionEntryContentForm) SectionId() string {
 
 func (x *ScreenSectionEntryContentForm) SetSectionId(value string) {
 	x.Doc().SetFormField(x.Path(), "sectionId", value)
-}
-
-func (x *ScreenSectionEntryContentForm) SectionName() string {
-	return x.Doc().FormFieldOr(x.Path(), "sectionName")
-}
-
-func (x *ScreenSectionEntryContentForm) SetSectionName(value string) {
-	x.Doc().SetFormField(x.Path(), "sectionName", value)
 }
 
 func (x *ScreenSectionEntryContentForm) Purpose() string {
@@ -174728,14 +173016,6 @@ func (x *ScreenStateEntryContentForm) Content() string {
 
 func (x *ScreenStateEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ScreenStateEntryContentForm) StateName() string {
-	return x.Doc().FormFieldOr(x.Path(), "stateName")
-}
-
-func (x *ScreenStateEntryContentForm) SetStateName(value string) {
-	x.Doc().SetFormField(x.Path(), "stateName", value)
 }
 
 func (x *ScreenStateEntryContentForm) Description() string {
@@ -174894,14 +173174,6 @@ func (x *ScreenUserCategoryEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ScreenUserCategoryEntryContentForm) CategoryName() string {
-	return x.Doc().FormFieldOr(x.Path(), "categoryName")
-}
-
-func (x *ScreenUserCategoryEntryContentForm) SetCategoryName(value string) {
-	x.Doc().SetFormField(x.Path(), "categoryName", value)
-}
-
 func (x *ScreenUserCategoryEntryContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -174942,14 +173214,6 @@ func (x *SecurityAuditEntryContentForm) Content() string {
 
 func (x *SecurityAuditEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *SecurityAuditEntryContentForm) AuditName() string {
-	return x.Doc().FormFieldOr(x.Path(), "auditName")
-}
-
-func (x *SecurityAuditEntryContentForm) SetAuditName(value string) {
-	x.Doc().SetFormField(x.Path(), "auditName", value)
 }
 
 func (x *SecurityAuditEntryContentForm) AuditCategory() string {
@@ -175892,14 +174156,6 @@ func (x *SecurityControlEntryContentForm) SetControlId(value string) {
 	x.Doc().SetFormField(x.Path(), "controlId", value)
 }
 
-func (x *SecurityControlEntryContentForm) ControlName() string {
-	return x.Doc().FormFieldOr(x.Path(), "controlName")
-}
-
-func (x *SecurityControlEntryContentForm) SetControlName(value string) {
-	x.Doc().SetFormField(x.Path(), "controlName", value)
-}
-
 func (x *SecurityControlEntryContentForm) ControlType() string {
 	return x.Doc().FormFieldOr(x.Path(), "controlType")
 }
@@ -176332,14 +174588,6 @@ func (x *SecurityEventEntryContentForm) Content() string {
 
 func (x *SecurityEventEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *SecurityEventEntryContentForm) EventName() string {
-	return x.Doc().FormFieldOr(x.Path(), "eventName")
-}
-
-func (x *SecurityEventEntryContentForm) SetEventName(value string) {
-	x.Doc().SetFormField(x.Path(), "eventName", value)
 }
 
 func (x *SecurityEventEntryContentForm) EventCategory() string {
@@ -176912,14 +175160,6 @@ func (x *SecurityStandardComplianceEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *SecurityStandardComplianceEntryContentForm) StandardName() string {
-	return x.Doc().FormFieldOr(x.Path(), "standardName")
-}
-
-func (x *SecurityStandardComplianceEntryContentForm) SetStandardName(value string) {
-	x.Doc().SetFormField(x.Path(), "standardName", value)
-}
-
 func (x *SecurityStandardComplianceEntryContentForm) StandardType() string {
 	return x.Doc().FormFieldOr(x.Path(), "standardType")
 }
@@ -177118,14 +175358,6 @@ func (x *SecurityStandardEntryContentForm) Content() string {
 
 func (x *SecurityStandardEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *SecurityStandardEntryContentForm) StandardName() string {
-	return x.Doc().FormFieldOr(x.Path(), "standardName")
-}
-
-func (x *SecurityStandardEntryContentForm) SetStandardName(value string) {
-	x.Doc().SetFormField(x.Path(), "standardName", value)
 }
 
 func (x *SecurityStandardEntryContentForm) StandardVersion() string {
@@ -178189,14 +176421,6 @@ func (x *ServerEnvironmentEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ServerEnvironmentEntryContentForm) EnvironmentName() string {
-	return x.Doc().FormFieldOr(x.Path(), "environmentName")
-}
-
-func (x *ServerEnvironmentEntryContentForm) SetEnvironmentName(value string) {
-	x.Doc().SetFormField(x.Path(), "environmentName", value)
-}
-
 func (x *ServerEnvironmentEntryContentForm) EnvironmentType() string {
 	return x.Doc().FormFieldOr(x.Path(), "environmentType")
 }
@@ -178417,14 +176641,6 @@ func (x *ServerOperationEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ServerOperationEntryContentForm) OperationName() string {
-	return x.Doc().FormFieldOr(x.Path(), "operationName")
-}
-
-func (x *ServerOperationEntryContentForm) SetOperationName(value string) {
-	x.Doc().SetFormField(x.Path(), "operationName", value)
-}
-
 func (x *ServerOperationEntryContentForm) Purpose() string {
 	return x.Doc().FormFieldOr(x.Path(), "purpose")
 }
@@ -178481,14 +176697,6 @@ func (x *ServerOperationMemberEntryContentForm) Content() string {
 
 func (x *ServerOperationMemberEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ServerOperationMemberEntryContentForm) MemberName() string {
-	return x.Doc().FormFieldOr(x.Path(), "memberName")
-}
-
-func (x *ServerOperationMemberEntryContentForm) SetMemberName(value string) {
-	x.Doc().SetFormField(x.Path(), "memberName", value)
 }
 
 func (x *ServerOperationMemberEntryContentForm) MemberType() string {
@@ -178942,14 +177150,6 @@ func (x *ServerRoleEntryContentForm) Content() string {
 
 func (x *ServerRoleEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *ServerRoleEntryContentForm) RoleName() string {
-	return x.Doc().FormFieldOr(x.Path(), "roleName")
-}
-
-func (x *ServerRoleEntryContentForm) SetRoleName(value string) {
-	x.Doc().SetFormField(x.Path(), "roleName", value)
 }
 
 func (x *ServerRoleEntryContentForm) RoleType() string {
@@ -180651,14 +178851,6 @@ func (x *SharedLibraryComponentEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *SharedLibraryComponentEntryContentForm) ComponentName() string {
-	return x.Doc().FormFieldOr(x.Path(), "componentName")
-}
-
-func (x *SharedLibraryComponentEntryContentForm) SetComponentName(value string) {
-	x.Doc().SetFormField(x.Path(), "componentName", value)
-}
-
 func (x *SharedLibraryComponentEntryContentForm) ComponentType() string {
 	return x.Doc().FormFieldOr(x.Path(), "componentType")
 }
@@ -180997,14 +179189,6 @@ func (x *SharedLibraryEntryContentForm) Content() string {
 
 func (x *SharedLibraryEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *SharedLibraryEntryContentForm) LibraryName() string {
-	return x.Doc().FormFieldOr(x.Path(), "libraryName")
-}
-
-func (x *SharedLibraryEntryContentForm) SetLibraryName(value string) {
-	x.Doc().SetFormField(x.Path(), "libraryName", value)
 }
 
 func (x *SharedLibraryEntryContentForm) LibraryType() string {
@@ -182158,14 +180342,6 @@ func (x *SloEntryContentForm) SetSloId(value string) {
 	x.Doc().SetFormField(x.Path(), "sloId", value)
 }
 
-func (x *SloEntryContentForm) SloName() string {
-	return x.Doc().FormFieldOr(x.Path(), "sloName")
-}
-
-func (x *SloEntryContentForm) SetSloName(value string) {
-	x.Doc().SetFormField(x.Path(), "sloName", value)
-}
-
 func (x *SloEntryContentForm) SloDescription() string {
 	return x.Doc().FormFieldOr(x.Path(), "sloDescription")
 }
@@ -182372,14 +180548,6 @@ func (x *SoftwareLayerEntryContentForm) Content() string {
 
 func (x *SoftwareLayerEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *SoftwareLayerEntryContentForm) LayerName() string {
-	return x.Doc().FormFieldOr(x.Path(), "layerName")
-}
-
-func (x *SoftwareLayerEntryContentForm) SetLayerName(value string) {
-	x.Doc().SetFormField(x.Path(), "layerName", value)
 }
 
 func (x *SoftwareLayerEntryContentForm) LayerLevel() string {
@@ -183486,14 +181654,6 @@ func (x *StageEntryContentForm) SetStageNumber(value string) {
 	x.Doc().SetFormField(x.Path(), "stageNumber", value)
 }
 
-func (x *StageEntryContentForm) StageName() string {
-	return x.Doc().FormFieldOr(x.Path(), "stageName")
-}
-
-func (x *StageEntryContentForm) SetStageName(value string) {
-	x.Doc().SetFormField(x.Path(), "stageName", value)
-}
-
 func (x *StageEntryContentForm) CurrentStatus() string {
 	return x.Doc().FormFieldOr(x.Path(), "currentStatus")
 }
@@ -184542,14 +182702,6 @@ func (x *StageMigrationRiskEntryContentForm) RiskId() string {
 
 func (x *StageMigrationRiskEntryContentForm) SetRiskId(value string) {
 	x.Doc().SetFormField(x.Path(), "riskId", value)
-}
-
-func (x *StageMigrationRiskEntryContentForm) RiskName() string {
-	return x.Doc().FormFieldOr(x.Path(), "riskName")
-}
-
-func (x *StageMigrationRiskEntryContentForm) SetRiskName(value string) {
-	x.Doc().SetFormField(x.Path(), "riskName", value)
 }
 
 func (x *StageMigrationRiskEntryContentForm) RiskCategory() string {
@@ -186458,14 +184610,6 @@ func (x *StageSummaryEntryContentForm) SetStageNumber(value string) {
 	x.Doc().SetFormField(x.Path(), "stageNumber", value)
 }
 
-func (x *StageSummaryEntryContentForm) StageName() string {
-	return x.Doc().FormFieldOr(x.Path(), "stageName")
-}
-
-func (x *StageSummaryEntryContentForm) SetStageName(value string) {
-	x.Doc().SetFormField(x.Path(), "stageName", value)
-}
-
 func (x *StageSummaryEntryContentForm) ScopeSummary() string {
 	return x.Doc().FormFieldOr(x.Path(), "scopeSummary")
 }
@@ -187706,14 +185850,6 @@ func (x *StakeholderEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *StakeholderEntryContentForm) StakeholderName() string {
-	return x.Doc().FormFieldOr(x.Path(), "stakeholderName")
-}
-
-func (x *StakeholderEntryContentForm) SetStakeholderName(value string) {
-	x.Doc().SetFormField(x.Path(), "stakeholderName", value)
-}
-
 func (x *StakeholderEntryContentForm) StakeholderType() string {
 	return x.Doc().FormFieldOr(x.Path(), "stakeholderType")
 }
@@ -187762,14 +185898,6 @@ func (x *StakeholderRegisterEntryContentForm) StakeholderId() string {
 
 func (x *StakeholderRegisterEntryContentForm) SetStakeholderId(value string) {
 	x.Doc().SetFormField(x.Path(), "stakeholderId", value)
-}
-
-func (x *StakeholderRegisterEntryContentForm) Name() string {
-	return x.Doc().FormFieldOr(x.Path(), "name")
-}
-
-func (x *StakeholderRegisterEntryContentForm) SetName(value string) {
-	x.Doc().SetFormField(x.Path(), "name", value)
 }
 
 func (x *StakeholderRegisterEntryContentForm) Role() string {
@@ -188188,14 +186316,6 @@ func (x *SubFunctionEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *SubFunctionEntryContentForm) SubFunctionName() string {
-	return x.Doc().FormFieldOr(x.Path(), "subFunctionName")
-}
-
-func (x *SubFunctionEntryContentForm) SetSubFunctionName(value string) {
-	x.Doc().SetFormField(x.Path(), "subFunctionName", value)
-}
-
 func (x *SubFunctionEntryContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -188244,14 +186364,6 @@ func (x *SubStageEntryContentForm) Content() string {
 
 func (x *SubStageEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *SubStageEntryContentForm) Name() string {
-	return x.Doc().FormFieldOr(x.Path(), "name")
-}
-
-func (x *SubStageEntryContentForm) SetName(value string) {
-	x.Doc().SetFormField(x.Path(), "name", value)
 }
 
 func (x *SubStageEntryContentForm) SubStageType() string {
@@ -188978,14 +187090,6 @@ func (x *SuccessCriterionEntryContentForm) CriterionId() string {
 
 func (x *SuccessCriterionEntryContentForm) SetCriterionId(value string) {
 	x.Doc().SetFormField(x.Path(), "criterionId", value)
-}
-
-func (x *SuccessCriterionEntryContentForm) CriterionName() string {
-	return x.Doc().FormFieldOr(x.Path(), "criterionName")
-}
-
-func (x *SuccessCriterionEntryContentForm) SetCriterionName(value string) {
-	x.Doc().SetFormField(x.Path(), "criterionName", value)
 }
 
 func (x *SuccessCriterionEntryContentForm) Category() string {
@@ -190302,14 +188406,6 @@ func (x *SystemBusinessProcessEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *SystemBusinessProcessEntryContentForm) ProcessName() string {
-	return x.Doc().FormFieldOr(x.Path(), "processName")
-}
-
-func (x *SystemBusinessProcessEntryContentForm) SetProcessName(value string) {
-	x.Doc().SetFormField(x.Path(), "processName", value)
-}
-
 func (x *SystemBusinessProcessEntryContentForm) ProcessId() string {
 	return x.Doc().FormFieldOr(x.Path(), "processId")
 }
@@ -190366,14 +188462,6 @@ func (x *SystemBusinessUnitEntryContentForm) Content() string {
 
 func (x *SystemBusinessUnitEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *SystemBusinessUnitEntryContentForm) UnitName() string {
-	return x.Doc().FormFieldOr(x.Path(), "unitName")
-}
-
-func (x *SystemBusinessUnitEntryContentForm) SetUnitName(value string) {
-	x.Doc().SetFormField(x.Path(), "unitName", value)
 }
 
 func (x *SystemBusinessUnitEntryContentForm) UserCount() *int {
@@ -191154,14 +189242,6 @@ func (x *SystemDependencyEntryContentForm) Content() string {
 
 func (x *SystemDependencyEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *SystemDependencyEntryContentForm) DependencyName() string {
-	return x.Doc().FormFieldOr(x.Path(), "dependencyName")
-}
-
-func (x *SystemDependencyEntryContentForm) SetDependencyName(value string) {
-	x.Doc().SetFormField(x.Path(), "dependencyName", value)
 }
 
 func (x *SystemDependencyEntryContentForm) DependencyType() string {
@@ -192488,14 +190568,6 @@ func (x *SystemIntegrationEntryContentForm) Content() string {
 
 func (x *SystemIntegrationEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *SystemIntegrationEntryContentForm) IntegrationName() string {
-	return x.Doc().FormFieldOr(x.Path(), "integrationName")
-}
-
-func (x *SystemIntegrationEntryContentForm) SetIntegrationName(value string) {
-	x.Doc().SetFormField(x.Path(), "integrationName", value)
 }
 
 func (x *SystemIntegrationEntryContentForm) IntegrationType() string {
@@ -194269,14 +192341,6 @@ func (x *SystemTaskEntryContentForm) SetTaskId(value string) {
 	x.Doc().SetFormField(x.Path(), "taskId", value)
 }
 
-func (x *SystemTaskEntryContentForm) TaskName() string {
-	return x.Doc().FormFieldOr(x.Path(), "taskName")
-}
-
-func (x *SystemTaskEntryContentForm) SetTaskName(value string) {
-	x.Doc().SetFormField(x.Path(), "taskName", value)
-}
-
 func (x *SystemTaskEntryContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -194729,14 +192793,6 @@ func (x *SystemToReplaceEntryIdentificationContentForm) SetSystemId(value string
 	x.Doc().SetFormField(x.Path(), "systemId", value)
 }
 
-func (x *SystemToReplaceEntryIdentificationContentForm) SystemName() string {
-	return x.Doc().FormFieldOr(x.Path(), "systemName")
-}
-
-func (x *SystemToReplaceEntryIdentificationContentForm) SetSystemName(value string) {
-	x.Doc().SetFormField(x.Path(), "systemName", value)
-}
-
 func (x *SystemToReplaceEntryIdentificationContentForm) OfficialName() string {
 	return x.Doc().FormFieldOr(x.Path(), "officialName")
 }
@@ -194893,14 +192949,6 @@ func (x *SystemTrainingEntryContentForm) TrainingId() string {
 
 func (x *SystemTrainingEntryContentForm) SetTrainingId(value string) {
 	x.Doc().SetFormField(x.Path(), "trainingId", value)
-}
-
-func (x *SystemTrainingEntryContentForm) SystemName() string {
-	return x.Doc().FormFieldOr(x.Path(), "systemName")
-}
-
-func (x *SystemTrainingEntryContentForm) SetSystemName(value string) {
-	x.Doc().SetFormField(x.Path(), "systemName", value)
 }
 
 func (x *SystemTrainingEntryContentForm) ModulesCovered() string {
@@ -195445,14 +193493,6 @@ func (x *TabBarDefinitionEntryContentForm) SetTabBarId(value string) {
 	x.Doc().SetFormField(x.Path(), "tabBarId", value)
 }
 
-func (x *TabBarDefinitionEntryContentForm) TabBarName() string {
-	return x.Doc().FormFieldOr(x.Path(), "tabBarName")
-}
-
-func (x *TabBarDefinitionEntryContentForm) SetTabBarName(value string) {
-	x.Doc().SetFormField(x.Path(), "tabBarName", value)
-}
-
 func (x *TabBarDefinitionEntryContentForm) HostScreenId() string {
 	return x.Doc().FormFieldOr(x.Path(), "hostScreenId")
 }
@@ -195687,14 +193727,6 @@ func (x *TargetPlatformEntryContentForm) Content() string {
 
 func (x *TargetPlatformEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *TargetPlatformEntryContentForm) PlatformName() string {
-	return x.Doc().FormFieldOr(x.Path(), "platformName")
-}
-
-func (x *TargetPlatformEntryContentForm) SetPlatformName(value string) {
-	x.Doc().SetFormField(x.Path(), "platformName", value)
 }
 
 func (x *TargetPlatformEntryContentForm) PlatformCategory() string {
@@ -196087,14 +194119,6 @@ func (x *TeamMemberEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *TeamMemberEntryContentForm) Name() string {
-	return x.Doc().FormFieldOr(x.Path(), "name")
-}
-
-func (x *TeamMemberEntryContentForm) SetName(value string) {
-	x.Doc().SetFormField(x.Path(), "name", value)
-}
-
 func (x *TeamMemberEntryContentForm) ProjectRole() string {
 	return x.Doc().FormFieldOr(x.Path(), "projectRole")
 }
@@ -196243,14 +194267,6 @@ func (x *TeamMemberSkillEntryContentForm) Content() string {
 
 func (x *TeamMemberSkillEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *TeamMemberSkillEntryContentForm) SkillName() string {
-	return x.Doc().FormFieldOr(x.Path(), "skillName")
-}
-
-func (x *TeamMemberSkillEntryContentForm) SetSkillName(value string) {
-	x.Doc().SetFormField(x.Path(), "skillName", value)
 }
 
 func (x *TeamMemberSkillEntryContentForm) ProficiencyLevel() string {
@@ -196585,14 +194601,6 @@ func (x *TechnicalConstraintEntryContentForm) SetConstraintId(value string) {
 	x.Doc().SetFormField(x.Path(), "constraintId", value)
 }
 
-func (x *TechnicalConstraintEntryContentForm) ConstraintName() string {
-	return x.Doc().FormFieldOr(x.Path(), "constraintName")
-}
-
-func (x *TechnicalConstraintEntryContentForm) SetConstraintName(value string) {
-	x.Doc().SetFormField(x.Path(), "constraintName", value)
-}
-
 func (x *TechnicalConstraintEntryContentForm) ConstraintType() string {
 	return x.Doc().FormFieldOr(x.Path(), "constraintType")
 }
@@ -196673,14 +194681,6 @@ func (x *TechnicalDependencyEntryContentForm) DependencyId() string {
 
 func (x *TechnicalDependencyEntryContentForm) SetDependencyId(value string) {
 	x.Doc().SetFormField(x.Path(), "dependencyId", value)
-}
-
-func (x *TechnicalDependencyEntryContentForm) DependencyName() string {
-	return x.Doc().FormFieldOr(x.Path(), "dependencyName")
-}
-
-func (x *TechnicalDependencyEntryContentForm) SetDependencyName(value string) {
-	x.Doc().SetFormField(x.Path(), "dependencyName", value)
 }
 
 func (x *TechnicalDependencyEntryContentForm) DependencyType() string {
@@ -197055,14 +195055,6 @@ func (x *TechnicalGoalEntryContentForm) SetGoalId(value string) {
 	x.Doc().SetFormField(x.Path(), "goalId", value)
 }
 
-func (x *TechnicalGoalEntryContentForm) GoalName() string {
-	return x.Doc().FormFieldOr(x.Path(), "goalName")
-}
-
-func (x *TechnicalGoalEntryContentForm) SetGoalName(value string) {
-	x.Doc().SetFormField(x.Path(), "goalName", value)
-}
-
 func (x *TechnicalGoalEntryContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -197259,14 +195251,6 @@ func (x *TechnicalGoalTestCaseEntryContentForm) TestCaseId() string {
 
 func (x *TechnicalGoalTestCaseEntryContentForm) SetTestCaseId(value string) {
 	x.Doc().SetFormField(x.Path(), "testCaseId", value)
-}
-
-func (x *TechnicalGoalTestCaseEntryContentForm) TestCaseName() string {
-	return x.Doc().FormFieldOr(x.Path(), "testCaseName")
-}
-
-func (x *TechnicalGoalTestCaseEntryContentForm) SetTestCaseName(value string) {
-	x.Doc().SetFormField(x.Path(), "testCaseName", value)
 }
 
 func (x *TechnicalGoalTestCaseEntryContentForm) Description() string {
@@ -198297,14 +196281,6 @@ func (x *TechnologyStandardEntryContentForm) SetStandardId(value string) {
 	x.Doc().SetFormField(x.Path(), "standardId", value)
 }
 
-func (x *TechnologyStandardEntryContentForm) StandardName() string {
-	return x.Doc().FormFieldOr(x.Path(), "standardName")
-}
-
-func (x *TechnologyStandardEntryContentForm) SetStandardName(value string) {
-	x.Doc().SetFormField(x.Path(), "standardName", value)
-}
-
 func (x *TechnologyStandardEntryContentForm) StandardCategory() string {
 	return x.Doc().FormFieldOr(x.Path(), "standardCategory")
 }
@@ -198740,14 +196716,6 @@ func (x *TestScenarioEntryContentForm) ScenarioId() string {
 
 func (x *TestScenarioEntryContentForm) SetScenarioId(value string) {
 	x.Doc().SetFormField(x.Path(), "scenarioId", value)
-}
-
-func (x *TestScenarioEntryContentForm) ScenarioName() string {
-	return x.Doc().FormFieldOr(x.Path(), "scenarioName")
-}
-
-func (x *TestScenarioEntryContentForm) SetScenarioName(value string) {
-	x.Doc().SetFormField(x.Path(), "scenarioName", value)
 }
 
 func (x *TestScenarioEntryContentForm) Priority() string {
@@ -200089,14 +198057,6 @@ func (x *ThirdPartyLibraryEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *ThirdPartyLibraryEntryContentForm) LibraryName() string {
-	return x.Doc().FormFieldOr(x.Path(), "libraryName")
-}
-
-func (x *ThirdPartyLibraryEntryContentForm) SetLibraryName(value string) {
-	x.Doc().SetFormField(x.Path(), "libraryName", value)
-}
-
 func (x *ThirdPartyLibraryEntryContentForm) PackageSource() string {
 	return x.Doc().FormFieldOr(x.Path(), "packageSource")
 }
@@ -201235,14 +199195,6 @@ func (x *ToolEntryContentForm) ToolId() string {
 
 func (x *ToolEntryContentForm) SetToolId(value string) {
 	x.Doc().SetFormField(x.Path(), "toolId", value)
-}
-
-func (x *ToolEntryContentForm) ToolName() string {
-	return x.Doc().FormFieldOr(x.Path(), "toolName")
-}
-
-func (x *ToolEntryContentForm) SetToolName(value string) {
-	x.Doc().SetFormField(x.Path(), "toolName", value)
 }
 
 func (x *ToolEntryContentForm) Notes() string {
@@ -202641,14 +200593,6 @@ func (x *TourStepEntryContentForm) SetTargetElement(value string) {
 	x.Doc().SetFormField(x.Path(), "targetElement", value)
 }
 
-func (x *TourStepEntryContentForm) StepTitle() string {
-	return x.Doc().FormFieldOr(x.Path(), "stepTitle")
-}
-
-func (x *TourStepEntryContentForm) SetStepTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "stepTitle", value)
-}
-
 func (x *TourStepEntryContentForm) StepContent() string {
 	return x.Doc().FormFieldOr(x.Path(), "stepContent")
 }
@@ -202771,14 +200715,6 @@ func (x *TradeOffDecisionEntryContentForm) DecisionId() string {
 
 func (x *TradeOffDecisionEntryContentForm) SetDecisionId(value string) {
 	x.Doc().SetFormField(x.Path(), "decisionId", value)
-}
-
-func (x *TradeOffDecisionEntryContentForm) DecisionTitle() string {
-	return x.Doc().FormFieldOr(x.Path(), "decisionTitle")
-}
-
-func (x *TradeOffDecisionEntryContentForm) SetDecisionTitle(value string) {
-	x.Doc().SetFormField(x.Path(), "decisionTitle", value)
 }
 
 func (x *TradeOffDecisionEntryContentForm) DecisionStatus() string {
@@ -203735,14 +201671,6 @@ func (x *TrainingModuleEntryContentForm) SetModuleId(value string) {
 	x.Doc().SetFormField(x.Path(), "moduleId", value)
 }
 
-func (x *TrainingModuleEntryContentForm) ModuleName() string {
-	return x.Doc().FormFieldOr(x.Path(), "moduleName")
-}
-
-func (x *TrainingModuleEntryContentForm) SetModuleName(value string) {
-	x.Doc().SetFormField(x.Path(), "moduleName", value)
-}
-
 func (x *TrainingModuleEntryContentForm) TargetAudience() string {
 	return x.Doc().FormFieldOr(x.Path(), "targetAudience")
 }
@@ -204089,14 +202017,6 @@ func (x *TrainingTopicEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *TrainingTopicEntryContentForm) TopicName() string {
-	return x.Doc().FormFieldOr(x.Path(), "topicName")
-}
-
-func (x *TrainingTopicEntryContentForm) SetTopicName(value string) {
-	x.Doc().SetFormField(x.Path(), "topicName", value)
-}
-
 func (x *TrainingTopicEntryContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -204417,14 +202337,6 @@ func (x *TransitionMetricEntryContentForm) SetMetricId(value string) {
 	x.Doc().SetFormField(x.Path(), "metricId", value)
 }
 
-func (x *TransitionMetricEntryContentForm) MetricName() string {
-	return x.Doc().FormFieldOr(x.Path(), "metricName")
-}
-
-func (x *TransitionMetricEntryContentForm) SetMetricName(value string) {
-	x.Doc().SetFormField(x.Path(), "metricName", value)
-}
-
 func (x *TransitionMetricEntryContentForm) Category() string {
 	return x.Doc().FormFieldOr(x.Path(), "category")
 }
@@ -204605,14 +202517,6 @@ func (x *TransitionMilestoneEntryContentForm) MilestoneId() string {
 
 func (x *TransitionMilestoneEntryContentForm) SetMilestoneId(value string) {
 	x.Doc().SetFormField(x.Path(), "milestoneId", value)
-}
-
-func (x *TransitionMilestoneEntryContentForm) MilestoneName() string {
-	return x.Doc().FormFieldOr(x.Path(), "milestoneName")
-}
-
-func (x *TransitionMilestoneEntryContentForm) SetMilestoneName(value string) {
-	x.Doc().SetFormField(x.Path(), "milestoneName", value)
 }
 
 func (x *TransitionMilestoneEntryContentForm) MilestoneType() string {
@@ -205145,14 +203049,6 @@ func (x *TransitionPhaseIdentificationContentForm) SetPhaseId(value string) {
 	x.Doc().SetFormField(x.Path(), "phaseId", value)
 }
 
-func (x *TransitionPhaseIdentificationContentForm) PhaseName() string {
-	return x.Doc().FormFieldOr(x.Path(), "phaseName")
-}
-
-func (x *TransitionPhaseIdentificationContentForm) SetPhaseName(value string) {
-	x.Doc().SetFormField(x.Path(), "phaseName", value)
-}
-
 func (x *TransitionPhaseIdentificationContentForm) PhaseType() string {
 	return x.Doc().FormFieldOr(x.Path(), "phaseType")
 }
@@ -205455,14 +203351,6 @@ func (x *TransitionRiskEntryContentForm) SetRiskId(value string) {
 	x.Doc().SetFormField(x.Path(), "riskId", value)
 }
 
-func (x *TransitionRiskEntryContentForm) RiskName() string {
-	return x.Doc().FormFieldOr(x.Path(), "riskName")
-}
-
-func (x *TransitionRiskEntryContentForm) SetRiskName(value string) {
-	x.Doc().SetFormField(x.Path(), "riskName", value)
-}
-
 func (x *TransitionRiskEntryContentForm) RiskCategory() string {
 	return x.Doc().FormFieldOr(x.Path(), "riskCategory")
 }
@@ -205651,14 +203539,6 @@ func (x *TransitionSupportResourceEntryContentForm) ResourceType() string {
 
 func (x *TransitionSupportResourceEntryContentForm) SetResourceType(value string) {
 	x.Doc().SetFormField(x.Path(), "resourceType", value)
-}
-
-func (x *TransitionSupportResourceEntryContentForm) ResourceName() string {
-	return x.Doc().FormFieldOr(x.Path(), "resourceName")
-}
-
-func (x *TransitionSupportResourceEntryContentForm) SetResourceName(value string) {
-	x.Doc().SetFormField(x.Path(), "resourceName", value)
 }
 
 func (x *TransitionSupportResourceEntryContentForm) AvailabilityPeriod() string {
@@ -206378,14 +204258,6 @@ func (x *TranslationVendorEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *TranslationVendorEntryContentForm) VendorName() string {
-	return x.Doc().FormFieldOr(x.Path(), "vendorName")
-}
-
-func (x *TranslationVendorEntryContentForm) SetVendorName(value string) {
-	x.Doc().SetFormField(x.Path(), "vendorName", value)
-}
-
 func (x *TranslationVendorEntryContentForm) VendorType() string {
 	return x.Doc().FormFieldOr(x.Path(), "vendorType")
 }
@@ -206733,14 +204605,6 @@ func (x *TrustBoundaryEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *TrustBoundaryEntryContentForm) BoundaryName() string {
-	return x.Doc().FormFieldOr(x.Path(), "boundaryName")
-}
-
-func (x *TrustBoundaryEntryContentForm) SetBoundaryName(value string) {
-	x.Doc().SetFormField(x.Path(), "boundaryName", value)
-}
-
 func (x *TrustBoundaryEntryContentForm) BoundaryType() string {
 	return x.Doc().FormFieldOr(x.Path(), "boundaryType")
 }
@@ -206813,14 +204677,6 @@ func (x *TypographyStyleEntryContentForm) Content() string {
 
 func (x *TypographyStyleEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *TypographyStyleEntryContentForm) StyleName() string {
-	return x.Doc().FormFieldOr(x.Path(), "styleName")
-}
-
-func (x *TypographyStyleEntryContentForm) SetStyleName(value string) {
-	x.Doc().SetFormField(x.Path(), "styleName", value)
 }
 
 func (x *TypographyStyleEntryContentForm) FontFamily() string {
@@ -206993,14 +204849,6 @@ func (x *UatTestCycleEntryContentForm) Content() string {
 
 func (x *UatTestCycleEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *UatTestCycleEntryContentForm) CycleName() string {
-	return x.Doc().FormFieldOr(x.Path(), "cycleName")
-}
-
-func (x *UatTestCycleEntryContentForm) SetCycleName(value string) {
-	x.Doc().SetFormField(x.Path(), "cycleName", value)
 }
 
 func (x *UatTestCycleEntryContentForm) CycleObjective() string {
@@ -207669,14 +205517,6 @@ func (x *UiComponentEntryIdentityForm) ComponentId() string {
 
 func (x *UiComponentEntryIdentityForm) SetComponentId(value string) {
 	x.Doc().SetFormField(x.Path(), "componentId", value)
-}
-
-func (x *UiComponentEntryIdentityForm) ComponentName() string {
-	return x.Doc().FormFieldOr(x.Path(), "componentName")
-}
-
-func (x *UiComponentEntryIdentityForm) SetComponentName(value string) {
-	x.Doc().SetFormField(x.Path(), "componentName", value)
 }
 
 func (x *UiComponentEntryIdentityForm) ComponentFamily() string {
@@ -209992,14 +207832,6 @@ func (x *UserAttributeEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *UserAttributeEntryContentForm) AttributeName() string {
-	return x.Doc().FormFieldOr(x.Path(), "attributeName")
-}
-
-func (x *UserAttributeEntryContentForm) SetAttributeName(value string) {
-	x.Doc().SetFormField(x.Path(), "attributeName", value)
-}
-
 func (x *UserAttributeEntryContentForm) DataType() string {
 	return x.Doc().FormFieldOr(x.Path(), "dataType")
 }
@@ -210066,14 +207898,6 @@ func (x *UserCategoryDefinitionContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *UserCategoryDefinitionContentForm) CategoryName() string {
-	return x.Doc().FormFieldOr(x.Path(), "categoryName")
-}
-
-func (x *UserCategoryDefinitionContentForm) SetCategoryName(value string) {
-	x.Doc().SetFormField(x.Path(), "categoryName", value)
-}
-
 func (x *UserCategoryDefinitionContentForm) Description() string {
 	return x.Doc().FormFieldOr(x.Path(), "description")
 }
@@ -210122,14 +207946,6 @@ func (x *UserCategoryEntryContentForm) Content() string {
 
 func (x *UserCategoryEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *UserCategoryEntryContentForm) CategoryName() string {
-	return x.Doc().FormFieldOr(x.Path(), "categoryName")
-}
-
-func (x *UserCategoryEntryContentForm) SetCategoryName(value string) {
-	x.Doc().SetFormField(x.Path(), "categoryName", value)
 }
 
 func (x *UserCategoryEntryContentForm) CategoryId() string {
@@ -210661,14 +208477,6 @@ func (x *UserGroupImpactEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *UserGroupImpactEntryContentForm) GroupName() string {
-	return x.Doc().FormFieldOr(x.Path(), "groupName")
-}
-
-func (x *UserGroupImpactEntryContentForm) SetGroupName(value string) {
-	x.Doc().SetFormField(x.Path(), "groupName", value)
-}
-
 func (x *UserGroupImpactEntryContentForm) UserCount() *int {
 	v := x.Doc().FormFieldOr(x.Path(), "userCount")
 	if v == "" {
@@ -211161,14 +208969,6 @@ func (x *UserLifecycleTransitionEntryContentForm) Content() string {
 
 func (x *UserLifecycleTransitionEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *UserLifecycleTransitionEntryContentForm) TransitionName() string {
-	return x.Doc().FormFieldOr(x.Path(), "transitionName")
-}
-
-func (x *UserLifecycleTransitionEntryContentForm) SetTransitionName(value string) {
-	x.Doc().SetFormField(x.Path(), "transitionName", value)
 }
 
 func (x *UserLifecycleTransitionEntryContentForm) FromState() string {
@@ -212103,14 +209903,6 @@ func (x *UtilityMenuItemEntryContentForm) SetMenuItemId(value string) {
 	x.Doc().SetFormField(x.Path(), "menuItemId", value)
 }
 
-func (x *UtilityMenuItemEntryContentForm) Label() string {
-	return x.Doc().FormFieldOr(x.Path(), "label")
-}
-
-func (x *UtilityMenuItemEntryContentForm) SetLabel(value string) {
-	x.Doc().SetFormField(x.Path(), "label", value)
-}
-
 func (x *UtilityMenuItemEntryContentForm) Icon() string {
 	return x.Doc().FormFieldOr(x.Path(), "icon")
 }
@@ -212229,14 +210021,6 @@ func (x *UtilityNavigationItemEntryContentForm) UtilityId() string {
 
 func (x *UtilityNavigationItemEntryContentForm) SetUtilityId(value string) {
 	x.Doc().SetFormField(x.Path(), "utilityId", value)
-}
-
-func (x *UtilityNavigationItemEntryContentForm) Label() string {
-	return x.Doc().FormFieldOr(x.Path(), "label")
-}
-
-func (x *UtilityNavigationItemEntryContentForm) SetLabel(value string) {
-	x.Doc().SetFormField(x.Path(), "label", value)
 }
 
 func (x *UtilityNavigationItemEntryContentForm) Icon() string {
@@ -213686,14 +211470,6 @@ func (x *VpnRequirementEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *VpnRequirementEntryContentForm) VpnName() string {
-	return x.Doc().FormFieldOr(x.Path(), "vpnName")
-}
-
-func (x *VpnRequirementEntryContentForm) SetVpnName(value string) {
-	x.Doc().SetFormField(x.Path(), "vpnName", value)
-}
-
 func (x *VpnRequirementEntryContentForm) VpnType() string {
 	return x.Doc().FormFieldOr(x.Path(), "vpnType")
 }
@@ -214746,14 +212522,6 @@ func (x *WcagSuccessCriterionEntryContentForm) SetCriterionId(value string) {
 	x.Doc().SetFormField(x.Path(), "criterionId", value)
 }
 
-func (x *WcagSuccessCriterionEntryContentForm) CriterionName() string {
-	return x.Doc().FormFieldOr(x.Path(), "criterionName")
-}
-
-func (x *WcagSuccessCriterionEntryContentForm) SetCriterionName(value string) {
-	x.Doc().SetFormField(x.Path(), "criterionName", value)
-}
-
 func (x *WcagSuccessCriterionEntryContentForm) Level() string {
 	return x.Doc().FormFieldOr(x.Path(), "level")
 }
@@ -214907,14 +212675,6 @@ func (x *WorkflowActorEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *WorkflowActorEntryContentForm) ActorName() string {
-	return x.Doc().FormFieldOr(x.Path(), "actorName")
-}
-
-func (x *WorkflowActorEntryContentForm) SetActorName(value string) {
-	x.Doc().SetFormField(x.Path(), "actorName", value)
-}
-
 func (x *WorkflowActorEntryContentForm) ActorType() string {
 	return x.Doc().FormFieldOr(x.Path(), "actorType")
 }
@@ -215009,14 +212769,6 @@ func (x *WorkflowBusinessRuleContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *WorkflowBusinessRuleContentForm) RuleName() string {
-	return x.Doc().FormFieldOr(x.Path(), "ruleName")
-}
-
-func (x *WorkflowBusinessRuleContentForm) SetRuleName(value string) {
-	x.Doc().SetFormField(x.Path(), "ruleName", value)
-}
-
 func (x *WorkflowBusinessRuleContentForm) RuleDescription() string {
 	return x.Doc().FormFieldOr(x.Path(), "ruleDescription")
 }
@@ -215073,14 +212825,6 @@ func (x *WorkflowDecisionPointContentForm) Content() string {
 
 func (x *WorkflowDecisionPointContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *WorkflowDecisionPointContentForm) DecisionName() string {
-	return x.Doc().FormFieldOr(x.Path(), "decisionName")
-}
-
-func (x *WorkflowDecisionPointContentForm) SetDecisionName(value string) {
-	x.Doc().SetFormField(x.Path(), "decisionName", value)
 }
 
 func (x *WorkflowDecisionPointContentForm) DecisionCriteria() string {
@@ -215149,14 +212893,6 @@ func (x *WorkflowExceptionEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *WorkflowExceptionEntryContentForm) ExceptionName() string {
-	return x.Doc().FormFieldOr(x.Path(), "exceptionName")
-}
-
-func (x *WorkflowExceptionEntryContentForm) SetExceptionName(value string) {
-	x.Doc().SetFormField(x.Path(), "exceptionName", value)
-}
-
 func (x *WorkflowExceptionEntryContentForm) ExceptionType() string {
 	return x.Doc().FormFieldOr(x.Path(), "exceptionType")
 }
@@ -215221,14 +212957,6 @@ func (x *WorkflowInputEntryContentForm) Content() string {
 
 func (x *WorkflowInputEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *WorkflowInputEntryContentForm) InputName() string {
-	return x.Doc().FormFieldOr(x.Path(), "inputName")
-}
-
-func (x *WorkflowInputEntryContentForm) SetInputName(value string) {
-	x.Doc().SetFormField(x.Path(), "inputName", value)
 }
 
 func (x *WorkflowInputEntryContentForm) InputType() string {
@@ -215310,14 +213038,6 @@ func (x *WorkflowOutputEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *WorkflowOutputEntryContentForm) OutputName() string {
-	return x.Doc().FormFieldOr(x.Path(), "outputName")
-}
-
-func (x *WorkflowOutputEntryContentForm) SetOutputName(value string) {
-	x.Doc().SetFormField(x.Path(), "outputName", value)
-}
-
 func (x *WorkflowOutputEntryContentForm) OutputType() string {
 	return x.Doc().FormFieldOr(x.Path(), "outputType")
 }
@@ -215374,14 +213094,6 @@ func (x *WorkflowStepEntryContentForm) Content() string {
 
 func (x *WorkflowStepEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *WorkflowStepEntryContentForm) StepName() string {
-	return x.Doc().FormFieldOr(x.Path(), "stepName")
-}
-
-func (x *WorkflowStepEntryContentForm) SetStepName(value string) {
-	x.Doc().SetFormField(x.Path(), "stepName", value)
 }
 
 func (x *WorkflowStepEntryContentForm) StepNumber() *int {
@@ -215525,14 +213237,6 @@ func (x *WorkflowStepIssueContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
 }
 
-func (x *WorkflowStepIssueContentForm) IssueName() string {
-	return x.Doc().FormFieldOr(x.Path(), "issueName")
-}
-
-func (x *WorkflowStepIssueContentForm) SetIssueName(value string) {
-	x.Doc().SetFormField(x.Path(), "issueName", value)
-}
-
 func (x *WorkflowStepIssueContentForm) IssueDescription() string {
 	return x.Doc().FormFieldOr(x.Path(), "issueDescription")
 }
@@ -215589,14 +213293,6 @@ func (x *WorkflowSummaryEntryContentForm) Content() string {
 
 func (x *WorkflowSummaryEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *WorkflowSummaryEntryContentForm) WorkflowName() string {
-	return x.Doc().FormFieldOr(x.Path(), "workflowName")
-}
-
-func (x *WorkflowSummaryEntryContentForm) SetWorkflowName(value string) {
-	x.Doc().SetFormField(x.Path(), "workflowName", value)
 }
 
 func (x *WorkflowSummaryEntryContentForm) WorkflowType() string {
@@ -215825,14 +213521,6 @@ func (x *WorkflowTriggerEntryContentForm) Content() string {
 
 func (x *WorkflowTriggerEntryContentForm) SetContent(value string) {
 	x.Doc().SetContent(x.Path(), value)
-}
-
-func (x *WorkflowTriggerEntryContentForm) TriggerName() string {
-	return x.Doc().FormFieldOr(x.Path(), "triggerName")
-}
-
-func (x *WorkflowTriggerEntryContentForm) SetTriggerName(value string) {
-	x.Doc().SetFormField(x.Path(), "triggerName", value)
 }
 
 func (x *WorkflowTriggerEntryContentForm) TriggerType() string {

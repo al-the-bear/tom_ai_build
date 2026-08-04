@@ -497,9 +497,6 @@ form-types:
       - fieldname: actorId
         required: true
         description: Use a stable unique code such as ACT-001
-      - fieldname: actorName
-        required: true
-        description: "Give the role a clear, recognisable name"
       - fieldname: actorType
         description: "State whether the actor is a person, system or scheduled job"
       - fieldname: category
@@ -723,9 +720,6 @@ form-types:
       - fieldname: scenarioId
         required: true
         description: Stable code such as SCE-001
-      - fieldname: scenarioName
-        required: true
-        description: Short descriptive name for the scenario
       - fieldname: scenarioType
         description: "One of happy path, alternative, or exception"
       - fieldname: description

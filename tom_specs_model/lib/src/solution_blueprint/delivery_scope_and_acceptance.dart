@@ -250,13 +250,6 @@ class DeliverableEntry extends DocSpecsSection {
       required: true,
     ),
     Field(
-      'deliverableName',
-      String,
-      'Deliverable Name',
-      hint: 'Concise name — e.g. "Customer Management API"',
-      required: true,
-    ),
-    Field(
       'priority',
       String,
       'Priority',
@@ -1148,13 +1141,6 @@ class AcceptanceStepEntry extends DocSpecsSection {
       required: true,
     ),
     Field(
-      'stepName',
-      String,
-      'Step Name',
-      hint: 'Concise action name — e.g. "Technical Review"',
-      required: true,
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -1759,13 +1745,6 @@ class UserAcceptanceTesting extends DocSpecsSection {
 class UatTestCycleEntry extends DocSpecsSection {
   @Form([
     Field(
-      'cycleName',
-      String,
-      'Cycle Name',
-      hint: 'e.g. "Cycle 1 — Initial Execution" or "Regression Cycle"',
-      required: true,
-    ),
-    Field(
       'cycleObjective',
       String,
       'Cycle Objective',
@@ -1880,13 +1859,6 @@ class TestScenarioEntry extends DocSpecsSection {
       String,
       'Scenario ID',
       hint: 'Unique identifier — e.g. UAT-SC-001',
-      required: true,
-    ),
-    Field(
-      'scenarioName',
-      String,
-      'Scenario Name',
-      hint: 'Concise name describing the user journey',
       required: true,
     ),
     Field(

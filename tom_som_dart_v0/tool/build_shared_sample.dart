@@ -699,17 +699,17 @@ systems daily until the < 0.1% variance gate passes.''');
 void _authorUserCategories(D00SolutionBlueprint sbp) {
   final clerk =
       sbp.introductionAndScope.systemDescription.userCategories.add();
+  clerk.$headline = 'Order Operations Clerk';
   clerk.content
-    ..categoryName = 'Order Operations Clerk'
     ..description = _p('''
 Back-office staff who clear the order work list, amend lines, and cancel orders
 before dispatch across the wholesale and e-commerce channels.''')
     ..userType = 'Internal';
 
   final task = clerk.systemTasks.add();
+  task.$headline = 'Clear the order work list';
   task.content
     ..taskId = 'TSK-01'
-    ..taskName = 'Clear the order work list'
     ..description = _p('''
 Work the state-filtered order queue from capture through to confirmation,
 handling holds and amendments as they arise.''');
@@ -726,9 +726,9 @@ handling holds and amendments as they arise.''');
 /// Fills one acceptance-criterion form (Given/When/Then).
 void _acceptance(AcceptanceCriterionEntry ac, String id, String title,
     {required String given, required String when, required String then}) {
+  ac.$headline = title;
   ac.content
     ..criterionId = id
-    ..criterionTitle = title
     ..given = given
     ..when = when
     ..then = then
@@ -910,9 +910,9 @@ audit trail.''')
 
   // --- Key end-to-end scenario ------------------------------------------
   final scn = psai.keyScenarios.scenarios.add();
+  scn.$headline = 'Happy-path wholesale order, capture to fulfilment';
   scn.identification
     ..scenarioId = 'SCN-01'
-    ..scenarioName = 'Happy-path wholesale order, capture to fulfilment'
     ..scenarioType = 'End-to-end'
     ..description = 'A clean wholesale order flows from EDI capture through to fulfilment with no holds.'
     ..businessGoal = 'Confirm and fulfil a wholesale order without manual intervention.'
@@ -934,9 +934,9 @@ audit trail.''')
 void _actor(ActorEntry a, String id, String name, String type, String category,
     String description,
     {required String unit, required String count}) {
+  a.$headline = name;
   a.identification
     ..actorId = id
-    ..actorName = name
     ..actorType = type
     ..category = category
     ..description = description
@@ -1119,8 +1119,8 @@ historical orders remain reproducible.''');
 void _attr(DataAttributeEntry a, String name, String column, String description,
     DataAttributeKind dataType, String physicalType,
     {required bool pii, required String sensitivity}) {
+  a.$headline = name;
   a.identity
-    ..attributeName = name
     ..columnName = column
     ..description = description;
   a.dataTypeSpec
@@ -1133,8 +1133,8 @@ void _attr(DataAttributeEntry a, String name, String column, String description,
 
 void _key(KeyAttributeEntry k, String name, String type, String columns,
     String description) {
+  k.$headline = name;
   k.content
-    ..keyName = name
     ..keyType = type
     ..keyColumns = columns
     ..description = description;
@@ -1143,8 +1143,8 @@ void _key(KeyAttributeEntry k, String name, String type, String columns,
 void _rel(EntityRelationshipEntry r, String name, String type, String description,
     String sourceEntity, String targetEntity,
     {required String source, required String target, required String fk}) {
+  r.$headline = name;
   r.identity
-    ..relationshipName = name
     ..relationshipType = type
     ..description = description
     ..businessJustification = 'Maintains referential integrity across the ordering core.'
@@ -1170,9 +1170,9 @@ void _authorScreens(D00SolutionBlueprint sbp) {
 
   // SCR-01 Order Work List.
   final wl = screens.add();
+  wl.$headline = 'Order Work List';
   wl.content
     ..screenId = 'SCR-01'
-    ..screenName = 'Order Work List'
     ..purpose = 'The single, state-filtered queue from which clerks work every order.';
   wl.classification
     ..screenCategory = 'List'
@@ -1195,53 +1195,53 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..layout = 'Master-detail';
 
   final filters = wl.sections.items.add();
+  filters.$headline = 'State filter bar';
   filters.content
     ..sectionId = 'SCR-01-SEC-1'
-    ..sectionName = 'State filter bar'
     ..purpose = 'Filter the queue by lifecycle state.'
     ..sectionType = 'Toolbar';
   filters.layout
     ..layoutDirection = 'Horizontal'
     ..displayOrder = 1;
   final stateFilter = filters.elements.add();
+  stateFilter.$headline = 'State selector';
   stateFilter.content
     ..elementId = 'SCR-01-EL-1'
-    ..elementName = 'State selector'
     ..elementType = ScreenElementKind.selectField;
   stateFilter.resources
     ..labelResource = 'screen.orders.filter.state'
     ..hintResource = 'screen.orders.filter.state.hint';
 
   final list = wl.sections.items.add();
+  list.$headline = 'Order table';
   list.content
     ..sectionId = 'SCR-01-SEC-2'
-    ..sectionName = 'Order table'
     ..purpose = 'The work list itself, keyboard-navigable for high-volume clerks.'
     ..sectionType = 'DataTable';
   list.layout
     ..layoutDirection = 'Vertical'
     ..displayOrder = 2;
   final idCol = list.elements.add();
+  idCol.$headline = 'Order ID column';
   idCol.content
     ..elementId = 'SCR-01-EL-2'
-    ..elementName = 'Order ID column'
     ..elementType = ScreenElementKind.textField;
   idCol.fieldSpec.content
     ..fieldName = 'orderId'
     ..dataType = ScreenElementFieldKind.string;
   final statusCol = list.elements.add();
+  statusCol.$headline = 'Status column';
   statusCol.content
     ..elementId = 'SCR-01-EL-3'
-    ..elementName = 'Status column'
     ..elementType = ScreenElementKind.statusIndicator;
   statusCol.fieldSpec.content
     ..fieldName = 'status'
     ..dataType = ScreenElementFieldKind.enumeration;
 
   final openAction = wl.actions.items.add();
+  openAction.$headline = 'Open order';
   openAction.content
     ..actionId = 'SCR-01-ACT-1'
-    ..actionName = 'Open order'
     ..actionType = 'Navigate';
   openAction.visual
     ..labelResource = 'screen.orders.action.open'
@@ -1249,8 +1249,8 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..buttonStyle = 'Primary';
 
   final emptyState = wl.states.items.add();
+  emptyState.$headline = 'Empty queue';
   emptyState.content
-    ..stateName = 'Empty queue'
     ..description = 'No orders match the selected state filter.'
     ..messageResource = 'screen.orders.empty'
     ..primaryActionLabel = 'Clear filter'
@@ -1258,9 +1258,9 @@ void _authorScreens(D00SolutionBlueprint sbp) {
 
   // SCR-02 Order Detail / Lifecycle Timeline.
   final detail = screens.add();
+  detail.$headline = 'Order Detail';
   detail.content
     ..screenId = 'SCR-02'
-    ..screenName = 'Order Detail'
     ..purpose = 'The lifecycle timeline and inline actions for a single order.';
   detail.classification
     ..screenCategory = 'Detail'
@@ -1281,9 +1281,9 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..layout = 'Single column';
 
   final timeline = detail.sections.items.add();
+  timeline.$headline = 'Lifecycle timeline';
   timeline.content
     ..sectionId = 'SCR-02-SEC-1'
-    ..sectionName = 'Lifecycle timeline'
     ..purpose = 'Show every state transition with its authenticated actor.'
     ..sectionType = 'Timeline';
   timeline.layout
@@ -1291,18 +1291,18 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..displayOrder = 1;
 
   final lines = detail.sections.items.add();
+  lines.$headline = 'Order lines';
   lines.content
     ..sectionId = 'SCR-02-SEC-2'
-    ..sectionName = 'Order lines'
     ..purpose = 'Editable list of lines with price and reservation status.'
     ..sectionType = 'EditableTable';
   lines.layout
     ..layoutDirection = 'Vertical'
     ..displayOrder = 2;
   final qty = lines.elements.add();
+  qty.$headline = 'Quantity field';
   qty.content
     ..elementId = 'SCR-02-EL-1'
-    ..elementName = 'Quantity field'
     ..elementType = ScreenElementKind.numberField;
   qty.fieldSpec.content
     ..fieldName = 'quantity'
@@ -1310,18 +1310,18 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   qty.behavior.readonlyCondition = 'order.status == "Dispatched"';
 
   final amend = detail.actions.items.add();
+  amend.$headline = 'Amend line';
   amend.content
     ..actionId = 'SCR-02-ACT-1'
-    ..actionName = 'Amend line'
     ..actionType = 'Submit';
   amend.visual
     ..labelResource = 'screen.order.action.amend'
     ..placement = 'Row'
     ..buttonStyle = 'Primary';
   final release = detail.actions.items.add();
+  release.$headline = 'Release hold';
   release.content
     ..actionId = 'SCR-02-ACT-2'
-    ..actionName = 'Release hold'
     ..actionType = 'Submit';
   release.visual
     ..labelResource = 'screen.order.action.release'
@@ -1329,8 +1329,8 @@ void _authorScreens(D00SolutionBlueprint sbp) {
     ..buttonStyle = 'Secondary';
 
   final errorState = detail.states.items.add();
+  errorState.$headline = 'Amendment rejected';
   errorState.content
-    ..stateName = 'Amendment rejected'
     ..description = 'The new quantity failed validation or reservation.'
     ..messageResource = 'screen.order.amend.error'
     ..primaryActionLabel = 'Retry'

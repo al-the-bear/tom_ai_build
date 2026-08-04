@@ -423,13 +423,6 @@ class ProcessDesignPrincipleEntry extends DocSpecsSection {
       hint: 'Unique identifier for the principle',
     ),
     Field(
-      'principleName',
-      String,
-      'Principle Name',
-      required: true,
-      hint: 'Short descriptive name',
-    ),
-    Field(
       'category',
       String,
       'Category — efficiency, quality, compliance, user experience',
@@ -701,13 +694,6 @@ class ProcessIdentification extends DocSpecsSection {
       'Process ID (e.g., TOM-001)',
       required: true,
       hint: 'Unique process identifier',
-    ),
-    Field(
-      'processName',
-      String,
-      'Process Name',
-      required: true,
-      hint: 'Descriptive name of the process',
     ),
     Field(
       'processLevel',
@@ -1027,13 +1013,6 @@ class ProcessTriggerEntry extends DocSpecsSection {
       hint: 'Unique identifier for the trigger',
     ),
     Field(
-      'triggerName',
-      String,
-      'Trigger Name',
-      required: true,
-      hint: 'Descriptive name of the trigger',
-    ),
-    Field(
       'triggerType',
       String,
       'Trigger Type — user action, system event, timer, message, signal',
@@ -1096,13 +1075,6 @@ class ProcessEndEventEntry extends DocSpecsSection {
       'End Event ID',
       required: true,
       hint: 'Unique identifier for the end event',
-    ),
-    Field(
-      'endEventName',
-      String,
-      'End Event Name',
-      required: true,
-      hint: 'Descriptive name of the end event',
     ),
     Field(
       'endEventType',
@@ -1222,13 +1194,6 @@ class ProcessInputEntry extends DocSpecsSection {
       hint: 'Unique identifier for the input',
     ),
     Field(
-      'inputName',
-      String,
-      'Input Name',
-      required: true,
-      hint: 'Descriptive name of the input',
-    ),
-    Field(
       'inputType',
       String,
       'Input Type — data, document, authorization, resource',
@@ -1297,13 +1262,6 @@ class ProcessOutputEntry extends DocSpecsSection {
       'Output ID',
       required: true,
       hint: 'Unique identifier for the output',
-    ),
-    Field(
-      'outputName',
-      String,
-      'Output Name',
-      required: true,
-      hint: 'Descriptive name of the output',
     ),
     Field(
       'outputType',
@@ -1440,13 +1398,6 @@ class ProcessRoleEntry extends DocSpecsSection {
       'Role ID',
       required: true,
       hint: 'Unique identifier for the role',
-    ),
-    Field(
-      'roleName',
-      String,
-      'Role Name',
-      required: true,
-      hint: 'Descriptive name of the role',
     ),
     Field(
       'raciType',
@@ -1654,13 +1605,6 @@ class ProcessKpiEntry extends DocSpecsSection {
       hint: 'Unique identifier for the KPI',
     ),
     Field(
-      'kpiName',
-      String,
-      'KPI Name',
-      required: true,
-      hint: 'Short human-readable KPI name',
-    ),
-    Field(
       'category',
       String,
       'Category — time, quality, cost, volume, satisfaction',
@@ -1771,13 +1715,6 @@ class ProcessSlaEntry extends DocSpecsSection {
       'SLA ID',
       required: true,
       hint: 'Unique identifier for the SLA',
-    ),
-    Field(
-      'slaName',
-      String,
-      'SLA Name',
-      required: true,
-      hint: 'Short human-readable SLA name',
     ),
     Field(
       'serviceDescription',
@@ -1936,13 +1873,6 @@ class ProcessControlEntry extends DocSpecsSection {
       'Control ID',
       required: true,
       hint: 'Unique identifier for the control',
-    ),
-    Field(
-      'controlName',
-      String,
-      'Control Name',
-      required: true,
-      hint: 'Short human-readable control name',
     ),
     Field(
       'controlType',
@@ -2246,13 +2176,6 @@ class ProcessExceptionEntry extends DocSpecsSection {
       hint: 'Unique identifier for the exception',
     ),
     Field(
-      'exceptionName',
-      String,
-      'Exception Name',
-      required: true,
-      hint: 'Short human-readable exception name',
-    ),
-    Field(
       'exceptionType',
       String,
       'Exception Type — data error, system error, business rule, timeout',
@@ -2548,13 +2471,6 @@ class ProcessImprovementEntry extends DocSpecsSection {
       'Improvement ID',
       required: true,
       hint: 'Unique identifier for the improvement',
-    ),
-    Field(
-      'improvementName',
-      String,
-      'Improvement Name',
-      required: true,
-      hint: 'Short human-readable improvement name',
     ),
     Field(
       'category',
@@ -3303,13 +3219,6 @@ class ActorEntry extends DocSpecsSection {
       'Actor ID (e.g., ACT-001)',
       required: true,
       hint: 'Use a stable unique code such as ACT-001',
-    ),
-    Field(
-      'actorName',
-      String,
-      'Actor Name',
-      required: true,
-      hint: 'Give the role a clear, recognisable name',
     ),
     Field(
       'actorType',
@@ -5157,13 +5066,6 @@ class ScenarioEntry extends DocSpecsSection {
       hint: 'Stable code such as SCE-001',
     ),
     Field(
-      'scenarioName',
-      String,
-      'Scenario Name',
-      required: true,
-      hint: 'Short descriptive name for the scenario',
-    ),
-    Field(
       'scenarioType',
       String,
       'Scenario Type — happy path, alternative, exception',
@@ -5583,13 +5485,6 @@ class AlternativeFlowEntry extends DocSpecsSection {
       'Flow ID (e.g., AFL-001)',
       required: true,
       hint: 'Stable code such as AFL-001',
-    ),
-    Field(
-      'flowName',
-      String,
-      'Flow Name',
-      required: true,
-      hint: 'Short descriptive name for the flow',
     ),
     Field(
       'flowType',

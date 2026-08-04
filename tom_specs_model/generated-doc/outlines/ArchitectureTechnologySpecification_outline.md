@@ -8,18 +8,15 @@
     - `PlatformAndLanguage`
       - content, overview @text
       - targetPlatforms: `TargetPlatformEntry`
-        - content @Form(platformName, platformCategory, platformType), version, architecture, requirements, lifecycle
+        - content @Form(platformCategory, platformType), version, architecture, requirements, lifecycle
       - programmingLanguages: `ProgrammingLanguageEntry`
-        - content @Form(languageName, languageVariant, minimumVersion), version, sdk, usage, quality, justification
+        - content @Form(languageVariant, minimumVersion), version, sdk, usage, quality, justification
       - frameworks: `FrameworkRequirementEntry`
-        - content @Form(frameworkName, frameworkCategory, purpose), identity, version, scope, compatibility, support,
-          justification
+        - content @Form(frameworkCategory, purpose), identity, version, scope, compatibility, support, justification
       - buildToolchain: `BuildToolchainEntry`
-        - content @Form(toolName, toolCategory, platform), versions, configuration, profiles, integration, outputs,
-          operations
+        - content @Form(toolCategory, platform), versions, configuration, profiles, integration, outputs, operations
       - deploymentTargets: `DeploymentTargetEntry`
-        - content @Form(targetName, targetCategory, targetEnvironment), platform, buildOutput, requirements, process,
-          compliance
+        - content @Form(targetCategory, targetEnvironment), platform, buildOutput, requirements, process, compliance
       - `DependencyManagement`
         - content @Form(primaryPackageManager, secondaryPackageManagers, registryUrls), versioning, security, internal,
           operations
@@ -31,12 +28,12 @@
       - overview: `ArchitectureOverview`
         - content @Form(primaryStyle, secondaryStyles, styleSummary), drivers, tradeOffs, evolution, compliance
       - principles: `ArchitecturePrincipleEntry`
-        - content @Form(principleName, category, statement), guidance, governance
+        - content @Form(category, statement), guidance, governance
       - `ComponentOrganization`
         - content @Form(organizationStrategy, boundaryDefinition, modularityApproach), layering, domain, coupling,
           dependencies
       - components: `ArchitectureComponentEntry`
-        - content @Form(componentName, componentType, domain), purpose, boundaries, dependencies, technical, ownership
+        - content @Form(componentType, domain), purpose, boundaries, dependencies, technical, ownership
       - `CommunicationPatterns`
         - content @Form(primaryPattern, secondaryPatterns, syncProtocols), synchronous, asynchronous, dataExchange,
           reliability, observability
@@ -52,21 +49,19 @@
         - content @Form(topologyType, deploymentModel, cloudProviders), infrastructure, environmentsConfig,
           availability, geography, infrastructureAsCode
       - decisionRecords: `ArchitectureDecisionRecord`
-        - content @Form(decisionId, title, date, status), contextDetails, outcome, consequences, relations
+        - content @Form(decisionId, date, status), contextDetails, outcome, consequences, relations
     - `DesignPatternsAndStandards`
       - content, overview @text
       - designPatterns: `DesignPatternEntry`
-        - content @Form(patternName, patternCategory, patternSource, purpose), applicability, structure,
-          implementation, context, enforcement
+        - content @Form(patternCategory, patternSource, purpose), applicability, structure, implementation, context,
+          enforcement
       - codingStandards: `CodingStandardEntry`
-        - content @Form(standardName, standardCategory, applicableLanguage), ruleDetails, naming, formatting,
-          enforcement
+        - content @Form(standardCategory, applicableLanguage), ruleDetails, naming, formatting, enforcement
       - developmentConventions: `DevelopmentConventionEntry`
-        - content @Form(conventionName, conventionCategory, description), overview, versionControl, review, automation,
-          enforcement
+        - content @Form(conventionCategory, description), overview, versionControl, review, automation, enforcement
       - industryStandards: `IndustryStandardEntry`
-        - content @Form(standardName, standardBody, version, publicationDate, category, complianceLevel), scope,
-          compliance, certification, verification, reference
+        - content @Form(standardBody, version, publicationDate, category, complianceLevel), scope, compliance,
+          certification, verification, reference
       - `CodeQualityMetrics`
         - content @Form(testCoverageMinimum, branchCoverageMinimum, mutationScoreMinimum), complexity, coupling,
           duplication, staticAnalysis, tooling
@@ -84,33 +79,32 @@
     - `LayeringAndModuleStructure`
       - content, overview @text
       - softwareLayers: `SoftwareLayerEntry`
-        - content @Form(layerName, layerLevel, layerPattern), responsibilities, components, dependencies, technology
+        - content @Form(layerLevel, layerPattern), responsibilities, components, dependencies, technology
       - `LayerCommunicationRules`
         - content @Form(communicationDirection, dependencyRule, abstractionPrinciple), interfaces, flow, governance
       - boundedContexts: `BoundedContextEntry`
-        - content @Form(contextName, domainArea, owningTeam), scope, boundaries, implementation, integration
+        - content @Form(domainArea, owningTeam), scope, boundaries, implementation, integration
       - `PackageOrganization`
         - content @Form(namingConvention, prefixStrategy, suffixConventions), structure, types, dependencies,
           documentation
       - modules: `ModuleEntry`
-        - content @Form(moduleName, moduleType, version), description, dependencies, ownership, configuration, testing
+        - content @Form(moduleType, version), description, dependencies, ownership, configuration, testing
       - sharedLibraries: `SharedLibraryEntry`
-        - content @Form(libraryName, libraryType, version), description, api, lifecycle
+        - content @Form(libraryType, version), description, api, lifecycle
       - dependencyInjection: `DependencyInjectionStructure`
         - content @Form(diFramework, registrationPattern, scopeManagement), registration, binding, configuration,
           troubleshooting
       - `CrossCuttingConcerns`
         - content @Form(loggingStrategy, logLevels, logFormat), errors, security, caching, observability, shared
       - featureModules: `FeatureModuleEntry`
-        - content @Form(featureName, featureArea, boundedContext), description, structure, dependencies, configuration,
-          navigation
+        - content @Form(featureArea, boundedContext), description, structure, dependencies, configuration, navigation
       - `ModuleVersioningStrategy`
         - content @Form(versioningScheme, majorVersionPolicy, minorVersionPolicy, patchVersionPolicy), compatibility,
           releaseManagement, dependencies, coordination
     - `DevelopmentEnvironment`
       - content, overview @text
       - ideRequirements: `IdeRequirementEntry`
-        - content @Form(ideName, version, platform), configuration, integration, standardization
+        - content @Form(version, platform), configuration, integration, standardization
       - buildTools: `BuildToolsConfiguration`
         - content @Form(packageManager, packageManagerVersion, lockfileManagement), buildSystemSettings, compilation,
           scripts, artifacts
@@ -119,11 +113,11 @@
       - cicdPipeline: `CiCdPipelineConfiguration`
         - content @Form(cicdPlatform, configurationLocation, secretsManagement)
         - stages: `PipelineStageEntry`
-          - content @Form(stageName, stageOrder, description), trigger, execution, artifacts, failure
+          - content @Form(stageOrder, description), trigger, execution, artifacts, failure
         - jobs: `PipelineJobEntry`
-          - content @Form(jobName, parentStage, description), environment, steps, dependencies, outputs
+          - content @Form(parentStage, description), environment, steps, dependencies, outputs
         - environments: `DeploymentEnvironmentEntry`
-          - content @Form(environmentName, environmentType, url), deployment, protection, configuration, monitoring
+          - content @Form(environmentType, url), deployment, protection, configuration, monitoring
       - `CodeReviewProcess`
         - content @Form(prRequired, prTemplate, prNamingConvention, draftPrSupport), requirements, workflow,
           automation, merge
@@ -148,18 +142,15 @@
         - content @Form(reuseFirstPolicy, extractionCriteria, granularityGuidelines), abstraction, quality, versioning,
           ownership
       - sharedLibraries: `SharedLibraryComponentEntry`
-        - content @Form(componentName, componentType, version), description, technical, quality, ownership
+        - content @Form(componentType, version), description, technical, quality, ownership
       - uiComponents: `ReusableUiComponentEntry`
-        - content @Form(componentName, componentCategory, purpose), description, design, interaction, api,
-          implementation
+        - content @Form(componentCategory, purpose), description, design, interaction, api, implementation
       - businessComponents: `BusinessComponentEntry`
-        - content @Form(componentName, componentType, boundedContext), description, interface, dependencies, testing,
-          reuse
+        - content @Form(componentType, boundedContext), description, interface, dependencies, testing, reuse
       - infrastructureComponents: `InfrastructureComponentEntry`
-        - content @Form(componentName, componentType, layer), description, configuration, integration, operations,
-          resiliency
+        - content @Form(componentType, layer), description, configuration, integration, operations, resiliency
       - thirdPartyLibraries: `ThirdPartyLibraryEntry`
-        - content @Form(libraryName, packageSource, version), evaluation, licenseInfo, risk, usage, monitoring
+        - content @Form(packageSource, version), evaluation, licenseInfo, risk, usage, monitoring
       - governance: `ComponentGovernance`
         - content @Form(ownershipModel, sharedComponentsTeam, escalationPath), contribution, quality, lifecycle, metrics
       - registry: `ComponentRegistry`
@@ -169,15 +160,15 @@
     - compatibilityRequirements: `CompatibilityRequirementsSection`
       - content, overview @text
       - osCompatibility: `OsCompatibilityEntry`
-        - content @Form(osName, osFamily, minVersion, maxVersion), support, requirements, testing, lifecycle
+        - content @Form(osFamily, minVersion, maxVersion), support, requirements, testing, lifecycle
       - browserCompatibility: `BrowserCompatibilityEntry`
-        - content @Form(browserName, browserEngine, minVersion, maxVersion), support, features, mobile, testing
+        - content @Form(browserEngine, minVersion, maxVersion), support, features, mobile, testing
       - databaseCompatibility: `DatabaseCompatibilityEntry`
-        - content @Form(databaseName, databaseType, minVersion, maxVersion), support, features, connection, performance
+        - content @Form(databaseType, minVersion, maxVersion), support, features, connection, performance
       - enterpriseSystemCompatibility: `EnterpriseSystemCompatibilityEntry`
-        - content @Form(systemName, systemType, vendor, version), integration, security, requirements, testing
+        - content @Form(systemType, vendor, version), integration, security, requirements, testing
       - apiCompatibility: `ApiCompatibilityEntry`
-        - content @Form(apiName, apiType, version), policy, format, transportDetails, specification
+        - content @Form(apiType, version), policy, format, transportDetails, specification
       - legacyCompatibility: `LegacyCompatibilityEntry`
         - content @Form(systemName, systemAge, technology), integration, constraintsSection, migration, risk
       - mobileCompatibility: `MobileCompatibilityEntry`
@@ -195,25 +186,21 @@
     - standardsCompliance: `StandardsComplianceSection`
       - content, overview @text
       - itStandards: `ItStandardComplianceEntry`
-        - content @Form(standardName, standardBody, standardId, version), scope, requirements, timeline, ownership,
-          evidence
+        - content @Form(standardBody, standardId, version), scope, requirements, timeline, ownership, evidence
       - industryProtocols: `IndustryProtocolComplianceEntry`
-        - content @Form(protocolName, category, specificationVersion, specificationUrl), scope, implementation,
-          testing, interoperability
+        - content @Form(category, specificationVersion, specificationUrl), scope, implementation, testing,
+          interoperability
       - interfaceSpecifications: `InterfaceSpecificationEntry`
-        - content @Form(specificationName, specificationVersion, standardsBody), definition, conventions,
-          documentation, tooling
+        - content @Form(specificationVersion, standardsBody), definition, conventions, documentation, tooling
       - regulatoryCompliance: `RegulatoryComplianceEntry`
         - content @Form(regulationName, jurisdiction, regulatoryBody, effectiveDate), applicability, requirements,
           penalties, ownership
       - securityStandards: `SecurityStandardComplianceEntry`
-        - content @Form(standardName, standardType, version, trustServiceCriteria), scope, controls, assessment, status
+        - content @Form(standardType, version, trustServiceCriteria), scope, controls, assessment, status
       - accessibilityStandards: `AccessibilityStandardEntry`
-        - content @Form(standardName, version, conformanceLevel, jurisdiction), scope, requirements, testing,
-          documentation
+        - content @Form(version, conformanceLevel, jurisdiction), scope, requirements, testing, documentation
       - qualityStandards: `QualityStandardEntry`
-        - content @Form(standardName, maturityLevel, version, scope), processes, implementation, certification,
-          maintenance
+        - content @Form(maturityLevel, version, scope), processes, implementation, certification, maintenance
       - documentationStandards: `DocumentationStandardsSection`
         - content @Form(documentationPolicy, templateStandards, styleGuide, terminology), technical, user, process,
           quality
@@ -230,9 +217,9 @@
     - serverRequirements: `ServerRequirementsSection`
       - content, overview @text
       - environments: `ServerEnvironmentEntry`
-        - content @Form(environmentName, environmentType, environmentCode, purpose), location, scale, access, lifecycle
+        - content @Form(environmentType, environmentCode, purpose), location, scale, access, lifecycle
       - serverRoles: `ServerRoleEntry`
-        - content @Form(roleName, roleType, roleAbbreviation), software, capacity, storage, networking
+        - content @Form(roleType, roleAbbreviation), software, capacity, storage, networking
       - computeResources: `ComputeResourceRequirements`
         - content @Form(minCpuCores, recommendedCpuCores, cpuArchitecture, cpuGeneration, specIntBenchmark), memory,
           gpu, special
@@ -258,7 +245,7 @@
     - clientRequirements: `ClientRequirementsSection`
       - content, overview @text
       - clientApplications: `ClientApplicationEntry`
-        - content @Form(clientId, clientName, clientKind, purpose, platformTargets, entryRoute, includedScreens)
+        - content @Form(clientId, clientKind, purpose, platformTargets, entryRoute, includedScreens)
       - browserRequirements: `BrowserRequirementEntry`
         - content @Form(browserName, browserEngine, minVersion, recommendedVersion), support, features, testing, issues
       - desktopOsRequirements: `DesktopOsRequirementEntry`
@@ -314,7 +301,7 @@
         - content @Form(availabilityTarget, monthlyDowntime, maintenanceWindows), redundancy, failover, recovery,
           testing
       - vpnRequirements: `VpnRequirementEntry`
-        - content @Form(vpnName, vpnType, purpose), endpoints, protocolDetails, performance, availabilityDetails
+        - content @Form(vpnType, purpose), endpoints, protocolDetails, performance, availabilityDetails
       - `FirewallRequirements`
         - content @Form(firewallArchitecture, firewallVendor, managementModel), rules, ports, advanced, logging
       - geographicDistribution: `GeographicDistributionRequirements`
@@ -335,7 +322,7 @@
       - dataClassification: `BackupDataClassification`
         - content @Form(criticalData, highPriorityData, mediumPriorityData, lowPriorityData), categories, exclusions
       - backupPolicies: `BackupPolicyEntry`
-        - content @Form(policyName, dataScope, priority), backupType, schedule, retention, storage
+        - content @Form(dataScope, priority), backupType, schedule, retention, storage
       - `RpoRtoRequirements`
         - content @Form(overallRpo, overallRto), byTier, systems, degraded
       - infrastructure: `BackupInfrastructure`
@@ -388,7 +375,7 @@
       - alerting: `AlertingRequirements`
         - content @Form(alertChannels, primaryChannel, secondaryChannel), routing, deduplication, suppression, response
       - alertDefinitions: `AlertDefinitionEntry`
-        - content @Form(alertName, alertDescription, severity, priority), condition, recovery, notification
+        - content @Form(alertDescription, severity, priority), condition, recovery, notification
       - dashboards: `DashboardRequirements`
         - content @Form(dashboardPlatform, dashboardAsCode, dashboardLocation), standard, access, features, mobile
       - `OnCallProcedures`
@@ -405,7 +392,7 @@
         - content @Form(maintenancePolicy, zeroDowntimeGoal, maintenanceAgreement), scheduling, duration, notice,
           approval
       - maintenanceWindows: `MaintenanceWindowEntry`
-        - content @Form(windowName, windowType, priority, description), schedule, scope, impact, rollback
+        - content @Form(windowType, priority, description), schedule, scope, impact, rollback
       - emergencyMaintenance: `EmergencyMaintenanceProcedures`
         - content @Form(emergencyTriggers, securityPatchPolicy, severityThresholds), governance, communication,
           execution
@@ -421,7 +408,7 @@
     - protocolsAndStandards: `ProtocolsAndStandardsSection`
       - content, overview @text
       - protocols: `ProtocolEntry`
-        - content @Form(protocolName, protocolType, protocolVersion, transportLayer, directionality, notes)
+        - content @Form(protocolType, protocolVersion, transportLayer, directionality, notes)
       - `TlsRequirements`
         - content @Form(minimumTlsVersion, preferredTlsVersion, disabledProtocols), cipherSuites,
           certificateValidation, termination, compliance
@@ -439,8 +426,7 @@
     - externalConnectivity: `ExternalConnectivitySection`
       - content, overview @text
       - partnerConnections: `ExternalPartnerConnectionEntry`
-        - content @Form(partnerName, partnerType, connectionPurpose), protocol, authentication, network, reliability,
-          dataHandling
+        - content @Form(partnerType, connectionPurpose), protocol, authentication, network, reliability, dataHandling
         - operations: `ExternalPartnerOperations`
           - content @Form(contactPerson, escalationProcess, maintenanceNotification, notes)
       - cloudServices: `CloudServiceIntegrations`
@@ -473,7 +459,7 @@
         - batchJobs: `BatchJobManagement`
           - content @Form(timeZoneHandling), workloadShape, execution, monitoring
           - scheduledJobs: `ScheduledJobEntry`
-            - content @Form(jobName, purpose, triggerKind, primaryDataEntity, enabled, environments), cronTrigger,
+            - content @Form(purpose, triggerKind, primaryDataEntity, enabled, environments), cronTrigger,
               calendarTrigger, eventTrigger, workDefinition, failurePolicy
         - diagnosticTools: `SystemDiagnosticTools`
           - content @Form(remoteDebugging, profiling, threadDumpCapability, heapDumpCapability), tracing, logs,
@@ -500,7 +486,7 @@
         - notificationChannels: `AlertNotificationChannels`
           - content @Form(pagingService, slackIntegration, teamsIntegration), delivery, routing, formatting
         - alertRules: `AlertRuleEntry`
-          - content @Form(alertId, alertName, alertDescription, severity, category), trigger, response, ownership
+          - content @Form(alertId, alertDescription, severity, category), trigger, response, ownership
         - escalationPolicies: `AlertEscalationPolicies`
           - content @Form(level1Responder, level2Responder, level3Responder), timing, behavior, schedules
         - suppressionRules: `AlertSuppressionRules`
@@ -519,11 +505,11 @@
         - distributedTracing: `DistributedTracingSpec`
           - content @Form(tracingBackend, tracingProtocol, traceIdFormat), sampling, spans, operations
         - customMetrics: `CustomMetricEntry`
-          - content @Form(metricName, metricType, metricDescription, unit, labels, source, alertOnMetric, dashboardInclusion, notes)
+          - content @Form(metricType, metricDescription, unit, labels, source, alertOnMetric, dashboardInclusion, notes)
       - dashboards: `MonitoringDashboards`
         - dashboardOverview, overviewNarrative @text
         - dashboards: `DashboardEntry`
-          - content @Form(dashboardId, dashboardName, dashboardCategory, targetAudience), configuration, operations
+          - content @Form(dashboardId, dashboardCategory, targetAudience), configuration, operations
         - dashboardTemplates: `DashboardTemplates`
           - content @Form(serviceTemplateLayout, serviceTemplateVariables, infraTemplateLayout, k8sTemplateLayout, databaseTemplateLayout, customTemplateProcess, templateVersioning, notes)
       - `SlaAndSloMonitoring`
@@ -531,7 +517,7 @@
         - slis: `ServiceLevelIndicators`
           - content @Form(availabilitySli, availabilityExclusions), performance, quality, measurement
         - slos: `SloEntry`
-          - content @Form(sloId, sloName, sloDescription, serviceName), target, operations
+          - content @Form(sloId, sloDescription, serviceName), target, operations
         - errorBudget: `ErrorBudgetTracking`
           - content @Form(budgetCalculationMethod, budgetWindow, budgetResetPolicy, budgetBurnRateDashboard),
             monitoring, governance
@@ -557,7 +543,7 @@
     - itSecurityStandards: `ItSecurityStandardsSection`
       - content, overview @text
       - standards: `SecurityStandardEntry`
-        - content @Form(standardName, standardVersion, standardType, issuingBody), scope, implementation, verification
+        - content @Form(standardVersion, standardType, issuingBody), scope, implementation, verification
       - applicationSecurity: `ApplicationSecurityRequirements`
         - content @Form(owaspTop10Compliance, injectionPrevention, authenticationControls), controls, validation, api
       - infrastructureSecurity: `InfrastructureSecurityHardening`
@@ -613,7 +599,7 @@
         - content @Form(sastTool, sastIntegration, sastRuleConfiguration, securityQualityGates), dast, iast, fuzzing,
           scanning, governance
       - auditEntries: `SecurityAuditEntry`
-        - content @Form(auditName, auditCategory, auditDescription, frequency), scheduling, execution, followUp
+        - content @Form(auditCategory, auditDescription, frequency), scheduling, execution, followUp
   - systemArchitecture: `SystemArchitectureSpec`
     - content
   - componentsToUse: `ComponentsAndDependencies`
@@ -628,12 +614,12 @@
         - items: `EvaluationCriterionEntry`
           - content @Form(criterionId, criterion, description, category), scoring, process, guidelines
     - componentCatalog: `ComponentEntry`
-      - content @Form(componentId, componentName, category), vendor, maturity, support, performance, deployment, cost,
-        compliance, risk, usageRights @text
+      - content @Form(componentId, category), vendor, maturity, support, performance, deployment, cost, compliance,
+        risk, usageRights @text
       - docs: `ComponentDocs`
         - content @Form(documentationQuality, documentationUrl, approvalStatus, approvedBy)
       - interfaces: `ComponentInterfaceEntry`
-        - content @Form(interfaceName, interfaceType, protocol), network, security, data, sla, operations
+        - content @Form(interfaceType, protocol), network, security, data, sla, operations
       - licensing: `ComponentLicensingEntry`
         - content @Form(licenseModel, licenseName, contractTermLength), costs, rights, compliance, capacity, contract
       - responsibilities: `ComponentResponsibilitiesEntry`
@@ -641,21 +627,19 @@
     - `RuntimeDependencies`
       - content
       - items: `RuntimeDependencyEntry`
-        - content @Form(dependencyId, name, version, dependencyType), classification, startup, resilience, integration,
-          risk
+        - content @Form(dependencyId, version, dependencyType), classification, startup, resilience, integration, risk
     - `MaintenanceDependencies`
       - content
       - items: `MaintenanceDependencyEntry`
-        - content @Form(dependencyId, name, version, versionConstraint), classification, update, risk
+        - content @Form(dependencyId, version, versionConstraint), classification, update, risk
     - riskAssessment: `ComponentRiskAssessment`
       - content
       - risks: `ComponentRiskEntry`
-        - content @Form(riskId, componentRef, riskTitle), description, assessment, detection, mitigation, governance
+        - content @Form(riskId, componentRef), description, assessment, detection, mitigation, governance
       - `ContingencyPlans`
         - content
         - items: `ContingencyPlanEntry`
-          - content @Form(contingencyId, planTitle, triggerCondition), references, actions, responsibility,
-            communication, testing
+          - content @Form(contingencyId, triggerCondition), references, actions, responsibility, communication, testing
   - `TechnicalEnvironment`
     - technicalOverviewContent, governance, standards, security, existingInfrastructure @text, networkTopology @text,
       standardsOverview @text, integrationOverview @text
@@ -666,8 +650,8 @@
       - observabilityRequirements: `String`
     - datacenters: `String`
     - technologyStandards: `TechnologyStandardEntry`
-      - content @Form(standardId, standardName, standardCategory), details, scope, compliance, impact
+      - content @Form(standardId, standardCategory), details, scope, compliance, impact
     - integrationConstraints: `IntegrationConstraintEntry`
-      - content @Form(constraintId, constraintName, constraintDescription), details, scope, mitigation, compliance
+      - content @Form(constraintId, constraintDescription), details, scope, mitigation, compliance
   - `TranslationRequirements`
     - translationRequirementsContent, rtl, formatting, variants, technical, requirementsNarrative @text

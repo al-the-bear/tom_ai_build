@@ -12463,9 +12463,6 @@ form-types:
         description: Relationships that cross bounded context boundaries
   daatt-iden-form:
     fields:
-      - fieldname: attributeName
-        required: true
-        description: Logical attribute name in camelCase
       - fieldname: columnName
         description: "Database column name if different (e.g., snake_case)"
       - fieldname: description
@@ -12580,9 +12577,6 @@ form-types:
         description: "Whether constraint check can be deferred: Yes | No"
   enrle-iden-form:
     fields:
-      - fieldname: relationshipName
-        required: true
-        description: "Verb phrase describing the relationship (e.g., \"places\", \"contains\")"
       - fieldname: relationshipType
         description: "Association | Aggregation | Composition | Generalization | Dependency"
       - fieldname: description
@@ -12643,9 +12637,6 @@ form-types:
         description: "How often classifications are reviewed: Annually | Quarterly | OnChange"
   dclse-iden-form:
     fields:
-      - fieldname: classificationName
-        required: true
-        description: Name of this classification level
       - fieldname: classificationLevel
         description: "Sensitivity: Public | Internal | Confidential | Restricted | TopSecret"
       - fieldname: description
@@ -22353,9 +22344,6 @@ form-types:
       - fieldname: actorId
         required: true
         description: Use a stable unique code such as ACT-001
-      - fieldname: actorName
-        required: true
-        description: "Give the role a clear, recognisable name"
       - fieldname: actorType
         description: "State whether the actor is a person, system or scheduled job"
       - fieldname: category
@@ -22579,9 +22567,6 @@ form-types:
       - fieldname: scenarioId
         required: true
         description: Stable code such as SCE-001
-      - fieldname: scenarioName
-        required: true
-        description: Short descriptive name for the scenario
       - fieldname: scenarioType
         description: "One of happy path, alternative, or exception"
       - fieldname: description
@@ -23495,9 +23480,6 @@ form-types:
       - fieldname: componentId
         required: true
         description: "Unique identifier (e.g., CMP-DTT-001)"
-      - fieldname: componentName
-        required: true
-        description: Human-readable name
       - fieldname: componentFamily
         description: "Button, Input, Table, Navigation, etc."
       - fieldname: baseComponent

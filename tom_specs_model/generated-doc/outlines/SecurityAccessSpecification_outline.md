@@ -8,7 +8,7 @@
     - userCategories: `AccessUserCategories`
       - content
       - items: `UserCategoryDefinition`
-        - content @Form(categoryName, description, accessLevel, estimatedCount)
+        - content @Form(description, accessLevel, estimatedCount)
     - `UserLifecycle`
       - content, overview @text
       - accountStates: `UserAccountStatesDefinition`
@@ -26,7 +26,7 @@
       - transitions: `UserLifecycleTransitions`
         - content, transitionRulesDescription @text, lifecycleStateDiagram @mermaid
         - items: `UserLifecycleTransitionEntry`
-          - content @Form(transitionName, fromState, toState, trigger, triggerConditions), approval, effects, automation
+          - content @Form(fromState, toState, trigger, triggerConditions), approval, effects, automation
       - selfService: `SelfServiceAccountManagement`
         - content, selfServiceDescription @text
       - serviceAccounts: `ServiceAccountLifecycle`
@@ -34,18 +34,18 @@
     - `UserAttributes`
       - content
       - items: `UserAttributeEntry`
-        - content @Form(attributeName, dataType, placement, accessGuard, source, required)
+        - content @Form(dataType, placement, accessGuard, source, required)
   - `IdentificationAndAuthentication`
     - content
     - `Identification`
       - content @Form(identityModelApproach, identityNamespace, primaryIdentifierType, uniqueIdentifierStrategy, identifierImmutability, identityLifecycleModel, identityTrustModel, maximumIdentitiesPerPerson, identityMergingPolicy, identityDataResidency)
       - identitySources: `IdentitySourceEntry`
-        - content @Form(sourceName, sourceType, sourceProduct), connection, lifecycle, mapping, operations
+        - content @Form(sourceType, sourceProduct), connection, lifecycle, mapping, operations
       - identityVerification: `IdentityVerificationPolicy`
         - content @Form(verificationLevel, nistIalTarget, verificationMode), documents, methods, workflow, lifecycle,
           failure, verificationDetails @text
       - identityProviders: `IdentityProviderEntry`
-        - content @Form(providerName, providerType, enabled), mapping, trust, security
+        - content @Form(providerType, enabled), mapping, trust, security
         - details: `IdentityProviderDetails`
           - content @Form(providerProduct, protocolVersion, description)
         - endpoints: `IdentityProviderEndpoints`
@@ -74,7 +74,7 @@
         - apiKeyManagement: `ApiKeyManagementPolicy`
           - content, apiKeyDetails @text
         - items: `AuthenticationMethodEntry`
-          - content @Form(methodName, methodType, authenticationFactor), security, applicability, enrollment, operations
+          - content @Form(methodType, authenticationFactor), security, applicability, enrollment, operations
       - `AuthenticationFlow`
         - content, overview @text, authenticationFlowDiagram @mermaid-sequence
         - loginFlow: `LoginFlowConfiguration`
@@ -91,7 +91,7 @@
           - content
           - stepUpDetails: `String`
         - loginFlowSteps: `LoginFlowStepEntry`
-          - content @Form(stepName, stepOrder, stepType, actor), validation, behavior, protocol
+          - content @Form(stepOrder, stepType, actor), validation, behavior, protocol
       - `PasswordAndCredentialPolicy`
         - content, overview @text
         - passwordRequirements: `PasswordRequirementsPolicy`
@@ -183,7 +183,7 @@
       - permissionEvaluation: `PermissionEvaluationBehavior`
         - content, permissionEvaluationDetails @text
     - groups: `AuthorizationGroupEntry`
-      - content @Form(groupName, description, membershipCriteria)
+      - content @Form(description, membershipCriteria)
       - containedRoles: `RoleReferenceEntry`
         - content @Form(roleName)
     - [1,] roleDefinitions: `AuthorizationRoleEntry`
@@ -237,7 +237,7 @@
       - encryptionPolicy: `EncryptionAtRestPolicy`
         - content, encryptionAtRestPolicyDetails @text
       - encryptedDataCategories: `EncryptedDataCategoryEntry`
-        - content @Form(categoryName, dataClassification, encryptionApproach, algorithmOverride, encryptedFields, tokenizationUsed, dataRetentionDays, notes)
+        - content @Form(dataClassification, encryptionApproach, algorithmOverride, encryptedFields, tokenizationUsed, dataRetentionDays, notes)
       - databaseEncryption: `DatabaseEncryptionPolicy`
         - content, databaseEncryptionDetails @text
       - fileStorageEncryption: `FileStorageEncryptionPolicy`
@@ -251,7 +251,7 @@
       - certificateManagement: `CertificateManagementPolicy`
         - content, certificateManagementDetails @text
       - communicationChannels: `CommunicationChannelEncryptionEntry`
-        - content @Form(channelName, channelType, tlsRequired, minimumTlsVersionOverride, mutualTlsRequired, certificatePinning, pinningStrategy, notes)
+        - content @Form(channelType, tlsRequired, minimumTlsVersionOverride, mutualTlsRequired, certificatePinning, pinningStrategy, notes)
       - `MutualTlsPolicy`
         - content, mutualTlsPolicyDetails @text
       - `TransportSecurityPolicy`
@@ -293,7 +293,7 @@
         - content @Form(logConfigurationChanges, logUserAdministration, logSystemStartStop, logBackupRestoreOperations, logSecurityPolicyChanges, logAuditLogAccess, logBreakGlassUsage),
           notes @text
       - customEvents: `SecurityEventEntry`
-        - content @Form(eventName, eventCategory, description, severity, triggerCondition, responseAction, complianceMapping)
+        - content @Form(eventCategory, description, severity, triggerCondition, responseAction, complianceMapping)
     - `AuditLogFormat`
       - content, notes @text
       - eventAttributes: `EventAttributePolicy`

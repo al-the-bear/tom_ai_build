@@ -6,8 +6,7 @@
   - `QualityFramework`
     - frameworkContent, objectives, tradeOffs, verification, qualityObjectivesOverview @text, objectivesBreakdown @text
     - qualityCategories: `QualityCategoryEntry`
-      - content @Form(categoryId, categoryName, categoryWeight), definition, relationships, governance, metrics,
-        categoryDetails @text
+      - content @Form(categoryId, categoryWeight), definition, relationships, governance, metrics, categoryDetails @text
     - categoryDependencies: `String`
   - functionalSuitability: `FunctionalSuitabilityCharacteristic`
     - functionalSuitabilityContent, overview @text
@@ -89,15 +88,14 @@
     - `TradeOffDecisions`
       - tradeOffGovernanceContent, tradeOffOverview @text
       - items: `TradeOffDecisionEntry`
-        - content @Form(decisionId, decisionTitle, decisionStatus), qualities, rationale, impact, mitigation, approval,
+        - content @Form(decisionId, decisionStatus), qualities, rationale, impact, mitigation, approval,
           detailedAnalysis @text
   - `AcceptanceCriteriaSummary`
     - acceptanceFrameworkContent, acceptanceOverview @text, acceptanceTestSummary @text
     - `MustPassCriteria`
       - mustPassOverviewContent, overview @text
       - items: `MustPassCriterionEntry`
-        - content @Form(criterionId, criterionName, verificationMethod), definition, verification, governance, status,
-          details @text
+        - content @Form(criterionId, verificationMethod), definition, verification, governance, status, details @text
     - `QualityGateChecklist`
       - checklistOverviewContent, overview @text
       - items: `QualityGateCheckEntry`
@@ -116,15 +114,14 @@
     - content @Form(processName, processOwner, acceptanceType), overview, participants, timeline, decision, escalation,
       documentation, processNarrative @text
     - steps: `AcceptanceStepEntry`
-      - content @Form(stepNumber, stepName, description, responsibleRole), flow, outcome
+      - content @Form(stepNumber, description, responsibleRole), flow, outcome
   - `UserAcceptanceTesting`
     - content @Form(uatObjective, uatApproach, uatLead), scope, environment, testData, governance, schedule, criteria,
       defectManagement, reporting, nonFunctional, signOff, training, uatOverview @text
     - testCycles: `UatTestCycleEntry`
-      - content @Form(cycleName, cycleObjective, plannedStartDate, plannedEndDate), scope, execution
+      - content @Form(cycleObjective, plannedStartDate, plannedEndDate), scope, execution
     - testScenarios: `TestScenarioEntry`
-      - content @Form(scenarioId, scenarioName, priority), identification, business, traceability, setup, execution,
-        postExecution
+      - content @Form(scenarioId, priority), identification, business, traceability, setup, execution, postExecution
       - notes: `TestScenarioNotes`
         - content @Form(assumptions, risksAndMitigations, notes)
       - testSteps: `UatTestStepEntry`

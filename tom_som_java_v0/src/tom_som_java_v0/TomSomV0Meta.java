@@ -242,15 +242,14 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("criterionId", "String", "Criterion ID", true, "Unique identifier for this criterion", 0),
-            new SomFormFieldMeta("criterionTitle", "String", "Criterion Title", true, "Short title describing the criterion", 1),
-            new SomFormFieldMeta("given", "String", "Given (precondition/context)", false, "Precondition or context that holds before the action", 2),
-            new SomFormFieldMeta("when", "String", "When (action/trigger)", false, "Action or trigger that occurs", 3),
-            new SomFormFieldMeta("then", "String", "Then (expected outcome)", true, "Expected outcome after the action", 4),
-            new SomFormFieldMeta("and", "String", "And (additional outcomes)", false, "Any additional expected outcomes", 5),
-            new SomFormFieldMeta("verificationMethod", "String", "Verification Method (Manual, Automated, Inspection, Demo)", false, "Manual, Automated, Inspection, or Demo", 6),
-            new SomFormFieldMeta("testType", "String", "Test Type (Unit, Integration, System, Acceptance, UAT)", false, "Unit, Integration, System, Acceptance, or UAT", 7),
-            new SomFormFieldMeta("priority", "String", "Priority (Critical, High, Medium, Low)", false, "Critical, High, Medium, or Low", 8),
-            new SomFormFieldMeta("status", "String", "Status (Draft, Ready, Passed, Failed, Blocked)", false, "Draft, Ready, Passed, Failed, or Blocked", 9)));
+            new SomFormFieldMeta("given", "String", "Given (precondition/context)", false, "Precondition or context that holds before the action", 1),
+            new SomFormFieldMeta("when", "String", "When (action/trigger)", false, "Action or trigger that occurs", 2),
+            new SomFormFieldMeta("then", "String", "Then (expected outcome)", true, "Expected outcome after the action", 3),
+            new SomFormFieldMeta("and", "String", "And (additional outcomes)", false, "Any additional expected outcomes", 4),
+            new SomFormFieldMeta("verificationMethod", "String", "Verification Method (Manual, Automated, Inspection, Demo)", false, "Manual, Automated, Inspection, or Demo", 5),
+            new SomFormFieldMeta("testType", "String", "Test Type (Unit, Integration, System, Acceptance, UAT)", false, "Unit, Integration, System, Acceptance, or UAT", 6),
+            new SomFormFieldMeta("priority", "String", "Priority (Critical, High, Medium, Low)", false, "Critical, High, Medium, or Low", 7),
+            new SomFormFieldMeta("status", "String", "Status (Draft, Ready, Passed, Failed, Blocked)", false, "Draft, Ready, Passed, Failed, or Blocked", 8)));
         out.add(n);
       }
       return out;
@@ -577,9 +576,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stepNumber", "String", "Step Number", true, "Sequential number — e.g. 1, 2, 3", 0),
-            new SomFormFieldMeta("stepName", "String", "Step Name", true, "Concise action name — e.g. \"Technical Review\"", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "What happens in this step", 2),
-            new SomFormFieldMeta("responsibleRole", "String", "Responsible Role", false, "Who performs or leads this step", 3)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What happens in this step", 1),
+            new SomFormFieldMeta("responsibleRole", "String", "Responsible Role", false, "Who performs or leads this step", 2)));
         out.add(n);
       }
       {
@@ -899,9 +897,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("levelName", "String", "Access Level Name", true, "e.g., Administrator, Power User, Standard User, Guest", 0),
-            new SomFormFieldMeta("levelId", "String", "Level ID", false, "Unique identifier", 1),
-            new SomFormFieldMeta("levelRank", "int", "Level Rank", false, "Numeric rank (higher = more permissions)", 2)));
+            new SomFormFieldMeta("levelId", "String", "Level ID", false, "Unique identifier", 0),
+            new SomFormFieldMeta("levelRank", "int", "Level Rank", false, "Numeric rank (higher = more permissions)", 1)));
         out.add(n);
       }
       {
@@ -1475,10 +1472,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("standardName", "String", "Standard Name", true, "E.g., WCAG 2.1, Section 508, EN 301 549", 0),
-            new SomFormFieldMeta("version", "String", "Version", false, "Standard version", 1),
-            new SomFormFieldMeta("conformanceLevel", "String", "Conformance Level", true, "A, AA, AAA for WCAG", 2),
-            new SomFormFieldMeta("jurisdiction", "String", "Jurisdiction", false, "Legal requirement region", 3)));
+            new SomFormFieldMeta("version", "String", "Version", false, "Standard version", 0),
+            new SomFormFieldMeta("conformanceLevel", "String", "Conformance Level", true, "A, AA, AAA for WCAG", 1),
+            new SomFormFieldMeta("jurisdiction", "String", "Jurisdiction", false, "Legal requirement region", 2)));
         out.add(n);
       }
       {
@@ -1776,10 +1772,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("parameterName", "String", "Parameter Name", true, "Name of the parameter", 0),
-            new SomFormFieldMeta("sourceType", "String", "Source Type (Field, Constant, Context, User)", true, "Field, Constant, Context, or User", 1),
-            new SomFormFieldMeta("sourceValue", "String", "Source Value / Field ID", false, "Source value or field ID supplying the parameter", 2),
-            new SomFormFieldMeta("required", "String", "Required (Yes, No)", false, "Whether the parameter is required", 3)));
+            new SomFormFieldMeta("sourceType", "String", "Source Type (Field, Constant, Context, User)", true, "Field, Constant, Context, or User", 0),
+            new SomFormFieldMeta("sourceValue", "String", "Source Value / Field ID", false, "Source value or field ID supplying the parameter", 1),
+            new SomFormFieldMeta("required", "String", "Required (Yes, No)", false, "Whether the parameter is required", 2)));
         out.add(n);
       }
       return out;
@@ -1879,14 +1874,13 @@ public final class TomSomV0Meta {
         n.docComment = "Actor identification.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("actorId", "String", "Actor ID (e.g., ACT-001)", true, "Use a stable unique code such as ACT-001", 0),
-            new SomFormFieldMeta("actorName", "String", "Actor Name", true, "Give the role a clear, recognisable name", 1),
-            new SomFormFieldMeta("actorType", "String", "Actor Type — human user, system, external system, scheduled", false, "State whether the actor is a person, system or scheduled job", 2),
-            new SomFormFieldMeta("category", "String", "Category — primary, secondary, supporting, offstage", false, "Classify using Cockburn primary/secondary/supporting/offstage", 3),
-            new SomFormFieldMeta("description", "String", "Description — role purpose", false, "Explain the actor’s purpose in one or two sentences", 4),
-            new SomFormFieldMeta("realWorldExamples", "String", "Real World Examples — who fills this role", false, "Name concrete job titles or people that fill this role", 5),
-            new SomFormFieldMeta("organizationalUnit", "String", "Organizational Unit — department or team", false, "Identify the department or team the actor belongs to", 6),
-            new SomFormFieldMeta("estimatedCount", "String", "Estimated Count — how many users in this role", false, "Estimate the number of individuals in this role", 7),
-            new SomFormFieldMeta("geographicDistribution", "String", "Geographic Distribution — where actors are located", false, "Note the locations or regions where actors operate", 8)));
+            new SomFormFieldMeta("actorType", "String", "Actor Type — human user, system, external system, scheduled", false, "State whether the actor is a person, system or scheduled job", 1),
+            new SomFormFieldMeta("category", "String", "Category — primary, secondary, supporting, offstage", false, "Classify using Cockburn primary/secondary/supporting/offstage", 2),
+            new SomFormFieldMeta("description", "String", "Description — role purpose", false, "Explain the actor’s purpose in one or two sentences", 3),
+            new SomFormFieldMeta("realWorldExamples", "String", "Real World Examples — who fills this role", false, "Name concrete job titles or people that fill this role", 4),
+            new SomFormFieldMeta("organizationalUnit", "String", "Organizational Unit — department or team", false, "Identify the department or team the actor belongs to", 5),
+            new SomFormFieldMeta("estimatedCount", "String", "Estimated Count — how many users in this role", false, "Estimate the number of individuals in this role", 6),
+            new SomFormFieldMeta("geographicDistribution", "String", "Geographic Distribution — where actors are located", false, "Note the locations or regions where actors operate", 7)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships", "BABOK v3 — stakeholder & actor analysis"), "connotation", "Uniquely identifies and classifies an actor, capturing type, category and real-world population.")));
         out.add(n);
       }
@@ -2522,15 +2516,14 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("departmentName", "String", "Department Name", true, "Name of the affected department or business unit", 0),
-            new SomFormFieldMeta("departmentHead", "String", "Department Head", false, "Person leading the department", 1),
-            new SomFormFieldMeta("employeeCount", "int", "Employee Count", false, "Number of employees in the department", 2),
-            new SomFormFieldMeta("impactLevel", "String", "Impact Level (High, Medium, Low)", false, "Degree to which the project affects this department", 3),
-            new SomFormFieldMeta("roleInProject", "String", "Role (Sponsor, User, Data Owner, Operations, Support)", false, "How this department participates in the project", 4),
-            new SomFormFieldMeta("currentSystems", "String", "Current Systems Used", false, "Existing systems the department relies on", 5),
-            new SomFormFieldMeta("changeReadiness", "String", "Change Readiness (High, Medium, Low)", false, "Department capacity and appetite for change", 6),
-            new SomFormFieldMeta("keyContacts", "String", "Key Contacts", false, "Primary contacts within the department", 7),
-            new SomFormFieldMeta("specialConsiderations", "String", "Special Considerations", false, "Any constraints or special factors to note", 8)));
+            new SomFormFieldMeta("departmentHead", "String", "Department Head", false, "Person leading the department", 0),
+            new SomFormFieldMeta("employeeCount", "int", "Employee Count", false, "Number of employees in the department", 1),
+            new SomFormFieldMeta("impactLevel", "String", "Impact Level (High, Medium, Low)", false, "Degree to which the project affects this department", 2),
+            new SomFormFieldMeta("roleInProject", "String", "Role (Sponsor, User, Data Owner, Operations, Support)", false, "How this department participates in the project", 3),
+            new SomFormFieldMeta("currentSystems", "String", "Current Systems Used", false, "Existing systems the department relies on", 4),
+            new SomFormFieldMeta("changeReadiness", "String", "Change Readiness (High, Medium, Low)", false, "Department capacity and appetite for change", 5),
+            new SomFormFieldMeta("keyContacts", "String", "Key Contacts", false, "Primary contacts within the department", 6),
+            new SomFormFieldMeta("specialConsiderations", "String", "Special Considerations", false, "Any constraints or special factors to note", 7)));
         out.add(n);
       }
       return out;
@@ -2559,10 +2552,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("functionName", "String", "Function Name", true, "Name of the affected function", 0),
-            new SomFormFieldMeta("triggerPoint", "String", "Trigger Point", false, "When in the function rule is triggered", 1),
-            new SomFormFieldMeta("impact", "String", "Impact", false, "How the function is impacted", 2),
-            new SomFormFieldMeta("isMandatory", "String", "Is Mandatory", false, "Whether check is required in this function: Yes | No", 3)));
+            new SomFormFieldMeta("triggerPoint", "String", "Trigger Point", false, "When in the function rule is triggered", 0),
+            new SomFormFieldMeta("impact", "String", "Impact", false, "How the function is impacted", 1),
+            new SomFormFieldMeta("isMandatory", "String", "Is Mandatory", false, "Whether check is required in this function: Yes | No", 2)));
         out.add(n);
       }
       {
@@ -2604,10 +2596,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("objectName", "String", "Object Name", true, "Name of the affected business object", 0),
-            new SomFormFieldMeta("affectedAttributes", "String", "Affected Attributes", false, "Specific attributes affected", 1),
-            new SomFormFieldMeta("impact", "String", "Impact", false, "How the object is impacted: Validated | Constrained | Modified | Created", 2),
-            new SomFormFieldMeta("accessType", "String", "Access Type", false, "Read | Write | Both", 3)));
+            new SomFormFieldMeta("affectedAttributes", "String", "Affected Attributes", false, "Specific attributes affected", 0),
+            new SomFormFieldMeta("impact", "String", "Impact", false, "How the object is impacted: Validated | Constrained | Modified | Created", 1),
+            new SomFormFieldMeta("accessType", "String", "Access Type", false, "Read | Write | Both", 2)));
         out.add(n);
       }
       {
@@ -2649,10 +2640,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("alertName", "String", "Alert Name", true, "Alert identifier", 0),
-            new SomFormFieldMeta("alertDescription", "String", "Alert Description", false, "What this alert means", 1),
-            new SomFormFieldMeta("severity", "String", "Severity", false, "Critical, Warning, Info", 2),
-            new SomFormFieldMeta("priority", "String", "Priority", false, "P1, P2, P3, P4, P5", 3)));
+            new SomFormFieldMeta("alertDescription", "String", "Alert Description", false, "What this alert means", 0),
+            new SomFormFieldMeta("severity", "String", "Severity", false, "Critical, Warning, Info", 1),
+            new SomFormFieldMeta("priority", "String", "Priority", false, "P1, P2, P3, P4, P5", 2)));
         out.add(n);
       }
       {
@@ -2904,10 +2894,9 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("alertId", "String", "Alert ID", true, "Unique identifier for this alert rule", 0),
-            new SomFormFieldMeta("alertName", "String", "Alert Name", true, "Human-readable name for this alert", 1),
-            new SomFormFieldMeta("alertDescription", "String", "Alert Description", false, "What this alert detects and why it matters", 2),
-            new SomFormFieldMeta("severity", "String", "Severity", false, "Critical, Warning, Info", 3),
-            new SomFormFieldMeta("category", "String", "Category", false, "Infrastructure, Application, Business, Security", 4)));
+            new SomFormFieldMeta("alertDescription", "String", "Alert Description", false, "What this alert detects and why it matters", 1),
+            new SomFormFieldMeta("severity", "String", "Severity", false, "Critical, Warning, Info", 2),
+            new SomFormFieldMeta("category", "String", "Category", false, "Infrastructure, Application, Business, Security", 3)));
         out.add(n);
       }
       {
@@ -3272,15 +3261,14 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("flowId", "String", "Flow ID (e.g., AFL-001)", true, "Stable code such as AFL-001", 0),
-            new SomFormFieldMeta("flowName", "String", "Flow Name", true, "Short descriptive name for the flow", 1),
-            new SomFormFieldMeta("flowType", "String", "Flow Type — alternative, exception, error", false, "One of alternative, exception, or error", 2),
-            new SomFormFieldMeta("branchPoint", "String", "Branch Point — step where flow branches", false, "Main-flow step number where this diverges", 3),
-            new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition — when this occurs", false, "Condition that activates this flow", 4),
-            new SomFormFieldMeta("description", "String", "Description — what happens", false, "Narrative of what happens in this flow", 5),
-            new SomFormFieldMeta("outcome", "String", "Outcome — how flow ends", false, "The end state this flow reaches", 6),
-            new SomFormFieldMeta("returnPoint", "String", "Return Point — step to return to", false, "Main-flow step to resume at, if any", 7),
-            new SomFormFieldMeta("frequency", "String", "Frequency — how often this occurs", false, "How often this flow is expected to occur", 8),
-            new SomFormFieldMeta("businessImpact", "String", "Business Impact — effect on business", false, "Business consequence of this flow", 9)));
+            new SomFormFieldMeta("flowType", "String", "Flow Type — alternative, exception, error", false, "One of alternative, exception, or error", 1),
+            new SomFormFieldMeta("branchPoint", "String", "Branch Point — step where flow branches", false, "Main-flow step number where this diverges", 2),
+            new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition — when this occurs", false, "Condition that activates this flow", 3),
+            new SomFormFieldMeta("description", "String", "Description — what happens", false, "Narrative of what happens in this flow", 4),
+            new SomFormFieldMeta("outcome", "String", "Outcome — how flow ends", false, "The end state this flow reaches", 5),
+            new SomFormFieldMeta("returnPoint", "String", "Return Point — step to return to", false, "Main-flow step to resume at, if any", 6),
+            new SomFormFieldMeta("frequency", "String", "Frequency — how often this occurs", false, "How often this flow is expected to occur", 7),
+            new SomFormFieldMeta("businessImpact", "String", "Business Impact — effect on business", false, "Business consequence of this flow", 8)));
         out.add(n);
       }
       {
@@ -3531,9 +3519,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("apiName", "String", "API/Protocol Name", true, "Name of API or protocol", 0),
-            new SomFormFieldMeta("apiType", "String", "API Type", false, "REST, GraphQL, gRPC, SOAP, WebSocket", 1),
-            new SomFormFieldMeta("version", "String", "Version", true, "Supported API versions", 2)));
+            new SomFormFieldMeta("apiType", "String", "API Type", false, "REST, GraphQL, gRPC, SOAP, WebSocket", 0),
+            new SomFormFieldMeta("version", "String", "Version", true, "Supported API versions", 1)));
         out.add(n);
       }
       {
@@ -4006,16 +3993,15 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("regulationName", "String", "Regulation Name", true, "The name of this regulation", 0),
-            new SomFormFieldMeta("regulationCode", "String", "Regulation Code / Reference", false, "The code or reference identifier for this regulation", 1),
-            new SomFormFieldMeta("regulationType", "String", "Regulation Type (Privacy, Security, Financial, Industry, Data Retention, Accessibility)", true, "The category of regulation", 2),
-            new SomFormFieldMeta("jurisdiction", "String", "Jurisdiction (Geographic or organizational scope)", false, "The geographic or organizational scope of this regulation", 3),
-            new SomFormFieldMeta("applicability", "String", "Applicability (why this regulation applies to this system)", false, "Why this regulation applies to this system", 4),
-            new SomFormFieldMeta("keyRequirements", "String", "Key Requirements (summary of main requirements)", false, "A summary of the main requirements", 5),
-            new SomFormFieldMeta("complianceStatus", "String", "Compliance Status (Compliant, Partially Compliant, Non-Compliant, To Be Assessed)", false, "The current compliance status", 6),
-            new SomFormFieldMeta("complianceOwner", "String", "Compliance Owner (who is responsible for compliance)", false, "Who is responsible for compliance", 7),
-            new SomFormFieldMeta("auditRequirements", "String", "Audit Requirements (audit frequency, type)", false, "Audit frequency and type required", 8),
-            new SomFormFieldMeta("penalties", "String", "Penalties (consequences of non-compliance)", false, "Consequences of non-compliance", 9)));
+            new SomFormFieldMeta("regulationCode", "String", "Regulation Code / Reference", false, "The code or reference identifier for this regulation", 0),
+            new SomFormFieldMeta("regulationType", "String", "Regulation Type (Privacy, Security, Financial, Industry, Data Retention, Accessibility)", true, "The category of regulation", 1),
+            new SomFormFieldMeta("jurisdiction", "String", "Jurisdiction (Geographic or organizational scope)", false, "The geographic or organizational scope of this regulation", 2),
+            new SomFormFieldMeta("applicability", "String", "Applicability (why this regulation applies to this system)", false, "Why this regulation applies to this system", 3),
+            new SomFormFieldMeta("keyRequirements", "String", "Key Requirements (summary of main requirements)", false, "A summary of the main requirements", 4),
+            new SomFormFieldMeta("complianceStatus", "String", "Compliance Status (Compliant, Partially Compliant, Non-Compliant, To Be Assessed)", false, "The current compliance status", 5),
+            new SomFormFieldMeta("complianceOwner", "String", "Compliance Owner (who is responsible for compliance)", false, "Who is responsible for compliance", 6),
+            new SomFormFieldMeta("auditRequirements", "String", "Audit Requirements (audit frequency, type)", false, "Audit frequency and type required", 7),
+            new SomFormFieldMeta("penalties", "String", "Penalties (consequences of non-compliance)", false, "Consequences of non-compliance", 8)));
         out.add(n);
       }
       {
@@ -4416,9 +4402,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("role", "String", "Approver Role", true, "Governance role accountable for the sign-off, e.g. \"Sponsor\".", 0),
-            new SomFormFieldMeta("name", "String", "Approver Name", true, "Name of the individual giving the approval.", 1),
-            new SomFormFieldMeta("date", "String", "Approval Date", false, "Date the approval was granted (ISO 8601).", 2),
-            new SomFormFieldMeta("status", "String", "Status (Pending, Approved, Rejected)", false, "Current sign-off state: Pending, Approved, or Rejected.", 3)));
+            new SomFormFieldMeta("date", "String", "Approval Date", false, "Date the approval was granted (ISO 8601).", 1),
+            new SomFormFieldMeta("status", "String", "Status (Pending, Approved, Rejected)", false, "Current sign-off state: Pending, Approved, or Rejected.", 2)));
         out.add(n);
       }
       return out;
@@ -4447,9 +4432,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("componentName", "String", "Component Name", true, "Unique name for this component", 0),
-            new SomFormFieldMeta("componentType", "String", "Component Type", true, "Service, Module, Library, Package, Microservice, Function", 1),
-            new SomFormFieldMeta("domain", "String", "Domain", false, "Business domain this belongs to", 2)));
+            new SomFormFieldMeta("componentType", "String", "Component Type", true, "Service, Module, Library, Package, Microservice, Function", 0),
+            new SomFormFieldMeta("domain", "String", "Domain", false, "Business domain this belongs to", 1)));
         out.add(n);
       }
       {
@@ -4564,9 +4548,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("decisionId", "String", "Decision ID", true, "Unique identifier (e.g., ADR-001)", 0),
-            new SomFormFieldMeta("title", "String", "Title", true, "Short title of the decision", 1),
-            new SomFormFieldMeta("date", "String", "Date", true, "When the decision was made", 2),
-            new SomFormFieldMeta("status", "String", "Status", true, "Proposed, Accepted, Deprecated, Superseded", 3)));
+            new SomFormFieldMeta("date", "String", "Date", true, "When the decision was made", 1),
+            new SomFormFieldMeta("status", "String", "Status", true, "Proposed, Accepted, Deprecated, Superseded", 2)));
         out.add(n);
       }
       {
@@ -4766,9 +4749,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("principleName", "String", "Principle Name", true, "E.g., Separation of Concerns, DRY, SOLID", 0),
-            new SomFormFieldMeta("category", "String", "Category", false, "Design, Implementation, Deployment, Security, Performance, Data", 1),
-            new SomFormFieldMeta("statement", "String", "Statement", true, "Clear statement of the principle", 2)));
+            new SomFormFieldMeta("category", "String", "Category", false, "Design, Implementation, Deployment, Security, Performance, Data", 0),
+            new SomFormFieldMeta("statement", "String", "Statement", true, "Clear statement of the principle", 1)));
         out.add(n);
       }
       {
@@ -5273,13 +5255,12 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("auditName", "String", "Audit Name", true, "Name of the audit", 0),
-            new SomFormFieldMeta("auditType", "String", "Type (Internal/External)", false, "Whether the audit is internal or external", 1),
-            new SomFormFieldMeta("auditor", "String", "Auditor", false, "Person or body conducting the audit", 2),
-            new SomFormFieldMeta("scope", "String", "Scope", false, "What the audit covers", 3),
-            new SomFormFieldMeta("plannedDate", "String", "Planned Date", false, "When the audit is scheduled", 4),
-            new SomFormFieldMeta("frequency", "String", "Frequency", false, "How often the audit recurs", 5),
-            new SomFormFieldMeta("standards", "String", "Applicable Standards", false, "Standards the audit assesses compliance against", 6)));
+            new SomFormFieldMeta("auditType", "String", "Type (Internal/External)", false, "Whether the audit is internal or external", 0),
+            new SomFormFieldMeta("auditor", "String", "Auditor", false, "Person or body conducting the audit", 1),
+            new SomFormFieldMeta("scope", "String", "Scope", false, "What the audit covers", 2),
+            new SomFormFieldMeta("plannedDate", "String", "Planned Date", false, "When the audit is scheduled", 3),
+            new SomFormFieldMeta("frequency", "String", "Frequency", false, "How often the audit recurs", 4),
+            new SomFormFieldMeta("standards", "String", "Applicable Standards", false, "Standards the audit assesses compliance against", 5)));
         out.add(n);
       }
       return out;
@@ -5907,9 +5888,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("methodName", "String", "Method Name", true, "Unique name identifying this authentication method", 0),
-            new SomFormFieldMeta("methodType", "String", "Method Type", false, "Password | TOTP | HOTP | FIDO2 | WebAuthn | SmartCard | Push | SMS | Email | Biometric | APIKey | Certificate", 1),
-            new SomFormFieldMeta("authenticationFactor", "String", "Authentication Factor", false, "Knowledge | Possession | Inherence — NIST factor category", 2)));
+            new SomFormFieldMeta("methodType", "String", "Method Type", false, "Password | TOTP | HOTP | FIDO2 | WebAuthn | SmartCard | Push | SMS | Email | Biometric | APIKey | Certificate", 0),
+            new SomFormFieldMeta("authenticationFactor", "String", "Authentication Factor", false, "Knowledge | Possession | Inherence — NIST factor category", 1)));
         out.add(n);
       }
       {
@@ -6236,9 +6216,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("groupName", "String", "Group Name", true, "Unique name of the authorization group (e.g. Finance Managers)", 0),
-            new SomFormFieldMeta("description", "String", "Short description", false, "Purpose of the group and the access it confers", 1),
-            new SomFormFieldMeta("membershipCriteria", "String", "Membership Criteria", false, "Rule or attribute condition determining who belongs to this group (e.g. department = Finance)", 2)));
+            new SomFormFieldMeta("description", "String", "Short description", false, "Purpose of the group and the access it confers", 0),
+            new SomFormFieldMeta("membershipCriteria", "String", "Membership Criteria", false, "Rule or attribute condition determining who belongs to this group (e.g. department = Finance)", 1)));
         out.add(n);
       }
       {
@@ -7356,9 +7335,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("policyName", "String", "Policy Name", true, "Policy identifier", 0),
-            new SomFormFieldMeta("dataScope", "String", "Data Scope", false, "What this policy covers", 1),
-            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical, High, Medium, Low", 2)));
+            new SomFormFieldMeta("dataScope", "String", "Data Scope", false, "What this policy covers", 0),
+            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical, High, Medium, Low", 1)));
         out.add(n);
       }
       {
@@ -8154,9 +8132,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("contextName", "String", "Context Name", true, "E.g., Order, Inventory, Customer, Billing", 0),
-            new SomFormFieldMeta("domainArea", "String", "Domain Area", true, "Business domain this context covers", 1),
-            new SomFormFieldMeta("owningTeam", "String", "Owning Team", false, "Team responsible for this context", 2)));
+            new SomFormFieldMeta("domainArea", "String", "Domain Area", true, "Business domain this context covers", 0),
+            new SomFormFieldMeta("owningTeam", "String", "Owning Team", false, "Team responsible for this context", 1)));
         out.add(n);
       }
       {
@@ -8320,9 +8297,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("breakpointId", "String", "Breakpoint ID", true, "Unique identifier (e.g., TOM-MOBILE)", 0),
-            new SomFormFieldMeta("breakpointName", "String", "Breakpoint Name", true, "Mobile, Tablet, Desktop, Large Desktop", 1),
-            new SomFormFieldMeta("minWidth", "String", "Min Width", false, "Minimum width in logical pixels", 2),
-            new SomFormFieldMeta("maxWidth", "String", "Max Width", false, "Maximum width in logical pixels", 3)));
+            new SomFormFieldMeta("minWidth", "String", "Min Width", false, "Minimum width in logical pixels", 1),
+            new SomFormFieldMeta("maxWidth", "String", "Max Width", false, "Maximum width in logical pixels", 2)));
         out.add(n);
       }
       {
@@ -8387,10 +8363,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("browserName", "String", "Browser", true, "E.g., Chrome, Firefox, Safari, Edge", 0),
-            new SomFormFieldMeta("browserEngine", "String", "Browser Engine", false, "Chromium, Gecko, WebKit", 1),
-            new SomFormFieldMeta("minVersion", "String", "Minimum Version", true, "Minimum supported version", 2),
-            new SomFormFieldMeta("maxVersion", "String", "Maximum Version", false, "Maximum tested version", 3)));
+            new SomFormFieldMeta("browserEngine", "String", "Browser Engine", false, "Chromium, Gecko, WebKit", 0),
+            new SomFormFieldMeta("minVersion", "String", "Minimum Version", true, "Minimum supported version", 1),
+            new SomFormFieldMeta("maxVersion", "String", "Maximum Version", false, "Maximum tested version", 2)));
         out.add(n);
       }
       {
@@ -8589,9 +8564,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("toolName", "String", "Tool Name", true, "E.g., Gradle, CMake, Webpack, Dart build_runner", 0),
-            new SomFormFieldMeta("toolCategory", "String", "Category", false, "Build System, Compiler, Bundler, Code Generator, Task Runner, Package Manager", 1),
-            new SomFormFieldMeta("platform", "String", "Platform", false, "Which platform(s) this tool is used for", 2)));
+            new SomFormFieldMeta("toolCategory", "String", "Category", false, "Build System, Compiler, Bundler, Code Generator, Task Runner, Package Manager", 0),
+            new SomFormFieldMeta("platform", "String", "Platform", false, "Which platform(s) this tool is used for", 1)));
         out.add(n);
       }
       {
@@ -8819,9 +8793,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("componentName", "String", "Component Name", true, "Business component name", 0),
-            new SomFormFieldMeta("componentType", "String", "Component Type", false, "Service, Repository, UseCase, Validator, Calculator", 1),
-            new SomFormFieldMeta("boundedContext", "String", "Bounded Context", false, "Domain area this belongs to", 2)));
+            new SomFormFieldMeta("componentType", "String", "Component Type", false, "Service, Repository, UseCase, Validator, Calculator", 0),
+            new SomFormFieldMeta("boundedContext", "String", "Bounded Context", false, "Domain area this belongs to", 1)));
         out.add(n);
       }
       {
@@ -9070,8 +9043,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("goalId", "String", "Goal ID (unique identifier, e.g., BG-001)", true, "Unique goal identifier, e.g., BG-001", 0),
-            new SomFormFieldMeta("goalName", "String", "Goal Name (concise objective statement)", true, "Concise one-line objective statement", 1),
-            new SomFormFieldMeta("goalCategory", "String", "Goal Category (Strategic, Tactical, Operational)", true, "Strategic, Tactical, or Operational", 2)));
+            new SomFormFieldMeta("goalCategory", "String", "Goal Category (Strategic, Tactical, Operational)", true, "Strategic, Tactical, or Operational", 1)));
         out.add(n);
       }
       {
@@ -9399,9 +9371,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("attributeName", "String", "Attribute Name", true, "Business attribute name", 0),
-            new SomFormFieldMeta("description", "String", "Description", false, "Business meaning of this attribute", 1),
-            new SomFormFieldMeta("type", "String", "Type", false, "Business type: Text | Number | Money | Date | DateTime | Boolean | Enum | Reference", 2)));
+            new SomFormFieldMeta("description", "String", "Description", false, "Business meaning of this attribute", 0),
+            new SomFormFieldMeta("type", "String", "Type", false, "Business type: Text | Number | Money | Date | DateTime | Boolean | Enum | Reference", 1)));
         out.add(n);
       }
       {
@@ -9482,12 +9453,11 @@ public final class TomSomV0Meta {
         n.sectionId = "BJOEN-IDEN";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("objectName", "String", "Object Name", true, "Business name in PascalCase (e.g., Order, Customer)", 0),
-            new SomFormFieldMeta("objectAlias", "String", "Alias/Abbreviation", false, "Short alias for diagrams (e.g., ORD, CUST)", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "Clear business definition of what this object represents", 2),
-            new SomFormFieldMeta("businessGlossaryTerm", "String", "Business Glossary Term", false, "Official business glossary term if different", 3),
-            new SomFormFieldMeta("category", "String", "Category", false, "Transaction | MasterData | ReferenceData | Aggregate | ValueObject | Event", 4),
-            new SomFormFieldMeta("stereotypePattern", "String", "Stereotype/Pattern", false, "DDD pattern: AggregateRoot | Entity | ValueObject | DomainEvent | Saga", 5)));
+            new SomFormFieldMeta("objectAlias", "String", "Alias/Abbreviation", false, "Short alias for diagrams (e.g., ORD, CUST)", 0),
+            new SomFormFieldMeta("description", "String", "Description", false, "Clear business definition of what this object represents", 1),
+            new SomFormFieldMeta("businessGlossaryTerm", "String", "Business Glossary Term", false, "Official business glossary term if different", 2),
+            new SomFormFieldMeta("category", "String", "Category", false, "Transaction | MasterData | ReferenceData | Aggregate | ValueObject | Event", 3),
+            new SomFormFieldMeta("stereotypePattern", "String", "Stereotype/Pattern", false, "DDD pattern: AggregateRoot | Entity | ValueObject | DomainEvent | Saga", 4)));
         out.add(n);
       }
       {
@@ -10270,10 +10240,9 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ruleId", "String", "Rule ID", true, "Unique rule identifier (e.g., BR-001)", 0),
-            new SomFormFieldMeta("ruleName", "String", "Rule Name", true, "Descriptive name", 1),
-            new SomFormFieldMeta("ruleVersion", "String", "Rule Version", false, "Version number for change tracking", 2),
-            new SomFormFieldMeta("description", "String", "Description", false, "Full statement of the business rule", 3),
-            new SomFormFieldMeta("businessStatement", "String", "Business Statement", false, "Natural language statement from business perspective", 4)));
+            new SomFormFieldMeta("ruleVersion", "String", "Rule Version", false, "Version number for change tracking", 1),
+            new SomFormFieldMeta("description", "String", "Description", false, "Full statement of the business rule", 2),
+            new SomFormFieldMeta("businessStatement", "String", "Business Statement", false, "Natural language statement from business perspective", 3)));
         out.add(n);
       }
       {
@@ -10458,13 +10427,12 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ruleId", "String", "Rule ID", false, "Reference to the business rule definition", 0, java.util.List.of(), java.util.List.of("BIRU.ruleId")),
-            new SomFormFieldMeta("ruleName", "String", "Rule Name", true, "Name of the business rule", 1),
-            new SomFormFieldMeta("ruleType", "String", "Rule Type", false, "Validation | Calculation | Constraint | Authorization | Workflow", 2),
-            new SomFormFieldMeta("description", "String", "Description", false, "Brief description of the rule", 3),
-            new SomFormFieldMeta("enforcement", "String", "Enforcement", false, "Automated | Manual | Hybrid", 4),
-            new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition", false, "When this rule is evaluated", 5),
-            new SomFormFieldMeta("affectedAttributes", "String", "Affected Attributes", false, "Attributes involved in this rule", 6),
-            new SomFormFieldMeta("consequenceOnViolation", "String", "Consequence On Violation", false, "What happens when rule is violated", 7)));
+            new SomFormFieldMeta("ruleType", "String", "Rule Type", false, "Validation | Calculation | Constraint | Authorization | Workflow", 1),
+            new SomFormFieldMeta("description", "String", "Description", false, "Brief description of the rule", 2),
+            new SomFormFieldMeta("enforcement", "String", "Enforcement", false, "Automated | Manual | Hybrid", 3),
+            new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition", false, "When this rule is evaluated", 4),
+            new SomFormFieldMeta("affectedAttributes", "String", "Affected Attributes", false, "Attributes involved in this rule", 5),
+            new SomFormFieldMeta("consequenceOnViolation", "String", "Consequence On Violation", false, "What happens when rule is violated", 6)));
         out.add(n);
       }
       {
@@ -10720,13 +10688,12 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("name", "String", "Name", true, "Name of the CCB member", 0),
-            new SomFormFieldMeta("role", "String", "Role", false, "Role in the organization", 1),
-            new SomFormFieldMeta("ccbRole", "String", "CCB Role", false, "Role on the CCB — Chair / Vice-Chair / Secretary / Member", 2),
-            new SomFormFieldMeta("votingRights", "String", "Voting Rights", false, "Voting / Advisory / Observer", 3),
-            new SomFormFieldMeta("representedArea", "String", "Represented Area", false, "Area or stakeholder group represented", 4),
-            new SomFormFieldMeta("substitute", "String", "Substitute", false, "Designated substitute when unavailable", 5),
-            new SomFormFieldMeta("requiredForQuorum", "String", "Required for Quorum", false, "Yes / No — whether this member is required for quorum", 6)));
+            new SomFormFieldMeta("role", "String", "Role", false, "Role in the organization", 0),
+            new SomFormFieldMeta("ccbRole", "String", "CCB Role", false, "Role on the CCB — Chair / Vice-Chair / Secretary / Member", 1),
+            new SomFormFieldMeta("votingRights", "String", "Voting Rights", false, "Voting / Advisory / Observer", 2),
+            new SomFormFieldMeta("representedArea", "String", "Represented Area", false, "Area or stakeholder group represented", 3),
+            new SomFormFieldMeta("substitute", "String", "Substitute", false, "Designated substitute when unavailable", 4),
+            new SomFormFieldMeta("requiredForQuorum", "String", "Required for Quorum", false, "Yes / No — whether this member is required for quorum", 5)));
         out.add(n);
       }
       return out;
@@ -10936,8 +10903,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("certificationId", "String", "Certification ID", true, null, 0),
-            new SomFormFieldMeta("certificationName", "String", "Certification Name", true, null, 1),
-            new SomFormFieldMeta("issuingBody", "String", "Issuing Body — who certifies", false, null, 2)));
+            new SomFormFieldMeta("issuingBody", "String", "Issuing Body — who certifies", false, null, 1)));
         out.add(n);
       }
       {
@@ -11147,8 +11113,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("categoryId", "String", "Category ID", true, "Unique identifier for this category", 0),
-            new SomFormFieldMeta("categoryName", "String", "Category Name", true, "Name of the change category", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "What types of changes fall into this category", 2)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What types of changes fall into this category", 1)));
         out.add(n);
       }
       {
@@ -11870,13 +11835,12 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("roleName", "String", "Role Name", true, "Name of the role in change process", 0),
-            new SomFormFieldMeta("responsibility", "String", "Responsibility", false, "What this role does in the process", 1),
-            new SomFormFieldMeta("authority", "String", "Authority Level", false, "Decision authority this role has", 2),
-            new SomFormFieldMeta("requiredCompetencies", "String", "Required Competencies", false, "Skills needed for this role", 3),
-            new SomFormFieldMeta("assignedTo", "String", "Assigned To", false, "Person or team fulfilling this role", 4),
-            new SomFormFieldMeta("backup", "String", "Backup", false, "Backup person for this role", 5),
-            new SomFormFieldMeta("availabilityRequirement", "String", "Availability Requirement", false, "Response time expectation", 6)));
+            new SomFormFieldMeta("responsibility", "String", "Responsibility", false, "What this role does in the process", 0),
+            new SomFormFieldMeta("authority", "String", "Authority Level", false, "Decision authority this role has", 1),
+            new SomFormFieldMeta("requiredCompetencies", "String", "Required Competencies", false, "Skills needed for this role", 2),
+            new SomFormFieldMeta("assignedTo", "String", "Assigned To", false, "Person or team fulfilling this role", 3),
+            new SomFormFieldMeta("backup", "String", "Backup", false, "Backup person for this role", 4),
+            new SomFormFieldMeta("availabilityRequirement", "String", "Availability Requirement", false, "Response time expectation", 5)));
         out.add(n);
       }
       return out;
@@ -11906,8 +11870,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stepNumber", "int", "Step Number", true, "Order of this step in the process", 0),
-            new SomFormFieldMeta("stepName", "String", "Step Name", true, "Name of the process step", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "Detailed description of what happens in this step", 2)));
+            new SomFormFieldMeta("description", "String", "Description", false, "Detailed description of what happens in this step", 1)));
         out.add(n);
       }
       {
@@ -12252,9 +12215,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("roleId", "String", "Role ID (e.g., CR-001)", true, "Unique identifier for this changed role", 0),
-            new SomFormFieldMeta("roleTitle", "String", "Current Role Title", true, "The role title before the change", 1),
-            new SomFormFieldMeta("newRoleTitle", "String", "New Role Title — if title changes", false, "The role title after the change, if it differs", 2),
-            new SomFormFieldMeta("changeRationale", "String", "Change Rationale — why this role is changing", false, "The business reason driving this role change", 3)));
+            new SomFormFieldMeta("newRoleTitle", "String", "New Role Title — if title changes", false, "The role title after the change, if it differs", 1),
+            new SomFormFieldMeta("changeRationale", "String", "Change Rationale — why this role is changing", false, "The business reason driving this role change", 2)));
         out.add(n);
       }
       {
@@ -12919,12 +12881,11 @@ public final class TomSomV0Meta {
         n.contentHelp = "One client application of the system.\n\n**The kind is the constraining choice.** A graphical application has screens,\nan entry route and platform targets; a command-line client has none of those\nand states its invocation in *Purpose* instead; a server client is another\nsystem calling in, and is listed here so the clients of this system are\nenumerable in one place.\n\n**Reference, do not restate.** *Platform Targets* holds ids from the browser,\ndesktop-OS and mobile-platform requirement lists below; *Entry Route* holds a\nroute id from the screen route map; *Included Screens* holds screen ids. Every\none of them is declared elsewhere — writing the name of something that is not\ndeclared makes the reference dangle.\n";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("clientId", "String", "Client Id", true, "The one identifier for this client application (e.g. backoffice) — cited wherever the client is referenced", 0),
-            new SomFormFieldMeta("clientName", "String", "Client Name", true, "The name users and operators call this client by", 1),
-            new SomFormFieldMeta("clientKind", "ClientApplicationKind", "Client Kind", true, "What kind of application this client is — decides which other parts it can carry (a command-line client has no screens)", 2, java.util.List.of("graphicalApplication", "commandLine", "server")),
-            new SomFormFieldMeta("purpose", "String", "Purpose", true, "Who uses this client and what for — the reason it exists separately from the system's other clients", 3),
-            new SomFormFieldMeta("platformTargets", "String", "Platform Targets", false, "The platforms this client runs on, by id from the browser, desktop-OS and mobile-platform requirement lists below", 4, java.util.List.of(), java.util.List.of("BROREQ.browserName", "DEOSRE.osName", "MODERE.platform")),
-            new SomFormFieldMeta("entryRoute", "String", "Entry Route", false, "The route this client opens on, by id from the screen route map. Empty for a client with no routes", 5, java.util.List.of(), java.util.List.of("SCRTEN.routeId")),
-            new SomFormFieldMeta("includedScreens", "String", "Included Screens", false, "The screens this client comprises, by id. Empty for a client with no screens", 6, java.util.List.of(), java.util.List.of("SCREN.screenId"))));
+            new SomFormFieldMeta("clientKind", "ClientApplicationKind", "Client Kind", true, "What kind of application this client is — decides which other parts it can carry (a command-line client has no screens)", 1, java.util.List.of("graphicalApplication", "commandLine", "server")),
+            new SomFormFieldMeta("purpose", "String", "Purpose", true, "Who uses this client and what for — the reason it exists separately from the system's other clients", 2),
+            new SomFormFieldMeta("platformTargets", "String", "Platform Targets", false, "The platforms this client runs on, by id from the browser, desktop-OS and mobile-platform requirement lists below", 3, java.util.List.of(), java.util.List.of("BROREQ.browserName", "DEOSRE.osName", "MODERE.platform")),
+            new SomFormFieldMeta("entryRoute", "String", "Entry Route", false, "The route this client opens on, by id from the screen route map. Empty for a client with no routes", 4, java.util.List.of(), java.util.List.of("SCRTEN.routeId")),
+            new SomFormFieldMeta("includedScreens", "String", "Included Screens", false, "The screens this client comprises, by id. Empty for a client with no screens", 5, java.util.List.of(), java.util.List.of("SCREN.screenId"))));
         out.add(n);
       }
       return out;
@@ -14033,9 +13994,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("standardName", "String", "Standard Name", true, "E.g., Effective Dart, Clean Code, Project-specific", 0),
-            new SomFormFieldMeta("standardCategory", "String", "Category", true, "Naming, Formatting, Comments, Structure, Imports", 1),
-            new SomFormFieldMeta("applicableLanguage", "String", "Applicable Language", false, "Which programming language(s) this applies to", 2)));
+            new SomFormFieldMeta("standardCategory", "String", "Category", true, "Naming, Formatting, Comments, Structure, Imports", 0),
+            new SomFormFieldMeta("applicableLanguage", "String", "Applicable Language", false, "Which programming language(s) this applies to", 1)));
         out.add(n);
       }
       {
@@ -14249,15 +14209,14 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("paletteName", "String", "Palette Name", true, "Primary, Secondary, Neutral, Error", 0),
-            new SomFormFieldMeta("paletteRole", "String", "Palette Role", false, "Brand, functional, semantic", 1),
-            new SomFormFieldMeta("colorCount", "int", "Color Count", false, "Number of color stops in palette", 2),
-            new SomFormFieldMeta("baseColor", "String", "Base Color", false, "Primary color value (hex)", 3),
-            new SomFormFieldMeta("lightVariants", "String", "Light Variants", false, "Lighter color stops", 4),
-            new SomFormFieldMeta("darkVariants", "String", "Dark Variants", false, "Darker color stops", 5),
-            new SomFormFieldMeta("onColorDefault", "String", "On-Color Default", false, "Default text color on this palette", 6),
-            new SomFormFieldMeta("wcagCompliance", "String", "WCAG Compliance", false, "Contrast compliance level", 7),
-            new SomFormFieldMeta("usageGuidelines", "String", "Usage Guidelines", false, "When and where to apply this palette", 8)));
+            new SomFormFieldMeta("paletteRole", "String", "Palette Role", false, "Brand, functional, semantic", 0),
+            new SomFormFieldMeta("colorCount", "int", "Color Count", false, "Number of color stops in palette", 1),
+            new SomFormFieldMeta("baseColor", "String", "Base Color", false, "Primary color value (hex)", 2),
+            new SomFormFieldMeta("lightVariants", "String", "Light Variants", false, "Lighter color stops", 3),
+            new SomFormFieldMeta("darkVariants", "String", "Dark Variants", false, "Darker color stops", 4),
+            new SomFormFieldMeta("onColorDefault", "String", "On-Color Default", false, "Default text color on this palette", 5),
+            new SomFormFieldMeta("wcagCompliance", "String", "WCAG Compliance", false, "Contrast compliance level", 6),
+            new SomFormFieldMeta("usageGuidelines", "String", "Usage Guidelines", false, "When and where to apply this palette", 7)));
         out.add(n);
       }
       return out;
@@ -14359,15 +14318,14 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("name", "String", "Name", true, "Full name of the committee member", 0),
-            new SomFormFieldMeta("organizationRole", "String", "Organization Role", false, "Their role within their home organization", 1),
-            new SomFormFieldMeta("department", "String", "Department", false, "Department or business unit they represent", 2),
-            new SomFormFieldMeta("committeeRole", "String", "Committee Role", false, "Their role on the steering committee", 3),
-            new SomFormFieldMeta("decisionAuthority", "String", "Decision Authority", false, "What decisions this member is empowered to make", 4),
-            new SomFormFieldMeta("delegationRules", "String", "Delegation Rules", false, "When and to whom they may delegate authority", 5),
-            new SomFormFieldMeta("meetingAttendance", "String", "Meeting Attendance (Mandatory/Optional)", false, "Whether attendance is mandatory or optional", 6),
-            new SomFormFieldMeta("contactInfo", "String", "Contact Information", false, "How to reach this committee member", 7),
-            new SomFormFieldMeta("substitute", "String", "Substitute/Deputy", false, "Designated stand-in when unavailable", 8)));
+            new SomFormFieldMeta("organizationRole", "String", "Organization Role", false, "Their role within their home organization", 0),
+            new SomFormFieldMeta("department", "String", "Department", false, "Department or business unit they represent", 1),
+            new SomFormFieldMeta("committeeRole", "String", "Committee Role", false, "Their role on the steering committee", 2),
+            new SomFormFieldMeta("decisionAuthority", "String", "Decision Authority", false, "What decisions this member is empowered to make", 3),
+            new SomFormFieldMeta("delegationRules", "String", "Delegation Rules", false, "When and to whom they may delegate authority", 4),
+            new SomFormFieldMeta("meetingAttendance", "String", "Meeting Attendance (Mandatory/Optional)", false, "Whether attendance is mandatory or optional", 5),
+            new SomFormFieldMeta("contactInfo", "String", "Contact Information", false, "How to reach this committee member", 6),
+            new SomFormFieldMeta("substitute", "String", "Substitute/Deputy", false, "Designated stand-in when unavailable", 7)));
         out.add(n);
       }
       {
@@ -14451,14 +14409,13 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("channelName", "String", "Channel Name", true, "Name of the communication channel (e.g. ClientToServer, ServerToDatabase, InterService, WebSocket, gRPC, MessageQueue, EmailSMTP)", 0),
-            new SomFormFieldMeta("channelType", "String", "Channel Type", false, "HTTPS | gRPC | WebSocket | TCP | AMQP | MQTT | SMTP | Custom — transport protocol used by this channel", 1),
-            new SomFormFieldMeta("tlsRequired", "bool", "TLS Required", true, "Yes | No — whether TLS encryption is mandatory for this channel (should be Yes for all channels carrying sensitive data)", 2),
-            new SomFormFieldMeta("minimumTlsVersionOverride", "String", "Minimum TLS Version Override", false, "TLS1.2 | TLS1.3 | UseDefault — override minimum TLS version for this specific channel if different from global policy", 3),
-            new SomFormFieldMeta("mutualTlsRequired", "bool", "Mutual TLS Required", false, "Yes | No — whether mutual TLS (mTLS) is required for this channel (recommended for service-to-service)", 4),
-            new SomFormFieldMeta("certificatePinning", "bool", "Certificate Pinning", false, "Yes | No — whether certificate or public key pinning is used for this channel (useful for mobile apps, thick clients, and server-to-server communication)", 5),
-            new SomFormFieldMeta("pinningStrategy", "String", "Pinning Strategy", false, "PublicKey | Certificate | SPKI | None — how pinning is implemented if enabled (SPKI recommended for flexibility during key rotation)", 6),
-            new SomFormFieldMeta("notes", "String", "Notes", false, "Additional notes for this communication channel", 7)));
+            new SomFormFieldMeta("channelType", "String", "Channel Type", false, "HTTPS | gRPC | WebSocket | TCP | AMQP | MQTT | SMTP | Custom — transport protocol used by this channel", 0),
+            new SomFormFieldMeta("tlsRequired", "bool", "TLS Required", true, "Yes | No — whether TLS encryption is mandatory for this channel (should be Yes for all channels carrying sensitive data)", 1),
+            new SomFormFieldMeta("minimumTlsVersionOverride", "String", "Minimum TLS Version Override", false, "TLS1.2 | TLS1.3 | UseDefault — override minimum TLS version for this specific channel if different from global policy", 2),
+            new SomFormFieldMeta("mutualTlsRequired", "bool", "Mutual TLS Required", false, "Yes | No — whether mutual TLS (mTLS) is required for this channel (recommended for service-to-service)", 3),
+            new SomFormFieldMeta("certificatePinning", "bool", "Certificate Pinning", false, "Yes | No — whether certificate or public key pinning is used for this channel (useful for mobile apps, thick clients, and server-to-server communication)", 4),
+            new SomFormFieldMeta("pinningStrategy", "String", "Pinning Strategy", false, "PublicKey | Certificate | SPKI | None — how pinning is implemented if enabled (SPKI recommended for flexibility during key rotation)", 5),
+            new SomFormFieldMeta("notes", "String", "Notes", false, "Additional notes for this communication channel", 6)));
         out.add(n);
       }
       return out;
@@ -14488,12 +14445,11 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("eventId", "String", "Event ID", true, "A unique identifier for this communication event", 0),
-            new SomFormFieldMeta("eventName", "String", "Event Name", true, "A short descriptive name for this communication event", 1),
-            new SomFormFieldMeta("eventType", "String", "Event Type — Announcement, Town Hall, Email, Workshop, Newsletter", false, "The kind of communication event: Announcement, Town Hall, Email, Workshop, Newsletter, etc.", 2),
-            new SomFormFieldMeta("targetAudience", "String", "Target Audience", false, "The stakeholder group or audience this event is intended to reach", 3),
-            new SomFormFieldMeta("scheduledDate", "String", "Scheduled Date", false, "The date on which this communication event is scheduled to occur", 4),
-            new SomFormFieldMeta("phase", "String", "Phase — which transition phase", false, "The transition phase during which this event takes place", 5),
-            new SomFormFieldMeta("keyMessages", "String", "Key Messages — specific to this event", false, "The specific messages this particular event is designed to convey", 6)));
+            new SomFormFieldMeta("eventType", "String", "Event Type — Announcement, Town Hall, Email, Workshop, Newsletter", false, "The kind of communication event: Announcement, Town Hall, Email, Workshop, Newsletter, etc.", 1),
+            new SomFormFieldMeta("targetAudience", "String", "Target Audience", false, "The stakeholder group or audience this event is intended to reach", 2),
+            new SomFormFieldMeta("scheduledDate", "String", "Scheduled Date", false, "The date on which this communication event is scheduled to occur", 3),
+            new SomFormFieldMeta("phase", "String", "Phase — which transition phase", false, "The transition phase during which this event takes place", 4),
+            new SomFormFieldMeta("keyMessages", "String", "Key Messages — specific to this event", false, "The specific messages this particular event is designed to convey", 5)));
         out.add(n);
       }
       {
@@ -15203,14 +15159,13 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("competencyId", "String", "Competency ID", true, "Unique identifier for this competency", 0),
-            new SomFormFieldMeta("competencyName", "String", "Competency Name", true, "Short name of the competency", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this competency means in practice", 2),
-            new SomFormFieldMeta("behavioralIndicators", "String", "Behavioral Indicators — observable behaviors", false, "Observable behaviors that demonstrate the competency", 3),
-            new SomFormFieldMeta("proficiencyLevels", "String", "Proficiency Levels — what each level looks like", false, "What each proficiency level looks like", 4),
-            new SomFormFieldMeta("applicableRoles", "String", "Applicable Roles — which roles need this competency", false, "Which roles require this competency", 5),
-            new SomFormFieldMeta("requiredLevel", "String", "Required Level — minimum proficiency for the role", false, "Minimum proficiency level required for the role", 6),
-            new SomFormFieldMeta("developmentResources", "String", "Development Resources — training, coaching, experiences", false, "Training, coaching, or experiences that build it", 7),
-            new SomFormFieldMeta("assessmentTools", "String", "Assessment Tools — tests, interviews, simulations", false, "Tests, interviews, or simulations used to assess it", 8)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What this competency means in practice", 1),
+            new SomFormFieldMeta("behavioralIndicators", "String", "Behavioral Indicators — observable behaviors", false, "Observable behaviors that demonstrate the competency", 2),
+            new SomFormFieldMeta("proficiencyLevels", "String", "Proficiency Levels — what each level looks like", false, "What each proficiency level looks like", 3),
+            new SomFormFieldMeta("applicableRoles", "String", "Applicable Roles — which roles need this competency", false, "Which roles require this competency", 4),
+            new SomFormFieldMeta("requiredLevel", "String", "Required Level — minimum proficiency for the role", false, "Minimum proficiency level required for the role", 5),
+            new SomFormFieldMeta("developmentResources", "String", "Development Resources — training, coaching, experiences", false, "Training, coaching, or experiences that build it", 6),
+            new SomFormFieldMeta("assessmentTools", "String", "Assessment Tools — tests, interviews, simulations", false, "Tests, interviews, or simulations used to assess it", 7)));
         out.add(n);
       }
       return out;
@@ -15347,12 +15302,11 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("competencyName", "String", "Competency Name", true, "The competency whose required level is changing", 0),
-            new SomFormFieldMeta("currentLevel", "String", "Current Required Level", false, "Proficiency level required before the change", 1),
-            new SomFormFieldMeta("newLevel", "String", "New Required Level", false, "Proficiency level required after the change", 2),
-            new SomFormFieldMeta("reason", "String", "Reason — why level is changing", false, "Why the required proficiency level is changing", 3),
-            new SomFormFieldMeta("developmentPath", "String", "Development Path — how to close gap", false, "How incumbents can reach the new proficiency level", 4),
-            new SomFormFieldMeta("timeframe", "String", "Timeframe — when level needed", false, "When the new proficiency level must be reached", 5)));
+            new SomFormFieldMeta("currentLevel", "String", "Current Required Level", false, "Proficiency level required before the change", 0),
+            new SomFormFieldMeta("newLevel", "String", "New Required Level", false, "Proficiency level required after the change", 1),
+            new SomFormFieldMeta("reason", "String", "Reason — why level is changing", false, "Why the required proficiency level is changing", 2),
+            new SomFormFieldMeta("developmentPath", "String", "Development Path — how to close gap", false, "How incumbents can reach the new proficiency level", 3),
+            new SomFormFieldMeta("timeframe", "String", "Timeframe — when level needed", false, "When the new proficiency level must be reached", 4)));
         out.add(n);
       }
       return out;
@@ -15494,12 +15448,11 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("milestoneName", "String", "Milestone Name", true, "Name of the compliance milestone", 0),
-            new SomFormFieldMeta("regulation", "String", "Related Regulation", false, "Regulation this milestone supports", 1),
-            new SomFormFieldMeta("dueDate", "String", "Due Date", false, "When the milestone must be completed", 2),
-            new SomFormFieldMeta("deliverables", "String", "Deliverables", false, "Outputs produced to meet the milestone", 3),
-            new SomFormFieldMeta("verificationMethod", "String", "Verification Method", false, "How milestone completion is verified", 4),
-            new SomFormFieldMeta("status", "String", "Status", false, "Current state of the milestone", 5)));
+            new SomFormFieldMeta("regulation", "String", "Related Regulation", false, "Regulation this milestone supports", 0),
+            new SomFormFieldMeta("dueDate", "String", "Due Date", false, "When the milestone must be completed", 1),
+            new SomFormFieldMeta("deliverables", "String", "Deliverables", false, "Outputs produced to meet the milestone", 2),
+            new SomFormFieldMeta("verificationMethod", "String", "Verification Method", false, "How milestone completion is verified", 3),
+            new SomFormFieldMeta("status", "String", "Status", false, "Current state of the milestone", 4)));
         out.add(n);
       }
       return out;
@@ -15779,9 +15732,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("actionId", "String", "Action ID", true, null, 0),
-            new SomFormFieldMeta("actionName", "String", "Action Name", true, "onTap, onSubmit, onDelete", 1),
-            new SomFormFieldMeta("actionTrigger", "String", "Action Trigger", false, "User interaction that triggers", 2),
-            new SomFormFieldMeta("actionPayload", "String", "Action Payload", false, "Data passed with action", 3)));
+            new SomFormFieldMeta("actionTrigger", "String", "Action Trigger", false, "User interaction that triggers", 1),
+            new SomFormFieldMeta("actionPayload", "String", "Action Payload", false, "Data passed with action", 2)));
         out.add(n);
       }
       {
@@ -15879,8 +15831,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("componentId", "String", "Component ID", true, "Unique identifier, e.g. CMP-DB-001", 0),
-            new SomFormFieldMeta("componentName", "String", "Component Name", true, "Official product/library name", 1),
-            new SomFormFieldMeta("category", "String", "Category", false, "Database / Framework / Library / Service / Middleware", 2)));
+            new SomFormFieldMeta("category", "String", "Category", false, "Database / Framework / Library / Service / Middleware", 1)));
         out.add(n);
       }
       {
@@ -16142,11 +16093,10 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("familyId", "String", "Family ID", true, "Unique identifier (e.g., FAM-BTN)", 0),
-            new SomFormFieldMeta("familyName", "String", "Family Name", true, "Buttons, Inputs, Navigation, Tables", 1),
-            new SomFormFieldMeta("familyDescription", "String", "Family Description", false, "Purpose and scope of the family", 2),
-            new SomFormFieldMeta("componentCount", "int", "Component Count", false, "Number of components in the family", 3),
-            new SomFormFieldMeta("sharedPatterns", "String", "Shared Patterns", false, "Common patterns across family", 4),
-            new SomFormFieldMeta("consistencyRules", "String", "Consistency Rules", false, "Rules for family consistency", 5)));
+            new SomFormFieldMeta("familyDescription", "String", "Family Description", false, "Purpose and scope of the family", 1),
+            new SomFormFieldMeta("componentCount", "int", "Component Count", false, "Number of components in the family", 2),
+            new SomFormFieldMeta("sharedPatterns", "String", "Shared Patterns", false, "Common patterns across family", 3),
+            new SomFormFieldMeta("consistencyRules", "String", "Consistency Rules", false, "Rules for family consistency", 4)));
         out.add(n);
       }
       {
@@ -16311,9 +16261,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("interfaceName", "String", "Interface Name", false, "Human-readable name, e.g. Order Service REST API", 0),
-            new SomFormFieldMeta("interfaceType", "String", "Interface Type", false, "REST / GraphQL / gRPC / WebSocket / MessageQueue / SDK / CLI / File", 1),
-            new SomFormFieldMeta("protocol", "String", "Protocol", false, "HTTP/1.1 / HTTP/2 / AMQP / MQTT / TCP / UDP", 2)));
+            new SomFormFieldMeta("interfaceType", "String", "Interface Type", false, "REST / GraphQL / gRPC / WebSocket / MessageQueue / SDK / CLI / File", 0),
+            new SomFormFieldMeta("protocol", "String", "Protocol", false, "HTTP/1.1 / HTTP/2 / AMQP / MQTT / TCP / UDP", 1)));
         out.add(n);
       }
       {
@@ -16851,15 +16800,14 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("propertyId", "String", "Property ID", true, "Unique property identifier", 0),
-            new SomFormFieldMeta("propertyName", "String", "Property Name", true, "enabled, selected, elevation", 1),
-            new SomFormFieldMeta("propertyType", "String", "Property Type", false, "bool, String, Color, int", 2),
-            new SomFormFieldMeta("defaultValue", "String", "Default Value", false, "Value used when none is set", 3),
-            new SomFormFieldMeta("allowedValues", "String", "Allowed Values", false, "Enum values or constraints", 4),
-            new SomFormFieldMeta("propertyDescription", "String", "Property Description", false, "What this property controls", 5),
-            new SomFormFieldMeta("affectsAppearance", "bool", "Affects Appearance", false, "Changes the visual look", 6),
-            new SomFormFieldMeta("affectsBehavior", "bool", "Affects Behavior", false, "Changes how the component behaves", 7),
-            new SomFormFieldMeta("resourceResolvable", "bool", "Resource Resolvable", false, "Can be resolved from resources", 8),
-            new SomFormFieldMeta("authControlled", "bool", "Auth Controlled", false, "Controlled by authorization", 9)));
+            new SomFormFieldMeta("propertyType", "String", "Property Type", false, "bool, String, Color, int", 1),
+            new SomFormFieldMeta("defaultValue", "String", "Default Value", false, "Value used when none is set", 2),
+            new SomFormFieldMeta("allowedValues", "String", "Allowed Values", false, "Enum values or constraints", 3),
+            new SomFormFieldMeta("propertyDescription", "String", "Property Description", false, "What this property controls", 4),
+            new SomFormFieldMeta("affectsAppearance", "bool", "Affects Appearance", false, "Changes the visual look", 5),
+            new SomFormFieldMeta("affectsBehavior", "bool", "Affects Behavior", false, "Changes how the component behaves", 6),
+            new SomFormFieldMeta("resourceResolvable", "bool", "Resource Resolvable", false, "Can be resolved from resources", 7),
+            new SomFormFieldMeta("authControlled", "bool", "Auth Controlled", false, "Controlled by authorization", 8)));
         out.add(n);
       }
       return out;
@@ -17159,8 +17107,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("riskId", "String", "Risk ID", true, "Unique identifier, e.g. CR-001", 0),
-            new SomFormFieldMeta("componentRef", "String", "Component", false, "Component ID this risk applies to", 1, java.util.List.of(), java.util.List.of("CMPNT.componentId")),
-            new SomFormFieldMeta("riskTitle", "String", "Risk Title", false, "Short descriptive name", 2)));
+            new SomFormFieldMeta("componentRef", "String", "Component", false, "Component ID this risk applies to", 1, java.util.List.of(), java.util.List.of("CMPNT.componentId"))));
         out.add(n);
       }
       {
@@ -17278,13 +17225,12 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("slotId", "String", "Slot ID", true, "Unique slot identifier", 0),
-            new SomFormFieldMeta("slotName", "String", "Slot Name", true, "leading, trailing, title, content", 1),
-            new SomFormFieldMeta("slotDescription", "String", "Slot Description", false, "Purpose of this slot", 2),
-            new SomFormFieldMeta("slotRequired", "bool", "Slot Required", false, "Whether content is mandatory", 3),
-            new SomFormFieldMeta("acceptedWidgets", "String", "Accepted Widgets", false, "Widget types allowed in slot", 4),
-            new SomFormFieldMeta("defaultContent", "String", "Default Content", false, "What shows if slot is empty", 5),
-            new SomFormFieldMeta("sizingBehavior", "String", "Sizing Behavior", false, "How slot affects component size", 6),
-            new SomFormFieldMeta("resourceKey", "String", "Resource Key", false, "Resource for slot content", 7)));
+            new SomFormFieldMeta("slotDescription", "String", "Slot Description", false, "Purpose of this slot", 1),
+            new SomFormFieldMeta("slotRequired", "bool", "Slot Required", false, "Whether content is mandatory", 2),
+            new SomFormFieldMeta("acceptedWidgets", "String", "Accepted Widgets", false, "Widget types allowed in slot", 3),
+            new SomFormFieldMeta("defaultContent", "String", "Default Content", false, "What shows if slot is empty", 4),
+            new SomFormFieldMeta("sizingBehavior", "String", "Sizing Behavior", false, "How slot affects component size", 5),
+            new SomFormFieldMeta("resourceKey", "String", "Resource Key", false, "Resource for slot content", 6)));
         out.add(n);
       }
       return out;
@@ -17314,8 +17260,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stateId", "String", "State ID", true, "Unique state identifier", 0),
-            new SomFormFieldMeta("stateName", "String", "State Name", true, "Loading, Empty, Error, Disabled, etc.", 1),
-            new SomFormFieldMeta("stateDescription", "String", "State Description", false, "What this state represents", 2)));
+            new SomFormFieldMeta("stateDescription", "String", "State Description", false, "What this state represents", 1)));
         out.add(n);
       }
       {
@@ -17566,9 +17511,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("variantId", "String", "Variant ID", true, "Unique variant identifier", 0),
-            new SomFormFieldMeta("variantName", "String", "Variant Name", true, "Filled, Outlined, Tonal, Text", 1),
-            new SomFormFieldMeta("variantDescription", "String", "Variant Description", false, "What distinguishes this variant", 2),
-            new SomFormFieldMeta("visualDifferences", "String", "Visual Differences", false, "How variant looks different", 3)));
+            new SomFormFieldMeta("variantDescription", "String", "Variant Description", false, "What distinguishes this variant", 1),
+            new SomFormFieldMeta("visualDifferences", "String", "Visual Differences", false, "How variant looks different", 2)));
         out.add(n);
       }
       {
@@ -17977,11 +17921,10 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("categoryName", "String", "Category Name", true, "Name of the confidential information category", 0),
-            new SomFormFieldMeta("description", "String", "Description", false, "What information falls into this category", 1),
-            new SomFormFieldMeta("classificationLevel", "String", "Classification Level", false, "Sensitivity level, e.g. Public, Internal, Confidential", 2),
-            new SomFormFieldMeta("handlingInstructions", "String", "Handling Instructions", false, "How this category must be stored, shared, and disposed of", 3),
-            new SomFormFieldMeta("authorizedPersonnel", "String", "Authorized Personnel", false, "Who may access this category of information", 4)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What information falls into this category", 0),
+            new SomFormFieldMeta("classificationLevel", "String", "Classification Level", false, "Sensitivity level, e.g. Public, Internal, Confidential", 1),
+            new SomFormFieldMeta("handlingInstructions", "String", "Handling Instructions", false, "How this category must be stored, shared, and disposed of", 2),
+            new SomFormFieldMeta("authorizedPersonnel", "String", "Authorized Personnel", false, "Who may access this category of information", 3)));
         out.add(n);
       }
       return out;
@@ -18726,8 +18669,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("contingencyId", "String", "Contingency Plan ID", false, "Unique identifier, e.g. CP-001", 0),
-            new SomFormFieldMeta("planTitle", "String", "Plan Title", true, "Short name for this contingency plan", 1),
-            new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition", false, "Specific event or threshold that activates this plan", 2)));
+            new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition", false, "Specific event or threshold that activates this plan", 1)));
         out.add(n);
       }
       {
@@ -19400,11 +19342,10 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("processName", "String", "Process Name", true, null, 0),
-            new SomFormFieldMeta("processOwner", "String", "Process Owner", false, null, 1),
-            new SomFormFieldMeta("processCategory", "String", "Category (e.g., Core, Support, Management)", false, null, 2),
-            new SomFormFieldMeta("processScope", "String", "Scope - organizational units involved", false, null, 3),
-            new SomFormFieldMeta("processMaturity", "String", "Maturity Level (e.g., Ad-hoc, Defined, Managed, Optimized)", false, null, 4)));
+            new SomFormFieldMeta("processOwner", "String", "Process Owner", false, null, 0),
+            new SomFormFieldMeta("processCategory", "String", "Category (e.g., Core, Support, Management)", false, null, 1),
+            new SomFormFieldMeta("processScope", "String", "Scope - organizational units involved", false, null, 2),
+            new SomFormFieldMeta("processMaturity", "String", "Maturity Level (e.g., Ad-hoc, Defined, Managed, Optimized)", false, null, 3)));
         out.add(n);
       }
       {
@@ -20170,12 +20111,11 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("workflowName", "String", "Workflow Name", true, null, 0),
-            new SomFormFieldMeta("workflowId", "String", "Workflow ID (internal identifier)", false, null, 1),
-            new SomFormFieldMeta("workflowType", "String", "Type (e.g., Operational, Approval, Exception)", false, null, 2),
-            new SomFormFieldMeta("frequency", "String", "Execution Frequency", false, null, 3),
-            new SomFormFieldMeta("averageVolume", "String", "Average Volume per period", false, null, 4),
-            new SomFormFieldMeta("criticality", "String", "Business Criticality", false, null, 5)));
+            new SomFormFieldMeta("workflowId", "String", "Workflow ID (internal identifier)", false, null, 0),
+            new SomFormFieldMeta("workflowType", "String", "Type (e.g., Operational, Approval, Exception)", false, null, 1),
+            new SomFormFieldMeta("frequency", "String", "Execution Frequency", false, null, 2),
+            new SomFormFieldMeta("averageVolume", "String", "Average Volume per period", false, null, 3),
+            new SomFormFieldMeta("criticality", "String", "Business Criticality", false, null, 4)));
         out.add(n);
       }
       {
@@ -20413,11 +20353,10 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("groupName", "String", "Group Name", true, "Name of the distribution group", 0),
-            new SomFormFieldMeta("purpose", "String", "Purpose", false, "Why this group exists", 1),
-            new SomFormFieldMeta("informationScope", "String", "Information Scope", false, "What information this group receives", 2),
-            new SomFormFieldMeta("frequency", "String", "Communication Frequency", false, "How often this group is contacted", 3),
-            new SomFormFieldMeta("primaryChannel", "String", "Primary Channel", false, "Main distribution channel for this group", 4)));
+            new SomFormFieldMeta("purpose", "String", "Purpose", false, "Why this group exists", 0),
+            new SomFormFieldMeta("informationScope", "String", "Information Scope", false, "What information this group receives", 1),
+            new SomFormFieldMeta("frequency", "String", "Communication Frequency", false, "How often this group is contacted", 2),
+            new SomFormFieldMeta("primaryChannel", "String", "Primary Channel", false, "Main distribution channel for this group", 3)));
         out.add(n);
       }
       {
@@ -20470,15 +20409,14 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("metricName", "String", "Metric Name", true, "Full metric name (e.g., app_orders_total)", 0),
-            new SomFormFieldMeta("metricType", "String", "Metric Type", false, "Counter, gauge, histogram, summary", 1),
-            new SomFormFieldMeta("metricDescription", "String", "Metric Description", false, "What this metric measures", 2),
-            new SomFormFieldMeta("unit", "String", "Unit", false, "seconds, bytes, requests, count", 3),
-            new SomFormFieldMeta("labels", "String", "Labels", false, "Labels attached to this metric", 4),
-            new SomFormFieldMeta("source", "String", "Source", false, "Where this metric is emitted", 5),
-            new SomFormFieldMeta("alertOnMetric", "bool", "Alert On Metric", false, "Whether alerts are based on this metric", 6),
-            new SomFormFieldMeta("dashboardInclusion", "String", "Dashboard Inclusion", false, "Which dashboards include this metric", 7),
-            new SomFormFieldMeta("notes", "String", "Notes", false, "Additional notes for this custom metric", 8)));
+            new SomFormFieldMeta("metricType", "String", "Metric Type", false, "Counter, gauge, histogram, summary", 0),
+            new SomFormFieldMeta("metricDescription", "String", "Metric Description", false, "What this metric measures", 1),
+            new SomFormFieldMeta("unit", "String", "Unit", false, "seconds, bytes, requests, count", 2),
+            new SomFormFieldMeta("labels", "String", "Labels", false, "Labels attached to this metric", 3),
+            new SomFormFieldMeta("source", "String", "Source", false, "Where this metric is emitted", 4),
+            new SomFormFieldMeta("alertOnMetric", "bool", "Alert On Metric", false, "Whether alerts are based on this metric", 5),
+            new SomFormFieldMeta("dashboardInclusion", "String", "Dashboard Inclusion", false, "Which dashboards include this metric", 6),
+            new SomFormFieldMeta("notes", "String", "Notes", false, "Additional notes for this custom metric", 7)));
         out.add(n);
       }
       return out;
@@ -23819,9 +23757,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dashboardId", "String", "Dashboard ID", true, "Unique dashboard identifier", 0),
-            new SomFormFieldMeta("dashboardName", "String", "Dashboard Name", true, "Human-readable dashboard name", 1),
-            new SomFormFieldMeta("dashboardCategory", "String", "Dashboard Category", false, "Executive, operational, service, infrastructure", 2),
-            new SomFormFieldMeta("targetAudience", "String", "Target Audience", false, "Who uses this dashboard", 3)));
+            new SomFormFieldMeta("dashboardCategory", "String", "Dashboard Category", false, "Executive, operational, service, infrastructure", 1),
+            new SomFormFieldMeta("targetAudience", "String", "Target Audience", false, "Who uses this dashboard", 2)));
         out.add(n);
       }
       {
@@ -24262,11 +24199,10 @@ public final class TomSomV0Meta {
         n.sectionId = "DAATT-IDEN";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("attributeName", "String", "Attribute Name", true, "Logical attribute name in camelCase", 0),
-            new SomFormFieldMeta("columnName", "String", "Physical Column Name", false, "Database column name if different (e.g., snake_case)", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "Clear definition of what this attribute represents", 2),
-            new SomFormFieldMeta("businessTerm", "String", "Business Term", false, "Business glossary term this maps to", 3),
-            new SomFormFieldMeta("exampleValues", "String", "Example Values", false, "Comma-separated examples (e.g., \"Draft, Confirmed, Shipped\")", 4)));
+            new SomFormFieldMeta("columnName", "String", "Physical Column Name", false, "Database column name if different (e.g., snake_case)", 0),
+            new SomFormFieldMeta("description", "String", "Description", false, "Clear definition of what this attribute represents", 1),
+            new SomFormFieldMeta("businessTerm", "String", "Business Term", false, "Business glossary term this maps to", 2),
+            new SomFormFieldMeta("exampleValues", "String", "Example Values", false, "Comma-separated examples (e.g., \"Draft, Confirmed, Shipped\")", 3)));
         out.add(n);
       }
       {
@@ -24561,11 +24497,10 @@ public final class TomSomV0Meta {
         n.sectionId = "DCLSE-IDEN";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("classificationName", "String", "Classification Name", true, "Name of this classification level", 0),
-            new SomFormFieldMeta("classificationLevel", "String", "Classification Level", false, "Sensitivity: Public | Internal | Confidential | Restricted | TopSecret", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this classification means", 2),
-            new SomFormFieldMeta("dataCategories", "String", "Data Categories", false, "Types of data in this class: PII | PHI | Financial | Legal | Technical", 3),
-            new SomFormFieldMeta("examples", "String", "Examples", false, "Examples of data at this classification", 4)));
+            new SomFormFieldMeta("classificationLevel", "String", "Classification Level", false, "Sensitivity: Public | Internal | Confidential | Restricted | TopSecret", 0),
+            new SomFormFieldMeta("description", "String", "Description", false, "What this classification means", 1),
+            new SomFormFieldMeta("dataCategories", "String", "Data Categories", false, "Types of data in this class: PII | PHI | Financial | Legal | Technical", 2),
+            new SomFormFieldMeta("examples", "String", "Examples", false, "Examples of data at this classification", 3)));
         out.add(n);
       }
       {
@@ -24709,16 +24644,15 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("levelName", "String", "Level Name", true, "E.g. Public, Internal, Confidential, Restricted", 0),
-            new SomFormFieldMeta("levelOrder", "int", "Level Order", false, "Numeric order, 1=lowest sensitivity", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this level means", 2),
-            new SomFormFieldMeta("dataExamples", "String", "Data Examples", false, "Examples of data at this level", 3),
-            new SomFormFieldMeta("handlingRequirements", "String", "Handling Requirements", false, "How data at this level must be handled", 4),
-            new SomFormFieldMeta("accessRestrictions", "String", "Access Restrictions", false, "Who can access data at this level", 5),
-            new SomFormFieldMeta("storageRequirements", "String", "Storage Requirements", false, "How data at this level must be stored", 6),
-            new SomFormFieldMeta("transmissionRequirements", "String", "Transmission Requirements", false, "How data at this level can be transmitted", 7),
-            new SomFormFieldMeta("disposalRequirements", "String", "Disposal Requirements", false, "How data at this level must be disposed", 8),
-            new SomFormFieldMeta("incidentResponseLevel", "String", "Incident Response", false, "Response level if breached", 9)));
+            new SomFormFieldMeta("levelOrder", "int", "Level Order", false, "Numeric order, 1=lowest sensitivity", 0),
+            new SomFormFieldMeta("description", "String", "Description", false, "What this level means", 1),
+            new SomFormFieldMeta("dataExamples", "String", "Data Examples", false, "Examples of data at this level", 2),
+            new SomFormFieldMeta("handlingRequirements", "String", "Handling Requirements", false, "How data at this level must be handled", 3),
+            new SomFormFieldMeta("accessRestrictions", "String", "Access Restrictions", false, "Who can access data at this level", 4),
+            new SomFormFieldMeta("storageRequirements", "String", "Storage Requirements", false, "How data at this level must be stored", 5),
+            new SomFormFieldMeta("transmissionRequirements", "String", "Transmission Requirements", false, "How data at this level can be transmitted", 6),
+            new SomFormFieldMeta("disposalRequirements", "String", "Disposal Requirements", false, "How data at this level must be disposed", 7),
+            new SomFormFieldMeta("incidentResponseLevel", "String", "Incident Response", false, "Response level if breached", 8)));
         out.add(n);
       }
       return out;
@@ -25165,12 +25099,11 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("entityName", "String", "Entity Name", true, "Name of the data entity", 0),
-            new SomFormFieldMeta("recordCount", "String", "Record Count", false, "Approximate number of records for this entity", 1),
-            new SomFormFieldMeta("targetMapping", "String", "Target Mapping", false, "Where the entity maps to in the target system", 2),
-            new SomFormFieldMeta("transformationNotes", "String", "Transformation Notes", false, "Transformations required during migration", 3),
-            new SomFormFieldMeta("validationRules", "String", "Validation Rules", false, "Rules to verify migrated data correctness", 4),
-            new SomFormFieldMeta("migrationPriority", "String", "Priority", false, "Migration priority of this entity", 5)));
+            new SomFormFieldMeta("recordCount", "String", "Record Count", false, "Approximate number of records for this entity", 0),
+            new SomFormFieldMeta("targetMapping", "String", "Target Mapping", false, "Where the entity maps to in the target system", 1),
+            new SomFormFieldMeta("transformationNotes", "String", "Transformation Notes", false, "Transformations required during migration", 2),
+            new SomFormFieldMeta("validationRules", "String", "Validation Rules", false, "Rules to verify migrated data correctness", 3),
+            new SomFormFieldMeta("migrationPriority", "String", "Priority", false, "Migration priority of this entity", 4)));
         out.add(n);
       }
       return out;
@@ -25199,12 +25132,11 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("entityName", "String", "Entity Name", true, "Name of the data entity referenced", 0),
-            new SomFormFieldMeta("crudOperations", "String", "CRUD Operations (Create, Read, Update, Delete)", true, "Which of Create, Read, Update, Delete are performed", 1),
-            new SomFormFieldMeta("attributes", "String", "Attributes (specific fields involved)", false, "Specific fields/attributes involved", 2),
-            new SomFormFieldMeta("volumeEstimate", "String", "Volume Estimate (records created/accessed)", false, "Estimated number of records created or accessed", 3),
-            new SomFormFieldMeta("dataQualityRules", "String", "Data Quality Rules (validation, completeness)", false, "Validation and completeness rules for the data", 4),
-            new SomFormFieldMeta("dataOwner", "String", "Data Owner", false, "Owner accountable for this data entity", 5)));
+            new SomFormFieldMeta("crudOperations", "String", "CRUD Operations (Create, Read, Update, Delete)", true, "Which of Create, Read, Update, Delete are performed", 0),
+            new SomFormFieldMeta("attributes", "String", "Attributes (specific fields involved)", false, "Specific fields/attributes involved", 1),
+            new SomFormFieldMeta("volumeEstimate", "String", "Volume Estimate (records created/accessed)", false, "Estimated number of records created or accessed", 2),
+            new SomFormFieldMeta("dataQualityRules", "String", "Data Quality Rules (validation, completeness)", false, "Validation and completeness rules for the data", 3),
+            new SomFormFieldMeta("dataOwner", "String", "Data Owner", false, "Owner accountable for this data entity", 4)));
         out.add(n);
       }
       {
@@ -25438,9 +25370,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("policyId", "String", "Policy ID", false, "Unique identifier", 0),
-            new SomFormFieldMeta("policyName", "String", "Policy Name", true, "Name of the governance policy", 1),
-            new SomFormFieldMeta("policyArea", "String", "Policy Area", false, "DataQuality / DataSecurity / DataPrivacy / DataAccess / MDM", 2),
-            new SomFormFieldMeta("description", "String", "Description", false, "Brief description of the policy", 3)));
+            new SomFormFieldMeta("policyArea", "String", "Policy Area", false, "DataQuality / DataSecurity / DataPrivacy / DataAccess / MDM", 1),
+            new SomFormFieldMeta("description", "String", "Description", false, "Brief description of the policy", 2)));
         out.add(n);
       }
       {
@@ -25605,8 +25536,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("integrationId", "String", "Integration ID", true, "Unique identifier", 0),
-            new SomFormFieldMeta("integrationName", "String", "Integration Name", true, "Name of the integration", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "What data is exchanged and why", 2)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What data is exchanged and why", 1)));
         out.add(n);
       }
       {
@@ -27131,12 +27061,11 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("initiativeId", "String", "Initiative ID", false, "Unique identifier", 0),
-            new SomFormFieldMeta("initiativeName", "String", "Initiative Name", true, "Name of the improvement initiative", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "What the initiative aims to achieve", 2),
-            new SomFormFieldMeta("targetIssues", "String", "Target Issues", false, "Quality issues this initiative addresses", 3),
-            new SomFormFieldMeta("status", "String", "Status", false, "Planned / InProgress / Completed / OnHold", 4),
-            new SomFormFieldMeta("expectedCompletion", "String", "Expected Completion", false, "Target completion date", 5),
-            new SomFormFieldMeta("expectedImprovement", "String", "Expected Improvement", false, "Quantified improvement target", 6)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What the initiative aims to achieve", 1),
+            new SomFormFieldMeta("targetIssues", "String", "Target Issues", false, "Quality issues this initiative addresses", 2),
+            new SomFormFieldMeta("status", "String", "Status", false, "Planned / InProgress / Completed / OnHold", 3),
+            new SomFormFieldMeta("expectedCompletion", "String", "Expected Completion", false, "Target completion date", 4),
+            new SomFormFieldMeta("expectedImprovement", "String", "Expected Improvement", false, "Quantified improvement target", 5)));
         out.add(n);
       }
       return out;
@@ -27166,9 +27095,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("issueId", "String", "Issue ID", true, "Unique identifier, e.g. DQ-001", 0),
-            new SomFormFieldMeta("issueTitle", "String", "Issue Title", true, "Brief description of the quality issue", 1),
-            new SomFormFieldMeta("description", "String", "Detailed Description", false, "Full description of the issue and its manifestation", 2),
-            new SomFormFieldMeta("affectedDataSource", "String", "Affected Data Source", false, "Which data source(s) are impacted", 3)));
+            new SomFormFieldMeta("description", "String", "Detailed Description", false, "Full description of the issue and its manifestation", 1),
+            new SomFormFieldMeta("affectedDataSource", "String", "Affected Data Source", false, "Which data source(s) are impacted", 2)));
         out.add(n);
       }
       {
@@ -27411,12 +27339,11 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("entityName", "String", "Entity Name", true, "Name of the entity/table/collection", 0),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this entity represents", 1),
-            new SomFormFieldMeta("recordCount", "String", "Record Count", false, "Approximate number of records", 2),
-            new SomFormFieldMeta("primaryKey", "String", "Primary Key", false, "Key field(s) identifying unique records", 3),
-            new SomFormFieldMeta("relationships", "String", "Key Relationships", false, "Important relationships to other entities", 4),
-            new SomFormFieldMeta("sensitiveFields", "String", "Sensitive Fields", false, "Fields containing sensitive data", 5)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What this entity represents", 0),
+            new SomFormFieldMeta("recordCount", "String", "Record Count", false, "Approximate number of records", 1),
+            new SomFormFieldMeta("primaryKey", "String", "Primary Key", false, "Key field(s) identifying unique records", 2),
+            new SomFormFieldMeta("relationships", "String", "Key Relationships", false, "Important relationships to other entities", 3),
+            new SomFormFieldMeta("sensitiveFields", "String", "Sensitive Fields", false, "Fields containing sensitive data", 4)));
         out.add(n);
       }
       return out;
@@ -28087,10 +28014,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("databaseName", "String", "Database", true, "E.g., PostgreSQL, MySQL, MongoDB, SQLite", 0),
-            new SomFormFieldMeta("databaseType", "String", "Type", false, "RDBMS, Document, Key-Value, Graph", 1),
-            new SomFormFieldMeta("minVersion", "String", "Minimum Version", true, "Minimum supported version", 2),
-            new SomFormFieldMeta("maxVersion", "String", "Maximum Version", false, "Maximum tested version", 3)));
+            new SomFormFieldMeta("databaseType", "String", "Type", false, "RDBMS, Document, Key-Value, Graph", 0),
+            new SomFormFieldMeta("minVersion", "String", "Minimum Version", true, "Minimum supported version", 1),
+            new SomFormFieldMeta("maxVersion", "String", "Maximum Version", false, "Maximum tested version", 2)));
         out.add(n);
       }
       {
@@ -28376,16 +28302,14 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("name", "String", "Name", true, "Full name of the decision maker", 0),
-            new SomFormFieldMeta("title", "String", "Title/Role", false, "Formal title or organizational role", 1),
-            new SomFormFieldMeta("department", "String", "Department", false, "Department the decision maker belongs to", 2),
-            new SomFormFieldMeta("decisionAuthority", "String", "Authority (Executive Sponsor, Steering Committee, Budget Owner, etc.)", false, "Type of authority this person holds", 3),
-            new SomFormFieldMeta("decisionDomains", "String", "Decision Domains (Scope, Budget, Timeline, Technology, Resources)", false, "Areas where this person makes decisions", 4),
-            new SomFormFieldMeta("influenceLevel", "String", "Influence Level (High, Medium, Low)", false, "Degree of influence over project outcomes", 5),
-            new SomFormFieldMeta("approvalRequired", "String", "Approval Required For", false, "What requires this person to sign off", 6),
-            new SomFormFieldMeta("availabilityConstraints", "String", "Availability/Constraints", false, "Limits on availability or engagement", 7),
-            new SomFormFieldMeta("stakeholderAlignment", "String", "Stakeholder Alignment (Supportive, Neutral, Skeptical)", false, "Current stance toward the project", 8),
-            new SomFormFieldMeta("communicationPreference", "String", "Communication Preference", false, "Preferred channel and cadence for updates", 9)));
+            new SomFormFieldMeta("department", "String", "Department", false, "Department the decision maker belongs to", 0),
+            new SomFormFieldMeta("decisionAuthority", "String", "Authority (Executive Sponsor, Steering Committee, Budget Owner, etc.)", false, "Type of authority this person holds", 1),
+            new SomFormFieldMeta("decisionDomains", "String", "Decision Domains (Scope, Budget, Timeline, Technology, Resources)", false, "Areas where this person makes decisions", 2),
+            new SomFormFieldMeta("influenceLevel", "String", "Influence Level (High, Medium, Low)", false, "Degree of influence over project outcomes", 3),
+            new SomFormFieldMeta("approvalRequired", "String", "Approval Required For", false, "What requires this person to sign off", 4),
+            new SomFormFieldMeta("availabilityConstraints", "String", "Availability/Constraints", false, "Limits on availability or engagement", 5),
+            new SomFormFieldMeta("stakeholderAlignment", "String", "Stakeholder Alignment (Supportive, Neutral, Skeptical)", false, "Current stance toward the project", 6),
+            new SomFormFieldMeta("communicationPreference", "String", "Communication Preference", false, "Preferred channel and cadence for updates", 7)));
         out.add(n);
       }
       return out;
@@ -29056,8 +28980,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("deliverableId", "String", "Deliverable ID", true, "Unique identifier — e.g. DEL-SOF-001", 0),
-            new SomFormFieldMeta("deliverableName", "String", "Deliverable Name", true, "Concise name — e.g. \"Customer Management API\"", 1),
-            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical / High / Medium / Low", 2)));
+            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical / High / Medium / Low", 1)));
         out.add(n);
       }
       {
@@ -30193,9 +30116,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("environmentName", "String", "Environment Name", true, "E.g., dev, staging, production", 0),
-            new SomFormFieldMeta("environmentType", "String", "Type", false, "Development, Staging, Production", 1),
-            new SomFormFieldMeta("url", "String", "URL", false, "Environment URL", 2)));
+            new SomFormFieldMeta("environmentType", "String", "Type", false, "Development, Staging, Production", 0),
+            new SomFormFieldMeta("url", "String", "URL", false, "Environment URL", 1)));
         out.add(n);
       }
       {
@@ -30639,9 +30561,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("targetName", "String", "Target Name", true, "E.g., Production Web, iOS App Store, Docker Hub", 0),
-            new SomFormFieldMeta("targetCategory", "String", "Category", false, "Web, Mobile App, Desktop App, Cloud Service, Container, Embedded", 1),
-            new SomFormFieldMeta("targetEnvironment", "String", "Environment", false, "Development, Staging, Production", 2)));
+            new SomFormFieldMeta("targetCategory", "String", "Category", false, "Web, Mobile App, Desktop App, Cloud Service, Container, Embedded", 0),
+            new SomFormFieldMeta("targetEnvironment", "String", "Environment", false, "Development, Staging, Production", 1)));
         out.add(n);
       }
       {
@@ -30907,13 +30828,12 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("goalName", "String", "Goal Name", true, "A concise label for the design goal", 0),
-            new SomFormFieldMeta("description", "String", "Goal Description", false, "What this goal means for the UI", 1),
-            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical/High/Medium/Low", 2),
-            new SomFormFieldMeta("category", "String", "Category", false, "Usability/Performance/Accessibility/Aesthetics/Engagement", 3),
-            new SomFormFieldMeta("measurementCriteria", "String", "Measurement Criteria", false, "How we verify goal achievement", 4),
-            new SomFormFieldMeta("targetMetric", "String", "Target Metric", false, "Quantifiable target if applicable", 5),
-            new SomFormFieldMeta("relatedPrinciples", "String", "Related Principles", false, "Design principles that support this goal", 6)));
+            new SomFormFieldMeta("description", "String", "Goal Description", false, "What this goal means for the UI", 0),
+            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical/High/Medium/Low", 1),
+            new SomFormFieldMeta("category", "String", "Category", false, "Usability/Performance/Accessibility/Aesthetics/Engagement", 2),
+            new SomFormFieldMeta("measurementCriteria", "String", "Measurement Criteria", false, "How we verify goal achievement", 3),
+            new SomFormFieldMeta("targetMetric", "String", "Target Metric", false, "Quantifiable target if applicable", 4),
+            new SomFormFieldMeta("relatedPrinciples", "String", "Related Principles", false, "Design principles that support this goal", 5)));
         out.add(n);
       }
       return out;
@@ -31007,10 +30927,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("patternName", "String", "Pattern Name", true, "E.g., Repository, Factory, Observer, State, Command", 0),
-            new SomFormFieldMeta("patternCategory", "String", "Category", true, "Creational, Structural, Behavioral, Architectural, UI", 1),
-            new SomFormFieldMeta("patternSource", "String", "Source", false, "GoF, Enterprise Patterns, DDD, UI Patterns", 2),
-            new SomFormFieldMeta("purpose", "String", "Purpose", true, "What problem this pattern solves", 3)));
+            new SomFormFieldMeta("patternCategory", "String", "Category", true, "Creational, Structural, Behavioral, Architectural, UI", 0),
+            new SomFormFieldMeta("patternSource", "String", "Source", false, "GoF, Enterprise Patterns, DDD, UI Patterns", 1),
+            new SomFormFieldMeta("purpose", "String", "Purpose", true, "What problem this pattern solves", 2)));
         out.add(n);
       }
       {
@@ -31319,14 +31238,13 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("principleName", "String", "Principle Name", true, "A clear name for the design principle", 0),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this principle means", 1),
-            new SomFormFieldMeta("rationale", "String", "Rationale", false, "Why this principle matters", 2),
-            new SomFormFieldMeta("category", "String", "Category", false, "Visual/Interaction/Accessibility/Information/Navigation", 3),
-            new SomFormFieldMeta("examples", "String", "Examples", false, "How the principle manifests in the UI", 4),
-            new SomFormFieldMeta("exceptions", "String", "Exceptions", false, "When deviation is acceptable", 5),
-            new SomFormFieldMeta("sourceReference", "String", "Source Reference", false, "Design system or external reference", 6),
-            new SomFormFieldMeta("relatedGoals", "String", "Related Goals", false, "Design goals this principle supports", 7)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What this principle means", 0),
+            new SomFormFieldMeta("rationale", "String", "Rationale", false, "Why this principle matters", 1),
+            new SomFormFieldMeta("category", "String", "Category", false, "Visual/Interaction/Accessibility/Information/Navigation", 2),
+            new SomFormFieldMeta("examples", "String", "Examples", false, "How the principle manifests in the UI", 3),
+            new SomFormFieldMeta("exceptions", "String", "Exceptions", false, "When deviation is acceptable", 4),
+            new SomFormFieldMeta("sourceReference", "String", "Source Reference", false, "Design system or external reference", 5),
+            new SomFormFieldMeta("relatedGoals", "String", "Related Goals", false, "Design goals this principle supports", 6)));
         out.add(n);
       }
       return out;
@@ -31740,9 +31658,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("conventionName", "String", "Convention Name", true, "Name of the development convention", 0),
-            new SomFormFieldMeta("conventionCategory", "String", "Category", true, "Version Control, Code Review, Branching, Commit, CI/CD, Deployment", 1),
-            new SomFormFieldMeta("description", "String", "Description", true, "What the convention requires", 2)));
+            new SomFormFieldMeta("conventionCategory", "String", "Category", true, "Version Control, Code Review, Branching, Commit, CI/CD, Deployment", 0),
+            new SomFormFieldMeta("description", "String", "Description", true, "What the convention requires", 1)));
         out.add(n);
       }
       {
@@ -32437,10 +32354,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("displayLabel", "String", "Display Label", false, "User-friendly label for UI", 0),
-            new SomFormFieldMeta("displayOrder", "String", "Display Order", false, "Order when displaying in forms/tables", 1),
-            new SomFormFieldMeta("displayGroup", "String", "Display Group", false, "Grouping for UI layout", 2),
-            new SomFormFieldMeta("helpText", "String", "Help Text", false, "User assistance text for forms", 3)));
+            new SomFormFieldMeta("displayOrder", "String", "Display Order", false, "Order when displaying in forms/tables", 0),
+            new SomFormFieldMeta("displayGroup", "String", "Display Group", false, "Grouping for UI layout", 1),
+            new SomFormFieldMeta("helpText", "String", "Help Text", false, "User assistance text for forms", 2)));
         out.add(n);
       }
       return out;
@@ -32786,9 +32702,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("name", "String", "Name", true, "Full name of the recipient", 0),
-            new SomFormFieldMeta("role", "String", "Role", false, "Project or organizational role", 1),
-            new SomFormFieldMeta("organization", "String", "Organization", false, "Department or company", 2)));
+            new SomFormFieldMeta("role", "String", "Role", false, "Project or organizational role", 0),
+            new SomFormFieldMeta("organization", "String", "Organization", false, "Department or company", 1)));
         out.add(n);
       }
       {
@@ -34218,9 +34133,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ruleId", "String", "Rule ID", true, "Unique identifier for this business rule", 0),
-            new SomFormFieldMeta("ruleName", "String", "Rule Name", true, "Short descriptive name for this rule", 1),
-            new SomFormFieldMeta("ruleType", "String", "Rule Type (Constraint, Calculation, Derivation, Action-Trigger, Authorization, Validation)", true, "Constraint / Calculation / Derivation / Action-Trigger / Authorization / Validation", 2),
-            new SomFormFieldMeta("description", "String", "Description (plain language)", true, "Plain-language statement of what this rule requires", 3)));
+            new SomFormFieldMeta("ruleType", "String", "Rule Type (Constraint, Calculation, Derivation, Action-Trigger, Authorization, Validation)", true, "Constraint / Calculation / Derivation / Action-Trigger / Authorization / Validation", 1),
+            new SomFormFieldMeta("description", "String", "Description (plain language)", true, "Plain-language statement of what this rule requires", 2)));
         out.add(n);
       }
       {
@@ -34479,16 +34393,15 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("eventName", "String", "Event Name (past tense, e.g., OrderPlaced)", true, "Past-tense event name, e.g., OrderPlaced", 0),
-            new SomFormFieldMeta("eventDescription", "String", "Event Description", true, "What this event represents in the business", 1),
-            new SomFormFieldMeta("eventType", "String", "Event Type (State Change, Action Completed, Time-based, External)", false, "State Change / Action Completed / Time-based / External", 2),
-            new SomFormFieldMeta("trigger", "String", "Trigger (what causes this event)", false, "What causes this event to occur", 3),
-            new SomFormFieldMeta("sourceEntity", "String", "Source Entity (which concept generates this event)", false, "Which domain concept generates this event", 4),
-            new SomFormFieldMeta("eventData", "String", "Event Data (what information is carried with the event)", false, "Information carried in the event payload", 5),
-            new SomFormFieldMeta("subscribers", "String", "Subscribers (who/what reacts to this event)", false, "Who or what reacts to this event", 6),
-            new SomFormFieldMeta("reactions", "String", "Reactions (what happens when this event occurs)", false, "What happens in response to this event", 7),
-            new SomFormFieldMeta("frequency", "String", "Frequency (how often this event occurs)", false, "How often this event occurs", 8),
-            new SomFormFieldMeta("businessImpact", "String", "Business Impact (significance of this event)", false, "Significance of this event to the business", 9)));
+            new SomFormFieldMeta("eventDescription", "String", "Event Description", true, "What this event represents in the business", 0),
+            new SomFormFieldMeta("eventType", "String", "Event Type (State Change, Action Completed, Time-based, External)", false, "State Change / Action Completed / Time-based / External", 1),
+            new SomFormFieldMeta("trigger", "String", "Trigger (what causes this event)", false, "What causes this event to occur", 2),
+            new SomFormFieldMeta("sourceEntity", "String", "Source Entity (which concept generates this event)", false, "Which domain concept generates this event", 3),
+            new SomFormFieldMeta("eventData", "String", "Event Data (what information is carried with the event)", false, "Information carried in the event payload", 4),
+            new SomFormFieldMeta("subscribers", "String", "Subscribers (who/what reacts to this event)", false, "Who or what reacts to this event", 5),
+            new SomFormFieldMeta("reactions", "String", "Reactions (what happens when this event occurs)", false, "What happens in response to this event", 6),
+            new SomFormFieldMeta("frequency", "String", "Frequency (how often this event occurs)", false, "How often this event occurs", 7),
+            new SomFormFieldMeta("businessImpact", "String", "Business Impact (significance of this event)", false, "Significance of this event to the business", 8)));
         out.add(n);
       }
       return out;
@@ -34653,10 +34566,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("processName", "String", "Process Name", true, "Name of the business process", 0),
-            new SomFormFieldMeta("processDescription", "String", "Process Description", true, "What this process does and why it exists", 1),
-            new SomFormFieldMeta("processType", "String", "Process Type (Core, Support, Management)", false, "Core / Support / Management", 2),
-            new SomFormFieldMeta("trigger", "String", "Trigger (what initiates this process)", false, "What event or condition initiates this process", 3)));
+            new SomFormFieldMeta("processDescription", "String", "Process Description", true, "What this process does and why it exists", 0),
+            new SomFormFieldMeta("processType", "String", "Process Type (Core, Support, Management)", false, "Core / Support / Management", 1),
+            new SomFormFieldMeta("trigger", "String", "Trigger (what initiates this process)", false, "What event or condition initiates this process", 2)));
         out.add(n);
       }
       {
@@ -35102,14 +35014,13 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("categoryName", "String", "Category Name", true, "Name of the data category requiring encryption (e.g. PersonalData, FinancialRecords, HealthRecords, Credentials, APIKeys)", 0),
-            new SomFormFieldMeta("dataClassification", "String", "Data Classification", true, "Public | Internal | Confidential | Restricted | Secret — sensitivity classification of the data category", 1),
-            new SomFormFieldMeta("encryptionApproach", "String", "Encryption Approach", false, "FieldLevel | ColumnLevel | TableLevel | DatabaseLevel | FileLevel | VolumeLevel — at what granularity this data category is encrypted", 2),
-            new SomFormFieldMeta("algorithmOverride", "String", "Algorithm Override", false, "Algorithm and key length if different from the default policy (e.g. AES-256-GCM, ChaCha20-Poly1305); blank = use default", 3),
-            new SomFormFieldMeta("encryptedFields", "String", "Encrypted Fields", false, "Comma-separated list of specific fields or columns encrypted for this category (e.g. ssn, creditCardNumber, bankAccount, dateOfBirth)", 4),
-            new SomFormFieldMeta("tokenizationUsed", "bool", "Tokenization Used", false, "Yes | No — whether tokenization is used instead of or in addition to encryption for this data category", 5),
-            new SomFormFieldMeta("dataRetentionDays", "int", "Data Retention (Days)", false, "Maximum retention period for this encrypted data category in days; 0 = indefinite", 6),
-            new SomFormFieldMeta("notes", "String", "Notes", false, "Additional notes for this encrypted data category", 7)));
+            new SomFormFieldMeta("dataClassification", "String", "Data Classification", true, "Public | Internal | Confidential | Restricted | Secret — sensitivity classification of the data category", 0),
+            new SomFormFieldMeta("encryptionApproach", "String", "Encryption Approach", false, "FieldLevel | ColumnLevel | TableLevel | DatabaseLevel | FileLevel | VolumeLevel — at what granularity this data category is encrypted", 1),
+            new SomFormFieldMeta("algorithmOverride", "String", "Algorithm Override", false, "Algorithm and key length if different from the default policy (e.g. AES-256-GCM, ChaCha20-Poly1305); blank = use default", 2),
+            new SomFormFieldMeta("encryptedFields", "String", "Encrypted Fields", false, "Comma-separated list of specific fields or columns encrypted for this category (e.g. ssn, creditCardNumber, bankAccount, dateOfBirth)", 3),
+            new SomFormFieldMeta("tokenizationUsed", "bool", "Tokenization Used", false, "Yes | No — whether tokenization is used instead of or in addition to encryption for this data category", 4),
+            new SomFormFieldMeta("dataRetentionDays", "int", "Data Retention (Days)", false, "Maximum retention period for this encrypted data category in days; 0 = indefinite", 5),
+            new SomFormFieldMeta("notes", "String", "Notes", false, "Additional notes for this encrypted data category", 6)));
         out.add(n);
       }
       return out;
@@ -35457,10 +35368,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("systemName", "String", "System Name", true, "E.g., SAP, Salesforce, Oracle ERP", 0),
-            new SomFormFieldMeta("systemType", "String", "System Type", false, "ERP, CRM, HR, Finance, Supply Chain", 1),
-            new SomFormFieldMeta("vendor", "String", "Vendor", false, "System vendor", 2),
-            new SomFormFieldMeta("version", "String", "Version", false, "Supported versions", 3)));
+            new SomFormFieldMeta("systemType", "String", "System Type", false, "ERP, CRM, HR, Finance, Supply Chain", 0),
+            new SomFormFieldMeta("vendor", "String", "Vendor", false, "System vendor", 1),
+            new SomFormFieldMeta("version", "String", "Version", false, "Supported versions", 2)));
         out.add(n);
       }
       {
@@ -35646,13 +35556,12 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("constraintName", "String", "Constraint Name", true, "Unique identifier for the constraint", 0),
-            new SomFormFieldMeta("constraintType", "String", "Constraint Type", false, "Check | Unique | Exclusion | Custom", 1),
-            new SomFormFieldMeta("expression", "String", "Expression", false, "Constraint expression or rule", 2),
-            new SomFormFieldMeta("errorMessage", "String", "Error Message", false, "User-friendly message when constraint violated", 3),
-            new SomFormFieldMeta("enforcementLevel", "String", "Enforcement Level", false, "Database | Application | Both", 4),
-            new SomFormFieldMeta("isDeferred", "String", "Is Deferred", false, "Whether check can be deferred to transaction end: Yes | No", 5),
-            new SomFormFieldMeta("businessRule", "String", "Business Rule Reference", false, "Related business rule ID", 6, java.util.List.of(), java.util.List.of("BIRU.ruleId"))));
+            new SomFormFieldMeta("constraintType", "String", "Constraint Type", false, "Check | Unique | Exclusion | Custom", 0),
+            new SomFormFieldMeta("expression", "String", "Expression", false, "Constraint expression or rule", 1),
+            new SomFormFieldMeta("errorMessage", "String", "Error Message", false, "User-friendly message when constraint violated", 2),
+            new SomFormFieldMeta("enforcementLevel", "String", "Enforcement Level", false, "Database | Application | Both", 3),
+            new SomFormFieldMeta("isDeferred", "String", "Is Deferred", false, "Whether check can be deferred to transaction end: Yes | No", 4),
+            new SomFormFieldMeta("businessRule", "String", "Business Rule Reference", false, "Related business rule ID", 5, java.util.List.of(), java.util.List.of("BIRU.ruleId"))));
         out.add(n);
       }
       return out;
@@ -35682,8 +35591,7 @@ public final class TomSomV0Meta {
         n.sectionId = "DMFUE-ENTI";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("entityName", "String", "Entity Name", true, "Name of the data entity these facets apply to (matches dataModel.entities)", 0),
-            new SomFormFieldMeta("entityAlias", "String", "Alias/Abbreviation", false, "Short alias of the referenced entity (e.g., CUST, ORD)", 1)));
+            new SomFormFieldMeta("entityAlias", "String", "Alias/Abbreviation", false, "Short alias of the referenced entity (e.g., CUST, ORD)", 0)));
         out.add(n);
       }
       {
@@ -35804,15 +35712,14 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("indexName", "String", "Index Name", true, "Unique identifier for the index", 0),
-            new SomFormFieldMeta("indexType", "String", "Index Type", false, "BTree | Hash | GiST | GIN | FullText | Spatial", 1),
-            new SomFormFieldMeta("columns", "String", "Column(s)", false, "Indexed columns in order, with direction (e.g., \"created_at DESC\")", 2),
-            new SomFormFieldMeta("includeColumns", "String", "Include Columns", false, "Non-key columns to include (covering index)", 3),
-            new SomFormFieldMeta("isUnique", "String", "Is Unique", false, "Whether index enforces uniqueness: Yes | No", 4),
-            new SomFormFieldMeta("isClustered", "String", "Is Clustered", false, "Whether index determines physical row order: Yes | No", 5),
-            new SomFormFieldMeta("filterCondition", "String", "Filter Condition", false, "Partial index WHERE clause", 6),
-            new SomFormFieldMeta("purpose", "String", "Purpose", false, "Query patterns this index optimizes", 7),
-            new SomFormFieldMeta("estimatedSize", "String", "Estimated Size", false, "Expected index size", 8)));
+            new SomFormFieldMeta("indexType", "String", "Index Type", false, "BTree | Hash | GiST | GIN | FullText | Spatial", 0),
+            new SomFormFieldMeta("columns", "String", "Column(s)", false, "Indexed columns in order, with direction (e.g., \"created_at DESC\")", 1),
+            new SomFormFieldMeta("includeColumns", "String", "Include Columns", false, "Non-key columns to include (covering index)", 2),
+            new SomFormFieldMeta("isUnique", "String", "Is Unique", false, "Whether index enforces uniqueness: Yes | No", 3),
+            new SomFormFieldMeta("isClustered", "String", "Is Clustered", false, "Whether index determines physical row order: Yes | No", 4),
+            new SomFormFieldMeta("filterCondition", "String", "Filter Condition", false, "Partial index WHERE clause", 5),
+            new SomFormFieldMeta("purpose", "String", "Purpose", false, "Query patterns this index optimizes", 6),
+            new SomFormFieldMeta("estimatedSize", "String", "Estimated Size", false, "Expected index size", 7)));
         out.add(n);
       }
       return out;
@@ -35842,11 +35749,10 @@ public final class TomSomV0Meta {
         n.sectionId = "ENRLE-IDEN";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("relationshipName", "String", "Relationship Name", true, "Verb phrase describing the relationship (e.g., \"places\", \"contains\")", 0),
-            new SomFormFieldMeta("relationshipType", "String", "Relationship Type", false, "Association | Aggregation | Composition | Generalization | Dependency", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "Business meaning of this relationship", 2),
-            new SomFormFieldMeta("businessJustification", "String", "Business Justification", false, "Why this relationship exists from business perspective", 3),
-            new SomFormFieldMeta("implementationType", "String", "Implementation Type", false, "ForeignKey | JunctionTable | Embedded | Reference", 4)));
+            new SomFormFieldMeta("relationshipType", "String", "Relationship Type", false, "Association | Aggregation | Composition | Generalization | Dependency", 0),
+            new SomFormFieldMeta("description", "String", "Description", false, "Business meaning of this relationship", 1),
+            new SomFormFieldMeta("businessJustification", "String", "Business Justification", false, "Why this relationship exists from business perspective", 2),
+            new SomFormFieldMeta("implementationType", "String", "Implementation Type", false, "ForeignKey | JunctionTable | Embedded | Reference", 3)));
         out.add(n);
       }
       {
@@ -36084,9 +35990,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("environmentName", "String", "Environment Name", true, "Canonical name, e.g. Production, Staging-EU, Dev-Feature", 0),
-            new SomFormFieldMeta("environmentId", "String", "Environment ID", false, "Unique code, e.g. ENV-PROD-01", 1),
-            new SomFormFieldMeta("environmentType", "String", "Environment Type", false, "Development / Testing / QA / UAT / Staging / Production / DR", 2)));
+            new SomFormFieldMeta("environmentId", "String", "Environment ID", false, "Unique code, e.g. ENV-PROD-01", 0),
+            new SomFormFieldMeta("environmentType", "String", "Environment Type", false, "Development / Testing / QA / UAT / Staging / Production / DR", 1)));
         out.add(n);
       }
       {
@@ -37662,12 +37567,11 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("systemName", "String", "System Name", true, "Common name of the system, e.g. \"SAP ERP\", \"Salesforce CRM\".", 0),
-            new SomFormFieldMeta("systemId", "String", "System ID/Code (internal identifier)", false, "Internal catalogue code or CMDB identifier, if any.", 1),
-            new SomFormFieldMeta("systemVersion", "String", "Current Version", false, "Release or version currently in production, e.g. \"ECC 6.0\".", 2),
-            new SomFormFieldMeta("systemType", "String", "System Type (ERP, CRM, Custom Development, COTS, SaaS, etc.)", false, "Classify the system: ERP, CRM, Custom Development, COTS, SaaS.", 3),
-            new SomFormFieldMeta("vendor", "String", "Vendor (if commercial software)", false, "Software publisher, e.g. \"SAP\", \"Salesforce\" — blank if in-house.", 4),
-            new SomFormFieldMeta("licenseType", "String", "License Type (Enterprise, Per-User, Subscription, Open Source, etc.)", false, "Licensing model: Enterprise, Per-User, Subscription, Open Source.", 5)));
+            new SomFormFieldMeta("systemId", "String", "System ID/Code (internal identifier)", false, "Internal catalogue code or CMDB identifier, if any.", 0),
+            new SomFormFieldMeta("systemVersion", "String", "Current Version", false, "Release or version currently in production, e.g. \"ECC 6.0\".", 1),
+            new SomFormFieldMeta("systemType", "String", "System Type (ERP, CRM, Custom Development, COTS, SaaS, etc.)", false, "Classify the system: ERP, CRM, Custom Development, COTS, SaaS.", 2),
+            new SomFormFieldMeta("vendor", "String", "Vendor (if commercial software)", false, "Software publisher, e.g. \"SAP\", \"Salesforce\" — blank if in-house.", 3),
+            new SomFormFieldMeta("licenseType", "String", "License Type (Enterprise, Per-User, Subscription, Open Source, etc.)", false, "Licensing model: Enterprise, Per-User, Subscription, Open Source.", 4)));
         out.add(n);
       }
       {
@@ -38566,8 +38470,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("exportId", "String", "Export ID", true, "Unique identifier, e.g. EXP-001", 0),
-            new SomFormFieldMeta("formatName", "String", "Format Name", true, "Human-readable name, e.g. Monthly Orders CSV", 1),
-            new SomFormFieldMeta("formatType", "String", "Format Type", false, "CSV / Excel / PDF / JSON / XML / HTML / Fixed-Width", 2)));
+            new SomFormFieldMeta("formatType", "String", "Format Type", false, "CSV / Excel / PDF / JSON / XML / HTML / Fixed-Width", 1)));
         out.add(n);
       }
       {
@@ -38817,8 +38720,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("templateId", "String", "Template ID", true, "Unique identifier, e.g. TPL-001", 0),
-            new SomFormFieldMeta("templateName", "String", "Template Name", true, "Human-readable name, e.g. Standard Customer Export", 1),
-            new SomFormFieldMeta("baseFormatType", "String", "Base Format Type", false, "CSV / Excel / PDF / JSON / XML / HTML", 2)));
+            new SomFormFieldMeta("baseFormatType", "String", "Base Format Type", false, "CSV / Excel / PDF / JSON / XML / HTML", 1)));
         out.add(n);
       }
       {
@@ -39027,10 +38929,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("actorName", "String", "Actor Name", true, "The name of this external actor", 0),
-            new SomFormFieldMeta("actorType", "String", "Actor Type (Internal User, External User, Organization, Partner, Customer, Regulator, etc.)", true, "The category of actor", 1),
-            new SomFormFieldMeta("description", "String", "Actor Description", false, "A short description of this actor", 2),
-            new SomFormFieldMeta("interactionPurpose", "String", "Interaction Purpose (why they interact with the system)", false, "Why this actor interacts with the system", 3)));
+            new SomFormFieldMeta("actorType", "String", "Actor Type (Internal User, External User, Organization, Partner, Customer, Regulator, etc.)", true, "The category of actor", 0),
+            new SomFormFieldMeta("description", "String", "Actor Description", false, "A short description of this actor", 1),
+            new SomFormFieldMeta("interactionPurpose", "String", "Interaction Purpose (why they interact with the system)", false, "Why this actor interacts with the system", 2)));
         out.add(n);
       }
       {
@@ -39304,13 +39205,12 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("interfaceId", "String", "Interface ID (e.g., IF-PAY-001)", true, "Unique stable identifier for this interface", 0),
-            new SomFormFieldMeta("interfaceName", "String", "Interface Name", true, "Human-readable name of the interface", 1),
-            new SomFormFieldMeta("externalSystem", "String", "External System Name", true, "Name of the external system being integrated", 2),
-            new SomFormFieldMeta("externalSystemVendor", "String", "Vendor/Provider", false, "Vendor or provider that owns the external system", 3),
-            new SomFormFieldMeta("interfaceCategory", "String", "Category (Payment, Identity, Data, Messaging, etc.)", false, "Functional category of the interface", 4),
-            new SomFormFieldMeta("integrationPattern", "String", "Pattern (Request-Reply, Fire-and-Forget, Pub-Sub, Event-Driven)", false, "Primary integration pattern used", 5),
-            new SomFormFieldMeta("priority", "String", "Priority (Critical, High, Medium, Low)", false, "Relative importance of this interface", 6),
-            new SomFormFieldMeta("status", "String", "Status (Existing, New, To be replaced)", false, "Lifecycle status of the interface", 7)));
+            new SomFormFieldMeta("externalSystem", "String", "External System Name", true, "Name of the external system being integrated", 1),
+            new SomFormFieldMeta("externalSystemVendor", "String", "Vendor/Provider", false, "Vendor or provider that owns the external system", 2),
+            new SomFormFieldMeta("interfaceCategory", "String", "Category (Payment, Identity, Data, Messaging, etc.)", false, "Functional category of the interface", 3),
+            new SomFormFieldMeta("integrationPattern", "String", "Pattern (Request-Reply, Fire-and-Forget, Pub-Sub, Event-Driven)", false, "Primary integration pattern used", 4),
+            new SomFormFieldMeta("priority", "String", "Priority (Critical, High, Medium, Low)", false, "Relative importance of this interface", 5),
+            new SomFormFieldMeta("status", "String", "Status (Existing, New, To be replaced)", false, "Lifecycle status of the interface", 6)));
         out.add(n);
       }
       out.add(metaCx("InterfaceBusinessContext", s, InterfaceBusinessContextNav::metaChildren, (r, c) -> {
@@ -39639,9 +39539,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("partnerName", "String", "Partner Name", true, "Name of the external partner or system", 0),
-            new SomFormFieldMeta("partnerType", "String", "Partner Type", false, "Vendor, customer, regulatory body, payment provider", 1),
-            new SomFormFieldMeta("connectionPurpose", "String", "Connection Purpose", false, "Business purpose of this integration", 2)));
+            new SomFormFieldMeta("partnerType", "String", "Partner Type", false, "Vendor, customer, regulatory body, payment provider", 0),
+            new SomFormFieldMeta("connectionPurpose", "String", "Connection Purpose", false, "Business purpose of this integration", 1)));
         out.add(n);
       }
       {
@@ -39869,9 +39768,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("serviceName", "String", "External Service Name", true, "Name of the external service, e.g. \"Stripe Payments\".", 0),
-            new SomFormFieldMeta("serviceProvider", "String", "Service Provider/Vendor", false, "Company providing the service, e.g. \"Stripe, Inc.\".", 1),
-            new SomFormFieldMeta("serviceType", "String", "Service Type", false, "SaaS / PaaS / IaaS / API Service / Data Feed / Payment Gateway / etc.", 2)));
+            new SomFormFieldMeta("serviceProvider", "String", "Service Provider/Vendor", false, "Company providing the service, e.g. \"Stripe, Inc.\".", 0),
+            new SomFormFieldMeta("serviceType", "String", "Service Type", false, "SaaS / PaaS / IaaS / API Service / Data Feed / Payment Gateway / etc.", 1)));
         out.add(n);
       }
       {
@@ -39974,9 +39872,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("systemName", "String", "System Name", true, "The name of this external system", 0),
-            new SomFormFieldMeta("systemOwner", "String", "System Owner (organization/department)", false, "The organization or department that owns this system", 1),
-            new SomFormFieldMeta("systemType", "String", "System Type (ERP, CRM, Database, API, SaaS, Legacy, etc.)", true, "The category of external system", 2)));
+            new SomFormFieldMeta("systemOwner", "String", "System Owner (organization/department)", false, "The organization or department that owns this system", 0),
+            new SomFormFieldMeta("systemType", "String", "System Type (ERP, CRM, Database, API, SaaS, Legacy, etc.)", true, "The category of external system", 1)));
         out.add(n);
       }
       {
@@ -40123,9 +40020,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("componentId", "String", "Component ID", true, "Identifier of the referenced component", 0, java.util.List.of(), java.util.List.of("CMPNT.componentId")),
-            new SomFormFieldMeta("componentName", "String", "Component Name", true, "Name of the referenced component", 1),
-            new SomFormFieldMeta("familyRole", "String", "Family Role", false, "Primary, secondary, specialized", 2),
-            new SomFormFieldMeta("relationToOthers", "String", "Relation to Others", false, "How it relates to other family members", 3)));
+            new SomFormFieldMeta("familyRole", "String", "Family Role", false, "Primary, secondary, specialized", 1),
+            new SomFormFieldMeta("relationToOthers", "String", "Relation to Others", false, "How it relates to other family members", 2)));
         out.add(n);
       }
       return out;
@@ -40262,9 +40158,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("featureName", "String", "Feature Name", true, "Feature identifier", 0),
-            new SomFormFieldMeta("featureArea", "String", "Feature Area", false, "Business area this feature belongs to", 1),
-            new SomFormFieldMeta("boundedContext", "String", "Bounded Context", false, "Owning bounded context", 2)));
+            new SomFormFieldMeta("featureArea", "String", "Feature Area", false, "Business area this feature belongs to", 0),
+            new SomFormFieldMeta("boundedContext", "String", "Bounded Context", false, "Owning bounded context", 1)));
         out.add(n);
       }
       {
@@ -40589,8 +40484,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("featureId", "String", "Feature ID", true, "Unique identifier — e.g. FEA-001", 0),
-            new SomFormFieldMeta("featureName", "String", "Feature Name", true, "Short descriptive name", 1),
-            new SomFormFieldMeta("priorityRank", "String", "Priority Rank", true, "Ordinal rank — 1 = highest", 2)));
+            new SomFormFieldMeta("priorityRank", "String", "Priority Rank", true, "Ordinal rank — 1 = highest", 1)));
         out.add(n);
       }
       {
@@ -41065,14 +40959,13 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("tourId", "String", "Tour ID", true, "Unique identifier for this tour", 0),
-            new SomFormFieldMeta("tourName", "String", "Tour Name", true, "Display name of the tour", 1),
-            new SomFormFieldMeta("tourDescription", "String", "Tour Description", false, "Short summary of what the tour covers", 2),
-            new SomFormFieldMeta("targetAudience", "String", "Target Audience", false, "New users, specific role, all", 3),
-            new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition", false, "When tour is shown", 4),
-            new SomFormFieldMeta("stepCount", "int", "Step Count", false, "Number of steps in the tour", 5),
-            new SomFormFieldMeta("estimatedDuration", "String", "Estimated Duration", false, "Expected time to complete the tour", 6),
-            new SomFormFieldMeta("skippable", "bool", "Skippable", false, "Whether users can skip the tour", 7),
-            new SomFormFieldMeta("repeatPolicy", "String", "Repeat Policy", false, "Once only, on request, periodic", 8)));
+            new SomFormFieldMeta("tourDescription", "String", "Tour Description", false, "Short summary of what the tour covers", 1),
+            new SomFormFieldMeta("targetAudience", "String", "Target Audience", false, "New users, specific role, all", 2),
+            new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition", false, "When tour is shown", 3),
+            new SomFormFieldMeta("stepCount", "int", "Step Count", false, "Number of steps in the tour", 4),
+            new SomFormFieldMeta("estimatedDuration", "String", "Estimated Duration", false, "Expected time to complete the tour", 5),
+            new SomFormFieldMeta("skippable", "bool", "Skippable", false, "Whether users can skip the tour", 6),
+            new SomFormFieldMeta("repeatPolicy", "String", "Repeat Policy", false, "Once only, on request, periodic", 7)));
         out.add(n);
       }
       {
@@ -41126,13 +41019,12 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("fieldId", "String", "Field ID", true, "Unique identifier of the field", 0),
-            new SomFormFieldMeta("fieldLabel", "String", "Field Label", true, "Display label of the field", 1),
-            new SomFormFieldMeta("tooltipText", "String", "Tooltip Text", false, "Brief tooltip content", 2),
-            new SomFormFieldMeta("inlineHelpText", "String", "Inline Help Text", false, "Longer inline help", 3),
-            new SomFormFieldMeta("extendedHelp", "String", "Extended Help", false, "Full help panel content", 4),
-            new SomFormFieldMeta("relatedArticles", "String", "Related Articles", false, "Links to related help articles", 5),
-            new SomFormFieldMeta("exampleValues", "String", "Example Values", false, "Examples of valid input", 6),
-            new SomFormFieldMeta("commonMistakes", "String", "Common Mistakes", false, "Frequently made errors", 7)));
+            new SomFormFieldMeta("tooltipText", "String", "Tooltip Text", false, "Brief tooltip content", 1),
+            new SomFormFieldMeta("inlineHelpText", "String", "Inline Help Text", false, "Longer inline help", 2),
+            new SomFormFieldMeta("extendedHelp", "String", "Extended Help", false, "Full help panel content", 3),
+            new SomFormFieldMeta("relatedArticles", "String", "Related Articles", false, "Links to related help articles", 4),
+            new SomFormFieldMeta("exampleValues", "String", "Example Values", false, "Examples of valid input", 5),
+            new SomFormFieldMeta("commonMistakes", "String", "Common Mistakes", false, "Frequently made errors", 6)));
         out.add(n);
       }
       return out;
@@ -41786,9 +41678,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("frameworkName", "String", "Framework/Library Name", true, "E.g., Flutter, Angular, Django, Spring Boot", 0),
-            new SomFormFieldMeta("frameworkCategory", "String", "Category", false, "UI Framework, Backend Framework, Testing, State Management", 1),
-            new SomFormFieldMeta("purpose", "String", "Purpose", true, "What problem this framework solves", 2)));
+            new SomFormFieldMeta("frameworkCategory", "String", "Category", false, "UI Framework, Backend Framework, Testing, State Management", 0),
+            new SomFormFieldMeta("purpose", "String", "Purpose", true, "What problem this framework solves", 1)));
         out.add(n);
       }
       {
@@ -41990,12 +41881,11 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("functionName", "String", "Function Name", true, "Function being mapped", 0),
-            new SomFormFieldMeta("entityName", "String", "Entity Name", true, "Data entity being accessed", 1),
-            new SomFormFieldMeta("accessType", "String", "Access Type", false, "CRUD access: C | R | U | D or combinations", 2),
-            new SomFormFieldMeta("accessFrequency", "String", "Access Frequency", false, "How often function accesses this entity", 3),
-            new SomFormFieldMeta("isOwner", "String", "Is Owner", false, "Whether this function owns the entity: Yes | No", 4),
-            new SomFormFieldMeta("accessReason", "String", "Access Reason", false, "Why this function needs this access", 5)));
+            new SomFormFieldMeta("entityName", "String", "Entity Name", true, "Data entity being accessed", 0),
+            new SomFormFieldMeta("accessType", "String", "Access Type", false, "CRUD access: C | R | U | D or combinations", 1),
+            new SomFormFieldMeta("accessFrequency", "String", "Access Frequency", false, "How often function accesses this entity", 2),
+            new SomFormFieldMeta("isOwner", "String", "Is Owner", false, "Whether this function owns the entity: Yes | No", 3),
+            new SomFormFieldMeta("accessReason", "String", "Access Reason", false, "Why this function needs this access", 4)));
         out.add(n);
       }
       return out;
@@ -42025,9 +41915,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("functionId", "String", "Function ID", false, "Unique function identifier", 0),
-            new SomFormFieldMeta("functionName", "String", "Function Name", true, "Verb-noun phrase (e.g., Process Order)", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this function accomplishes", 2),
-            new SomFormFieldMeta("parentFunction", "String", "Parent Function", false, "Parent function in hierarchy", 3)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What this function accomplishes", 1),
+            new SomFormFieldMeta("parentFunction", "String", "Parent Function", false, "Parent function in hierarchy", 2)));
         out.add(n);
       }
       {
@@ -42756,9 +42645,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("gapName", "String", "Gap Name", true, "Concise name for the identified gap", 0),
-            new SomFormFieldMeta("gapCategory", "String", "Gap Category", false, "Functional / Process / Data / Integration / Compliance / Security / Performance / Usability", 1),
-            new SomFormFieldMeta("severity", "String", "Severity", false, "Critical / High / Medium / Low", 2)));
+            new SomFormFieldMeta("gapCategory", "String", "Gap Category", false, "Functional / Process / Data / Integration / Compliance / Security / Performance / Usability", 0),
+            new SomFormFieldMeta("severity", "String", "Severity", false, "Critical / High / Medium / Low", 1)));
         out.add(n);
       }
       {
@@ -43132,13 +43020,12 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dependencyId", "String", "Dependency ID", true, "Unique identifier for this dependency", 0),
             new SomFormFieldMeta("dependencyType", "String", "Dependency Type (Internal Goal, External Project, Resource, Regulatory, Technical, Organizational)", true, "e.g., Internal Goal, External Project, Resource, Regulatory", 1),
-            new SomFormFieldMeta("dependencyName", "String", "Dependency Name (what we depend on)", true, "Name of the thing this goal depends on", 2),
-            new SomFormFieldMeta("description", "String", "Description", false, "Details of the dependency", 3),
-            new SomFormFieldMeta("owner", "String", "Owner (who controls this dependency)", false, "Person or party who controls this dependency", 4),
-            new SomFormFieldMeta("expectedResolutionDate", "String", "Expected Resolution Date", false, "When the dependency is expected to be resolved", 5),
-            new SomFormFieldMeta("impact", "String", "Impact (how this affects our goal)", false, "How this dependency affects the goal", 6),
-            new SomFormFieldMeta("mitigationStrategy", "String", "Mitigation Strategy (what if dependency is not resolved)", false, "Plan if the dependency is not resolved", 7),
-            new SomFormFieldMeta("status", "String", "Status (Open, In Progress, Resolved, Blocked)", false, "Open, In Progress, Resolved, or Blocked", 8)));
+            new SomFormFieldMeta("description", "String", "Description", false, "Details of the dependency", 2),
+            new SomFormFieldMeta("owner", "String", "Owner (who controls this dependency)", false, "Person or party who controls this dependency", 3),
+            new SomFormFieldMeta("expectedResolutionDate", "String", "Expected Resolution Date", false, "When the dependency is expected to be resolved", 4),
+            new SomFormFieldMeta("impact", "String", "Impact (how this affects our goal)", false, "How this dependency affects the goal", 5),
+            new SomFormFieldMeta("mitigationStrategy", "String", "Mitigation Strategy (what if dependency is not resolved)", false, "Plan if the dependency is not resolved", 6),
+            new SomFormFieldMeta("status", "String", "Status (Open, In Progress, Resolved, Blocked)", false, "Open, In Progress, Resolved, or Blocked", 7)));
         out.add(n);
       }
       {
@@ -43233,14 +43120,13 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("milestoneId", "String", "Milestone ID", true, "Unique identifier for this milestone", 0),
-            new SomFormFieldMeta("milestoneName", "String", "Milestone Name", true, "Short descriptive name for the milestone", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this milestone represents", 2),
-            new SomFormFieldMeta("targetDate", "String", "Target Date", true, "Planned date for reaching the milestone", 3),
-            new SomFormFieldMeta("completionCriteria", "String", "Completion Criteria", false, "How completion of the milestone is determined", 4),
-            new SomFormFieldMeta("deliverables", "String", "Deliverables (outputs of this milestone)", false, "Outputs produced at this milestone", 5),
-            new SomFormFieldMeta("dependencies", "String", "Dependencies (what must be done first)", false, "What must be completed before this milestone", 6),
-            new SomFormFieldMeta("status", "String", "Status (Planned, In Progress, Completed, Delayed)", false, "Planned, In Progress, Completed, or Delayed", 7),
-            new SomFormFieldMeta("actualDate", "String", "Actual Completion Date", false, "Date the milestone was actually completed", 8)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What this milestone represents", 1),
+            new SomFormFieldMeta("targetDate", "String", "Target Date", true, "Planned date for reaching the milestone", 2),
+            new SomFormFieldMeta("completionCriteria", "String", "Completion Criteria", false, "How completion of the milestone is determined", 3),
+            new SomFormFieldMeta("deliverables", "String", "Deliverables (outputs of this milestone)", false, "Outputs produced at this milestone", 4),
+            new SomFormFieldMeta("dependencies", "String", "Dependencies (what must be done first)", false, "What must be completed before this milestone", 5),
+            new SomFormFieldMeta("status", "String", "Status (Planned, In Progress, Completed, Delayed)", false, "Planned, In Progress, Completed, or Delayed", 6),
+            new SomFormFieldMeta("actualDate", "String", "Actual Completion Date", false, "Date the milestone was actually completed", 7)));
         out.add(n);
       }
       return out;
@@ -43393,9 +43279,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("riskId", "String", "Risk ID", true, "Unique identifier for this risk", 0),
-            new SomFormFieldMeta("riskName", "String", "Risk Name", true, "Short descriptive name for the risk", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "What the risk is and how it could materialize", 2),
-            new SomFormFieldMeta("riskCategory", "String", "Risk Category (Market, Operational, Technical, Resource, Regulatory, External)", false, "e.g., Market, Operational, Technical, Resource, Regulatory", 3)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What the risk is and how it could materialize", 1),
+            new SomFormFieldMeta("riskCategory", "String", "Risk Category (Market, Operational, Technical, Resource, Regulatory, External)", false, "e.g., Market, Operational, Technical, Resource, Regulatory", 2)));
         out.add(n);
       }
       {
@@ -44233,9 +44118,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("ideName", "String", "IDE/Editor Name", true, "E.g., VS Code, IntelliJ IDEA, Android Studio", 0),
-            new SomFormFieldMeta("version", "String", "Version Requirements", false, "Minimum version or version range", 1),
-            new SomFormFieldMeta("platform", "String", "Platform", false, "Windows, macOS, Linux, Web", 2)));
+            new SomFormFieldMeta("version", "String", "Version Requirements", false, "Minimum version or version range", 0),
+            new SomFormFieldMeta("platform", "String", "Platform", false, "Windows, macOS, Linux, Web", 1)));
         out.add(n);
       }
       {
@@ -44678,9 +44562,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("providerName", "String", "Provider Name", true, "Human-readable name, e.g. Corporate Azure AD", 0),
-            new SomFormFieldMeta("providerType", "String", "Provider Type", false, "SAML / OIDC / LDAP / ActiveDirectory / OAuth2", 1),
-            new SomFormFieldMeta("enabled", "String", "Enabled", false, "Yes / No — whether this provider is currently active", 2)));
+            new SomFormFieldMeta("providerType", "String", "Provider Type", false, "SAML / OIDC / LDAP / ActiveDirectory / OAuth2", 0),
+            new SomFormFieldMeta("enabled", "String", "Enabled", false, "Yes / No — whether this provider is currently active", 1)));
         out.add(n);
       }
       {
@@ -44811,9 +44694,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("sourceName", "String", "Source Name", true, "Unique name for this identity source, e.g. CorporateAD", 0),
-            new SomFormFieldMeta("sourceType", "String", "Source Type", false, "InternalDirectory / LDAP / ActiveDirectory / ExternalIdP / SocialProvider / SelfRegistration / HRSystem / SCIM / Manual", 1),
-            new SomFormFieldMeta("sourceProduct", "String", "Source Product", false, "Specific product/service, e.g. Azure AD, Okta, Google Workspace", 2)));
+            new SomFormFieldMeta("sourceType", "String", "Source Type", false, "InternalDirectory / LDAP / ActiveDirectory / ExternalIdP / SocialProvider / SelfRegistration / HRSystem / SCIM / Manual", 0),
+            new SomFormFieldMeta("sourceProduct", "String", "Source Product", false, "Specific product/service, e.g. Azure AD, Okta, Google Workspace", 1)));
         out.add(n);
       }
       {
@@ -45262,10 +45144,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("protocolName", "String", "Protocol Name", true, "E.g., HTTP/2, MQTT, AMQP, WebSocket", 0),
-            new SomFormFieldMeta("category", "String", "Category", false, "Network, Messaging, Security, Data exchange", 1),
-            new SomFormFieldMeta("specificationVersion", "String", "Specification Version", true, "Protocol version", 2),
-            new SomFormFieldMeta("specificationUrl", "String", "Specification URL", false, "Link to official specification", 3)));
+            new SomFormFieldMeta("category", "String", "Category", false, "Network, Messaging, Security, Data exchange", 0),
+            new SomFormFieldMeta("specificationVersion", "String", "Specification Version", true, "Protocol version", 1),
+            new SomFormFieldMeta("specificationUrl", "String", "Specification URL", false, "Link to official specification", 2)));
         out.add(n);
       }
       {
@@ -45363,12 +45244,11 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("standardName", "String", "Standard Name", true, "E.g., ISO 27001, OWASP, IEEE 830, GDPR", 0),
-            new SomFormFieldMeta("standardBody", "String", "Standard Body", false, "ISO, IEEE, OWASP, NIST, ECMA", 1),
-            new SomFormFieldMeta("version", "String", "Version", false, "Version of the standard", 2),
-            new SomFormFieldMeta("publicationDate", "String", "Publication Date", false, "Standard publication date", 3),
-            new SomFormFieldMeta("category", "String", "Category", true, "Security, Quality, Process, Documentation, Accessibility", 4),
-            new SomFormFieldMeta("complianceLevel", "String", "Compliance Level", true, "Full, Partial, Certified, In Progress", 5)));
+            new SomFormFieldMeta("standardBody", "String", "Standard Body", false, "ISO, IEEE, OWASP, NIST, ECMA", 0),
+            new SomFormFieldMeta("version", "String", "Version", false, "Version of the standard", 1),
+            new SomFormFieldMeta("publicationDate", "String", "Publication Date", false, "Standard publication date", 2),
+            new SomFormFieldMeta("category", "String", "Category", true, "Security, Quality, Process, Documentation, Accessibility", 3),
+            new SomFormFieldMeta("complianceLevel", "String", "Compliance Level", true, "Full, Partial, Certified, In Progress", 4)));
         out.add(n);
       }
       {
@@ -45899,9 +45779,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("componentName", "String", "Component Name", true, "Infrastructure component name", 0),
-            new SomFormFieldMeta("componentType", "String", "Component Type", false, "Logging, Caching, Messaging, Storage, Network", 1),
-            new SomFormFieldMeta("layer", "String", "Layer", false, "Infrastructure layer", 2)));
+            new SomFormFieldMeta("componentType", "String", "Component Type", false, "Logging, Caching, Messaging, Storage, Network", 0),
+            new SomFormFieldMeta("layer", "String", "Layer", false, "Infrastructure layer", 1)));
         out.add(n);
       }
       {
@@ -46215,8 +46094,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("trainingId", "String", "Training ID", true, null, 0),
-            new SomFormFieldMeta("trainingName", "String", "Training Name", true, null, 1),
-            new SomFormFieldMeta("description", "String", "Description", false, null, 2)));
+            new SomFormFieldMeta("description", "String", "Description", false, null, 1)));
         out.add(n);
       }
       {
@@ -46594,8 +46472,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("constraintId", "String", "Constraint ID", true, "Unique identifier, e.g. INT-CON-001", 0),
-            new SomFormFieldMeta("constraintName", "String", "Constraint Name", true, "Short descriptive name", 1),
-            new SomFormFieldMeta("constraintDescription", "String", "Description", false, "Detailed description of the integration constraint", 2)));
+            new SomFormFieldMeta("constraintDescription", "String", "Description", false, "Detailed description of the integration constraint", 1)));
         out.add(n);
       }
       {
@@ -47108,9 +46985,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("channelName", "String", "Channel Name", true, "e.g., Customer Web Portal, Mobile App, Admin API", 0),
-            new SomFormFieldMeta("channelId", "String", "Channel ID", false, "Unique identifier for the channel", 1),
-            new SomFormFieldMeta("channelType", "String", "Channel Type", true, "Web, Mobile Native, Mobile Hybrid, Desktop, API, CLI, Voice, Kiosk, Embedded, IoT", 2)));
+            new SomFormFieldMeta("channelId", "String", "Channel ID", false, "Unique identifier for the channel", 0),
+            new SomFormFieldMeta("channelType", "String", "Channel Type", true, "Web, Mobile Native, Mobile Hybrid, Desktop, API, CLI, Voice, Kiosk, Embedded, IoT", 1)));
         out.add(n);
       }
       {
@@ -47579,9 +47455,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("patternName", "String", "Pattern Name", true, "e.g., Real-time Form Submission, Batch Report Generation", 0),
-            new SomFormFieldMeta("patternId", "String", "Pattern ID", false, "Unique identifier", 1),
-            new SomFormFieldMeta("patternType", "String", "Pattern Type", true, "Synchronous, Asynchronous, Batch, Scheduled, Event-driven, Workflow, Polling, Streaming", 2)));
+            new SomFormFieldMeta("patternId", "String", "Pattern ID", false, "Unique identifier", 0),
+            new SomFormFieldMeta("patternType", "String", "Pattern Type", true, "Synchronous, Asynchronous, Batch, Scheduled, Event-driven, Workflow, Polling, Streaming", 1)));
         out.add(n);
       }
       {
@@ -47818,10 +47693,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("processName", "String", "Process Name", true, "Name of the dependent business process", 0),
-            new SomFormFieldMeta("processId", "String", "Process ID", false, "Identifier of the business process", 1, java.util.List.of(), java.util.List.of("PRIDN.processId")),
-            new SomFormFieldMeta("dependencyType", "String", "Dependency (Critical Path, Supporting)", false, "Nature of the dependency on the interface", 2),
-            new SomFormFieldMeta("fallbackBehavior", "String", "Fallback if Interface Unavailable", false, "Process behavior when the interface is down", 3)));
+            new SomFormFieldMeta("processId", "String", "Process ID", false, "Identifier of the business process", 0, java.util.List.of(), java.util.List.of("PRIDN.processId")),
+            new SomFormFieldMeta("dependencyType", "String", "Dependency (Critical Path, Supporting)", false, "Nature of the dependency on the interface", 1),
+            new SomFormFieldMeta("fallbackBehavior", "String", "Fallback if Interface Unavailable", false, "Process behavior when the interface is down", 2)));
         out.add(n);
       }
       return out;
@@ -47850,13 +47724,12 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("entityName", "String", "Entity Name", true, "Name of the exchanged data entity", 0),
-            new SomFormFieldMeta("direction", "String", "Direction (Send, Receive)", false, "Whether the entity is sent or received", 1),
-            new SomFormFieldMeta("fieldCount", "int", "Field Count", false, "Number of fields in the entity", 2),
-            new SomFormFieldMeta("requiredFields", "String", "Required Fields", false, "Fields that must be present", 3),
-            new SomFormFieldMeta("sensitiveFields", "String", "Sensitive Fields (PII, etc.)", false, "Fields carrying sensitive data", 4),
-            new SomFormFieldMeta("internalMapping", "String", "Maps to Internal Entity", false, "Internal entity this maps to", 5),
-            new SomFormFieldMeta("transformationNeeded", "String", "Transformation Required", false, "Transformation needed between formats", 6)));
+            new SomFormFieldMeta("direction", "String", "Direction (Send, Receive)", false, "Whether the entity is sent or received", 0),
+            new SomFormFieldMeta("fieldCount", "int", "Field Count", false, "Number of fields in the entity", 1),
+            new SomFormFieldMeta("requiredFields", "String", "Required Fields", false, "Fields that must be present", 2),
+            new SomFormFieldMeta("sensitiveFields", "String", "Sensitive Fields (PII, etc.)", false, "Fields carrying sensitive data", 3),
+            new SomFormFieldMeta("internalMapping", "String", "Maps to Internal Entity", false, "Internal entity this maps to", 4),
+            new SomFormFieldMeta("transformationNeeded", "String", "Transformation Required", false, "Transformation needed between formats", 5)));
         out.add(n);
       }
       return out;
@@ -48158,15 +48031,14 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("operationId", "String", "Operation ID", true, "Unique identifier for the operation", 0),
-            new SomFormFieldMeta("operationName", "String", "Operation Name", true, "Human-readable operation name", 1),
-            new SomFormFieldMeta("httpMethod", "String", "HTTP Method (GET, POST, PUT, DELETE, etc.)", false, "HTTP verb used by the operation", 2),
-            new SomFormFieldMeta("path", "String", "Path/Endpoint", false, "Resource path or endpoint for the operation", 3),
-            new SomFormFieldMeta("purpose", "String", "Purpose", false, "What the operation does", 4),
-            new SomFormFieldMeta("idempotent", "bool", "Idempotent", false, "Whether repeated calls have the same effect", 5),
-            new SomFormFieldMeta("requestFormat", "String", "Request Format", false, "Format/schema of the request payload", 6),
-            new SomFormFieldMeta("responseFormat", "String", "Response Format", false, "Format/schema of the response payload", 7),
-            new SomFormFieldMeta("paginationSupport", "bool", "Pagination Supported", false, "Whether the operation supports pagination", 8),
-            new SomFormFieldMeta("filteringSupport", "String", "Filtering/Query Parameters", false, "Supported filtering or query parameters", 9)));
+            new SomFormFieldMeta("httpMethod", "String", "HTTP Method (GET, POST, PUT, DELETE, etc.)", false, "HTTP verb used by the operation", 1),
+            new SomFormFieldMeta("path", "String", "Path/Endpoint", false, "Resource path or endpoint for the operation", 2),
+            new SomFormFieldMeta("purpose", "String", "Purpose", false, "What the operation does", 3),
+            new SomFormFieldMeta("idempotent", "bool", "Idempotent", false, "Whether repeated calls have the same effect", 4),
+            new SomFormFieldMeta("requestFormat", "String", "Request Format", false, "Format/schema of the request payload", 5),
+            new SomFormFieldMeta("responseFormat", "String", "Response Format", false, "Format/schema of the response payload", 6),
+            new SomFormFieldMeta("paginationSupport", "bool", "Pagination Supported", false, "Whether the operation supports pagination", 7),
+            new SomFormFieldMeta("filteringSupport", "String", "Filtering/Query Parameters", false, "Supported filtering or query parameters", 8)));
         out.add(n);
       }
       return out;
@@ -48390,9 +48262,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("specificationName", "String", "Specification Name", true, "E.g., REST, GraphQL, gRPC, SOAP", 0),
-            new SomFormFieldMeta("specificationVersion", "String", "Version", false, "Specification version", 1),
-            new SomFormFieldMeta("standardsBody", "String", "Standards Body", false, "IETF, W3C, OASIS, etc.", 2)));
+            new SomFormFieldMeta("specificationVersion", "String", "Version", false, "Specification version", 0),
+            new SomFormFieldMeta("standardsBody", "String", "Standards Body", false, "IETF, W3C, OASIS, etc.", 1)));
         out.add(n);
       }
       {
@@ -48604,12 +48475,11 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("scenarioId", "String", "Scenario ID", true, "Unique identifier for the scenario", 0),
-            new SomFormFieldMeta("scenarioName", "String", "Scenario Name", true, "Human-readable scenario name", 1),
-            new SomFormFieldMeta("scenarioType", "String", "Type (Happy Path, Error, Edge Case)", false, "Category of the test scenario", 2),
-            new SomFormFieldMeta("preconditions", "String", "Preconditions", false, "State required before running the scenario", 3),
-            new SomFormFieldMeta("testSteps", "String", "Test Steps", false, "Steps to execute the scenario", 4),
-            new SomFormFieldMeta("expectedResult", "String", "Expected Result", false, "Result expected on success", 5),
-            new SomFormFieldMeta("automated", "bool", "Automated", false, "Whether the scenario is automated", 6)));
+            new SomFormFieldMeta("scenarioType", "String", "Type (Happy Path, Error, Edge Case)", false, "Category of the test scenario", 1),
+            new SomFormFieldMeta("preconditions", "String", "Preconditions", false, "State required before running the scenario", 2),
+            new SomFormFieldMeta("testSteps", "String", "Test Steps", false, "Steps to execute the scenario", 3),
+            new SomFormFieldMeta("expectedResult", "String", "Expected Result", false, "Result expected on success", 4),
+            new SomFormFieldMeta("automated", "bool", "Automated", false, "Whether the scenario is automated", 5)));
         out.add(n);
       }
       return out;
@@ -49571,10 +49441,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("standardName", "String", "Standard Name", true, "E.g., ISO 27001, IEEE 802.11, NIST SP 800-53", 0),
-            new SomFormFieldMeta("standardBody", "String", "Standard Body", true, "ISO, IEEE, NIST, OASIS, W3C", 1),
-            new SomFormFieldMeta("standardId", "String", "Standard ID", false, "Official standard identifier", 2),
-            new SomFormFieldMeta("version", "String", "Version", false, "Standard version", 3)));
+            new SomFormFieldMeta("standardBody", "String", "Standard Body", true, "ISO, IEEE, NIST, OASIS, W3C", 0),
+            new SomFormFieldMeta("standardId", "String", "Standard ID", false, "Official standard identifier", 1),
+            new SomFormFieldMeta("version", "String", "Version", false, "Standard version", 2)));
         out.add(n);
       }
       {
@@ -49828,15 +49697,14 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("stageName", "String", "Stage Name", true, "Name of this journey stage", 0),
-            new SomFormFieldMeta("stageDescription", "String", "Stage Description", false, "Brief description of what happens in this stage", 1),
-            new SomFormFieldMeta("userGoal", "String", "User Goal (what they want to achieve)", false, "What the user wants to achieve in this stage", 2),
-            new SomFormFieldMeta("userActions", "String", "User Actions (what they do)", false, "What the user does during this stage", 3),
-            new SomFormFieldMeta("systemResponse", "String", "System Response (what system does)", false, "How the system responds during this stage", 4),
-            new SomFormFieldMeta("userEmotions", "String", "User Emotions (expected feeling)", false, "The emotion the user is expected to feel here", 5),
-            new SomFormFieldMeta("touchpoints", "String", "Touchpoints (system interactions)", false, "System interactions or touchpoints in this stage", 6),
-            new SomFormFieldMeta("potentialIssues", "String", "Potential Issues", false, "Problems or friction the user may hit in this stage", 7),
-            new SomFormFieldMeta("successMetrics", "String", "Success Metrics", false, "How success is measured for this stage", 8)));
+            new SomFormFieldMeta("stageDescription", "String", "Stage Description", false, "Brief description of what happens in this stage", 0),
+            new SomFormFieldMeta("userGoal", "String", "User Goal (what they want to achieve)", false, "What the user wants to achieve in this stage", 1),
+            new SomFormFieldMeta("userActions", "String", "User Actions (what they do)", false, "What the user does during this stage", 2),
+            new SomFormFieldMeta("systemResponse", "String", "System Response (what system does)", false, "How the system responds during this stage", 3),
+            new SomFormFieldMeta("userEmotions", "String", "User Emotions (expected feeling)", false, "The emotion the user is expected to feel here", 4),
+            new SomFormFieldMeta("touchpoints", "String", "Touchpoints (system interactions)", false, "System interactions or touchpoints in this stage", 5),
+            new SomFormFieldMeta("potentialIssues", "String", "Potential Issues", false, "Problems or friction the user may hit in this stage", 6),
+            new SomFormFieldMeta("successMetrics", "String", "Success Metrics", false, "How success is measured for this stage", 7)));
         out.add(n);
       }
       return out;
@@ -49865,10 +49733,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("keyName", "String", "Key Name", true, "Identifier for this key constraint", 0),
-            new SomFormFieldMeta("keyType", "String", "Key Type", false, "Primary | Foreign | Alternate | Composite | Natural | Surrogate", 1),
-            new SomFormFieldMeta("keyColumns", "String", "Key Column(s)", false, "Column(s) comprising the key, comma-separated for composite", 2),
-            new SomFormFieldMeta("description", "String", "Description", false, "Purpose and usage of this key", 3)));
+            new SomFormFieldMeta("keyType", "String", "Key Type", false, "Primary | Foreign | Alternate | Composite | Natural | Surrogate", 0),
+            new SomFormFieldMeta("keyColumns", "String", "Key Column(s)", false, "Column(s) comprising the key, comma-separated for composite", 1),
+            new SomFormFieldMeta("description", "String", "Description", false, "Purpose and usage of this key", 2)));
         out.add(n);
       }
       {
@@ -50008,16 +49875,15 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("conceptName", "String", "Concept Name", true, "Name of the business concept or entity", 0),
-            new SomFormFieldMeta("conceptType", "String", "Concept Type (Entity, Value Object, Aggregate Root, Event, Service)", true, "Entity / Value Object / Aggregate Root / Event / Service", 1),
-            new SomFormFieldMeta("description", "String", "Description", true, "What this concept represents in the domain", 2),
-            new SomFormFieldMeta("keyAttributes", "String", "Key Attributes (main properties of this concept)", false, "Main properties or attributes of this concept", 3),
-            new SomFormFieldMeta("identifiedBy", "String", "Identified By (what uniquely identifies instances)", false, "What uniquely identifies instances of this concept", 4),
-            new SomFormFieldMeta("lifecycle", "String", "Lifecycle (how instances are created, modified, archived)", false, "How instances are created, modified, and archived", 5),
-            new SomFormFieldMeta("ownedBy", "String", "Owned By (which business function owns this concept)", false, "Which business function owns this concept", 6),
-            new SomFormFieldMeta("relatedConcepts", "String", "Related Concepts (other concepts this relates to)", false, "Other concepts this one relates to", 7),
-            new SomFormFieldMeta("businessRules", "String", "Business Rules (rules that govern this concept)", false, "Business rules that govern this concept", 8),
-            new SomFormFieldMeta("volumeEstimate", "String", "Volume Estimate (expected number of instances)", false, "Expected number of instances of this concept", 9)));
+            new SomFormFieldMeta("conceptType", "String", "Concept Type (Entity, Value Object, Aggregate Root, Event, Service)", true, "Entity / Value Object / Aggregate Root / Event / Service", 0),
+            new SomFormFieldMeta("description", "String", "Description", true, "What this concept represents in the domain", 1),
+            new SomFormFieldMeta("keyAttributes", "String", "Key Attributes (main properties of this concept)", false, "Main properties or attributes of this concept", 2),
+            new SomFormFieldMeta("identifiedBy", "String", "Identified By (what uniquely identifies instances)", false, "What uniquely identifies instances of this concept", 3),
+            new SomFormFieldMeta("lifecycle", "String", "Lifecycle (how instances are created, modified, archived)", false, "How instances are created, modified, and archived", 4),
+            new SomFormFieldMeta("ownedBy", "String", "Owned By (which business function owns this concept)", false, "Which business function owns this concept", 5),
+            new SomFormFieldMeta("relatedConcepts", "String", "Related Concepts (other concepts this relates to)", false, "Other concepts this one relates to", 6),
+            new SomFormFieldMeta("businessRules", "String", "Business Rules (rules that govern this concept)", false, "Business rules that govern this concept", 7),
+            new SomFormFieldMeta("volumeEstimate", "String", "Volume Estimate (expected number of instances)", false, "Expected number of instances of this concept", 8)));
         out.add(n);
       }
       {
@@ -51283,9 +51149,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("transitionId", "String", "Transition ID", false, "Unique identifier for this transition", 0),
-            new SomFormFieldMeta("transitionName", "String", "Transition Name", false, "Descriptive name (e.g., \"Submit Order\")", 1),
-            new SomFormFieldMeta("fromState", "String", "From State", true, "Source state", 2),
-            new SomFormFieldMeta("toState", "String", "To State", true, "Target state", 3)));
+            new SomFormFieldMeta("fromState", "String", "From State", true, "Source state", 1),
+            new SomFormFieldMeta("toState", "String", "To State", true, "Target state", 2)));
         out.add(n);
       }
       {
@@ -52230,10 +52095,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("stepName", "String", "Step Name", true, "Unique name for this login flow step", 0),
-            new SomFormFieldMeta("stepOrder", "String", "Step Order", false, "Numeric order in the flow sequence (1, 2, 3, ...)", 1),
-            new SomFormFieldMeta("stepType", "String", "Step Type", false, "EntryPoint | CredentialInput | Validation | MfaChallenge | ConsentScreen | TokenIssuance | SessionCreation | Redirect | ErrorHandling", 2),
-            new SomFormFieldMeta("actor", "String", "Actor", false, "User | Browser | AuthServer | IdP | MfaDevice | ResourceServer — who performs this step", 3)));
+            new SomFormFieldMeta("stepOrder", "String", "Step Order", false, "Numeric order in the flow sequence (1, 2, 3, ...)", 0),
+            new SomFormFieldMeta("stepType", "String", "Step Type", false, "EntryPoint | CredentialInput | Validation | MfaChallenge | ConsentScreen | TokenIssuance | SessionCreation | Redirect | ErrorHandling", 1),
+            new SomFormFieldMeta("actor", "String", "Actor", false, "User | Browser | AuthServer | IdP | MfaDevice | ResourceServer — who performs this step", 2)));
         out.add(n);
       }
       {
@@ -52728,9 +52592,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dependencyId", "String", "Dependency ID", false, "Unique identifier, e.g. DEP-M-001", 0),
-            new SomFormFieldMeta("name", "String", "Dependency Name", true, "Component or service with maintenance dependency", 1),
-            new SomFormFieldMeta("version", "String", "Current Version", false, "Version currently in use", 2),
-            new SomFormFieldMeta("versionConstraint", "String", "Version Constraint", false, "Acceptable version range, e.g. >=3.2 <4.0", 3)));
+            new SomFormFieldMeta("version", "String", "Current Version", false, "Version currently in use", 1),
+            new SomFormFieldMeta("versionConstraint", "String", "Version Constraint", false, "Acceptable version range, e.g. >=3.2 <4.0", 2)));
         out.add(n);
       }
       {
@@ -52898,10 +52761,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("windowName", "String", "Window Name", true, "Maintenance window name", 0),
-            new SomFormFieldMeta("windowType", "String", "Window Type", false, "Routine, Patch, Upgrade, Migration", 1),
-            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical, Standard, Low", 2),
-            new SomFormFieldMeta("description", "String", "Description", false, "What maintenance is performed", 3)));
+            new SomFormFieldMeta("windowType", "String", "Window Type", false, "Routine, Patch, Upgrade, Migration", 0),
+            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical, Standard, Low", 1),
+            new SomFormFieldMeta("description", "String", "Description", false, "What maintenance is performed", 2)));
         out.add(n);
       }
       {
@@ -53141,9 +53003,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("domainName", "String", "Domain Name", true, "E.g. Customer, Product, Vendor, Employee, Location", 0),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this master data domain covers", 1),
-            new SomFormFieldMeta("goldenRecordSource", "String", "Golden Record Source", false, "Authoritative system for this master data", 2)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What this master data domain covers", 0),
+            new SomFormFieldMeta("goldenRecordSource", "String", "Golden Record Source", false, "Authoritative system for this master data", 1)));
         out.add(n);
       }
       {
@@ -53677,13 +53538,12 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("metricName", "String", "Metric Name", true, null, 0),
-            new SomFormFieldMeta("baselineValue", "String", "Baseline Value (current state)", false, null, 1),
-            new SomFormFieldMeta("baselineDate", "String", "Baseline Date", false, null, 2),
-            new SomFormFieldMeta("targetValue", "String", "Target Value", false, null, 3),
-            new SomFormFieldMeta("targetDate", "String", "Target Date", false, null, 4),
-            new SomFormFieldMeta("improvementTarget", "String", "Improvement Target", false, "Percentage or absolute improvement expected", 5),
-            new SomFormFieldMeta("trackingFrequency", "String", "Tracking Frequency", false, "How often this metric will be re-measured", 6)));
+            new SomFormFieldMeta("baselineValue", "String", "Baseline Value (current state)", false, null, 0),
+            new SomFormFieldMeta("baselineDate", "String", "Baseline Date", false, null, 1),
+            new SomFormFieldMeta("targetValue", "String", "Target Value", false, null, 2),
+            new SomFormFieldMeta("targetDate", "String", "Target Date", false, null, 3),
+            new SomFormFieldMeta("improvementTarget", "String", "Improvement Target", false, "Percentage or absolute improvement expected", 4),
+            new SomFormFieldMeta("trackingFrequency", "String", "Tracking Frequency", false, "How often this metric will be re-measured", 5)));
         out.add(n);
       }
       return out;
@@ -54317,12 +54177,11 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("milestoneName", "String", "Milestone Name", true, "Concise name for the milestone", 0),
-            new SomFormFieldMeta("targetDate", "String", "Target Date", false, "Planned date the milestone is reached", 1),
-            new SomFormFieldMeta("systemsIncluded", "String", "Systems Included", false, "Systems covered by this milestone", 2),
-            new SomFormFieldMeta("deliverables", "String", "Deliverables", false, "Outputs produced at this milestone", 3),
-            new SomFormFieldMeta("successCriteria", "String", "Success Criteria", false, "Conditions that confirm milestone success", 4),
-            new SomFormFieldMeta("gateName", "String", "Gate Name", false, "Associated stage-gate or checkpoint", 5)));
+            new SomFormFieldMeta("targetDate", "String", "Target Date", false, "Planned date the milestone is reached", 0),
+            new SomFormFieldMeta("systemsIncluded", "String", "Systems Included", false, "Systems covered by this milestone", 1),
+            new SomFormFieldMeta("deliverables", "String", "Deliverables", false, "Outputs produced at this milestone", 2),
+            new SomFormFieldMeta("successCriteria", "String", "Success Criteria", false, "Conditions that confirm milestone success", 3),
+            new SomFormFieldMeta("gateName", "String", "Gate Name", false, "Associated stage-gate or checkpoint", 4)));
         out.add(n);
       }
       return out;
@@ -54387,8 +54246,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("phaseNumber", "String", "Phase Number", true, "1, 2, 3… — sequential phase ordering", 0),
-            new SomFormFieldMeta("phaseName", "String", "Phase Name", true, "Descriptive name — e.g. Master Data, Transactional History", 1),
-            new SomFormFieldMeta("phaseType", "String", "Phase Type", true, "MasterData / ReferenceData / Transactional / Historical / Documents", 2)));
+            new SomFormFieldMeta("phaseType", "String", "Phase Type", true, "MasterData / ReferenceData / Transactional / Historical / Documents", 1)));
         out.add(n);
       }
       {
@@ -54827,8 +54685,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("riskId", "String", "Risk ID", true, "Unique identifier (e.g., MIG-RISK-001)", 0),
-            new SomFormFieldMeta("riskTitle", "String", "Risk Title", true, "Concise risk name", 1),
-            new SomFormFieldMeta("riskOwner", "String", "Risk Owner", true, "Accountable for risk management", 2)));
+            new SomFormFieldMeta("riskOwner", "String", "Risk Owner", true, "Accountable for risk management", 1)));
         out.add(n);
       }
       {
@@ -55744,9 +55601,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("moduleName", "String", "Module Name", true, "Unique module identifier", 0),
-            new SomFormFieldMeta("moduleType", "String", "Module Type", false, "Core, Feature, Shared, Platform, Plugin", 1),
-            new SomFormFieldMeta("version", "String", "Version", false, "Current module version", 2)));
+            new SomFormFieldMeta("moduleType", "String", "Module Type", false, "Core, Feature, Shared, Platform, Plugin", 0),
+            new SomFormFieldMeta("version", "String", "Version", false, "Current module version", 1)));
         out.add(n);
       }
       {
@@ -56854,8 +56710,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("criterionId", "String", "Criterion ID", false, "Unique identifier (e.g., MP-001)", 0),
-            new SomFormFieldMeta("criterionName", "String", "Criterion Name", true, null, 1),
-            new SomFormFieldMeta("verificationMethod", "String", "Verification Method", true, "Test, demonstration, analysis, inspection", 2)));
+            new SomFormFieldMeta("verificationMethod", "String", "Verification Method", true, "Test, demonstration, analysis, inspection", 1)));
         out.add(n);
       }
       {
@@ -57219,9 +57074,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("guardId", "String", "Guard ID", true, "Unique identifier, e.g., guard-unsaved-changes", 0),
-            new SomFormFieldMeta("guardName", "String", "Guard Name", true, "Human-readable name", 1),
-            new SomFormFieldMeta("guardType", "String", "Guard Type", false, "Unsaved-Changes/Authentication/Permission/Feature-Flag/Onboarding/Maintenance", 2),
-            new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition", false, "When this guard activates, e.g., form.isDirty", 3)));
+            new SomFormFieldMeta("guardType", "String", "Guard Type", false, "Unsaved-Changes/Authentication/Permission/Feature-Flag/Onboarding/Maintenance", 1),
+            new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition", false, "When this guard activates, e.g., form.isDirty", 2)));
         out.add(n);
       }
       {
@@ -58541,13 +58395,12 @@ public final class TomSomV0Meta {
         n.docComment = "Role identification and overview.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("roleId", "String", "Role ID (e.g., NR-001)", true, "Unique identifier for this new role", 0),
-            new SomFormFieldMeta("roleTitle", "String", "Role Title", true, "Official job title for the role", 1),
-            new SomFormFieldMeta("roleFamily", "String", "Job Family", false, "Broader job family or category this role belongs to", 2),
-            new SomFormFieldMeta("jobLevel", "String", "Job Level/Grade", false, "Seniority level or pay grade", 3),
-            new SomFormFieldMeta("rolePurpose", "String", "Role Purpose — why this role exists", false, "Core mission the role fulfils", 4),
-            new SomFormFieldMeta("roleJustification", "String", "Role Justification — business case for new role", false, "Why creating this role is needed now", 5),
-            new SomFormFieldMeta("effectiveDate", "String", "Effective Date", false, "When the role becomes active", 6),
-            new SomFormFieldMeta("roleStatus", "String", "Role Status — draft, approved, posted, filled", false, "Current lifecycle stage of the role", 7)));
+            new SomFormFieldMeta("roleFamily", "String", "Job Family", false, "Broader job family or category this role belongs to", 1),
+            new SomFormFieldMeta("jobLevel", "String", "Job Level/Grade", false, "Seniority level or pay grade", 2),
+            new SomFormFieldMeta("rolePurpose", "String", "Role Purpose — why this role exists", false, "Core mission the role fulfils", 3),
+            new SomFormFieldMeta("roleJustification", "String", "Role Justification — business case for new role", false, "Why creating this role is needed now", 4),
+            new SomFormFieldMeta("effectiveDate", "String", "Effective Date", false, "When the role becomes active", 5),
+            new SomFormFieldMeta("roleStatus", "String", "Role Status — draft, approved, posted, filled", false, "Current lifecycle stage of the role", 6)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("SHRM — HR best practices (job design, role definition)", "O*NET — occupational job analysis (tasks, skills, knowledge)"), "connotation", "Identifies the new role and records the business case that justifies creating it.")));
         out.add(n);
       }
@@ -58877,14 +58730,13 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("channelName", "String", "Channel Name", true, "Email, SMS, Push Notification, In-App, Slack, Teams", 0),
-            new SomFormFieldMeta("channelId", "String", "Channel ID", false, "Unique identifier for the notification channel", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "Purpose and scope of this notification channel", 2),
-            new SomFormFieldMeta("deliveryMethod", "String", "Delivery Method", false, "Immediate, Batched, Digest", 3),
-            new SomFormFieldMeta("retryPolicy", "String", "Retry Policy", false, "Retry attempts and intervals", 4),
-            new SomFormFieldMeta("fallbackChannel", "String", "Fallback Channel", false, "Alternative channel if delivery fails", 5),
-            new SomFormFieldMeta("quietHoursSupport", "String", "Quiet Hours Support", false, "Respects user quiet hours settings", 6),
-            new SomFormFieldMeta("urgencyLevels", "String", "Supported Urgency Levels", false, "Which urgency levels use this channel", 7)));
+            new SomFormFieldMeta("channelId", "String", "Channel ID", false, "Unique identifier for the notification channel", 0),
+            new SomFormFieldMeta("description", "String", "Description", false, "Purpose and scope of this notification channel", 1),
+            new SomFormFieldMeta("deliveryMethod", "String", "Delivery Method", false, "Immediate, Batched, Digest", 2),
+            new SomFormFieldMeta("retryPolicy", "String", "Retry Policy", false, "Retry attempts and intervals", 3),
+            new SomFormFieldMeta("fallbackChannel", "String", "Fallback Channel", false, "Alternative channel if delivery fails", 4),
+            new SomFormFieldMeta("quietHoursSupport", "String", "Quiet Hours Support", false, "Respects user quiet hours settings", 5),
+            new SomFormFieldMeta("urgencyLevels", "String", "Supported Urgency Levels", false, "Which urgency levels use this channel", 6)));
         out.add(n);
       }
       return out;
@@ -59052,13 +58904,12 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("invariantName", "String", "Invariant Name", true, "Name of the invariant", 0),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this invariant means", 1),
-            new SomFormFieldMeta("expression", "String", "Expression", false, "Logic or pseudo-code expressing the invariant", 2),
-            new SomFormFieldMeta("scope", "String", "Scope", false, "Single | AcrossStates | AcrossObjects", 3),
-            new SomFormFieldMeta("enforcementPoint", "String", "Enforcement Point", false, "When invariant is checked", 4),
-            new SomFormFieldMeta("violationAction", "String", "Violation Action", false, "What happens on violation: Reject | Compensate | Alert", 5),
-            new SomFormFieldMeta("businessJustification", "String", "Business Justification", false, "Why this invariant exists", 6)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What this invariant means", 0),
+            new SomFormFieldMeta("expression", "String", "Expression", false, "Logic or pseudo-code expressing the invariant", 1),
+            new SomFormFieldMeta("scope", "String", "Scope", false, "Single | AcrossStates | AcrossObjects", 2),
+            new SomFormFieldMeta("enforcementPoint", "String", "Enforcement Point", false, "When invariant is checked", 3),
+            new SomFormFieldMeta("violationAction", "String", "Violation Action", false, "What happens on violation: Reject | Compensate | Alert", 4),
+            new SomFormFieldMeta("businessJustification", "String", "Business Justification", false, "Why this invariant exists", 5)));
         out.add(n);
       }
       return out;
@@ -59087,9 +58938,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("operationName", "String", "Operation Name", true, "Name of the operation (e.g., Submit, Approve)", 0),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this operation does", 1),
-            new SomFormFieldMeta("operationType", "String", "Operation Type", false, "Command | Query | Event", 2)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What this operation does", 0),
+            new SomFormFieldMeta("operationType", "String", "Operation Type", false, "Command | Query | Event", 1)));
         out.add(n);
       }
       {
@@ -59170,16 +59020,15 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("stateName", "String", "State Name", true, "Name of the state (e.g., Draft, Submitted)", 0),
-            new SomFormFieldMeta("stateCode", "String", "State Code", false, "Technical state code or enum value", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this state means in business terms", 2),
-            new SomFormFieldMeta("stateType", "ObjectLifecycleKind", "State Type", false, "Lifecycle role of this state", 3, java.util.List.of("initial", "intermediate", "terminal", "error")),
-            new SomFormFieldMeta("entryConditions", "String", "Entry Conditions", false, "Conditions required to enter this state", 4),
-            new SomFormFieldMeta("exitConditions", "String", "Exit Conditions", false, "Conditions required to exit this state", 5),
-            new SomFormFieldMeta("allowedOperations", "String", "Allowed Operations", false, "What operations can be performed in this state", 6),
-            new SomFormFieldMeta("restrictedOperations", "String", "Restricted Operations", false, "What operations are not allowed in this state", 7),
-            new SomFormFieldMeta("slaRequirements", "String", "SLA Requirements", false, "Any time-bound requirements for this state", 8),
-            new SomFormFieldMeta("notificationTriggers", "String", "Notification Triggers", false, "Events that trigger notifications in this state", 9)));
+            new SomFormFieldMeta("stateCode", "String", "State Code", false, "Technical state code or enum value", 0),
+            new SomFormFieldMeta("description", "String", "Description", false, "What this state means in business terms", 1),
+            new SomFormFieldMeta("stateType", "ObjectLifecycleKind", "State Type", false, "Lifecycle role of this state", 2, java.util.List.of("initial", "intermediate", "terminal", "error")),
+            new SomFormFieldMeta("entryConditions", "String", "Entry Conditions", false, "Conditions required to enter this state", 3),
+            new SomFormFieldMeta("exitConditions", "String", "Exit Conditions", false, "Conditions required to exit this state", 4),
+            new SomFormFieldMeta("allowedOperations", "String", "Allowed Operations", false, "What operations can be performed in this state", 5),
+            new SomFormFieldMeta("restrictedOperations", "String", "Restricted Operations", false, "What operations are not allowed in this state", 6),
+            new SomFormFieldMeta("slaRequirements", "String", "SLA Requirements", false, "Any time-bound requirements for this state", 7),
+            new SomFormFieldMeta("notificationTriggers", "String", "Notification Triggers", false, "Events that trigger notifications in this state", 8)));
         out.add(n);
       }
       return out;
@@ -59532,9 +59381,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("trainingId", "String", "Training ID", true, null, 0),
-            new SomFormFieldMeta("trainingName", "String", "Training Name", true, null, 1),
-            new SomFormFieldMeta("description", "String", "Description", false, null, 2),
-            new SomFormFieldMeta("targetAudience", "String", "Target Audience", false, null, 3)));
+            new SomFormFieldMeta("description", "String", "Description", false, null, 1),
+            new SomFormFieldMeta("targetAudience", "String", "Target Audience", false, null, 2)));
         out.add(n);
       }
       {
@@ -60064,13 +59912,12 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("activityId", "String", "Activity ID", true, "Stable unique identifier for the activity", 0),
-            new SomFormFieldMeta("activityName", "String", "Activity Name", true, "Short descriptive name for the activity", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "What the activity entails", 2),
-            new SomFormFieldMeta("owner", "String", "Owner", false, "Person or role responsible for the activity", 3),
-            new SomFormFieldMeta("startDate", "String", "Start Date", false, "Planned start date", 4),
-            new SomFormFieldMeta("endDate", "String", "End Date", false, "Planned completion date", 5),
-            new SomFormFieldMeta("deliverable", "String", "Deliverable", false, "Output produced by the activity", 6),
-            new SomFormFieldMeta("status", "String", "Status (Planned, In Progress, Completed, Delayed)", false, "Planned, In Progress, Completed, or Delayed", 7)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What the activity entails", 1),
+            new SomFormFieldMeta("owner", "String", "Owner", false, "Person or role responsible for the activity", 2),
+            new SomFormFieldMeta("startDate", "String", "Start Date", false, "Planned start date", 3),
+            new SomFormFieldMeta("endDate", "String", "End Date", false, "Planned completion date", 4),
+            new SomFormFieldMeta("deliverable", "String", "Deliverable", false, "Output produced by the activity", 5),
+            new SomFormFieldMeta("status", "String", "Status (Planned, In Progress, Completed, Delayed)", false, "Planned, In Progress, Completed, or Delayed", 6)));
         out.add(n);
       }
       return out;
@@ -60292,8 +60139,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("changeId", "String", "Change ID (e.g., OC-001)", true, "Unique identifier for this structural change", 0),
-            new SomFormFieldMeta("changeName", "String", "Change Name", true, "Short descriptive name for the change", 1),
-            new SomFormFieldMeta("changeType", "String", "Change Type", false, "Restructure, Merge, Split, Create, Eliminate, Relocate", 2)));
+            new SomFormFieldMeta("changeType", "String", "Change Type", false, "Restructure, Merge, Split, Create, Eliminate, Relocate", 1)));
         out.add(n);
       }
       {
@@ -61183,14 +61029,13 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("unitName", "String", "Unit Name", true, "The name of this organizational unit", 0),
-            new SomFormFieldMeta("unitType", "String", "Unit Type (Department, Division, Team, Business Unit, Subsidiary, External Partner)", false, "The category of organizational unit", 1),
-            new SomFormFieldMeta("role", "String", "Role (Primary User, Secondary User, Data Provider, Beneficiary, Sponsor)", false, "The role this unit plays relative to the system", 2),
-            new SomFormFieldMeta("responsibilities", "String", "Responsibilities (what they do with/for the system)", false, "What this unit does with or for the system", 3),
-            new SomFormFieldMeta("headcount", "String", "Headcount (estimated number of users)", false, "Estimated number of users in this unit", 4),
-            new SomFormFieldMeta("location", "String", "Location (geographic location)", false, "The geographic location of this unit", 5),
-            new SomFormFieldMeta("timezone", "String", "Timezone (primary operating timezone)", false, "The primary operating timezone of this unit", 6),
-            new SomFormFieldMeta("keyContacts", "String", "Key Contacts (business contacts)", false, "Business contacts for this unit", 7)));
+            new SomFormFieldMeta("unitType", "String", "Unit Type (Department, Division, Team, Business Unit, Subsidiary, External Partner)", false, "The category of organizational unit", 0),
+            new SomFormFieldMeta("role", "String", "Role (Primary User, Secondary User, Data Provider, Beneficiary, Sponsor)", false, "The role this unit plays relative to the system", 1),
+            new SomFormFieldMeta("responsibilities", "String", "Responsibilities (what they do with/for the system)", false, "What this unit does with or for the system", 2),
+            new SomFormFieldMeta("headcount", "String", "Headcount (estimated number of users)", false, "Estimated number of users in this unit", 3),
+            new SomFormFieldMeta("location", "String", "Location (geographic location)", false, "The geographic location of this unit", 4),
+            new SomFormFieldMeta("timezone", "String", "Timezone (primary operating timezone)", false, "The primary operating timezone of this unit", 5),
+            new SomFormFieldMeta("keyContacts", "String", "Key Contacts (business contacts)", false, "Business contacts for this unit", 6)));
         out.add(n);
       }
       return out;
@@ -61219,10 +61064,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("osName", "String", "Operating System", true, "E.g., Windows, macOS, Linux, iOS, Android", 0),
-            new SomFormFieldMeta("osFamily", "String", "OS Family", false, "Windows, Unix, Mobile", 1),
-            new SomFormFieldMeta("minVersion", "String", "Minimum Version", true, "Minimum supported version", 2),
-            new SomFormFieldMeta("maxVersion", "String", "Maximum Version", false, "Maximum tested version", 3)));
+            new SomFormFieldMeta("osFamily", "String", "OS Family", false, "Windows, Unix, Mobile", 0),
+            new SomFormFieldMeta("minVersion", "String", "Minimum Version", true, "Minimum supported version", 1),
+            new SomFormFieldMeta("maxVersion", "String", "Maximum Version", false, "Maximum tested version", 2)));
         out.add(n);
       }
       {
@@ -61320,14 +61164,13 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("agreementTitle", "String", "Agreement Title", true, "Title of the agreement", 0),
-            new SomFormFieldMeta("agreementType", "String", "Type", false, "Kind of agreement, e.g. MOU, SLA, partnership", 1),
-            new SomFormFieldMeta("parties", "String", "Parties", false, "Parties bound by the agreement", 2),
-            new SomFormFieldMeta("effectiveDate", "String", "Effective Date", false, "When the agreement takes effect", 3),
-            new SomFormFieldMeta("expirationDate", "String", "Expiration Date", false, "When the agreement expires", 4),
-            new SomFormFieldMeta("keyTerms", "String", "Key Terms", false, "Principal terms of the agreement", 5),
-            new SomFormFieldMeta("obligations", "String", "Obligations", false, "Obligations the agreement imposes", 6),
-            new SomFormFieldMeta("location", "String", "Document Location", false, "Where the signed agreement is stored", 7)));
+            new SomFormFieldMeta("agreementType", "String", "Type", false, "Kind of agreement, e.g. MOU, SLA, partnership", 0),
+            new SomFormFieldMeta("parties", "String", "Parties", false, "Parties bound by the agreement", 1),
+            new SomFormFieldMeta("effectiveDate", "String", "Effective Date", false, "When the agreement takes effect", 2),
+            new SomFormFieldMeta("expirationDate", "String", "Expiration Date", false, "When the agreement expires", 3),
+            new SomFormFieldMeta("keyTerms", "String", "Key Terms", false, "Principal terms of the agreement", 4),
+            new SomFormFieldMeta("obligations", "String", "Obligations", false, "Obligations the agreement imposes", 5),
+            new SomFormFieldMeta("location", "String", "Document Location", false, "Where the signed agreement is stored", 6)));
         out.add(n);
       }
       return out;
@@ -62834,9 +62677,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("personaName", "String", "Persona Name", true, "Name and title, e.g., \"Marco, Finance Manager\"", 0),
-            new SomFormFieldMeta("age", "String", "Age", false, "Age or age range", 1),
-            new SomFormFieldMeta("role", "String", "Role", false, "Job title and responsibilities", 2)));
+            new SomFormFieldMeta("age", "String", "Age", false, "Age or age range", 0),
+            new SomFormFieldMeta("role", "String", "Role", false, "Job title and responsibilities", 1)));
         out.add(n);
       }
       {
@@ -63136,13 +62978,12 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("scenarioName", "String", "Scenario Name", true, "A short action-oriented name for the scenario", 0),
-            new SomFormFieldMeta("description", "String", "Description", false, "What the persona is trying to accomplish", 1),
-            new SomFormFieldMeta("frequency", "String", "Frequency", false, "Daily/Weekly/Monthly/Occasional", 2),
-            new SomFormFieldMeta("urgency", "String", "Urgency", false, "Time-sensitive nature", 3),
-            new SomFormFieldMeta("context", "String", "Context", false, "Where/when this scenario occurs", 4),
-            new SomFormFieldMeta("requiredScreens", "String", "Required Screens", false, "Screens needed for this scenario", 5),
-            new SomFormFieldMeta("successMetric", "String", "Success Metric", false, "How we measure scenario success", 6)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What the persona is trying to accomplish", 0),
+            new SomFormFieldMeta("frequency", "String", "Frequency", false, "Daily/Weekly/Monthly/Occasional", 1),
+            new SomFormFieldMeta("urgency", "String", "Urgency", false, "Time-sensitive nature", 2),
+            new SomFormFieldMeta("context", "String", "Context", false, "Where/when this scenario occurs", 3),
+            new SomFormFieldMeta("requiredScreens", "String", "Required Screens", false, "Screens needed for this scenario", 4),
+            new SomFormFieldMeta("successMetric", "String", "Success Metric", false, "How we measure scenario success", 5)));
         out.add(n);
       }
       return out;
@@ -63224,9 +63065,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("gateName", "String", "Gate Name", true, "Formal gate name — e.g. G1-ConceptApproval", 0),
-            new SomFormFieldMeta("gateId", "String", "Gate ID", true, "Unique gate identifier — e.g. G1, G2, G3", 1),
-            new SomFormFieldMeta("stage", "String", "Stage", true, "Stage this gate is associated with", 2)));
+            new SomFormFieldMeta("gateId", "String", "Gate ID", true, "Unique gate identifier — e.g. G1, G2, G3", 0),
+            new SomFormFieldMeta("stage", "String", "Stage", true, "Stage this gate is associated with", 1)));
         out.add(n);
       }
       {
@@ -63597,9 +63437,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("jobName", "String", "Job Name", true, "Job identifier", 0),
-            new SomFormFieldMeta("parentStage", "String", "Parent Stage", false, "Stage this job belongs to", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this job does", 2)));
+            new SomFormFieldMeta("parentStage", "String", "Parent Stage", false, "Stage this job belongs to", 0),
+            new SomFormFieldMeta("description", "String", "Description", false, "What this job does", 1)));
         out.add(n);
       }
       {
@@ -63697,9 +63536,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("stageName", "String", "Stage Name", true, "E.g., Build, Test, Deploy, Release", 0),
-            new SomFormFieldMeta("stageOrder", "String", "Order", false, "Execution order", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this stage does", 2)));
+            new SomFormFieldMeta("stageOrder", "String", "Order", false, "Execution order", 0),
+            new SomFormFieldMeta("description", "String", "Description", false, "What this stage does", 1)));
         out.add(n);
       }
       {
@@ -65167,9 +65005,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("controlId", "String", "Control ID", true, "Unique identifier for the control", 0),
-            new SomFormFieldMeta("controlName", "String", "Control Name", true, "Short human-readable control name", 1),
-            new SomFormFieldMeta("controlType", "String", "Control Type — preventive, detective, corrective", false, "Classify the control type", 2),
-            new SomFormFieldMeta("controlCategory", "String", "Control Category — authorization, validation, reconciliation", false, "Classify the control category", 3)));
+            new SomFormFieldMeta("controlType", "String", "Control Type — preventive, detective, corrective", false, "Classify the control type", 1),
+            new SomFormFieldMeta("controlCategory", "String", "Control Category — authorization, validation, reconciliation", false, "Classify the control category", 2)));
         out.add(n);
       }
       {
@@ -65334,15 +65171,14 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("principleId", "String", "Principle ID", true, "Unique identifier for the principle", 0),
-            new SomFormFieldMeta("principleName", "String", "Principle Name", true, "Short descriptive name", 1),
-            new SomFormFieldMeta("category", "String", "Category — efficiency, quality, compliance, user experience", false, "The dimension this principle addresses", 2),
-            new SomFormFieldMeta("statement", "String", "Statement — the principle statement", false, "The principle expressed as a directive", 3),
-            new SomFormFieldMeta("rationale", "String", "Rationale — why this principle matters", false, "Why the principle is important", 4),
-            new SomFormFieldMeta("implications", "String", "Implications — what this means for process design", false, "Design consequences of applying it", 5),
-            new SomFormFieldMeta("examples", "String", "Examples — how this principle applies", false, "Concrete examples of the principle in use", 6),
-            new SomFormFieldMeta("tradeoffs", "String", "Trade-offs — what is sacrificed", false, "What is given up to follow the principle", 7),
-            new SomFormFieldMeta("priority", "String", "Priority — high, medium, low", false, "Relative importance of the principle", 8),
-            new SomFormFieldMeta("applicability", "String", "Applicability — all processes or specific types", false, "Which processes the principle applies to", 9)));
+            new SomFormFieldMeta("category", "String", "Category — efficiency, quality, compliance, user experience", false, "The dimension this principle addresses", 1),
+            new SomFormFieldMeta("statement", "String", "Statement — the principle statement", false, "The principle expressed as a directive", 2),
+            new SomFormFieldMeta("rationale", "String", "Rationale — why this principle matters", false, "Why the principle is important", 3),
+            new SomFormFieldMeta("implications", "String", "Implications — what this means for process design", false, "Design consequences of applying it", 4),
+            new SomFormFieldMeta("examples", "String", "Examples — how this principle applies", false, "Concrete examples of the principle in use", 5),
+            new SomFormFieldMeta("tradeoffs", "String", "Trade-offs — what is sacrificed", false, "What is given up to follow the principle", 6),
+            new SomFormFieldMeta("priority", "String", "Priority — high, medium, low", false, "Relative importance of the principle", 7),
+            new SomFormFieldMeta("applicability", "String", "Applicability — all processes or specific types", false, "Which processes the principle applies to", 8)));
         out.add(n);
       }
       return out;
@@ -65431,13 +65267,12 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("endEventId", "String", "End Event ID", true, "Unique identifier for the end event", 0),
-            new SomFormFieldMeta("endEventName", "String", "End Event Name", true, "Descriptive name of the end event", 1),
-            new SomFormFieldMeta("endEventType", "String", "End Event Type — success, error, cancellation, timeout", false, "BPMN end-event type", 2),
-            new SomFormFieldMeta("outcome", "String", "Outcome — what this end state means", false, "What reaching this end state means", 3),
-            new SomFormFieldMeta("probability", "String", "Probability — how often this end occurs", false, "How often this outcome occurs", 4),
-            new SomFormFieldMeta("postCondition", "String", "Post-Condition — system state after this end", false, "System state after this end event", 5),
-            new SomFormFieldMeta("notificationAction", "String", "Notification Action — who/what is notified", false, "Who or what is notified at this end", 6),
-            new SomFormFieldMeta("followOnAction", "String", "Follow-On Action — what happens next", false, "What happens after this end event", 7)));
+            new SomFormFieldMeta("endEventType", "String", "End Event Type — success, error, cancellation, timeout", false, "BPMN end-event type", 1),
+            new SomFormFieldMeta("outcome", "String", "Outcome — what this end state means", false, "What reaching this end state means", 2),
+            new SomFormFieldMeta("probability", "String", "Probability — how often this end occurs", false, "How often this outcome occurs", 3),
+            new SomFormFieldMeta("postCondition", "String", "Post-Condition — system state after this end", false, "System state after this end event", 4),
+            new SomFormFieldMeta("notificationAction", "String", "Notification Action — who/what is notified", false, "Who or what is notified at this end", 5),
+            new SomFormFieldMeta("followOnAction", "String", "Follow-On Action — what happens next", false, "What happens after this end event", 6)));
         out.add(n);
       }
       return out;
@@ -65467,9 +65302,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("exceptionId", "String", "Exception ID", true, "Unique identifier for the exception", 0),
-            new SomFormFieldMeta("exceptionName", "String", "Exception Name", true, "Short human-readable exception name", 1),
-            new SomFormFieldMeta("exceptionType", "String", "Exception Type — data error, system error, business rule, timeout", false, "Classify the exception type", 2),
-            new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition — what causes this exception", false, "Describe what triggers the exception", 3)));
+            new SomFormFieldMeta("exceptionType", "String", "Exception Type — data error, system error, business rule, timeout", false, "Classify the exception type", 1),
+            new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition — what causes this exception", false, "Describe what triggers the exception", 2)));
         out.add(n);
       }
       {
@@ -65626,8 +65460,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("processId", "String", "Process ID (e.g., TOM-001)", true, "Unique process identifier", 0),
-            new SomFormFieldMeta("processName", "String", "Process Name", true, "Descriptive name of the process", 1),
-            new SomFormFieldMeta("processLevel", "String", "Process Level — L1 (category), L2 (group), L3 (process), L4 (activity)", false, "Level in the process hierarchy", 2)));
+            new SomFormFieldMeta("processLevel", "String", "Process Level — L1 (category), L2 (group), L3 (process), L4 (activity)", false, "Level in the process hierarchy", 1)));
         out.add(n);
       }
       {
@@ -65710,9 +65543,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("improvementId", "String", "Improvement ID", true, "Unique identifier for the improvement", 0),
-            new SomFormFieldMeta("improvementName", "String", "Improvement Name", true, "Short human-readable improvement name", 1),
-            new SomFormFieldMeta("category", "String", "Category — efficiency, quality, cost, experience", false, "Classify the improvement category", 2),
-            new SomFormFieldMeta("currentState", "String", "Current State — baseline measurement", false, "Give the current-state baseline", 3)));
+            new SomFormFieldMeta("category", "String", "Category — efficiency, quality, cost, experience", false, "Classify the improvement category", 1),
+            new SomFormFieldMeta("currentState", "String", "Current State — baseline measurement", false, "Give the current-state baseline", 2)));
         out.add(n);
       }
       {
@@ -65859,15 +65691,14 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("inputId", "String", "Input ID", true, "Unique identifier for the input", 0),
-            new SomFormFieldMeta("inputName", "String", "Input Name", true, "Descriptive name of the input", 1),
-            new SomFormFieldMeta("inputType", "String", "Input Type — data, document, authorization, resource", false, "Kind of input consumed", 2),
-            new SomFormFieldMeta("source", "String", "Source — where input comes from", false, "Where the input originates", 3),
-            new SomFormFieldMeta("format", "String", "Format — data format, file type", false, "Data format or file type", 4),
-            new SomFormFieldMeta("required", "String", "Required — mandatory or optional", false, "Whether the input is mandatory", 5),
-            new SomFormFieldMeta("validationRules", "String", "Validation Rules — input quality checks", false, "Quality checks applied to the input", 6),
-            new SomFormFieldMeta("defaultValue", "String", "Default Value — if input not provided", false, "Value used when input is absent", 7),
-            new SomFormFieldMeta("exampleValue", "String", "Example Value — sample input", false, "A sample value for the input", 8),
-            new SomFormFieldMeta("securityClassification", "String", "Security Classification — sensitivity level", false, "Sensitivity level of the input", 9)));
+            new SomFormFieldMeta("inputType", "String", "Input Type — data, document, authorization, resource", false, "Kind of input consumed", 1),
+            new SomFormFieldMeta("source", "String", "Source — where input comes from", false, "Where the input originates", 2),
+            new SomFormFieldMeta("format", "String", "Format — data format, file type", false, "Data format or file type", 3),
+            new SomFormFieldMeta("required", "String", "Required — mandatory or optional", false, "Whether the input is mandatory", 4),
+            new SomFormFieldMeta("validationRules", "String", "Validation Rules — input quality checks", false, "Quality checks applied to the input", 5),
+            new SomFormFieldMeta("defaultValue", "String", "Default Value — if input not provided", false, "Value used when input is absent", 6),
+            new SomFormFieldMeta("exampleValue", "String", "Example Value — sample input", false, "A sample value for the input", 7),
+            new SomFormFieldMeta("securityClassification", "String", "Security Classification — sensitivity level", false, "Sensitivity level of the input", 8)));
         out.add(n);
       }
       return out;
@@ -66045,9 +65876,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("kpiId", "String", "KPI ID", true, "Unique identifier for the KPI", 0),
-            new SomFormFieldMeta("kpiName", "String", "KPI Name", true, "Short human-readable KPI name", 1),
-            new SomFormFieldMeta("category", "String", "Category — time, quality, cost, volume, satisfaction", false, "Classify the KPI dimension", 2),
-            new SomFormFieldMeta("definition", "String", "Definition — how KPI is calculated", false, "Describe the calculation formula", 3)));
+            new SomFormFieldMeta("category", "String", "Category — time, quality, cost, volume, satisfaction", false, "Classify the KPI dimension", 1),
+            new SomFormFieldMeta("definition", "String", "Definition — how KPI is calculated", false, "Describe the calculation formula", 2)));
         out.add(n);
       }
       {
@@ -66193,11 +66023,10 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("metricName", "String", "Metric Name", true, null, 0),
-            new SomFormFieldMeta("metricId", "String", "Metric ID", false, null, 1),
-            new SomFormFieldMeta("metricCategory", "String", "Category (e.g., Efficiency, Quality, Volume, Cost)", false, "Only for metrics listed on their own — a metric listed inside a metric category takes that category and leaves this empty", 2),
-            new SomFormFieldMeta("currentValue", "String", "Current Value", false, null, 3),
-            new SomFormFieldMeta("unit", "String", "Unit", false, null, 4)));
+            new SomFormFieldMeta("metricId", "String", "Metric ID", false, null, 0),
+            new SomFormFieldMeta("metricCategory", "String", "Category (e.g., Efficiency, Quality, Volume, Cost)", false, "Only for metrics listed on their own — a metric listed inside a metric category takes that category and leaves this empty", 1),
+            new SomFormFieldMeta("currentValue", "String", "Current Value", false, null, 2),
+            new SomFormFieldMeta("unit", "String", "Unit", false, null, 3)));
         out.add(n);
       }
       {
@@ -66490,15 +66319,14 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("outputId", "String", "Output ID", true, "Unique identifier for the output", 0),
-            new SomFormFieldMeta("outputName", "String", "Output Name", true, "Descriptive name of the output", 1),
-            new SomFormFieldMeta("outputType", "String", "Output Type — data, document, notification, state change", false, "Kind of output produced", 2),
-            new SomFormFieldMeta("destination", "String", "Destination — where output goes", false, "Where the output is sent", 3),
-            new SomFormFieldMeta("format", "String", "Format — data format, file type", false, "Data format or file type", 4),
-            new SomFormFieldMeta("qualityStandard", "String", "Quality Standard — output quality requirements", false, "Quality requirements for the output", 5),
-            new SomFormFieldMeta("timingRequirement", "String", "Timing Requirement — when output must be available", false, "When the output must be ready", 6),
-            new SomFormFieldMeta("retentionPeriod", "String", "Retention Period — how long output is kept", false, "How long the output is retained", 7),
-            new SomFormFieldMeta("securityClassification", "String", "Security Classification — sensitivity level", false, "Sensitivity level of the output", 8),
-            new SomFormFieldMeta("dependentProcesses", "String", "Dependent Processes — processes that need this output", false, "Processes that consume this output", 9)));
+            new SomFormFieldMeta("outputType", "String", "Output Type — data, document, notification, state change", false, "Kind of output produced", 1),
+            new SomFormFieldMeta("destination", "String", "Destination — where output goes", false, "Where the output is sent", 2),
+            new SomFormFieldMeta("format", "String", "Format — data format, file type", false, "Data format or file type", 3),
+            new SomFormFieldMeta("qualityStandard", "String", "Quality Standard — output quality requirements", false, "Quality requirements for the output", 4),
+            new SomFormFieldMeta("timingRequirement", "String", "Timing Requirement — when output must be available", false, "When the output must be ready", 5),
+            new SomFormFieldMeta("retentionPeriod", "String", "Retention Period — how long output is kept", false, "How long the output is retained", 6),
+            new SomFormFieldMeta("securityClassification", "String", "Security Classification — sensitivity level", false, "Sensitivity level of the output", 7),
+            new SomFormFieldMeta("dependentProcesses", "String", "Dependent Processes — processes that need this output", false, "Processes that consume this output", 8)));
         out.add(n);
       }
       return out;
@@ -66888,9 +66716,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("roleId", "String", "Role ID", true, "Unique identifier for the role", 0),
-            new SomFormFieldMeta("roleName", "String", "Role Name", true, "Descriptive name of the role", 1),
-            new SomFormFieldMeta("raciType", "String", "RACI Type — Responsible, Accountable, Consulted, Informed", false, "The RACI assignment for this role", 2),
-            new SomFormFieldMeta("responsibilities", "String", "Responsibilities — what this role does", false, "What this role is responsible for", 3)));
+            new SomFormFieldMeta("raciType", "String", "RACI Type — Responsible, Accountable, Consulted, Informed", false, "The RACI assignment for this role", 1),
+            new SomFormFieldMeta("responsibilities", "String", "Responsibilities — what this role does", false, "What this role is responsible for", 2)));
         out.add(n);
       }
       {
@@ -67015,10 +66842,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("processName", "String", "Process Name", true, null, 0),
-            new SomFormFieldMeta("rationale", "String", "Rationale - why this scope decision", false, "Why the process is in or out of scope, and to what extent — record here if it is only partially included", 1),
-            new SomFormFieldMeta("impactIfExcluded", "String", "Impact If Excluded", false, null, 2),
-            new SomFormFieldMeta("phase", "String", "Target Phase if deferred", false, null, 3)));
+            new SomFormFieldMeta("rationale", "String", "Rationale - why this scope decision", false, "Why the process is in or out of scope, and to what extent — record here if it is only partially included", 0),
+            new SomFormFieldMeta("impactIfExcluded", "String", "Impact If Excluded", false, null, 1),
+            new SomFormFieldMeta("phase", "String", "Target Phase if deferred", false, null, 2)));
         out.add(n);
       }
       return out;
@@ -67129,15 +66955,14 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("slaId", "String", "SLA ID", true, "Unique identifier for the SLA", 0),
-            new SomFormFieldMeta("slaName", "String", "SLA Name", true, "Short human-readable SLA name", 1),
-            new SomFormFieldMeta("serviceDescription", "String", "Service Description — what is promised", false, "Describe the promised service", 2),
-            new SomFormFieldMeta("targetLevel", "String", "Target Level — commitment", false, "State the committed target level", 3),
-            new SomFormFieldMeta("measurementMethod", "String", "Measurement Method — how compliance measured", false, "Describe how compliance is measured", 4),
-            new SomFormFieldMeta("reportingPeriod", "String", "Reporting Period — measurement window", false, "Give the measurement window", 5),
-            new SomFormFieldMeta("penaltyClause", "String", "Penalty Clause — consequence of breach", false, "State the consequence of a breach", 6),
-            new SomFormFieldMeta("escalationProcedure", "String", "Escalation Procedure — when SLA at risk", false, "Describe escalation when at risk", 7),
-            new SomFormFieldMeta("exclusions", "String", "Exclusions — what is not covered", false, "List what the SLA excludes", 8),
-            new SomFormFieldMeta("reviewFrequency", "String", "Review Frequency — when SLA is reviewed", false, "State how often the SLA is reviewed", 9)));
+            new SomFormFieldMeta("serviceDescription", "String", "Service Description — what is promised", false, "Describe the promised service", 1),
+            new SomFormFieldMeta("targetLevel", "String", "Target Level — commitment", false, "State the committed target level", 2),
+            new SomFormFieldMeta("measurementMethod", "String", "Measurement Method — how compliance measured", false, "Describe how compliance is measured", 3),
+            new SomFormFieldMeta("reportingPeriod", "String", "Reporting Period — measurement window", false, "Give the measurement window", 4),
+            new SomFormFieldMeta("penaltyClause", "String", "Penalty Clause — consequence of breach", false, "State the consequence of a breach", 5),
+            new SomFormFieldMeta("escalationProcedure", "String", "Escalation Procedure — when SLA at risk", false, "Describe escalation when at risk", 6),
+            new SomFormFieldMeta("exclusions", "String", "Exclusions — what is not covered", false, "List what the SLA excludes", 7),
+            new SomFormFieldMeta("reviewFrequency", "String", "Review Frequency — when SLA is reviewed", false, "State how often the SLA is reviewed", 8)));
         out.add(n);
       }
       return out;
@@ -67420,14 +67245,13 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("triggerId", "String", "Trigger ID", true, "Unique identifier for the trigger", 0),
-            new SomFormFieldMeta("triggerName", "String", "Trigger Name", true, "Descriptive name of the trigger", 1),
-            new SomFormFieldMeta("triggerType", "String", "Trigger Type — user action, system event, timer, message, signal", false, "BPMN start-event type of the trigger", 2),
-            new SomFormFieldMeta("triggerSource", "String", "Trigger Source — where trigger originates", false, "Where the trigger originates", 3),
-            new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition — when trigger fires", false, "Condition under which the trigger fires", 4),
-            new SomFormFieldMeta("triggerData", "String", "Trigger Data — data provided with trigger", false, "Data carried by the trigger", 5),
-            new SomFormFieldMeta("priority", "String", "Priority — processing priority", false, "Processing priority of this trigger", 6),
-            new SomFormFieldMeta("validationRules", "String", "Validation Rules — checks before process starts", false, "Checks applied before the process starts", 7),
-            new SomFormFieldMeta("frequency", "String", "Frequency — expected occurrence rate", false, "Expected occurrence rate of the trigger", 8)));
+            new SomFormFieldMeta("triggerType", "String", "Trigger Type — user action, system event, timer, message, signal", false, "BPMN start-event type of the trigger", 1),
+            new SomFormFieldMeta("triggerSource", "String", "Trigger Source — where trigger originates", false, "Where the trigger originates", 2),
+            new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition — when trigger fires", false, "Condition under which the trigger fires", 3),
+            new SomFormFieldMeta("triggerData", "String", "Trigger Data — data provided with trigger", false, "Data carried by the trigger", 4),
+            new SomFormFieldMeta("priority", "String", "Priority — processing priority", false, "Processing priority of this trigger", 5),
+            new SomFormFieldMeta("validationRules", "String", "Validation Rules — checks before process starts", false, "Checks applied before the process starts", 6),
+            new SomFormFieldMeta("frequency", "String", "Frequency — expected occurrence rate", false, "Expected occurrence rate of the trigger", 7)));
         out.add(n);
       }
       return out;
@@ -67637,9 +67461,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("languageName", "String", "Language Name", true, "E.g., Dart, TypeScript, Python, Rust", 0),
-            new SomFormFieldMeta("languageVariant", "String", "Variant", false, "E.g., Sound null safety, Strict mode", 1),
-            new SomFormFieldMeta("minimumVersion", "String", "Minimum Version", true, "Earliest supported language version", 2)));
+            new SomFormFieldMeta("languageVariant", "String", "Variant", false, "E.g., Sound null safety, Strict mode", 0),
+            new SomFormFieldMeta("minimumVersion", "String", "Minimum Version", true, "Earliest supported language version", 1)));
         out.add(n);
       }
       {
@@ -68149,12 +67972,11 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("protocolName", "String", "Protocol Name", true, "HTTP/2, WebSocket, gRPC, MQTT, AMQP", 0),
-            new SomFormFieldMeta("protocolType", "String", "Protocol Type", false, "Request-response, streaming, pub-sub, event-driven", 1),
-            new SomFormFieldMeta("protocolVersion", "String", "Protocol Version", false, "HTTP/2, MQTT 5.0, gRPC 1.x", 2),
-            new SomFormFieldMeta("transportLayer", "String", "Transport Layer", false, "TCP, UDP, QUIC", 3),
-            new SomFormFieldMeta("directionality", "String", "Directionality", false, "Client-to-server, bidirectional, server-push", 4),
-            new SomFormFieldMeta("notes", "String", "Notes", false, "Additional protocol notes", 5)));
+            new SomFormFieldMeta("protocolType", "String", "Protocol Type", false, "Request-response, streaming, pub-sub, event-driven", 0),
+            new SomFormFieldMeta("protocolVersion", "String", "Protocol Version", false, "HTTP/2, MQTT 5.0, gRPC 1.x", 1),
+            new SomFormFieldMeta("transportLayer", "String", "Transport Layer", false, "TCP, UDP, QUIC", 2),
+            new SomFormFieldMeta("directionality", "String", "Directionality", false, "Client-to-server, bidirectional, server-push", 3),
+            new SomFormFieldMeta("notes", "String", "Notes", false, "Additional protocol notes", 4)));
         out.add(n);
       }
       return out;
@@ -68588,13 +68410,12 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("featureId", "String", "Feature ID", true, "Unique identifier for the feature", 0, java.util.List.of(), java.util.List.of("FPE.featureId")),
-            new SomFormFieldMeta("featureName", "String", "Feature Name", true, "Name of the feature", 1),
-            new SomFormFieldMeta("inclusionReason", "String", "Inclusion Reason", false, "Why this feature is included", 2),
-            new SomFormFieldMeta("fidelityLevel", "String", "Fidelity Level", false, "Low, medium, high", 3),
-            new SomFormFieldMeta("completenessLevel", "String", "Completeness Level", false, "Full, partial, stub", 4),
-            new SomFormFieldMeta("relatedGoals", "String", "Related Goals", false, "Prototype goals this addresses", 5),
-            new SomFormFieldMeta("implementationNotes", "String", "Implementation Notes", false, "Notes on how the feature is built in the prototype", 6),
-            new SomFormFieldMeta("knownLimitations", "String", "Known Limitations", false, "Known limitations of the prototyped feature", 7)));
+            new SomFormFieldMeta("inclusionReason", "String", "Inclusion Reason", false, "Why this feature is included", 1),
+            new SomFormFieldMeta("fidelityLevel", "String", "Fidelity Level", false, "Low, medium, high", 2),
+            new SomFormFieldMeta("completenessLevel", "String", "Completeness Level", false, "Full, partial, stub", 3),
+            new SomFormFieldMeta("relatedGoals", "String", "Related Goals", false, "Prototype goals this addresses", 4),
+            new SomFormFieldMeta("implementationNotes", "String", "Implementation Notes", false, "Notes on how the feature is built in the prototype", 5),
+            new SomFormFieldMeta("knownLimitations", "String", "Known Limitations", false, "Known limitations of the prototyped feature", 6)));
         out.add(n);
       }
       return out;
@@ -69124,8 +68945,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("categoryId", "String", "Category ID", false, "Unique identifier (e.g., QC-USER-01)", 0),
-            new SomFormFieldMeta("categoryName", "String", "Category Name", true, "User-Related, Technical, Operational, Documentation", 1),
-            new SomFormFieldMeta("categoryWeight", "int", "Category Weight (1-100)", false, "Relative importance in overall quality", 2)));
+            new SomFormFieldMeta("categoryWeight", "int", "Category Weight (1-100)", false, "Relative importance in overall quality", 1)));
         out.add(n);
       }
       {
@@ -69888,15 +69708,14 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("scenarioId", "String", "Scenario ID", true, "Unique identifier for the scenario", 0),
-            new SomFormFieldMeta("scenarioName", "String", "Scenario Name", true, "Short descriptive name", 1),
-            new SomFormFieldMeta("source", "String", "Source (who/what generates the stimulus)", true, "Who/what generates the stimulus", 2),
-            new SomFormFieldMeta("stimulus", "String", "Stimulus (event or condition that triggers the scenario)", true, "Event or condition that triggers the scenario", 3),
-            new SomFormFieldMeta("environment", "String", "Environment (system state when stimulus occurs)", false, "System state when the stimulus occurs", 4),
-            new SomFormFieldMeta("artifact", "String", "Artifact (what part of system is affected)", false, "What part of the system is affected", 5),
-            new SomFormFieldMeta("response", "String", "Response (how the system should respond)", true, "How the system should respond", 6),
-            new SomFormFieldMeta("responseMeasure", "String", "Response Measure (quantifiable success criterion)", true, "Quantifiable success criterion for the response", 7),
-            new SomFormFieldMeta("priority", "String", "Priority (Core, Important, Nice-to-have)", false, "Core / Important / Nice-to-have", 8),
-            new SomFormFieldMeta("testability", "String", "Testability (how easy to test: Automated, Manual, Complex)", false, "How easy to test: Automated, Manual, Complex", 9)));
+            new SomFormFieldMeta("source", "String", "Source (who/what generates the stimulus)", true, "Who/what generates the stimulus", 1),
+            new SomFormFieldMeta("stimulus", "String", "Stimulus (event or condition that triggers the scenario)", true, "Event or condition that triggers the scenario", 2),
+            new SomFormFieldMeta("environment", "String", "Environment (system state when stimulus occurs)", false, "System state when the stimulus occurs", 3),
+            new SomFormFieldMeta("artifact", "String", "Artifact (what part of system is affected)", false, "What part of the system is affected", 4),
+            new SomFormFieldMeta("response", "String", "Response (how the system should respond)", true, "How the system should respond", 5),
+            new SomFormFieldMeta("responseMeasure", "String", "Response Measure (quantifiable success criterion)", true, "Quantifiable success criterion for the response", 6),
+            new SomFormFieldMeta("priority", "String", "Priority (Core, Important, Nice-to-have)", false, "Core / Important / Nice-to-have", 7),
+            new SomFormFieldMeta("testability", "String", "Testability (how easy to test: Automated, Manual, Complex)", false, "How easy to test: Automated, Manual, Complex", 8)));
         out.add(n);
       }
       return out;
@@ -69977,10 +69796,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("standardName", "String", "Standard Name", true, "E.g., CMMI, ISO 9001, Six Sigma", 0),
-            new SomFormFieldMeta("maturityLevel", "String", "Maturity Level", false, "For CMMI: Level 1-5", 1),
-            new SomFormFieldMeta("version", "String", "Version", false, "Standard version", 2),
-            new SomFormFieldMeta("scope", "String", "Scope", false, "Organization-wide or project-specific", 3)));
+            new SomFormFieldMeta("maturityLevel", "String", "Maturity Level", false, "For CMMI: Level 1-5", 0),
+            new SomFormFieldMeta("version", "String", "Version", false, "Standard version", 1),
+            new SomFormFieldMeta("scope", "String", "Scope", false, "Organization-wide or project-specific", 2)));
         out.add(n);
       }
       {
@@ -70447,14 +70265,13 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("scenarioId", "String", "Scenario ID", true, "Unique identifier for this recovery scenario", 0),
-            new SomFormFieldMeta("scenarioName", "String", "Scenario Name", true, "Descriptive name", 1),
-            new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition", false, "What error triggers this scenario", 2),
-            new SomFormFieldMeta("userImpact", "String", "User Impact", false, "How user is affected", 3),
-            new SomFormFieldMeta("recoverySteps", "String", "Recovery Steps", false, "Step-by-step recovery process", 4),
-            new SomFormFieldMeta("dataAtRisk", "String", "Data at Risk", false, "What data might be lost", 5),
-            new SomFormFieldMeta("preventionMeasures", "String", "Prevention Measures", false, "How scenario can be prevented", 6),
-            new SomFormFieldMeta("timeToRecover", "String", "Time to Recover", false, "Expected recovery duration", 7),
-            new SomFormFieldMeta("supportEscalation", "String", "Support Escalation", false, "When to escalate to support", 8)));
+            new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition", false, "What error triggers this scenario", 1),
+            new SomFormFieldMeta("userImpact", "String", "User Impact", false, "How user is affected", 2),
+            new SomFormFieldMeta("recoverySteps", "String", "Recovery Steps", false, "Step-by-step recovery process", 3),
+            new SomFormFieldMeta("dataAtRisk", "String", "Data at Risk", false, "What data might be lost", 4),
+            new SomFormFieldMeta("preventionMeasures", "String", "Prevention Measures", false, "How scenario can be prevented", 5),
+            new SomFormFieldMeta("timeToRecover", "String", "Time to Recover", false, "Expected recovery duration", 6),
+            new SomFormFieldMeta("supportEscalation", "String", "Support Escalation", false, "When to escalate to support", 7)));
         out.add(n);
       }
       {
@@ -70536,9 +70353,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("documentTitle", "String", "Document Title", true, "Full official title of the referenced document.", 0),
-            new SomFormFieldMeta("documentId", "String", "Document ID (internal reference number)", false, "Catalogue or internal reference number, if any.", 1),
-            new SomFormFieldMeta("version", "String", "Version", false, "Version or edition of the referenced document.", 2)));
+            new SomFormFieldMeta("documentId", "String", "Document ID (internal reference number)", false, "Catalogue or internal reference number, if any.", 0),
+            new SomFormFieldMeta("version", "String", "Version", false, "Version or edition of the referenced document.", 1)));
         out.add(n);
       }
       {
@@ -71019,9 +70835,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("relatedDocumentId", "String", "Related Document ID", true, "ID of the related referenced document.", 0),
-            new SomFormFieldMeta("relatedDocumentTitle", "String", "Related Document Title", false, "Title of the related referenced document.", 1),
-            new SomFormFieldMeta("relationshipType", "String", "Relationship Type (Depends On, Referenced By, Supersedes, Complements, Conflicts With, Parent Of, Child Of)", false, "Nature of the link, e.g. Depends On, Supersedes, Complements.", 2),
-            new SomFormFieldMeta("relationshipDescription", "String", "Relationship Description (explain the connection)", false, "Explain the connection between the two documents.", 3)));
+            new SomFormFieldMeta("relationshipType", "String", "Relationship Type (Depends On, Referenced By, Supersedes, Complements, Conflicts With, Parent Of, Child Of)", false, "Nature of the link, e.g. Depends On, Supersedes, Complements.", 1),
+            new SomFormFieldMeta("relationshipDescription", "String", "Relationship Description (explain the connection)", false, "Explain the connection between the two documents.", 2)));
         out.add(n);
       }
       return out;
@@ -71187,10 +71002,9 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sectionReference", "String", "Section Reference (chapter, section, or page number)", true, "Locate the section: chapter, clause, or page number.", 0),
-            new SomFormFieldMeta("sectionTitle", "String", "Section Title or Description", true, "Title or short description of the section.", 1),
-            new SomFormFieldMeta("relevance", "String", "Relevance (how this section applies to the project)", false, "Explain how this section applies to the project.", 2),
-            new SomFormFieldMeta("extractSummary", "String", "Summary / Key Extract (brief summary of applicable content)", false, "Brief summary or key extract of the applicable content.", 3),
-            new SomFormFieldMeta("complianceRequired", "bool", "Compliance Required (must project comply with this section?)", false, "True if the project must comply with this section.", 4)));
+            new SomFormFieldMeta("relevance", "String", "Relevance (how this section applies to the project)", false, "Explain how this section applies to the project.", 1),
+            new SomFormFieldMeta("extractSummary", "String", "Summary / Key Extract (brief summary of applicable content)", false, "Brief summary or key extract of the applicable content.", 2),
+            new SomFormFieldMeta("complianceRequired", "bool", "Compliance Required (must project comply with this section?)", false, "True if the project must comply with this section.", 3)));
         out.add(n);
       }
       return out;
@@ -71480,11 +71294,10 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("roleId", "String", "Role ID", true, "Unique identifier for the role being removed", 0),
-            new SomFormFieldMeta("roleTitle", "String", "Role Title", true, "Title of the role being removed", 1),
-            new SomFormFieldMeta("department", "String", "Department", false, "Department the removed role belongs to", 2),
-            new SomFormFieldMeta("removalReason", "String", "Removal Reason — automation, restructuring, outsourcing, redundancy", false, "Why the role is being eliminated", 3),
-            new SomFormFieldMeta("effectiveDate", "String", "Effective Date", false, "Date the role removal takes effect", 4),
-            new SomFormFieldMeta("incumbentCount", "int", "Incumbent Count — people affected", false, "Number of people currently in the role being removed", 5)));
+            new SomFormFieldMeta("department", "String", "Department", false, "Department the removed role belongs to", 1),
+            new SomFormFieldMeta("removalReason", "String", "Removal Reason — automation, restructuring, outsourcing, redundancy", false, "Why the role is being eliminated", 2),
+            new SomFormFieldMeta("effectiveDate", "String", "Effective Date", false, "Date the role removal takes effect", 3),
+            new SomFormFieldMeta("incumbentCount", "int", "Incumbent Count — people affected", false, "Number of people currently in the role being removed", 4)));
         out.add(n);
       }
       {
@@ -71631,11 +71444,10 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("phaseNumber", "int", "Phase Number", true, "Ordinal position of the phase", 0),
-            new SomFormFieldMeta("phaseName", "String", "Phase Name", true, "Descriptive name for the phase", 1),
-            new SomFormFieldMeta("phaseScope", "String", "Scope", false, "What this phase covers", 2),
-            new SomFormFieldMeta("startDate", "String", "Start Date", false, "When the phase begins", 3),
-            new SomFormFieldMeta("endDate", "String", "End Date", false, "When the phase ends", 4),
-            new SomFormFieldMeta("exitCriteria", "String", "Exit Criteria", false, "Conditions that mark the phase complete", 5)));
+            new SomFormFieldMeta("phaseScope", "String", "Scope", false, "What this phase covers", 1),
+            new SomFormFieldMeta("startDate", "String", "Start Date", false, "When the phase begins", 2),
+            new SomFormFieldMeta("endDate", "String", "End Date", false, "When the phase ends", 3),
+            new SomFormFieldMeta("exitCriteria", "String", "Exit Criteria", false, "Conditions that mark the phase complete", 4)));
         out.add(n);
       }
       return out;
@@ -71746,8 +71558,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("chartId", "String", "Chart ID", true, "Unique within section, e.g. CHT-01", 0),
-            new SomFormFieldMeta("title", "String", "Title", true, "Chart title", 1),
-            new SomFormFieldMeta("chartType", "String", "Chart Type", false, "Bar / Line / Pie / Donut / Scatter / Gauge / Heatmap", 2)));
+            new SomFormFieldMeta("chartType", "String", "Chart Type", false, "Bar / Line / Pie / Donut / Scatter / Gauge / Heatmap", 1)));
         out.add(n);
       }
       {
@@ -71872,8 +71683,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("columnId", "String", "Column ID", true, "Unique within section, e.g. COL-01", 0),
-            new SomFormFieldMeta("columnName", "String", "Column Name", true, "Internal field reference", 1),
-            new SomFormFieldMeta("displayLabel", "String", "Display Label", true, "Column header text shown in report", 2)));
+            new SomFormFieldMeta("displayLabel", "String", "Display Label", true, "Column header text shown in report", 1)));
         out.add(n);
       }
       {
@@ -72214,8 +72024,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("reportId", "String", "Report ID", true, "Unique identifier, e.g. RPT-001", 0),
-            new SomFormFieldMeta("reportName", "String", "Report Name", true, "Human-readable report title", 1),
-            new SomFormFieldMeta("reportType", "String", "Report Type", false, "Tabular / Summary / Dashboard / KPI-Card / Chart-Only / Mixed", 2)));
+            new SomFormFieldMeta("reportType", "String", "Report Type", false, "Tabular / Summary / Dashboard / KPI-Card / Chart-Only / Mixed", 1)));
         out.add(n);
       }
       {
@@ -72577,8 +72386,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("filterId", "String", "Filter ID", true, "Unique within report, e.g. FLT-01", 0),
-            new SomFormFieldMeta("filterName", "String", "Filter Name", true, "Internal reference name", 1),
-            new SomFormFieldMeta("displayLabel", "String", "Display Label", true, "Label shown in parameter form", 2)));
+            new SomFormFieldMeta("displayLabel", "String", "Display Label", true, "Label shown in parameter form", 1)));
         out.add(n);
       }
       {
@@ -72766,9 +72574,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("recipientId", "String", "Recipient ID", true, "Unique within report, e.g. REC-01", 0),
-            new SomFormFieldMeta("recipientName", "String", "Recipient Name", true, "Display name", 1),
-            new SomFormFieldMeta("recipientType", "String", "Recipient Type", false, "User / Role / Group / Email / Distribution-List / External-Contact / System-Account", 2),
-            new SomFormFieldMeta("recipientReference", "String", "Recipient Reference", false, "User ID, role name, group name, or email address", 3)));
+            new SomFormFieldMeta("recipientType", "String", "Recipient Type", false, "User / Role / Group / Email / Distribution-List / External-Contact / System-Account", 1),
+            new SomFormFieldMeta("recipientReference", "String", "Recipient Reference", false, "User ID, role name, group name, or email address", 2)));
         out.add(n);
       }
       {
@@ -72851,8 +72658,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("scheduleId", "String", "Schedule ID", true, "Unique within report, e.g. SCH-01", 0),
-            new SomFormFieldMeta("scheduleName", "String", "Schedule Name", true, "Human-readable name, e.g. Monthly Financial Close", 1),
-            new SomFormFieldMeta("frequency", "String", "Frequency", false, "Daily / Weekly / Bi-weekly / Monthly / Quarterly / Semi-annually / Annually / On-demand / Event-triggered", 2)));
+            new SomFormFieldMeta("frequency", "String", "Frequency", false, "Daily / Weekly / Bi-weekly / Monthly / Quarterly / Semi-annually / Annually / On-demand / Event-triggered", 1)));
         out.add(n);
       }
       {
@@ -72957,8 +72763,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sectionId", "String", "Section ID", true, "Unique within report, e.g. SEC-01", 0),
-            new SomFormFieldMeta("title", "String", "Title", true, "Section heading displayed in the report", 1),
-            new SomFormFieldMeta("sectionType", "String", "Section Type", false, "Table / Chart / Summary / Text / KPI-Card / Mixed", 2)));
+            new SomFormFieldMeta("sectionType", "String", "Section Type", false, "Table / Chart / Summary / Text / KPI-Card / Mixed", 1)));
         out.add(n);
       }
       {
@@ -73199,15 +73004,14 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("ruleId", "String", "Rule ID", true, "Unique identifier for this business rule", 0),
-            new SomFormFieldMeta("ruleName", "String", "Rule Name", true, "Short descriptive name for the rule", 1),
-            new SomFormFieldMeta("ruleType", "String", "Rule Type (Constraint, Computation, Derivation, Inference, Condition, Action, Workflow, Authorization)", false, "Constraint, Computation, Derivation, Inference, Condition, etc.", 2),
-            new SomFormFieldMeta("ruleStatement", "String", "Rule Statement (IF/WHEN condition THEN action)", true, "IF/WHEN condition THEN action statement", 3),
-            new SomFormFieldMeta("source", "String", "Source (policy, regulation, expert)", false, "Origin of the rule: policy, regulation, or expert", 4),
-            new SomFormFieldMeta("effectiveDate", "String", "Effective Date", false, "Date the rule takes effect", 5),
-            new SomFormFieldMeta("expirationDate", "String", "Expiration Date", false, "Date the rule expires, if any", 6),
-            new SomFormFieldMeta("exceptions", "String", "Exceptions (when rule does not apply)", false, "Cases in which the rule does not apply", 7),
-            new SomFormFieldMeta("enforcement", "String", "Enforcement (Hard = system enforces, Soft = warning only)", false, "Hard (system enforces) or Soft (warning only)", 8),
-            new SomFormFieldMeta("impact", "String", "Impact (what happens if rule is violated)", false, "What happens if the rule is violated", 9)));
+            new SomFormFieldMeta("ruleType", "String", "Rule Type (Constraint, Computation, Derivation, Inference, Condition, Action, Workflow, Authorization)", false, "Constraint, Computation, Derivation, Inference, Condition, etc.", 1),
+            new SomFormFieldMeta("ruleStatement", "String", "Rule Statement (IF/WHEN condition THEN action)", true, "IF/WHEN condition THEN action statement", 2),
+            new SomFormFieldMeta("source", "String", "Source (policy, regulation, expert)", false, "Origin of the rule: policy, regulation, or expert", 3),
+            new SomFormFieldMeta("effectiveDate", "String", "Effective Date", false, "Date the rule takes effect", 4),
+            new SomFormFieldMeta("expirationDate", "String", "Expiration Date", false, "Date the rule expires, if any", 5),
+            new SomFormFieldMeta("exceptions", "String", "Exceptions (when rule does not apply)", false, "Cases in which the rule does not apply", 6),
+            new SomFormFieldMeta("enforcement", "String", "Enforcement (Hard = system enforces, Soft = warning only)", false, "Hard (system enforces) or Soft (warning only)", 7),
+            new SomFormFieldMeta("impact", "String", "Impact (what happens if rule is violated)", false, "What happens if the rule is violated", 8)));
         out.add(n);
       }
       return out;
@@ -73495,25 +73299,24 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("actionId", "String", "Action ID", true, "Unique identifier for this action", 0),
-            new SomFormFieldMeta("actionLabel", "String", "Action Label (button text)", true, "Button or link text for the action", 1),
-            new SomFormFieldMeta("actionType", "String", "Action Type (Submit, Cancel, Navigate, API Call, Dialog, Download, Print, Delete, Duplicate, Export, Import, Refresh, Save, SaveAndNew, SaveAndClose, Custom)", true, "Submit, Cancel, Navigate, API Call, Dialog, Save, etc.", 2),
-            new SomFormFieldMeta("icon", "String", "Icon (Material Icon name or custom)", false, "Material Icon name or custom icon", 3),
-            new SomFormFieldMeta("iconPosition", "String", "Icon Position (Left, Right, Only)", false, "Left, Right, or Only", 4),
-            new SomFormFieldMeta("buttonStyle", "String", "Button Style (Primary, Secondary, Text, Outlined, Danger)", false, "Primary, Secondary, Text, Outlined, or Danger", 5),
-            new SomFormFieldMeta("placement", "String", "Placement (Toolbar, Inline, Footer, ContextMenu, FAB)", false, "Toolbar, Inline, Footer, ContextMenu, or FAB", 6),
-            new SomFormFieldMeta("keyboardShortcut", "String", "Keyboard Shortcut", false, "Keyboard shortcut that triggers the action", 7),
-            new SomFormFieldMeta("enabled", "String", "Enabled (Yes, No, Conditional)", false, "Yes, No, or Conditional", 8),
-            new SomFormFieldMeta("enabledCondition", "String", "Enabled Condition", false, "Condition under which the action is enabled", 9),
-            new SomFormFieldMeta("visible", "String", "Visible (Yes, No, Conditional)", false, "Yes, No, or Conditional", 10),
-            new SomFormFieldMeta("visibilityCondition", "String", "Visibility Condition", false, "Condition under which the action is visible", 11),
-            new SomFormFieldMeta("confirmationRequired", "String", "Confirmation Required (Yes, No)", false, "Whether the action requires confirmation", 12),
-            new SomFormFieldMeta("confirmationMessage", "String", "Confirmation Message", false, "Message shown to confirm the action", 13),
-            new SomFormFieldMeta("successMessage", "String", "Success Message", false, "Message shown on success", 14),
-            new SomFormFieldMeta("errorMessage", "String", "Error Message", false, "Message shown on error", 15),
-            new SomFormFieldMeta("navigationTarget", "String", "Navigation Target (if Navigate)", false, "Destination when the action navigates", 16),
-            new SomFormFieldMeta("apiEndpoint", "String", "API Endpoint (if API Call)", false, "API endpoint called by the action", 17),
-            new SomFormFieldMeta("requiredPermission", "String", "Required Permission", false, "Permission required to invoke the action", 18),
-            new SomFormFieldMeta("auditLogging", "String", "Audit Logging (Yes, No)", false, "Whether the action is audit-logged", 19)));
+            new SomFormFieldMeta("actionType", "String", "Action Type (Submit, Cancel, Navigate, API Call, Dialog, Download, Print, Delete, Duplicate, Export, Import, Refresh, Save, SaveAndNew, SaveAndClose, Custom)", true, "Submit, Cancel, Navigate, API Call, Dialog, Save, etc.", 1),
+            new SomFormFieldMeta("icon", "String", "Icon (Material Icon name or custom)", false, "Material Icon name or custom icon", 2),
+            new SomFormFieldMeta("iconPosition", "String", "Icon Position (Left, Right, Only)", false, "Left, Right, or Only", 3),
+            new SomFormFieldMeta("buttonStyle", "String", "Button Style (Primary, Secondary, Text, Outlined, Danger)", false, "Primary, Secondary, Text, Outlined, or Danger", 4),
+            new SomFormFieldMeta("placement", "String", "Placement (Toolbar, Inline, Footer, ContextMenu, FAB)", false, "Toolbar, Inline, Footer, ContextMenu, or FAB", 5),
+            new SomFormFieldMeta("keyboardShortcut", "String", "Keyboard Shortcut", false, "Keyboard shortcut that triggers the action", 6),
+            new SomFormFieldMeta("enabled", "String", "Enabled (Yes, No, Conditional)", false, "Yes, No, or Conditional", 7),
+            new SomFormFieldMeta("enabledCondition", "String", "Enabled Condition", false, "Condition under which the action is enabled", 8),
+            new SomFormFieldMeta("visible", "String", "Visible (Yes, No, Conditional)", false, "Yes, No, or Conditional", 9),
+            new SomFormFieldMeta("visibilityCondition", "String", "Visibility Condition", false, "Condition under which the action is visible", 10),
+            new SomFormFieldMeta("confirmationRequired", "String", "Confirmation Required (Yes, No)", false, "Whether the action requires confirmation", 11),
+            new SomFormFieldMeta("confirmationMessage", "String", "Confirmation Message", false, "Message shown to confirm the action", 12),
+            new SomFormFieldMeta("successMessage", "String", "Success Message", false, "Message shown on success", 13),
+            new SomFormFieldMeta("errorMessage", "String", "Error Message", false, "Message shown on error", 14),
+            new SomFormFieldMeta("navigationTarget", "String", "Navigation Target (if Navigate)", false, "Destination when the action navigates", 15),
+            new SomFormFieldMeta("apiEndpoint", "String", "API Endpoint (if API Call)", false, "API endpoint called by the action", 16),
+            new SomFormFieldMeta("requiredPermission", "String", "Required Permission", false, "Permission required to invoke the action", 17),
+            new SomFormFieldMeta("auditLogging", "String", "Audit Logging (Yes, No)", false, "Whether the action is audit-logged", 18)));
         out.add(n);
       }
       {
@@ -73567,10 +73370,9 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("testCaseId", "String", "Test Case ID", true, "Unique identifier for the test case", 0),
-            new SomFormFieldMeta("testCaseName", "String", "Test Case Name", true, "Short descriptive name for the test case", 1),
-            new SomFormFieldMeta("testType", "String", "Test Type (Unit, Integration, System, Acceptance, UAT, Regression)", false, "Unit, Integration, System, Acceptance, UAT, or Regression", 2),
-            new SomFormFieldMeta("testCategory", "String", "Test Category (Positive, Negative, Boundary, Error, Performance)", false, "Positive, Negative, Boundary, Error, or Performance", 3),
-            new SomFormFieldMeta("preconditions", "String", "Preconditions", false, "Conditions that must hold before the test runs", 4)));
+            new SomFormFieldMeta("testType", "String", "Test Type (Unit, Integration, System, Acceptance, UAT, Regression)", false, "Unit, Integration, System, Acceptance, UAT, or Regression", 1),
+            new SomFormFieldMeta("testCategory", "String", "Test Category (Positive, Negative, Boundary, Error, Performance)", false, "Positive, Negative, Boundary, Error, or Performance", 2),
+            new SomFormFieldMeta("preconditions", "String", "Preconditions", false, "Conditions that must hold before the test runs", 3)));
         out.add(n);
       }
       {
@@ -74208,13 +74010,12 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("resourceType", "String", "Resource Type (Personnel, Budget, Tool, System, External)", true, "Personnel, Budget, Tool, System, or External", 0),
-            new SomFormFieldMeta("resourceName", "String", "Resource Name", true, "Name of the specific resource", 1),
-            new SomFormFieldMeta("quantity", "String", "Quantity or Allocation", false, "Amount or share of the resource allocated", 2),
-            new SomFormFieldMeta("duration", "String", "Duration (how long needed)", false, "How long the resource is needed", 3),
-            new SomFormFieldMeta("estimatedCost", "String", "Estimated Cost", false, "Estimated cost of the resource", 4),
-            new SomFormFieldMeta("availability", "String", "Availability (when available)", false, "When the resource becomes available", 5),
-            new SomFormFieldMeta("source", "String", "Source (internal, external, to be hired)", false, "Internal, external, or to be hired", 6),
-            new SomFormFieldMeta("status", "String", "Status (Requested, Allocated, Confirmed)", false, "Requested, Allocated, or Confirmed", 7)));
+            new SomFormFieldMeta("quantity", "String", "Quantity or Allocation", false, "Amount or share of the resource allocated", 1),
+            new SomFormFieldMeta("duration", "String", "Duration (how long needed)", false, "How long the resource is needed", 2),
+            new SomFormFieldMeta("estimatedCost", "String", "Estimated Cost", false, "Estimated cost of the resource", 3),
+            new SomFormFieldMeta("availability", "String", "Availability (when available)", false, "When the resource becomes available", 4),
+            new SomFormFieldMeta("source", "String", "Source (internal, external, to be hired)", false, "Internal, external, or to be hired", 5),
+            new SomFormFieldMeta("status", "String", "Status (Requested, Allocated, Confirmed)", false, "Requested, Allocated, or Confirmed", 6)));
         out.add(n);
       }
       return out;
@@ -75073,11 +74874,10 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("screenId", "String", "Screen ID", true, "Unique identifier of the screen this rule applies to", 0, java.util.List.of(), java.util.List.of("SCREN.screenId")),
-            new SomFormFieldMeta("screenName", "String", "Screen Name", true, "Human-readable name of the screen", 1),
-            new SomFormFieldMeta("mobileLayout", "String", "Mobile Layout", false, "How this screen is laid out on mobile", 2),
-            new SomFormFieldMeta("tabletLayout", "String", "Tablet Layout", false, "How this screen is laid out on tablet", 3),
-            new SomFormFieldMeta("desktopLayout", "String", "Desktop Layout", false, "How this screen is laid out on desktop", 4),
-            new SomFormFieldMeta("specialConsiderations", "String", "Special Considerations", false, "Any screen-specific responsive notes or exceptions", 5)));
+            new SomFormFieldMeta("mobileLayout", "String", "Mobile Layout", false, "How this screen is laid out on mobile", 1),
+            new SomFormFieldMeta("tabletLayout", "String", "Tablet Layout", false, "How this screen is laid out on tablet", 2),
+            new SomFormFieldMeta("desktopLayout", "String", "Desktop Layout", false, "How this screen is laid out on desktop", 3),
+            new SomFormFieldMeta("specialConsiderations", "String", "Special Considerations", false, "Any screen-specific responsive notes or exceptions", 4)));
         out.add(n);
       }
       return out;
@@ -75676,9 +75476,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("componentName", "String", "Component Name", true, "Widget or pattern name", 0),
-            new SomFormFieldMeta("componentCategory", "String", "Category", false, "Input, Display, Navigation, Layout, Feedback, Data", 1),
-            new SomFormFieldMeta("purpose", "String", "Purpose", false, "What this component does", 2)));
+            new SomFormFieldMeta("componentCategory", "String", "Category", false, "Input, Display, Navigation, Layout, Feedback, Data", 0),
+            new SomFormFieldMeta("purpose", "String", "Purpose", false, "What this component does", 1)));
         out.add(n);
       }
       {
@@ -76233,10 +76032,9 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("riskId", "String", "Risk ID (e.g., RISK-001, TR-001)", true, "Unique identifier for this risk", 0),
-            new SomFormFieldMeta("riskName", "String", "Risk Name — short descriptive name", true, "Short descriptive name for the risk", 1),
-            new SomFormFieldMeta("description", "String", "Description — detailed risk event and potential causes", false, "Detailed description of the risk event and its causes", 2),
-            new SomFormFieldMeta("category", "String", "Category — Technical, Schedule, Cost, Resource, External, Legal, Organizational", false, "Top-level risk category", 3),
-            new SomFormFieldMeta("subcategory", "String", "Subcategory — more specific categorization", false, "More specific categorization within the category", 4)));
+            new SomFormFieldMeta("description", "String", "Description — detailed risk event and potential causes", false, "Detailed description of the risk event and its causes", 1),
+            new SomFormFieldMeta("category", "String", "Category — Technical, Schedule, Cost, Resource, External, Legal, Organizational", false, "Top-level risk category", 2),
+            new SomFormFieldMeta("subcategory", "String", "Subcategory — more specific categorization", false, "More specific categorization within the category", 3)));
         out.add(n);
       }
       {
@@ -76817,12 +76615,11 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("competencyId", "String", "Competency ID", false, "Unique identifier for this competency", 0),
-            new SomFormFieldMeta("competencyName", "String", "Competency Name", true, "Name of the competency", 1),
-            new SomFormFieldMeta("competencyType", "String", "Competency Type — Core, Technical, Leadership", false, "Category such as core, technical or leadership", 2),
-            new SomFormFieldMeta("requiredLevel", "String", "Required Level — minimum proficiency", false, "Minimum proficiency that is mandatory", 3),
-            new SomFormFieldMeta("preferredLevel", "String", "Preferred Level — ideal proficiency", false, "Ideal proficiency level", 4),
-            new SomFormFieldMeta("assessmentMethod", "String", "Assessment Method — how evaluated during hiring", false, "How the competency is evaluated when hiring", 5),
-            new SomFormFieldMeta("developmentPriority", "String", "Development Priority — if gap exists", false, "Priority for developing this if a gap exists", 6)));
+            new SomFormFieldMeta("competencyType", "String", "Competency Type — Core, Technical, Leadership", false, "Category such as core, technical or leadership", 1),
+            new SomFormFieldMeta("requiredLevel", "String", "Required Level — minimum proficiency", false, "Minimum proficiency that is mandatory", 2),
+            new SomFormFieldMeta("preferredLevel", "String", "Preferred Level — ideal proficiency", false, "Ideal proficiency level", 3),
+            new SomFormFieldMeta("assessmentMethod", "String", "Assessment Method — how evaluated during hiring", false, "How the competency is evaluated when hiring", 4),
+            new SomFormFieldMeta("developmentPriority", "String", "Development Priority — if gap exists", false, "Priority for developing this if a gap exists", 5)));
         out.add(n);
       }
       return out;
@@ -77586,11 +77383,10 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("exampleName", "String", "Example Name", true, "Name for this example", 0),
-            new SomFormFieldMeta("scenario", "String", "Scenario", false, "Description of the example scenario", 1),
-            new SomFormFieldMeta("inputData", "String", "Input Data", false, "Example input values", 2),
-            new SomFormFieldMeta("expectedOutcome", "String", "Expected Outcome", false, "Expected result of rule evaluation", 3),
-            new SomFormFieldMeta("exampleType", "String", "Example Type", false, "Positive | Negative | EdgeCase | BoundaryCondition", 4)));
+            new SomFormFieldMeta("scenario", "String", "Scenario", false, "Description of the example scenario", 0),
+            new SomFormFieldMeta("inputData", "String", "Input Data", false, "Example input values", 1),
+            new SomFormFieldMeta("expectedOutcome", "String", "Expected Outcome", false, "Expected result of rule evaluation", 2),
+            new SomFormFieldMeta("exampleType", "String", "Example Type", false, "Positive | Negative | EdgeCase | BoundaryCondition", 3)));
         out.add(n);
       }
       return out;
@@ -77673,9 +77469,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dependencyId", "String", "Dependency ID", false, "Unique identifier, e.g. DEP-R-001", 0),
-            new SomFormFieldMeta("name", "String", "Dependency Name", true, "Component or service depended upon", 1),
-            new SomFormFieldMeta("version", "String", "Required Version", false, "Version or version range required", 2),
-            new SomFormFieldMeta("dependencyType", "String", "Dependency Type", false, "Runtime / Optional / Peer / Conditional", 3)));
+            new SomFormFieldMeta("version", "String", "Required Version", false, "Version or version range required", 1),
+            new SomFormFieldMeta("dependencyType", "String", "Dependency Type", false, "Runtime / Optional / Peer / Conditional", 2)));
         out.add(n);
       }
       {
@@ -78270,14 +78065,13 @@ public final class TomSomV0Meta {
         n.docComment = "Scenario identification.";
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("scenarioId", "String", "Scenario ID (e.g., SCE-001)", true, "Stable code such as SCE-001", 0),
-            new SomFormFieldMeta("scenarioName", "String", "Scenario Name", true, "Short descriptive name for the scenario", 1),
-            new SomFormFieldMeta("scenarioType", "String", "Scenario Type — happy path, alternative, exception", false, "One of happy path, alternative, or exception", 2),
-            new SomFormFieldMeta("description", "String", "Description — narrative summary", false, "One-paragraph narrative of the journey", 3),
-            new SomFormFieldMeta("businessGoal", "String", "Business Goal — what is achieved", false, "The outcome the actor is trying to reach", 4),
-            new SomFormFieldMeta("primaryActor", "String", "Primary Actor — who performs scenario", false, "The main actor driving the scenario", 5),
-            new SomFormFieldMeta("supportingActors", "String", "Supporting Actors — who else", false, "Other actors or systems that participate", 6),
-            new SomFormFieldMeta("priority", "String", "Priority — critical, high, medium, low", false, "Business priority of this scenario", 7),
-            new SomFormFieldMeta("complexity", "String", "Complexity — simple, moderate, complex", false, "Relative implementation/test complexity", 8)));
+            new SomFormFieldMeta("scenarioType", "String", "Scenario Type — happy path, alternative, exception", false, "One of happy path, alternative, or exception", 1),
+            new SomFormFieldMeta("description", "String", "Description — narrative summary", false, "One-paragraph narrative of the journey", 2),
+            new SomFormFieldMeta("businessGoal", "String", "Business Goal — what is achieved", false, "The outcome the actor is trying to reach", 3),
+            new SomFormFieldMeta("primaryActor", "String", "Primary Actor — who performs scenario", false, "The main actor driving the scenario", 4),
+            new SomFormFieldMeta("supportingActors", "String", "Supporting Actors — who else", false, "Other actors or systems that participate", 5),
+            new SomFormFieldMeta("priority", "String", "Priority — critical, high, medium, low", false, "Business priority of this scenario", 6),
+            new SomFormFieldMeta("complexity", "String", "Complexity — simple, moderate, complex", false, "Relative implementation/test complexity", 7)));
         n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("Cockburn — Writing Effective Use Cases: scenarios & scenario identity", "ISO/IEC/IEEE 29148 §6 — operational scenarios"), "connotation", "Captures the identifying attributes of a single key end-to-end scenario.")));
         out.add(n);
       }
@@ -78505,12 +78299,11 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.contentHelp = "One job the system runs off the request thread.\n\n**Deployment is opt-out.** A declared job is meant to run: leave *Enabled* set\nunless the job is deliberately dormant. Leave *Environments* empty to run it\neverywhere; naming environments restricts it to those, and is how a job that\nmust never run in production is kept out of it.\n\n**Failure policy is an exception, not a restatement.** Fill in the failure\nsubsection only where this job needs different numbers from the Execution\nControls (BJME). An entry that repeats the default is a second copy of it.\n";
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("jobName", "String", "Job Name", true, "The one identifier for this job (e.g. nightlyInvoiceRollup) — cited wherever the job is referenced", 0),
-            new SomFormFieldMeta("purpose", "String", "Purpose", true, "Why this job exists — the operational or business reason it runs on its own rather than as part of a request", 1),
-            new SomFormFieldMeta("triggerKind", "ScheduledJobTrigger", "Trigger Kind", true, "What starts the job — selects the trigger subsection below", 2, java.util.List.of("cron", "calendar", "event")),
-            new SomFormFieldMeta("primaryDataEntity", "String", "Primary Data Entity", true, "The Data Model entity this job primarily writes. This determines which service unit owns the job — never state ownership by hand.", 3, java.util.List.of(), java.util.List.of("DAENT.entityName")),
-            new SomFormFieldMeta("enabled", "bool", "Enabled", false, "Whether the job is deployed to run. A declared job is meant to run, so clear this only for a deliberately dormant job.", 4),
-            new SomFormFieldMeta("environments", "String", "Environments", false, "Comma-separated deployment environments this job runs in, or empty to run in every environment", 5)));
+            new SomFormFieldMeta("purpose", "String", "Purpose", true, "Why this job exists — the operational or business reason it runs on its own rather than as part of a request", 0),
+            new SomFormFieldMeta("triggerKind", "ScheduledJobTrigger", "Trigger Kind", true, "What starts the job — selects the trigger subsection below", 1, java.util.List.of("cron", "calendar", "event")),
+            new SomFormFieldMeta("primaryDataEntity", "String", "Primary Data Entity", true, "The Data Model entity this job primarily writes. This determines which service unit owns the job — never state ownership by hand.", 2, java.util.List.of(), java.util.List.of("DAENT.entityName")),
+            new SomFormFieldMeta("enabled", "bool", "Enabled", false, "Whether the job is deployed to run. A declared job is meant to run, so clear this only for a deliberately dormant job.", 3),
+            new SomFormFieldMeta("environments", "String", "Environments", false, "Comma-separated deployment environments this job runs in, or empty to run in every environment", 4)));
         out.add(n);
       }
       {
@@ -79040,8 +78833,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("actionId", "String", "Action ID", true, "Unique action identifier", 0),
-            new SomFormFieldMeta("actionName", "String", "Action Name", true, "Human-readable action name", 1),
-            new SomFormFieldMeta("actionType", "String", "Action Type", false, "Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh", 2)));
+            new SomFormFieldMeta("actionType", "String", "Action Type", false, "Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh", 1)));
         out.add(n);
       }
       {
@@ -79178,15 +78970,14 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("behaviorId", "String", "Behavior ID", true, "Unique identifier for this behavior", 0),
-            new SomFormFieldMeta("behaviorName", "String", "Behavior Name", true, "Short descriptive name for the behavior", 1),
-            new SomFormFieldMeta("behaviorType", "String", "Behavior Type (ConditionalVisibility, ConditionalRequired, Calculation, CascadingSelect, AutoPopulate, CrossFieldValidation, DynamicDefault, FieldFormatting, LiveSearch, InlineEdit)", true, "ConditionalVisibility, Calculation, CascadingSelect, etc.", 2),
-            new SomFormFieldMeta("triggerEvent", "String", "Trigger Event (OnLoad, OnChange, OnBlur, OnFocus, OnClick, OnSubmit, OnFieldChange)", false, "OnLoad, OnChange, OnBlur, OnFocus, OnClick, OnSubmit, etc.", 3),
-            new SomFormFieldMeta("triggerField", "String", "Trigger Field (if field-specific)", false, "Field that triggers the behavior, if field-specific", 4),
-            new SomFormFieldMeta("condition", "String", "Condition (when behavior applies)", false, "Condition under which the behavior applies", 5),
-            new SomFormFieldMeta("affectedFields", "String", "Affected Fields (field IDs)", false, "Field IDs affected by the behavior", 6, java.util.List.of(), java.util.List.of("SFE.fieldId")),
-            new SomFormFieldMeta("action", "String", "Action (Show, Hide, Enable, Disable, Calculate, Populate, Validate)", false, "Show, Hide, Enable, Disable, Calculate, Populate, or Validate", 7),
-            new SomFormFieldMeta("formula", "String", "Formula / Expression (for calculations)", false, "Formula or expression used for calculations", 8),
-            new SomFormFieldMeta("description", "String", "Behavior Description", false, "Description of what the behavior does", 9)));
+            new SomFormFieldMeta("behaviorType", "String", "Behavior Type (ConditionalVisibility, ConditionalRequired, Calculation, CascadingSelect, AutoPopulate, CrossFieldValidation, DynamicDefault, FieldFormatting, LiveSearch, InlineEdit)", true, "ConditionalVisibility, Calculation, CascadingSelect, etc.", 1),
+            new SomFormFieldMeta("triggerEvent", "String", "Trigger Event (OnLoad, OnChange, OnBlur, OnFocus, OnClick, OnSubmit, OnFieldChange)", false, "OnLoad, OnChange, OnBlur, OnFocus, OnClick, OnSubmit, etc.", 2),
+            new SomFormFieldMeta("triggerField", "String", "Trigger Field (if field-specific)", false, "Field that triggers the behavior, if field-specific", 3),
+            new SomFormFieldMeta("condition", "String", "Condition (when behavior applies)", false, "Condition under which the behavior applies", 4),
+            new SomFormFieldMeta("affectedFields", "String", "Affected Fields (field IDs)", false, "Field IDs affected by the behavior", 5, java.util.List.of(), java.util.List.of("SFE.fieldId")),
+            new SomFormFieldMeta("action", "String", "Action (Show, Hide, Enable, Disable, Calculate, Populate, Validate)", false, "Show, Hide, Enable, Disable, Calculate, Populate, or Validate", 6),
+            new SomFormFieldMeta("formula", "String", "Formula / Expression (for calculations)", false, "Formula or expression used for calculations", 7),
+            new SomFormFieldMeta("description", "String", "Behavior Description", false, "Description of what the behavior does", 8)));
         out.add(n);
       }
       return out;
@@ -79412,8 +79203,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("elementId", "String", "Element ID", true, "Unique within screen, e.g., btn-submit, fld-customer-name", 0),
-            new SomFormFieldMeta("elementName", "String", "Element Name", true, "Human-readable label", 1),
-            new SomFormFieldMeta("elementType", "ScreenElementKind", "Element Type", true, "The semantic element kind — selects the facet subsection.", 2, java.util.List.of("actionButton", "link", "textField", "numberField", "dateField", "selectField", "checkbox", "toggle", "dataDisplay", "dataTable", "card", "chart", "statusIndicator", "icon", "label", "image", "badge", "divider", "spacer", "tabBar"))));
+            new SomFormFieldMeta("elementType", "ScreenElementKind", "Element Type", true, "The semantic element kind — selects the facet subsection.", 1, java.util.List.of("actionButton", "link", "textField", "numberField", "dateField", "selectField", "checkbox", "toggle", "dataDisplay", "dataTable", "card", "chart", "statusIndicator", "icon", "label", "image", "badge", "divider", "spacer", "tabBar"))));
         out.add(n);
       }
       {
@@ -79756,8 +79546,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("screenId", "String", "Screen ID", true, "Unique identifier, e.g., SCR-001", 0),
-            new SomFormFieldMeta("screenName", "String", "Screen Name", true, "Human-readable screen title", 1),
-            new SomFormFieldMeta("purpose", "String", "Purpose", false, "Business purpose — what the user accomplishes here", 2)));
+            new SomFormFieldMeta("purpose", "String", "Purpose", false, "Business purpose — what the user accomplishes here", 1)));
         out.add(n);
       }
       {
@@ -79985,8 +79774,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("fieldId", "String", "Field ID", true, "Unique identifier for this field", 0),
-            new SomFormFieldMeta("fieldLabel", "String", "Field Label (display text)", true, "Display text shown for the field", 1),
-            new SomFormFieldMeta("fieldType", "ScreenFieldKind", "Field Type", true, "The kind of value the user supplies — selects the type-specific constraint and presentation subsections", 2, java.util.List.of("text", "multilineText", "email", "phone", "url", "password", "integer", "decimal", "currency", "date", "dateTime", "time", "singleSelect", "multiSelect", "file", "boolean"))));
+            new SomFormFieldMeta("fieldType", "ScreenFieldKind", "Field Type", true, "The kind of value the user supplies — selects the type-specific constraint and presentation subsections", 1, java.util.List.of("text", "multilineText", "email", "phone", "url", "password", "integer", "decimal", "currency", "date", "dateTime", "time", "singleSelect", "multiSelect", "file", "boolean"))));
         out.add(n);
       }
       {
@@ -80363,9 +80151,8 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("routeId", "String", "Route ID", true, "Stable identifier referenced by every navigation target, e.g., order-edit", 0),
             new SomFormFieldMeta("routePath", "String", "Route Path", false, "URL path pattern, e.g., /orders/:id/edit — presentation only, never used as a reference", 1),
-            new SomFormFieldMeta("routeTitle", "String", "Route Title", false, "Human-readable screen title shown in the title bar and history", 2),
-            new SomFormFieldMeta("screenId", "String", "Screen ID", false, "ID of the screen (SCREN registry) this route renders", 3, java.util.List.of(), java.util.List.of("SCREN.screenId")),
-            new SomFormFieldMeta("routeParameters", "String", "Route Parameters", false, "Comma-separated parameter names carried by the route, e.g., orderId,mode", 4)));
+            new SomFormFieldMeta("screenId", "String", "Screen ID", false, "ID of the screen (SCREN registry) this route renders", 2, java.util.List.of(), java.util.List.of("SCREN.screenId")),
+            new SomFormFieldMeta("routeParameters", "String", "Route Parameters", false, "Comma-separated parameter names carried by the route, e.g., orderId,mode", 3)));
         out.add(n);
       }
       return out;
@@ -80508,9 +80295,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sectionId", "String", "Section ID", true, "Unique within screen, e.g., header, filter-bar, main-content", 0),
-            new SomFormFieldMeta("sectionName", "String", "Section Name", true, "Human label, e.g., \"Filter Bar\", \"Order Details\"", 1),
-            new SomFormFieldMeta("purpose", "String", "Purpose", false, "What this zone contains", 2),
-            new SomFormFieldMeta("sectionType", "String", "Section Type", false, "Header/Toolbar/Filter-Bar/Content-Primary/Content-Secondary/Sidebar/Footer/Tab-Panel/Accordion-Panel/Drawer/Action-Bar/Form-Group", 3)));
+            new SomFormFieldMeta("purpose", "String", "Purpose", false, "What this zone contains", 1),
+            new SomFormFieldMeta("sectionType", "String", "Section Type", false, "Header/Toolbar/Filter-Bar/Content-Primary/Content-Secondary/Sidebar/Footer/Tab-Panel/Accordion-Panel/Drawer/Action-Bar/Form-Group", 2)));
         out.add(n);
       }
       {
@@ -80651,14 +80437,13 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("stateName", "String", "State Name", true, "Loading/Empty/Error/Permission-Denied/First-Use/Offline/Success", 0),
-            new SomFormFieldMeta("description", "String", "Description", false, "When this state occurs", 1),
-            new SomFormFieldMeta("messageResource", "String", "Message Resource", false, "Message key (MSGKR registry) for state message", 2, java.util.List.of(), java.util.List.of("MSGKE.key")),
-            new SomFormFieldMeta("iconResource", "String", "Icon Resource", false, "Resource key for state icon", 3),
-            new SomFormFieldMeta("illustrationResource", "String", "Illustration Resource", false, "Resource key for state illustration/image", 4),
-            new SomFormFieldMeta("primaryActionLabel", "String", "Primary Action Label", false, "Message key (MSGKR registry) for recovery action, e.g., Try Again", 5, java.util.List.of(), java.util.List.of("MSGKE.key")),
-            new SomFormFieldMeta("primaryActionTarget", "String", "Primary Action Target", false, "Action or navigation on recovery", 6),
-            new SomFormFieldMeta("secondaryActionLabel", "String", "Secondary Action Label", false, "Message key (MSGKR registry) for alternative action", 7, java.util.List.of(), java.util.List.of("MSGKE.key"))));
+            new SomFormFieldMeta("description", "String", "Description", false, "When this state occurs", 0),
+            new SomFormFieldMeta("messageResource", "String", "Message Resource", false, "Message key (MSGKR registry) for state message", 1, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("iconResource", "String", "Icon Resource", false, "Resource key for state icon", 2),
+            new SomFormFieldMeta("illustrationResource", "String", "Illustration Resource", false, "Resource key for state illustration/image", 3),
+            new SomFormFieldMeta("primaryActionLabel", "String", "Primary Action Label", false, "Message key (MSGKR registry) for recovery action, e.g., Try Again", 4, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("primaryActionTarget", "String", "Primary Action Target", false, "Action or navigation on recovery", 5),
+            new SomFormFieldMeta("secondaryActionLabel", "String", "Secondary Action Label", false, "Message key (MSGKR registry) for alternative action", 6, java.util.List.of(), java.util.List.of("MSGKE.key"))));
         out.add(n);
       }
       return out;
@@ -80774,9 +80559,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("categoryName", "String", "Category Name", true, "The name of this user category", 0),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this user category sees/can do", 1),
-            new SomFormFieldMeta("contentVariations", "String", "Content Variations", false, "How screen content differs for this category", 2)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What this user category sees/can do", 0),
+            new SomFormFieldMeta("contentVariations", "String", "Content Variations", false, "How screen content differs for this category", 1)));
         out.add(n);
       }
       return out;
@@ -81104,10 +80888,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("auditName", "String", "Audit Name", true, "Name or title of the audit requirement", 0),
-            new SomFormFieldMeta("auditCategory", "String", "Audit Category", false, "Penetration test, compliance audit, code audit, infrastructure audit", 1),
-            new SomFormFieldMeta("auditDescription", "String", "Description", false, "Detailed description of what the audit covers", 2),
-            new SomFormFieldMeta("frequency", "String", "Frequency", true, "Annual, semi-annual, quarterly, on-demand", 3)));
+            new SomFormFieldMeta("auditCategory", "String", "Audit Category", false, "Penetration test, compliance audit, code audit, infrastructure audit", 0),
+            new SomFormFieldMeta("auditDescription", "String", "Description", false, "Detailed description of what the audit covers", 1),
+            new SomFormFieldMeta("frequency", "String", "Frequency", true, "Annual, semi-annual, quarterly, on-demand", 2)));
         out.add(n);
       }
       {
@@ -81645,9 +81428,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("controlId", "String", "Control ID", true, "Stable unique identifier for the control", 0),
-            new SomFormFieldMeta("controlName", "String", "Control Name", true, "Short descriptive name for the control", 1),
-            new SomFormFieldMeta("controlType", "String", "Control Type (Preventive, Detective, Corrective, Deterrent, Compensating)", true, "Preventive, Detective, Corrective, Deterrent, or Compensating", 2),
-            new SomFormFieldMeta("implementationType", "String", "Implementation Type (Technical, Administrative, Physical)", false, "Technical, Administrative, or Physical", 3)));
+            new SomFormFieldMeta("controlType", "String", "Control Type (Preventive, Detective, Corrective, Deterrent, Compensating)", true, "Preventive, Detective, Corrective, Deterrent, or Compensating", 1),
+            new SomFormFieldMeta("implementationType", "String", "Implementation Type (Technical, Administrative, Physical)", false, "Technical, Administrative, or Physical", 2)));
         out.add(n);
       }
       {
@@ -81849,13 +81631,12 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("eventName", "String", "Event Name", true, "Unique identifier for this event type", 0),
-            new SomFormFieldMeta("eventCategory", "String", "Event Category", false, "Category (e.g., BusinessLogic, Integration, Compliance)", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "What triggers this event", 2),
-            new SomFormFieldMeta("severity", "String", "Severity", false, "Default severity level (e.g., Info, Warning, Critical)", 3),
-            new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition", false, "Specific condition that triggers logging", 4),
-            new SomFormFieldMeta("responseAction", "String", "Response Action", false, "Automated response if any (e.g., alert, block, notify)", 5),
-            new SomFormFieldMeta("complianceMapping", "String", "Compliance Mapping", false, "Relevant compliance requirement (e.g., PCI-DSS 10.2.5)", 6)));
+            new SomFormFieldMeta("eventCategory", "String", "Event Category", false, "Category (e.g., BusinessLogic, Integration, Compliance)", 0),
+            new SomFormFieldMeta("description", "String", "Description", false, "What triggers this event", 1),
+            new SomFormFieldMeta("severity", "String", "Severity", false, "Default severity level (e.g., Info, Warning, Critical)", 2),
+            new SomFormFieldMeta("triggerCondition", "String", "Trigger Condition", false, "Specific condition that triggers logging", 3),
+            new SomFormFieldMeta("responseAction", "String", "Response Action", false, "Automated response if any (e.g., alert, block, notify)", 4),
+            new SomFormFieldMeta("complianceMapping", "String", "Compliance Mapping", false, "Relevant compliance requirement (e.g., PCI-DSS 10.2.5)", 5)));
         out.add(n);
       }
       return out;
@@ -82352,10 +82133,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("standardName", "String", "Standard Name", true, "E.g., SOC 2, ISO 27001, CIS Controls", 0),
-            new SomFormFieldMeta("standardType", "String", "Standard Type", false, "Framework, Certification, Benchmark", 1),
-            new SomFormFieldMeta("version", "String", "Version", false, "Standard version", 2),
-            new SomFormFieldMeta("trustServiceCriteria", "String", "Trust Service Criteria", false, "For SOC 2: Security, Availability, etc.", 3)));
+            new SomFormFieldMeta("standardType", "String", "Standard Type", false, "Framework, Certification, Benchmark", 0),
+            new SomFormFieldMeta("version", "String", "Version", false, "Standard version", 1),
+            new SomFormFieldMeta("trustServiceCriteria", "String", "Trust Service Criteria", false, "For SOC 2: Security, Availability, etc.", 2)));
         out.add(n);
       }
       {
@@ -82453,10 +82233,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("standardName", "String", "Standard Name", true, "E.g., OWASP Top 10, ISO 27001, SOC 2, NIST CSF", 0),
-            new SomFormFieldMeta("standardVersion", "String", "Standard Version", false, "Version or year of the standard", 1),
-            new SomFormFieldMeta("standardType", "String", "Standard Type", false, "Framework, Certification, Guideline, Benchmark", 2),
-            new SomFormFieldMeta("issuingBody", "String", "Issuing Body", false, "Organization that publishes the standard", 3)));
+            new SomFormFieldMeta("standardVersion", "String", "Standard Version", false, "Version or year of the standard", 0),
+            new SomFormFieldMeta("standardType", "String", "Standard Type", false, "Framework, Certification, Guideline, Benchmark", 1),
+            new SomFormFieldMeta("issuingBody", "String", "Issuing Body", false, "Organization that publishes the standard", 2)));
         out.add(n);
       }
       {
@@ -82934,10 +82713,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("environmentName", "String", "Environment Name", true, "E.g., Development, Staging, Production", 0),
-            new SomFormFieldMeta("environmentType", "String", "Environment Type", false, "Development, QA, UAT, Staging, Production, DR", 1),
-            new SomFormFieldMeta("environmentCode", "String", "Environment Code", false, "dev, stg, prod, dr", 2),
-            new SomFormFieldMeta("purpose", "String", "Purpose", false, "Primary purpose of this environment", 3)));
+            new SomFormFieldMeta("environmentType", "String", "Environment Type", false, "Development, QA, UAT, Staging, Production, DR", 0),
+            new SomFormFieldMeta("environmentCode", "String", "Environment Code", false, "dev, stg, prod, dr", 1),
+            new SomFormFieldMeta("purpose", "String", "Purpose", false, "Primary purpose of this environment", 2)));
         out.add(n);
       }
       {
@@ -83035,11 +82813,10 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("operationName", "String", "Operation Name", true, "Dotted, namespaced operation name (e.g. customer.save, order.submit) — the one operation identifier. Callers cite this name; no transport method or path is authored.", 0),
-            new SomFormFieldMeta("purpose", "String", "Purpose", false, "What the operation does, from the caller's point of view", 1),
-            new SomFormFieldMeta("primaryDataEntity", "String", "Primary Data Entity", false, "DataEntityEntry.entityName of the entity this operation primarily writes — the service unit that owns that entity owns this operation (ownership is derived, never listed by hand)", 2, java.util.List.of(), java.util.List.of("DAENT.entityName")),
-            new SomFormFieldMeta("descriptionKey", "String", "Description Copy Key", false, "MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)", 3, java.util.List.of(), java.util.List.of("MSGKE.key")),
-            new SomFormFieldMeta("errorCodes", "String", "Error Codes", false, "Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope", 4, java.util.List.of(), java.util.List.of("ERCEN.code"))));
+            new SomFormFieldMeta("purpose", "String", "Purpose", false, "What the operation does, from the caller's point of view", 0),
+            new SomFormFieldMeta("primaryDataEntity", "String", "Primary Data Entity", false, "DataEntityEntry.entityName of the entity this operation primarily writes — the service unit that owns that entity owns this operation (ownership is derived, never listed by hand)", 1, java.util.List.of(), java.util.List.of("DAENT.entityName")),
+            new SomFormFieldMeta("descriptionKey", "String", "Description Copy Key", false, "MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)", 2, java.util.List.of(), java.util.List.of("MSGKE.key")),
+            new SomFormFieldMeta("errorCodes", "String", "Error Codes", false, "Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope", 3, java.util.List.of(), java.util.List.of("ERCEN.code"))));
         out.add(n);
       }
       out.add(metaCx("AuthorizationRequirementSpec", s, AuthorizationRequirementSpecNav::metaChildren, (r, c) -> {
@@ -83131,13 +82908,12 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("memberName", "String", "Member Name", true, "Name of the member within the shape (e.g. customerId, includeArchived)", 0),
-            new SomFormFieldMeta("memberType", "String", "Member Type", true, "Text | Number | Integer | Decimal | Boolean | Date | Timestamp | Binary | DataEntity | DomainEnum. For DataEntity or DomainEnum, name the source in the field below.", 1),
-            new SomFormFieldMeta("multiValued", "bool", "Multi-Valued", false, "Whether the member carries a collection of the type rather than a single value", 2),
-            new SomFormFieldMeta("required", "bool", "Required", false, "Whether the member must be present", 3),
-            new SomFormFieldMeta("dataEntity", "String", "Data Entity", false, "DataEntityEntry.entityName the member is typed by, when its type is DataEntity", 4, java.util.List.of(), java.util.List.of("DAENT.entityName")),
-            new SomFormFieldMeta("domainEnum", "String", "Domain Enum", false, "DomainEnumEntry.enumName the member is typed by, when its type is DomainEnum", 5, java.util.List.of(), java.util.List.of("DMENE.enumName")),
-            new SomFormFieldMeta("description", "String", "Description", false, "What the member means and any authoring guidance", 6)));
+            new SomFormFieldMeta("memberType", "String", "Member Type", true, "Text | Number | Integer | Decimal | Boolean | Date | Timestamp | Binary | DataEntity | DomainEnum. For DataEntity or DomainEnum, name the source in the field below.", 0),
+            new SomFormFieldMeta("multiValued", "bool", "Multi-Valued", false, "Whether the member carries a collection of the type rather than a single value", 1),
+            new SomFormFieldMeta("required", "bool", "Required", false, "Whether the member must be present", 2),
+            new SomFormFieldMeta("dataEntity", "String", "Data Entity", false, "DataEntityEntry.entityName the member is typed by, when its type is DataEntity", 3, java.util.List.of(), java.util.List.of("DAENT.entityName")),
+            new SomFormFieldMeta("domainEnum", "String", "Domain Enum", false, "DomainEnumEntry.enumName the member is typed by, when its type is DomainEnum", 4, java.util.List.of(), java.util.List.of("DMENE.enumName")),
+            new SomFormFieldMeta("description", "String", "Description", false, "What the member means and any authoring guidance", 5)));
         out.add(n);
       }
       return out;
@@ -83529,9 +83305,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("roleName", "String", "Role Name", true, "E.g., Application Server, Database Server", 0),
-            new SomFormFieldMeta("roleType", "String", "Role Type", false, "App, Web, Database, Cache, Queue, Gateway", 1),
-            new SomFormFieldMeta("roleAbbreviation", "String", "Abbreviation", false, "Short code for role", 2)));
+            new SomFormFieldMeta("roleType", "String", "Role Type", false, "App, Web, Database, Cache, Queue, Gateway", 0),
+            new SomFormFieldMeta("roleAbbreviation", "String", "Abbreviation", false, "Short code for role", 1)));
         out.add(n);
       }
       {
@@ -84697,9 +84472,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("componentName", "String", "Component Name", true, "Unique library name", 0),
-            new SomFormFieldMeta("componentType", "String", "Component Type", false, "Core, Utility, Domain, Integration, Extension", 1),
-            new SomFormFieldMeta("version", "String", "Version", false, "Current version", 2)));
+            new SomFormFieldMeta("componentType", "String", "Component Type", false, "Core, Utility, Domain, Integration, Extension", 0),
+            new SomFormFieldMeta("version", "String", "Version", false, "Current version", 1)));
         out.add(n);
       }
       {
@@ -84802,9 +84576,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("libraryName", "String", "Library Name", true, "Library identifier", 0),
-            new SomFormFieldMeta("libraryType", "String", "Library Type", false, "Utility, Domain, Infrastructure, UI", 1),
-            new SomFormFieldMeta("version", "String", "Version", false, "Current version", 2)));
+            new SomFormFieldMeta("libraryType", "String", "Library Type", false, "Utility, Domain, Infrastructure, UI", 0),
+            new SomFormFieldMeta("version", "String", "Version", false, "Current version", 1)));
         out.add(n);
       }
       {
@@ -85366,9 +85139,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("sloId", "String", "SLO ID", true, "Unique SLO identifier", 0),
-            new SomFormFieldMeta("sloName", "String", "SLO Name", true, "Human-readable SLO name", 1),
-            new SomFormFieldMeta("sloDescription", "String", "SLO Description", false, "What this SLO covers", 2),
-            new SomFormFieldMeta("serviceName", "String", "Service Name", false, "Service the SLO applies to", 3)));
+            new SomFormFieldMeta("sloDescription", "String", "SLO Description", false, "What this SLO covers", 1),
+            new SomFormFieldMeta("serviceName", "String", "Service Name", false, "Service the SLO applies to", 2)));
         out.add(n);
       }
       {
@@ -85560,9 +85332,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("layerName", "String", "Layer Name", true, "E.g., Presentation, Application, Domain, Infrastructure, Data Access", 0),
-            new SomFormFieldMeta("layerLevel", "String", "Level", false, "Numeric level (0 = bottom, higher = top)", 1),
-            new SomFormFieldMeta("layerPattern", "String", "Pattern", false, "E.g., Clean Architecture, Onion, Hexagonal, N-Tier", 2)));
+            new SomFormFieldMeta("layerLevel", "String", "Level", false, "Numeric level (0 = bottom, higher = top)", 0),
+            new SomFormFieldMeta("layerPattern", "String", "Pattern", false, "E.g., Clean Architecture, Onion, Hexagonal, N-Tier", 1)));
         out.add(n);
       }
       {
@@ -86174,8 +85945,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stageNumber", "String", "Stage Number", true, "1, 2, 3… — sequential stage number", 0),
-            new SomFormFieldMeta("stageName", "String", "Stage Name", true, "Descriptive name, e.g. Foundation, Core Operations", 1),
-            new SomFormFieldMeta("currentStatus", "String", "Current Status", false, "Planned / Active / Completed / OnHold / Cancelled", 2)));
+            new SomFormFieldMeta("currentStatus", "String", "Current Status", false, "Planned / Active / Completed / OnHold / Cancelled", 1)));
         out.add(n);
       }
       {
@@ -86718,8 +86488,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("riskId", "String", "Risk ID", true, "Unique identifier — e.g. MIG-R001, MIG-R002", 0),
-            new SomFormFieldMeta("riskName", "String", "Risk Name", true, "Short descriptive name — e.g. Data Loss During Cutover", 1),
-            new SomFormFieldMeta("riskCategory", "String", "Risk Category", true, "DataLoss / DataCorruption / DowntimeOverrun / SecurityBreach", 2)));
+            new SomFormFieldMeta("riskCategory", "String", "Risk Category", true, "DataLoss / DataCorruption / DowntimeOverrun / SecurityBreach", 1)));
         out.add(n);
       }
       {
@@ -87492,8 +87261,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stageNumber", "String", "Stage Number", true, "1, 2, 3… — sequential stage number", 0),
-            new SomFormFieldMeta("stageName", "String", "Stage Name", true, "Descriptive name, e.g. Foundation / Core Operations", 1),
-            new SomFormFieldMeta("scopeSummary", "String", "Scope Summary", true, "One-line summary of what this stage delivers", 2)));
+            new SomFormFieldMeta("scopeSummary", "String", "Scope Summary", true, "One-line summary of what this stage delivers", 1)));
         out.add(n);
       }
       {
@@ -88076,9 +87844,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("stakeholderName", "String", "Stakeholder Name or Group", true, "Name of the stakeholder individual or group", 0),
-            new SomFormFieldMeta("stakeholderType", "String", "Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)", false, "Sponsor, User, Customer, Partner, Regulator, etc.", 1),
-            new SomFormFieldMeta("expectedBenefits", "String", "Expected Benefits (the scope-framing value this group gains from the system)", false, "The scope-framing value this group gains from the system", 2)));
+            new SomFormFieldMeta("stakeholderType", "String", "Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)", false, "Sponsor, User, Customer, Partner, Regulator, etc.", 0),
+            new SomFormFieldMeta("expectedBenefits", "String", "Expected Benefits (the scope-framing value this group gains from the system)", false, "The scope-framing value this group gains from the system", 1)));
         out.add(n);
       }
       return out;
@@ -88108,12 +87875,11 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stakeholderId", "String", "Stakeholder ID (STK-NNN)", true, null, 0),
-            new SomFormFieldMeta("name", "String", "Name or Group", true, null, 1),
-            new SomFormFieldMeta("role", "String", "Role", true, null, 2),
-            new SomFormFieldMeta("interest", "String", "Interest (what they care about)", false, null, 3),
-            new SomFormFieldMeta("influence", "String", "Influence (High, Medium, Low)", false, null, 4),
-            new SomFormFieldMeta("concerns", "String", "Concerns", false, null, 5),
-            new SomFormFieldMeta("engagementStrategy", "String", "Engagement Strategy", false, null, 6)));
+            new SomFormFieldMeta("role", "String", "Role", true, null, 1),
+            new SomFormFieldMeta("interest", "String", "Interest (what they care about)", false, null, 2),
+            new SomFormFieldMeta("influence", "String", "Influence (High, Medium, Low)", false, null, 3),
+            new SomFormFieldMeta("concerns", "String", "Concerns", false, null, 4),
+            new SomFormFieldMeta("engagementStrategy", "String", "Engagement Strategy", false, null, 5)));
         out.add(n);
       }
       return out;
@@ -88988,10 +88754,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("subFunctionName", "String", "Sub-Function Name", true, "Name of the sub-function", 0),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this sub-function does", 1),
-            new SomFormFieldMeta("dataAccess", "String", "Data Access", false, "Entities accessed with CRUD notation", 2),
-            new SomFormFieldMeta("systemSupport", "String", "System Support", false, "Systems that support this function", 3)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What this sub-function does", 0),
+            new SomFormFieldMeta("dataAccess", "String", "Data Access", false, "Entities accessed with CRUD notation", 1),
+            new SomFormFieldMeta("systemSupport", "String", "System Support", false, "Systems that support this function", 2)));
         out.add(n);
       }
       return out;
@@ -89020,9 +88785,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("name", "String", "Name", true, "Descriptive name for this sub-stage or milestone", 0),
-            new SomFormFieldMeta("subStageType", "String", "Type", false, "Alpha / Beta / RC / Pilot / GA / Milestone / Sprint / Iteration / Hardening", 1),
-            new SomFormFieldMeta("sequenceNumber", "String", "Sequence Number", false, "Order within the parent stage — 1, 2, 3…", 2)));
+            new SomFormFieldMeta("subStageType", "String", "Type", false, "Alpha / Beta / RC / Pilot / GA / Milestone / Sprint / Iteration / Hardening", 0),
+            new SomFormFieldMeta("sequenceNumber", "String", "Sequence Number", false, "Order within the parent stage — 1, 2, 3…", 1)));
         out.add(n);
       }
       {
@@ -89374,8 +89138,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("criterionId", "String", "Criterion ID", true, "Unique identifier (e.g., SC-001)", 0),
-            new SomFormFieldMeta("criterionName", "String", "Criterion Name", true, "Short descriptive name", 1),
-            new SomFormFieldMeta("category", "String", "Category", true, "Business, Technical, User, Compliance, Budget, Timeline", 2)));
+            new SomFormFieldMeta("category", "String", "Category", true, "Business, Technical, User, Compliance, Budget, Timeline", 1)));
         out.add(n);
       }
       {
@@ -90167,11 +89930,10 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("processName", "String", "Process Name", true, "Name of the supported business process", 0),
-            new SomFormFieldMeta("processId", "String", "Process ID", false, "Identifier for the process if one exists", 1),
-            new SomFormFieldMeta("systemRole", "String", "System Role (Primary, Data Source, etc.)", false, "Role the system plays in the process", 2),
-            new SomFormFieldMeta("automationLevel", "String", "Automation Level", false, "Degree to which the process is automated", 3),
-            new SomFormFieldMeta("processFrequency", "String", "Execution Frequency", false, "How often the process runs", 4)));
+            new SomFormFieldMeta("processId", "String", "Process ID", false, "Identifier for the process if one exists", 0),
+            new SomFormFieldMeta("systemRole", "String", "System Role (Primary, Data Source, etc.)", false, "Role the system plays in the process", 1),
+            new SomFormFieldMeta("automationLevel", "String", "Automation Level", false, "Degree to which the process is automated", 2),
+            new SomFormFieldMeta("processFrequency", "String", "Execution Frequency", false, "How often the process runs", 3)));
         out.add(n);
       }
       return out;
@@ -90200,11 +89962,10 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("unitName", "String", "Business Unit", true, "Name of the business unit", 0),
-            new SomFormFieldMeta("userCount", "int", "User Count", false, "Number of users in this unit", 1),
-            new SomFormFieldMeta("usagePattern", "String", "Usage Pattern (Daily, Weekly, etc.)", false, "How frequently the unit uses the system", 2),
-            new SomFormFieldMeta("dependencyLevel", "String", "Dependency Level (Primary, Secondary, Occasional)", false, "How dependent the unit is on the system", 3),
-            new SomFormFieldMeta("impactIfRemoved", "String", "Impact if System Removed", false, "Consequence to the unit if the system is removed", 4)));
+            new SomFormFieldMeta("userCount", "int", "User Count", false, "Number of users in this unit", 0),
+            new SomFormFieldMeta("usagePattern", "String", "Usage Pattern (Daily, Weekly, etc.)", false, "How frequently the unit uses the system", 1),
+            new SomFormFieldMeta("dependencyLevel", "String", "Dependency Level (Primary, Secondary, Occasional)", false, "How dependent the unit is on the system", 2),
+            new SomFormFieldMeta("impactIfRemoved", "String", "Impact if System Removed", false, "Consequence to the unit if the system is removed", 3)));
         out.add(n);
       }
       return out;
@@ -90708,9 +90469,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("dependencyName", "String", "Dependency Name", true, "Descriptive name, e.g. CRM → ERP order sync", 0),
-            new SomFormFieldMeta("dependencyType", "String", "Dependency Type", false, "Data / Functional / Operational / Temporal / Transactional", 1),
-            new SomFormFieldMeta("direction", "String", "Direction", false, "Upstream / Downstream / Bidirectional", 2)));
+            new SomFormFieldMeta("dependencyType", "String", "Dependency Type", false, "Data / Functional / Operational / Temporal / Transactional", 0),
+            new SomFormFieldMeta("direction", "String", "Direction", false, "Upstream / Downstream / Bidirectional", 1)));
         out.add(n);
       }
       {
@@ -91298,9 +91058,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("integrationName", "String", "Integration Name", true, "Descriptive name, e.g. Real-time inventory sync", 0),
-            new SomFormFieldMeta("integrationType", "String", "Integration Type", false, "RealTime / Batch / EventDriven / RequestResponse / Manual", 1),
-            new SomFormFieldMeta("integrationPattern", "String", "Integration Pattern", false, "PointToPoint / HubSpoke / PubSub / ESB / ApiGateway", 2)));
+            new SomFormFieldMeta("integrationType", "String", "Integration Type", false, "RealTime / Batch / EventDriven / RequestResponse / Manual", 0),
+            new SomFormFieldMeta("integrationPattern", "String", "Integration Pattern", false, "PointToPoint / HubSpoke / PubSub / ESB / ApiGateway", 1)));
         out.add(n);
       }
       {
@@ -93007,8 +92766,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("taskId", "String", "Task ID", true, "Unique identifier for this task", 0),
-            new SomFormFieldMeta("taskName", "String", "Task Name", true, "Short descriptive name of the task", 1),
-            new SomFormFieldMeta("description", "String", "Description (what the user does)", false, "What the user does when performing this task", 2)));
+            new SomFormFieldMeta("description", "String", "Description (what the user does)", false, "What the user does when performing this task", 1)));
         out.add(n);
       }
       {
@@ -93251,9 +93009,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("systemId", "String", "System ID (e.g., SYS-CRM-001)", true, "Stable identifier for the legacy system being replaced", 0),
-            new SomFormFieldMeta("systemName", "String", "System Name", true, "Common name the organization uses for this system", 1),
-            new SomFormFieldMeta("officialName", "String", "Official/Vendor Name", false, "Vendor/product name and edition, if a commercial system", 2),
-            new SomFormFieldMeta("systemDescription", "String", "Description", false, "Brief description of what the system does and who uses it", 3)));
+            new SomFormFieldMeta("officialName", "String", "Official/Vendor Name", false, "Vendor/product name and edition, if a commercial system", 1),
+            new SomFormFieldMeta("systemDescription", "String", "Description", false, "Brief description of what the system does and who uses it", 2)));
         out.add(n);
       }
       {
@@ -93462,9 +93219,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("trainingId", "String", "Training ID", true, null, 0),
-            new SomFormFieldMeta("systemName", "String", "System Name", true, null, 1),
-            new SomFormFieldMeta("modulesCovered", "String", "Modules Covered — system modules in scope", false, null, 2),
-            new SomFormFieldMeta("userRoleFocus", "String", "User Role Focus — specific role training", false, null, 3)));
+            new SomFormFieldMeta("modulesCovered", "String", "Modules Covered — system modules in scope", false, null, 1),
+            new SomFormFieldMeta("userRoleFocus", "String", "User Role Focus — specific role training", false, null, 2)));
         out.add(n);
       }
       {
@@ -93713,9 +93469,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("tabBarId", "String", "Tab Bar ID", true, "Unique identifier, e.g., tabs-customer-detail", 0),
-            new SomFormFieldMeta("tabBarName", "String", "Tab Bar Name", true, "Human label", 1),
-            new SomFormFieldMeta("hostScreenId", "String", "Host Screen ID", false, "Screen that contains this tab bar", 2, java.util.List.of(), java.util.List.of("SCREN.screenId")),
-            new SomFormFieldMeta("tabBarStyle", "String", "Style", false, "Material-Tabs/Segmented-Control/Pill-Tabs/Scrollable-Tabs", 3)));
+            new SomFormFieldMeta("hostScreenId", "String", "Host Screen ID", false, "Screen that contains this tab bar", 1, java.util.List.of(), java.util.List.of("SCREN.screenId")),
+            new SomFormFieldMeta("tabBarStyle", "String", "Style", false, "Material-Tabs/Segmented-Control/Pill-Tabs/Scrollable-Tabs", 2)));
         out.add(n);
       }
       {
@@ -93916,9 +93671,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("platformName", "String", "Platform Name", true, "E.g., Linux, Windows Server, macOS, iOS, Android", 0),
-            new SomFormFieldMeta("platformCategory", "String", "Category", false, "Operating System, Runtime Environment, Container Platform, Cloud Platform", 1),
-            new SomFormFieldMeta("platformType", "String", "Type", false, "Server, Desktop, Mobile, IoT", 2)));
+            new SomFormFieldMeta("platformCategory", "String", "Category", false, "Operating System, Runtime Environment, Container Platform, Cloud Platform", 0),
+            new SomFormFieldMeta("platformType", "String", "Type", false, "Server, Desktop, Mobile, IoT", 1)));
         out.add(n);
       }
       {
@@ -94016,10 +93770,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("name", "String", "Name", true, "Full name of the team member", 0),
-            new SomFormFieldMeta("projectRole", "String", "Project Role", true, "Role this person plays on the project", 1),
-            new SomFormFieldMeta("organization", "String", "Organization/Department", false, "Their home organization or department", 2),
-            new SomFormFieldMeta("jobTitle", "String", "Job Title", false, "Their substantive job title", 3)));
+            new SomFormFieldMeta("projectRole", "String", "Project Role", true, "Role this person plays on the project", 0),
+            new SomFormFieldMeta("organization", "String", "Organization/Department", false, "Their home organization or department", 1),
+            new SomFormFieldMeta("jobTitle", "String", "Job Title", false, "Their substantive job title", 2)));
         out.add(n);
       }
       {
@@ -94190,10 +93943,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("skillName", "String", "Skill Name", true, "Name of the skill or competency", 0),
-            new SomFormFieldMeta("proficiencyLevel", "String", "Proficiency (Expert/Advanced/Intermediate/Beginner)", false, "Expert / Advanced / Intermediate / Beginner", 1),
-            new SomFormFieldMeta("yearsUsing", "int", "Years Using", false, "How many years they have used this skill", 2),
-            new SomFormFieldMeta("lastUsed", "String", "Last Used", false, "When the skill was most recently applied", 3)));
+            new SomFormFieldMeta("proficiencyLevel", "String", "Proficiency (Expert/Advanced/Intermediate/Beginner)", false, "Expert / Advanced / Intermediate / Beginner", 0),
+            new SomFormFieldMeta("yearsUsing", "int", "Years Using", false, "How many years they have used this skill", 1),
+            new SomFormFieldMeta("lastUsed", "String", "Last Used", false, "When the skill was most recently applied", 2)));
         out.add(n);
       }
       return out;
@@ -94360,13 +94112,12 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("constraintId", "String", "Constraint ID", true, "Unique identifier for the constraint", 0),
-            new SomFormFieldMeta("constraintName", "String", "Constraint Name", true, "Short descriptive name", 1),
-            new SomFormFieldMeta("constraintType", "String", "Constraint Type (Technology, Standard, Resource, Compatibility, Budget, Timeline, Regulatory)", false, "Technology, Standard, Resource, Compatibility, Budget, etc.", 2),
-            new SomFormFieldMeta("description", "String", "Description", false, "What the constraint requires", 3),
-            new SomFormFieldMeta("source", "String", "Source (who/what imposed this constraint)", false, "Who or what imposed this constraint", 4),
-            new SomFormFieldMeta("rationale", "String", "Rationale (why this constraint exists)", false, "Why this constraint exists", 5),
-            new SomFormFieldMeta("impact", "String", "Impact (how this affects our approach)", false, "How this affects our approach", 6),
-            new SomFormFieldMeta("flexibility", "String", "Flexibility (Fixed, Negotiable, Preferred)", false, "Fixed / Negotiable / Preferred", 7)));
+            new SomFormFieldMeta("constraintType", "String", "Constraint Type (Technology, Standard, Resource, Compatibility, Budget, Timeline, Regulatory)", false, "Technology, Standard, Resource, Compatibility, Budget, etc.", 1),
+            new SomFormFieldMeta("description", "String", "Description", false, "What the constraint requires", 2),
+            new SomFormFieldMeta("source", "String", "Source (who/what imposed this constraint)", false, "Who or what imposed this constraint", 3),
+            new SomFormFieldMeta("rationale", "String", "Rationale (why this constraint exists)", false, "Why this constraint exists", 4),
+            new SomFormFieldMeta("impact", "String", "Impact (how this affects our approach)", false, "How this affects our approach", 5),
+            new SomFormFieldMeta("flexibility", "String", "Flexibility (Fixed, Negotiable, Preferred)", false, "Fixed / Negotiable / Preferred", 6)));
         out.add(n);
       }
       return out;
@@ -94396,13 +94147,12 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("dependencyId", "String", "Dependency ID", true, "Unique identifier for the dependency", 0),
-            new SomFormFieldMeta("dependencyName", "String", "Dependency Name", true, "Name of the dependency", 1),
-            new SomFormFieldMeta("dependencyType", "String", "Dependency Type (Infrastructure, API, Library, Service, Hardware, Network, Third-party)", false, "Infrastructure, API, Library, Service, Hardware, etc.", 2),
-            new SomFormFieldMeta("description", "String", "Description", false, "What the dependency provides", 3),
-            new SomFormFieldMeta("version", "String", "Version (if applicable)", false, "Required version, if applicable", 4),
-            new SomFormFieldMeta("sla", "String", "SLA (if external service)", false, "Service-level agreement for external services", 5),
-            new SomFormFieldMeta("fallback", "String", "Fallback (what if unavailable)", false, "What happens if the dependency is unavailable", 6),
-            new SomFormFieldMeta("status", "String", "Status (Available, Pending, At Risk)", false, "Available / Pending / At Risk", 7)));
+            new SomFormFieldMeta("dependencyType", "String", "Dependency Type (Infrastructure, API, Library, Service, Hardware, Network, Third-party)", false, "Infrastructure, API, Library, Service, Hardware, etc.", 1),
+            new SomFormFieldMeta("description", "String", "Description", false, "What the dependency provides", 2),
+            new SomFormFieldMeta("version", "String", "Version (if applicable)", false, "Required version, if applicable", 3),
+            new SomFormFieldMeta("sla", "String", "SLA (if external service)", false, "Service-level agreement for external services", 4),
+            new SomFormFieldMeta("fallback", "String", "Fallback (what if unavailable)", false, "What happens if the dependency is unavailable", 5),
+            new SomFormFieldMeta("status", "String", "Status (Available, Pending, At Risk)", false, "Available / Pending / At Risk", 6)));
         out.add(n);
       }
       return out;
@@ -95001,10 +94751,9 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("goalId", "String", "Goal ID (unique identifier, e.g., TG-001)", true, "Unique identifier, e.g. TG-001", 0),
-            new SomFormFieldMeta("goalName", "String", "Goal Name (concise statement)", true, "Concise statement of the technical goal", 1),
-            new SomFormFieldMeta("description", "String", "Description (detailed explanation of the technical objective)", false, "Detailed explanation of the technical objective", 2),
-            new SomFormFieldMeta("goalCategory", "String", "Goal Category (Performance, Scalability, Reliability, Security, Usability, Accessibility, Maintainability, Portability, Interoperability, Compliance)", true, "Quality attribute category, e.g. Performance, Security", 3),
-            new SomFormFieldMeta("priority", "String", "Priority (Critical, High, Medium, Low)", true, "Critical / High / Medium / Low", 4)));
+            new SomFormFieldMeta("description", "String", "Description (detailed explanation of the technical objective)", false, "Detailed explanation of the technical objective", 1),
+            new SomFormFieldMeta("goalCategory", "String", "Goal Category (Performance, Scalability, Reliability, Security, Usability, Accessibility, Maintainability, Portability, Interoperability, Compliance)", true, "Quality attribute category, e.g. Performance, Security", 2),
+            new SomFormFieldMeta("priority", "String", "Priority (Critical, High, Medium, Low)", true, "Critical / High / Medium / Low", 3)));
         out.add(n);
       }
       {
@@ -95133,12 +94882,11 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("testCaseId", "String", "Test Case ID", true, "Unique identifier for the test case", 0),
-            new SomFormFieldMeta("testCaseName", "String", "Test Case Name", true, "Short descriptive name", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "What this test case verifies", 2),
-            new SomFormFieldMeta("testProcedure", "String", "Test Procedure", false, "Steps to execute the test", 3),
-            new SomFormFieldMeta("expectedResult", "String", "Expected Result", false, "Result expected when the goal is met", 4),
-            new SomFormFieldMeta("actualResult", "String", "Actual Result", false, "Result observed when the test was run", 5),
-            new SomFormFieldMeta("status", "String", "Status (Planned, In Progress, Passed, Failed)", false, "Planned / In Progress / Passed / Failed", 6)));
+            new SomFormFieldMeta("description", "String", "Description", false, "What this test case verifies", 1),
+            new SomFormFieldMeta("testProcedure", "String", "Test Procedure", false, "Steps to execute the test", 2),
+            new SomFormFieldMeta("expectedResult", "String", "Expected Result", false, "Result expected when the goal is met", 3),
+            new SomFormFieldMeta("actualResult", "String", "Actual Result", false, "Result observed when the test was run", 4),
+            new SomFormFieldMeta("status", "String", "Status (Planned, In Progress, Passed, Failed)", false, "Planned / In Progress / Passed / Failed", 5)));
         out.add(n);
       }
       return out;
@@ -95813,8 +95561,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("standardId", "String", "Standard ID", true, "Unique identifier, e.g. STD-SEC-001, STD-DEV-001", 0),
-            new SomFormFieldMeta("standardName", "String", "Standard Name", true, "Short descriptive name", 1),
-            new SomFormFieldMeta("standardCategory", "String", "Category", false, "Security, Development, Infrastructure, Integration, Data, DevOps", 2)));
+            new SomFormFieldMeta("standardCategory", "String", "Category", false, "Security, Development, Infrastructure, Integration, Data, DevOps", 1)));
         out.add(n);
       }
       {
@@ -96237,8 +95984,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("scenarioId", "String", "Scenario ID", true, "Unique identifier — e.g. UAT-SC-001", 0),
-            new SomFormFieldMeta("scenarioName", "String", "Scenario Name", true, "Concise name describing the user journey", 1),
-            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical / High / Medium / Low", 2)));
+            new SomFormFieldMeta("priority", "String", "Priority", false, "Critical / High / Medium / Low", 1)));
         out.add(n);
       }
       {
@@ -96817,9 +96563,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("libraryName", "String", "Library Name", true, "Package name", 0),
-            new SomFormFieldMeta("packageSource", "String", "Package Source", false, "pub.dev, npm, Maven, GitHub", 1),
-            new SomFormFieldMeta("version", "String", "Version", true, "Version constraint", 2)));
+            new SomFormFieldMeta("packageSource", "String", "Package Source", false, "pub.dev, npm, Maven, GitHub", 0),
+            new SomFormFieldMeta("version", "String", "Version", true, "Version constraint", 1)));
         out.add(n);
       }
       {
@@ -97211,8 +96956,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("toolId", "String", "Tool ID", true, "Unique identifier, e.g. TOOL-IDE-001", 0),
-            new SomFormFieldMeta("toolName", "String", "Tool Name", true, "Official product name, e.g. GitHub, Jira, VS Code", 1),
-            new SomFormFieldMeta("notes", "String", "Notes", false, "Additional notes, caveats, or context", 2)));
+            new SomFormFieldMeta("notes", "String", "Notes", false, "Additional notes, caveats, or context", 1)));
         out.add(n);
       }
       {
@@ -97757,11 +97501,10 @@ public final class TomSomV0Meta {
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("stepOrder", "int", "Step Order", true, "Sequence position of this step", 0),
             new SomFormFieldMeta("targetElement", "String", "Target Element", false, "Element to highlight", 1),
-            new SomFormFieldMeta("stepTitle", "String", "Step Title", false, "Short title shown for this step", 2),
-            new SomFormFieldMeta("stepContent", "String", "Step Content", true, "Explanatory text shown for this step", 3),
-            new SomFormFieldMeta("placement", "String", "Placement", false, "Position of coach mark", 4),
-            new SomFormFieldMeta("actionRequired", "String", "Action Required", false, "User action to proceed", 5),
-            new SomFormFieldMeta("spotlightShape", "String", "Spotlight Shape", false, "Circle, rectangle, custom", 6)));
+            new SomFormFieldMeta("stepContent", "String", "Step Content", true, "Explanatory text shown for this step", 2),
+            new SomFormFieldMeta("placement", "String", "Placement", false, "Position of coach mark", 3),
+            new SomFormFieldMeta("actionRequired", "String", "Action Required", false, "User action to proceed", 4),
+            new SomFormFieldMeta("spotlightShape", "String", "Spotlight Shape", false, "Circle, rectangle, custom", 5)));
         out.add(n);
       }
       return out;
@@ -97791,8 +97534,7 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("decisionId", "String", "Decision ID", false, "Unique identifier (e.g., TRADEOFF-001)", 0),
-            new SomFormFieldMeta("decisionTitle", "String", "Decision Title", true, null, 1),
-            new SomFormFieldMeta("decisionStatus", "String", "Status", false, "Proposed, approved, implemented, reversed", 2)));
+            new SomFormFieldMeta("decisionStatus", "String", "Status", false, "Proposed, approved, implemented, reversed", 1)));
         out.add(n);
       }
       {
@@ -98335,13 +98077,12 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("moduleId", "String", "Module ID", true, "Unique identifier for the module", 0),
-            new SomFormFieldMeta("moduleName", "String", "Module Name", true, "Descriptive title of the module", 1),
-            new SomFormFieldMeta("targetAudience", "String", "Target Audience", false, "End users, admins, power users", 2),
-            new SomFormFieldMeta("duration", "String", "Duration", false, "Expected length (e.g., 2 hours, half day)", 3),
-            new SomFormFieldMeta("deliveryMethod", "String", "Delivery Method", false, "In-person, virtual, self-paced", 4),
-            new SomFormFieldMeta("prerequisites", "String", "Prerequisites", false, "Required prior knowledge or modules", 5),
-            new SomFormFieldMeta("learningObjectives", "String", "Learning Objectives", false, "What learners will be able to do", 6),
-            new SomFormFieldMeta("assessmentMethod", "String", "Assessment Method", false, "Quiz, exercise, certification", 7)));
+            new SomFormFieldMeta("targetAudience", "String", "Target Audience", false, "End users, admins, power users", 1),
+            new SomFormFieldMeta("duration", "String", "Duration", false, "Expected length (e.g., 2 hours, half day)", 2),
+            new SomFormFieldMeta("deliveryMethod", "String", "Delivery Method", false, "In-person, virtual, self-paced", 3),
+            new SomFormFieldMeta("prerequisites", "String", "Prerequisites", false, "Required prior knowledge or modules", 4),
+            new SomFormFieldMeta("learningObjectives", "String", "Learning Objectives", false, "What learners will be able to do", 5),
+            new SomFormFieldMeta("assessmentMethod", "String", "Assessment Method", false, "Quiz, exercise, certification", 6)));
         out.add(n);
       }
       return out;
@@ -98608,12 +98349,11 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("topicName", "String", "Topic Name", true, "Name of the training topic", 0),
-            new SomFormFieldMeta("description", "String", "Description", false, "Brief description of what this topic covers", 1),
-            new SomFormFieldMeta("learningObjectives", "String", "Learning Objectives", false, "What learners should be able to do after this topic", 2),
-            new SomFormFieldMeta("duration", "String", "Duration", false, "Estimated time to cover this topic", 3),
-            new SomFormFieldMeta("prerequisites", "String", "Prerequisites", false, "Knowledge or topics required before this one", 4),
-            new SomFormFieldMeta("assessmentMethod", "String", "Assessment Method", false, "How learning of this topic is assessed", 5)));
+            new SomFormFieldMeta("description", "String", "Description", false, "Brief description of what this topic covers", 0),
+            new SomFormFieldMeta("learningObjectives", "String", "Learning Objectives", false, "What learners should be able to do after this topic", 1),
+            new SomFormFieldMeta("duration", "String", "Duration", false, "Estimated time to cover this topic", 2),
+            new SomFormFieldMeta("prerequisites", "String", "Prerequisites", false, "Knowledge or topics required before this one", 3),
+            new SomFormFieldMeta("assessmentMethod", "String", "Assessment Method", false, "How learning of this topic is assessed", 4)));
         out.add(n);
       }
       return out;
@@ -98799,12 +98539,11 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("metricId", "String", "Metric ID", true, "A unique identifier for this success metric", 0),
-            new SomFormFieldMeta("metricName", "String", "Metric Name", true, "A short descriptive name for this success metric", 1),
-            new SomFormFieldMeta("category", "String", "Category — Adoption, Performance, Quality, Satisfaction, Efficiency", false, "The category of this metric: Adoption, Performance, Quality, Satisfaction, or Efficiency", 2),
-            new SomFormFieldMeta("description", "String", "Description", false, "A description of what this metric measures and why it matters", 3),
-            new SomFormFieldMeta("measurementMethod", "String", "Measurement Method", false, "How this metric is measured, including the data source and calculation", 4),
-            new SomFormFieldMeta("baseline", "String", "Baseline Value", false, "The baseline value of this metric before the transition, used as a comparison point", 5),
-            new SomFormFieldMeta("target", "String", "Target Value", false, "The target value this metric should reach to indicate success", 6)));
+            new SomFormFieldMeta("category", "String", "Category — Adoption, Performance, Quality, Satisfaction, Efficiency", false, "The category of this metric: Adoption, Performance, Quality, Satisfaction, or Efficiency", 1),
+            new SomFormFieldMeta("description", "String", "Description", false, "A description of what this metric measures and why it matters", 2),
+            new SomFormFieldMeta("measurementMethod", "String", "Measurement Method", false, "How this metric is measured, including the data source and calculation", 3),
+            new SomFormFieldMeta("baseline", "String", "Baseline Value", false, "The baseline value of this metric before the transition, used as a comparison point", 4),
+            new SomFormFieldMeta("target", "String", "Target Value", false, "The target value this metric should reach to indicate success", 5)));
         out.add(n);
       }
       {
@@ -98869,12 +98608,11 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("milestoneId", "String", "Milestone ID (e.g., MS-01)", true, "Unique identifier for the milestone, e.g. MS-01", 0),
-            new SomFormFieldMeta("milestoneName", "String", "Milestone Name", true, "Short descriptive name for the milestone", 1),
-            new SomFormFieldMeta("milestoneType", "String", "Milestone Type — Decision Gate, Checkpoint, Go-Live, Closure", false, "The kind of milestone: Decision Gate, Checkpoint, Go-Live, or Closure", 2),
-            new SomFormFieldMeta("targetDate", "String", "Target Date", false, "The planned date by which the milestone should be achieved", 3),
-            new SomFormFieldMeta("actualDate", "String", "Actual Date — when achieved", false, "The actual date on which the milestone was achieved", 4),
-            new SomFormFieldMeta("status", "String", "Status — Planned, On Track, At Risk, Delayed, Achieved", false, "Current status of the milestone: Planned, On Track, At Risk, Delayed, or Achieved", 5),
-            new SomFormFieldMeta("description", "String", "Description", false, "A short description of what the milestone represents", 6)));
+            new SomFormFieldMeta("milestoneType", "String", "Milestone Type — Decision Gate, Checkpoint, Go-Live, Closure", false, "The kind of milestone: Decision Gate, Checkpoint, Go-Live, or Closure", 1),
+            new SomFormFieldMeta("targetDate", "String", "Target Date", false, "The planned date by which the milestone should be achieved", 2),
+            new SomFormFieldMeta("actualDate", "String", "Actual Date — when achieved", false, "The actual date on which the milestone was achieved", 3),
+            new SomFormFieldMeta("status", "String", "Status — Planned, On Track, At Risk, Delayed, Achieved", false, "Current status of the milestone: Planned, On Track, At Risk, Delayed, or Achieved", 4),
+            new SomFormFieldMeta("description", "String", "Description", false, "A short description of what the milestone represents", 5)));
         out.add(n);
       }
       {
@@ -99155,9 +98893,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("phaseId", "String", "Phase ID (e.g., PH-01)", true, "Unique identifier for the phase, e.g. PH-01", 0),
-            new SomFormFieldMeta("phaseName", "String", "Phase Name", true, "Short descriptive name for the transition phase", 1),
-            new SomFormFieldMeta("phaseType", "String", "Phase Type — Preparation, Pilot, Rollout, Stabilization, Closure", false, "The kind of phase: Preparation, Pilot, Rollout, Stabilization, or Closure", 2),
-            new SomFormFieldMeta("phaseOwner", "String", "Phase Owner", false, "The person or role accountable for delivering this phase", 3)));
+            new SomFormFieldMeta("phaseType", "String", "Phase Type — Preparation, Pilot, Rollout, Stabilization, Closure", false, "The kind of phase: Preparation, Pilot, Rollout, Stabilization, or Closure", 1),
+            new SomFormFieldMeta("phaseOwner", "String", "Phase Owner", false, "The person or role accountable for delivering this phase", 2)));
         out.add(n);
       }
       {
@@ -99256,9 +98993,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("riskId", "String", "Risk ID", true, "A unique identifier for this transition risk", 0),
-            new SomFormFieldMeta("riskName", "String", "Risk Name", true, "A short descriptive name for this transition risk", 1),
-            new SomFormFieldMeta("riskCategory", "String", "Risk Category — Resistance, Capacity, Timing, Resources, Dependencies", false, "The category of this risk: Resistance, Capacity, Timing, Resources, or Dependencies", 2),
-            new SomFormFieldMeta("description", "String", "Description", false, "A description of the risk, including what could go wrong and its potential consequences", 3)));
+            new SomFormFieldMeta("riskCategory", "String", "Risk Category — Resistance, Capacity, Timing, Resources, Dependencies", false, "The category of this risk: Resistance, Capacity, Timing, Resources, or Dependencies", 1),
+            new SomFormFieldMeta("description", "String", "Description", false, "A description of the risk, including what could go wrong and its potential consequences", 2)));
         out.add(n);
       }
       {
@@ -99386,14 +99122,13 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("resourceType", "String", "Resource Type — Help Desk, Super User, Floor Walker, Coach, FAQ", true, "The kind of support resource: Help Desk, Super User, Floor Walker, Coach, FAQ, etc.", 0),
-            new SomFormFieldMeta("resourceName", "String", "Resource Name/Title", false, "The name or title of this support resource", 1),
-            new SomFormFieldMeta("availabilityPeriod", "String", "Availability Period — start/end dates", false, "The start and end dates during which this resource is available", 2),
-            new SomFormFieldMeta("coverage", "String", "Coverage — locations/departments covered", false, "The locations, departments, or groups this resource covers", 3),
-            new SomFormFieldMeta("contactInfo", "String", "Contact Info — how to reach", false, "How users can reach this support resource", 4),
-            new SomFormFieldMeta("capacity", "String", "Capacity — how many can be supported", false, "The number of users or volume this resource can support", 5),
-            new SomFormFieldMeta("skills", "String", "Skills — expertise areas", false, "The areas of expertise or skills this resource provides", 6),
-            new SomFormFieldMeta("owner", "String", "Owner — who manages this resource", false, "The person or role that manages this support resource", 7),
-            new SomFormFieldMeta("costCenter", "String", "Cost Center — budget allocation", false, "The cost center or budget against which this resource is allocated", 8)));
+            new SomFormFieldMeta("availabilityPeriod", "String", "Availability Period — start/end dates", false, "The start and end dates during which this resource is available", 1),
+            new SomFormFieldMeta("coverage", "String", "Coverage — locations/departments covered", false, "The locations, departments, or groups this resource covers", 2),
+            new SomFormFieldMeta("contactInfo", "String", "Contact Info — how to reach", false, "How users can reach this support resource", 3),
+            new SomFormFieldMeta("capacity", "String", "Capacity — how many can be supported", false, "The number of users or volume this resource can support", 4),
+            new SomFormFieldMeta("skills", "String", "Skills — expertise areas", false, "The areas of expertise or skills this resource provides", 5),
+            new SomFormFieldMeta("owner", "String", "Owner — who manages this resource", false, "The person or role that manages this support resource", 6),
+            new SomFormFieldMeta("costCenter", "String", "Cost Center — budget allocation", false, "The cost center or budget against which this resource is allocated", 7)));
         out.add(n);
       }
       return out;
@@ -99761,13 +99496,12 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("vendorName", "String", "Vendor Name", true, "Legal or trading name of the translation vendor", 0),
-            new SomFormFieldMeta("vendorType", "String", "Vendor Type", false, "LSP, freelance, in-house", 1),
-            new SomFormFieldMeta("languages", "String", "Languages", false, "Languages handled by vendor", 2),
-            new SomFormFieldMeta("specializations", "String", "Specializations", false, "Technical, legal, marketing", 3),
-            new SomFormFieldMeta("turnaroundTime", "String", "Turnaround Time", false, "Typical delivery time per job (e.g., 2 business days)", 4),
-            new SomFormFieldMeta("qualityRating", "String", "Quality Rating", false, "Assessed quality score or rating for the vendor", 5),
-            new SomFormFieldMeta("contactInfo", "String", "Contact Info", false, "Primary contact name, email, or phone", 6)));
+            new SomFormFieldMeta("vendorType", "String", "Vendor Type", false, "LSP, freelance, in-house", 0),
+            new SomFormFieldMeta("languages", "String", "Languages", false, "Languages handled by vendor", 1),
+            new SomFormFieldMeta("specializations", "String", "Specializations", false, "Technical, legal, marketing", 2),
+            new SomFormFieldMeta("turnaroundTime", "String", "Turnaround Time", false, "Typical delivery time per job (e.g., 2 business days)", 3),
+            new SomFormFieldMeta("qualityRating", "String", "Quality Rating", false, "Assessed quality score or rating for the vendor", 4),
+            new SomFormFieldMeta("contactInfo", "String", "Contact Info", false, "Primary contact name, email, or phone", 5)));
         out.add(n);
       }
       return out;
@@ -99971,13 +99705,12 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("boundaryName", "String", "Boundary Name", true, "The name of this trust boundary", 0),
-            new SomFormFieldMeta("boundaryType", "String", "Boundary Type (Network Zone, Authentication Domain, Organizational, Legal/Regulatory, Cloud/On-Prem)", true, "The category of trust boundary", 1),
-            new SomFormFieldMeta("description", "String", "Description", false, "A short description of this boundary", 2),
-            new SomFormFieldMeta("componentsCrossing", "String", "Components Crossing (which parts of the system cross this boundary)", false, "Which parts of the system cross this boundary", 3),
-            new SomFormFieldMeta("protectionMechanisms", "String", "Protection Mechanisms (firewall, encryption, authentication, etc.)", false, "Mechanisms protecting this boundary", 4),
-            new SomFormFieldMeta("trustLevel", "String", "Trust Level (Untrusted, Semi-trusted, Trusted, Highly Trusted)", false, "The trust level on the other side of this boundary", 5),
-            new SomFormFieldMeta("complianceImplications", "String", "Compliance Implications (regulatory requirements for crossing)", false, "Regulatory requirements for crossing this boundary", 6)));
+            new SomFormFieldMeta("boundaryType", "String", "Boundary Type (Network Zone, Authentication Domain, Organizational, Legal/Regulatory, Cloud/On-Prem)", true, "The category of trust boundary", 0),
+            new SomFormFieldMeta("description", "String", "Description", false, "A short description of this boundary", 1),
+            new SomFormFieldMeta("componentsCrossing", "String", "Components Crossing (which parts of the system cross this boundary)", false, "Which parts of the system cross this boundary", 2),
+            new SomFormFieldMeta("protectionMechanisms", "String", "Protection Mechanisms (firewall, encryption, authentication, etc.)", false, "Mechanisms protecting this boundary", 3),
+            new SomFormFieldMeta("trustLevel", "String", "Trust Level (Untrusted, Semi-trusted, Trusted, Highly Trusted)", false, "The trust level on the other side of this boundary", 4),
+            new SomFormFieldMeta("complianceImplications", "String", "Compliance Implications (regulatory requirements for crossing)", false, "Regulatory requirements for crossing this boundary", 5)));
         out.add(n);
       }
       return out;
@@ -100006,14 +99739,13 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("styleName", "String", "Style Name", true, "DisplayLarge, BodyMedium, LabelSmall", 0),
-            new SomFormFieldMeta("fontFamily", "String", "Font Family", false, "Typeface family name", 1),
-            new SomFormFieldMeta("fontSize", "String", "Font Size", false, "Size in logical pixels", 2),
-            new SomFormFieldMeta("fontWeight", "String", "Font Weight", false, "Normal, medium, semibold, bold", 3),
-            new SomFormFieldMeta("lineHeight", "String", "Line Height", false, "Line height multiplier", 4),
-            new SomFormFieldMeta("letterSpacing", "String", "Letter Spacing", false, "Spacing between characters", 5),
-            new SomFormFieldMeta("textDecoration", "String", "Text Decoration", false, "None, underline, strikethrough", 6),
-            new SomFormFieldMeta("useCase", "String", "Use Case", false, "Where this style is used", 7)));
+            new SomFormFieldMeta("fontFamily", "String", "Font Family", false, "Typeface family name", 0),
+            new SomFormFieldMeta("fontSize", "String", "Font Size", false, "Size in logical pixels", 1),
+            new SomFormFieldMeta("fontWeight", "String", "Font Weight", false, "Normal, medium, semibold, bold", 2),
+            new SomFormFieldMeta("lineHeight", "String", "Line Height", false, "Line height multiplier", 3),
+            new SomFormFieldMeta("letterSpacing", "String", "Letter Spacing", false, "Spacing between characters", 4),
+            new SomFormFieldMeta("textDecoration", "String", "Text Decoration", false, "None, underline, strikethrough", 5),
+            new SomFormFieldMeta("useCase", "String", "Use Case", false, "Where this style is used", 6)));
         out.add(n);
       }
       return out;
@@ -100090,10 +99822,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("cycleName", "String", "Cycle Name", true, "e.g. \"Cycle 1 — Initial Execution\" or \"Regression Cycle\"", 0),
-            new SomFormFieldMeta("cycleObjective", "String", "Cycle Objective", false, "Purpose: full execution, regression, retest only, or targeted", 1),
-            new SomFormFieldMeta("plannedStartDate", "String", "Planned Start Date", false, "Start date for this cycle", 2),
-            new SomFormFieldMeta("plannedEndDate", "String", "Planned End Date", false, "End date for this cycle", 3)));
+            new SomFormFieldMeta("cycleObjective", "String", "Cycle Objective", false, "Purpose: full execution, regression, retest only, or targeted", 0),
+            new SomFormFieldMeta("plannedStartDate", "String", "Planned Start Date", false, "Start date for this cycle", 1),
+            new SomFormFieldMeta("plannedEndDate", "String", "Planned End Date", false, "End date for this cycle", 2)));
         out.add(n);
       }
       {
@@ -100194,9 +99925,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("componentId", "String", "Component ID", true, "Unique identifier (e.g., CMP-DTT-001)", 0),
-            new SomFormFieldMeta("componentName", "String", "Component Name", true, "Human-readable name", 1),
-            new SomFormFieldMeta("componentFamily", "String", "Component Family", false, "Button, Input, Table, Navigation, etc.", 2),
-            new SomFormFieldMeta("baseComponent", "String", "Base Component", false, "Base component of the shared library this one specialises (Data Table, Text Input)", 3)));
+            new SomFormFieldMeta("componentFamily", "String", "Component Family", false, "Button, Input, Table, Navigation, etc.", 1),
+            new SomFormFieldMeta("baseComponent", "String", "Base Component", false, "Base component of the shared library this one specialises (Data Table, Text Input)", 2)));
         out.add(n);
       }
       {
@@ -101653,12 +101383,11 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("attributeName", "String", "Attribute Name", true, "Name of the user attribute.", 0),
-            new SomFormFieldMeta("dataType", "String", "Data Type", false, "Data type of the attribute value.", 1),
-            new SomFormFieldMeta("placement", "UserAttributePlacement", "Placement", false, "public (token public payload, resource-key guardable) or encrypted (authorization-token encrypted payload).", 2, java.util.List.of("public", "encrypted")),
-            new SomFormFieldMeta("accessGuard", "String", "Access Guard", false, "Resource key guarding read access to a public attribute; encrypted attributes are readable only by token-decrypting layers.", 3),
-            new SomFormFieldMeta("source", "String", "Source", false, "System of record that supplies this attribute.", 4),
-            new SomFormFieldMeta("required", "String", "Required", false, "Whether this attribute is mandatory.", 5)));
+            new SomFormFieldMeta("dataType", "String", "Data Type", false, "Data type of the attribute value.", 0),
+            new SomFormFieldMeta("placement", "UserAttributePlacement", "Placement", false, "public (token public payload, resource-key guardable) or encrypted (authorization-token encrypted payload).", 1, java.util.List.of("public", "encrypted")),
+            new SomFormFieldMeta("accessGuard", "String", "Access Guard", false, "Resource key guarding read access to a public attribute; encrypted attributes are readable only by token-decrypting layers.", 2),
+            new SomFormFieldMeta("source", "String", "Source", false, "System of record that supplies this attribute.", 3),
+            new SomFormFieldMeta("required", "String", "Required", false, "Whether this attribute is mandatory.", 4)));
         out.add(n);
       }
       return out;
@@ -101978,10 +101707,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("categoryName", "String", "Category Name", true, "Name of the user category.", 0),
-            new SomFormFieldMeta("description", "String", "Short description", false, "Brief description of this category.", 1),
-            new SomFormFieldMeta("accessLevel", "String", "Access Level", false, "Typical access level for this category.", 2),
-            new SomFormFieldMeta("estimatedCount", "String", "Estimated Count", false, "Estimated number of users in this category.", 3)));
+            new SomFormFieldMeta("description", "String", "Short description", false, "Brief description of this category.", 0),
+            new SomFormFieldMeta("accessLevel", "String", "Access Level", false, "Typical access level for this category.", 1),
+            new SomFormFieldMeta("estimatedCount", "String", "Estimated Count", false, "Estimated number of users in this category.", 2)));
         out.add(n);
       }
       return out;
@@ -102010,10 +101738,9 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("categoryName", "String", "Category Name", true, "Descriptive name of this user category", 0),
-            new SomFormFieldMeta("categoryId", "String", "Category ID (unique identifier)", true, "Unique stable identifier for cross-referencing this category", 1),
-            new SomFormFieldMeta("description", "String", "Description (brief summary of this user type)", true, "One- or two-sentence summary of this user type", 2),
-            new SomFormFieldMeta("userType", "String", "User Type (Internal, External, Partner, Customer, Administrator, etc.)", true, "Internal / External / Partner / Customer / Administrator", 3)));
+            new SomFormFieldMeta("categoryId", "String", "Category ID (unique identifier)", true, "Unique stable identifier for cross-referencing this category", 0),
+            new SomFormFieldMeta("description", "String", "Description (brief summary of this user type)", true, "One- or two-sentence summary of this user type", 1),
+            new SomFormFieldMeta("userType", "String", "User Type (Internal, External, Partner, Customer, Administrator, etc.)", true, "Internal / External / Partner / Customer / Administrator", 2)));
         out.add(n);
       }
       {
@@ -102282,11 +102009,10 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("groupName", "String", "User Group", true, "Name of the user group", 0),
-            new SomFormFieldMeta("userCount", "int", "User Count", false, "Number of users in the group", 1),
-            new SomFormFieldMeta("impactLevel", "String", "Impact Level (High, Medium, Low)", false, "How strongly the group is impacted", 2),
-            new SomFormFieldMeta("specialConsiderations", "String", "Special Considerations", false, "Any special handling the group needs", 3),
-            new SomFormFieldMeta("trainingNeeds", "String", "Training Needs", false, "Training specific to this group", 4)));
+            new SomFormFieldMeta("userCount", "int", "User Count", false, "Number of users in the group", 0),
+            new SomFormFieldMeta("impactLevel", "String", "Impact Level (High, Medium, Low)", false, "How strongly the group is impacted", 1),
+            new SomFormFieldMeta("specialConsiderations", "String", "Special Considerations", false, "Any special handling the group needs", 2),
+            new SomFormFieldMeta("trainingNeeds", "String", "Training Needs", false, "Training specific to this group", 3)));
         out.add(n);
       }
       return out;
@@ -102855,11 +102581,10 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("transitionName", "String", "Transition Name", true, "Descriptive name (e.g., \"Activate Account\", \"Suspend User\")", 0),
-            new SomFormFieldMeta("fromState", "String", "From State", true, "Source lifecycle state", 1),
-            new SomFormFieldMeta("toState", "String", "To State", true, "Target lifecycle state", 2),
-            new SomFormFieldMeta("trigger", "String", "Trigger", false, "UserRequest | AdminAction | SystemEvent | ScheduledJob", 3),
-            new SomFormFieldMeta("triggerConditions", "String", "Trigger Conditions", false, "Pre-conditions that must be met for this transition", 4)));
+            new SomFormFieldMeta("fromState", "String", "From State", true, "Source lifecycle state", 0),
+            new SomFormFieldMeta("toState", "String", "To State", true, "Target lifecycle state", 1),
+            new SomFormFieldMeta("trigger", "String", "Trigger", false, "UserRequest | AdminAction | SystemEvent | ScheduledJob", 2),
+            new SomFormFieldMeta("triggerConditions", "String", "Trigger Conditions", false, "Pre-conditions that must be met for this transition", 3)));
         out.add(n);
       }
       {
@@ -103637,9 +103362,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("menuItemId", "String", "Menu Item ID", true, "Unique identifier, e.g., menu-item-logout", 0),
-            new SomFormFieldMeta("label", "String", "Label Resource", true, "Display text", 1),
-            new SomFormFieldMeta("icon", "String", "Icon Resource", false, "Leading icon", 2),
-            new SomFormFieldMeta("displayOrder", "int", "Display Order", false, "Position in menu", 3)));
+            new SomFormFieldMeta("icon", "String", "Icon Resource", false, "Leading icon", 1),
+            new SomFormFieldMeta("displayOrder", "int", "Display Order", false, "Position in menu", 2)));
         out.add(n);
       }
       {
@@ -103771,9 +103495,8 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("utilityId", "String", "Utility ID", true, "e.g., util-user-menu, util-notifications", 0),
-            new SomFormFieldMeta("label", "String", "Label Resource", false, "Display label (may be hidden)", 1),
-            new SomFormFieldMeta("icon", "String", "Icon Resource", true, "Primary icon", 2),
-            new SomFormFieldMeta("position", "String", "Position", false, "AppBar-Leading/AppBar-Trailing/Drawer-Footer", 3)));
+            new SomFormFieldMeta("icon", "String", "Icon Resource", true, "Primary icon", 1),
+            new SomFormFieldMeta("position", "String", "Position", false, "AppBar-Leading/AppBar-Trailing/Drawer-Footer", 2)));
         out.add(n);
       }
       {
@@ -104431,9 +104154,8 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("vpnName", "String", "VPN Name", true, "VPN connection name", 0),
-            new SomFormFieldMeta("vpnType", "String", "VPN Type", false, "Site-to-Site, Client, SSL", 1),
-            new SomFormFieldMeta("purpose", "String", "Purpose", false, "Purpose of this VPN", 2)));
+            new SomFormFieldMeta("vpnType", "String", "VPN Type", false, "Site-to-Site, Client, SSL", 0),
+            new SomFormFieldMeta("purpose", "String", "Purpose", false, "Purpose of this VPN", 1)));
         out.add(n);
       }
       {
@@ -104953,13 +104675,12 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("criterionId", "String", "Criterion ID", true, "WCAG SC ID (e.g., 1.4.3)", 0),
-            new SomFormFieldMeta("criterionName", "String", "Criterion Name", true, "Name of the success criterion (e.g., Contrast Minimum)", 1),
-            new SomFormFieldMeta("level", "String", "Level", false, "A, AA, AAA", 2),
-            new SomFormFieldMeta("applicability", "String", "Applicability", false, "Where this applies in the app", 3),
-            new SomFormFieldMeta("implementation", "String", "Implementation", false, "How we meet this criterion", 4),
-            new SomFormFieldMeta("testingMethod", "String", "Testing Method", false, "How compliance is verified", 5),
-            new SomFormFieldMeta("status", "String", "Status", false, "Not started, in progress, compliant, not applicable", 6),
-            new SomFormFieldMeta("exceptions", "String", "Exceptions", false, "Any documented exceptions", 7)));
+            new SomFormFieldMeta("level", "String", "Level", false, "A, AA, AAA", 1),
+            new SomFormFieldMeta("applicability", "String", "Applicability", false, "Where this applies in the app", 2),
+            new SomFormFieldMeta("implementation", "String", "Implementation", false, "How we meet this criterion", 3),
+            new SomFormFieldMeta("testingMethod", "String", "Testing Method", false, "How compliance is verified", 4),
+            new SomFormFieldMeta("status", "String", "Status", false, "Not started, in progress, compliant, not applicable", 5),
+            new SomFormFieldMeta("exceptions", "String", "Exceptions", false, "Any documented exceptions", 6)));
         out.add(n);
       }
       return out;
@@ -105101,14 +104822,13 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("actorName", "String", "Actor Name", true, null, 0),
-            new SomFormFieldMeta("actorType", "String", "Actor Type (e.g., Role, System, Department, External)", false, null, 1),
-            new SomFormFieldMeta("role", "String", "Role in this workflow", false, null, 2),
-            new SomFormFieldMeta("responsibilities", "String", "Responsibilities", false, null, 3),
-            new SomFormFieldMeta("authorizationLevel", "String", "Authorization Level", false, null, 4),
-            new SomFormFieldMeta("availabilityRequirements", "String", "Availability Requirements", false, null, 5),
-            new SomFormFieldMeta("skillRequirements", "String", "Skill Requirements", false, null, 6),
-            new SomFormFieldMeta("headcount", "int", "Headcount (number of people in this role)", false, null, 7)));
+            new SomFormFieldMeta("actorType", "String", "Actor Type (e.g., Role, System, Department, External)", false, null, 0),
+            new SomFormFieldMeta("role", "String", "Role in this workflow", false, null, 1),
+            new SomFormFieldMeta("responsibilities", "String", "Responsibilities", false, null, 2),
+            new SomFormFieldMeta("authorizationLevel", "String", "Authorization Level", false, null, 3),
+            new SomFormFieldMeta("availabilityRequirements", "String", "Availability Requirements", false, null, 4),
+            new SomFormFieldMeta("skillRequirements", "String", "Skill Requirements", false, null, 5),
+            new SomFormFieldMeta("headcount", "int", "Headcount (number of people in this role)", false, null, 6)));
         out.add(n);
       }
       {
@@ -105159,11 +104879,10 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("ruleName", "String", "Rule Name", true, null, 0),
-            new SomFormFieldMeta("ruleDescription", "String", "Description", false, null, 1),
-            new SomFormFieldMeta("ruleLogic", "String", "Rule Logic (business logic in plain language)", false, null, 2),
-            new SomFormFieldMeta("ruleSource", "String", "Source (e.g., Policy, Regulation, SOP)", false, null, 3),
-            new SomFormFieldMeta("exceptions", "String", "Exceptions - when this rule does not apply", false, null, 4)));
+            new SomFormFieldMeta("ruleDescription", "String", "Description", false, null, 0),
+            new SomFormFieldMeta("ruleLogic", "String", "Rule Logic (business logic in plain language)", false, null, 1),
+            new SomFormFieldMeta("ruleSource", "String", "Source (e.g., Policy, Regulation, SOP)", false, null, 2),
+            new SomFormFieldMeta("exceptions", "String", "Exceptions - when this rule does not apply", false, null, 3)));
         out.add(n);
       }
       return out;
@@ -105192,12 +104911,11 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("decisionName", "String", "Decision Name", true, null, 0),
-            new SomFormFieldMeta("decisionCriteria", "String", "Decision Criteria", false, null, 1),
-            new SomFormFieldMeta("decisionMaker", "String", "Decision Maker", false, null, 2),
-            new SomFormFieldMeta("outcomes", "String", "Possible Outcomes (comma-separated)", false, null, 3),
-            new SomFormFieldMeta("escalationPath", "String", "Escalation Path", false, null, 4),
-            new SomFormFieldMeta("slaForDecision", "String", "SLA for Decision", false, null, 5)));
+            new SomFormFieldMeta("decisionCriteria", "String", "Decision Criteria", false, null, 0),
+            new SomFormFieldMeta("decisionMaker", "String", "Decision Maker", false, null, 1),
+            new SomFormFieldMeta("outcomes", "String", "Possible Outcomes (comma-separated)", false, null, 2),
+            new SomFormFieldMeta("escalationPath", "String", "Escalation Path", false, null, 3),
+            new SomFormFieldMeta("slaForDecision", "String", "SLA for Decision", false, null, 4)));
         out.add(n);
       }
       return out;
@@ -105309,12 +105027,11 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("exceptionName", "String", "Exception Name", true, null, 0),
-            new SomFormFieldMeta("exceptionType", "String", "Type (e.g., Validation, System, Business)", false, null, 1),
-            new SomFormFieldMeta("frequency", "String", "Frequency", false, null, 2),
-            new SomFormFieldMeta("handlingProcedure", "String", "Handling Procedure", false, null, 3),
-            new SomFormFieldMeta("escalationPath", "String", "Escalation Path", false, null, 4),
-            new SomFormFieldMeta("recoveryTime", "String", "Recovery Time", false, null, 5)));
+            new SomFormFieldMeta("exceptionType", "String", "Type (e.g., Validation, System, Business)", false, null, 0),
+            new SomFormFieldMeta("frequency", "String", "Frequency", false, null, 1),
+            new SomFormFieldMeta("handlingProcedure", "String", "Handling Procedure", false, null, 2),
+            new SomFormFieldMeta("escalationPath", "String", "Escalation Path", false, null, 3),
+            new SomFormFieldMeta("recoveryTime", "String", "Recovery Time", false, null, 4)));
         out.add(n);
       }
       return out;
@@ -105395,12 +105112,11 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("inputName", "String", "Input Name", true, null, 0),
-            new SomFormFieldMeta("inputType", "String", "Type (data type or document type)", false, null, 1),
-            new SomFormFieldMeta("source", "String", "Source", false, null, 2),
-            new SomFormFieldMeta("format", "String", "Format (e.g., PDF, XML, Manual Entry)", false, null, 3),
-            new SomFormFieldMeta("isRequired", "bool", "Is Required", false, null, 4),
-            new SomFormFieldMeta("validationRules", "String", "Validation Rules", false, null, 5)));
+            new SomFormFieldMeta("inputType", "String", "Type (data type or document type)", false, null, 0),
+            new SomFormFieldMeta("source", "String", "Source", false, null, 1),
+            new SomFormFieldMeta("format", "String", "Format (e.g., PDF, XML, Manual Entry)", false, null, 2),
+            new SomFormFieldMeta("isRequired", "bool", "Is Required", false, null, 3),
+            new SomFormFieldMeta("validationRules", "String", "Validation Rules", false, null, 4)));
         out.add(n);
       }
       return out;
@@ -105429,11 +105145,10 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("outputName", "String", "Output Name", true, null, 0),
-            new SomFormFieldMeta("outputType", "String", "Type (data type or document type)", false, null, 1),
-            new SomFormFieldMeta("destination", "String", "Destination", false, null, 2),
-            new SomFormFieldMeta("format", "String", "Format", false, null, 3),
-            new SomFormFieldMeta("retentionRequirements", "String", "Retention Requirements", false, null, 4)));
+            new SomFormFieldMeta("outputType", "String", "Type (data type or document type)", false, null, 0),
+            new SomFormFieldMeta("destination", "String", "Destination", false, null, 1),
+            new SomFormFieldMeta("format", "String", "Format", false, null, 2),
+            new SomFormFieldMeta("retentionRequirements", "String", "Retention Requirements", false, null, 3)));
         out.add(n);
       }
       return out;
@@ -105462,15 +105177,14 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("stepName", "String", "Step Name", true, null, 0),
-            new SomFormFieldMeta("stepNumber", "int", "Step Number (sequence order)", false, null, 1),
-            new SomFormFieldMeta("description", "String", "Description", false, null, 2),
-            new SomFormFieldMeta("responsibleActor", "String", "Responsible Actor", false, null, 3),
-            new SomFormFieldMeta("stepType", "String", "Step Type (e.g., Task, Decision, Wait, Subprocess)", false, null, 4),
-            new SomFormFieldMeta("isManual", "bool", "Is Manual (requires human intervention)", false, "Whether carrying the step out needs a person; an automated step runs without human intervention", 5),
-            new SomFormFieldMeta("isAutomatable", "bool", "Is Automatable", false, null, 6),
-            new SomFormFieldMeta("isErrorProne", "bool", "Is Error-Prone (high error or failure rate)", false, "Whether the step fails or is got wrong often enough to matter; the known issues below record which failures and how often", 7),
-            new SomFormFieldMeta("averageDuration", "String", "Average Duration", false, null, 8)));
+            new SomFormFieldMeta("stepNumber", "int", "Step Number (sequence order)", false, null, 0),
+            new SomFormFieldMeta("description", "String", "Description", false, null, 1),
+            new SomFormFieldMeta("responsibleActor", "String", "Responsible Actor", false, null, 2),
+            new SomFormFieldMeta("stepType", "String", "Step Type (e.g., Task, Decision, Wait, Subprocess)", false, null, 3),
+            new SomFormFieldMeta("isManual", "bool", "Is Manual (requires human intervention)", false, "Whether carrying the step out needs a person; an automated step runs without human intervention", 4),
+            new SomFormFieldMeta("isAutomatable", "bool", "Is Automatable", false, null, 5),
+            new SomFormFieldMeta("isErrorProne", "bool", "Is Error-Prone (high error or failure rate)", false, "Whether the step fails or is got wrong often enough to matter; the known issues below record which failures and how often", 6),
+            new SomFormFieldMeta("averageDuration", "String", "Average Duration", false, null, 7)));
         out.add(n);
       }
       {
@@ -105619,11 +105333,10 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("issueName", "String", "Issue Name", true, null, 0),
-            new SomFormFieldMeta("issueDescription", "String", "Description", false, null, 1),
-            new SomFormFieldMeta("frequency", "String", "Frequency of occurrence", false, null, 2),
-            new SomFormFieldMeta("impact", "String", "Business Impact", false, null, 3),
-            new SomFormFieldMeta("currentWorkaround", "String", "Current Workaround", false, null, 4)));
+            new SomFormFieldMeta("issueDescription", "String", "Description", false, null, 0),
+            new SomFormFieldMeta("frequency", "String", "Frequency of occurrence", false, null, 1),
+            new SomFormFieldMeta("impact", "String", "Business Impact", false, null, 2),
+            new SomFormFieldMeta("currentWorkaround", "String", "Current Workaround", false, null, 3)));
         out.add(n);
       }
       return out;
@@ -105682,15 +105395,14 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("workflowName", "String", "Workflow Name", true, null, 0),
-            new SomFormFieldMeta("workflowType", "String", "Type", false, null, 1),
-            new SomFormFieldMeta("frequency", "String", "Frequency", false, null, 2),
-            new SomFormFieldMeta("averageCycleTime", "String", "Average Cycle Time", false, null, 3),
-            new SomFormFieldMeta("stepCount", "int", "Number of Steps", false, null, 4),
-            new SomFormFieldMeta("manualStepCount", "int", "Manual Steps", false, null, 5),
-            new SomFormFieldMeta("errorProneStepCount", "int", "Error-Prone Steps", false, null, 6),
-            new SomFormFieldMeta("primaryActors", "String", "Primary Actors", false, null, 7),
-            new SomFormFieldMeta("automationPotential", "String", "Automation Potential", false, null, 8)));
+            new SomFormFieldMeta("workflowType", "String", "Type", false, null, 0),
+            new SomFormFieldMeta("frequency", "String", "Frequency", false, null, 1),
+            new SomFormFieldMeta("averageCycleTime", "String", "Average Cycle Time", false, null, 2),
+            new SomFormFieldMeta("stepCount", "int", "Number of Steps", false, null, 3),
+            new SomFormFieldMeta("manualStepCount", "int", "Manual Steps", false, null, 4),
+            new SomFormFieldMeta("errorProneStepCount", "int", "Error-Prone Steps", false, null, 5),
+            new SomFormFieldMeta("primaryActors", "String", "Primary Actors", false, null, 6),
+            new SomFormFieldMeta("automationPotential", "String", "Automation Potential", false, null, 7)));
         out.add(n);
       }
       return out;
@@ -105776,11 +105488,10 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("triggerName", "String", "Trigger Name", true, null, 0),
-            new SomFormFieldMeta("triggerType", "String", "Type (e.g., Event, Schedule, Manual, System)", false, null, 1),
-            new SomFormFieldMeta("triggerSource", "String", "Source - origin of the trigger", false, null, 2),
-            new SomFormFieldMeta("triggerCondition", "String", "Condition - conditions that must be met", false, null, 3),
-            new SomFormFieldMeta("frequency", "String", "Frequency", false, null, 4)));
+            new SomFormFieldMeta("triggerType", "String", "Type (e.g., Event, Schedule, Manual, System)", false, null, 0),
+            new SomFormFieldMeta("triggerSource", "String", "Source - origin of the trigger", false, null, 1),
+            new SomFormFieldMeta("triggerCondition", "String", "Condition - conditions that must be met", false, null, 2),
+            new SomFormFieldMeta("frequency", "String", "Frequency", false, null, 3)));
         out.add(n);
       }
       return out;

@@ -49,7 +49,7 @@
       - [1,] steps: `ScenarioStepEntry`
         - content @Form(stepNumber, actor, action, systemResponse), context, execution
       - alternativeFlows: `AlternativeFlowEntry`
-        - content @Form(flowId, flowName, flowType, branchPoint, triggerCondition, description, outcome, returnPoint, frequency, businessImpact)
+        - content @Form(flowId, flowType, branchPoint, triggerCondition, description, outcome, returnPoint, frequency, businessImpact)
         - steps: `AlternativeStepEntry`
           - content @Form(stepNumber, action, response, expectedResult)
   - `ActorRelationshipDiagram`

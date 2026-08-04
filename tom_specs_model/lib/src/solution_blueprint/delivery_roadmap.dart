@@ -1566,13 +1566,6 @@ class StageSummaryEntry extends DocSpecsSection {
       required: true,
     ),
     Field(
-      'stageName',
-      String,
-      'Stage Name',
-      hint: 'Descriptive name, e.g. Foundation / Core Operations',
-      required: true,
-    ),
-    Field(
       'scopeSummary',
       String,
       'Scope Summary',
@@ -1843,13 +1836,6 @@ class StageEntry extends DocSpecsSection {
       String,
       'Stage Number',
       hint: '1, 2, 3… — sequential stage number',
-      required: true,
-    ),
-    Field(
-      'stageName',
-      String,
-      'Stage Name',
-      hint: 'Descriptive name, e.g. Foundation, Core Operations',
       required: true,
     ),
     Field(
@@ -2356,13 +2342,6 @@ class StageStakeholders extends DocSpecsSection {
 @SectionId('SUSST')
 class SubStageEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'name',
-      String,
-      'Name',
-      hint: 'Descriptive name for this sub-stage or milestone',
-      required: true,
-    ),
     Field(
       'subStageType',
       String,
@@ -3527,13 +3506,6 @@ class FeaturePriorityEntry extends DocSpecsSection {
       String,
       'Feature ID',
       hint: 'Unique identifier — e.g. FEA-001',
-      required: true,
-    ),
-    Field(
-      'featureName',
-      String,
-      'Feature Name',
-      hint: 'Short descriptive name',
       required: true,
     ),
     Field(
@@ -5061,13 +5033,6 @@ class MigrationPhaseEntry extends DocSpecsSection {
       required: true,
     ),
     Field(
-      'phaseName',
-      String,
-      'Phase Name',
-      hint: 'Descriptive name — e.g. Master Data, Transactional History',
-      required: true,
-    ),
-    Field(
       'phaseType',
       String,
       'Phase Type',
@@ -5776,13 +5741,6 @@ class StageMigrationRiskEntry extends DocSpecsSection {
       String,
       'Risk ID',
       hint: 'Unique identifier — e.g. MIG-R001, MIG-R002',
-      required: true,
-    ),
-    Field(
-      'riskName',
-      String,
-      'Risk Name',
-      hint: 'Short descriptive name — e.g. Data Loss During Cutover',
       required: true,
     ),
     Field(
@@ -6557,13 +6515,6 @@ class PhaseGateReviews extends DocSpecsSection {
 @SectionId('PHGREV')
 class PhaseGateReviewEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'gateName',
-      String,
-      'Gate Name',
-      hint: 'Formal gate name — e.g. G1-ConceptApproval',
-      required: true,
-    ),
     Field(
       'gateId',
       String,

@@ -35,20 +35,20 @@ document:
       SYDSC systemDescription:
         UCE-USER-LST userCategories:
           UCE-USER-1:
+            headline: |2-
+              Order Operations Clerk
             content:
-              categoryName: |2-
-                Order Operations Clerk
               description: |2-
                 Back-office staff who clear the order work list, amend lines, and cancel orders before dispatch across the wholesale and e-commerce channels.
               userType: |2-
                 Internal
             SYTS-SYST-LST systemTasks:
               SYTS-SYST-1:
+                headline: |2-
+                  Clear the order work list
                 content:
                   taskId: |2-
                     TSK-01
-                  taskName: |2-
-                    Clear the order work list
                   description: |2-
                     Work the state-filtered order queue from capture through to confirmation, handling holds and amendments as they arise.
                 SYTS-WORK-LST workflowSteps:
@@ -124,11 +124,11 @@ document:
               RAC acceptanceCriteria:
                 ACE-CRIT-LST criteria:
                   ACE-CRIT-1:
+                    headline: |2-
+                      EDI order accepted
                     content:
                       criterionId: |2-
                         FR-01-AC-1
-                      criterionTitle: |2-
-                        EDI order accepted
                       given: |2-
                         a well-formed EDI 850 purchase order
                       when: |2-
@@ -144,11 +144,11 @@ document:
                       status: |2-
                         Draft
                   ACE-CRIT-2:
+                    headline: |2-
+                      REST order accepted
                     content:
                       criterionId: |2-
                         FR-01-AC-2
-                      criterionTitle: |2-
-                        REST order accepted
                       given: |2-
                         a valid REST order payload from an authenticated partner
                       when: |2-
@@ -191,11 +191,11 @@ document:
               RAC acceptanceCriteria:
                 ACE-CRIT-LST criteria:
                   ACE-CRIT-1:
+                    headline: |2-
+                      Price snapshotted onto line
                     content:
                       criterionId: |2-
                         FR-02-AC-1
-                      criterionTitle: |2-
-                        Price snapshotted onto line
                       given: |2-
                         an order with two lines
                       when: |2-
@@ -235,11 +235,11 @@ document:
               RAC acceptanceCriteria:
                 ACE-CRIT-LST criteria:
                   ACE-CRIT-1:
+                    headline: |2-
+                      Stock reserved when available
                     content:
                       criterionId: |2-
                         FR-03-AC-1
-                      criterionTitle: |2-
-                        Stock reserved when available
                       given: |2-
                         an order whose lines all have sufficient stock on hand
                       when: |2-
@@ -255,11 +255,11 @@ document:
                       status: |2-
                         Draft
                   ACE-CRIT-2:
+                    headline: |2-
+                      Short line placed on Hold
                     content:
                       criterionId: |2-
                         FR-03-AC-2
-                      criterionTitle: |2-
-                        Short line placed on Hold
                       given: |2-
                         an order with one line whose demand exceeds available stock
                       when: |2-
@@ -299,11 +299,11 @@ document:
               RAC acceptanceCriteria:
                 ACE-CRIT-LST criteria:
                   ACE-CRIT-1:
+                    headline: |2-
+                      Order confirmed within budget
                     content:
                       criterionId: |2-
                         FR-04-AC-1
-                      criterionTitle: |2-
-                        Order confirmed within budget
                       given: |2-
                         a captured order that passes validation, pricing, and reservation
                       when: |2-
@@ -319,11 +319,11 @@ document:
                       status: |2-
                         Draft
                   ACE-CRIT-2:
+                    headline: |2-
+                      Confirmation surfaced to operations and tracking
                     content:
                       criterionId: |2-
                         FR-04-AC-2
-                      criterionTitle: |2-
-                        Confirmation surfaced to operations and tracking
                       given: |2-
                         an order that has just reached state Confirmed
                       when: |2-
@@ -363,11 +363,11 @@ document:
               RAC acceptanceCriteria:
                 ACE-CRIT-LST criteria:
                   ACE-CRIT-1:
+                    headline: |2-
+                      Amendment re-runs pricing and reservation
                     content:
                       criterionId: |2-
                         FR-05-AC-1
-                      criterionTitle: |2-
-                        Amendment re-runs pricing and reservation
                       given: |2-
                         a confirmed order that has not yet dispatched
                       when: |2-
@@ -383,11 +383,11 @@ document:
                       status: |2-
                         Draft
                   ACE-CRIT-2:
+                    headline: |2-
+                      Cancellation blocked after dispatch
                     content:
                       criterionId: |2-
                         FR-05-AC-2
-                      criterionTitle: |2-
-                        Cancellation blocked after dispatch
                       given: |2-
                         an order that has already dispatched
                       when: |2-
@@ -427,11 +427,11 @@ document:
               RAC acceptanceCriteria:
                 ACE-CRIT-LST criteria:
                   ACE-CRIT-1:
+                    headline: |2-
+                      Supervisor releases hold
                     content:
                       criterionId: |2-
                         FR-06-AC-1
-                      criterionTitle: |2-
-                        Supervisor releases hold
                       given: |2-
                         an order in state Hold
                       when: |2-
@@ -711,11 +711,11 @@ document:
             externalActorCount: 0
           ACEN-ACTO-LST actors:
             ACEN-ACTO-1:
+              headline: |2-
+                Order Clerk
               ACID identification:
                 actorId: |2-
                   ACT-01
-                actorName: |2-
-                  Order Clerk
                 actorType: |2-
                   Human
                 category: |2-
@@ -729,11 +729,11 @@ document:
                 geographicDistribution: |2-
                   Single distribution centre
             ACEN-ACTO-2:
+              headline: |2-
+                Order Supervisor
               ACID identification:
                 actorId: |2-
                   ACT-02
-                actorName: |2-
-                  Order Supervisor
                 actorType: |2-
                   Human
                 category: |2-
@@ -747,11 +747,11 @@ document:
                 geographicDistribution: |2-
                   Single distribution centre
             ACEN-ACTO-3:
+              headline: |2-
+                Pricing Admin
               ACID identification:
                 actorId: |2-
                   ACT-03
-                actorName: |2-
-                  Pricing Admin
                 actorType: |2-
                   Human
                 category: |2-
@@ -765,11 +765,11 @@ document:
                 geographicDistribution: |2-
                   Single distribution centre
             ACEN-ACTO-4:
+              headline: |2-
+                EDI Integration Account
               ACID identification:
                 actorId: |2-
                   ACT-04
-                actorName: |2-
-                  EDI Integration Account
                 actorType: |2-
                   System
                 category: |2-
@@ -1062,11 +1062,11 @@ document:
         KESC keyScenarios:
           SCNRY-SCEN-LST scenarios:
             SCNRY-SCEN-1:
+              headline: |2-
+                Happy-path wholesale order, capture to fulfilment
               SCID identification:
                 scenarioId: |2-
                   SCN-01
-                scenarioName: |2-
-                  Happy-path wholesale order, capture to fulfilment
                 scenarioType: |2-
                   End-to-end
                 description: |2-
@@ -1150,9 +1150,9 @@ document:
                 MOM
             DAATT-ATTR-LST attributes:
               DAATT-ATTR-1:
+                headline: |2-
+                  orderId
                 DAATT-IDEN identity:
-                  attributeName: |2-
-                    orderId
                   columnName: |2-
                     order_id
                   description: |2-
@@ -1168,9 +1168,9 @@ document:
                   isPii: |2-
                     false
               DAATT-ATTR-2:
+                headline: |2-
+                  customerId
                 DAATT-IDEN identity:
-                  attributeName: |2-
-                    customerId
                   columnName: |2-
                     customer_id
                   description: |2-
@@ -1186,9 +1186,9 @@ document:
                   isPii: |2-
                     false
               DAATT-ATTR-3:
+                headline: |2-
+                  channel
                 DAATT-IDEN identity:
-                  attributeName: |2-
-                    channel
                   columnName: |2-
                     channel
                   description: |2-
@@ -1204,9 +1204,9 @@ document:
                   isPii: |2-
                     false
               DAATT-ATTR-4:
+                headline: |2-
+                  status
                 DAATT-IDEN identity:
-                  attributeName: |2-
-                    status
                   columnName: |2-
                     status
                   description: |2-
@@ -1222,9 +1222,9 @@ document:
                   isPii: |2-
                     false
               DAATT-ATTR-5:
+                headline: |2-
+                  createdAt
                 DAATT-IDEN identity:
-                  attributeName: |2-
-                    createdAt
                   columnName: |2-
                     created_at
                   description: |2-
@@ -1241,9 +1241,9 @@ document:
                     false
             KEATT-KEYA-LST keyAttributes:
               KEATT-KEYA-1:
+                headline: |2-
+                  pk_order
                 content:
-                  keyName: |2-
-                    pk_order
                   keyType: |2-
                     Primary
                   keyColumns: |2-
@@ -1275,9 +1275,9 @@ document:
                 MOM
             DAATT-ATTR-LST attributes:
               DAATT-ATTR-1:
+                headline: |2-
+                  lineId
                 DAATT-IDEN identity:
-                  attributeName: |2-
-                    lineId
                   columnName: |2-
                     line_id
                   description: |2-
@@ -1293,9 +1293,9 @@ document:
                   isPii: |2-
                     false
               DAATT-ATTR-2:
+                headline: |2-
+                  orderId
                 DAATT-IDEN identity:
-                  attributeName: |2-
-                    orderId
                   columnName: |2-
                     order_id
                   description: |2-
@@ -1311,9 +1311,9 @@ document:
                   isPii: |2-
                     false
               DAATT-ATTR-3:
+                headline: |2-
+                  productId
                 DAATT-IDEN identity:
-                  attributeName: |2-
-                    productId
                   columnName: |2-
                     product_id
                   description: |2-
@@ -1329,9 +1329,9 @@ document:
                   isPii: |2-
                     false
               DAATT-ATTR-4:
+                headline: |2-
+                  quantity
                 DAATT-IDEN identity:
-                  attributeName: |2-
-                    quantity
                   columnName: |2-
                     quantity
                   description: |2-
@@ -1347,9 +1347,9 @@ document:
                   isPii: |2-
                     false
               DAATT-ATTR-5:
+                headline: |2-
+                  unitPrice
                 DAATT-IDEN identity:
-                  attributeName: |2-
-                    unitPrice
                   columnName: |2-
                     unit_price
                   description: |2-
@@ -1366,9 +1366,9 @@ document:
                     false
             KEATT-KEYA-LST keyAttributes:
               KEATT-KEYA-1:
+                headline: |2-
+                  pk_order_line
                 content:
-                  keyName: |2-
-                    pk_order_line
                   keyType: |2-
                     Primary
                   keyColumns: |2-
@@ -1376,9 +1376,9 @@ document:
                   description: |2-
                     Primary key of the order line.
               KEATT-KEYA-2:
+                headline: |2-
+                  fk_line_order
                 content:
-                  keyName: |2-
-                    fk_line_order
                   keyType: |2-
                     Foreign
                   keyColumns: |2-
@@ -1412,9 +1412,9 @@ document:
                 MOM
             DAATT-ATTR-LST attributes:
               DAATT-ATTR-1:
+                headline: |2-
+                  customerId
                 DAATT-IDEN identity:
-                  attributeName: |2-
-                    customerId
                   columnName: |2-
                     customer_id
                   description: |2-
@@ -1430,9 +1430,9 @@ document:
                   isPii: |2-
                     false
               DAATT-ATTR-2:
+                headline: |2-
+                  name
                 DAATT-IDEN identity:
-                  attributeName: |2-
-                    name
                   columnName: |2-
                     name
                   description: |2-
@@ -1448,9 +1448,9 @@ document:
                   isPii: |2-
                     true
               DAATT-ATTR-3:
+                headline: |2-
+                  creditLimit
                 DAATT-IDEN identity:
-                  attributeName: |2-
-                    creditLimit
                   columnName: |2-
                     credit_limit
                   description: |2-
@@ -1467,9 +1467,9 @@ document:
                     false
             KEATT-KEYA-LST keyAttributes:
               KEATT-KEYA-1:
+                headline: |2-
+                  pk_customer
                 content:
-                  keyName: |2-
-                    pk_customer
                   keyType: |2-
                     Primary
                   keyColumns: |2-
@@ -1501,9 +1501,9 @@ document:
                 MOM
             DAATT-ATTR-LST attributes:
               DAATT-ATTR-1:
+                headline: |2-
+                  productId
                 DAATT-IDEN identity:
-                  attributeName: |2-
-                    productId
                   columnName: |2-
                     product_id
                   description: |2-
@@ -1519,9 +1519,9 @@ document:
                   isPii: |2-
                     false
               DAATT-ATTR-2:
+                headline: |2-
+                  sku
                 DAATT-IDEN identity:
-                  attributeName: |2-
-                    sku
                   columnName: |2-
                     sku
                   description: |2-
@@ -1537,9 +1537,9 @@ document:
                   isPii: |2-
                     false
               DAATT-ATTR-3:
+                headline: |2-
+                  name
                 DAATT-IDEN identity:
-                  attributeName: |2-
-                    name
                   columnName: |2-
                     name
                   description: |2-
@@ -1556,9 +1556,9 @@ document:
                     false
             KEATT-KEYA-LST keyAttributes:
               KEATT-KEYA-1:
+                headline: |2-
+                  pk_product
                 content:
-                  keyName: |2-
-                    pk_product
                   keyType: |2-
                     Primary
                   keyColumns: |2-
@@ -1570,9 +1570,9 @@ document:
             The foreign-key relationships binding the ordering core together.
           ENRLE-ITEM-LST items:
             ENRLE-ITEM-1:
+              headline: |2-
+                Order-owns-Lines
               ENRLE-IDEN identity:
-                relationshipName: |2-
-                  Order-owns-Lines
                 relationshipType: |2-
                   Composition
                 description: |2-
@@ -1596,9 +1596,9 @@ document:
               ENRLE-TARG-REF targetEntityRef: |2-
                 OrderLine
             ENRLE-ITEM-2:
+              headline: |2-
+                Order-placed-by-Customer
               ENRLE-IDEN identity:
-                relationshipName: |2-
-                  Order-placed-by-Customer
                 relationshipType: |2-
                   Association
                 description: |2-
@@ -1622,9 +1622,9 @@ document:
               ENRLE-TARG-REF targetEntityRef: |2-
                 Customer
             ENRLE-ITEM-3:
+              headline: |2-
+                Line-references-Product
               ENRLE-IDEN identity:
-                relationshipName: |2-
-                  Line-references-Product
                 relationshipType: |2-
                   Association
                 description: |2-
@@ -1701,11 +1701,11 @@ document:
           SCRINV screenInventory:
             SCREN-ITEM-LST items:
               SCREN-ITEM-1:
+                headline: |2-
+                  Order Work List
                 content:
                   screenId: |2-
                     SCR-01
-                  screenName: |2-
-                    Order Work List
                   purpose: |2-
                     The single, state-filtered queue from which clerks work every order.
                 SCECL classification:
@@ -1739,11 +1739,11 @@ document:
                 SCSE sections:
                   SCRSC-ITEM-LST items:
                     SCRSC-ITEM-1:
+                      headline: |2-
+                        State filter bar
                       content:
                         sectionId: |2-
                           SCR-01-SEC-1
-                        sectionName: |2-
-                          State filter bar
                         purpose: |2-
                           Filter the queue by lifecycle state.
                         sectionType: |2-
@@ -1754,11 +1754,11 @@ document:
                         displayOrder: 1
                       SCREL-ELEM-LST elements:
                         SCREL-ELEM-1:
+                          headline: |2-
+                            State selector
                           content:
                             elementId: |2-
                               SCR-01-EL-1
-                            elementName: |2-
-                              State selector
                             elementType: |2-
                               selectField
                           SEER resources:
@@ -1767,11 +1767,11 @@ document:
                             hintResource: |2-
                               screen.orders.filter.state.hint
                     SCRSC-ITEM-2:
+                      headline: |2-
+                        Order table
                       content:
                         sectionId: |2-
                           SCR-01-SEC-2
-                        sectionName: |2-
-                          Order table
                         purpose: |2-
                           The work list itself, keyboard-navigable for high-volume clerks.
                         sectionType: |2-
@@ -1782,11 +1782,11 @@ document:
                         displayOrder: 2
                       SCREL-ELEM-LST elements:
                         SCREL-ELEM-1:
+                          headline: |2-
+                            Order ID column
                           content:
                             elementId: |2-
                               SCR-01-EL-2
-                            elementName: |2-
-                              Order ID column
                             elementType: |2-
                               textField
                           SEFS fieldSpec:
@@ -1796,11 +1796,11 @@ document:
                               dataType: |2-
                                 string
                         SCREL-ELEM-2:
+                          headline: |2-
+                            Status column
                           content:
                             elementId: |2-
                               SCR-01-EL-3
-                            elementName: |2-
-                              Status column
                             elementType: |2-
                               statusIndicator
                           SEFS fieldSpec:
@@ -1812,11 +1812,11 @@ document:
                 SCAC actions:
                   SCRAC-ITEM-LST items:
                     SCRAC-ITEM-1:
+                      headline: |2-
+                        Open order
                       content:
                         actionId: |2-
                           SCR-01-ACT-1
-                        actionName: |2-
-                          Open order
                         actionType: |2-
                           Navigate
                       SAEV visual:
@@ -1829,9 +1829,9 @@ document:
                 SCST states:
                   SCRST-ITEM-LST items:
                     SCRST-ITEM-1:
+                      headline: |2-
+                        Empty queue
                       content:
-                        stateName: |2-
-                          Empty queue
                         description: |2-
                           No orders match the selected state filter.
                         messageResource: |2-
@@ -1841,11 +1841,11 @@ document:
                         primaryActionTarget: |2-
                           SCR-01-EL-1
               SCREN-ITEM-2:
+                headline: |2-
+                  Order Detail
                 content:
                   screenId: |2-
                     SCR-02
-                  screenName: |2-
-                    Order Detail
                   purpose: |2-
                     The lifecycle timeline and inline actions for a single order.
                 SCECL classification:
@@ -1881,11 +1881,11 @@ document:
                 SCSE sections:
                   SCRSC-ITEM-LST items:
                     SCRSC-ITEM-1:
+                      headline: |2-
+                        Lifecycle timeline
                       content:
                         sectionId: |2-
                           SCR-02-SEC-1
-                        sectionName: |2-
-                          Lifecycle timeline
                         purpose: |2-
                           Show every state transition with its authenticated actor.
                         sectionType: |2-
@@ -1895,11 +1895,11 @@ document:
                           Vertical
                         displayOrder: 1
                     SCRSC-ITEM-2:
+                      headline: |2-
+                        Order lines
                       content:
                         sectionId: |2-
                           SCR-02-SEC-2
-                        sectionName: |2-
-                          Order lines
                         purpose: |2-
                           Editable list of lines with price and reservation status.
                         sectionType: |2-
@@ -1910,11 +1910,11 @@ document:
                         displayOrder: 2
                       SCREL-ELEM-LST elements:
                         SCREL-ELEM-1:
+                          headline: |2-
+                            Quantity field
                           content:
                             elementId: |2-
                               SCR-02-EL-1
-                            elementName: |2-
-                              Quantity field
                             elementType: |2-
                               numberField
                           SEEB behavior:
@@ -1929,11 +1929,11 @@ document:
                 SCAC actions:
                   SCRAC-ITEM-LST items:
                     SCRAC-ITEM-1:
+                      headline: |2-
+                        Amend line
                       content:
                         actionId: |2-
                           SCR-02-ACT-1
-                        actionName: |2-
-                          Amend line
                         actionType: |2-
                           Submit
                       SAEV visual:
@@ -1944,11 +1944,11 @@ document:
                         buttonStyle: |2-
                           Primary
                     SCRAC-ITEM-2:
+                      headline: |2-
+                        Release hold
                       content:
                         actionId: |2-
                           SCR-02-ACT-2
-                        actionName: |2-
-                          Release hold
                         actionType: |2-
                           Submit
                       SAEV visual:
@@ -1961,9 +1961,9 @@ document:
                 SCST states:
                   SCRST-ITEM-LST items:
                     SCRST-ITEM-1:
+                      headline: |2-
+                        Amendment rejected
                       content:
-                        stateName: |2-
-                          Amendment rejected
                         description: |2-
                           The new quantity failed validation or reservation.
                         messageResource: |2-

@@ -19,14 +19,14 @@
       timelineDiagram @mermaid-gantt, resourceAllocationDiagram @mermaid-gantt,
       budgetDistributionDiagram @mermaid-flow, dependencyMap @mermaid-flow
     - [1,] stageSummaries: `StageSummaryEntry`
-      - content @Form(stageNumber, stageName, scopeSummary), identity, timeline, scope, quality, status
+      - content @Form(stageNumber, scopeSummary), identity, timeline, scope, quality, status
       - resources: `StageSummaryResources`
         - content @Form(teamSize, keyRoles, estimatedBudget, budgetPercentOfTotal, externalCostPercent)
       - dependencies: `StageSummaryDependencies`
         - content @Form(predecessorStages, successorStages, externalDependencies, primaryRisk, riskLevel)
   - [1,] stages: `StageEntry`
-    - content @Form(stageNumber, stageName, currentStatus), identity, timeline, scope, quality, deployment, risk,
-      metrics, featureScope @text, timelineNarrative @text, rolloutPlan @text
+    - content @Form(stageNumber, currentStatus), identity, timeline, scope, quality, deployment, risk, metrics,
+      featureScope @text, timelineNarrative @text, rolloutPlan @text
     - dependencies: `StageDependencies`
       - content @Form(prerequisiteStages, parallelStages, externalDependencies, blockingRisks)
     - resources: `StageResources`
@@ -34,7 +34,7 @@
     - stakeholders: `StageStakeholders`
       - content @Form(stageOwner, businessSponsor, technicalLead, qaLead, changeManager, announcementPlan, trainingRequirements, documentationUpdates)
     - subStagesAndMilestones: `SubStageEntry`
-      - content @Form(name, subStageType, sequenceNumber), overview, timeline, scope, execution, status
+      - content @Form(subStageType, sequenceNumber), overview, timeline, scope, execution, status
     - successCriteria: `StageSuccessCriterionEntry`
       - content @Form(criterionId, criterion, category, priority), measurement, verification, status
   - `FeaturePrioritization`
@@ -43,8 +43,8 @@
     - `FeaturePriorityRegister`
       - content @Form(totalRegisteredFeatures, registerLastUpdated, registerOwner)
       - [1,] items: `FeaturePriorityEntry`
-        - content @Form(featureId, featureName, priorityRank), identity, businessValue, effort, priorityScoring,
-          stageAssignment, dependencies, traceability, status
+        - content @Form(featureId, priorityRank), identity, businessValue, effort, priorityScoring, stageAssignment,
+          dependencies, traceability, status
         - stakeholders: `FeatureStakeholders`
           - content @Form(requestedBy, businessOwner, productOwner, technicalOwner, approvalStatus, approvedBy, approvalDate)
     - `MoscowAnalysis`
@@ -77,8 +77,8 @@
       - content @Form(totalPhases, phaseExecutionModel, longestPhase, criticalPathPhases, totalDataVolumeAcrossPhases, overallValidationStrategy, phaseDependencySummary, dryRunStrategy),
         phaseOverview @text
       - [1,] items: `MigrationPhaseEntry`
-        - content @Form(phaseNumber, phaseName, phaseType), identity, dataScope, method, transformation, schedule,
-          validation, acceptance, rollback, status
+        - content @Form(phaseNumber, phaseType), identity, dataScope, method, transformation, schedule, validation,
+          acceptance, rollback, status
         - dryRuns: `MigrationPhaseDryRuns`
           - content @Form(dryRunsPlanned, dryRunSchedule, lastDryRunDate, lastDryRunDuration, lastDryRunResult, dryRunIssuesFound, dryRunIssuesResolved)
         - resources: `MigrationPhaseResources`
@@ -87,14 +87,13 @@
       - content @Form(totalIdentifiedRisks, criticalRiskCount, topRiskSummary, riskAssessmentMethodology, riskTolerancePolicy, riskReviewFrequency, riskRegisterOwner, lastRiskReviewDate, overallMigrationRiskRating),
         riskSummary @text
       - [1,] items: `StageMigrationRiskEntry`
-        - content @Form(riskId, riskName, riskCategory), identity, probabilityImpact, mitigation, contingency,
-          monitoring, ownership, residual, status
+        - content @Form(riskId, riskCategory), identity, probabilityImpact, mitigation, contingency, monitoring,
+          ownership, residual, status
   - gateCriteria: `PhaseGateReviews`
     - content @Form(gateNamingConvention, totalGateCount, gateReviewDuration, gateReviewFormat), preparation, outcomes,
       gateReviewNarrative @text
     - items: `PhaseGateReviewEntry`
-      - content @Form(gateName, gateId, stage), identity, authority, schedule, entry, evidence, exit,
-        gateNarrative @text
+      - content @Form(gateId, stage), identity, authority, schedule, entry, evidence, exit, gateNarrative @text
       - reviewCriteria: `ReviewCriterionEntry`
         - content @Form(criterion, criterionId, description, category), assessment, result
   - decisionProcesses: `DecisionPoints`

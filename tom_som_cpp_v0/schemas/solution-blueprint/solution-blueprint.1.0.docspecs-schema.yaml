@@ -28239,9 +28239,6 @@ form-types:
       - fieldname: systemId
         required: true
         description: Stable identifier for the legacy system being replaced
-      - fieldname: systemName
-        required: true
-        description: Common name the organization uses for this system
       - fieldname: officialName
         description: "Vendor/product name and edition, if a commercial system"
       - fieldname: systemDescription
@@ -28632,9 +28629,6 @@ form-types:
       - fieldname: interfaceId
         required: true
         description: Unique stable identifier for this interface
-      - fieldname: interfaceName
-        required: true
-        description: Human-readable name of the interface
       - fieldname: externalSystem
         required: true
         description: Name of the external system being integrated
@@ -31367,9 +31361,6 @@ form-types:
       - fieldname: roleId
         required: true
         description: Unique identifier for this new role
-      - fieldname: roleTitle
-        required: true
-        description: Official job title for the role
       - fieldname: roleFamily
         description: Broader job family or category this role belongs to
       - fieldname: jobLevel
@@ -32403,9 +32394,6 @@ form-types:
       - fieldname: actorId
         required: true
         description: Use a stable unique code such as ACT-001
-      - fieldname: actorName
-        required: true
-        description: "Give the role a clear, recognisable name"
       - fieldname: actorType
         description: "State whether the actor is a person, system or scheduled job"
       - fieldname: category
@@ -32629,9 +32617,6 @@ form-types:
       - fieldname: scenarioId
         required: true
         description: Stable code such as SCE-001
-      - fieldname: scenarioName
-        required: true
-        description: Short descriptive name for the scenario
       - fieldname: scenarioType
         description: "One of happy path, alternative, or exception"
       - fieldname: description
@@ -32789,9 +32774,6 @@ form-types:
         description: Relationships that cross bounded context boundaries
   daatt-iden-form:
     fields:
-      - fieldname: attributeName
-        required: true
-        description: Logical attribute name in camelCase
       - fieldname: columnName
         description: "Database column name if different (e.g., snake_case)"
       - fieldname: description
@@ -32906,9 +32888,6 @@ form-types:
         description: "Whether constraint check can be deferred: Yes | No"
   enrle-iden-form:
     fields:
-      - fieldname: relationshipName
-        required: true
-        description: "Verb phrase describing the relationship (e.g., \"places\", \"contains\")"
       - fieldname: relationshipType
         description: "Association | Aggregation | Composition | Generalization | Dependency"
       - fieldname: description
@@ -32969,9 +32948,6 @@ form-types:
         description: "How often classifications are reviewed: Annually | Quarterly | OnChange"
   dclse-iden-form:
     fields:
-      - fieldname: classificationName
-        required: true
-        description: Name of this classification level
       - fieldname: classificationLevel
         description: "Sensitivity: Public | Internal | Confidential | Restricted | TopSecret"
       - fieldname: description
@@ -33028,9 +33004,6 @@ form-types:
         description: "Applicable rights: Access | Rectification | Erasure | Portability"
   bjoen-iden-form:
     fields:
-      - fieldname: objectName
-        required: true
-        description: "Business name in PascalCase (e.g., Order, Customer)"
       - fieldname: objectAlias
         description: "Short alias for diagrams (e.g., ORD, CUST)"
       - fieldname: description
@@ -33198,9 +33171,6 @@ form-types:
       - fieldname: ruleId
         required: true
         description: "Unique rule identifier (e.g., BR-001)"
-      - fieldname: ruleName
-        required: true
-        description: Descriptive name
       - fieldname: ruleVersion
         description: Version number for change tracking
       - fieldname: description
@@ -33356,9 +33326,6 @@ form-types:
         description: "What the handler must decide, in business terms"
   dmfue-enti-form:
     fields:
-      - fieldname: entityName
-        required: true
-        description: Name of the data entity these facets apply to (matches dataModel.entities)
       - fieldname: entityAlias
         description: "Short alias of the referenced entity (e.g., CUST, ORD)"
   trareq-tran-form:
@@ -43946,9 +43913,6 @@ form-types:
       - fieldname: componentId
         required: true
         description: "Unique identifier (e.g., CMP-DTT-001)"
-      - fieldname: componentName
-        required: true
-        description: Human-readable name
       - fieldname: componentFamily
         description: "Button, Input, Table, Navigation, etc."
       - fieldname: baseComponent

@@ -8,19 +8,19 @@
     - revisionHistory: `RevisionEntry`
       - content @Form(version, date, author, summary)
     - approvals: `ApprovalRecord`
-      - content @Form(role, name, date, status)
+      - content @Form(role, date, status)
     - `ReferenceDocuments`
       - content @description
       - documents: `ReferenceDocumentEntry`
-        - content @Form(documentTitle, documentId, version), metadata, governance, lifecycle
+        - content @Form(documentId, version), metadata, governance, lifecycle
         - relevantSections: `DocumentRelevantSections`
           - content @Form(sectionReference, sectionTitle, relevance, extractSummary)
           - sections: `RelevantSectionEntry`
-            - content @Form(sectionReference, sectionTitle, relevance, extractSummary, complianceRequired)
+            - content @Form(sectionReference, relevance, extractSummary, complianceRequired)
         - relationships: `DocumentRelationships`
           - content @description
           - relatedDocuments: `RelatedDocumentEntry`
-            - content @Form(relatedDocumentId, relatedDocumentTitle, relationshipType, relationshipDescription)
+            - content @Form(relatedDocumentId, relationshipType, relationshipDescription)
   - `IntroductionAndScope`
     - content, systemContextDiagram
     - summary: `SystemSummary`
@@ -38,9 +38,9 @@
         - stakeholders: `StakeholdersAndBeneficiaries`
           - content @description
           - [1,] primaryStakeholders: `StakeholderEntry`
-            - content @Form(stakeholderName, stakeholderType, expectedBenefits)
+            - content @Form(stakeholderType, expectedBenefits)
           - secondaryStakeholders: `StakeholderEntry`
-            - content @Form(stakeholderName, stakeholderType, expectedBenefits)
+            - content @Form(stakeholderType, expectedBenefits)
         - `ValueProposition`
           - content, valueDetails @text, benefits, returnProfile
           - kpis: `String`
@@ -64,26 +64,26 @@
         - `ExternalActors`
           - content @description
           - [1,] actors: `ExternalActorEntry`
-            - content @Form(actorName, actorType, description, interactionPurpose), interaction, context
+            - content @Form(actorType, description, interactionPurpose), interaction, context
             - interactionScenarios: `String`
         - externalSystems: `ExternalSystemsContext`
           - content @description
           - systems: `ExternalSystemContextEntry`
-            - content @Form(systemName, systemOwner, systemType), integration, operations, governance, dataMapping
+            - content @Form(systemOwner, systemType), integration, operations, governance, dataMapping
         - `TrustBoundaries`
           - content @description
           - boundaries: `TrustBoundaryEntry`
-            - content @Form(boundaryName, boundaryType, description, componentsCrossing, protectionMechanisms, trustLevel, complianceImplications)
+            - content @Form(boundaryType, description, componentsCrossing, protectionMechanisms, trustLevel, complianceImplications)
         - `OrganizationalContext`
           - content, businessProcessCoverage
           - organizationalUnits: `OrganizationalUnitContextEntry`
-            - content @Form(unitName, unitType, role, responsibilities, headcount, location, timezone, keyContacts)
+            - content @Form(unitType, role, responsibilities, headcount, location, timezone, keyContacts)
         - `DeploymentContext`
           - content, deploymentDetails @text
         - `RegulatoryContext`
           - content @description
           - regulations: `ApplicableRegulationEntry`
-            - content @Form(regulationName, regulationCode, regulationType, jurisdiction, applicability, keyRequirements, complianceStatus, complianceOwner, auditRequirements, penalties)
+            - content @Form(regulationCode, regulationType, jurisdiction, applicability, keyRequirements, complianceStatus, complianceOwner, auditRequirements, penalties)
             - complianceMeasures: `String`
       - `BusinessDomain`
         - content @description
@@ -96,7 +96,7 @@
         - `KeyConcepts`
           - content, conceptualModelDiagram
           - [1,] concepts: `KeyConceptEntry`
-            - content @Form(conceptName, conceptType, description, keyAttributes, identifiedBy, lifecycle, ownedBy, relatedConcepts, businessRules, volumeEstimate),
+            - content @Form(conceptType, description, keyAttributes, identifiedBy, lifecycle, ownedBy, relatedConcepts, businessRules, volumeEstimate),
               attributeDetails @text, relationshipDetails @text
         - `DomainBoundaries`
           - content, contextMap, withinScope, outsideScope
@@ -105,23 +105,22 @@
         - businessRules: `DomainBusinessRules`
           - content @description
           - rules: `DomainBusinessRuleEntry`
-            - content @Form(ruleId, ruleName, ruleType, description), definition, governance
+            - content @Form(ruleId, ruleType, description), definition, governance
         - `DomainProcesses`
           - content, processOverviewDiagram
           - processes: `DomainProcessEntry`
-            - content @Form(processName, processDescription, processType, trigger), flow, operations,
-              processFlowDetails @text
+            - content @Form(processDescription, processType, trigger), flow, operations, processFlowDetails @text
         - `DomainEvents`
           - content @description
           - events: `DomainEventEntry`
-            - content @Form(eventName, eventDescription, eventType, trigger, sourceEntity, eventData, subscribers, reactions, frequency, businessImpact)
+            - content @Form(eventDescription, eventType, trigger, sourceEntity, eventData, subscribers, reactions, frequency, businessImpact)
       - [1,] userCategories: `UserCategoryEntry`
-        - content @Form(categoryName, categoryId, description, userType), usage, importance, role
+        - content @Form(categoryId, description, userType), usage, importance, role
         - personaDetails: `UserPersonaDetails`
           - content, personaForm, contextDetails, goals, behavior, visualRepresentation
           - representativeQuotes: `String`
         - [1,] systemTasks: `SystemTaskEntry`
-          - content @Form(taskId, taskName, description), execution, data, context, relatedUseCase
+          - content @Form(taskId, description), execution, data, context, relatedUseCase
           - workflowSteps: `String`
           - variationsAndExceptions: `String`
         - accessPermissions: `UserAccessPermissions`
@@ -131,13 +130,13 @@
         - trainingRequirements: `UserTrainingRequirements`
           - content, trainingForm
           - trainingTopics: `TrainingTopicEntry`
-            - content @Form(topicName, description, learningObjectives, duration, prerequisites, assessmentMethod)
+            - content @Form(description, learningObjectives, duration, prerequisites, assessmentMethod)
         - accessibilityNeeds: `UserAccessibilityNeeds`
           - content, accessibilityForm
         - `UserJourney`
           - content, journeyDiagram, opportunitiesForDelight
           - stages: `JourneyStageEntry`
-            - content @Form(stageName, stageDescription, userGoal, userActions, systemResponse, userEmotions, touchpoints, potentialIssues, successMetrics)
+            - content @Form(stageDescription, userGoal, userActions, systemResponse, userEmotions, touchpoints, potentialIssues, successMetrics)
           - keyTouchpoints: `String`
           - painPoints: `String`
       - `UserInteractionModel`
@@ -147,24 +146,23 @@
         - `AccessChannels`
           - content, channelDiagram
           - [1,] channels: `InteractionChannelEntry`
-            - content @Form(channelName, channelId, channelType), platform, features, access, compliance,
-              uxSpecification
+            - content @Form(channelId, channelType), platform, features, access, compliance, uxSpecification
             - integrations: `ChannelIntegrations`
               - content @form
         - `InteractionPatterns`
           - content @description
           - [1,] patterns: `InteractionPatternEntry`
-            - content @Form(patternName, patternId, patternType), definition, trigger, behavior, usage
+            - content @Form(patternId, patternType), definition, trigger, behavior, usage
         - `AccessLevels`
           - content, accessLevelDiagram, permissionMatrix
           - [1,] levels: `AccessLevelEntry`
-            - content @Form(levelName, levelId, levelRank), scope, permissions, governance
+            - content @Form(levelId, levelRank), scope, permissions, governance
         - `SessionModel`
           - content, sessionConfiguration, lifecycle, security
         - `NotificationModel`
           - content @description
           - [1,] channels: `NotificationChannelEntry`
-            - content @Form(channelName, channelId, description, deliveryMethod, retryPolicy, fallbackChannel, quietHoursSupport, urgencyLevels)
+            - content @Form(channelId, description, deliveryMethod, retryPolicy, fallbackChannel, quietHoursSupport, urgencyLevels)
           - notificationTypes: `NotificationTypeEntry`
             - content @Form(notificationType, typeId, category, urgency, defaultChannels, userConfigurable, mandatoryChannels, triggerEvent, contentTemplate, localized)
           - preferences: `UserNotificationPreferences`
@@ -176,7 +174,7 @@
       - `BusinessGoals`
         - content @description
         - [1,] goals: `BusinessGoalEntry`
-          - content @Form(goalId, goalName, goalCategory), definition, measurement, governance, strategy
+          - content @Form(goalId, goalCategory), definition, measurement, governance, strategy
           - keyResults: `GoalKeyResults`
             - content @description
             - items: `KeyResultEntry`
@@ -184,44 +182,44 @@
           - milestones: `GoalMilestones`
             - content @description
             - items: `GoalMilestoneEntry`
-              - content @Form(milestoneId, milestoneName, description, targetDate, completionCriteria, deliverables, dependencies, status, actualDate)
+              - content @Form(milestoneId, description, targetDate, completionCriteria, deliverables, dependencies, status, actualDate)
           - dependencies: `GoalDependencies`
             - content @description
             - items: `GoalDependencyEntry`
-              - content @Form(dependencyId, dependencyType, dependencyName, description, owner, expectedResolutionDate, impact, mitigationStrategy, status),
+              - content @Form(dependencyId, dependencyType, description, owner, expectedResolutionDate, impact, mitigationStrategy, status),
                 relatedGoal
           - risks: `GoalRisks`
             - content @description
             - items: `GoalRiskEntry`
-              - content @Form(riskId, riskName, description, riskCategory), assessment, response
+              - content @Form(riskId, description, riskCategory), assessment, response
           - resources: `GoalResources`
             - content, resourcesForm
             - items: `ResourceAllocationEntry`
-              - content @Form(resourceType, resourceName, quantity, duration, estimatedCost, availability, source, status)
+              - content @Form(resourceType, quantity, duration, estimatedCost, availability, source, status)
       - `TechnicalGoals`
         - content @description
         - [1,] goals: `TechnicalGoalEntry`
-          - content @Form(goalId, goalName, description, goalCategory, priority), measurement, governance
+          - content @Form(goalId, description, goalCategory, priority), measurement, governance
           - `QualityScenarios`
             - content @description
             - items: `QualityScenarioEntry`
-              - content @Form(scenarioId, scenarioName, source, stimulus, environment, artifact, response, responseMeasure, priority, testability)
+              - content @Form(scenarioId, source, stimulus, environment, artifact, response, responseMeasure, priority, testability)
           - testCriteria: `TechnicalGoalTestCriteria`
             - content, testCriteriaForm
             - items: `TechnicalGoalTestCaseEntry`
-              - content @Form(testCaseId, testCaseName, description, testProcedure, expectedResult, actualResult, status)
+              - content @Form(testCaseId, description, testProcedure, expectedResult, actualResult, status)
           - dependencies: `TechnicalGoalDependencies`
             - content @description
             - items: `TechnicalDependencyEntry`
-              - content @Form(dependencyId, dependencyName, dependencyType, description, version, sla, fallback, status)
+              - content @Form(dependencyId, dependencyType, description, version, sla, fallback, status)
           - constraints: `TechnicalGoalConstraints`
             - content @description
             - items: `TechnicalConstraintEntry`
-              - content @Form(constraintId, constraintName, constraintType, description, source, rationale, impact, flexibility)
+              - content @Form(constraintId, constraintType, description, source, rationale, impact, flexibility)
       - `SuccessCriteria`
         - content, summary, framework, successCriteriaMatrix, postImplementationReview
         - [1,] items: `SuccessCriterionEntry`
-          - content @Form(criterionId, criterionName, category), identity, measurement, verification, importance, status
+          - content @Form(criterionId, category), identity, measurement, verification, importance, status
           - relationships: `SuccessCriterionRelationships`
             - content @Form(relatedGoals, relatedRequirements, dependencies, stakeholders)
         - byCategory: `SuccessCriteriaByCategory`
@@ -256,9 +254,9 @@
         - organizationContent, maturity, decisionMakingContext, structure @text, decisionMaking @text,
           politicalLandscape @text
         - affectedDepartments: `AffectedDepartmentEntry`
-          - content @Form(departmentName, departmentHead, employeeCount, impactLevel, roleInProject, currentSystems, changeReadiness, keyContacts, specialConsiderations)
+          - content @Form(departmentHead, employeeCount, impactLevel, roleInProject, currentSystems, changeReadiness, keyContacts, specialConsiderations)
         - decisionMakers: `DecisionMakerEntry`
-          - content @Form(name, title, department, decisionAuthority, decisionDomains, influenceLevel, approvalRequired, availabilityConstraints, stakeholderAlignment, communicationPreference)
+          - content @Form(department, decisionAuthority, decisionDomains, influenceLevel, approvalRequired, availabilityConstraints, stakeholderAlignment, communicationPreference)
         - culturalConsiderations: `String`
         - communicationPreferences: `String`
         - changeAdvocates: `String`
@@ -279,7 +277,7 @@
       - keyRisks: `RiskEntry`
         - analysis, ownership
         - identification: `RiskIdentification`
-          - content @Form(riskId, riskName, description, category, subcategory), sourceDetails, cause
+          - content @Form(riskId, description, category, subcategory), sourceDetails, cause
         - response: `RiskResponse`
           - content @Form(responseStrategy, responseDescription, mitigationActions, contingencyPlan), residual,
             implementation
@@ -321,15 +319,13 @@
           - content @Form(toolStrategyOverview, standardToolStackDescription, toolGovernancePolicy, toolApprovalProcess),
             stack, lifecycle, governance, strategyNarrative @text
           - items: `ToolEntry`
-            - content @Form(toolId, toolName, notes), identity, licensing, versioning, access, integration, support,
-              security, usage, infrastructure, lifecycle, cost, configuration, documentation, approval,
-              integrationNotes @text
+            - content @Form(toolId, notes), identity, licensing, versioning, access, integration, support, security,
+              usage, infrastructure, lifecycle, cost, configuration, documentation, approval, integrationNotes @text
         - `Environments`
           - content @Form(promotionPath, environmentTopology, namingConvention, environmentCount, defaultRefreshPolicy, sharedServicesOverview, notes)
           - items: `EnvironmentEntry`
-            - content @Form(environmentName, environmentId, environmentType), identity, infrastructure, security,
-              dataManagement, configuration, availability, connectivity, monitoring, lifecycle, ownership, cost,
-              compliance
+            - content @Form(environmentId, environmentType), identity, infrastructure, security, dataManagement,
+              configuration, availability, connectivity, monitoring, lifecycle, ownership, cost, compliance
     - `ProjectOrganization`
       - content
       - `OrganizationStructure`
@@ -343,7 +339,7 @@
         - charter: `CommitteeCharter`
           - content @Form(purpose, meetingFrequency, quorumRequirements, votingRules, minutesDistribution)
         - [1,] members: `CommitteeMemberEntry`
-          - content @Form(name, organizationRole, department, committeeRole, decisionAuthority, delegationRules, meetingAttendance, contactInfo, substitute)
+          - content @Form(organizationRole, department, committeeRole, decisionAuthority, delegationRules, meetingAttendance, contactInfo, substitute)
           - responsibilities: `CommitteeResponsibilityEntry`
             - content @Form(area, scope, escalationTo)
     - `ProjectTeamStaffing`
@@ -352,11 +348,11 @@
         - content @Form(teamSize, internalResources, externalResources, teamLocationModel, coreHours, reportingStructure),
           teamDiagram @mermaid
       - [1,] members: `TeamMemberEntry`
-        - content @Form(name, projectRole, organization, jobTitle), allocationDetails, contact, governance, availability
+        - content @Form(projectRole, organization, jobTitle), allocationDetails, contact, governance, availability
         - skills: `TeamMemberSkills`
           - content @Form(primarySkills, secondarySkills, certifications, domainExpertise, yearsExperience)
           - skillDetails: `TeamMemberSkillEntry`
-            - content @Form(skillName, proficiencyLevel, yearsUsing, lastUsed)
+            - content @Form(proficiencyLevel, yearsUsing, lastUsed)
         - responsibilities: `TeamMemberResponsibilityEntry`
           - content @Form(area, description, deliverables, authority)
       - openRequirements: `ResourceRequirementEntry`
@@ -373,7 +369,7 @@
         - groupSummary: `DistributionGroupSummary`
           - content @Form(recipientCount, internalCount, externalCount, primaryLanguage, distributionFrequency)
         - items: `DistributionRecipientEntry`
-          - content @Form(name, role, organization), contact, access, subscription, backup
+          - content @Form(role, organization), contact, access, subscription, backup
           - preferences: `DistributionRecipientPreferences`
             - content @Form(distributionMethod, preferredFormat, preferredLanguage, digestPreference, notificationPreference)
       - executiveSummary: `ExecutiveSummaryDistribution`
@@ -381,13 +377,13 @@
         - groupSummary: `DistributionGroupSummary`
           - content @Form(recipientCount, internalCount, externalCount, primaryLanguage, distributionFrequency)
         - items: `DistributionRecipientEntry`
-          - content @Form(name, role, organization), contact, access, subscription, backup
+          - content @Form(role, organization), contact, access, subscription, backup
           - preferences: `DistributionRecipientPreferences`
             - content @Form(distributionMethod, preferredFormat, preferredLanguage, digestPreference, notificationPreference)
       - customGroups: `CustomDistributionGroup`
-        - content @Form(groupName, purpose, informationScope, frequency, primaryChannel)
+        - content @Form(purpose, informationScope, frequency, primaryChannel)
         - members: `DistributionRecipientEntry`
-          - content @Form(name, role, organization), contact, access, subscription, backup
+          - content @Form(role, organization), contact, access, subscription, backup
           - preferences: `DistributionRecipientPreferences`
             - content @Form(distributionMethod, preferredFormat, preferredLanguage, digestPreference, notificationPreference)
     - `ChangeProcedure`
@@ -396,10 +392,10 @@
         - content @Form(processVersion, effectiveDate, approvalAuthority, escalationPath, defaultSla, trackingTool, auditRequirements),
           overviewDiagram @mermaid-flow, decisionCriteria
         - steps: `ChangeStepEntry`
-          - content @Form(stepNumber, stepName, description), responsibility, artifacts, criteria, decision,
+          - content @Form(stepNumber, description), responsibility, artifacts, criteria, decision,
             subflowDiagram @mermaid-flow
         - roles: `ChangeRoleEntry`
-          - content @Form(roleName, responsibility, authority, requiredCompetencies, assignedTo, backup, availabilityRequirement)
+          - content @Form(responsibility, authority, requiredCompetencies, assignedTo, backup, availabilityRequirement)
         - notificationRules: `ChangeNotificationRules`
           - content @Form(submissionNotification, assessmentNotification, approvalNotification, implementationNotification, closureNotification, escalationNotification)
       - `ChangeImpactCriteria`
@@ -411,9 +407,9 @@
       - `ChangeControlBoard`
         - content @Form(boardName, purpose, meetingFrequency), meetings, governance, records
         - [1,] members: `CcbMemberEntry`
-          - content @Form(name, role, ccbRole, votingRights, representedArea, substitute, requiredForQuorum)
+          - content @Form(role, ccbRole, votingRights, representedArea, substitute, requiredForQuorum)
       - changeCategories: `ChangeCategoryEntry`
-        - content @Form(categoryId, categoryName, description), scopeDetails, handling, governance
+        - content @Form(categoryId, description), scopeDetails, handling, governance
     - legalAndContractual: `LegalAndContractualRequirements`
       - content @description
       - intellectualProperty: `IntellectualPropertyRequirements`
@@ -423,17 +419,17 @@
       - confidentiality: `ConfidentialityRequirements`
         - content @Form(ndaType, effectiveDate, expirationDate, governingLaw), dataHandling
         - categories: `ConfidentialInfoCategoryEntry`
-          - content @Form(categoryName, description, classificationLevel, handlingInstructions, authorizedPersonnel)
+          - content @Form(description, classificationLevel, handlingInstructions, authorizedPersonnel)
       - regulatoryCompliance: `RegulatoryComplianceRequirements`
         - content @description
         - requirements: `RegulatoryRequirementEntry`
           - content @Form(regulationName, regulatoryBody, jurisdiction, applicability, complianceDeadline, evidenceRequired, responsibleParty, penaltyForNonCompliance)
         - milestones: `ComplianceMilestoneEntry`
-          - content @Form(milestoneName, regulation, dueDate, deliverables, verificationMethod, status)
+          - content @Form(regulation, dueDate, deliverables, verificationMethod, status)
       - `AuditRequirements`
         - content @description
         - audits: `AuditEntry`
-          - content @Form(auditName, auditType, auditor, scope, plannedDate, frequency, standards)
+          - content @Form(auditType, auditor, scope, plannedDate, frequency, standards)
         - evidenceRequirements: `AuditEvidenceRequirements`
           - content @Form(documentationStandards, retentionPeriod, traceabilityRequirements, signoffRequirements)
           - evidenceTypes: `AuditEvidenceTypeEntry`
@@ -445,9 +441,9 @@
         - liabilityLimitations: `LiabilityLimitations`
           - content @Form(maxLiability, exclusions, indemnificationClauses, limitationOfDamages)
       - otherAgreements: `OtherAgreementEntry`
-        - content @Form(agreementTitle, agreementType, parties, effectiveDate, expirationDate, keyTerms, obligations, location)
+        - content @Form(agreementType, parties, effectiveDate, expirationDate, keyTerms, obligations, location)
     - stakeholderRegister: `StakeholderRegisterEntry`
-      - content @Form(stakeholderId, name, role, interest, influence, concerns, engagementStrategy)
+      - content @Form(stakeholderId, role, interest, influence, concerns, engagementStrategy)
   - `CurrentLandscape`
     - content
     - `ExistingSystemsLandscape` → CLA
@@ -477,8 +473,7 @@
           - `ChangesFromCurrentStructure`
             - overviewContent, changeNarrative @text, orgChartComparison @mermaid
             - items: `OrganizationalChangeEntry`
-              - content @Form(changeId, changeName, changeType), identification, scope, rationale, impact, transition,
-                status
+              - content @Form(changeId, changeType), identification, scope, rationale, impact, transition, status
               - risks: `OrgChangeRisks`
                 - content @Form(risks, mitigations, dependencies)
           - transitionTimeline: `OrganizationalTransitionTimeline`
@@ -488,14 +483,14 @@
             - phases: `TransitionPhaseEntry`
               - exitCriteria
               - identification: `TransitionPhaseIdentification`
-                - content @Form(phaseId, phaseName, phaseType, phaseOwner), timeline, scope
+                - content @Form(phaseId, phaseType, phaseOwner), timeline, scope
               - activities: `TransitionPhaseActivities`
                 - content @Form(keyActivities, trainingActivities, communicationActivities, systemActivities, processActivities, deliverables, resourceRequirements, externalSupport)
               - stakeholders: `TransitionPhaseStakeholders`
                 - content @Form(primaryStakeholders, engagementApproach, feedbackMechanism, escalationPath, sponsorInvolvement)
             - milestones: `TransitionMilestoneEntry`
-              - content @Form(milestoneId, milestoneName, milestoneType, targetDate, actualDate, status, description),
-                governance, dependencies, recognition
+              - content @Form(milestoneId, milestoneType, targetDate, actualDate, status, description), governance,
+                dependencies, recognition
             - changeReadiness: `ChangeReadinessAssessment`
               - overview
               - readinessCriteria: `ReadinessCriteriaEntry`
@@ -503,23 +498,23 @@
             - communicationPlan: `TransitionCommunicationPlan`
               - strategy
               - communicationEvents: `CommunicationEventEntry`
-                - content @Form(eventId, eventName, eventType, targetAudience, scheduledDate, phase, keyMessages),
-                  delivery, outcome
+                - content @Form(eventId, eventType, targetAudience, scheduledDate, phase, keyMessages), delivery,
+                  outcome
               - channels: `TransitionCommunicationChannels`
                 - content @Form(primaryChannels, urgentChannels, feedbackChannels, documentationRepository, channelOwnership, channelAccessibility)
             - supportStructure: `TransitionSupportStructure`
               - overview
               - supportResources: `TransitionSupportResourceEntry`
-                - content @Form(resourceType, resourceName, availabilityPeriod, coverage, contactInfo, capacity, skills, owner, costCenter)
+                - content @Form(resourceType, availabilityPeriod, coverage, contactInfo, capacity, skills, owner, costCenter)
               - escalationPaths: `TransitionEscalationPaths`
                 - content @Form(level1, level2, level3, emergencyContact, escalationCriteria, responseTimeTargets, managementEscalation)
             - successMetrics: `TransitionSuccessMetrics`
               - overview
               - metrics: `TransitionMetricEntry`
-                - content @Form(metricId, metricName, category, description, measurementMethod, baseline, target),
-                  operations, statusSection
+                - content @Form(metricId, category, description, measurementMethod, baseline, target), operations,
+                  statusSection
             - transitionRisks: `TransitionRiskEntry`
-              - content @Form(riskId, riskName, riskCategory, description), assessment, response
+              - content @Form(riskId, riskCategory, description), assessment, response
         - jobDescriptions: `JobDescriptionsAndStaffing`
           - overview
           - newRoles: `NewRoleEntry`
@@ -533,11 +528,11 @@
             - qualifications: `NewRoleQualifications`
               - content @Form(education, preferredEducation, experience, preferredExperience), credentials, screening
               - requiredCompetencies: `RoleCompetencyEntry`
-                - content @Form(competencyId, competencyName, competencyType, requiredLevel, preferredLevel, assessmentMethod, developmentPriority)
+                - content @Form(competencyId, competencyType, requiredLevel, preferredLevel, assessmentMethod, developmentPriority)
           - changedRoles: `ChangedRoleEntry`
             - systemAccess, incumbentImpact
             - identification: `ChangedRoleIdentification`
-              - content @Form(roleId, roleTitle, newRoleTitle, changeRationale), structure, transition
+              - content @Form(roleId, newRoleTitle, changeRationale), structure, transition
             - responsibilities: `ChangedRoleResponsibilities`
               - impactSummary
               - addedResponsibilities: `ResponsibilityChangeEntry`
@@ -549,16 +544,16 @@
             - competencies: `ChangedRoleCompetencies`
               - gapAssessment
               - newCompetencies: `RoleCompetencyEntry`
-                - content @Form(competencyId, competencyName, competencyType, requiredLevel, preferredLevel, assessmentMethod, developmentPriority)
+                - content @Form(competencyId, competencyType, requiredLevel, preferredLevel, assessmentMethod, developmentPriority)
               - removedCompetencies: `RoleCompetencyEntry`
-                - content @Form(competencyId, competencyName, competencyType, requiredLevel, preferredLevel, assessmentMethod, developmentPriority)
+                - content @Form(competencyId, competencyType, requiredLevel, preferredLevel, assessmentMethod, developmentPriority)
               - changedLevels: `CompetencyLevelChangeEntry`
-                - content @Form(competencyName, currentLevel, newLevel, reason, developmentPath, timeframe)
+                - content @Form(currentLevel, newLevel, reason, developmentPath, timeframe)
             - transition: `ChangedRoleTransition`
               - content @Form(transitionStart, transitionEnd, parallelPeriod), training, support
           - removedRoles: `RemovedRoleEntry`
-            - content @Form(roleId, roleTitle, department, removalReason, effectiveDate, incumbentCount), transition,
-              governance, continuity
+            - content @Form(roleId, department, removalReason, effectiveDate, incumbentCount), transition, governance,
+              continuity
           - `StaffingPlan`
             - overview, recruitmentTimeline
             - budget: `StaffingBudget`
@@ -568,11 +563,11 @@
           - `CompetencyFramework`
             - overview
             - coreCompetencies: `CompetencyEntry`
-              - content @Form(competencyId, competencyName, description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
+              - content @Form(competencyId, description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
             - technicalCompetencies: `CompetencyEntry`
-              - content @Form(competencyId, competencyName, description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
+              - content @Form(competencyId, description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
             - leadershipCompetencies: `CompetencyEntry`
-              - content @Form(competencyId, competencyName, description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
+              - content @Form(competencyId, description, behavioralIndicators, proficiencyLevels, applicableRoles, requiredLevel, developmentResources, assessmentTools)
         - [1,] workplaceDescriptions: `WorkplaceDescriptionEntry` ← (per user category)
           - userCategory
           - physicalRequirements: `PhysicalWorkplaceRequirements`
@@ -600,16 +595,13 @@
           - `TrainingRequirements`
             - overview
             - initialTraining: `InitialTrainingEntry`
-              - content @Form(trainingId, trainingName, description), audience, learningContent, delivery, schedule,
-                assessment
+              - content @Form(trainingId, description), audience, learningContent, delivery, schedule, assessment
             - ongoingTraining: `OngoingTrainingEntry`
-              - content @Form(trainingId, trainingName, description, targetAudience), schedule, contentManagement,
-                compliance
+              - content @Form(trainingId, description, targetAudience), schedule, contentManagement, compliance
             - systemTraining: `SystemTrainingEntry`
-              - content @Form(trainingId, systemName, modulesCovered, userRoleFocus), functional, practice, support
+              - content @Form(trainingId, modulesCovered, userRoleFocus), functional, practice, support
             - certifications: `CertificationEntry`
-              - content @Form(certificationId, certificationName, issuingBody), overview, preparation, exam,
-                maintenance, support
+              - content @Form(certificationId, issuingBody), overview, preparation, exam, maintenance, support
             - `TrainingMaterials`
               - content @Form(userGuides, quickReferenceCards, videoTutorials, elearningModules), practice, knowledge,
                 operations
@@ -652,14 +644,13 @@
           - constraints: `DataAttributeConstraintEntry`
             - content @Form(mandatory, nullable, unique, defaultValue, validationRules, constraintExpression, allowedValues, patternRegex)
           - displayProperties: `DisplayPropertyEntry`
-            - content @Form(displayLabel, displayOrder, displayGroup, helpText)
+            - content @Form(displayOrder, displayGroup, helpText)
         - keyAttributes: `KeyAttributeEntry`
-          - content @Form(keyName, keyType, keyColumns, description), generation, reference, governance,
-            referencedEntityRef
+          - content @Form(keyType, keyColumns, description), generation, reference, governance, referencedEntityRef
         - indexes: `EntityIndexEntry`
-          - content @Form(indexName, indexType, columns, includeColumns, isUnique, isClustered, filterCondition, purpose, estimatedSize)
+          - content @Form(indexType, columns, includeColumns, isUnique, isClustered, filterCondition, purpose, estimatedSize)
         - constraints: `EntityConstraintEntry`
-          - content @Form(constraintName, constraintType, expression, errorMessage, enforcementLevel, isDeferred, businessRule)
+          - content @Form(constraintType, expression, errorMessage, enforcementLevel, isDeferred, businessRule)
       - `EntityRelationships` → IFM
       - `DataClassification` → IFM
       - `DataDictionary` → IFM
@@ -674,35 +665,34 @@
         - integrationPoints: `IntegrationPointEntry`
           - content @Form(exposedInApis, eventPublished, eventSubscribed, externalSystemMapping)
         - attributes: `BusinessObjectAttributeEntry`
-          - content @Form(attributeName, description, type), definition, validation, governance
+          - content @Form(description, type), definition, validation, governance
         - keyStates: `ObjectStateEntry`
-          - content @Form(stateName, stateCode, description, stateType, entryConditions, exitConditions, allowedOperations, restrictedOperations, slaRequirements, notificationTriggers)
+          - content @Form(stateCode, description, stateType, entryConditions, exitConditions, allowedOperations, restrictedOperations, slaRequirements, notificationTriggers)
         - keyBusinessRules: `BusinessRuleReferenceEntry`
-          - content @Form(ruleId, ruleName, ruleType, description, enforcement, triggerCondition, affectedAttributes, consequenceOnViolation),
+          - content @Form(ruleId, ruleType, description, enforcement, triggerCondition, affectedAttributes, consequenceOnViolation),
             ruleRef
         - lifecycleTransitions: `LifecycleTransitionEntry`
-          - content @Form(transitionId, transitionName, fromState, toState), trigger, conditions, execution
+          - content @Form(transitionId, fromState, toState), trigger, conditions, execution
         - operations: `ObjectOperationEntry`
-          - content @Form(operationName, description, operationType), execution, lifecycle, governance
+          - content @Form(description, operationType), execution, lifecycle, governance
         - invariants: `ObjectInvariantEntry`
-          - content @Form(invariantName, description, expression, scope, enforcementPoint, violationAction, businessJustification)
+          - content @Form(description, expression, scope, enforcementPoint, violationAction, businessJustification)
     - `FunctionModel`
       - decompositionOverview, matrixOverview
       - functions: `FunctionEntry`
-        - content @Form(functionId, functionName, description, parentFunction), classification, operations,
-          implementation
+        - content @Form(functionId, description, parentFunction), classification, operations, implementation
         - subFunctions: `SubFunctionEntry`
-          - content @Form(subFunctionName, description, dataAccess, systemSupport)
+          - content @Form(description, dataAccess, systemSupport)
       - matrixEntries: `FunctionDataMatrixEntry`
-        - content @Form(functionName, entityName, accessType, accessFrequency, isOwner, accessReason)
+        - content @Form(entityName, accessType, accessFrequency, isOwner, accessReason)
       - [1,] businessRules: `BusinessRuleEntry`
         - identity, classification, ruleLogic, implementation, exceptionHandling, governance
         - affectedObjects: `AffectedObjectEntry`
-          - content @Form(objectName, affectedAttributes, impact, accessType), objectRef
+          - content @Form(affectedAttributes, impact, accessType), objectRef
         - affectedFunctions: `AffectedFunctionEntry`
-          - content @Form(functionName, triggerPoint, impact, isMandatory), functionRef
+          - content @Form(triggerPoint, impact, isMandatory), functionRef
         - examples: `RuleExampleEntry`
-          - content @Form(exampleName, scenario, inputData, expectedOutcome, exampleType)
+          - content @Form(scenario, inputData, expectedOutcome, exampleType)
     - `SchemaVersioningAndMigration`
       - content @Form(versioningStrategy, forwardOnly, baselineVersion, zeroDowntimeApproach)
       - migrationTargets: `MigrationTargetEntry`
@@ -733,7 +723,7 @@
     - `ServerOperationRegistry`
       - content
       - operations: `ServerOperationEntry`
-        - content @Form(operationName, purpose, primaryDataEntity, descriptionKey, errorCodes)
+        - content @Form(purpose, primaryDataEntity, descriptionKey, errorCodes)
         - authorization: `AuthorizationRequirementSpec`
           - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
             resourceKeyRequirement, customRequirement
@@ -743,9 +733,9 @@
               - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement, entitlementRequirement,
                 resourceKeyRequirement, customRequirement
         - requestMembers: `ServerOperationMemberEntry`
-          - content @Form(memberName, memberType, multiValued, required, dataEntity, domainEnum, description)
+          - content @Form(memberType, multiValued, required, dataEntity, domainEnum, description)
         - responseMembers: `ServerOperationMemberEntry`
-          - content @Form(memberName, memberType, multiValued, required, dataEntity, domainEnum, description)
+          - content @Form(memberType, multiValued, required, dataEntity, domainEnum, description)
     - `DataModelFollowUp`
       - content, erDiagram @mermaid-er
       - entityFollowUps: `EntityFollowUpEntry`
@@ -831,8 +821,8 @@
     - `ReportDefinitions`
       - content @description
       - reports: `ReportEntry`
-        - content @Form(reportId, reportName, reportType), identity, dataSource, format, layout, headerFooter,
-          grouping, formatting, interactivity, pagination, security, lifecycle
+        - content @Form(reportId, reportType), identity, dataSource, format, layout, headerFooter, grouping,
+          formatting, interactivity, pagination, security, lifecycle
         - access: `AuthorizationRequirementSpec`
           - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
             resourceKeyRequirement, customRequirement
@@ -842,23 +832,23 @@
               - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement, entitlementRequirement,
                 resourceKeyRequirement, customRequirement
         - sections: `ReportSectionEntry`
-          - content @Form(sectionId, title, sectionType), data, layout, sorting, aggregation
+          - content @Form(sectionId, sectionType), data, layout, sorting, aggregation
           - columns: `ReportColumnEntry`
-            - content @Form(columnId, columnName, displayLabel), dataSource, formatting, numericFormat, currencyFormat,
-              dateFormat, booleanFormat, textFormat, aggregation, interaction, layout
+            - content @Form(columnId, displayLabel), dataSource, formatting, numericFormat, currencyFormat, dateFormat,
+              booleanFormat, textFormat, aggregation, interaction, layout
           - charts: `ReportChartEntry`
-            - content @Form(chartId, title, chartType), series, display, interaction, layout
+            - content @Form(chartId, chartType), series, display, interaction, layout
             - axes: `ReportChartAxes`
               - content @Form(dataSource, xAxisField, xAxisLabel, xAxisFormat, yAxisField, yAxisLabel, yAxisFormat, yAxisMin, yAxisMax, secondaryYAxisField, secondaryYAxisLabel)
         - filters: `ReportFilterEntry`
-          - content @Form(filterId, filterName, displayLabel), input, textFilterOptions, numericFilterOptions,
-            dateFilterOptions, booleanFilterOptions, selectFilterOptions, entityFilterOptions, behavior, presentation
+          - content @Form(filterId, displayLabel), input, textFilterOptions, numericFilterOptions, dateFilterOptions,
+            booleanFilterOptions, selectFilterOptions, entityFilterOptions, behavior, presentation
         - schedules: `ReportScheduleEntry`
-          - content @Form(scheduleId, scheduleName, frequency), timing, retry, notifications, output
+          - content @Form(scheduleId, frequency), timing, retry, notifications, output
         - distributions: `ReportDistributionEntry`
           - content @Form(distributionId, channel, description), recipients, contentSettings, delivery
         - recipients: `ReportRecipientEntry`
-          - content @Form(recipientId, recipientName, recipientType, recipientReference), context, delivery, lifecycle
+          - content @Form(recipientId, recipientType, recipientReference), context, delivery, lifecycle
     - designFollowUp: `ExperienceDesignFollowUp`
       - content @description
       - `DesignVision` → XDS
@@ -902,29 +892,29 @@
         - `SoftwareDeliverables`
           - content
           - items: `DeliverableEntry`
-            - content @Form(deliverableId, deliverableName, priority), identity, logistics, version, quality,
-              ownership, legal, documentation
+            - content @Form(deliverableId, priority), identity, logistics, version, quality, ownership, legal,
+              documentation
             - dependencies: `DeliverableDependencies`
               - content @Form(dependsOn, prerequisiteForDelivery)
         - `DocumentationDeliverables`
           - content
           - items: `DeliverableEntry`
-            - content @Form(deliverableId, deliverableName, priority), identity, logistics, version, quality,
-              ownership, legal, documentation
+            - content @Form(deliverableId, priority), identity, logistics, version, quality, ownership, legal,
+              documentation
             - dependencies: `DeliverableDependencies`
               - content @Form(dependsOn, prerequisiteForDelivery)
         - `TrainingDeliverables`
           - content
           - items: `DeliverableEntry`
-            - content @Form(deliverableId, deliverableName, priority), identity, logistics, version, quality,
-              ownership, legal, documentation
+            - content @Form(deliverableId, priority), identity, logistics, version, quality, ownership, legal,
+              documentation
             - dependencies: `DeliverableDependencies`
               - content @Form(dependsOn, prerequisiteForDelivery)
         - `SupportDeliverables`
           - content
           - items: `DeliverableEntry`
-            - content @Form(deliverableId, deliverableName, priority), identity, logistics, version, quality,
-              ownership, legal, documentation
+            - content @Form(deliverableId, priority), identity, logistics, version, quality, ownership, legal,
+              documentation
             - dependencies: `DeliverableDependencies`
               - content @Form(dependsOn, prerequisiteForDelivery)
       - `AcceptancePlan` ← (Seeds → QAP)
@@ -946,8 +936,8 @@
       - strategy: `StagingStrategy` → DRM
       - `StageOverview` → DRM
       - [1,] stages: `StageEntry`
-        - content @Form(stageNumber, stageName, currentStatus), identity, timeline, scope, quality, deployment, risk,
-          metrics, featureScope @text, timelineNarrative @text, rolloutPlan @text
+        - content @Form(stageNumber, currentStatus), identity, timeline, scope, quality, deployment, risk, metrics,
+          featureScope @text, timelineNarrative @text, rolloutPlan @text
         - dependencies: `StageDependencies`
           - content @Form(prerequisiteStages, parallelStages, externalDependencies, blockingRisks)
         - resources: `StageResources`
@@ -955,7 +945,7 @@
         - stakeholders: `StageStakeholders`
           - content @Form(stageOwner, businessSponsor, technicalLead, qaLead, changeManager, announcementPlan, trainingRequirements, documentationUpdates)
         - subStagesAndMilestones: `SubStageEntry`
-          - content @Form(name, subStageType, sequenceNumber), overview, timeline, scope, execution, status
+          - content @Form(subStageType, sequenceNumber), overview, timeline, scope, execution, status
         - successCriteria: `StageSuccessCriterionEntry`
           - content @Form(criterionId, criterion, category, priority), measurement, verification, status
       - `FeaturePrioritization` → DRM

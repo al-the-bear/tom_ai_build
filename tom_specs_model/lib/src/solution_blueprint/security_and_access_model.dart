@@ -287,13 +287,6 @@ relationships.
 class UserCategoryDefinition extends DocSpecsSection {
   @Form([
     Field(
-      'categoryName',
-      String,
-      'Category Name',
-      required: true,
-      hint: 'Name of the user category.',
-    ),
-    Field(
       'description',
       String,
       'Short description',
@@ -1201,13 +1194,6 @@ class UserLifecycleTransitions extends DocSpecsSection {
 class UserLifecycleTransitionEntry extends DocSpecsSection {
   @Form([
     Field(
-      'transitionName',
-      String,
-      'Transition Name',
-      required: true,
-      hint: 'Descriptive name (e.g., "Activate Account", "Suspend User")',
-    ),
-    Field(
       'fromState',
       String,
       'From State',
@@ -1651,13 +1637,6 @@ enum UserAttributePlacement {
 class UserAttributeEntry extends DocSpecsSection {
   @Form([
     Field(
-      'attributeName',
-      String,
-      'Attribute Name',
-      required: true,
-      hint: 'Name of the user attribute.',
-    ),
-    Field(
       'dataType',
       String,
       'Data Type',
@@ -1911,13 +1890,6 @@ class Identification extends DocSpecsSection {
 @CodeSpecKind([CodeSpecPart.authentication])
 class IdentitySourceEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'sourceName',
-      String,
-      'Source Name',
-      hint: 'Unique name for this identity source, e.g. CorporateAD',
-      required: true,
-    ),
     Field(
       'sourceType',
       String,
@@ -2312,13 +2284,6 @@ class IdentityVerificationPolicy extends DocSpecsSection {
 @CodeSpecKind([CodeSpecPart.authentication])
 class IdentityProviderEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'providerName',
-      String,
-      'Provider Name',
-      hint: 'Human-readable name, e.g. Corporate Azure AD',
-      required: true,
-    ),
     Field(
       'providerType',
       String,
@@ -3824,13 +3789,6 @@ class ApiKeyManagementPolicy extends DocSpecsSection {
 class AuthenticationMethodEntry extends DocSpecsSection {
   @Form([
     Field(
-      'methodName',
-      String,
-      'Method Name',
-      required: true,
-      hint: 'Unique name identifying this authentication method',
-    ),
-    Field(
       'methodType',
       String,
       'Method Type',
@@ -4806,13 +4764,6 @@ class StepUpAuthenticationPolicy extends DocSpecsSection {
 @CodeSpecKind([CodeSpecPart.authentication])
 class LoginFlowStepEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'stepName',
-      String,
-      'Step Name',
-      required: true,
-      hint: 'Unique name for this login flow step',
-    ),
     Field(
       'stepOrder',
       String,
@@ -11102,13 +11053,6 @@ class TenantBoundaryEnforcementPolicy extends DocSpecsSection {
 class AuthorizationGroupEntry extends DocSpecsSection {
   @Form([
     Field(
-      'groupName',
-      String,
-      'Group Name',
-      hint: 'Unique name of the authorization group (e.g. Finance Managers)',
-      required: true,
-    ),
-    Field(
       'description',
       String,
       'Short description',
@@ -12107,16 +12051,6 @@ class EncryptionAtRestPolicy extends DocSpecsSection {
 class EncryptedDataCategoryEntry extends DocSpecsSection {
   @Form([
     Field(
-      'categoryName',
-      String,
-      'Category Name',
-      required: true,
-      hint:
-          'Name of the data category requiring encryption '
-          '(e.g. PersonalData, FinancialRecords, HealthRecords, '
-          'Credentials, APIKeys)',
-    ),
-    Field(
       'dataClassification',
       String,
       'Data Classification',
@@ -12742,16 +12676,6 @@ class CertificateManagementPolicy extends DocSpecsSection {
 @CodeSpecKind([CodeSpecPart.serverConfiguration])
 class CommunicationChannelEncryptionEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'channelName',
-      String,
-      'Channel Name',
-      required: true,
-      hint:
-          'Name of the communication channel '
-          '(e.g. ClientToServer, ServerToDatabase, InterService, '
-          'WebSocket, gRPC, MessageQueue, EmailSMTP)',
-    ),
     Field(
       'channelType',
       String,
@@ -14007,13 +13931,6 @@ class AdministrativeEventPolicy extends DocSpecsSection {
 @CodeSpecKind([CodeSpecPart.auditLog])
 class SecurityEventEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'eventName',
-      String,
-      'Event Name',
-      required: true,
-      hint: 'Unique identifier for this event type',
-    ),
     Field(
       'eventCategory',
       String,

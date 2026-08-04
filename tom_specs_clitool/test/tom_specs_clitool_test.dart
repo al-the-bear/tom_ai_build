@@ -345,6 +345,18 @@ void main() {
         expect(problems, isEmpty, reason: problems.take(20).join('\n'));
       },
     );
+
+    test('tom_specs_model_rules.md §8 rule 4: no list entry restates its own '
+        'headline in a form field', () {
+      // The rule is otherwise enforced by reading alone: a self-naming field
+      // and a legitimate one look identical in source, so nothing but this
+      // check stops the next one from being written.
+      final result = validateStructuralInvariants(classes);
+      final entryNameErrors =
+          result.errors.where((e) => e.contains('entry name:')).toList();
+      expect(entryNameErrors, isEmpty,
+          reason: entryNameErrors.take(20).join('\n'));
+    });
   });
 
   // ---------------------------------------------------------------------------
@@ -2885,6 +2897,202 @@ void main() {
         'Linker': linker(['GHOST.routeId']),
       };
       expect(coReachErrors(classes), isEmpty);
+    });
+  });
+
+  group('unit: a list entry may not restate its heading (§8 rule 4, csre3)',
+      () {
+    // A list-entry section's headline is per-instance free text, so it *is*
+    // the entry's name; a form field holding that same name is a second slot
+    // for one value. Both exemptions are read off the field, never declared.
+    ModelClass nameEntry(
+      String name,
+      List<FormFieldInfo> formFields, {
+      List<ModelField> fields = const [],
+      String sectionId = 'ENT',
+    }) =>
+        ModelClass(
+          name: name,
+          annotations: [AnnotationData('SectionId', {'id': sectionId})],
+          formFields: formFields,
+          fields: fields,
+        );
+
+    ModelField patternedList(String fieldName, String elementType, String id) =>
+        _listField(fieldName, elementType, [
+          AnnotationData('SectionId', {'id': '$id-LST'}),
+          AnnotationData('SectionIdPattern', {'pattern': '$id-xxx'}),
+        ]);
+
+    Map<String, ModelClass> nameModel(
+      Map<String, ModelClass> classes, {
+      List<ModelField> rootFields = const [],
+    }) =>
+        {
+          'D00SolutionBlueprint': ModelClass(
+            name: 'D00SolutionBlueprint',
+            annotations: [
+              AnnotationData('Document', {}),
+              AnnotationData('SectionId', {'id': 'SBP00'}),
+            ],
+            fields: rootFields,
+          ),
+          ...classes,
+        };
+
+    List<String> nameErrors(Map<String, ModelClass> classes) =>
+        validateStructuralInvariants(classes)
+            .errors
+            .where((e) => e.contains('entry name:'))
+            .toList();
+
+    test('a list entry naming itself is rejected', () {
+      final classes = nameModel(
+        {
+          'RouteEntry': nameEntry('RouteEntry', [
+            FormFieldInfo(name: 'routeName', typeName: 'String'),
+          ]),
+        },
+        rootFields: [patternedList('entries', 'RouteEntry', 'RT')],
+      );
+      final errs = nameErrors(classes);
+      expect(errs, hasLength(1));
+      expect(errs.single, contains('RouteEntry.routeName'));
+    });
+
+    test('a bare name/title/label on a list entry is rejected', () {
+      // Such a field cannot mean anything but the entry itself, so no stem
+      // comparison applies — the shape alone decides.
+      for (final fieldName in ['name', 'title', 'label']) {
+        final classes = nameModel(
+          {
+            'RouteEntry': nameEntry('RouteEntry', [
+              FormFieldInfo(name: fieldName, typeName: 'String'),
+            ]),
+          },
+          rootFields: [patternedList('entries', 'RouteEntry', 'RT')],
+        );
+        expect(nameErrors(classes), hasLength(1), reason: fieldName);
+      }
+    });
+
+    test('extracting the identification block does not evade the rule', () {
+      // The check walks up to the enclosing entry, so an entry whose fields
+      // live in a sub-section class is judged the same as an inline @Form.
+      final classes = nameModel(
+        {
+          'RouteEntry': ModelClass(
+            name: 'RouteEntry',
+            annotations: [AnnotationData('SectionId', {'id': 'RTEN'})],
+            fields: [_field('identification', 'RouteIdentification')],
+          ),
+          'RouteIdentification': nameEntry(
+            'RouteIdentification',
+            [FormFieldInfo(name: 'routeName', typeName: 'String')],
+            sectionId: 'RTIDN',
+          ),
+        },
+        rootFields: [patternedList('entries', 'RouteEntry', 'RT')],
+      );
+      final errs = nameErrors(classes);
+      expect(errs, hasLength(1));
+      expect(errs.single, contains('RouteIdentification.routeName'));
+      expect(errs.single, contains('RouteEntry'));
+    });
+
+    test('naming another thing is accepted', () {
+      final classes = nameModel(
+        {
+          'RouteEntry': nameEntry('RouteEntry', [
+            FormFieldInfo(name: 'carrierName', typeName: 'String'),
+          ]),
+        },
+        rootFields: [patternedList('entries', 'RouteEntry', 'RT')],
+      );
+      expect(nameErrors(classes), isEmpty);
+    });
+
+    test('a field on a fixed section is out of scope', () {
+      // No per-instance headline exists to duplicate: the section's heading is
+      // predetermined, so the form field is the only slot the name has.
+      final classes = nameModel(
+        {
+          'RouteSummary': nameEntry(
+            'RouteSummary',
+            [FormFieldInfo(name: 'routeName', typeName: 'String')],
+            sectionId: 'RTSUM',
+          ),
+        },
+        rootFields: [_field('summary', 'RouteSummary')],
+      );
+      expect(nameErrors(classes), isEmpty);
+    });
+
+    test('exemption (b): a registry key is kept', () {
+      // Something resolves against this value, so it is a stable identifier
+      // other sections are matched on, not merely the entry's display title.
+      final classes = nameModel(
+        {
+          'RouteEntry': nameEntry(
+            'RouteEntry',
+            [
+              FormFieldInfo(
+                  name: 'routeName', typeName: 'String', required: true),
+            ],
+            sectionId: 'RTEN',
+          ),
+          'Linker': ModelClass(
+            name: 'Linker',
+            annotations: [AnnotationData('SectionId', {'id': 'LNK'})],
+            formFields: [
+              FormFieldInfo(
+                name: 'target',
+                typeName: 'String',
+                refersTo: ['RTEN.routeName'],
+              ),
+            ],
+          ),
+        },
+        rootFields: [
+          patternedList('entries', 'RouteEntry', 'RT'),
+          _field('linker', 'Linker'),
+        ],
+      );
+      expect(nameErrors(classes), isEmpty);
+    });
+
+    test('exemption (c): a field that is itself a reference is kept', () {
+      // It names the section it points at, not the one it sits in — and where
+      // the two read alike, the reference field is the authoritative slot and
+      // the heading renders it, so there is still exactly one authority.
+      final classes = nameModel(
+        {
+          'RouteEntry': nameEntry(
+            'RouteEntry',
+            [
+              FormFieldInfo(
+                  name: 'routeName', typeName: 'String', required: true),
+            ],
+            sectionId: 'RTEN',
+          ),
+          'RouteReferenceEntry': nameEntry(
+            'RouteReferenceEntry',
+            [
+              FormFieldInfo(
+                name: 'routeName',
+                typeName: 'String',
+                refersTo: ['RTEN.routeName'],
+              ),
+            ],
+            sectionId: 'RTRF',
+          ),
+        },
+        rootFields: [
+          patternedList('entries', 'RouteEntry', 'RT'),
+          patternedList('refs', 'RouteReferenceEntry', 'RTRF'),
+        ],
+      );
+      expect(nameErrors(classes), isEmpty);
     });
   });
 }

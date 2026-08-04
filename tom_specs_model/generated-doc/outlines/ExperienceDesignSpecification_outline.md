@@ -8,15 +8,15 @@
     - `DesignGoals`
       - content, overview @text
       - items: `DesignGoalEntry`
-        - content @Form(goalName, description, priority, category, measurementCriteria, targetMetric, relatedPrinciples)
+        - content @Form(description, priority, category, measurementCriteria, targetMetric, relatedPrinciples)
     - `DesignPrinciples`
       - content, overview @text
       - items: `DesignPrincipleEntry`
-        - content @Form(principleName, description, rationale, category, examples, exceptions, sourceReference, relatedGoals)
+        - content @Form(description, rationale, category, examples, exceptions, sourceReference, relatedGoals)
     - personas: `UserPersonas`
       - content, overview @text
       - [1,] items: `PersonaEntry`
-        - content @Form(personaName, age, role), profile, context, needs
+        - content @Form(age, role), profile, context, needs
         - goals: `PersonaGoals`
           - content
           - items: `PersonaGoalEntry`
@@ -28,13 +28,13 @@
         - scenarios: `PersonaScenarios`
           - content
           - items: `PersonaScenarioEntry`
-            - content @Form(scenarioName, description, frequency, urgency, context, requiredScreens, successMetric)
+            - content @Form(description, frequency, urgency, context, requiredScreens, successMetric)
   - screens: `ScreenDescriptions`
     - content
     - `ScreenInventory`
       - content, overview @text
       - [1,] items: `ScreenEntry`
-        - content @Form(screenId, screenName, purpose), classification, traceability, presentation, designNotes @text
+        - content @Form(screenId, purpose), classification, traceability, presentation, designNotes @text
         - access: `AuthorizationRequirementSpec`
           - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
             resourceKeyRequirement, customRequirement
@@ -46,9 +46,9 @@
         - sections: `ScreenSections`
           - content
           - items: `ScreenSectionEntry`
-            - content @Form(sectionId, sectionName, purpose, sectionType), layout, behavior
+            - content @Form(sectionId, purpose, sectionType), layout, behavior
             - elements: `ScreenElementEntry`
-              - content @Form(elementId, elementName, elementType), resources, layout, behavior, presentation
+              - content @Form(elementId, elementType), resources, layout, behavior, presentation
               - access: `AuthorizationRequirementSpec`
                 - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
                   resourceKeyRequirement, customRequirement
@@ -71,13 +71,13 @@
         - actions: `ScreenActions`
           - content
           - items: `ScreenActionEntry`
-            - content @Form(actionId, actionName, actionType), visual, conditions, behavior
+            - content @Form(actionId, actionType), visual, conditions, behavior
         - states: `ScreenStates`
           - content
           - items: `ScreenStateEntry`
-            - content @Form(stateName, description, messageResource, iconResource, illustrationResource, primaryActionLabel, primaryActionTarget, secondaryActionLabel)
+            - content @Form(description, messageResource, iconResource, illustrationResource, primaryActionLabel, primaryActionTarget, secondaryActionLabel)
         - userCategories: `ScreenUserCategoryEntry`
-          - content @Form(categoryName, description, contentVariations)
+          - content @Form(description, contentVariations)
         - entryPoints: `EntryPointEntry`
           - content @Form(entryPoint, source, contextPassed)
         - responsiveRules: `ScreenResponsiveRuleEntry`
@@ -119,7 +119,7 @@
       - `SecondaryNavigation`
         - content, overview @text
         - tabBars: `TabBarDefinitionEntry`
-          - content @Form(tabBarId, tabBarName, hostScreenId, tabBarStyle), behavior, loading
+          - content @Form(tabBarId, hostScreenId, tabBarStyle), behavior, loading
           - [1,] tabs: `TabItemEntry`
             - content @Form(tabId, label, icon, displayOrder, contentScreenId, visibilityCondition, badgeType, badgeSource)
             - access: `AuthorizationRequirementSpec`
@@ -133,7 +133,7 @@
       - `UtilityNavigation`
         - content
         - items: `UtilityNavigationItemEntry`
-          - content @Form(utilityId, label, icon, position), display, behavior
+          - content @Form(utilityId, icon, position), display, behavior
           - access: `AuthorizationRequirementSpec`
             - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
               resourceKeyRequirement, customRequirement
@@ -143,7 +143,7 @@
                 - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
                   entitlementRequirement, resourceKeyRequirement, customRequirement
           - menuItems: `UtilityMenuItemEntry`
-            - content @Form(menuItemId, label, icon, displayOrder), action, behavior
+            - content @Form(menuItemId, icon, displayOrder), action, behavior
             - access: `AuthorizationRequirementSpec`
               - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
                 resourceKeyRequirement, customRequirement
@@ -169,11 +169,11 @@
       - `NavigationGuards`
         - content, overview @text
         - guards: `NavigationGuardEntry`
-          - content @Form(guardId, guardName, guardType, triggerCondition), dialog, routing
+          - content @Form(guardId, guardType, triggerCondition), dialog, routing
     - `ScreenRouteMap`
       - content, overview @text
       - routes: `ScreenRouteEntry`
-        - content @Form(routeId, routePath, routeTitle, screenId, routeParameters)
+        - content @Form(routeId, routePath, screenId, routeParameters)
       - formPlacement: `FormScreenAssignmentEntry`
         - content @Form(formId, routeId, presentationMode)
       - transitions: `ScreenTransitionEntry`
@@ -182,8 +182,7 @@
     - content @Form(printStrategy, defaultPaperSize, defaultOrientation), pageSetup, branding, watermark, headerFooter,
       archive
     - exportFormats: `ExportFormatEntry`
-      - content @Form(exportId, formatName, formatType), identity, fileFormat, delimiter, dataFormat, security, output,
-        audit
+      - content @Form(exportId, formatType), identity, fileFormat, delimiter, dataFormat, security, output, audit
       - sizeSettings: `ExportSizeSettings`
         - content @Form(maxRows, splitLargeFiles, splitThreshold)
       - access: `AuthorizationRequirementSpec`
@@ -198,7 +197,7 @@
         - content @Form(mappingId, sourceField, targetFieldName), formatting, numericOutput, temporalOutput,
           booleanOutput, enumerationOutput, textOutput, transformation, inclusion, layout
     - exportTemplates: `ExportTemplateEntry`
-      - content @Form(templateId, templateName, baseFormatType), format, fields, layout, metadata
+      - content @Form(templateId, baseFormatType), format, fields, layout, metadata
       - access: `AuthorizationRequirementSpec`
         - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
           resourceKeyRequirement, customRequirement
@@ -210,8 +209,8 @@
   - `ReportDefinitions`
     - content @description
     - reports: `ReportEntry`
-      - content @Form(reportId, reportName, reportType), identity, dataSource, format, layout, headerFooter, grouping,
-        formatting, interactivity, pagination, security, lifecycle
+      - content @Form(reportId, reportType), identity, dataSource, format, layout, headerFooter, grouping, formatting,
+        interactivity, pagination, security, lifecycle
       - access: `AuthorizationRequirementSpec`
         - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
           resourceKeyRequirement, customRequirement
@@ -221,23 +220,23 @@
             - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement, entitlementRequirement,
               resourceKeyRequirement, customRequirement
       - sections: `ReportSectionEntry`
-        - content @Form(sectionId, title, sectionType), data, layout, sorting, aggregation
+        - content @Form(sectionId, sectionType), data, layout, sorting, aggregation
         - columns: `ReportColumnEntry`
-          - content @Form(columnId, columnName, displayLabel), dataSource, formatting, numericFormat, currencyFormat,
-            dateFormat, booleanFormat, textFormat, aggregation, interaction, layout
+          - content @Form(columnId, displayLabel), dataSource, formatting, numericFormat, currencyFormat, dateFormat,
+            booleanFormat, textFormat, aggregation, interaction, layout
         - charts: `ReportChartEntry`
-          - content @Form(chartId, title, chartType), series, display, interaction, layout
+          - content @Form(chartId, chartType), series, display, interaction, layout
           - axes: `ReportChartAxes`
             - content @Form(dataSource, xAxisField, xAxisLabel, xAxisFormat, yAxisField, yAxisLabel, yAxisFormat, yAxisMin, yAxisMax, secondaryYAxisField, secondaryYAxisLabel)
       - filters: `ReportFilterEntry`
-        - content @Form(filterId, filterName, displayLabel), input, textFilterOptions, numericFilterOptions,
-          dateFilterOptions, booleanFilterOptions, selectFilterOptions, entityFilterOptions, behavior, presentation
+        - content @Form(filterId, displayLabel), input, textFilterOptions, numericFilterOptions, dateFilterOptions,
+          booleanFilterOptions, selectFilterOptions, entityFilterOptions, behavior, presentation
       - schedules: `ReportScheduleEntry`
-        - content @Form(scheduleId, scheduleName, frequency), timing, retry, notifications, output
+        - content @Form(scheduleId, frequency), timing, retry, notifications, output
       - distributions: `ReportDistributionEntry`
         - content @Form(distributionId, channel, description), recipients, contentSettings, delivery
       - recipients: `ReportRecipientEntry`
-        - content @Form(recipientId, recipientName, recipientType, recipientReference), context, delivery, lifecycle
+        - content @Form(recipientId, recipientType, recipientReference), context, delivery, lifecycle
   - `ErrorHandling`
     - errorPhilosophyContent, classification, accessibility, operations, errorHandlingOverview @text,
       errorMessageCatalog @text, errorVisualDesign @text
@@ -256,20 +255,20 @@
         recoveryNarrative @text
       - recoveryFlows: `String`
       - recoveryScenarios: `RecoveryScenarioEntry`
-        - content @Form(scenarioId, scenarioName, triggerCondition, userImpact, recoverySteps, dataAtRisk, preventionMeasures, timeToRecover, supportEscalation),
+        - content @Form(scenarioId, triggerCondition, userImpact, recoverySteps, dataAtRisk, preventionMeasures, timeToRecover, supportEscalation),
           detailedFlow @text
   - `UserAssistance`
     - helpOverviewContent, delivery, insights, helpOverview @text, helpContentInventory @text
     - `ContextualHelp`
       - contextualHelpContent, inline, panels, whatsThis, rich, contextualHelpNarrative @text
       - fieldHelpCatalog: `FieldHelpEntry`
-        - content @Form(fieldId, fieldLabel, tooltipText, inlineHelpText, extendedHelp, relatedArticles, exampleValues, commonMistakes)
+        - content @Form(fieldId, tooltipText, inlineHelpText, extendedHelp, relatedArticles, exampleValues, commonMistakes)
     - onboarding: `OnboardingHelp`
       - onboardingContent, tours, sampleData, checklist, disclosure, reengagement, onboardingNarrative @text
       - featureTours: `FeatureTourEntry`
-        - content @Form(tourId, tourName, tourDescription, targetAudience, triggerCondition, stepCount, estimatedDuration, skippable, repeatPolicy)
+        - content @Form(tourId, tourDescription, targetAudience, triggerCondition, stepCount, estimatedDuration, skippable, repeatPolicy)
         - steps: `TourStepEntry`
-          - content @Form(stepOrder, targetElement, stepTitle, stepContent, placement, actionRequired, spotlightShape)
+          - content @Form(stepOrder, targetElement, stepContent, placement, actionRequired, spotlightShape)
     - `SupportAccess`
       - supportAccessContent, helpCenter, liveSupport, tickets, contactMethods, selfService,
         supportAccessNarrative @text
@@ -279,7 +278,7 @@
     - wcagComplianceLevel: `WcagCompliance`
       - wcagComplianceContent, operable, understandable, robust, wcagNarrative @text
       - successCriteria: `WcagSuccessCriterionEntry`
-        - content @Form(criterionId, criterionName, level, applicability, implementation, testingMethod, status, exceptions)
+        - content @Form(criterionId, level, applicability, implementation, testingMethod, status, exceptions)
     - `AccessibilityChecklist`
       - checklistOverviewContent, checklistOverview @text
       - items: `AccessibilityCheckEntry`
@@ -289,11 +288,11 @@
     - breakpointConfig: `BreakpointConfiguration`
       - breakpointOverview
       - breakpoints: `BreakpointEntry`
-        - content @Form(breakpointId, breakpointName, minWidth, maxWidth), layout, scaling
+        - content @Form(breakpointId, minWidth, maxWidth), layout, scaling
     - `ResponsiveBehavior`
       - layoutAdaptation, navigation, visibility, touch, contentReflow, behaviorNarrative @text
       - screenRules: `ResponsiveScreenRuleEntry`
-        - content @Form(screenId, screenName, mobileLayout, tabletLayout, desktopLayout, specialConsiderations)
+        - content @Form(screenId, mobileLayout, tabletLayout, desktopLayout, specialConsiderations)
   - `UiComponents`
     - componentLibraryOverview, visualLanguage, componentApproach, customization
     - `ComponentLibrary`
@@ -301,29 +300,28 @@
       - designFoundations: `DesignFoundationEntry`
         - content @Form(primaryColor, fontFamilyPrimary, spacingScale)
       - colorPalettes: `ColorPaletteEntry`
-        - content @Form(paletteName, paletteRole, colorCount, baseColor, lightVariants, darkVariants, onColorDefault, wcagCompliance, usageGuidelines)
+        - content @Form(paletteRole, colorCount, baseColor, lightVariants, darkVariants, onColorDefault, wcagCompliance, usageGuidelines)
       - typographyStyles: `TypographyStyleEntry`
-        - content @Form(styleName, fontFamily, fontSize, fontWeight, lineHeight, letterSpacing, textDecoration, useCase)
+        - content @Form(fontFamily, fontSize, fontWeight, lineHeight, letterSpacing, textDecoration, useCase)
     - componentSpecs: `UiComponentEntry`
       - identity, purposeProfile, classification, visualDesign, dimensions, spacing, surface, visualDiagram @mermaid,
         interactiveBehavior, inputBehavior, animation, scroll, responsiveness, accessibility, authorization,
         resourceIntegration, dataBinding, behaviorNarrative @text
       - states: `ComponentStateEntry`
-        - content @Form(stateId, stateName, stateDescription), visual, behavior, transitions, stateMockup @mermaid
+        - content @Form(stateId, stateDescription), visual, behavior, transitions, stateMockup @mermaid
       - variants: `ComponentVariantEntry`
-        - content @Form(variantId, variantName, variantDescription, visualDifferences), visual, behavior,
-          variantMockup @mermaid
+        - content @Form(variantId, variantDescription, visualDifferences), visual, behavior, variantMockup @mermaid
       - actions: `ComponentActionEntry`
-        - content @Form(actionId, actionName, actionTrigger, actionPayload), governance, execution
+        - content @Form(actionId, actionTrigger, actionPayload), governance, execution
       - slots: `ComponentSlotEntry`
-        - content @Form(slotId, slotName, slotDescription, slotRequired, acceptedWidgets, defaultContent, sizingBehavior, resourceKey)
+        - content @Form(slotId, slotDescription, slotRequired, acceptedWidgets, defaultContent, sizingBehavior, resourceKey)
       - properties: `ComponentPropertyEntry`
-        - content @Form(propertyId, propertyName, propertyType, defaultValue, allowedValues, propertyDescription, affectsAppearance, affectsBehavior, resourceResolvable, authControlled)
+        - content @Form(propertyId, propertyType, defaultValue, allowedValues, propertyDescription, affectsAppearance, affectsBehavior, resourceResolvable, authControlled)
     - componentFamilies: `ComponentFamilyEntry`
-      - content @Form(familyId, familyName, familyDescription, componentCount, sharedPatterns, consistencyRules),
+      - content @Form(familyId, familyDescription, componentCount, sharedPatterns, consistencyRules),
         familyNarrative @text
       - components: `FamilyComponentRef`
-        - content @Form(componentId, componentName, familyRole, relationToOthers)
+        - content @Form(componentId, familyRole, relationToOthers)
   - `LanguageCountrySelection`
     - languageSelectionContent, defaults, persistence, fallback, ux, languageSelectionNarrative @text,
       languagePickerMockup @mermaid
@@ -336,7 +334,7 @@
     - featureSubset: `PrototypeFeatureSubset`
       - featureSubsetContent, scope, fidelity, featureNarrative @text
       - features: `PrototypeFeatureEntry`
-        - content @Form(featureId, featureName, inclusionReason, fidelityLevel, completenessLevel, relatedGoals, implementationNotes, knownLimitations)
+        - content @Form(featureId, inclusionReason, fidelityLevel, completenessLevel, relatedGoals, implementationNotes, knownLimitations)
     - `PrototypeType`
       - prototypeTypeOverview
       - `ReusablePrototype`

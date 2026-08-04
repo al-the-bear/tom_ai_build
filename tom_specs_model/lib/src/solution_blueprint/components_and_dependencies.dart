@@ -694,13 +694,6 @@ class ComponentEntry extends DocSpecsSection {
       hint: 'Unique identifier, e.g. CMP-DB-001',
     ),
     Field(
-      'componentName',
-      String,
-      'Component Name',
-      hint: 'Official product/library name',
-      required: true,
-    ),
-    Field(
       'category',
       String,
       'Category',
@@ -1031,12 +1024,6 @@ class ComponentDocs extends DocSpecsSection {
 @SectionId('CMIF')
 class ComponentInterfaceEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'interfaceName',
-      String,
-      'Interface Name',
-      hint: 'Human-readable name, e.g. Order Service REST API',
-    ),
     Field(
       'interfaceType',
       String,
@@ -1730,13 +1717,6 @@ class RuntimeDependencyEntry extends DocSpecsSection {
       hint: 'Unique identifier, e.g. DEP-R-001',
     ),
     Field(
-      'name',
-      String,
-      'Dependency Name',
-      hint: 'Component or service depended upon',
-      required: true,
-    ),
-    Field(
       'version',
       String,
       'Required Version',
@@ -1923,13 +1903,6 @@ class MaintenanceDependencyEntry extends DocSpecsSection {
       String,
       'Dependency ID',
       hint: 'Unique identifier, e.g. DEP-M-001',
-    ),
-    Field(
-      'name',
-      String,
-      'Dependency Name',
-      hint: 'Component or service with maintenance dependency',
-      required: true,
     ),
     Field(
       'version',
@@ -2179,13 +2152,6 @@ class ContingencyPlanEntry extends DocSpecsSection {
       hint: 'Unique identifier, e.g. CP-001',
     ),
     Field(
-      'planTitle',
-      String,
-      'Plan Title',
-      hint: 'Short name for this contingency plan',
-      required: true,
-    ),
-    Field(
       'triggerCondition',
       String,
       'Trigger Condition',
@@ -2406,7 +2372,6 @@ class ComponentRiskEntry extends DocSpecsSection {
       hint: 'Component ID this risk applies to',
       refersTo: ['CMPNT.componentId'],
     ),
-    Field('riskTitle', String, 'Risk Title', hint: 'Short descriptive name'),
   ])
   @override
   @SerializationOrder(0)

@@ -10,15 +10,15 @@
       - businessContext: `InterfaceBusinessContext`
         - content @Form(businessPurpose, businessValue, businessOwner, useCases, businessCriticality, revenueImpact, regulatoryDriver)
         - dependentProcesses: `InterfaceBusinessProcessEntry`
-          - content @Form(processName, processId, dependencyType, fallbackBehavior)
+          - content @Form(processId, dependencyType, fallbackBehavior)
       - technicalSpec: `InterfaceTechnicalSpec`
         - content @Form(protocol, transportSecurity, messageFormat, encoding), communication, endpoints, webhookSpec
         - operations: `InterfaceOperationEntry`
-          - content @Form(operationId, operationName, httpMethod, path, purpose, idempotent, requestFormat, responseFormat, paginationSupport, filteringSupport)
+          - content @Form(operationId, httpMethod, path, purpose, idempotent, requestFormat, responseFormat, paginationSupport, filteringSupport)
       - dataSpec: `InterfaceDataSpec`
         - content @Form(dataExchangeSummary, dataDirection, dataSensitivity, dataRetentionExternal, frequency, batchSchedule, volumePerTransaction, dailyVolume, peakVolume, payloadSizeLimit)
         - dataEntities: `InterfaceDataEntityEntry`
-          - content @Form(entityName, direction, fieldCount, requiredFields, sensitiveFields, internalMapping, transformationNeeded)
+          - content @Form(direction, fieldCount, requiredFields, sensitiveFields, internalMapping, transformationNeeded)
         - mappingRules: `String`
         - validationRules: `String`
       - security: `InterfaceSecurity`
@@ -37,7 +37,7 @@
       - testing: `InterfaceTesting`
         - content @Form(sandboxAvailable, sandboxUrl, testCredentials, mockAvailable), data, strategy
         - testScenarios: `InterfaceTestScenarioEntry`
-          - content @Form(scenarioId, scenarioName, scenarioType, preconditions, testSteps, expectedResult, automated)
+          - content @Form(scenarioId, scenarioType, preconditions, testSteps, expectedResult, automated)
   - `OutOfScope`
     - scopePhilosophy @text
     - items: `OutOfScopeEntry`

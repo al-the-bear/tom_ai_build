@@ -577,13 +577,6 @@ accessibility goals → semantic labels and focus management.
 class DesignGoalEntry extends DocSpecsSection {
   @Form([
     Field(
-      'goalName',
-      String,
-      'Goal Name',
-      required: true,
-      hint: 'A concise label for the design goal',
-    ),
-    Field(
       'description',
       String,
       'Goal Description',
@@ -695,13 +688,6 @@ Principles configure shared behaviors:
 @SectionId('DPEN')
 class DesignPrincipleEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'principleName',
-      String,
-      'Principle Name',
-      required: true,
-      hint: 'A clear name for the design principle',
-    ),
     Field(
       'description',
       String,
@@ -819,13 +805,6 @@ Personas inform:
 @SectionId('PEREN')
 class PersonaEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'personaName',
-      String,
-      'Persona Name',
-      required: true,
-      hint: 'Name and title, e.g., "Marco, Finance Manager"',
-    ),
     Field('age', String, 'Age', hint: 'Age or age range'),
     Field('role', String, 'Role', hint: 'Job title and responsibilities'),
   ])
@@ -1176,13 +1155,6 @@ Scenarios link to:
 class PersonaScenarioEntry extends DocSpecsSection {
   @Form([
     Field(
-      'scenarioName',
-      String,
-      'Scenario Name',
-      required: true,
-      hint: 'A short action-oriented name for the scenario',
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -1365,13 +1337,6 @@ class ScreenEntry extends DocSpecsSection {
       'Screen ID',
       required: true,
       hint: 'Unique identifier, e.g., SCR-001',
-    ),
-    Field(
-      'screenName',
-      String,
-      'Screen Name',
-      required: true,
-      hint: 'Human-readable screen title',
     ),
     Field(
       'purpose',
@@ -1674,13 +1639,6 @@ class ScreenSectionEntry extends DocSpecsSection {
       required: true,
       hint: 'Unique within screen, e.g., header, filter-bar, main-content',
     ),
-    Field(
-      'sectionName',
-      String,
-      'Section Name',
-      required: true,
-      hint: 'Human label, e.g., "Filter Bar", "Order Details"',
-    ),
     Field('purpose', String, 'Purpose', hint: 'What this zone contains'),
     Field(
       'sectionType',
@@ -1811,13 +1769,6 @@ class ScreenElementEntry extends DocSpecsSection {
       'Element ID',
       required: true,
       hint: 'Unique within screen, e.g., btn-submit, fld-customer-name',
-    ),
-    Field(
-      'elementName',
-      String,
-      'Element Name',
-      required: true,
-      hint: 'Human-readable label',
     ),
     Field(
       'elementType',
@@ -2718,13 +2669,6 @@ class ScreenActionEntry extends DocSpecsSection {
       hint: 'Unique action identifier',
     ),
     Field(
-      'actionName',
-      String,
-      'Action Name',
-      required: true,
-      hint: 'Human-readable action name',
-    ),
-    Field(
       'actionType',
       String,
       'Action Type',
@@ -2928,13 +2872,6 @@ empty states, and error displays.
 )
 class ScreenStateEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'stateName',
-      String,
-      'State Name',
-      required: true,
-      hint: 'Loading/Empty/Error/Permission-Denied/First-Use/Offline/Success',
-    ),
     Field('description', String, 'Description', hint: 'When this state occurs'),
     Field(
       'messageResource',
@@ -2992,13 +2929,6 @@ class ScreenStateEntry extends DocSpecsSection {
 @SectionId('SUCE')
 class ScreenUserCategoryEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'categoryName',
-      String,
-      'Category Name',
-      required: true,
-      hint: 'The name of this user category',
-    ),
     Field(
       'description',
       String,
@@ -3353,12 +3283,6 @@ class ScreenRouteEntry extends DocSpecsSection {
       'Route Path',
       hint: 'URL path pattern, e.g., /orders/:id/edit — presentation only, '
           'never used as a reference',
-    ),
-    Field(
-      'routeTitle',
-      String,
-      'Route Title',
-      hint: 'Human-readable screen title shown in the title bar and history',
     ),
     Field(
       'screenId',
@@ -4303,13 +4227,6 @@ class TabBarDefinitionEntry extends DocSpecsSection {
       hint: 'Unique identifier, e.g., tabs-customer-detail',
     ),
     Field(
-      'tabBarName',
-      String,
-      'Tab Bar Name',
-      required: true,
-      hint: 'Human label',
-    ),
-    Field(
       'hostScreenId',
       String,
       'Host Screen ID',
@@ -4543,12 +4460,6 @@ class UtilityNavigationItemEntry extends DocSpecsSection {
       hint: 'e.g., util-user-menu, util-notifications',
     ),
     Field(
-      'label',
-      String,
-      'Label Resource',
-      hint: 'Display label (may be hidden)',
-    ),
-    Field(
       'icon',
       String,
       'Icon Resource',
@@ -4669,13 +4580,6 @@ class UtilityMenuItemEntry extends DocSpecsSection {
       'Menu Item ID',
       required: true,
       hint: 'Unique identifier, e.g., menu-item-logout',
-    ),
-    Field(
-      'label',
-      String,
-      'Label Resource',
-      required: true,
-      hint: 'Display text',
     ),
     Field('icon', String, 'Icon Resource', hint: 'Leading icon'),
     Field('displayOrder', int, 'Display Order', hint: 'Position in menu'),
@@ -5088,13 +4992,6 @@ class NavigationGuardEntry extends DocSpecsSection {
       'Guard ID',
       required: true,
       hint: 'Unique identifier, e.g., guard-unsaved-changes',
-    ),
-    Field(
-      'guardName',
-      String,
-      'Guard Name',
-      required: true,
-      hint: 'Human-readable name',
     ),
     Field(
       'guardType',
@@ -5524,13 +5421,6 @@ class ReportEntry extends DocSpecsSection {
       String,
       'Report ID',
       hint: 'Unique identifier, e.g. RPT-001',
-      required: true,
-    ),
-    Field(
-      'reportName',
-      String,
-      'Report Name',
-      hint: 'Human-readable report title',
       required: true,
     ),
     Field(
@@ -6035,13 +5925,6 @@ class ReportSectionEntry extends DocSpecsSection {
       required: true,
     ),
     Field(
-      'title',
-      String,
-      'Title',
-      hint: 'Section heading displayed in the report',
-      required: true,
-    ),
-    Field(
       'sectionType',
       String,
       'Section Type',
@@ -6277,13 +6160,6 @@ class ReportColumnEntry extends DocSpecsSection {
       String,
       'Column ID',
       hint: 'Unique within section, e.g. COL-01',
-      required: true,
-    ),
-    Field(
-      'columnName',
-      String,
-      'Column Name',
-      hint: 'Internal field reference',
       required: true,
     ),
     Field(
@@ -6618,7 +6494,6 @@ class ReportChartEntry extends DocSpecsSection {
       hint: 'Unique within section, e.g. CHT-01',
       required: true,
     ),
-    Field('title', String, 'Title', hint: 'Chart title', required: true),
     Field(
       'chartType',
       String,
@@ -6894,13 +6769,6 @@ class ReportFilterEntry extends DocSpecsSection {
       String,
       'Filter ID',
       hint: 'Unique within report, e.g. FLT-01',
-      required: true,
-    ),
-    Field(
-      'filterName',
-      String,
-      'Filter Name',
-      hint: 'Internal reference name',
       required: true,
     ),
     Field(
@@ -7257,13 +7125,6 @@ class ReportScheduleEntry extends DocSpecsSection {
       String,
       'Schedule ID',
       hint: 'Unique within report, e.g. SCH-01',
-      required: true,
-    ),
-    Field(
-      'scheduleName',
-      String,
-      'Schedule Name',
-      hint: 'Human-readable name, e.g. Monthly Financial Close',
       required: true,
     ),
     Field(
@@ -7658,13 +7519,6 @@ class ReportRecipientEntry extends DocSpecsSection {
       required: true,
     ),
     Field(
-      'recipientName',
-      String,
-      'Recipient Name',
-      hint: 'Display name',
-      required: true,
-    ),
-    Field(
       'recipientType',
       String,
       'Recipient Type',
@@ -7817,13 +7671,6 @@ class ExportFormatEntry extends DocSpecsSection {
       String,
       'Export ID',
       hint: 'Unique identifier, e.g. EXP-001',
-      required: true,
-    ),
-    Field(
-      'formatName',
-      String,
-      'Format Name',
-      hint: 'Human-readable name, e.g. Monthly Orders CSV',
       required: true,
     ),
     Field(
@@ -8504,13 +8351,6 @@ class ExportTemplateEntry extends DocSpecsSection {
       String,
       'Template ID',
       hint: 'Unique identifier, e.g. TPL-001',
-      required: true,
-    ),
-    Field(
-      'templateName',
-      String,
-      'Template Name',
-      hint: 'Human-readable name, e.g. Standard Customer Export',
       required: true,
     ),
     Field(
@@ -9813,13 +9653,6 @@ class RecoveryScenarioEntry extends DocSpecsSection {
       hint: 'Unique identifier for this recovery scenario',
     ),
     Field(
-      'scenarioName',
-      String,
-      'Scenario Name',
-      required: true,
-      hint: 'Descriptive name',
-    ),
-    Field(
       'triggerCondition',
       String,
       'Trigger Condition',
@@ -10228,13 +10061,6 @@ class FieldHelpEntry extends DocSpecsSection {
       required: true,
       hint: 'Unique identifier of the field',
     ),
-    Field(
-      'fieldLabel',
-      String,
-      'Field Label',
-      required: true,
-      hint: 'Display label of the field',
-    ),
     Field('tooltipText', String, 'Tooltip Text', hint: 'Brief tooltip content'),
     Field(
       'inlineHelpText',
@@ -10513,13 +10339,6 @@ class FeatureTourEntry extends DocSpecsSection {
       hint: 'Unique identifier for this tour',
     ),
     Field(
-      'tourName',
-      String,
-      'Tour Name',
-      required: true,
-      hint: 'Display name of the tour',
-    ),
-    Field(
       'tourDescription',
       String,
       'Tour Description',
@@ -10600,12 +10419,6 @@ class TourStepEntry extends DocSpecsSection {
       String,
       'Target Element',
       hint: 'Element to highlight',
-    ),
-    Field(
-      'stepTitle',
-      String,
-      'Step Title',
-      hint: 'Short title shown for this step',
     ),
     Field(
       'stepContent',
@@ -11201,13 +11014,6 @@ class WcagSuccessCriterionEntry extends DocSpecsSection {
       required: true,
       hint: 'WCAG SC ID (e.g., 1.4.3)',
     ),
-    Field(
-      'criterionName',
-      String,
-      'Criterion Name',
-      required: true,
-      hint: 'Name of the success criterion (e.g., Contrast Minimum)',
-    ),
     Field('level', String, 'Level', hint: 'A, AA, AAA'),
     Field(
       'applicability',
@@ -11677,13 +11483,6 @@ class BreakpointEntry extends DocSpecsSection {
       hint: 'Unique identifier (e.g., TOM-MOBILE)',
     ),
     Field(
-      'breakpointName',
-      String,
-      'Breakpoint Name',
-      required: true,
-      hint: 'Mobile, Tablet, Desktop, Large Desktop',
-    ),
-    Field(
       'minWidth',
       String,
       'Min Width',
@@ -11978,13 +11777,6 @@ class ResponsiveScreenRuleEntry extends DocSpecsSection {
       required: true,
       hint: 'Unique identifier of the screen this rule applies to',
       refersTo: ['SCREN.screenId'],
-    ),
-    Field(
-      'screenName',
-      String,
-      'Screen Name',
-      required: true,
-      hint: 'Human-readable name of the screen',
     ),
     Field(
       'mobileLayout',
@@ -12486,13 +12278,6 @@ class ComponentLibrary extends DocSpecsSection {
 class ColorPaletteEntry extends DocSpecsSection {
   @Form([
     Field(
-      'paletteName',
-      String,
-      'Palette Name',
-      required: true,
-      hint: 'Primary, Secondary, Neutral, Error',
-    ),
-    Field(
       'paletteRole',
       String,
       'Palette Role',
@@ -12548,13 +12333,6 @@ class ColorPaletteEntry extends DocSpecsSection {
 @SectionId('TYST')
 class TypographyStyleEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'styleName',
-      String,
-      'Style Name',
-      required: true,
-      hint: 'DisplayLarge, BodyMedium, LabelSmall',
-    ),
     Field('fontFamily', String, 'Font Family', hint: 'Typeface family name'),
     Field('fontSize', String, 'Font Size', hint: 'Size in logical pixels'),
     Field(
@@ -12608,13 +12386,6 @@ class ComponentFamilyEntry extends DocSpecsSection {
       'Family ID',
       required: true,
       hint: 'Unique identifier (e.g., FAM-BTN)',
-    ),
-    Field(
-      'familyName',
-      String,
-      'Family Name',
-      required: true,
-      hint: 'Buttons, Inputs, Navigation, Tables',
     ),
     Field(
       'familyDescription',
@@ -12678,13 +12449,6 @@ class FamilyComponentRef extends DocSpecsSection {
       refersTo: ['CMPNT.componentId'],
     ),
     Field(
-      'componentName',
-      String,
-      'Component Name',
-      required: true,
-      hint: 'Name of the referenced component',
-    ),
-    Field(
       'familyRole',
       String,
       'Family Role',
@@ -12734,13 +12498,6 @@ class UiComponentEntry extends DocSpecsSection {
       'Component ID',
       required: true,
       hint: 'Unique identifier (e.g., CMP-DTT-001)',
-    ),
-    Field(
-      'componentName',
-      String,
-      'Component Name',
-      required: true,
-      hint: 'Human-readable name',
     ),
     Field(
       'componentFamily',
@@ -13486,13 +13243,6 @@ class ComponentStateEntry extends DocSpecsSection {
       hint: 'Unique state identifier',
     ),
     Field(
-      'stateName',
-      String,
-      'State Name',
-      required: true,
-      hint: 'Loading, Empty, Error, Disabled, etc.',
-    ),
-    Field(
       'stateDescription',
       String,
       'State Description',
@@ -13640,13 +13390,6 @@ class ComponentVariantEntry extends DocSpecsSection {
       hint: 'Unique variant identifier',
     ),
     Field(
-      'variantName',
-      String,
-      'Variant Name',
-      required: true,
-      hint: 'Filled, Outlined, Tonal, Text',
-    ),
-    Field(
       'variantDescription',
       String,
       'Variant Description',
@@ -13757,13 +13500,6 @@ class ComponentVariantEntry extends DocSpecsSection {
 class ComponentActionEntry extends DocSpecsSection {
   @Form([
     Field('actionId', String, 'Action ID', required: true),
-    Field(
-      'actionName',
-      String,
-      'Action Name',
-      required: true,
-      hint: 'onTap, onSubmit, onDelete',
-    ),
     Field(
       'actionTrigger',
       String,
@@ -13881,13 +13617,6 @@ class ComponentSlotEntry extends DocSpecsSection {
       hint: 'Unique slot identifier',
     ),
     Field(
-      'slotName',
-      String,
-      'Slot Name',
-      required: true,
-      hint: 'leading, trailing, title, content',
-    ),
-    Field(
       'slotDescription',
       String,
       'Slot Description',
@@ -13952,13 +13681,6 @@ class ComponentPropertyEntry extends DocSpecsSection {
       'Property ID',
       required: true,
       hint: 'Unique property identifier',
-    ),
-    Field(
-      'propertyName',
-      String,
-      'Property Name',
-      required: true,
-      hint: 'enabled, selected, elevation',
     ),
     Field(
       'propertyType',
@@ -14507,13 +14229,6 @@ class TranslationProcess extends DocSpecsSection {
 class TranslationVendorEntry extends DocSpecsSection {
   @Form([
     Field(
-      'vendorName',
-      String,
-      'Vendor Name',
-      required: true,
-      hint: 'Legal or trading name of the translation vendor',
-    ),
-    Field(
       'vendorType',
       String,
       'Vendor Type',
@@ -14799,13 +14514,6 @@ class TrainingModuleEntry extends DocSpecsSection {
       'Module ID',
       required: true,
       hint: 'Unique identifier for the module',
-    ),
-    Field(
-      'moduleName',
-      String,
-      'Module Name',
-      required: true,
-      hint: 'Descriptive title of the module',
     ),
     Field(
       'targetAudience',
@@ -15829,13 +15537,6 @@ class PrototypeFeatureEntry extends DocSpecsSection {
       required: true,
       refersTo: ['FPE.featureId'],
       hint: 'Unique identifier for the feature',
-    ),
-    Field(
-      'featureName',
-      String,
-      'Feature Name',
-      required: true,
-      hint: 'Name of the feature',
     ),
     Field(
       'inclusionReason',

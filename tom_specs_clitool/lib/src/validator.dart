@@ -959,6 +959,160 @@ void _validateStructuralInvariants(
   // the class graph cannot see.
   _validateReferenceTargets(
       classes, reachable, documentClasses, errors, warnings);
+
+  // --- 10. A list entry must not restate its own heading (§8 rule 4) --------
+  //
+  // A list-entry section's headline is per-instance free text (§8 rule 1), so
+  // it is the entry's name. A form field holding that same name is a second
+  // storage slot for one value — the thing rule 4 forbids. The two exemptions
+  // are structural, so nothing has to be remembered or annotated.
+  _validateEntryNameFields(classes, reachable, errors);
+}
+
+/// The direct element types of `@SectionIdPattern`-bearing complex lists — the
+/// **list-entry classes**, whose headline is per-instance free text.
+///
+/// Strictly narrower than "every list element type": a list without a pattern
+/// enumerates no per-item ids, and narrower still than the singleton-subsection
+/// closure, whose members each carry one fixed `@SectionId`.
+Set<String> _patternedElementTypes(Map<String, ModelClass> classes) {
+  final result = <String>{};
+  for (final cls in classes.values) {
+    for (final field in cls.fields) {
+      if (!field.isList || !field.listElementIsComplex) continue;
+      if (field.getAnnotation('SectionIdPattern') == null) continue;
+      final inner = field.listElementTypeName;
+      if (inner != null) result.add(inner);
+    }
+  }
+  return result;
+}
+
+/// Form-field names that name *something*: `name`/`title`/`label`, or any
+/// identifier ending in `Name`/`Title`/`Label`.
+final _nameShapedField = RegExp(r'^(name|title|label)$|(Name|Title|Label)$');
+final _nameSuffix = RegExp(r'(Name|Title|Label)$');
+final _entrySuffix =
+    RegExp(r'(Entry|Record|Spec|Section|Item|Ref|Details)$');
+
+/// What a name-shaped field names, lowercased: the empty string for a bare
+/// `name`/`title`/`label` (it can only mean the enclosing thing itself).
+String _nameFieldStem(String fieldName) =>
+    const {'name', 'title', 'label'}.contains(fieldName)
+        ? ''
+        : fieldName.replaceAll(_nameSuffix, '').toLowerCase();
+
+/// The subject a list-entry class is about, lowercased: its class name with the
+/// structural suffix dropped, so `BusinessProcessEntry` is about
+/// `businessprocess`.
+String _entrySubject(String className) =>
+    className.replaceAll(_entrySuffix, '').toLowerCase();
+
+/// §8 rule 4, name half: a list-entry section stores its name in its headline,
+/// so no form field beneath it may hold that same name (csre3).
+///
+/// The check walks from the field's owning class **up to the nearest enclosing
+/// list-entry class**, because an entry's identification block is as often an
+/// extracted class (`BusinessProcessEntry.identification` →
+/// `ProcessIdentification`) as an inline `@Form` member (`ActorEntry`
+/// .identification). Testing only the directly-owning class would let the rule
+/// be defeated by extracting a class.
+///
+/// Two structural exemptions, both from the field itself rather than from any
+/// marker that could drift out of step with it:
+///
+///   (b) **the field is a registry key** — some `refersTo` elsewhere resolves
+///       to it, so its value is a stable identifier other sections are matched
+///       against, not merely the entry's display title; and
+///   (c) **the field is itself a reference** — it declares `refersTo`, so it
+///       names the section it points at, not the one it sits in.
+void _validateEntryNameFields(
+  Map<String, ModelClass> classes,
+  Set<String> reachable,
+  List<String> errors,
+) {
+  final entryClasses = _patternedElementTypes(classes);
+
+  // Complex-membership parents, over the whole map so a single-document run
+  // attributes a subsection to the same entry a whole-model run does.
+  final parents = <String, Set<String>>{};
+  for (final entry in classes.entries) {
+    for (final field in entry.value.fields) {
+      if (!field.isComplex && !field.isSectionType) continue;
+      final child = field.typeName.replaceAll('?', '');
+      if (!classes.containsKey(child)) continue;
+      parents.putIfAbsent(child, () => <String>{}).add(entry.key);
+    }
+  }
+
+  /// The list-entry classes [className] sits beneath — itself if it is one.
+  /// Returns every candidate, since a subsection shared by two entries names
+  /// its own heading only if it does so for *all* of them.
+  Set<String> enclosingEntries(String className) {
+    if (entryClasses.contains(className)) return {className};
+    final found = <String>{};
+    final seen = <String>{className};
+    final pending = <String>[className];
+    while (pending.isNotEmpty) {
+      for (final parent in parents[pending.removeLast()] ?? const <String>{}) {
+        if (!seen.add(parent)) continue;
+        if (entryClasses.contains(parent)) {
+          found.add(parent);
+        } else {
+          pending.add(parent);
+        }
+      }
+    }
+    return found;
+  }
+
+  // Exemption (b): `<class>.<formField>` slots some `refersTo` resolves to.
+  // Resolution matches `_validateReferenceTargets`: the section id names a
+  // class, the remainder names one of its form fields.
+  final classBySectionId = <String, String>{};
+  for (final entry in classes.entries) {
+    final id = entry.value.getAnnotation('SectionId')?.arguments['id'];
+    if (id is String && id.isNotEmpty) classBySectionId[id] = entry.key;
+  }
+  final registryKeys = <String>{};
+  for (final cls in classes.values) {
+    for (final formField in _allFormFields(cls)) {
+      for (final target in formField.refersTo) {
+        final dot = target.indexOf('.');
+        if (dot <= 0) continue;
+        final owner = classBySectionId[target.substring(0, dot)];
+        if (owner != null) {
+          registryKeys.add('$owner.${target.substring(dot + 1)}');
+        }
+      }
+    }
+  }
+
+  final violations = <String>[];
+  for (final className in reachable) {
+    final cls = classes[className];
+    if (cls == null) continue;
+    final entries = enclosingEntries(className);
+    if (entries.isEmpty) continue;
+
+    for (final formField in _allFormFields(cls)) {
+      if (!_nameShapedField.hasMatch(formField.name)) continue;
+      if (formField.refersTo.isNotEmpty) continue; // (c)
+      if (registryKeys.contains('$className.${formField.name}')) continue; // (b)
+      final stem = _nameFieldStem(formField.name);
+      final restated = entries.where(
+          (e) => stem.isEmpty || _entrySubject(e).contains(stem));
+      if (restated.length != entries.length) continue;
+      violations.add(
+        '$_invariants entry name: $className.${formField.name} restates the '
+        'headline of list entry ${(entries.toList()..sort()).join('/')} — a '
+        "list entry's name is stored in its per-instance headline and nowhere "
+        'else (§8 rule 4); drop the field, or make it name something else',
+      );
+    }
+  }
+  violations.sort();
+  errors.addAll(violations);
 }
 
 /// Gathers every `@Form` field of [cls], from the class-level `@Form` and from
@@ -1199,20 +1353,11 @@ void _validateReferenceTargets(
     }
   }
 
-  // Classes whose *per-item section ids* form a registry — the direct element
-  // types of `@SectionIdPattern`-bearing lists. Strictly narrower than
-  // [enumeratedTypes]: the singleton-subsection closure is deliberately absent,
-  // because such a section carries one fixed `@SectionId` rather than an id per
-  // instance, so it enumerates no ids to resolve against.
-  final patternedElementTypes = <String>{};
-  for (final cls in classes.values) {
-    for (final field in cls.fields) {
-      if (!field.isList || !field.listElementIsComplex) continue;
-      if (field.getAnnotation('SectionIdPattern') == null) continue;
-      final inner = field.listElementTypeName;
-      if (inner != null) patternedElementTypes.add(inner);
-    }
-  }
+  // Classes whose *per-item section ids* form a registry. Strictly narrower
+  // than [enumeratedTypes]: the singleton-subsection closure is deliberately
+  // absent, because such a section carries one fixed `@SectionId` rather than
+  // an id per instance, so it enumerates no ids to resolve against.
+  final patternedElementTypes = _patternedElementTypes(classes);
 
   for (final className in reachable) {
     final cls = classes[className];

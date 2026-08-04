@@ -37479,14 +37479,6 @@ class AcceptanceCriterionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "criterionId", value)
 
     @property
-    def criterionTitle(self) -> str:
-        return self.doc.form_field(self.path, "criterionTitle") or ""
-
-    @criterionTitle.setter
-    def criterionTitle(self, value):
-        self.doc.set_form_field(self.path, "criterionTitle", value)
-
-    @property
     def given(self) -> str:
         return self.doc.form_field(self.path, "given") or ""
 
@@ -37879,14 +37871,6 @@ class AcceptanceStepEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "stepNumber", value)
 
     @property
-    def stepName(self) -> str:
-        return self.doc.form_field(self.path, "stepName") or ""
-
-    @stepName.setter
-    def stepName(self, value):
-        self.doc.set_form_field(self.path, "stepName", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -38008,14 +37992,6 @@ class AccessLevelEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def levelName(self) -> str:
-        return self.doc.form_field(self.path, "levelName") or ""
-
-    @levelName.setter
-    def levelName(self, value):
-        self.doc.set_form_field(self.path, "levelName", value)
 
     @property
     def levelId(self) -> str:
@@ -38572,14 +38548,6 @@ class AccessibilityStandardEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def standardName(self) -> str:
-        return self.doc.form_field(self.path, "standardName") or ""
-
-    @standardName.setter
-    def standardName(self, value):
-        self.doc.set_form_field(self.path, "standardName", value)
-
-    @property
     def version(self) -> str:
         return self.doc.form_field(self.path, "version") or ""
 
@@ -38917,14 +38885,6 @@ class ActionParameterEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def parameterName(self) -> str:
-        return self.doc.form_field(self.path, "parameterName") or ""
-
-    @parameterName.setter
-    def parameterName(self, value):
-        self.doc.set_form_field(self.path, "parameterName", value)
-
-    @property
     def sourceType(self) -> str:
         return self.doc.form_field(self.path, "sourceType") or ""
 
@@ -39119,14 +39079,6 @@ class ActorEntryIdentificationForm(SomNode):
     @actorId.setter
     def actorId(self, value):
         self.doc.set_form_field(self.path, "actorId", value)
-
-    @property
-    def actorName(self) -> str:
-        return self.doc.form_field(self.path, "actorName") or ""
-
-    @actorName.setter
-    def actorName(self, value):
-        self.doc.set_form_field(self.path, "actorName", value)
 
     @property
     def actorType(self) -> str:
@@ -40113,14 +40065,6 @@ class AffectedDepartmentEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def departmentName(self) -> str:
-        return self.doc.form_field(self.path, "departmentName") or ""
-
-    @departmentName.setter
-    def departmentName(self, value):
-        self.doc.set_form_field(self.path, "departmentName", value)
-
-    @property
     def departmentHead(self) -> str:
         return self.doc.form_field(self.path, "departmentHead") or ""
 
@@ -40208,14 +40152,6 @@ class AffectedFunctionEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def functionName(self) -> str:
-        return self.doc.form_field(self.path, "functionName") or ""
-
-    @functionName.setter
-    def functionName(self, value):
-        self.doc.set_form_field(self.path, "functionName", value)
-
-    @property
     def triggerPoint(self) -> str:
         return self.doc.form_field(self.path, "triggerPoint") or ""
 
@@ -40255,14 +40191,6 @@ class AffectedObjectEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def objectName(self) -> str:
-        return self.doc.form_field(self.path, "objectName") or ""
-
-    @objectName.setter
-    def objectName(self, value):
-        self.doc.set_form_field(self.path, "objectName", value)
 
     @property
     def affectedAttributes(self) -> str:
@@ -40361,14 +40289,6 @@ class AlertDefinitionEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def alertName(self) -> str:
-        return self.doc.form_field(self.path, "alertName") or ""
-
-    @alertName.setter
-    def alertName(self, value):
-        self.doc.set_form_field(self.path, "alertName", value)
 
     @property
     def alertDescription(self) -> str:
@@ -40871,14 +40791,6 @@ class AlertRuleEntryContentForm(SomNode):
     @alertId.setter
     def alertId(self, value):
         self.doc.set_form_field(self.path, "alertId", value)
-
-    @property
-    def alertName(self) -> str:
-        return self.doc.form_field(self.path, "alertName") or ""
-
-    @alertName.setter
-    def alertName(self, value):
-        self.doc.set_form_field(self.path, "alertName", value)
 
     @property
     def alertDescription(self) -> str:
@@ -41484,14 +41396,6 @@ class AlternativeFlowEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "flowId", value)
 
     @property
-    def flowName(self) -> str:
-        return self.doc.form_field(self.path, "flowName") or ""
-
-    @flowName.setter
-    def flowName(self, value):
-        self.doc.set_form_field(self.path, "flowName", value)
-
-    @property
     def flowType(self) -> str:
         return self.doc.form_field(self.path, "flowType") or ""
 
@@ -41685,14 +41589,6 @@ class ApiCompatibilityEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def apiName(self) -> str:
-        return self.doc.form_field(self.path, "apiName") or ""
-
-    @apiName.setter
-    def apiName(self, value):
-        self.doc.set_form_field(self.path, "apiName", value)
 
     @property
     def apiType(self) -> str:
@@ -42080,14 +41976,6 @@ class ApplicableRegulationEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def regulationName(self) -> str:
-        return self.doc.form_field(self.path, "regulationName") or ""
-
-    @regulationName.setter
-    def regulationName(self, value):
-        self.doc.set_form_field(self.path, "regulationName", value)
 
     @property
     def regulationCode(self) -> str:
@@ -43000,14 +42888,6 @@ class ApprovalRecordContentForm(SomNode):
         self.doc.set_form_field(self.path, "role", value)
 
     @property
-    def name(self) -> str:
-        return self.doc.form_field(self.path, "name") or ""
-
-    @name.setter
-    def name(self, value):
-        self.doc.set_form_field(self.path, "name", value)
-
-    @property
     def date(self) -> str:
         return self.doc.form_field(self.path, "date") or ""
 
@@ -43080,14 +42960,6 @@ class ArchitectureComponentEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def componentName(self) -> str:
-        return self.doc.form_field(self.path, "componentName") or ""
-
-    @componentName.setter
-    def componentName(self, value):
-        self.doc.set_form_field(self.path, "componentName", value)
 
     @property
     def componentType(self) -> str:
@@ -43350,14 +43222,6 @@ class ArchitectureDecisionRecordContentForm(SomNode):
     @decisionId.setter
     def decisionId(self, value):
         self.doc.set_form_field(self.path, "decisionId", value)
-
-    @property
-    def title(self) -> str:
-        return self.doc.form_field(self.path, "title") or ""
-
-    @title.setter
-    def title(self, value):
-        self.doc.set_form_field(self.path, "title", value)
 
     @property
     def date(self) -> str:
@@ -43737,14 +43601,6 @@ class ArchitecturePrincipleEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def principleName(self) -> str:
-        return self.doc.form_field(self.path, "principleName") or ""
-
-    @principleName.setter
-    def principleName(self, value):
-        self.doc.set_form_field(self.path, "principleName", value)
-
-    @property
     def category(self) -> str:
         return self.doc.form_field(self.path, "category") or ""
 
@@ -43939,14 +43795,6 @@ class AuditEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def auditName(self) -> str:
-        return self.doc.form_field(self.path, "auditName") or ""
-
-    @auditName.setter
-    def auditName(self, value):
-        self.doc.set_form_field(self.path, "auditName", value)
 
     @property
     def auditType(self) -> str:
@@ -44218,14 +44066,6 @@ class AuthenticationMethodEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def methodName(self) -> str:
-        return self.doc.form_field(self.path, "methodName") or ""
-
-    @methodName.setter
-    def methodName(self, value):
-        self.doc.set_form_field(self.path, "methodName", value)
-
-    @property
     def methodType(self) -> str:
         return self.doc.form_field(self.path, "methodType") or ""
 
@@ -44485,14 +44325,6 @@ class AuthorizationGroupEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def groupName(self) -> str:
-        return self.doc.form_field(self.path, "groupName") or ""
-
-    @groupName.setter
-    def groupName(self, value):
-        self.doc.set_form_field(self.path, "groupName", value)
 
     @property
     def description(self) -> str:
@@ -45792,14 +45624,6 @@ class BackupPolicyEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def policyName(self) -> str:
-        return self.doc.form_field(self.path, "policyName") or ""
-
-    @policyName.setter
-    def policyName(self, value):
-        self.doc.set_form_field(self.path, "policyName", value)
-
-    @property
     def dataScope(self) -> str:
         return self.doc.form_field(self.path, "dataScope") or ""
 
@@ -47029,14 +46853,6 @@ class BoundedContextEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def contextName(self) -> str:
-        return self.doc.form_field(self.path, "contextName") or ""
-
-    @contextName.setter
-    def contextName(self, value):
-        self.doc.set_form_field(self.path, "contextName", value)
-
-    @property
     def domainArea(self) -> str:
         return self.doc.form_field(self.path, "domainArea") or ""
 
@@ -47314,14 +47130,6 @@ class BreakpointEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "breakpointId", value)
 
     @property
-    def breakpointName(self) -> str:
-        return self.doc.form_field(self.path, "breakpointName") or ""
-
-    @breakpointName.setter
-    def breakpointName(self, value):
-        self.doc.set_form_field(self.path, "breakpointName", value)
-
-    @property
     def minWidth(self) -> str:
         return self.doc.form_field(self.path, "minWidth") or ""
 
@@ -47457,14 +47265,6 @@ class BrowserCompatibilityEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def browserName(self) -> str:
-        return self.doc.form_field(self.path, "browserName") or ""
-
-    @browserName.setter
-    def browserName(self, value):
-        self.doc.set_form_field(self.path, "browserName", value)
 
     @property
     def browserEngine(self) -> str:
@@ -47943,14 +47743,6 @@ class BuildToolchainEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def toolName(self) -> str:
-        return self.doc.form_field(self.path, "toolName") or ""
-
-    @toolName.setter
-    def toolName(self, value):
-        self.doc.set_form_field(self.path, "toolName", value)
-
-    @property
     def toolCategory(self) -> str:
         return self.doc.form_field(self.path, "toolCategory") or ""
 
@@ -48378,14 +48170,6 @@ class BusinessComponentEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def componentName(self) -> str:
-        return self.doc.form_field(self.path, "componentName") or ""
-
-    @componentName.setter
-    def componentName(self, value):
-        self.doc.set_form_field(self.path, "componentName", value)
-
-    @property
     def componentType(self) -> str:
         return self.doc.form_field(self.path, "componentType") or ""
 
@@ -48638,14 +48422,6 @@ class BusinessGoalEntryContentForm(SomNode):
     @goalId.setter
     def goalId(self, value):
         self.doc.set_form_field(self.path, "goalId", value)
-
-    @property
-    def goalName(self) -> str:
-        return self.doc.form_field(self.path, "goalName") or ""
-
-    @goalName.setter
-    def goalName(self, value):
-        self.doc.set_form_field(self.path, "goalName", value)
 
     @property
     def goalCategory(self) -> str:
@@ -49087,14 +48863,6 @@ class BusinessObjectAttributeEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def attributeName(self) -> str:
-        return self.doc.form_field(self.path, "attributeName") or ""
-
-    @attributeName.setter
-    def attributeName(self, value):
-        self.doc.set_form_field(self.path, "attributeName", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -49306,14 +49074,6 @@ class BusinessObjectEntryIdentityForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def objectName(self) -> str:
-        return self.doc.form_field(self.path, "objectName") or ""
-
-    @objectName.setter
-    def objectName(self, value):
-        self.doc.set_form_field(self.path, "objectName", value)
 
     @property
     def objectAlias(self) -> str:
@@ -49715,14 +49475,6 @@ class BusinessRuleEntryIdentityForm(SomNode):
         self.doc.set_form_field(self.path, "ruleId", value)
 
     @property
-    def ruleName(self) -> str:
-        return self.doc.form_field(self.path, "ruleName") or ""
-
-    @ruleName.setter
-    def ruleName(self, value):
-        self.doc.set_form_field(self.path, "ruleName", value)
-
-    @property
     def ruleVersion(self) -> str:
         return self.doc.form_field(self.path, "ruleVersion") or ""
 
@@ -49884,14 +49636,6 @@ class BusinessRuleReferenceEntryContentForm(SomNode):
     @ruleId.setter
     def ruleId(self, value):
         self.doc.set_form_field(self.path, "ruleId", value)
-
-    @property
-    def ruleName(self) -> str:
-        return self.doc.form_field(self.path, "ruleName") or ""
-
-    @ruleName.setter
-    def ruleName(self, value):
-        self.doc.set_form_field(self.path, "ruleName", value)
 
     @property
     def ruleType(self) -> str:
@@ -50133,14 +49877,6 @@ class CcbMemberEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def name(self) -> str:
-        return self.doc.form_field(self.path, "name") or ""
-
-    @name.setter
-    def name(self, value):
-        self.doc.set_form_field(self.path, "name", value)
 
     @property
     def role(self) -> str:
@@ -50429,14 +50165,6 @@ class CertificationEntryContentForm(SomNode):
     @certificationId.setter
     def certificationId(self, value):
         self.doc.set_form_field(self.path, "certificationId", value)
-
-    @property
-    def certificationName(self) -> str:
-        return self.doc.form_field(self.path, "certificationName") or ""
-
-    @certificationName.setter
-    def certificationName(self, value):
-        self.doc.set_form_field(self.path, "certificationName", value)
 
     @property
     def issuingBody(self) -> str:
@@ -50888,14 +50616,6 @@ class ChangeCategoryEntryContentForm(SomNode):
     @categoryId.setter
     def categoryId(self, value):
         self.doc.set_form_field(self.path, "categoryId", value)
-
-    @property
-    def categoryName(self) -> str:
-        return self.doc.form_field(self.path, "categoryName") or ""
-
-    @categoryName.setter
-    def categoryName(self, value):
-        self.doc.set_form_field(self.path, "categoryName", value)
 
     @property
     def description(self) -> str:
@@ -51824,14 +51544,6 @@ class ChangeRoleEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def roleName(self) -> str:
-        return self.doc.form_field(self.path, "roleName") or ""
-
-    @roleName.setter
-    def roleName(self, value):
-        self.doc.set_form_field(self.path, "roleName", value)
-
-    @property
     def responsibility(self) -> str:
         return self.doc.form_field(self.path, "responsibility") or ""
 
@@ -51950,14 +51662,6 @@ class ChangeStepEntryContentForm(SomNode):
     @stepNumber.setter
     def stepNumber(self, value):
         self.doc.set_form_field(self.path, "stepNumber", "" if value is None else str(value))
-
-    @property
-    def stepName(self) -> str:
-        return self.doc.form_field(self.path, "stepName") or ""
-
-    @stepName.setter
-    def stepName(self, value):
-        self.doc.set_form_field(self.path, "stepName", value)
 
     @property
     def description(self) -> str:
@@ -52387,14 +52091,6 @@ class ChangedRoleIdentificationContentForm(SomNode):
     @roleId.setter
     def roleId(self, value):
         self.doc.set_form_field(self.path, "roleId", value)
-
-    @property
-    def roleTitle(self) -> str:
-        return self.doc.form_field(self.path, "roleTitle") or ""
-
-    @roleTitle.setter
-    def roleTitle(self, value):
-        self.doc.set_form_field(self.path, "roleTitle", value)
 
     @property
     def newRoleTitle(self) -> str:
@@ -53328,14 +53024,6 @@ class ClientApplicationEntryContentForm(SomNode):
     @clientId.setter
     def clientId(self, value):
         self.doc.set_form_field(self.path, "clientId", value)
-
-    @property
-    def clientName(self) -> str:
-        return self.doc.form_field(self.path, "clientName") or ""
-
-    @clientName.setter
-    def clientName(self, value):
-        self.doc.set_form_field(self.path, "clientName", value)
 
     @property
     def clientKind(self) -> str:
@@ -55017,14 +54705,6 @@ class CodingStandardEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def standardName(self) -> str:
-        return self.doc.form_field(self.path, "standardName") or ""
-
-    @standardName.setter
-    def standardName(self, value):
-        self.doc.set_form_field(self.path, "standardName", value)
-
-    @property
     def standardCategory(self) -> str:
         return self.doc.form_field(self.path, "standardCategory") or ""
 
@@ -55477,14 +55157,6 @@ class ColorPaletteEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def paletteName(self) -> str:
-        return self.doc.form_field(self.path, "paletteName") or ""
-
-    @paletteName.setter
-    def paletteName(self, value):
-        self.doc.set_form_field(self.path, "paletteName", value)
-
-    @property
     def paletteRole(self) -> str:
         return self.doc.form_field(self.path, "paletteRole") or ""
 
@@ -55629,14 +55301,6 @@ class CommitteeMemberEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def name(self) -> str:
-        return self.doc.form_field(self.path, "name") or ""
-
-    @name.setter
-    def name(self, value):
-        self.doc.set_form_field(self.path, "name", value)
-
-    @property
     def organizationRole(self) -> str:
         return self.doc.form_field(self.path, "organizationRole") or ""
 
@@ -55759,14 +55423,6 @@ class CommunicationChannelEncryptionEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def channelName(self) -> str:
-        return self.doc.form_field(self.path, "channelName") or ""
-
-    @channelName.setter
-    def channelName(self, value):
-        self.doc.set_form_field(self.path, "channelName", value)
-
-    @property
     def channelType(self) -> str:
         return self.doc.form_field(self.path, "channelType") or ""
 
@@ -55849,14 +55505,6 @@ class CommunicationEventEntryContentForm(SomNode):
     @eventId.setter
     def eventId(self, value):
         self.doc.set_form_field(self.path, "eventId", value)
-
-    @property
-    def eventName(self) -> str:
-        return self.doc.form_field(self.path, "eventName") or ""
-
-    @eventName.setter
-    def eventName(self, value):
-        self.doc.set_form_field(self.path, "eventName", value)
 
     @property
     def eventType(self) -> str:
@@ -56560,14 +56208,6 @@ class CompetencyEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "competencyId", value)
 
     @property
-    def competencyName(self) -> str:
-        return self.doc.form_field(self.path, "competencyName") or ""
-
-    @competencyName.setter
-    def competencyName(self, value):
-        self.doc.set_form_field(self.path, "competencyName", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -56696,14 +56336,6 @@ class CompetencyLevelChangeEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def competencyName(self) -> str:
-        return self.doc.form_field(self.path, "competencyName") or ""
-
-    @competencyName.setter
-    def competencyName(self, value):
-        self.doc.set_form_field(self.path, "competencyName", value)
 
     @property
     def currentLevel(self) -> str:
@@ -56941,14 +56573,6 @@ class ComplianceMilestoneEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def milestoneName(self) -> str:
-        return self.doc.form_field(self.path, "milestoneName") or ""
-
-    @milestoneName.setter
-    def milestoneName(self, value):
-        self.doc.set_form_field(self.path, "milestoneName", value)
 
     @property
     def regulation(self) -> str:
@@ -57319,14 +56943,6 @@ class ComponentActionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "actionId", value)
 
     @property
-    def actionName(self) -> str:
-        return self.doc.form_field(self.path, "actionName") or ""
-
-    @actionName.setter
-    def actionName(self, value):
-        self.doc.set_form_field(self.path, "actionName", value)
-
-    @property
     def actionTrigger(self) -> str:
         return self.doc.form_field(self.path, "actionTrigger") or ""
 
@@ -57548,14 +57164,6 @@ class ComponentEntryContentForm(SomNode):
     @componentId.setter
     def componentId(self, value):
         self.doc.set_form_field(self.path, "componentId", value)
-
-    @property
-    def componentName(self) -> str:
-        return self.doc.form_field(self.path, "componentName") or ""
-
-    @componentName.setter
-    def componentName(self, value):
-        self.doc.set_form_field(self.path, "componentName", value)
 
     @property
     def category(self) -> str:
@@ -57862,14 +57470,6 @@ class ComponentFamilyEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "familyId", value)
 
     @property
-    def familyName(self) -> str:
-        return self.doc.form_field(self.path, "familyName") or ""
-
-    @familyName.setter
-    def familyName(self, value):
-        self.doc.set_form_field(self.path, "familyName", value)
-
-    @property
     def familyDescription(self) -> str:
         return self.doc.form_field(self.path, "familyDescription") or ""
 
@@ -58136,14 +57736,6 @@ class ComponentInterfaceEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def interfaceName(self) -> str:
-        return self.doc.form_field(self.path, "interfaceName") or ""
-
-    @interfaceName.setter
-    def interfaceName(self, value):
-        self.doc.set_form_field(self.path, "interfaceName", value)
 
     @property
     def interfaceType(self) -> str:
@@ -59132,14 +58724,6 @@ class ComponentPropertyEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "propertyId", value)
 
     @property
-    def propertyName(self) -> str:
-        return self.doc.form_field(self.path, "propertyName") or ""
-
-    @propertyName.setter
-    def propertyName(self, value):
-        self.doc.set_form_field(self.path, "propertyName", value)
-
-    @property
     def propertyType(self) -> str:
         return self.doc.form_field(self.path, "propertyType") or ""
 
@@ -59737,14 +59321,6 @@ class ComponentRiskEntryContentForm(SomNode):
     def componentRef(self, value):
         self.doc.set_form_field(self.path, "componentRef", value)
 
-    @property
-    def riskTitle(self) -> str:
-        return self.doc.form_field(self.path, "riskTitle") or ""
-
-    @riskTitle.setter
-    def riskTitle(self, value):
-        self.doc.set_form_field(self.path, "riskTitle", value)
-
 class ComponentRiskEntryDescriptionForm(SomNode):
     """Generated section facade for the `description` @Form section: its own content text followed by one typed member per form field."""
 
@@ -59951,14 +59527,6 @@ class ComponentSlotEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "slotId", value)
 
     @property
-    def slotName(self) -> str:
-        return self.doc.form_field(self.path, "slotName") or ""
-
-    @slotName.setter
-    def slotName(self, value):
-        self.doc.set_form_field(self.path, "slotName", value)
-
-    @property
     def slotDescription(self) -> str:
         return self.doc.form_field(self.path, "slotDescription") or ""
 
@@ -60064,14 +59632,6 @@ class ComponentStateEntryContentForm(SomNode):
     @stateId.setter
     def stateId(self, value):
         self.doc.set_form_field(self.path, "stateId", value)
-
-    @property
-    def stateName(self) -> str:
-        return self.doc.form_field(self.path, "stateName") or ""
-
-    @stateName.setter
-    def stateName(self, value):
-        self.doc.set_form_field(self.path, "stateName", value)
 
     @property
     def stateDescription(self) -> str:
@@ -60520,14 +60080,6 @@ class ComponentVariantEntryContentForm(SomNode):
     @variantId.setter
     def variantId(self, value):
         self.doc.set_form_field(self.path, "variantId", value)
-
-    @property
-    def variantName(self) -> str:
-        return self.doc.form_field(self.path, "variantName") or ""
-
-    @variantName.setter
-    def variantName(self, value):
-        self.doc.set_form_field(self.path, "variantName", value)
 
     @property
     def variantDescription(self) -> str:
@@ -61008,14 +60560,6 @@ class ConfidentialInfoCategoryEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def categoryName(self) -> str:
-        return self.doc.form_field(self.path, "categoryName") or ""
-
-    @categoryName.setter
-    def categoryName(self, value):
-        self.doc.set_form_field(self.path, "categoryName", value)
 
     @property
     def description(self) -> str:
@@ -62253,14 +61797,6 @@ class ContingencyPlanEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "contingencyId", value)
 
     @property
-    def planTitle(self) -> str:
-        return self.doc.form_field(self.path, "planTitle") or ""
-
-    @planTitle.setter
-    def planTitle(self, value):
-        self.doc.set_form_field(self.path, "planTitle", value)
-
-    @property
     def triggerCondition(self) -> str:
         return self.doc.form_field(self.path, "triggerCondition") or ""
 
@@ -62859,14 +62395,6 @@ class CurrentBusinessProcessContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def processName(self) -> str:
-        return self.doc.form_field(self.path, "processName") or ""
-
-    @processName.setter
-    def processName(self, value):
-        self.doc.set_form_field(self.path, "processName", value)
-
-    @property
     def processOwner(self) -> str:
         return self.doc.form_field(self.path, "processOwner") or ""
 
@@ -63250,14 +62778,6 @@ class CurrentWorkflowEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def workflowName(self) -> str:
-        return self.doc.form_field(self.path, "workflowName") or ""
-
-    @workflowName.setter
-    def workflowName(self, value):
-        self.doc.set_form_field(self.path, "workflowName", value)
-
-    @property
     def workflowId(self) -> str:
         return self.doc.form_field(self.path, "workflowId") or ""
 
@@ -63388,14 +62908,6 @@ class CustomDistributionGroupContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def groupName(self) -> str:
-        return self.doc.form_field(self.path, "groupName") or ""
-
-    @groupName.setter
-    def groupName(self, value):
-        self.doc.set_form_field(self.path, "groupName", value)
-
-    @property
     def purpose(self) -> str:
         return self.doc.form_field(self.path, "purpose") or ""
 
@@ -63443,14 +62955,6 @@ class CustomMetricEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def metricName(self) -> str:
-        return self.doc.form_field(self.path, "metricName") or ""
-
-    @metricName.setter
-    def metricName(self, value):
-        self.doc.set_form_field(self.path, "metricName", value)
 
     @property
     def metricType(self) -> str:
@@ -63590,14 +63094,6 @@ class DashboardEntryContentForm(SomNode):
     @dashboardId.setter
     def dashboardId(self, value):
         self.doc.set_form_field(self.path, "dashboardId", value)
-
-    @property
-    def dashboardName(self) -> str:
-        return self.doc.form_field(self.path, "dashboardName") or ""
-
-    @dashboardName.setter
-    def dashboardName(self, value):
-        self.doc.set_form_field(self.path, "dashboardName", value)
 
     @property
     def dashboardCategory(self) -> str:
@@ -64591,14 +64087,6 @@ class DataAttributeEntryIdentityForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def attributeName(self) -> str:
-        return self.doc.form_field(self.path, "attributeName") or ""
-
-    @attributeName.setter
-    def attributeName(self, value):
-        self.doc.set_form_field(self.path, "attributeName", value)
-
-    @property
     def columnName(self) -> str:
         return self.doc.form_field(self.path, "columnName") or ""
 
@@ -64959,14 +64447,6 @@ class DataClassificationEntryIdentityForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def classificationName(self) -> str:
-        return self.doc.form_field(self.path, "classificationName") or ""
-
-    @classificationName.setter
-    def classificationName(self, value):
-        self.doc.set_form_field(self.path, "classificationName", value)
-
-    @property
     def classificationLevel(self) -> str:
         return self.doc.form_field(self.path, "classificationLevel") or ""
 
@@ -65128,14 +64608,6 @@ class DataClassificationLevelEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def levelName(self) -> str:
-        return self.doc.form_field(self.path, "levelName") or ""
-
-    @levelName.setter
-    def levelName(self, value):
-        self.doc.set_form_field(self.path, "levelName", value)
 
     @property
     def levelOrder(self) -> "int | None":
@@ -65870,14 +65342,6 @@ class DataEntityMigrationEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def entityName(self) -> str:
-        return self.doc.form_field(self.path, "entityName") or ""
-
-    @entityName.setter
-    def entityName(self, value):
-        self.doc.set_form_field(self.path, "entityName", value)
-
-    @property
     def recordCount(self) -> str:
         return self.doc.form_field(self.path, "recordCount") or ""
 
@@ -65933,14 +65397,6 @@ class DataEntityReferenceEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def entityName(self) -> str:
-        return self.doc.form_field(self.path, "entityName") or ""
-
-    @entityName.setter
-    def entityName(self, value):
-        self.doc.set_form_field(self.path, "entityName", value)
 
     @property
     def crudOperations(self) -> str:
@@ -66319,14 +65775,6 @@ class DataGovernancePolicyEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "policyId", value)
 
     @property
-    def policyName(self) -> str:
-        return self.doc.form_field(self.path, "policyName") or ""
-
-    @policyName.setter
-    def policyName(self, value):
-        self.doc.set_form_field(self.path, "policyName", value)
-
-    @property
     def policyArea(self) -> str:
         return self.doc.form_field(self.path, "policyArea") or ""
 
@@ -66669,14 +66117,6 @@ class DataIntegrationEntryContentForm(SomNode):
     @integrationId.setter
     def integrationId(self, value):
         self.doc.set_form_field(self.path, "integrationId", value)
-
-    @property
-    def integrationName(self) -> str:
-        return self.doc.form_field(self.path, "integrationName") or ""
-
-    @integrationName.setter
-    def integrationName(self, value):
-        self.doc.set_form_field(self.path, "integrationName", value)
 
     @property
     def description(self) -> str:
@@ -68382,14 +67822,6 @@ class DataQualityInitiativeEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "initiativeId", value)
 
     @property
-    def initiativeName(self) -> str:
-        return self.doc.form_field(self.path, "initiativeName") or ""
-
-    @initiativeName.setter
-    def initiativeName(self, value):
-        self.doc.set_form_field(self.path, "initiativeName", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -68494,14 +67926,6 @@ class DataQualityIssueEntryContentForm(SomNode):
     @issueId.setter
     def issueId(self, value):
         self.doc.set_form_field(self.path, "issueId", value)
-
-    @property
-    def issueTitle(self) -> str:
-        return self.doc.form_field(self.path, "issueTitle") or ""
-
-    @issueTitle.setter
-    def issueTitle(self, value):
-        self.doc.set_form_field(self.path, "issueTitle", value)
 
     @property
     def description(self) -> str:
@@ -68902,14 +68326,6 @@ class DataSourceEntityEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def entityName(self) -> str:
-        return self.doc.form_field(self.path, "entityName") or ""
-
-    @entityName.setter
-    def entityName(self, value):
-        self.doc.set_form_field(self.path, "entityName", value)
 
     @property
     def description(self) -> str:
@@ -69999,14 +69415,6 @@ class DatabaseCompatibilityEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def databaseName(self) -> str:
-        return self.doc.form_field(self.path, "databaseName") or ""
-
-    @databaseName.setter
-    def databaseName(self, value):
-        self.doc.set_form_field(self.path, "databaseName", value)
-
-    @property
     def databaseType(self) -> str:
         return self.doc.form_field(self.path, "databaseType") or ""
 
@@ -70474,22 +69882,6 @@ class DecisionMakerEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def name(self) -> str:
-        return self.doc.form_field(self.path, "name") or ""
-
-    @name.setter
-    def name(self, value):
-        self.doc.set_form_field(self.path, "name", value)
-
-    @property
-    def title(self) -> str:
-        return self.doc.form_field(self.path, "title") or ""
-
-    @title.setter
-    def title(self, value):
-        self.doc.set_form_field(self.path, "title", value)
 
     @property
     def department(self) -> str:
@@ -71550,14 +70942,6 @@ class DeliverableEntryContentForm(SomNode):
     @deliverableId.setter
     def deliverableId(self, value):
         self.doc.set_form_field(self.path, "deliverableId", value)
-
-    @property
-    def deliverableName(self) -> str:
-        return self.doc.form_field(self.path, "deliverableName") or ""
-
-    @deliverableName.setter
-    def deliverableName(self, value):
-        self.doc.set_form_field(self.path, "deliverableName", value)
 
     @property
     def priority(self) -> str:
@@ -73196,14 +72580,6 @@ class DeploymentEnvironmentEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def environmentName(self) -> str:
-        return self.doc.form_field(self.path, "environmentName") or ""
-
-    @environmentName.setter
-    def environmentName(self, value):
-        self.doc.set_form_field(self.path, "environmentName", value)
-
-    @property
     def environmentType(self) -> str:
         return self.doc.form_field(self.path, "environmentType") or ""
 
@@ -73898,14 +73274,6 @@ class DeploymentTargetEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def targetName(self) -> str:
-        return self.doc.form_field(self.path, "targetName") or ""
-
-    @targetName.setter
-    def targetName(self, value):
-        self.doc.set_form_field(self.path, "targetName", value)
-
-    @property
     def targetCategory(self) -> str:
         return self.doc.form_field(self.path, "targetCategory") or ""
 
@@ -74357,14 +73725,6 @@ class DesignGoalEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def goalName(self) -> str:
-        return self.doc.form_field(self.path, "goalName") or ""
-
-    @goalName.setter
-    def goalName(self, value):
-        self.doc.set_form_field(self.path, "goalName", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -74461,14 +73821,6 @@ class DesignPatternEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def patternName(self) -> str:
-        return self.doc.form_field(self.path, "patternName") or ""
-
-    @patternName.setter
-    def patternName(self, value):
-        self.doc.set_form_field(self.path, "patternName", value)
 
     @property
     def patternCategory(self) -> str:
@@ -74666,14 +74018,6 @@ class DesignPrincipleEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def principleName(self) -> str:
-        return self.doc.form_field(self.path, "principleName") or ""
-
-    @principleName.setter
-    def principleName(self, value):
-        self.doc.set_form_field(self.path, "principleName", value)
 
     @property
     def description(self) -> str:
@@ -75250,14 +74594,6 @@ class DevelopmentConventionEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def conventionName(self) -> str:
-        return self.doc.form_field(self.path, "conventionName") or ""
-
-    @conventionName.setter
-    def conventionName(self, value):
-        self.doc.set_form_field(self.path, "conventionName", value)
 
     @property
     def conventionCategory(self) -> str:
@@ -76154,14 +75490,6 @@ class DisplayPropertyEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def displayLabel(self) -> str:
-        return self.doc.form_field(self.path, "displayLabel") or ""
-
-    @displayLabel.setter
-    def displayLabel(self, value):
-        self.doc.set_form_field(self.path, "displayLabel", value)
-
-    @property
     def displayOrder(self) -> str:
         return self.doc.form_field(self.path, "displayOrder") or ""
 
@@ -76856,14 +76184,6 @@ class DistributionRecipientEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def name(self) -> str:
-        return self.doc.form_field(self.path, "name") or ""
-
-    @name.setter
-    def name(self, value):
-        self.doc.set_form_field(self.path, "name", value)
 
     @property
     def role(self) -> str:
@@ -78288,14 +77608,6 @@ class DomainBusinessRuleEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "ruleId", value)
 
     @property
-    def ruleName(self) -> str:
-        return self.doc.form_field(self.path, "ruleName") or ""
-
-    @ruleName.setter
-    def ruleName(self, value):
-        self.doc.set_form_field(self.path, "ruleName", value)
-
-    @property
     def ruleType(self) -> str:
         return self.doc.form_field(self.path, "ruleType") or ""
 
@@ -78523,14 +77835,6 @@ class DomainEventEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def eventName(self) -> str:
-        return self.doc.form_field(self.path, "eventName") or ""
-
-    @eventName.setter
-    def eventName(self, value):
-        self.doc.set_form_field(self.path, "eventName", value)
 
     @property
     def eventDescription(self) -> str:
@@ -78782,14 +78086,6 @@ class DomainProcessEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def processName(self) -> str:
-        return self.doc.form_field(self.path, "processName") or ""
-
-    @processName.setter
-    def processName(self, value):
-        self.doc.set_form_field(self.path, "processName", value)
 
     @property
     def processDescription(self) -> str:
@@ -79438,14 +78734,6 @@ class EncryptedDataCategoryEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def categoryName(self) -> str:
-        return self.doc.form_field(self.path, "categoryName") or ""
-
-    @categoryName.setter
-    def categoryName(self, value):
-        self.doc.set_form_field(self.path, "categoryName", value)
-
-    @property
     def dataClassification(self) -> str:
         return self.doc.form_field(self.path, "dataClassification") or ""
 
@@ -79524,14 +78812,6 @@ class EnterpriseSystemCompatibilityEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def systemName(self) -> str:
-        return self.doc.form_field(self.path, "systemName") or ""
-
-    @systemName.setter
-    def systemName(self, value):
-        self.doc.set_form_field(self.path, "systemName", value)
 
     @property
     def systemType(self) -> str:
@@ -79845,14 +79125,6 @@ class EntityConstraintEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def constraintName(self) -> str:
-        return self.doc.form_field(self.path, "constraintName") or ""
-
-    @constraintName.setter
-    def constraintName(self, value):
-        self.doc.set_form_field(self.path, "constraintName", value)
-
-    @property
     def constraintType(self) -> str:
         return self.doc.form_field(self.path, "constraintType") or ""
 
@@ -79918,14 +79190,6 @@ class EntityFollowUpEntryEntityRefForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def entityName(self) -> str:
-        return self.doc.form_field(self.path, "entityName") or ""
-
-    @entityName.setter
-    def entityName(self, value):
-        self.doc.set_form_field(self.path, "entityName", value)
-
-    @property
     def entityAlias(self) -> str:
         return self.doc.form_field(self.path, "entityAlias") or ""
 
@@ -79949,14 +79213,6 @@ class EntityIndexEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def indexName(self) -> str:
-        return self.doc.form_field(self.path, "indexName") or ""
-
-    @indexName.setter
-    def indexName(self, value):
-        self.doc.set_form_field(self.path, "indexName", value)
 
     @property
     def indexType(self) -> str:
@@ -80103,14 +79359,6 @@ class EntityRelationshipEntryIdentityForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def relationshipName(self) -> str:
-        return self.doc.form_field(self.path, "relationshipName") or ""
-
-    @relationshipName.setter
-    def relationshipName(self, value):
-        self.doc.set_form_field(self.path, "relationshipName", value)
 
     @property
     def relationshipType(self) -> str:
@@ -80567,14 +79815,6 @@ class EnvironmentEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def environmentName(self) -> str:
-        return self.doc.form_field(self.path, "environmentName") or ""
-
-    @environmentName.setter
-    def environmentName(self, value):
-        self.doc.set_form_field(self.path, "environmentName", value)
 
     @property
     def environmentId(self) -> str:
@@ -83003,14 +82243,6 @@ class ExistingSystemEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def systemName(self) -> str:
-        return self.doc.form_field(self.path, "systemName") or ""
-
-    @systemName.setter
-    def systemName(self, value):
-        self.doc.set_form_field(self.path, "systemName", value)
-
-    @property
     def systemId(self) -> str:
         return self.doc.form_field(self.path, "systemId") or ""
 
@@ -84077,14 +83309,6 @@ class ExportFormatEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "exportId", value)
 
     @property
-    def formatName(self) -> str:
-        return self.doc.form_field(self.path, "formatName") or ""
-
-    @formatName.setter
-    def formatName(self, value):
-        self.doc.set_form_field(self.path, "formatName", value)
-
-    @property
     def formatType(self) -> str:
         return self.doc.form_field(self.path, "formatType") or ""
 
@@ -84467,14 +83691,6 @@ class ExportTemplateEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "templateId", value)
 
     @property
-    def templateName(self) -> str:
-        return self.doc.form_field(self.path, "templateName") or ""
-
-    @templateName.setter
-    def templateName(self, value):
-        self.doc.set_form_field(self.path, "templateName", value)
-
-    @property
     def baseFormatType(self) -> str:
         return self.doc.form_field(self.path, "baseFormatType") or ""
 
@@ -84834,14 +84050,6 @@ class ExternalActorEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def actorName(self) -> str:
-        return self.doc.form_field(self.path, "actorName") or ""
-
-    @actorName.setter
-    def actorName(self, value):
-        self.doc.set_form_field(self.path, "actorName", value)
-
-    @property
     def actorType(self) -> str:
         return self.doc.form_field(self.path, "actorType") or ""
 
@@ -84979,14 +84187,6 @@ class ExternalInterfaceEntryIdentificationContentForm(SomNode):
     @interfaceId.setter
     def interfaceId(self, value):
         self.doc.set_form_field(self.path, "interfaceId", value)
-
-    @property
-    def interfaceName(self) -> str:
-        return self.doc.form_field(self.path, "interfaceName") or ""
-
-    @interfaceName.setter
-    def interfaceName(self, value):
-        self.doc.set_form_field(self.path, "interfaceName", value)
 
     @property
     def externalSystem(self) -> str:
@@ -85309,14 +84509,6 @@ class ExternalPartnerConnectionEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def partnerName(self) -> str:
-        return self.doc.form_field(self.path, "partnerName") or ""
-
-    @partnerName.setter
-    def partnerName(self, value):
-        self.doc.set_form_field(self.path, "partnerName", value)
-
-    @property
     def partnerType(self) -> str:
         return self.doc.form_field(self.path, "partnerType") or ""
 
@@ -85605,14 +84797,6 @@ class ExternalServiceDependencyEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def serviceName(self) -> str:
-        return self.doc.form_field(self.path, "serviceName") or ""
-
-    @serviceName.setter
-    def serviceName(self, value):
-        self.doc.set_form_field(self.path, "serviceName", value)
-
-    @property
     def serviceProvider(self) -> str:
         return self.doc.form_field(self.path, "serviceProvider") or ""
 
@@ -85817,14 +85001,6 @@ class ExternalSystemContextEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def systemName(self) -> str:
-        return self.doc.form_field(self.path, "systemName") or ""
-
-    @systemName.setter
-    def systemName(self, value):
-        self.doc.set_form_field(self.path, "systemName", value)
-
-    @property
     def systemOwner(self) -> str:
         return self.doc.form_field(self.path, "systemOwner") or ""
 
@@ -85995,14 +85171,6 @@ class FamilyComponentRefContentForm(SomNode):
     @componentId.setter
     def componentId(self, value):
         self.doc.set_form_field(self.path, "componentId", value)
-
-    @property
-    def componentName(self) -> str:
-        return self.doc.form_field(self.path, "componentName") or ""
-
-    @componentName.setter
-    def componentName(self, value):
-        self.doc.set_form_field(self.path, "componentName", value)
 
     @property
     def familyRole(self) -> str:
@@ -86231,14 +85399,6 @@ class FeatureModuleEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def featureName(self) -> str:
-        return self.doc.form_field(self.path, "featureName") or ""
-
-    @featureName.setter
-    def featureName(self, value):
-        self.doc.set_form_field(self.path, "featureName", value)
 
     @property
     def featureArea(self) -> str:
@@ -86876,14 +86036,6 @@ class FeaturePriorityEntryContentForm(SomNode):
     @featureId.setter
     def featureId(self, value):
         self.doc.set_form_field(self.path, "featureId", value)
-
-    @property
-    def featureName(self) -> str:
-        return self.doc.form_field(self.path, "featureName") or ""
-
-    @featureName.setter
-    def featureName(self, value):
-        self.doc.set_form_field(self.path, "featureName", value)
 
     @property
     def priorityRank(self) -> str:
@@ -87710,14 +86862,6 @@ class FeatureTourEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "tourId", value)
 
     @property
-    def tourName(self) -> str:
-        return self.doc.form_field(self.path, "tourName") or ""
-
-    @tourName.setter
-    def tourName(self, value):
-        self.doc.set_form_field(self.path, "tourName", value)
-
-    @property
     def tourDescription(self) -> str:
         return self.doc.form_field(self.path, "tourDescription") or ""
 
@@ -87804,14 +86948,6 @@ class FieldHelpEntryContentForm(SomNode):
     @fieldId.setter
     def fieldId(self, value):
         self.doc.set_form_field(self.path, "fieldId", value)
-
-    @property
-    def fieldLabel(self) -> str:
-        return self.doc.form_field(self.path, "fieldLabel") or ""
-
-    @fieldLabel.setter
-    def fieldLabel(self, value):
-        self.doc.set_form_field(self.path, "fieldLabel", value)
 
     @property
     def tooltipText(self) -> str:
@@ -88447,14 +87583,6 @@ class FrameworkRequirementEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def frameworkName(self) -> str:
-        return self.doc.form_field(self.path, "frameworkName") or ""
-
-    @frameworkName.setter
-    def frameworkName(self, value):
-        self.doc.set_form_field(self.path, "frameworkName", value)
-
-    @property
     def frameworkCategory(self) -> str:
         return self.doc.form_field(self.path, "frameworkCategory") or ""
 
@@ -88717,14 +87845,6 @@ class FunctionDataMatrixEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def functionName(self) -> str:
-        return self.doc.form_field(self.path, "functionName") or ""
-
-    @functionName.setter
-    def functionName(self, value):
-        self.doc.set_form_field(self.path, "functionName", value)
-
-    @property
     def entityName(self) -> str:
         return self.doc.form_field(self.path, "entityName") or ""
 
@@ -88829,14 +87949,6 @@ class FunctionEntryContentForm(SomNode):
     @functionId.setter
     def functionId(self, value):
         self.doc.set_form_field(self.path, "functionId", value)
-
-    @property
-    def functionName(self) -> str:
-        return self.doc.form_field(self.path, "functionName") or ""
-
-    @functionName.setter
-    def functionName(self, value):
-        self.doc.set_form_field(self.path, "functionName", value)
 
     @property
     def description(self) -> str:
@@ -89589,14 +88701,6 @@ class GapEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def gapName(self) -> str:
-        return self.doc.form_field(self.path, "gapName") or ""
-
-    @gapName.setter
-    def gapName(self, value):
-        self.doc.set_form_field(self.path, "gapName", value)
-
-    @property
     def gapCategory(self) -> str:
         return self.doc.form_field(self.path, "gapCategory") or ""
 
@@ -90179,14 +89283,6 @@ class GoalDependencyEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "dependencyType", value)
 
     @property
-    def dependencyName(self) -> str:
-        return self.doc.form_field(self.path, "dependencyName") or ""
-
-    @dependencyName.setter
-    def dependencyName(self, value):
-        self.doc.set_form_field(self.path, "dependencyName", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -90258,14 +89354,6 @@ class GoalMilestoneEntryContentForm(SomNode):
     @milestoneId.setter
     def milestoneId(self, value):
         self.doc.set_form_field(self.path, "milestoneId", value)
-
-    @property
-    def milestoneName(self) -> str:
-        return self.doc.form_field(self.path, "milestoneName") or ""
-
-    @milestoneName.setter
-    def milestoneName(self, value):
-        self.doc.set_form_field(self.path, "milestoneName", value)
 
     @property
     def description(self) -> str:
@@ -90461,14 +89549,6 @@ class GoalRiskEntryContentForm(SomNode):
     @riskId.setter
     def riskId(self, value):
         self.doc.set_form_field(self.path, "riskId", value)
-
-    @property
-    def riskName(self) -> str:
-        return self.doc.form_field(self.path, "riskName") or ""
-
-    @riskName.setter
-    def riskName(self, value):
-        self.doc.set_form_field(self.path, "riskName", value)
 
     @property
     def description(self) -> str:
@@ -91401,14 +90481,6 @@ class IdeRequirementEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def ideName(self) -> str:
-        return self.doc.form_field(self.path, "ideName") or ""
-
-    @ideName.setter
-    def ideName(self, value):
-        self.doc.set_form_field(self.path, "ideName", value)
-
-    @property
     def version(self) -> str:
         return self.doc.form_field(self.path, "version") or ""
 
@@ -91900,14 +90972,6 @@ class IdentityProviderEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def providerName(self) -> str:
-        return self.doc.form_field(self.path, "providerName") or ""
-
-    @providerName.setter
-    def providerName(self, value):
-        self.doc.set_form_field(self.path, "providerName", value)
-
-    @property
     def providerType(self) -> str:
         return self.doc.form_field(self.path, "providerType") or ""
 
@@ -92143,14 +91207,6 @@ class IdentitySourceEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def sourceName(self) -> str:
-        return self.doc.form_field(self.path, "sourceName") or ""
-
-    @sourceName.setter
-    def sourceName(self, value):
-        self.doc.set_form_field(self.path, "sourceName", value)
 
     @property
     def sourceType(self) -> str:
@@ -93053,14 +92109,6 @@ class IndustryProtocolComplianceEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def protocolName(self) -> str:
-        return self.doc.form_field(self.path, "protocolName") or ""
-
-    @protocolName.setter
-    def protocolName(self, value):
-        self.doc.set_form_field(self.path, "protocolName", value)
-
-    @property
     def category(self) -> str:
         return self.doc.form_field(self.path, "category") or ""
 
@@ -93355,14 +92403,6 @@ class IndustryStandardEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def standardName(self) -> str:
-        return self.doc.form_field(self.path, "standardName") or ""
-
-    @standardName.setter
-    def standardName(self, value):
-        self.doc.set_form_field(self.path, "standardName", value)
 
     @property
     def standardBody(self) -> str:
@@ -93783,14 +92823,6 @@ class InfrastructureComponentEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def componentName(self) -> str:
-        return self.doc.form_field(self.path, "componentName") or ""
-
-    @componentName.setter
-    def componentName(self, value):
-        self.doc.set_form_field(self.path, "componentName", value)
 
     @property
     def componentType(self) -> str:
@@ -94495,14 +93527,6 @@ class InitialTrainingEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "trainingId", value)
 
     @property
-    def trainingName(self) -> str:
-        return self.doc.form_field(self.path, "trainingName") or ""
-
-    @trainingName.setter
-    def trainingName(self, value):
-        self.doc.set_form_field(self.path, "trainingName", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -95120,14 +94144,6 @@ class IntegrationConstraintEntryContentForm(SomNode):
     @constraintId.setter
     def constraintId(self, value):
         self.doc.set_form_field(self.path, "constraintId", value)
-
-    @property
-    def constraintName(self) -> str:
-        return self.doc.form_field(self.path, "constraintName") or ""
-
-    @constraintName.setter
-    def constraintName(self, value):
-        self.doc.set_form_field(self.path, "constraintName", value)
 
     @property
     def constraintDescription(self) -> str:
@@ -95933,14 +94949,6 @@ class InteractionChannelEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def channelName(self) -> str:
-        return self.doc.form_field(self.path, "channelName") or ""
-
-    @channelName.setter
-    def channelName(self, value):
-        self.doc.set_form_field(self.path, "channelName", value)
-
-    @property
     def channelId(self) -> str:
         return self.doc.form_field(self.path, "channelId") or ""
 
@@ -96591,14 +95599,6 @@ class InteractionPatternEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def patternName(self) -> str:
-        return self.doc.form_field(self.path, "patternName") or ""
-
-    @patternName.setter
-    def patternName(self, value):
-        self.doc.set_form_field(self.path, "patternName", value)
-
-    @property
     def patternId(self) -> str:
         return self.doc.form_field(self.path, "patternId") or ""
 
@@ -96812,14 +95812,6 @@ class InterfaceBusinessProcessEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def processName(self) -> str:
-        return self.doc.form_field(self.path, "processName") or ""
-
-    @processName.setter
-    def processName(self, value):
-        self.doc.set_form_field(self.path, "processName", value)
-
-    @property
     def processId(self) -> str:
         return self.doc.form_field(self.path, "processId") or ""
 
@@ -96859,14 +95851,6 @@ class InterfaceDataEntityEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def entityName(self) -> str:
-        return self.doc.form_field(self.path, "entityName") or ""
-
-    @entityName.setter
-    def entityName(self, value):
-        self.doc.set_form_field(self.path, "entityName", value)
 
     @property
     def direction(self) -> str:
@@ -97386,14 +96370,6 @@ class InterfaceOperationEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "operationId", value)
 
     @property
-    def operationName(self) -> str:
-        return self.doc.form_field(self.path, "operationName") or ""
-
-    @operationName.setter
-    def operationName(self, value):
-        self.doc.set_form_field(self.path, "operationName", value)
-
-    @property
     def httpMethod(self) -> str:
         return self.doc.form_field(self.path, "httpMethod") or ""
 
@@ -97837,14 +96813,6 @@ class InterfaceSpecificationEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def specificationName(self) -> str:
-        return self.doc.form_field(self.path, "specificationName") or ""
-
-    @specificationName.setter
-    def specificationName(self, value):
-        self.doc.set_form_field(self.path, "specificationName", value)
-
-    @property
     def specificationVersion(self) -> str:
         return self.doc.form_field(self.path, "specificationVersion") or ""
 
@@ -98279,14 +97247,6 @@ class InterfaceTestScenarioEntryContentForm(SomNode):
     @scenarioId.setter
     def scenarioId(self, value):
         self.doc.set_form_field(self.path, "scenarioId", value)
-
-    @property
-    def scenarioName(self) -> str:
-        return self.doc.form_field(self.path, "scenarioName") or ""
-
-    @scenarioName.setter
-    def scenarioName(self, value):
-        self.doc.set_form_field(self.path, "scenarioName", value)
 
     @property
     def scenarioType(self) -> str:
@@ -99344,14 +98304,6 @@ class ItStandardComplianceEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def standardName(self) -> str:
-        return self.doc.form_field(self.path, "standardName") or ""
-
-    @standardName.setter
-    def standardName(self, value):
-        self.doc.set_form_field(self.path, "standardName", value)
-
-    @property
     def standardBody(self) -> str:
         return self.doc.form_field(self.path, "standardBody") or ""
 
@@ -99671,14 +98623,6 @@ class JourneyStageEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def stageName(self) -> str:
-        return self.doc.form_field(self.path, "stageName") or ""
-
-    @stageName.setter
-    def stageName(self, value):
-        self.doc.set_form_field(self.path, "stageName", value)
-
-    @property
     def stageDescription(self) -> str:
         return self.doc.form_field(self.path, "stageDescription") or ""
 
@@ -99758,14 +98702,6 @@ class KeyAttributeEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def keyName(self) -> str:
-        return self.doc.form_field(self.path, "keyName") or ""
-
-    @keyName.setter
-    def keyName(self, value):
-        self.doc.set_form_field(self.path, "keyName", value)
 
     @property
     def keyType(self) -> str:
@@ -100003,14 +98939,6 @@ class KeyConceptEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def conceptName(self) -> str:
-        return self.doc.form_field(self.path, "conceptName") or ""
-
-    @conceptName.setter
-    def conceptName(self, value):
-        self.doc.set_form_field(self.path, "conceptName", value)
 
     @property
     def conceptType(self) -> str:
@@ -101235,14 +100163,6 @@ class LifecycleTransitionEntryContentForm(SomNode):
     @transitionId.setter
     def transitionId(self, value):
         self.doc.set_form_field(self.path, "transitionId", value)
-
-    @property
-    def transitionName(self) -> str:
-        return self.doc.form_field(self.path, "transitionName") or ""
-
-    @transitionName.setter
-    def transitionName(self, value):
-        self.doc.set_form_field(self.path, "transitionName", value)
 
     @property
     def fromState(self) -> str:
@@ -102769,14 +101689,6 @@ class LoginFlowStepEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def stepName(self) -> str:
-        return self.doc.form_field(self.path, "stepName") or ""
-
-    @stepName.setter
-    def stepName(self, value):
-        self.doc.set_form_field(self.path, "stepName", value)
-
-    @property
     def stepOrder(self) -> str:
         return self.doc.form_field(self.path, "stepOrder") or ""
 
@@ -103526,14 +102438,6 @@ class MaintenanceDependencyEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "dependencyId", value)
 
     @property
-    def name(self) -> str:
-        return self.doc.form_field(self.path, "name") or ""
-
-    @name.setter
-    def name(self, value):
-        self.doc.set_form_field(self.path, "name", value)
-
-    @property
     def version(self) -> str:
         return self.doc.form_field(self.path, "version") or ""
 
@@ -103872,14 +102776,6 @@ class MaintenanceWindowEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def windowName(self) -> str:
-        return self.doc.form_field(self.path, "windowName") or ""
-
-    @windowName.setter
-    def windowName(self, value):
-        self.doc.set_form_field(self.path, "windowName", value)
-
-    @property
     def windowType(self) -> str:
         return self.doc.form_field(self.path, "windowType") or ""
 
@@ -104107,14 +103003,6 @@ class MasterDataDomainEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def domainName(self) -> str:
-        return self.doc.form_field(self.path, "domainName") or ""
-
-    @domainName.setter
-    def domainName(self, value):
-        self.doc.set_form_field(self.path, "domainName", value)
 
     @property
     def description(self) -> str:
@@ -104787,14 +103675,6 @@ class MetricsBaselineEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def metricName(self) -> str:
-        return self.doc.form_field(self.path, "metricName") or ""
-
-    @metricName.setter
-    def metricName(self, value):
-        self.doc.set_form_field(self.path, "metricName", value)
 
     @property
     def baselineValue(self) -> str:
@@ -105575,14 +104455,6 @@ class MigrationMilestoneEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def milestoneName(self) -> str:
-        return self.doc.form_field(self.path, "milestoneName") or ""
-
-    @milestoneName.setter
-    def milestoneName(self, value):
-        self.doc.set_form_field(self.path, "milestoneName", value)
-
-    @property
     def targetDate(self) -> str:
         return self.doc.form_field(self.path, "targetDate") or ""
 
@@ -105760,14 +104632,6 @@ class MigrationPhaseEntryContentForm(SomNode):
     @phaseNumber.setter
     def phaseNumber(self, value):
         self.doc.set_form_field(self.path, "phaseNumber", value)
-
-    @property
-    def phaseName(self) -> str:
-        return self.doc.form_field(self.path, "phaseName") or ""
-
-    @phaseName.setter
-    def phaseName(self, value):
-        self.doc.set_form_field(self.path, "phaseName", value)
 
     @property
     def phaseType(self) -> str:
@@ -106540,14 +105404,6 @@ class MigrationRiskEntryContentForm(SomNode):
     @riskId.setter
     def riskId(self, value):
         self.doc.set_form_field(self.path, "riskId", value)
-
-    @property
-    def riskTitle(self) -> str:
-        return self.doc.form_field(self.path, "riskTitle") or ""
-
-    @riskTitle.setter
-    def riskTitle(self, value):
-        self.doc.set_form_field(self.path, "riskTitle", value)
 
     @property
     def riskOwner(self) -> str:
@@ -108337,14 +107193,6 @@ class ModuleEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def moduleName(self) -> str:
-        return self.doc.form_field(self.path, "moduleName") or ""
-
-    @moduleName.setter
-    def moduleName(self, value):
-        self.doc.set_form_field(self.path, "moduleName", value)
-
-    @property
     def moduleType(self) -> str:
         return self.doc.form_field(self.path, "moduleType") or ""
 
@@ -109649,14 +108497,6 @@ class MustPassCriterionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "criterionId", value)
 
     @property
-    def criterionName(self) -> str:
-        return self.doc.form_field(self.path, "criterionName") or ""
-
-    @criterionName.setter
-    def criterionName(self, value):
-        self.doc.set_form_field(self.path, "criterionName", value)
-
-    @property
     def verificationMethod(self) -> str:
         return self.doc.form_field(self.path, "verificationMethod") or ""
 
@@ -110273,14 +109113,6 @@ class NavigationGuardEntryContentForm(SomNode):
     @guardId.setter
     def guardId(self, value):
         self.doc.set_form_field(self.path, "guardId", value)
-
-    @property
-    def guardName(self) -> str:
-        return self.doc.form_field(self.path, "guardName") or ""
-
-    @guardName.setter
-    def guardName(self, value):
-        self.doc.set_form_field(self.path, "guardName", value)
 
     @property
     def guardType(self) -> str:
@@ -111911,14 +110743,6 @@ class NewRoleEntryIdentificationForm(SomNode):
         self.doc.set_form_field(self.path, "roleId", value)
 
     @property
-    def roleTitle(self) -> str:
-        return self.doc.form_field(self.path, "roleTitle") or ""
-
-    @roleTitle.setter
-    def roleTitle(self, value):
-        self.doc.set_form_field(self.path, "roleTitle", value)
-
-    @property
     def roleFamily(self) -> str:
         return self.doc.form_field(self.path, "roleFamily") or ""
 
@@ -112560,14 +111384,6 @@ class NotificationChannelEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def channelName(self) -> str:
-        return self.doc.form_field(self.path, "channelName") or ""
-
-    @channelName.setter
-    def channelName(self, value):
-        self.doc.set_form_field(self.path, "channelName", value)
-
-    @property
     def channelId(self) -> str:
         return self.doc.form_field(self.path, "channelId") or ""
 
@@ -112738,14 +111554,6 @@ class ObjectInvariantEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def invariantName(self) -> str:
-        return self.doc.form_field(self.path, "invariantName") or ""
-
-    @invariantName.setter
-    def invariantName(self, value):
-        self.doc.set_form_field(self.path, "invariantName", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -112809,14 +111617,6 @@ class ObjectOperationEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def operationName(self) -> str:
-        return self.doc.form_field(self.path, "operationName") or ""
-
-    @operationName.setter
-    def operationName(self, value):
-        self.doc.set_form_field(self.path, "operationName", value)
 
     @property
     def description(self) -> str:
@@ -112981,14 +111781,6 @@ class ObjectStateEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def stateName(self) -> str:
-        return self.doc.form_field(self.path, "stateName") or ""
-
-    @stateName.setter
-    def stateName(self, value):
-        self.doc.set_form_field(self.path, "stateName", value)
 
     @property
     def stateCode(self) -> str:
@@ -113775,14 +112567,6 @@ class OngoingTrainingEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "trainingId", value)
 
     @property
-    def trainingName(self) -> str:
-        return self.doc.form_field(self.path, "trainingName") or ""
-
-    @trainingName.setter
-    def trainingName(self, value):
-        self.doc.set_form_field(self.path, "trainingName", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -114350,14 +113134,6 @@ class OrgImplementationActivityContentForm(SomNode):
         self.doc.set_form_field(self.path, "activityId", value)
 
     @property
-    def activityName(self) -> str:
-        return self.doc.form_field(self.path, "activityName") or ""
-
-    @activityName.setter
-    def activityName(self, value):
-        self.doc.set_form_field(self.path, "activityName", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -114526,14 +113302,6 @@ class OrganizationalChangeEntryContentForm(SomNode):
     @changeId.setter
     def changeId(self, value):
         self.doc.set_form_field(self.path, "changeId", value)
-
-    @property
-    def changeName(self) -> str:
-        return self.doc.form_field(self.path, "changeName") or ""
-
-    @changeName.setter
-    def changeName(self, value):
-        self.doc.set_form_field(self.path, "changeName", value)
 
     @property
     def changeType(self) -> str:
@@ -115377,14 +114145,6 @@ class OrganizationalUnitContextEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def unitName(self) -> str:
-        return self.doc.form_field(self.path, "unitName") or ""
-
-    @unitName.setter
-    def unitName(self, value):
-        self.doc.set_form_field(self.path, "unitName", value)
-
-    @property
     def unitType(self) -> str:
         return self.doc.form_field(self.path, "unitType") or ""
 
@@ -115456,14 +114216,6 @@ class OsCompatibilityEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def osName(self) -> str:
-        return self.doc.form_field(self.path, "osName") or ""
-
-    @osName.setter
-    def osName(self, value):
-        self.doc.set_form_field(self.path, "osName", value)
 
     @property
     def osFamily(self) -> str:
@@ -115677,14 +114429,6 @@ class OtherAgreementEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def agreementTitle(self) -> str:
-        return self.doc.form_field(self.path, "agreementTitle") or ""
-
-    @agreementTitle.setter
-    def agreementTitle(self, value):
-        self.doc.set_form_field(self.path, "agreementTitle", value)
 
     @property
     def agreementType(self) -> str:
@@ -117461,14 +116205,6 @@ class PersonaEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def personaName(self) -> str:
-        return self.doc.form_field(self.path, "personaName") or ""
-
-    @personaName.setter
-    def personaName(self, value):
-        self.doc.set_form_field(self.path, "personaName", value)
-
-    @property
     def age(self) -> str:
         return self.doc.form_field(self.path, "age") or ""
 
@@ -117763,14 +116499,6 @@ class PersonaScenarioEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def scenarioName(self) -> str:
-        return self.doc.form_field(self.path, "scenarioName") or ""
-
-    @scenarioName.setter
-    def scenarioName(self, value):
-        self.doc.set_form_field(self.path, "scenarioName", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -117883,14 +116611,6 @@ class PhaseGateReviewEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def gateName(self) -> str:
-        return self.doc.form_field(self.path, "gateName") or ""
-
-    @gateName.setter
-    def gateName(self, value):
-        self.doc.set_form_field(self.path, "gateName", value)
 
     @property
     def gateId(self) -> str:
@@ -118441,14 +117161,6 @@ class PipelineJobEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def jobName(self) -> str:
-        return self.doc.form_field(self.path, "jobName") or ""
-
-    @jobName.setter
-    def jobName(self, value):
-        self.doc.set_form_field(self.path, "jobName", value)
-
-    @property
     def parentStage(self) -> str:
         return self.doc.form_field(self.path, "parentStage") or ""
 
@@ -118685,14 +117397,6 @@ class PipelineStageEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def stageName(self) -> str:
-        return self.doc.form_field(self.path, "stageName") or ""
-
-    @stageName.setter
-    def stageName(self, value):
-        self.doc.set_form_field(self.path, "stageName", value)
 
     @property
     def stageOrder(self) -> str:
@@ -121162,14 +119866,6 @@ class ProcessControlEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "controlId", value)
 
     @property
-    def controlName(self) -> str:
-        return self.doc.form_field(self.path, "controlName") or ""
-
-    @controlName.setter
-    def controlName(self, value):
-        self.doc.set_form_field(self.path, "controlName", value)
-
-    @property
     def controlType(self) -> str:
         return self.doc.form_field(self.path, "controlType") or ""
 
@@ -121471,14 +120167,6 @@ class ProcessDesignPrincipleEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "principleId", value)
 
     @property
-    def principleName(self) -> str:
-        return self.doc.form_field(self.path, "principleName") or ""
-
-    @principleName.setter
-    def principleName(self, value):
-        self.doc.set_form_field(self.path, "principleName", value)
-
-    @property
     def category(self) -> str:
         return self.doc.form_field(self.path, "category") or ""
 
@@ -121617,14 +120305,6 @@ class ProcessEndEventEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "endEventId", value)
 
     @property
-    def endEventName(self) -> str:
-        return self.doc.form_field(self.path, "endEventName") or ""
-
-    @endEventName.setter
-    def endEventName(self, value):
-        self.doc.set_form_field(self.path, "endEventName", value)
-
-    @property
     def endEventType(self) -> str:
         return self.doc.form_field(self.path, "endEventType") or ""
 
@@ -121737,14 +120417,6 @@ class ProcessExceptionEntryContentForm(SomNode):
     @exceptionId.setter
     def exceptionId(self, value):
         self.doc.set_form_field(self.path, "exceptionId", value)
-
-    @property
-    def exceptionName(self) -> str:
-        return self.doc.form_field(self.path, "exceptionName") or ""
-
-    @exceptionName.setter
-    def exceptionName(self, value):
-        self.doc.set_form_field(self.path, "exceptionName", value)
 
     @property
     def exceptionType(self) -> str:
@@ -121959,14 +120631,6 @@ class ProcessIdentificationContentForm(SomNode):
         self.doc.set_form_field(self.path, "processId", value)
 
     @property
-    def processName(self) -> str:
-        return self.doc.form_field(self.path, "processName") or ""
-
-    @processName.setter
-    def processName(self, value):
-        self.doc.set_form_field(self.path, "processName", value)
-
-    @property
     def processLevel(self) -> str:
         return self.doc.form_field(self.path, "processLevel") or ""
 
@@ -122145,14 +120809,6 @@ class ProcessImprovementEntryContentForm(SomNode):
     @improvementId.setter
     def improvementId(self, value):
         self.doc.set_form_field(self.path, "improvementId", value)
-
-    @property
-    def improvementName(self) -> str:
-        return self.doc.form_field(self.path, "improvementName") or ""
-
-    @improvementName.setter
-    def improvementName(self, value):
-        self.doc.set_form_field(self.path, "improvementName", value)
 
     @property
     def category(self) -> str:
@@ -122375,14 +121031,6 @@ class ProcessInputEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "inputId", value)
 
     @property
-    def inputName(self) -> str:
-        return self.doc.form_field(self.path, "inputName") or ""
-
-    @inputName.setter
-    def inputName(self, value):
-        self.doc.set_form_field(self.path, "inputName", value)
-
-    @property
     def inputType(self) -> str:
         return self.doc.form_field(self.path, "inputType") or ""
 
@@ -122511,14 +121159,6 @@ class ProcessKpiEntryContentForm(SomNode):
     @kpiId.setter
     def kpiId(self, value):
         self.doc.set_form_field(self.path, "kpiId", value)
-
-    @property
-    def kpiName(self) -> str:
-        return self.doc.form_field(self.path, "kpiName") or ""
-
-    @kpiName.setter
-    def kpiName(self, value):
-        self.doc.set_form_field(self.path, "kpiName", value)
 
     @property
     def category(self) -> str:
@@ -122650,14 +121290,6 @@ class ProcessMetricEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def metricName(self) -> str:
-        return self.doc.form_field(self.path, "metricName") or ""
-
-    @metricName.setter
-    def metricName(self, value):
-        self.doc.set_form_field(self.path, "metricName", value)
 
     @property
     def metricId(self) -> str:
@@ -122797,14 +121429,6 @@ class ProcessOutputEntryContentForm(SomNode):
     @outputId.setter
     def outputId(self, value):
         self.doc.set_form_field(self.path, "outputId", value)
-
-    @property
-    def outputName(self) -> str:
-        return self.doc.form_field(self.path, "outputName") or ""
-
-    @outputName.setter
-    def outputName(self, value):
-        self.doc.set_form_field(self.path, "outputName", value)
 
     @property
     def outputType(self) -> str:
@@ -123220,14 +121844,6 @@ class ProcessRoleEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "roleId", value)
 
     @property
-    def roleName(self) -> str:
-        return self.doc.form_field(self.path, "roleName") or ""
-
-    @roleName.setter
-    def roleName(self, value):
-        self.doc.set_form_field(self.path, "roleName", value)
-
-    @property
     def raciType(self) -> str:
         return self.doc.form_field(self.path, "raciType") or ""
 
@@ -123416,14 +122032,6 @@ class ProcessScopeEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def processName(self) -> str:
-        return self.doc.form_field(self.path, "processName") or ""
-
-    @processName.setter
-    def processName(self, value):
-        self.doc.set_form_field(self.path, "processName", value)
-
-    @property
     def rationale(self) -> str:
         return self.doc.form_field(self.path, "rationale") or ""
 
@@ -123546,14 +122154,6 @@ class ProcessSlaEntryContentForm(SomNode):
     @slaId.setter
     def slaId(self, value):
         self.doc.set_form_field(self.path, "slaId", value)
-
-    @property
-    def slaName(self) -> str:
-        return self.doc.form_field(self.path, "slaName") or ""
-
-    @slaName.setter
-    def slaName(self, value):
-        self.doc.set_form_field(self.path, "slaName", value)
 
     @property
     def serviceDescription(self) -> str:
@@ -123865,14 +122465,6 @@ class ProcessTriggerEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "triggerId", value)
 
     @property
-    def triggerName(self) -> str:
-        return self.doc.form_field(self.path, "triggerName") or ""
-
-    @triggerName.setter
-    def triggerName(self, value):
-        self.doc.set_form_field(self.path, "triggerName", value)
-
-    @property
     def triggerType(self) -> str:
         return self.doc.form_field(self.path, "triggerType") or ""
 
@@ -124163,14 +122755,6 @@ class ProgrammingLanguageEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def languageName(self) -> str:
-        return self.doc.form_field(self.path, "languageName") or ""
-
-    @languageName.setter
-    def languageName(self, value):
-        self.doc.set_form_field(self.path, "languageName", value)
 
     @property
     def languageVariant(self) -> str:
@@ -124723,14 +123307,6 @@ class ProtocolEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def protocolName(self) -> str:
-        return self.doc.form_field(self.path, "protocolName") or ""
-
-    @protocolName.setter
-    def protocolName(self, value):
-        self.doc.set_form_field(self.path, "protocolName", value)
-
-    @property
     def protocolType(self) -> str:
         return self.doc.form_field(self.path, "protocolType") or ""
 
@@ -124794,14 +123370,6 @@ class PrototypeFeatureEntryContentForm(SomNode):
     @featureId.setter
     def featureId(self, value):
         self.doc.set_form_field(self.path, "featureId", value)
-
-    @property
-    def featureName(self) -> str:
-        return self.doc.form_field(self.path, "featureName") or ""
-
-    @featureName.setter
-    def featureName(self, value):
-        self.doc.set_form_field(self.path, "featureName", value)
 
     @property
     def inclusionReason(self) -> str:
@@ -125693,14 +124261,6 @@ class QualityCategoryEntryContentForm(SomNode):
     @categoryId.setter
     def categoryId(self, value):
         self.doc.set_form_field(self.path, "categoryId", value)
-
-    @property
-    def categoryName(self) -> str:
-        return self.doc.form_field(self.path, "categoryName") or ""
-
-    @categoryName.setter
-    def categoryName(self, value):
-        self.doc.set_form_field(self.path, "categoryName", value)
 
     @property
     def categoryWeight(self) -> "int | None":
@@ -126868,14 +125428,6 @@ class QualityScenarioEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "scenarioId", value)
 
     @property
-    def scenarioName(self) -> str:
-        return self.doc.form_field(self.path, "scenarioName") or ""
-
-    @scenarioName.setter
-    def scenarioName(self, value):
-        self.doc.set_form_field(self.path, "scenarioName", value)
-
-    @property
     def source(self) -> str:
         return self.doc.form_field(self.path, "source") or ""
 
@@ -126996,14 +125548,6 @@ class QualityStandardEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def standardName(self) -> str:
-        return self.doc.form_field(self.path, "standardName") or ""
-
-    @standardName.setter
-    def standardName(self, value):
-        self.doc.set_form_field(self.path, "standardName", value)
 
     @property
     def maturityLevel(self) -> str:
@@ -127966,14 +126510,6 @@ class RecoveryScenarioEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "scenarioId", value)
 
     @property
-    def scenarioName(self) -> str:
-        return self.doc.form_field(self.path, "scenarioName") or ""
-
-    @scenarioName.setter
-    def scenarioName(self, value):
-        self.doc.set_form_field(self.path, "scenarioName", value)
-
-    @property
     def triggerCondition(self) -> str:
         return self.doc.form_field(self.path, "triggerCondition") or ""
 
@@ -128045,14 +126581,6 @@ class ReferenceDocumentEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def documentTitle(self) -> str:
-        return self.doc.form_field(self.path, "documentTitle") or ""
-
-    @documentTitle.setter
-    def documentTitle(self, value):
-        self.doc.set_form_field(self.path, "documentTitle", value)
 
     @property
     def documentId(self) -> str:
@@ -128642,14 +127170,6 @@ class RelatedDocumentEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "relatedDocumentId", value)
 
     @property
-    def relatedDocumentTitle(self) -> str:
-        return self.doc.form_field(self.path, "relatedDocumentTitle") or ""
-
-    @relatedDocumentTitle.setter
-    def relatedDocumentTitle(self, value):
-        self.doc.set_form_field(self.path, "relatedDocumentTitle", value)
-
-    @property
     def relationshipType(self) -> str:
         return self.doc.form_field(self.path, "relationshipType") or ""
 
@@ -128988,14 +127508,6 @@ class RelevantSectionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "sectionReference", value)
 
     @property
-    def sectionTitle(self) -> str:
-        return self.doc.form_field(self.path, "sectionTitle") or ""
-
-    @sectionTitle.setter
-    def sectionTitle(self, value):
-        self.doc.set_form_field(self.path, "sectionTitle", value)
-
-    @property
     def relevance(self) -> str:
         return self.doc.form_field(self.path, "relevance") or ""
 
@@ -129324,14 +127836,6 @@ class RemovedRoleEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "roleId", value)
 
     @property
-    def roleTitle(self) -> str:
-        return self.doc.form_field(self.path, "roleTitle") or ""
-
-    @roleTitle.setter
-    def roleTitle(self, value):
-        self.doc.set_form_field(self.path, "roleTitle", value)
-
-    @property
     def department(self) -> str:
         return self.doc.form_field(self.path, "department") or ""
 
@@ -129514,14 +128018,6 @@ class ReplacementPhaseEntryContentForm(SomNode):
     @phaseNumber.setter
     def phaseNumber(self, value):
         self.doc.set_form_field(self.path, "phaseNumber", "" if value is None else str(value))
-
-    @property
-    def phaseName(self) -> str:
-        return self.doc.form_field(self.path, "phaseName") or ""
-
-    @phaseName.setter
-    def phaseName(self, value):
-        self.doc.set_form_field(self.path, "phaseName", value)
 
     @property
     def phaseScope(self) -> str:
@@ -129813,14 +128309,6 @@ class ReportChartEntryContentForm(SomNode):
     @chartId.setter
     def chartId(self, value):
         self.doc.set_form_field(self.path, "chartId", value)
-
-    @property
-    def title(self) -> str:
-        return self.doc.form_field(self.path, "title") or ""
-
-    @title.setter
-    def title(self, value):
-        self.doc.set_form_field(self.path, "title", value)
 
     @property
     def chartType(self) -> str:
@@ -130124,14 +128612,6 @@ class ReportColumnEntryContentForm(SomNode):
     @columnId.setter
     def columnId(self, value):
         self.doc.set_form_field(self.path, "columnId", value)
-
-    @property
-    def columnName(self) -> str:
-        return self.doc.form_field(self.path, "columnName") or ""
-
-    @columnName.setter
-    def columnName(self, value):
-        self.doc.set_form_field(self.path, "columnName", value)
 
     @property
     def displayLabel(self) -> str:
@@ -130731,14 +129211,6 @@ class ReportEntryContentForm(SomNode):
     @reportId.setter
     def reportId(self, value):
         self.doc.set_form_field(self.path, "reportId", value)
-
-    @property
-    def reportName(self) -> str:
-        return self.doc.form_field(self.path, "reportName") or ""
-
-    @reportName.setter
-    def reportName(self, value):
-        self.doc.set_form_field(self.path, "reportName", value)
 
     @property
     def reportType(self) -> str:
@@ -131421,14 +129893,6 @@ class ReportFilterEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "filterId", value)
 
     @property
-    def filterName(self) -> str:
-        return self.doc.form_field(self.path, "filterName") or ""
-
-    @filterName.setter
-    def filterName(self, value):
-        self.doc.set_form_field(self.path, "filterName", value)
-
-    @property
     def displayLabel(self) -> str:
         return self.doc.form_field(self.path, "displayLabel") or ""
 
@@ -131779,14 +130243,6 @@ class ReportRecipientEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "recipientId", value)
 
     @property
-    def recipientName(self) -> str:
-        return self.doc.form_field(self.path, "recipientName") or ""
-
-    @recipientName.setter
-    def recipientName(self, value):
-        self.doc.set_form_field(self.path, "recipientName", value)
-
-    @property
     def recipientType(self) -> str:
         return self.doc.form_field(self.path, "recipientType") or ""
 
@@ -131965,14 +130421,6 @@ class ReportScheduleEntryContentForm(SomNode):
     @scheduleId.setter
     def scheduleId(self, value):
         self.doc.set_form_field(self.path, "scheduleId", value)
-
-    @property
-    def scheduleName(self) -> str:
-        return self.doc.form_field(self.path, "scheduleName") or ""
-
-    @scheduleName.setter
-    def scheduleName(self, value):
-        self.doc.set_form_field(self.path, "scheduleName", value)
 
     @property
     def frequency(self) -> str:
@@ -132289,14 +130737,6 @@ class ReportSectionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "sectionId", value)
 
     @property
-    def title(self) -> str:
-        return self.doc.form_field(self.path, "title") or ""
-
-    @title.setter
-    def title(self, value):
-        self.doc.set_form_field(self.path, "title", value)
-
-    @property
     def sectionType(self) -> str:
         return self.doc.form_field(self.path, "sectionType") or ""
 
@@ -132523,14 +130963,6 @@ class RequirementBusinessRuleEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "ruleId", value)
 
     @property
-    def ruleName(self) -> str:
-        return self.doc.form_field(self.path, "ruleName") or ""
-
-    @ruleName.setter
-    def ruleName(self, value):
-        self.doc.set_form_field(self.path, "ruleName", value)
-
-    @property
     def ruleType(self) -> str:
         return self.doc.form_field(self.path, "ruleType") or ""
 
@@ -132659,14 +131091,6 @@ class RequirementScreenActionEntryContentForm(SomNode):
     @actionId.setter
     def actionId(self, value):
         self.doc.set_form_field(self.path, "actionId", value)
-
-    @property
-    def actionLabel(self) -> str:
-        return self.doc.form_field(self.path, "actionLabel") or ""
-
-    @actionLabel.setter
-    def actionLabel(self, value):
-        self.doc.set_form_field(self.path, "actionLabel", value)
 
     @property
     def actionType(self) -> str:
@@ -132877,14 +131301,6 @@ class RequirementTestCaseEntryContentForm(SomNode):
     @testCaseId.setter
     def testCaseId(self, value):
         self.doc.set_form_field(self.path, "testCaseId", value)
-
-    @property
-    def testCaseName(self) -> str:
-        return self.doc.form_field(self.path, "testCaseName") or ""
-
-    @testCaseName.setter
-    def testCaseName(self, value):
-        self.doc.set_form_field(self.path, "testCaseName", value)
 
     @property
     def testType(self) -> str:
@@ -133252,14 +131668,6 @@ class ResourceAllocationEntryContentForm(SomNode):
     @resourceType.setter
     def resourceType(self, value):
         self.doc.set_form_field(self.path, "resourceType", value)
-
-    @property
-    def resourceName(self) -> str:
-        return self.doc.form_field(self.path, "resourceName") or ""
-
-    @resourceName.setter
-    def resourceName(self, value):
-        self.doc.set_form_field(self.path, "resourceName", value)
 
     @property
     def quantity(self) -> str:
@@ -134502,14 +132910,6 @@ class ResponsiveScreenRuleEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "screenId", value)
 
     @property
-    def screenName(self) -> str:
-        return self.doc.form_field(self.path, "screenName") or ""
-
-    @screenName.setter
-    def screenName(self, value):
-        self.doc.set_form_field(self.path, "screenName", value)
-
-    @property
     def mobileLayout(self) -> str:
         return self.doc.form_field(self.path, "mobileLayout") or ""
 
@@ -135240,14 +133640,6 @@ class ReusableUiComponentEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def componentName(self) -> str:
-        return self.doc.form_field(self.path, "componentName") or ""
-
-    @componentName.setter
-    def componentName(self, value):
-        self.doc.set_form_field(self.path, "componentName", value)
 
     @property
     def componentCategory(self) -> str:
@@ -136256,14 +134648,6 @@ class RiskIdentificationContentForm(SomNode):
     @riskId.setter
     def riskId(self, value):
         self.doc.set_form_field(self.path, "riskId", value)
-
-    @property
-    def riskName(self) -> str:
-        return self.doc.form_field(self.path, "riskName") or ""
-
-    @riskName.setter
-    def riskName(self, value):
-        self.doc.set_form_field(self.path, "riskName", value)
 
     @property
     def description(self) -> str:
@@ -137280,14 +135664,6 @@ class RoleCompetencyEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "competencyId", value)
 
     @property
-    def competencyName(self) -> str:
-        return self.doc.form_field(self.path, "competencyName") or ""
-
-    @competencyName.setter
-    def competencyName(self, value):
-        self.doc.set_form_field(self.path, "competencyName", value)
-
-    @property
     def competencyType(self) -> str:
         return self.doc.form_field(self.path, "competencyType") or ""
 
@@ -138098,14 +136474,6 @@ class RuleExampleEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def exampleName(self) -> str:
-        return self.doc.form_field(self.path, "exampleName") or ""
-
-    @exampleName.setter
-    def exampleName(self, value):
-        self.doc.set_form_field(self.path, "exampleName", value)
-
-    @property
     def scenario(self) -> str:
         return self.doc.form_field(self.path, "scenario") or ""
 
@@ -138202,14 +136570,6 @@ class RuntimeDependencyEntryContentForm(SomNode):
     @dependencyId.setter
     def dependencyId(self, value):
         self.doc.set_form_field(self.path, "dependencyId", value)
-
-    @property
-    def name(self) -> str:
-        return self.doc.form_field(self.path, "name") or ""
-
-    @name.setter
-    def name(self, value):
-        self.doc.set_form_field(self.path, "name", value)
 
     @property
     def version(self) -> str:
@@ -139536,14 +137896,6 @@ class ScenarioEntryIdentificationForm(SomNode):
         self.doc.set_form_field(self.path, "scenarioId", value)
 
     @property
-    def scenarioName(self) -> str:
-        return self.doc.form_field(self.path, "scenarioName") or ""
-
-    @scenarioName.setter
-    def scenarioName(self, value):
-        self.doc.set_form_field(self.path, "scenarioName", value)
-
-    @property
     def scenarioType(self) -> str:
         return self.doc.form_field(self.path, "scenarioType") or ""
 
@@ -139980,14 +138332,6 @@ class ScheduledJobEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def jobName(self) -> str:
-        return self.doc.form_field(self.path, "jobName") or ""
-
-    @jobName.setter
-    def jobName(self, value):
-        self.doc.set_form_field(self.path, "jobName", value)
 
     @property
     def purpose(self) -> str:
@@ -140827,14 +139171,6 @@ class ScreenActionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "actionId", value)
 
     @property
-    def actionName(self) -> str:
-        return self.doc.form_field(self.path, "actionName") or ""
-
-    @actionName.setter
-    def actionName(self, value):
-        self.doc.set_form_field(self.path, "actionName", value)
-
-    @property
     def actionType(self) -> str:
         return self.doc.form_field(self.path, "actionType") or ""
 
@@ -140915,14 +139251,6 @@ class ScreenBehaviorEntryContentForm(SomNode):
     @behaviorId.setter
     def behaviorId(self, value):
         self.doc.set_form_field(self.path, "behaviorId", value)
-
-    @property
-    def behaviorName(self) -> str:
-        return self.doc.form_field(self.path, "behaviorName") or ""
-
-    @behaviorName.setter
-    def behaviorName(self, value):
-        self.doc.set_form_field(self.path, "behaviorName", value)
 
     @property
     def behaviorType(self) -> str:
@@ -141361,14 +139689,6 @@ class ScreenElementEntryContentForm(SomNode):
     @elementId.setter
     def elementId(self, value):
         self.doc.set_form_field(self.path, "elementId", value)
-
-    @property
-    def elementName(self) -> str:
-        return self.doc.form_field(self.path, "elementName") or ""
-
-    @elementName.setter
-    def elementName(self, value):
-        self.doc.set_form_field(self.path, "elementName", value)
 
     @property
     def elementType(self) -> str:
@@ -141984,14 +140304,6 @@ class ScreenEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "screenId", value)
 
     @property
-    def screenName(self) -> str:
-        return self.doc.form_field(self.path, "screenName") or ""
-
-    @screenName.setter
-    def screenName(self, value):
-        self.doc.set_form_field(self.path, "screenName", value)
-
-    @property
     def purpose(self) -> str:
         return self.doc.form_field(self.path, "purpose") or ""
 
@@ -142227,14 +140539,6 @@ class ScreenFieldEntryContentForm(SomNode):
     @fieldId.setter
     def fieldId(self, value):
         self.doc.set_form_field(self.path, "fieldId", value)
-
-    @property
-    def fieldLabel(self) -> str:
-        return self.doc.form_field(self.path, "fieldLabel") or ""
-
-    @fieldLabel.setter
-    def fieldLabel(self, value):
-        self.doc.set_form_field(self.path, "fieldLabel", value)
 
     @property
     def fieldType(self) -> str:
@@ -142598,14 +140902,6 @@ class ScreenRouteEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "routePath", value)
 
     @property
-    def routeTitle(self) -> str:
-        return self.doc.form_field(self.path, "routeTitle") or ""
-
-    @routeTitle.setter
-    def routeTitle(self, value):
-        self.doc.set_form_field(self.path, "routeTitle", value)
-
-    @property
     def screenId(self) -> str:
         return self.doc.form_field(self.path, "screenId") or ""
 
@@ -142686,14 +140982,6 @@ class ScreenSectionEntryContentForm(SomNode):
     @sectionId.setter
     def sectionId(self, value):
         self.doc.set_form_field(self.path, "sectionId", value)
-
-    @property
-    def sectionName(self) -> str:
-        return self.doc.form_field(self.path, "sectionName") or ""
-
-    @sectionName.setter
-    def sectionName(self, value):
-        self.doc.set_form_field(self.path, "sectionName", value)
 
     @property
     def purpose(self) -> str:
@@ -142782,14 +141070,6 @@ class ScreenStateEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def stateName(self) -> str:
-        return self.doc.form_field(self.path, "stateName") or ""
-
-    @stateName.setter
-    def stateName(self, value):
-        self.doc.set_form_field(self.path, "stateName", value)
 
     @property
     def description(self) -> str:
@@ -142930,14 +141210,6 @@ class ScreenUserCategoryEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def categoryName(self) -> str:
-        return self.doc.form_field(self.path, "categoryName") or ""
-
-    @categoryName.setter
-    def categoryName(self, value):
-        self.doc.set_form_field(self.path, "categoryName", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -142969,14 +141241,6 @@ class SecurityAuditEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def auditName(self) -> str:
-        return self.doc.form_field(self.path, "auditName") or ""
-
-    @auditName.setter
-    def auditName(self, value):
-        self.doc.set_form_field(self.path, "auditName", value)
 
     @property
     def auditCategory(self) -> str:
@@ -143757,14 +142021,6 @@ class SecurityControlEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "controlId", value)
 
     @property
-    def controlName(self) -> str:
-        return self.doc.form_field(self.path, "controlName") or ""
-
-    @controlName.setter
-    def controlName(self, value):
-        self.doc.set_form_field(self.path, "controlName", value)
-
-    @property
     def controlType(self) -> str:
         return self.doc.form_field(self.path, "controlType") or ""
 
@@ -144086,14 +142342,6 @@ class SecurityEventEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def eventName(self) -> str:
-        return self.doc.form_field(self.path, "eventName") or ""
-
-    @eventName.setter
-    def eventName(self, value):
-        self.doc.set_form_field(self.path, "eventName", value)
 
     @property
     def eventCategory(self) -> str:
@@ -144585,14 +142833,6 @@ class SecurityStandardComplianceEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def standardName(self) -> str:
-        return self.doc.form_field(self.path, "standardName") or ""
-
-    @standardName.setter
-    def standardName(self, value):
-        self.doc.set_form_field(self.path, "standardName", value)
-
-    @property
     def standardType(self) -> str:
         return self.doc.form_field(self.path, "standardType") or ""
 
@@ -144755,14 +142995,6 @@ class SecurityStandardEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def standardName(self) -> str:
-        return self.doc.form_field(self.path, "standardName") or ""
-
-    @standardName.setter
-    def standardName(self, value):
-        self.doc.set_form_field(self.path, "standardName", value)
 
     @property
     def standardVersion(self) -> str:
@@ -145619,14 +143851,6 @@ class ServerEnvironmentEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def environmentName(self) -> str:
-        return self.doc.form_field(self.path, "environmentName") or ""
-
-    @environmentName.setter
-    def environmentName(self, value):
-        self.doc.set_form_field(self.path, "environmentName", value)
-
-    @property
     def environmentType(self) -> str:
         return self.doc.form_field(self.path, "environmentType") or ""
 
@@ -145805,14 +144029,6 @@ class ServerOperationEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def operationName(self) -> str:
-        return self.doc.form_field(self.path, "operationName") or ""
-
-    @operationName.setter
-    def operationName(self, value):
-        self.doc.set_form_field(self.path, "operationName", value)
-
-    @property
     def purpose(self) -> str:
         return self.doc.form_field(self.path, "purpose") or ""
 
@@ -145860,14 +144076,6 @@ class ServerOperationMemberEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def memberName(self) -> str:
-        return self.doc.form_field(self.path, "memberName") or ""
-
-    @memberName.setter
-    def memberName(self, value):
-        self.doc.set_form_field(self.path, "memberName", value)
 
     @property
     def memberType(self) -> str:
@@ -146210,14 +144418,6 @@ class ServerRoleEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def roleName(self) -> str:
-        return self.doc.form_field(self.path, "roleName") or ""
-
-    @roleName.setter
-    def roleName(self, value):
-        self.doc.set_form_field(self.path, "roleName", value)
 
     @property
     def roleType(self) -> str:
@@ -147589,14 +145789,6 @@ class SharedLibraryComponentEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def componentName(self) -> str:
-        return self.doc.form_field(self.path, "componentName") or ""
-
-    @componentName.setter
-    def componentName(self, value):
-        self.doc.set_form_field(self.path, "componentName", value)
-
-    @property
     def componentType(self) -> str:
         return self.doc.form_field(self.path, "componentType") or ""
 
@@ -147881,14 +146073,6 @@ class SharedLibraryEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def libraryName(self) -> str:
-        return self.doc.form_field(self.path, "libraryName") or ""
-
-    @libraryName.setter
-    def libraryName(self, value):
-        self.doc.set_form_field(self.path, "libraryName", value)
 
     @property
     def libraryType(self) -> str:
@@ -148826,14 +147010,6 @@ class SloEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "sloId", value)
 
     @property
-    def sloName(self) -> str:
-        return self.doc.form_field(self.path, "sloName") or ""
-
-    @sloName.setter
-    def sloName(self, value):
-        self.doc.set_form_field(self.path, "sloName", value)
-
-    @property
     def sloDescription(self) -> str:
         return self.doc.form_field(self.path, "sloDescription") or ""
 
@@ -149004,14 +147180,6 @@ class SoftwareLayerEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def layerName(self) -> str:
-        return self.doc.form_field(self.path, "layerName") or ""
-
-    @layerName.setter
-    def layerName(self, value):
-        self.doc.set_form_field(self.path, "layerName", value)
 
     @property
     def layerLevel(self) -> str:
@@ -149938,14 +148106,6 @@ class StageEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "stageNumber", value)
 
     @property
-    def stageName(self) -> str:
-        return self.doc.form_field(self.path, "stageName") or ""
-
-    @stageName.setter
-    def stageName(self, value):
-        self.doc.set_form_field(self.path, "stageName", value)
-
-    @property
     def currentStatus(self) -> str:
         return self.doc.form_field(self.path, "currentStatus") or ""
 
@@ -150841,14 +149001,6 @@ class StageMigrationRiskEntryContentForm(SomNode):
     @riskId.setter
     def riskId(self, value):
         self.doc.set_form_field(self.path, "riskId", value)
-
-    @property
-    def riskName(self) -> str:
-        return self.doc.form_field(self.path, "riskName") or ""
-
-    @riskName.setter
-    def riskName(self, value):
-        self.doc.set_form_field(self.path, "riskName", value)
 
     @property
     def riskCategory(self) -> str:
@@ -152496,14 +150648,6 @@ class StageSummaryEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "stageNumber", value)
 
     @property
-    def stageName(self) -> str:
-        return self.doc.form_field(self.path, "stageName") or ""
-
-    @stageName.setter
-    def stageName(self, value):
-        self.doc.set_form_field(self.path, "stageName", value)
-
-    @property
     def scopeSummary(self) -> str:
         return self.doc.form_field(self.path, "scopeSummary") or ""
 
@@ -153564,14 +151708,6 @@ class StakeholderEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def stakeholderName(self) -> str:
-        return self.doc.form_field(self.path, "stakeholderName") or ""
-
-    @stakeholderName.setter
-    def stakeholderName(self, value):
-        self.doc.set_form_field(self.path, "stakeholderName", value)
-
-    @property
     def stakeholderType(self) -> str:
         return self.doc.form_field(self.path, "stakeholderType") or ""
 
@@ -153611,14 +151747,6 @@ class StakeholderRegisterEntryContentForm(SomNode):
     @stakeholderId.setter
     def stakeholderId(self, value):
         self.doc.set_form_field(self.path, "stakeholderId", value)
-
-    @property
-    def name(self) -> str:
-        return self.doc.form_field(self.path, "name") or ""
-
-    @name.setter
-    def name(self, value):
-        self.doc.set_form_field(self.path, "name", value)
 
     @property
     def role(self) -> str:
@@ -153965,14 +152093,6 @@ class SubFunctionEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def subFunctionName(self) -> str:
-        return self.doc.form_field(self.path, "subFunctionName") or ""
-
-    @subFunctionName.setter
-    def subFunctionName(self, value):
-        self.doc.set_form_field(self.path, "subFunctionName", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -154012,14 +152132,6 @@ class SubStageEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def name(self) -> str:
-        return self.doc.form_field(self.path, "name") or ""
-
-    @name.setter
-    def name(self, value):
-        self.doc.set_form_field(self.path, "name", value)
 
     @property
     def subStageType(self) -> str:
@@ -154611,14 +152723,6 @@ class SuccessCriterionEntryContentForm(SomNode):
     @criterionId.setter
     def criterionId(self, value):
         self.doc.set_form_field(self.path, "criterionId", value)
-
-    @property
-    def criterionName(self) -> str:
-        return self.doc.form_field(self.path, "criterionName") or ""
-
-    @criterionName.setter
-    def criterionName(self, value):
-        self.doc.set_form_field(self.path, "criterionName", value)
 
     @property
     def category(self) -> str:
@@ -155554,14 +153658,6 @@ class SystemBusinessProcessEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def processName(self) -> str:
-        return self.doc.form_field(self.path, "processName") or ""
-
-    @processName.setter
-    def processName(self, value):
-        self.doc.set_form_field(self.path, "processName", value)
-
-    @property
     def processId(self) -> str:
         return self.doc.form_field(self.path, "processId") or ""
 
@@ -155609,14 +153705,6 @@ class SystemBusinessUnitEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def unitName(self) -> str:
-        return self.doc.form_field(self.path, "unitName") or ""
-
-    @unitName.setter
-    def unitName(self, value):
-        self.doc.set_form_field(self.path, "unitName", value)
 
     @property
     def userCount(self) -> "int | None":
@@ -156187,14 +154275,6 @@ class SystemDependencyEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def dependencyName(self) -> str:
-        return self.doc.form_field(self.path, "dependencyName") or ""
-
-    @dependencyName.setter
-    def dependencyName(self, value):
-        self.doc.set_form_field(self.path, "dependencyName", value)
 
     @property
     def dependencyType(self) -> str:
@@ -157173,14 +155253,6 @@ class SystemIntegrationEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def integrationName(self) -> str:
-        return self.doc.form_field(self.path, "integrationName") or ""
-
-    @integrationName.setter
-    def integrationName(self, value):
-        self.doc.set_form_field(self.path, "integrationName", value)
 
     @property
     def integrationType(self) -> str:
@@ -158651,14 +156723,6 @@ class SystemTaskEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "taskId", value)
 
     @property
-    def taskName(self) -> str:
-        return self.doc.form_field(self.path, "taskName") or ""
-
-    @taskName.setter
-    def taskName(self, value):
-        self.doc.set_form_field(self.path, "taskName", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -159033,14 +157097,6 @@ class SystemToReplaceEntryIdentificationContentForm(SomNode):
         self.doc.set_form_field(self.path, "systemId", value)
 
     @property
-    def systemName(self) -> str:
-        return self.doc.form_field(self.path, "systemName") or ""
-
-    @systemName.setter
-    def systemName(self, value):
-        self.doc.set_form_field(self.path, "systemName", value)
-
-    @property
     def officialName(self) -> str:
         return self.doc.form_field(self.path, "officialName") or ""
 
@@ -159170,14 +157226,6 @@ class SystemTrainingEntryContentForm(SomNode):
     @trainingId.setter
     def trainingId(self, value):
         self.doc.set_form_field(self.path, "trainingId", value)
-
-    @property
-    def systemName(self) -> str:
-        return self.doc.form_field(self.path, "systemName") or ""
-
-    @systemName.setter
-    def systemName(self, value):
-        self.doc.set_form_field(self.path, "systemName", value)
 
     @property
     def modulesCovered(self) -> str:
@@ -159611,14 +157659,6 @@ class TabBarDefinitionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "tabBarId", value)
 
     @property
-    def tabBarName(self) -> str:
-        return self.doc.form_field(self.path, "tabBarName") or ""
-
-    @tabBarName.setter
-    def tabBarName(self, value):
-        self.doc.set_form_field(self.path, "tabBarName", value)
-
-    @property
     def hostScreenId(self) -> str:
         return self.doc.form_field(self.path, "hostScreenId") or ""
 
@@ -159811,14 +157851,6 @@ class TargetPlatformEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def platformName(self) -> str:
-        return self.doc.form_field(self.path, "platformName") or ""
-
-    @platformName.setter
-    def platformName(self, value):
-        self.doc.set_form_field(self.path, "platformName", value)
 
     @property
     def platformCategory(self) -> str:
@@ -160148,14 +158180,6 @@ class TeamMemberEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def name(self) -> str:
-        return self.doc.form_field(self.path, "name") or ""
-
-    @name.setter
-    def name(self, value):
-        self.doc.set_form_field(self.path, "name", value)
-
-    @property
     def projectRole(self) -> str:
         return self.doc.form_field(self.path, "projectRole") or ""
 
@@ -160277,14 +158301,6 @@ class TeamMemberSkillEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def skillName(self) -> str:
-        return self.doc.form_field(self.path, "skillName") or ""
-
-    @skillName.setter
-    def skillName(self, value):
-        self.doc.set_form_field(self.path, "skillName", value)
 
     @property
     def proficiencyLevel(self) -> str:
@@ -160553,14 +158569,6 @@ class TechnicalConstraintEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "constraintId", value)
 
     @property
-    def constraintName(self) -> str:
-        return self.doc.form_field(self.path, "constraintName") or ""
-
-    @constraintName.setter
-    def constraintName(self, value):
-        self.doc.set_form_field(self.path, "constraintName", value)
-
-    @property
     def constraintType(self) -> str:
         return self.doc.form_field(self.path, "constraintType") or ""
 
@@ -160632,14 +158640,6 @@ class TechnicalDependencyEntryContentForm(SomNode):
     @dependencyId.setter
     def dependencyId(self, value):
         self.doc.set_form_field(self.path, "dependencyId", value)
-
-    @property
-    def dependencyName(self) -> str:
-        return self.doc.form_field(self.path, "dependencyName") or ""
-
-    @dependencyName.setter
-    def dependencyName(self, value):
-        self.doc.set_form_field(self.path, "dependencyName", value)
 
     @property
     def dependencyType(self) -> str:
@@ -160960,14 +158960,6 @@ class TechnicalGoalEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "goalId", value)
 
     @property
-    def goalName(self) -> str:
-        return self.doc.form_field(self.path, "goalName") or ""
-
-    @goalName.setter
-    def goalName(self, value):
-        self.doc.set_form_field(self.path, "goalName", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -161137,14 +159129,6 @@ class TechnicalGoalTestCaseEntryContentForm(SomNode):
     @testCaseId.setter
     def testCaseId(self, value):
         self.doc.set_form_field(self.path, "testCaseId", value)
-
-    @property
-    def testCaseName(self) -> str:
-        return self.doc.form_field(self.path, "testCaseName") or ""
-
-    @testCaseName.setter
-    def testCaseName(self, value):
-        self.doc.set_form_field(self.path, "testCaseName", value)
 
     @property
     def description(self) -> str:
@@ -162025,14 +160009,6 @@ class TechnologyStandardEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "standardId", value)
 
     @property
-    def standardName(self) -> str:
-        return self.doc.form_field(self.path, "standardName") or ""
-
-    @standardName.setter
-    def standardName(self, value):
-        self.doc.set_form_field(self.path, "standardName", value)
-
-    @property
     def standardCategory(self) -> str:
         return self.doc.form_field(self.path, "standardCategory") or ""
 
@@ -162354,14 +160330,6 @@ class TestScenarioEntryContentForm(SomNode):
     @scenarioId.setter
     def scenarioId(self, value):
         self.doc.set_form_field(self.path, "scenarioId", value)
-
-    @property
-    def scenarioName(self) -> str:
-        return self.doc.form_field(self.path, "scenarioName") or ""
-
-    @scenarioName.setter
-    def scenarioName(self, value):
-        self.doc.set_form_field(self.path, "scenarioName", value)
 
     @property
     def priority(self) -> str:
@@ -163403,14 +161371,6 @@ class ThirdPartyLibraryEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def libraryName(self) -> str:
-        return self.doc.form_field(self.path, "libraryName") or ""
-
-    @libraryName.setter
-    def libraryName(self, value):
-        self.doc.set_form_field(self.path, "libraryName", value)
-
-    @property
     def packageSource(self) -> str:
         return self.doc.form_field(self.path, "packageSource") or ""
 
@@ -164291,14 +162251,6 @@ class ToolEntryContentForm(SomNode):
     @toolId.setter
     def toolId(self, value):
         self.doc.set_form_field(self.path, "toolId", value)
-
-    @property
-    def toolName(self) -> str:
-        return self.doc.form_field(self.path, "toolName") or ""
-
-    @toolName.setter
-    def toolName(self, value):
-        self.doc.set_form_field(self.path, "toolName", value)
 
     @property
     def notes(self) -> str:
@@ -165547,14 +163499,6 @@ class TourStepEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "targetElement", value)
 
     @property
-    def stepTitle(self) -> str:
-        return self.doc.form_field(self.path, "stepTitle") or ""
-
-    @stepTitle.setter
-    def stepTitle(self, value):
-        self.doc.set_form_field(self.path, "stepTitle", value)
-
-    @property
     def stepContent(self) -> str:
         return self.doc.form_field(self.path, "stepContent") or ""
 
@@ -165659,14 +163603,6 @@ class TradeOffDecisionEntryContentForm(SomNode):
     @decisionId.setter
     def decisionId(self, value):
         self.doc.set_form_field(self.path, "decisionId", value)
-
-    @property
-    def decisionTitle(self) -> str:
-        return self.doc.form_field(self.path, "decisionTitle") or ""
-
-    @decisionTitle.setter
-    def decisionTitle(self, value):
-        self.doc.set_form_field(self.path, "decisionTitle", value)
 
     @property
     def decisionStatus(self) -> str:
@@ -166455,14 +164391,6 @@ class TrainingModuleEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "moduleId", value)
 
     @property
-    def moduleName(self) -> str:
-        return self.doc.form_field(self.path, "moduleName") or ""
-
-    @moduleName.setter
-    def moduleName(self, value):
-        self.doc.set_form_field(self.path, "moduleName", value)
-
-    @property
     def targetAudience(self) -> str:
         return self.doc.form_field(self.path, "targetAudience") or ""
 
@@ -166764,14 +164692,6 @@ class TrainingTopicEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def topicName(self) -> str:
-        return self.doc.form_field(self.path, "topicName") or ""
-
-    @topicName.setter
-    def topicName(self, value):
-        self.doc.set_form_field(self.path, "topicName", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -167056,14 +164976,6 @@ class TransitionMetricEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "metricId", value)
 
     @property
-    def metricName(self) -> str:
-        return self.doc.form_field(self.path, "metricName") or ""
-
-    @metricName.setter
-    def metricName(self, value):
-        self.doc.set_form_field(self.path, "metricName", value)
-
-    @property
     def category(self) -> str:
         return self.doc.form_field(self.path, "category") or ""
 
@@ -167217,14 +165129,6 @@ class TransitionMilestoneEntryContentForm(SomNode):
     @milestoneId.setter
     def milestoneId(self, value):
         self.doc.set_form_field(self.path, "milestoneId", value)
-
-    @property
-    def milestoneName(self) -> str:
-        return self.doc.form_field(self.path, "milestoneName") or ""
-
-    @milestoneName.setter
-    def milestoneName(self, value):
-        self.doc.set_form_field(self.path, "milestoneName", value)
 
     @property
     def milestoneType(self) -> str:
@@ -167676,14 +165580,6 @@ class TransitionPhaseIdentificationContentForm(SomNode):
         self.doc.set_form_field(self.path, "phaseId", value)
 
     @property
-    def phaseName(self) -> str:
-        return self.doc.form_field(self.path, "phaseName") or ""
-
-    @phaseName.setter
-    def phaseName(self, value):
-        self.doc.set_form_field(self.path, "phaseName", value)
-
-    @property
     def phaseType(self) -> str:
         return self.doc.form_field(self.path, "phaseType") or ""
 
@@ -167935,14 +165831,6 @@ class TransitionRiskEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "riskId", value)
 
     @property
-    def riskName(self) -> str:
-        return self.doc.form_field(self.path, "riskName") or ""
-
-    @riskName.setter
-    def riskName(self, value):
-        self.doc.set_form_field(self.path, "riskName", value)
-
-    @property
     def riskCategory(self) -> str:
         return self.doc.form_field(self.path, "riskCategory") or ""
 
@@ -168104,14 +165992,6 @@ class TransitionSupportResourceEntryContentForm(SomNode):
     @resourceType.setter
     def resourceType(self, value):
         self.doc.set_form_field(self.path, "resourceType", value)
-
-    @property
-    def resourceName(self) -> str:
-        return self.doc.form_field(self.path, "resourceName") or ""
-
-    @resourceName.setter
-    def resourceName(self, value):
-        self.doc.set_form_field(self.path, "resourceName", value)
 
     @property
     def availabilityPeriod(self) -> str:
@@ -168711,14 +166591,6 @@ class TranslationVendorEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def vendorName(self) -> str:
-        return self.doc.form_field(self.path, "vendorName") or ""
-
-    @vendorName.setter
-    def vendorName(self, value):
-        self.doc.set_form_field(self.path, "vendorName", value)
-
-    @property
     def vendorType(self) -> str:
         return self.doc.form_field(self.path, "vendorType") or ""
 
@@ -168961,14 +166833,6 @@ class TrustBoundaryEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def boundaryName(self) -> str:
-        return self.doc.form_field(self.path, "boundaryName") or ""
-
-    @boundaryName.setter
-    def boundaryName(self, value):
-        self.doc.set_form_field(self.path, "boundaryName", value)
-
-    @property
     def boundaryType(self) -> str:
         return self.doc.form_field(self.path, "boundaryType") or ""
 
@@ -169032,14 +166896,6 @@ class TypographyStyleEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def styleName(self) -> str:
-        return self.doc.form_field(self.path, "styleName") or ""
-
-    @styleName.setter
-    def styleName(self, value):
-        self.doc.set_form_field(self.path, "styleName", value)
 
     @property
     def fontFamily(self) -> str:
@@ -169194,14 +167050,6 @@ class UatTestCycleEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def cycleName(self) -> str:
-        return self.doc.form_field(self.path, "cycleName") or ""
-
-    @cycleName.setter
-    def cycleName(self, value):
-        self.doc.set_form_field(self.path, "cycleName", value)
 
     @property
     def cycleObjective(self) -> str:
@@ -169780,14 +167628,6 @@ class UiComponentEntryIdentityForm(SomNode):
     @componentId.setter
     def componentId(self, value):
         self.doc.set_form_field(self.path, "componentId", value)
-
-    @property
-    def componentName(self) -> str:
-        return self.doc.form_field(self.path, "componentName") or ""
-
-    @componentName.setter
-    def componentName(self, value):
-        self.doc.set_form_field(self.path, "componentName", value)
 
     @property
     def componentFamily(self) -> str:
@@ -171725,14 +169565,6 @@ class UserAttributeEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def attributeName(self) -> str:
-        return self.doc.form_field(self.path, "attributeName") or ""
-
-    @attributeName.setter
-    def attributeName(self, value):
-        self.doc.set_form_field(self.path, "attributeName", value)
-
-    @property
     def dataType(self) -> str:
         return self.doc.form_field(self.path, "dataType") or ""
 
@@ -171790,14 +169622,6 @@ class UserCategoryDefinitionContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def categoryName(self) -> str:
-        return self.doc.form_field(self.path, "categoryName") or ""
-
-    @categoryName.setter
-    def categoryName(self, value):
-        self.doc.set_form_field(self.path, "categoryName", value)
-
-    @property
     def description(self) -> str:
         return self.doc.form_field(self.path, "description") or ""
 
@@ -171837,14 +169661,6 @@ class UserCategoryEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def categoryName(self) -> str:
-        return self.doc.form_field(self.path, "categoryName") or ""
-
-    @categoryName.setter
-    def categoryName(self, value):
-        self.doc.set_form_field(self.path, "categoryName", value)
 
     @property
     def categoryId(self) -> str:
@@ -172229,14 +170045,6 @@ class UserGroupImpactEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def groupName(self) -> str:
-        return self.doc.form_field(self.path, "groupName") or ""
-
-    @groupName.setter
-    def groupName(self, value):
-        self.doc.set_form_field(self.path, "groupName", value)
-
-    @property
     def userCount(self) -> "int | None":
         v = self.doc.form_field(self.path, "userCount")
         if v is None or v == "":
@@ -172606,14 +170414,6 @@ class UserLifecycleTransitionEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def transitionName(self) -> str:
-        return self.doc.form_field(self.path, "transitionName") or ""
-
-    @transitionName.setter
-    def transitionName(self, value):
-        self.doc.set_form_field(self.path, "transitionName", value)
 
     @property
     def fromState(self) -> str:
@@ -173326,14 +171126,6 @@ class UtilityMenuItemEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "menuItemId", value)
 
     @property
-    def label(self) -> str:
-        return self.doc.form_field(self.path, "label") or ""
-
-    @label.setter
-    def label(self, value):
-        self.doc.set_form_field(self.path, "label", value)
-
-    @property
     def icon(self) -> str:
         return self.doc.form_field(self.path, "icon") or ""
 
@@ -173428,14 +171220,6 @@ class UtilityNavigationItemEntryContentForm(SomNode):
     @utilityId.setter
     def utilityId(self, value):
         self.doc.set_form_field(self.path, "utilityId", value)
-
-    @property
-    def label(self) -> str:
-        return self.doc.form_field(self.path, "label") or ""
-
-    @label.setter
-    def label(self, value):
-        self.doc.set_form_field(self.path, "label", value)
 
     @property
     def icon(self) -> str:
@@ -174564,14 +172348,6 @@ class VpnRequirementEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def vpnName(self) -> str:
-        return self.doc.form_field(self.path, "vpnName") or ""
-
-    @vpnName.setter
-    def vpnName(self, value):
-        self.doc.set_form_field(self.path, "vpnName", value)
-
-    @property
     def vpnType(self) -> str:
         return self.doc.form_field(self.path, "vpnType") or ""
 
@@ -175423,14 +173199,6 @@ class WcagSuccessCriterionEntryContentForm(SomNode):
         self.doc.set_form_field(self.path, "criterionId", value)
 
     @property
-    def criterionName(self) -> str:
-        return self.doc.form_field(self.path, "criterionName") or ""
-
-    @criterionName.setter
-    def criterionName(self, value):
-        self.doc.set_form_field(self.path, "criterionName", value)
-
-    @property
     def level(self) -> str:
         return self.doc.form_field(self.path, "level") or ""
 
@@ -175554,14 +173322,6 @@ class WorkflowActorEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def actorName(self) -> str:
-        return self.doc.form_field(self.path, "actorName") or ""
-
-    @actorName.setter
-    def actorName(self, value):
-        self.doc.set_form_field(self.path, "actorName", value)
-
-    @property
     def actorType(self) -> str:
         return self.doc.form_field(self.path, "actorType") or ""
 
@@ -175641,14 +173401,6 @@ class WorkflowBusinessRuleContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def ruleName(self) -> str:
-        return self.doc.form_field(self.path, "ruleName") or ""
-
-    @ruleName.setter
-    def ruleName(self, value):
-        self.doc.set_form_field(self.path, "ruleName", value)
-
-    @property
     def ruleDescription(self) -> str:
         return self.doc.form_field(self.path, "ruleDescription") or ""
 
@@ -175696,14 +173448,6 @@ class WorkflowDecisionPointContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def decisionName(self) -> str:
-        return self.doc.form_field(self.path, "decisionName") or ""
-
-    @decisionName.setter
-    def decisionName(self, value):
-        self.doc.set_form_field(self.path, "decisionName", value)
 
     @property
     def decisionCriteria(self) -> str:
@@ -175763,14 +173507,6 @@ class WorkflowExceptionEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def exceptionName(self) -> str:
-        return self.doc.form_field(self.path, "exceptionName") or ""
-
-    @exceptionName.setter
-    def exceptionName(self, value):
-        self.doc.set_form_field(self.path, "exceptionName", value)
-
-    @property
     def exceptionType(self) -> str:
         return self.doc.form_field(self.path, "exceptionType") or ""
 
@@ -175826,14 +173562,6 @@ class WorkflowInputEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def inputName(self) -> str:
-        return self.doc.form_field(self.path, "inputName") or ""
-
-    @inputName.setter
-    def inputName(self, value):
-        self.doc.set_form_field(self.path, "inputName", value)
 
     @property
     def inputType(self) -> str:
@@ -175894,14 +173622,6 @@ class WorkflowOutputEntryContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def outputName(self) -> str:
-        return self.doc.form_field(self.path, "outputName") or ""
-
-    @outputName.setter
-    def outputName(self, value):
-        self.doc.set_form_field(self.path, "outputName", value)
-
-    @property
     def outputType(self) -> str:
         return self.doc.form_field(self.path, "outputType") or ""
 
@@ -175949,14 +173669,6 @@ class WorkflowStepEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def stepName(self) -> str:
-        return self.doc.form_field(self.path, "stepName") or ""
-
-    @stepName.setter
-    def stepName(self, value):
-        self.doc.set_form_field(self.path, "stepName", value)
 
     @property
     def stepNumber(self) -> "int | None":
@@ -176049,14 +173761,6 @@ class WorkflowStepIssueContentForm(SomNode):
         self.doc.set_content(self.path, value)
 
     @property
-    def issueName(self) -> str:
-        return self.doc.form_field(self.path, "issueName") or ""
-
-    @issueName.setter
-    def issueName(self, value):
-        self.doc.set_form_field(self.path, "issueName", value)
-
-    @property
     def issueDescription(self) -> str:
         return self.doc.form_field(self.path, "issueDescription") or ""
 
@@ -176104,14 +173808,6 @@ class WorkflowSummaryEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def workflowName(self) -> str:
-        return self.doc.form_field(self.path, "workflowName") or ""
-
-    @workflowName.setter
-    def workflowName(self, value):
-        self.doc.set_form_field(self.path, "workflowName", value)
 
     @property
     def workflowType(self) -> str:
@@ -176286,14 +173982,6 @@ class WorkflowTriggerEntryContentForm(SomNode):
     @content.setter
     def content(self, value):
         self.doc.set_content(self.path, value)
-
-    @property
-    def triggerName(self) -> str:
-        return self.doc.form_field(self.path, "triggerName") or ""
-
-    @triggerName.setter
-    def triggerName(self, value):
-        self.doc.set_form_field(self.path, "triggerName", value)
 
     @property
     def triggerType(self) -> str:

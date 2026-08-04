@@ -26081,8 +26081,6 @@ class AcceptanceCriterionEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string criterionId() const;
   void setCriterionId(const std::string& value);
-  std::string criterionTitle() const;
-  void setCriterionTitle(const std::string& value);
   std::string given() const;
   void setGiven(const std::string& value);
   std::string when() const;
@@ -26227,8 +26225,6 @@ class AcceptanceStepEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string stepNumber() const;
   void setStepNumber(const std::string& value);
-  std::string stepName() const;
-  void setStepName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string responsibleRole() const;
@@ -26277,8 +26273,6 @@ class AccessLevelEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string levelName() const;
-  void setLevelName(const std::string& value);
   std::string levelId() const;
   void setLevelId(const std::string& value);
   std::optional<long> levelRank() const;
@@ -26479,8 +26473,6 @@ class AccessibilityStandardEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string standardName() const;
-  void setStandardName(const std::string& value);
   std::string version() const;
   void setVersion(const std::string& value);
   std::string conformanceLevel() const;
@@ -26611,8 +26603,6 @@ class ActionParameterEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string parameterName() const;
-  void setParameterName(const std::string& value);
   std::string sourceType() const;
   void setSourceType(const std::string& value);
   std::string sourceValue() const;
@@ -26685,8 +26675,6 @@ class ActorEntryIdentificationForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string actorId() const;
   void setActorId(const std::string& value);
-  std::string actorName() const;
-  void setActorName(const std::string& value);
   std::string actorType() const;
   void setActorType(const std::string& value);
   std::string category() const;
@@ -27005,8 +26993,6 @@ class AffectedDepartmentEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string departmentName() const;
-  void setDepartmentName(const std::string& value);
   std::string departmentHead() const;
   void setDepartmentHead(const std::string& value);
   std::optional<long> employeeCount() const;
@@ -27033,8 +27019,6 @@ class AffectedFunctionEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string functionName() const;
-  void setFunctionName(const std::string& value);
   std::string triggerPoint() const;
   void setTriggerPoint(const std::string& value);
   std::string impact() const;
@@ -27051,8 +27035,6 @@ class AffectedObjectEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string objectName() const;
-  void setObjectName(const std::string& value);
   std::string affectedAttributes() const;
   void setAffectedAttributes(const std::string& value);
   std::string impact() const;
@@ -27089,8 +27071,6 @@ class AlertDefinitionEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string alertName() const;
-  void setAlertName(const std::string& value);
   std::string alertDescription() const;
   void setAlertDescription(const std::string& value);
   std::string severity() const;
@@ -27279,8 +27259,6 @@ class AlertRuleEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string alertId() const;
   void setAlertId(const std::string& value);
-  std::string alertName() const;
-  void setAlertName(const std::string& value);
   std::string alertDescription() const;
   void setAlertDescription(const std::string& value);
   std::string severity() const;
@@ -27493,8 +27471,6 @@ class AlternativeFlowEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string flowId() const;
   void setFlowId(const std::string& value);
-  std::string flowName() const;
-  void setFlowName(const std::string& value);
   std::string flowType() const;
   void setFlowType(const std::string& value);
   std::string branchPoint() const;
@@ -27561,8 +27537,6 @@ class ApiCompatibilityEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string apiName() const;
-  void setApiName(const std::string& value);
   std::string apiType() const;
   void setApiType(const std::string& value);
   std::string version() const;
@@ -27711,8 +27685,6 @@ class ApplicableRegulationEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string regulationName() const;
-  void setRegulationName(const std::string& value);
   std::string regulationCode() const;
   void setRegulationCode(const std::string& value);
   std::string regulationType() const;
@@ -28037,8 +28009,6 @@ class ApprovalRecordContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string role() const;
   void setRole(const std::string& value);
-  std::string name() const;
-  void setName(const std::string& value);
   std::string date() const;
   void setDate(const std::string& value);
   std::string status() const;
@@ -28069,8 +28039,6 @@ class ArchitectureComponentEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string componentName() const;
-  void setComponentName(const std::string& value);
   std::string componentType() const;
   void setComponentType(const std::string& value);
   std::string domain() const;
@@ -28171,8 +28139,6 @@ class ArchitectureDecisionRecordContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string decisionId() const;
   void setDecisionId(const std::string& value);
-  std::string title() const;
-  void setTitle(const std::string& value);
   std::string date() const;
   void setDate(const std::string& value);
   std::string status() const;
@@ -28319,8 +28285,6 @@ class ArchitecturePrincipleEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string principleName() const;
-  void setPrincipleName(const std::string& value);
   std::string category() const;
   void setCategory(const std::string& value);
   std::string statement() const;
@@ -28393,8 +28357,6 @@ class AuditEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string auditName() const;
-  void setAuditName(const std::string& value);
   std::string auditType() const;
   void setAuditType(const std::string& value);
   std::string auditor() const;
@@ -28491,8 +28453,6 @@ class AuthenticationMethodEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string methodName() const;
-  void setMethodName(const std::string& value);
   std::string methodType() const;
   void setMethodType(const std::string& value);
   std::string authenticationFactor() const;
@@ -28587,8 +28547,6 @@ class AuthorizationGroupEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string groupName() const;
-  void setGroupName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string membershipCriteria() const;
@@ -29081,8 +29039,6 @@ class BackupPolicyEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string policyName() const;
-  void setPolicyName(const std::string& value);
   std::string dataScope() const;
   void setDataScope(const std::string& value);
   std::string priority() const;
@@ -29537,8 +29493,6 @@ class BoundedContextEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string contextName() const;
-  void setContextName(const std::string& value);
   std::string domainArea() const;
   void setDomainArea(const std::string& value);
   std::string owningTeam() const;
@@ -29637,8 +29591,6 @@ class BreakpointEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string breakpointId() const;
   void setBreakpointId(const std::string& value);
-  std::string breakpointName() const;
-  void setBreakpointName(const std::string& value);
   std::string minWidth() const;
   void setMinWidth(const std::string& value);
   std::string maxWidth() const;
@@ -29689,8 +29641,6 @@ class BrowserCompatibilityEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string browserName() const;
-  void setBrowserName(const std::string& value);
   std::string browserEngine() const;
   void setBrowserEngine(const std::string& value);
   std::string minVersion() const;
@@ -29873,8 +29823,6 @@ class BuildToolchainEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string toolName() const;
-  void setToolName(const std::string& value);
   std::string toolCategory() const;
   void setToolCategory(const std::string& value);
   std::string platform() const;
@@ -30045,8 +29993,6 @@ class BusinessComponentEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string componentName() const;
-  void setComponentName(const std::string& value);
   std::string componentType() const;
   void setComponentType(const std::string& value);
   std::string boundedContext() const;
@@ -30145,8 +30091,6 @@ class BusinessGoalEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string goalId() const;
   void setGoalId(const std::string& value);
-  std::string goalName() const;
-  void setGoalName(const std::string& value);
   std::string goalCategory() const;
   void setGoalCategory(const std::string& value);
 };
@@ -30311,8 +30255,6 @@ class BusinessObjectAttributeEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string attributeName() const;
-  void setAttributeName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string type() const;
@@ -30395,8 +30337,6 @@ class BusinessObjectEntryIdentityForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string objectName() const;
-  void setObjectName(const std::string& value);
   std::string objectAlias() const;
   void setObjectAlias(const std::string& value);
   std::string description() const;
@@ -30537,8 +30477,6 @@ class BusinessRuleEntryIdentityForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string ruleId() const;
   void setRuleId(const std::string& value);
-  std::string ruleName() const;
-  void setRuleName(const std::string& value);
   std::string ruleVersion() const;
   void setRuleVersion(const std::string& value);
   std::string description() const;
@@ -30597,8 +30535,6 @@ class BusinessRuleReferenceEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string ruleId() const;
   void setRuleId(const std::string& value);
-  std::string ruleName() const;
-  void setRuleName(const std::string& value);
   std::string ruleType() const;
   void setRuleType(const std::string& value);
   std::string description() const;
@@ -30687,8 +30623,6 @@ class CcbMemberEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string name() const;
-  void setName(const std::string& value);
   std::string role() const;
   void setRole(const std::string& value);
   std::string ccbRole() const;
@@ -30795,8 +30729,6 @@ class CertificationEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string certificationId() const;
   void setCertificationId(const std::string& value);
-  std::string certificationName() const;
-  void setCertificationName(const std::string& value);
   std::string issuingBody() const;
   void setIssuingBody(const std::string& value);
 };
@@ -30973,8 +30905,6 @@ class ChangeCategoryEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string categoryId() const;
   void setCategoryId(const std::string& value);
-  std::string categoryName() const;
-  void setCategoryName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
 };
@@ -31301,8 +31231,6 @@ class ChangeRoleEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string roleName() const;
-  void setRoleName(const std::string& value);
   std::string responsibility() const;
   void setResponsibility(const std::string& value);
   std::string authority() const;
@@ -31343,8 +31271,6 @@ class ChangeStepEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::optional<long> stepNumber() const;
   void setStepNumber(std::optional<long> value);
-  std::string stepName() const;
-  void setStepName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
 };
@@ -31491,8 +31417,6 @@ class ChangedRoleIdentificationContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string roleId() const;
   void setRoleId(const std::string& value);
-  std::string roleTitle() const;
-  void setRoleTitle(const std::string& value);
   std::string newRoleTitle() const;
   void setNewRoleTitle(const std::string& value);
   std::string changeRationale() const;
@@ -31831,8 +31755,6 @@ class ClientApplicationEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string clientId() const;
   void setClientId(const std::string& value);
-  std::string clientName() const;
-  void setClientName(const std::string& value);
   std::string clientKind() const;
   void setClientKind(const std::string& value);
   std::string purpose() const;
@@ -32461,8 +32383,6 @@ class CodingStandardEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string standardName() const;
-  void setStandardName(const std::string& value);
   std::string standardCategory() const;
   void setStandardCategory(const std::string& value);
   std::string applicableLanguage() const;
@@ -32639,8 +32559,6 @@ class ColorPaletteEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string paletteName() const;
-  void setPaletteName(const std::string& value);
   std::string paletteRole() const;
   void setPaletteRole(const std::string& value);
   std::optional<long> colorCount() const;
@@ -32687,8 +32605,6 @@ class CommitteeMemberEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string name() const;
-  void setName(const std::string& value);
   std::string organizationRole() const;
   void setOrganizationRole(const std::string& value);
   std::string department() const;
@@ -32731,8 +32647,6 @@ class CommunicationChannelEncryptionEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string channelName() const;
-  void setChannelName(const std::string& value);
   std::string channelType() const;
   void setChannelType(const std::string& value);
   std::optional<bool> tlsRequired() const;
@@ -32759,8 +32673,6 @@ class CommunicationEventEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string eventId() const;
   void setEventId(const std::string& value);
-  std::string eventName() const;
-  void setEventName(const std::string& value);
   std::string eventType() const;
   void setEventType(const std::string& value);
   std::string targetAudience() const;
@@ -33011,8 +32923,6 @@ class CompetencyEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string competencyId() const;
   void setCompetencyId(const std::string& value);
-  std::string competencyName() const;
-  void setCompetencyName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string behavioralIndicators() const;
@@ -33057,8 +32967,6 @@ class CompetencyLevelChangeEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string competencyName() const;
-  void setCompetencyName(const std::string& value);
   std::string currentLevel() const;
   void setCurrentLevel(const std::string& value);
   std::string newLevel() const;
@@ -33147,8 +33055,6 @@ class ComplianceMilestoneEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string milestoneName() const;
-  void setMilestoneName(const std::string& value);
   std::string regulation() const;
   void setRegulation(const std::string& value);
   std::string dueDate() const;
@@ -33287,8 +33193,6 @@ class ComponentActionEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string actionId() const;
   void setActionId(const std::string& value);
-  std::string actionName() const;
-  void setActionName(const std::string& value);
   std::string actionTrigger() const;
   void setActionTrigger(const std::string& value);
   std::string actionPayload() const;
@@ -33373,8 +33277,6 @@ class ComponentEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string componentId() const;
   void setComponentId(const std::string& value);
-  std::string componentName() const;
-  void setComponentName(const std::string& value);
   std::string category() const;
   void setCategory(const std::string& value);
 };
@@ -33497,8 +33399,6 @@ class ComponentFamilyEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string familyId() const;
   void setFamilyId(const std::string& value);
-  std::string familyName() const;
-  void setFamilyName(const std::string& value);
   std::string familyDescription() const;
   void setFamilyDescription(const std::string& value);
   std::optional<long> componentCount() const;
@@ -33599,8 +33499,6 @@ class ComponentInterfaceEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string interfaceName() const;
-  void setInterfaceName(const std::string& value);
   std::string interfaceType() const;
   void setInterfaceType(const std::string& value);
   std::string protocol() const;
@@ -33971,8 +33869,6 @@ class ComponentPropertyEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string propertyId() const;
   void setPropertyId(const std::string& value);
-  std::string propertyName() const;
-  void setPropertyName(const std::string& value);
   std::string propertyType() const;
   void setPropertyType(const std::string& value);
   std::string defaultValue() const;
@@ -34189,8 +34085,6 @@ class ComponentRiskEntryContentForm : public som::SomNode {
   void setRiskId(const std::string& value);
   std::string componentRef() const;
   void setComponentRef(const std::string& value);
-  std::string riskTitle() const;
-  void setRiskTitle(const std::string& value);
 };
 
 // Generated section facade for the `description` @Form section: its own `content` text followed by one typed member per form field.
@@ -34271,8 +34165,6 @@ class ComponentSlotEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string slotId() const;
   void setSlotId(const std::string& value);
-  std::string slotName() const;
-  void setSlotName(const std::string& value);
   std::string slotDescription() const;
   void setSlotDescription(const std::string& value);
   std::optional<bool> slotRequired() const;
@@ -34311,8 +34203,6 @@ class ComponentStateEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string stateId() const;
   void setStateId(const std::string& value);
-  std::string stateName() const;
-  void setStateName(const std::string& value);
   std::string stateDescription() const;
   void setStateDescription(const std::string& value);
 };
@@ -34481,8 +34371,6 @@ class ComponentVariantEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string variantId() const;
   void setVariantId(const std::string& value);
-  std::string variantName() const;
-  void setVariantName(const std::string& value);
   std::string variantDescription() const;
   void setVariantDescription(const std::string& value);
   std::string visualDifferences() const;
@@ -34655,8 +34543,6 @@ class ConfidentialInfoCategoryEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string categoryName() const;
-  void setCategoryName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string classificationLevel() const;
@@ -35117,8 +35003,6 @@ class ContingencyPlanEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string contingencyId() const;
   void setContingencyId(const std::string& value);
-  std::string planTitle() const;
-  void setPlanTitle(const std::string& value);
   std::string triggerCondition() const;
   void setTriggerCondition(const std::string& value);
 };
@@ -35349,8 +35233,6 @@ class CurrentBusinessProcessContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string processName() const;
-  void setProcessName(const std::string& value);
   std::string processOwner() const;
   void setProcessOwner(const std::string& value);
   std::string processCategory() const;
@@ -35471,8 +35353,6 @@ class CurrentWorkflowEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string workflowName() const;
-  void setWorkflowName(const std::string& value);
   std::string workflowId() const;
   void setWorkflowId(const std::string& value);
   std::string workflowType() const;
@@ -35517,8 +35397,6 @@ class CustomDistributionGroupContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string groupName() const;
-  void setGroupName(const std::string& value);
   std::string purpose() const;
   void setPurpose(const std::string& value);
   std::string informationScope() const;
@@ -35537,8 +35415,6 @@ class CustomMetricEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string metricName() const;
-  void setMetricName(const std::string& value);
   std::string metricType() const;
   void setMetricType(const std::string& value);
   std::string metricDescription() const;
@@ -35585,8 +35461,6 @@ class DashboardEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string dashboardId() const;
   void setDashboardId(const std::string& value);
-  std::string dashboardName() const;
-  void setDashboardName(const std::string& value);
   std::string dashboardCategory() const;
   void setDashboardCategory(const std::string& value);
   std::string targetAudience() const;
@@ -35953,8 +35827,6 @@ class DataAttributeEntryIdentityForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string attributeName() const;
-  void setAttributeName(const std::string& value);
   std::string columnName() const;
   void setColumnName(const std::string& value);
   std::string description() const;
@@ -36091,8 +35963,6 @@ class DataClassificationEntryIdentityForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string classificationName() const;
-  void setClassificationName(const std::string& value);
   std::string classificationLevel() const;
   void setClassificationLevel(const std::string& value);
   std::string description() const;
@@ -36151,8 +36021,6 @@ class DataClassificationLevelEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string levelName() const;
-  void setLevelName(const std::string& value);
   std::optional<long> levelOrder() const;
   void setLevelOrder(std::optional<long> value);
   std::string description() const;
@@ -36399,8 +36267,6 @@ class DataEntityMigrationEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string entityName() const;
-  void setEntityName(const std::string& value);
   std::string recordCount() const;
   void setRecordCount(const std::string& value);
   std::string targetMapping() const;
@@ -36421,8 +36287,6 @@ class DataEntityReferenceEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string entityName() const;
-  void setEntityName(const std::string& value);
   std::string crudOperations() const;
   void setCrudOperations(const std::string& value);
   std::string attributes() const;
@@ -36557,8 +36421,6 @@ class DataGovernancePolicyEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string policyId() const;
   void setPolicyId(const std::string& value);
-  std::string policyName() const;
-  void setPolicyName(const std::string& value);
   std::string policyArea() const;
   void setPolicyArea(const std::string& value);
   std::string description() const;
@@ -36691,8 +36553,6 @@ class DataIntegrationEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string integrationId() const;
   void setIntegrationId(const std::string& value);
-  std::string integrationName() const;
-  void setIntegrationName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
 };
@@ -37285,8 +37145,6 @@ class DataQualityInitiativeEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string initiativeId() const;
   void setInitiativeId(const std::string& value);
-  std::string initiativeName() const;
-  void setInitiativeName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string targetIssues() const;
@@ -37325,8 +37183,6 @@ class DataQualityIssueEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string issueId() const;
   void setIssueId(const std::string& value);
-  std::string issueTitle() const;
-  void setIssueTitle(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string affectedDataSource() const;
@@ -37473,8 +37329,6 @@ class DataSourceEntityEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string entityName() const;
-  void setEntityName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string recordCount() const;
@@ -37879,8 +37733,6 @@ class DatabaseCompatibilityEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string databaseName() const;
-  void setDatabaseName(const std::string& value);
   std::string databaseType() const;
   void setDatabaseType(const std::string& value);
   std::string minVersion() const;
@@ -38061,10 +37913,6 @@ class DecisionMakerEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string name() const;
-  void setName(const std::string& value);
-  std::string title() const;
-  void setTitle(const std::string& value);
   std::string department() const;
   void setDepartment(const std::string& value);
   std::string decisionAuthority() const;
@@ -38445,8 +38293,6 @@ class DeliverableEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string deliverableId() const;
   void setDeliverableId(const std::string& value);
-  std::string deliverableName() const;
-  void setDeliverableName(const std::string& value);
   std::string priority() const;
   void setPriority(const std::string& value);
 };
@@ -39073,8 +38919,6 @@ class DeploymentEnvironmentEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string environmentName() const;
-  void setEnvironmentName(const std::string& value);
   std::string environmentType() const;
   void setEnvironmentType(const std::string& value);
   std::string url() const;
@@ -39333,8 +39177,6 @@ class DeploymentTargetEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string targetName() const;
-  void setTargetName(const std::string& value);
   std::string targetCategory() const;
   void setTargetCategory(const std::string& value);
   std::string targetEnvironment() const;
@@ -39511,8 +39353,6 @@ class DesignGoalEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string goalName() const;
-  void setGoalName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string priority() const;
@@ -39549,8 +39389,6 @@ class DesignPatternEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string patternName() const;
-  void setPatternName(const std::string& value);
   std::string patternCategory() const;
   void setPatternCategory(const std::string& value);
   std::string patternSource() const;
@@ -39629,8 +39467,6 @@ class DesignPrincipleEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string principleName() const;
-  void setPrincipleName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string rationale() const;
@@ -39849,8 +39685,6 @@ class DevelopmentConventionEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string conventionName() const;
-  void setConventionName(const std::string& value);
   std::string conventionCategory() const;
   void setConventionCategory(const std::string& value);
   std::string description() const;
@@ -40193,8 +40027,6 @@ class DisplayPropertyEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string displayLabel() const;
-  void setDisplayLabel(const std::string& value);
   std::string displayOrder() const;
   void setDisplayOrder(const std::string& value);
   std::string displayGroup() const;
@@ -40443,8 +40275,6 @@ class DistributionRecipientEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string name() const;
-  void setName(const std::string& value);
   std::string role() const;
   void setRole(const std::string& value);
   std::string organization() const;
@@ -40969,8 +40799,6 @@ class DomainBusinessRuleEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string ruleId() const;
   void setRuleId(const std::string& value);
-  std::string ruleName() const;
-  void setRuleName(const std::string& value);
   std::string ruleType() const;
   void setRuleType(const std::string& value);
   std::string description() const;
@@ -41057,8 +40885,6 @@ class DomainEventEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string eventName() const;
-  void setEventName(const std::string& value);
   std::string eventDescription() const;
   void setEventDescription(const std::string& value);
   std::string eventType() const;
@@ -41139,8 +40965,6 @@ class DomainProcessEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string processName() const;
-  void setProcessName(const std::string& value);
   std::string processDescription() const;
   void setProcessDescription(const std::string& value);
   std::string processType() const;
@@ -41377,8 +41201,6 @@ class EncryptedDataCategoryEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string categoryName() const;
-  void setCategoryName(const std::string& value);
   std::string dataClassification() const;
   void setDataClassification(const std::string& value);
   std::string encryptionApproach() const;
@@ -41403,8 +41225,6 @@ class EnterpriseSystemCompatibilityEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string systemName() const;
-  void setSystemName(const std::string& value);
   std::string systemType() const;
   void setSystemType(const std::string& value);
   std::string vendor() const;
@@ -41523,8 +41343,6 @@ class EntityConstraintEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string constraintName() const;
-  void setConstraintName(const std::string& value);
   std::string constraintType() const;
   void setConstraintType(const std::string& value);
   std::string expression() const;
@@ -41547,8 +41365,6 @@ class EntityFollowUpEntryEntityRefForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string entityName() const;
-  void setEntityName(const std::string& value);
   std::string entityAlias() const;
   void setEntityAlias(const std::string& value);
 };
@@ -41561,8 +41377,6 @@ class EntityIndexEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string indexName() const;
-  void setIndexName(const std::string& value);
   std::string indexType() const;
   void setIndexType(const std::string& value);
   std::string columns() const;
@@ -41611,8 +41425,6 @@ class EntityRelationshipEntryIdentityForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string relationshipName() const;
-  void setRelationshipName(const std::string& value);
   std::string relationshipType() const;
   void setRelationshipType(const std::string& value);
   std::string description() const;
@@ -41773,8 +41585,6 @@ class EnvironmentEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string environmentName() const;
-  void setEnvironmentName(const std::string& value);
   std::string environmentId() const;
   void setEnvironmentId(const std::string& value);
   std::string environmentType() const;
@@ -42649,8 +42459,6 @@ class ExistingSystemEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string systemName() const;
-  void setSystemName(const std::string& value);
   std::string systemId() const;
   void setSystemId(const std::string& value);
   std::string systemVersion() const;
@@ -43013,8 +42821,6 @@ class ExportFormatEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string exportId() const;
   void setExportId(const std::string& value);
-  std::string formatName() const;
-  void setFormatName(const std::string& value);
   std::string formatType() const;
   void setFormatType(const std::string& value);
 };
@@ -43155,8 +42961,6 @@ class ExportTemplateEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string templateId() const;
   void setTemplateId(const std::string& value);
-  std::string templateName() const;
-  void setTemplateName(const std::string& value);
   std::string baseFormatType() const;
   void setBaseFormatType(const std::string& value);
 };
@@ -43287,8 +43091,6 @@ class ExternalActorEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string actorName() const;
-  void setActorName(const std::string& value);
   std::string actorType() const;
   void setActorType(const std::string& value);
   std::string description() const;
@@ -43341,8 +43143,6 @@ class ExternalInterfaceEntryIdentificationContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string interfaceId() const;
   void setInterfaceId(const std::string& value);
-  std::string interfaceName() const;
-  void setInterfaceName(const std::string& value);
   std::string externalSystem() const;
   void setExternalSystem(const std::string& value);
   std::string externalSystemVendor() const;
@@ -43463,8 +43263,6 @@ class ExternalPartnerConnectionEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string partnerName() const;
-  void setPartnerName(const std::string& value);
   std::string partnerType() const;
   void setPartnerType(const std::string& value);
   std::string connectionPurpose() const;
@@ -43571,8 +43369,6 @@ class ExternalServiceDependencyEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string serviceName() const;
-  void setServiceName(const std::string& value);
   std::string serviceProvider() const;
   void setServiceProvider(const std::string& value);
   std::string serviceType() const;
@@ -43647,8 +43443,6 @@ class ExternalSystemContextEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string systemName() const;
-  void setSystemName(const std::string& value);
   std::string systemOwner() const;
   void setSystemOwner(const std::string& value);
   std::string systemType() const;
@@ -43715,8 +43509,6 @@ class FamilyComponentRefContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string componentId() const;
   void setComponentId(const std::string& value);
-  std::string componentName() const;
-  void setComponentName(const std::string& value);
   std::string familyRole() const;
   void setFamilyRole(const std::string& value);
   std::string relationToOthers() const;
@@ -43797,8 +43589,6 @@ class FeatureModuleEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string featureName() const;
-  void setFeatureName(const std::string& value);
   std::string featureArea() const;
   void setFeatureArea(const std::string& value);
   std::string boundedContext() const;
@@ -44033,8 +43823,6 @@ class FeaturePriorityEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string featureId() const;
   void setFeatureId(const std::string& value);
-  std::string featureName() const;
-  void setFeatureName(const std::string& value);
   std::string priorityRank() const;
   void setPriorityRank(const std::string& value);
 };
@@ -44333,8 +44121,6 @@ class FeatureTourEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string tourId() const;
   void setTourId(const std::string& value);
-  std::string tourName() const;
-  void setTourName(const std::string& value);
   std::string tourDescription() const;
   void setTourDescription(const std::string& value);
   std::string targetAudience() const;
@@ -44361,8 +44147,6 @@ class FieldHelpEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string fieldId() const;
   void setFieldId(const std::string& value);
-  std::string fieldLabel() const;
-  void setFieldLabel(const std::string& value);
   std::string tooltipText() const;
   void setTooltipText(const std::string& value);
   std::string inlineHelpText() const;
@@ -44601,8 +44385,6 @@ class FrameworkRequirementEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string frameworkName() const;
-  void setFrameworkName(const std::string& value);
   std::string frameworkCategory() const;
   void setFrameworkCategory(const std::string& value);
   std::string purpose() const;
@@ -44703,8 +44485,6 @@ class FunctionDataMatrixEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string functionName() const;
-  void setFunctionName(const std::string& value);
   std::string entityName() const;
   void setEntityName(const std::string& value);
   std::string accessType() const;
@@ -44743,8 +44523,6 @@ class FunctionEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string functionId() const;
   void setFunctionId(const std::string& value);
-  std::string functionName() const;
-  void setFunctionName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string parentFunction() const;
@@ -45023,8 +44801,6 @@ class GapEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string gapName() const;
-  void setGapName(const std::string& value);
   std::string gapCategory() const;
   void setGapCategory(const std::string& value);
   std::string severity() const;
@@ -45239,8 +45015,6 @@ class GoalDependencyEntryContentForm : public som::SomNode {
   void setDependencyId(const std::string& value);
   std::string dependencyType() const;
   void setDependencyType(const std::string& value);
-  std::string dependencyName() const;
-  void setDependencyName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string owner() const;
@@ -45265,8 +45039,6 @@ class GoalMilestoneEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string milestoneId() const;
   void setMilestoneId(const std::string& value);
-  std::string milestoneName() const;
-  void setMilestoneName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string targetDate() const;
@@ -45333,8 +45105,6 @@ class GoalRiskEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string riskId() const;
   void setRiskId(const std::string& value);
-  std::string riskName() const;
-  void setRiskName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string riskCategory() const;
@@ -45679,8 +45449,6 @@ class IdeRequirementEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string ideName() const;
-  void setIdeName(const std::string& value);
   std::string version() const;
   void setVersion(const std::string& value);
   std::string platform() const;
@@ -45861,8 +45629,6 @@ class IdentityProviderEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string providerName() const;
-  void setProviderName(const std::string& value);
   std::string providerType() const;
   void setProviderType(const std::string& value);
   std::string enabled() const;
@@ -45951,8 +45717,6 @@ class IdentitySourceEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string sourceName() const;
-  void setSourceName(const std::string& value);
   std::string sourceType() const;
   void setSourceType(const std::string& value);
   std::string sourceProduct() const;
@@ -46291,8 +46055,6 @@ class IndustryProtocolComplianceEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string protocolName() const;
-  void setProtocolName(const std::string& value);
   std::string category() const;
   void setCategory(const std::string& value);
   std::string specificationVersion() const;
@@ -46407,8 +46169,6 @@ class IndustryStandardEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string standardName() const;
-  void setStandardName(const std::string& value);
   std::string standardBody() const;
   void setStandardBody(const std::string& value);
   std::string version() const;
@@ -46571,8 +46331,6 @@ class InfrastructureComponentEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string componentName() const;
-  void setComponentName(const std::string& value);
   std::string componentType() const;
   void setComponentType(const std::string& value);
   std::string layer() const;
@@ -46831,8 +46589,6 @@ class InitialTrainingEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string trainingId() const;
   void setTrainingId(const std::string& value);
-  std::string trainingName() const;
-  void setTrainingName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
 };
@@ -47059,8 +46815,6 @@ class IntegrationConstraintEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string constraintId() const;
   void setConstraintId(const std::string& value);
-  std::string constraintName() const;
-  void setConstraintName(const std::string& value);
   std::string constraintDescription() const;
   void setConstraintDescription(const std::string& value);
 };
@@ -47323,8 +47077,6 @@ class InteractionChannelEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string channelName() const;
-  void setChannelName(const std::string& value);
   std::string channelId() const;
   void setChannelId(const std::string& value);
   std::string channelType() const;
@@ -47545,8 +47297,6 @@ class InteractionPatternEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string patternName() const;
-  void setPatternName(const std::string& value);
   std::string patternId() const;
   void setPatternId(const std::string& value);
   std::string patternType() const;
@@ -47629,8 +47379,6 @@ class InterfaceBusinessProcessEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string processName() const;
-  void setProcessName(const std::string& value);
   std::string processId() const;
   void setProcessId(const std::string& value);
   std::string dependencyType() const;
@@ -47647,8 +47395,6 @@ class InterfaceDataEntityEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string entityName() const;
-  void setEntityName(const std::string& value);
   std::string direction() const;
   void setDirection(const std::string& value);
   std::optional<long> fieldCount() const;
@@ -47827,8 +47573,6 @@ class InterfaceOperationEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string operationId() const;
   void setOperationId(const std::string& value);
-  std::string operationName() const;
-  void setOperationName(const std::string& value);
   std::string httpMethod() const;
   void setHttpMethod(const std::string& value);
   std::string path_() const;
@@ -47991,8 +47735,6 @@ class InterfaceSpecificationEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string specificationName() const;
-  void setSpecificationName(const std::string& value);
   std::string specificationVersion() const;
   void setSpecificationVersion(const std::string& value);
   std::string standardsBody() const;
@@ -48153,8 +47895,6 @@ class InterfaceTestScenarioEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string scenarioId() const;
   void setScenarioId(const std::string& value);
-  std::string scenarioName() const;
-  void setScenarioName(const std::string& value);
   std::string scenarioType() const;
   void setScenarioType(const std::string& value);
   std::string preconditions() const;
@@ -48543,8 +48283,6 @@ class ItStandardComplianceEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string standardName() const;
-  void setStandardName(const std::string& value);
   std::string standardBody() const;
   void setStandardBody(const std::string& value);
   std::string standardId() const;
@@ -48665,8 +48403,6 @@ class JourneyStageEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string stageName() const;
-  void setStageName(const std::string& value);
   std::string stageDescription() const;
   void setStageDescription(const std::string& value);
   std::string userGoal() const;
@@ -48693,8 +48429,6 @@ class KeyAttributeEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string keyName() const;
-  void setKeyName(const std::string& value);
   std::string keyType() const;
   void setKeyType(const std::string& value);
   std::string keyColumns() const;
@@ -48783,8 +48517,6 @@ class KeyConceptEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string conceptName() const;
-  void setConceptName(const std::string& value);
   std::string conceptType() const;
   void setConceptType(const std::string& value);
   std::string description() const;
@@ -49221,8 +48953,6 @@ class LifecycleTransitionEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string transitionId() const;
   void setTransitionId(const std::string& value);
-  std::string transitionName() const;
-  void setTransitionName(const std::string& value);
   std::string fromState() const;
   void setFromState(const std::string& value);
   std::string toState() const;
@@ -49785,8 +49515,6 @@ class LoginFlowStepEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string stepName() const;
-  void setStepName(const std::string& value);
   std::string stepOrder() const;
   void setStepOrder(const std::string& value);
   std::string stepType() const;
@@ -50067,8 +49795,6 @@ class MaintenanceDependencyEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string dependencyId() const;
   void setDependencyId(const std::string& value);
-  std::string name() const;
-  void setName(const std::string& value);
   std::string version() const;
   void setVersion(const std::string& value);
   std::string versionConstraint() const;
@@ -50191,8 +49917,6 @@ class MaintenanceWindowEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string windowName() const;
-  void setWindowName(const std::string& value);
   std::string windowType() const;
   void setWindowType(const std::string& value);
   std::string priority() const;
@@ -50279,8 +50003,6 @@ class MasterDataDomainEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string domainName() const;
-  void setDomainName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string goldenRecordSource() const;
@@ -50521,8 +50243,6 @@ class MetricsBaselineEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string metricName() const;
-  void setMetricName(const std::string& value);
   std::string baselineValue() const;
   void setBaselineValue(const std::string& value);
   std::string baselineDate() const;
@@ -50795,8 +50515,6 @@ class MigrationMilestoneEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string milestoneName() const;
-  void setMilestoneName(const std::string& value);
   std::string targetDate() const;
   void setTargetDate(const std::string& value);
   std::string systemsIncluded() const;
@@ -50859,8 +50577,6 @@ class MigrationPhaseEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string phaseNumber() const;
   void setPhaseNumber(const std::string& value);
-  std::string phaseName() const;
-  void setPhaseName(const std::string& value);
   std::string phaseType() const;
   void setPhaseType(const std::string& value);
 };
@@ -51123,8 +50839,6 @@ class MigrationRiskEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string riskId() const;
   void setRiskId(const std::string& value);
-  std::string riskTitle() const;
-  void setRiskTitle(const std::string& value);
   std::string riskOwner() const;
   void setRiskOwner(const std::string& value);
 };
@@ -51749,8 +51463,6 @@ class ModuleEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string moduleName() const;
-  void setModuleName(const std::string& value);
   std::string moduleType() const;
   void setModuleType(const std::string& value);
   std::string version() const;
@@ -52217,8 +51929,6 @@ class MustPassCriterionEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string criterionId() const;
   void setCriterionId(const std::string& value);
-  std::string criterionName() const;
-  void setCriterionName(const std::string& value);
   std::string verificationMethod() const;
   void setVerificationMethod(const std::string& value);
 };
@@ -52445,8 +52155,6 @@ class NavigationGuardEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string guardId() const;
   void setGuardId(const std::string& value);
-  std::string guardName() const;
-  void setGuardName(const std::string& value);
   std::string guardType() const;
   void setGuardType(const std::string& value);
   std::string triggerCondition() const;
@@ -53051,8 +52759,6 @@ class NewRoleEntryIdentificationForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string roleId() const;
   void setRoleId(const std::string& value);
-  std::string roleTitle() const;
-  void setRoleTitle(const std::string& value);
   std::string roleFamily() const;
   void setRoleFamily(const std::string& value);
   std::string jobLevel() const;
@@ -53265,8 +52971,6 @@ class NotificationChannelEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string channelName() const;
-  void setChannelName(const std::string& value);
   std::string channelId() const;
   void setChannelId(const std::string& value);
   std::string description() const;
@@ -53321,8 +53025,6 @@ class ObjectInvariantEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string invariantName() const;
-  void setInvariantName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string expression() const;
@@ -53345,8 +53047,6 @@ class ObjectOperationEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string operationName() const;
-  void setOperationName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string operationType() const;
@@ -53411,8 +53111,6 @@ class ObjectStateEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string stateName() const;
-  void setStateName(const std::string& value);
   std::string stateCode() const;
   void setStateCode(const std::string& value);
   std::string description() const;
@@ -53699,8 +53397,6 @@ class OngoingTrainingEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string trainingId() const;
   void setTrainingId(const std::string& value);
-  std::string trainingName() const;
-  void setTrainingName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string targetAudience() const;
@@ -53903,8 +53599,6 @@ class OrgImplementationActivityContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string activityId() const;
   void setActivityId(const std::string& value);
-  std::string activityName() const;
-  void setActivityName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string owner() const;
@@ -53959,8 +53653,6 @@ class OrganizationalChangeEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string changeId() const;
   void setChangeId(const std::string& value);
-  std::string changeName() const;
-  void setChangeName(const std::string& value);
   std::string changeType() const;
   void setChangeType(const std::string& value);
 };
@@ -54253,8 +53945,6 @@ class OrganizationalUnitContextEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string unitName() const;
-  void setUnitName(const std::string& value);
   std::string unitType() const;
   void setUnitType(const std::string& value);
   std::string role() const;
@@ -54279,8 +53969,6 @@ class OsCompatibilityEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string osName() const;
-  void setOsName(const std::string& value);
   std::string osFamily() const;
   void setOsFamily(const std::string& value);
   std::string minVersion() const;
@@ -54363,8 +54051,6 @@ class OtherAgreementEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string agreementTitle() const;
-  void setAgreementTitle(const std::string& value);
   std::string agreementType() const;
   void setAgreementType(const std::string& value);
   std::string parties() const;
@@ -54979,8 +54665,6 @@ class PersonaEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string personaName() const;
-  void setPersonaName(const std::string& value);
   std::string age() const;
   void setAge(const std::string& value);
   std::string role() const;
@@ -55089,8 +54773,6 @@ class PersonaScenarioEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string scenarioName() const;
-  void setScenarioName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string frequency() const;
@@ -55131,8 +54813,6 @@ class PhaseGateReviewEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string gateName() const;
-  void setGateName(const std::string& value);
   std::string gateId() const;
   void setGateId(const std::string& value);
   std::string stage() const;
@@ -55339,8 +55019,6 @@ class PipelineJobEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string jobName() const;
-  void setJobName(const std::string& value);
   std::string parentStage() const;
   void setParentStage(const std::string& value);
   std::string description() const;
@@ -55435,8 +55113,6 @@ class PipelineStageEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string stageName() const;
-  void setStageName(const std::string& value);
   std::string stageOrder() const;
   void setStageOrder(const std::string& value);
   std::string description() const;
@@ -56291,8 +55967,6 @@ class ProcessControlEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string controlId() const;
   void setControlId(const std::string& value);
-  std::string controlName() const;
-  void setControlName(const std::string& value);
   std::string controlType() const;
   void setControlType(const std::string& value);
   std::string controlCategory() const;
@@ -56397,8 +56071,6 @@ class ProcessDesignPrincipleEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string principleId() const;
   void setPrincipleId(const std::string& value);
-  std::string principleName() const;
-  void setPrincipleName(const std::string& value);
   std::string category() const;
   void setCategory(const std::string& value);
   std::string statement() const;
@@ -56445,8 +56117,6 @@ class ProcessEndEventEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string endEventId() const;
   void setEndEventId(const std::string& value);
-  std::string endEventName() const;
-  void setEndEventName(const std::string& value);
   std::string endEventType() const;
   void setEndEventType(const std::string& value);
   std::string outcome() const;
@@ -56487,8 +56157,6 @@ class ProcessExceptionEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string exceptionId() const;
   void setExceptionId(const std::string& value);
-  std::string exceptionName() const;
-  void setExceptionName(const std::string& value);
   std::string exceptionType() const;
   void setExceptionType(const std::string& value);
   std::string triggerCondition() const;
@@ -56565,8 +56233,6 @@ class ProcessIdentificationContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string processId() const;
   void setProcessId(const std::string& value);
-  std::string processName() const;
-  void setProcessName(const std::string& value);
   std::string processLevel() const;
   void setProcessLevel(const std::string& value);
 };
@@ -56635,8 +56301,6 @@ class ProcessImprovementEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string improvementId() const;
   void setImprovementId(const std::string& value);
-  std::string improvementName() const;
-  void setImprovementName(const std::string& value);
   std::string category() const;
   void setCategory(const std::string& value);
   std::string currentState() const;
@@ -56715,8 +56379,6 @@ class ProcessInputEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string inputId() const;
   void setInputId(const std::string& value);
-  std::string inputName() const;
-  void setInputName(const std::string& value);
   std::string inputType() const;
   void setInputType(const std::string& value);
   std::string source() const;
@@ -56761,8 +56423,6 @@ class ProcessKpiEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string kpiId() const;
   void setKpiId(const std::string& value);
-  std::string kpiName() const;
-  void setKpiName(const std::string& value);
   std::string category() const;
   void setCategory(const std::string& value);
   std::string definition() const;
@@ -56813,8 +56473,6 @@ class ProcessMetricEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string metricName() const;
-  void setMetricName(const std::string& value);
   std::string metricId() const;
   void setMetricId(const std::string& value);
   std::string metricCategory() const;
@@ -56867,8 +56525,6 @@ class ProcessOutputEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string outputId() const;
   void setOutputId(const std::string& value);
-  std::string outputName() const;
-  void setOutputName(const std::string& value);
   std::string outputType() const;
   void setOutputType(const std::string& value);
   std::string destination() const;
@@ -56995,8 +56651,6 @@ class ProcessRoleEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string roleId() const;
   void setRoleId(const std::string& value);
-  std::string roleName() const;
-  void setRoleName(const std::string& value);
   std::string raciType() const;
   void setRaciType(const std::string& value);
   std::string responsibilities() const;
@@ -57067,8 +56721,6 @@ class ProcessScopeEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string processName() const;
-  void setProcessName(const std::string& value);
   std::string rationale() const;
   void setRationale(const std::string& value);
   std::string impactIfExcluded() const;
@@ -57107,8 +56759,6 @@ class ProcessSlaEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string slaId() const;
   void setSlaId(const std::string& value);
-  std::string slaName() const;
-  void setSlaName(const std::string& value);
   std::string serviceDescription() const;
   void setServiceDescription(const std::string& value);
   std::string targetLevel() const;
@@ -57215,8 +56865,6 @@ class ProcessTriggerEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string triggerId() const;
   void setTriggerId(const std::string& value);
-  std::string triggerName() const;
-  void setTriggerName(const std::string& value);
   std::string triggerType() const;
   void setTriggerType(const std::string& value);
   std::string triggerSource() const;
@@ -57313,8 +56961,6 @@ class ProgrammingLanguageEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string languageName() const;
-  void setLanguageName(const std::string& value);
   std::string languageVariant() const;
   void setLanguageVariant(const std::string& value);
   std::string minimumVersion() const;
@@ -57511,8 +57157,6 @@ class ProtocolEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string protocolName() const;
-  void setProtocolName(const std::string& value);
   std::string protocolType() const;
   void setProtocolType(const std::string& value);
   std::string protocolVersion() const;
@@ -57535,8 +57179,6 @@ class PrototypeFeatureEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string featureId() const;
   void setFeatureId(const std::string& value);
-  std::string featureName() const;
-  void setFeatureName(const std::string& value);
   std::string inclusionReason() const;
   void setInclusionReason(const std::string& value);
   std::string fidelityLevel() const;
@@ -57861,8 +57503,6 @@ class QualityCategoryEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string categoryId() const;
   void setCategoryId(const std::string& value);
-  std::string categoryName() const;
-  void setCategoryName(const std::string& value);
   std::optional<long> categoryWeight() const;
   void setCategoryWeight(std::optional<long> value);
 };
@@ -58277,8 +57917,6 @@ class QualityScenarioEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string scenarioId() const;
   void setScenarioId(const std::string& value);
-  std::string scenarioName() const;
-  void setScenarioName(const std::string& value);
   std::string source() const;
   void setSource(const std::string& value);
   std::string stimulus() const;
@@ -58321,8 +57959,6 @@ class QualityStandardEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string standardName() const;
-  void setStandardName(const std::string& value);
   std::string maturityLevel() const;
   void setMaturityLevel(const std::string& value);
   std::string version() const;
@@ -58675,8 +58311,6 @@ class RecoveryScenarioEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string scenarioId() const;
   void setScenarioId(const std::string& value);
-  std::string scenarioName() const;
-  void setScenarioName(const std::string& value);
   std::string triggerCondition() const;
   void setTriggerCondition(const std::string& value);
   std::string userImpact() const;
@@ -58701,8 +58335,6 @@ class ReferenceDocumentEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string documentTitle() const;
-  void setDocumentTitle(const std::string& value);
   std::string documentId() const;
   void setDocumentId(const std::string& value);
   std::string version() const;
@@ -58913,8 +58545,6 @@ class RelatedDocumentEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string relatedDocumentId() const;
   void setRelatedDocumentId(const std::string& value);
-  std::string relatedDocumentTitle() const;
-  void setRelatedDocumentTitle(const std::string& value);
   std::string relationshipType() const;
   void setRelationshipType(const std::string& value);
   std::string relationshipDescription() const;
@@ -59039,8 +58669,6 @@ class RelevantSectionEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string sectionReference() const;
   void setSectionReference(const std::string& value);
-  std::string sectionTitle() const;
-  void setSectionTitle(const std::string& value);
   std::string relevance() const;
   void setRelevance(const std::string& value);
   std::string extractSummary() const;
@@ -59163,8 +58791,6 @@ class RemovedRoleEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string roleId() const;
   void setRoleId(const std::string& value);
-  std::string roleTitle() const;
-  void setRoleTitle(const std::string& value);
   std::string department() const;
   void setDepartment(const std::string& value);
   std::string removalReason() const;
@@ -59231,8 +58857,6 @@ class ReplacementPhaseEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::optional<long> phaseNumber() const;
   void setPhaseNumber(std::optional<long> value);
-  std::string phaseName() const;
-  void setPhaseName(const std::string& value);
   std::string phaseScope() const;
   void setPhaseScope(const std::string& value);
   std::string startDate() const;
@@ -59323,8 +58947,6 @@ class ReportChartEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string chartId() const;
   void setChartId(const std::string& value);
-  std::string title() const;
-  void setTitle(const std::string& value);
   std::string chartType() const;
   void setChartType(const std::string& value);
 };
@@ -59441,8 +59063,6 @@ class ReportColumnEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string columnId() const;
   void setColumnId(const std::string& value);
-  std::string columnName() const;
-  void setColumnName(const std::string& value);
   std::string displayLabel() const;
   void setDisplayLabel(const std::string& value);
 };
@@ -59663,8 +59283,6 @@ class ReportEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string reportId() const;
   void setReportId(const std::string& value);
-  std::string reportName() const;
-  void setReportName(const std::string& value);
   std::string reportType() const;
   void setReportType(const std::string& value);
 };
@@ -59911,8 +59529,6 @@ class ReportFilterEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string filterId() const;
   void setFilterId(const std::string& value);
-  std::string filterName() const;
-  void setFilterName(const std::string& value);
   std::string displayLabel() const;
   void setDisplayLabel(const std::string& value);
 };
@@ -60045,8 +59661,6 @@ class ReportRecipientEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string recipientId() const;
   void setRecipientId(const std::string& value);
-  std::string recipientName() const;
-  void setRecipientName(const std::string& value);
   std::string recipientType() const;
   void setRecipientType(const std::string& value);
   std::string recipientReference() const;
@@ -60115,8 +59729,6 @@ class ReportScheduleEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string scheduleId() const;
   void setScheduleId(const std::string& value);
-  std::string scheduleName() const;
-  void setScheduleName(const std::string& value);
   std::string frequency() const;
   void setFrequency(const std::string& value);
 };
@@ -60227,8 +59839,6 @@ class ReportSectionEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string sectionId_() const;
   void setSectionId_(const std::string& value);
-  std::string title() const;
-  void setTitle(const std::string& value);
   std::string sectionType() const;
   void setSectionType(const std::string& value);
 };
@@ -60307,8 +59917,6 @@ class RequirementBusinessRuleEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string ruleId() const;
   void setRuleId(const std::string& value);
-  std::string ruleName() const;
-  void setRuleName(const std::string& value);
   std::string ruleType() const;
   void setRuleType(const std::string& value);
   std::string ruleStatement() const;
@@ -60353,8 +59961,6 @@ class RequirementScreenActionEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string actionId() const;
   void setActionId(const std::string& value);
-  std::string actionLabel() const;
-  void setActionLabel(const std::string& value);
   std::string actionType() const;
   void setActionType(const std::string& value);
   std::string icon() const;
@@ -60419,8 +60025,6 @@ class RequirementTestCaseEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string testCaseId() const;
   void setTestCaseId(const std::string& value);
-  std::string testCaseName() const;
-  void setTestCaseName(const std::string& value);
   std::string testType() const;
   void setTestType(const std::string& value);
   std::string testCategory() const;
@@ -60553,8 +60157,6 @@ class ResourceAllocationEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string resourceType() const;
   void setResourceType(const std::string& value);
-  std::string resourceName() const;
-  void setResourceName(const std::string& value);
   std::string quantity() const;
   void setQuantity(const std::string& value);
   std::string duration() const;
@@ -61003,8 +60605,6 @@ class ResponsiveScreenRuleEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string screenId() const;
   void setScreenId(const std::string& value);
-  std::string screenName() const;
-  void setScreenName(const std::string& value);
   std::string mobileLayout() const;
   void setMobileLayout(const std::string& value);
   std::string tabletLayout() const;
@@ -61285,8 +60885,6 @@ class ReusableUiComponentEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string componentName() const;
-  void setComponentName(const std::string& value);
   std::string componentCategory() const;
   void setComponentCategory(const std::string& value);
   std::string purpose() const;
@@ -61639,8 +61237,6 @@ class RiskIdentificationContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string riskId() const;
   void setRiskId(const std::string& value);
-  std::string riskName() const;
-  void setRiskName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string category() const;
@@ -61989,8 +61585,6 @@ class RoleCompetencyEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string competencyId() const;
   void setCompetencyId(const std::string& value);
-  std::string competencyName() const;
-  void setCompetencyName(const std::string& value);
   std::string competencyType() const;
   void setCompetencyType(const std::string& value);
   std::string requiredLevel() const;
@@ -62289,8 +61883,6 @@ class RuleExampleEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string exampleName() const;
-  void setExampleName(const std::string& value);
   std::string scenario() const;
   void setScenario(const std::string& value);
   std::string inputData() const;
@@ -62327,8 +61919,6 @@ class RuntimeDependencyEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string dependencyId() const;
   void setDependencyId(const std::string& value);
-  std::string name() const;
-  void setName(const std::string& value);
   std::string version() const;
   void setVersion(const std::string& value);
   std::string dependencyType() const;
@@ -62827,8 +62417,6 @@ class ScenarioEntryIdentificationForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string scenarioId() const;
   void setScenarioId(const std::string& value);
-  std::string scenarioName() const;
-  void setScenarioName(const std::string& value);
   std::string scenarioType() const;
   void setScenarioType(const std::string& value);
   std::string description() const;
@@ -62983,8 +62571,6 @@ class ScheduledJobEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string jobName() const;
-  void setJobName(const std::string& value);
   std::string purpose() const;
   void setPurpose(const std::string& value);
   std::string triggerKind() const;
@@ -63295,8 +62881,6 @@ class ScreenActionEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string actionId() const;
   void setActionId(const std::string& value);
-  std::string actionName() const;
-  void setActionName(const std::string& value);
   std::string actionType() const;
   void setActionType(const std::string& value);
 };
@@ -63329,8 +62913,6 @@ class ScreenBehaviorEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string behaviorId() const;
   void setBehaviorId(const std::string& value);
-  std::string behaviorName() const;
-  void setBehaviorName(const std::string& value);
   std::string behaviorType() const;
   void setBehaviorType(const std::string& value);
   std::string triggerEvent() const;
@@ -63485,8 +63067,6 @@ class ScreenElementEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string elementId() const;
   void setElementId(const std::string& value);
-  std::string elementName() const;
-  void setElementName(const std::string& value);
   std::string elementType() const;
   void setElementType(const std::string& value);
 };
@@ -63709,8 +63289,6 @@ class ScreenEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string screenId() const;
   void setScreenId(const std::string& value);
-  std::string screenName() const;
-  void setScreenName(const std::string& value);
   std::string purpose() const;
   void setPurpose(const std::string& value);
 };
@@ -63799,8 +63377,6 @@ class ScreenFieldEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string fieldId() const;
   void setFieldId(const std::string& value);
-  std::string fieldLabel() const;
-  void setFieldLabel(const std::string& value);
   std::string fieldType() const;
   void setFieldType(const std::string& value);
 };
@@ -63943,8 +63519,6 @@ class ScreenRouteEntryContentForm : public som::SomNode {
   void setRouteId(const std::string& value);
   std::string routePath() const;
   void setRoutePath(const std::string& value);
-  std::string routeTitle() const;
-  void setRouteTitle(const std::string& value);
   std::string screenId() const;
   void setScreenId(const std::string& value);
   std::string routeParameters() const;
@@ -63977,8 +63551,6 @@ class ScreenSectionEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string sectionId_() const;
   void setSectionId_(const std::string& value);
-  std::string sectionName() const;
-  void setSectionName(const std::string& value);
   std::string purpose() const;
   void setPurpose(const std::string& value);
   std::string sectionType() const;
@@ -64011,8 +63583,6 @@ class ScreenStateEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string stateName() const;
-  void setStateName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string messageResource() const;
@@ -64059,8 +63629,6 @@ class ScreenUserCategoryEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string categoryName() const;
-  void setCategoryName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string contentVariations() const;
@@ -64075,8 +63643,6 @@ class SecurityAuditEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string auditName() const;
-  void setAuditName(const std::string& value);
   std::string auditCategory() const;
   void setAuditCategory(const std::string& value);
   std::string auditDescription() const;
@@ -64375,8 +63941,6 @@ class SecurityControlEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string controlId() const;
   void setControlId(const std::string& value);
-  std::string controlName() const;
-  void setControlName(const std::string& value);
   std::string controlType() const;
   void setControlType(const std::string& value);
   std::string implementationType() const;
@@ -64497,8 +64061,6 @@ class SecurityEventEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string eventName() const;
-  void setEventName(const std::string& value);
   std::string eventCategory() const;
   void setEventCategory(const std::string& value);
   std::string description() const;
@@ -64673,8 +64235,6 @@ class SecurityStandardComplianceEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string standardName() const;
-  void setStandardName(const std::string& value);
   std::string standardType() const;
   void setStandardType(const std::string& value);
   std::string version() const;
@@ -64739,8 +64299,6 @@ class SecurityStandardEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string standardName() const;
-  void setStandardName(const std::string& value);
   std::string standardVersion() const;
   void setStandardVersion(const std::string& value);
   std::string standardType() const;
@@ -65063,8 +64621,6 @@ class ServerEnvironmentEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string environmentName() const;
-  void setEnvironmentName(const std::string& value);
   std::string environmentType() const;
   void setEnvironmentType(const std::string& value);
   std::string environmentCode() const;
@@ -65131,8 +64687,6 @@ class ServerOperationEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string operationName() const;
-  void setOperationName(const std::string& value);
   std::string purpose() const;
   void setPurpose(const std::string& value);
   std::string primaryDataEntity() const;
@@ -65151,8 +64705,6 @@ class ServerOperationMemberEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string memberName() const;
-  void setMemberName(const std::string& value);
   std::string memberType() const;
   void setMemberType(const std::string& value);
   std::optional<bool> multiValued() const;
@@ -65275,8 +64827,6 @@ class ServerRoleEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string roleName() const;
-  void setRoleName(const std::string& value);
   std::string roleType() const;
   void setRoleType(const std::string& value);
   std::string roleAbbreviation() const;
@@ -65785,8 +65335,6 @@ class SharedLibraryComponentEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string componentName() const;
-  void setComponentName(const std::string& value);
   std::string componentType() const;
   void setComponentType(const std::string& value);
   std::string version() const;
@@ -65893,8 +65441,6 @@ class SharedLibraryEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string libraryName() const;
-  void setLibraryName(const std::string& value);
   std::string libraryType() const;
   void setLibraryType(const std::string& value);
   std::string version() const;
@@ -66243,8 +65789,6 @@ class SloEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string sloId() const;
   void setSloId(const std::string& value);
-  std::string sloName() const;
-  void setSloName(const std::string& value);
   std::string sloDescription() const;
   void setSloDescription(const std::string& value);
   std::string serviceName() const;
@@ -66311,8 +65855,6 @@ class SoftwareLayerEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string layerName() const;
-  void setLayerName(const std::string& value);
   std::string layerLevel() const;
   void setLayerLevel(const std::string& value);
   std::string layerPattern() const;
@@ -66643,8 +66185,6 @@ class StageEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string stageNumber() const;
   void setStageNumber(const std::string& value);
-  std::string stageName() const;
-  void setStageName(const std::string& value);
   std::string currentStatus() const;
   void setCurrentStatus(const std::string& value);
 };
@@ -66967,8 +66507,6 @@ class StageMigrationRiskEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string riskId() const;
   void setRiskId(const std::string& value);
-  std::string riskName() const;
-  void setRiskName(const std::string& value);
   std::string riskCategory() const;
   void setRiskCategory(const std::string& value);
 };
@@ -67547,8 +67085,6 @@ class StageSummaryEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string stageNumber() const;
   void setStageNumber(const std::string& value);
-  std::string stageName() const;
-  void setStageName(const std::string& value);
   std::string scopeSummary() const;
   void setScopeSummary(const std::string& value);
 };
@@ -67929,8 +67465,6 @@ class StakeholderEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string stakeholderName() const;
-  void setStakeholderName(const std::string& value);
   std::string stakeholderType() const;
   void setStakeholderType(const std::string& value);
   std::string expectedBenefits() const;
@@ -67947,8 +67481,6 @@ class StakeholderRegisterEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string stakeholderId() const;
   void setStakeholderId(const std::string& value);
-  std::string name() const;
-  void setName(const std::string& value);
   std::string role() const;
   void setRole(const std::string& value);
   std::string interest() const;
@@ -68049,8 +67581,6 @@ class SubFunctionEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string subFunctionName() const;
-  void setSubFunctionName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string dataAccess() const;
@@ -68067,8 +67597,6 @@ class SubStageEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string name() const;
-  void setName(const std::string& value);
   std::string subStageType() const;
   void setSubStageType(const std::string& value);
   std::string sequenceNumber() const;
@@ -68255,8 +67783,6 @@ class SuccessCriterionEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string criterionId() const;
   void setCriterionId(const std::string& value);
-  std::string criterionName() const;
-  void setCriterionName(const std::string& value);
   std::string category() const;
   void setCategory(const std::string& value);
 };
@@ -68591,8 +68117,6 @@ class SystemBusinessProcessEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string processName() const;
-  void setProcessName(const std::string& value);
   std::string processId() const;
   void setProcessId(const std::string& value);
   std::string systemRole() const;
@@ -68611,8 +68135,6 @@ class SystemBusinessUnitEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string unitName() const;
-  void setUnitName(const std::string& value);
   std::optional<long> userCount() const;
   void setUserCount(std::optional<long> value);
   std::string usagePattern() const;
@@ -68821,8 +68343,6 @@ class SystemDependencyEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string dependencyName() const;
-  void setDependencyName(const std::string& value);
   std::string dependencyType() const;
   void setDependencyType(const std::string& value);
   std::string direction() const;
@@ -69163,8 +68683,6 @@ class SystemIntegrationEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string integrationName() const;
-  void setIntegrationName(const std::string& value);
   std::string integrationType() const;
   void setIntegrationType(const std::string& value);
   std::string integrationPattern() const;
@@ -69691,8 +69209,6 @@ class SystemTaskEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string taskId() const;
   void setTaskId(const std::string& value);
-  std::string taskName() const;
-  void setTaskName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
 };
@@ -69831,8 +69347,6 @@ class SystemToReplaceEntryIdentificationContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string systemId() const;
   void setSystemId(const std::string& value);
-  std::string systemName() const;
-  void setSystemName(const std::string& value);
   std::string officialName() const;
   void setOfficialName(const std::string& value);
   std::string systemDescription() const;
@@ -69883,8 +69397,6 @@ class SystemTrainingEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string trainingId() const;
   void setTrainingId(const std::string& value);
-  std::string systemName() const;
-  void setSystemName(const std::string& value);
   std::string modulesCovered() const;
   void setModulesCovered(const std::string& value);
   std::string userRoleFocus() const;
@@ -70037,8 +69549,6 @@ class TabBarDefinitionEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string tabBarId() const;
   void setTabBarId(const std::string& value);
-  std::string tabBarName() const;
-  void setTabBarName(const std::string& value);
   std::string hostScreenId() const;
   void setHostScreenId(const std::string& value);
   std::string tabBarStyle() const;
@@ -70109,8 +69619,6 @@ class TargetPlatformEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string platformName() const;
-  void setPlatformName(const std::string& value);
   std::string platformCategory() const;
   void setPlatformCategory(const std::string& value);
   std::string platformType() const;
@@ -70233,8 +69741,6 @@ class TeamMemberEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string name() const;
-  void setName(const std::string& value);
   std::string projectRole() const;
   void setProjectRole(const std::string& value);
   std::string organization() const;
@@ -70283,8 +69789,6 @@ class TeamMemberSkillEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string skillName() const;
-  void setSkillName(const std::string& value);
   std::string proficiencyLevel() const;
   void setProficiencyLevel(const std::string& value);
   std::optional<long> yearsUsing() const;
@@ -70367,8 +69871,6 @@ class TechnicalConstraintEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string constraintId() const;
   void setConstraintId(const std::string& value);
-  std::string constraintName() const;
-  void setConstraintName(const std::string& value);
   std::string constraintType() const;
   void setConstraintType(const std::string& value);
   std::string description() const;
@@ -70393,8 +69895,6 @@ class TechnicalDependencyEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string dependencyId() const;
   void setDependencyId(const std::string& value);
-  std::string dependencyName() const;
-  void setDependencyName(const std::string& value);
   std::string dependencyType() const;
   void setDependencyType(const std::string& value);
   std::string description() const;
@@ -70509,8 +70009,6 @@ class TechnicalGoalEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string goalId() const;
   void setGoalId(const std::string& value);
-  std::string goalName() const;
-  void setGoalName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string goalCategory() const;
@@ -70571,8 +70069,6 @@ class TechnicalGoalTestCaseEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string testCaseId() const;
   void setTestCaseId(const std::string& value);
-  std::string testCaseName() const;
-  void setTestCaseName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string testProcedure() const;
@@ -70867,8 +70363,6 @@ class TechnologyStandardEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string standardId() const;
   void setStandardId(const std::string& value);
-  std::string standardName() const;
-  void setStandardName(const std::string& value);
   std::string standardCategory() const;
   void setStandardCategory(const std::string& value);
 };
@@ -70983,8 +70477,6 @@ class TestScenarioEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string scenarioId() const;
   void setScenarioId(const std::string& value);
-  std::string scenarioName() const;
-  void setScenarioName(const std::string& value);
   std::string priority() const;
   void setPriority(const std::string& value);
 };
@@ -71381,8 +70873,6 @@ class ThirdPartyLibraryEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string libraryName() const;
-  void setLibraryName(const std::string& value);
   std::string packageSource() const;
   void setPackageSource(const std::string& value);
   std::string version() const;
@@ -71705,8 +71195,6 @@ class ToolEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string toolId() const;
   void setToolId(const std::string& value);
-  std::string toolName() const;
-  void setToolName(const std::string& value);
   std::string notes() const;
   void setNotes(const std::string& value);
 };
@@ -72109,8 +71597,6 @@ class TourStepEntryContentForm : public som::SomNode {
   void setStepOrder(std::optional<long> value);
   std::string targetElement() const;
   void setTargetElement(const std::string& value);
-  std::string stepTitle() const;
-  void setStepTitle(const std::string& value);
   std::string stepContent() const;
   void setStepContent(const std::string& value);
   std::string placement() const;
@@ -72149,8 +71635,6 @@ class TradeOffDecisionEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string decisionId() const;
   void setDecisionId(const std::string& value);
-  std::string decisionTitle() const;
-  void setDecisionTitle(const std::string& value);
   std::string decisionStatus() const;
   void setDecisionStatus(const std::string& value);
 };
@@ -72439,8 +71923,6 @@ class TrainingModuleEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string moduleId() const;
   void setModuleId(const std::string& value);
-  std::string moduleName() const;
-  void setModuleName(const std::string& value);
   std::string targetAudience() const;
   void setTargetAudience(const std::string& value);
   std::string duration() const;
@@ -72545,8 +72027,6 @@ class TrainingTopicEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string topicName() const;
-  void setTopicName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string learningObjectives() const;
@@ -72641,8 +72121,6 @@ class TransitionMetricEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string metricId() const;
   void setMetricId(const std::string& value);
-  std::string metricName() const;
-  void setMetricName(const std::string& value);
   std::string category() const;
   void setCategory(const std::string& value);
   std::string description() const;
@@ -72699,8 +72177,6 @@ class TransitionMilestoneEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string milestoneId() const;
   void setMilestoneId(const std::string& value);
-  std::string milestoneName() const;
-  void setMilestoneName(const std::string& value);
   std::string milestoneType() const;
   void setMilestoneType(const std::string& value);
   std::string targetDate() const;
@@ -72865,8 +72341,6 @@ class TransitionPhaseIdentificationContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string phaseId() const;
   void setPhaseId(const std::string& value);
-  std::string phaseName() const;
-  void setPhaseName(const std::string& value);
   std::string phaseType() const;
   void setPhaseType(const std::string& value);
   std::string phaseOwner() const;
@@ -72957,8 +72431,6 @@ class TransitionRiskEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string riskId() const;
   void setRiskId(const std::string& value);
-  std::string riskName() const;
-  void setRiskName(const std::string& value);
   std::string riskCategory() const;
   void setRiskCategory(const std::string& value);
   std::string description() const;
@@ -73017,8 +72489,6 @@ class TransitionSupportResourceEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string resourceType() const;
   void setResourceType(const std::string& value);
-  std::string resourceName() const;
-  void setResourceName(const std::string& value);
   std::string availabilityPeriod() const;
   void setAvailabilityPeriod(const std::string& value);
   std::string coverage() const;
@@ -73237,8 +72707,6 @@ class TranslationVendorEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string vendorName() const;
-  void setVendorName(const std::string& value);
   std::string vendorType() const;
   void setVendorType(const std::string& value);
   std::string languages() const;
@@ -73327,8 +72795,6 @@ class TrustBoundaryEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string boundaryName() const;
-  void setBoundaryName(const std::string& value);
   std::string boundaryType() const;
   void setBoundaryType(const std::string& value);
   std::string description() const;
@@ -73351,8 +72817,6 @@ class TypographyStyleEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string styleName() const;
-  void setStyleName(const std::string& value);
   std::string fontFamily() const;
   void setFontFamily(const std::string& value);
   std::string fontSize() const;
@@ -73403,8 +72867,6 @@ class UatTestCycleEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string cycleName() const;
-  void setCycleName(const std::string& value);
   std::string cycleObjective() const;
   void setCycleObjective(const std::string& value);
   std::string plannedStartDate() const;
@@ -73607,8 +73069,6 @@ class UiComponentEntryIdentityForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string componentId() const;
   void setComponentId(const std::string& value);
-  std::string componentName() const;
-  void setComponentName(const std::string& value);
   std::string componentFamily() const;
   void setComponentFamily(const std::string& value);
   std::string baseComponent() const;
@@ -74321,8 +73781,6 @@ class UserAttributeEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string attributeName() const;
-  void setAttributeName(const std::string& value);
   std::string dataType() const;
   void setDataType(const std::string& value);
   std::string placement() const;
@@ -74343,8 +73801,6 @@ class UserCategoryDefinitionContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string categoryName() const;
-  void setCategoryName(const std::string& value);
   std::string description() const;
   void setDescription(const std::string& value);
   std::string accessLevel() const;
@@ -74361,8 +73817,6 @@ class UserCategoryEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string categoryName() const;
-  void setCategoryName(const std::string& value);
   std::string categoryId() const;
   void setCategoryId(const std::string& value);
   std::string description() const;
@@ -74497,8 +73951,6 @@ class UserGroupImpactEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string groupName() const;
-  void setGroupName(const std::string& value);
   std::optional<long> userCount() const;
   void setUserCount(std::optional<long> value);
   std::string impactLevel() const;
@@ -74617,8 +74069,6 @@ class UserLifecycleTransitionEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string transitionName() const;
-  void setTransitionName(const std::string& value);
   std::string fromState() const;
   void setFromState(const std::string& value);
   std::string toState() const;
@@ -74875,8 +74325,6 @@ class UtilityMenuItemEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string menuItemId() const;
   void setMenuItemId(const std::string& value);
-  std::string label() const;
-  void setLabel(const std::string& value);
   std::string icon() const;
   void setIcon(const std::string& value);
   std::optional<long> displayOrder() const;
@@ -74911,8 +74359,6 @@ class UtilityNavigationItemEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string utilityId() const;
   void setUtilityId(const std::string& value);
-  std::string label() const;
-  void setLabel(const std::string& value);
   std::string icon() const;
   void setIcon(const std::string& value);
   std::string position() const;
@@ -75323,8 +74769,6 @@ class VpnRequirementEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string vpnName() const;
-  void setVpnName(const std::string& value);
   std::string vpnType() const;
   void setVpnType(const std::string& value);
   std::string purpose() const;
@@ -75645,8 +75089,6 @@ class WcagSuccessCriterionEntryContentForm : public som::SomNode {
   void setContent(const std::string& value);
   std::string criterionId() const;
   void setCriterionId(const std::string& value);
-  std::string criterionName() const;
-  void setCriterionName(const std::string& value);
   std::string level() const;
   void setLevel(const std::string& value);
   std::string applicability() const;
@@ -75689,8 +75131,6 @@ class WorkflowActorEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string actorName() const;
-  void setActorName(const std::string& value);
   std::string actorType() const;
   void setActorType(const std::string& value);
   std::string role() const;
@@ -75715,8 +75155,6 @@ class WorkflowBusinessRuleContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string ruleName() const;
-  void setRuleName(const std::string& value);
   std::string ruleDescription() const;
   void setRuleDescription(const std::string& value);
   std::string ruleLogic() const;
@@ -75735,8 +75173,6 @@ class WorkflowDecisionPointContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string decisionName() const;
-  void setDecisionName(const std::string& value);
   std::string decisionCriteria() const;
   void setDecisionCriteria(const std::string& value);
   std::string decisionMaker() const;
@@ -75757,8 +75193,6 @@ class WorkflowExceptionEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string exceptionName() const;
-  void setExceptionName(const std::string& value);
   std::string exceptionType() const;
   void setExceptionType(const std::string& value);
   std::string frequency() const;
@@ -75779,8 +75213,6 @@ class WorkflowInputEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string inputName() const;
-  void setInputName(const std::string& value);
   std::string inputType() const;
   void setInputType(const std::string& value);
   std::string source() const;
@@ -75801,8 +75233,6 @@ class WorkflowOutputEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string outputName() const;
-  void setOutputName(const std::string& value);
   std::string outputType() const;
   void setOutputType(const std::string& value);
   std::string destination() const;
@@ -75821,8 +75251,6 @@ class WorkflowStepEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string stepName() const;
-  void setStepName(const std::string& value);
   std::optional<long> stepNumber() const;
   void setStepNumber(std::optional<long> value);
   std::string description() const;
@@ -75849,8 +75277,6 @@ class WorkflowStepIssueContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string issueName() const;
-  void setIssueName(const std::string& value);
   std::string issueDescription() const;
   void setIssueDescription(const std::string& value);
   std::string frequency() const;
@@ -75869,8 +75295,6 @@ class WorkflowSummaryEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string workflowName() const;
-  void setWorkflowName(const std::string& value);
   std::string workflowType() const;
   void setWorkflowType(const std::string& value);
   std::string frequency() const;
@@ -75917,8 +75341,6 @@ class WorkflowTriggerEntryContentForm : public som::SomNode {
   // The section's own free-text content, before the form fields.
   std::string content() const;
   void setContent(const std::string& value);
-  std::string triggerName() const;
-  void setTriggerName(const std::string& value);
   std::string triggerType() const;
   void setTriggerType(const std::string& value);
   std::string triggerSource() const;

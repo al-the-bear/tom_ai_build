@@ -133,7 +133,7 @@ def _mc_AcceptanceCriterionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="criterionId", type_name="String", description="Criterion ID", required=True, hint="Unique identifier for this criterion", order=0), SomFormFieldMeta(name="criterionTitle", type_name="String", description="Criterion Title", required=True, hint="Short title describing the criterion", order=1), SomFormFieldMeta(name="given", type_name="String", description="Given (precondition/context)", hint="Precondition or context that holds before the action", order=2), SomFormFieldMeta(name="when", type_name="String", description="When (action/trigger)", hint="Action or trigger that occurs", order=3), SomFormFieldMeta(name="then", type_name="String", description="Then (expected outcome)", required=True, hint="Expected outcome after the action", order=4), SomFormFieldMeta(name="and", type_name="String", description="And (additional outcomes)", hint="Any additional expected outcomes", order=5), SomFormFieldMeta(name="verificationMethod", type_name="String", description="Verification Method (Manual, Automated, Inspection, Demo)", hint="Manual, Automated, Inspection, or Demo", order=6), SomFormFieldMeta(name="testType", type_name="String", description="Test Type (Unit, Integration, System, Acceptance, UAT)", hint="Unit, Integration, System, Acceptance, or UAT", order=7), SomFormFieldMeta(name="priority", type_name="String", description="Priority (Critical, High, Medium, Low)", hint="Critical, High, Medium, or Low", order=8), SomFormFieldMeta(name="status", type_name="String", description="Status (Draft, Ready, Passed, Failed, Blocked)", hint="Draft, Ready, Passed, Failed, or Blocked", order=9)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="criterionId", type_name="String", description="Criterion ID", required=True, hint="Unique identifier for this criterion", order=0), SomFormFieldMeta(name="given", type_name="String", description="Given (precondition/context)", hint="Precondition or context that holds before the action", order=1), SomFormFieldMeta(name="when", type_name="String", description="When (action/trigger)", hint="Action or trigger that occurs", order=2), SomFormFieldMeta(name="then", type_name="String", description="Then (expected outcome)", required=True, hint="Expected outcome after the action", order=3), SomFormFieldMeta(name="and", type_name="String", description="And (additional outcomes)", hint="Any additional expected outcomes", order=4), SomFormFieldMeta(name="verificationMethod", type_name="String", description="Verification Method (Manual, Automated, Inspection, Demo)", hint="Manual, Automated, Inspection, or Demo", order=5), SomFormFieldMeta(name="testType", type_name="String", description="Test Type (Unit, Integration, System, Acceptance, UAT)", hint="Unit, Integration, System, Acceptance, or UAT", order=6), SomFormFieldMeta(name="priority", type_name="String", description="Priority (Critical, High, Medium, Low)", hint="Critical, High, Medium, or Low", order=7), SomFormFieldMeta(name="status", type_name="String", description="Status (Draft, Ready, Passed, Failed, Blocked)", hint="Draft, Ready, Passed, Failed, or Blocked", order=8)])),
     ]
 
 
@@ -329,7 +329,7 @@ def _mc_AcceptanceStepEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="stepNumber", type_name="String", description="Step Number", required=True, hint="Sequential number — e.g. 1, 2, 3", order=0), SomFormFieldMeta(name="stepName", type_name="String", description="Step Name", required=True, hint="Concise action name — e.g. \"Technical Review\"", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What happens in this step", order=2), SomFormFieldMeta(name="responsibleRole", type_name="String", description="Responsible Role", hint="Who performs or leads this step", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="stepNumber", type_name="String", description="Step Number", required=True, hint="Sequential number — e.g. 1, 2, 3", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What happens in this step", order=1), SomFormFieldMeta(name="responsibleRole", type_name="String", description="Responsible Role", hint="Who performs or leads this step", order=2)])),
          SomMetaNode(
             class_name="AcceptanceStepEntry",
             member_name="flow",
@@ -514,7 +514,7 @@ def _mc_AccessLevelEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="levelName", type_name="String", description="Access Level Name", required=True, hint="e.g., Administrator, Power User, Standard User, Guest", order=0), SomFormFieldMeta(name="levelId", type_name="String", description="Level ID", hint="Unique identifier", order=1), SomFormFieldMeta(name="levelRank", type_name="int", description="Level Rank", hint="Numeric rank (higher = more permissions)", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="levelId", type_name="String", description="Level ID", hint="Unique identifier", order=0), SomFormFieldMeta(name="levelRank", type_name="int", description="Level Rank", hint="Numeric rank (higher = more permissions)", order=1)])),
          SomMetaNode(
             class_name="AccessLevelEntry",
             member_name="scope",
@@ -817,7 +817,7 @@ def _mc_AccessibilityStandardEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="standardName", type_name="String", description="Standard Name", required=True, hint="E.g., WCAG 2.1, Section 508, EN 301 549", order=0), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Standard version", order=1), SomFormFieldMeta(name="conformanceLevel", type_name="String", description="Conformance Level", required=True, hint="A, AA, AAA for WCAG", order=2), SomFormFieldMeta(name="jurisdiction", type_name="String", description="Jurisdiction", hint="Legal requirement region", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Standard version", order=0), SomFormFieldMeta(name="conformanceLevel", type_name="String", description="Conformance Level", required=True, hint="A, AA, AAA for WCAG", order=1), SomFormFieldMeta(name="jurisdiction", type_name="String", description="Jurisdiction", hint="Legal requirement region", order=2)])),
          SomMetaNode(
             class_name="AccessibilityStandardEntry",
             member_name="scope",
@@ -969,7 +969,7 @@ def _mc_ActionParameterEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="parameterName", type_name="String", description="Parameter Name", required=True, hint="Name of the parameter", order=0), SomFormFieldMeta(name="sourceType", type_name="String", description="Source Type (Field, Constant, Context, User)", required=True, hint="Field, Constant, Context, or User", order=1), SomFormFieldMeta(name="sourceValue", type_name="String", description="Source Value / Field ID", hint="Source value or field ID supplying the parameter", order=2), SomFormFieldMeta(name="required", type_name="String", description="Required (Yes, No)", hint="Whether the parameter is required", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="sourceType", type_name="String", description="Source Type (Field, Constant, Context, User)", required=True, hint="Field, Constant, Context, or User", order=0), SomFormFieldMeta(name="sourceValue", type_name="String", description="Source Value / Field ID", hint="Source value or field ID supplying the parameter", order=1), SomFormFieldMeta(name="required", type_name="String", description="Required (Yes, No)", hint="Whether the parameter is required", order=2)])),
     ]
 
 
@@ -1015,7 +1015,7 @@ def _mc_ActorEntry(s):
             type_name="String",
             serialization_order=0,
             doc_comment="Actor identification.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="actorId", type_name="String", description="Actor ID (e.g., ACT-001)", required=True, hint="Use a stable unique code such as ACT-001", order=0), SomFormFieldMeta(name="actorName", type_name="String", description="Actor Name", required=True, hint="Give the role a clear, recognisable name", order=1), SomFormFieldMeta(name="actorType", type_name="String", description="Actor Type — human user, system, external system, scheduled", hint="State whether the actor is a person, system or scheduled job", order=2), SomFormFieldMeta(name="category", type_name="String", description="Category — primary, secondary, supporting, offstage", hint="Classify using Cockburn primary/secondary/supporting/offstage", order=3), SomFormFieldMeta(name="description", type_name="String", description="Description — role purpose", hint="Explain the actor’s purpose in one or two sentences", order=4), SomFormFieldMeta(name="realWorldExamples", type_name="String", description="Real World Examples — who fills this role", hint="Name concrete job titles or people that fill this role", order=5), SomFormFieldMeta(name="organizationalUnit", type_name="String", description="Organizational Unit — department or team", hint="Identify the department or team the actor belongs to", order=6), SomFormFieldMeta(name="estimatedCount", type_name="String", description="Estimated Count — how many users in this role", hint="Estimate the number of individuals in this role", order=7), SomFormFieldMeta(name="geographicDistribution", type_name="String", description="Geographic Distribution — where actors are located", hint="Note the locations or regions where actors operate", order=8)]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="actorId", type_name="String", description="Actor ID (e.g., ACT-001)", required=True, hint="Use a stable unique code such as ACT-001", order=0), SomFormFieldMeta(name="actorType", type_name="String", description="Actor Type — human user, system, external system, scheduled", hint="State whether the actor is a person, system or scheduled job", order=1), SomFormFieldMeta(name="category", type_name="String", description="Category — primary, secondary, supporting, offstage", hint="Classify using Cockburn primary/secondary/supporting/offstage", order=2), SomFormFieldMeta(name="description", type_name="String", description="Description — role purpose", hint="Explain the actor’s purpose in one or two sentences", order=3), SomFormFieldMeta(name="realWorldExamples", type_name="String", description="Real World Examples — who fills this role", hint="Name concrete job titles or people that fill this role", order=4), SomFormFieldMeta(name="organizationalUnit", type_name="String", description="Organizational Unit — department or team", hint="Identify the department or team the actor belongs to", order=5), SomFormFieldMeta(name="estimatedCount", type_name="String", description="Estimated Count — how many users in this role", hint="Estimate the number of individuals in this role", order=6), SomFormFieldMeta(name="geographicDistribution", type_name="String", description="Geographic Distribution — where actors are located", hint="Note the locations or regions where actors operate", order=7)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships", "BABOK v3 — stakeholder & actor analysis"], "connotation": "Uniquely identifies and classifies an actor, capturing type, category and real-world population."})]),
          _cx("ActorCharacteristics", s, _mc_ActorCharacteristics,
             lambda r, c: SomMetaNode(
@@ -1338,7 +1338,7 @@ def _mc_AffectedDepartmentEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="departmentName", type_name="String", description="Department Name", required=True, hint="Name of the affected department or business unit", order=0), SomFormFieldMeta(name="departmentHead", type_name="String", description="Department Head", hint="Person leading the department", order=1), SomFormFieldMeta(name="employeeCount", type_name="int", description="Employee Count", hint="Number of employees in the department", order=2), SomFormFieldMeta(name="impactLevel", type_name="String", description="Impact Level (High, Medium, Low)", hint="Degree to which the project affects this department", order=3), SomFormFieldMeta(name="roleInProject", type_name="String", description="Role (Sponsor, User, Data Owner, Operations, Support)", hint="How this department participates in the project", order=4), SomFormFieldMeta(name="currentSystems", type_name="String", description="Current Systems Used", hint="Existing systems the department relies on", order=5), SomFormFieldMeta(name="changeReadiness", type_name="String", description="Change Readiness (High, Medium, Low)", hint="Department capacity and appetite for change", order=6), SomFormFieldMeta(name="keyContacts", type_name="String", description="Key Contacts", hint="Primary contacts within the department", order=7), SomFormFieldMeta(name="specialConsiderations", type_name="String", description="Special Considerations", hint="Any constraints or special factors to note", order=8)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="departmentHead", type_name="String", description="Department Head", hint="Person leading the department", order=0), SomFormFieldMeta(name="employeeCount", type_name="int", description="Employee Count", hint="Number of employees in the department", order=1), SomFormFieldMeta(name="impactLevel", type_name="String", description="Impact Level (High, Medium, Low)", hint="Degree to which the project affects this department", order=2), SomFormFieldMeta(name="roleInProject", type_name="String", description="Role (Sponsor, User, Data Owner, Operations, Support)", hint="How this department participates in the project", order=3), SomFormFieldMeta(name="currentSystems", type_name="String", description="Current Systems Used", hint="Existing systems the department relies on", order=4), SomFormFieldMeta(name="changeReadiness", type_name="String", description="Change Readiness (High, Medium, Low)", hint="Department capacity and appetite for change", order=5), SomFormFieldMeta(name="keyContacts", type_name="String", description="Key Contacts", hint="Primary contacts within the department", order=6), SomFormFieldMeta(name="specialConsiderations", type_name="String", description="Special Considerations", hint="Any constraints or special factors to note", order=7)])),
     ]
 
 
@@ -1350,7 +1350,7 @@ def _mc_AffectedFunctionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="functionName", type_name="String", description="Function Name", required=True, hint="Name of the affected function", order=0), SomFormFieldMeta(name="triggerPoint", type_name="String", description="Trigger Point", hint="When in the function rule is triggered", order=1), SomFormFieldMeta(name="impact", type_name="String", description="Impact", hint="How the function is impacted", order=2), SomFormFieldMeta(name="isMandatory", type_name="String", description="Is Mandatory", hint="Whether check is required in this function: Yes | No", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="triggerPoint", type_name="String", description="Trigger Point", hint="When in the function rule is triggered", order=0), SomFormFieldMeta(name="impact", type_name="String", description="Impact", hint="How the function is impacted", order=1), SomFormFieldMeta(name="isMandatory", type_name="String", description="Is Mandatory", hint="Whether check is required in this function: Yes | No", order=2)])),
          SomMetaNode(
             class_name="AffectedFunctionEntry",
             member_name="functionRef",
@@ -1371,7 +1371,7 @@ def _mc_AffectedObjectEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="objectName", type_name="String", description="Object Name", required=True, hint="Name of the affected business object", order=0), SomFormFieldMeta(name="affectedAttributes", type_name="String", description="Affected Attributes", hint="Specific attributes affected", order=1), SomFormFieldMeta(name="impact", type_name="String", description="Impact", hint="How the object is impacted: Validated | Constrained | Modified | Created", order=2), SomFormFieldMeta(name="accessType", type_name="String", description="Access Type", hint="Read | Write | Both", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="affectedAttributes", type_name="String", description="Affected Attributes", hint="Specific attributes affected", order=0), SomFormFieldMeta(name="impact", type_name="String", description="Impact", hint="How the object is impacted: Validated | Constrained | Modified | Created", order=1), SomFormFieldMeta(name="accessType", type_name="String", description="Access Type", hint="Read | Write | Both", order=2)])),
          SomMetaNode(
             class_name="AffectedObjectEntry",
             member_name="objectRef",
@@ -1392,7 +1392,7 @@ def _mc_AlertDefinitionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="alertName", type_name="String", description="Alert Name", required=True, hint="Alert identifier", order=0), SomFormFieldMeta(name="alertDescription", type_name="String", description="Alert Description", hint="What this alert means", order=1), SomFormFieldMeta(name="severity", type_name="String", description="Severity", hint="Critical, Warning, Info", order=2), SomFormFieldMeta(name="priority", type_name="String", description="Priority", hint="P1, P2, P3, P4, P5", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="alertDescription", type_name="String", description="Alert Description", hint="What this alert means", order=0), SomFormFieldMeta(name="severity", type_name="String", description="Severity", hint="Critical, Warning, Info", order=1), SomFormFieldMeta(name="priority", type_name="String", description="Priority", hint="P1, P2, P3, P4, P5", order=2)])),
          SomMetaNode(
             class_name="AlertDefinitionEntry",
             member_name="condition",
@@ -1518,7 +1518,7 @@ def _mc_AlertRuleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="alertId", type_name="String", description="Alert ID", required=True, hint="Unique identifier for this alert rule", order=0), SomFormFieldMeta(name="alertName", type_name="String", description="Alert Name", required=True, hint="Human-readable name for this alert", order=1), SomFormFieldMeta(name="alertDescription", type_name="String", description="Alert Description", hint="What this alert detects and why it matters", order=2), SomFormFieldMeta(name="severity", type_name="String", description="Severity", hint="Critical, Warning, Info", order=3), SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Infrastructure, Application, Business, Security", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="alertId", type_name="String", description="Alert ID", required=True, hint="Unique identifier for this alert rule", order=0), SomFormFieldMeta(name="alertDescription", type_name="String", description="Alert Description", hint="What this alert detects and why it matters", order=1), SomFormFieldMeta(name="severity", type_name="String", description="Severity", hint="Critical, Warning, Info", order=2), SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Infrastructure, Application, Business, Security", order=3)])),
          SomMetaNode(
             class_name="AlertRuleEntry",
             member_name="trigger",
@@ -1705,7 +1705,7 @@ def _mc_AlternativeFlowEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="flowId", type_name="String", description="Flow ID (e.g., AFL-001)", required=True, hint="Stable code such as AFL-001", order=0), SomFormFieldMeta(name="flowName", type_name="String", description="Flow Name", required=True, hint="Short descriptive name for the flow", order=1), SomFormFieldMeta(name="flowType", type_name="String", description="Flow Type — alternative, exception, error", hint="One of alternative, exception, or error", order=2), SomFormFieldMeta(name="branchPoint", type_name="String", description="Branch Point — step where flow branches", hint="Main-flow step number where this diverges", order=3), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Trigger Condition — when this occurs", hint="Condition that activates this flow", order=4), SomFormFieldMeta(name="description", type_name="String", description="Description — what happens", hint="Narrative of what happens in this flow", order=5), SomFormFieldMeta(name="outcome", type_name="String", description="Outcome — how flow ends", hint="The end state this flow reaches", order=6), SomFormFieldMeta(name="returnPoint", type_name="String", description="Return Point — step to return to", hint="Main-flow step to resume at, if any", order=7), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency — how often this occurs", hint="How often this flow is expected to occur", order=8), SomFormFieldMeta(name="businessImpact", type_name="String", description="Business Impact — effect on business", hint="Business consequence of this flow", order=9)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="flowId", type_name="String", description="Flow ID (e.g., AFL-001)", required=True, hint="Stable code such as AFL-001", order=0), SomFormFieldMeta(name="flowType", type_name="String", description="Flow Type — alternative, exception, error", hint="One of alternative, exception, or error", order=1), SomFormFieldMeta(name="branchPoint", type_name="String", description="Branch Point — step where flow branches", hint="Main-flow step number where this diverges", order=2), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Trigger Condition — when this occurs", hint="Condition that activates this flow", order=3), SomFormFieldMeta(name="description", type_name="String", description="Description — what happens", hint="Narrative of what happens in this flow", order=4), SomFormFieldMeta(name="outcome", type_name="String", description="Outcome — how flow ends", hint="The end state this flow reaches", order=5), SomFormFieldMeta(name="returnPoint", type_name="String", description="Return Point — step to return to", hint="Main-flow step to resume at, if any", order=6), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency — how often this occurs", hint="How often this flow is expected to occur", order=7), SomFormFieldMeta(name="businessImpact", type_name="String", description="Business Impact — effect on business", hint="Business consequence of this flow", order=8)])),
          SomMetaNode(
             class_name="AlternativeFlowEntry",
             member_name="steps",
@@ -1821,7 +1821,7 @@ def _mc_ApiCompatibilityEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="apiName", type_name="String", description="API/Protocol Name", required=True, hint="Name of API or protocol", order=0), SomFormFieldMeta(name="apiType", type_name="String", description="API Type", hint="REST, GraphQL, gRPC, SOAP, WebSocket", order=1), SomFormFieldMeta(name="version", type_name="String", description="Version", required=True, hint="Supported API versions", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="apiType", type_name="String", description="API Type", hint="REST, GraphQL, gRPC, SOAP, WebSocket", order=0), SomFormFieldMeta(name="version", type_name="String", description="Version", required=True, hint="Supported API versions", order=1)])),
          SomMetaNode(
             class_name="ApiCompatibilityEntry",
             member_name="policy",
@@ -2088,7 +2088,7 @@ def _mc_ApplicableRegulationEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="regulationName", type_name="String", description="Regulation Name", required=True, hint="The name of this regulation", order=0), SomFormFieldMeta(name="regulationCode", type_name="String", description="Regulation Code / Reference", hint="The code or reference identifier for this regulation", order=1), SomFormFieldMeta(name="regulationType", type_name="String", description="Regulation Type (Privacy, Security, Financial, Industry, Data Retention, Accessibility)", required=True, hint="The category of regulation", order=2), SomFormFieldMeta(name="jurisdiction", type_name="String", description="Jurisdiction (Geographic or organizational scope)", hint="The geographic or organizational scope of this regulation", order=3), SomFormFieldMeta(name="applicability", type_name="String", description="Applicability (why this regulation applies to this system)", hint="Why this regulation applies to this system", order=4), SomFormFieldMeta(name="keyRequirements", type_name="String", description="Key Requirements (summary of main requirements)", hint="A summary of the main requirements", order=5), SomFormFieldMeta(name="complianceStatus", type_name="String", description="Compliance Status (Compliant, Partially Compliant, Non-Compliant, To Be Assessed)", hint="The current compliance status", order=6), SomFormFieldMeta(name="complianceOwner", type_name="String", description="Compliance Owner (who is responsible for compliance)", hint="Who is responsible for compliance", order=7), SomFormFieldMeta(name="auditRequirements", type_name="String", description="Audit Requirements (audit frequency, type)", hint="Audit frequency and type required", order=8), SomFormFieldMeta(name="penalties", type_name="String", description="Penalties (consequences of non-compliance)", hint="Consequences of non-compliance", order=9)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="regulationCode", type_name="String", description="Regulation Code / Reference", hint="The code or reference identifier for this regulation", order=0), SomFormFieldMeta(name="regulationType", type_name="String", description="Regulation Type (Privacy, Security, Financial, Industry, Data Retention, Accessibility)", required=True, hint="The category of regulation", order=1), SomFormFieldMeta(name="jurisdiction", type_name="String", description="Jurisdiction (Geographic or organizational scope)", hint="The geographic or organizational scope of this regulation", order=2), SomFormFieldMeta(name="applicability", type_name="String", description="Applicability (why this regulation applies to this system)", hint="Why this regulation applies to this system", order=3), SomFormFieldMeta(name="keyRequirements", type_name="String", description="Key Requirements (summary of main requirements)", hint="A summary of the main requirements", order=4), SomFormFieldMeta(name="complianceStatus", type_name="String", description="Compliance Status (Compliant, Partially Compliant, Non-Compliant, To Be Assessed)", hint="The current compliance status", order=5), SomFormFieldMeta(name="complianceOwner", type_name="String", description="Compliance Owner (who is responsible for compliance)", hint="Who is responsible for compliance", order=6), SomFormFieldMeta(name="auditRequirements", type_name="String", description="Audit Requirements (audit frequency, type)", hint="Audit frequency and type required", order=7), SomFormFieldMeta(name="penalties", type_name="String", description="Penalties (consequences of non-compliance)", hint="Consequences of non-compliance", order=8)])),
          SomMetaNode(
             class_name="ApplicableRegulationEntry",
             member_name="complianceMeasures",
@@ -2289,7 +2289,7 @@ def _mc_ApprovalRecord(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="role", type_name="String", description="Approver Role", required=True, hint="Governance role accountable for the sign-off, e.g. \"Sponsor\".", order=0), SomFormFieldMeta(name="name", type_name="String", description="Approver Name", required=True, hint="Name of the individual giving the approval.", order=1), SomFormFieldMeta(name="date", type_name="String", description="Approval Date", hint="Date the approval was granted (ISO 8601).", order=2), SomFormFieldMeta(name="status", type_name="String", description="Status (Pending, Approved, Rejected)", hint="Current sign-off state: Pending, Approved, or Rejected.", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="role", type_name="String", description="Approver Role", required=True, hint="Governance role accountable for the sign-off, e.g. \"Sponsor\".", order=0), SomFormFieldMeta(name="date", type_name="String", description="Approval Date", hint="Date the approval was granted (ISO 8601).", order=1), SomFormFieldMeta(name="status", type_name="String", description="Status (Pending, Approved, Rejected)", hint="Current sign-off state: Pending, Approved, or Rejected.", order=2)])),
     ]
 
 
@@ -2301,7 +2301,7 @@ def _mc_ArchitectureComponentEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentName", type_name="String", description="Component Name", required=True, hint="Unique name for this component", order=0), SomFormFieldMeta(name="componentType", type_name="String", description="Component Type", required=True, hint="Service, Module, Library, Package, Microservice, Function", order=1), SomFormFieldMeta(name="domain", type_name="String", description="Domain", hint="Business domain this belongs to", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentType", type_name="String", description="Component Type", required=True, hint="Service, Module, Library, Package, Microservice, Function", order=0), SomFormFieldMeta(name="domain", type_name="String", description="Domain", hint="Business domain this belongs to", order=1)])),
          SomMetaNode(
             class_name="ArchitectureComponentEntry",
             member_name="purpose",
@@ -2363,7 +2363,7 @@ def _mc_ArchitectureDecisionRecord(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="decisionId", type_name="String", description="Decision ID", required=True, hint="Unique identifier (e.g., ADR-001)", order=0), SomFormFieldMeta(name="title", type_name="String", description="Title", required=True, hint="Short title of the decision", order=1), SomFormFieldMeta(name="date", type_name="String", description="Date", required=True, hint="When the decision was made", order=2), SomFormFieldMeta(name="status", type_name="String", description="Status", required=True, hint="Proposed, Accepted, Deprecated, Superseded", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="decisionId", type_name="String", description="Decision ID", required=True, hint="Unique identifier (e.g., ADR-001)", order=0), SomFormFieldMeta(name="date", type_name="String", description="Date", required=True, hint="When the decision was made", order=1), SomFormFieldMeta(name="status", type_name="String", description="Status", required=True, hint="Proposed, Accepted, Deprecated, Superseded", order=2)])),
          SomMetaNode(
             class_name="ArchitectureDecisionRecord",
             member_name="contextDetails",
@@ -2467,7 +2467,7 @@ def _mc_ArchitecturePrincipleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="principleName", type_name="String", description="Principle Name", required=True, hint="E.g., Separation of Concerns, DRY, SOLID", order=0), SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Design, Implementation, Deployment, Security, Performance, Data", order=1), SomFormFieldMeta(name="statement", type_name="String", description="Statement", required=True, hint="Clear statement of the principle", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Design, Implementation, Deployment, Security, Performance, Data", order=0), SomFormFieldMeta(name="statement", type_name="String", description="Statement", required=True, hint="Clear statement of the principle", order=1)])),
          SomMetaNode(
             class_name="ArchitecturePrincipleEntry",
             member_name="guidance",
@@ -2751,7 +2751,7 @@ def _mc_AuditEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="auditName", type_name="String", description="Audit Name", required=True, hint="Name of the audit", order=0), SomFormFieldMeta(name="auditType", type_name="String", description="Type (Internal/External)", hint="Whether the audit is internal or external", order=1), SomFormFieldMeta(name="auditor", type_name="String", description="Auditor", hint="Person or body conducting the audit", order=2), SomFormFieldMeta(name="scope", type_name="String", description="Scope", hint="What the audit covers", order=3), SomFormFieldMeta(name="plannedDate", type_name="String", description="Planned Date", hint="When the audit is scheduled", order=4), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency", hint="How often the audit recurs", order=5), SomFormFieldMeta(name="standards", type_name="String", description="Applicable Standards", hint="Standards the audit assesses compliance against", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="auditType", type_name="String", description="Type (Internal/External)", hint="Whether the audit is internal or external", order=0), SomFormFieldMeta(name="auditor", type_name="String", description="Auditor", hint="Person or body conducting the audit", order=1), SomFormFieldMeta(name="scope", type_name="String", description="Scope", hint="What the audit covers", order=2), SomFormFieldMeta(name="plannedDate", type_name="String", description="Planned Date", hint="When the audit is scheduled", order=3), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency", hint="How often the audit recurs", order=4), SomFormFieldMeta(name="standards", type_name="String", description="Applicable Standards", hint="Standards the audit assesses compliance against", order=5)])),
     ]
 
 
@@ -3118,7 +3118,7 @@ def _mc_AuthenticationMethodEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="methodName", type_name="String", description="Method Name", required=True, hint="Unique name identifying this authentication method", order=0), SomFormFieldMeta(name="methodType", type_name="String", description="Method Type", hint="Password | TOTP | HOTP | FIDO2 | WebAuthn | SmartCard | Push | SMS | Email | Biometric | APIKey | Certificate", order=1), SomFormFieldMeta(name="authenticationFactor", type_name="String", description="Authentication Factor", hint="Knowledge | Possession | Inherence — NIST factor category", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="methodType", type_name="String", description="Method Type", hint="Password | TOTP | HOTP | FIDO2 | WebAuthn | SmartCard | Push | SMS | Email | Biometric | APIKey | Certificate", order=0), SomFormFieldMeta(name="authenticationFactor", type_name="String", description="Authentication Factor", hint="Knowledge | Possession | Inherence — NIST factor category", order=1)])),
          SomMetaNode(
             class_name="AuthenticationMethodEntry",
             member_name="security",
@@ -3303,7 +3303,7 @@ def _mc_AuthorizationGroupEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="groupName", type_name="String", description="Group Name", required=True, hint="Unique name of the authorization group (e.g. Finance Managers)", order=0), SomFormFieldMeta(name="description", type_name="String", description="Short description", hint="Purpose of the group and the access it confers", order=1), SomFormFieldMeta(name="membershipCriteria", type_name="String", description="Membership Criteria", hint="Rule or attribute condition determining who belongs to this group (e.g. department = Finance)", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="description", type_name="String", description="Short description", hint="Purpose of the group and the access it confers", order=0), SomFormFieldMeta(name="membershipCriteria", type_name="String", description="Membership Criteria", hint="Rule or attribute condition determining who belongs to this group (e.g. department = Finance)", order=1)])),
          SomMetaNode(
             class_name="AuthorizationGroupEntry",
             member_name="containedRoles",
@@ -3931,7 +3931,7 @@ def _mc_BackupPolicyEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="policyName", type_name="String", description="Policy Name", required=True, hint="Policy identifier", order=0), SomFormFieldMeta(name="dataScope", type_name="String", description="Data Scope", hint="What this policy covers", order=1), SomFormFieldMeta(name="priority", type_name="String", description="Priority", hint="Critical, High, Medium, Low", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="dataScope", type_name="String", description="Data Scope", hint="What this policy covers", order=0), SomFormFieldMeta(name="priority", type_name="String", description="Priority", hint="Critical, High, Medium, Low", order=1)])),
          SomMetaNode(
             class_name="BackupPolicyEntry",
             member_name="backupType",
@@ -4338,7 +4338,7 @@ def _mc_BoundedContextEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="contextName", type_name="String", description="Context Name", required=True, hint="E.g., Order, Inventory, Customer, Billing", order=0), SomFormFieldMeta(name="domainArea", type_name="String", description="Domain Area", required=True, hint="Business domain this context covers", order=1), SomFormFieldMeta(name="owningTeam", type_name="String", description="Owning Team", hint="Team responsible for this context", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="domainArea", type_name="String", description="Domain Area", required=True, hint="Business domain this context covers", order=0), SomFormFieldMeta(name="owningTeam", type_name="String", description="Owning Team", hint="Team responsible for this context", order=1)])),
          SomMetaNode(
             class_name="BoundedContextEntry",
             member_name="scope",
@@ -4415,7 +4415,7 @@ def _mc_BreakpointEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="breakpointId", type_name="String", description="Breakpoint ID", required=True, hint="Unique identifier (e.g., TOM-MOBILE)", order=0), SomFormFieldMeta(name="breakpointName", type_name="String", description="Breakpoint Name", required=True, hint="Mobile, Tablet, Desktop, Large Desktop", order=1), SomFormFieldMeta(name="minWidth", type_name="String", description="Min Width", hint="Minimum width in logical pixels", order=2), SomFormFieldMeta(name="maxWidth", type_name="String", description="Max Width", hint="Maximum width in logical pixels", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="breakpointId", type_name="String", description="Breakpoint ID", required=True, hint="Unique identifier (e.g., TOM-MOBILE)", order=0), SomFormFieldMeta(name="minWidth", type_name="String", description="Min Width", hint="Minimum width in logical pixels", order=1), SomFormFieldMeta(name="maxWidth", type_name="String", description="Max Width", hint="Maximum width in logical pixels", order=2)])),
          SomMetaNode(
             class_name="BreakpointEntry",
             member_name="layout",
@@ -4447,7 +4447,7 @@ def _mc_BrowserCompatibilityEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="browserName", type_name="String", description="Browser", required=True, hint="E.g., Chrome, Firefox, Safari, Edge", order=0), SomFormFieldMeta(name="browserEngine", type_name="String", description="Browser Engine", hint="Chromium, Gecko, WebKit", order=1), SomFormFieldMeta(name="minVersion", type_name="String", description="Minimum Version", required=True, hint="Minimum supported version", order=2), SomFormFieldMeta(name="maxVersion", type_name="String", description="Maximum Version", hint="Maximum tested version", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="browserEngine", type_name="String", description="Browser Engine", hint="Chromium, Gecko, WebKit", order=0), SomFormFieldMeta(name="minVersion", type_name="String", description="Minimum Version", required=True, hint="Minimum supported version", order=1), SomFormFieldMeta(name="maxVersion", type_name="String", description="Maximum Version", hint="Maximum tested version", order=2)])),
          SomMetaNode(
             class_name="BrowserCompatibilityEntry",
             member_name="support",
@@ -4551,7 +4551,7 @@ def _mc_BuildToolchainEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="toolName", type_name="String", description="Tool Name", required=True, hint="E.g., Gradle, CMake, Webpack, Dart build_runner", order=0), SomFormFieldMeta(name="toolCategory", type_name="String", description="Category", hint="Build System, Compiler, Bundler, Code Generator, Task Runner, Package Manager", order=1), SomFormFieldMeta(name="platform", type_name="String", description="Platform", hint="Which platform(s) this tool is used for", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="toolCategory", type_name="String", description="Category", hint="Build System, Compiler, Bundler, Code Generator, Task Runner, Package Manager", order=0), SomFormFieldMeta(name="platform", type_name="String", description="Platform", hint="Which platform(s) this tool is used for", order=1)])),
          SomMetaNode(
             class_name="BuildToolchainEntry",
             member_name="versions",
@@ -4675,7 +4675,7 @@ def _mc_BusinessComponentEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentName", type_name="String", description="Component Name", required=True, hint="Business component name", order=0), SomFormFieldMeta(name="componentType", type_name="String", description="Component Type", hint="Service, Repository, UseCase, Validator, Calculator", order=1), SomFormFieldMeta(name="boundedContext", type_name="String", description="Bounded Context", hint="Domain area this belongs to", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentType", type_name="String", description="Component Type", hint="Service, Repository, UseCase, Validator, Calculator", order=0), SomFormFieldMeta(name="boundedContext", type_name="String", description="Bounded Context", hint="Domain area this belongs to", order=1)])),
          SomMetaNode(
             class_name="BusinessComponentEntry",
             member_name="description",
@@ -4833,7 +4833,7 @@ def _mc_BusinessGoalEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="goalId", type_name="String", description="Goal ID (unique identifier, e.g., BG-001)", required=True, hint="Unique goal identifier, e.g., BG-001", order=0), SomFormFieldMeta(name="goalName", type_name="String", description="Goal Name (concise objective statement)", required=True, hint="Concise one-line objective statement", order=1), SomFormFieldMeta(name="goalCategory", type_name="String", description="Goal Category (Strategic, Tactical, Operational)", required=True, hint="Strategic, Tactical, or Operational", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="goalId", type_name="String", description="Goal ID (unique identifier, e.g., BG-001)", required=True, hint="Unique goal identifier, e.g., BG-001", order=0), SomFormFieldMeta(name="goalCategory", type_name="String", description="Goal Category (Strategic, Tactical, Operational)", required=True, hint="Strategic, Tactical, or Operational", order=1)])),
          SomMetaNode(
             class_name="BusinessGoalEntry",
             member_name="definition",
@@ -5022,7 +5022,7 @@ def _mc_BusinessObjectAttributeEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="attributeName", type_name="String", description="Attribute Name", required=True, hint="Business attribute name", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Business meaning of this attribute", order=1), SomFormFieldMeta(name="type", type_name="String", description="Type", hint="Business type: Text | Number | Money | Date | DateTime | Boolean | Enum | Reference", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Business meaning of this attribute", order=0), SomFormFieldMeta(name="type", type_name="String", description="Type", hint="Business type: Text | Number | Money | Date | DateTime | Boolean | Enum | Reference", order=1)])),
          SomMetaNode(
             class_name="BusinessObjectAttributeEntry",
             member_name="definition",
@@ -5065,7 +5065,7 @@ def _mc_BusinessObjectEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="objectName", type_name="String", description="Object Name", required=True, hint="Business name in PascalCase (e.g., Order, Customer)", order=0), SomFormFieldMeta(name="objectAlias", type_name="String", description="Alias/Abbreviation", hint="Short alias for diagrams (e.g., ORD, CUST)", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Clear business definition of what this object represents", order=2), SomFormFieldMeta(name="businessGlossaryTerm", type_name="String", description="Business Glossary Term", hint="Official business glossary term if different", order=3), SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Transaction | MasterData | ReferenceData | Aggregate | ValueObject | Event", order=4), SomFormFieldMeta(name="stereotypePattern", type_name="String", description="Stereotype/Pattern", hint="DDD pattern: AggregateRoot | Entity | ValueObject | DomainEvent | Saga", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="objectAlias", type_name="String", description="Alias/Abbreviation", hint="Short alias for diagrams (e.g., ORD, CUST)", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Clear business definition of what this object represents", order=1), SomFormFieldMeta(name="businessGlossaryTerm", type_name="String", description="Business Glossary Term", hint="Official business glossary term if different", order=2), SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Transaction | MasterData | ReferenceData | Aggregate | ValueObject | Event", order=3), SomFormFieldMeta(name="stereotypePattern", type_name="String", description="Stereotype/Pattern", hint="DDD pattern: AggregateRoot | Entity | ValueObject | DomainEvent | Saga", order=4)])),
          SomMetaNode(
             class_name="BusinessObjectEntry",
             member_name="domainContext",
@@ -5528,7 +5528,7 @@ def _mc_BusinessRuleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="ruleId", type_name="String", description="Rule ID", required=True, hint="Unique rule identifier (e.g., BR-001)", order=0), SomFormFieldMeta(name="ruleName", type_name="String", description="Rule Name", required=True, hint="Descriptive name", order=1), SomFormFieldMeta(name="ruleVersion", type_name="String", description="Rule Version", hint="Version number for change tracking", order=2), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Full statement of the business rule", order=3), SomFormFieldMeta(name="businessStatement", type_name="String", description="Business Statement", hint="Natural language statement from business perspective", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="ruleId", type_name="String", description="Rule ID", required=True, hint="Unique rule identifier (e.g., BR-001)", order=0), SomFormFieldMeta(name="ruleVersion", type_name="String", description="Rule Version", hint="Version number for change tracking", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Full statement of the business rule", order=2), SomFormFieldMeta(name="businessStatement", type_name="String", description="Business Statement", hint="Natural language statement from business perspective", order=3)])),
          SomMetaNode(
             class_name="BusinessRuleEntry",
             member_name="classification",
@@ -5616,7 +5616,7 @@ def _mc_BusinessRuleReferenceEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="ruleId", type_name="String", description="Rule ID", hint="Reference to the business rule definition", order=0, refers_to=["BIRU.ruleId"]), SomFormFieldMeta(name="ruleName", type_name="String", description="Rule Name", required=True, hint="Name of the business rule", order=1), SomFormFieldMeta(name="ruleType", type_name="String", description="Rule Type", hint="Validation | Calculation | Constraint | Authorization | Workflow", order=2), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Brief description of the rule", order=3), SomFormFieldMeta(name="enforcement", type_name="String", description="Enforcement", hint="Automated | Manual | Hybrid", order=4), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Trigger Condition", hint="When this rule is evaluated", order=5), SomFormFieldMeta(name="affectedAttributes", type_name="String", description="Affected Attributes", hint="Attributes involved in this rule", order=6), SomFormFieldMeta(name="consequenceOnViolation", type_name="String", description="Consequence On Violation", hint="What happens when rule is violated", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="ruleId", type_name="String", description="Rule ID", hint="Reference to the business rule definition", order=0, refers_to=["BIRU.ruleId"]), SomFormFieldMeta(name="ruleType", type_name="String", description="Rule Type", hint="Validation | Calculation | Constraint | Authorization | Workflow", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Brief description of the rule", order=2), SomFormFieldMeta(name="enforcement", type_name="String", description="Enforcement", hint="Automated | Manual | Hybrid", order=3), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Trigger Condition", hint="When this rule is evaluated", order=4), SomFormFieldMeta(name="affectedAttributes", type_name="String", description="Affected Attributes", hint="Attributes involved in this rule", order=5), SomFormFieldMeta(name="consequenceOnViolation", type_name="String", description="Consequence On Violation", hint="What happens when rule is violated", order=6)])),
          SomMetaNode(
             class_name="BusinessRuleReferenceEntry",
             member_name="ruleRef",
@@ -5772,7 +5772,7 @@ def _mc_CcbMemberEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="name", type_name="String", description="Name", required=True, hint="Name of the CCB member", order=0), SomFormFieldMeta(name="role", type_name="String", description="Role", hint="Role in the organization", order=1), SomFormFieldMeta(name="ccbRole", type_name="String", description="CCB Role", hint="Role on the CCB — Chair / Vice-Chair / Secretary / Member", order=2), SomFormFieldMeta(name="votingRights", type_name="String", description="Voting Rights", hint="Voting / Advisory / Observer", order=3), SomFormFieldMeta(name="representedArea", type_name="String", description="Represented Area", hint="Area or stakeholder group represented", order=4), SomFormFieldMeta(name="substitute", type_name="String", description="Substitute", hint="Designated substitute when unavailable", order=5), SomFormFieldMeta(name="requiredForQuorum", type_name="String", description="Required for Quorum", hint="Yes / No — whether this member is required for quorum", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="role", type_name="String", description="Role", hint="Role in the organization", order=0), SomFormFieldMeta(name="ccbRole", type_name="String", description="CCB Role", hint="Role on the CCB — Chair / Vice-Chair / Secretary / Member", order=1), SomFormFieldMeta(name="votingRights", type_name="String", description="Voting Rights", hint="Voting / Advisory / Observer", order=2), SomFormFieldMeta(name="representedArea", type_name="String", description="Represented Area", hint="Area or stakeholder group represented", order=3), SomFormFieldMeta(name="substitute", type_name="String", description="Substitute", hint="Designated substitute when unavailable", order=4), SomFormFieldMeta(name="requiredForQuorum", type_name="String", description="Required for Quorum", hint="Yes / No — whether this member is required for quorum", order=5)])),
     ]
 
 
@@ -5876,7 +5876,7 @@ def _mc_CertificationEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="certificationId", type_name="String", description="Certification ID", required=True, order=0), SomFormFieldMeta(name="certificationName", type_name="String", description="Certification Name", required=True, order=1), SomFormFieldMeta(name="issuingBody", type_name="String", description="Issuing Body — who certifies", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="certificationId", type_name="String", description="Certification ID", required=True, order=0), SomFormFieldMeta(name="issuingBody", type_name="String", description="Issuing Body — who certifies", order=1)])),
          SomMetaNode(
             class_name="CertificationEntry",
             member_name="overview",
@@ -5985,7 +5985,7 @@ def _mc_ChangeCategoryEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="categoryId", type_name="String", description="Category ID", required=True, hint="Unique identifier for this category", order=0), SomFormFieldMeta(name="categoryName", type_name="String", description="Category Name", required=True, hint="Name of the change category", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What types of changes fall into this category", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="categoryId", type_name="String", description="Category ID", required=True, hint="Unique identifier for this category", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What types of changes fall into this category", order=1)])),
          SomMetaNode(
             class_name="ChangeCategoryEntry",
             member_name="scopeDetails",
@@ -6349,7 +6349,7 @@ def _mc_ChangeRoleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="roleName", type_name="String", description="Role Name", required=True, hint="Name of the role in change process", order=0), SomFormFieldMeta(name="responsibility", type_name="String", description="Responsibility", hint="What this role does in the process", order=1), SomFormFieldMeta(name="authority", type_name="String", description="Authority Level", hint="Decision authority this role has", order=2), SomFormFieldMeta(name="requiredCompetencies", type_name="String", description="Required Competencies", hint="Skills needed for this role", order=3), SomFormFieldMeta(name="assignedTo", type_name="String", description="Assigned To", hint="Person or team fulfilling this role", order=4), SomFormFieldMeta(name="backup", type_name="String", description="Backup", hint="Backup person for this role", order=5), SomFormFieldMeta(name="availabilityRequirement", type_name="String", description="Availability Requirement", hint="Response time expectation", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="responsibility", type_name="String", description="Responsibility", hint="What this role does in the process", order=0), SomFormFieldMeta(name="authority", type_name="String", description="Authority Level", hint="Decision authority this role has", order=1), SomFormFieldMeta(name="requiredCompetencies", type_name="String", description="Required Competencies", hint="Skills needed for this role", order=2), SomFormFieldMeta(name="assignedTo", type_name="String", description="Assigned To", hint="Person or team fulfilling this role", order=3), SomFormFieldMeta(name="backup", type_name="String", description="Backup", hint="Backup person for this role", order=4), SomFormFieldMeta(name="availabilityRequirement", type_name="String", description="Availability Requirement", hint="Response time expectation", order=5)])),
     ]
 
 
@@ -6361,7 +6361,7 @@ def _mc_ChangeStepEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="stepNumber", type_name="int", description="Step Number", required=True, hint="Order of this step in the process", order=0), SomFormFieldMeta(name="stepName", type_name="String", description="Step Name", required=True, hint="Name of the process step", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Detailed description of what happens in this step", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="stepNumber", type_name="int", description="Step Number", required=True, hint="Order of this step in the process", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Detailed description of what happens in this step", order=1)])),
          SomMetaNode(
             class_name="ChangeStepEntry",
             member_name="responsibility",
@@ -6545,7 +6545,7 @@ def _mc_ChangedRoleIdentification(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="roleId", type_name="String", description="Role ID (e.g., CR-001)", required=True, hint="Unique identifier for this changed role", order=0), SomFormFieldMeta(name="roleTitle", type_name="String", description="Current Role Title", required=True, hint="The role title before the change", order=1), SomFormFieldMeta(name="newRoleTitle", type_name="String", description="New Role Title — if title changes", hint="The role title after the change, if it differs", order=2), SomFormFieldMeta(name="changeRationale", type_name="String", description="Change Rationale — why this role is changing", hint="The business reason driving this role change", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="roleId", type_name="String", description="Role ID (e.g., CR-001)", required=True, hint="Unique identifier for this changed role", order=0), SomFormFieldMeta(name="newRoleTitle", type_name="String", description="New Role Title — if title changes", hint="The role title after the change, if it differs", order=1), SomFormFieldMeta(name="changeRationale", type_name="String", description="Change Rationale — why this role is changing", hint="The business reason driving this role change", order=2)])),
          SomMetaNode(
             class_name="ChangedRoleIdentification",
             member_name="structure",
@@ -6869,7 +6869,7 @@ def _mc_ClientApplicationEntry(s):
             type_name="String",
             serialization_order=0,
             content_help="One client application of the system.\n\n**The kind is the constraining choice.** A graphical application has screens,\nan entry route and platform targets; a command-line client has none of those\nand states its invocation in *Purpose* instead; a server client is another\nsystem calling in, and is listed here so the clients of this system are\nenumerable in one place.\n\n**Reference, do not restate.** *Platform Targets* holds ids from the browser,\ndesktop-OS and mobile-platform requirement lists below; *Entry Route* holds a\nroute id from the screen route map; *Included Screens* holds screen ids. Every\none of them is declared elsewhere — writing the name of something that is not\ndeclared makes the reference dangle.\n",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="clientId", type_name="String", description="Client Id", required=True, hint="The one identifier for this client application (e.g. backoffice) — cited wherever the client is referenced", order=0), SomFormFieldMeta(name="clientName", type_name="String", description="Client Name", required=True, hint="The name users and operators call this client by", order=1), SomFormFieldMeta(name="clientKind", type_name="ClientApplicationKind", description="Client Kind", required=True, hint="What kind of application this client is — decides which other parts it can carry (a command-line client has no screens)", order=2, enum_values=["graphicalApplication", "commandLine", "server"]), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", required=True, hint="Who uses this client and what for — the reason it exists separately from the system's other clients", order=3), SomFormFieldMeta(name="platformTargets", type_name="String", description="Platform Targets", hint="The platforms this client runs on, by id from the browser, desktop-OS and mobile-platform requirement lists below", order=4, refers_to=["BROREQ.browserName", "DEOSRE.osName", "MODERE.platform"]), SomFormFieldMeta(name="entryRoute", type_name="String", description="Entry Route", hint="The route this client opens on, by id from the screen route map. Empty for a client with no routes", order=5, refers_to=["SCRTEN.routeId"]), SomFormFieldMeta(name="includedScreens", type_name="String", description="Included Screens", hint="The screens this client comprises, by id. Empty for a client with no screens", order=6, refers_to=["SCREN.screenId"])])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="clientId", type_name="String", description="Client Id", required=True, hint="The one identifier for this client application (e.g. backoffice) — cited wherever the client is referenced", order=0), SomFormFieldMeta(name="clientKind", type_name="ClientApplicationKind", description="Client Kind", required=True, hint="What kind of application this client is — decides which other parts it can carry (a command-line client has no screens)", order=1, enum_values=["graphicalApplication", "commandLine", "server"]), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", required=True, hint="Who uses this client and what for — the reason it exists separately from the system's other clients", order=2), SomFormFieldMeta(name="platformTargets", type_name="String", description="Platform Targets", hint="The platforms this client runs on, by id from the browser, desktop-OS and mobile-platform requirement lists below", order=3, refers_to=["BROREQ.browserName", "DEOSRE.osName", "MODERE.platform"]), SomFormFieldMeta(name="entryRoute", type_name="String", description="Entry Route", hint="The route this client opens on, by id from the screen route map. Empty for a client with no routes", order=4, refers_to=["SCRTEN.routeId"]), SomFormFieldMeta(name="includedScreens", type_name="String", description="Included Screens", hint="The screens this client comprises, by id. Empty for a client with no screens", order=5, refers_to=["SCREN.screenId"])])),
     ]
 
 
@@ -7471,7 +7471,7 @@ def _mc_CodingStandardEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="standardName", type_name="String", description="Standard Name", required=True, hint="E.g., Effective Dart, Clean Code, Project-specific", order=0), SomFormFieldMeta(name="standardCategory", type_name="String", description="Category", required=True, hint="Naming, Formatting, Comments, Structure, Imports", order=1), SomFormFieldMeta(name="applicableLanguage", type_name="String", description="Applicable Language", hint="Which programming language(s) this applies to", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="standardCategory", type_name="String", description="Category", required=True, hint="Naming, Formatting, Comments, Structure, Imports", order=0), SomFormFieldMeta(name="applicableLanguage", type_name="String", description="Applicable Language", hint="Which programming language(s) this applies to", order=1)])),
          SomMetaNode(
             class_name="CodingStandardEntry",
             member_name="ruleDetails",
@@ -7585,7 +7585,7 @@ def _mc_ColorPaletteEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="paletteName", type_name="String", description="Palette Name", required=True, hint="Primary, Secondary, Neutral, Error", order=0), SomFormFieldMeta(name="paletteRole", type_name="String", description="Palette Role", hint="Brand, functional, semantic", order=1), SomFormFieldMeta(name="colorCount", type_name="int", description="Color Count", hint="Number of color stops in palette", order=2), SomFormFieldMeta(name="baseColor", type_name="String", description="Base Color", hint="Primary color value (hex)", order=3), SomFormFieldMeta(name="lightVariants", type_name="String", description="Light Variants", hint="Lighter color stops", order=4), SomFormFieldMeta(name="darkVariants", type_name="String", description="Dark Variants", hint="Darker color stops", order=5), SomFormFieldMeta(name="onColorDefault", type_name="String", description="On-Color Default", hint="Default text color on this palette", order=6), SomFormFieldMeta(name="wcagCompliance", type_name="String", description="WCAG Compliance", hint="Contrast compliance level", order=7), SomFormFieldMeta(name="usageGuidelines", type_name="String", description="Usage Guidelines", hint="When and where to apply this palette", order=8)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="paletteRole", type_name="String", description="Palette Role", hint="Brand, functional, semantic", order=0), SomFormFieldMeta(name="colorCount", type_name="int", description="Color Count", hint="Number of color stops in palette", order=1), SomFormFieldMeta(name="baseColor", type_name="String", description="Base Color", hint="Primary color value (hex)", order=2), SomFormFieldMeta(name="lightVariants", type_name="String", description="Light Variants", hint="Lighter color stops", order=3), SomFormFieldMeta(name="darkVariants", type_name="String", description="Dark Variants", hint="Darker color stops", order=4), SomFormFieldMeta(name="onColorDefault", type_name="String", description="On-Color Default", hint="Default text color on this palette", order=5), SomFormFieldMeta(name="wcagCompliance", type_name="String", description="WCAG Compliance", hint="Contrast compliance level", order=6), SomFormFieldMeta(name="usageGuidelines", type_name="String", description="Usage Guidelines", hint="When and where to apply this palette", order=7)])),
     ]
 
 
@@ -7629,7 +7629,7 @@ def _mc_CommitteeMemberEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="name", type_name="String", description="Name", required=True, hint="Full name of the committee member", order=0), SomFormFieldMeta(name="organizationRole", type_name="String", description="Organization Role", hint="Their role within their home organization", order=1), SomFormFieldMeta(name="department", type_name="String", description="Department", hint="Department or business unit they represent", order=2), SomFormFieldMeta(name="committeeRole", type_name="String", description="Committee Role", hint="Their role on the steering committee", order=3), SomFormFieldMeta(name="decisionAuthority", type_name="String", description="Decision Authority", hint="What decisions this member is empowered to make", order=4), SomFormFieldMeta(name="delegationRules", type_name="String", description="Delegation Rules", hint="When and to whom they may delegate authority", order=5), SomFormFieldMeta(name="meetingAttendance", type_name="String", description="Meeting Attendance (Mandatory/Optional)", hint="Whether attendance is mandatory or optional", order=6), SomFormFieldMeta(name="contactInfo", type_name="String", description="Contact Information", hint="How to reach this committee member", order=7), SomFormFieldMeta(name="substitute", type_name="String", description="Substitute/Deputy", hint="Designated stand-in when unavailable", order=8)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="organizationRole", type_name="String", description="Organization Role", hint="Their role within their home organization", order=0), SomFormFieldMeta(name="department", type_name="String", description="Department", hint="Department or business unit they represent", order=1), SomFormFieldMeta(name="committeeRole", type_name="String", description="Committee Role", hint="Their role on the steering committee", order=2), SomFormFieldMeta(name="decisionAuthority", type_name="String", description="Decision Authority", hint="What decisions this member is empowered to make", order=3), SomFormFieldMeta(name="delegationRules", type_name="String", description="Delegation Rules", hint="When and to whom they may delegate authority", order=4), SomFormFieldMeta(name="meetingAttendance", type_name="String", description="Meeting Attendance (Mandatory/Optional)", hint="Whether attendance is mandatory or optional", order=5), SomFormFieldMeta(name="contactInfo", type_name="String", description="Contact Information", hint="How to reach this committee member", order=6), SomFormFieldMeta(name="substitute", type_name="String", description="Substitute/Deputy", hint="Designated stand-in when unavailable", order=7)])),
          SomMetaNode(
             class_name="CommitteeMemberEntry",
             member_name="responsibilities",
@@ -7665,7 +7665,7 @@ def _mc_CommunicationChannelEncryptionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="channelName", type_name="String", description="Channel Name", required=True, hint="Name of the communication channel (e.g. ClientToServer, ServerToDatabase, InterService, WebSocket, gRPC, MessageQueue, EmailSMTP)", order=0), SomFormFieldMeta(name="channelType", type_name="String", description="Channel Type", hint="HTTPS | gRPC | WebSocket | TCP | AMQP | MQTT | SMTP | Custom — transport protocol used by this channel", order=1), SomFormFieldMeta(name="tlsRequired", type_name="bool", description="TLS Required", required=True, hint="Yes | No — whether TLS encryption is mandatory for this channel (should be Yes for all channels carrying sensitive data)", order=2), SomFormFieldMeta(name="minimumTlsVersionOverride", type_name="String", description="Minimum TLS Version Override", hint="TLS1.2 | TLS1.3 | UseDefault — override minimum TLS version for this specific channel if different from global policy", order=3), SomFormFieldMeta(name="mutualTlsRequired", type_name="bool", description="Mutual TLS Required", hint="Yes | No — whether mutual TLS (mTLS) is required for this channel (recommended for service-to-service)", order=4), SomFormFieldMeta(name="certificatePinning", type_name="bool", description="Certificate Pinning", hint="Yes | No — whether certificate or public key pinning is used for this channel (useful for mobile apps, thick clients, and server-to-server communication)", order=5), SomFormFieldMeta(name="pinningStrategy", type_name="String", description="Pinning Strategy", hint="PublicKey | Certificate | SPKI | None — how pinning is implemented if enabled (SPKI recommended for flexibility during key rotation)", order=6), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Additional notes for this communication channel", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="channelType", type_name="String", description="Channel Type", hint="HTTPS | gRPC | WebSocket | TCP | AMQP | MQTT | SMTP | Custom — transport protocol used by this channel", order=0), SomFormFieldMeta(name="tlsRequired", type_name="bool", description="TLS Required", required=True, hint="Yes | No — whether TLS encryption is mandatory for this channel (should be Yes for all channels carrying sensitive data)", order=1), SomFormFieldMeta(name="minimumTlsVersionOverride", type_name="String", description="Minimum TLS Version Override", hint="TLS1.2 | TLS1.3 | UseDefault — override minimum TLS version for this specific channel if different from global policy", order=2), SomFormFieldMeta(name="mutualTlsRequired", type_name="bool", description="Mutual TLS Required", hint="Yes | No — whether mutual TLS (mTLS) is required for this channel (recommended for service-to-service)", order=3), SomFormFieldMeta(name="certificatePinning", type_name="bool", description="Certificate Pinning", hint="Yes | No — whether certificate or public key pinning is used for this channel (useful for mobile apps, thick clients, and server-to-server communication)", order=4), SomFormFieldMeta(name="pinningStrategy", type_name="String", description="Pinning Strategy", hint="PublicKey | Certificate | SPKI | None — how pinning is implemented if enabled (SPKI recommended for flexibility during key rotation)", order=5), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Additional notes for this communication channel", order=6)])),
     ]
 
 
@@ -7677,7 +7677,7 @@ def _mc_CommunicationEventEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="eventId", type_name="String", description="Event ID", required=True, hint="A unique identifier for this communication event", order=0), SomFormFieldMeta(name="eventName", type_name="String", description="Event Name", required=True, hint="A short descriptive name for this communication event", order=1), SomFormFieldMeta(name="eventType", type_name="String", description="Event Type — Announcement, Town Hall, Email, Workshop, Newsletter", hint="The kind of communication event: Announcement, Town Hall, Email, Workshop, Newsletter, etc.", order=2), SomFormFieldMeta(name="targetAudience", type_name="String", description="Target Audience", hint="The stakeholder group or audience this event is intended to reach", order=3), SomFormFieldMeta(name="scheduledDate", type_name="String", description="Scheduled Date", hint="The date on which this communication event is scheduled to occur", order=4), SomFormFieldMeta(name="phase", type_name="String", description="Phase — which transition phase", hint="The transition phase during which this event takes place", order=5), SomFormFieldMeta(name="keyMessages", type_name="String", description="Key Messages — specific to this event", hint="The specific messages this particular event is designed to convey", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="eventId", type_name="String", description="Event ID", required=True, hint="A unique identifier for this communication event", order=0), SomFormFieldMeta(name="eventType", type_name="String", description="Event Type — Announcement, Town Hall, Email, Workshop, Newsletter", hint="The kind of communication event: Announcement, Town Hall, Email, Workshop, Newsletter, etc.", order=1), SomFormFieldMeta(name="targetAudience", type_name="String", description="Target Audience", hint="The stakeholder group or audience this event is intended to reach", order=2), SomFormFieldMeta(name="scheduledDate", type_name="String", description="Scheduled Date", hint="The date on which this communication event is scheduled to occur", order=3), SomFormFieldMeta(name="phase", type_name="String", description="Phase — which transition phase", hint="The transition phase during which this event takes place", order=4), SomFormFieldMeta(name="keyMessages", type_name="String", description="Key Messages — specific to this event", hint="The specific messages this particular event is designed to convey", order=5)])),
          SomMetaNode(
             class_name="CommunicationEventEntry",
             member_name="delivery",
@@ -8040,7 +8040,7 @@ def _mc_CompetencyEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="competencyId", type_name="String", description="Competency ID", required=True, hint="Unique identifier for this competency", order=0), SomFormFieldMeta(name="competencyName", type_name="String", description="Competency Name", required=True, hint="Short name of the competency", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this competency means in practice", order=2), SomFormFieldMeta(name="behavioralIndicators", type_name="String", description="Behavioral Indicators — observable behaviors", hint="Observable behaviors that demonstrate the competency", order=3), SomFormFieldMeta(name="proficiencyLevels", type_name="String", description="Proficiency Levels — what each level looks like", hint="What each proficiency level looks like", order=4), SomFormFieldMeta(name="applicableRoles", type_name="String", description="Applicable Roles — which roles need this competency", hint="Which roles require this competency", order=5), SomFormFieldMeta(name="requiredLevel", type_name="String", description="Required Level — minimum proficiency for the role", hint="Minimum proficiency level required for the role", order=6), SomFormFieldMeta(name="developmentResources", type_name="String", description="Development Resources — training, coaching, experiences", hint="Training, coaching, or experiences that build it", order=7), SomFormFieldMeta(name="assessmentTools", type_name="String", description="Assessment Tools — tests, interviews, simulations", hint="Tests, interviews, or simulations used to assess it", order=8)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="competencyId", type_name="String", description="Competency ID", required=True, hint="Unique identifier for this competency", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this competency means in practice", order=1), SomFormFieldMeta(name="behavioralIndicators", type_name="String", description="Behavioral Indicators — observable behaviors", hint="Observable behaviors that demonstrate the competency", order=2), SomFormFieldMeta(name="proficiencyLevels", type_name="String", description="Proficiency Levels — what each level looks like", hint="What each proficiency level looks like", order=3), SomFormFieldMeta(name="applicableRoles", type_name="String", description="Applicable Roles — which roles need this competency", hint="Which roles require this competency", order=4), SomFormFieldMeta(name="requiredLevel", type_name="String", description="Required Level — minimum proficiency for the role", hint="Minimum proficiency level required for the role", order=5), SomFormFieldMeta(name="developmentResources", type_name="String", description="Development Resources — training, coaching, experiences", hint="Training, coaching, or experiences that build it", order=6), SomFormFieldMeta(name="assessmentTools", type_name="String", description="Assessment Tools — tests, interviews, simulations", hint="Tests, interviews, or simulations used to assess it", order=7)])),
     ]
 
 
@@ -8103,7 +8103,7 @@ def _mc_CompetencyLevelChangeEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="competencyName", type_name="String", description="Competency Name", required=True, hint="The competency whose required level is changing", order=0), SomFormFieldMeta(name="currentLevel", type_name="String", description="Current Required Level", hint="Proficiency level required before the change", order=1), SomFormFieldMeta(name="newLevel", type_name="String", description="New Required Level", hint="Proficiency level required after the change", order=2), SomFormFieldMeta(name="reason", type_name="String", description="Reason — why level is changing", hint="Why the required proficiency level is changing", order=3), SomFormFieldMeta(name="developmentPath", type_name="String", description="Development Path — how to close gap", hint="How incumbents can reach the new proficiency level", order=4), SomFormFieldMeta(name="timeframe", type_name="String", description="Timeframe — when level needed", hint="When the new proficiency level must be reached", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="currentLevel", type_name="String", description="Current Required Level", hint="Proficiency level required before the change", order=0), SomFormFieldMeta(name="newLevel", type_name="String", description="New Required Level", hint="Proficiency level required after the change", order=1), SomFormFieldMeta(name="reason", type_name="String", description="Reason — why level is changing", hint="Why the required proficiency level is changing", order=2), SomFormFieldMeta(name="developmentPath", type_name="String", description="Development Path — how to close gap", hint="How incumbents can reach the new proficiency level", order=3), SomFormFieldMeta(name="timeframe", type_name="String", description="Timeframe — when level needed", hint="When the new proficiency level must be reached", order=4)])),
     ]
 
 
@@ -8170,7 +8170,7 @@ def _mc_ComplianceMilestoneEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="milestoneName", type_name="String", description="Milestone Name", required=True, hint="Name of the compliance milestone", order=0), SomFormFieldMeta(name="regulation", type_name="String", description="Related Regulation", hint="Regulation this milestone supports", order=1), SomFormFieldMeta(name="dueDate", type_name="String", description="Due Date", hint="When the milestone must be completed", order=2), SomFormFieldMeta(name="deliverables", type_name="String", description="Deliverables", hint="Outputs produced to meet the milestone", order=3), SomFormFieldMeta(name="verificationMethod", type_name="String", description="Verification Method", hint="How milestone completion is verified", order=4), SomFormFieldMeta(name="status", type_name="String", description="Status", hint="Current state of the milestone", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="regulation", type_name="String", description="Related Regulation", hint="Regulation this milestone supports", order=0), SomFormFieldMeta(name="dueDate", type_name="String", description="Due Date", hint="When the milestone must be completed", order=1), SomFormFieldMeta(name="deliverables", type_name="String", description="Deliverables", hint="Outputs produced to meet the milestone", order=2), SomFormFieldMeta(name="verificationMethod", type_name="String", description="Verification Method", hint="How milestone completion is verified", order=3), SomFormFieldMeta(name="status", type_name="String", description="Status", hint="Current state of the milestone", order=4)])),
     ]
 
 
@@ -8325,7 +8325,7 @@ def _mc_ComponentActionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="actionId", type_name="String", description="Action ID", required=True, order=0), SomFormFieldMeta(name="actionName", type_name="String", description="Action Name", required=True, hint="onTap, onSubmit, onDelete", order=1), SomFormFieldMeta(name="actionTrigger", type_name="String", description="Action Trigger", hint="User interaction that triggers", order=2), SomFormFieldMeta(name="actionPayload", type_name="String", description="Action Payload", hint="Data passed with action", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="actionId", type_name="String", description="Action ID", required=True, order=0), SomFormFieldMeta(name="actionTrigger", type_name="String", description="Action Trigger", hint="User interaction that triggers", order=1), SomFormFieldMeta(name="actionPayload", type_name="String", description="Action Payload", hint="Data passed with action", order=2)])),
          SomMetaNode(
             class_name="ComponentActionEntry",
             member_name="governance",
@@ -8369,7 +8369,7 @@ def _mc_ComponentEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentId", type_name="String", description="Component ID", required=True, hint="Unique identifier, e.g. CMP-DB-001", order=0), SomFormFieldMeta(name="componentName", type_name="String", description="Component Name", required=True, hint="Official product/library name", order=1), SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Database / Framework / Library / Service / Middleware", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentId", type_name="String", description="Component ID", required=True, hint="Unique identifier, e.g. CMP-DB-001", order=0), SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Database / Framework / Library / Service / Middleware", order=1)])),
          SomMetaNode(
             class_name="ComponentEntry",
             member_name="vendor",
@@ -8517,7 +8517,7 @@ def _mc_ComponentFamilyEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="familyId", type_name="String", description="Family ID", required=True, hint="Unique identifier (e.g., FAM-BTN)", order=0), SomFormFieldMeta(name="familyName", type_name="String", description="Family Name", required=True, hint="Buttons, Inputs, Navigation, Tables", order=1), SomFormFieldMeta(name="familyDescription", type_name="String", description="Family Description", hint="Purpose and scope of the family", order=2), SomFormFieldMeta(name="componentCount", type_name="int", description="Component Count", hint="Number of components in the family", order=3), SomFormFieldMeta(name="sharedPatterns", type_name="String", description="Shared Patterns", hint="Common patterns across family", order=4), SomFormFieldMeta(name="consistencyRules", type_name="String", description="Consistency Rules", hint="Rules for family consistency", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="familyId", type_name="String", description="Family ID", required=True, hint="Unique identifier (e.g., FAM-BTN)", order=0), SomFormFieldMeta(name="familyDescription", type_name="String", description="Family Description", hint="Purpose and scope of the family", order=1), SomFormFieldMeta(name="componentCount", type_name="int", description="Component Count", hint="Number of components in the family", order=2), SomFormFieldMeta(name="sharedPatterns", type_name="String", description="Shared Patterns", hint="Common patterns across family", order=3), SomFormFieldMeta(name="consistencyRules", type_name="String", description="Consistency Rules", hint="Rules for family consistency", order=4)])),
          SomMetaNode(
             class_name="ComponentFamilyEntry",
             member_name="familyNarrative",
@@ -8601,7 +8601,7 @@ def _mc_ComponentInterfaceEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="interfaceName", type_name="String", description="Interface Name", hint="Human-readable name, e.g. Order Service REST API", order=0), SomFormFieldMeta(name="interfaceType", type_name="String", description="Interface Type", hint="REST / GraphQL / gRPC / WebSocket / MessageQueue / SDK / CLI / File", order=1), SomFormFieldMeta(name="protocol", type_name="String", description="Protocol", hint="HTTP/1.1 / HTTP/2 / AMQP / MQTT / TCP / UDP", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="interfaceType", type_name="String", description="Interface Type", hint="REST / GraphQL / gRPC / WebSocket / MessageQueue / SDK / CLI / File", order=0), SomFormFieldMeta(name="protocol", type_name="String", description="Protocol", hint="HTTP/1.1 / HTTP/2 / AMQP / MQTT / TCP / UDP", order=1)])),
          SomMetaNode(
             class_name="ComponentInterfaceEntry",
             member_name="network",
@@ -8885,7 +8885,7 @@ def _mc_ComponentPropertyEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="propertyId", type_name="String", description="Property ID", required=True, hint="Unique property identifier", order=0), SomFormFieldMeta(name="propertyName", type_name="String", description="Property Name", required=True, hint="enabled, selected, elevation", order=1), SomFormFieldMeta(name="propertyType", type_name="String", description="Property Type", hint="bool, String, Color, int", order=2), SomFormFieldMeta(name="defaultValue", type_name="String", description="Default Value", hint="Value used when none is set", order=3), SomFormFieldMeta(name="allowedValues", type_name="String", description="Allowed Values", hint="Enum values or constraints", order=4), SomFormFieldMeta(name="propertyDescription", type_name="String", description="Property Description", hint="What this property controls", order=5), SomFormFieldMeta(name="affectsAppearance", type_name="bool", description="Affects Appearance", hint="Changes the visual look", order=6), SomFormFieldMeta(name="affectsBehavior", type_name="bool", description="Affects Behavior", hint="Changes how the component behaves", order=7), SomFormFieldMeta(name="resourceResolvable", type_name="bool", description="Resource Resolvable", hint="Can be resolved from resources", order=8), SomFormFieldMeta(name="authControlled", type_name="bool", description="Auth Controlled", hint="Controlled by authorization", order=9)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="propertyId", type_name="String", description="Property ID", required=True, hint="Unique property identifier", order=0), SomFormFieldMeta(name="propertyType", type_name="String", description="Property Type", hint="bool, String, Color, int", order=1), SomFormFieldMeta(name="defaultValue", type_name="String", description="Default Value", hint="Value used when none is set", order=2), SomFormFieldMeta(name="allowedValues", type_name="String", description="Allowed Values", hint="Enum values or constraints", order=3), SomFormFieldMeta(name="propertyDescription", type_name="String", description="Property Description", hint="What this property controls", order=4), SomFormFieldMeta(name="affectsAppearance", type_name="bool", description="Affects Appearance", hint="Changes the visual look", order=5), SomFormFieldMeta(name="affectsBehavior", type_name="bool", description="Affects Behavior", hint="Changes how the component behaves", order=6), SomFormFieldMeta(name="resourceResolvable", type_name="bool", description="Resource Resolvable", hint="Can be resolved from resources", order=7), SomFormFieldMeta(name="authControlled", type_name="bool", description="Auth Controlled", hint="Controlled by authorization", order=8)])),
     ]
 
 
@@ -9038,7 +9038,7 @@ def _mc_ComponentRiskEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskId", type_name="String", description="Risk ID", required=True, hint="Unique identifier, e.g. CR-001", order=0), SomFormFieldMeta(name="componentRef", type_name="String", description="Component", hint="Component ID this risk applies to", order=1, refers_to=["CMPNT.componentId"]), SomFormFieldMeta(name="riskTitle", type_name="String", description="Risk Title", hint="Short descriptive name", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskId", type_name="String", description="Risk ID", required=True, hint="Unique identifier, e.g. CR-001", order=0), SomFormFieldMeta(name="componentRef", type_name="String", description="Component", hint="Component ID this risk applies to", order=1, refers_to=["CMPNT.componentId"])])),
          SomMetaNode(
             class_name="ComponentRiskEntry",
             member_name="description",
@@ -9100,7 +9100,7 @@ def _mc_ComponentSlotEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="slotId", type_name="String", description="Slot ID", required=True, hint="Unique slot identifier", order=0), SomFormFieldMeta(name="slotName", type_name="String", description="Slot Name", required=True, hint="leading, trailing, title, content", order=1), SomFormFieldMeta(name="slotDescription", type_name="String", description="Slot Description", hint="Purpose of this slot", order=2), SomFormFieldMeta(name="slotRequired", type_name="bool", description="Slot Required", hint="Whether content is mandatory", order=3), SomFormFieldMeta(name="acceptedWidgets", type_name="String", description="Accepted Widgets", hint="Widget types allowed in slot", order=4), SomFormFieldMeta(name="defaultContent", type_name="String", description="Default Content", hint="What shows if slot is empty", order=5), SomFormFieldMeta(name="sizingBehavior", type_name="String", description="Sizing Behavior", hint="How slot affects component size", order=6), SomFormFieldMeta(name="resourceKey", type_name="String", description="Resource Key", hint="Resource for slot content", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="slotId", type_name="String", description="Slot ID", required=True, hint="Unique slot identifier", order=0), SomFormFieldMeta(name="slotDescription", type_name="String", description="Slot Description", hint="Purpose of this slot", order=1), SomFormFieldMeta(name="slotRequired", type_name="bool", description="Slot Required", hint="Whether content is mandatory", order=2), SomFormFieldMeta(name="acceptedWidgets", type_name="String", description="Accepted Widgets", hint="Widget types allowed in slot", order=3), SomFormFieldMeta(name="defaultContent", type_name="String", description="Default Content", hint="What shows if slot is empty", order=4), SomFormFieldMeta(name="sizingBehavior", type_name="String", description="Sizing Behavior", hint="How slot affects component size", order=5), SomFormFieldMeta(name="resourceKey", type_name="String", description="Resource Key", hint="Resource for slot content", order=6)])),
     ]
 
 
@@ -9112,7 +9112,7 @@ def _mc_ComponentStateEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="stateId", type_name="String", description="State ID", required=True, hint="Unique state identifier", order=0), SomFormFieldMeta(name="stateName", type_name="String", description="State Name", required=True, hint="Loading, Empty, Error, Disabled, etc.", order=1), SomFormFieldMeta(name="stateDescription", type_name="String", description="State Description", hint="What this state represents", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="stateId", type_name="String", description="State ID", required=True, hint="Unique state identifier", order=0), SomFormFieldMeta(name="stateDescription", type_name="String", description="State Description", hint="What this state represents", order=1)])),
          SomMetaNode(
             class_name="ComponentStateEntry",
             member_name="visual",
@@ -9248,7 +9248,7 @@ def _mc_ComponentVariantEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="variantId", type_name="String", description="Variant ID", required=True, hint="Unique variant identifier", order=0), SomFormFieldMeta(name="variantName", type_name="String", description="Variant Name", required=True, hint="Filled, Outlined, Tonal, Text", order=1), SomFormFieldMeta(name="variantDescription", type_name="String", description="Variant Description", hint="What distinguishes this variant", order=2), SomFormFieldMeta(name="visualDifferences", type_name="String", description="Visual Differences", hint="How variant looks different", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="variantId", type_name="String", description="Variant ID", required=True, hint="Unique variant identifier", order=0), SomFormFieldMeta(name="variantDescription", type_name="String", description="Variant Description", hint="What distinguishes this variant", order=1), SomFormFieldMeta(name="visualDifferences", type_name="String", description="Visual Differences", hint="How variant looks different", order=2)])),
          SomMetaNode(
             class_name="ComponentVariantEntry",
             member_name="visual",
@@ -9470,7 +9470,7 @@ def _mc_ConfidentialInfoCategoryEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="categoryName", type_name="String", description="Category Name", required=True, hint="Name of the confidential information category", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What information falls into this category", order=1), SomFormFieldMeta(name="classificationLevel", type_name="String", description="Classification Level", hint="Sensitivity level, e.g. Public, Internal, Confidential", order=2), SomFormFieldMeta(name="handlingInstructions", type_name="String", description="Handling Instructions", hint="How this category must be stored, shared, and disposed of", order=3), SomFormFieldMeta(name="authorizedPersonnel", type_name="String", description="Authorized Personnel", hint="Who may access this category of information", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What information falls into this category", order=0), SomFormFieldMeta(name="classificationLevel", type_name="String", description="Classification Level", hint="Sensitivity level, e.g. Public, Internal, Confidential", order=1), SomFormFieldMeta(name="handlingInstructions", type_name="String", description="Handling Instructions", hint="How this category must be stored, shared, and disposed of", order=2), SomFormFieldMeta(name="authorizedPersonnel", type_name="String", description="Authorized Personnel", hint="Who may access this category of information", order=3)])),
     ]
 
 
@@ -9848,7 +9848,7 @@ def _mc_ContingencyPlanEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="contingencyId", type_name="String", description="Contingency Plan ID", hint="Unique identifier, e.g. CP-001", order=0), SomFormFieldMeta(name="planTitle", type_name="String", description="Plan Title", required=True, hint="Short name for this contingency plan", order=1), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Trigger Condition", hint="Specific event or threshold that activates this plan", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="contingencyId", type_name="String", description="Contingency Plan ID", hint="Unique identifier, e.g. CP-001", order=0), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Trigger Condition", hint="Specific event or threshold that activates this plan", order=1)])),
          SomMetaNode(
             class_name="ContingencyPlanEntry",
             member_name="references",
@@ -10199,7 +10199,7 @@ def _mc_CurrentBusinessProcess(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="processName", type_name="String", description="Process Name", required=True, order=0), SomFormFieldMeta(name="processOwner", type_name="String", description="Process Owner", order=1), SomFormFieldMeta(name="processCategory", type_name="String", description="Category (e.g., Core, Support, Management)", order=2), SomFormFieldMeta(name="processScope", type_name="String", description="Scope - organizational units involved", order=3), SomFormFieldMeta(name="processMaturity", type_name="String", description="Maturity Level (e.g., Ad-hoc, Defined, Managed, Optimized)", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="processOwner", type_name="String", description="Process Owner", order=0), SomFormFieldMeta(name="processCategory", type_name="String", description="Category (e.g., Core, Support, Management)", order=1), SomFormFieldMeta(name="processScope", type_name="String", description="Scope - organizational units involved", order=2), SomFormFieldMeta(name="processMaturity", type_name="String", description="Maturity Level (e.g., Ad-hoc, Defined, Managed, Optimized)", order=3)])),
          SomMetaNode(
             class_name="CurrentBusinessProcess",
             member_name="processContext",
@@ -10669,7 +10669,7 @@ def _mc_CurrentWorkflowEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="workflowName", type_name="String", description="Workflow Name", required=True, order=0), SomFormFieldMeta(name="workflowId", type_name="String", description="Workflow ID (internal identifier)", order=1), SomFormFieldMeta(name="workflowType", type_name="String", description="Type (e.g., Operational, Approval, Exception)", order=2), SomFormFieldMeta(name="frequency", type_name="String", description="Execution Frequency", order=3), SomFormFieldMeta(name="averageVolume", type_name="String", description="Average Volume per period", order=4), SomFormFieldMeta(name="criticality", type_name="String", description="Business Criticality", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="workflowId", type_name="String", description="Workflow ID (internal identifier)", order=0), SomFormFieldMeta(name="workflowType", type_name="String", description="Type (e.g., Operational, Approval, Exception)", order=1), SomFormFieldMeta(name="frequency", type_name="String", description="Execution Frequency", order=2), SomFormFieldMeta(name="averageVolume", type_name="String", description="Average Volume per period", order=3), SomFormFieldMeta(name="criticality", type_name="String", description="Business Criticality", order=4)])),
          SomMetaNode(
             class_name="CurrentWorkflowEntry",
             member_name="workflowDiagram",
@@ -10797,7 +10797,7 @@ def _mc_CustomDistributionGroup(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="groupName", type_name="String", description="Group Name", required=True, hint="Name of the distribution group", order=0), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="Why this group exists", order=1), SomFormFieldMeta(name="informationScope", type_name="String", description="Information Scope", hint="What information this group receives", order=2), SomFormFieldMeta(name="frequency", type_name="String", description="Communication Frequency", hint="How often this group is contacted", order=3), SomFormFieldMeta(name="primaryChannel", type_name="String", description="Primary Channel", hint="Main distribution channel for this group", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="Why this group exists", order=0), SomFormFieldMeta(name="informationScope", type_name="String", description="Information Scope", hint="What information this group receives", order=1), SomFormFieldMeta(name="frequency", type_name="String", description="Communication Frequency", hint="How often this group is contacted", order=2), SomFormFieldMeta(name="primaryChannel", type_name="String", description="Primary Channel", hint="Main distribution channel for this group", order=3)])),
          SomMetaNode(
             class_name="CustomDistributionGroup",
             member_name="members",
@@ -10821,7 +10821,7 @@ def _mc_CustomMetricEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="metricName", type_name="String", description="Metric Name", required=True, hint="Full metric name (e.g., app_orders_total)", order=0), SomFormFieldMeta(name="metricType", type_name="String", description="Metric Type", hint="Counter, gauge, histogram, summary", order=1), SomFormFieldMeta(name="metricDescription", type_name="String", description="Metric Description", hint="What this metric measures", order=2), SomFormFieldMeta(name="unit", type_name="String", description="Unit", hint="seconds, bytes, requests, count", order=3), SomFormFieldMeta(name="labels", type_name="String", description="Labels", hint="Labels attached to this metric", order=4), SomFormFieldMeta(name="source", type_name="String", description="Source", hint="Where this metric is emitted", order=5), SomFormFieldMeta(name="alertOnMetric", type_name="bool", description="Alert On Metric", hint="Whether alerts are based on this metric", order=6), SomFormFieldMeta(name="dashboardInclusion", type_name="String", description="Dashboard Inclusion", hint="Which dashboards include this metric", order=7), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Additional notes for this custom metric", order=8)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="metricType", type_name="String", description="Metric Type", hint="Counter, gauge, histogram, summary", order=0), SomFormFieldMeta(name="metricDescription", type_name="String", description="Metric Description", hint="What this metric measures", order=1), SomFormFieldMeta(name="unit", type_name="String", description="Unit", hint="seconds, bytes, requests, count", order=2), SomFormFieldMeta(name="labels", type_name="String", description="Labels", hint="Labels attached to this metric", order=3), SomFormFieldMeta(name="source", type_name="String", description="Source", hint="Where this metric is emitted", order=4), SomFormFieldMeta(name="alertOnMetric", type_name="bool", description="Alert On Metric", hint="Whether alerts are based on this metric", order=5), SomFormFieldMeta(name="dashboardInclusion", type_name="String", description="Dashboard Inclusion", hint="Which dashboards include this metric", order=6), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Additional notes for this custom metric", order=7)])),
     ]
 
 
@@ -13242,7 +13242,7 @@ def _mc_DashboardEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="dashboardId", type_name="String", description="Dashboard ID", required=True, hint="Unique dashboard identifier", order=0), SomFormFieldMeta(name="dashboardName", type_name="String", description="Dashboard Name", required=True, hint="Human-readable dashboard name", order=1), SomFormFieldMeta(name="dashboardCategory", type_name="String", description="Dashboard Category", hint="Executive, operational, service, infrastructure", order=2), SomFormFieldMeta(name="targetAudience", type_name="String", description="Target Audience", hint="Who uses this dashboard", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="dashboardId", type_name="String", description="Dashboard ID", required=True, hint="Unique dashboard identifier", order=0), SomFormFieldMeta(name="dashboardCategory", type_name="String", description="Dashboard Category", hint="Executive, operational, service, infrastructure", order=1), SomFormFieldMeta(name="targetAudience", type_name="String", description="Target Audience", hint="Who uses this dashboard", order=2)])),
          SomMetaNode(
             class_name="DashboardEntry",
             member_name="configuration",
@@ -13453,7 +13453,7 @@ def _mc_DataAttributeEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="attributeName", type_name="String", description="Attribute Name", required=True, hint="Logical attribute name in camelCase", order=0), SomFormFieldMeta(name="columnName", type_name="String", description="Physical Column Name", hint="Database column name if different (e.g., snake_case)", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Clear definition of what this attribute represents", order=2), SomFormFieldMeta(name="businessTerm", type_name="String", description="Business Term", hint="Business glossary term this maps to", order=3), SomFormFieldMeta(name="exampleValues", type_name="String", description="Example Values", hint="Comma-separated examples (e.g., \"Draft, Confirmed, Shipped\")", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="columnName", type_name="String", description="Physical Column Name", hint="Database column name if different (e.g., snake_case)", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Clear definition of what this attribute represents", order=1), SomFormFieldMeta(name="businessTerm", type_name="String", description="Business Term", hint="Business glossary term this maps to", order=2), SomFormFieldMeta(name="exampleValues", type_name="String", description="Example Values", hint="Comma-separated examples (e.g., \"Draft, Confirmed, Shipped\")", order=3)])),
          SomMetaNode(
             class_name="DataAttributeEntry",
             member_name="dataTypeSpec",
@@ -13605,7 +13605,7 @@ def _mc_DataClassificationEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="classificationName", type_name="String", description="Classification Name", required=True, hint="Name of this classification level", order=0), SomFormFieldMeta(name="classificationLevel", type_name="String", description="Classification Level", hint="Sensitivity: Public | Internal | Confidential | Restricted | TopSecret", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this classification means", order=2), SomFormFieldMeta(name="dataCategories", type_name="String", description="Data Categories", hint="Types of data in this class: PII | PHI | Financial | Legal | Technical", order=3), SomFormFieldMeta(name="examples", type_name="String", description="Examples", hint="Examples of data at this classification", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="classificationLevel", type_name="String", description="Classification Level", hint="Sensitivity: Public | Internal | Confidential | Restricted | TopSecret", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this classification means", order=1), SomFormFieldMeta(name="dataCategories", type_name="String", description="Data Categories", hint="Types of data in this class: PII | PHI | Financial | Legal | Technical", order=2), SomFormFieldMeta(name="examples", type_name="String", description="Examples", hint="Examples of data at this classification", order=3)])),
          SomMetaNode(
             class_name="DataClassificationEntry",
             member_name="storageTransmission",
@@ -13673,7 +13673,7 @@ def _mc_DataClassificationLevelEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="levelName", type_name="String", description="Level Name", required=True, hint="E.g. Public, Internal, Confidential, Restricted", order=0), SomFormFieldMeta(name="levelOrder", type_name="int", description="Level Order", hint="Numeric order, 1=lowest sensitivity", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this level means", order=2), SomFormFieldMeta(name="dataExamples", type_name="String", description="Data Examples", hint="Examples of data at this level", order=3), SomFormFieldMeta(name="handlingRequirements", type_name="String", description="Handling Requirements", hint="How data at this level must be handled", order=4), SomFormFieldMeta(name="accessRestrictions", type_name="String", description="Access Restrictions", hint="Who can access data at this level", order=5), SomFormFieldMeta(name="storageRequirements", type_name="String", description="Storage Requirements", hint="How data at this level must be stored", order=6), SomFormFieldMeta(name="transmissionRequirements", type_name="String", description="Transmission Requirements", hint="How data at this level can be transmitted", order=7), SomFormFieldMeta(name="disposalRequirements", type_name="String", description="Disposal Requirements", hint="How data at this level must be disposed", order=8), SomFormFieldMeta(name="incidentResponseLevel", type_name="String", description="Incident Response", hint="Response level if breached", order=9)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="levelOrder", type_name="int", description="Level Order", hint="Numeric order, 1=lowest sensitivity", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this level means", order=1), SomFormFieldMeta(name="dataExamples", type_name="String", description="Data Examples", hint="Examples of data at this level", order=2), SomFormFieldMeta(name="handlingRequirements", type_name="String", description="Handling Requirements", hint="How data at this level must be handled", order=3), SomFormFieldMeta(name="accessRestrictions", type_name="String", description="Access Restrictions", hint="Who can access data at this level", order=4), SomFormFieldMeta(name="storageRequirements", type_name="String", description="Storage Requirements", hint="How data at this level must be stored", order=5), SomFormFieldMeta(name="transmissionRequirements", type_name="String", description="Transmission Requirements", hint="How data at this level can be transmitted", order=6), SomFormFieldMeta(name="disposalRequirements", type_name="String", description="Disposal Requirements", hint="How data at this level must be disposed", order=7), SomFormFieldMeta(name="incidentResponseLevel", type_name="String", description="Incident Response", hint="Response level if breached", order=8)])),
     ]
 
 
@@ -13881,7 +13881,7 @@ def _mc_DataEntityMigrationEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="entityName", type_name="String", description="Entity Name", required=True, hint="Name of the data entity", order=0), SomFormFieldMeta(name="recordCount", type_name="String", description="Record Count", hint="Approximate number of records for this entity", order=1), SomFormFieldMeta(name="targetMapping", type_name="String", description="Target Mapping", hint="Where the entity maps to in the target system", order=2), SomFormFieldMeta(name="transformationNotes", type_name="String", description="Transformation Notes", hint="Transformations required during migration", order=3), SomFormFieldMeta(name="validationRules", type_name="String", description="Validation Rules", hint="Rules to verify migrated data correctness", order=4), SomFormFieldMeta(name="migrationPriority", type_name="String", description="Priority", hint="Migration priority of this entity", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="recordCount", type_name="String", description="Record Count", hint="Approximate number of records for this entity", order=0), SomFormFieldMeta(name="targetMapping", type_name="String", description="Target Mapping", hint="Where the entity maps to in the target system", order=1), SomFormFieldMeta(name="transformationNotes", type_name="String", description="Transformation Notes", hint="Transformations required during migration", order=2), SomFormFieldMeta(name="validationRules", type_name="String", description="Validation Rules", hint="Rules to verify migrated data correctness", order=3), SomFormFieldMeta(name="migrationPriority", type_name="String", description="Priority", hint="Migration priority of this entity", order=4)])),
     ]
 
 
@@ -13893,7 +13893,7 @@ def _mc_DataEntityReferenceEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="entityName", type_name="String", description="Entity Name", required=True, hint="Name of the data entity referenced", order=0), SomFormFieldMeta(name="crudOperations", type_name="String", description="CRUD Operations (Create, Read, Update, Delete)", required=True, hint="Which of Create, Read, Update, Delete are performed", order=1), SomFormFieldMeta(name="attributes", type_name="String", description="Attributes (specific fields involved)", hint="Specific fields/attributes involved", order=2), SomFormFieldMeta(name="volumeEstimate", type_name="String", description="Volume Estimate (records created/accessed)", hint="Estimated number of records created or accessed", order=3), SomFormFieldMeta(name="dataQualityRules", type_name="String", description="Data Quality Rules (validation, completeness)", hint="Validation and completeness rules for the data", order=4), SomFormFieldMeta(name="dataOwner", type_name="String", description="Data Owner", hint="Owner accountable for this data entity", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="crudOperations", type_name="String", description="CRUD Operations (Create, Read, Update, Delete)", required=True, hint="Which of Create, Read, Update, Delete are performed", order=0), SomFormFieldMeta(name="attributes", type_name="String", description="Attributes (specific fields involved)", hint="Specific fields/attributes involved", order=1), SomFormFieldMeta(name="volumeEstimate", type_name="String", description="Volume Estimate (records created/accessed)", hint="Estimated number of records created or accessed", order=2), SomFormFieldMeta(name="dataQualityRules", type_name="String", description="Data Quality Rules (validation, completeness)", hint="Validation and completeness rules for the data", order=3), SomFormFieldMeta(name="dataOwner", type_name="String", description="Data Owner", hint="Owner accountable for this data entity", order=4)])),
          SomMetaNode(
             class_name="DataEntityReferenceEntry",
             member_name="relatedEntity",
@@ -14011,7 +14011,7 @@ def _mc_DataGovernancePolicyEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="policyId", type_name="String", description="Policy ID", hint="Unique identifier", order=0), SomFormFieldMeta(name="policyName", type_name="String", description="Policy Name", required=True, hint="Name of the governance policy", order=1), SomFormFieldMeta(name="policyArea", type_name="String", description="Policy Area", hint="DataQuality / DataSecurity / DataPrivacy / DataAccess / MDM", order=2), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Brief description of the policy", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="policyId", type_name="String", description="Policy ID", hint="Unique identifier", order=0), SomFormFieldMeta(name="policyArea", type_name="String", description="Policy Area", hint="DataQuality / DataSecurity / DataPrivacy / DataAccess / MDM", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Brief description of the policy", order=2)])),
          SomMetaNode(
             class_name="DataGovernancePolicyEntry",
             member_name="lifecycle",
@@ -14095,7 +14095,7 @@ def _mc_DataIntegrationEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="integrationId", type_name="String", description="Integration ID", required=True, hint="Unique identifier", order=0), SomFormFieldMeta(name="integrationName", type_name="String", description="Integration Name", required=True, hint="Name of the integration", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What data is exchanged and why", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="integrationId", type_name="String", description="Integration ID", required=True, hint="Unique identifier", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What data is exchanged and why", order=1)])),
          SomMetaNode(
             class_name="DataIntegrationEntry",
             member_name="endpoints",
@@ -14955,7 +14955,7 @@ def _mc_DataQualityInitiativeEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="initiativeId", type_name="String", description="Initiative ID", hint="Unique identifier", order=0), SomFormFieldMeta(name="initiativeName", type_name="String", description="Initiative Name", required=True, hint="Name of the improvement initiative", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What the initiative aims to achieve", order=2), SomFormFieldMeta(name="targetIssues", type_name="String", description="Target Issues", hint="Quality issues this initiative addresses", order=3), SomFormFieldMeta(name="status", type_name="String", description="Status", hint="Planned / InProgress / Completed / OnHold", order=4), SomFormFieldMeta(name="expectedCompletion", type_name="String", description="Expected Completion", hint="Target completion date", order=5), SomFormFieldMeta(name="expectedImprovement", type_name="String", description="Expected Improvement", hint="Quantified improvement target", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="initiativeId", type_name="String", description="Initiative ID", hint="Unique identifier", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What the initiative aims to achieve", order=1), SomFormFieldMeta(name="targetIssues", type_name="String", description="Target Issues", hint="Quality issues this initiative addresses", order=2), SomFormFieldMeta(name="status", type_name="String", description="Status", hint="Planned / InProgress / Completed / OnHold", order=3), SomFormFieldMeta(name="expectedCompletion", type_name="String", description="Expected Completion", hint="Target completion date", order=4), SomFormFieldMeta(name="expectedImprovement", type_name="String", description="Expected Improvement", hint="Quantified improvement target", order=5)])),
     ]
 
 
@@ -14967,7 +14967,7 @@ def _mc_DataQualityIssueEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="issueId", type_name="String", description="Issue ID", required=True, hint="Unique identifier, e.g. DQ-001", order=0), SomFormFieldMeta(name="issueTitle", type_name="String", description="Issue Title", required=True, hint="Brief description of the quality issue", order=1), SomFormFieldMeta(name="description", type_name="String", description="Detailed Description", hint="Full description of the issue and its manifestation", order=2), SomFormFieldMeta(name="affectedDataSource", type_name="String", description="Affected Data Source", hint="Which data source(s) are impacted", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="issueId", type_name="String", description="Issue ID", required=True, hint="Unique identifier, e.g. DQ-001", order=0), SomFormFieldMeta(name="description", type_name="String", description="Detailed Description", hint="Full description of the issue and its manifestation", order=1), SomFormFieldMeta(name="affectedDataSource", type_name="String", description="Affected Data Source", hint="Which data source(s) are impacted", order=2)])),
          SomMetaNode(
             class_name="DataQualityIssueEntry",
             member_name="classification",
@@ -15087,7 +15087,7 @@ def _mc_DataSourceEntityEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="entityName", type_name="String", description="Entity Name", required=True, hint="Name of the entity/table/collection", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this entity represents", order=1), SomFormFieldMeta(name="recordCount", type_name="String", description="Record Count", hint="Approximate number of records", order=2), SomFormFieldMeta(name="primaryKey", type_name="String", description="Primary Key", hint="Key field(s) identifying unique records", order=3), SomFormFieldMeta(name="relationships", type_name="String", description="Key Relationships", hint="Important relationships to other entities", order=4), SomFormFieldMeta(name="sensitiveFields", type_name="String", description="Sensitive Fields", hint="Fields containing sensitive data", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this entity represents", order=0), SomFormFieldMeta(name="recordCount", type_name="String", description="Record Count", hint="Approximate number of records", order=1), SomFormFieldMeta(name="primaryKey", type_name="String", description="Primary Key", hint="Key field(s) identifying unique records", order=2), SomFormFieldMeta(name="relationships", type_name="String", description="Key Relationships", hint="Important relationships to other entities", order=3), SomFormFieldMeta(name="sensitiveFields", type_name="String", description="Sensitive Fields", hint="Fields containing sensitive data", order=4)])),
     ]
 
 
@@ -15431,7 +15431,7 @@ def _mc_DatabaseCompatibilityEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="databaseName", type_name="String", description="Database", required=True, hint="E.g., PostgreSQL, MySQL, MongoDB, SQLite", order=0), SomFormFieldMeta(name="databaseType", type_name="String", description="Type", hint="RDBMS, Document, Key-Value, Graph", order=1), SomFormFieldMeta(name="minVersion", type_name="String", description="Minimum Version", required=True, hint="Minimum supported version", order=2), SomFormFieldMeta(name="maxVersion", type_name="String", description="Maximum Version", hint="Maximum tested version", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="databaseType", type_name="String", description="Type", hint="RDBMS, Document, Key-Value, Graph", order=0), SomFormFieldMeta(name="minVersion", type_name="String", description="Minimum Version", required=True, hint="Minimum supported version", order=1), SomFormFieldMeta(name="maxVersion", type_name="String", description="Maximum Version", hint="Maximum tested version", order=2)])),
          SomMetaNode(
             class_name="DatabaseCompatibilityEntry",
             member_name="support",
@@ -15577,7 +15577,7 @@ def _mc_DecisionMakerEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="name", type_name="String", description="Name", required=True, hint="Full name of the decision maker", order=0), SomFormFieldMeta(name="title", type_name="String", description="Title/Role", hint="Formal title or organizational role", order=1), SomFormFieldMeta(name="department", type_name="String", description="Department", hint="Department the decision maker belongs to", order=2), SomFormFieldMeta(name="decisionAuthority", type_name="String", description="Authority (Executive Sponsor, Steering Committee, Budget Owner, etc.)", hint="Type of authority this person holds", order=3), SomFormFieldMeta(name="decisionDomains", type_name="String", description="Decision Domains (Scope, Budget, Timeline, Technology, Resources)", hint="Areas where this person makes decisions", order=4), SomFormFieldMeta(name="influenceLevel", type_name="String", description="Influence Level (High, Medium, Low)", hint="Degree of influence over project outcomes", order=5), SomFormFieldMeta(name="approvalRequired", type_name="String", description="Approval Required For", hint="What requires this person to sign off", order=6), SomFormFieldMeta(name="availabilityConstraints", type_name="String", description="Availability/Constraints", hint="Limits on availability or engagement", order=7), SomFormFieldMeta(name="stakeholderAlignment", type_name="String", description="Stakeholder Alignment (Supportive, Neutral, Skeptical)", hint="Current stance toward the project", order=8), SomFormFieldMeta(name="communicationPreference", type_name="String", description="Communication Preference", hint="Preferred channel and cadence for updates", order=9)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="department", type_name="String", description="Department", hint="Department the decision maker belongs to", order=0), SomFormFieldMeta(name="decisionAuthority", type_name="String", description="Authority (Executive Sponsor, Steering Committee, Budget Owner, etc.)", hint="Type of authority this person holds", order=1), SomFormFieldMeta(name="decisionDomains", type_name="String", description="Decision Domains (Scope, Budget, Timeline, Technology, Resources)", hint="Areas where this person makes decisions", order=2), SomFormFieldMeta(name="influenceLevel", type_name="String", description="Influence Level (High, Medium, Low)", hint="Degree of influence over project outcomes", order=3), SomFormFieldMeta(name="approvalRequired", type_name="String", description="Approval Required For", hint="What requires this person to sign off", order=4), SomFormFieldMeta(name="availabilityConstraints", type_name="String", description="Availability/Constraints", hint="Limits on availability or engagement", order=5), SomFormFieldMeta(name="stakeholderAlignment", type_name="String", description="Stakeholder Alignment (Supportive, Neutral, Skeptical)", hint="Current stance toward the project", order=6), SomFormFieldMeta(name="communicationPreference", type_name="String", description="Communication Preference", hint="Preferred channel and cadence for updates", order=7)])),
     ]
 
 
@@ -15903,7 +15903,7 @@ def _mc_DeliverableEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="deliverableId", type_name="String", description="Deliverable ID", required=True, hint="Unique identifier — e.g. DEL-SOF-001", order=0), SomFormFieldMeta(name="deliverableName", type_name="String", description="Deliverable Name", required=True, hint="Concise name — e.g. \"Customer Management API\"", order=1), SomFormFieldMeta(name="priority", type_name="String", description="Priority", hint="Critical / High / Medium / Low", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="deliverableId", type_name="String", description="Deliverable ID", required=True, hint="Unique identifier — e.g. DEL-SOF-001", order=0), SomFormFieldMeta(name="priority", type_name="String", description="Priority", hint="Critical / High / Medium / Low", order=1)])),
          SomMetaNode(
             class_name="DeliverableEntry",
             member_name="identity",
@@ -16548,7 +16548,7 @@ def _mc_DeploymentEnvironmentEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="environmentName", type_name="String", description="Environment Name", required=True, hint="E.g., dev, staging, production", order=0), SomFormFieldMeta(name="environmentType", type_name="String", description="Type", hint="Development, Staging, Production", order=1), SomFormFieldMeta(name="url", type_name="String", description="URL", hint="Environment URL", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="environmentType", type_name="String", description="Type", hint="Development, Staging, Production", order=0), SomFormFieldMeta(name="url", type_name="String", description="URL", hint="Environment URL", order=1)])),
          SomMetaNode(
             class_name="DeploymentEnvironmentEntry",
             member_name="deployment",
@@ -16811,7 +16811,7 @@ def _mc_DeploymentTargetEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="targetName", type_name="String", description="Target Name", required=True, hint="E.g., Production Web, iOS App Store, Docker Hub", order=0), SomFormFieldMeta(name="targetCategory", type_name="String", description="Category", hint="Web, Mobile App, Desktop App, Cloud Service, Container, Embedded", order=1), SomFormFieldMeta(name="targetEnvironment", type_name="String", description="Environment", hint="Development, Staging, Production", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="targetCategory", type_name="String", description="Category", hint="Web, Mobile App, Desktop App, Cloud Service, Container, Embedded", order=0), SomFormFieldMeta(name="targetEnvironment", type_name="String", description="Environment", hint="Development, Staging, Production", order=1)])),
          SomMetaNode(
             class_name="DeploymentTargetEntry",
             member_name="platform",
@@ -16947,7 +16947,7 @@ def _mc_DesignGoalEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="goalName", type_name="String", description="Goal Name", required=True, hint="A concise label for the design goal", order=0), SomFormFieldMeta(name="description", type_name="String", description="Goal Description", hint="What this goal means for the UI", order=1), SomFormFieldMeta(name="priority", type_name="String", description="Priority", hint="Critical/High/Medium/Low", order=2), SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Usability/Performance/Accessibility/Aesthetics/Engagement", order=3), SomFormFieldMeta(name="measurementCriteria", type_name="String", description="Measurement Criteria", hint="How we verify goal achievement", order=4), SomFormFieldMeta(name="targetMetric", type_name="String", description="Target Metric", hint="Quantifiable target if applicable", order=5), SomFormFieldMeta(name="relatedPrinciples", type_name="String", description="Related Principles", hint="Design principles that support this goal", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="description", type_name="String", description="Goal Description", hint="What this goal means for the UI", order=0), SomFormFieldMeta(name="priority", type_name="String", description="Priority", hint="Critical/High/Medium/Low", order=1), SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Usability/Performance/Accessibility/Aesthetics/Engagement", order=2), SomFormFieldMeta(name="measurementCriteria", type_name="String", description="Measurement Criteria", hint="How we verify goal achievement", order=3), SomFormFieldMeta(name="targetMetric", type_name="String", description="Target Metric", hint="Quantifiable target if applicable", order=4), SomFormFieldMeta(name="relatedPrinciples", type_name="String", description="Related Principles", hint="Design principles that support this goal", order=5)])),
     ]
 
 
@@ -16992,7 +16992,7 @@ def _mc_DesignPatternEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="patternName", type_name="String", description="Pattern Name", required=True, hint="E.g., Repository, Factory, Observer, State, Command", order=0), SomFormFieldMeta(name="patternCategory", type_name="String", description="Category", required=True, hint="Creational, Structural, Behavioral, Architectural, UI", order=1), SomFormFieldMeta(name="patternSource", type_name="String", description="Source", hint="GoF, Enterprise Patterns, DDD, UI Patterns", order=2), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", required=True, hint="What problem this pattern solves", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="patternCategory", type_name="String", description="Category", required=True, hint="Creational, Structural, Behavioral, Architectural, UI", order=0), SomFormFieldMeta(name="patternSource", type_name="String", description="Source", hint="GoF, Enterprise Patterns, DDD, UI Patterns", order=1), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", required=True, hint="What problem this pattern solves", order=2)])),
          SomMetaNode(
             class_name="DesignPatternEntry",
             member_name="applicability",
@@ -17171,7 +17171,7 @@ def _mc_DesignPrincipleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="principleName", type_name="String", description="Principle Name", required=True, hint="A clear name for the design principle", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this principle means", order=1), SomFormFieldMeta(name="rationale", type_name="String", description="Rationale", hint="Why this principle matters", order=2), SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Visual/Interaction/Accessibility/Information/Navigation", order=3), SomFormFieldMeta(name="examples", type_name="String", description="Examples", hint="How the principle manifests in the UI", order=4), SomFormFieldMeta(name="exceptions", type_name="String", description="Exceptions", hint="When deviation is acceptable", order=5), SomFormFieldMeta(name="sourceReference", type_name="String", description="Source Reference", hint="Design system or external reference", order=6), SomFormFieldMeta(name="relatedGoals", type_name="String", description="Related Goals", hint="Design goals this principle supports", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this principle means", order=0), SomFormFieldMeta(name="rationale", type_name="String", description="Rationale", hint="Why this principle matters", order=1), SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Visual/Interaction/Accessibility/Information/Navigation", order=2), SomFormFieldMeta(name="examples", type_name="String", description="Examples", hint="How the principle manifests in the UI", order=3), SomFormFieldMeta(name="exceptions", type_name="String", description="Exceptions", hint="When deviation is acceptable", order=4), SomFormFieldMeta(name="sourceReference", type_name="String", description="Source Reference", hint="Design system or external reference", order=5), SomFormFieldMeta(name="relatedGoals", type_name="String", description="Related Goals", hint="Design goals this principle supports", order=6)])),
     ]
 
 
@@ -17392,7 +17392,7 @@ def _mc_DevelopmentConventionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="conventionName", type_name="String", description="Convention Name", required=True, hint="Name of the development convention", order=0), SomFormFieldMeta(name="conventionCategory", type_name="String", description="Category", required=True, hint="Version Control, Code Review, Branching, Commit, CI/CD, Deployment", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", required=True, hint="What the convention requires", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="conventionCategory", type_name="String", description="Category", required=True, hint="Version Control, Code Review, Branching, Commit, CI/CD, Deployment", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", required=True, hint="What the convention requires", order=1)])),
          SomMetaNode(
             class_name="DevelopmentConventionEntry",
             member_name="overview",
@@ -17785,7 +17785,7 @@ def _mc_DisplayPropertyEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="displayLabel", type_name="String", description="Display Label", hint="User-friendly label for UI", order=0), SomFormFieldMeta(name="displayOrder", type_name="String", description="Display Order", hint="Order when displaying in forms/tables", order=1), SomFormFieldMeta(name="displayGroup", type_name="String", description="Display Group", hint="Grouping for UI layout", order=2), SomFormFieldMeta(name="helpText", type_name="String", description="Help Text", hint="User assistance text for forms", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="displayOrder", type_name="String", description="Display Order", hint="Order when displaying in forms/tables", order=0), SomFormFieldMeta(name="displayGroup", type_name="String", description="Display Group", hint="Grouping for UI layout", order=1), SomFormFieldMeta(name="helpText", type_name="String", description="Help Text", hint="User assistance text for forms", order=2)])),
     ]
 
 
@@ -17964,7 +17964,7 @@ def _mc_DistributionRecipientEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="name", type_name="String", description="Name", required=True, hint="Full name of the recipient", order=0), SomFormFieldMeta(name="role", type_name="String", description="Role", hint="Project or organizational role", order=1), SomFormFieldMeta(name="organization", type_name="String", description="Organization", hint="Department or company", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="role", type_name="String", description="Role", hint="Project or organizational role", order=0), SomFormFieldMeta(name="organization", type_name="String", description="Organization", hint="Department or company", order=1)])),
          SomMetaNode(
             class_name="DistributionRecipientEntry",
             member_name="contact",
@@ -18757,7 +18757,7 @@ def _mc_DomainBusinessRuleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="ruleId", type_name="String", description="Rule ID", required=True, hint="Unique identifier for this business rule", order=0), SomFormFieldMeta(name="ruleName", type_name="String", description="Rule Name", required=True, hint="Short descriptive name for this rule", order=1), SomFormFieldMeta(name="ruleType", type_name="String", description="Rule Type (Constraint, Calculation, Derivation, Action-Trigger, Authorization, Validation)", required=True, hint="Constraint / Calculation / Derivation / Action-Trigger / Authorization / Validation", order=2), SomFormFieldMeta(name="description", type_name="String", description="Description (plain language)", required=True, hint="Plain-language statement of what this rule requires", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="ruleId", type_name="String", description="Rule ID", required=True, hint="Unique identifier for this business rule", order=0), SomFormFieldMeta(name="ruleType", type_name="String", description="Rule Type (Constraint, Calculation, Derivation, Action-Trigger, Authorization, Validation)", required=True, hint="Constraint / Calculation / Derivation / Action-Trigger / Authorization / Validation", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description (plain language)", required=True, hint="Plain-language statement of what this rule requires", order=2)])),
          SomMetaNode(
             class_name="DomainBusinessRuleEntry",
             member_name="definition",
@@ -18875,7 +18875,7 @@ def _mc_DomainEventEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="eventName", type_name="String", description="Event Name (past tense, e.g., OrderPlaced)", required=True, hint="Past-tense event name, e.g., OrderPlaced", order=0), SomFormFieldMeta(name="eventDescription", type_name="String", description="Event Description", required=True, hint="What this event represents in the business", order=1), SomFormFieldMeta(name="eventType", type_name="String", description="Event Type (State Change, Action Completed, Time-based, External)", hint="State Change / Action Completed / Time-based / External", order=2), SomFormFieldMeta(name="trigger", type_name="String", description="Trigger (what causes this event)", hint="What causes this event to occur", order=3), SomFormFieldMeta(name="sourceEntity", type_name="String", description="Source Entity (which concept generates this event)", hint="Which domain concept generates this event", order=4), SomFormFieldMeta(name="eventData", type_name="String", description="Event Data (what information is carried with the event)", hint="Information carried in the event payload", order=5), SomFormFieldMeta(name="subscribers", type_name="String", description="Subscribers (who/what reacts to this event)", hint="Who or what reacts to this event", order=6), SomFormFieldMeta(name="reactions", type_name="String", description="Reactions (what happens when this event occurs)", hint="What happens in response to this event", order=7), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency (how often this event occurs)", hint="How often this event occurs", order=8), SomFormFieldMeta(name="businessImpact", type_name="String", description="Business Impact (significance of this event)", hint="Significance of this event to the business", order=9)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="eventDescription", type_name="String", description="Event Description", required=True, hint="What this event represents in the business", order=0), SomFormFieldMeta(name="eventType", type_name="String", description="Event Type (State Change, Action Completed, Time-based, External)", hint="State Change / Action Completed / Time-based / External", order=1), SomFormFieldMeta(name="trigger", type_name="String", description="Trigger (what causes this event)", hint="What causes this event to occur", order=2), SomFormFieldMeta(name="sourceEntity", type_name="String", description="Source Entity (which concept generates this event)", hint="Which domain concept generates this event", order=3), SomFormFieldMeta(name="eventData", type_name="String", description="Event Data (what information is carried with the event)", hint="Information carried in the event payload", order=4), SomFormFieldMeta(name="subscribers", type_name="String", description="Subscribers (who/what reacts to this event)", hint="Who or what reacts to this event", order=5), SomFormFieldMeta(name="reactions", type_name="String", description="Reactions (what happens when this event occurs)", hint="What happens in response to this event", order=6), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency (how often this event occurs)", hint="How often this event occurs", order=7), SomFormFieldMeta(name="businessImpact", type_name="String", description="Business Impact (significance of this event)", hint="Significance of this event to the business", order=8)])),
     ]
 
 
@@ -18943,7 +18943,7 @@ def _mc_DomainProcessEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="processName", type_name="String", description="Process Name", required=True, hint="Name of the business process", order=0), SomFormFieldMeta(name="processDescription", type_name="String", description="Process Description", required=True, hint="What this process does and why it exists", order=1), SomFormFieldMeta(name="processType", type_name="String", description="Process Type (Core, Support, Management)", hint="Core / Support / Management", order=2), SomFormFieldMeta(name="trigger", type_name="String", description="Trigger (what initiates this process)", hint="What event or condition initiates this process", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="processDescription", type_name="String", description="Process Description", required=True, hint="What this process does and why it exists", order=0), SomFormFieldMeta(name="processType", type_name="String", description="Process Type (Core, Support, Management)", hint="Core / Support / Management", order=1), SomFormFieldMeta(name="trigger", type_name="String", description="Trigger (what initiates this process)", hint="What event or condition initiates this process", order=2)])),
          SomMetaNode(
             class_name="DomainProcessEntry",
             member_name="flow",
@@ -19158,7 +19158,7 @@ def _mc_EncryptedDataCategoryEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="categoryName", type_name="String", description="Category Name", required=True, hint="Name of the data category requiring encryption (e.g. PersonalData, FinancialRecords, HealthRecords, Credentials, APIKeys)", order=0), SomFormFieldMeta(name="dataClassification", type_name="String", description="Data Classification", required=True, hint="Public | Internal | Confidential | Restricted | Secret — sensitivity classification of the data category", order=1), SomFormFieldMeta(name="encryptionApproach", type_name="String", description="Encryption Approach", hint="FieldLevel | ColumnLevel | TableLevel | DatabaseLevel | FileLevel | VolumeLevel — at what granularity this data category is encrypted", order=2), SomFormFieldMeta(name="algorithmOverride", type_name="String", description="Algorithm Override", hint="Algorithm and key length if different from the default policy (e.g. AES-256-GCM, ChaCha20-Poly1305); blank = use default", order=3), SomFormFieldMeta(name="encryptedFields", type_name="String", description="Encrypted Fields", hint="Comma-separated list of specific fields or columns encrypted for this category (e.g. ssn, creditCardNumber, bankAccount, dateOfBirth)", order=4), SomFormFieldMeta(name="tokenizationUsed", type_name="bool", description="Tokenization Used", hint="Yes | No — whether tokenization is used instead of or in addition to encryption for this data category", order=5), SomFormFieldMeta(name="dataRetentionDays", type_name="int", description="Data Retention (Days)", hint="Maximum retention period for this encrypted data category in days; 0 = indefinite", order=6), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Additional notes for this encrypted data category", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="dataClassification", type_name="String", description="Data Classification", required=True, hint="Public | Internal | Confidential | Restricted | Secret — sensitivity classification of the data category", order=0), SomFormFieldMeta(name="encryptionApproach", type_name="String", description="Encryption Approach", hint="FieldLevel | ColumnLevel | TableLevel | DatabaseLevel | FileLevel | VolumeLevel — at what granularity this data category is encrypted", order=1), SomFormFieldMeta(name="algorithmOverride", type_name="String", description="Algorithm Override", hint="Algorithm and key length if different from the default policy (e.g. AES-256-GCM, ChaCha20-Poly1305); blank = use default", order=2), SomFormFieldMeta(name="encryptedFields", type_name="String", description="Encrypted Fields", hint="Comma-separated list of specific fields or columns encrypted for this category (e.g. ssn, creditCardNumber, bankAccount, dateOfBirth)", order=3), SomFormFieldMeta(name="tokenizationUsed", type_name="bool", description="Tokenization Used", hint="Yes | No — whether tokenization is used instead of or in addition to encryption for this data category", order=4), SomFormFieldMeta(name="dataRetentionDays", type_name="int", description="Data Retention (Days)", hint="Maximum retention period for this encrypted data category in days; 0 = indefinite", order=5), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Additional notes for this encrypted data category", order=6)])),
     ]
 
 
@@ -19365,7 +19365,7 @@ def _mc_EnterpriseSystemCompatibilityEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="systemName", type_name="String", description="System Name", required=True, hint="E.g., SAP, Salesforce, Oracle ERP", order=0), SomFormFieldMeta(name="systemType", type_name="String", description="System Type", hint="ERP, CRM, HR, Finance, Supply Chain", order=1), SomFormFieldMeta(name="vendor", type_name="String", description="Vendor", hint="System vendor", order=2), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Supported versions", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="systemType", type_name="String", description="System Type", hint="ERP, CRM, HR, Finance, Supply Chain", order=0), SomFormFieldMeta(name="vendor", type_name="String", description="Vendor", hint="System vendor", order=1), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Supported versions", order=2)])),
          SomMetaNode(
             class_name="EnterpriseSystemCompatibilityEntry",
             member_name="integration",
@@ -19453,7 +19453,7 @@ def _mc_EntityConstraintEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="constraintName", type_name="String", description="Constraint Name", required=True, hint="Unique identifier for the constraint", order=0), SomFormFieldMeta(name="constraintType", type_name="String", description="Constraint Type", hint="Check | Unique | Exclusion | Custom", order=1), SomFormFieldMeta(name="expression", type_name="String", description="Expression", hint="Constraint expression or rule", order=2), SomFormFieldMeta(name="errorMessage", type_name="String", description="Error Message", hint="User-friendly message when constraint violated", order=3), SomFormFieldMeta(name="enforcementLevel", type_name="String", description="Enforcement Level", hint="Database | Application | Both", order=4), SomFormFieldMeta(name="isDeferred", type_name="String", description="Is Deferred", hint="Whether check can be deferred to transaction end: Yes | No", order=5), SomFormFieldMeta(name="businessRule", type_name="String", description="Business Rule Reference", hint="Related business rule ID", order=6, refers_to=["BIRU.ruleId"])])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="constraintType", type_name="String", description="Constraint Type", hint="Check | Unique | Exclusion | Custom", order=0), SomFormFieldMeta(name="expression", type_name="String", description="Expression", hint="Constraint expression or rule", order=1), SomFormFieldMeta(name="errorMessage", type_name="String", description="Error Message", hint="User-friendly message when constraint violated", order=2), SomFormFieldMeta(name="enforcementLevel", type_name="String", description="Enforcement Level", hint="Database | Application | Both", order=3), SomFormFieldMeta(name="isDeferred", type_name="String", description="Is Deferred", hint="Whether check can be deferred to transaction end: Yes | No", order=4), SomFormFieldMeta(name="businessRule", type_name="String", description="Business Rule Reference", hint="Related business rule ID", order=5, refers_to=["BIRU.ruleId"])])),
     ]
 
 
@@ -19466,7 +19466,7 @@ def _mc_EntityFollowUpEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="entityName", type_name="String", description="Entity Name", required=True, hint="Name of the data entity these facets apply to (matches dataModel.entities)", order=0), SomFormFieldMeta(name="entityAlias", type_name="String", description="Alias/Abbreviation", hint="Short alias of the referenced entity (e.g., CUST, ORD)", order=1)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="entityAlias", type_name="String", description="Alias/Abbreviation", hint="Short alias of the referenced entity (e.g., CUST, ORD)", order=0)])),
          SomMetaNode(
             class_name="EntityFollowUpEntry",
             member_name="volumeMetrics",
@@ -19522,7 +19522,7 @@ def _mc_EntityIndexEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="indexName", type_name="String", description="Index Name", required=True, hint="Unique identifier for the index", order=0), SomFormFieldMeta(name="indexType", type_name="String", description="Index Type", hint="BTree | Hash | GiST | GIN | FullText | Spatial", order=1), SomFormFieldMeta(name="columns", type_name="String", description="Column(s)", hint="Indexed columns in order, with direction (e.g., \"created_at DESC\")", order=2), SomFormFieldMeta(name="includeColumns", type_name="String", description="Include Columns", hint="Non-key columns to include (covering index)", order=3), SomFormFieldMeta(name="isUnique", type_name="String", description="Is Unique", hint="Whether index enforces uniqueness: Yes | No", order=4), SomFormFieldMeta(name="isClustered", type_name="String", description="Is Clustered", hint="Whether index determines physical row order: Yes | No", order=5), SomFormFieldMeta(name="filterCondition", type_name="String", description="Filter Condition", hint="Partial index WHERE clause", order=6), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="Query patterns this index optimizes", order=7), SomFormFieldMeta(name="estimatedSize", type_name="String", description="Estimated Size", hint="Expected index size", order=8)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="indexType", type_name="String", description="Index Type", hint="BTree | Hash | GiST | GIN | FullText | Spatial", order=0), SomFormFieldMeta(name="columns", type_name="String", description="Column(s)", hint="Indexed columns in order, with direction (e.g., \"created_at DESC\")", order=1), SomFormFieldMeta(name="includeColumns", type_name="String", description="Include Columns", hint="Non-key columns to include (covering index)", order=2), SomFormFieldMeta(name="isUnique", type_name="String", description="Is Unique", hint="Whether index enforces uniqueness: Yes | No", order=3), SomFormFieldMeta(name="isClustered", type_name="String", description="Is Clustered", hint="Whether index determines physical row order: Yes | No", order=4), SomFormFieldMeta(name="filterCondition", type_name="String", description="Filter Condition", hint="Partial index WHERE clause", order=5), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="Query patterns this index optimizes", order=6), SomFormFieldMeta(name="estimatedSize", type_name="String", description="Estimated Size", hint="Expected index size", order=7)])),
     ]
 
 
@@ -19535,7 +19535,7 @@ def _mc_EntityRelationshipEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="relationshipName", type_name="String", description="Relationship Name", required=True, hint="Verb phrase describing the relationship (e.g., \"places\", \"contains\")", order=0), SomFormFieldMeta(name="relationshipType", type_name="String", description="Relationship Type", hint="Association | Aggregation | Composition | Generalization | Dependency", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Business meaning of this relationship", order=2), SomFormFieldMeta(name="businessJustification", type_name="String", description="Business Justification", hint="Why this relationship exists from business perspective", order=3), SomFormFieldMeta(name="implementationType", type_name="String", description="Implementation Type", hint="ForeignKey | JunctionTable | Embedded | Reference", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="relationshipType", type_name="String", description="Relationship Type", hint="Association | Aggregation | Composition | Generalization | Dependency", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Business meaning of this relationship", order=1), SomFormFieldMeta(name="businessJustification", type_name="String", description="Business Justification", hint="Why this relationship exists from business perspective", order=2), SomFormFieldMeta(name="implementationType", type_name="String", description="Implementation Type", hint="ForeignKey | JunctionTable | Embedded | Reference", order=3)])),
          SomMetaNode(
             class_name="EntityRelationshipEntry",
             member_name="participants",
@@ -19648,7 +19648,7 @@ def _mc_EnvironmentEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="environmentName", type_name="String", description="Environment Name", required=True, hint="Canonical name, e.g. Production, Staging-EU, Dev-Feature", order=0), SomFormFieldMeta(name="environmentId", type_name="String", description="Environment ID", hint="Unique code, e.g. ENV-PROD-01", order=1), SomFormFieldMeta(name="environmentType", type_name="String", description="Environment Type", hint="Development / Testing / QA / UAT / Staging / Production / DR", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="environmentId", type_name="String", description="Environment ID", hint="Unique code, e.g. ENV-PROD-01", order=0), SomFormFieldMeta(name="environmentType", type_name="String", description="Environment Type", hint="Development / Testing / QA / UAT / Staging / Production / DR", order=1)])),
          SomMetaNode(
             class_name="EnvironmentEntry",
             member_name="identity",
@@ -20448,7 +20448,7 @@ def _mc_ExistingSystemEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="systemName", type_name="String", description="System Name", required=True, hint="Common name of the system, e.g. \"SAP ERP\", \"Salesforce CRM\".", order=0), SomFormFieldMeta(name="systemId", type_name="String", description="System ID/Code (internal identifier)", hint="Internal catalogue code or CMDB identifier, if any.", order=1), SomFormFieldMeta(name="systemVersion", type_name="String", description="Current Version", hint="Release or version currently in production, e.g. \"ECC 6.0\".", order=2), SomFormFieldMeta(name="systemType", type_name="String", description="System Type (ERP, CRM, Custom Development, COTS, SaaS, etc.)", hint="Classify the system: ERP, CRM, Custom Development, COTS, SaaS.", order=3), SomFormFieldMeta(name="vendor", type_name="String", description="Vendor (if commercial software)", hint="Software publisher, e.g. \"SAP\", \"Salesforce\" — blank if in-house.", order=4), SomFormFieldMeta(name="licenseType", type_name="String", description="License Type (Enterprise, Per-User, Subscription, Open Source, etc.)", hint="Licensing model: Enterprise, Per-User, Subscription, Open Source.", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="systemId", type_name="String", description="System ID/Code (internal identifier)", hint="Internal catalogue code or CMDB identifier, if any.", order=0), SomFormFieldMeta(name="systemVersion", type_name="String", description="Current Version", hint="Release or version currently in production, e.g. \"ECC 6.0\".", order=1), SomFormFieldMeta(name="systemType", type_name="String", description="System Type (ERP, CRM, Custom Development, COTS, SaaS, etc.)", hint="Classify the system: ERP, CRM, Custom Development, COTS, SaaS.", order=2), SomFormFieldMeta(name="vendor", type_name="String", description="Vendor (if commercial software)", hint="Software publisher, e.g. \"SAP\", \"Salesforce\" — blank if in-house.", order=3), SomFormFieldMeta(name="licenseType", type_name="String", description="License Type (Enterprise, Per-User, Subscription, Open Source, etc.)", hint="Licensing model: Enterprise, Per-User, Subscription, Open Source.", order=4)])),
          SomMetaNode(
             class_name="ExistingSystemEntry",
             member_name="technology",
@@ -20994,7 +20994,7 @@ def _mc_ExportFormatEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="exportId", type_name="String", description="Export ID", required=True, hint="Unique identifier, e.g. EXP-001", order=0), SomFormFieldMeta(name="formatName", type_name="String", description="Format Name", required=True, hint="Human-readable name, e.g. Monthly Orders CSV", order=1), SomFormFieldMeta(name="formatType", type_name="String", description="Format Type", hint="CSV / Excel / PDF / JSON / XML / HTML / Fixed-Width", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="exportId", type_name="String", description="Export ID", required=True, hint="Unique identifier, e.g. EXP-001", order=0), SomFormFieldMeta(name="formatType", type_name="String", description="Format Type", hint="CSV / Excel / PDF / JSON / XML / HTML / Fixed-Width", order=1)])),
          SomMetaNode(
             class_name="ExportFormatEntry",
             member_name="identity",
@@ -21124,7 +21124,7 @@ def _mc_ExportTemplateEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="templateId", type_name="String", description="Template ID", required=True, hint="Unique identifier, e.g. TPL-001", order=0), SomFormFieldMeta(name="templateName", type_name="String", description="Template Name", required=True, hint="Human-readable name, e.g. Standard Customer Export", order=1), SomFormFieldMeta(name="baseFormatType", type_name="String", description="Base Format Type", hint="CSV / Excel / PDF / JSON / XML / HTML", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="templateId", type_name="String", description="Template ID", required=True, hint="Unique identifier, e.g. TPL-001", order=0), SomFormFieldMeta(name="baseFormatType", type_name="String", description="Base Format Type", hint="CSV / Excel / PDF / JSON / XML / HTML", order=1)])),
          SomMetaNode(
             class_name="ExportTemplateEntry",
             member_name="format",
@@ -21224,7 +21224,7 @@ def _mc_ExternalActorEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="actorName", type_name="String", description="Actor Name", required=True, hint="The name of this external actor", order=0), SomFormFieldMeta(name="actorType", type_name="String", description="Actor Type (Internal User, External User, Organization, Partner, Customer, Regulator, etc.)", required=True, hint="The category of actor", order=1), SomFormFieldMeta(name="description", type_name="String", description="Actor Description", hint="A short description of this actor", order=2), SomFormFieldMeta(name="interactionPurpose", type_name="String", description="Interaction Purpose (why they interact with the system)", hint="Why this actor interacts with the system", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="actorType", type_name="String", description="Actor Type (Internal User, External User, Organization, Partner, Customer, Regulator, etc.)", required=True, hint="The category of actor", order=0), SomFormFieldMeta(name="description", type_name="String", description="Actor Description", hint="A short description of this actor", order=1), SomFormFieldMeta(name="interactionPurpose", type_name="String", description="Interaction Purpose (why they interact with the system)", hint="Why this actor interacts with the system", order=2)])),
          SomMetaNode(
             class_name="ExternalActorEntry",
             member_name="interaction",
@@ -21386,7 +21386,7 @@ def _mc_ExternalInterfaceEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="interfaceId", type_name="String", description="Interface ID (e.g., IF-PAY-001)", required=True, hint="Unique stable identifier for this interface", order=0), SomFormFieldMeta(name="interfaceName", type_name="String", description="Interface Name", required=True, hint="Human-readable name of the interface", order=1), SomFormFieldMeta(name="externalSystem", type_name="String", description="External System Name", required=True, hint="Name of the external system being integrated", order=2), SomFormFieldMeta(name="externalSystemVendor", type_name="String", description="Vendor/Provider", hint="Vendor or provider that owns the external system", order=3), SomFormFieldMeta(name="interfaceCategory", type_name="String", description="Category (Payment, Identity, Data, Messaging, etc.)", hint="Functional category of the interface", order=4), SomFormFieldMeta(name="integrationPattern", type_name="String", description="Pattern (Request-Reply, Fire-and-Forget, Pub-Sub, Event-Driven)", hint="Primary integration pattern used", order=5), SomFormFieldMeta(name="priority", type_name="String", description="Priority (Critical, High, Medium, Low)", hint="Relative importance of this interface", order=6), SomFormFieldMeta(name="status", type_name="String", description="Status (Existing, New, To be replaced)", hint="Lifecycle status of the interface", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="interfaceId", type_name="String", description="Interface ID (e.g., IF-PAY-001)", required=True, hint="Unique stable identifier for this interface", order=0), SomFormFieldMeta(name="externalSystem", type_name="String", description="External System Name", required=True, hint="Name of the external system being integrated", order=1), SomFormFieldMeta(name="externalSystemVendor", type_name="String", description="Vendor/Provider", hint="Vendor or provider that owns the external system", order=2), SomFormFieldMeta(name="interfaceCategory", type_name="String", description="Category (Payment, Identity, Data, Messaging, etc.)", hint="Functional category of the interface", order=3), SomFormFieldMeta(name="integrationPattern", type_name="String", description="Pattern (Request-Reply, Fire-and-Forget, Pub-Sub, Event-Driven)", hint="Primary integration pattern used", order=4), SomFormFieldMeta(name="priority", type_name="String", description="Priority (Critical, High, Medium, Low)", hint="Relative importance of this interface", order=5), SomFormFieldMeta(name="status", type_name="String", description="Status (Existing, New, To be replaced)", hint="Lifecycle status of the interface", order=6)])),
          _cx("InterfaceBusinessContext", s, _mc_InterfaceBusinessContext,
             lambda r, c: SomMetaNode(
                 class_name="InterfaceBusinessContext",
@@ -21590,7 +21590,7 @@ def _mc_ExternalPartnerConnectionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="partnerName", type_name="String", description="Partner Name", required=True, hint="Name of the external partner or system", order=0), SomFormFieldMeta(name="partnerType", type_name="String", description="Partner Type", hint="Vendor, customer, regulatory body, payment provider", order=1), SomFormFieldMeta(name="connectionPurpose", type_name="String", description="Connection Purpose", hint="Business purpose of this integration", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="partnerType", type_name="String", description="Partner Type", hint="Vendor, customer, regulatory body, payment provider", order=0), SomFormFieldMeta(name="connectionPurpose", type_name="String", description="Connection Purpose", hint="Business purpose of this integration", order=1)])),
          SomMetaNode(
             class_name="ExternalPartnerConnectionEntry",
             member_name="protocol",
@@ -21701,7 +21701,7 @@ def _mc_ExternalServiceDependencyEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="serviceName", type_name="String", description="External Service Name", required=True, hint="Name of the external service, e.g. \"Stripe Payments\".", order=0), SomFormFieldMeta(name="serviceProvider", type_name="String", description="Service Provider/Vendor", hint="Company providing the service, e.g. \"Stripe, Inc.\".", order=1), SomFormFieldMeta(name="serviceType", type_name="String", description="Service Type", hint="SaaS / PaaS / IaaS / API Service / Data Feed / Payment Gateway / etc.", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="serviceProvider", type_name="String", description="Service Provider/Vendor", hint="Company providing the service, e.g. \"Stripe, Inc.\".", order=0), SomFormFieldMeta(name="serviceType", type_name="String", description="Service Type", hint="SaaS / PaaS / IaaS / API Service / Data Feed / Payment Gateway / etc.", order=1)])),
          SomMetaNode(
             class_name="ExternalServiceDependencyEntry",
             member_name="relationship",
@@ -21757,7 +21757,7 @@ def _mc_ExternalSystemContextEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="systemName", type_name="String", description="System Name", required=True, hint="The name of this external system", order=0), SomFormFieldMeta(name="systemOwner", type_name="String", description="System Owner (organization/department)", hint="The organization or department that owns this system", order=1), SomFormFieldMeta(name="systemType", type_name="String", description="System Type (ERP, CRM, Database, API, SaaS, Legacy, etc.)", required=True, hint="The category of external system", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="systemOwner", type_name="String", description="System Owner (organization/department)", hint="The organization or department that owns this system", order=0), SomFormFieldMeta(name="systemType", type_name="String", description="System Type (ERP, CRM, Database, API, SaaS, Legacy, etc.)", required=True, hint="The category of external system", order=1)])),
          SomMetaNode(
             class_name="ExternalSystemContextEntry",
             member_name="integration",
@@ -21832,7 +21832,7 @@ def _mc_FamilyComponentRef(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentId", type_name="String", description="Component ID", required=True, hint="Identifier of the referenced component", order=0, refers_to=["CMPNT.componentId"]), SomFormFieldMeta(name="componentName", type_name="String", description="Component Name", required=True, hint="Name of the referenced component", order=1), SomFormFieldMeta(name="familyRole", type_name="String", description="Family Role", hint="Primary, secondary, specialized", order=2), SomFormFieldMeta(name="relationToOthers", type_name="String", description="Relation to Others", hint="How it relates to other family members", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentId", type_name="String", description="Component ID", required=True, hint="Identifier of the referenced component", order=0, refers_to=["CMPNT.componentId"]), SomFormFieldMeta(name="familyRole", type_name="String", description="Family Role", hint="Primary, secondary, specialized", order=1), SomFormFieldMeta(name="relationToOthers", type_name="String", description="Relation to Others", hint="How it relates to other family members", order=2)])),
     ]
 
 
@@ -21889,7 +21889,7 @@ def _mc_FeatureModuleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="featureName", type_name="String", description="Feature Name", required=True, hint="Feature identifier", order=0), SomFormFieldMeta(name="featureArea", type_name="String", description="Feature Area", hint="Business area this feature belongs to", order=1), SomFormFieldMeta(name="boundedContext", type_name="String", description="Bounded Context", hint="Owning bounded context", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="featureArea", type_name="String", description="Feature Area", hint="Business area this feature belongs to", order=0), SomFormFieldMeta(name="boundedContext", type_name="String", description="Bounded Context", hint="Owning bounded context", order=1)])),
          SomMetaNode(
             class_name="FeatureModuleEntry",
             member_name="description",
@@ -22080,7 +22080,7 @@ def _mc_FeaturePriorityEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="featureId", type_name="String", description="Feature ID", required=True, hint="Unique identifier — e.g. FEA-001", order=0), SomFormFieldMeta(name="featureName", type_name="String", description="Feature Name", required=True, hint="Short descriptive name", order=1), SomFormFieldMeta(name="priorityRank", type_name="String", description="Priority Rank", required=True, hint="Ordinal rank — 1 = highest", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="featureId", type_name="String", description="Feature ID", required=True, hint="Unique identifier — e.g. FEA-001", order=0), SomFormFieldMeta(name="priorityRank", type_name="String", description="Priority Rank", required=True, hint="Ordinal rank — 1 = highest", order=1)])),
          SomMetaNode(
             class_name="FeaturePriorityEntry",
             member_name="identity",
@@ -22306,7 +22306,7 @@ def _mc_FeatureTourEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="tourId", type_name="String", description="Tour ID", required=True, hint="Unique identifier for this tour", order=0), SomFormFieldMeta(name="tourName", type_name="String", description="Tour Name", required=True, hint="Display name of the tour", order=1), SomFormFieldMeta(name="tourDescription", type_name="String", description="Tour Description", hint="Short summary of what the tour covers", order=2), SomFormFieldMeta(name="targetAudience", type_name="String", description="Target Audience", hint="New users, specific role, all", order=3), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Trigger Condition", hint="When tour is shown", order=4), SomFormFieldMeta(name="stepCount", type_name="int", description="Step Count", hint="Number of steps in the tour", order=5), SomFormFieldMeta(name="estimatedDuration", type_name="String", description="Estimated Duration", hint="Expected time to complete the tour", order=6), SomFormFieldMeta(name="skippable", type_name="bool", description="Skippable", hint="Whether users can skip the tour", order=7), SomFormFieldMeta(name="repeatPolicy", type_name="String", description="Repeat Policy", hint="Once only, on request, periodic", order=8)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="tourId", type_name="String", description="Tour ID", required=True, hint="Unique identifier for this tour", order=0), SomFormFieldMeta(name="tourDescription", type_name="String", description="Tour Description", hint="Short summary of what the tour covers", order=1), SomFormFieldMeta(name="targetAudience", type_name="String", description="Target Audience", hint="New users, specific role, all", order=2), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Trigger Condition", hint="When tour is shown", order=3), SomFormFieldMeta(name="stepCount", type_name="int", description="Step Count", hint="Number of steps in the tour", order=4), SomFormFieldMeta(name="estimatedDuration", type_name="String", description="Estimated Duration", hint="Expected time to complete the tour", order=5), SomFormFieldMeta(name="skippable", type_name="bool", description="Skippable", hint="Whether users can skip the tour", order=6), SomFormFieldMeta(name="repeatPolicy", type_name="String", description="Repeat Policy", hint="Once only, on request, periodic", order=7)])),
          SomMetaNode(
             class_name="FeatureTourEntry",
             member_name="steps",
@@ -22330,7 +22330,7 @@ def _mc_FieldHelpEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="fieldId", type_name="String", description="Field ID", required=True, hint="Unique identifier of the field", order=0), SomFormFieldMeta(name="fieldLabel", type_name="String", description="Field Label", required=True, hint="Display label of the field", order=1), SomFormFieldMeta(name="tooltipText", type_name="String", description="Tooltip Text", hint="Brief tooltip content", order=2), SomFormFieldMeta(name="inlineHelpText", type_name="String", description="Inline Help Text", hint="Longer inline help", order=3), SomFormFieldMeta(name="extendedHelp", type_name="String", description="Extended Help", hint="Full help panel content", order=4), SomFormFieldMeta(name="relatedArticles", type_name="String", description="Related Articles", hint="Links to related help articles", order=5), SomFormFieldMeta(name="exampleValues", type_name="String", description="Example Values", hint="Examples of valid input", order=6), SomFormFieldMeta(name="commonMistakes", type_name="String", description="Common Mistakes", hint="Frequently made errors", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="fieldId", type_name="String", description="Field ID", required=True, hint="Unique identifier of the field", order=0), SomFormFieldMeta(name="tooltipText", type_name="String", description="Tooltip Text", hint="Brief tooltip content", order=1), SomFormFieldMeta(name="inlineHelpText", type_name="String", description="Inline Help Text", hint="Longer inline help", order=2), SomFormFieldMeta(name="extendedHelp", type_name="String", description="Extended Help", hint="Full help panel content", order=3), SomFormFieldMeta(name="relatedArticles", type_name="String", description="Related Articles", hint="Links to related help articles", order=4), SomFormFieldMeta(name="exampleValues", type_name="String", description="Example Values", hint="Examples of valid input", order=5), SomFormFieldMeta(name="commonMistakes", type_name="String", description="Common Mistakes", hint="Frequently made errors", order=6)])),
     ]
 
 
@@ -22687,7 +22687,7 @@ def _mc_FrameworkRequirementEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="frameworkName", type_name="String", description="Framework/Library Name", required=True, hint="E.g., Flutter, Angular, Django, Spring Boot", order=0), SomFormFieldMeta(name="frameworkCategory", type_name="String", description="Category", hint="UI Framework, Backend Framework, Testing, State Management", order=1), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", required=True, hint="What problem this framework solves", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="frameworkCategory", type_name="String", description="Category", hint="UI Framework, Backend Framework, Testing, State Management", order=0), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", required=True, hint="What problem this framework solves", order=1)])),
          SomMetaNode(
             class_name="FrameworkRequirementEntry",
             member_name="identity",
@@ -22796,7 +22796,7 @@ def _mc_FunctionDataMatrixEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="functionName", type_name="String", description="Function Name", required=True, hint="Function being mapped", order=0), SomFormFieldMeta(name="entityName", type_name="String", description="Entity Name", required=True, hint="Data entity being accessed", order=1), SomFormFieldMeta(name="accessType", type_name="String", description="Access Type", hint="CRUD access: C | R | U | D or combinations", order=2), SomFormFieldMeta(name="accessFrequency", type_name="String", description="Access Frequency", hint="How often function accesses this entity", order=3), SomFormFieldMeta(name="isOwner", type_name="String", description="Is Owner", hint="Whether this function owns the entity: Yes | No", order=4), SomFormFieldMeta(name="accessReason", type_name="String", description="Access Reason", hint="Why this function needs this access", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="entityName", type_name="String", description="Entity Name", required=True, hint="Data entity being accessed", order=0), SomFormFieldMeta(name="accessType", type_name="String", description="Access Type", hint="CRUD access: C | R | U | D or combinations", order=1), SomFormFieldMeta(name="accessFrequency", type_name="String", description="Access Frequency", hint="How often function accesses this entity", order=2), SomFormFieldMeta(name="isOwner", type_name="String", description="Is Owner", hint="Whether this function owns the entity: Yes | No", order=3), SomFormFieldMeta(name="accessReason", type_name="String", description="Access Reason", hint="Why this function needs this access", order=4)])),
     ]
 
 
@@ -22808,7 +22808,7 @@ def _mc_FunctionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="functionId", type_name="String", description="Function ID", hint="Unique function identifier", order=0), SomFormFieldMeta(name="functionName", type_name="String", description="Function Name", required=True, hint="Verb-noun phrase (e.g., Process Order)", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this function accomplishes", order=2), SomFormFieldMeta(name="parentFunction", type_name="String", description="Parent Function", hint="Parent function in hierarchy", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="functionId", type_name="String", description="Function ID", hint="Unique function identifier", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this function accomplishes", order=1), SomFormFieldMeta(name="parentFunction", type_name="String", description="Parent Function", hint="Parent function in hierarchy", order=2)])),
          SomMetaNode(
             class_name="FunctionEntry",
             member_name="classification",
@@ -23209,7 +23209,7 @@ def _mc_GapEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="gapName", type_name="String", description="Gap Name", required=True, hint="Concise name for the identified gap", order=0), SomFormFieldMeta(name="gapCategory", type_name="String", description="Gap Category", hint="Functional / Process / Data / Integration / Compliance / Security / Performance / Usability", order=1), SomFormFieldMeta(name="severity", type_name="String", description="Severity", hint="Critical / High / Medium / Low", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="gapCategory", type_name="String", description="Gap Category", hint="Functional / Process / Data / Integration / Compliance / Security / Performance / Usability", order=0), SomFormFieldMeta(name="severity", type_name="String", description="Severity", hint="Critical / High / Medium / Low", order=1)])),
          SomMetaNode(
             class_name="GapEntry",
             member_name="description",
@@ -23385,7 +23385,7 @@ def _mc_GoalDependencyEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="dependencyId", type_name="String", description="Dependency ID", required=True, hint="Unique identifier for this dependency", order=0), SomFormFieldMeta(name="dependencyType", type_name="String", description="Dependency Type (Internal Goal, External Project, Resource, Regulatory, Technical, Organizational)", required=True, hint="e.g., Internal Goal, External Project, Resource, Regulatory", order=1), SomFormFieldMeta(name="dependencyName", type_name="String", description="Dependency Name (what we depend on)", required=True, hint="Name of the thing this goal depends on", order=2), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Details of the dependency", order=3), SomFormFieldMeta(name="owner", type_name="String", description="Owner (who controls this dependency)", hint="Person or party who controls this dependency", order=4), SomFormFieldMeta(name="expectedResolutionDate", type_name="String", description="Expected Resolution Date", hint="When the dependency is expected to be resolved", order=5), SomFormFieldMeta(name="impact", type_name="String", description="Impact (how this affects our goal)", hint="How this dependency affects the goal", order=6), SomFormFieldMeta(name="mitigationStrategy", type_name="String", description="Mitigation Strategy (what if dependency is not resolved)", hint="Plan if the dependency is not resolved", order=7), SomFormFieldMeta(name="status", type_name="String", description="Status (Open, In Progress, Resolved, Blocked)", hint="Open, In Progress, Resolved, or Blocked", order=8)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="dependencyId", type_name="String", description="Dependency ID", required=True, hint="Unique identifier for this dependency", order=0), SomFormFieldMeta(name="dependencyType", type_name="String", description="Dependency Type (Internal Goal, External Project, Resource, Regulatory, Technical, Organizational)", required=True, hint="e.g., Internal Goal, External Project, Resource, Regulatory", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Details of the dependency", order=2), SomFormFieldMeta(name="owner", type_name="String", description="Owner (who controls this dependency)", hint="Person or party who controls this dependency", order=3), SomFormFieldMeta(name="expectedResolutionDate", type_name="String", description="Expected Resolution Date", hint="When the dependency is expected to be resolved", order=4), SomFormFieldMeta(name="impact", type_name="String", description="Impact (how this affects our goal)", hint="How this dependency affects the goal", order=5), SomFormFieldMeta(name="mitigationStrategy", type_name="String", description="Mitigation Strategy (what if dependency is not resolved)", hint="Plan if the dependency is not resolved", order=6), SomFormFieldMeta(name="status", type_name="String", description="Status (Open, In Progress, Resolved, Blocked)", hint="Open, In Progress, Resolved, or Blocked", order=7)])),
          SomMetaNode(
             class_name="GoalDependencyEntry",
             member_name="relatedGoal",
@@ -23430,7 +23430,7 @@ def _mc_GoalMilestoneEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="milestoneId", type_name="String", description="Milestone ID", required=True, hint="Unique identifier for this milestone", order=0), SomFormFieldMeta(name="milestoneName", type_name="String", description="Milestone Name", required=True, hint="Short descriptive name for the milestone", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this milestone represents", order=2), SomFormFieldMeta(name="targetDate", type_name="String", description="Target Date", required=True, hint="Planned date for reaching the milestone", order=3), SomFormFieldMeta(name="completionCriteria", type_name="String", description="Completion Criteria", hint="How completion of the milestone is determined", order=4), SomFormFieldMeta(name="deliverables", type_name="String", description="Deliverables (outputs of this milestone)", hint="Outputs produced at this milestone", order=5), SomFormFieldMeta(name="dependencies", type_name="String", description="Dependencies (what must be done first)", hint="What must be completed before this milestone", order=6), SomFormFieldMeta(name="status", type_name="String", description="Status (Planned, In Progress, Completed, Delayed)", hint="Planned, In Progress, Completed, or Delayed", order=7), SomFormFieldMeta(name="actualDate", type_name="String", description="Actual Completion Date", hint="Date the milestone was actually completed", order=8)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="milestoneId", type_name="String", description="Milestone ID", required=True, hint="Unique identifier for this milestone", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this milestone represents", order=1), SomFormFieldMeta(name="targetDate", type_name="String", description="Target Date", required=True, hint="Planned date for reaching the milestone", order=2), SomFormFieldMeta(name="completionCriteria", type_name="String", description="Completion Criteria", hint="How completion of the milestone is determined", order=3), SomFormFieldMeta(name="deliverables", type_name="String", description="Deliverables (outputs of this milestone)", hint="Outputs produced at this milestone", order=4), SomFormFieldMeta(name="dependencies", type_name="String", description="Dependencies (what must be done first)", hint="What must be completed before this milestone", order=5), SomFormFieldMeta(name="status", type_name="String", description="Status (Planned, In Progress, Completed, Delayed)", hint="Planned, In Progress, Completed, or Delayed", order=6), SomFormFieldMeta(name="actualDate", type_name="String", description="Actual Completion Date", hint="Date the milestone was actually completed", order=7)])),
     ]
 
 
@@ -23499,7 +23499,7 @@ def _mc_GoalRiskEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskId", type_name="String", description="Risk ID", required=True, hint="Unique identifier for this risk", order=0), SomFormFieldMeta(name="riskName", type_name="String", description="Risk Name", required=True, hint="Short descriptive name for the risk", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What the risk is and how it could materialize", order=2), SomFormFieldMeta(name="riskCategory", type_name="String", description="Risk Category (Market, Operational, Technical, Resource, Regulatory, External)", hint="e.g., Market, Operational, Technical, Resource, Regulatory", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskId", type_name="String", description="Risk ID", required=True, hint="Unique identifier for this risk", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What the risk is and how it could materialize", order=1), SomFormFieldMeta(name="riskCategory", type_name="String", description="Risk Category (Market, Operational, Technical, Resource, Regulatory, External)", hint="e.g., Market, Operational, Technical, Resource, Regulatory", order=2)])),
          SomMetaNode(
             class_name="GoalRiskEntry",
             member_name="assessment",
@@ -23962,7 +23962,7 @@ def _mc_IdeRequirementEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="ideName", type_name="String", description="IDE/Editor Name", required=True, hint="E.g., VS Code, IntelliJ IDEA, Android Studio", order=0), SomFormFieldMeta(name="version", type_name="String", description="Version Requirements", hint="Minimum version or version range", order=1), SomFormFieldMeta(name="platform", type_name="String", description="Platform", hint="Windows, macOS, Linux, Web", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="version", type_name="String", description="Version Requirements", hint="Minimum version or version range", order=0), SomFormFieldMeta(name="platform", type_name="String", description="Platform", hint="Windows, macOS, Linux, Web", order=1)])),
          SomMetaNode(
             class_name="IdeRequirementEntry",
             member_name="configuration",
@@ -24191,7 +24191,7 @@ def _mc_IdentityProviderEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="providerName", type_name="String", description="Provider Name", required=True, hint="Human-readable name, e.g. Corporate Azure AD", order=0), SomFormFieldMeta(name="providerType", type_name="String", description="Provider Type", hint="SAML / OIDC / LDAP / ActiveDirectory / OAuth2", order=1), SomFormFieldMeta(name="enabled", type_name="String", description="Enabled", hint="Yes / No — whether this provider is currently active", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="providerType", type_name="String", description="Provider Type", hint="SAML / OIDC / LDAP / ActiveDirectory / OAuth2", order=0), SomFormFieldMeta(name="enabled", type_name="String", description="Enabled", hint="Yes / No — whether this provider is currently active", order=1)])),
          SomMetaNode(
             class_name="IdentityProviderEntry",
             member_name="details",
@@ -24257,7 +24257,7 @@ def _mc_IdentitySourceEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="sourceName", type_name="String", description="Source Name", required=True, hint="Unique name for this identity source, e.g. CorporateAD", order=0), SomFormFieldMeta(name="sourceType", type_name="String", description="Source Type", hint="InternalDirectory / LDAP / ActiveDirectory / ExternalIdP / SocialProvider / SelfRegistration / HRSystem / SCIM / Manual", order=1), SomFormFieldMeta(name="sourceProduct", type_name="String", description="Source Product", hint="Specific product/service, e.g. Azure AD, Okta, Google Workspace", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="sourceType", type_name="String", description="Source Type", hint="InternalDirectory / LDAP / ActiveDirectory / ExternalIdP / SocialProvider / SelfRegistration / HRSystem / SCIM / Manual", order=0), SomFormFieldMeta(name="sourceProduct", type_name="String", description="Source Product", hint="Specific product/service, e.g. Azure AD, Okta, Google Workspace", order=1)])),
          SomMetaNode(
             class_name="IdentitySourceEntry",
             member_name="connection",
@@ -24485,7 +24485,7 @@ def _mc_IndustryProtocolComplianceEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="protocolName", type_name="String", description="Protocol Name", required=True, hint="E.g., HTTP/2, MQTT, AMQP, WebSocket", order=0), SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Network, Messaging, Security, Data exchange", order=1), SomFormFieldMeta(name="specificationVersion", type_name="String", description="Specification Version", required=True, hint="Protocol version", order=2), SomFormFieldMeta(name="specificationUrl", type_name="String", description="Specification URL", hint="Link to official specification", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="category", type_name="String", description="Category", hint="Network, Messaging, Security, Data exchange", order=0), SomFormFieldMeta(name="specificationVersion", type_name="String", description="Specification Version", required=True, hint="Protocol version", order=1), SomFormFieldMeta(name="specificationUrl", type_name="String", description="Specification URL", hint="Link to official specification", order=2)])),
          SomMetaNode(
             class_name="IndustryProtocolComplianceEntry",
             member_name="scope",
@@ -24537,7 +24537,7 @@ def _mc_IndustryStandardEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="standardName", type_name="String", description="Standard Name", required=True, hint="E.g., ISO 27001, OWASP, IEEE 830, GDPR", order=0), SomFormFieldMeta(name="standardBody", type_name="String", description="Standard Body", hint="ISO, IEEE, OWASP, NIST, ECMA", order=1), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Version of the standard", order=2), SomFormFieldMeta(name="publicationDate", type_name="String", description="Publication Date", hint="Standard publication date", order=3), SomFormFieldMeta(name="category", type_name="String", description="Category", required=True, hint="Security, Quality, Process, Documentation, Accessibility", order=4), SomFormFieldMeta(name="complianceLevel", type_name="String", description="Compliance Level", required=True, hint="Full, Partial, Certified, In Progress", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="standardBody", type_name="String", description="Standard Body", hint="ISO, IEEE, OWASP, NIST, ECMA", order=0), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Version of the standard", order=1), SomFormFieldMeta(name="publicationDate", type_name="String", description="Publication Date", hint="Standard publication date", order=2), SomFormFieldMeta(name="category", type_name="String", description="Category", required=True, hint="Security, Quality, Process, Documentation, Accessibility", order=3), SomFormFieldMeta(name="complianceLevel", type_name="String", description="Compliance Level", required=True, hint="Full, Partial, Certified, In Progress", order=4)])),
          SomMetaNode(
             class_name="IndustryStandardEntry",
             member_name="scope",
@@ -24869,7 +24869,7 @@ def _mc_InfrastructureComponentEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentName", type_name="String", description="Component Name", required=True, hint="Infrastructure component name", order=0), SomFormFieldMeta(name="componentType", type_name="String", description="Component Type", hint="Logging, Caching, Messaging, Storage, Network", order=1), SomFormFieldMeta(name="layer", type_name="String", description="Layer", hint="Infrastructure layer", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentType", type_name="String", description="Component Type", hint="Logging, Caching, Messaging, Storage, Network", order=0), SomFormFieldMeta(name="layer", type_name="String", description="Layer", hint="Infrastructure layer", order=1)])),
          SomMetaNode(
             class_name="InfrastructureComponentEntry",
             member_name="description",
@@ -25028,7 +25028,7 @@ def _mc_InitialTrainingEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="trainingId", type_name="String", description="Training ID", required=True, order=0), SomFormFieldMeta(name="trainingName", type_name="String", description="Training Name", required=True, order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="trainingId", type_name="String", description="Training ID", required=True, order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", order=1)])),
          SomMetaNode(
             class_name="InitialTrainingEntry",
             member_name="audience",
@@ -25207,7 +25207,7 @@ def _mc_IntegrationConstraintEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="constraintId", type_name="String", description="Constraint ID", required=True, hint="Unique identifier, e.g. INT-CON-001", order=0), SomFormFieldMeta(name="constraintName", type_name="String", description="Constraint Name", required=True, hint="Short descriptive name", order=1), SomFormFieldMeta(name="constraintDescription", type_name="String", description="Description", hint="Detailed description of the integration constraint", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="constraintId", type_name="String", description="Constraint ID", required=True, hint="Unique identifier, e.g. INT-CON-001", order=0), SomFormFieldMeta(name="constraintDescription", type_name="String", description="Description", hint="Detailed description of the integration constraint", order=1)])),
          SomMetaNode(
             class_name="IntegrationConstraintEntry",
             member_name="details",
@@ -25448,7 +25448,7 @@ def _mc_InteractionChannelEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="channelName", type_name="String", description="Channel Name", required=True, hint="e.g., Customer Web Portal, Mobile App, Admin API", order=0), SomFormFieldMeta(name="channelId", type_name="String", description="Channel ID", hint="Unique identifier for the channel", order=1), SomFormFieldMeta(name="channelType", type_name="String", description="Channel Type", required=True, hint="Web, Mobile Native, Mobile Hybrid, Desktop, API, CLI, Voice, Kiosk, Embedded, IoT", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="channelId", type_name="String", description="Channel ID", hint="Unique identifier for the channel", order=0), SomFormFieldMeta(name="channelType", type_name="String", description="Channel Type", required=True, hint="Web, Mobile Native, Mobile Hybrid, Desktop, API, CLI, Voice, Kiosk, Embedded, IoT", order=1)])),
          SomMetaNode(
             class_name="InteractionChannelEntry",
             member_name="platform",
@@ -25686,7 +25686,7 @@ def _mc_InteractionPatternEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="patternName", type_name="String", description="Pattern Name", required=True, hint="e.g., Real-time Form Submission, Batch Report Generation", order=0), SomFormFieldMeta(name="patternId", type_name="String", description="Pattern ID", hint="Unique identifier", order=1), SomFormFieldMeta(name="patternType", type_name="String", description="Pattern Type", required=True, hint="Synchronous, Asynchronous, Batch, Scheduled, Event-driven, Workflow, Polling, Streaming", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="patternId", type_name="String", description="Pattern ID", hint="Unique identifier", order=0), SomFormFieldMeta(name="patternType", type_name="String", description="Pattern Type", required=True, hint="Synchronous, Asynchronous, Batch, Scheduled, Event-driven, Workflow, Polling, Streaming", order=1)])),
          SomMetaNode(
             class_name="InteractionPatternEntry",
             member_name="definition",
@@ -25800,7 +25800,7 @@ def _mc_InterfaceBusinessProcessEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="processName", type_name="String", description="Process Name", required=True, hint="Name of the dependent business process", order=0), SomFormFieldMeta(name="processId", type_name="String", description="Process ID", hint="Identifier of the business process", order=1, refers_to=["PRIDN.processId"]), SomFormFieldMeta(name="dependencyType", type_name="String", description="Dependency (Critical Path, Supporting)", hint="Nature of the dependency on the interface", order=2), SomFormFieldMeta(name="fallbackBehavior", type_name="String", description="Fallback if Interface Unavailable", hint="Process behavior when the interface is down", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="processId", type_name="String", description="Process ID", hint="Identifier of the business process", order=0, refers_to=["PRIDN.processId"]), SomFormFieldMeta(name="dependencyType", type_name="String", description="Dependency (Critical Path, Supporting)", hint="Nature of the dependency on the interface", order=1), SomFormFieldMeta(name="fallbackBehavior", type_name="String", description="Fallback if Interface Unavailable", hint="Process behavior when the interface is down", order=2)])),
     ]
 
 
@@ -25812,7 +25812,7 @@ def _mc_InterfaceDataEntityEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="entityName", type_name="String", description="Entity Name", required=True, hint="Name of the exchanged data entity", order=0), SomFormFieldMeta(name="direction", type_name="String", description="Direction (Send, Receive)", hint="Whether the entity is sent or received", order=1), SomFormFieldMeta(name="fieldCount", type_name="int", description="Field Count", hint="Number of fields in the entity", order=2), SomFormFieldMeta(name="requiredFields", type_name="String", description="Required Fields", hint="Fields that must be present", order=3), SomFormFieldMeta(name="sensitiveFields", type_name="String", description="Sensitive Fields (PII, etc.)", hint="Fields carrying sensitive data", order=4), SomFormFieldMeta(name="internalMapping", type_name="String", description="Maps to Internal Entity", hint="Internal entity this maps to", order=5), SomFormFieldMeta(name="transformationNeeded", type_name="String", description="Transformation Required", hint="Transformation needed between formats", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="direction", type_name="String", description="Direction (Send, Receive)", hint="Whether the entity is sent or received", order=0), SomFormFieldMeta(name="fieldCount", type_name="int", description="Field Count", hint="Number of fields in the entity", order=1), SomFormFieldMeta(name="requiredFields", type_name="String", description="Required Fields", hint="Fields that must be present", order=2), SomFormFieldMeta(name="sensitiveFields", type_name="String", description="Sensitive Fields (PII, etc.)", hint="Fields carrying sensitive data", order=3), SomFormFieldMeta(name="internalMapping", type_name="String", description="Maps to Internal Entity", hint="Internal entity this maps to", order=4), SomFormFieldMeta(name="transformationNeeded", type_name="String", description="Transformation Required", hint="Transformation needed between formats", order=5)])),
     ]
 
 
@@ -25963,7 +25963,7 @@ def _mc_InterfaceOperationEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="operationId", type_name="String", description="Operation ID", required=True, hint="Unique identifier for the operation", order=0), SomFormFieldMeta(name="operationName", type_name="String", description="Operation Name", required=True, hint="Human-readable operation name", order=1), SomFormFieldMeta(name="httpMethod", type_name="String", description="HTTP Method (GET, POST, PUT, DELETE, etc.)", hint="HTTP verb used by the operation", order=2), SomFormFieldMeta(name="path", type_name="String", description="Path/Endpoint", hint="Resource path or endpoint for the operation", order=3), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="What the operation does", order=4), SomFormFieldMeta(name="idempotent", type_name="bool", description="Idempotent", hint="Whether repeated calls have the same effect", order=5), SomFormFieldMeta(name="requestFormat", type_name="String", description="Request Format", hint="Format/schema of the request payload", order=6), SomFormFieldMeta(name="responseFormat", type_name="String", description="Response Format", hint="Format/schema of the response payload", order=7), SomFormFieldMeta(name="paginationSupport", type_name="bool", description="Pagination Supported", hint="Whether the operation supports pagination", order=8), SomFormFieldMeta(name="filteringSupport", type_name="String", description="Filtering/Query Parameters", hint="Supported filtering or query parameters", order=9)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="operationId", type_name="String", description="Operation ID", required=True, hint="Unique identifier for the operation", order=0), SomFormFieldMeta(name="httpMethod", type_name="String", description="HTTP Method (GET, POST, PUT, DELETE, etc.)", hint="HTTP verb used by the operation", order=1), SomFormFieldMeta(name="path", type_name="String", description="Path/Endpoint", hint="Resource path or endpoint for the operation", order=2), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="What the operation does", order=3), SomFormFieldMeta(name="idempotent", type_name="bool", description="Idempotent", hint="Whether repeated calls have the same effect", order=4), SomFormFieldMeta(name="requestFormat", type_name="String", description="Request Format", hint="Format/schema of the request payload", order=5), SomFormFieldMeta(name="responseFormat", type_name="String", description="Response Format", hint="Format/schema of the response payload", order=6), SomFormFieldMeta(name="paginationSupport", type_name="bool", description="Pagination Supported", hint="Whether the operation supports pagination", order=7), SomFormFieldMeta(name="filteringSupport", type_name="String", description="Filtering/Query Parameters", hint="Supported filtering or query parameters", order=8)])),
     ]
 
 
@@ -26078,7 +26078,7 @@ def _mc_InterfaceSpecificationEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="specificationName", type_name="String", description="Specification Name", required=True, hint="E.g., REST, GraphQL, gRPC, SOAP", order=0), SomFormFieldMeta(name="specificationVersion", type_name="String", description="Version", hint="Specification version", order=1), SomFormFieldMeta(name="standardsBody", type_name="String", description="Standards Body", hint="IETF, W3C, OASIS, etc.", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="specificationVersion", type_name="String", description="Version", hint="Specification version", order=0), SomFormFieldMeta(name="standardsBody", type_name="String", description="Standards Body", hint="IETF, W3C, OASIS, etc.", order=1)])),
          SomMetaNode(
             class_name="InterfaceSpecificationEntry",
             member_name="definition",
@@ -26184,7 +26184,7 @@ def _mc_InterfaceTestScenarioEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="scenarioId", type_name="String", description="Scenario ID", required=True, hint="Unique identifier for the scenario", order=0), SomFormFieldMeta(name="scenarioName", type_name="String", description="Scenario Name", required=True, hint="Human-readable scenario name", order=1), SomFormFieldMeta(name="scenarioType", type_name="String", description="Type (Happy Path, Error, Edge Case)", hint="Category of the test scenario", order=2), SomFormFieldMeta(name="preconditions", type_name="String", description="Preconditions", hint="State required before running the scenario", order=3), SomFormFieldMeta(name="testSteps", type_name="String", description="Test Steps", hint="Steps to execute the scenario", order=4), SomFormFieldMeta(name="expectedResult", type_name="String", description="Expected Result", hint="Result expected on success", order=5), SomFormFieldMeta(name="automated", type_name="bool", description="Automated", hint="Whether the scenario is automated", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="scenarioId", type_name="String", description="Scenario ID", required=True, hint="Unique identifier for the scenario", order=0), SomFormFieldMeta(name="scenarioType", type_name="String", description="Type (Happy Path, Error, Edge Case)", hint="Category of the test scenario", order=1), SomFormFieldMeta(name="preconditions", type_name="String", description="Preconditions", hint="State required before running the scenario", order=2), SomFormFieldMeta(name="testSteps", type_name="String", description="Test Steps", hint="Steps to execute the scenario", order=3), SomFormFieldMeta(name="expectedResult", type_name="String", description="Expected Result", hint="Result expected on success", order=4), SomFormFieldMeta(name="automated", type_name="bool", description="Automated", hint="Whether the scenario is automated", order=5)])),
     ]
 
 
@@ -26715,7 +26715,7 @@ def _mc_ItStandardComplianceEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="standardName", type_name="String", description="Standard Name", required=True, hint="E.g., ISO 27001, IEEE 802.11, NIST SP 800-53", order=0), SomFormFieldMeta(name="standardBody", type_name="String", description="Standard Body", required=True, hint="ISO, IEEE, NIST, OASIS, W3C", order=1), SomFormFieldMeta(name="standardId", type_name="String", description="Standard ID", hint="Official standard identifier", order=2), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Standard version", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="standardBody", type_name="String", description="Standard Body", required=True, hint="ISO, IEEE, NIST, OASIS, W3C", order=0), SomFormFieldMeta(name="standardId", type_name="String", description="Standard ID", hint="Official standard identifier", order=1), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Standard version", order=2)])),
          SomMetaNode(
             class_name="ItStandardComplianceEntry",
             member_name="scope",
@@ -26852,7 +26852,7 @@ def _mc_JourneyStageEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="stageName", type_name="String", description="Stage Name", required=True, hint="Name of this journey stage", order=0), SomFormFieldMeta(name="stageDescription", type_name="String", description="Stage Description", hint="Brief description of what happens in this stage", order=1), SomFormFieldMeta(name="userGoal", type_name="String", description="User Goal (what they want to achieve)", hint="What the user wants to achieve in this stage", order=2), SomFormFieldMeta(name="userActions", type_name="String", description="User Actions (what they do)", hint="What the user does during this stage", order=3), SomFormFieldMeta(name="systemResponse", type_name="String", description="System Response (what system does)", hint="How the system responds during this stage", order=4), SomFormFieldMeta(name="userEmotions", type_name="String", description="User Emotions (expected feeling)", hint="The emotion the user is expected to feel here", order=5), SomFormFieldMeta(name="touchpoints", type_name="String", description="Touchpoints (system interactions)", hint="System interactions or touchpoints in this stage", order=6), SomFormFieldMeta(name="potentialIssues", type_name="String", description="Potential Issues", hint="Problems or friction the user may hit in this stage", order=7), SomFormFieldMeta(name="successMetrics", type_name="String", description="Success Metrics", hint="How success is measured for this stage", order=8)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="stageDescription", type_name="String", description="Stage Description", hint="Brief description of what happens in this stage", order=0), SomFormFieldMeta(name="userGoal", type_name="String", description="User Goal (what they want to achieve)", hint="What the user wants to achieve in this stage", order=1), SomFormFieldMeta(name="userActions", type_name="String", description="User Actions (what they do)", hint="What the user does during this stage", order=2), SomFormFieldMeta(name="systemResponse", type_name="String", description="System Response (what system does)", hint="How the system responds during this stage", order=3), SomFormFieldMeta(name="userEmotions", type_name="String", description="User Emotions (expected feeling)", hint="The emotion the user is expected to feel here", order=4), SomFormFieldMeta(name="touchpoints", type_name="String", description="Touchpoints (system interactions)", hint="System interactions or touchpoints in this stage", order=5), SomFormFieldMeta(name="potentialIssues", type_name="String", description="Potential Issues", hint="Problems or friction the user may hit in this stage", order=6), SomFormFieldMeta(name="successMetrics", type_name="String", description="Success Metrics", hint="How success is measured for this stage", order=7)])),
     ]
 
 
@@ -26864,7 +26864,7 @@ def _mc_KeyAttributeEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="keyName", type_name="String", description="Key Name", required=True, hint="Identifier for this key constraint", order=0), SomFormFieldMeta(name="keyType", type_name="String", description="Key Type", hint="Primary | Foreign | Alternate | Composite | Natural | Surrogate", order=1), SomFormFieldMeta(name="keyColumns", type_name="String", description="Key Column(s)", hint="Column(s) comprising the key, comma-separated for composite", order=2), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Purpose and usage of this key", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="keyType", type_name="String", description="Key Type", hint="Primary | Foreign | Alternate | Composite | Natural | Surrogate", order=0), SomFormFieldMeta(name="keyColumns", type_name="String", description="Key Column(s)", hint="Column(s) comprising the key, comma-separated for composite", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Purpose and usage of this key", order=2)])),
          SomMetaNode(
             class_name="KeyAttributeEntry",
             member_name="generation",
@@ -26935,7 +26935,7 @@ def _mc_KeyConceptEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="conceptName", type_name="String", description="Concept Name", required=True, hint="Name of the business concept or entity", order=0), SomFormFieldMeta(name="conceptType", type_name="String", description="Concept Type (Entity, Value Object, Aggregate Root, Event, Service)", required=True, hint="Entity / Value Object / Aggregate Root / Event / Service", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", required=True, hint="What this concept represents in the domain", order=2), SomFormFieldMeta(name="keyAttributes", type_name="String", description="Key Attributes (main properties of this concept)", hint="Main properties or attributes of this concept", order=3), SomFormFieldMeta(name="identifiedBy", type_name="String", description="Identified By (what uniquely identifies instances)", hint="What uniquely identifies instances of this concept", order=4), SomFormFieldMeta(name="lifecycle", type_name="String", description="Lifecycle (how instances are created, modified, archived)", hint="How instances are created, modified, and archived", order=5), SomFormFieldMeta(name="ownedBy", type_name="String", description="Owned By (which business function owns this concept)", hint="Which business function owns this concept", order=6), SomFormFieldMeta(name="relatedConcepts", type_name="String", description="Related Concepts (other concepts this relates to)", hint="Other concepts this one relates to", order=7), SomFormFieldMeta(name="businessRules", type_name="String", description="Business Rules (rules that govern this concept)", hint="Business rules that govern this concept", order=8), SomFormFieldMeta(name="volumeEstimate", type_name="String", description="Volume Estimate (expected number of instances)", hint="Expected number of instances of this concept", order=9)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="conceptType", type_name="String", description="Concept Type (Entity, Value Object, Aggregate Root, Event, Service)", required=True, hint="Entity / Value Object / Aggregate Root / Event / Service", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", required=True, hint="What this concept represents in the domain", order=1), SomFormFieldMeta(name="keyAttributes", type_name="String", description="Key Attributes (main properties of this concept)", hint="Main properties or attributes of this concept", order=2), SomFormFieldMeta(name="identifiedBy", type_name="String", description="Identified By (what uniquely identifies instances)", hint="What uniquely identifies instances of this concept", order=3), SomFormFieldMeta(name="lifecycle", type_name="String", description="Lifecycle (how instances are created, modified, archived)", hint="How instances are created, modified, and archived", order=4), SomFormFieldMeta(name="ownedBy", type_name="String", description="Owned By (which business function owns this concept)", hint="Which business function owns this concept", order=5), SomFormFieldMeta(name="relatedConcepts", type_name="String", description="Related Concepts (other concepts this relates to)", hint="Other concepts this one relates to", order=6), SomFormFieldMeta(name="businessRules", type_name="String", description="Business Rules (rules that govern this concept)", hint="Business rules that govern this concept", order=7), SomFormFieldMeta(name="volumeEstimate", type_name="String", description="Volume Estimate (expected number of instances)", hint="Expected number of instances of this concept", order=8)])),
          SomMetaNode(
             class_name="KeyConceptEntry",
             member_name="attributeDetails",
@@ -27620,7 +27620,7 @@ def _mc_LifecycleTransitionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="transitionId", type_name="String", description="Transition ID", hint="Unique identifier for this transition", order=0), SomFormFieldMeta(name="transitionName", type_name="String", description="Transition Name", hint="Descriptive name (e.g., \"Submit Order\")", order=1), SomFormFieldMeta(name="fromState", type_name="String", description="From State", required=True, hint="Source state", order=2), SomFormFieldMeta(name="toState", type_name="String", description="To State", required=True, hint="Target state", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="transitionId", type_name="String", description="Transition ID", hint="Unique identifier for this transition", order=0), SomFormFieldMeta(name="fromState", type_name="String", description="From State", required=True, hint="Source state", order=1), SomFormFieldMeta(name="toState", type_name="String", description="To State", required=True, hint="Target state", order=2)])),
          SomMetaNode(
             class_name="LifecycleTransitionEntry",
             member_name="trigger",
@@ -28102,7 +28102,7 @@ def _mc_LoginFlowStepEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="stepName", type_name="String", description="Step Name", required=True, hint="Unique name for this login flow step", order=0), SomFormFieldMeta(name="stepOrder", type_name="String", description="Step Order", hint="Numeric order in the flow sequence (1, 2, 3, ...)", order=1), SomFormFieldMeta(name="stepType", type_name="String", description="Step Type", hint="EntryPoint | CredentialInput | Validation | MfaChallenge | ConsentScreen | TokenIssuance | SessionCreation | Redirect | ErrorHandling", order=2), SomFormFieldMeta(name="actor", type_name="String", description="Actor", hint="User | Browser | AuthServer | IdP | MfaDevice | ResourceServer — who performs this step", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="stepOrder", type_name="String", description="Step Order", hint="Numeric order in the flow sequence (1, 2, 3, ...)", order=0), SomFormFieldMeta(name="stepType", type_name="String", description="Step Type", hint="EntryPoint | CredentialInput | Validation | MfaChallenge | ConsentScreen | TokenIssuance | SessionCreation | Redirect | ErrorHandling", order=1), SomFormFieldMeta(name="actor", type_name="String", description="Actor", hint="User | Browser | AuthServer | IdP | MfaDevice | ResourceServer — who performs this step", order=2)])),
          SomMetaNode(
             class_name="LoginFlowStepEntry",
             member_name="validation",
@@ -28352,7 +28352,7 @@ def _mc_MaintenanceDependencyEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="dependencyId", type_name="String", description="Dependency ID", hint="Unique identifier, e.g. DEP-M-001", order=0), SomFormFieldMeta(name="name", type_name="String", description="Dependency Name", required=True, hint="Component or service with maintenance dependency", order=1), SomFormFieldMeta(name="version", type_name="String", description="Current Version", hint="Version currently in use", order=2), SomFormFieldMeta(name="versionConstraint", type_name="String", description="Version Constraint", hint="Acceptable version range, e.g. >=3.2 <4.0", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="dependencyId", type_name="String", description="Dependency ID", hint="Unique identifier, e.g. DEP-M-001", order=0), SomFormFieldMeta(name="version", type_name="String", description="Current Version", hint="Version currently in use", order=1), SomFormFieldMeta(name="versionConstraint", type_name="String", description="Version Constraint", hint="Acceptable version range, e.g. >=3.2 <4.0", order=2)])),
          SomMetaNode(
             class_name="MaintenanceDependencyEntry",
             member_name="classification",
@@ -28436,7 +28436,7 @@ def _mc_MaintenanceWindowEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="windowName", type_name="String", description="Window Name", required=True, hint="Maintenance window name", order=0), SomFormFieldMeta(name="windowType", type_name="String", description="Window Type", hint="Routine, Patch, Upgrade, Migration", order=1), SomFormFieldMeta(name="priority", type_name="String", description="Priority", hint="Critical, Standard, Low", order=2), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What maintenance is performed", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="windowType", type_name="String", description="Window Type", hint="Routine, Patch, Upgrade, Migration", order=0), SomFormFieldMeta(name="priority", type_name="String", description="Priority", hint="Critical, Standard, Low", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What maintenance is performed", order=2)])),
          SomMetaNode(
             class_name="MaintenanceWindowEntry",
             member_name="schedule",
@@ -28581,7 +28581,7 @@ def _mc_MasterDataDomainEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="domainName", type_name="String", description="Domain Name", required=True, hint="E.g. Customer, Product, Vendor, Employee, Location", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this master data domain covers", order=1), SomFormFieldMeta(name="goldenRecordSource", type_name="String", description="Golden Record Source", hint="Authoritative system for this master data", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this master data domain covers", order=0), SomFormFieldMeta(name="goldenRecordSource", type_name="String", description="Golden Record Source", hint="Authoritative system for this master data", order=1)])),
          SomMetaNode(
             class_name="MasterDataDomainEntry",
             member_name="quality",
@@ -28853,7 +28853,7 @@ def _mc_MetricsBaselineEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="metricName", type_name="String", description="Metric Name", required=True, order=0), SomFormFieldMeta(name="baselineValue", type_name="String", description="Baseline Value (current state)", order=1), SomFormFieldMeta(name="baselineDate", type_name="String", description="Baseline Date", order=2), SomFormFieldMeta(name="targetValue", type_name="String", description="Target Value", order=3), SomFormFieldMeta(name="targetDate", type_name="String", description="Target Date", order=4), SomFormFieldMeta(name="improvementTarget", type_name="String", description="Improvement Target", hint="Percentage or absolute improvement expected", order=5), SomFormFieldMeta(name="trackingFrequency", type_name="String", description="Tracking Frequency", hint="How often this metric will be re-measured", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="baselineValue", type_name="String", description="Baseline Value (current state)", order=0), SomFormFieldMeta(name="baselineDate", type_name="String", description="Baseline Date", order=1), SomFormFieldMeta(name="targetValue", type_name="String", description="Target Value", order=2), SomFormFieldMeta(name="targetDate", type_name="String", description="Target Date", order=3), SomFormFieldMeta(name="improvementTarget", type_name="String", description="Improvement Target", hint="Percentage or absolute improvement expected", order=4), SomFormFieldMeta(name="trackingFrequency", type_name="String", description="Tracking Frequency", hint="How often this metric will be re-measured", order=5)])),
     ]
 
 
@@ -29172,7 +29172,7 @@ def _mc_MigrationMilestoneEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="milestoneName", type_name="String", description="Milestone Name", required=True, hint="Concise name for the milestone", order=0), SomFormFieldMeta(name="targetDate", type_name="String", description="Target Date", hint="Planned date the milestone is reached", order=1), SomFormFieldMeta(name="systemsIncluded", type_name="String", description="Systems Included", hint="Systems covered by this milestone", order=2), SomFormFieldMeta(name="deliverables", type_name="String", description="Deliverables", hint="Outputs produced at this milestone", order=3), SomFormFieldMeta(name="successCriteria", type_name="String", description="Success Criteria", hint="Conditions that confirm milestone success", order=4), SomFormFieldMeta(name="gateName", type_name="String", description="Gate Name", hint="Associated stage-gate or checkpoint", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="targetDate", type_name="String", description="Target Date", hint="Planned date the milestone is reached", order=0), SomFormFieldMeta(name="systemsIncluded", type_name="String", description="Systems Included", hint="Systems covered by this milestone", order=1), SomFormFieldMeta(name="deliverables", type_name="String", description="Deliverables", hint="Outputs produced at this milestone", order=2), SomFormFieldMeta(name="successCriteria", type_name="String", description="Success Criteria", hint="Conditions that confirm milestone success", order=3), SomFormFieldMeta(name="gateName", type_name="String", description="Gate Name", hint="Associated stage-gate or checkpoint", order=4)])),
     ]
 
 
@@ -29196,7 +29196,7 @@ def _mc_MigrationPhaseEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="phaseNumber", type_name="String", description="Phase Number", required=True, hint="1, 2, 3… — sequential phase ordering", order=0), SomFormFieldMeta(name="phaseName", type_name="String", description="Phase Name", required=True, hint="Descriptive name — e.g. Master Data, Transactional History", order=1), SomFormFieldMeta(name="phaseType", type_name="String", description="Phase Type", required=True, hint="MasterData / ReferenceData / Transactional / Historical / Documents", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="phaseNumber", type_name="String", description="Phase Number", required=True, hint="1, 2, 3… — sequential phase ordering", order=0), SomFormFieldMeta(name="phaseType", type_name="String", description="Phase Type", required=True, hint="MasterData / ReferenceData / Transactional / Historical / Documents", order=1)])),
          SomMetaNode(
             class_name="MigrationPhaseEntry",
             member_name="identity",
@@ -29401,7 +29401,7 @@ def _mc_MigrationRiskEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskId", type_name="String", description="Risk ID", required=True, hint="Unique identifier (e.g., MIG-RISK-001)", order=0), SomFormFieldMeta(name="riskTitle", type_name="String", description="Risk Title", required=True, hint="Concise risk name", order=1), SomFormFieldMeta(name="riskOwner", type_name="String", description="Risk Owner", required=True, hint="Accountable for risk management", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskId", type_name="String", description="Risk ID", required=True, hint="Unique identifier (e.g., MIG-RISK-001)", order=0), SomFormFieldMeta(name="riskOwner", type_name="String", description="Risk Owner", required=True, hint="Accountable for risk management", order=1)])),
          SomMetaNode(
             class_name="MigrationRiskEntry",
             member_name="identification",
@@ -29869,7 +29869,7 @@ def _mc_ModuleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="moduleName", type_name="String", description="Module Name", required=True, hint="Unique module identifier", order=0), SomFormFieldMeta(name="moduleType", type_name="String", description="Module Type", hint="Core, Feature, Shared, Platform, Plugin", order=1), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Current module version", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="moduleType", type_name="String", description="Module Type", hint="Core, Feature, Shared, Platform, Plugin", order=0), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Current module version", order=1)])),
          SomMetaNode(
             class_name="ModuleEntry",
             member_name="description",
@@ -30482,7 +30482,7 @@ def _mc_MustPassCriterionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="criterionId", type_name="String", description="Criterion ID", hint="Unique identifier (e.g., MP-001)", order=0), SomFormFieldMeta(name="criterionName", type_name="String", description="Criterion Name", required=True, order=1), SomFormFieldMeta(name="verificationMethod", type_name="String", description="Verification Method", required=True, hint="Test, demonstration, analysis, inspection", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="criterionId", type_name="String", description="Criterion ID", hint="Unique identifier (e.g., MP-001)", order=0), SomFormFieldMeta(name="verificationMethod", type_name="String", description="Verification Method", required=True, hint="Test, demonstration, analysis, inspection", order=1)])),
          SomMetaNode(
             class_name="MustPassCriterionEntry",
             member_name="definition",
@@ -30671,7 +30671,7 @@ def _mc_NavigationGuardEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="guardId", type_name="String", description="Guard ID", required=True, hint="Unique identifier, e.g., guard-unsaved-changes", order=0), SomFormFieldMeta(name="guardName", type_name="String", description="Guard Name", required=True, hint="Human-readable name", order=1), SomFormFieldMeta(name="guardType", type_name="String", description="Guard Type", hint="Unsaved-Changes/Authentication/Permission/Feature-Flag/Onboarding/Maintenance", order=2), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Trigger Condition", hint="When this guard activates, e.g., form.isDirty", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="guardId", type_name="String", description="Guard ID", required=True, hint="Unique identifier, e.g., guard-unsaved-changes", order=0), SomFormFieldMeta(name="guardType", type_name="String", description="Guard Type", hint="Unsaved-Changes/Authentication/Permission/Feature-Flag/Onboarding/Maintenance", order=1), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Trigger Condition", hint="When this guard activates, e.g., form.isDirty", order=2)])),
          SomMetaNode(
             class_name="NavigationGuardEntry",
             member_name="dialog",
@@ -31435,7 +31435,7 @@ def _mc_NewRoleEntry(s):
             type_name="String",
             serialization_order=0,
             doc_comment="Role identification and overview.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="roleId", type_name="String", description="Role ID (e.g., NR-001)", required=True, hint="Unique identifier for this new role", order=0), SomFormFieldMeta(name="roleTitle", type_name="String", description="Role Title", required=True, hint="Official job title for the role", order=1), SomFormFieldMeta(name="roleFamily", type_name="String", description="Job Family", hint="Broader job family or category this role belongs to", order=2), SomFormFieldMeta(name="jobLevel", type_name="String", description="Job Level/Grade", hint="Seniority level or pay grade", order=3), SomFormFieldMeta(name="rolePurpose", type_name="String", description="Role Purpose — why this role exists", hint="Core mission the role fulfils", order=4), SomFormFieldMeta(name="roleJustification", type_name="String", description="Role Justification — business case for new role", hint="Why creating this role is needed now", order=5), SomFormFieldMeta(name="effectiveDate", type_name="String", description="Effective Date", hint="When the role becomes active", order=6), SomFormFieldMeta(name="roleStatus", type_name="String", description="Role Status — draft, approved, posted, filled", hint="Current lifecycle stage of the role", order=7)]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="roleId", type_name="String", description="Role ID (e.g., NR-001)", required=True, hint="Unique identifier for this new role", order=0), SomFormFieldMeta(name="roleFamily", type_name="String", description="Job Family", hint="Broader job family or category this role belongs to", order=1), SomFormFieldMeta(name="jobLevel", type_name="String", description="Job Level/Grade", hint="Seniority level or pay grade", order=2), SomFormFieldMeta(name="rolePurpose", type_name="String", description="Role Purpose — why this role exists", hint="Core mission the role fulfils", order=3), SomFormFieldMeta(name="roleJustification", type_name="String", description="Role Justification — business case for new role", hint="Why creating this role is needed now", order=4), SomFormFieldMeta(name="effectiveDate", type_name="String", description="Effective Date", hint="When the role becomes active", order=5), SomFormFieldMeta(name="roleStatus", type_name="String", description="Role Status — draft, approved, posted, filled", hint="Current lifecycle stage of the role", order=6)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["SHRM — HR best practices (job design, role definition)", "O*NET — occupational job analysis (tasks, skills, knowledge)"], "connotation": "Identifies the new role and records the business case that justifies creating it."})]),
          SomMetaNode(
             class_name="NewRoleEntry",
@@ -31595,7 +31595,7 @@ def _mc_NotificationChannelEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="channelName", type_name="String", description="Channel Name", required=True, hint="Email, SMS, Push Notification, In-App, Slack, Teams", order=0), SomFormFieldMeta(name="channelId", type_name="String", description="Channel ID", hint="Unique identifier for the notification channel", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Purpose and scope of this notification channel", order=2), SomFormFieldMeta(name="deliveryMethod", type_name="String", description="Delivery Method", hint="Immediate, Batched, Digest", order=3), SomFormFieldMeta(name="retryPolicy", type_name="String", description="Retry Policy", hint="Retry attempts and intervals", order=4), SomFormFieldMeta(name="fallbackChannel", type_name="String", description="Fallback Channel", hint="Alternative channel if delivery fails", order=5), SomFormFieldMeta(name="quietHoursSupport", type_name="String", description="Quiet Hours Support", hint="Respects user quiet hours settings", order=6), SomFormFieldMeta(name="urgencyLevels", type_name="String", description="Supported Urgency Levels", hint="Which urgency levels use this channel", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="channelId", type_name="String", description="Channel ID", hint="Unique identifier for the notification channel", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Purpose and scope of this notification channel", order=1), SomFormFieldMeta(name="deliveryMethod", type_name="String", description="Delivery Method", hint="Immediate, Batched, Digest", order=2), SomFormFieldMeta(name="retryPolicy", type_name="String", description="Retry Policy", hint="Retry attempts and intervals", order=3), SomFormFieldMeta(name="fallbackChannel", type_name="String", description="Fallback Channel", hint="Alternative channel if delivery fails", order=4), SomFormFieldMeta(name="quietHoursSupport", type_name="String", description="Quiet Hours Support", hint="Respects user quiet hours settings", order=5), SomFormFieldMeta(name="urgencyLevels", type_name="String", description="Supported Urgency Levels", hint="Which urgency levels use this channel", order=6)])),
     ]
 
 
@@ -31668,7 +31668,7 @@ def _mc_ObjectInvariantEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="invariantName", type_name="String", description="Invariant Name", required=True, hint="Name of the invariant", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this invariant means", order=1), SomFormFieldMeta(name="expression", type_name="String", description="Expression", hint="Logic or pseudo-code expressing the invariant", order=2), SomFormFieldMeta(name="scope", type_name="String", description="Scope", hint="Single | AcrossStates | AcrossObjects", order=3), SomFormFieldMeta(name="enforcementPoint", type_name="String", description="Enforcement Point", hint="When invariant is checked", order=4), SomFormFieldMeta(name="violationAction", type_name="String", description="Violation Action", hint="What happens on violation: Reject | Compensate | Alert", order=5), SomFormFieldMeta(name="businessJustification", type_name="String", description="Business Justification", hint="Why this invariant exists", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this invariant means", order=0), SomFormFieldMeta(name="expression", type_name="String", description="Expression", hint="Logic or pseudo-code expressing the invariant", order=1), SomFormFieldMeta(name="scope", type_name="String", description="Scope", hint="Single | AcrossStates | AcrossObjects", order=2), SomFormFieldMeta(name="enforcementPoint", type_name="String", description="Enforcement Point", hint="When invariant is checked", order=3), SomFormFieldMeta(name="violationAction", type_name="String", description="Violation Action", hint="What happens on violation: Reject | Compensate | Alert", order=4), SomFormFieldMeta(name="businessJustification", type_name="String", description="Business Justification", hint="Why this invariant exists", order=5)])),
     ]
 
 
@@ -31680,7 +31680,7 @@ def _mc_ObjectOperationEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="operationName", type_name="String", description="Operation Name", required=True, hint="Name of the operation (e.g., Submit, Approve)", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this operation does", order=1), SomFormFieldMeta(name="operationType", type_name="String", description="Operation Type", hint="Command | Query | Event", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this operation does", order=0), SomFormFieldMeta(name="operationType", type_name="String", description="Operation Type", hint="Command | Query | Event", order=1)])),
          SomMetaNode(
             class_name="ObjectOperationEntry",
             member_name="execution",
@@ -31722,7 +31722,7 @@ def _mc_ObjectStateEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="stateName", type_name="String", description="State Name", required=True, hint="Name of the state (e.g., Draft, Submitted)", order=0), SomFormFieldMeta(name="stateCode", type_name="String", description="State Code", hint="Technical state code or enum value", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this state means in business terms", order=2), SomFormFieldMeta(name="stateType", type_name="ObjectLifecycleKind", description="State Type", hint="Lifecycle role of this state", order=3, enum_values=["initial", "intermediate", "terminal", "error"]), SomFormFieldMeta(name="entryConditions", type_name="String", description="Entry Conditions", hint="Conditions required to enter this state", order=4), SomFormFieldMeta(name="exitConditions", type_name="String", description="Exit Conditions", hint="Conditions required to exit this state", order=5), SomFormFieldMeta(name="allowedOperations", type_name="String", description="Allowed Operations", hint="What operations can be performed in this state", order=6), SomFormFieldMeta(name="restrictedOperations", type_name="String", description="Restricted Operations", hint="What operations are not allowed in this state", order=7), SomFormFieldMeta(name="slaRequirements", type_name="String", description="SLA Requirements", hint="Any time-bound requirements for this state", order=8), SomFormFieldMeta(name="notificationTriggers", type_name="String", description="Notification Triggers", hint="Events that trigger notifications in this state", order=9)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="stateCode", type_name="String", description="State Code", hint="Technical state code or enum value", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this state means in business terms", order=1), SomFormFieldMeta(name="stateType", type_name="ObjectLifecycleKind", description="State Type", hint="Lifecycle role of this state", order=2, enum_values=["initial", "intermediate", "terminal", "error"]), SomFormFieldMeta(name="entryConditions", type_name="String", description="Entry Conditions", hint="Conditions required to enter this state", order=3), SomFormFieldMeta(name="exitConditions", type_name="String", description="Exit Conditions", hint="Conditions required to exit this state", order=4), SomFormFieldMeta(name="allowedOperations", type_name="String", description="Allowed Operations", hint="What operations can be performed in this state", order=5), SomFormFieldMeta(name="restrictedOperations", type_name="String", description="Restricted Operations", hint="What operations are not allowed in this state", order=6), SomFormFieldMeta(name="slaRequirements", type_name="String", description="SLA Requirements", hint="Any time-bound requirements for this state", order=7), SomFormFieldMeta(name="notificationTriggers", type_name="String", description="Notification Triggers", hint="Events that trigger notifications in this state", order=8)])),
     ]
 
 
@@ -31901,7 +31901,7 @@ def _mc_OngoingTrainingEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="trainingId", type_name="String", description="Training ID", required=True, order=0), SomFormFieldMeta(name="trainingName", type_name="String", description="Training Name", required=True, order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", order=2), SomFormFieldMeta(name="targetAudience", type_name="String", description="Target Audience", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="trainingId", type_name="String", description="Training ID", required=True, order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", order=1), SomFormFieldMeta(name="targetAudience", type_name="String", description="Target Audience", order=2)])),
          SomMetaNode(
             class_name="OngoingTrainingEntry",
             member_name="schedule",
@@ -32192,7 +32192,7 @@ def _mc_OrgImplementationActivity(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="activityId", type_name="String", description="Activity ID", required=True, hint="Stable unique identifier for the activity", order=0), SomFormFieldMeta(name="activityName", type_name="String", description="Activity Name", required=True, hint="Short descriptive name for the activity", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What the activity entails", order=2), SomFormFieldMeta(name="owner", type_name="String", description="Owner", hint="Person or role responsible for the activity", order=3), SomFormFieldMeta(name="startDate", type_name="String", description="Start Date", hint="Planned start date", order=4), SomFormFieldMeta(name="endDate", type_name="String", description="End Date", hint="Planned completion date", order=5), SomFormFieldMeta(name="deliverable", type_name="String", description="Deliverable", hint="Output produced by the activity", order=6), SomFormFieldMeta(name="status", type_name="String", description="Status (Planned, In Progress, Completed, Delayed)", hint="Planned, In Progress, Completed, or Delayed", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="activityId", type_name="String", description="Activity ID", required=True, hint="Stable unique identifier for the activity", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What the activity entails", order=1), SomFormFieldMeta(name="owner", type_name="String", description="Owner", hint="Person or role responsible for the activity", order=2), SomFormFieldMeta(name="startDate", type_name="String", description="Start Date", hint="Planned start date", order=3), SomFormFieldMeta(name="endDate", type_name="String", description="End Date", hint="Planned completion date", order=4), SomFormFieldMeta(name="deliverable", type_name="String", description="Deliverable", hint="Output produced by the activity", order=5), SomFormFieldMeta(name="status", type_name="String", description="Status (Planned, In Progress, Completed, Delayed)", hint="Planned, In Progress, Completed, or Delayed", order=6)])),
     ]
 
 
@@ -32309,7 +32309,7 @@ def _mc_OrganizationalChangeEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="changeId", type_name="String", description="Change ID (e.g., OC-001)", required=True, hint="Unique identifier for this structural change", order=0), SomFormFieldMeta(name="changeName", type_name="String", description="Change Name", required=True, hint="Short descriptive name for the change", order=1), SomFormFieldMeta(name="changeType", type_name="String", description="Change Type", hint="Restructure, Merge, Split, Create, Eliminate, Relocate", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="changeId", type_name="String", description="Change ID (e.g., OC-001)", required=True, hint="Unique identifier for this structural change", order=0), SomFormFieldMeta(name="changeType", type_name="String", description="Change Type", hint="Restructure, Merge, Split, Create, Eliminate, Relocate", order=1)])),
          SomMetaNode(
             class_name="OrganizationalChangeEntry",
             member_name="identification",
@@ -32806,7 +32806,7 @@ def _mc_OrganizationalUnitContextEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="unitName", type_name="String", description="Unit Name", required=True, hint="The name of this organizational unit", order=0), SomFormFieldMeta(name="unitType", type_name="String", description="Unit Type (Department, Division, Team, Business Unit, Subsidiary, External Partner)", hint="The category of organizational unit", order=1), SomFormFieldMeta(name="role", type_name="String", description="Role (Primary User, Secondary User, Data Provider, Beneficiary, Sponsor)", hint="The role this unit plays relative to the system", order=2), SomFormFieldMeta(name="responsibilities", type_name="String", description="Responsibilities (what they do with/for the system)", hint="What this unit does with or for the system", order=3), SomFormFieldMeta(name="headcount", type_name="String", description="Headcount (estimated number of users)", hint="Estimated number of users in this unit", order=4), SomFormFieldMeta(name="location", type_name="String", description="Location (geographic location)", hint="The geographic location of this unit", order=5), SomFormFieldMeta(name="timezone", type_name="String", description="Timezone (primary operating timezone)", hint="The primary operating timezone of this unit", order=6), SomFormFieldMeta(name="keyContacts", type_name="String", description="Key Contacts (business contacts)", hint="Business contacts for this unit", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="unitType", type_name="String", description="Unit Type (Department, Division, Team, Business Unit, Subsidiary, External Partner)", hint="The category of organizational unit", order=0), SomFormFieldMeta(name="role", type_name="String", description="Role (Primary User, Secondary User, Data Provider, Beneficiary, Sponsor)", hint="The role this unit plays relative to the system", order=1), SomFormFieldMeta(name="responsibilities", type_name="String", description="Responsibilities (what they do with/for the system)", hint="What this unit does with or for the system", order=2), SomFormFieldMeta(name="headcount", type_name="String", description="Headcount (estimated number of users)", hint="Estimated number of users in this unit", order=3), SomFormFieldMeta(name="location", type_name="String", description="Location (geographic location)", hint="The geographic location of this unit", order=4), SomFormFieldMeta(name="timezone", type_name="String", description="Timezone (primary operating timezone)", hint="The primary operating timezone of this unit", order=5), SomFormFieldMeta(name="keyContacts", type_name="String", description="Key Contacts (business contacts)", hint="Business contacts for this unit", order=6)])),
     ]
 
 
@@ -32818,7 +32818,7 @@ def _mc_OsCompatibilityEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="osName", type_name="String", description="Operating System", required=True, hint="E.g., Windows, macOS, Linux, iOS, Android", order=0), SomFormFieldMeta(name="osFamily", type_name="String", description="OS Family", hint="Windows, Unix, Mobile", order=1), SomFormFieldMeta(name="minVersion", type_name="String", description="Minimum Version", required=True, hint="Minimum supported version", order=2), SomFormFieldMeta(name="maxVersion", type_name="String", description="Maximum Version", hint="Maximum tested version", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="osFamily", type_name="String", description="OS Family", hint="Windows, Unix, Mobile", order=0), SomFormFieldMeta(name="minVersion", type_name="String", description="Minimum Version", required=True, hint="Minimum supported version", order=1), SomFormFieldMeta(name="maxVersion", type_name="String", description="Maximum Version", hint="Maximum tested version", order=2)])),
          SomMetaNode(
             class_name="OsCompatibilityEntry",
             member_name="support",
@@ -32870,7 +32870,7 @@ def _mc_OtherAgreementEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="agreementTitle", type_name="String", description="Agreement Title", required=True, hint="Title of the agreement", order=0), SomFormFieldMeta(name="agreementType", type_name="String", description="Type", hint="Kind of agreement, e.g. MOU, SLA, partnership", order=1), SomFormFieldMeta(name="parties", type_name="String", description="Parties", hint="Parties bound by the agreement", order=2), SomFormFieldMeta(name="effectiveDate", type_name="String", description="Effective Date", hint="When the agreement takes effect", order=3), SomFormFieldMeta(name="expirationDate", type_name="String", description="Expiration Date", hint="When the agreement expires", order=4), SomFormFieldMeta(name="keyTerms", type_name="String", description="Key Terms", hint="Principal terms of the agreement", order=5), SomFormFieldMeta(name="obligations", type_name="String", description="Obligations", hint="Obligations the agreement imposes", order=6), SomFormFieldMeta(name="location", type_name="String", description="Document Location", hint="Where the signed agreement is stored", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="agreementType", type_name="String", description="Type", hint="Kind of agreement, e.g. MOU, SLA, partnership", order=0), SomFormFieldMeta(name="parties", type_name="String", description="Parties", hint="Parties bound by the agreement", order=1), SomFormFieldMeta(name="effectiveDate", type_name="String", description="Effective Date", hint="When the agreement takes effect", order=2), SomFormFieldMeta(name="expirationDate", type_name="String", description="Expiration Date", hint="When the agreement expires", order=3), SomFormFieldMeta(name="keyTerms", type_name="String", description="Key Terms", hint="Principal terms of the agreement", order=4), SomFormFieldMeta(name="obligations", type_name="String", description="Obligations", hint="Obligations the agreement imposes", order=5), SomFormFieldMeta(name="location", type_name="String", description="Document Location", hint="Where the signed agreement is stored", order=6)])),
     ]
 
 
@@ -33648,7 +33648,7 @@ def _mc_PersonaEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="personaName", type_name="String", description="Persona Name", required=True, hint="Name and title, e.g., \"Marco, Finance Manager\"", order=0), SomFormFieldMeta(name="age", type_name="String", description="Age", hint="Age or age range", order=1), SomFormFieldMeta(name="role", type_name="String", description="Role", hint="Job title and responsibilities", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="age", type_name="String", description="Age", hint="Age or age range", order=0), SomFormFieldMeta(name="role", type_name="String", description="Role", hint="Job title and responsibilities", order=1)])),
          SomMetaNode(
             class_name="PersonaEntry",
             member_name="profile",
@@ -33800,7 +33800,7 @@ def _mc_PersonaScenarioEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="scenarioName", type_name="String", description="Scenario Name", required=True, hint="A short action-oriented name for the scenario", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What the persona is trying to accomplish", order=1), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency", hint="Daily/Weekly/Monthly/Occasional", order=2), SomFormFieldMeta(name="urgency", type_name="String", description="Urgency", hint="Time-sensitive nature", order=3), SomFormFieldMeta(name="context", type_name="String", description="Context", hint="Where/when this scenario occurs", order=4), SomFormFieldMeta(name="requiredScreens", type_name="String", description="Required Screens", hint="Screens needed for this scenario", order=5), SomFormFieldMeta(name="successMetric", type_name="String", description="Success Metric", hint="How we measure scenario success", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What the persona is trying to accomplish", order=0), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency", hint="Daily/Weekly/Monthly/Occasional", order=1), SomFormFieldMeta(name="urgency", type_name="String", description="Urgency", hint="Time-sensitive nature", order=2), SomFormFieldMeta(name="context", type_name="String", description="Context", hint="Where/when this scenario occurs", order=3), SomFormFieldMeta(name="requiredScreens", type_name="String", description="Required Screens", hint="Screens needed for this scenario", order=4), SomFormFieldMeta(name="successMetric", type_name="String", description="Success Metric", hint="How we measure scenario success", order=5)])),
     ]
 
 
@@ -33837,7 +33837,7 @@ def _mc_PhaseGateReviewEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="gateName", type_name="String", description="Gate Name", required=True, hint="Formal gate name — e.g. G1-ConceptApproval", order=0), SomFormFieldMeta(name="gateId", type_name="String", description="Gate ID", required=True, hint="Unique gate identifier — e.g. G1, G2, G3", order=1), SomFormFieldMeta(name="stage", type_name="String", description="Stage", required=True, hint="Stage this gate is associated with", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="gateId", type_name="String", description="Gate ID", required=True, hint="Unique gate identifier — e.g. G1, G2, G3", order=0), SomFormFieldMeta(name="stage", type_name="String", description="Stage", required=True, hint="Stage this gate is associated with", order=1)])),
          SomMetaNode(
             class_name="PhaseGateReviewEntry",
             member_name="identity",
@@ -34026,7 +34026,7 @@ def _mc_PipelineJobEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="jobName", type_name="String", description="Job Name", required=True, hint="Job identifier", order=0), SomFormFieldMeta(name="parentStage", type_name="String", description="Parent Stage", hint="Stage this job belongs to", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this job does", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="parentStage", type_name="String", description="Parent Stage", hint="Stage this job belongs to", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this job does", order=1)])),
          SomMetaNode(
             class_name="PipelineJobEntry",
             member_name="environment",
@@ -34078,7 +34078,7 @@ def _mc_PipelineStageEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="stageName", type_name="String", description="Stage Name", required=True, hint="E.g., Build, Test, Deploy, Release", order=0), SomFormFieldMeta(name="stageOrder", type_name="String", description="Order", hint="Execution order", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this stage does", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="stageOrder", type_name="String", description="Order", hint="Execution order", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this stage does", order=1)])),
          SomMetaNode(
             class_name="PipelineStageEntry",
             member_name="trigger",
@@ -34792,7 +34792,7 @@ def _mc_ProcessControlEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="controlId", type_name="String", description="Control ID", required=True, hint="Unique identifier for the control", order=0), SomFormFieldMeta(name="controlName", type_name="String", description="Control Name", required=True, hint="Short human-readable control name", order=1), SomFormFieldMeta(name="controlType", type_name="String", description="Control Type — preventive, detective, corrective", hint="Classify the control type", order=2), SomFormFieldMeta(name="controlCategory", type_name="String", description="Control Category — authorization, validation, reconciliation", hint="Classify the control category", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="controlId", type_name="String", description="Control ID", required=True, hint="Unique identifier for the control", order=0), SomFormFieldMeta(name="controlType", type_name="String", description="Control Type — preventive, detective, corrective", hint="Classify the control type", order=1), SomFormFieldMeta(name="controlCategory", type_name="String", description="Control Category — authorization, validation, reconciliation", hint="Classify the control category", order=2)])),
          SomMetaNode(
             class_name="ProcessControlEntry",
             member_name="operation",
@@ -34863,7 +34863,7 @@ def _mc_ProcessDesignPrincipleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="principleId", type_name="String", description="Principle ID", required=True, hint="Unique identifier for the principle", order=0), SomFormFieldMeta(name="principleName", type_name="String", description="Principle Name", required=True, hint="Short descriptive name", order=1), SomFormFieldMeta(name="category", type_name="String", description="Category — efficiency, quality, compliance, user experience", hint="The dimension this principle addresses", order=2), SomFormFieldMeta(name="statement", type_name="String", description="Statement — the principle statement", hint="The principle expressed as a directive", order=3), SomFormFieldMeta(name="rationale", type_name="String", description="Rationale — why this principle matters", hint="Why the principle is important", order=4), SomFormFieldMeta(name="implications", type_name="String", description="Implications — what this means for process design", hint="Design consequences of applying it", order=5), SomFormFieldMeta(name="examples", type_name="String", description="Examples — how this principle applies", hint="Concrete examples of the principle in use", order=6), SomFormFieldMeta(name="tradeoffs", type_name="String", description="Trade-offs — what is sacrificed", hint="What is given up to follow the principle", order=7), SomFormFieldMeta(name="priority", type_name="String", description="Priority — high, medium, low", hint="Relative importance of the principle", order=8), SomFormFieldMeta(name="applicability", type_name="String", description="Applicability — all processes or specific types", hint="Which processes the principle applies to", order=9)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="principleId", type_name="String", description="Principle ID", required=True, hint="Unique identifier for the principle", order=0), SomFormFieldMeta(name="category", type_name="String", description="Category — efficiency, quality, compliance, user experience", hint="The dimension this principle addresses", order=1), SomFormFieldMeta(name="statement", type_name="String", description="Statement — the principle statement", hint="The principle expressed as a directive", order=2), SomFormFieldMeta(name="rationale", type_name="String", description="Rationale — why this principle matters", hint="Why the principle is important", order=3), SomFormFieldMeta(name="implications", type_name="String", description="Implications — what this means for process design", hint="Design consequences of applying it", order=4), SomFormFieldMeta(name="examples", type_name="String", description="Examples — how this principle applies", hint="Concrete examples of the principle in use", order=5), SomFormFieldMeta(name="tradeoffs", type_name="String", description="Trade-offs — what is sacrificed", hint="What is given up to follow the principle", order=6), SomFormFieldMeta(name="priority", type_name="String", description="Priority — high, medium, low", hint="Relative importance of the principle", order=7), SomFormFieldMeta(name="applicability", type_name="String", description="Applicability — all processes or specific types", hint="Which processes the principle applies to", order=8)])),
     ]
 
 
@@ -34902,7 +34902,7 @@ def _mc_ProcessEndEventEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="endEventId", type_name="String", description="End Event ID", required=True, hint="Unique identifier for the end event", order=0), SomFormFieldMeta(name="endEventName", type_name="String", description="End Event Name", required=True, hint="Descriptive name of the end event", order=1), SomFormFieldMeta(name="endEventType", type_name="String", description="End Event Type — success, error, cancellation, timeout", hint="BPMN end-event type", order=2), SomFormFieldMeta(name="outcome", type_name="String", description="Outcome — what this end state means", hint="What reaching this end state means", order=3), SomFormFieldMeta(name="probability", type_name="String", description="Probability — how often this end occurs", hint="How often this outcome occurs", order=4), SomFormFieldMeta(name="postCondition", type_name="String", description="Post-Condition — system state after this end", hint="System state after this end event", order=5), SomFormFieldMeta(name="notificationAction", type_name="String", description="Notification Action — who/what is notified", hint="Who or what is notified at this end", order=6), SomFormFieldMeta(name="followOnAction", type_name="String", description="Follow-On Action — what happens next", hint="What happens after this end event", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="endEventId", type_name="String", description="End Event ID", required=True, hint="Unique identifier for the end event", order=0), SomFormFieldMeta(name="endEventType", type_name="String", description="End Event Type — success, error, cancellation, timeout", hint="BPMN end-event type", order=1), SomFormFieldMeta(name="outcome", type_name="String", description="Outcome — what this end state means", hint="What reaching this end state means", order=2), SomFormFieldMeta(name="probability", type_name="String", description="Probability — how often this end occurs", hint="How often this outcome occurs", order=3), SomFormFieldMeta(name="postCondition", type_name="String", description="Post-Condition — system state after this end", hint="System state after this end event", order=4), SomFormFieldMeta(name="notificationAction", type_name="String", description="Notification Action — who/what is notified", hint="Who or what is notified at this end", order=5), SomFormFieldMeta(name="followOnAction", type_name="String", description="Follow-On Action — what happens next", hint="What happens after this end event", order=6)])),
     ]
 
 
@@ -34914,7 +34914,7 @@ def _mc_ProcessExceptionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="exceptionId", type_name="String", description="Exception ID", required=True, hint="Unique identifier for the exception", order=0), SomFormFieldMeta(name="exceptionName", type_name="String", description="Exception Name", required=True, hint="Short human-readable exception name", order=1), SomFormFieldMeta(name="exceptionType", type_name="String", description="Exception Type — data error, system error, business rule, timeout", hint="Classify the exception type", order=2), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Trigger Condition — what causes this exception", hint="Describe what triggers the exception", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="exceptionId", type_name="String", description="Exception ID", required=True, hint="Unique identifier for the exception", order=0), SomFormFieldMeta(name="exceptionType", type_name="String", description="Exception Type — data error, system error, business rule, timeout", hint="Classify the exception type", order=1), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Trigger Condition — what causes this exception", hint="Describe what triggers the exception", order=2)])),
          SomMetaNode(
             class_name="ProcessExceptionEntry",
             member_name="assessment",
@@ -34986,7 +34986,7 @@ def _mc_ProcessIdentification(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="processId", type_name="String", description="Process ID (e.g., TOM-001)", required=True, hint="Unique process identifier", order=0), SomFormFieldMeta(name="processName", type_name="String", description="Process Name", required=True, hint="Descriptive name of the process", order=1), SomFormFieldMeta(name="processLevel", type_name="String", description="Process Level — L1 (category), L2 (group), L3 (process), L4 (activity)", hint="Level in the process hierarchy", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="processId", type_name="String", description="Process ID (e.g., TOM-001)", required=True, hint="Unique process identifier", order=0), SomFormFieldMeta(name="processLevel", type_name="String", description="Process Level — L1 (category), L2 (group), L3 (process), L4 (activity)", hint="Level in the process hierarchy", order=1)])),
          SomMetaNode(
             class_name="ProcessIdentification",
             member_name="classification",
@@ -35028,7 +35028,7 @@ def _mc_ProcessImprovementEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="improvementId", type_name="String", description="Improvement ID", required=True, hint="Unique identifier for the improvement", order=0), SomFormFieldMeta(name="improvementName", type_name="String", description="Improvement Name", required=True, hint="Short human-readable improvement name", order=1), SomFormFieldMeta(name="category", type_name="String", description="Category — efficiency, quality, cost, experience", hint="Classify the improvement category", order=2), SomFormFieldMeta(name="currentState", type_name="String", description="Current State — baseline measurement", hint="Give the current-state baseline", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="improvementId", type_name="String", description="Improvement ID", required=True, hint="Unique identifier for the improvement", order=0), SomFormFieldMeta(name="category", type_name="String", description="Category — efficiency, quality, cost, experience", hint="Classify the improvement category", order=1), SomFormFieldMeta(name="currentState", type_name="String", description="Current State — baseline measurement", hint="Give the current-state baseline", order=2)])),
          SomMetaNode(
             class_name="ProcessImprovementEntry",
             member_name="benefits",
@@ -35097,7 +35097,7 @@ def _mc_ProcessInputEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="inputId", type_name="String", description="Input ID", required=True, hint="Unique identifier for the input", order=0), SomFormFieldMeta(name="inputName", type_name="String", description="Input Name", required=True, hint="Descriptive name of the input", order=1), SomFormFieldMeta(name="inputType", type_name="String", description="Input Type — data, document, authorization, resource", hint="Kind of input consumed", order=2), SomFormFieldMeta(name="source", type_name="String", description="Source — where input comes from", hint="Where the input originates", order=3), SomFormFieldMeta(name="format", type_name="String", description="Format — data format, file type", hint="Data format or file type", order=4), SomFormFieldMeta(name="required", type_name="String", description="Required — mandatory or optional", hint="Whether the input is mandatory", order=5), SomFormFieldMeta(name="validationRules", type_name="String", description="Validation Rules — input quality checks", hint="Quality checks applied to the input", order=6), SomFormFieldMeta(name="defaultValue", type_name="String", description="Default Value — if input not provided", hint="Value used when input is absent", order=7), SomFormFieldMeta(name="exampleValue", type_name="String", description="Example Value — sample input", hint="A sample value for the input", order=8), SomFormFieldMeta(name="securityClassification", type_name="String", description="Security Classification — sensitivity level", hint="Sensitivity level of the input", order=9)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="inputId", type_name="String", description="Input ID", required=True, hint="Unique identifier for the input", order=0), SomFormFieldMeta(name="inputType", type_name="String", description="Input Type — data, document, authorization, resource", hint="Kind of input consumed", order=1), SomFormFieldMeta(name="source", type_name="String", description="Source — where input comes from", hint="Where the input originates", order=2), SomFormFieldMeta(name="format", type_name="String", description="Format — data format, file type", hint="Data format or file type", order=3), SomFormFieldMeta(name="required", type_name="String", description="Required — mandatory or optional", hint="Whether the input is mandatory", order=4), SomFormFieldMeta(name="validationRules", type_name="String", description="Validation Rules — input quality checks", hint="Quality checks applied to the input", order=5), SomFormFieldMeta(name="defaultValue", type_name="String", description="Default Value — if input not provided", hint="Value used when input is absent", order=6), SomFormFieldMeta(name="exampleValue", type_name="String", description="Example Value — sample input", hint="A sample value for the input", order=7), SomFormFieldMeta(name="securityClassification", type_name="String", description="Security Classification — sensitivity level", hint="Sensitivity level of the input", order=8)])),
     ]
 
 
@@ -35182,7 +35182,7 @@ def _mc_ProcessKpiEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="kpiId", type_name="String", description="KPI ID", required=True, hint="Unique identifier for the KPI", order=0), SomFormFieldMeta(name="kpiName", type_name="String", description="KPI Name", required=True, hint="Short human-readable KPI name", order=1), SomFormFieldMeta(name="category", type_name="String", description="Category — time, quality, cost, volume, satisfaction", hint="Classify the KPI dimension", order=2), SomFormFieldMeta(name="definition", type_name="String", description="Definition — how KPI is calculated", hint="Describe the calculation formula", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="kpiId", type_name="String", description="KPI ID", required=True, hint="Unique identifier for the KPI", order=0), SomFormFieldMeta(name="category", type_name="String", description="Category — time, quality, cost, volume, satisfaction", hint="Classify the KPI dimension", order=1), SomFormFieldMeta(name="definition", type_name="String", description="Definition — how KPI is calculated", hint="Describe the calculation formula", order=2)])),
          SomMetaNode(
             class_name="ProcessKpiEntry",
             member_name="measurement",
@@ -35251,7 +35251,7 @@ def _mc_ProcessMetricEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="metricName", type_name="String", description="Metric Name", required=True, order=0), SomFormFieldMeta(name="metricId", type_name="String", description="Metric ID", order=1), SomFormFieldMeta(name="metricCategory", type_name="String", description="Category (e.g., Efficiency, Quality, Volume, Cost)", hint="Only for metrics listed on their own — a metric listed inside a metric category takes that category and leaves this empty", order=2), SomFormFieldMeta(name="currentValue", type_name="String", description="Current Value", order=3), SomFormFieldMeta(name="unit", type_name="String", description="Unit", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="metricId", type_name="String", description="Metric ID", order=0), SomFormFieldMeta(name="metricCategory", type_name="String", description="Category (e.g., Efficiency, Quality, Volume, Cost)", hint="Only for metrics listed on their own — a metric listed inside a metric category takes that category and leaves this empty", order=1), SomFormFieldMeta(name="currentValue", type_name="String", description="Current Value", order=2), SomFormFieldMeta(name="unit", type_name="String", description="Unit", order=3)])),
          SomMetaNode(
             class_name="ProcessMetricEntry",
             member_name="measurement",
@@ -35415,7 +35415,7 @@ def _mc_ProcessOutputEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="outputId", type_name="String", description="Output ID", required=True, hint="Unique identifier for the output", order=0), SomFormFieldMeta(name="outputName", type_name="String", description="Output Name", required=True, hint="Descriptive name of the output", order=1), SomFormFieldMeta(name="outputType", type_name="String", description="Output Type — data, document, notification, state change", hint="Kind of output produced", order=2), SomFormFieldMeta(name="destination", type_name="String", description="Destination — where output goes", hint="Where the output is sent", order=3), SomFormFieldMeta(name="format", type_name="String", description="Format — data format, file type", hint="Data format or file type", order=4), SomFormFieldMeta(name="qualityStandard", type_name="String", description="Quality Standard — output quality requirements", hint="Quality requirements for the output", order=5), SomFormFieldMeta(name="timingRequirement", type_name="String", description="Timing Requirement — when output must be available", hint="When the output must be ready", order=6), SomFormFieldMeta(name="retentionPeriod", type_name="String", description="Retention Period — how long output is kept", hint="How long the output is retained", order=7), SomFormFieldMeta(name="securityClassification", type_name="String", description="Security Classification — sensitivity level", hint="Sensitivity level of the output", order=8), SomFormFieldMeta(name="dependentProcesses", type_name="String", description="Dependent Processes — processes that need this output", hint="Processes that consume this output", order=9)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="outputId", type_name="String", description="Output ID", required=True, hint="Unique identifier for the output", order=0), SomFormFieldMeta(name="outputType", type_name="String", description="Output Type — data, document, notification, state change", hint="Kind of output produced", order=1), SomFormFieldMeta(name="destination", type_name="String", description="Destination — where output goes", hint="Where the output is sent", order=2), SomFormFieldMeta(name="format", type_name="String", description="Format — data format, file type", hint="Data format or file type", order=3), SomFormFieldMeta(name="qualityStandard", type_name="String", description="Quality Standard — output quality requirements", hint="Quality requirements for the output", order=4), SomFormFieldMeta(name="timingRequirement", type_name="String", description="Timing Requirement — when output must be available", hint="When the output must be ready", order=5), SomFormFieldMeta(name="retentionPeriod", type_name="String", description="Retention Period — how long output is kept", hint="How long the output is retained", order=6), SomFormFieldMeta(name="securityClassification", type_name="String", description="Security Classification — sensitivity level", hint="Sensitivity level of the output", order=7), SomFormFieldMeta(name="dependentProcesses", type_name="String", description="Dependent Processes — processes that need this output", hint="Processes that consume this output", order=8)])),
     ]
 
 
@@ -35590,7 +35590,7 @@ def _mc_ProcessRoleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="roleId", type_name="String", description="Role ID", required=True, hint="Unique identifier for the role", order=0), SomFormFieldMeta(name="roleName", type_name="String", description="Role Name", required=True, hint="Descriptive name of the role", order=1), SomFormFieldMeta(name="raciType", type_name="String", description="RACI Type — Responsible, Accountable, Consulted, Informed", hint="The RACI assignment for this role", order=2), SomFormFieldMeta(name="responsibilities", type_name="String", description="Responsibilities — what this role does", hint="What this role is responsible for", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="roleId", type_name="String", description="Role ID", required=True, hint="Unique identifier for the role", order=0), SomFormFieldMeta(name="raciType", type_name="String", description="RACI Type — Responsible, Accountable, Consulted, Informed", hint="The RACI assignment for this role", order=1), SomFormFieldMeta(name="responsibilities", type_name="String", description="Responsibilities — what this role does", hint="What this role is responsible for", order=2)])),
          SomMetaNode(
             class_name="ProcessRoleEntry",
             member_name="execution",
@@ -35649,7 +35649,7 @@ def _mc_ProcessScopeEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="processName", type_name="String", description="Process Name", required=True, order=0), SomFormFieldMeta(name="rationale", type_name="String", description="Rationale - why this scope decision", hint="Why the process is in or out of scope, and to what extent — record here if it is only partially included", order=1), SomFormFieldMeta(name="impactIfExcluded", type_name="String", description="Impact If Excluded", order=2), SomFormFieldMeta(name="phase", type_name="String", description="Target Phase if deferred", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="rationale", type_name="String", description="Rationale - why this scope decision", hint="Why the process is in or out of scope, and to what extent — record here if it is only partially included", order=0), SomFormFieldMeta(name="impactIfExcluded", type_name="String", description="Impact If Excluded", order=1), SomFormFieldMeta(name="phase", type_name="String", description="Target Phase if deferred", order=2)])),
     ]
 
 
@@ -35697,7 +35697,7 @@ def _mc_ProcessSlaEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="slaId", type_name="String", description="SLA ID", required=True, hint="Unique identifier for the SLA", order=0), SomFormFieldMeta(name="slaName", type_name="String", description="SLA Name", required=True, hint="Short human-readable SLA name", order=1), SomFormFieldMeta(name="serviceDescription", type_name="String", description="Service Description — what is promised", hint="Describe the promised service", order=2), SomFormFieldMeta(name="targetLevel", type_name="String", description="Target Level — commitment", hint="State the committed target level", order=3), SomFormFieldMeta(name="measurementMethod", type_name="String", description="Measurement Method — how compliance measured", hint="Describe how compliance is measured", order=4), SomFormFieldMeta(name="reportingPeriod", type_name="String", description="Reporting Period — measurement window", hint="Give the measurement window", order=5), SomFormFieldMeta(name="penaltyClause", type_name="String", description="Penalty Clause — consequence of breach", hint="State the consequence of a breach", order=6), SomFormFieldMeta(name="escalationProcedure", type_name="String", description="Escalation Procedure — when SLA at risk", hint="Describe escalation when at risk", order=7), SomFormFieldMeta(name="exclusions", type_name="String", description="Exclusions — what is not covered", hint="List what the SLA excludes", order=8), SomFormFieldMeta(name="reviewFrequency", type_name="String", description="Review Frequency — when SLA is reviewed", hint="State how often the SLA is reviewed", order=9)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="slaId", type_name="String", description="SLA ID", required=True, hint="Unique identifier for the SLA", order=0), SomFormFieldMeta(name="serviceDescription", type_name="String", description="Service Description — what is promised", hint="Describe the promised service", order=1), SomFormFieldMeta(name="targetLevel", type_name="String", description="Target Level — commitment", hint="State the committed target level", order=2), SomFormFieldMeta(name="measurementMethod", type_name="String", description="Measurement Method — how compliance measured", hint="Describe how compliance is measured", order=3), SomFormFieldMeta(name="reportingPeriod", type_name="String", description="Reporting Period — measurement window", hint="Give the measurement window", order=4), SomFormFieldMeta(name="penaltyClause", type_name="String", description="Penalty Clause — consequence of breach", hint="State the consequence of a breach", order=5), SomFormFieldMeta(name="escalationProcedure", type_name="String", description="Escalation Procedure — when SLA at risk", hint="Describe escalation when at risk", order=6), SomFormFieldMeta(name="exclusions", type_name="String", description="Exclusions — what is not covered", hint="List what the SLA excludes", order=7), SomFormFieldMeta(name="reviewFrequency", type_name="String", description="Review Frequency — when SLA is reviewed", hint="State how often the SLA is reviewed", order=8)])),
     ]
 
 
@@ -35856,7 +35856,7 @@ def _mc_ProcessTriggerEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="triggerId", type_name="String", description="Trigger ID", required=True, hint="Unique identifier for the trigger", order=0), SomFormFieldMeta(name="triggerName", type_name="String", description="Trigger Name", required=True, hint="Descriptive name of the trigger", order=1), SomFormFieldMeta(name="triggerType", type_name="String", description="Trigger Type — user action, system event, timer, message, signal", hint="BPMN start-event type of the trigger", order=2), SomFormFieldMeta(name="triggerSource", type_name="String", description="Trigger Source — where trigger originates", hint="Where the trigger originates", order=3), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Trigger Condition — when trigger fires", hint="Condition under which the trigger fires", order=4), SomFormFieldMeta(name="triggerData", type_name="String", description="Trigger Data — data provided with trigger", hint="Data carried by the trigger", order=5), SomFormFieldMeta(name="priority", type_name="String", description="Priority — processing priority", hint="Processing priority of this trigger", order=6), SomFormFieldMeta(name="validationRules", type_name="String", description="Validation Rules — checks before process starts", hint="Checks applied before the process starts", order=7), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency — expected occurrence rate", hint="Expected occurrence rate of the trigger", order=8)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="triggerId", type_name="String", description="Trigger ID", required=True, hint="Unique identifier for the trigger", order=0), SomFormFieldMeta(name="triggerType", type_name="String", description="Trigger Type — user action, system event, timer, message, signal", hint="BPMN start-event type of the trigger", order=1), SomFormFieldMeta(name="triggerSource", type_name="String", description="Trigger Source — where trigger originates", hint="Where the trigger originates", order=2), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Trigger Condition — when trigger fires", hint="Condition under which the trigger fires", order=3), SomFormFieldMeta(name="triggerData", type_name="String", description="Trigger Data — data provided with trigger", hint="Data carried by the trigger", order=4), SomFormFieldMeta(name="priority", type_name="String", description="Priority — processing priority", hint="Processing priority of this trigger", order=5), SomFormFieldMeta(name="validationRules", type_name="String", description="Validation Rules — checks before process starts", hint="Checks applied before the process starts", order=6), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency — expected occurrence rate", hint="Expected occurrence rate of the trigger", order=7)])),
     ]
 
 
@@ -35952,7 +35952,7 @@ def _mc_ProgrammingLanguageEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="languageName", type_name="String", description="Language Name", required=True, hint="E.g., Dart, TypeScript, Python, Rust", order=0), SomFormFieldMeta(name="languageVariant", type_name="String", description="Variant", hint="E.g., Sound null safety, Strict mode", order=1), SomFormFieldMeta(name="minimumVersion", type_name="String", description="Minimum Version", required=True, hint="Earliest supported language version", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="languageVariant", type_name="String", description="Variant", hint="E.g., Sound null safety, Strict mode", order=0), SomFormFieldMeta(name="minimumVersion", type_name="String", description="Minimum Version", required=True, hint="Earliest supported language version", order=1)])),
          SomMetaNode(
             class_name="ProgrammingLanguageEntry",
             member_name="version",
@@ -36234,7 +36234,7 @@ def _mc_ProtocolEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="protocolName", type_name="String", description="Protocol Name", required=True, hint="HTTP/2, WebSocket, gRPC, MQTT, AMQP", order=0), SomFormFieldMeta(name="protocolType", type_name="String", description="Protocol Type", hint="Request-response, streaming, pub-sub, event-driven", order=1), SomFormFieldMeta(name="protocolVersion", type_name="String", description="Protocol Version", hint="HTTP/2, MQTT 5.0, gRPC 1.x", order=2), SomFormFieldMeta(name="transportLayer", type_name="String", description="Transport Layer", hint="TCP, UDP, QUIC", order=3), SomFormFieldMeta(name="directionality", type_name="String", description="Directionality", hint="Client-to-server, bidirectional, server-push", order=4), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Additional protocol notes", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="protocolType", type_name="String", description="Protocol Type", hint="Request-response, streaming, pub-sub, event-driven", order=0), SomFormFieldMeta(name="protocolVersion", type_name="String", description="Protocol Version", hint="HTTP/2, MQTT 5.0, gRPC 1.x", order=1), SomFormFieldMeta(name="transportLayer", type_name="String", description="Transport Layer", hint="TCP, UDP, QUIC", order=2), SomFormFieldMeta(name="directionality", type_name="String", description="Directionality", hint="Client-to-server, bidirectional, server-push", order=3), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Additional protocol notes", order=4)])),
     ]
 
 
@@ -36484,7 +36484,7 @@ def _mc_PrototypeFeatureEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="featureId", type_name="String", description="Feature ID", required=True, hint="Unique identifier for the feature", order=0, refers_to=["FPE.featureId"]), SomFormFieldMeta(name="featureName", type_name="String", description="Feature Name", required=True, hint="Name of the feature", order=1), SomFormFieldMeta(name="inclusionReason", type_name="String", description="Inclusion Reason", hint="Why this feature is included", order=2), SomFormFieldMeta(name="fidelityLevel", type_name="String", description="Fidelity Level", hint="Low, medium, high", order=3), SomFormFieldMeta(name="completenessLevel", type_name="String", description="Completeness Level", hint="Full, partial, stub", order=4), SomFormFieldMeta(name="relatedGoals", type_name="String", description="Related Goals", hint="Prototype goals this addresses", order=5), SomFormFieldMeta(name="implementationNotes", type_name="String", description="Implementation Notes", hint="Notes on how the feature is built in the prototype", order=6), SomFormFieldMeta(name="knownLimitations", type_name="String", description="Known Limitations", hint="Known limitations of the prototyped feature", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="featureId", type_name="String", description="Feature ID", required=True, hint="Unique identifier for the feature", order=0, refers_to=["FPE.featureId"]), SomFormFieldMeta(name="inclusionReason", type_name="String", description="Inclusion Reason", hint="Why this feature is included", order=1), SomFormFieldMeta(name="fidelityLevel", type_name="String", description="Fidelity Level", hint="Low, medium, high", order=2), SomFormFieldMeta(name="completenessLevel", type_name="String", description="Completeness Level", hint="Full, partial, stub", order=3), SomFormFieldMeta(name="relatedGoals", type_name="String", description="Related Goals", hint="Prototype goals this addresses", order=4), SomFormFieldMeta(name="implementationNotes", type_name="String", description="Implementation Notes", hint="Notes on how the feature is built in the prototype", order=5), SomFormFieldMeta(name="knownLimitations", type_name="String", description="Known Limitations", hint="Known limitations of the prototyped feature", order=6)])),
     ]
 
 
@@ -36765,7 +36765,7 @@ def _mc_QualityCategoryEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="categoryId", type_name="String", description="Category ID", hint="Unique identifier (e.g., QC-USER-01)", order=0), SomFormFieldMeta(name="categoryName", type_name="String", description="Category Name", required=True, hint="User-Related, Technical, Operational, Documentation", order=1), SomFormFieldMeta(name="categoryWeight", type_name="int", description="Category Weight (1-100)", hint="Relative importance in overall quality", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="categoryId", type_name="String", description="Category ID", hint="Unique identifier (e.g., QC-USER-01)", order=0), SomFormFieldMeta(name="categoryWeight", type_name="int", description="Category Weight (1-100)", hint="Relative importance in overall quality", order=1)])),
          SomMetaNode(
             class_name="QualityCategoryEntry",
             member_name="definition",
@@ -37162,7 +37162,7 @@ def _mc_QualityScenarioEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="scenarioId", type_name="String", description="Scenario ID", required=True, hint="Unique identifier for the scenario", order=0), SomFormFieldMeta(name="scenarioName", type_name="String", description="Scenario Name", required=True, hint="Short descriptive name", order=1), SomFormFieldMeta(name="source", type_name="String", description="Source (who/what generates the stimulus)", required=True, hint="Who/what generates the stimulus", order=2), SomFormFieldMeta(name="stimulus", type_name="String", description="Stimulus (event or condition that triggers the scenario)", required=True, hint="Event or condition that triggers the scenario", order=3), SomFormFieldMeta(name="environment", type_name="String", description="Environment (system state when stimulus occurs)", hint="System state when the stimulus occurs", order=4), SomFormFieldMeta(name="artifact", type_name="String", description="Artifact (what part of system is affected)", hint="What part of the system is affected", order=5), SomFormFieldMeta(name="response", type_name="String", description="Response (how the system should respond)", required=True, hint="How the system should respond", order=6), SomFormFieldMeta(name="responseMeasure", type_name="String", description="Response Measure (quantifiable success criterion)", required=True, hint="Quantifiable success criterion for the response", order=7), SomFormFieldMeta(name="priority", type_name="String", description="Priority (Core, Important, Nice-to-have)", hint="Core / Important / Nice-to-have", order=8), SomFormFieldMeta(name="testability", type_name="String", description="Testability (how easy to test: Automated, Manual, Complex)", hint="How easy to test: Automated, Manual, Complex", order=9)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="scenarioId", type_name="String", description="Scenario ID", required=True, hint="Unique identifier for the scenario", order=0), SomFormFieldMeta(name="source", type_name="String", description="Source (who/what generates the stimulus)", required=True, hint="Who/what generates the stimulus", order=1), SomFormFieldMeta(name="stimulus", type_name="String", description="Stimulus (event or condition that triggers the scenario)", required=True, hint="Event or condition that triggers the scenario", order=2), SomFormFieldMeta(name="environment", type_name="String", description="Environment (system state when stimulus occurs)", hint="System state when the stimulus occurs", order=3), SomFormFieldMeta(name="artifact", type_name="String", description="Artifact (what part of system is affected)", hint="What part of the system is affected", order=4), SomFormFieldMeta(name="response", type_name="String", description="Response (how the system should respond)", required=True, hint="How the system should respond", order=5), SomFormFieldMeta(name="responseMeasure", type_name="String", description="Response Measure (quantifiable success criterion)", required=True, hint="Quantifiable success criterion for the response", order=6), SomFormFieldMeta(name="priority", type_name="String", description="Priority (Core, Important, Nice-to-have)", hint="Core / Important / Nice-to-have", order=7), SomFormFieldMeta(name="testability", type_name="String", description="Testability (how easy to test: Automated, Manual, Complex)", hint="How easy to test: Automated, Manual, Complex", order=8)])),
     ]
 
 
@@ -37198,7 +37198,7 @@ def _mc_QualityStandardEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="standardName", type_name="String", description="Standard Name", required=True, hint="E.g., CMMI, ISO 9001, Six Sigma", order=0), SomFormFieldMeta(name="maturityLevel", type_name="String", description="Maturity Level", hint="For CMMI: Level 1-5", order=1), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Standard version", order=2), SomFormFieldMeta(name="scope", type_name="String", description="Scope", hint="Organization-wide or project-specific", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="maturityLevel", type_name="String", description="Maturity Level", hint="For CMMI: Level 1-5", order=0), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Standard version", order=1), SomFormFieldMeta(name="scope", type_name="String", description="Scope", hint="Organization-wide or project-specific", order=2)])),
          SomMetaNode(
             class_name="QualityStandardEntry",
             member_name="processes",
@@ -37428,7 +37428,7 @@ def _mc_RecoveryScenarioEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="scenarioId", type_name="String", description="Scenario ID", required=True, hint="Unique identifier for this recovery scenario", order=0), SomFormFieldMeta(name="scenarioName", type_name="String", description="Scenario Name", required=True, hint="Descriptive name", order=1), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Trigger Condition", hint="What error triggers this scenario", order=2), SomFormFieldMeta(name="userImpact", type_name="String", description="User Impact", hint="How user is affected", order=3), SomFormFieldMeta(name="recoverySteps", type_name="String", description="Recovery Steps", hint="Step-by-step recovery process", order=4), SomFormFieldMeta(name="dataAtRisk", type_name="String", description="Data at Risk", hint="What data might be lost", order=5), SomFormFieldMeta(name="preventionMeasures", type_name="String", description="Prevention Measures", hint="How scenario can be prevented", order=6), SomFormFieldMeta(name="timeToRecover", type_name="String", description="Time to Recover", hint="Expected recovery duration", order=7), SomFormFieldMeta(name="supportEscalation", type_name="String", description="Support Escalation", hint="When to escalate to support", order=8)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="scenarioId", type_name="String", description="Scenario ID", required=True, hint="Unique identifier for this recovery scenario", order=0), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Trigger Condition", hint="What error triggers this scenario", order=1), SomFormFieldMeta(name="userImpact", type_name="String", description="User Impact", hint="How user is affected", order=2), SomFormFieldMeta(name="recoverySteps", type_name="String", description="Recovery Steps", hint="Step-by-step recovery process", order=3), SomFormFieldMeta(name="dataAtRisk", type_name="String", description="Data at Risk", hint="What data might be lost", order=4), SomFormFieldMeta(name="preventionMeasures", type_name="String", description="Prevention Measures", hint="How scenario can be prevented", order=5), SomFormFieldMeta(name="timeToRecover", type_name="String", description="Time to Recover", hint="Expected recovery duration", order=6), SomFormFieldMeta(name="supportEscalation", type_name="String", description="Support Escalation", hint="When to escalate to support", order=7)])),
          SomMetaNode(
             class_name="RecoveryScenarioEntry",
             member_name="detailedFlow",
@@ -37469,7 +37469,7 @@ def _mc_ReferenceDocumentEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="documentTitle", type_name="String", description="Document Title", required=True, hint="Full official title of the referenced document.", order=0), SomFormFieldMeta(name="documentId", type_name="String", description="Document ID (internal reference number)", hint="Catalogue or internal reference number, if any.", order=1), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Version or edition of the referenced document.", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="documentId", type_name="String", description="Document ID (internal reference number)", hint="Catalogue or internal reference number, if any.", order=0), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Version or edition of the referenced document.", order=1)])),
          SomMetaNode(
             class_name="ReferenceDocumentEntry",
             member_name="metadata",
@@ -37703,7 +37703,7 @@ def _mc_RelatedDocumentEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="relatedDocumentId", type_name="String", description="Related Document ID", required=True, hint="ID of the related referenced document.", order=0), SomFormFieldMeta(name="relatedDocumentTitle", type_name="String", description="Related Document Title", hint="Title of the related referenced document.", order=1), SomFormFieldMeta(name="relationshipType", type_name="String", description="Relationship Type (Depends On, Referenced By, Supersedes, Complements, Conflicts With, Parent Of, Child Of)", hint="Nature of the link, e.g. Depends On, Supersedes, Complements.", order=2), SomFormFieldMeta(name="relationshipDescription", type_name="String", description="Relationship Description (explain the connection)", hint="Explain the connection between the two documents.", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="relatedDocumentId", type_name="String", description="Related Document ID", required=True, hint="ID of the related referenced document.", order=0), SomFormFieldMeta(name="relationshipType", type_name="String", description="Relationship Type (Depends On, Referenced By, Supersedes, Complements, Conflicts With, Parent Of, Child Of)", hint="Nature of the link, e.g. Depends On, Supersedes, Complements.", order=1), SomFormFieldMeta(name="relationshipDescription", type_name="String", description="Relationship Description (explain the connection)", hint="Explain the connection between the two documents.", order=2)])),
     ]
 
 
@@ -37779,7 +37779,7 @@ def _mc_RelevantSectionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="sectionReference", type_name="String", description="Section Reference (chapter, section, or page number)", required=True, hint="Locate the section: chapter, clause, or page number.", order=0), SomFormFieldMeta(name="sectionTitle", type_name="String", description="Section Title or Description", required=True, hint="Title or short description of the section.", order=1), SomFormFieldMeta(name="relevance", type_name="String", description="Relevance (how this section applies to the project)", hint="Explain how this section applies to the project.", order=2), SomFormFieldMeta(name="extractSummary", type_name="String", description="Summary / Key Extract (brief summary of applicable content)", hint="Brief summary or key extract of the applicable content.", order=3), SomFormFieldMeta(name="complianceRequired", type_name="bool", description="Compliance Required (must project comply with this section?)", hint="True if the project must comply with this section.", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="sectionReference", type_name="String", description="Section Reference (chapter, section, or page number)", required=True, hint="Locate the section: chapter, clause, or page number.", order=0), SomFormFieldMeta(name="relevance", type_name="String", description="Relevance (how this section applies to the project)", hint="Explain how this section applies to the project.", order=1), SomFormFieldMeta(name="extractSummary", type_name="String", description="Summary / Key Extract (brief summary of applicable content)", hint="Brief summary or key extract of the applicable content.", order=2), SomFormFieldMeta(name="complianceRequired", type_name="bool", description="Compliance Required (must project comply with this section?)", hint="True if the project must comply with this section.", order=3)])),
     ]
 
 
@@ -37941,7 +37941,7 @@ def _mc_RemovedRoleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="roleId", type_name="String", description="Role ID", required=True, hint="Unique identifier for the role being removed", order=0), SomFormFieldMeta(name="roleTitle", type_name="String", description="Role Title", required=True, hint="Title of the role being removed", order=1), SomFormFieldMeta(name="department", type_name="String", description="Department", hint="Department the removed role belongs to", order=2), SomFormFieldMeta(name="removalReason", type_name="String", description="Removal Reason — automation, restructuring, outsourcing, redundancy", hint="Why the role is being eliminated", order=3), SomFormFieldMeta(name="effectiveDate", type_name="String", description="Effective Date", hint="Date the role removal takes effect", order=4), SomFormFieldMeta(name="incumbentCount", type_name="int", description="Incumbent Count — people affected", hint="Number of people currently in the role being removed", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="roleId", type_name="String", description="Role ID", required=True, hint="Unique identifier for the role being removed", order=0), SomFormFieldMeta(name="department", type_name="String", description="Department", hint="Department the removed role belongs to", order=1), SomFormFieldMeta(name="removalReason", type_name="String", description="Removal Reason — automation, restructuring, outsourcing, redundancy", hint="Why the role is being eliminated", order=2), SomFormFieldMeta(name="effectiveDate", type_name="String", description="Effective Date", hint="Date the role removal takes effect", order=3), SomFormFieldMeta(name="incumbentCount", type_name="int", description="Incumbent Count — people affected", hint="Number of people currently in the role being removed", order=4)])),
          SomMetaNode(
             class_name="RemovedRoleEntry",
             member_name="transition",
@@ -38018,7 +38018,7 @@ def _mc_ReplacementPhaseEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="phaseNumber", type_name="int", description="Phase Number", required=True, hint="Ordinal position of the phase", order=0), SomFormFieldMeta(name="phaseName", type_name="String", description="Phase Name", required=True, hint="Descriptive name for the phase", order=1), SomFormFieldMeta(name="phaseScope", type_name="String", description="Scope", hint="What this phase covers", order=2), SomFormFieldMeta(name="startDate", type_name="String", description="Start Date", hint="When the phase begins", order=3), SomFormFieldMeta(name="endDate", type_name="String", description="End Date", hint="When the phase ends", order=4), SomFormFieldMeta(name="exitCriteria", type_name="String", description="Exit Criteria", hint="Conditions that mark the phase complete", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="phaseNumber", type_name="int", description="Phase Number", required=True, hint="Ordinal position of the phase", order=0), SomFormFieldMeta(name="phaseScope", type_name="String", description="Scope", hint="What this phase covers", order=1), SomFormFieldMeta(name="startDate", type_name="String", description="Start Date", hint="When the phase begins", order=2), SomFormFieldMeta(name="endDate", type_name="String", description="End Date", hint="When the phase ends", order=3), SomFormFieldMeta(name="exitCriteria", type_name="String", description="Exit Criteria", hint="Conditions that mark the phase complete", order=4)])),
     ]
 
 
@@ -38054,7 +38054,7 @@ def _mc_ReportChartEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="chartId", type_name="String", description="Chart ID", required=True, hint="Unique within section, e.g. CHT-01", order=0), SomFormFieldMeta(name="title", type_name="String", description="Title", required=True, hint="Chart title", order=1), SomFormFieldMeta(name="chartType", type_name="String", description="Chart Type", hint="Bar / Line / Pie / Donut / Scatter / Gauge / Heatmap", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="chartId", type_name="String", description="Chart ID", required=True, hint="Unique within section, e.g. CHT-01", order=0), SomFormFieldMeta(name="chartType", type_name="String", description="Chart Type", hint="Bar / Line / Pie / Donut / Scatter / Gauge / Heatmap", order=1)])),
          SomMetaNode(
             class_name="ReportChartEntry",
             member_name="axes",
@@ -38118,7 +38118,7 @@ def _mc_ReportColumnEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="columnId", type_name="String", description="Column ID", required=True, hint="Unique within section, e.g. COL-01", order=0), SomFormFieldMeta(name="columnName", type_name="String", description="Column Name", required=True, hint="Internal field reference", order=1), SomFormFieldMeta(name="displayLabel", type_name="String", description="Display Label", required=True, hint="Column header text shown in report", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="columnId", type_name="String", description="Column ID", required=True, hint="Unique within section, e.g. COL-01", order=0), SomFormFieldMeta(name="displayLabel", type_name="String", description="Display Label", required=True, hint="Column header text shown in report", order=1)])),
          SomMetaNode(
             class_name="ReportColumnEntry",
             member_name="dataSource",
@@ -38296,7 +38296,7 @@ def _mc_ReportEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="reportId", type_name="String", description="Report ID", required=True, hint="Unique identifier, e.g. RPT-001", order=0), SomFormFieldMeta(name="reportName", type_name="String", description="Report Name", required=True, hint="Human-readable report title", order=1), SomFormFieldMeta(name="reportType", type_name="String", description="Report Type", hint="Tabular / Summary / Dashboard / KPI-Card / Chart-Only / Mixed", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="reportId", type_name="String", description="Report ID", required=True, hint="Unique identifier, e.g. RPT-001", order=0), SomFormFieldMeta(name="reportType", type_name="String", description="Report Type", hint="Tabular / Summary / Dashboard / KPI-Card / Chart-Only / Mixed", order=1)])),
          SomMetaNode(
             class_name="ReportEntry",
             member_name="identity",
@@ -38490,7 +38490,7 @@ def _mc_ReportFilterEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="filterId", type_name="String", description="Filter ID", required=True, hint="Unique within report, e.g. FLT-01", order=0), SomFormFieldMeta(name="filterName", type_name="String", description="Filter Name", required=True, hint="Internal reference name", order=1), SomFormFieldMeta(name="displayLabel", type_name="String", description="Display Label", required=True, hint="Label shown in parameter form", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="filterId", type_name="String", description="Filter ID", required=True, hint="Unique within report, e.g. FLT-01", order=0), SomFormFieldMeta(name="displayLabel", type_name="String", description="Display Label", required=True, hint="Label shown in parameter form", order=1)])),
          SomMetaNode(
             class_name="ReportFilterEntry",
             member_name="input",
@@ -38592,7 +38592,7 @@ def _mc_ReportRecipientEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="recipientId", type_name="String", description="Recipient ID", required=True, hint="Unique within report, e.g. REC-01", order=0), SomFormFieldMeta(name="recipientName", type_name="String", description="Recipient Name", required=True, hint="Display name", order=1), SomFormFieldMeta(name="recipientType", type_name="String", description="Recipient Type", hint="User / Role / Group / Email / Distribution-List / External-Contact / System-Account", order=2), SomFormFieldMeta(name="recipientReference", type_name="String", description="Recipient Reference", hint="User ID, role name, group name, or email address", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="recipientId", type_name="String", description="Recipient ID", required=True, hint="Unique within report, e.g. REC-01", order=0), SomFormFieldMeta(name="recipientType", type_name="String", description="Recipient Type", hint="User / Role / Group / Email / Distribution-List / External-Contact / System-Account", order=1), SomFormFieldMeta(name="recipientReference", type_name="String", description="Recipient Reference", hint="User ID, role name, group name, or email address", order=2)])),
          SomMetaNode(
             class_name="ReportRecipientEntry",
             member_name="context",
@@ -38634,7 +38634,7 @@ def _mc_ReportScheduleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="scheduleId", type_name="String", description="Schedule ID", required=True, hint="Unique within report, e.g. SCH-01", order=0), SomFormFieldMeta(name="scheduleName", type_name="String", description="Schedule Name", required=True, hint="Human-readable name, e.g. Monthly Financial Close", order=1), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency", hint="Daily / Weekly / Bi-weekly / Monthly / Quarterly / Semi-annually / Annually / On-demand / Event-triggered", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="scheduleId", type_name="String", description="Schedule ID", required=True, hint="Unique within report, e.g. SCH-01", order=0), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency", hint="Daily / Weekly / Bi-weekly / Monthly / Quarterly / Semi-annually / Annually / On-demand / Event-triggered", order=1)])),
          SomMetaNode(
             class_name="ReportScheduleEntry",
             member_name="timing",
@@ -38686,7 +38686,7 @@ def _mc_ReportSectionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="sectionId", type_name="String", description="Section ID", required=True, hint="Unique within report, e.g. SEC-01", order=0), SomFormFieldMeta(name="title", type_name="String", description="Title", required=True, hint="Section heading displayed in the report", order=1), SomFormFieldMeta(name="sectionType", type_name="String", description="Section Type", hint="Table / Chart / Summary / Text / KPI-Card / Mixed", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="sectionId", type_name="String", description="Section ID", required=True, hint="Unique within report, e.g. SEC-01", order=0), SomFormFieldMeta(name="sectionType", type_name="String", description="Section Type", hint="Table / Chart / Summary / Text / KPI-Card / Mixed", order=1)])),
          SomMetaNode(
             class_name="ReportSectionEntry",
             member_name="data",
@@ -38798,7 +38798,7 @@ def _mc_RequirementBusinessRuleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="ruleId", type_name="String", description="Rule ID", required=True, hint="Unique identifier for this business rule", order=0), SomFormFieldMeta(name="ruleName", type_name="String", description="Rule Name", required=True, hint="Short descriptive name for the rule", order=1), SomFormFieldMeta(name="ruleType", type_name="String", description="Rule Type (Constraint, Computation, Derivation, Inference, Condition, Action, Workflow, Authorization)", hint="Constraint, Computation, Derivation, Inference, Condition, etc.", order=2), SomFormFieldMeta(name="ruleStatement", type_name="String", description="Rule Statement (IF/WHEN condition THEN action)", required=True, hint="IF/WHEN condition THEN action statement", order=3), SomFormFieldMeta(name="source", type_name="String", description="Source (policy, regulation, expert)", hint="Origin of the rule: policy, regulation, or expert", order=4), SomFormFieldMeta(name="effectiveDate", type_name="String", description="Effective Date", hint="Date the rule takes effect", order=5), SomFormFieldMeta(name="expirationDate", type_name="String", description="Expiration Date", hint="Date the rule expires, if any", order=6), SomFormFieldMeta(name="exceptions", type_name="String", description="Exceptions (when rule does not apply)", hint="Cases in which the rule does not apply", order=7), SomFormFieldMeta(name="enforcement", type_name="String", description="Enforcement (Hard = system enforces, Soft = warning only)", hint="Hard (system enforces) or Soft (warning only)", order=8), SomFormFieldMeta(name="impact", type_name="String", description="Impact (what happens if rule is violated)", hint="What happens if the rule is violated", order=9)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="ruleId", type_name="String", description="Rule ID", required=True, hint="Unique identifier for this business rule", order=0), SomFormFieldMeta(name="ruleType", type_name="String", description="Rule Type (Constraint, Computation, Derivation, Inference, Condition, Action, Workflow, Authorization)", hint="Constraint, Computation, Derivation, Inference, Condition, etc.", order=1), SomFormFieldMeta(name="ruleStatement", type_name="String", description="Rule Statement (IF/WHEN condition THEN action)", required=True, hint="IF/WHEN condition THEN action statement", order=2), SomFormFieldMeta(name="source", type_name="String", description="Source (policy, regulation, expert)", hint="Origin of the rule: policy, regulation, or expert", order=3), SomFormFieldMeta(name="effectiveDate", type_name="String", description="Effective Date", hint="Date the rule takes effect", order=4), SomFormFieldMeta(name="expirationDate", type_name="String", description="Expiration Date", hint="Date the rule expires, if any", order=5), SomFormFieldMeta(name="exceptions", type_name="String", description="Exceptions (when rule does not apply)", hint="Cases in which the rule does not apply", order=6), SomFormFieldMeta(name="enforcement", type_name="String", description="Enforcement (Hard = system enforces, Soft = warning only)", hint="Hard (system enforces) or Soft (warning only)", order=7), SomFormFieldMeta(name="impact", type_name="String", description="Impact (what happens if rule is violated)", hint="What happens if the rule is violated", order=8)])),
     ]
 
 
@@ -38929,7 +38929,7 @@ def _mc_RequirementScreenActionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="actionId", type_name="String", description="Action ID", required=True, hint="Unique identifier for this action", order=0), SomFormFieldMeta(name="actionLabel", type_name="String", description="Action Label (button text)", required=True, hint="Button or link text for the action", order=1), SomFormFieldMeta(name="actionType", type_name="String", description="Action Type (Submit, Cancel, Navigate, API Call, Dialog, Download, Print, Delete, Duplicate, Export, Import, Refresh, Save, SaveAndNew, SaveAndClose, Custom)", required=True, hint="Submit, Cancel, Navigate, API Call, Dialog, Save, etc.", order=2), SomFormFieldMeta(name="icon", type_name="String", description="Icon (Material Icon name or custom)", hint="Material Icon name or custom icon", order=3), SomFormFieldMeta(name="iconPosition", type_name="String", description="Icon Position (Left, Right, Only)", hint="Left, Right, or Only", order=4), SomFormFieldMeta(name="buttonStyle", type_name="String", description="Button Style (Primary, Secondary, Text, Outlined, Danger)", hint="Primary, Secondary, Text, Outlined, or Danger", order=5), SomFormFieldMeta(name="placement", type_name="String", description="Placement (Toolbar, Inline, Footer, ContextMenu, FAB)", hint="Toolbar, Inline, Footer, ContextMenu, or FAB", order=6), SomFormFieldMeta(name="keyboardShortcut", type_name="String", description="Keyboard Shortcut", hint="Keyboard shortcut that triggers the action", order=7), SomFormFieldMeta(name="enabled", type_name="String", description="Enabled (Yes, No, Conditional)", hint="Yes, No, or Conditional", order=8), SomFormFieldMeta(name="enabledCondition", type_name="String", description="Enabled Condition", hint="Condition under which the action is enabled", order=9), SomFormFieldMeta(name="visible", type_name="String", description="Visible (Yes, No, Conditional)", hint="Yes, No, or Conditional", order=10), SomFormFieldMeta(name="visibilityCondition", type_name="String", description="Visibility Condition", hint="Condition under which the action is visible", order=11), SomFormFieldMeta(name="confirmationRequired", type_name="String", description="Confirmation Required (Yes, No)", hint="Whether the action requires confirmation", order=12), SomFormFieldMeta(name="confirmationMessage", type_name="String", description="Confirmation Message", hint="Message shown to confirm the action", order=13), SomFormFieldMeta(name="successMessage", type_name="String", description="Success Message", hint="Message shown on success", order=14), SomFormFieldMeta(name="errorMessage", type_name="String", description="Error Message", hint="Message shown on error", order=15), SomFormFieldMeta(name="navigationTarget", type_name="String", description="Navigation Target (if Navigate)", hint="Destination when the action navigates", order=16), SomFormFieldMeta(name="apiEndpoint", type_name="String", description="API Endpoint (if API Call)", hint="API endpoint called by the action", order=17), SomFormFieldMeta(name="requiredPermission", type_name="String", description="Required Permission", hint="Permission required to invoke the action", order=18), SomFormFieldMeta(name="auditLogging", type_name="String", description="Audit Logging (Yes, No)", hint="Whether the action is audit-logged", order=19)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="actionId", type_name="String", description="Action ID", required=True, hint="Unique identifier for this action", order=0), SomFormFieldMeta(name="actionType", type_name="String", description="Action Type (Submit, Cancel, Navigate, API Call, Dialog, Download, Print, Delete, Duplicate, Export, Import, Refresh, Save, SaveAndNew, SaveAndClose, Custom)", required=True, hint="Submit, Cancel, Navigate, API Call, Dialog, Save, etc.", order=1), SomFormFieldMeta(name="icon", type_name="String", description="Icon (Material Icon name or custom)", hint="Material Icon name or custom icon", order=2), SomFormFieldMeta(name="iconPosition", type_name="String", description="Icon Position (Left, Right, Only)", hint="Left, Right, or Only", order=3), SomFormFieldMeta(name="buttonStyle", type_name="String", description="Button Style (Primary, Secondary, Text, Outlined, Danger)", hint="Primary, Secondary, Text, Outlined, or Danger", order=4), SomFormFieldMeta(name="placement", type_name="String", description="Placement (Toolbar, Inline, Footer, ContextMenu, FAB)", hint="Toolbar, Inline, Footer, ContextMenu, or FAB", order=5), SomFormFieldMeta(name="keyboardShortcut", type_name="String", description="Keyboard Shortcut", hint="Keyboard shortcut that triggers the action", order=6), SomFormFieldMeta(name="enabled", type_name="String", description="Enabled (Yes, No, Conditional)", hint="Yes, No, or Conditional", order=7), SomFormFieldMeta(name="enabledCondition", type_name="String", description="Enabled Condition", hint="Condition under which the action is enabled", order=8), SomFormFieldMeta(name="visible", type_name="String", description="Visible (Yes, No, Conditional)", hint="Yes, No, or Conditional", order=9), SomFormFieldMeta(name="visibilityCondition", type_name="String", description="Visibility Condition", hint="Condition under which the action is visible", order=10), SomFormFieldMeta(name="confirmationRequired", type_name="String", description="Confirmation Required (Yes, No)", hint="Whether the action requires confirmation", order=11), SomFormFieldMeta(name="confirmationMessage", type_name="String", description="Confirmation Message", hint="Message shown to confirm the action", order=12), SomFormFieldMeta(name="successMessage", type_name="String", description="Success Message", hint="Message shown on success", order=13), SomFormFieldMeta(name="errorMessage", type_name="String", description="Error Message", hint="Message shown on error", order=14), SomFormFieldMeta(name="navigationTarget", type_name="String", description="Navigation Target (if Navigate)", hint="Destination when the action navigates", order=15), SomFormFieldMeta(name="apiEndpoint", type_name="String", description="API Endpoint (if API Call)", hint="API endpoint called by the action", order=16), SomFormFieldMeta(name="requiredPermission", type_name="String", description="Required Permission", hint="Permission required to invoke the action", order=17), SomFormFieldMeta(name="auditLogging", type_name="String", description="Audit Logging (Yes, No)", hint="Whether the action is audit-logged", order=18)])),
          SomMetaNode(
             class_name="RequirementScreenActionEntry",
             member_name="parameters",
@@ -38953,7 +38953,7 @@ def _mc_RequirementTestCaseEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="testCaseId", type_name="String", description="Test Case ID", required=True, hint="Unique identifier for the test case", order=0), SomFormFieldMeta(name="testCaseName", type_name="String", description="Test Case Name", required=True, hint="Short descriptive name for the test case", order=1), SomFormFieldMeta(name="testType", type_name="String", description="Test Type (Unit, Integration, System, Acceptance, UAT, Regression)", hint="Unit, Integration, System, Acceptance, UAT, or Regression", order=2), SomFormFieldMeta(name="testCategory", type_name="String", description="Test Category (Positive, Negative, Boundary, Error, Performance)", hint="Positive, Negative, Boundary, Error, or Performance", order=3), SomFormFieldMeta(name="preconditions", type_name="String", description="Preconditions", hint="Conditions that must hold before the test runs", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="testCaseId", type_name="String", description="Test Case ID", required=True, hint="Unique identifier for the test case", order=0), SomFormFieldMeta(name="testType", type_name="String", description="Test Type (Unit, Integration, System, Acceptance, UAT, Regression)", hint="Unit, Integration, System, Acceptance, UAT, or Regression", order=1), SomFormFieldMeta(name="testCategory", type_name="String", description="Test Category (Positive, Negative, Boundary, Error, Performance)", hint="Positive, Negative, Boundary, Error, or Performance", order=2), SomFormFieldMeta(name="preconditions", type_name="String", description="Preconditions", hint="Conditions that must hold before the test runs", order=3)])),
          SomMetaNode(
             class_name="RequirementTestCaseEntry",
             member_name="execution",
@@ -39315,7 +39315,7 @@ def _mc_ResourceAllocationEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="resourceType", type_name="String", description="Resource Type (Personnel, Budget, Tool, System, External)", required=True, hint="Personnel, Budget, Tool, System, or External", order=0), SomFormFieldMeta(name="resourceName", type_name="String", description="Resource Name", required=True, hint="Name of the specific resource", order=1), SomFormFieldMeta(name="quantity", type_name="String", description="Quantity or Allocation", hint="Amount or share of the resource allocated", order=2), SomFormFieldMeta(name="duration", type_name="String", description="Duration (how long needed)", hint="How long the resource is needed", order=3), SomFormFieldMeta(name="estimatedCost", type_name="String", description="Estimated Cost", hint="Estimated cost of the resource", order=4), SomFormFieldMeta(name="availability", type_name="String", description="Availability (when available)", hint="When the resource becomes available", order=5), SomFormFieldMeta(name="source", type_name="String", description="Source (internal, external, to be hired)", hint="Internal, external, or to be hired", order=6), SomFormFieldMeta(name="status", type_name="String", description="Status (Requested, Allocated, Confirmed)", hint="Requested, Allocated, or Confirmed", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="resourceType", type_name="String", description="Resource Type (Personnel, Budget, Tool, System, External)", required=True, hint="Personnel, Budget, Tool, System, or External", order=0), SomFormFieldMeta(name="quantity", type_name="String", description="Quantity or Allocation", hint="Amount or share of the resource allocated", order=1), SomFormFieldMeta(name="duration", type_name="String", description="Duration (how long needed)", hint="How long the resource is needed", order=2), SomFormFieldMeta(name="estimatedCost", type_name="String", description="Estimated Cost", hint="Estimated cost of the resource", order=3), SomFormFieldMeta(name="availability", type_name="String", description="Availability (when available)", hint="When the resource becomes available", order=4), SomFormFieldMeta(name="source", type_name="String", description="Source (internal, external, to be hired)", hint="Internal, external, or to be hired", order=5), SomFormFieldMeta(name="status", type_name="String", description="Status (Requested, Allocated, Confirmed)", hint="Requested, Allocated, or Confirmed", order=6)])),
     ]
 
 
@@ -39724,7 +39724,7 @@ def _mc_ResponsiveScreenRuleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="screenId", type_name="String", description="Screen ID", required=True, hint="Unique identifier of the screen this rule applies to", order=0, refers_to=["SCREN.screenId"]), SomFormFieldMeta(name="screenName", type_name="String", description="Screen Name", required=True, hint="Human-readable name of the screen", order=1), SomFormFieldMeta(name="mobileLayout", type_name="String", description="Mobile Layout", hint="How this screen is laid out on mobile", order=2), SomFormFieldMeta(name="tabletLayout", type_name="String", description="Tablet Layout", hint="How this screen is laid out on tablet", order=3), SomFormFieldMeta(name="desktopLayout", type_name="String", description="Desktop Layout", hint="How this screen is laid out on desktop", order=4), SomFormFieldMeta(name="specialConsiderations", type_name="String", description="Special Considerations", hint="Any screen-specific responsive notes or exceptions", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="screenId", type_name="String", description="Screen ID", required=True, hint="Unique identifier of the screen this rule applies to", order=0, refers_to=["SCREN.screenId"]), SomFormFieldMeta(name="mobileLayout", type_name="String", description="Mobile Layout", hint="How this screen is laid out on mobile", order=1), SomFormFieldMeta(name="tabletLayout", type_name="String", description="Tablet Layout", hint="How this screen is laid out on tablet", order=2), SomFormFieldMeta(name="desktopLayout", type_name="String", description="Desktop Layout", hint="How this screen is laid out on desktop", order=3), SomFormFieldMeta(name="specialConsiderations", type_name="String", description="Special Considerations", hint="Any screen-specific responsive notes or exceptions", order=4)])),
     ]
 
 
@@ -40034,7 +40034,7 @@ def _mc_ReusableUiComponentEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentName", type_name="String", description="Component Name", required=True, hint="Widget or pattern name", order=0), SomFormFieldMeta(name="componentCategory", type_name="String", description="Category", hint="Input, Display, Navigation, Layout, Feedback, Data", order=1), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="What this component does", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentCategory", type_name="String", description="Category", hint="Input, Display, Navigation, Layout, Feedback, Data", order=0), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="What this component does", order=1)])),
          SomMetaNode(
             class_name="ReusableUiComponentEntry",
             member_name="description",
@@ -40311,7 +40311,7 @@ def _mc_RiskIdentification(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskId", type_name="String", description="Risk ID (e.g., RISK-001, TR-001)", required=True, hint="Unique identifier for this risk", order=0), SomFormFieldMeta(name="riskName", type_name="String", description="Risk Name — short descriptive name", required=True, hint="Short descriptive name for the risk", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description — detailed risk event and potential causes", hint="Detailed description of the risk event and its causes", order=2), SomFormFieldMeta(name="category", type_name="String", description="Category — Technical, Schedule, Cost, Resource, External, Legal, Organizational", hint="Top-level risk category", order=3), SomFormFieldMeta(name="subcategory", type_name="String", description="Subcategory — more specific categorization", hint="More specific categorization within the category", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskId", type_name="String", description="Risk ID (e.g., RISK-001, TR-001)", required=True, hint="Unique identifier for this risk", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description — detailed risk event and potential causes", hint="Detailed description of the risk event and its causes", order=1), SomFormFieldMeta(name="category", type_name="String", description="Category — Technical, Schedule, Cost, Resource, External, Legal, Organizational", hint="Top-level risk category", order=2), SomFormFieldMeta(name="subcategory", type_name="String", description="Subcategory — more specific categorization", hint="More specific categorization within the category", order=3)])),
          SomMetaNode(
             class_name="RiskIdentification",
             member_name="sourceDetails",
@@ -40584,7 +40584,7 @@ def _mc_RoleCompetencyEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="competencyId", type_name="String", description="Competency ID", hint="Unique identifier for this competency", order=0), SomFormFieldMeta(name="competencyName", type_name="String", description="Competency Name", required=True, hint="Name of the competency", order=1), SomFormFieldMeta(name="competencyType", type_name="String", description="Competency Type — Core, Technical, Leadership", hint="Category such as core, technical or leadership", order=2), SomFormFieldMeta(name="requiredLevel", type_name="String", description="Required Level — minimum proficiency", hint="Minimum proficiency that is mandatory", order=3), SomFormFieldMeta(name="preferredLevel", type_name="String", description="Preferred Level — ideal proficiency", hint="Ideal proficiency level", order=4), SomFormFieldMeta(name="assessmentMethod", type_name="String", description="Assessment Method — how evaluated during hiring", hint="How the competency is evaluated when hiring", order=5), SomFormFieldMeta(name="developmentPriority", type_name="String", description="Development Priority — if gap exists", hint="Priority for developing this if a gap exists", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="competencyId", type_name="String", description="Competency ID", hint="Unique identifier for this competency", order=0), SomFormFieldMeta(name="competencyType", type_name="String", description="Competency Type — Core, Technical, Leadership", hint="Category such as core, technical or leadership", order=1), SomFormFieldMeta(name="requiredLevel", type_name="String", description="Required Level — minimum proficiency", hint="Minimum proficiency that is mandatory", order=2), SomFormFieldMeta(name="preferredLevel", type_name="String", description="Preferred Level — ideal proficiency", hint="Ideal proficiency level", order=3), SomFormFieldMeta(name="assessmentMethod", type_name="String", description="Assessment Method — how evaluated during hiring", hint="How the competency is evaluated when hiring", order=4), SomFormFieldMeta(name="developmentPriority", type_name="String", description="Development Priority — if gap exists", hint="Priority for developing this if a gap exists", order=5)])),
     ]
 
 
@@ -40944,7 +40944,7 @@ def _mc_RuleExampleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="exampleName", type_name="String", description="Example Name", required=True, hint="Name for this example", order=0), SomFormFieldMeta(name="scenario", type_name="String", description="Scenario", hint="Description of the example scenario", order=1), SomFormFieldMeta(name="inputData", type_name="String", description="Input Data", hint="Example input values", order=2), SomFormFieldMeta(name="expectedOutcome", type_name="String", description="Expected Outcome", hint="Expected result of rule evaluation", order=3), SomFormFieldMeta(name="exampleType", type_name="String", description="Example Type", hint="Positive | Negative | EdgeCase | BoundaryCondition", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="scenario", type_name="String", description="Scenario", hint="Description of the example scenario", order=0), SomFormFieldMeta(name="inputData", type_name="String", description="Input Data", hint="Example input values", order=1), SomFormFieldMeta(name="expectedOutcome", type_name="String", description="Expected Outcome", hint="Expected result of rule evaluation", order=2), SomFormFieldMeta(name="exampleType", type_name="String", description="Example Type", hint="Positive | Negative | EdgeCase | BoundaryCondition", order=3)])),
     ]
 
 
@@ -40981,7 +40981,7 @@ def _mc_RuntimeDependencyEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="dependencyId", type_name="String", description="Dependency ID", hint="Unique identifier, e.g. DEP-R-001", order=0), SomFormFieldMeta(name="name", type_name="String", description="Dependency Name", required=True, hint="Component or service depended upon", order=1), SomFormFieldMeta(name="version", type_name="String", description="Required Version", hint="Version or version range required", order=2), SomFormFieldMeta(name="dependencyType", type_name="String", description="Dependency Type", hint="Runtime / Optional / Peer / Conditional", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="dependencyId", type_name="String", description="Dependency ID", hint="Unique identifier, e.g. DEP-R-001", order=0), SomFormFieldMeta(name="version", type_name="String", description="Required Version", hint="Version or version range required", order=1), SomFormFieldMeta(name="dependencyType", type_name="String", description="Dependency Type", hint="Runtime / Optional / Peer / Conditional", order=2)])),
          SomMetaNode(
             class_name="RuntimeDependencyEntry",
             member_name="classification",
@@ -41303,7 +41303,7 @@ def _mc_ScenarioEntry(s):
             type_name="String",
             serialization_order=0,
             doc_comment="Scenario identification.",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="scenarioId", type_name="String", description="Scenario ID (e.g., SCE-001)", required=True, hint="Stable code such as SCE-001", order=0), SomFormFieldMeta(name="scenarioName", type_name="String", description="Scenario Name", required=True, hint="Short descriptive name for the scenario", order=1), SomFormFieldMeta(name="scenarioType", type_name="String", description="Scenario Type — happy path, alternative, exception", hint="One of happy path, alternative, or exception", order=2), SomFormFieldMeta(name="description", type_name="String", description="Description — narrative summary", hint="One-paragraph narrative of the journey", order=3), SomFormFieldMeta(name="businessGoal", type_name="String", description="Business Goal — what is achieved", hint="The outcome the actor is trying to reach", order=4), SomFormFieldMeta(name="primaryActor", type_name="String", description="Primary Actor — who performs scenario", hint="The main actor driving the scenario", order=5), SomFormFieldMeta(name="supportingActors", type_name="String", description="Supporting Actors — who else", hint="Other actors or systems that participate", order=6), SomFormFieldMeta(name="priority", type_name="String", description="Priority — critical, high, medium, low", hint="Business priority of this scenario", order=7), SomFormFieldMeta(name="complexity", type_name="String", description="Complexity — simple, moderate, complex", hint="Relative implementation/test complexity", order=8)]),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="scenarioId", type_name="String", description="Scenario ID (e.g., SCE-001)", required=True, hint="Stable code such as SCE-001", order=0), SomFormFieldMeta(name="scenarioType", type_name="String", description="Scenario Type — happy path, alternative, exception", hint="One of happy path, alternative, or exception", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description — narrative summary", hint="One-paragraph narrative of the journey", order=2), SomFormFieldMeta(name="businessGoal", type_name="String", description="Business Goal — what is achieved", hint="The outcome the actor is trying to reach", order=3), SomFormFieldMeta(name="primaryActor", type_name="String", description="Primary Actor — who performs scenario", hint="The main actor driving the scenario", order=4), SomFormFieldMeta(name="supportingActors", type_name="String", description="Supporting Actors — who else", hint="Other actors or systems that participate", order=5), SomFormFieldMeta(name="priority", type_name="String", description="Priority — critical, high, medium, low", hint="Business priority of this scenario", order=6), SomFormFieldMeta(name="complexity", type_name="String", description="Complexity — simple, moderate, complex", hint="Relative implementation/test complexity", order=7)]),
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["Cockburn — Writing Effective Use Cases: scenarios & scenario identity", "ISO/IEC/IEEE 29148 §6 — operational scenarios"], "connotation": "Captures the identifying attributes of a single key end-to-end scenario."})]),
          SomMetaNode(
             class_name="ScenarioEntry",
@@ -41414,7 +41414,7 @@ def _mc_ScheduledJobEntry(s):
             type_name="String",
             serialization_order=0,
             content_help="One job the system runs off the request thread.\n\n**Deployment is opt-out.** A declared job is meant to run: leave *Enabled* set\nunless the job is deliberately dormant. Leave *Environments* empty to run it\neverywhere; naming environments restricts it to those, and is how a job that\nmust never run in production is kept out of it.\n\n**Failure policy is an exception, not a restatement.** Fill in the failure\nsubsection only where this job needs different numbers from the Execution\nControls (BJME). An entry that repeats the default is a second copy of it.\n",
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="jobName", type_name="String", description="Job Name", required=True, hint="The one identifier for this job (e.g. nightlyInvoiceRollup) — cited wherever the job is referenced", order=0), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", required=True, hint="Why this job exists — the operational or business reason it runs on its own rather than as part of a request", order=1), SomFormFieldMeta(name="triggerKind", type_name="ScheduledJobTrigger", description="Trigger Kind", required=True, hint="What starts the job — selects the trigger subsection below", order=2, enum_values=["cron", "calendar", "event"]), SomFormFieldMeta(name="primaryDataEntity", type_name="String", description="Primary Data Entity", required=True, hint="The Data Model entity this job primarily writes. This determines which service unit owns the job — never state ownership by hand.", order=3, refers_to=["DAENT.entityName"]), SomFormFieldMeta(name="enabled", type_name="bool", description="Enabled", hint="Whether the job is deployed to run. A declared job is meant to run, so clear this only for a deliberately dormant job.", order=4), SomFormFieldMeta(name="environments", type_name="String", description="Environments", hint="Comma-separated deployment environments this job runs in, or empty to run in every environment", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", required=True, hint="Why this job exists — the operational or business reason it runs on its own rather than as part of a request", order=0), SomFormFieldMeta(name="triggerKind", type_name="ScheduledJobTrigger", description="Trigger Kind", required=True, hint="What starts the job — selects the trigger subsection below", order=1, enum_values=["cron", "calendar", "event"]), SomFormFieldMeta(name="primaryDataEntity", type_name="String", description="Primary Data Entity", required=True, hint="The Data Model entity this job primarily writes. This determines which service unit owns the job — never state ownership by hand.", order=2, refers_to=["DAENT.entityName"]), SomFormFieldMeta(name="enabled", type_name="bool", description="Enabled", hint="Whether the job is deployed to run. A declared job is meant to run, so clear this only for a deliberately dormant job.", order=3), SomFormFieldMeta(name="environments", type_name="String", description="Environments", hint="Comma-separated deployment environments this job runs in, or empty to run in every environment", order=4)])),
          SomMetaNode(
             class_name="ScheduledJobEntry",
             member_name="cronTrigger",
@@ -41682,7 +41682,7 @@ def _mc_ScreenActionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="actionId", type_name="String", description="Action ID", required=True, hint="Unique action identifier", order=0), SomFormFieldMeta(name="actionName", type_name="String", description="Action Name", required=True, hint="Human-readable action name", order=1), SomFormFieldMeta(name="actionType", type_name="String", description="Action Type", hint="Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="actionId", type_name="String", description="Action ID", required=True, hint="Unique action identifier", order=0), SomFormFieldMeta(name="actionType", type_name="String", description="Action Type", hint="Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh", order=1)])),
          SomMetaNode(
             class_name="ScreenActionEntry",
             member_name="visual",
@@ -41749,7 +41749,7 @@ def _mc_ScreenBehaviorEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="behaviorId", type_name="String", description="Behavior ID", required=True, hint="Unique identifier for this behavior", order=0), SomFormFieldMeta(name="behaviorName", type_name="String", description="Behavior Name", required=True, hint="Short descriptive name for the behavior", order=1), SomFormFieldMeta(name="behaviorType", type_name="String", description="Behavior Type (ConditionalVisibility, ConditionalRequired, Calculation, CascadingSelect, AutoPopulate, CrossFieldValidation, DynamicDefault, FieldFormatting, LiveSearch, InlineEdit)", required=True, hint="ConditionalVisibility, Calculation, CascadingSelect, etc.", order=2), SomFormFieldMeta(name="triggerEvent", type_name="String", description="Trigger Event (OnLoad, OnChange, OnBlur, OnFocus, OnClick, OnSubmit, OnFieldChange)", hint="OnLoad, OnChange, OnBlur, OnFocus, OnClick, OnSubmit, etc.", order=3), SomFormFieldMeta(name="triggerField", type_name="String", description="Trigger Field (if field-specific)", hint="Field that triggers the behavior, if field-specific", order=4), SomFormFieldMeta(name="condition", type_name="String", description="Condition (when behavior applies)", hint="Condition under which the behavior applies", order=5), SomFormFieldMeta(name="affectedFields", type_name="String", description="Affected Fields (field IDs)", hint="Field IDs affected by the behavior", order=6, refers_to=["SFE.fieldId"]), SomFormFieldMeta(name="action", type_name="String", description="Action (Show, Hide, Enable, Disable, Calculate, Populate, Validate)", hint="Show, Hide, Enable, Disable, Calculate, Populate, or Validate", order=7), SomFormFieldMeta(name="formula", type_name="String", description="Formula / Expression (for calculations)", hint="Formula or expression used for calculations", order=8), SomFormFieldMeta(name="description", type_name="String", description="Behavior Description", hint="Description of what the behavior does", order=9)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="behaviorId", type_name="String", description="Behavior ID", required=True, hint="Unique identifier for this behavior", order=0), SomFormFieldMeta(name="behaviorType", type_name="String", description="Behavior Type (ConditionalVisibility, ConditionalRequired, Calculation, CascadingSelect, AutoPopulate, CrossFieldValidation, DynamicDefault, FieldFormatting, LiveSearch, InlineEdit)", required=True, hint="ConditionalVisibility, Calculation, CascadingSelect, etc.", order=1), SomFormFieldMeta(name="triggerEvent", type_name="String", description="Trigger Event (OnLoad, OnChange, OnBlur, OnFocus, OnClick, OnSubmit, OnFieldChange)", hint="OnLoad, OnChange, OnBlur, OnFocus, OnClick, OnSubmit, etc.", order=2), SomFormFieldMeta(name="triggerField", type_name="String", description="Trigger Field (if field-specific)", hint="Field that triggers the behavior, if field-specific", order=3), SomFormFieldMeta(name="condition", type_name="String", description="Condition (when behavior applies)", hint="Condition under which the behavior applies", order=4), SomFormFieldMeta(name="affectedFields", type_name="String", description="Affected Fields (field IDs)", hint="Field IDs affected by the behavior", order=5, refers_to=["SFE.fieldId"]), SomFormFieldMeta(name="action", type_name="String", description="Action (Show, Hide, Enable, Disable, Calculate, Populate, Validate)", hint="Show, Hide, Enable, Disable, Calculate, Populate, or Validate", order=6), SomFormFieldMeta(name="formula", type_name="String", description="Formula / Expression (for calculations)", hint="Formula or expression used for calculations", order=7), SomFormFieldMeta(name="description", type_name="String", description="Behavior Description", hint="Description of what the behavior does", order=8)])),
     ]
 
 
@@ -41862,7 +41862,7 @@ def _mc_ScreenElementEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="elementId", type_name="String", description="Element ID", required=True, hint="Unique within screen, e.g., btn-submit, fld-customer-name", order=0), SomFormFieldMeta(name="elementName", type_name="String", description="Element Name", required=True, hint="Human-readable label", order=1), SomFormFieldMeta(name="elementType", type_name="ScreenElementKind", description="Element Type", required=True, hint="The semantic element kind — selects the facet subsection.", order=2, enum_values=["actionButton", "link", "textField", "numberField", "dateField", "selectField", "checkbox", "toggle", "dataDisplay", "dataTable", "card", "chart", "statusIndicator", "icon", "label", "image", "badge", "divider", "spacer", "tabBar"])])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="elementId", type_name="String", description="Element ID", required=True, hint="Unique within screen, e.g., btn-submit, fld-customer-name", order=0), SomFormFieldMeta(name="elementType", type_name="ScreenElementKind", description="Element Type", required=True, hint="The semantic element kind — selects the facet subsection.", order=1, enum_values=["actionButton", "link", "textField", "numberField", "dateField", "selectField", "checkbox", "toggle", "dataDisplay", "dataTable", "card", "chart", "statusIndicator", "icon", "label", "image", "badge", "divider", "spacer", "tabBar"])])),
          SomMetaNode(
             class_name="ScreenElementEntry",
             member_name="resources",
@@ -42059,7 +42059,7 @@ def _mc_ScreenEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="screenId", type_name="String", description="Screen ID", required=True, hint="Unique identifier, e.g., SCR-001", order=0), SomFormFieldMeta(name="screenName", type_name="String", description="Screen Name", required=True, hint="Human-readable screen title", order=1), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="Business purpose — what the user accomplishes here", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="screenId", type_name="String", description="Screen ID", required=True, hint="Unique identifier, e.g., SCR-001", order=0), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="Business purpose — what the user accomplishes here", order=1)])),
          SomMetaNode(
             class_name="ScreenEntry",
             member_name="classification",
@@ -42193,7 +42193,7 @@ def _mc_ScreenFieldEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="fieldId", type_name="String", description="Field ID", required=True, hint="Unique identifier for this field", order=0), SomFormFieldMeta(name="fieldLabel", type_name="String", description="Field Label (display text)", required=True, hint="Display text shown for the field", order=1), SomFormFieldMeta(name="fieldType", type_name="ScreenFieldKind", description="Field Type", required=True, hint="The kind of value the user supplies — selects the type-specific constraint and presentation subsections", order=2, enum_values=["text", "multilineText", "email", "phone", "url", "password", "integer", "decimal", "currency", "date", "dateTime", "time", "singleSelect", "multiSelect", "file", "boolean"])])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="fieldId", type_name="String", description="Field ID", required=True, hint="Unique identifier for this field", order=0), SomFormFieldMeta(name="fieldType", type_name="ScreenFieldKind", description="Field Type", required=True, hint="The kind of value the user supplies — selects the type-specific constraint and presentation subsections", order=1, enum_values=["text", "multilineText", "email", "phone", "url", "password", "integer", "decimal", "currency", "date", "dateTime", "time", "singleSelect", "multiSelect", "file", "boolean"])])),
          SomMetaNode(
             class_name="ScreenFieldEntry",
             member_name="dataBinding",
@@ -42398,7 +42398,7 @@ def _mc_ScreenRouteEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="routeId", type_name="String", description="Route ID", required=True, hint="Stable identifier referenced by every navigation target, e.g., order-edit", order=0), SomFormFieldMeta(name="routePath", type_name="String", description="Route Path", hint="URL path pattern, e.g., /orders/:id/edit — presentation only, never used as a reference", order=1), SomFormFieldMeta(name="routeTitle", type_name="String", description="Route Title", hint="Human-readable screen title shown in the title bar and history", order=2), SomFormFieldMeta(name="screenId", type_name="String", description="Screen ID", hint="ID of the screen (SCREN registry) this route renders", order=3, refers_to=["SCREN.screenId"]), SomFormFieldMeta(name="routeParameters", type_name="String", description="Route Parameters", hint="Comma-separated parameter names carried by the route, e.g., orderId,mode", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="routeId", type_name="String", description="Route ID", required=True, hint="Stable identifier referenced by every navigation target, e.g., order-edit", order=0), SomFormFieldMeta(name="routePath", type_name="String", description="Route Path", hint="URL path pattern, e.g., /orders/:id/edit — presentation only, never used as a reference", order=1), SomFormFieldMeta(name="screenId", type_name="String", description="Screen ID", hint="ID of the screen (SCREN registry) this route renders", order=2, refers_to=["SCREN.screenId"]), SomFormFieldMeta(name="routeParameters", type_name="String", description="Route Parameters", hint="Comma-separated parameter names carried by the route, e.g., orderId,mode", order=3)])),
     ]
 
 
@@ -42467,7 +42467,7 @@ def _mc_ScreenSectionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="sectionId", type_name="String", description="Section ID", required=True, hint="Unique within screen, e.g., header, filter-bar, main-content", order=0), SomFormFieldMeta(name="sectionName", type_name="String", description="Section Name", required=True, hint="Human label, e.g., \"Filter Bar\", \"Order Details\"", order=1), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="What this zone contains", order=2), SomFormFieldMeta(name="sectionType", type_name="String", description="Section Type", hint="Header/Toolbar/Filter-Bar/Content-Primary/Content-Secondary/Sidebar/Footer/Tab-Panel/Accordion-Panel/Drawer/Action-Bar/Form-Group", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="sectionId", type_name="String", description="Section ID", required=True, hint="Unique within screen, e.g., header, filter-bar, main-content", order=0), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="What this zone contains", order=1), SomFormFieldMeta(name="sectionType", type_name="String", description="Section Type", hint="Header/Toolbar/Filter-Bar/Content-Primary/Content-Secondary/Sidebar/Footer/Tab-Panel/Accordion-Panel/Drawer/Action-Bar/Form-Group", order=2)])),
          SomMetaNode(
             class_name="ScreenSectionEntry",
             member_name="layout",
@@ -42536,7 +42536,7 @@ def _mc_ScreenStateEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="stateName", type_name="String", description="State Name", required=True, hint="Loading/Empty/Error/Permission-Denied/First-Use/Offline/Success", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="When this state occurs", order=1), SomFormFieldMeta(name="messageResource", type_name="String", description="Message Resource", hint="Message key (MSGKR registry) for state message", order=2, refers_to=["MSGKE.key"]), SomFormFieldMeta(name="iconResource", type_name="String", description="Icon Resource", hint="Resource key for state icon", order=3), SomFormFieldMeta(name="illustrationResource", type_name="String", description="Illustration Resource", hint="Resource key for state illustration/image", order=4), SomFormFieldMeta(name="primaryActionLabel", type_name="String", description="Primary Action Label", hint="Message key (MSGKR registry) for recovery action, e.g., Try Again", order=5, refers_to=["MSGKE.key"]), SomFormFieldMeta(name="primaryActionTarget", type_name="String", description="Primary Action Target", hint="Action or navigation on recovery", order=6), SomFormFieldMeta(name="secondaryActionLabel", type_name="String", description="Secondary Action Label", hint="Message key (MSGKR registry) for alternative action", order=7, refers_to=["MSGKE.key"])])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="description", type_name="String", description="Description", hint="When this state occurs", order=0), SomFormFieldMeta(name="messageResource", type_name="String", description="Message Resource", hint="Message key (MSGKR registry) for state message", order=1, refers_to=["MSGKE.key"]), SomFormFieldMeta(name="iconResource", type_name="String", description="Icon Resource", hint="Resource key for state icon", order=2), SomFormFieldMeta(name="illustrationResource", type_name="String", description="Illustration Resource", hint="Resource key for state illustration/image", order=3), SomFormFieldMeta(name="primaryActionLabel", type_name="String", description="Primary Action Label", hint="Message key (MSGKR registry) for recovery action, e.g., Try Again", order=4, refers_to=["MSGKE.key"]), SomFormFieldMeta(name="primaryActionTarget", type_name="String", description="Primary Action Target", hint="Action or navigation on recovery", order=5), SomFormFieldMeta(name="secondaryActionLabel", type_name="String", description="Secondary Action Label", hint="Message key (MSGKR registry) for alternative action", order=6, refers_to=["MSGKE.key"])])),
     ]
 
 
@@ -42585,7 +42585,7 @@ def _mc_ScreenUserCategoryEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="categoryName", type_name="String", description="Category Name", required=True, hint="The name of this user category", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this user category sees/can do", order=1), SomFormFieldMeta(name="contentVariations", type_name="String", description="Content Variations", hint="How screen content differs for this category", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this user category sees/can do", order=0), SomFormFieldMeta(name="contentVariations", type_name="String", description="Content Variations", hint="How screen content differs for this category", order=1)])),
     ]
 
 
@@ -42764,7 +42764,7 @@ def _mc_SecurityAuditEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="auditName", type_name="String", description="Audit Name", required=True, hint="Name or title of the audit requirement", order=0), SomFormFieldMeta(name="auditCategory", type_name="String", description="Audit Category", hint="Penetration test, compliance audit, code audit, infrastructure audit", order=1), SomFormFieldMeta(name="auditDescription", type_name="String", description="Description", hint="Detailed description of what the audit covers", order=2), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency", required=True, hint="Annual, semi-annual, quarterly, on-demand", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="auditCategory", type_name="String", description="Audit Category", hint="Penetration test, compliance audit, code audit, infrastructure audit", order=0), SomFormFieldMeta(name="auditDescription", type_name="String", description="Description", hint="Detailed description of what the audit covers", order=1), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency", required=True, hint="Annual, semi-annual, quarterly, on-demand", order=2)])),
          SomMetaNode(
             class_name="SecurityAuditEntry",
             member_name="scheduling",
@@ -43076,7 +43076,7 @@ def _mc_SecurityControlEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="controlId", type_name="String", description="Control ID", required=True, hint="Stable unique identifier for the control", order=0), SomFormFieldMeta(name="controlName", type_name="String", description="Control Name", required=True, hint="Short descriptive name for the control", order=1), SomFormFieldMeta(name="controlType", type_name="String", description="Control Type (Preventive, Detective, Corrective, Deterrent, Compensating)", required=True, hint="Preventive, Detective, Corrective, Deterrent, or Compensating", order=2), SomFormFieldMeta(name="implementationType", type_name="String", description="Implementation Type (Technical, Administrative, Physical)", hint="Technical, Administrative, or Physical", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="controlId", type_name="String", description="Control ID", required=True, hint="Stable unique identifier for the control", order=0), SomFormFieldMeta(name="controlType", type_name="String", description="Control Type (Preventive, Detective, Corrective, Deterrent, Compensating)", required=True, hint="Preventive, Detective, Corrective, Deterrent, or Compensating", order=1), SomFormFieldMeta(name="implementationType", type_name="String", description="Implementation Type (Technical, Administrative, Physical)", hint="Technical, Administrative, or Physical", order=2)])),
          SomMetaNode(
             class_name="SecurityControlEntry",
             member_name="implementation",
@@ -43174,7 +43174,7 @@ def _mc_SecurityEventEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="eventName", type_name="String", description="Event Name", required=True, hint="Unique identifier for this event type", order=0), SomFormFieldMeta(name="eventCategory", type_name="String", description="Event Category", hint="Category (e.g., BusinessLogic, Integration, Compliance)", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What triggers this event", order=2), SomFormFieldMeta(name="severity", type_name="String", description="Severity", hint="Default severity level (e.g., Info, Warning, Critical)", order=3), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Trigger Condition", hint="Specific condition that triggers logging", order=4), SomFormFieldMeta(name="responseAction", type_name="String", description="Response Action", hint="Automated response if any (e.g., alert, block, notify)", order=5), SomFormFieldMeta(name="complianceMapping", type_name="String", description="Compliance Mapping", hint="Relevant compliance requirement (e.g., PCI-DSS 10.2.5)", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="eventCategory", type_name="String", description="Event Category", hint="Category (e.g., BusinessLogic, Integration, Compliance)", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What triggers this event", order=1), SomFormFieldMeta(name="severity", type_name="String", description="Severity", hint="Default severity level (e.g., Info, Warning, Critical)", order=2), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Trigger Condition", hint="Specific condition that triggers logging", order=3), SomFormFieldMeta(name="responseAction", type_name="String", description="Response Action", hint="Automated response if any (e.g., alert, block, notify)", order=4), SomFormFieldMeta(name="complianceMapping", type_name="String", description="Compliance Mapping", hint="Relevant compliance requirement (e.g., PCI-DSS 10.2.5)", order=5)])),
     ]
 
 
@@ -43461,7 +43461,7 @@ def _mc_SecurityStandardComplianceEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="standardName", type_name="String", description="Standard Name", required=True, hint="E.g., SOC 2, ISO 27001, CIS Controls", order=0), SomFormFieldMeta(name="standardType", type_name="String", description="Standard Type", hint="Framework, Certification, Benchmark", order=1), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Standard version", order=2), SomFormFieldMeta(name="trustServiceCriteria", type_name="String", description="Trust Service Criteria", hint="For SOC 2: Security, Availability, etc.", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="standardType", type_name="String", description="Standard Type", hint="Framework, Certification, Benchmark", order=0), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Standard version", order=1), SomFormFieldMeta(name="trustServiceCriteria", type_name="String", description="Trust Service Criteria", hint="For SOC 2: Security, Availability, etc.", order=2)])),
          SomMetaNode(
             class_name="SecurityStandardComplianceEntry",
             member_name="scope",
@@ -43513,7 +43513,7 @@ def _mc_SecurityStandardEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="standardName", type_name="String", description="Standard Name", required=True, hint="E.g., OWASP Top 10, ISO 27001, SOC 2, NIST CSF", order=0), SomFormFieldMeta(name="standardVersion", type_name="String", description="Standard Version", hint="Version or year of the standard", order=1), SomFormFieldMeta(name="standardType", type_name="String", description="Standard Type", hint="Framework, Certification, Guideline, Benchmark", order=2), SomFormFieldMeta(name="issuingBody", type_name="String", description="Issuing Body", hint="Organization that publishes the standard", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="standardVersion", type_name="String", description="Standard Version", hint="Version or year of the standard", order=0), SomFormFieldMeta(name="standardType", type_name="String", description="Standard Type", hint="Framework, Certification, Guideline, Benchmark", order=1), SomFormFieldMeta(name="issuingBody", type_name="String", description="Issuing Body", hint="Organization that publishes the standard", order=2)])),
          SomMetaNode(
             class_name="SecurityStandardEntry",
             member_name="scope",
@@ -43768,7 +43768,7 @@ def _mc_ServerEnvironmentEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="environmentName", type_name="String", description="Environment Name", required=True, hint="E.g., Development, Staging, Production", order=0), SomFormFieldMeta(name="environmentType", type_name="String", description="Environment Type", hint="Development, QA, UAT, Staging, Production, DR", order=1), SomFormFieldMeta(name="environmentCode", type_name="String", description="Environment Code", hint="dev, stg, prod, dr", order=2), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="Primary purpose of this environment", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="environmentType", type_name="String", description="Environment Type", hint="Development, QA, UAT, Staging, Production, DR", order=0), SomFormFieldMeta(name="environmentCode", type_name="String", description="Environment Code", hint="dev, stg, prod, dr", order=1), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="Primary purpose of this environment", order=2)])),
          SomMetaNode(
             class_name="ServerEnvironmentEntry",
             member_name="location",
@@ -43820,7 +43820,7 @@ def _mc_ServerOperationEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="operationName", type_name="String", description="Operation Name", required=True, hint="Dotted, namespaced operation name (e.g. customer.save, order.submit) — the one operation identifier. Callers cite this name; no transport method or path is authored.", order=0), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="What the operation does, from the caller's point of view", order=1), SomFormFieldMeta(name="primaryDataEntity", type_name="String", description="Primary Data Entity", hint="DataEntityEntry.entityName of the entity this operation primarily writes — the service unit that owns that entity owns this operation (ownership is derived, never listed by hand)", order=2, refers_to=["DAENT.entityName"]), SomFormFieldMeta(name="descriptionKey", type_name="String", description="Description Copy Key", hint="MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)", order=3, refers_to=["MSGKE.key"]), SomFormFieldMeta(name="errorCodes", type_name="String", description="Error Codes", hint="Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope", order=4, refers_to=["ERCEN.code"])])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="What the operation does, from the caller's point of view", order=0), SomFormFieldMeta(name="primaryDataEntity", type_name="String", description="Primary Data Entity", hint="DataEntityEntry.entityName of the entity this operation primarily writes — the service unit that owns that entity owns this operation (ownership is derived, never listed by hand)", order=1, refers_to=["DAENT.entityName"]), SomFormFieldMeta(name="descriptionKey", type_name="String", description="Description Copy Key", hint="MessageKeyEntry.key into the message key registry (MSGKR) for the operation's user-facing description (author copy once, reference here)", order=2, refers_to=["MSGKE.key"]), SomFormFieldMeta(name="errorCodes", type_name="String", description="Error Codes", hint="Comma-separated ErrorCodeEntry.code values from the error-code registry (ERCRG) that this operation may return in the error arm of the Result envelope", order=3, refers_to=["ERCEN.code"])])),
          _cx("AuthorizationRequirementSpec", s, _mc_AuthorizationRequirementSpec,
             lambda r, c: SomMetaNode(
                 class_name="AuthorizationRequirementSpec",
@@ -43868,7 +43868,7 @@ def _mc_ServerOperationMemberEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="memberName", type_name="String", description="Member Name", required=True, hint="Name of the member within the shape (e.g. customerId, includeArchived)", order=0), SomFormFieldMeta(name="memberType", type_name="String", description="Member Type", required=True, hint="Text | Number | Integer | Decimal | Boolean | Date | Timestamp | Binary | DataEntity | DomainEnum. For DataEntity or DomainEnum, name the source in the field below.", order=1), SomFormFieldMeta(name="multiValued", type_name="bool", description="Multi-Valued", hint="Whether the member carries a collection of the type rather than a single value", order=2), SomFormFieldMeta(name="required", type_name="bool", description="Required", hint="Whether the member must be present", order=3), SomFormFieldMeta(name="dataEntity", type_name="String", description="Data Entity", hint="DataEntityEntry.entityName the member is typed by, when its type is DataEntity", order=4, refers_to=["DAENT.entityName"]), SomFormFieldMeta(name="domainEnum", type_name="String", description="Domain Enum", hint="DomainEnumEntry.enumName the member is typed by, when its type is DomainEnum", order=5, refers_to=["DMENE.enumName"]), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What the member means and any authoring guidance", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="memberType", type_name="String", description="Member Type", required=True, hint="Text | Number | Integer | Decimal | Boolean | Date | Timestamp | Binary | DataEntity | DomainEnum. For DataEntity or DomainEnum, name the source in the field below.", order=0), SomFormFieldMeta(name="multiValued", type_name="bool", description="Multi-Valued", hint="Whether the member carries a collection of the type rather than a single value", order=1), SomFormFieldMeta(name="required", type_name="bool", description="Required", hint="Whether the member must be present", order=2), SomFormFieldMeta(name="dataEntity", type_name="String", description="Data Entity", hint="DataEntityEntry.entityName the member is typed by, when its type is DataEntity", order=3, refers_to=["DAENT.entityName"]), SomFormFieldMeta(name="domainEnum", type_name="String", description="Domain Enum", hint="DomainEnumEntry.enumName the member is typed by, when its type is DomainEnum", order=4, refers_to=["DMENE.enumName"]), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What the member means and any authoring guidance", order=5)])),
     ]
 
 
@@ -44098,7 +44098,7 @@ def _mc_ServerRoleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="roleName", type_name="String", description="Role Name", required=True, hint="E.g., Application Server, Database Server", order=0), SomFormFieldMeta(name="roleType", type_name="String", description="Role Type", hint="App, Web, Database, Cache, Queue, Gateway", order=1), SomFormFieldMeta(name="roleAbbreviation", type_name="String", description="Abbreviation", hint="Short code for role", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="roleType", type_name="String", description="Role Type", hint="App, Web, Database, Cache, Queue, Gateway", order=0), SomFormFieldMeta(name="roleAbbreviation", type_name="String", description="Abbreviation", hint="Short code for role", order=1)])),
          SomMetaNode(
             class_name="ServerRoleEntry",
             member_name="software",
@@ -44712,7 +44712,7 @@ def _mc_SharedLibraryComponentEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentName", type_name="String", description="Component Name", required=True, hint="Unique library name", order=0), SomFormFieldMeta(name="componentType", type_name="String", description="Component Type", hint="Core, Utility, Domain, Integration, Extension", order=1), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Current version", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentType", type_name="String", description="Component Type", hint="Core, Utility, Domain, Integration, Extension", order=0), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Current version", order=1)])),
          SomMetaNode(
             class_name="SharedLibraryComponentEntry",
             member_name="description",
@@ -44764,7 +44764,7 @@ def _mc_SharedLibraryEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="libraryName", type_name="String", description="Library Name", required=True, hint="Library identifier", order=0), SomFormFieldMeta(name="libraryType", type_name="String", description="Library Type", hint="Utility, Domain, Infrastructure, UI", order=1), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Current version", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="libraryType", type_name="String", description="Library Type", hint="Utility, Domain, Infrastructure, UI", order=0), SomFormFieldMeta(name="version", type_name="String", description="Version", hint="Current version", order=1)])),
          SomMetaNode(
             class_name="SharedLibraryEntry",
             member_name="description",
@@ -45058,7 +45058,7 @@ def _mc_SloEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="sloId", type_name="String", description="SLO ID", required=True, hint="Unique SLO identifier", order=0), SomFormFieldMeta(name="sloName", type_name="String", description="SLO Name", required=True, hint="Human-readable SLO name", order=1), SomFormFieldMeta(name="sloDescription", type_name="String", description="SLO Description", hint="What this SLO covers", order=2), SomFormFieldMeta(name="serviceName", type_name="String", description="Service Name", hint="Service the SLO applies to", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="sloId", type_name="String", description="SLO ID", required=True, hint="Unique SLO identifier", order=0), SomFormFieldMeta(name="sloDescription", type_name="String", description="SLO Description", hint="What this SLO covers", order=1), SomFormFieldMeta(name="serviceName", type_name="String", description="Service Name", hint="Service the SLO applies to", order=2)])),
          SomMetaNode(
             class_name="SloEntry",
             member_name="target",
@@ -45164,7 +45164,7 @@ def _mc_SoftwareLayerEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="layerName", type_name="String", description="Layer Name", required=True, hint="E.g., Presentation, Application, Domain, Infrastructure, Data Access", order=0), SomFormFieldMeta(name="layerLevel", type_name="String", description="Level", hint="Numeric level (0 = bottom, higher = top)", order=1), SomFormFieldMeta(name="layerPattern", type_name="String", description="Pattern", hint="E.g., Clean Architecture, Onion, Hexagonal, N-Tier", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="layerLevel", type_name="String", description="Level", hint="Numeric level (0 = bottom, higher = top)", order=0), SomFormFieldMeta(name="layerPattern", type_name="String", description="Pattern", hint="E.g., Clean Architecture, Onion, Hexagonal, N-Tier", order=1)])),
          SomMetaNode(
             class_name="SoftwareLayerEntry",
             member_name="responsibilities",
@@ -45475,7 +45475,7 @@ def _mc_StageEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="stageNumber", type_name="String", description="Stage Number", required=True, hint="1, 2, 3… — sequential stage number", order=0), SomFormFieldMeta(name="stageName", type_name="String", description="Stage Name", required=True, hint="Descriptive name, e.g. Foundation, Core Operations", order=1), SomFormFieldMeta(name="currentStatus", type_name="String", description="Current Status", hint="Planned / Active / Completed / OnHold / Cancelled", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="stageNumber", type_name="String", description="Stage Number", required=True, hint="1, 2, 3… — sequential stage number", order=0), SomFormFieldMeta(name="currentStatus", type_name="String", description="Current Status", hint="Planned / Active / Completed / OnHold / Cancelled", order=1)])),
          SomMetaNode(
             class_name="StageEntry",
             member_name="identity",
@@ -45756,7 +45756,7 @@ def _mc_StageMigrationRiskEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskId", type_name="String", description="Risk ID", required=True, hint="Unique identifier — e.g. MIG-R001, MIG-R002", order=0), SomFormFieldMeta(name="riskName", type_name="String", description="Risk Name", required=True, hint="Short descriptive name — e.g. Data Loss During Cutover", order=1), SomFormFieldMeta(name="riskCategory", type_name="String", description="Risk Category", required=True, hint="DataLoss / DataCorruption / DowntimeOverrun / SecurityBreach", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskId", type_name="String", description="Risk ID", required=True, hint="Unique identifier — e.g. MIG-R001, MIG-R002", order=0), SomFormFieldMeta(name="riskCategory", type_name="String", description="Risk Category", required=True, hint="DataLoss / DataCorruption / DowntimeOverrun / SecurityBreach", order=1)])),
          SomMetaNode(
             class_name="StageMigrationRiskEntry",
             member_name="identity",
@@ -46137,7 +46137,7 @@ def _mc_StageSummaryEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="stageNumber", type_name="String", description="Stage Number", required=True, hint="1, 2, 3… — sequential stage number", order=0), SomFormFieldMeta(name="stageName", type_name="String", description="Stage Name", required=True, hint="Descriptive name, e.g. Foundation / Core Operations", order=1), SomFormFieldMeta(name="scopeSummary", type_name="String", description="Scope Summary", required=True, hint="One-line summary of what this stage delivers", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="stageNumber", type_name="String", description="Stage Number", required=True, hint="1, 2, 3… — sequential stage number", order=0), SomFormFieldMeta(name="scopeSummary", type_name="String", description="Scope Summary", required=True, hint="One-line summary of what this stage delivers", order=1)])),
          SomMetaNode(
             class_name="StageSummaryEntry",
             member_name="identity",
@@ -46426,7 +46426,7 @@ def _mc_StakeholderEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="stakeholderName", type_name="String", description="Stakeholder Name or Group", required=True, hint="Name of the stakeholder individual or group", order=0), SomFormFieldMeta(name="stakeholderType", type_name="String", description="Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)", hint="Sponsor, User, Customer, Partner, Regulator, etc.", order=1), SomFormFieldMeta(name="expectedBenefits", type_name="String", description="Expected Benefits (the scope-framing value this group gains from the system)", hint="The scope-framing value this group gains from the system", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="stakeholderType", type_name="String", description="Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)", hint="Sponsor, User, Customer, Partner, Regulator, etc.", order=0), SomFormFieldMeta(name="expectedBenefits", type_name="String", description="Expected Benefits (the scope-framing value this group gains from the system)", hint="The scope-framing value this group gains from the system", order=1)])),
     ]
 
 
@@ -46438,7 +46438,7 @@ def _mc_StakeholderRegisterEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="stakeholderId", type_name="String", description="Stakeholder ID (STK-NNN)", required=True, order=0), SomFormFieldMeta(name="name", type_name="String", description="Name or Group", required=True, order=1), SomFormFieldMeta(name="role", type_name="String", description="Role", required=True, order=2), SomFormFieldMeta(name="interest", type_name="String", description="Interest (what they care about)", order=3), SomFormFieldMeta(name="influence", type_name="String", description="Influence (High, Medium, Low)", order=4), SomFormFieldMeta(name="concerns", type_name="String", description="Concerns", order=5), SomFormFieldMeta(name="engagementStrategy", type_name="String", description="Engagement Strategy", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="stakeholderId", type_name="String", description="Stakeholder ID (STK-NNN)", required=True, order=0), SomFormFieldMeta(name="role", type_name="String", description="Role", required=True, order=1), SomFormFieldMeta(name="interest", type_name="String", description="Interest (what they care about)", order=2), SomFormFieldMeta(name="influence", type_name="String", description="Influence (High, Medium, Low)", order=3), SomFormFieldMeta(name="concerns", type_name="String", description="Concerns", order=4), SomFormFieldMeta(name="engagementStrategy", type_name="String", description="Engagement Strategy", order=5)])),
     ]
 
 
@@ -46916,7 +46916,7 @@ def _mc_SubFunctionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="subFunctionName", type_name="String", description="Sub-Function Name", required=True, hint="Name of the sub-function", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this sub-function does", order=1), SomFormFieldMeta(name="dataAccess", type_name="String", description="Data Access", hint="Entities accessed with CRUD notation", order=2), SomFormFieldMeta(name="systemSupport", type_name="String", description="System Support", hint="Systems that support this function", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this sub-function does", order=0), SomFormFieldMeta(name="dataAccess", type_name="String", description="Data Access", hint="Entities accessed with CRUD notation", order=1), SomFormFieldMeta(name="systemSupport", type_name="String", description="System Support", hint="Systems that support this function", order=2)])),
     ]
 
 
@@ -46928,7 +46928,7 @@ def _mc_SubStageEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="name", type_name="String", description="Name", required=True, hint="Descriptive name for this sub-stage or milestone", order=0), SomFormFieldMeta(name="subStageType", type_name="String", description="Type", hint="Alpha / Beta / RC / Pilot / GA / Milestone / Sprint / Iteration / Hardening", order=1), SomFormFieldMeta(name="sequenceNumber", type_name="String", description="Sequence Number", hint="Order within the parent stage — 1, 2, 3…", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="subStageType", type_name="String", description="Type", hint="Alpha / Beta / RC / Pilot / GA / Milestone / Sprint / Iteration / Hardening", order=0), SomFormFieldMeta(name="sequenceNumber", type_name="String", description="Sequence Number", hint="Order within the parent stage — 1, 2, 3…", order=1)])),
          SomMetaNode(
             class_name="SubStageEntry",
             member_name="overview",
@@ -47118,7 +47118,7 @@ def _mc_SuccessCriterionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="criterionId", type_name="String", description="Criterion ID", required=True, hint="Unique identifier (e.g., SC-001)", order=0), SomFormFieldMeta(name="criterionName", type_name="String", description="Criterion Name", required=True, hint="Short descriptive name", order=1), SomFormFieldMeta(name="category", type_name="String", description="Category", required=True, hint="Business, Technical, User, Compliance, Budget, Timeline", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="criterionId", type_name="String", description="Criterion ID", required=True, hint="Unique identifier (e.g., SC-001)", order=0), SomFormFieldMeta(name="category", type_name="String", description="Category", required=True, hint="Business, Technical, User, Compliance, Budget, Timeline", order=1)])),
          SomMetaNode(
             class_name="SuccessCriterionEntry",
             member_name="identity",
@@ -47542,7 +47542,7 @@ def _mc_SystemBusinessProcessEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="processName", type_name="String", description="Process Name", required=True, hint="Name of the supported business process", order=0), SomFormFieldMeta(name="processId", type_name="String", description="Process ID", hint="Identifier for the process if one exists", order=1), SomFormFieldMeta(name="systemRole", type_name="String", description="System Role (Primary, Data Source, etc.)", hint="Role the system plays in the process", order=2), SomFormFieldMeta(name="automationLevel", type_name="String", description="Automation Level", hint="Degree to which the process is automated", order=3), SomFormFieldMeta(name="processFrequency", type_name="String", description="Execution Frequency", hint="How often the process runs", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="processId", type_name="String", description="Process ID", hint="Identifier for the process if one exists", order=0), SomFormFieldMeta(name="systemRole", type_name="String", description="System Role (Primary, Data Source, etc.)", hint="Role the system plays in the process", order=1), SomFormFieldMeta(name="automationLevel", type_name="String", description="Automation Level", hint="Degree to which the process is automated", order=2), SomFormFieldMeta(name="processFrequency", type_name="String", description="Execution Frequency", hint="How often the process runs", order=3)])),
     ]
 
 
@@ -47554,7 +47554,7 @@ def _mc_SystemBusinessUnitEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="unitName", type_name="String", description="Business Unit", required=True, hint="Name of the business unit", order=0), SomFormFieldMeta(name="userCount", type_name="int", description="User Count", hint="Number of users in this unit", order=1), SomFormFieldMeta(name="usagePattern", type_name="String", description="Usage Pattern (Daily, Weekly, etc.)", hint="How frequently the unit uses the system", order=2), SomFormFieldMeta(name="dependencyLevel", type_name="String", description="Dependency Level (Primary, Secondary, Occasional)", hint="How dependent the unit is on the system", order=3), SomFormFieldMeta(name="impactIfRemoved", type_name="String", description="Impact if System Removed", hint="Consequence to the unit if the system is removed", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="userCount", type_name="int", description="User Count", hint="Number of users in this unit", order=0), SomFormFieldMeta(name="usagePattern", type_name="String", description="Usage Pattern (Daily, Weekly, etc.)", hint="How frequently the unit uses the system", order=1), SomFormFieldMeta(name="dependencyLevel", type_name="String", description="Dependency Level (Primary, Secondary, Occasional)", hint="How dependent the unit is on the system", order=2), SomFormFieldMeta(name="impactIfRemoved", type_name="String", description="Impact if System Removed", hint="Consequence to the unit if the system is removed", order=3)])),
     ]
 
 
@@ -47845,7 +47845,7 @@ def _mc_SystemDependencyEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="dependencyName", type_name="String", description="Dependency Name", required=True, hint="Descriptive name, e.g. CRM → ERP order sync", order=0), SomFormFieldMeta(name="dependencyType", type_name="String", description="Dependency Type", hint="Data / Functional / Operational / Temporal / Transactional", order=1), SomFormFieldMeta(name="direction", type_name="String", description="Direction", hint="Upstream / Downstream / Bidirectional", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="dependencyType", type_name="String", description="Dependency Type", hint="Data / Functional / Operational / Temporal / Transactional", order=0), SomFormFieldMeta(name="direction", type_name="String", description="Direction", hint="Upstream / Downstream / Bidirectional", order=1)])),
          SomMetaNode(
             class_name="SystemDependencyEntry",
             member_name="mechanism",
@@ -48168,7 +48168,7 @@ def _mc_SystemIntegrationEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="integrationName", type_name="String", description="Integration Name", required=True, hint="Descriptive name, e.g. Real-time inventory sync", order=0), SomFormFieldMeta(name="integrationType", type_name="String", description="Integration Type", hint="RealTime / Batch / EventDriven / RequestResponse / Manual", order=1), SomFormFieldMeta(name="integrationPattern", type_name="String", description="Integration Pattern", hint="PointToPoint / HubSpoke / PubSub / ESB / ApiGateway", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="integrationType", type_name="String", description="Integration Type", hint="RealTime / Batch / EventDriven / RequestResponse / Manual", order=0), SomFormFieldMeta(name="integrationPattern", type_name="String", description="Integration Pattern", hint="PointToPoint / HubSpoke / PubSub / ESB / ApiGateway", order=1)])),
          SomMetaNode(
             class_name="SystemIntegrationEntry",
             member_name="protocol",
@@ -49230,7 +49230,7 @@ def _mc_SystemTaskEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="taskId", type_name="String", description="Task ID", required=True, hint="Unique identifier for this task", order=0), SomFormFieldMeta(name="taskName", type_name="String", description="Task Name", required=True, hint="Short descriptive name of the task", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description (what the user does)", hint="What the user does when performing this task", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="taskId", type_name="String", description="Task ID", required=True, hint="Unique identifier for this task", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description (what the user does)", hint="What the user does when performing this task", order=1)])),
          SomMetaNode(
             class_name="SystemTaskEntry",
             member_name="execution",
@@ -49368,7 +49368,7 @@ def _mc_SystemToReplaceEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="systemId", type_name="String", description="System ID (e.g., SYS-CRM-001)", required=True, hint="Stable identifier for the legacy system being replaced", order=0), SomFormFieldMeta(name="systemName", type_name="String", description="System Name", required=True, hint="Common name the organization uses for this system", order=1), SomFormFieldMeta(name="officialName", type_name="String", description="Official/Vendor Name", hint="Vendor/product name and edition, if a commercial system", order=2), SomFormFieldMeta(name="systemDescription", type_name="String", description="Description", hint="Brief description of what the system does and who uses it", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="systemId", type_name="String", description="System ID (e.g., SYS-CRM-001)", required=True, hint="Stable identifier for the legacy system being replaced", order=0), SomFormFieldMeta(name="officialName", type_name="String", description="Official/Vendor Name", hint="Vendor/product name and edition, if a commercial system", order=1), SomFormFieldMeta(name="systemDescription", type_name="String", description="Description", hint="Brief description of what the system does and who uses it", order=2)])),
          SomMetaNode(
             class_name="SystemToReplaceEntry",
             member_name="profile",
@@ -49508,7 +49508,7 @@ def _mc_SystemTrainingEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="trainingId", type_name="String", description="Training ID", required=True, order=0), SomFormFieldMeta(name="systemName", type_name="String", description="System Name", required=True, order=1), SomFormFieldMeta(name="modulesCovered", type_name="String", description="Modules Covered — system modules in scope", order=2), SomFormFieldMeta(name="userRoleFocus", type_name="String", description="User Role Focus — specific role training", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="trainingId", type_name="String", description="Training ID", required=True, order=0), SomFormFieldMeta(name="modulesCovered", type_name="String", description="Modules Covered — system modules in scope", order=1), SomFormFieldMeta(name="userRoleFocus", type_name="String", description="User Role Focus — specific role training", order=2)])),
          SomMetaNode(
             class_name="SystemTrainingEntry",
             member_name="functional",
@@ -49641,7 +49641,7 @@ def _mc_TabBarDefinitionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="tabBarId", type_name="String", description="Tab Bar ID", required=True, hint="Unique identifier, e.g., tabs-customer-detail", order=0), SomFormFieldMeta(name="tabBarName", type_name="String", description="Tab Bar Name", required=True, hint="Human label", order=1), SomFormFieldMeta(name="hostScreenId", type_name="String", description="Host Screen ID", hint="Screen that contains this tab bar", order=2, refers_to=["SCREN.screenId"]), SomFormFieldMeta(name="tabBarStyle", type_name="String", description="Style", hint="Material-Tabs/Segmented-Control/Pill-Tabs/Scrollable-Tabs", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="tabBarId", type_name="String", description="Tab Bar ID", required=True, hint="Unique identifier, e.g., tabs-customer-detail", order=0), SomFormFieldMeta(name="hostScreenId", type_name="String", description="Host Screen ID", hint="Screen that contains this tab bar", order=1, refers_to=["SCREN.screenId"]), SomFormFieldMeta(name="tabBarStyle", type_name="String", description="Style", hint="Material-Tabs/Segmented-Control/Pill-Tabs/Scrollable-Tabs", order=2)])),
          SomMetaNode(
             class_name="TabBarDefinitionEntry",
             member_name="behavior",
@@ -49749,7 +49749,7 @@ def _mc_TargetPlatformEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="platformName", type_name="String", description="Platform Name", required=True, hint="E.g., Linux, Windows Server, macOS, iOS, Android", order=0), SomFormFieldMeta(name="platformCategory", type_name="String", description="Category", hint="Operating System, Runtime Environment, Container Platform, Cloud Platform", order=1), SomFormFieldMeta(name="platformType", type_name="String", description="Type", hint="Server, Desktop, Mobile, IoT", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="platformCategory", type_name="String", description="Category", hint="Operating System, Runtime Environment, Container Platform, Cloud Platform", order=0), SomFormFieldMeta(name="platformType", type_name="String", description="Type", hint="Server, Desktop, Mobile, IoT", order=1)])),
          SomMetaNode(
             class_name="TargetPlatformEntry",
             member_name="version",
@@ -49801,7 +49801,7 @@ def _mc_TeamMemberEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="name", type_name="String", description="Name", required=True, hint="Full name of the team member", order=0), SomFormFieldMeta(name="projectRole", type_name="String", description="Project Role", required=True, hint="Role this person plays on the project", order=1), SomFormFieldMeta(name="organization", type_name="String", description="Organization/Department", hint="Their home organization or department", order=2), SomFormFieldMeta(name="jobTitle", type_name="String", description="Job Title", hint="Their substantive job title", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="projectRole", type_name="String", description="Project Role", required=True, hint="Role this person plays on the project", order=0), SomFormFieldMeta(name="organization", type_name="String", description="Organization/Department", hint="Their home organization or department", order=1), SomFormFieldMeta(name="jobTitle", type_name="String", description="Job Title", hint="Their substantive job title", order=2)])),
          SomMetaNode(
             class_name="TeamMemberEntry",
             member_name="allocationDetails",
@@ -49889,7 +49889,7 @@ def _mc_TeamMemberSkillEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="skillName", type_name="String", description="Skill Name", required=True, hint="Name of the skill or competency", order=0), SomFormFieldMeta(name="proficiencyLevel", type_name="String", description="Proficiency (Expert/Advanced/Intermediate/Beginner)", hint="Expert / Advanced / Intermediate / Beginner", order=1), SomFormFieldMeta(name="yearsUsing", type_name="int", description="Years Using", hint="How many years they have used this skill", order=2), SomFormFieldMeta(name="lastUsed", type_name="String", description="Last Used", hint="When the skill was most recently applied", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="proficiencyLevel", type_name="String", description="Proficiency (Expert/Advanced/Intermediate/Beginner)", hint="Expert / Advanced / Intermediate / Beginner", order=0), SomFormFieldMeta(name="yearsUsing", type_name="int", description="Years Using", hint="How many years they have used this skill", order=1), SomFormFieldMeta(name="lastUsed", type_name="String", description="Last Used", hint="When the skill was most recently applied", order=2)])),
     ]
 
 
@@ -49957,7 +49957,7 @@ def _mc_TechnicalConstraintEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="constraintId", type_name="String", description="Constraint ID", required=True, hint="Unique identifier for the constraint", order=0), SomFormFieldMeta(name="constraintName", type_name="String", description="Constraint Name", required=True, hint="Short descriptive name", order=1), SomFormFieldMeta(name="constraintType", type_name="String", description="Constraint Type (Technology, Standard, Resource, Compatibility, Budget, Timeline, Regulatory)", hint="Technology, Standard, Resource, Compatibility, Budget, etc.", order=2), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What the constraint requires", order=3), SomFormFieldMeta(name="source", type_name="String", description="Source (who/what imposed this constraint)", hint="Who or what imposed this constraint", order=4), SomFormFieldMeta(name="rationale", type_name="String", description="Rationale (why this constraint exists)", hint="Why this constraint exists", order=5), SomFormFieldMeta(name="impact", type_name="String", description="Impact (how this affects our approach)", hint="How this affects our approach", order=6), SomFormFieldMeta(name="flexibility", type_name="String", description="Flexibility (Fixed, Negotiable, Preferred)", hint="Fixed / Negotiable / Preferred", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="constraintId", type_name="String", description="Constraint ID", required=True, hint="Unique identifier for the constraint", order=0), SomFormFieldMeta(name="constraintType", type_name="String", description="Constraint Type (Technology, Standard, Resource, Compatibility, Budget, Timeline, Regulatory)", hint="Technology, Standard, Resource, Compatibility, Budget, etc.", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What the constraint requires", order=2), SomFormFieldMeta(name="source", type_name="String", description="Source (who/what imposed this constraint)", hint="Who or what imposed this constraint", order=3), SomFormFieldMeta(name="rationale", type_name="String", description="Rationale (why this constraint exists)", hint="Why this constraint exists", order=4), SomFormFieldMeta(name="impact", type_name="String", description="Impact (how this affects our approach)", hint="How this affects our approach", order=5), SomFormFieldMeta(name="flexibility", type_name="String", description="Flexibility (Fixed, Negotiable, Preferred)", hint="Fixed / Negotiable / Preferred", order=6)])),
     ]
 
 
@@ -49969,7 +49969,7 @@ def _mc_TechnicalDependencyEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="dependencyId", type_name="String", description="Dependency ID", required=True, hint="Unique identifier for the dependency", order=0), SomFormFieldMeta(name="dependencyName", type_name="String", description="Dependency Name", required=True, hint="Name of the dependency", order=1), SomFormFieldMeta(name="dependencyType", type_name="String", description="Dependency Type (Infrastructure, API, Library, Service, Hardware, Network, Third-party)", hint="Infrastructure, API, Library, Service, Hardware, etc.", order=2), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What the dependency provides", order=3), SomFormFieldMeta(name="version", type_name="String", description="Version (if applicable)", hint="Required version, if applicable", order=4), SomFormFieldMeta(name="sla", type_name="String", description="SLA (if external service)", hint="Service-level agreement for external services", order=5), SomFormFieldMeta(name="fallback", type_name="String", description="Fallback (what if unavailable)", hint="What happens if the dependency is unavailable", order=6), SomFormFieldMeta(name="status", type_name="String", description="Status (Available, Pending, At Risk)", hint="Available / Pending / At Risk", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="dependencyId", type_name="String", description="Dependency ID", required=True, hint="Unique identifier for the dependency", order=0), SomFormFieldMeta(name="dependencyType", type_name="String", description="Dependency Type (Infrastructure, API, Library, Service, Hardware, Network, Third-party)", hint="Infrastructure, API, Library, Service, Hardware, etc.", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What the dependency provides", order=2), SomFormFieldMeta(name="version", type_name="String", description="Version (if applicable)", hint="Required version, if applicable", order=3), SomFormFieldMeta(name="sla", type_name="String", description="SLA (if external service)", hint="Service-level agreement for external services", order=4), SomFormFieldMeta(name="fallback", type_name="String", description="Fallback (what if unavailable)", hint="What happens if the dependency is unavailable", order=5), SomFormFieldMeta(name="status", type_name="String", description="Status (Available, Pending, At Risk)", hint="Available / Pending / At Risk", order=6)])),
     ]
 
 
@@ -50328,7 +50328,7 @@ def _mc_TechnicalGoalEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="goalId", type_name="String", description="Goal ID (unique identifier, e.g., TG-001)", required=True, hint="Unique identifier, e.g. TG-001", order=0), SomFormFieldMeta(name="goalName", type_name="String", description="Goal Name (concise statement)", required=True, hint="Concise statement of the technical goal", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description (detailed explanation of the technical objective)", hint="Detailed explanation of the technical objective", order=2), SomFormFieldMeta(name="goalCategory", type_name="String", description="Goal Category (Performance, Scalability, Reliability, Security, Usability, Accessibility, Maintainability, Portability, Interoperability, Compliance)", required=True, hint="Quality attribute category, e.g. Performance, Security", order=3), SomFormFieldMeta(name="priority", type_name="String", description="Priority (Critical, High, Medium, Low)", required=True, hint="Critical / High / Medium / Low", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="goalId", type_name="String", description="Goal ID (unique identifier, e.g., TG-001)", required=True, hint="Unique identifier, e.g. TG-001", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description (detailed explanation of the technical objective)", hint="Detailed explanation of the technical objective", order=1), SomFormFieldMeta(name="goalCategory", type_name="String", description="Goal Category (Performance, Scalability, Reliability, Security, Usability, Accessibility, Maintainability, Portability, Interoperability, Compliance)", required=True, hint="Quality attribute category, e.g. Performance, Security", order=2), SomFormFieldMeta(name="priority", type_name="String", description="Priority (Critical, High, Medium, Low)", required=True, hint="Critical / High / Medium / Low", order=3)])),
          SomMetaNode(
             class_name="TechnicalGoalEntry",
             member_name="measurement",
@@ -50408,7 +50408,7 @@ def _mc_TechnicalGoalTestCaseEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="testCaseId", type_name="String", description="Test Case ID", required=True, hint="Unique identifier for the test case", order=0), SomFormFieldMeta(name="testCaseName", type_name="String", description="Test Case Name", required=True, hint="Short descriptive name", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this test case verifies", order=2), SomFormFieldMeta(name="testProcedure", type_name="String", description="Test Procedure", hint="Steps to execute the test", order=3), SomFormFieldMeta(name="expectedResult", type_name="String", description="Expected Result", hint="Result expected when the goal is met", order=4), SomFormFieldMeta(name="actualResult", type_name="String", description="Actual Result", hint="Result observed when the test was run", order=5), SomFormFieldMeta(name="status", type_name="String", description="Status (Planned, In Progress, Passed, Failed)", hint="Planned / In Progress / Passed / Failed", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="testCaseId", type_name="String", description="Test Case ID", required=True, hint="Unique identifier for the test case", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="What this test case verifies", order=1), SomFormFieldMeta(name="testProcedure", type_name="String", description="Test Procedure", hint="Steps to execute the test", order=2), SomFormFieldMeta(name="expectedResult", type_name="String", description="Expected Result", hint="Result expected when the goal is met", order=3), SomFormFieldMeta(name="actualResult", type_name="String", description="Actual Result", hint="Result observed when the test was run", order=4), SomFormFieldMeta(name="status", type_name="String", description="Status (Planned, In Progress, Passed, Failed)", hint="Planned / In Progress / Passed / Failed", order=5)])),
     ]
 
 
@@ -50752,7 +50752,7 @@ def _mc_TechnologyStandardEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="standardId", type_name="String", description="Standard ID", required=True, hint="Unique identifier, e.g. STD-SEC-001, STD-DEV-001", order=0), SomFormFieldMeta(name="standardName", type_name="String", description="Standard Name", required=True, hint="Short descriptive name", order=1), SomFormFieldMeta(name="standardCategory", type_name="String", description="Category", hint="Security, Development, Infrastructure, Integration, Data, DevOps", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="standardId", type_name="String", description="Standard ID", required=True, hint="Unique identifier, e.g. STD-SEC-001, STD-DEV-001", order=0), SomFormFieldMeta(name="standardCategory", type_name="String", description="Category", hint="Security, Development, Infrastructure, Integration, Data, DevOps", order=1)])),
          SomMetaNode(
             class_name="TechnologyStandardEntry",
             member_name="details",
@@ -50977,7 +50977,7 @@ def _mc_TestScenarioEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="scenarioId", type_name="String", description="Scenario ID", required=True, hint="Unique identifier — e.g. UAT-SC-001", order=0), SomFormFieldMeta(name="scenarioName", type_name="String", description="Scenario Name", required=True, hint="Concise name describing the user journey", order=1), SomFormFieldMeta(name="priority", type_name="String", description="Priority", hint="Critical / High / Medium / Low", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="scenarioId", type_name="String", description="Scenario ID", required=True, hint="Unique identifier — e.g. UAT-SC-001", order=0), SomFormFieldMeta(name="priority", type_name="String", description="Priority", hint="Critical / High / Medium / Low", order=1)])),
          SomMetaNode(
             class_name="TestScenarioEntry",
             member_name="identification",
@@ -51274,7 +51274,7 @@ def _mc_ThirdPartyLibraryEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="libraryName", type_name="String", description="Library Name", required=True, hint="Package name", order=0), SomFormFieldMeta(name="packageSource", type_name="String", description="Package Source", hint="pub.dev, npm, Maven, GitHub", order=1), SomFormFieldMeta(name="version", type_name="String", description="Version", required=True, hint="Version constraint", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="packageSource", type_name="String", description="Package Source", hint="pub.dev, npm, Maven, GitHub", order=0), SomFormFieldMeta(name="version", type_name="String", description="Version", required=True, hint="Version constraint", order=1)])),
          SomMetaNode(
             class_name="ThirdPartyLibraryEntry",
             member_name="evaluation",
@@ -51479,7 +51479,7 @@ def _mc_ToolEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="toolId", type_name="String", description="Tool ID", required=True, hint="Unique identifier, e.g. TOOL-IDE-001", order=0), SomFormFieldMeta(name="toolName", type_name="String", description="Tool Name", required=True, hint="Official product name, e.g. GitHub, Jira, VS Code", order=1), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Additional notes, caveats, or context", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="toolId", type_name="String", description="Tool ID", required=True, hint="Unique identifier, e.g. TOOL-IDE-001", order=0), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Additional notes, caveats, or context", order=1)])),
          SomMetaNode(
             class_name="ToolEntry",
             member_name="identity",
@@ -51738,7 +51738,7 @@ def _mc_TourStepEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="stepOrder", type_name="int", description="Step Order", required=True, hint="Sequence position of this step", order=0), SomFormFieldMeta(name="targetElement", type_name="String", description="Target Element", hint="Element to highlight", order=1), SomFormFieldMeta(name="stepTitle", type_name="String", description="Step Title", hint="Short title shown for this step", order=2), SomFormFieldMeta(name="stepContent", type_name="String", description="Step Content", required=True, hint="Explanatory text shown for this step", order=3), SomFormFieldMeta(name="placement", type_name="String", description="Placement", hint="Position of coach mark", order=4), SomFormFieldMeta(name="actionRequired", type_name="String", description="Action Required", hint="User action to proceed", order=5), SomFormFieldMeta(name="spotlightShape", type_name="String", description="Spotlight Shape", hint="Circle, rectangle, custom", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="stepOrder", type_name="int", description="Step Order", required=True, hint="Sequence position of this step", order=0), SomFormFieldMeta(name="targetElement", type_name="String", description="Target Element", hint="Element to highlight", order=1), SomFormFieldMeta(name="stepContent", type_name="String", description="Step Content", required=True, hint="Explanatory text shown for this step", order=2), SomFormFieldMeta(name="placement", type_name="String", description="Placement", hint="Position of coach mark", order=3), SomFormFieldMeta(name="actionRequired", type_name="String", description="Action Required", hint="User action to proceed", order=4), SomFormFieldMeta(name="spotlightShape", type_name="String", description="Spotlight Shape", hint="Circle, rectangle, custom", order=5)])),
     ]
 
 
@@ -51750,7 +51750,7 @@ def _mc_TradeOffDecisionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="decisionId", type_name="String", description="Decision ID", hint="Unique identifier (e.g., TRADEOFF-001)", order=0), SomFormFieldMeta(name="decisionTitle", type_name="String", description="Decision Title", required=True, order=1), SomFormFieldMeta(name="decisionStatus", type_name="String", description="Status", hint="Proposed, approved, implemented, reversed", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="decisionId", type_name="String", description="Decision ID", hint="Unique identifier (e.g., TRADEOFF-001)", order=0), SomFormFieldMeta(name="decisionStatus", type_name="String", description="Status", hint="Proposed, approved, implemented, reversed", order=1)])),
          SomMetaNode(
             class_name="TradeOffDecisionEntry",
             member_name="qualities",
@@ -52018,7 +52018,7 @@ def _mc_TrainingModuleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="moduleId", type_name="String", description="Module ID", required=True, hint="Unique identifier for the module", order=0), SomFormFieldMeta(name="moduleName", type_name="String", description="Module Name", required=True, hint="Descriptive title of the module", order=1), SomFormFieldMeta(name="targetAudience", type_name="String", description="Target Audience", hint="End users, admins, power users", order=2), SomFormFieldMeta(name="duration", type_name="String", description="Duration", hint="Expected length (e.g., 2 hours, half day)", order=3), SomFormFieldMeta(name="deliveryMethod", type_name="String", description="Delivery Method", hint="In-person, virtual, self-paced", order=4), SomFormFieldMeta(name="prerequisites", type_name="String", description="Prerequisites", hint="Required prior knowledge or modules", order=5), SomFormFieldMeta(name="learningObjectives", type_name="String", description="Learning Objectives", hint="What learners will be able to do", order=6), SomFormFieldMeta(name="assessmentMethod", type_name="String", description="Assessment Method", hint="Quiz, exercise, certification", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="moduleId", type_name="String", description="Module ID", required=True, hint="Unique identifier for the module", order=0), SomFormFieldMeta(name="targetAudience", type_name="String", description="Target Audience", hint="End users, admins, power users", order=1), SomFormFieldMeta(name="duration", type_name="String", description="Duration", hint="Expected length (e.g., 2 hours, half day)", order=2), SomFormFieldMeta(name="deliveryMethod", type_name="String", description="Delivery Method", hint="In-person, virtual, self-paced", order=3), SomFormFieldMeta(name="prerequisites", type_name="String", description="Prerequisites", hint="Required prior knowledge or modules", order=4), SomFormFieldMeta(name="learningObjectives", type_name="String", description="Learning Objectives", hint="What learners will be able to do", order=5), SomFormFieldMeta(name="assessmentMethod", type_name="String", description="Assessment Method", hint="Quiz, exercise, certification", order=6)])),
     ]
 
 
@@ -52149,7 +52149,7 @@ def _mc_TrainingTopicEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="topicName", type_name="String", description="Topic Name", required=True, hint="Name of the training topic", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Brief description of what this topic covers", order=1), SomFormFieldMeta(name="learningObjectives", type_name="String", description="Learning Objectives", hint="What learners should be able to do after this topic", order=2), SomFormFieldMeta(name="duration", type_name="String", description="Duration", hint="Estimated time to cover this topic", order=3), SomFormFieldMeta(name="prerequisites", type_name="String", description="Prerequisites", hint="Knowledge or topics required before this one", order=4), SomFormFieldMeta(name="assessmentMethod", type_name="String", description="Assessment Method", hint="How learning of this topic is assessed", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="description", type_name="String", description="Description", hint="Brief description of what this topic covers", order=0), SomFormFieldMeta(name="learningObjectives", type_name="String", description="Learning Objectives", hint="What learners should be able to do after this topic", order=1), SomFormFieldMeta(name="duration", type_name="String", description="Duration", hint="Estimated time to cover this topic", order=2), SomFormFieldMeta(name="prerequisites", type_name="String", description="Prerequisites", hint="Knowledge or topics required before this one", order=3), SomFormFieldMeta(name="assessmentMethod", type_name="String", description="Assessment Method", hint="How learning of this topic is assessed", order=4)])),
     ]
 
 
@@ -52224,7 +52224,7 @@ def _mc_TransitionMetricEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="metricId", type_name="String", description="Metric ID", required=True, hint="A unique identifier for this success metric", order=0), SomFormFieldMeta(name="metricName", type_name="String", description="Metric Name", required=True, hint="A short descriptive name for this success metric", order=1), SomFormFieldMeta(name="category", type_name="String", description="Category — Adoption, Performance, Quality, Satisfaction, Efficiency", hint="The category of this metric: Adoption, Performance, Quality, Satisfaction, or Efficiency", order=2), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="A description of what this metric measures and why it matters", order=3), SomFormFieldMeta(name="measurementMethod", type_name="String", description="Measurement Method", hint="How this metric is measured, including the data source and calculation", order=4), SomFormFieldMeta(name="baseline", type_name="String", description="Baseline Value", hint="The baseline value of this metric before the transition, used as a comparison point", order=5), SomFormFieldMeta(name="target", type_name="String", description="Target Value", hint="The target value this metric should reach to indicate success", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="metricId", type_name="String", description="Metric ID", required=True, hint="A unique identifier for this success metric", order=0), SomFormFieldMeta(name="category", type_name="String", description="Category — Adoption, Performance, Quality, Satisfaction, Efficiency", hint="The category of this metric: Adoption, Performance, Quality, Satisfaction, or Efficiency", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="A description of what this metric measures and why it matters", order=2), SomFormFieldMeta(name="measurementMethod", type_name="String", description="Measurement Method", hint="How this metric is measured, including the data source and calculation", order=3), SomFormFieldMeta(name="baseline", type_name="String", description="Baseline Value", hint="The baseline value of this metric before the transition, used as a comparison point", order=4), SomFormFieldMeta(name="target", type_name="String", description="Target Value", hint="The target value this metric should reach to indicate success", order=5)])),
          SomMetaNode(
             class_name="TransitionMetricEntry",
             member_name="operations",
@@ -52256,7 +52256,7 @@ def _mc_TransitionMilestoneEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="milestoneId", type_name="String", description="Milestone ID (e.g., MS-01)", required=True, hint="Unique identifier for the milestone, e.g. MS-01", order=0), SomFormFieldMeta(name="milestoneName", type_name="String", description="Milestone Name", required=True, hint="Short descriptive name for the milestone", order=1), SomFormFieldMeta(name="milestoneType", type_name="String", description="Milestone Type — Decision Gate, Checkpoint, Go-Live, Closure", hint="The kind of milestone: Decision Gate, Checkpoint, Go-Live, or Closure", order=2), SomFormFieldMeta(name="targetDate", type_name="String", description="Target Date", hint="The planned date by which the milestone should be achieved", order=3), SomFormFieldMeta(name="actualDate", type_name="String", description="Actual Date — when achieved", hint="The actual date on which the milestone was achieved", order=4), SomFormFieldMeta(name="status", type_name="String", description="Status — Planned, On Track, At Risk, Delayed, Achieved", hint="Current status of the milestone: Planned, On Track, At Risk, Delayed, or Achieved", order=5), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="A short description of what the milestone represents", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="milestoneId", type_name="String", description="Milestone ID (e.g., MS-01)", required=True, hint="Unique identifier for the milestone, e.g. MS-01", order=0), SomFormFieldMeta(name="milestoneType", type_name="String", description="Milestone Type — Decision Gate, Checkpoint, Go-Live, Closure", hint="The kind of milestone: Decision Gate, Checkpoint, Go-Live, or Closure", order=1), SomFormFieldMeta(name="targetDate", type_name="String", description="Target Date", hint="The planned date by which the milestone should be achieved", order=2), SomFormFieldMeta(name="actualDate", type_name="String", description="Actual Date — when achieved", hint="The actual date on which the milestone was achieved", order=3), SomFormFieldMeta(name="status", type_name="String", description="Status — Planned, On Track, At Risk, Delayed, Achieved", hint="Current status of the milestone: Planned, On Track, At Risk, Delayed, or Achieved", order=4), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="A short description of what the milestone represents", order=5)])),
          SomMetaNode(
             class_name="TransitionMilestoneEntry",
             member_name="governance",
@@ -52393,7 +52393,7 @@ def _mc_TransitionPhaseIdentification(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="phaseId", type_name="String", description="Phase ID (e.g., PH-01)", required=True, hint="Unique identifier for the phase, e.g. PH-01", order=0), SomFormFieldMeta(name="phaseName", type_name="String", description="Phase Name", required=True, hint="Short descriptive name for the transition phase", order=1), SomFormFieldMeta(name="phaseType", type_name="String", description="Phase Type — Preparation, Pilot, Rollout, Stabilization, Closure", hint="The kind of phase: Preparation, Pilot, Rollout, Stabilization, or Closure", order=2), SomFormFieldMeta(name="phaseOwner", type_name="String", description="Phase Owner", hint="The person or role accountable for delivering this phase", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="phaseId", type_name="String", description="Phase ID (e.g., PH-01)", required=True, hint="Unique identifier for the phase, e.g. PH-01", order=0), SomFormFieldMeta(name="phaseType", type_name="String", description="Phase Type — Preparation, Pilot, Rollout, Stabilization, Closure", hint="The kind of phase: Preparation, Pilot, Rollout, Stabilization, or Closure", order=1), SomFormFieldMeta(name="phaseOwner", type_name="String", description="Phase Owner", hint="The person or role accountable for delivering this phase", order=2)])),
          SomMetaNode(
             class_name="TransitionPhaseIdentification",
             member_name="timeline",
@@ -52437,7 +52437,7 @@ def _mc_TransitionRiskEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskId", type_name="String", description="Risk ID", required=True, hint="A unique identifier for this transition risk", order=0), SomFormFieldMeta(name="riskName", type_name="String", description="Risk Name", required=True, hint="A short descriptive name for this transition risk", order=1), SomFormFieldMeta(name="riskCategory", type_name="String", description="Risk Category — Resistance, Capacity, Timing, Resources, Dependencies", hint="The category of this risk: Resistance, Capacity, Timing, Resources, or Dependencies", order=2), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="A description of the risk, including what could go wrong and its potential consequences", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskId", type_name="String", description="Risk ID", required=True, hint="A unique identifier for this transition risk", order=0), SomFormFieldMeta(name="riskCategory", type_name="String", description="Risk Category — Resistance, Capacity, Timing, Resources, Dependencies", hint="The category of this risk: Resistance, Capacity, Timing, Resources, or Dependencies", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="A description of the risk, including what could go wrong and its potential consequences", order=2)])),
          SomMetaNode(
             class_name="TransitionRiskEntry",
             member_name="assessment",
@@ -52496,7 +52496,7 @@ def _mc_TransitionSupportResourceEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="resourceType", type_name="String", description="Resource Type — Help Desk, Super User, Floor Walker, Coach, FAQ", required=True, hint="The kind of support resource: Help Desk, Super User, Floor Walker, Coach, FAQ, etc.", order=0), SomFormFieldMeta(name="resourceName", type_name="String", description="Resource Name/Title", hint="The name or title of this support resource", order=1), SomFormFieldMeta(name="availabilityPeriod", type_name="String", description="Availability Period — start/end dates", hint="The start and end dates during which this resource is available", order=2), SomFormFieldMeta(name="coverage", type_name="String", description="Coverage — locations/departments covered", hint="The locations, departments, or groups this resource covers", order=3), SomFormFieldMeta(name="contactInfo", type_name="String", description="Contact Info — how to reach", hint="How users can reach this support resource", order=4), SomFormFieldMeta(name="capacity", type_name="String", description="Capacity — how many can be supported", hint="The number of users or volume this resource can support", order=5), SomFormFieldMeta(name="skills", type_name="String", description="Skills — expertise areas", hint="The areas of expertise or skills this resource provides", order=6), SomFormFieldMeta(name="owner", type_name="String", description="Owner — who manages this resource", hint="The person or role that manages this support resource", order=7), SomFormFieldMeta(name="costCenter", type_name="String", description="Cost Center — budget allocation", hint="The cost center or budget against which this resource is allocated", order=8)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="resourceType", type_name="String", description="Resource Type — Help Desk, Super User, Floor Walker, Coach, FAQ", required=True, hint="The kind of support resource: Help Desk, Super User, Floor Walker, Coach, FAQ, etc.", order=0), SomFormFieldMeta(name="availabilityPeriod", type_name="String", description="Availability Period — start/end dates", hint="The start and end dates during which this resource is available", order=1), SomFormFieldMeta(name="coverage", type_name="String", description="Coverage — locations/departments covered", hint="The locations, departments, or groups this resource covers", order=2), SomFormFieldMeta(name="contactInfo", type_name="String", description="Contact Info — how to reach", hint="How users can reach this support resource", order=3), SomFormFieldMeta(name="capacity", type_name="String", description="Capacity — how many can be supported", hint="The number of users or volume this resource can support", order=4), SomFormFieldMeta(name="skills", type_name="String", description="Skills — expertise areas", hint="The areas of expertise or skills this resource provides", order=5), SomFormFieldMeta(name="owner", type_name="String", description="Owner — who manages this resource", hint="The person or role that manages this support resource", order=6), SomFormFieldMeta(name="costCenter", type_name="String", description="Cost Center — budget allocation", hint="The cost center or budget against which this resource is allocated", order=7)])),
     ]
 
 
@@ -52681,7 +52681,7 @@ def _mc_TranslationVendorEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="vendorName", type_name="String", description="Vendor Name", required=True, hint="Legal or trading name of the translation vendor", order=0), SomFormFieldMeta(name="vendorType", type_name="String", description="Vendor Type", hint="LSP, freelance, in-house", order=1), SomFormFieldMeta(name="languages", type_name="String", description="Languages", hint="Languages handled by vendor", order=2), SomFormFieldMeta(name="specializations", type_name="String", description="Specializations", hint="Technical, legal, marketing", order=3), SomFormFieldMeta(name="turnaroundTime", type_name="String", description="Turnaround Time", hint="Typical delivery time per job (e.g., 2 business days)", order=4), SomFormFieldMeta(name="qualityRating", type_name="String", description="Quality Rating", hint="Assessed quality score or rating for the vendor", order=5), SomFormFieldMeta(name="contactInfo", type_name="String", description="Contact Info", hint="Primary contact name, email, or phone", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="vendorType", type_name="String", description="Vendor Type", hint="LSP, freelance, in-house", order=0), SomFormFieldMeta(name="languages", type_name="String", description="Languages", hint="Languages handled by vendor", order=1), SomFormFieldMeta(name="specializations", type_name="String", description="Specializations", hint="Technical, legal, marketing", order=2), SomFormFieldMeta(name="turnaroundTime", type_name="String", description="Turnaround Time", hint="Typical delivery time per job (e.g., 2 business days)", order=3), SomFormFieldMeta(name="qualityRating", type_name="String", description="Quality Rating", hint="Assessed quality score or rating for the vendor", order=4), SomFormFieldMeta(name="contactInfo", type_name="String", description="Contact Info", hint="Primary contact name, email, or phone", order=5)])),
     ]
 
 
@@ -52779,7 +52779,7 @@ def _mc_TrustBoundaryEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="boundaryName", type_name="String", description="Boundary Name", required=True, hint="The name of this trust boundary", order=0), SomFormFieldMeta(name="boundaryType", type_name="String", description="Boundary Type (Network Zone, Authentication Domain, Organizational, Legal/Regulatory, Cloud/On-Prem)", required=True, hint="The category of trust boundary", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="A short description of this boundary", order=2), SomFormFieldMeta(name="componentsCrossing", type_name="String", description="Components Crossing (which parts of the system cross this boundary)", hint="Which parts of the system cross this boundary", order=3), SomFormFieldMeta(name="protectionMechanisms", type_name="String", description="Protection Mechanisms (firewall, encryption, authentication, etc.)", hint="Mechanisms protecting this boundary", order=4), SomFormFieldMeta(name="trustLevel", type_name="String", description="Trust Level (Untrusted, Semi-trusted, Trusted, Highly Trusted)", hint="The trust level on the other side of this boundary", order=5), SomFormFieldMeta(name="complianceImplications", type_name="String", description="Compliance Implications (regulatory requirements for crossing)", hint="Regulatory requirements for crossing this boundary", order=6)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="boundaryType", type_name="String", description="Boundary Type (Network Zone, Authentication Domain, Organizational, Legal/Regulatory, Cloud/On-Prem)", required=True, hint="The category of trust boundary", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", hint="A short description of this boundary", order=1), SomFormFieldMeta(name="componentsCrossing", type_name="String", description="Components Crossing (which parts of the system cross this boundary)", hint="Which parts of the system cross this boundary", order=2), SomFormFieldMeta(name="protectionMechanisms", type_name="String", description="Protection Mechanisms (firewall, encryption, authentication, etc.)", hint="Mechanisms protecting this boundary", order=3), SomFormFieldMeta(name="trustLevel", type_name="String", description="Trust Level (Untrusted, Semi-trusted, Trusted, Highly Trusted)", hint="The trust level on the other side of this boundary", order=4), SomFormFieldMeta(name="complianceImplications", type_name="String", description="Compliance Implications (regulatory requirements for crossing)", hint="Regulatory requirements for crossing this boundary", order=5)])),
     ]
 
 
@@ -52791,7 +52791,7 @@ def _mc_TypographyStyleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="styleName", type_name="String", description="Style Name", required=True, hint="DisplayLarge, BodyMedium, LabelSmall", order=0), SomFormFieldMeta(name="fontFamily", type_name="String", description="Font Family", hint="Typeface family name", order=1), SomFormFieldMeta(name="fontSize", type_name="String", description="Font Size", hint="Size in logical pixels", order=2), SomFormFieldMeta(name="fontWeight", type_name="String", description="Font Weight", hint="Normal, medium, semibold, bold", order=3), SomFormFieldMeta(name="lineHeight", type_name="String", description="Line Height", hint="Line height multiplier", order=4), SomFormFieldMeta(name="letterSpacing", type_name="String", description="Letter Spacing", hint="Spacing between characters", order=5), SomFormFieldMeta(name="textDecoration", type_name="String", description="Text Decoration", hint="None, underline, strikethrough", order=6), SomFormFieldMeta(name="useCase", type_name="String", description="Use Case", hint="Where this style is used", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="fontFamily", type_name="String", description="Font Family", hint="Typeface family name", order=0), SomFormFieldMeta(name="fontSize", type_name="String", description="Font Size", hint="Size in logical pixels", order=1), SomFormFieldMeta(name="fontWeight", type_name="String", description="Font Weight", hint="Normal, medium, semibold, bold", order=2), SomFormFieldMeta(name="lineHeight", type_name="String", description="Line Height", hint="Line height multiplier", order=3), SomFormFieldMeta(name="letterSpacing", type_name="String", description="Letter Spacing", hint="Spacing between characters", order=4), SomFormFieldMeta(name="textDecoration", type_name="String", description="Text Decoration", hint="None, underline, strikethrough", order=5), SomFormFieldMeta(name="useCase", type_name="String", description="Use Case", hint="Where this style is used", order=6)])),
     ]
 
 
@@ -52823,7 +52823,7 @@ def _mc_UatTestCycleEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="cycleName", type_name="String", description="Cycle Name", required=True, hint="e.g. \"Cycle 1 — Initial Execution\" or \"Regression Cycle\"", order=0), SomFormFieldMeta(name="cycleObjective", type_name="String", description="Cycle Objective", hint="Purpose: full execution, regression, retest only, or targeted", order=1), SomFormFieldMeta(name="plannedStartDate", type_name="String", description="Planned Start Date", hint="Start date for this cycle", order=2), SomFormFieldMeta(name="plannedEndDate", type_name="String", description="Planned End Date", hint="End date for this cycle", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="cycleObjective", type_name="String", description="Cycle Objective", hint="Purpose: full execution, regression, retest only, or targeted", order=0), SomFormFieldMeta(name="plannedStartDate", type_name="String", description="Planned Start Date", hint="Start date for this cycle", order=1), SomFormFieldMeta(name="plannedEndDate", type_name="String", description="Planned End Date", hint="End date for this cycle", order=2)])),
          SomMetaNode(
             class_name="UatTestCycleEntry",
             member_name="scope",
@@ -52868,7 +52868,7 @@ def _mc_UiComponentEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentId", type_name="String", description="Component ID", required=True, hint="Unique identifier (e.g., CMP-DTT-001)", order=0), SomFormFieldMeta(name="componentName", type_name="String", description="Component Name", required=True, hint="Human-readable name", order=1), SomFormFieldMeta(name="componentFamily", type_name="String", description="Component Family", hint="Button, Input, Table, Navigation, etc.", order=2), SomFormFieldMeta(name="baseComponent", type_name="String", description="Base Component", hint="Base component of the shared library this one specialises (Data Table, Text Input)", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="componentId", type_name="String", description="Component ID", required=True, hint="Unique identifier (e.g., CMP-DTT-001)", order=0), SomFormFieldMeta(name="componentFamily", type_name="String", description="Component Family", hint="Button, Input, Table, Navigation, etc.", order=1), SomFormFieldMeta(name="baseComponent", type_name="String", description="Base Component", hint="Base component of the shared library this one specialises (Data Table, Text Input)", order=2)])),
          SomMetaNode(
             class_name="UiComponentEntry",
             member_name="purposeProfile",
@@ -53629,7 +53629,7 @@ def _mc_UserAttributeEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="attributeName", type_name="String", description="Attribute Name", required=True, hint="Name of the user attribute.", order=0), SomFormFieldMeta(name="dataType", type_name="String", description="Data Type", hint="Data type of the attribute value.", order=1), SomFormFieldMeta(name="placement", type_name="UserAttributePlacement", description="Placement", hint="public (token public payload, resource-key guardable) or encrypted (authorization-token encrypted payload).", order=2, enum_values=["public", "encrypted"]), SomFormFieldMeta(name="accessGuard", type_name="String", description="Access Guard", hint="Resource key guarding read access to a public attribute; encrypted attributes are readable only by token-decrypting layers.", order=3), SomFormFieldMeta(name="source", type_name="String", description="Source", hint="System of record that supplies this attribute.", order=4), SomFormFieldMeta(name="required", type_name="String", description="Required", hint="Whether this attribute is mandatory.", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="dataType", type_name="String", description="Data Type", hint="Data type of the attribute value.", order=0), SomFormFieldMeta(name="placement", type_name="UserAttributePlacement", description="Placement", hint="public (token public payload, resource-key guardable) or encrypted (authorization-token encrypted payload).", order=1, enum_values=["public", "encrypted"]), SomFormFieldMeta(name="accessGuard", type_name="String", description="Access Guard", hint="Resource key guarding read access to a public attribute; encrypted attributes are readable only by token-decrypting layers.", order=2), SomFormFieldMeta(name="source", type_name="String", description="Source", hint="System of record that supplies this attribute.", order=3), SomFormFieldMeta(name="required", type_name="String", description="Required", hint="Whether this attribute is mandatory.", order=4)])),
     ]
 
 
@@ -53799,7 +53799,7 @@ def _mc_UserCategoryDefinition(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="categoryName", type_name="String", description="Category Name", required=True, hint="Name of the user category.", order=0), SomFormFieldMeta(name="description", type_name="String", description="Short description", hint="Brief description of this category.", order=1), SomFormFieldMeta(name="accessLevel", type_name="String", description="Access Level", hint="Typical access level for this category.", order=2), SomFormFieldMeta(name="estimatedCount", type_name="String", description="Estimated Count", hint="Estimated number of users in this category.", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="description", type_name="String", description="Short description", hint="Brief description of this category.", order=0), SomFormFieldMeta(name="accessLevel", type_name="String", description="Access Level", hint="Typical access level for this category.", order=1), SomFormFieldMeta(name="estimatedCount", type_name="String", description="Estimated Count", hint="Estimated number of users in this category.", order=2)])),
     ]
 
 
@@ -53811,7 +53811,7 @@ def _mc_UserCategoryEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="categoryName", type_name="String", description="Category Name", required=True, hint="Descriptive name of this user category", order=0), SomFormFieldMeta(name="categoryId", type_name="String", description="Category ID (unique identifier)", required=True, hint="Unique stable identifier for cross-referencing this category", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description (brief summary of this user type)", required=True, hint="One- or two-sentence summary of this user type", order=2), SomFormFieldMeta(name="userType", type_name="String", description="User Type (Internal, External, Partner, Customer, Administrator, etc.)", required=True, hint="Internal / External / Partner / Customer / Administrator", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="categoryId", type_name="String", description="Category ID (unique identifier)", required=True, hint="Unique stable identifier for cross-referencing this category", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description (brief summary of this user type)", required=True, hint="One- or two-sentence summary of this user type", order=1), SomFormFieldMeta(name="userType", type_name="String", description="User Type (Internal, External, Partner, Customer, Administrator, etc.)", required=True, hint="Internal / External / Partner / Customer / Administrator", order=2)])),
          SomMetaNode(
             class_name="UserCategoryEntry",
             member_name="usage",
@@ -53967,7 +53967,7 @@ def _mc_UserGroupImpactEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="groupName", type_name="String", description="User Group", required=True, hint="Name of the user group", order=0), SomFormFieldMeta(name="userCount", type_name="int", description="User Count", hint="Number of users in the group", order=1), SomFormFieldMeta(name="impactLevel", type_name="String", description="Impact Level (High, Medium, Low)", hint="How strongly the group is impacted", order=2), SomFormFieldMeta(name="specialConsiderations", type_name="String", description="Special Considerations", hint="Any special handling the group needs", order=3), SomFormFieldMeta(name="trainingNeeds", type_name="String", description="Training Needs", hint="Training specific to this group", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="userCount", type_name="int", description="User Count", hint="Number of users in the group", order=0), SomFormFieldMeta(name="impactLevel", type_name="String", description="Impact Level (High, Medium, Low)", hint="How strongly the group is impacted", order=1), SomFormFieldMeta(name="specialConsiderations", type_name="String", description="Special Considerations", hint="Any special handling the group needs", order=2), SomFormFieldMeta(name="trainingNeeds", type_name="String", description="Training Needs", hint="Training specific to this group", order=3)])),
     ]
 
 
@@ -54324,7 +54324,7 @@ def _mc_UserLifecycleTransitionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="transitionName", type_name="String", description="Transition Name", required=True, hint="Descriptive name (e.g., \"Activate Account\", \"Suspend User\")", order=0), SomFormFieldMeta(name="fromState", type_name="String", description="From State", required=True, hint="Source lifecycle state", order=1), SomFormFieldMeta(name="toState", type_name="String", description="To State", required=True, hint="Target lifecycle state", order=2), SomFormFieldMeta(name="trigger", type_name="String", description="Trigger", hint="UserRequest | AdminAction | SystemEvent | ScheduledJob", order=3), SomFormFieldMeta(name="triggerConditions", type_name="String", description="Trigger Conditions", hint="Pre-conditions that must be met for this transition", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="fromState", type_name="String", description="From State", required=True, hint="Source lifecycle state", order=0), SomFormFieldMeta(name="toState", type_name="String", description="To State", required=True, hint="Target lifecycle state", order=1), SomFormFieldMeta(name="trigger", type_name="String", description="Trigger", hint="UserRequest | AdminAction | SystemEvent | ScheduledJob", order=2), SomFormFieldMeta(name="triggerConditions", type_name="String", description="Trigger Conditions", hint="Pre-conditions that must be met for this transition", order=3)])),
          SomMetaNode(
             class_name="UserLifecycleTransitionEntry",
             member_name="approval",
@@ -54726,7 +54726,7 @@ def _mc_UtilityMenuItemEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="menuItemId", type_name="String", description="Menu Item ID", required=True, hint="Unique identifier, e.g., menu-item-logout", order=0), SomFormFieldMeta(name="label", type_name="String", description="Label Resource", required=True, hint="Display text", order=1), SomFormFieldMeta(name="icon", type_name="String", description="Icon Resource", hint="Leading icon", order=2), SomFormFieldMeta(name="displayOrder", type_name="int", description="Display Order", hint="Position in menu", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="menuItemId", type_name="String", description="Menu Item ID", required=True, hint="Unique identifier, e.g., menu-item-logout", order=0), SomFormFieldMeta(name="icon", type_name="String", description="Icon Resource", hint="Leading icon", order=1), SomFormFieldMeta(name="displayOrder", type_name="int", description="Display Order", hint="Position in menu", order=2)])),
          SomMetaNode(
             class_name="UtilityMenuItemEntry",
             member_name="action",
@@ -54795,7 +54795,7 @@ def _mc_UtilityNavigationItemEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="utilityId", type_name="String", description="Utility ID", required=True, hint="e.g., util-user-menu, util-notifications", order=0), SomFormFieldMeta(name="label", type_name="String", description="Label Resource", hint="Display label (may be hidden)", order=1), SomFormFieldMeta(name="icon", type_name="String", description="Icon Resource", required=True, hint="Primary icon", order=2), SomFormFieldMeta(name="position", type_name="String", description="Position", hint="AppBar-Leading/AppBar-Trailing/Drawer-Footer", order=3)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="utilityId", type_name="String", description="Utility ID", required=True, hint="e.g., util-user-menu, util-notifications", order=0), SomFormFieldMeta(name="icon", type_name="String", description="Icon Resource", required=True, hint="Primary icon", order=1), SomFormFieldMeta(name="position", type_name="String", description="Position", hint="AppBar-Leading/AppBar-Trailing/Drawer-Footer", order=2)])),
          SomMetaNode(
             class_name="UtilityNavigationItemEntry",
             member_name="display",
@@ -55128,7 +55128,7 @@ def _mc_VpnRequirementEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="vpnName", type_name="String", description="VPN Name", required=True, hint="VPN connection name", order=0), SomFormFieldMeta(name="vpnType", type_name="String", description="VPN Type", hint="Site-to-Site, Client, SSL", order=1), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="Purpose of this VPN", order=2)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="vpnType", type_name="String", description="VPN Type", hint="Site-to-Site, Client, SSL", order=0), SomFormFieldMeta(name="purpose", type_name="String", description="Purpose", hint="Purpose of this VPN", order=1)])),
          SomMetaNode(
             class_name="VpnRequirementEntry",
             member_name="endpoints",
@@ -55393,7 +55393,7 @@ def _mc_WcagSuccessCriterionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="criterionId", type_name="String", description="Criterion ID", required=True, hint="WCAG SC ID (e.g., 1.4.3)", order=0), SomFormFieldMeta(name="criterionName", type_name="String", description="Criterion Name", required=True, hint="Name of the success criterion (e.g., Contrast Minimum)", order=1), SomFormFieldMeta(name="level", type_name="String", description="Level", hint="A, AA, AAA", order=2), SomFormFieldMeta(name="applicability", type_name="String", description="Applicability", hint="Where this applies in the app", order=3), SomFormFieldMeta(name="implementation", type_name="String", description="Implementation", hint="How we meet this criterion", order=4), SomFormFieldMeta(name="testingMethod", type_name="String", description="Testing Method", hint="How compliance is verified", order=5), SomFormFieldMeta(name="status", type_name="String", description="Status", hint="Not started, in progress, compliant, not applicable", order=6), SomFormFieldMeta(name="exceptions", type_name="String", description="Exceptions", hint="Any documented exceptions", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="criterionId", type_name="String", description="Criterion ID", required=True, hint="WCAG SC ID (e.g., 1.4.3)", order=0), SomFormFieldMeta(name="level", type_name="String", description="Level", hint="A, AA, AAA", order=1), SomFormFieldMeta(name="applicability", type_name="String", description="Applicability", hint="Where this applies in the app", order=2), SomFormFieldMeta(name="implementation", type_name="String", description="Implementation", hint="How we meet this criterion", order=3), SomFormFieldMeta(name="testingMethod", type_name="String", description="Testing Method", hint="How compliance is verified", order=4), SomFormFieldMeta(name="status", type_name="String", description="Status", hint="Not started, in progress, compliant, not applicable", order=5), SomFormFieldMeta(name="exceptions", type_name="String", description="Exceptions", hint="Any documented exceptions", order=6)])),
     ]
 
 
@@ -55461,7 +55461,7 @@ def _mc_WorkflowActorEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="actorName", type_name="String", description="Actor Name", required=True, order=0), SomFormFieldMeta(name="actorType", type_name="String", description="Actor Type (e.g., Role, System, Department, External)", order=1), SomFormFieldMeta(name="role", type_name="String", description="Role in this workflow", order=2), SomFormFieldMeta(name="responsibilities", type_name="String", description="Responsibilities", order=3), SomFormFieldMeta(name="authorizationLevel", type_name="String", description="Authorization Level", order=4), SomFormFieldMeta(name="availabilityRequirements", type_name="String", description="Availability Requirements", order=5), SomFormFieldMeta(name="skillRequirements", type_name="String", description="Skill Requirements", order=6), SomFormFieldMeta(name="headcount", type_name="int", description="Headcount (number of people in this role)", order=7)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="actorType", type_name="String", description="Actor Type (e.g., Role, System, Department, External)", order=0), SomFormFieldMeta(name="role", type_name="String", description="Role in this workflow", order=1), SomFormFieldMeta(name="responsibilities", type_name="String", description="Responsibilities", order=2), SomFormFieldMeta(name="authorizationLevel", type_name="String", description="Authorization Level", order=3), SomFormFieldMeta(name="availabilityRequirements", type_name="String", description="Availability Requirements", order=4), SomFormFieldMeta(name="skillRequirements", type_name="String", description="Skill Requirements", order=5), SomFormFieldMeta(name="headcount", type_name="int", description="Headcount (number of people in this role)", order=6)])),
          SomMetaNode(
             class_name="WorkflowActorEntry",
             member_name="participatingSteps",
@@ -55483,7 +55483,7 @@ def _mc_WorkflowBusinessRule(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="ruleName", type_name="String", description="Rule Name", required=True, order=0), SomFormFieldMeta(name="ruleDescription", type_name="String", description="Description", order=1), SomFormFieldMeta(name="ruleLogic", type_name="String", description="Rule Logic (business logic in plain language)", order=2), SomFormFieldMeta(name="ruleSource", type_name="String", description="Source (e.g., Policy, Regulation, SOP)", order=3), SomFormFieldMeta(name="exceptions", type_name="String", description="Exceptions - when this rule does not apply", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="ruleDescription", type_name="String", description="Description", order=0), SomFormFieldMeta(name="ruleLogic", type_name="String", description="Rule Logic (business logic in plain language)", order=1), SomFormFieldMeta(name="ruleSource", type_name="String", description="Source (e.g., Policy, Regulation, SOP)", order=2), SomFormFieldMeta(name="exceptions", type_name="String", description="Exceptions - when this rule does not apply", order=3)])),
     ]
 
 
@@ -55495,7 +55495,7 @@ def _mc_WorkflowDecisionPoint(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="decisionName", type_name="String", description="Decision Name", required=True, order=0), SomFormFieldMeta(name="decisionCriteria", type_name="String", description="Decision Criteria", order=1), SomFormFieldMeta(name="decisionMaker", type_name="String", description="Decision Maker", order=2), SomFormFieldMeta(name="outcomes", type_name="String", description="Possible Outcomes (comma-separated)", order=3), SomFormFieldMeta(name="escalationPath", type_name="String", description="Escalation Path", order=4), SomFormFieldMeta(name="slaForDecision", type_name="String", description="SLA for Decision", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="decisionCriteria", type_name="String", description="Decision Criteria", order=0), SomFormFieldMeta(name="decisionMaker", type_name="String", description="Decision Maker", order=1), SomFormFieldMeta(name="outcomes", type_name="String", description="Possible Outcomes (comma-separated)", order=2), SomFormFieldMeta(name="escalationPath", type_name="String", description="Escalation Path", order=3), SomFormFieldMeta(name="slaForDecision", type_name="String", description="SLA for Decision", order=4)])),
     ]
 
 
@@ -55555,7 +55555,7 @@ def _mc_WorkflowExceptionEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="exceptionName", type_name="String", description="Exception Name", required=True, order=0), SomFormFieldMeta(name="exceptionType", type_name="String", description="Type (e.g., Validation, System, Business)", order=1), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency", order=2), SomFormFieldMeta(name="handlingProcedure", type_name="String", description="Handling Procedure", order=3), SomFormFieldMeta(name="escalationPath", type_name="String", description="Escalation Path", order=4), SomFormFieldMeta(name="recoveryTime", type_name="String", description="Recovery Time", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="exceptionType", type_name="String", description="Type (e.g., Validation, System, Business)", order=0), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency", order=1), SomFormFieldMeta(name="handlingProcedure", type_name="String", description="Handling Procedure", order=2), SomFormFieldMeta(name="escalationPath", type_name="String", description="Escalation Path", order=3), SomFormFieldMeta(name="recoveryTime", type_name="String", description="Recovery Time", order=4)])),
     ]
 
 
@@ -55591,7 +55591,7 @@ def _mc_WorkflowInputEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="inputName", type_name="String", description="Input Name", required=True, order=0), SomFormFieldMeta(name="inputType", type_name="String", description="Type (data type or document type)", order=1), SomFormFieldMeta(name="source", type_name="String", description="Source", order=2), SomFormFieldMeta(name="format", type_name="String", description="Format (e.g., PDF, XML, Manual Entry)", order=3), SomFormFieldMeta(name="isRequired", type_name="bool", description="Is Required", order=4), SomFormFieldMeta(name="validationRules", type_name="String", description="Validation Rules", order=5)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="inputType", type_name="String", description="Type (data type or document type)", order=0), SomFormFieldMeta(name="source", type_name="String", description="Source", order=1), SomFormFieldMeta(name="format", type_name="String", description="Format (e.g., PDF, XML, Manual Entry)", order=2), SomFormFieldMeta(name="isRequired", type_name="bool", description="Is Required", order=3), SomFormFieldMeta(name="validationRules", type_name="String", description="Validation Rules", order=4)])),
     ]
 
 
@@ -55603,7 +55603,7 @@ def _mc_WorkflowOutputEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="outputName", type_name="String", description="Output Name", required=True, order=0), SomFormFieldMeta(name="outputType", type_name="String", description="Type (data type or document type)", order=1), SomFormFieldMeta(name="destination", type_name="String", description="Destination", order=2), SomFormFieldMeta(name="format", type_name="String", description="Format", order=3), SomFormFieldMeta(name="retentionRequirements", type_name="String", description="Retention Requirements", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="outputType", type_name="String", description="Type (data type or document type)", order=0), SomFormFieldMeta(name="destination", type_name="String", description="Destination", order=1), SomFormFieldMeta(name="format", type_name="String", description="Format", order=2), SomFormFieldMeta(name="retentionRequirements", type_name="String", description="Retention Requirements", order=3)])),
     ]
 
 
@@ -55615,7 +55615,7 @@ def _mc_WorkflowStepEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="stepName", type_name="String", description="Step Name", required=True, order=0), SomFormFieldMeta(name="stepNumber", type_name="int", description="Step Number (sequence order)", order=1), SomFormFieldMeta(name="description", type_name="String", description="Description", order=2), SomFormFieldMeta(name="responsibleActor", type_name="String", description="Responsible Actor", order=3), SomFormFieldMeta(name="stepType", type_name="String", description="Step Type (e.g., Task, Decision, Wait, Subprocess)", order=4), SomFormFieldMeta(name="isManual", type_name="bool", description="Is Manual (requires human intervention)", hint="Whether carrying the step out needs a person; an automated step runs without human intervention", order=5), SomFormFieldMeta(name="isAutomatable", type_name="bool", description="Is Automatable", order=6), SomFormFieldMeta(name="isErrorProne", type_name="bool", description="Is Error-Prone (high error or failure rate)", hint="Whether the step fails or is got wrong often enough to matter; the known issues below record which failures and how often", order=7), SomFormFieldMeta(name="averageDuration", type_name="String", description="Average Duration", order=8)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="stepNumber", type_name="int", description="Step Number (sequence order)", order=0), SomFormFieldMeta(name="description", type_name="String", description="Description", order=1), SomFormFieldMeta(name="responsibleActor", type_name="String", description="Responsible Actor", order=2), SomFormFieldMeta(name="stepType", type_name="String", description="Step Type (e.g., Task, Decision, Wait, Subprocess)", order=3), SomFormFieldMeta(name="isManual", type_name="bool", description="Is Manual (requires human intervention)", hint="Whether carrying the step out needs a person; an automated step runs without human intervention", order=4), SomFormFieldMeta(name="isAutomatable", type_name="bool", description="Is Automatable", order=5), SomFormFieldMeta(name="isErrorProne", type_name="bool", description="Is Error-Prone (high error or failure rate)", hint="Whether the step fails or is got wrong often enough to matter; the known issues below record which failures and how often", order=6), SomFormFieldMeta(name="averageDuration", type_name="String", description="Average Duration", order=7)])),
          SomMetaNode(
             class_name="WorkflowStepEntry",
             member_name="systemsUsed",
@@ -55687,7 +55687,7 @@ def _mc_WorkflowStepIssue(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="issueName", type_name="String", description="Issue Name", required=True, order=0), SomFormFieldMeta(name="issueDescription", type_name="String", description="Description", order=1), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency of occurrence", order=2), SomFormFieldMeta(name="impact", type_name="String", description="Business Impact", order=3), SomFormFieldMeta(name="currentWorkaround", type_name="String", description="Current Workaround", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="issueDescription", type_name="String", description="Description", order=0), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency of occurrence", order=1), SomFormFieldMeta(name="impact", type_name="String", description="Business Impact", order=2), SomFormFieldMeta(name="currentWorkaround", type_name="String", description="Current Workaround", order=3)])),
     ]
 
 
@@ -55713,7 +55713,7 @@ def _mc_WorkflowSummaryEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="workflowName", type_name="String", description="Workflow Name", required=True, order=0), SomFormFieldMeta(name="workflowType", type_name="String", description="Type", order=1), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency", order=2), SomFormFieldMeta(name="averageCycleTime", type_name="String", description="Average Cycle Time", order=3), SomFormFieldMeta(name="stepCount", type_name="int", description="Number of Steps", order=4), SomFormFieldMeta(name="manualStepCount", type_name="int", description="Manual Steps", order=5), SomFormFieldMeta(name="errorProneStepCount", type_name="int", description="Error-Prone Steps", order=6), SomFormFieldMeta(name="primaryActors", type_name="String", description="Primary Actors", order=7), SomFormFieldMeta(name="automationPotential", type_name="String", description="Automation Potential", order=8)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="workflowType", type_name="String", description="Type", order=0), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency", order=1), SomFormFieldMeta(name="averageCycleTime", type_name="String", description="Average Cycle Time", order=2), SomFormFieldMeta(name="stepCount", type_name="int", description="Number of Steps", order=3), SomFormFieldMeta(name="manualStepCount", type_name="int", description="Manual Steps", order=4), SomFormFieldMeta(name="errorProneStepCount", type_name="int", description="Error-Prone Steps", order=5), SomFormFieldMeta(name="primaryActors", type_name="String", description="Primary Actors", order=6), SomFormFieldMeta(name="automationPotential", type_name="String", description="Automation Potential", order=7)])),
     ]
 
 
@@ -55749,7 +55749,7 @@ def _mc_WorkflowTriggerEntry(s):
             kind=SomMetaKind.FORM,
             type_name="String",
             serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="triggerName", type_name="String", description="Trigger Name", required=True, order=0), SomFormFieldMeta(name="triggerType", type_name="String", description="Type (e.g., Event, Schedule, Manual, System)", order=1), SomFormFieldMeta(name="triggerSource", type_name="String", description="Source - origin of the trigger", order=2), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Condition - conditions that must be met", order=3), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency", order=4)])),
+            form=SomFormMeta(fields=[SomFormFieldMeta(name="triggerType", type_name="String", description="Type (e.g., Event, Schedule, Manual, System)", order=0), SomFormFieldMeta(name="triggerSource", type_name="String", description="Source - origin of the trigger", order=1), SomFormFieldMeta(name="triggerCondition", type_name="String", description="Condition - conditions that must be met", order=2), SomFormFieldMeta(name="frequency", type_name="String", description="Frequency", order=3)])),
     ]
 
 

@@ -494,13 +494,6 @@
               "required": true
             },
             {
-              "name": "criterionTitle",
-              "label": "Criterion Title",
-              "hint": "Short title describing the criterion",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "given",
               "label": "Given (precondition/context)",
               "hint": "Precondition or context that holds before the action",
@@ -1347,13 +1340,6 @@
               "required": true
             },
             {
-              "name": "stepName",
-              "label": "Step Name",
-              "hint": "Concise action name — e.g. \"Technical Review\"",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description",
               "hint": "What happens in this step",
@@ -2002,13 +1988,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "levelName",
-              "label": "Access Level Name",
-              "hint": "e.g., Administrator, Power User, Standard User, Guest",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "levelId",
               "label": "Level ID",
@@ -3601,13 +3580,6 @@
           ],
           "formFields": [
             {
-              "name": "standardName",
-              "label": "Standard Name",
-              "hint": "E.g., WCAG 2.1, Section 508, EN 301 549",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "version",
               "label": "Version",
               "hint": "Standard version",
@@ -4340,13 +4312,6 @@
           ],
           "formFields": [
             {
-              "name": "parameterName",
-              "label": "Parameter Name",
-              "hint": "Name of the parameter",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "sourceType",
               "label": "Source Type (Field, Constant, Context, User)",
               "hint": "Field, Constant, Context, or User",
@@ -4680,13 +4645,6 @@
               "name": "actorId",
               "label": "Actor ID (e.g., ACT-001)",
               "hint": "Use a stable unique code such as ACT-001",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "actorName",
-              "label": "Actor Name",
-              "hint": "Give the role a clear, recognisable name",
               "type": "String",
               "required": true
             },
@@ -6492,13 +6450,6 @@
           ],
           "formFields": [
             {
-              "name": "departmentName",
-              "label": "Department Name",
-              "hint": "Name of the affected department or business unit",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "departmentHead",
               "label": "Department Head",
               "hint": "Person leading the department",
@@ -6616,13 +6567,6 @@
           ],
           "formFields": [
             {
-              "name": "functionName",
-              "label": "Function Name",
-              "hint": "Name of the affected function",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "triggerPoint",
               "label": "Trigger Point",
               "hint": "When in the function rule is triggered",
@@ -6730,13 +6674,6 @@
           ],
           "formFields": [
             {
-              "name": "objectName",
-              "label": "Object Name",
-              "hint": "Name of the affected business object",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "affectedAttributes",
               "label": "Affected Attributes",
               "hint": "Specific attributes affected",
@@ -6837,13 +6774,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "alertName",
-              "label": "Alert Name",
-              "hint": "Alert identifier",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "alertDescription",
               "label": "Alert Description",
@@ -7722,13 +7652,6 @@
               "name": "alertId",
               "label": "Alert ID",
               "hint": "Unique identifier for this alert rule",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "alertName",
-              "label": "Alert Name",
-              "hint": "Human-readable name for this alert",
               "type": "String",
               "required": true
             },
@@ -8807,13 +8730,6 @@
               "required": true
             },
             {
-              "name": "flowName",
-              "label": "Flow Name",
-              "hint": "Short descriptive name for the flow",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "flowType",
               "label": "Flow Type — alternative, exception, error",
               "hint": "One of alternative, exception, or error",
@@ -9415,13 +9331,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "apiName",
-              "label": "API/Protocol Name",
-              "hint": "Name of API or protocol",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "apiType",
               "label": "API Type",
@@ -10532,13 +10441,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "regulationName",
-              "label": "Regulation Name",
-              "hint": "The name of this regulation",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "regulationCode",
               "label": "Regulation Code / Reference",
@@ -11957,13 +11859,6 @@
               "required": true
             },
             {
-              "name": "name",
-              "label": "Approver Name",
-              "hint": "Name of the individual giving the approval.",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "date",
               "label": "Approval Date",
               "hint": "Date the approval was granted (ISO 8601).",
@@ -12041,13 +11936,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "componentName",
-              "label": "Component Name",
-              "hint": "Unique name for this component",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "componentType",
               "label": "Component Type",
@@ -12454,13 +12342,6 @@
               "name": "decisionId",
               "label": "Decision ID",
               "hint": "Unique identifier (e.g., ADR-001)",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "title",
-              "label": "Title",
-              "hint": "Short title of the decision",
               "type": "String",
               "required": true
             },
@@ -13171,13 +13052,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "principleName",
-              "label": "Principle Name",
-              "hint": "E.g., Separation of Concerns, DRY, SOLID",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "category",
               "label": "Category",
@@ -14144,13 +14018,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "auditName",
-              "label": "Audit Name",
-              "hint": "Name of the audit",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "auditType",
               "label": "Type (Internal/External)",
@@ -15299,13 +15166,6 @@
           ],
           "formFields": [
             {
-              "name": "methodName",
-              "label": "Method Name",
-              "hint": "Unique name identifying this authentication method",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "methodType",
               "label": "Method Type",
               "hint": "Password | TOTP | HOTP | FIDO2 | WebAuthn | SmartCard | Push | SMS | Email | Biometric | APIKey | Certificate",
@@ -16082,13 +15942,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "groupName",
-              "label": "Group Name",
-              "hint": "Unique name of the authorization group (e.g. Finance Managers)",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Short description",
@@ -18971,13 +18824,6 @@
           ],
           "formFields": [
             {
-              "name": "policyName",
-              "label": "Policy Name",
-              "hint": "Policy identifier",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "dataScope",
               "label": "Data Scope",
               "hint": "What this policy covers",
@@ -21367,13 +21213,6 @@
           ],
           "formFields": [
             {
-              "name": "contextName",
-              "label": "Context Name",
-              "hint": "E.g., Order, Inventory, Customer, Billing",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "domainArea",
               "label": "Domain Area",
               "hint": "Business domain this context covers",
@@ -21937,13 +21776,6 @@
               "required": true
             },
             {
-              "name": "breakpointName",
-              "label": "Breakpoint Name",
-              "hint": "Mobile, Tablet, Desktop, Large Desktop",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "minWidth",
               "label": "Min Width",
               "hint": "Minimum width in logical pixels",
@@ -22158,13 +21990,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "browserName",
-              "label": "Browser",
-              "hint": "E.g., Chrome, Firefox, Safari, Edge",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "browserEngine",
               "label": "Browser Engine",
@@ -22864,13 +22689,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "toolName",
-              "label": "Tool Name",
-              "hint": "E.g., Gradle, CMake, Webpack, Dart build_runner",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "toolCategory",
               "label": "Category",
@@ -23661,13 +23479,6 @@
           ],
           "formFields": [
             {
-              "name": "componentName",
-              "label": "Component Name",
-              "hint": "Business component name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "componentType",
               "label": "Component Type",
               "hint": "Service, Repository, UseCase, Validator, Calculator",
@@ -24245,13 +24056,6 @@
               "name": "goalId",
               "label": "Goal ID (unique identifier, e.g., BG-001)",
               "hint": "Unique goal identifier, e.g., BG-001",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "goalName",
-              "label": "Goal Name (concise objective statement)",
-              "hint": "Concise one-line objective statement",
               "type": "String",
               "required": true
             },
@@ -25165,13 +24969,6 @@
           ],
           "formFields": [
             {
-              "name": "attributeName",
-              "label": "Attribute Name",
-              "hint": "Business attribute name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description",
               "hint": "Business meaning of this attribute",
@@ -25452,13 +25249,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "objectName",
-              "label": "Object Name",
-              "hint": "Business name in PascalCase (e.g., Order, Customer)",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "objectAlias",
               "label": "Alias/Abbreviation",
@@ -27001,13 +26791,6 @@
               "required": true
             },
             {
-              "name": "ruleName",
-              "label": "Rule Name",
-              "hint": "Descriptive name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "ruleVersion",
               "label": "Rule Version",
               "hint": "Version number for change tracking",
@@ -27555,13 +27338,6 @@
               "refersTo": [
                 "BIRU.ruleId"
               ]
-            },
-            {
-              "name": "ruleName",
-              "label": "Rule Name",
-              "hint": "Name of the business rule",
-              "type": "String",
-              "required": true
             },
             {
               "name": "ruleType",
@@ -28133,13 +27909,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "name",
-              "label": "Name",
-              "hint": "Name of the CCB member",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "role",
               "label": "Role",
@@ -28714,12 +28483,6 @@
             {
               "name": "certificationId",
               "label": "Certification ID",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "certificationName",
-              "label": "Certification Name",
               "type": "String",
               "required": true
             },
@@ -29368,13 +29131,6 @@
               "name": "categoryId",
               "label": "Category ID",
               "hint": "Unique identifier for this category",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "categoryName",
-              "label": "Category Name",
-              "hint": "Name of the change category",
               "type": "String",
               "required": true
             },
@@ -31369,13 +31125,6 @@
           ],
           "formFields": [
             {
-              "name": "roleName",
-              "label": "Role Name",
-              "hint": "Name of the role in change process",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "responsibility",
               "label": "Responsibility",
               "hint": "What this role does in the process",
@@ -31473,13 +31222,6 @@
               "label": "Step Number",
               "hint": "Order of this step in the process",
               "type": "int",
-              "required": true
-            },
-            {
-              "name": "stepName",
-              "label": "Step Name",
-              "hint": "Name of the process step",
-              "type": "String",
               "required": true
             },
             {
@@ -32433,13 +32175,6 @@
               "name": "roleId",
               "label": "Role ID (e.g., CR-001)",
               "hint": "Unique identifier for this changed role",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "roleTitle",
-              "label": "Current Role Title",
-              "hint": "The role title before the change",
               "type": "String",
               "required": true
             },
@@ -34397,13 +34132,6 @@
               "name": "clientId",
               "label": "Client Id",
               "hint": "The one identifier for this client application (e.g. backoffice) — cited wherever the client is referenced",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "clientName",
-              "label": "Client Name",
-              "hint": "The name users and operators call this client by",
               "type": "String",
               "required": true
             },
@@ -37629,13 +37357,6 @@
           ],
           "formFields": [
             {
-              "name": "standardName",
-              "label": "Standard Name",
-              "hint": "E.g., Effective Dart, Clean Code, Project-specific",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "standardCategory",
               "label": "Category",
               "hint": "Naming, Formatting, Comments, Structure, Imports",
@@ -38389,13 +38110,6 @@
           ],
           "formFields": [
             {
-              "name": "paletteName",
-              "label": "Palette Name",
-              "hint": "Primary, Secondary, Neutral, Error",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "paletteRole",
               "label": "Palette Role",
               "hint": "Brand, functional, semantic",
@@ -38678,13 +38392,6 @@
           ],
           "formFields": [
             {
-              "name": "name",
-              "label": "Name",
-              "hint": "Full name of the committee member",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "organizationRole",
               "label": "Organization Role",
               "hint": "Their role within their home organization",
@@ -38930,13 +38637,6 @@
           ],
           "formFields": [
             {
-              "name": "channelName",
-              "label": "Channel Name",
-              "hint": "Name of the communication channel (e.g. ClientToServer, ServerToDatabase, InterService, WebSocket, gRPC, MessageQueue, EmailSMTP)",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "channelType",
               "label": "Channel Type",
               "hint": "HTTPS | gRPC | WebSocket | TCP | AMQP | MQTT | SMTP | Custom — transport protocol used by this channel",
@@ -39042,13 +38742,6 @@
               "name": "eventId",
               "label": "Event ID",
               "hint": "A unique identifier for this communication event",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "eventName",
-              "label": "Event Name",
-              "hint": "A short descriptive name for this communication event",
               "type": "String",
               "required": true
             },
@@ -40852,13 +40545,6 @@
               "required": true
             },
             {
-              "name": "competencyName",
-              "label": "Competency Name",
-              "hint": "Short name of the competency",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description",
               "hint": "What this competency means in practice",
@@ -41231,13 +40917,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "competencyName",
-              "label": "Competency Name",
-              "hint": "The competency whose required level is changing",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "currentLevel",
               "label": "Current Required Level",
@@ -41679,13 +41358,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "milestoneName",
-              "label": "Milestone Name",
-              "hint": "Name of the compliance milestone",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "regulation",
               "label": "Related Regulation",
@@ -42430,13 +42102,6 @@
               "required": true
             },
             {
-              "name": "actionName",
-              "label": "Action Name",
-              "hint": "onTap, onSubmit, onDelete",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "actionTrigger",
               "label": "Action Trigger",
               "hint": "User interaction that triggers",
@@ -42736,13 +42401,6 @@
               "name": "componentId",
               "label": "Component ID",
               "hint": "Unique identifier, e.g. CMP-DB-001",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "componentName",
-              "label": "Component Name",
-              "hint": "Official product/library name",
               "type": "String",
               "required": true
             },
@@ -43511,13 +43169,6 @@
               "required": true
             },
             {
-              "name": "familyName",
-              "label": "Family Name",
-              "hint": "Buttons, Inputs, Navigation, Tables",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "familyDescription",
               "label": "Family Description",
               "hint": "Purpose and scope of the family",
@@ -44017,13 +43668,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "interfaceName",
-              "label": "Interface Name",
-              "hint": "Human-readable name, e.g. Order Service REST API",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "interfaceType",
               "label": "Interface Type",
@@ -45844,13 +45488,6 @@
               "required": true
             },
             {
-              "name": "propertyName",
-              "label": "Property Name",
-              "hint": "enabled, selected, elevation",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "propertyType",
               "label": "Property Type",
               "hint": "bool, String, Color, int",
@@ -46797,13 +46434,6 @@
               "refersTo": [
                 "CMPNT.componentId"
               ]
-            },
-            {
-              "name": "riskTitle",
-              "label": "Risk Title",
-              "hint": "Short descriptive name",
-              "type": "String",
-              "required": false
             }
           ]
         },
@@ -47226,13 +46856,6 @@
               "required": true
             },
             {
-              "name": "slotName",
-              "label": "Slot Name",
-              "hint": "leading, trailing, title, content",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "slotDescription",
               "label": "Slot Description",
               "hint": "Purpose of this slot",
@@ -47342,13 +46965,6 @@
               "name": "stateId",
               "label": "State ID",
               "hint": "Unique state identifier",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "stateName",
-              "label": "State Name",
-              "hint": "Loading, Empty, Error, Disabled, etc.",
               "type": "String",
               "required": true
             },
@@ -48137,13 +47753,6 @@
               "name": "variantId",
               "label": "Variant ID",
               "hint": "Unique variant identifier",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "variantName",
-              "label": "Variant Name",
-              "hint": "Filled, Outlined, Tonal, Text",
               "type": "String",
               "required": true
             },
@@ -49162,13 +48771,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "categoryName",
-              "label": "Category Name",
-              "hint": "Name of the confidential information category",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Description",
@@ -51450,13 +51052,6 @@
               "required": false
             },
             {
-              "name": "planTitle",
-              "label": "Plan Title",
-              "hint": "Short name for this contingency plan",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "triggerCondition",
               "label": "Trigger Condition",
               "hint": "Specific event or threshold that activates this plan",
@@ -53276,12 +52871,6 @@
           ],
           "formFields": [
             {
-              "name": "processName",
-              "label": "Process Name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "processOwner",
               "label": "Process Owner",
               "type": "String",
@@ -54762,12 +54351,6 @@
           ],
           "formFields": [
             {
-              "name": "workflowName",
-              "label": "Workflow Name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "workflowId",
               "label": "Workflow ID (internal identifier)",
               "type": "String",
@@ -55315,13 +54898,6 @@
           ],
           "formFields": [
             {
-              "name": "groupName",
-              "label": "Group Name",
-              "hint": "Name of the distribution group",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "purpose",
               "label": "Purpose",
               "hint": "Why this group exists",
@@ -55454,13 +55030,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "metricName",
-              "label": "Metric Name",
-              "hint": "Full metric name (e.g., app_orders_total)",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "metricType",
               "label": "Metric Type",
@@ -59475,13 +59044,6 @@
               "required": true
             },
             {
-              "name": "dashboardName",
-              "label": "Dashboard Name",
-              "hint": "Human-readable dashboard name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "dashboardCategory",
               "label": "Dashboard Category",
               "hint": "Executive, operational, service, infrastructure",
@@ -60911,13 +60473,6 @@
           ],
           "formFields": [
             {
-              "name": "attributeName",
-              "label": "Attribute Name",
-              "hint": "Logical attribute name in camelCase",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "columnName",
               "label": "Physical Column Name",
               "hint": "Database column name if different (e.g., snake_case)",
@@ -61934,13 +61489,6 @@
           ],
           "formFields": [
             {
-              "name": "classificationName",
-              "label": "Classification Name",
-              "hint": "Name of this classification level",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "classificationLevel",
               "label": "Classification Level",
               "hint": "Sensitivity: Public | Internal | Confidential | Restricted | TopSecret",
@@ -62374,13 +61922,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "levelName",
-              "label": "Level Name",
-              "hint": "E.g. Public, Internal, Confidential, Restricted",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "levelOrder",
               "label": "Level Order",
@@ -63696,13 +63237,6 @@
           ],
           "formFields": [
             {
-              "name": "entityName",
-              "label": "Entity Name",
-              "hint": "Name of the data entity",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "recordCount",
               "label": "Record Count",
               "hint": "Approximate number of records for this entity",
@@ -63799,13 +63333,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "entityName",
-              "label": "Entity Name",
-              "hint": "Name of the data entity referenced",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "crudOperations",
               "label": "CRUD Operations (Create, Read, Update, Delete)",
@@ -64537,13 +64064,6 @@
               "required": false
             },
             {
-              "name": "policyName",
-              "label": "Policy Name",
-              "hint": "Name of the governance policy",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "policyArea",
               "label": "Policy Area",
               "hint": "DataQuality / DataSecurity / DataPrivacy / DataAccess / MDM",
@@ -65100,13 +64620,6 @@
               "name": "integrationId",
               "label": "Integration ID",
               "hint": "Unique identifier",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "integrationName",
-              "label": "Integration Name",
-              "hint": "Name of the integration",
               "type": "String",
               "required": true
             },
@@ -69070,13 +68583,6 @@
               "required": false
             },
             {
-              "name": "initiativeName",
-              "label": "Initiative Name",
-              "hint": "Name of the improvement initiative",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description",
               "hint": "What the initiative aims to achieve",
@@ -69168,13 +68674,6 @@
               "name": "issueId",
               "label": "Issue ID",
               "hint": "Unique identifier, e.g. DQ-001",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "issueTitle",
-              "label": "Issue Title",
-              "hint": "Brief description of the quality issue",
               "type": "String",
               "required": true
             },
@@ -69962,13 +69461,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "entityName",
-              "label": "Entity Name",
-              "hint": "Name of the entity/table/collection",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Description",
@@ -72010,13 +71502,6 @@
           ],
           "formFields": [
             {
-              "name": "databaseName",
-              "label": "Database",
-              "hint": "E.g., PostgreSQL, MySQL, MongoDB, SQLite",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "databaseType",
               "label": "Type",
               "hint": "RDBMS, Document, Key-Value, Graph",
@@ -72931,20 +72416,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "name",
-              "label": "Name",
-              "hint": "Full name of the decision maker",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "title",
-              "label": "Title/Role",
-              "hint": "Formal title or organizational role",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "department",
               "label": "Department",
@@ -74912,13 +74383,6 @@
               "name": "deliverableId",
               "label": "Deliverable ID",
               "hint": "Unique identifier — e.g. DEL-SOF-001",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "deliverableName",
-              "label": "Deliverable Name",
-              "hint": "Concise name — e.g. \"Customer Management API\"",
               "type": "String",
               "required": true
             },
@@ -78122,13 +77586,6 @@
           ],
           "formFields": [
             {
-              "name": "environmentName",
-              "label": "Environment Name",
-              "hint": "E.g., dev, staging, production",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "environmentType",
               "label": "Type",
               "hint": "Development, Staging, Production",
@@ -79314,13 +78771,6 @@
           ],
           "formFields": [
             {
-              "name": "targetName",
-              "label": "Target Name",
-              "hint": "E.g., Production Web, iOS App Store, Docker Hub",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "targetCategory",
               "label": "Category",
               "hint": "Web, Mobile App, Desktop App, Cloud Service, Container, Embedded",
@@ -80233,13 +79683,6 @@
           ],
           "formFields": [
             {
-              "name": "goalName",
-              "label": "Goal Name",
-              "hint": "A concise label for the design goal",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Goal Description",
               "hint": "What this goal means for the UI",
@@ -80459,13 +79902,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "patternName",
-              "label": "Pattern Name",
-              "hint": "E.g., Repository, Factory, Observer, State, Command",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "patternCategory",
               "label": "Category",
@@ -81217,13 +80653,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "principleName",
-              "label": "Principle Name",
-              "hint": "A clear name for the design principle",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Description",
@@ -82387,13 +81816,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "conventionName",
-              "label": "Convention Name",
-              "hint": "Name of the development convention",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "conventionCategory",
               "label": "Category",
@@ -84223,13 +83645,6 @@
           ],
           "formFields": [
             {
-              "name": "displayLabel",
-              "label": "Display Label",
-              "hint": "User-friendly label for UI",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "displayOrder",
               "label": "Display Order",
               "hint": "Order when displaying in forms/tables",
@@ -85183,13 +84598,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "name",
-              "label": "Name",
-              "hint": "Full name of the recipient",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "role",
               "label": "Role",
@@ -88701,13 +88109,6 @@
               "required": true
             },
             {
-              "name": "ruleName",
-              "label": "Rule Name",
-              "hint": "Short descriptive name for this rule",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "ruleType",
               "label": "Rule Type (Constraint, Calculation, Derivation, Action-Trigger, Authorization, Validation)",
               "hint": "Constraint / Calculation / Derivation / Action-Trigger / Authorization / Validation",
@@ -89375,13 +88776,6 @@
           ],
           "formFields": [
             {
-              "name": "eventName",
-              "label": "Event Name (past tense, e.g., OrderPlaced)",
-              "hint": "Past-tense event name, e.g., OrderPlaced",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "eventDescription",
               "label": "Event Description",
               "hint": "What this event represents in the business",
@@ -89851,13 +89245,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "processName",
-              "label": "Process Name",
-              "hint": "Name of the business process",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "processDescription",
               "label": "Process Description",
@@ -91176,13 +90563,6 @@
           ],
           "formFields": [
             {
-              "name": "categoryName",
-              "label": "Category Name",
-              "hint": "Name of the data category requiring encryption (e.g. PersonalData, FinancialRecords, HealthRecords, Credentials, APIKeys)",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "dataClassification",
               "label": "Data Classification",
               "hint": "Public | Internal | Confidential | Restricted | Secret — sensitivity classification of the data category",
@@ -91799,13 +91179,6 @@
           ],
           "formFields": [
             {
-              "name": "systemName",
-              "label": "System Name",
-              "hint": "E.g., SAP, Salesforce, Oracle ERP",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "systemType",
               "label": "System Type",
               "hint": "ERP, CRM, HR, Finance, Supply Chain",
@@ -92399,13 +91772,6 @@
           ],
           "formFields": [
             {
-              "name": "constraintName",
-              "label": "Constraint Name",
-              "hint": "Unique identifier for the constraint",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "constraintType",
               "label": "Constraint Type",
               "hint": "Check | Unique | Exclusion | Custom",
@@ -92510,13 +91876,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "entityName",
-              "label": "Entity Name",
-              "hint": "Name of the data entity these facets apply to (matches dataModel.entities)",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "entityAlias",
               "label": "Alias/Abbreviation",
@@ -92798,13 +92157,6 @@
           ],
           "formFields": [
             {
-              "name": "indexName",
-              "label": "Index Name",
-              "hint": "Unique identifier for the index",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "indexType",
               "label": "Index Type",
               "hint": "BTree | Hash | GiST | GIN | FullText | Spatial",
@@ -92931,13 +92283,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "relationshipName",
-              "label": "Relationship Name",
-              "hint": "Verb phrase describing the relationship (e.g., \"places\", \"contains\")",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "relationshipType",
               "label": "Relationship Type",
@@ -93587,13 +92932,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "environmentName",
-              "label": "Environment Name",
-              "hint": "Canonical name, e.g. Production, Staging-EU, Dev-Feature",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "environmentId",
               "label": "Environment ID",
@@ -98354,13 +97692,6 @@
           ],
           "formFields": [
             {
-              "name": "systemName",
-              "label": "System Name",
-              "hint": "Common name of the system, e.g. \"SAP ERP\", \"Salesforce CRM\".",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "systemId",
               "label": "System ID/Code (internal identifier)",
               "hint": "Internal catalogue code or CMDB identifier, if any.",
@@ -100652,13 +99983,6 @@
               "required": true
             },
             {
-              "name": "formatName",
-              "label": "Format Name",
-              "hint": "Human-readable name, e.g. Monthly Orders CSV",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "formatType",
               "label": "Format Type",
               "hint": "CSV / Excel / PDF / JSON / XML / HTML / Fixed-Width",
@@ -101459,13 +100783,6 @@
               "required": true
             },
             {
-              "name": "templateName",
-              "label": "Template Name",
-              "hint": "Human-readable name, e.g. Standard Customer Export",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "baseFormatType",
               "label": "Base Format Type",
               "hint": "CSV / Excel / PDF / JSON / XML / HTML",
@@ -102108,13 +101425,6 @@
           ],
           "formFields": [
             {
-              "name": "actorName",
-              "label": "Actor Name",
-              "hint": "The name of this external actor",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "actorType",
               "label": "Actor Type (Internal User, External User, Organization, Partner, Customer, Regulator, etc.)",
               "hint": "The category of actor",
@@ -102727,13 +102037,6 @@
               "name": "interfaceId",
               "label": "Interface ID (e.g., IF-PAY-001)",
               "hint": "Unique stable identifier for this interface",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "interfaceName",
-              "label": "Interface Name",
-              "hint": "Human-readable name of the interface",
               "type": "String",
               "required": true
             },
@@ -103466,13 +102769,6 @@
           ],
           "formFields": [
             {
-              "name": "partnerName",
-              "label": "Partner Name",
-              "hint": "Name of the external partner or system",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "partnerType",
               "label": "Partner Type",
               "hint": "Vendor, customer, regulatory body, payment provider",
@@ -104147,13 +103443,6 @@
           ],
           "formFields": [
             {
-              "name": "serviceName",
-              "label": "External Service Name",
-              "hint": "Name of the external service, e.g. \"Stripe Payments\".",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "serviceProvider",
               "label": "Service Provider/Vendor",
               "hint": "Company providing the service, e.g. \"Stripe, Inc.\".",
@@ -104484,13 +103773,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "systemName",
-              "label": "System Name",
-              "hint": "The name of this external system",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "systemOwner",
               "label": "System Owner (organization/department)",
@@ -104918,13 +104200,6 @@
               ]
             },
             {
-              "name": "componentName",
-              "label": "Component Name",
-              "hint": "Name of the referenced component",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "familyRole",
               "label": "Family Role",
               "hint": "Primary, secondary, specialized",
@@ -105285,13 +104560,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "featureName",
-              "label": "Feature Name",
-              "hint": "Feature identifier",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "featureArea",
               "label": "Feature Area",
@@ -106292,13 +105560,6 @@
               "name": "featureId",
               "label": "Feature ID",
               "hint": "Unique identifier — e.g. FEA-001",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "featureName",
-              "label": "Feature Name",
-              "hint": "Short descriptive name",
               "type": "String",
               "required": true
             },
@@ -107915,13 +107176,6 @@
               "required": true
             },
             {
-              "name": "tourName",
-              "label": "Tour Name",
-              "hint": "Display name of the tour",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "tourDescription",
               "label": "Tour Description",
               "hint": "Short summary of what the tour covers",
@@ -108088,13 +107342,6 @@
               "name": "fieldId",
               "label": "Field ID",
               "hint": "Unique identifier of the field",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "fieldLabel",
-              "label": "Field Label",
-              "hint": "Display label of the field",
               "type": "String",
               "required": true
             },
@@ -109637,13 +108884,6 @@
           ],
           "formFields": [
             {
-              "name": "frameworkName",
-              "label": "Framework/Library Name",
-              "hint": "E.g., Flutter, Angular, Django, Spring Boot",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "frameworkCategory",
               "label": "Category",
               "hint": "UI Framework, Backend Framework, Testing, State Management",
@@ -110251,13 +109491,6 @@
           ],
           "formFields": [
             {
-              "name": "functionName",
-              "label": "Function Name",
-              "hint": "Function being mapped",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "entityName",
               "label": "Entity Name",
               "hint": "Data entity being accessed",
@@ -110359,13 +109592,6 @@
               "hint": "Unique function identifier",
               "type": "String",
               "required": false
-            },
-            {
-              "name": "functionName",
-              "label": "Function Name",
-              "hint": "Verb-noun phrase (e.g., Process Order)",
-              "type": "String",
-              "required": true
             },
             {
               "name": "description",
@@ -112207,13 +111433,6 @@
           ],
           "formFields": [
             {
-              "name": "gapName",
-              "label": "Gap Name",
-              "hint": "Concise name for the identified gap",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "gapCategory",
               "label": "Gap Category",
               "hint": "Functional / Process / Data / Integration / Compliance / Security / Performance / Usability",
@@ -113336,13 +112555,6 @@
               "required": true
             },
             {
-              "name": "dependencyName",
-              "label": "Dependency Name (what we depend on)",
-              "hint": "Name of the thing this goal depends on",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description",
               "hint": "Details of the dependency",
@@ -113582,13 +112794,6 @@
               "name": "milestoneId",
               "label": "Milestone ID",
               "hint": "Unique identifier for this milestone",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "milestoneName",
-              "label": "Milestone Name",
-              "hint": "Short descriptive name for the milestone",
               "type": "String",
               "required": true
             },
@@ -113990,13 +113195,6 @@
               "name": "riskId",
               "label": "Risk ID",
               "hint": "Unique identifier for this risk",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "riskName",
-              "label": "Risk Name",
-              "hint": "Short descriptive name for the risk",
               "type": "String",
               "required": true
             },
@@ -116100,13 +115298,6 @@
           ],
           "formFields": [
             {
-              "name": "ideName",
-              "label": "IDE/Editor Name",
-              "hint": "E.g., VS Code, IntelliJ IDEA, Android Studio",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "version",
               "label": "Version Requirements",
               "hint": "Minimum version or version range",
@@ -117307,13 +116498,6 @@
           ],
           "formFields": [
             {
-              "name": "providerName",
-              "label": "Provider Name",
-              "hint": "Human-readable name, e.g. Corporate Azure AD",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "providerType",
               "label": "Provider Type",
               "hint": "SAML / OIDC / LDAP / ActiveDirectory / OAuth2",
@@ -117718,13 +116902,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "sourceName",
-              "label": "Source Name",
-              "hint": "Unique name for this identity source, e.g. CorporateAD",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "sourceType",
               "label": "Source Type",
@@ -119271,13 +118448,6 @@
           ],
           "formFields": [
             {
-              "name": "protocolName",
-              "label": "Protocol Name",
-              "hint": "E.g., HTTP/2, MQTT, AMQP, WebSocket",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "category",
               "label": "Category",
               "hint": "Network, Messaging, Security, Data exchange",
@@ -119626,13 +118796,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "standardName",
-              "label": "Standard Name",
-              "hint": "E.g., ISO 27001, OWASP, IEEE 830, GDPR",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "standardBody",
               "label": "Standard Body",
@@ -120849,13 +120012,6 @@
           ],
           "formFields": [
             {
-              "name": "componentName",
-              "label": "Component Name",
-              "hint": "Infrastructure component name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "componentType",
               "label": "Component Type",
               "hint": "Logging, Caching, Messaging, Storage, Network",
@@ -121895,12 +121051,6 @@
             {
               "name": "trainingId",
               "label": "Training ID",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "trainingName",
-              "label": "Training Name",
               "type": "String",
               "required": true
             },
@@ -122986,13 +122136,6 @@
               "name": "constraintId",
               "label": "Constraint ID",
               "hint": "Unique identifier, e.g. INT-CON-001",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "constraintName",
-              "label": "Constraint Name",
-              "hint": "Short descriptive name",
               "type": "String",
               "required": true
             },
@@ -124461,13 +123604,6 @@
           ],
           "formFields": [
             {
-              "name": "channelName",
-              "label": "Channel Name",
-              "hint": "e.g., Customer Web Portal, Mobile App, Admin API",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "channelId",
               "label": "Channel ID",
               "hint": "Unique identifier for the channel",
@@ -125919,13 +125055,6 @@
           ],
           "formFields": [
             {
-              "name": "patternName",
-              "label": "Pattern Name",
-              "hint": "e.g., Real-time Form Submission, Batch Report Generation",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "patternId",
               "label": "Pattern ID",
               "hint": "Unique identifier",
@@ -126570,13 +125699,6 @@
           ],
           "formFields": [
             {
-              "name": "processName",
-              "label": "Process Name",
-              "hint": "Name of the dependent business process",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "processId",
               "label": "Process ID",
               "hint": "Identifier of the business process",
@@ -126651,13 +125773,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "entityName",
-              "label": "Entity Name",
-              "hint": "Name of the exchanged data entity",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "direction",
               "label": "Direction (Send, Receive)",
@@ -127644,13 +126759,6 @@
               "required": true
             },
             {
-              "name": "operationName",
-              "label": "Operation Name",
-              "hint": "Human-readable operation name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "httpMethod",
               "label": "HTTP Method (GET, POST, PUT, DELETE, etc.)",
               "hint": "HTTP verb used by the operation",
@@ -128392,13 +127500,6 @@
           ],
           "formFields": [
             {
-              "name": "specificationName",
-              "label": "Specification Name",
-              "hint": "E.g., REST, GraphQL, gRPC, SOAP",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "specificationVersion",
               "label": "Version",
               "hint": "Specification version",
@@ -129114,13 +128215,6 @@
               "name": "scenarioId",
               "label": "Scenario ID",
               "hint": "Unique identifier for the scenario",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "scenarioName",
-              "label": "Scenario Name",
-              "hint": "Human-readable scenario name",
               "type": "String",
               "required": true
             },
@@ -131490,13 +130584,6 @@
           ],
           "formFields": [
             {
-              "name": "standardName",
-              "label": "Standard Name",
-              "hint": "E.g., ISO 27001, IEEE 802.11, NIST SP 800-53",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "standardBody",
               "label": "Standard Body",
               "hint": "ISO, IEEE, NIST, OASIS, W3C",
@@ -132221,13 +131308,6 @@
           ],
           "formFields": [
             {
-              "name": "stageName",
-              "label": "Stage Name",
-              "hint": "Name of this journey stage",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "stageDescription",
               "label": "Stage Description",
               "hint": "Brief description of what happens in this stage",
@@ -132344,13 +131424,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "keyName",
-              "label": "Key Name",
-              "hint": "Identifier for this key constraint",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "keyType",
               "label": "Key Type",
@@ -132779,13 +131852,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "conceptName",
-              "label": "Concept Name",
-              "hint": "Name of the business concept or entity",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "conceptType",
               "label": "Concept Type (Entity, Value Object, Aggregate Root, Event, Service)",
@@ -135850,13 +134916,6 @@
               "required": false
             },
             {
-              "name": "transitionName",
-              "label": "Transition Name",
-              "hint": "Descriptive name (e.g., \"Submit Order\")",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "fromState",
               "label": "From State",
               "hint": "Source state",
@@ -138623,13 +137682,6 @@
           ],
           "formFields": [
             {
-              "name": "stepName",
-              "label": "Step Name",
-              "hint": "Unique name for this login flow step",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "stepOrder",
               "label": "Step Order",
               "hint": "Numeric order in the flow sequence (1, 2, 3, ...)",
@@ -140077,13 +139129,6 @@
               "required": false
             },
             {
-              "name": "name",
-              "label": "Dependency Name",
-              "hint": "Component or service with maintenance dependency",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "version",
               "label": "Current Version",
               "hint": "Version currently in use",
@@ -140663,13 +139708,6 @@
           ],
           "formFields": [
             {
-              "name": "windowName",
-              "label": "Window Name",
-              "hint": "Maintenance window name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "windowType",
               "label": "Window Type",
               "hint": "Routine, Patch, Upgrade, Migration",
@@ -141235,13 +140273,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "domainName",
-              "label": "Domain Name",
-              "hint": "E.g. Customer, Product, Vendor, Employee, Location",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Description",
@@ -142673,12 +141704,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "metricName",
-              "label": "Metric Name",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "baselineValue",
               "label": "Baseline Value (current state)",
@@ -144379,13 +143404,6 @@
           ],
           "formFields": [
             {
-              "name": "milestoneName",
-              "label": "Milestone Name",
-              "hint": "Concise name for the milestone",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "targetDate",
               "label": "Target Date",
               "hint": "Planned date the milestone is reached",
@@ -144579,13 +143597,6 @@
               "name": "phaseNumber",
               "label": "Phase Number",
               "hint": "1, 2, 3… — sequential phase ordering",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "phaseName",
-              "label": "Phase Name",
-              "hint": "Descriptive name — e.g. Master Data, Transactional History",
               "type": "String",
               "required": true
             },
@@ -145996,13 +145007,6 @@
               "name": "riskId",
               "label": "Risk ID",
               "hint": "Unique identifier (e.g., MIG-RISK-001)",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "riskTitle",
-              "label": "Risk Title",
-              "hint": "Concise risk name",
               "type": "String",
               "required": true
             },
@@ -148974,13 +147978,6 @@
           ],
           "formFields": [
             {
-              "name": "moduleName",
-              "label": "Module Name",
-              "hint": "Unique module identifier",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "moduleType",
               "label": "Module Type",
               "hint": "Core, Feature, Shared, Platform, Plugin",
@@ -151841,12 +150838,6 @@
               "required": false
             },
             {
-              "name": "criterionName",
-              "label": "Criterion Name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "verificationMethod",
               "label": "Verification Method",
               "hint": "Test, demonstration, analysis, inspection",
@@ -152980,13 +151971,6 @@
               "name": "guardId",
               "label": "Guard ID",
               "hint": "Unique identifier, e.g., guard-unsaved-changes",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "guardName",
-              "label": "Guard Name",
-              "hint": "Human-readable name",
               "type": "String",
               "required": true
             },
@@ -156407,13 +155391,6 @@
               "required": true
             },
             {
-              "name": "roleTitle",
-              "label": "Role Title",
-              "hint": "Official job title for the role",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "roleFamily",
               "label": "Job Family",
               "hint": "Broader job family or category this role belongs to",
@@ -157489,13 +156466,6 @@
           ],
           "formFields": [
             {
-              "name": "channelName",
-              "label": "Channel Name",
-              "hint": "Email, SMS, Push Notification, In-App, Slack, Teams",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "channelId",
               "label": "Channel ID",
               "hint": "Unique identifier for the notification channel",
@@ -157968,13 +156938,6 @@
           ],
           "formFields": [
             {
-              "name": "invariantName",
-              "label": "Invariant Name",
-              "hint": "Name of the invariant",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description",
               "hint": "What this invariant means",
@@ -158078,13 +157041,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "operationName",
-              "label": "Operation Name",
-              "hint": "Name of the operation (e.g., Submit, Approve)",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Description",
@@ -158367,13 +157323,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "stateName",
-              "label": "State Name",
-              "hint": "Name of the state (e.g., Draft, Submitted)",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "stateCode",
               "label": "State Code",
@@ -159569,12 +158518,6 @@
             {
               "name": "trainingId",
               "label": "Training ID",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "trainingName",
-              "label": "Training Name",
               "type": "String",
               "required": true
             },
@@ -160870,13 +159813,6 @@
               "required": true
             },
             {
-              "name": "activityName",
-              "label": "Activity Name",
-              "hint": "Short descriptive name for the activity",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description",
               "hint": "What the activity entails",
@@ -161370,13 +160306,6 @@
               "name": "changeId",
               "label": "Change ID (e.g., OC-001)",
               "hint": "Unique identifier for this structural change",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "changeName",
-              "label": "Change Name",
-              "hint": "Short descriptive name for the change",
               "type": "String",
               "required": true
             },
@@ -163664,13 +162593,6 @@
           ],
           "formFields": [
             {
-              "name": "unitName",
-              "label": "Unit Name",
-              "hint": "The name of this organizational unit",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "unitType",
               "label": "Unit Type (Department, Division, Team, Business Unit, Subsidiary, External Partner)",
               "hint": "The category of organizational unit",
@@ -163772,13 +162694,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "osName",
-              "label": "Operating System",
-              "hint": "E.g., Windows, macOS, Linux, iOS, Android",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "osFamily",
               "label": "OS Family",
@@ -164128,13 +163043,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "agreementTitle",
-              "label": "Agreement Title",
-              "hint": "Title of the agreement",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "agreementType",
               "label": "Type",
@@ -167993,13 +166901,6 @@
           ],
           "formFields": [
             {
-              "name": "personaName",
-              "label": "Persona Name",
-              "hint": "Name and title, e.g., \"Marco, Finance Manager\"",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "age",
               "label": "Age",
               "hint": "Age or age range",
@@ -168724,13 +167625,6 @@
           ],
           "formFields": [
             {
-              "name": "scenarioName",
-              "label": "Scenario Name",
-              "hint": "A short action-oriented name for the scenario",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description",
               "hint": "What the persona is trying to accomplish",
@@ -168932,13 +167826,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "gateName",
-              "label": "Gate Name",
-              "hint": "Formal gate name — e.g. G1-ConceptApproval",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "gateId",
               "label": "Gate ID",
@@ -170049,13 +168936,6 @@
           ],
           "formFields": [
             {
-              "name": "jobName",
-              "label": "Job Name",
-              "hint": "Job identifier",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "parentStage",
               "label": "Parent Stage",
               "hint": "Stage this job belongs to",
@@ -170397,13 +169277,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "stageName",
-              "label": "Stage Name",
-              "hint": "E.g., Build, Test, Deploy, Release",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "stageOrder",
               "label": "Order",
@@ -174960,13 +173833,6 @@
               "required": true
             },
             {
-              "name": "controlName",
-              "label": "Control Name",
-              "hint": "Short human-readable control name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "controlType",
               "label": "Control Type — preventive, detective, corrective",
               "hint": "Classify the control type",
@@ -175477,13 +174343,6 @@
               "required": true
             },
             {
-              "name": "principleName",
-              "label": "Principle Name",
-              "hint": "Short descriptive name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "category",
               "label": "Category — efficiency, quality, compliance, user experience",
               "hint": "The dimension this principle addresses",
@@ -175761,13 +174620,6 @@
               "required": true
             },
             {
-              "name": "endEventName",
-              "label": "End Event Name",
-              "hint": "Descriptive name of the end event",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "endEventType",
               "label": "End Event Type — success, error, cancellation, timeout",
               "hint": "BPMN end-event type",
@@ -175864,13 +174716,6 @@
               "name": "exceptionId",
               "label": "Exception ID",
               "hint": "Unique identifier for the exception",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "exceptionName",
-              "label": "Exception Name",
-              "hint": "Short human-readable exception name",
               "type": "String",
               "required": true
             },
@@ -176330,13 +175175,6 @@
               "required": true
             },
             {
-              "name": "processName",
-              "label": "Process Name",
-              "hint": "Descriptive name of the process",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "processLevel",
               "label": "Process Level — L1 (category), L2 (group), L3 (process), L4 (activity)",
               "hint": "Level in the process hierarchy",
@@ -176607,13 +175445,6 @@
               "name": "improvementId",
               "label": "Improvement ID",
               "hint": "Unique identifier for the improvement",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "improvementName",
-              "label": "Improvement Name",
-              "hint": "Short human-readable improvement name",
               "type": "String",
               "required": true
             },
@@ -177099,13 +175930,6 @@
               "required": true
             },
             {
-              "name": "inputName",
-              "label": "Input Name",
-              "hint": "Descriptive name of the input",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "inputType",
               "label": "Input Type — data, document, authorization, resource",
               "hint": "Kind of input consumed",
@@ -177560,13 +176384,6 @@
               "required": true
             },
             {
-              "name": "kpiName",
-              "label": "KPI Name",
-              "hint": "Short human-readable KPI name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "category",
               "label": "Category — time, quality, cost, volume, satisfaction",
               "hint": "Classify the KPI dimension",
@@ -177954,12 +176771,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "metricName",
-              "label": "Metric Name",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "metricId",
               "label": "Metric ID",
@@ -178654,13 +177465,6 @@
               "name": "outputId",
               "label": "Output ID",
               "hint": "Unique identifier for the output",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "outputName",
-              "label": "Output Name",
-              "hint": "Descriptive name of the output",
               "type": "String",
               "required": true
             },
@@ -179680,13 +178484,6 @@
               "required": true
             },
             {
-              "name": "roleName",
-              "label": "Role Name",
-              "hint": "Descriptive name of the role",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "raciType",
               "label": "RACI Type — Responsible, Accountable, Consulted, Informed",
               "hint": "The RACI assignment for this role",
@@ -180063,12 +178860,6 @@
           ],
           "formFields": [
             {
-              "name": "processName",
-              "label": "Process Name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "rationale",
               "label": "Rationale - why this scope decision",
               "hint": "Why the process is in or out of scope, and to what extent — record here if it is only partially included",
@@ -180338,13 +179129,6 @@
               "name": "slaId",
               "label": "SLA ID",
               "hint": "Unique identifier for the SLA",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "slaName",
-              "label": "SLA Name",
-              "hint": "Short human-readable SLA name",
               "type": "String",
               "required": true
             },
@@ -181011,13 +179795,6 @@
               "required": true
             },
             {
-              "name": "triggerName",
-              "label": "Trigger Name",
-              "hint": "Descriptive name of the trigger",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "triggerType",
               "label": "Trigger Type — user action, system event, timer, message, signal",
               "hint": "BPMN start-event type of the trigger",
@@ -181641,13 +180418,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "languageName",
-              "label": "Language Name",
-              "hint": "E.g., Dart, TypeScript, Python, Rust",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "languageVariant",
               "label": "Variant",
@@ -182965,13 +181735,6 @@
           ],
           "formFields": [
             {
-              "name": "protocolName",
-              "label": "Protocol Name",
-              "hint": "HTTP/2, WebSocket, gRPC, MQTT, AMQP",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "protocolType",
               "label": "Protocol Type",
               "hint": "Request-response, streaming, pub-sub, event-driven",
@@ -183901,13 +182664,6 @@
               "refersTo": [
                 "FPE.featureId"
               ]
-            },
-            {
-              "name": "featureName",
-              "label": "Feature Name",
-              "hint": "Name of the feature",
-              "type": "String",
-              "required": true
             },
             {
               "name": "inclusionReason",
@@ -185292,13 +184048,6 @@
               "hint": "Unique identifier (e.g., QC-USER-01)",
               "type": "String",
               "required": false
-            },
-            {
-              "name": "categoryName",
-              "label": "Category Name",
-              "hint": "User-Related, Technical, Operational, Documentation",
-              "type": "String",
-              "required": true
             },
             {
               "name": "categoryWeight",
@@ -187540,13 +186289,6 @@
               "required": true
             },
             {
-              "name": "scenarioName",
-              "label": "Scenario Name",
-              "hint": "Short descriptive name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "source",
               "label": "Source (who/what generates the stimulus)",
               "hint": "Who/what generates the stimulus",
@@ -187769,13 +186511,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "standardName",
-              "label": "Standard Name",
-              "hint": "E.g., CMMI, ISO 9001, Six Sigma",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "maturityLevel",
               "label": "Maturity Level",
@@ -189342,13 +188077,6 @@
               "required": true
             },
             {
-              "name": "scenarioName",
-              "label": "Scenario Name",
-              "hint": "Descriptive name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "triggerCondition",
               "label": "Trigger Condition",
               "hint": "What error triggers this scenario",
@@ -189549,13 +188277,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "documentTitle",
-              "label": "Document Title",
-              "hint": "Full official title of the referenced document.",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "documentId",
               "label": "Document ID (internal reference number)",
@@ -190873,13 +189594,6 @@
               "required": true
             },
             {
-              "name": "relatedDocumentTitle",
-              "label": "Related Document Title",
-              "hint": "Title of the related referenced document.",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "relationshipType",
               "label": "Relationship Type (Depends On, Referenced By, Supersedes, Complements, Conflicts With, Parent Of, Child Of)",
               "hint": "Nature of the link, e.g. Depends On, Supersedes, Complements.",
@@ -191423,13 +190137,6 @@
               "name": "sectionReference",
               "label": "Section Reference (chapter, section, or page number)",
               "hint": "Locate the section: chapter, clause, or page number.",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "sectionTitle",
-              "label": "Section Title or Description",
-              "hint": "Title or short description of the section.",
               "type": "String",
               "required": true
             },
@@ -192136,13 +190843,6 @@
               "required": true
             },
             {
-              "name": "roleTitle",
-              "label": "Role Title",
-              "hint": "Title of the role being removed",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "department",
               "label": "Department",
               "hint": "Department the removed role belongs to",
@@ -192562,13 +191262,6 @@
               "required": true
             },
             {
-              "name": "phaseName",
-              "label": "Phase Name",
-              "hint": "Descriptive name for the phase",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "phaseScope",
               "label": "Scope",
               "hint": "What this phase covers",
@@ -192950,13 +191643,6 @@
               "name": "chartId",
               "label": "Chart ID",
               "hint": "Unique within section, e.g. CHT-01",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "title",
-              "label": "Title",
-              "hint": "Chart title",
               "type": "String",
               "required": true
             },
@@ -193379,13 +192065,6 @@
               "name": "columnId",
               "label": "Column ID",
               "hint": "Unique within section, e.g. COL-01",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "columnName",
-              "label": "Column Name",
-              "hint": "Internal field reference",
               "type": "String",
               "required": true
             },
@@ -194612,13 +193291,6 @@
               "required": true
             },
             {
-              "name": "reportName",
-              "label": "Report Name",
-              "hint": "Human-readable report title",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "reportType",
               "label": "Report Type",
               "hint": "Tabular / Summary / Dashboard / KPI-Card / Chart-Only / Mixed",
@@ -195791,13 +194463,6 @@
               "required": true
             },
             {
-              "name": "filterName",
-              "label": "Filter Name",
-              "hint": "Internal reference name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "displayLabel",
               "label": "Display Label",
               "hint": "Label shown in parameter form",
@@ -196576,13 +195241,6 @@
               "required": true
             },
             {
-              "name": "recipientName",
-              "label": "Recipient Name",
-              "hint": "Display name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "recipientType",
               "label": "Recipient Type",
               "hint": "User / Role / Group / Email / Distribution-List / External-Contact / System-Account",
@@ -196877,13 +195535,6 @@
               "name": "scheduleId",
               "label": "Schedule ID",
               "hint": "Unique within report, e.g. SCH-01",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "scheduleName",
-              "label": "Schedule Name",
-              "hint": "Human-readable name, e.g. Monthly Financial Close",
               "type": "String",
               "required": true
             },
@@ -197275,13 +195926,6 @@
               "name": "sectionId",
               "label": "Section ID",
               "hint": "Unique within report, e.g. SEC-01",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "title",
-              "label": "Title",
-              "hint": "Section heading displayed in the report",
               "type": "String",
               "required": true
             },
@@ -198013,13 +196657,6 @@
               "required": true
             },
             {
-              "name": "ruleName",
-              "label": "Rule Name",
-              "hint": "Short descriptive name for the rule",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "ruleType",
               "label": "Rule Type (Constraint, Computation, Derivation, Inference, Condition, Action, Workflow, Authorization)",
               "hint": "Constraint, Computation, Derivation, Inference, Condition, etc.",
@@ -198704,13 +197341,6 @@
               "required": true
             },
             {
-              "name": "actionLabel",
-              "label": "Action Label (button text)",
-              "hint": "Button or link text for the action",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "actionType",
               "label": "Action Type (Submit, Cancel, Navigate, API Call, Dialog, Download, Print, Delete, Duplicate, Export, Import, Refresh, Save, SaveAndNew, SaveAndClose, Custom)",
               "hint": "Submit, Cancel, Navigate, API Call, Dialog, Save, etc.",
@@ -198947,13 +197577,6 @@
               "name": "testCaseId",
               "label": "Test Case ID",
               "hint": "Unique identifier for the test case",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "testCaseName",
-              "label": "Test Case Name",
-              "hint": "Short descriptive name for the test case",
               "type": "String",
               "required": true
             },
@@ -200406,13 +199029,6 @@
               "name": "resourceType",
               "label": "Resource Type (Personnel, Budget, Tool, System, External)",
               "hint": "Personnel, Budget, Tool, System, or External",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "resourceName",
-              "label": "Resource Name",
-              "hint": "Name of the specific resource",
               "type": "String",
               "required": true
             },
@@ -202839,13 +201455,6 @@
               ]
             },
             {
-              "name": "screenName",
-              "label": "Screen Name",
-              "hint": "Human-readable name of the screen",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "mobileLayout",
               "label": "Mobile Layout",
               "hint": "How this screen is laid out on mobile",
@@ -204444,13 +203053,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "componentName",
-              "label": "Component Name",
-              "hint": "Widget or pattern name",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "componentCategory",
               "label": "Category",
@@ -206195,13 +204797,6 @@
               "name": "riskId",
               "label": "Risk ID (e.g., RISK-001, TR-001)",
               "hint": "Unique identifier for this risk",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "riskName",
-              "label": "Risk Name — short descriptive name",
-              "hint": "Short descriptive name for the risk",
               "type": "String",
               "required": true
             },
@@ -208020,13 +206615,6 @@
               "hint": "Unique identifier for this competency",
               "type": "String",
               "required": false
-            },
-            {
-              "name": "competencyName",
-              "label": "Competency Name",
-              "hint": "Name of the competency",
-              "type": "String",
-              "required": true
             },
             {
               "name": "competencyType",
@@ -210048,13 +208636,6 @@
           ],
           "formFields": [
             {
-              "name": "exampleName",
-              "label": "Example Name",
-              "hint": "Name for this example",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "scenario",
               "label": "Scenario",
               "hint": "Description of the example scenario",
@@ -210246,13 +208827,6 @@
               "hint": "Unique identifier, e.g. DEP-R-001",
               "type": "String",
               "required": false
-            },
-            {
-              "name": "name",
-              "label": "Dependency Name",
-              "hint": "Component or service depended upon",
-              "type": "String",
-              "required": true
             },
             {
               "name": "version",
@@ -212358,13 +210932,6 @@
               "required": true
             },
             {
-              "name": "scenarioName",
-              "label": "Scenario Name",
-              "hint": "Short descriptive name for the scenario",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "scenarioType",
               "label": "Scenario Type — happy path, alternative, exception",
               "hint": "One of happy path, alternative, or exception",
@@ -213194,13 +211761,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "jobName",
-              "label": "Job Name",
-              "hint": "The one identifier for this job (e.g. nightlyInvoiceRollup) — cited wherever the job is referenced",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "purpose",
               "label": "Purpose",
@@ -214929,13 +213489,6 @@
               "required": true
             },
             {
-              "name": "actionName",
-              "label": "Action Name",
-              "hint": "Human-readable action name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "actionType",
               "label": "Action Type",
               "hint": "Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh",
@@ -215349,13 +213902,6 @@
               "name": "behaviorId",
               "label": "Behavior ID",
               "hint": "Unique identifier for this behavior",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "behaviorName",
-              "label": "Behavior Name",
-              "hint": "Short descriptive name for the behavior",
               "type": "String",
               "required": true
             },
@@ -216093,13 +214639,6 @@
               "name": "elementId",
               "label": "Element ID",
               "hint": "Unique within screen, e.g., btn-submit, fld-customer-name",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "elementName",
-              "label": "Element Name",
-              "hint": "Human-readable label",
               "type": "String",
               "required": true
             },
@@ -217416,13 +215955,6 @@
               "required": true
             },
             {
-              "name": "screenName",
-              "label": "Screen Name",
-              "hint": "Human-readable screen title",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "purpose",
               "label": "Purpose",
               "hint": "Business purpose — what the user accomplishes here",
@@ -217977,13 +216509,6 @@
               "name": "fieldId",
               "label": "Field ID",
               "hint": "Unique identifier for this field",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "fieldLabel",
-              "label": "Field Label (display text)",
-              "hint": "Display text shown for the field",
               "type": "String",
               "required": true
             },
@@ -219170,13 +217695,6 @@
               "required": false
             },
             {
-              "name": "routeTitle",
-              "label": "Route Title",
-              "hint": "Human-readable screen title shown in the title bar and history",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "screenId",
               "label": "Screen ID",
               "hint": "ID of the screen (SCREN registry) this route renders",
@@ -219488,13 +218006,6 @@
               "name": "sectionId",
               "label": "Section ID",
               "hint": "Unique within screen, e.g., header, filter-bar, main-content",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "sectionName",
-              "label": "Section Name",
-              "hint": "Human label, e.g., \"Filter Bar\", \"Order Details\"",
               "type": "String",
               "required": true
             },
@@ -219880,13 +218391,6 @@
           ],
           "formFields": [
             {
-              "name": "stateName",
-              "label": "State Name",
-              "hint": "Loading/Empty/Error/Permission-Denied/First-Use/Offline/Success",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description",
               "hint": "When this state occurs",
@@ -220230,13 +218734,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "categoryName",
-              "label": "Category Name",
-              "hint": "The name of this user category",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Description",
@@ -220976,13 +219473,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "auditName",
-              "label": "Audit Name",
-              "hint": "Name or title of the audit requirement",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "auditCategory",
               "label": "Audit Category",
@@ -222338,13 +220828,6 @@
               "required": true
             },
             {
-              "name": "controlName",
-              "label": "Control Name",
-              "hint": "Short descriptive name for the control",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "controlType",
               "label": "Control Type (Preventive, Detective, Corrective, Deterrent, Compensating)",
               "hint": "Preventive, Detective, Corrective, Deterrent, or Compensating",
@@ -222985,13 +221468,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "eventName",
-              "label": "Event Name",
-              "hint": "Unique identifier for this event type",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "eventCategory",
               "label": "Event Category",
@@ -224110,13 +222586,6 @@
           ],
           "formFields": [
             {
-              "name": "standardName",
-              "label": "Standard Name",
-              "hint": "E.g., SOC 2, ISO 27001, CIS Controls",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "standardType",
               "label": "Standard Type",
               "hint": "Framework, Certification, Benchmark",
@@ -224465,13 +222934,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "standardName",
-              "label": "Standard Name",
-              "hint": "E.g., OWASP Top 10, ISO 27001, SOC 2, NIST CSF",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "standardVersion",
               "label": "Standard Version",
@@ -225920,13 +224382,6 @@
           ],
           "formFields": [
             {
-              "name": "environmentName",
-              "label": "Environment Name",
-              "hint": "E.g., Development, Staging, Production",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "environmentType",
               "label": "Environment Type",
               "hint": "Development, QA, UAT, Staging, Production, DR",
@@ -226281,13 +224736,6 @@
           ],
           "formFields": [
             {
-              "name": "operationName",
-              "label": "Operation Name",
-              "hint": "Dotted, namespaced operation name (e.g. customer.save, order.submit) — the one operation identifier. Callers cite this name; no transport method or path is authored.",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "purpose",
               "label": "Purpose",
               "hint": "What the operation does, from the caller's point of view",
@@ -226505,13 +224953,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "memberName",
-              "label": "Member Name",
-              "hint": "Name of the member within the shape (e.g. customerId, includeArchived)",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "memberType",
               "label": "Member Type",
@@ -227376,13 +225817,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "roleName",
-              "label": "Role Name",
-              "hint": "E.g., Application Server, Database Server",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "roleType",
               "label": "Role Type",
@@ -230507,13 +228941,6 @@
           ],
           "formFields": [
             {
-              "name": "componentName",
-              "label": "Component Name",
-              "hint": "Unique library name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "componentType",
               "label": "Component Type",
               "hint": "Core, Utility, Domain, Integration, Extension",
@@ -230890,13 +229317,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "libraryName",
-              "label": "Library Name",
-              "hint": "Library identifier",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "libraryType",
               "label": "Library Type",
@@ -232666,13 +231086,6 @@
               "required": true
             },
             {
-              "name": "sloName",
-              "label": "SLO Name",
-              "hint": "Human-readable SLO name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "sloDescription",
               "label": "SLO Description",
               "hint": "What this SLO covers",
@@ -233106,13 +231519,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "layerName",
-              "label": "Layer Name",
-              "hint": "E.g., Presentation, Application, Domain, Infrastructure, Data Access",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "layerLevel",
               "label": "Level",
@@ -234793,13 +233199,6 @@
               "required": true
             },
             {
-              "name": "stageName",
-              "label": "Stage Name",
-              "hint": "Descriptive name, e.g. Foundation, Core Operations",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "currentStatus",
               "label": "Current Status",
               "hint": "Planned / Active / Completed / OnHold / Cancelled",
@@ -236289,13 +234688,6 @@
               "name": "riskId",
               "label": "Risk ID",
               "hint": "Unique identifier — e.g. MIG-R001, MIG-R002",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "riskName",
-              "label": "Risk Name",
-              "hint": "Short descriptive name — e.g. Data Loss During Cutover",
               "type": "String",
               "required": true
             },
@@ -238812,13 +237204,6 @@
               "required": true
             },
             {
-              "name": "stageName",
-              "label": "Stage Name",
-              "hint": "Descriptive name, e.g. Foundation / Core Operations",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "scopeSummary",
               "label": "Scope Summary",
               "hint": "One-line summary of what this stage delivers",
@@ -240617,13 +239002,6 @@
           ],
           "formFields": [
             {
-              "name": "stakeholderName",
-              "label": "Stakeholder Name or Group",
-              "hint": "Name of the stakeholder individual or group",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "stakeholderType",
               "label": "Stakeholder Type (Sponsor, User, Customer, Partner, Regulator, etc.)",
               "hint": "Sponsor, User, Customer, Partner, Regulator, etc.",
@@ -240691,12 +239069,6 @@
             {
               "name": "stakeholderId",
               "label": "Stakeholder ID (STK-NNN)",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "name",
-              "label": "Name or Group",
               "type": "String",
               "required": true
             },
@@ -242528,13 +240900,6 @@
           ],
           "formFields": [
             {
-              "name": "subFunctionName",
-              "label": "Sub-Function Name",
-              "hint": "Name of the sub-function",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description",
               "hint": "What this sub-function does",
@@ -242591,13 +240956,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "name",
-              "label": "Name",
-              "hint": "Descriptive name for this sub-stage or milestone",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "subStageType",
               "label": "Type",
@@ -243662,13 +242020,6 @@
               "name": "criterionId",
               "label": "Criterion ID",
               "hint": "Unique identifier (e.g., SC-001)",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "criterionName",
-              "label": "Criterion Name",
-              "hint": "Short descriptive name",
               "type": "String",
               "required": true
             },
@@ -245780,13 +244131,6 @@
           ],
           "formFields": [
             {
-              "name": "processName",
-              "label": "Process Name",
-              "hint": "Name of the supported business process",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "processId",
               "label": "Process ID",
               "hint": "Identifier for the process if one exists",
@@ -245865,13 +244209,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "unitName",
-              "label": "Business Unit",
-              "hint": "Name of the business unit",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "userCount",
               "label": "User Count",
@@ -247172,13 +245509,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "dependencyName",
-              "label": "Dependency Name",
-              "hint": "Descriptive name, e.g. CRM → ERP order sync",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "dependencyType",
               "label": "Dependency Type",
@@ -248976,13 +247306,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "integrationName",
-              "label": "Integration Name",
-              "hint": "Descriptive name, e.g. Real-time inventory sync",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "integrationType",
               "label": "Integration Type",
@@ -252657,13 +250980,6 @@
               "required": true
             },
             {
-              "name": "taskName",
-              "label": "Task Name",
-              "hint": "Short descriptive name of the task",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description (what the user does)",
               "hint": "What the user does when performing this task",
@@ -253491,13 +251807,6 @@
               "required": true
             },
             {
-              "name": "systemName",
-              "label": "System Name",
-              "hint": "Common name the organization uses for this system",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "officialName",
               "label": "Official/Vendor Name",
               "hint": "Vendor/product name and edition, if a commercial system",
@@ -253859,12 +252168,6 @@
             {
               "name": "trainingId",
               "label": "Training ID",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "systemName",
-              "label": "System Name",
               "type": "String",
               "required": true
             },
@@ -254531,13 +252834,6 @@
               "required": true
             },
             {
-              "name": "tabBarName",
-              "label": "Tab Bar Name",
-              "hint": "Human label",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "hostScreenId",
               "label": "Host Screen ID",
               "hint": "Screen that contains this tab bar",
@@ -255030,13 +253326,6 @@
           ],
           "formFields": [
             {
-              "name": "platformName",
-              "label": "Platform Name",
-              "hint": "E.g., Linux, Windows Server, macOS, iOS, Android",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "platformCategory",
               "label": "Category",
               "hint": "Operating System, Runtime Environment, Container Platform, Cloud Platform",
@@ -255379,13 +253668,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "name",
-              "label": "Name",
-              "hint": "Full name of the team member",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "projectRole",
               "label": "Project Role",
@@ -255900,13 +254182,6 @@
           ],
           "formFields": [
             {
-              "name": "skillName",
-              "label": "Skill Name",
-              "hint": "Name of the skill or competency",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "proficiencyLevel",
               "label": "Proficiency (Expert/Advanced/Intermediate/Beginner)",
               "hint": "Expert / Advanced / Intermediate / Beginner",
@@ -256336,13 +254611,6 @@
               "required": true
             },
             {
-              "name": "constraintName",
-              "label": "Constraint Name",
-              "hint": "Short descriptive name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "constraintType",
               "label": "Constraint Type (Technology, Standard, Resource, Compatibility, Budget, Timeline, Regulatory)",
               "hint": "Technology, Standard, Resource, Compatibility, Budget, etc.",
@@ -256439,13 +254707,6 @@
               "name": "dependencyId",
               "label": "Dependency ID",
               "hint": "Unique identifier for the dependency",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "dependencyName",
-              "label": "Dependency Name",
-              "hint": "Name of the dependency",
               "type": "String",
               "required": true
             },
@@ -257799,13 +256060,6 @@
               "required": true
             },
             {
-              "name": "goalName",
-              "label": "Goal Name (concise statement)",
-              "hint": "Concise statement of the technical goal",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description (detailed explanation of the technical objective)",
               "hint": "Detailed explanation of the technical objective",
@@ -258110,13 +256364,6 @@
               "name": "testCaseId",
               "label": "Test Case ID",
               "hint": "Unique identifier for the test case",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "testCaseName",
-              "label": "Test Case Name",
-              "hint": "Short descriptive name",
               "type": "String",
               "required": true
             },
@@ -259846,13 +258093,6 @@
               "required": true
             },
             {
-              "name": "standardName",
-              "label": "Standard Name",
-              "hint": "Short descriptive name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "standardCategory",
               "label": "Category",
               "hint": "Security, Development, Infrastructure, Integration, Data, DevOps",
@@ -260824,13 +259064,6 @@
               "name": "scenarioId",
               "label": "Scenario ID",
               "hint": "Unique identifier — e.g. UAT-SC-001",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "scenarioName",
-              "label": "Scenario Name",
-              "hint": "Concise name describing the user journey",
               "type": "String",
               "required": true
             },
@@ -262770,13 +261003,6 @@
           ],
           "formFields": [
             {
-              "name": "libraryName",
-              "label": "Library Name",
-              "hint": "Package name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "packageSource",
               "label": "Package Source",
               "hint": "pub.dev, npm, Maven, GitHub",
@@ -263985,13 +262211,6 @@
               "name": "toolId",
               "label": "Tool ID",
               "hint": "Unique identifier, e.g. TOOL-IDE-001",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "toolName",
-              "label": "Tool Name",
-              "hint": "Official product name, e.g. GitHub, Jira, VS Code",
               "type": "String",
               "required": true
             },
@@ -266044,13 +264263,6 @@
               "required": false
             },
             {
-              "name": "stepTitle",
-              "label": "Step Title",
-              "hint": "Short title shown for this step",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "stepContent",
               "label": "Step Content",
               "hint": "Explanatory text shown for this step",
@@ -266135,12 +264347,6 @@
               "hint": "Unique identifier (e.g., TRADEOFF-001)",
               "type": "String",
               "required": false
-            },
-            {
-              "name": "decisionTitle",
-              "label": "Decision Title",
-              "type": "String",
-              "required": true
             },
             {
               "name": "decisionStatus",
@@ -267583,13 +265789,6 @@
               "required": true
             },
             {
-              "name": "moduleName",
-              "label": "Module Name",
-              "hint": "Descriptive title of the module",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "targetAudience",
               "label": "Target Audience",
               "hint": "End users, admins, power users",
@@ -268178,13 +266377,6 @@
           ],
           "formFields": [
             {
-              "name": "topicName",
-              "label": "Topic Name",
-              "hint": "Name of the training topic",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description",
               "hint": "Brief description of what this topic covers",
@@ -268719,13 +266911,6 @@
               "required": true
             },
             {
-              "name": "metricName",
-              "label": "Metric Name",
-              "hint": "A short descriptive name for this success metric",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "category",
               "label": "Category — Adoption, Performance, Quality, Satisfaction, Efficiency",
               "hint": "The category of this metric: Adoption, Performance, Quality, Satisfaction, or Efficiency",
@@ -268958,13 +267143,6 @@
               "name": "milestoneId",
               "label": "Milestone ID (e.g., MS-01)",
               "hint": "Unique identifier for the milestone, e.g. MS-01",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "milestoneName",
-              "label": "Milestone Name",
-              "hint": "Short descriptive name for the milestone",
               "type": "String",
               "required": true
             },
@@ -269814,13 +267992,6 @@
               "required": true
             },
             {
-              "name": "phaseName",
-              "label": "Phase Name",
-              "hint": "Short descriptive name for the transition phase",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "phaseType",
               "label": "Phase Type — Preparation, Pilot, Rollout, Stabilization, Closure",
               "hint": "The kind of phase: Preparation, Pilot, Rollout, Stabilization, or Closure",
@@ -270133,13 +268304,6 @@
               "name": "riskId",
               "label": "Risk ID",
               "hint": "A unique identifier for this transition risk",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "riskName",
-              "label": "Risk Name",
-              "hint": "A short descriptive name for this transition risk",
               "type": "String",
               "required": true
             },
@@ -270545,13 +268709,6 @@
               "hint": "The kind of support resource: Help Desk, Super User, Floor Walker, Coach, FAQ, etc.",
               "type": "String",
               "required": true
-            },
-            {
-              "name": "resourceName",
-              "label": "Resource Name/Title",
-              "hint": "The name or title of this support resource",
-              "type": "String",
-              "required": false
             },
             {
               "name": "availabilityPeriod",
@@ -271749,13 +269906,6 @@
           ],
           "formFields": [
             {
-              "name": "vendorName",
-              "label": "Vendor Name",
-              "hint": "Legal or trading name of the translation vendor",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "vendorType",
               "label": "Vendor Type",
               "hint": "LSP, freelance, in-house",
@@ -272321,13 +270471,6 @@
           ],
           "formFields": [
             {
-              "name": "boundaryName",
-              "label": "Boundary Name",
-              "hint": "The name of this trust boundary",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "boundaryType",
               "label": "Boundary Type (Network Zone, Authentication Domain, Organizational, Legal/Regulatory, Cloud/On-Prem)",
               "hint": "The category of trust boundary",
@@ -272424,13 +270567,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "styleName",
-              "label": "Style Name",
-              "hint": "DisplayLarge, BodyMedium, LabelSmall",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "fontFamily",
               "label": "Font Family",
@@ -272667,13 +270803,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "cycleName",
-              "label": "Cycle Name",
-              "hint": "e.g. \"Cycle 1 — Initial Execution\" or \"Regression Cycle\"",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "cycleObjective",
               "label": "Cycle Objective",
@@ -273013,13 +271142,6 @@
               "name": "componentId",
               "label": "Component ID",
               "hint": "Unique identifier (e.g., CMP-DTT-001)",
-              "type": "String",
-              "required": true
-            },
-            {
-              "name": "componentName",
-              "label": "Component Name",
-              "hint": "Human-readable name",
               "type": "String",
               "required": true
             },
@@ -277526,13 +275648,6 @@
           ],
           "formFields": [
             {
-              "name": "attributeName",
-              "label": "Attribute Name",
-              "hint": "Name of the user attribute.",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "dataType",
               "label": "Data Type",
               "hint": "Data type of the attribute value.",
@@ -278231,13 +276346,6 @@
           ],
           "formFields": [
             {
-              "name": "categoryName",
-              "label": "Category Name",
-              "hint": "Name of the user category.",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Short description",
               "hint": "Brief description of this category.",
@@ -278311,13 +276419,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "categoryName",
-              "label": "Category Name",
-              "hint": "Descriptive name of this user category",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "categoryId",
               "label": "Category ID (unique identifier)",
@@ -279051,13 +277152,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "groupName",
-              "label": "User Group",
-              "hint": "Name of the user group",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "userCount",
               "label": "User Count",
@@ -280192,13 +278286,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "transitionName",
-              "label": "Transition Name",
-              "hint": "Descriptive name (e.g., \"Activate Account\", \"Suspend User\")",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "fromState",
               "label": "From State",
@@ -282209,13 +280296,6 @@
               "required": true
             },
             {
-              "name": "label",
-              "label": "Label Resource",
-              "hint": "Display text",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "icon",
               "label": "Icon Resource",
               "hint": "Leading icon",
@@ -282556,13 +280636,6 @@
               "hint": "e.g., util-user-menu, util-notifications",
               "type": "String",
               "required": true
-            },
-            {
-              "name": "label",
-              "label": "Label Resource",
-              "hint": "Display label (may be hidden)",
-              "type": "String",
-              "required": false
             },
             {
               "name": "icon",
@@ -284670,13 +282743,6 @@
           ],
           "formFields": [
             {
-              "name": "vpnName",
-              "label": "VPN Name",
-              "hint": "VPN connection name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "vpnType",
               "label": "VPN Type",
               "hint": "Site-to-Site, Client, SSL",
@@ -286321,13 +284387,6 @@
               "required": true
             },
             {
-              "name": "criterionName",
-              "label": "Criterion Name",
-              "hint": "Name of the success criterion (e.g., Contrast Minimum)",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "level",
               "label": "Level",
               "hint": "A, AA, AAA",
@@ -286686,12 +284745,6 @@
           ],
           "formFields": [
             {
-              "name": "actorName",
-              "label": "Actor Name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "actorType",
               "label": "Actor Type (e.g., Role, System, Department, External)",
               "type": "String",
@@ -286814,12 +284867,6 @@
           ],
           "formFields": [
             {
-              "name": "ruleName",
-              "label": "Rule Name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "ruleDescription",
               "label": "Description",
               "type": "String",
@@ -286896,12 +284943,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "decisionName",
-              "label": "Decision Name",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "decisionCriteria",
               "label": "Decision Criteria",
@@ -287153,12 +285194,6 @@
           ],
           "formFields": [
             {
-              "name": "exceptionName",
-              "label": "Exception Name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "exceptionType",
               "label": "Type (e.g., Validation, System, Business)",
               "type": "String",
@@ -287350,12 +285385,6 @@
           ],
           "formFields": [
             {
-              "name": "inputName",
-              "label": "Input Name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "inputType",
               "label": "Type (data type or document type)",
               "type": "String",
@@ -287436,12 +285465,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "outputName",
-              "label": "Output Name",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "outputType",
               "label": "Type (data type or document type)",
@@ -287526,12 +285549,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "stepName",
-              "label": "Step Name",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "stepNumber",
               "label": "Step Number (sequence order)",
@@ -287894,12 +285911,6 @@
           ],
           "formFields": [
             {
-              "name": "issueName",
-              "label": "Issue Name",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "issueDescription",
               "label": "Description",
               "type": "String",
@@ -288032,12 +286043,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "workflowName",
-              "label": "Workflow Name",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "workflowType",
               "label": "Type",
@@ -288278,12 +286283,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "triggerName",
-              "label": "Trigger Name",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "triggerType",
               "label": "Type (e.g., Event, Schedule, Manual, System)",

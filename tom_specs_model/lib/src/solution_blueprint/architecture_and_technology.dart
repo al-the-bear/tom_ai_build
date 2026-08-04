@@ -353,13 +353,6 @@ Provide a strategic overview of platform and technology selections.
 class TargetPlatformEntry extends DocSpecsSection {
   @Form([
     Field(
-      'platformName',
-      String,
-      'Platform Name',
-      required: true,
-      hint: 'E.g., Linux, Windows Server, macOS, iOS, Android',
-    ),
-    Field(
       'platformCategory',
       String,
       'Category',
@@ -499,13 +492,6 @@ class TargetPlatformEntry extends DocSpecsSection {
 @SectionId('PLGEN')
 class ProgrammingLanguageEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'languageName',
-      String,
-      'Language Name',
-      required: true,
-      hint: 'E.g., Dart, TypeScript, Python, Rust',
-    ),
     Field(
       'languageVariant',
       String,
@@ -702,13 +688,6 @@ class ProgrammingLanguageEntry extends DocSpecsSection {
 @SectionId('FRREEN')
 class FrameworkRequirementEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'frameworkName',
-      String,
-      'Framework/Library Name',
-      required: true,
-      hint: 'E.g., Flutter, Angular, Django, Spring Boot',
-    ),
     Field(
       'frameworkCategory',
       String,
@@ -929,13 +908,6 @@ class FrameworkRequirementEntry extends DocSpecsSection {
 class BuildToolchainEntry extends DocSpecsSection {
   @Form([
     Field(
-      'toolName',
-      String,
-      'Tool Name',
-      required: true,
-      hint: 'E.g., Gradle, CMake, Webpack, Dart build_runner',
-    ),
-    Field(
       'toolCategory',
       String,
       'Category',
@@ -1119,13 +1091,6 @@ class BuildToolchainEntry extends DocSpecsSection {
 @SectionId('DEPTAR')
 class DeploymentTargetEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'targetName',
-      String,
-      'Target Name',
-      required: true,
-      hint: 'E.g., Production Web, iOS App Store, Docker Hub',
-    ),
     Field(
       'targetCategory',
       String,
@@ -1977,13 +1942,6 @@ class ArchitectureOverview extends DocSpecsSection {
 class ArchitecturePrincipleEntry extends DocSpecsSection {
   @Form([
     Field(
-      'principleName',
-      String,
-      'Principle Name',
-      required: true,
-      hint: 'E.g., Separation of Concerns, DRY, SOLID',
-    ),
-    Field(
       'category',
       String,
       'Category',
@@ -2248,13 +2206,6 @@ class ComponentOrganization extends DocSpecsSection {
 )
 class ArchitectureComponentEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'componentName',
-      String,
-      'Component Name',
-      required: true,
-      hint: 'Unique name for this component',
-    ),
     Field(
       'componentType',
       String,
@@ -3370,13 +3321,6 @@ class ArchitectureDecisionRecord extends DocSpecsSection {
       hint: 'Unique identifier (e.g., ADR-001)',
     ),
     Field(
-      'title',
-      String,
-      'Title',
-      required: true,
-      hint: 'Short title of the decision',
-    ),
-    Field(
       'date',
       String,
       'Date',
@@ -3683,13 +3627,6 @@ Provide an overview of the design patterns and standards approach.
 class DesignPatternEntry extends DocSpecsSection {
   @Form([
     Field(
-      'patternName',
-      String,
-      'Pattern Name',
-      required: true,
-      hint: 'E.g., Repository, Factory, Observer, State, Command',
-    ),
-    Field(
       'patternCategory',
       String,
       'Category',
@@ -3858,13 +3795,6 @@ class DesignPatternEntry extends DocSpecsSection {
 class CodingStandardEntry extends DocSpecsSection {
   @Form([
     Field(
-      'standardName',
-      String,
-      'Standard Name',
-      required: true,
-      hint: 'E.g., Effective Dart, Clean Code, Project-specific',
-    ),
-    Field(
       'standardCategory',
       String,
       'Category',
@@ -3995,13 +3925,6 @@ class CodingStandardEntry extends DocSpecsSection {
 @SectionId('DCE')
 class DevelopmentConventionEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'conventionName',
-      String,
-      'Convention Name',
-      required: true,
-      hint: 'Name of the development convention',
-    ),
     Field(
       'conventionCategory',
       String,
@@ -4172,13 +4095,6 @@ class DevelopmentConventionEntry extends DocSpecsSection {
 @SectionId('ISE')
 class IndustryStandardEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'standardName',
-      String,
-      'Standard Name',
-      required: true,
-      hint: 'E.g., ISO 27001, OWASP, IEEE 830, GDPR',
-    ),
     Field(
       'standardBody',
       String,
@@ -5342,14 +5258,6 @@ Provide an overview of the layering and modularization strategy.
 class SoftwareLayerEntry extends DocSpecsSection {
   @Form([
     Field(
-      'layerName',
-      String,
-      'Layer Name',
-      required: true,
-      hint:
-          'E.g., Presentation, Application, Domain, Infrastructure, Data Access',
-    ),
-    Field(
       'layerLevel',
       String,
       'Level',
@@ -5642,13 +5550,6 @@ class LayerCommunicationRules extends DocSpecsSection {
 @SectionId('BCE')
 class BoundedContextEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'contextName',
-      String,
-      'Context Name',
-      required: true,
-      hint: 'E.g., Order, Inventory, Customer, Billing',
-    ),
     Field(
       'domainArea',
       String,
@@ -5977,13 +5878,6 @@ class PackageOrganization extends DocSpecsSection {
 class ModuleEntry extends DocSpecsSection {
   @Form([
     Field(
-      'moduleName',
-      String,
-      'Module Name',
-      required: true,
-      hint: 'Unique module identifier',
-    ),
-    Field(
       'moduleType',
       String,
       'Module Type',
@@ -6167,13 +6061,6 @@ class ModuleEntry extends DocSpecsSection {
 @SectionId('SHLIEN')
 class SharedLibraryEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'libraryName',
-      String,
-      'Library Name',
-      required: true,
-      hint: 'Library identifier',
-    ),
     Field(
       'libraryType',
       String,
@@ -6636,13 +6523,6 @@ class CrossCuttingConcerns extends DocSpecsSection {
 @SectionId('FTRMOD')
 class FeatureModuleEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'featureName',
-      String,
-      'Feature Name',
-      required: true,
-      hint: 'Feature identifier',
-    ),
     Field(
       'featureArea',
       String,
@@ -7109,13 +6989,6 @@ Provide an overview of the development environment philosophy.
 class IdeRequirementEntry extends DocSpecsSection {
   @Form([
     // Identity
-    Field(
-      'ideName',
-      String,
-      'IDE/Editor Name',
-      required: true,
-      hint: 'E.g., VS Code, IntelliJ IDEA, Android Studio',
-    ),
     Field(
       'version',
       String,
@@ -7643,13 +7516,6 @@ class CiCdPipelineConfiguration extends DocSpecsSection {
 class PipelineStageEntry extends DocSpecsSection {
   @Form([
     // Identity
-    Field(
-      'stageName',
-      String,
-      'Stage Name',
-      required: true,
-      hint: 'E.g., Build, Test, Deploy, Release',
-    ),
     Field('stageOrder', String, 'Order', hint: 'Execution order'),
     Field('description', String, 'Description', hint: 'What this stage does'),
   ])
@@ -7781,13 +7647,6 @@ class PipelineStageEntry extends DocSpecsSection {
 class PipelineJobEntry extends DocSpecsSection {
   @Form([
     Field(
-      'jobName',
-      String,
-      'Job Name',
-      required: true,
-      hint: 'Job identifier',
-    ),
-    Field(
       'parentStage',
       String,
       'Parent Stage',
@@ -7913,13 +7772,6 @@ class PipelineJobEntry extends DocSpecsSection {
 class DeploymentEnvironmentEntry extends DocSpecsSection {
   @Form([
     // Identity
-    Field(
-      'environmentName',
-      String,
-      'Environment Name',
-      required: true,
-      hint: 'E.g., dev, staging, production',
-    ),
     Field(
       'environmentType',
       String,
@@ -9433,13 +9285,6 @@ class ReusabilityPrinciples extends DocSpecsSection {
 class SharedLibraryComponentEntry extends DocSpecsSection {
   @Form([
     Field(
-      'componentName',
-      String,
-      'Component Name',
-      required: true,
-      hint: 'Unique library name',
-    ),
-    Field(
       'componentType',
       String,
       'Component Type',
@@ -9598,13 +9443,6 @@ class SharedLibraryComponentEntry extends DocSpecsSection {
 @SectionId('RUCE')
 class ReusableUiComponentEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'componentName',
-      String,
-      'Component Name',
-      required: true,
-      hint: 'Widget or pattern name',
-    ),
     Field(
       'componentCategory',
       String,
@@ -9784,13 +9622,6 @@ class ReusableUiComponentEntry extends DocSpecsSection {
 class BusinessComponentEntry extends DocSpecsSection {
   @Form([
     Field(
-      'componentName',
-      String,
-      'Component Name',
-      required: true,
-      hint: 'Business component name',
-    ),
-    Field(
       'componentType',
       String,
       'Component Type',
@@ -9961,13 +9792,6 @@ class BusinessComponentEntry extends DocSpecsSection {
 class InfrastructureComponentEntry extends DocSpecsSection {
   @Form([
     Field(
-      'componentName',
-      String,
-      'Component Name',
-      required: true,
-      hint: 'Infrastructure component name',
-    ),
-    Field(
       'componentType',
       String,
       'Component Type',
@@ -10137,13 +9961,6 @@ class InfrastructureComponentEntry extends DocSpecsSection {
 @SectionId('THPALI')
 class ThirdPartyLibraryEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'libraryName',
-      String,
-      'Library Name',
-      required: true,
-      hint: 'Package name',
-    ),
     Field(
       'packageSource',
       String,
@@ -10902,13 +10719,6 @@ Provide an overview of compatibility requirements and testing strategy.
 @SectionId('OCE')
 class OsCompatibilityEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'osName',
-      String,
-      'Operating System',
-      required: true,
-      hint: 'E.g., Windows, macOS, Linux, iOS, Android',
-    ),
     Field('osFamily', String, 'OS Family', hint: 'Windows, Unix, Mobile'),
     Field(
       'minVersion',
@@ -11054,13 +10864,6 @@ class OsCompatibilityEntry extends DocSpecsSection {
 @SectionId('BROCOM')
 class BrowserCompatibilityEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'browserName',
-      String,
-      'Browser',
-      required: true,
-      hint: 'E.g., Chrome, Firefox, Safari, Edge',
-    ),
     Field(
       'browserEngine',
       String,
@@ -11222,13 +11025,6 @@ class BrowserCompatibilityEntry extends DocSpecsSection {
 class DatabaseCompatibilityEntry extends DocSpecsSection {
   @Form([
     Field(
-      'databaseName',
-      String,
-      'Database',
-      required: true,
-      hint: 'E.g., PostgreSQL, MySQL, MongoDB, SQLite',
-    ),
-    Field(
       'databaseType',
       String,
       'Type',
@@ -11385,13 +11181,6 @@ class DatabaseCompatibilityEntry extends DocSpecsSection {
 class EnterpriseSystemCompatibilityEntry extends DocSpecsSection {
   @Form([
     Field(
-      'systemName',
-      String,
-      'System Name',
-      required: true,
-      hint: 'E.g., SAP, Salesforce, Oracle ERP',
-    ),
-    Field(
       'systemType',
       String,
       'System Type',
@@ -11545,13 +11334,6 @@ class EnterpriseSystemCompatibilityEntry extends DocSpecsSection {
 @SectionId('APCP')
 class ApiCompatibilityEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'apiName',
-      String,
-      'API/Protocol Name',
-      required: true,
-      hint: 'Name of API or protocol',
-    ),
     Field(
       'apiType',
       String,
@@ -12792,13 +12574,6 @@ Provide an overview of standards compliance strategy and roadmap.
 class ItStandardComplianceEntry extends DocSpecsSection {
   @Form([
     Field(
-      'standardName',
-      String,
-      'Standard Name',
-      required: true,
-      hint: 'E.g., ISO 27001, IEEE 802.11, NIST SP 800-53',
-    ),
-    Field(
       'standardBody',
       String,
       'Standard Body',
@@ -12944,13 +12719,6 @@ class ItStandardComplianceEntry extends DocSpecsSection {
 @SectionId('INPRCO')
 class IndustryProtocolComplianceEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'protocolName',
-      String,
-      'Protocol Name',
-      required: true,
-      hint: 'E.g., HTTP/2, MQTT, AMQP, WebSocket',
-    ),
     Field(
       'category',
       String,
@@ -13109,13 +12877,6 @@ class IndustryProtocolComplianceEntry extends DocSpecsSection {
 @SectionId('INTSPE')
 class InterfaceSpecificationEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'specificationName',
-      String,
-      'Specification Name',
-      required: true,
-      hint: 'E.g., REST, GraphQL, gRPC, SOAP',
-    ),
     Field(
       'specificationVersion',
       String,
@@ -13410,13 +13171,6 @@ class RegulatoryComplianceEntry extends DocSpecsSection {
 class SecurityStandardComplianceEntry extends DocSpecsSection {
   @Form([
     Field(
-      'standardName',
-      String,
-      'Standard Name',
-      required: true,
-      hint: 'E.g., SOC 2, ISO 27001, CIS Controls',
-    ),
-    Field(
       'standardType',
       String,
       'Standard Type',
@@ -13549,13 +13303,6 @@ class SecurityStandardComplianceEntry extends DocSpecsSection {
 @SectionId('ACCSTD')
 class AccessibilityStandardEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'standardName',
-      String,
-      'Standard Name',
-      required: true,
-      hint: 'E.g., WCAG 2.1, Section 508, EN 301 549',
-    ),
     Field('version', String, 'Version', hint: 'Standard version'),
     Field(
       'conformanceLevel',
@@ -13694,13 +13441,6 @@ class AccessibilityStandardEntry extends DocSpecsSection {
 @SectionId('QLSTD')
 class QualityStandardEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'standardName',
-      String,
-      'Standard Name',
-      required: true,
-      hint: 'E.g., CMMI, ISO 9001, Six Sigma',
-    ),
     Field(
       'maturityLevel',
       String,
@@ -14649,13 +14389,6 @@ Provide an overview of server infrastructure strategy.
 class ServerEnvironmentEntry extends DocSpecsSection {
   @Form([
     Field(
-      'environmentName',
-      String,
-      'Environment Name',
-      required: true,
-      hint: 'E.g., Development, Staging, Production',
-    ),
-    Field(
       'environmentType',
       String,
       'Environment Type',
@@ -14788,13 +14521,6 @@ class ServerEnvironmentEntry extends DocSpecsSection {
 @SectionId('SRE')
 class ServerRoleEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'roleName',
-      String,
-      'Role Name',
-      required: true,
-      hint: 'E.g., Application Server, Database Server',
-    ),
     Field(
       'roleType',
       String,
@@ -16316,13 +16042,6 @@ declared makes the reference dangle.
       required: true,
       hint: 'The one identifier for this client application (e.g. backoffice) '
           '— cited wherever the client is referenced',
-    ),
-    Field(
-      'clientName',
-      String,
-      'Client Name',
-      required: true,
-      hint: 'The name users and operators call this client by',
     ),
     Field(
       'clientKind',
@@ -18964,13 +18683,6 @@ class NetworkAvailabilityRequirements extends DocSpecsSection {
 @SectionId('VRE')
 class VpnRequirementEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'vpnName',
-      String,
-      'VPN Name',
-      required: true,
-      hint: 'VPN connection name',
-    ),
     Field('vpnType', String, 'VPN Type', hint: 'Site-to-Site, Client, SSL'),
     Field('purpose', String, 'Purpose', hint: 'Purpose of this VPN'),
   ])
@@ -20090,13 +19802,6 @@ class BackupDataClassification extends DocSpecsSection {
 @SectionId('BPE')
 class BackupPolicyEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'policyName',
-      String,
-      'Policy Name',
-      required: true,
-      hint: 'Policy identifier',
-    ),
     Field('dataScope', String, 'Data Scope', hint: 'What this policy covers'),
     Field('priority', String, 'Priority', hint: 'Critical, High, Medium, Low'),
   ])
@@ -23534,13 +23239,6 @@ class AlertingRequirements extends DocSpecsSection {
 class AlertDefinitionEntry extends DocSpecsSection {
   @Form([
     Field(
-      'alertName',
-      String,
-      'Alert Name',
-      required: true,
-      hint: 'Alert identifier',
-    ),
-    Field(
       'alertDescription',
       String,
       'Alert Description',
@@ -24494,13 +24192,6 @@ class ScheduledMaintenancePolicy extends DocSpecsSection {
 class MaintenanceWindowEntry extends DocSpecsSection {
   @Form([
     Field(
-      'windowName',
-      String,
-      'Window Name',
-      required: true,
-      hint: 'Maintenance window name',
-    ),
-    Field(
       'windowType',
       String,
       'Window Type',
@@ -25328,13 +25019,6 @@ Provide an overview of protocol and standards approach.
 @SectionId('PE')
 class ProtocolEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'protocolName',
-      String,
-      'Protocol Name',
-      required: true,
-      hint: 'HTTP/2, WebSocket, gRPC, MQTT, AMQP',
-    ),
     Field(
       'protocolType',
       String,
@@ -26451,13 +26135,6 @@ Provide an overview of external connectivity landscape.
 @SectionId('EXPACO')
 class ExternalPartnerConnectionEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'partnerName',
-      String,
-      'Partner Name',
-      required: true,
-      hint: 'Name of the external partner or system',
-    ),
     Field(
       'partnerType',
       String,
@@ -28642,14 +28319,6 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
 ''')
   @Form([
     Field(
-      'jobName',
-      String,
-      'Job Name',
-      required: true,
-      hint: 'The one identifier for this job (e.g. nightlyInvoiceRollup) — '
-          'cited wherever the job is referenced',
-    ),
-    Field(
       'purpose',
       String,
       'Purpose',
@@ -29390,13 +29059,6 @@ class AlertRuleEntry extends DocSpecsSection {
       'Alert ID',
       required: true,
       hint: 'Unique identifier for this alert rule',
-    ),
-    Field(
-      'alertName',
-      String,
-      'Alert Name',
-      required: true,
-      hint: 'Human-readable name for this alert',
     ),
     Field(
       'alertDescription',
@@ -30479,13 +30141,6 @@ class DistributedTracingSpec extends DocSpecsSection {
 class CustomMetricEntry extends DocSpecsSection {
   @Form([
     Field(
-      'metricName',
-      String,
-      'Metric Name',
-      required: true,
-      hint: 'Full metric name (e.g., app_orders_total)',
-    ),
-    Field(
       'metricType',
       String,
       'Metric Type',
@@ -30651,13 +30306,6 @@ class DashboardEntry extends DocSpecsSection {
       'Dashboard ID',
       required: true,
       hint: 'Unique dashboard identifier',
-    ),
-    Field(
-      'dashboardName',
-      String,
-      'Dashboard Name',
-      required: true,
-      hint: 'Human-readable dashboard name',
     ),
     Field(
       'dashboardCategory',
@@ -31038,13 +30686,6 @@ class SloEntry extends DocSpecsSection {
       'SLO ID',
       required: true,
       hint: 'Unique SLO identifier',
-    ),
-    Field(
-      'sloName',
-      String,
-      'SLO Name',
-      required: true,
-      hint: 'Human-readable SLO name',
     ),
     Field(
       'sloDescription',
@@ -33271,13 +32912,6 @@ Provide an overview of IT security standards approach.
 @SectionId('SSE')
 class SecurityStandardEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'standardName',
-      String,
-      'Standard Name',
-      required: true,
-      hint: 'E.g., OWASP Top 10, ISO 27001, SOC 2, NIST CSF',
-    ),
     Field(
       'standardVersion',
       String,
@@ -36700,13 +36334,6 @@ class SecurityTestingAutomation extends DocSpecsSection {
 class SecurityAuditEntry extends DocSpecsSection {
   @Form([
     // Audit identification
-    Field(
-      'auditName',
-      String,
-      'Audit Name',
-      required: true,
-      hint: 'Name or title of the audit requirement',
-    ),
     Field(
       'auditCategory',
       String,

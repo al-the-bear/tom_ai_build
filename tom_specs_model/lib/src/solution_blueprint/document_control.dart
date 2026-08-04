@@ -130,13 +130,6 @@ class ApprovalRecord extends DocSpecsSection {
       hint: 'Governance role accountable for the sign-off, e.g. "Sponsor".',
     ),
     Field(
-      'name',
-      String,
-      'Approver Name',
-      required: true,
-      hint: 'Name of the individual giving the approval.',
-    ),
-    Field(
       'date',
       String,
       'Approval Date',
@@ -212,13 +205,6 @@ class ReferenceDocuments extends DocSpecsSection {
 @SectionId('RFDOC')
 class ReferenceDocumentEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'documentTitle',
-      String,
-      'Document Title',
-      required: true,
-      hint: 'Full official title of the referenced document.',
-    ),
     Field(
       'documentId',
       String,
@@ -448,13 +434,6 @@ class RelevantSectionEntry extends DocSpecsSection {
       hint: 'Locate the section: chapter, clause, or page number.',
     ),
     Field(
-      'sectionTitle',
-      String,
-      'Section Title or Description',
-      required: true,
-      hint: 'Title or short description of the section.',
-    ),
-    Field(
       'relevance',
       String,
       'Relevance (how this section applies to the project)',
@@ -529,12 +508,6 @@ class RelatedDocumentEntry extends DocSpecsSection {
       'Related Document ID',
       required: true,
       hint: 'ID of the related referenced document.',
-    ),
-    Field(
-      'relatedDocumentTitle',
-      String,
-      'Related Document Title',
-      hint: 'Title of the related referenced document.',
     ),
     Field(
       'relationshipType',

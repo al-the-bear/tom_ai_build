@@ -430,9 +430,6 @@ form-types:
       - fieldname: interfaceId
         required: true
         description: Unique stable identifier for this interface
-      - fieldname: interfaceName
-        required: true
-        description: Human-readable name of the interface
       - fieldname: externalSystem
         required: true
         description: Name of the external system being integrated
