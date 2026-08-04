@@ -55741,15 +55741,6 @@ impl AcceptanceCriterionEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn criterion_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criterionId")
-    }
-
-    pub fn set_criterion_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criterionId", value);
-    }
-
     pub fn given(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "given")
     }
@@ -56449,15 +56440,6 @@ impl AccessLevelEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn level_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "levelId")
-    }
-
-    pub fn set_level_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "levelId", value);
-    }
-
     pub fn level_rank(&self) -> Option<i64> {
         let v = self.node.doc().borrow().form_field_or(self.node.path(), "levelRank");
         if v.is_empty() { None } else { v.parse::<i64>().ok() }
@@ -56679,15 +56661,6 @@ impl AccessRestrictionEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn restriction_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "restrictionId")
-    }
-
-    pub fn set_restriction_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "restrictionId", value);
-    }
-
     pub fn restriction_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "restrictionType")
     }
@@ -56895,15 +56868,6 @@ impl AccessibilityCheckEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn check_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "checkId")
-    }
-
-    pub fn set_check_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "checkId", value);
     }
 
     pub fn check_item(&self) -> String {
@@ -57908,15 +57872,6 @@ impl ActorEntryIdentificationForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn actor_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "actorId")
-    }
-
-    pub fn set_actor_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "actorId", value);
     }
 
     pub fn actor_type(&self) -> String {
@@ -60139,15 +60094,6 @@ impl AlertRuleEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn alert_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "alertId")
-    }
-
-    pub fn set_alert_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "alertId", value);
-    }
-
     pub fn alert_description(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "alertDescription")
     }
@@ -60942,15 +60888,6 @@ impl AlternativeFlowEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn flow_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "flowId")
-    }
-
-    pub fn set_flow_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "flowId", value);
     }
 
     pub fn flow_type(&self) -> String {
@@ -63440,15 +63377,6 @@ impl ArchitectureDecisionRecordContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn decision_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "decisionId")
-    }
-
-    pub fn set_decision_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "decisionId", value);
-    }
-
     pub fn date(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "date")
     }
@@ -64158,15 +64086,6 @@ impl AssumptionRegisterEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn assumption_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "assumptionId")
-    }
-
-    pub fn set_assumption_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "assumptionId", value);
     }
 
     pub fn description(&self) -> String {
@@ -68134,15 +68053,6 @@ impl BoundaryAssumptionEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn assumption_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "assumptionId")
-    }
-
-    pub fn set_assumption_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "assumptionId", value);
-    }
-
     pub fn assumption(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "assumption")
     }
@@ -70553,15 +70463,6 @@ impl BusinessGoalEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn goal_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "goalId")
-    }
-
-    pub fn set_goal_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "goalId", value);
-    }
-
     pub fn goal_category(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "goalCategory")
     }
@@ -71986,15 +71887,6 @@ impl BusinessRuleEntryIdentityForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn rule_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "ruleId")
-    }
-
-    pub fn set_rule_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "ruleId", value);
-    }
-
     pub fn rule_version(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "ruleVersion")
     }
@@ -72922,15 +72814,6 @@ impl CertificationEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn certification_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "certificationId")
-    }
-
-    pub fn set_certification_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "certificationId", value);
-    }
-
     pub fn issuing_body(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "issuingBody")
     }
@@ -73549,15 +73432,6 @@ impl ChangeCategoryEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn category_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "categoryId")
-    }
-
-    pub fn set_category_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "categoryId", value);
-    }
-
     pub fn description(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "description")
     }
@@ -74051,15 +73925,6 @@ impl ChangeImpactCriterionEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn criterion_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criterionId")
-    }
-
-    pub fn set_criterion_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criterionId", value);
     }
 
     pub fn criterion(&self) -> String {
@@ -75462,15 +75327,6 @@ impl ChangedRoleIdentificationContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn role_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "roleId")
-    }
-
-    pub fn set_role_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "roleId", value);
     }
 
     pub fn new_role_title(&self) -> String {
@@ -80108,15 +79964,6 @@ impl CommunicationEventEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn event_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "eventId")
-    }
-
-    pub fn set_event_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "eventId", value);
-    }
-
     pub fn event_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "eventType")
     }
@@ -81036,15 +80883,6 @@ impl CompetencyEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn competency_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "competencyId")
-    }
-
-    pub fn set_competency_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "competencyId", value);
     }
 
     pub fn description(&self) -> String {
@@ -82335,15 +82173,6 @@ impl ComponentEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn component_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "componentId")
-    }
-
-    pub fn set_component_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "componentId", value);
-    }
-
     pub fn category(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "category")
     }
@@ -82762,15 +82591,6 @@ impl ComponentFamilyEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn family_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "familyId")
-    }
-
-    pub fn set_family_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "familyId", value);
     }
 
     pub fn family_description(&self) -> String {
@@ -85258,15 +85078,6 @@ impl ComponentRiskEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn risk_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "riskId")
-    }
-
-    pub fn set_risk_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "riskId", value);
-    }
-
     pub fn component_ref(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "componentRef")
     }
@@ -86693,15 +86504,6 @@ impl ComputingEquipmentEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn equipment_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "equipmentId")
-    }
-
-    pub fn set_equipment_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "equipmentId", value);
-    }
-
     pub fn device_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "deviceType")
     }
@@ -88022,15 +87824,6 @@ impl ConstraintRegisterEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn constraint_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "constraintId")
-    }
-
-    pub fn set_constraint_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "constraintId", value);
-    }
-
     pub fn description(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "description")
     }
@@ -88626,15 +88419,6 @@ impl ContingencyPlanEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn contingency_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "contingencyId")
-    }
-
-    pub fn set_contingency_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "contingencyId", value);
     }
 
     pub fn trigger_condition(&self) -> String {
@@ -90335,15 +90119,6 @@ impl DashboardEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn dashboard_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dashboardId")
-    }
-
-    pub fn set_dashboard_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dashboardId", value);
     }
 
     pub fn dashboard_category(&self) -> String {
@@ -92777,15 +92552,6 @@ impl DataDuplicationEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn duplication_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "duplicationId")
-    }
-
-    pub fn set_duplication_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "duplicationId", value);
-    }
-
     pub fn description(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "description")
     }
@@ -93907,15 +93673,6 @@ impl DataGovernancePolicyEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn policy_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "policyId")
-    }
-
-    pub fn set_policy_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "policyId", value);
-    }
-
     pub fn policy_area(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "policyArea")
     }
@@ -94379,15 +94136,6 @@ impl DataIntegrationEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn integration_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "integrationId")
-    }
-
-    pub fn set_integration_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "integrationId", value);
     }
 
     pub fn description(&self) -> String {
@@ -96596,15 +96344,6 @@ impl DataQualityInitiativeEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn initiative_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "initiativeId")
-    }
-
-    pub fn set_initiative_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "initiativeId", value);
-    }
-
     pub fn description(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "description")
     }
@@ -96735,15 +96474,6 @@ impl DataQualityIssueEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn issue_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "issueId")
-    }
-
-    pub fn set_issue_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "issueId", value);
     }
 
     pub fn description(&self) -> String {
@@ -97413,15 +97143,6 @@ impl DataSourceEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn data_source_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dataSourceId")
-    }
-
-    pub fn set_data_source_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dataSourceId", value);
     }
 
     pub fn data_store_name(&self) -> String {
@@ -99507,15 +99228,6 @@ impl DecisionOptionEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn option_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "optionId")
-    }
-
-    pub fn set_option_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "optionId", value);
-    }
-
     pub fn option(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "option")
     }
@@ -99826,15 +99538,6 @@ impl DecisionPointEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn decision_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "decisionId")
-    }
-
-    pub fn set_decision_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "decisionId", value);
     }
 
     pub fn decision_point(&self) -> String {
@@ -100806,15 +100509,6 @@ impl DeliverableEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn deliverable_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "deliverableId")
-    }
-
-    pub fn set_deliverable_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "deliverableId", value);
-    }
-
     pub fn priority(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "priority")
     }
@@ -101287,15 +100981,6 @@ impl DeliveryAcceptanceCriterionEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn criterion_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criterionId")
-    }
-
-    pub fn set_criterion_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criterionId", value);
     }
 
     pub fn criterion(&self) -> String {
@@ -102526,15 +102211,6 @@ impl DependencyRegisterEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn dependency_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dependencyId")
-    }
-
-    pub fn set_dependency_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dependencyId", value);
     }
 
     pub fn description(&self) -> String {
@@ -106844,15 +106520,6 @@ impl DisplayEquipmentEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn display_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "displayId")
-    }
-
-    pub fn set_display_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "displayId", value);
-    }
-
     pub fn display_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "displayType")
     }
@@ -109942,15 +109609,6 @@ impl DomainBusinessRuleEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn rule_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "ruleId")
-    }
-
-    pub fn set_rule_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "ruleId", value);
-    }
-
     pub fn rule_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "ruleType")
     }
@@ -112879,15 +112537,6 @@ impl EnvironmentEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn environment_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "environmentId")
-    }
-
-    pub fn set_environment_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "environmentId", value);
-    }
-
     pub fn environment_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "environmentType")
     }
@@ -115669,15 +115318,6 @@ impl EvaluationCriterionEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn criterion_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criterionId")
-    }
-
-    pub fn set_criterion_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criterionId", value);
-    }
-
     pub fn criterion(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "criterion")
     }
@@ -117485,15 +117125,6 @@ impl ExportFormatEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn export_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "exportId")
-    }
-
-    pub fn set_export_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "exportId", value);
-    }
-
     pub fn format_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "formatType")
     }
@@ -117997,15 +117628,6 @@ impl ExportTemplateEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn template_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "templateId")
-    }
-
-    pub fn set_template_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "templateId", value);
-    }
-
     pub fn base_format_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "baseFormatType")
     }
@@ -118316,15 +117938,6 @@ impl ExtensionEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn extension_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "extensionId")
-    }
-
-    pub fn set_extension_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "extensionId", value);
     }
 
     pub fn branch_point(&self) -> String {
@@ -118664,15 +118277,6 @@ impl ExternalInterfaceEntryIdentificationContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn interface_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "interfaceId")
-    }
-
-    pub fn set_interface_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "interfaceId", value);
     }
 
     pub fn external_system(&self) -> String {
@@ -121162,15 +120766,6 @@ impl FeaturePriorityEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn feature_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "featureId")
-    }
-
-    pub fn set_feature_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "featureId", value);
-    }
-
     pub fn priority_rank(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "priorityRank")
     }
@@ -122261,15 +121856,6 @@ impl FeatureTourEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn tour_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "tourId")
-    }
-
-    pub fn set_tour_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "tourId", value);
     }
 
     pub fn tour_description(&self) -> String {
@@ -123735,15 +123321,6 @@ impl FunctionEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn function_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "functionId")
-    }
-
-    pub fn set_function_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "functionId", value);
     }
 
     pub fn description(&self) -> String {
@@ -125528,15 +125105,6 @@ impl GoalDependencyEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn dependency_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dependencyId")
-    }
-
-    pub fn set_dependency_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dependencyId", value);
-    }
-
     pub fn dependency_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "dependencyType")
     }
@@ -125628,15 +125196,6 @@ impl GoalMilestoneEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn milestone_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "milestoneId")
-    }
-
-    pub fn set_milestone_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "milestoneId", value);
     }
 
     pub fn description(&self) -> String {
@@ -125880,15 +125439,6 @@ impl GoalRiskEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn risk_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "riskId")
-    }
-
-    pub fn set_risk_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "riskId", value);
     }
 
     pub fn description(&self) -> String {
@@ -126369,15 +125919,6 @@ impl HandlingRequirementEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn requirement_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "requirementId")
-    }
-
-    pub fn set_requirement_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "requirementId", value);
     }
 
     pub fn requirement_type(&self) -> String {
@@ -131308,15 +130849,6 @@ impl InitialTrainingEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn training_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "trainingId")
-    }
-
-    pub fn set_training_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "trainingId", value);
-    }
-
     pub fn description(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "description")
     }
@@ -131554,15 +131086,6 @@ impl InputDeviceEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn device_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "deviceId")
-    }
-
-    pub fn set_device_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "deviceId", value);
     }
 
     pub fn device_type(&self) -> String {
@@ -132136,15 +131659,6 @@ impl IntegrationConstraintEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn constraint_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "constraintId")
-    }
-
-    pub fn set_constraint_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "constraintId", value);
     }
 
     pub fn constraint_description(&self) -> String {
@@ -133149,15 +132663,6 @@ impl InteractionChannelEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn channel_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "channelId")
-    }
-
-    pub fn set_channel_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "channelId", value);
-    }
-
     pub fn channel_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "channelType")
     }
@@ -133420,15 +132925,6 @@ impl InteractionEntryIdentificationForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn interaction_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "interactionId")
-    }
-
-    pub fn set_interaction_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "interactionId", value);
     }
 
     pub fn use_case_name(&self) -> String {
@@ -133987,15 +133483,6 @@ impl InteractionPatternEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn pattern_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "patternId")
-    }
-
-    pub fn set_pattern_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "patternId", value);
     }
 
     pub fn pattern_type(&self) -> String {
@@ -136188,15 +135675,6 @@ impl InterfaceTestScenarioEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn scenario_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "scenarioId")
-    }
-
-    pub fn set_scenario_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "scenarioId", value);
     }
 
     pub fn scenario_type(&self) -> String {
@@ -138779,15 +138257,6 @@ impl KeyResultEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn key_result_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "keyResultId")
-    }
-
-    pub fn set_key_result_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "keyResultId", value);
-    }
-
     pub fn key_result(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "keyResult")
     }
@@ -140105,15 +139574,6 @@ impl LifecycleTransitionEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn transition_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "transitionId")
-    }
-
-    pub fn set_transition_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "transitionId", value);
     }
 
     pub fn from_state(&self) -> String {
@@ -143203,15 +142663,6 @@ impl MaintenanceDependencyEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn dependency_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dependencyId")
-    }
-
-    pub fn set_dependency_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dependencyId", value);
     }
 
     pub fn version(&self) -> String {
@@ -147151,15 +146602,6 @@ impl MigrationRiskEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn risk_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "riskId")
-    }
-
-    pub fn set_risk_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "riskId", value);
-    }
-
     pub fn risk_owner(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "riskOwner")
     }
@@ -148993,15 +148435,6 @@ impl MobileDeviceEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn device_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "deviceId")
-    }
-
-    pub fn set_device_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "deviceId", value);
     }
 
     pub fn device_type(&self) -> String {
@@ -151224,15 +150657,6 @@ impl MustPassCriterionEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn criterion_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criterionId")
-    }
-
-    pub fn set_criterion_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criterionId", value);
     }
 
     pub fn verification_method(&self) -> String {
@@ -154272,15 +153696,6 @@ impl NewRoleEntryIdentificationForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn role_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "roleId")
-    }
-
-    pub fn set_role_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "roleId", value);
-    }
-
     pub fn role_family(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "roleFamily")
     }
@@ -156679,15 +156094,6 @@ impl OngoingTrainingEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn training_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "trainingId")
-    }
-
-    pub fn set_training_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "trainingId", value);
-    }
-
     pub fn description(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "description")
     }
@@ -157427,15 +156833,6 @@ impl OrgImplementationActivityContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn activity_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "activityId")
-    }
-
-    pub fn set_activity_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "activityId", value);
-    }
-
     pub fn description(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "description")
     }
@@ -157638,15 +157035,6 @@ impl OrganizationalChangeEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn change_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "changeId")
-    }
-
-    pub fn set_change_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "changeId", value);
     }
 
     pub fn change_type(&self) -> String {
@@ -159791,15 +159179,6 @@ impl PainPointEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn pain_point_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "painPointId")
-    }
-
-    pub fn set_pain_point_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "painPointId", value);
-    }
-
     pub fn pain_point(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "painPoint")
     }
@@ -161235,15 +160614,6 @@ impl PeripheralEquipmentEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn peripheral_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "peripheralId")
-    }
-
-    pub fn set_peripheral_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "peripheralId", value);
-    }
-
     pub fn peripheral_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "peripheralType")
     }
@@ -161976,15 +161346,6 @@ impl PhaseGateReviewEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn gate_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "gateId")
-    }
-
-    pub fn set_gate_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "gateId", value);
     }
 
     pub fn stage(&self) -> String {
@@ -165336,15 +164697,6 @@ impl ProcessAdjustmentEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn adjustment_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "adjustmentId")
-    }
-
-    pub fn set_adjustment_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "adjustmentId", value);
-    }
-
     pub fn standard_step_name(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "standardStepName")
     }
@@ -166268,15 +165620,6 @@ impl ProcessControlEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn control_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "controlId")
-    }
-
-    pub fn set_control_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "controlId", value);
-    }
-
     pub fn control_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "controlType")
     }
@@ -166661,15 +166004,6 @@ impl ProcessDesignPrincipleEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn principle_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "principleId")
-    }
-
-    pub fn set_principle_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "principleId", value);
-    }
-
     pub fn category(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "category")
     }
@@ -166838,15 +166172,6 @@ impl ProcessEndEventEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn end_event_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "endEventId")
-    }
-
-    pub fn set_end_event_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "endEventId", value);
-    }
-
     pub fn end_event_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "endEventType")
     }
@@ -166986,15 +166311,6 @@ impl ProcessExceptionEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn exception_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "exceptionId")
-    }
-
-    pub fn set_exception_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "exceptionId", value);
     }
 
     pub fn exception_type(&self) -> String {
@@ -167270,15 +166586,6 @@ impl ProcessIdentificationContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn process_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "processId")
-    }
-
-    pub fn set_process_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "processId", value);
-    }
-
     pub fn process_level(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "processLevel")
     }
@@ -167514,15 +166821,6 @@ impl ProcessImprovementEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn improvement_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "improvementId")
-    }
-
-    pub fn set_improvement_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "improvementId", value);
     }
 
     pub fn category(&self) -> String {
@@ -167807,15 +167105,6 @@ impl ProcessInputEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn input_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "inputId")
-    }
-
-    pub fn set_input_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "inputId", value);
-    }
-
     pub fn input_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "inputType")
     }
@@ -167973,15 +167262,6 @@ impl ProcessKpiEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn kpi_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "kpiId")
-    }
-
-    pub fn set_kpi_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "kpiId", value);
     }
 
     pub fn category(&self) -> String {
@@ -168164,15 +167444,6 @@ impl ProcessMetricEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn metric_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "metricId")
-    }
-
-    pub fn set_metric_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "metricId", value);
-    }
-
     pub fn metric_category(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "metricCategory")
     }
@@ -168342,15 +167613,6 @@ impl ProcessOutputEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn output_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "outputId")
-    }
-
-    pub fn set_output_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "outputId", value);
     }
 
     pub fn output_type(&self) -> String {
@@ -168742,15 +168004,6 @@ impl ProcessRelationshipEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn relationship_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "relationshipId")
-    }
-
-    pub fn set_relationship_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "relationshipId", value);
-    }
-
     pub fn source_process(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "sourceProcess")
     }
@@ -168842,15 +168095,6 @@ impl ProcessRoleEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn role_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "roleId")
-    }
-
-    pub fn set_role_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "roleId", value);
     }
 
     pub fn raci_type(&self) -> String {
@@ -169246,15 +168490,6 @@ impl ProcessSlaEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn sla_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "slaId")
-    }
-
-    pub fn set_sla_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "slaId", value);
-    }
-
     pub fn service_description(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "serviceDescription")
     }
@@ -169646,15 +168881,6 @@ impl ProcessTriggerEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn trigger_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "triggerId")
-    }
-
-    pub fn set_trigger_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "triggerId", value);
     }
 
     pub fn trigger_type(&self) -> String {
@@ -171111,15 +170337,6 @@ impl PrototypeGoalEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn goal_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "goalId")
-    }
-
-    pub fn set_goal_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "goalId", value);
-    }
-
     pub fn goal_description(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "goalDescription")
     }
@@ -172035,15 +171252,6 @@ impl QualityCategoryEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn category_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "categoryId")
-    }
-
-    pub fn set_category_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "categoryId", value);
-    }
-
     pub fn category_weight(&self) -> Option<i64> {
         let v = self.node.doc().borrow().form_field_or(self.node.path(), "categoryWeight");
         if v.is_empty() { None } else { v.parse::<i64>().ok() }
@@ -172652,15 +171860,6 @@ impl QualityGateAdjustmentEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn adjustment_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "adjustmentId")
-    }
-
-    pub fn set_adjustment_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "adjustmentId", value);
-    }
-
     pub fn standard_gate_name(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "standardGateName")
     }
@@ -173094,15 +172293,6 @@ impl QualityGateCheckEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn check_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "checkId")
-    }
-
-    pub fn set_check_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "checkId", value);
     }
 
     pub fn check_item(&self) -> String {
@@ -173567,15 +172757,6 @@ impl QualityScenarioEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn scenario_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "scenarioId")
-    }
-
-    pub fn set_scenario_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "scenarioId", value);
     }
 
     pub fn source(&self) -> String {
@@ -175024,15 +174205,6 @@ impl RecoveryScenarioEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn scenario_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "scenarioId")
-    }
-
-    pub fn set_scenario_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "scenarioId", value);
     }
 
     pub fn trigger_condition(&self) -> String {
@@ -176802,15 +175974,6 @@ impl RemovedRoleEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn role_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "roleId")
-    }
-
-    pub fn set_role_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "roleId", value);
     }
 
     pub fn department(&self) -> String {
@@ -178621,15 +177784,6 @@ impl ReportEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn report_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "reportId")
-    }
-
-    pub fn set_report_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "reportId", value);
     }
 
     pub fn report_type(&self) -> String {
@@ -180950,15 +180104,6 @@ impl RequirementBusinessRuleEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn rule_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "ruleId")
-    }
-
-    pub fn set_rule_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "ruleId", value);
-    }
-
     pub fn rule_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "ruleType")
     }
@@ -181374,15 +180519,6 @@ impl RequirementTestCaseEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn test_case_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "testCaseId")
-    }
-
-    pub fn set_test_case_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "testCaseId", value);
     }
 
     pub fn test_type(&self) -> String {
@@ -182609,15 +181745,6 @@ impl ResponsibilityDetailEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn responsibility_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "responsibilityId")
-    }
-
-    pub fn set_responsibility_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "responsibilityId", value);
-    }
-
     pub fn responsibility(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "responsibility")
     }
@@ -183730,15 +182857,6 @@ impl RetentionPolicyEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn policy_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "policyId")
-    }
-
-    pub fn set_policy_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "policyId", value);
-    }
-
     pub fn data_category(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "dataCategory")
     }
@@ -184844,15 +183962,6 @@ impl ReuseGoalEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn goal_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "goalId")
-    }
-
-    pub fn set_goal_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "goalId", value);
-    }
-
     pub fn goal(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "goal")
     }
@@ -185185,15 +184294,6 @@ impl ReviewCriterionEntryContentForm {
     pub fn set_criterion(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_form_field(&path, "criterion", value);
-    }
-
-    pub fn criterion_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criterionId")
-    }
-
-    pub fn set_criterion_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criterionId", value);
     }
 
     pub fn description(&self) -> String {
@@ -185843,15 +184943,6 @@ impl RiskIdentificationContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn risk_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "riskId")
-    }
-
-    pub fn set_risk_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "riskId", value);
     }
 
     pub fn description(&self) -> String {
@@ -186568,15 +185659,6 @@ impl RoleAdjustmentEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn adjustment_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "adjustmentId")
-    }
-
-    pub fn set_adjustment_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "adjustmentId", value);
-    }
-
     pub fn standard_role_name(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "standardRoleName")
     }
@@ -187151,15 +186233,6 @@ impl RoleCompetencyEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn competency_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "competencyId")
-    }
-
-    pub fn set_competency_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "competencyId", value);
     }
 
     pub fn competency_type(&self) -> String {
@@ -188377,15 +187450,6 @@ impl RuntimeDependencyEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn dependency_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dependencyId")
-    }
-
-    pub fn set_dependency_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dependencyId", value);
     }
 
     pub fn version(&self) -> String {
@@ -190173,15 +189237,6 @@ impl ScenarioEntryIdentificationForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn scenario_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "scenarioId")
-    }
-
-    pub fn set_scenario_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "scenarioId", value);
     }
 
     pub fn scenario_type(&self) -> String {
@@ -193388,15 +192443,6 @@ impl ScreenEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn screen_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "screenId")
-    }
-
-    pub fn set_screen_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "screenId", value);
-    }
-
     pub fn purpose(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "purpose")
     }
@@ -195737,15 +194783,6 @@ impl SecurityControlEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn control_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "controlId")
-    }
-
-    pub fn set_control_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "controlId", value);
     }
 
     pub fn control_type(&self) -> String {
@@ -202496,15 +201533,6 @@ impl SloEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn slo_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "sloId")
-    }
-
-    pub fn set_slo_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "sloId", value);
-    }
-
     pub fn slo_description(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "sloDescription")
     }
@@ -202968,15 +201996,6 @@ impl SpecializedEquipmentEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn equipment_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "equipmentId")
-    }
-
-    pub fn set_equipment_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "equipmentId", value);
     }
 
     pub fn equipment_type(&self) -> String {
@@ -205148,15 +204167,6 @@ impl StageMigrationRiskEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn risk_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "riskId")
-    }
-
-    pub fn set_risk_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "riskId", value);
-    }
-
     pub fn risk_category(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "riskCategory")
     }
@@ -206984,15 +205994,6 @@ impl StageSuccessCriterionEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn criterion_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criterionId")
-    }
-
-    pub fn set_criterion_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criterionId", value);
-    }
-
     pub fn criterion(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "criterion")
     }
@@ -208781,15 +207782,6 @@ impl StakeholderRegisterEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn stakeholder_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "stakeholderId")
-    }
-
-    pub fn set_stakeholder_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "stakeholderId", value);
-    }
-
     pub fn role(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "role")
     }
@@ -209958,15 +208950,6 @@ impl SuccessCriterionEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn criterion_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "criterionId")
-    }
-
-    pub fn set_criterion_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "criterionId", value);
     }
 
     pub fn category(&self) -> String {
@@ -214105,15 +213088,6 @@ impl SystemMigrationRiskEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn risk_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "riskId")
-    }
-
-    pub fn set_risk_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "riskId", value);
-    }
-
     pub fn risk_description(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "riskDescription")
     }
@@ -215294,15 +214268,6 @@ impl SystemTaskEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn task_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "taskId")
-    }
-
-    pub fn set_task_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "taskId", value);
-    }
-
     pub fn description(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "description")
     }
@@ -215975,15 +214940,6 @@ impl SystemTrainingEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn training_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "trainingId")
-    }
-
-    pub fn set_training_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "trainingId", value);
     }
 
     pub fn modules_covered(&self) -> String {
@@ -217727,15 +216683,6 @@ impl TechnicalConstraintEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn constraint_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "constraintId")
-    }
-
-    pub fn set_constraint_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "constraintId", value);
-    }
-
     pub fn constraint_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "constraintType")
     }
@@ -217818,15 +216765,6 @@ impl TechnicalDependencyEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn dependency_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "dependencyId")
-    }
-
-    pub fn set_dependency_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "dependencyId", value);
     }
 
     pub fn dependency_type(&self) -> String {
@@ -218243,15 +217181,6 @@ impl TechnicalGoalEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn goal_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "goalId")
-    }
-
-    pub fn set_goal_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "goalId", value);
-    }
-
     pub fn description(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "description")
     }
@@ -218466,15 +217395,6 @@ impl TechnicalGoalTestCaseEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn test_case_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "testCaseId")
-    }
-
-    pub fn set_test_case_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "testCaseId", value);
     }
 
     pub fn description(&self) -> String {
@@ -219589,15 +218509,6 @@ impl TechnologyStandardEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn standard_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "standardId")
-    }
-
-    pub fn set_standard_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "standardId", value);
-    }
-
     pub fn standard_category(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "standardCategory")
     }
@@ -220020,15 +218931,6 @@ impl TestScenarioEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn scenario_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "scenarioId")
-    }
-
-    pub fn set_scenario_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "scenarioId", value);
     }
 
     pub fn priority(&self) -> String {
@@ -222653,15 +221555,6 @@ impl ToolEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn tool_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "toolId")
-    }
-
-    pub fn set_tool_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "toolId", value);
-    }
-
     pub fn notes(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "notes")
     }
@@ -224365,15 +223258,6 @@ impl TradeOffDecisionEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn decision_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "decisionId")
-    }
-
-    pub fn set_decision_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "decisionId", value);
-    }
-
     pub fn decision_status(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "decisionStatus")
     }
@@ -225425,15 +224309,6 @@ impl TrainingModuleEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn module_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "moduleId")
-    }
-
-    pub fn set_module_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "moduleId", value);
-    }
-
     pub fn target_audience(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "targetAudience")
     }
@@ -226181,15 +225056,6 @@ impl TransitionMetricEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn metric_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "metricId")
-    }
-
-    pub fn set_metric_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "metricId", value);
-    }
-
     pub fn category(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "category")
     }
@@ -226386,15 +225252,6 @@ impl TransitionMilestoneEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn milestone_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "milestoneId")
-    }
-
-    pub fn set_milestone_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "milestoneId", value);
     }
 
     pub fn milestone_type(&self) -> String {
@@ -226991,15 +225848,6 @@ impl TransitionPhaseIdentificationContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn phase_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "phaseId")
-    }
-
-    pub fn set_phase_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "phaseId", value);
-    }
-
     pub fn phase_type(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "phaseType")
     }
@@ -227321,15 +226169,6 @@ impl TransitionRiskEntryContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn risk_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "riskId")
-    }
-
-    pub fn set_risk_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "riskId", value);
     }
 
     pub fn risk_category(&self) -> String {
@@ -229709,15 +228548,6 @@ impl UiComponentEntryIdentityForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn component_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "componentId")
-    }
-
-    pub fn set_component_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "componentId", value);
     }
 
     pub fn component_family(&self) -> String {
@@ -232460,15 +231290,6 @@ impl UserCategoryEntryContentForm {
         self.node.doc().borrow_mut().set_content(&path, value);
     }
 
-    pub fn category_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "categoryId")
-    }
-
-    pub fn set_category_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "categoryId", value);
-    }
-
     pub fn description(&self) -> String {
         self.node.doc().borrow().form_field_or(self.node.path(), "description")
     }
@@ -234937,15 +233758,6 @@ impl ValidationMessageTemplateContentForm {
     pub fn set_content(&self, value: &str) {
         let path = self.node.path().to_string();
         self.node.doc().borrow_mut().set_content(&path, value);
-    }
-
-    pub fn message_id(&self) -> String {
-        self.node.doc().borrow().form_field_or(self.node.path(), "messageId")
-    }
-
-    pub fn set_message_id(&self, value: &str) {
-        let path = self.node.path().to_string();
-        self.node.doc().borrow_mut().set_form_field(&path, "messageId", value);
     }
 
     pub fn validation_type(&self) -> String {

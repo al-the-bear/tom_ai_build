@@ -2781,13 +2781,6 @@ class DomainBusinessRules extends DocSpecsSection {
 class DomainBusinessRuleEntry extends DocSpecsSection {
   @Form([
     Field(
-      'ruleId',
-      String,
-      'Rule ID',
-      required: true,
-      hint: 'Unique identifier for this business rule',
-    ),
-    Field(
       'ruleType',
       String,
       'Rule Type (Constraint, Calculation, Derivation, Action-Trigger, '
@@ -3371,12 +3364,6 @@ class AccessChannels extends DocSpecsSection {
 class InteractionChannelEntry extends DocSpecsSection {
   @Form([
     Field(
-      'channelId',
-      String,
-      'Channel ID',
-      hint: 'Unique identifier for the channel',
-    ),
-    Field(
       'channelType',
       String,
       'Channel Type',
@@ -3407,8 +3394,10 @@ class InteractionChannelEntry extends DocSpecsSection {
       'targetUserCategories',
       String,
       'Target User Categories',
-      hint: 'List of user category IDs this channel serves',
-      refersTo: ['UCE.categoryId'],
+      hint:
+          'The user categories this channel serves — user category section ids '
+          '(UCE-USER-…), comma-separated',
+      refersTo: ['UCE.@sectionId'],
     ),
     Field(
       'description',
@@ -3745,7 +3734,6 @@ class InteractionPatterns extends DocSpecsSection {
 @SectionId('INPTN')
 class InteractionPatternEntry extends DocSpecsSection {
   @Form([
-    Field('patternId', String, 'Pattern ID', hint: 'Unique identifier'),
     Field(
       'patternType',
       String,
@@ -3957,7 +3945,6 @@ class AccessLevels extends DocSpecsSection {
 @SectionId('ACLV')
 class AccessLevelEntry extends DocSpecsSection {
   @Form([
-    Field('levelId', String, 'Level ID', hint: 'Unique identifier'),
     Field(
       'levelRank',
       int,
@@ -4301,7 +4288,8 @@ class NotificationChannelEntry extends DocSpecsSection {
       'channelId',
       String,
       'Channel ID',
-      hint: 'Unique identifier for the notification channel',
+      hint: 'The channel name the built system carries — the TomMessageChannel '
+          'name, e.g. email',
     ),
     Field(
       'description',
@@ -4368,7 +4356,9 @@ class NotificationTypeEntry extends DocSpecsSection {
       'typeId',
       String,
       'Type ID',
-      hint: 'Unique identifier for the notification type',
+      hint:
+          'The type id the built system carries — the TomNotificationType id, '
+          'e.g. order.shipped',
     ),
     Field(
       'category',
@@ -4589,16 +4579,6 @@ class MultiChannelExperience extends DocSpecsSection {
 @SectionId('UCE')
 class UserCategoryEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'categoryId',
-      String,
-      'Category ID (unique identifier)',
-      // Why: this is the user-category registry key — ICEP.targetUserCategories
-      // resolves against it, and an optional key could not be resolved against
-      // at all (tom_specs_model_rules.md §6.2 rule 4).
-      required: true,
-      hint: 'Unique stable identifier for cross-referencing this category',
-    ),
     Field(
       'description',
       String,
@@ -4992,13 +4972,6 @@ class UserPersonaDetails extends DocSpecsSection {
 @SectionId('SYTS')
 class SystemTaskEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'taskId',
-      String,
-      'Task ID',
-      required: true,
-      hint: 'Unique identifier for this task',
-    ),
     Field(
       'description',
       String,
@@ -5816,13 +5789,6 @@ class BusinessGoals extends DocSpecsSection {
 class BusinessGoalEntry extends DocSpecsSection {
   @Form([
     Field(
-      'goalId',
-      String,
-      'Goal ID (unique identifier, e.g., BG-001)',
-      required: true,
-      hint: 'Unique goal identifier, e.g., BG-001',
-    ),
-    Field(
       'goalCategory',
       String,
       'Goal Category (Strategic, Tactical, Operational)',
@@ -6070,13 +6036,6 @@ class GoalKeyResults extends DocSpecsSection {
 class KeyResultEntry extends DocSpecsSection {
   @Form([
     Field(
-      'keyResultId',
-      String,
-      'Key Result ID',
-      required: true,
-      hint: 'Unique identifier for this key result',
-    ),
-    Field(
       'keyResult',
       String,
       'Key Result (measurable outcome)',
@@ -6175,13 +6134,6 @@ class GoalMilestones extends DocSpecsSection {
 class GoalMilestoneEntry extends DocSpecsSection {
   @Form([
     Field(
-      'milestoneId',
-      String,
-      'Milestone ID',
-      required: true,
-      hint: 'Unique identifier for this milestone',
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -6273,13 +6225,6 @@ class GoalDependencies extends DocSpecsSection {
 @SectionId('GOLDE')
 class GoalDependencyEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'dependencyId',
-      String,
-      'Dependency ID',
-      required: true,
-      hint: 'Unique identifier for this dependency',
-    ),
     Field(
       'dependencyType',
       String,
@@ -6376,13 +6321,6 @@ class GoalRisks extends DocSpecsSection {
 @SectionId('GOLRS')
 class GoalRiskEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'riskId',
-      String,
-      'Risk ID',
-      required: true,
-      hint: 'Unique identifier for this risk',
-    ),
     Field(
       'description',
       String,
@@ -6672,13 +6610,6 @@ class TechnicalGoals extends DocSpecsSection {
 class TechnicalGoalEntry extends DocSpecsSection {
   @Form([
     Field(
-      'goalId',
-      String,
-      'Goal ID (unique identifier, e.g., TG-001)',
-      required: true,
-      hint: 'Unique identifier, e.g. TG-001',
-    ),
-    Field(
       'description',
       String,
       'Description (detailed explanation of the technical objective)',
@@ -6874,13 +6805,6 @@ class QualityScenarios extends DocSpecsSection {
 class QualityScenarioEntry extends DocSpecsSection {
   @Form([
     Field(
-      'scenarioId',
-      String,
-      'Scenario ID',
-      required: true,
-      hint: 'Unique identifier for the scenario',
-    ),
-    Field(
       'source',
       String,
       'Source (who/what generates the stimulus)',
@@ -7051,13 +6975,6 @@ class TechnicalGoalTestCriteria extends DocSpecsSection {
 class TechnicalGoalTestCaseEntry extends DocSpecsSection {
   @Form([
     Field(
-      'testCaseId',
-      String,
-      'Test Case ID',
-      required: true,
-      hint: 'Unique identifier for the test case',
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -7139,13 +7056,6 @@ class TechnicalGoalDependencies extends DocSpecsSection {
 @SectionId('TEDE')
 class TechnicalDependencyEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'dependencyId',
-      String,
-      'Dependency ID',
-      required: true,
-      hint: 'Unique identifier for the dependency',
-    ),
     Field(
       'dependencyType',
       String,
@@ -7242,13 +7152,6 @@ class TechnicalGoalConstraints extends DocSpecsSection {
 @SectionId('TECN')
 class TechnicalConstraintEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'constraintId',
-      String,
-      'Constraint ID',
-      required: true,
-      hint: 'Unique identifier for the constraint',
-    ),
     Field(
       'constraintType',
       String,
@@ -7651,13 +7554,6 @@ class SuccessCriteriaByCategory extends DocSpecsSection {
 class SuccessCriterionEntry extends DocSpecsSection {
   @Form([
     Field(
-      'criterionId',
-      String,
-      'Criterion ID',
-      required: true,
-      hint: 'Unique identifier (e.g., SC-001)',
-    ),
-    Field(
       'category',
       String,
       'Category',
@@ -7894,7 +7790,9 @@ class SuccessCriterionRelationships extends DocSpecsSection {
       'relatedGoals',
       String,
       'Related Goals',
-      hint: 'Which business/technical goals this supports',
+      hint:
+          'Related business goals — business goal section ids (BGE-GOAL-…), '
+          'comma-separated',
     ),
     Field(
       'relatedRequirements',
@@ -8487,13 +8385,6 @@ class RequirementAcceptanceCriteria extends DocSpecsSection {
 class AcceptanceCriterionEntry extends DocSpecsSection {
   @Form([
     Field(
-      'criterionId',
-      String,
-      'Criterion ID',
-      required: true,
-      hint: 'Unique identifier for this criterion',
-    ),
-    Field(
       'given',
       String,
       'Given (precondition/context)',
@@ -8609,13 +8500,6 @@ class RequirementBusinessRules extends DocSpecsSection {
 )
 class RequirementBusinessRuleEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'ruleId',
-      String,
-      'Rule ID',
-      required: true,
-      hint: 'Unique identifier for this business rule',
-    ),
     Field(
       'ruleType',
       String,
@@ -8926,7 +8810,9 @@ class ScreenFieldEntry extends DocSpecsSection {
       String,
       'Field ID',
       required: true,
-      hint: 'Unique identifier for this field',
+      hint:
+          'The symbol the built screen carries for this field — unique within '
+          'the screen, e.g. fld-customer-name',
     ),
     Field(
       'fieldType',
@@ -9361,7 +9247,8 @@ class RequirementScreenActionEntry extends DocSpecsSection {
       String,
       'Action ID',
       required: true,
-      hint: 'Unique identifier for this action',
+      hint: 'The symbol the built screen carries for this action — unique '
+          'within the screen, e.g. act-save',
     ),
     Field(
       'actionType',
@@ -9557,7 +9444,8 @@ class ScreenBehaviorEntry extends DocSpecsSection {
       String,
       'Behavior ID',
       required: true,
-      hint: 'Unique identifier for this behavior',
+      hint: 'The symbol the built screen carries for this behaviour — unique '
+          'within the screen, e.g. bhv-autosave',
     ),
     Field(
       'behaviorType',
@@ -9722,21 +9610,25 @@ class RequirementTraceability extends DocSpecsSection {
       String,
       'Related Business Goals (IDs)',
       hint: 'IDs of related business goals',
-      refersTo: ['BGE.goalId'],
+      refersTo: ['BGE.@sectionId'],
     ),
     Field(
       'relatedUseCases',
       String,
       'Related Use Cases (IDs)',
-      hint: 'IDs of related use cases',
-      refersTo: ['INEN.interactionId'],
+      hint:
+          'Related interactions — interaction section ids (INEN-INTE-…), '
+          'comma-separated',
+      refersTo: ['INEN.@sectionId'],
     ),
     Field(
       'relatedProcesses',
       String,
       'Related Business Processes (IDs)',
-      hint: 'IDs of related business processes',
-      refersTo: ['PRIDN.processId'],
+      hint:
+          'Related business processes — process section ids (BPREN-PROC-…), '
+          'comma-separated',
+      refersTo: ['BPREN.@sectionId'],
     ),
     Field(
       'relatedUserStories',
@@ -9772,8 +9664,10 @@ class RequirementTraceability extends DocSpecsSection {
       'relatedTestCases',
       String,
       'Related Test Cases (IDs)',
-      hint: 'IDs of test cases covering this requirement',
-      refersTo: ['RQTSC.testCaseId', 'TEGOTS.testCaseId'],
+      hint:
+          'Test cases covering this requirement — test case section ids '
+          '(RQTSC-TEST-… / TEGOTS-ITEM-…), comma-separated',
+      refersTo: ['RQTSC.@sectionId', 'TEGOTS.@sectionId'],
     ),
     Field(
       'relatedDocuments',
@@ -9859,13 +9753,6 @@ class RequirementTestCases extends DocSpecsSection {
 @SectionId('RQTSC')
 class RequirementTestCaseEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'testCaseId',
-      String,
-      'Test Case ID',
-      required: true,
-      hint: 'Unique identifier for the test case',
-    ),
     Field(
       'testType',
       String,
@@ -10686,13 +10573,6 @@ class SecurityControls extends DocSpecsSection {
 class SecurityControlEntry extends DocSpecsSection {
   @Form([
     Field(
-      'controlId',
-      String,
-      'Control ID',
-      required: true,
-      hint: 'Stable unique identifier for the control',
-    ),
-    Field(
       'controlType',
       String,
       'Control Type (Preventive, Detective, Corrective, Deterrent, '
@@ -11202,13 +11082,6 @@ class OrgRequirementImplementationPlan extends DocSpecsSection {
 class OrgImplementationActivity extends DocSpecsSection {
   @Form([
     Field(
-      'activityId',
-      String,
-      'Activity ID',
-      required: true,
-      hint: 'Stable unique identifier for the activity',
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -11362,7 +11235,9 @@ class SystemToReplaceEntry extends DocSpecsSection {
       String,
       'System ID (e.g., SYS-CRM-001)',
       required: true,
-      hint: 'Stable identifier for the legacy system being replaced',
+      hint:
+          'The identifier the organisation already uses for the legacy system '
+          'being replaced, e.g. SYS-CRM-001 — owned outside this document',
     ),
     Field(
       'officialName',
@@ -11878,7 +11753,8 @@ class SystemBusinessProcessEntry extends DocSpecsSection {
       'processId',
       String,
       'Process ID',
-      hint: 'Identifier for the process if one exists',
+      hint: 'The code the organisation already uses for this process, if one '
+          'exists — owned outside this document',
     ),
     Field(
       'systemRole',
@@ -12856,7 +12732,6 @@ class SystemMigrationPlan extends DocSpecsSection {
 @SectionId('SYMIRI')
 class SystemMigrationRiskEntry extends DocSpecsSection {
   @Form([
-    Field('riskId', String, 'Risk ID', hint: 'Identifier for the risk'),
     Field(
       'riskDescription',
       String,
@@ -13608,13 +13483,6 @@ class MigrationRisks extends DocSpecsSection {
 class MigrationRiskEntry extends DocSpecsSection {
   @Form([
     Field(
-      'riskId',
-      String,
-      'Risk ID',
-      required: true,
-      hint: 'Unique identifier (e.g., MIG-RISK-001)',
-    ),
-    Field(
       'riskOwner',
       String,
       'Risk Owner',
@@ -14081,8 +13949,10 @@ class MigrationRiskEntry extends DocSpecsSection {
       'relatedRisks',
       String,
       'Related Risks',
-      hint: 'Risk IDs that are correlated',
-      refersTo: ['MGRSK.riskId'],
+      hint:
+          'Correlated migration risks — risk section ids (MGRSK-ITEM-… / '
+          'SYMIRI-RISK-…), comma-separated',
+      refersTo: ['MGRSK.@sectionId'],
     ),
     // Why: deliberately no `refersTo` (§6.2 "when not to annotate"). An issue is
     // a risk that has materialised, tracked in the project's issue log — live
@@ -14432,13 +14302,6 @@ class ExternalInterfaceEntry extends DocSpecsSection {
   @SectionId('EIE-IDEN')
   @Form([
     Field(
-      'interfaceId',
-      String,
-      'Interface ID (e.g., IF-PAY-001)',
-      required: true,
-      hint: 'Unique stable identifier for this interface',
-    ),
-    Field(
       'externalSystem',
       String,
       'External System Name',
@@ -14625,8 +14488,10 @@ class InterfaceBusinessProcessEntry extends DocSpecsSection {
       'processId',
       String,
       'Process ID',
-      hint: 'Identifier of the business process',
-      refersTo: ['PRIDN.processId'],
+      hint:
+          'The business process that depends on this interface — a process '
+          'section id (BPREN-PROC-…)',
+      refersTo: ['BPREN.@sectionId'],
     ),
     Field(
       'dependencyType',
@@ -14853,7 +14718,8 @@ class InterfaceOperationEntry extends DocSpecsSection {
       String,
       'Operation ID',
       required: true,
-      hint: 'Unique identifier for the operation',
+      hint: 'The name the built interface exposes for this operation, e.g. '
+          'createOrder',
     ),
     Field(
       'httpMethod',
@@ -15771,13 +15637,6 @@ class InterfaceTesting extends DocSpecsSection {
 class InterfaceTestScenarioEntry extends DocSpecsSection {
   @Form([
     Field(
-      'scenarioId',
-      String,
-      'Scenario ID',
-      required: true,
-      hint: 'Unique identifier for the scenario',
-    ),
-    Field(
       'scenarioType',
       String,
       'Type (Happy Path, Error, Edge Case)',
@@ -16030,12 +15889,6 @@ class BoundaryAssumptions extends DocSpecsSection {
 class BoundaryAssumptionEntry extends DocSpecsSection {
   @Form([
     Field(
-      'assumptionId',
-      String,
-      'Assumption ID',
-      hint: 'Unique identifier for this assumption',
-    ),
-    Field(
       'assumption',
       String,
       'Assumption Statement',
@@ -16135,8 +15988,10 @@ class BoundaryAssumptionEntry extends DocSpecsSection {
       'relatedRiskId',
       String,
       'Related Risk ID',
-      hint: 'Identifier of the linked risk register entry',
-      refersTo: ['RIID.riskId'],
+      hint:
+          'The linked risk register entry — a risk section id '
+          '(RISENT-KEYR-…)',
+      refersTo: ['RISENT.@sectionId'],
     ),
   ])
   @SerializationOrder(2)
@@ -17373,13 +17228,6 @@ class TechnicalEnvironmentNetwork extends DocSpecsSection {
 class TechnologyStandardEntry extends DocSpecsSection {
   @Form([
     Field(
-      'standardId',
-      String,
-      'Standard ID',
-      required: true,
-      hint: 'Unique identifier, e.g. STD-SEC-001, STD-DEV-001',
-    ),
-    Field(
       'standardCategory',
       String,
       'Category',
@@ -17551,13 +17399,6 @@ class TechnologyStandardEntry extends DocSpecsSection {
 @SectionId('INTCON')
 class IntegrationConstraintEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'constraintId',
-      String,
-      'Constraint ID',
-      required: true,
-      hint: 'Unique identifier, e.g. INT-CON-001',
-    ),
     Field(
       'constraintDescription',
       String,
@@ -17996,13 +17837,6 @@ class RiskEntry extends DocSpecsSection {
 @SectionId('RIID')
 class RiskIdentification extends DocSpecsSection {
   @Form([
-    Field(
-      'riskId',
-      String,
-      'Risk ID (e.g., RISK-001, TR-001)',
-      required: true,
-      hint: 'Unique identifier for this risk',
-    ),
     Field(
       'description',
       String,

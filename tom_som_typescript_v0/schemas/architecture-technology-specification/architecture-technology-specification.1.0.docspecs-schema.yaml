@@ -14095,7 +14095,7 @@ form-types:
       - fieldname: writtenEntities
         description: "The Data Model entities the job writes, including the primary one"
       - fieldname: targetReports
-        description: "The reports this job produces, where the work is a report run"
+        description: "The reports this job produces, where the work is a report run — report section ids (REPENT-REPO-…), comma-separated"
   scjob-fail-form:
     fields:
       - fieldname: maxRetries
@@ -15937,15 +15937,15 @@ form-types:
       - fieldname: reviewFrequency
         description: How often this risk is reassessed
       - fieldname: relatedRisks
-        description: Other risk IDs that correlate or cascade
+        description: "Other component risks that correlate or cascade — risk section ids (CMRS-RISK-…), comma-separated"
       - fieldname: acceptanceCriteria
         description: Under what conditions is this risk formally accepted
   cper-form:
     fields:
       - fieldname: riskRef
-        description: Risk ID this plan addresses
+        description: The component risk this plan addresses — a risk section id (CMRS-RISK-…)
       - fieldname: componentRef
-        description: Component ID this plan covers
+        description: The component this plan covers — a component section id (CMPNT-COMP-…)
   cpea-form:
     fields:
       - fieldname: triggerDetection

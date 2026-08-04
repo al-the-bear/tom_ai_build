@@ -43,9 +43,8 @@ UserType: Internal
 
 ###### <!--[SYTS-SYST-LST]--> System Tasks
 
-####### <!--[SYTS-SYST-1]--> Clear the order work list
+####### <!--[SYTS-SYST-1]--> TSK-01 Clear the order work list
 
-TaskId: TSK-01
 Description: Work the state-filtered order queue from capture through to confirmation, handling holds and amendments as they arise.
 
 ######## <!--[SYTS-WORK-LST]--> Workflow Steps
@@ -123,9 +122,8 @@ CustomerDissatisfaction: 1
 
 ######## <!--[ACE-CRIT-LST]--> Criteria
 
-######### <!--[ACE-CRIT-1]--> EDI order accepted
+######### <!--[ACE-CRIT-1]--> FR-01-AC-1 — EDI order accepted
 
-CriterionId: FR-01-AC-1
 Given: a well-formed EDI 850 purchase order
 When: the EDI adapter submits it to the capture API
 Then: an Order is created in state Captured and a domain event is emitted
@@ -134,9 +132,8 @@ TestType: Integration
 Priority: Must
 Status: Draft
 
-######### <!--[ACE-CRIT-2]--> REST order accepted
+######### <!--[ACE-CRIT-2]--> FR-01-AC-2 — REST order accepted
 
-CriterionId: FR-01-AC-2
 Given: a valid REST order payload from an authenticated partner
 When: POST /orders is called
 Then: an Order is created in state Captured with the same shape as EDI
@@ -170,9 +167,8 @@ FitCriterion: Each confirmed line carries a unitPrice snapshot equal to the pric
 
 ######## <!--[ACE-CRIT-LST]--> Criteria
 
-######### <!--[ACE-CRIT-1]--> Price snapshotted onto line
+######### <!--[ACE-CRIT-1]--> FR-02-AC-1 — Price snapshotted onto line
 
-CriterionId: FR-02-AC-1
 Given: an order with two lines
 When: the order is priced
 Then: each line stores the resolved unit price as of the pricing timestamp
@@ -202,9 +198,8 @@ RiskLevel: High
 
 ######## <!--[ACE-CRIT-LST]--> Criteria
 
-######### <!--[ACE-CRIT-1]--> Stock reserved when available
+######### <!--[ACE-CRIT-1]--> FR-03-AC-1 — Stock reserved when available
 
-CriterionId: FR-03-AC-1
 Given: an order whose lines all have sufficient stock on hand
 When: the order is submitted for confirmation
 Then: every line reserves its quantity and the order is eligible to confirm
@@ -213,9 +208,8 @@ TestType: Integration
 Priority: Must
 Status: Draft
 
-######### <!--[ACE-CRIT-2]--> Short line placed on Hold
+######### <!--[ACE-CRIT-2]--> FR-03-AC-2 — Short line placed on Hold
 
-CriterionId: FR-03-AC-2
 Given: an order with one line whose demand exceeds available stock
 When: reservation runs before confirmation
 Then: only the short line is placed on Hold while the remaining lines reserve normally
@@ -245,9 +239,8 @@ RiskLevel: Medium
 
 ######## <!--[ACE-CRIT-LST]--> Criteria
 
-######### <!--[ACE-CRIT-1]--> Order confirmed within budget
+######### <!--[ACE-CRIT-1]--> FR-04-AC-1 — Order confirmed within budget
 
-CriterionId: FR-04-AC-1
 Given: a captured order that passes validation, pricing, and reservation
 When: the lifecycle processes it under normal load
 Then: the order reaches state Confirmed within five minutes of capture
@@ -256,9 +249,8 @@ TestType: Integration
 Priority: Must
 Status: Draft
 
-######### <!--[ACE-CRIT-2]--> Confirmation surfaced to operations and tracking
+######### <!--[ACE-CRIT-2]--> FR-04-AC-2 — Confirmation surfaced to operations and tracking
 
-CriterionId: FR-04-AC-2
 Given: an order that has just reached state Confirmed
 When: the confirmation event is published
 Then: the order appears as Confirmed on the operations work list and the public tracking page
@@ -288,9 +280,8 @@ RiskLevel: Medium
 
 ######## <!--[ACE-CRIT-LST]--> Criteria
 
-######### <!--[ACE-CRIT-1]--> Amendment re-runs pricing and reservation
+######### <!--[ACE-CRIT-1]--> FR-05-AC-1 — Amendment re-runs pricing and reservation
 
-CriterionId: FR-05-AC-1
 Given: a confirmed order that has not yet dispatched
 When: a clerk changes a line quantity
 Then: pricing and reservation re-run for the affected line and the change is written to the audit trail
@@ -299,9 +290,8 @@ TestType: Integration
 Priority: Must
 Status: Draft
 
-######### <!--[ACE-CRIT-2]--> Cancellation blocked after dispatch
+######### <!--[ACE-CRIT-2]--> FR-05-AC-2 — Cancellation blocked after dispatch
 
-CriterionId: FR-05-AC-2
 Given: an order that has already dispatched
 When: a clerk attempts to cancel it
 Then: the cancellation is rejected and the rejection is recorded in the audit trail
@@ -331,9 +321,8 @@ RiskLevel: Low
 
 ######## <!--[ACE-CRIT-LST]--> Criteria
 
-######### <!--[ACE-CRIT-1]--> Supervisor releases hold
+######### <!--[ACE-CRIT-1]--> FR-06-AC-1 — Supervisor releases hold
 
-CriterionId: FR-06-AC-1
 Given: an order in state Hold
 When: a supervisor releases it with a reason
 Then: the order resumes at the transition that placed it on Hold and the reason is audited
@@ -571,11 +560,10 @@ ExternalActorCount: 0
 
 ##### <!--[ACEN-ACTO-LST]--> Actors
 
-###### <!--[ACEN-ACTO-1]--> Order Clerk
+###### <!--[ACEN-ACTO-1]--> ACT-01 Order Clerk
 
 ####### <!--[ACID]--> Identification
 
-ActorId: ACT-01
 ActorType: Human
 Category: Primary
 Description: Clears the order work list, amends lines, and cancels orders before dispatch.
@@ -583,11 +571,10 @@ OrganizationalUnit: Order Operations
 EstimatedCount: 25
 GeographicDistribution: Single distribution centre
 
-###### <!--[ACEN-ACTO-2]--> Order Supervisor
+###### <!--[ACEN-ACTO-2]--> ACT-02 Order Supervisor
 
 ####### <!--[ACID]--> Identification
 
-ActorId: ACT-02
 ActorType: Human
 Category: Primary
 Description: Reviews orders on Hold and releases them back into the lifecycle.
@@ -595,11 +582,10 @@ OrganizationalUnit: Order Operations
 EstimatedCount: 4
 GeographicDistribution: Single distribution centre
 
-###### <!--[ACEN-ACTO-3]--> Pricing Admin
+###### <!--[ACEN-ACTO-3]--> ACT-03 Pricing Admin
 
 ####### <!--[ACID]--> Identification
 
-ActorId: ACT-03
 ActorType: Human
 Category: Supporting
 Description: Maintains the price lists that the synchronous pricing step consumes.
@@ -607,11 +593,10 @@ OrganizationalUnit: Commercial
 EstimatedCount: 3
 GeographicDistribution: Single distribution centre
 
-###### <!--[ACEN-ACTO-4]--> EDI Integration Account
+###### <!--[ACEN-ACTO-4]--> ACT-04 EDI Integration Account
 
 ####### <!--[ACID]--> Identification
 
-ActorId: ACT-04
 ActorType: System
 Category: Primary
 Description: Machine account through which the wholesale EDI adapter submits orders.
@@ -623,11 +608,10 @@ GeographicDistribution: Single distribution centre
 
 ##### <!--[INEN-INTE-LST]--> Interactions
 
-###### <!--[INEN-INTE-1]--> Interaction 1
+###### <!--[INEN-INTE-UC-01]--> Interaction 1
 
 ####### <!--[INID]--> Identification
 
-InteractionId: UC-01
 UseCaseName: Capture Wholesale Order (EDI)
 ProcessReference: BP-Order-Capture
 BriefDescription: A wholesale EDI purchase order is captured, validated, priced, reserved, and confirmed.
@@ -703,9 +687,8 @@ BusinessRuleApplied: FR-04 five-minute confirmation
 
 ######## <!--[EXTEN-EXTE-LST]--> Extensions
 
-######### <!--[EXTEN-EXTE-1]--> Extension 1
+######### <!--[EXTEN-EXTE-1]--> 2a Credit limit exceeded
 
-ExtensionId: 2a
 BranchPoint: Step 2
 Condition: Customer credit limit would be exceeded
 ExtensionType: Exception
@@ -722,9 +705,8 @@ StepNumber: 2a.1
 Action: System places the Order on Hold and emits OrderHeld.
 Response: Order appears in the Hold filter of the work list with reason "Credit exceeded".
 
-######### <!--[EXTEN-EXTE-2]--> Extension 2
+######### <!--[EXTEN-EXTE-2]--> 4a Insufficient stock
 
-ExtensionId: 4a
 BranchPoint: Step 4
 Condition: Insufficient stock for one or more lines
 ExtensionType: Exception
@@ -741,11 +723,10 @@ StepNumber: 4a.1
 Action: System holds the unsatisfiable line and reserves the rest.
 Response: The order is partially reserved; the held line is flagged for follow-up.
 
-###### <!--[INEN-INTE-2]--> Interaction 2
+###### <!--[INEN-INTE-UC-02]--> Interaction 2
 
 ####### <!--[INID]--> Identification
 
-InteractionId: UC-02
 UseCaseName: Release Order Hold
 ProcessReference: BP-Order-Exception
 BriefDescription: A supervisor reviews an order on Hold and releases it back into the lifecycle.
@@ -790,11 +771,10 @@ SystemResponse: System resumes the lifecycle and emits OrderHoldReleased.
 DataInvolved: Order
 BusinessRuleApplied: FR-06 hold release
 
-###### <!--[INEN-INTE-3]--> Interaction 3
+###### <!--[INEN-INTE-UC-03]--> Interaction 3
 
 ####### <!--[INID]--> Identification
 
-InteractionId: UC-03
 UseCaseName: Amend Order Line Before Dispatch
 ProcessReference: BP-Order-Amendment
 BriefDescription: A clerk changes a line quantity before dispatch, re-running pricing and reservation.
@@ -843,11 +823,10 @@ BusinessRuleApplied: FR-03 reserve before confirm
 
 ##### <!--[SCNRY-SCEN-LST]--> Scenarios
 
-###### <!--[SCNRY-SCEN-1]--> Happy-path wholesale order, capture to fulfilment
+###### <!--[SCNRY-SCEN-1]--> SCN-01 Happy-path wholesale order, capture to fulfilment
 
 ####### <!--[SCID]--> Identification
 
-ScenarioId: SCN-01
 ScenarioType: End-to-end
 Description: A clean wholesale order flows from EDI capture through to fulfilment with no holds.
 BusinessGoal: Confirm and fulfil a wholesale order without manual intervention.
@@ -1440,9 +1419,8 @@ Design priorities:
 
 ###### <!--[SCREN-ITEM-LST]--> Items
 
-####### <!--[SCREN-ITEM-1]--> Order Work List
+####### <!--[SCREN-ITEM-SCR-01]--> Order Work List
 
-ScreenId: SCR-01
 Purpose: The single, state-filtered queue from which clerks work every order.
 
 ######## <!--[SCECL]--> Classification
@@ -1557,15 +1535,14 @@ MessageResource: screen.orders.empty
 PrimaryActionLabel: Clear filter
 PrimaryActionTarget: SCR-01-EL-1
 
-####### <!--[SCREN-ITEM-2]--> Order Detail
+####### <!--[SCREN-ITEM-SCR-02]--> Order Detail
 
-ScreenId: SCR-02
 Purpose: The lifecycle timeline and inline actions for a single order.
 
 ######## <!--[SCECL]--> Classification
 
 ScreenCategory: Detail
-ParentScreenId: SCR-01
+ParentScreenId: SCREN-ITEM-SCR-01
 RoutePattern: /orders/:orderId
 
 ######## <!--[AZREQ]--> Access

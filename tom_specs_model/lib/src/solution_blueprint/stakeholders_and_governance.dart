@@ -159,7 +159,6 @@ from standard organizational project governance procedures.
 @SectionId('STKRE')
 class StakeholderRegisterEntry extends DocSpecsSection {
   @Form([
-    Field('stakeholderId', String, 'Stakeholder ID (STK-NNN)', required: true),
     Field('role', String, 'Role', required: true),
     Field('interest', String, 'Interest (what they care about)'),
     Field('influence', String, 'Influence (High, Medium, Low)'),

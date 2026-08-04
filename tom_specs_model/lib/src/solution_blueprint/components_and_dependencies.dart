@@ -329,7 +329,6 @@ class ComponentStrategy extends DocSpecsSection {
 @SectionId('RGUSE')
 class ReuseGoalEntry extends DocSpecsSection {
   @Form([
-    Field('goalId', String, 'Goal ID', hint: 'Unique identifier, e.g. RG-001'),
     Field(
       'goal',
       String,
@@ -524,12 +523,6 @@ Each criterion includes:
 class EvaluationCriterionEntry extends DocSpecsSection {
   @Form([
     Field(
-      'criterionId',
-      String,
-      'Criterion ID',
-      hint: 'Unique identifier, e.g. EC-001',
-    ),
-    Field(
       'criterion',
       String,
       'Criterion Name',
@@ -683,16 +676,6 @@ class EvaluationCriterionEntry extends DocSpecsSection {
 @SectionId('CMPNT')
 class ComponentEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'componentId',
-      String,
-      'Component ID',
-      // Why: this is the component registry key — CPER.componentRef and
-      // CMRS.componentRef resolve against it, and an optional key could not be
-      // resolved against at all (tom_specs_model_rules.md §6.2 rule 4).
-      required: true,
-      hint: 'Unique identifier, e.g. CMP-DB-001',
-    ),
     Field(
       'category',
       String,
@@ -1711,12 +1694,6 @@ Maintenance relationships and update coordination.
 class RuntimeDependencyEntry extends DocSpecsSection {
   @Form([
     Field(
-      'dependencyId',
-      String,
-      'Dependency ID',
-      hint: 'Unique identifier, e.g. DEP-R-001',
-    ),
-    Field(
       'version',
       String,
       'Required Version',
@@ -1898,12 +1875,6 @@ class RuntimeDependencyEntry extends DocSpecsSection {
 @SectionId('MNDEP')
 class MaintenanceDependencyEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'dependencyId',
-      String,
-      'Dependency ID',
-      hint: 'Unique identifier, e.g. DEP-M-001',
-    ),
     Field(
       'version',
       String,
@@ -2146,12 +2117,6 @@ Document tools, access, and backups required to execute.
 class ContingencyPlanEntry extends DocSpecsSection {
   @Form([
     Field(
-      'contingencyId',
-      String,
-      'Contingency Plan ID',
-      hint: 'Unique identifier, e.g. CP-001',
-    ),
-    Field(
       'triggerCondition',
       String,
       'Trigger Condition',
@@ -2175,15 +2140,19 @@ class ContingencyPlanEntry extends DocSpecsSection {
       'riskRef',
       String,
       'Associated Risk',
-      hint: 'Risk ID this plan addresses',
-      refersTo: ['CMRS.riskId'],
+      hint:
+          'The component risk this plan addresses — a risk section id '
+          '(CMRS-RISK-…)',
+      refersTo: ['CMRS.@sectionId'],
     ),
     Field(
       'componentRef',
       String,
       'Component',
-      hint: 'Component ID this plan covers',
-      refersTo: ['CMPNT.componentId'],
+      hint:
+          'The component this plan covers — a component section id '
+          '(CMPNT-COMP-…)',
+      refersTo: ['CMPNT.@sectionId'],
     ),
   ])
   @SerializationOrder(1)
@@ -2359,18 +2328,13 @@ class ContingencyPlanEntry extends DocSpecsSection {
 class ComponentRiskEntry extends DocSpecsSection {
   @Form([
     Field(
-      'riskId',
-      String,
-      'Risk ID',
-      hint: 'Unique identifier, e.g. CR-001',
-      required: true,
-    ),
-    Field(
       'componentRef',
       String,
       'Component',
-      hint: 'Component ID this risk applies to',
-      refersTo: ['CMPNT.componentId'],
+      hint:
+          'The component this risk applies to — a component section id '
+          '(CMPNT-COMP-…)',
+      refersTo: ['CMPNT.@sectionId'],
     ),
   ])
   @override
@@ -2541,8 +2505,10 @@ class ComponentRiskEntry extends DocSpecsSection {
       'relatedRisks',
       String,
       'Related Risks',
-      hint: 'Other risk IDs that correlate or cascade',
-      refersTo: ['CMRS.riskId'],
+      hint:
+          'Other component risks that correlate or cascade — risk section ids '
+          '(CMRS-RISK-…), comma-separated',
+      refersTo: ['CMRS.@sectionId'],
     ),
     Field(
       'acceptanceCriteria',

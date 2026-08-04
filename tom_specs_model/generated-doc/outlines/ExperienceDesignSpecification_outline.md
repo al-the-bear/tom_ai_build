@@ -34,7 +34,7 @@
     - `ScreenInventory`
       - content, overview @text
       - [1,] items: `ScreenEntry`
-        - content @Form(screenId, purpose), classification, traceability, presentation, designNotes @text
+        - content @Form(purpose), classification, traceability, presentation, designNotes @text
         - access: `AuthorizationRequirementSpec`
           - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
             resourceKeyRequirement, customRequirement
@@ -182,7 +182,7 @@
     - content @Form(printStrategy, defaultPaperSize, defaultOrientation), pageSetup, branding, watermark, headerFooter,
       archive
     - exportFormats: `ExportFormatEntry`
-      - content @Form(exportId, formatType), identity, fileFormat, delimiter, dataFormat, security, output, audit
+      - content @Form(formatType), identity, fileFormat, delimiter, dataFormat, security, output, audit
       - sizeSettings: `ExportSizeSettings`
         - content @Form(maxRows, splitLargeFiles, splitThreshold)
       - access: `AuthorizationRequirementSpec`
@@ -197,7 +197,7 @@
         - content @Form(mappingId, sourceField, targetFieldName), formatting, numericOutput, temporalOutput,
           booleanOutput, enumerationOutput, textOutput, transformation, inclusion, layout
     - exportTemplates: `ExportTemplateEntry`
-      - content @Form(templateId, baseFormatType), format, fields, layout, metadata
+      - content @Form(baseFormatType), format, fields, layout, metadata
       - access: `AuthorizationRequirementSpec`
         - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
           resourceKeyRequirement, customRequirement
@@ -209,7 +209,7 @@
   - `ReportDefinitions`
     - content @description
     - reports: `ReportEntry`
-      - content @Form(reportId, reportType), identity, dataSource, format, layout, headerFooter, grouping, formatting,
+      - content @Form(reportType), identity, dataSource, format, layout, headerFooter, grouping, formatting,
         interactivity, pagination, security, lifecycle
       - access: `AuthorizationRequirementSpec`
         - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
@@ -243,7 +243,7 @@
     - `ValidationFeedback`
       - validationDisplayContent, placement, messages, guidance, behavior, validationNarrative @text
       - messageTemplates: `ValidationMessageTemplate`
-        - content @Form(messageId, validationType, fieldTypes, messageTemplate, shortMessage, helpText, exampleCorrection, severity, iconCode, localizationKey)
+        - content @Form(validationType, fieldTypes, messageTemplate, shortMessage, helpText, exampleCorrection, severity, iconCode, localizationKey)
       - fieldValidationRules: `String`
     - `SystemErrorDisplay`
       - systemErrorContent, errorTypes, displayMethods, displayContent, fallback, systemErrorNarrative @text
@@ -255,7 +255,7 @@
         recoveryNarrative @text
       - recoveryFlows: `String`
       - recoveryScenarios: `RecoveryScenarioEntry`
-        - content @Form(scenarioId, triggerCondition, userImpact, recoverySteps, dataAtRisk, preventionMeasures, timeToRecover, supportEscalation),
+        - content @Form(triggerCondition, userImpact, recoverySteps, dataAtRisk, preventionMeasures, timeToRecover, supportEscalation),
           detailedFlow @text
   - `UserAssistance`
     - helpOverviewContent, delivery, insights, helpOverview @text, helpContentInventory @text
@@ -266,7 +266,7 @@
     - onboarding: `OnboardingHelp`
       - onboardingContent, tours, sampleData, checklist, disclosure, reengagement, onboardingNarrative @text
       - featureTours: `FeatureTourEntry`
-        - content @Form(tourId, tourDescription, targetAudience, triggerCondition, stepCount, estimatedDuration, skippable, repeatPolicy)
+        - content @Form(tourDescription, targetAudience, triggerCondition, stepCount, estimatedDuration, skippable, repeatPolicy)
         - steps: `TourStepEntry`
           - content @Form(stepOrder, targetElement, stepContent, placement, actionRequired, spotlightShape)
     - `SupportAccess`
@@ -282,7 +282,7 @@
     - `AccessibilityChecklist`
       - checklistOverviewContent, checklistOverview @text
       - items: `AccessibilityCheckEntry`
-        - content @Form(checkId, checkItem, checkDescription, verificationMethod), compliance, execution, remediation
+        - content @Form(checkItem, checkDescription, verificationMethod), compliance, execution, remediation
   - `ResponsiveDesign`
     - responsiveOverview, responsiveNarrative @text
     - breakpointConfig: `BreakpointConfiguration`
@@ -318,8 +318,7 @@
       - properties: `ComponentPropertyEntry`
         - content @Form(propertyId, propertyType, defaultValue, allowedValues, propertyDescription, affectsAppearance, affectsBehavior, resourceResolvable, authControlled)
     - componentFamilies: `ComponentFamilyEntry`
-      - content @Form(familyId, familyDescription, componentCount, sharedPatterns, consistencyRules),
-        familyNarrative @text
+      - content @Form(familyDescription, componentCount, sharedPatterns, consistencyRules), familyNarrative @text
       - components: `FamilyComponentRef`
         - content @Form(componentId, familyRole, relationToOthers)
   - `LanguageCountrySelection`
@@ -330,7 +329,7 @@
     - `PrototypeGoals`
       - goalsContent, riskProfile, feedbackProfile, goalsNarrative @text
       - goals: `PrototypeGoalEntry`
-        - content @Form(goalId, goalDescription, goalCategory, validationMethod, successMetric, priority, relatedRisks, stakeholders)
+        - content @Form(goalDescription, goalCategory, validationMethod, successMetric, priority, relatedRisks, stakeholders)
     - featureSubset: `PrototypeFeatureSubset`
       - featureSubsetContent, scope, fidelity, featureNarrative @text
       - features: `PrototypeFeatureEntry`

@@ -38734,14 +38734,6 @@ export class AcceptanceCriterionEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get criterionId(): string {
-    return this.doc.formField(this.path, "criterionId") || '';
-  }
-
-  set criterionId(value: string) {
-    this.doc.setFormField(this.path, "criterionId", value);
-  }
-
   get given(): string {
     return this.doc.formField(this.path, "given") || '';
   }
@@ -39279,14 +39271,6 @@ export class AccessLevelEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get levelId(): string {
-    return this.doc.formField(this.path, "levelId") || '';
-  }
-
-  set levelId(value: string) {
-    this.doc.setFormField(this.path, "levelId", value);
-  }
-
   get levelRank(): number | null {
     const v = this.doc.formField(this.path, "levelRank");
     return v == null || v === '' ? null : Number.parseInt(v, 10);
@@ -39452,14 +39436,6 @@ export class AccessRestrictionEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get restrictionId(): string {
-    return this.doc.formField(this.path, "restrictionId") || '';
-  }
-
-  set restrictionId(value: string) {
-    this.doc.setFormField(this.path, "restrictionId", value);
-  }
-
   get restrictionType(): string {
     return this.doc.formField(this.path, "restrictionType") || '';
   }
@@ -39620,14 +39596,6 @@ export class AccessibilityCheckEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get checkId(): string {
-    return this.doc.formField(this.path, "checkId") || '';
-  }
-
-  set checkId(value: string) {
-    this.doc.setFormField(this.path, "checkId", value);
   }
 
   get checkItem(): string {
@@ -40397,14 +40365,6 @@ export class ActorEntryIdentificationForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get actorId(): string {
-    return this.doc.formField(this.path, "actorId") || '';
-  }
-
-  set actorId(value: string) {
-    this.doc.setFormField(this.path, "actorId", value);
   }
 
   get actorType(): string {
@@ -42144,14 +42104,6 @@ export class AlertRuleEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get alertId(): string {
-    return this.doc.formField(this.path, "alertId") || '';
-  }
-
-  set alertId(value: string) {
-    this.doc.setFormField(this.path, "alertId", value);
-  }
-
   get alertDescription(): string {
     return this.doc.formField(this.path, "alertDescription") || '';
   }
@@ -42767,14 +42719,6 @@ export class AlternativeFlowEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get flowId(): string {
-    return this.doc.formField(this.path, "flowId") || '';
-  }
-
-  set flowId(value: string) {
-    this.doc.setFormField(this.path, "flowId", value);
   }
 
   get flowType(): string {
@@ -44673,14 +44617,6 @@ export class ArchitectureDecisionRecordContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get decisionId(): string {
-    return this.doc.formField(this.path, "decisionId") || '';
-  }
-
-  set decisionId(value: string) {
-    this.doc.setFormField(this.path, "decisionId", value);
-  }
-
   get date(): string {
     return this.doc.formField(this.path, "date") || '';
   }
@@ -45219,14 +45155,6 @@ export class AssumptionRegisterEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get assumptionId(): string {
-    return this.doc.formField(this.path, "assumptionId") || '';
-  }
-
-  set assumptionId(value: string) {
-    this.doc.setFormField(this.path, "assumptionId", value);
   }
 
   get description(): string {
@@ -48251,14 +48179,6 @@ export class BoundaryAssumptionEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get assumptionId(): string {
-    return this.doc.formField(this.path, "assumptionId") || '';
-  }
-
-  set assumptionId(value: string) {
-    this.doc.setFormField(this.path, "assumptionId", value);
-  }
-
   get assumption(): string {
     return this.doc.formField(this.path, "assumption") || '';
   }
@@ -50093,14 +50013,6 @@ export class BusinessGoalEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get goalId(): string {
-    return this.doc.formField(this.path, "goalId") || '';
-  }
-
-  set goalId(value: string) {
-    this.doc.setFormField(this.path, "goalId", value);
-  }
-
   get goalCategory(): string {
     return this.doc.formField(this.path, "goalCategory") || '';
   }
@@ -51188,14 +51100,6 @@ export class BusinessRuleEntryIdentityForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get ruleId(): string {
-    return this.doc.formField(this.path, "ruleId") || '';
-  }
-
-  set ruleId(value: string) {
-    this.doc.setFormField(this.path, "ruleId", value);
-  }
-
   get ruleVersion(): string {
     return this.doc.formField(this.path, "ruleVersion") || '';
   }
@@ -51908,14 +51812,6 @@ export class CertificationEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get certificationId(): string {
-    return this.doc.formField(this.path, "certificationId") || '';
-  }
-
-  set certificationId(value: string) {
-    this.doc.setFormField(this.path, "certificationId", value);
-  }
-
   get issuingBody(): string {
     return this.doc.formField(this.path, "issuingBody") || '';
   }
@@ -52381,14 +52277,6 @@ export class ChangeCategoryEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get categoryId(): string {
-    return this.doc.formField(this.path, "categoryId") || '';
-  }
-
-  set categoryId(value: string) {
-    this.doc.setFormField(this.path, "categoryId", value);
-  }
-
   get description(): string {
     return this.doc.formField(this.path, "description") || '';
   }
@@ -52758,14 +52646,6 @@ export class ChangeImpactCriterionEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get criterionId(): string {
-    return this.doc.formField(this.path, "criterionId") || '';
-  }
-
-  set criterionId(value: string) {
-    this.doc.setFormField(this.path, "criterionId", value);
   }
 
   get criterion(): string {
@@ -53868,14 +53748,6 @@ export class ChangedRoleIdentificationContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get roleId(): string {
-    return this.doc.formField(this.path, "roleId") || '';
-  }
-
-  set roleId(value: string) {
-    this.doc.setFormField(this.path, "roleId", value);
   }
 
   get newRoleTitle(): string {
@@ -57418,14 +57290,6 @@ export class CommunicationEventEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get eventId(): string {
-    return this.doc.formField(this.path, "eventId") || '';
-  }
-
-  set eventId(value: string) {
-    this.doc.setFormField(this.path, "eventId", value);
-  }
-
   get eventType(): string {
     return this.doc.formField(this.path, "eventType") || '';
   }
@@ -58143,14 +58007,6 @@ export class CompetencyEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get competencyId(): string {
-    return this.doc.formField(this.path, "competencyId") || '';
-  }
-
-  set competencyId(value: string) {
-    this.doc.setFormField(this.path, "competencyId", value);
   }
 
   get description(): string {
@@ -59143,14 +58999,6 @@ export class ComponentEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get componentId(): string {
-    return this.doc.formField(this.path, "componentId") || '';
-  }
-
-  set componentId(value: string) {
-    this.doc.setFormField(this.path, "componentId", value);
-  }
-
   get category(): string {
     return this.doc.formField(this.path, "category") || '';
   }
@@ -59461,14 +59309,6 @@ export class ComponentFamilyEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get familyId(): string {
-    return this.doc.formField(this.path, "familyId") || '';
-  }
-
-  set familyId(value: string) {
-    this.doc.setFormField(this.path, "familyId", value);
   }
 
   get familyDescription(): string {
@@ -61367,14 +61207,6 @@ export class ComponentRiskEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get riskId(): string {
-    return this.doc.formField(this.path, "riskId") || '';
-  }
-
-  set riskId(value: string) {
-    this.doc.setFormField(this.path, "riskId", value);
-  }
-
   get componentRef(): string {
     return this.doc.formField(this.path, "componentRef") || '';
   }
@@ -62460,14 +62292,6 @@ export class ComputingEquipmentEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get equipmentId(): string {
-    return this.doc.formField(this.path, "equipmentId") || '';
-  }
-
-  set equipmentId(value: string) {
-    this.doc.setFormField(this.path, "equipmentId", value);
-  }
-
   get deviceType(): string {
     return this.doc.formField(this.path, "deviceType") || '';
   }
@@ -63468,14 +63292,6 @@ export class ConstraintRegisterEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get constraintId(): string {
-    return this.doc.formField(this.path, "constraintId") || '';
-  }
-
-  set constraintId(value: string) {
-    this.doc.setFormField(this.path, "constraintId", value);
-  }
-
   get description(): string {
     return this.doc.formField(this.path, "description") || '';
   }
@@ -63931,14 +63747,6 @@ export class ContingencyPlanEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get contingencyId(): string {
-    return this.doc.formField(this.path, "contingencyId") || '';
-  }
-
-  set contingencyId(value: string) {
-    this.doc.setFormField(this.path, "contingencyId", value);
   }
 
   get triggerCondition(): string {
@@ -65263,14 +65071,6 @@ export class DashboardEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get dashboardId(): string {
-    return this.doc.formField(this.path, "dashboardId") || '';
-  }
-
-  set dashboardId(value: string) {
-    this.doc.setFormField(this.path, "dashboardId", value);
   }
 
   get dashboardCategory(): string {
@@ -67147,14 +66947,6 @@ export class DataDuplicationEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get duplicationId(): string {
-    return this.doc.formField(this.path, "duplicationId") || '';
-  }
-
-  set duplicationId(value: string) {
-    this.doc.setFormField(this.path, "duplicationId", value);
-  }
-
   get description(): string {
     return this.doc.formField(this.path, "description") || '';
   }
@@ -68028,14 +67820,6 @@ export class DataGovernancePolicyEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get policyId(): string {
-    return this.doc.formField(this.path, "policyId") || '';
-  }
-
-  set policyId(value: string) {
-    this.doc.setFormField(this.path, "policyId", value);
-  }
-
   get policyArea(): string {
     return this.doc.formField(this.path, "policyArea") || '';
   }
@@ -68386,14 +68170,6 @@ export class DataIntegrationEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get integrationId(): string {
-    return this.doc.formField(this.path, "integrationId") || '';
-  }
-
-  set integrationId(value: string) {
-    this.doc.setFormField(this.path, "integrationId", value);
   }
 
   get description(): string {
@@ -70113,14 +69889,6 @@ export class DataQualityInitiativeEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get initiativeId(): string {
-    return this.doc.formField(this.path, "initiativeId") || '';
-  }
-
-  set initiativeId(value: string) {
-    this.doc.setFormField(this.path, "initiativeId", value);
-  }
-
   get description(): string {
     return this.doc.formField(this.path, "description") || '';
   }
@@ -70221,14 +69989,6 @@ export class DataQualityIssueEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get issueId(): string {
-    return this.doc.formField(this.path, "issueId") || '';
-  }
-
-  set issueId(value: string) {
-    this.doc.setFormField(this.path, "issueId", value);
   }
 
   get description(): string {
@@ -70747,14 +70507,6 @@ export class DataSourceEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get dataSourceId(): string {
-    return this.doc.formField(this.path, "dataSourceId") || '';
-  }
-
-  set dataSourceId(value: string) {
-    this.doc.setFormField(this.path, "dataSourceId", value);
   }
 
   get dataStoreName(): string {
@@ -72354,14 +72106,6 @@ export class DecisionOptionEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get optionId(): string {
-    return this.doc.formField(this.path, "optionId") || '';
-  }
-
-  set optionId(value: string) {
-    this.doc.setFormField(this.path, "optionId", value);
-  }
-
   get option(): string {
     return this.doc.formField(this.path, "option") || '';
   }
@@ -72599,14 +72343,6 @@ export class DecisionPointEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get decisionId(): string {
-    return this.doc.formField(this.path, "decisionId") || '';
-  }
-
-  set decisionId(value: string) {
-    this.doc.setFormField(this.path, "decisionId", value);
   }
 
   get decisionPoint(): string {
@@ -73363,14 +73099,6 @@ export class DeliverableEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get deliverableId(): string {
-    return this.doc.formField(this.path, "deliverableId") || '';
-  }
-
-  set deliverableId(value: string) {
-    this.doc.setFormField(this.path, "deliverableId", value);
-  }
-
   get priority(): string {
     return this.doc.formField(this.path, "priority") || '';
   }
@@ -73729,14 +73457,6 @@ export class DeliveryAcceptanceCriterionEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get criterionId(): string {
-    return this.doc.formField(this.path, "criterionId") || '';
-  }
-
-  set criterionId(value: string) {
-    this.doc.setFormField(this.path, "criterionId", value);
   }
 
   get criterion(): string {
@@ -74657,14 +74377,6 @@ export class DependencyRegisterEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get dependencyId(): string {
-    return this.doc.formField(this.path, "dependencyId") || '';
-  }
-
-  set dependencyId(value: string) {
-    this.doc.setFormField(this.path, "dependencyId", value);
   }
 
   get description(): string {
@@ -77941,14 +77653,6 @@ export class DisplayEquipmentEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get displayId(): string {
-    return this.doc.formField(this.path, "displayId") || '';
-  }
-
-  set displayId(value: string) {
-    this.doc.setFormField(this.path, "displayId", value);
-  }
-
   get displayType(): string {
     return this.doc.formField(this.path, "displayType") || '';
   }
@@ -80305,14 +80009,6 @@ export class DomainBusinessRuleEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get ruleId(): string {
-    return this.doc.formField(this.path, "ruleId") || '';
-  }
-
-  set ruleId(value: string) {
-    this.doc.setFormField(this.path, "ruleId", value);
-  }
-
   get ruleType(): string {
     return this.doc.formField(this.path, "ruleType") || '';
   }
@@ -82599,14 +82295,6 @@ export class EnvironmentEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get environmentId(): string {
-    return this.doc.formField(this.path, "environmentId") || '';
-  }
-
-  set environmentId(value: string) {
-    this.doc.setFormField(this.path, "environmentId", value);
-  }
-
   get environmentType(): string {
     return this.doc.formField(this.path, "environmentType") || '';
   }
@@ -84743,14 +84431,6 @@ export class EvaluationCriterionEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get criterionId(): string {
-    return this.doc.formField(this.path, "criterionId") || '';
-  }
-
-  set criterionId(value: string) {
-    this.doc.setFormField(this.path, "criterionId", value);
-  }
-
   get criterion(): string {
     return this.doc.formField(this.path, "criterion") || '';
   }
@@ -86157,14 +85837,6 @@ export class ExportFormatEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get exportId(): string {
-    return this.doc.formField(this.path, "exportId") || '';
-  }
-
-  set exportId(value: string) {
-    this.doc.setFormField(this.path, "exportId", value);
-  }
-
   get formatType(): string {
     return this.doc.formField(this.path, "formatType") || '';
   }
@@ -86550,14 +86222,6 @@ export class ExportTemplateEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get templateId(): string {
-    return this.doc.formField(this.path, "templateId") || '';
-  }
-
-  set templateId(value: string) {
-    this.doc.setFormField(this.path, "templateId", value);
-  }
-
   get baseFormatType(): string {
     return this.doc.formField(this.path, "baseFormatType") || '';
   }
@@ -86795,14 +86459,6 @@ export class ExtensionEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get extensionId(): string {
-    return this.doc.formField(this.path, "extensionId") || '';
-  }
-
-  set extensionId(value: string) {
-    this.doc.setFormField(this.path, "extensionId", value);
   }
 
   get branchPoint(): string {
@@ -87066,14 +86722,6 @@ export class ExternalInterfaceEntryIdentificationContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get interfaceId(): string {
-    return this.doc.formField(this.path, "interfaceId") || '';
-  }
-
-  set interfaceId(value: string) {
-    this.doc.setFormField(this.path, "interfaceId", value);
   }
 
   get externalSystem(): string {
@@ -88993,14 +88641,6 @@ export class FeaturePriorityEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get featureId(): string {
-    return this.doc.formField(this.path, "featureId") || '';
-  }
-
-  set featureId(value: string) {
-    this.doc.setFormField(this.path, "featureId", value);
-  }
-
   get priorityRank(): string {
     return this.doc.formField(this.path, "priorityRank") || '';
   }
@@ -89847,14 +89487,6 @@ export class FeatureTourEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get tourId(): string {
-    return this.doc.formField(this.path, "tourId") || '';
-  }
-
-  set tourId(value: string) {
-    this.doc.setFormField(this.path, "tourId", value);
   }
 
   get tourDescription(): string {
@@ -90977,14 +90609,6 @@ export class FunctionEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get functionId(): string {
-    return this.doc.formField(this.path, "functionId") || '';
-  }
-
-  set functionId(value: string) {
-    this.doc.setFormField(this.path, "functionId", value);
   }
 
   get description(): string {
@@ -92354,14 +91978,6 @@ export class GoalDependencyEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get dependencyId(): string {
-    return this.doc.formField(this.path, "dependencyId") || '';
-  }
-
-  set dependencyId(value: string) {
-    this.doc.setFormField(this.path, "dependencyId", value);
-  }
-
   get dependencyType(): string {
     return this.doc.formField(this.path, "dependencyType") || '';
   }
@@ -92435,14 +92051,6 @@ export class GoalMilestoneEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get milestoneId(): string {
-    return this.doc.formField(this.path, "milestoneId") || '';
-  }
-
-  set milestoneId(value: string) {
-    this.doc.setFormField(this.path, "milestoneId", value);
   }
 
   get description(): string {
@@ -92636,14 +92244,6 @@ export class GoalRiskEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get riskId(): string {
-    return this.doc.formField(this.path, "riskId") || '';
-  }
-
-  set riskId(value: string) {
-    this.doc.setFormField(this.path, "riskId", value);
   }
 
   get description(): string {
@@ -92994,14 +92594,6 @@ export class HandlingRequirementEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get requirementId(): string {
-    return this.doc.formField(this.path, "requirementId") || '';
-  }
-
-  set requirementId(value: string) {
-    this.doc.setFormField(this.path, "requirementId", value);
   }
 
   get requirementType(): string {
@@ -96760,14 +96352,6 @@ export class InitialTrainingEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get trainingId(): string {
-    return this.doc.formField(this.path, "trainingId") || '';
-  }
-
-  set trainingId(value: string) {
-    this.doc.setFormField(this.path, "trainingId", value);
-  }
-
   get description(): string {
     return this.doc.formField(this.path, "description") || '';
   }
@@ -96947,14 +96531,6 @@ export class InputDeviceEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get deviceId(): string {
-    return this.doc.formField(this.path, "deviceId") || '';
-  }
-
-  set deviceId(value: string) {
-    this.doc.setFormField(this.path, "deviceId", value);
   }
 
   get deviceType(): string {
@@ -97393,14 +96969,6 @@ export class IntegrationConstraintEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get constraintId(): string {
-    return this.doc.formField(this.path, "constraintId") || '';
-  }
-
-  set constraintId(value: string) {
-    this.doc.setFormField(this.path, "constraintId", value);
   }
 
   get constraintDescription(): string {
@@ -98187,14 +97755,6 @@ export class InteractionChannelEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get channelId(): string {
-    return this.doc.formField(this.path, "channelId") || '';
-  }
-
-  set channelId(value: string) {
-    this.doc.setFormField(this.path, "channelId", value);
-  }
-
   get channelType(): string {
     return this.doc.formField(this.path, "channelType") || '';
   }
@@ -98397,14 +97957,6 @@ export class InteractionEntryIdentificationForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get interactionId(): string {
-    return this.doc.formField(this.path, "interactionId") || '';
-  }
-
-  set interactionId(value: string) {
-    this.doc.setFormField(this.path, "interactionId", value);
   }
 
   get useCaseName(): string {
@@ -98855,14 +98407,6 @@ export class InteractionPatternEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get patternId(): string {
-    return this.doc.formField(this.path, "patternId") || '';
-  }
-
-  set patternId(value: string) {
-    this.doc.setFormField(this.path, "patternId", value);
   }
 
   get patternType(): string {
@@ -100553,14 +100097,6 @@ export class InterfaceTestScenarioEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get scenarioId(): string {
-    return this.doc.formField(this.path, "scenarioId") || '';
-  }
-
-  set scenarioId(value: string) {
-    this.doc.setFormField(this.path, "scenarioId", value);
   }
 
   get scenarioType(): string {
@@ -102558,14 +102094,6 @@ export class KeyResultEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get keyResultId(): string {
-    return this.doc.formField(this.path, "keyResultId") || '';
-  }
-
-  set keyResultId(value: string) {
-    this.doc.setFormField(this.path, "keyResultId", value);
-  }
-
   get keyResult(): string {
     return this.doc.formField(this.path, "keyResult") || '';
   }
@@ -103580,14 +103108,6 @@ export class LifecycleTransitionEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get transitionId(): string {
-    return this.doc.formField(this.path, "transitionId") || '';
-  }
-
-  set transitionId(value: string) {
-    this.doc.setFormField(this.path, "transitionId", value);
   }
 
   get fromState(): string {
@@ -105941,14 +105461,6 @@ export class MaintenanceDependencyEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get dependencyId(): string {
-    return this.doc.formField(this.path, "dependencyId") || '';
-  }
-
-  set dependencyId(value: string) {
-    this.doc.setFormField(this.path, "dependencyId", value);
   }
 
   get version(): string {
@@ -109014,14 +108526,6 @@ export class MigrationRiskEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get riskId(): string {
-    return this.doc.formField(this.path, "riskId") || '';
-  }
-
-  set riskId(value: string) {
-    this.doc.setFormField(this.path, "riskId", value);
-  }
-
   get riskOwner(): string {
     return this.doc.formField(this.path, "riskOwner") || '';
   }
@@ -110454,14 +109958,6 @@ export class MobileDeviceEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get deviceId(): string {
-    return this.doc.formField(this.path, "deviceId") || '';
-  }
-
-  set deviceId(value: string) {
-    this.doc.setFormField(this.path, "deviceId", value);
   }
 
   get deviceType(): string {
@@ -112174,14 +111670,6 @@ export class MustPassCriterionEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get criterionId(): string {
-    return this.doc.formField(this.path, "criterionId") || '';
-  }
-
-  set criterionId(value: string) {
-    this.doc.setFormField(this.path, "criterionId", value);
   }
 
   get verificationMethod(): string {
@@ -114490,14 +113978,6 @@ export class NewRoleEntryIdentificationForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get roleId(): string {
-    return this.doc.formField(this.path, "roleId") || '';
-  }
-
-  set roleId(value: string) {
-    this.doc.setFormField(this.path, "roleId", value);
-  }
-
   get roleFamily(): string {
     return this.doc.formField(this.path, "roleFamily") || '';
   }
@@ -116378,14 +115858,6 @@ export class OngoingTrainingEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get trainingId(): string {
-    return this.doc.formField(this.path, "trainingId") || '';
-  }
-
-  set trainingId(value: string) {
-    this.doc.setFormField(this.path, "trainingId", value);
-  }
-
   get description(): string {
     return this.doc.formField(this.path, "description") || '';
   }
@@ -116957,14 +116429,6 @@ export class OrgImplementationActivityContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get activityId(): string {
-    return this.doc.formField(this.path, "activityId") || '';
-  }
-
-  set activityId(value: string) {
-    this.doc.setFormField(this.path, "activityId", value);
-  }
-
   get description(): string {
     return this.doc.formField(this.path, "description") || '';
   }
@@ -117129,14 +116593,6 @@ export class OrganizationalChangeEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get changeId(): string {
-    return this.doc.formField(this.path, "changeId") || '';
-  }
-
-  set changeId(value: string) {
-    this.doc.setFormField(this.path, "changeId", value);
   }
 
   get changeType(): string {
@@ -118803,14 +118259,6 @@ export class PainPointEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get painPointId(): string {
-    return this.doc.formField(this.path, "painPointId") || '';
-  }
-
-  set painPointId(value: string) {
-    this.doc.setFormField(this.path, "painPointId", value);
-  }
-
   get painPoint(): string {
     return this.doc.formField(this.path, "painPoint") || '';
   }
@@ -119927,14 +119375,6 @@ export class PeripheralEquipmentEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get peripheralId(): string {
-    return this.doc.formField(this.path, "peripheralId") || '';
-  }
-
-  set peripheralId(value: string) {
-    this.doc.setFormField(this.path, "peripheralId", value);
-  }
-
   get peripheralType(): string {
     return this.doc.formField(this.path, "peripheralType") || '';
   }
@@ -120508,14 +119948,6 @@ export class PhaseGateReviewEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get gateId(): string {
-    return this.doc.formField(this.path, "gateId") || '';
-  }
-
-  set gateId(value: string) {
-    this.doc.setFormField(this.path, "gateId", value);
   }
 
   get stage(): string {
@@ -123103,14 +122535,6 @@ export class ProcessAdjustmentEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get adjustmentId(): string {
-    return this.doc.formField(this.path, "adjustmentId") || '';
-  }
-
-  set adjustmentId(value: string) {
-    this.doc.setFormField(this.path, "adjustmentId", value);
-  }
-
   get standardStepName(): string {
     return this.doc.formField(this.path, "standardStepName") || '';
   }
@@ -123834,14 +123258,6 @@ export class ProcessControlEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get controlId(): string {
-    return this.doc.formField(this.path, "controlId") || '';
-  }
-
-  set controlId(value: string) {
-    this.doc.setFormField(this.path, "controlId", value);
-  }
-
   get controlType(): string {
     return this.doc.formField(this.path, "controlType") || '';
   }
@@ -124145,14 +123561,6 @@ export class ProcessDesignPrincipleEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get principleId(): string {
-    return this.doc.formField(this.path, "principleId") || '';
-  }
-
-  set principleId(value: string) {
-    this.doc.setFormField(this.path, "principleId", value);
-  }
-
   get category(): string {
     return this.doc.formField(this.path, "category") || '';
   }
@@ -124287,14 +123695,6 @@ export class ProcessEndEventEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get endEventId(): string {
-    return this.doc.formField(this.path, "endEventId") || '';
-  }
-
-  set endEventId(value: string) {
-    this.doc.setFormField(this.path, "endEventId", value);
-  }
-
   get endEventType(): string {
     return this.doc.formField(this.path, "endEventType") || '';
   }
@@ -124403,14 +123803,6 @@ export class ProcessExceptionEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get exceptionId(): string {
-    return this.doc.formField(this.path, "exceptionId") || '';
-  }
-
-  set exceptionId(value: string) {
-    this.doc.setFormField(this.path, "exceptionId", value);
   }
 
   get exceptionType(): string {
@@ -124625,14 +124017,6 @@ export class ProcessIdentificationContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get processId(): string {
-    return this.doc.formField(this.path, "processId") || '';
-  }
-
-  set processId(value: string) {
-    this.doc.setFormField(this.path, "processId", value);
-  }
-
   get processLevel(): string {
     return this.doc.formField(this.path, "processLevel") || '';
   }
@@ -124811,14 +124195,6 @@ export class ProcessImprovementEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get improvementId(): string {
-    return this.doc.formField(this.path, "improvementId") || '';
-  }
-
-  set improvementId(value: string) {
-    this.doc.setFormField(this.path, "improvementId", value);
   }
 
   get category(): string {
@@ -125041,14 +124417,6 @@ export class ProcessInputEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get inputId(): string {
-    return this.doc.formField(this.path, "inputId") || '';
-  }
-
-  set inputId(value: string) {
-    this.doc.setFormField(this.path, "inputId", value);
-  }
-
   get inputType(): string {
     return this.doc.formField(this.path, "inputType") || '';
   }
@@ -125173,14 +124541,6 @@ export class ProcessKpiEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get kpiId(): string {
-    return this.doc.formField(this.path, "kpiId") || '';
-  }
-
-  set kpiId(value: string) {
-    this.doc.setFormField(this.path, "kpiId", value);
   }
 
   get category(): string {
@@ -125320,14 +124680,6 @@ export class ProcessMetricEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get metricId(): string {
-    return this.doc.formField(this.path, "metricId") || '';
-  }
-
-  set metricId(value: string) {
-    this.doc.setFormField(this.path, "metricId", value);
-  }
-
   get metricCategory(): string {
     return this.doc.formField(this.path, "metricCategory") || '';
   }
@@ -125455,14 +124807,6 @@ export class ProcessOutputEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get outputId(): string {
-    return this.doc.formField(this.path, "outputId") || '';
-  }
-
-  set outputId(value: string) {
-    this.doc.setFormField(this.path, "outputId", value);
   }
 
   get outputType(): string {
@@ -125777,14 +125121,6 @@ export class ProcessRelationshipEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get relationshipId(): string {
-    return this.doc.formField(this.path, "relationshipId") || '';
-  }
-
-  set relationshipId(value: string) {
-    this.doc.setFormField(this.path, "relationshipId", value);
-  }
-
   get sourceProcess(): string {
     return this.doc.formField(this.path, "sourceProcess") || '';
   }
@@ -125858,14 +125194,6 @@ export class ProcessRoleEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get roleId(): string {
-    return this.doc.formField(this.path, "roleId") || '';
-  }
-
-  set roleId(value: string) {
-    this.doc.setFormField(this.path, "roleId", value);
   }
 
   get raciType(): string {
@@ -126167,14 +125495,6 @@ export class ProcessSlaEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get slaId(): string {
-    return this.doc.formField(this.path, "slaId") || '';
-  }
-
-  set slaId(value: string) {
-    this.doc.setFormField(this.path, "slaId", value);
   }
 
   get serviceDescription(): string {
@@ -126486,14 +125806,6 @@ export class ProcessTriggerEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get triggerId(): string {
-    return this.doc.formField(this.path, "triggerId") || '';
-  }
-
-  set triggerId(value: string) {
-    this.doc.setFormField(this.path, "triggerId", value);
   }
 
   get triggerType(): string {
@@ -127632,14 +126944,6 @@ export class PrototypeGoalEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get goalId(): string {
-    return this.doc.formField(this.path, "goalId") || '';
-  }
-
-  set goalId(value: string) {
-    this.doc.setFormField(this.path, "goalId", value);
-  }
-
   get goalDescription(): string {
     return this.doc.formField(this.path, "goalDescription") || '';
   }
@@ -128339,14 +127643,6 @@ export class QualityCategoryEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get categoryId(): string {
-    return this.doc.formField(this.path, "categoryId") || '';
-  }
-
-  set categoryId(value: string) {
-    this.doc.setFormField(this.path, "categoryId", value);
-  }
-
   get categoryWeight(): number | null {
     const v = this.doc.formField(this.path, "categoryWeight");
     return v == null || v === '' ? null : Number.parseInt(v, 10);
@@ -128810,14 +128106,6 @@ export class QualityGateAdjustmentEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get adjustmentId(): string {
-    return this.doc.formField(this.path, "adjustmentId") || '';
-  }
-
-  set adjustmentId(value: string) {
-    this.doc.setFormField(this.path, "adjustmentId", value);
-  }
-
   get standardGateName(): string {
     return this.doc.formField(this.path, "standardGateName") || '';
   }
@@ -129152,14 +128440,6 @@ export class QualityGateCheckEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get checkId(): string {
-    return this.doc.formField(this.path, "checkId") || '';
-  }
-
-  set checkId(value: string) {
-    this.doc.setFormField(this.path, "checkId", value);
   }
 
   get checkItem(): string {
@@ -129518,14 +128798,6 @@ export class QualityScenarioEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get scenarioId(): string {
-    return this.doc.formField(this.path, "scenarioId") || '';
-  }
-
-  set scenarioId(value: string) {
-    this.doc.setFormField(this.path, "scenarioId", value);
   }
 
   get source(): string {
@@ -130639,14 +129911,6 @@ export class RecoveryScenarioEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get scenarioId(): string {
-    return this.doc.formField(this.path, "scenarioId") || '';
-  }
-
-  set scenarioId(value: string) {
-    this.doc.setFormField(this.path, "scenarioId", value);
   }
 
   get triggerCondition(): string {
@@ -132017,14 +131281,6 @@ export class RemovedRoleEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get roleId(): string {
-    return this.doc.formField(this.path, "roleId") || '';
-  }
-
-  set roleId(value: string) {
-    this.doc.setFormField(this.path, "roleId", value);
   }
 
   get department(): string {
@@ -133423,14 +132679,6 @@ export class ReportEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get reportId(): string {
-    return this.doc.formField(this.path, "reportId") || '';
-  }
-
-  set reportId(value: string) {
-    this.doc.setFormField(this.path, "reportId", value);
   }
 
   get reportType(): string {
@@ -135212,14 +134460,6 @@ export class RequirementBusinessRuleEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get ruleId(): string {
-    return this.doc.formField(this.path, "ruleId") || '';
-  }
-
-  set ruleId(value: string) {
-    this.doc.setFormField(this.path, "ruleId", value);
-  }
-
   get ruleType(): string {
     return this.doc.formField(this.path, "ruleType") || '';
   }
@@ -135558,14 +134798,6 @@ export class RequirementTestCaseEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get testCaseId(): string {
-    return this.doc.formField(this.path, "testCaseId") || '';
-  }
-
-  set testCaseId(value: string) {
-    this.doc.setFormField(this.path, "testCaseId", value);
   }
 
   get testType(): string {
@@ -136518,14 +135750,6 @@ export class ResponsibilityDetailEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get responsibilityId(): string {
-    return this.doc.formField(this.path, "responsibilityId") || '';
-  }
-
-  set responsibilityId(value: string) {
-    this.doc.setFormField(this.path, "responsibilityId", value);
-  }
-
   get responsibility(): string {
     return this.doc.formField(this.path, "responsibility") || '';
   }
@@ -137391,14 +136615,6 @@ export class RetentionPolicyEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get policyId(): string {
-    return this.doc.formField(this.path, "policyId") || '';
-  }
-
-  set policyId(value: string) {
-    this.doc.setFormField(this.path, "policyId", value);
-  }
-
   get dataCategory(): string {
     return this.doc.formField(this.path, "dataCategory") || '';
   }
@@ -138234,14 +137450,6 @@ export class ReuseGoalEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get goalId(): string {
-    return this.doc.formField(this.path, "goalId") || '';
-  }
-
-  set goalId(value: string) {
-    this.doc.setFormField(this.path, "goalId", value);
-  }
-
   get goal(): string {
     return this.doc.formField(this.path, "goal") || '';
   }
@@ -138497,14 +137705,6 @@ export class ReviewCriterionEntryContentForm extends SomNode {
 
   set criterion(value: string) {
     this.doc.setFormField(this.path, "criterion", value);
-  }
-
-  get criterionId(): string {
-    return this.doc.formField(this.path, "criterionId") || '';
-  }
-
-  set criterionId(value: string) {
-    this.doc.setFormField(this.path, "criterionId", value);
   }
 
   get description(): string {
@@ -139009,14 +138209,6 @@ export class RiskIdentificationContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get riskId(): string {
-    return this.doc.formField(this.path, "riskId") || '';
-  }
-
-  set riskId(value: string) {
-    this.doc.setFormField(this.path, "riskId", value);
   }
 
   get description(): string {
@@ -139577,14 +138769,6 @@ export class RoleAdjustmentEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get adjustmentId(): string {
-    return this.doc.formField(this.path, "adjustmentId") || '';
-  }
-
-  set adjustmentId(value: string) {
-    this.doc.setFormField(this.path, "adjustmentId", value);
-  }
-
   get standardRoleName(): string {
     return this.doc.formField(this.path, "standardRoleName") || '';
   }
@@ -140029,14 +139213,6 @@ export class RoleCompetencyEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get competencyId(): string {
-    return this.doc.formField(this.path, "competencyId") || '';
-  }
-
-  set competencyId(value: string) {
-    this.doc.setFormField(this.path, "competencyId", value);
   }
 
   get competencyType(): string {
@@ -140970,14 +140146,6 @@ export class RuntimeDependencyEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get dependencyId(): string {
-    return this.doc.formField(this.path, "dependencyId") || '';
-  }
-
-  set dependencyId(value: string) {
-    this.doc.setFormField(this.path, "dependencyId", value);
   }
 
   get version(): string {
@@ -142321,14 +141489,6 @@ export class ScenarioEntryIdentificationForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get scenarioId(): string {
-    return this.doc.formField(this.path, "scenarioId") || '';
-  }
-
-  set scenarioId(value: string) {
-    this.doc.setFormField(this.path, "scenarioId", value);
   }
 
   get scenarioType(): string {
@@ -144794,14 +143954,6 @@ export class ScreenEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get screenId(): string {
-    return this.doc.formField(this.path, "screenId") || '';
-  }
-
-  set screenId(value: string) {
-    this.doc.setFormField(this.path, "screenId", value);
-  }
-
   get purpose(): string {
     return this.doc.formField(this.path, "purpose") || '';
   }
@@ -146582,14 +145734,6 @@ export class SecurityControlEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get controlId(): string {
-    return this.doc.formField(this.path, "controlId") || '';
-  }
-
-  set controlId(value: string) {
-    this.doc.setFormField(this.path, "controlId", value);
   }
 
   get controlType(): string {
@@ -151752,14 +150896,6 @@ export class SloEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get sloId(): string {
-    return this.doc.formField(this.path, "sloId") || '';
-  }
-
-  set sloId(value: string) {
-    this.doc.setFormField(this.path, "sloId", value);
-  }
-
   get sloDescription(): string {
     return this.doc.formField(this.path, "sloDescription") || '';
   }
@@ -152110,14 +151246,6 @@ export class SpecializedEquipmentEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get equipmentId(): string {
-    return this.doc.formField(this.path, "equipmentId") || '';
-  }
-
-  set equipmentId(value: string) {
-    this.doc.setFormField(this.path, "equipmentId", value);
   }
 
   get equipmentType(): string {
@@ -153808,14 +152936,6 @@ export class StageMigrationRiskEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get riskId(): string {
-    return this.doc.formField(this.path, "riskId") || '';
-  }
-
-  set riskId(value: string) {
-    this.doc.setFormField(this.path, "riskId", value);
-  }
-
   get riskCategory(): string {
     return this.doc.formField(this.path, "riskCategory") || '';
   }
@@ -155256,14 +154376,6 @@ export class StageSuccessCriterionEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get criterionId(): string {
-    return this.doc.formField(this.path, "criterionId") || '';
-  }
-
-  set criterionId(value: string) {
-    this.doc.setFormField(this.path, "criterionId", value);
-  }
-
   get criterion(): string {
     return this.doc.formField(this.path, "criterion") || '';
   }
@@ -156654,14 +155766,6 @@ export class StakeholderRegisterEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get stakeholderId(): string {
-    return this.doc.formField(this.path, "stakeholderId") || '';
-  }
-
-  set stakeholderId(value: string) {
-    this.doc.setFormField(this.path, "stakeholderId", value);
-  }
-
   get role(): string {
     return this.doc.formField(this.path, "role") || '';
   }
@@ -157581,14 +156685,6 @@ export class SuccessCriterionEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get criterionId(): string {
-    return this.doc.formField(this.path, "criterionId") || '';
-  }
-
-  set criterionId(value: string) {
-    this.doc.setFormField(this.path, "criterionId", value);
   }
 
   get category(): string {
@@ -160764,14 +159860,6 @@ export class SystemMigrationRiskEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get riskId(): string {
-    return this.doc.formField(this.path, "riskId") || '';
-  }
-
-  set riskId(value: string) {
-    this.doc.setFormField(this.path, "riskId", value);
-  }
-
   get riskDescription(): string {
     return this.doc.formField(this.path, "riskDescription") || '';
   }
@@ -161679,14 +160767,6 @@ export class SystemTaskEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get taskId(): string {
-    return this.doc.formField(this.path, "taskId") || '';
-  }
-
-  set taskId(value: string) {
-    this.doc.setFormField(this.path, "taskId", value);
-  }
-
   get description(): string {
     return this.doc.formField(this.path, "description") || '';
   }
@@ -162199,14 +161279,6 @@ export class SystemTrainingEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get trainingId(): string {
-    return this.doc.formField(this.path, "trainingId") || '';
-  }
-
-  set trainingId(value: string) {
-    this.doc.setFormField(this.path, "trainingId", value);
   }
 
   get modulesCovered(): string {
@@ -163541,14 +162613,6 @@ export class TechnicalConstraintEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get constraintId(): string {
-    return this.doc.formField(this.path, "constraintId") || '';
-  }
-
-  set constraintId(value: string) {
-    this.doc.setFormField(this.path, "constraintId", value);
-  }
-
   get constraintType(): string {
     return this.doc.formField(this.path, "constraintType") || '';
   }
@@ -163614,14 +162678,6 @@ export class TechnicalDependencyEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get dependencyId(): string {
-    return this.doc.formField(this.path, "dependencyId") || '';
-  }
-
-  set dependencyId(value: string) {
-    this.doc.setFormField(this.path, "dependencyId", value);
   }
 
   get dependencyType(): string {
@@ -163946,14 +163002,6 @@ export class TechnicalGoalEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get goalId(): string {
-    return this.doc.formField(this.path, "goalId") || '';
-  }
-
-  set goalId(value: string) {
-    this.doc.setFormField(this.path, "goalId", value);
-  }
-
   get description(): string {
     return this.doc.formField(this.path, "description") || '';
   }
@@ -164121,14 +163169,6 @@ export class TechnicalGoalTestCaseEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get testCaseId(): string {
-    return this.doc.formField(this.path, "testCaseId") || '';
-  }
-
-  set testCaseId(value: string) {
-    this.doc.setFormField(this.path, "testCaseId", value);
   }
 
   get description(): string {
@@ -165009,14 +164049,6 @@ export class TechnologyStandardEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get standardId(): string {
-    return this.doc.formField(this.path, "standardId") || '';
-  }
-
-  set standardId(value: string) {
-    this.doc.setFormField(this.path, "standardId", value);
-  }
-
   get standardCategory(): string {
     return this.doc.formField(this.path, "standardCategory") || '';
   }
@@ -165342,14 +164374,6 @@ export class TestScenarioEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get scenarioId(): string {
-    return this.doc.formField(this.path, "scenarioId") || '';
-  }
-
-  set scenarioId(value: string) {
-    this.doc.setFormField(this.path, "scenarioId", value);
   }
 
   get priority(): string {
@@ -167349,14 +166373,6 @@ export class ToolEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get toolId(): string {
-    return this.doc.formField(this.path, "toolId") || '';
-  }
-
-  set toolId(value: string) {
-    this.doc.setFormField(this.path, "toolId", value);
-  }
-
   get notes(): string {
     return this.doc.formField(this.path, "notes") || '';
   }
@@ -168732,14 +167748,6 @@ export class TradeOffDecisionEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get decisionId(): string {
-    return this.doc.formField(this.path, "decisionId") || '';
-  }
-
-  set decisionId(value: string) {
-    this.doc.setFormField(this.path, "decisionId", value);
-  }
-
   get decisionStatus(): string {
     return this.doc.formField(this.path, "decisionStatus") || '';
   }
@@ -169550,14 +168558,6 @@ export class TrainingModuleEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get moduleId(): string {
-    return this.doc.formField(this.path, "moduleId") || '';
-  }
-
-  set moduleId(value: string) {
-    this.doc.setFormField(this.path, "moduleId", value);
-  }
-
   get targetAudience(): string {
     return this.doc.formField(this.path, "targetAudience") || '';
   }
@@ -170153,14 +169153,6 @@ export class TransitionMetricEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get metricId(): string {
-    return this.doc.formField(this.path, "metricId") || '';
-  }
-
-  set metricId(value: string) {
-    this.doc.setFormField(this.path, "metricId", value);
-  }
-
   get category(): string {
     return this.doc.formField(this.path, "category") || '';
   }
@@ -170312,14 +169304,6 @@ export class TransitionMilestoneEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get milestoneId(): string {
-    return this.doc.formField(this.path, "milestoneId") || '';
-  }
-
-  set milestoneId(value: string) {
-    this.doc.setFormField(this.path, "milestoneId", value);
   }
 
   get milestoneType(): string {
@@ -170781,14 +169765,6 @@ export class TransitionPhaseIdentificationContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get phaseId(): string {
-    return this.doc.formField(this.path, "phaseId") || '';
-  }
-
-  set phaseId(value: string) {
-    this.doc.setFormField(this.path, "phaseId", value);
-  }
-
   get phaseType(): string {
     return this.doc.formField(this.path, "phaseType") || '';
   }
@@ -171035,14 +170011,6 @@ export class TransitionRiskEntryContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get riskId(): string {
-    return this.doc.formField(this.path, "riskId") || '';
-  }
-
-  set riskId(value: string) {
-    this.doc.setFormField(this.path, "riskId", value);
   }
 
   get riskCategory(): string {
@@ -172900,14 +171868,6 @@ export class UiComponentEntryIdentityForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get componentId(): string {
-    return this.doc.formField(this.path, "componentId") || '';
-  }
-
-  set componentId(value: string) {
-    this.doc.setFormField(this.path, "componentId", value);
   }
 
   get componentFamily(): string {
@@ -175022,14 +173982,6 @@ export class UserCategoryEntryContentForm extends SomNode {
     this.doc.setContent(this.path, value);
   }
 
-  get categoryId(): string {
-    return this.doc.formField(this.path, "categoryId") || '';
-  }
-
-  set categoryId(value: string) {
-    this.doc.setFormField(this.path, "categoryId", value);
-  }
-
   get description(): string {
     return this.doc.formField(this.path, "description") || '';
   }
@@ -176915,14 +175867,6 @@ export class ValidationMessageTemplateContentForm extends SomNode {
 
   set content(value: string) {
     this.doc.setContent(this.path, value);
-  }
-
-  get messageId(): string {
-    return this.doc.formField(this.path, "messageId") || '';
-  }
-
-  set messageId(value: string) {
-    this.doc.setFormField(this.path, "messageId", value);
   }
 
   get validationType(): string {

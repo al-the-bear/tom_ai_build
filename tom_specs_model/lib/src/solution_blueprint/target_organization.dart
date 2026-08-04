@@ -206,13 +206,6 @@ class ChangesFromCurrentStructure extends DocSpecsSection {
 class OrganizationalChangeEntry extends DocSpecsSection {
   @Form([
     Field(
-      'changeId',
-      String,
-      'Change ID (e.g., OC-001)',
-      required: true,
-      hint: 'Unique identifier for this structural change',
-    ),
-    Field(
       'changeType',
       String,
       'Change Type',
@@ -839,13 +832,6 @@ class TransitionPhaseEntry extends DocSpecsSection {
 class TransitionPhaseIdentification extends DocSpecsSection {
   @Form([
     Field(
-      'phaseId',
-      String,
-      'Phase ID (e.g., PH-01)',
-      required: true,
-      hint: 'Unique identifier for the phase, e.g. PH-01',
-    ),
-    Field(
       'phaseType',
       String,
       'Phase Type — Preparation, Pilot, Rollout, Stabilization, Closure',
@@ -894,15 +880,19 @@ class TransitionPhaseIdentification extends DocSpecsSection {
       'precedingPhase',
       String,
       'Preceding Phase — phase ID',
-      hint: 'The phase ID that must complete before this phase begins',
-      refersTo: ['TPIDN.phaseId'],
+      hint:
+          'The phase that must complete before this one begins — a '
+          'transition phase section id (TRPHE-PHAS-…)',
+      refersTo: ['TRPHE.@sectionId'],
     ),
     Field(
       'dependsOnMilestone',
       String,
       'Depends on Milestone — milestone ID',
-      hint: 'The milestone ID this phase depends on before it can start',
-      refersTo: ['TRMIL.milestoneId'],
+      hint:
+          'The milestone this phase depends on before it can start — a '
+          'milestone section id (TRMIL-MILE-…)',
+      refersTo: ['TRMIL.@sectionId'],
     ),
   ])
   @SerializationOrder(1)
@@ -1069,13 +1059,6 @@ class TransitionPhaseStakeholders extends DocSpecsSection {
 @SectionId('TRMIL')
 class TransitionMilestoneEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'milestoneId',
-      String,
-      'Milestone ID (e.g., MS-01)',
-      required: true,
-      hint: 'Unique identifier for the milestone, e.g. MS-01',
-    ),
     Field(
       'milestoneType',
       String,
@@ -1539,13 +1522,6 @@ class TransitionCommunicationPlan extends DocSpecsSection {
 @SectionId('COEV')
 class CommunicationEventEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'eventId',
-      String,
-      'Event ID',
-      required: true,
-      hint: 'A unique identifier for this communication event',
-    ),
     Field(
       'eventType',
       String,
@@ -2106,13 +2082,6 @@ class TransitionSuccessMetrics extends DocSpecsSection {
 class TransitionMetricEntry extends DocSpecsSection {
   @Form([
     Field(
-      'metricId',
-      String,
-      'Metric ID',
-      required: true,
-      hint: 'A unique identifier for this success metric',
-    ),
-    Field(
       'category',
       String,
       'Category — Adoption, Performance, Quality, Satisfaction, Efficiency',
@@ -2240,13 +2209,6 @@ class TransitionMetricEntry extends DocSpecsSection {
 @SectionId('TRRS')
 class TransitionRiskEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'riskId',
-      String,
-      'Risk ID',
-      required: true,
-      hint: 'A unique identifier for this transition risk',
-    ),
     Field(
       'riskCategory',
       String,
@@ -3034,13 +2996,6 @@ class CompetencyFramework extends DocSpecsSection {
 class CompetencyEntry extends DocSpecsSection {
   @Form([
     Field(
-      'competencyId',
-      String,
-      'Competency ID',
-      hint: 'Unique identifier for this competency',
-      required: true,
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -3113,13 +3068,6 @@ class NewRoleEntry extends DocSpecsSection {
     'creating it.',
   )
   @Form([
-    Field(
-      'roleId',
-      String,
-      'Role ID (e.g., NR-001)',
-      required: true,
-      hint: 'Unique identifier for this new role',
-    ),
     Field(
       'roleFamily',
       String,
@@ -3552,12 +3500,6 @@ class NewRoleResponsibilities extends DocSpecsSection {
 class ResponsibilityDetailEntry extends DocSpecsSection {
   @Form([
     Field(
-      'responsibilityId',
-      String,
-      'Responsibility ID',
-      hint: 'Unique identifier for this responsibility',
-    ),
-    Field(
       'responsibility',
       String,
       'Responsibility',
@@ -3753,12 +3695,6 @@ class NewRoleQualifications extends DocSpecsSection {
 @SectionId('ROLCP')
 class RoleCompetencyEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'competencyId',
-      String,
-      'Competency ID',
-      hint: 'Unique identifier for this competency',
-    ),
     Field(
       'competencyType',
       String,
@@ -3972,13 +3908,6 @@ class ChangedRoleEntry extends DocSpecsSection {
 @SectionId('CHROID')
 class ChangedRoleIdentification extends DocSpecsSection {
   @Form([
-    Field(
-      'roleId',
-      String,
-      'Role ID (e.g., CR-001)',
-      required: true,
-      hint: 'Unique identifier for this changed role',
-    ),
     Field(
       'newRoleTitle',
       String,
@@ -4498,13 +4427,6 @@ class ChangedRoleTransition extends DocSpecsSection {
 class RemovedRoleEntry extends DocSpecsSection {
   @Form([
     Field(
-      'roleId',
-      String,
-      'Role ID',
-      required: true,
-      hint: 'Unique identifier for the role being removed',
-    ),
-    Field(
       'department',
       String,
       'Department',
@@ -4859,7 +4781,6 @@ class EquipmentRequirements extends DocSpecsSection {
 @SectionId('COEQ')
 class ComputingEquipmentEntry extends DocSpecsSection {
   @Form([
-    Field('equipmentId', String, 'Equipment ID'),
     Field(
       'deviceType',
       String,
@@ -4925,7 +4846,6 @@ class ComputingEquipmentEntry extends DocSpecsSection {
 @SectionId('DSEQ')
 class DisplayEquipmentEntry extends DocSpecsSection {
   @Form([
-    Field('displayId', String, 'Display ID'),
     Field(
       'displayType',
       String,
@@ -4985,7 +4905,6 @@ class DisplayEquipmentEntry extends DocSpecsSection {
 @SectionId('IDE')
 class InputDeviceEntry extends DocSpecsSection {
   @Form([
-    Field('deviceId', String, 'Device ID'),
     Field(
       'deviceType',
       String,
@@ -5019,7 +4938,6 @@ class InputDeviceEntry extends DocSpecsSection {
 @SectionId('PEREQ')
 class PeripheralEquipmentEntry extends DocSpecsSection {
   @Form([
-    Field('peripheralId', String, 'Peripheral ID'),
     Field(
       'peripheralType',
       String,
@@ -5047,7 +4965,6 @@ class PeripheralEquipmentEntry extends DocSpecsSection {
 @SectionId('MOBDE')
 class MobileDeviceEntry extends DocSpecsSection {
   @Form([
-    Field('deviceId', String, 'Device ID'),
     Field(
       'deviceType',
       String,
@@ -5103,7 +5020,6 @@ class MobileDeviceEntry extends DocSpecsSection {
 @SectionId('SPEQ')
 class SpecializedEquipmentEntry extends DocSpecsSection {
   @Form([
-    Field('equipmentId', String, 'Equipment ID'),
     Field(
       'equipmentType',
       String,
@@ -5463,7 +5379,6 @@ class TrainingRequirements extends DocSpecsSection {
 @SectionId('ITE')
 class InitialTrainingEntry extends DocSpecsSection {
   @Form([
-    Field('trainingId', String, 'Training ID', required: true),
     Field('description', String, 'Description'),
   ])
   @override
@@ -5563,7 +5478,6 @@ class InitialTrainingEntry extends DocSpecsSection {
 @SectionId('ONGTR')
 class OngoingTrainingEntry extends DocSpecsSection {
   @Form([
-    Field('trainingId', String, 'Training ID', required: true),
     Field('description', String, 'Description'),
     Field('targetAudience', String, 'Target Audience'),
   ])
@@ -5637,7 +5551,6 @@ class OngoingTrainingEntry extends DocSpecsSection {
 @SectionId('SYTR')
 class SystemTrainingEntry extends DocSpecsSection {
   @Form([
-    Field('trainingId', String, 'Training ID', required: true),
     Field(
       'modulesCovered',
       String,
@@ -5718,7 +5631,6 @@ class SystemTrainingEntry extends DocSpecsSection {
 @SectionId('CRT')
 class CertificationEntry extends DocSpecsSection {
   @Form([
-    Field('certificationId', String, 'Certification ID', required: true),
     Field('issuingBody', String, 'Issuing Body — who certifies'),
   ])
   @override

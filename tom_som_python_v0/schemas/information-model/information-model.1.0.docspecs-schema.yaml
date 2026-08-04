@@ -1536,9 +1536,6 @@ form-types:
         description: Summary of data entities accessed with CRUD
   biru-iden-form:
     fields:
-      - fieldname: ruleId
-        required: true
-        description: "Unique rule identifier (e.g., BR-001)"
       - fieldname: ruleVersion
         description: Version number for change tracking
       - fieldname: description

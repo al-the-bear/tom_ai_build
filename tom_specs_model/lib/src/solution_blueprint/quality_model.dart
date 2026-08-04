@@ -502,12 +502,6 @@ class QualityFramework extends DocSpecsSection {
 class QualityCategoryEntry extends DocSpecsSection {
   @Form([
     Field(
-      'categoryId',
-      String,
-      'Category ID',
-      hint: 'Unique identifier (e.g., QC-USER-01)',
-    ),
-    Field(
       'categoryWeight',
       int,
       'Category Weight (1-100)',
@@ -3924,12 +3918,6 @@ class TradeOffDecisions extends DocSpecsSection {
 class TradeOffDecisionEntry extends DocSpecsSection {
   @Form([
     Field(
-      'decisionId',
-      String,
-      'Decision ID',
-      hint: 'Unique identifier (e.g., TRADEOFF-001)',
-    ),
-    Field(
       'decisionStatus',
       String,
       'Status',
@@ -4305,12 +4293,6 @@ class MustPassCriteria extends DocSpecsSection {
 class MustPassCriterionEntry extends DocSpecsSection {
   @Form([
     Field(
-      'criterionId',
-      String,
-      'Criterion ID',
-      hint: 'Unique identifier (e.g., MP-001)',
-    ),
-    Field(
       'verificationMethod',
       String,
       'Verification Method',
@@ -4555,12 +4537,6 @@ class QualityGateChecklist extends DocSpecsSection {
 @SectionId('QGCHK')
 class QualityGateCheckEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'checkId',
-      String,
-      'Check ID',
-      hint: 'Unique identifier (e.g., QGC-001)',
-    ),
     Field(
       'checkItem',
       String,

@@ -36,15 +36,15 @@
     - subStagesAndMilestones: `SubStageEntry`
       - content @Form(subStageType, sequenceNumber), overview, timeline, scope, execution, status
     - successCriteria: `StageSuccessCriterionEntry`
-      - content @Form(criterionId, criterion, category, priority), measurement, verification, status
+      - content @Form(criterion, category, priority), measurement, verification, status
   - `FeaturePrioritization`
     - content @Form(prioritizationMethodology, prioritizationOwner, reviewCadence), methodology, stakeholder, cadence,
       capacity, backlog, traceability, prioritizationRationale @text
     - `FeaturePriorityRegister`
       - content @Form(totalRegisteredFeatures, registerLastUpdated, registerOwner)
       - [1,] items: `FeaturePriorityEntry`
-        - content @Form(featureId, priorityRank), identity, businessValue, effort, priorityScoring, stageAssignment,
-          dependencies, traceability, status
+        - content @Form(priorityRank), identity, businessValue, effort, priorityScoring, stageAssignment, dependencies,
+          traceability, status
         - stakeholders: `FeatureStakeholders`
           - content @Form(requestedBy, businessOwner, productOwner, technicalOwner, approvalStatus, approvedBy, approvalDate)
     - `MoscowAnalysis`
@@ -87,25 +87,25 @@
       - content @Form(totalIdentifiedRisks, criticalRiskCount, topRiskSummary, riskAssessmentMethodology, riskTolerancePolicy, riskReviewFrequency, riskRegisterOwner, lastRiskReviewDate, overallMigrationRiskRating),
         riskSummary @text
       - [1,] items: `StageMigrationRiskEntry`
-        - content @Form(riskId, riskCategory), identity, probabilityImpact, mitigation, contingency, monitoring,
-          ownership, residual, status
+        - content @Form(riskCategory), identity, probabilityImpact, mitigation, contingency, monitoring, ownership,
+          residual, status
   - gateCriteria: `PhaseGateReviews`
     - content @Form(gateNamingConvention, totalGateCount, gateReviewDuration, gateReviewFormat), preparation, outcomes,
       gateReviewNarrative @text
     - items: `PhaseGateReviewEntry`
-      - content @Form(gateId, stage), identity, authority, schedule, entry, evidence, exit, gateNarrative @text
+      - content @Form(stage), identity, authority, schedule, entry, evidence, exit, gateNarrative @text
       - reviewCriteria: `ReviewCriterionEntry`
-        - content @Form(criterion, criterionId, description, category), assessment, result
+        - content @Form(criterion, description, category), assessment, result
   - decisionProcesses: `DecisionPoints`
     - content @Form(totalDecisionPoints, decisionRecordingMethod, decisionTemplateReference, decisionCategories, decisionTrackingTool, decisionReviewCadence),
       decisionFrameworkNarrative @text
     - items: `DecisionPointEntry`
-      - content @Form(decisionId, decisionPoint, decisionCategory), context, stakeholders, criteria
+      - content @Form(decisionPoint, decisionCategory), context, stakeholders, criteria
       - resolution: `DecisionPointEntryResolution`
         - content @Form(selectedOption, decisionRationale, decisionDate, decisionRecordReference, revisitDate, impactSummary),
           decisionNarrative @text
         - options: `DecisionOptionEntry`
-          - content @Form(optionId, option, description), selection, impact, feasibility, tradeOffs
+          - content @Form(option, description), selection, impact, feasibility, tradeOffs
   - `InitialDevelopmentFlow`
     - content
   - `UpgradeCycleFramework`

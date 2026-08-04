@@ -617,7 +617,7 @@ that contract with `refersTo:` on `Field`:
 ```dart
 Field('sourceRouteId', String, required: true, refersTo: ['SCRTEN.routeId']),
 Field('outcomeReference', String,
-    refersTo: ['SYERCO.errorCode', 'VMT.messageId']),
+    refersTo: ['SYERCO.errorCode', 'VMT.@sectionId']),
 Field('relatedRequirements', String, refersTo: ['FRE.@sectionId']),
 ```
 

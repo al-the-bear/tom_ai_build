@@ -179,11 +179,14 @@ can validate and convert a value without the analyzer.
 
 `refersTo` states that the field's value is **an id drawn from another section's
 registry** rather than free text. It is a list of registry keys, each written
-`<SECTIONID>.<formFieldName>` — the section id of the registry *entry* class
-(never its list container) plus the form field on that entry which declares the
-id. The list form is a disjunction: a value is valid when it resolves in **any**
-one of the listed registries, which is how a field such as
-`SCTREN.outcomeReference` names both `SYERCO.errorCode` and `VMT.messageId`. A
+`<SECTIONID>.<slot>` — the section id of the registry *entry* class (never its
+list container) plus the slot on that entry which declares the id. The slot is
+either a **form field name**, when the entry carries an identifier the built
+system owns, or the literal **`@sectionId`**, when the entry's id is its stored
+section id and no form field restates it (`tom_specs_model_rules.md` §6.2 rule
+6 and §8 rule 4). The list form is a disjunction: a value is valid when it
+resolves in **any** one of the listed registries, which is how a field such as
+`SCTREN.outcomeReference` names both `SYERCO.errorCode` and `VMT.@sectionId`. A
 single field value may itself name several ids, written comma-separated; each
 part is resolved independently. Consumers use it for the instance-tier
 dangling-reference check — a reference whose target id is not declared anywhere

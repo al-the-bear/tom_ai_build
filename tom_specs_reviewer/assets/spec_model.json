@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T04:40:20.091426Z",
+  "generatedAt": "2026-08-04T08:24:58.455471Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+3.50e0102",
@@ -486,13 +486,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "criterionId",
-              "label": "Criterion ID",
-              "hint": "Unique identifier for this criterion",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "given",
               "label": "Given (precondition/context)",
@@ -1989,13 +1982,6 @@
           ],
           "formFields": [
             {
-              "name": "levelId",
-              "label": "Level ID",
-              "hint": "Unique identifier",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "levelRank",
               "label": "Level Rank",
               "hint": "Numeric rank (higher = more permissions)",
@@ -2464,13 +2450,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "restrictionId",
-              "label": "Restriction ID",
-              "hint": "Unique identifier for this restriction",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "restrictionType",
               "label": "Restriction Type",
@@ -3106,13 +3085,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "checkId",
-              "label": "Check ID",
-              "hint": "Unique identifier for this check (e.g., ACCH-001)",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "checkItem",
               "label": "Check Item",
@@ -4641,13 +4613,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "actorId",
-              "label": "Actor ID (e.g., ACT-001)",
-              "hint": "Use a stable unique code such as ACT-001",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "actorType",
               "label": "Actor Type — human user, system, external system, scheduled",
@@ -7649,13 +7614,6 @@
           ],
           "formFields": [
             {
-              "name": "alertId",
-              "label": "Alert ID",
-              "hint": "Unique identifier for this alert rule",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "alertDescription",
               "label": "Alert Description",
               "hint": "What this alert detects and why it matters",
@@ -8722,13 +8680,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "flowId",
-              "label": "Flow ID (e.g., AFL-001)",
-              "hint": "Stable code such as AFL-001",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "flowType",
               "label": "Flow Type — alternative, exception, error",
@@ -12339,13 +12290,6 @@
           ],
           "formFields": [
             {
-              "name": "decisionId",
-              "label": "Decision ID",
-              "hint": "Unique identifier (e.g., ADR-001)",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "date",
               "label": "Date",
               "hint": "When the decision was made",
@@ -13761,12 +13705,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "assumptionId",
-              "label": "Assumption ID (ASM-NNN)",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Description",
@@ -20813,13 +20751,6 @@
           ],
           "formFields": [
             {
-              "name": "assumptionId",
-              "label": "Assumption ID",
-              "hint": "Unique identifier for this assumption",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "assumption",
               "label": "Assumption Statement",
               "hint": "The condition assumed to hold true for the project",
@@ -20991,11 +20922,11 @@
             {
               "name": "relatedRiskId",
               "label": "Related Risk ID",
-              "hint": "Identifier of the linked risk register entry",
+              "hint": "The linked risk register entry — a risk section id (RISENT-KEYR-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "RIID.riskId"
+                "RISENT.@sectionId"
               ]
             }
           ]
@@ -21771,7 +21702,7 @@
             {
               "name": "breakpointId",
               "label": "Breakpoint ID",
-              "hint": "Unique identifier (e.g., TOM-MOBILE)",
+              "hint": "The symbol the built layout carries for this breakpoint, e.g. TOM-MOBILE",
               "type": "String",
               "required": true
             },
@@ -24052,13 +23983,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "goalId",
-              "label": "Goal ID (unique identifier, e.g., BG-001)",
-              "hint": "Unique goal identifier, e.g., BG-001",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "goalCategory",
               "label": "Goal Category (Strategic, Tactical, Operational)",
@@ -26784,13 +26708,6 @@
           ],
           "formFields": [
             {
-              "name": "ruleId",
-              "label": "Rule ID",
-              "hint": "Unique rule identifier (e.g., BR-001)",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "ruleVersion",
               "label": "Rule Version",
               "hint": "Version number for change tracking",
@@ -27332,11 +27249,11 @@
             {
               "name": "ruleId",
               "label": "Rule ID",
-              "hint": "Reference to the business rule definition",
+              "hint": "The business rule this applies — a business rule section id (BIRU-BUSI-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "BIRU.ruleId"
+                "BIRU.@sectionId"
               ]
             },
             {
@@ -28481,12 +28398,6 @@
           ],
           "formFields": [
             {
-              "name": "certificationId",
-              "label": "Certification ID",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "issuingBody",
               "label": "Issuing Body — who certifies",
               "type": "String",
@@ -29127,13 +29038,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "categoryId",
-              "label": "Category ID",
-              "hint": "Unique identifier for this category",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Description",
@@ -29881,13 +29785,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "criterionId",
-              "label": "Criterion ID",
-              "hint": "Unique identifier for this criterion",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "criterion",
               "label": "Criterion Name",
@@ -32172,13 +32069,6 @@
           ],
           "formFields": [
             {
-              "name": "roleId",
-              "label": "Role ID (e.g., CR-001)",
-              "hint": "Unique identifier for this changed role",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "newRoleTitle",
               "label": "New Role Title — if title changes",
               "hint": "The role title after the change, if it differs",
@@ -34179,11 +34069,11 @@
             {
               "name": "includedScreens",
               "label": "Included Screens",
-              "hint": "The screens this client comprises, by id. Empty for a client with no screens",
+              "hint": "The screens this client comprises — screen section ids (SCREN-ITEM-…), comma-separated. Empty for a client with no screens",
               "type": "String",
               "required": false,
               "refersTo": [
-                "SCREN.screenId"
+                "SCREN.@sectionId"
               ]
             }
           ]
@@ -38739,13 +38629,6 @@
           ],
           "formFields": [
             {
-              "name": "eventId",
-              "label": "Event ID",
-              "hint": "A unique identifier for this communication event",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "eventType",
               "label": "Event Type — Announcement, Town Hall, Email, Workshop, Newsletter",
               "hint": "The kind of communication event: Announcement, Town Hall, Email, Workshop, Newsletter, etc.",
@@ -40538,13 +40421,6 @@
           ],
           "formFields": [
             {
-              "name": "competencyId",
-              "label": "Competency ID",
-              "hint": "Unique identifier for this competency",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description",
               "hint": "What this competency means in practice",
@@ -42098,6 +41974,7 @@
             {
               "name": "actionId",
               "label": "Action ID",
+              "hint": "The symbol the built component carries for this action, e.g. onSubmit",
               "type": "String",
               "required": true
             },
@@ -42397,13 +42274,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "componentId",
-              "label": "Component ID",
-              "hint": "Unique identifier, e.g. CMP-DB-001",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "category",
               "label": "Category",
@@ -43161,13 +43031,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "familyId",
-              "label": "Family ID",
-              "hint": "Unique identifier (e.g., FAM-BTN)",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "familyDescription",
               "label": "Family Description",
@@ -45483,7 +45346,7 @@
             {
               "name": "propertyId",
               "label": "Property ID",
-              "hint": "Unique property identifier",
+              "hint": "The name the built component gives this property, e.g. isDense",
               "type": "String",
               "required": true
             },
@@ -46419,20 +46282,13 @@
           ],
           "formFields": [
             {
-              "name": "riskId",
-              "label": "Risk ID",
-              "hint": "Unique identifier, e.g. CR-001",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "componentRef",
               "label": "Component",
-              "hint": "Component ID this risk applies to",
+              "hint": "The component this risk applies to — a component section id (CMPNT-COMP-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "CMPNT.componentId"
+                "CMPNT.@sectionId"
               ]
             }
           ]
@@ -46772,11 +46628,11 @@
             {
               "name": "relatedRisks",
               "label": "Related Risks",
-              "hint": "Other risk IDs that correlate or cascade",
+              "hint": "Other component risks that correlate or cascade — risk section ids (CMRS-RISK-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "CMRS.riskId"
+                "CMRS.@sectionId"
               ]
             },
             {
@@ -46851,7 +46707,7 @@
             {
               "name": "slotId",
               "label": "Slot ID",
-              "hint": "Unique slot identifier",
+              "hint": "The symbol the built component carries for this slot, e.g. leading",
               "type": "String",
               "required": true
             },
@@ -46964,7 +46820,7 @@
             {
               "name": "stateId",
               "label": "State ID",
-              "hint": "Unique state identifier",
+              "hint": "The symbol the built component carries for this state, e.g. disabled",
               "type": "String",
               "required": true
             },
@@ -47752,7 +47608,7 @@
             {
               "name": "variantId",
               "label": "Variant ID",
-              "hint": "Unique variant identifier",
+              "hint": "The symbol the built component carries for this variant, e.g. primary",
               "type": "String",
               "required": true
             },
@@ -48465,12 +48321,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "equipmentId",
-              "label": "Equipment ID",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "deviceType",
               "label": "Device Type — desktop, laptop, workstation, thin client",
@@ -50109,12 +49959,6 @@
           ],
           "formFields": [
             {
-              "name": "constraintId",
-              "label": "Constraint ID (CON-NNN)",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description",
               "type": "String",
@@ -51045,13 +50889,6 @@
           ],
           "formFields": [
             {
-              "name": "contingencyId",
-              "label": "Contingency Plan ID",
-              "hint": "Unique identifier, e.g. CP-001",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "triggerCondition",
               "label": "Trigger Condition",
               "hint": "Specific event or threshold that activates this plan",
@@ -51105,21 +50942,21 @@
             {
               "name": "riskRef",
               "label": "Associated Risk",
-              "hint": "Risk ID this plan addresses",
+              "hint": "The component risk this plan addresses — a risk section id (CMRS-RISK-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "CMRS.riskId"
+                "CMRS.@sectionId"
               ]
             },
             {
               "name": "componentRef",
               "label": "Component",
-              "hint": "Component ID this plan covers",
+              "hint": "The component this plan covers — a component section id (CMPNT-COMP-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "CMPNT.componentId"
+                "CMPNT.@sectionId"
               ]
             }
           ]
@@ -54353,6 +54190,7 @@
             {
               "name": "workflowId",
               "label": "Workflow ID (internal identifier)",
+              "hint": "The code the organisation already uses for this workflow — a process catalogue or BPM identifier, if one exists. Owned outside this document",
               "type": "String",
               "required": false
             },
@@ -59037,13 +58875,6 @@
           ],
           "formFields": [
             {
-              "name": "dashboardId",
-              "label": "Dashboard ID",
-              "hint": "Unique dashboard identifier",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "dashboardCategory",
               "label": "Dashboard Category",
               "hint": "Executive, operational, service, infrastructure",
@@ -62432,13 +62263,6 @@
           ],
           "formFields": [
             {
-              "name": "duplicationId",
-              "label": "Duplication ID",
-              "hint": "Unique identifier",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description",
               "hint": "Description of the duplication scenario",
@@ -64057,13 +63881,6 @@
           ],
           "formFields": [
             {
-              "name": "policyId",
-              "label": "Policy ID",
-              "hint": "Unique identifier",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "policyArea",
               "label": "Policy Area",
               "hint": "DataQuality / DataSecurity / DataPrivacy / DataAccess / MDM",
@@ -64616,13 +64433,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "integrationId",
-              "label": "Integration ID",
-              "hint": "Unique identifier",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Description",
@@ -68576,13 +68386,6 @@
           ],
           "formFields": [
             {
-              "name": "initiativeId",
-              "label": "Initiative ID",
-              "hint": "Unique identifier",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "description",
               "label": "Description",
               "hint": "What the initiative aims to achieve",
@@ -68670,13 +68473,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "issueId",
-              "label": "Issue ID",
-              "hint": "Unique identifier, e.g. DQ-001",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Detailed Description",
@@ -69547,13 +69343,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "dataSourceId",
-              "label": "Data Source ID",
-              "hint": "Unique identifier, e.g. DS-001",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "dataStoreName",
               "label": "Data Store Name",
@@ -72526,13 +72315,6 @@
           ],
           "formFields": [
             {
-              "name": "optionId",
-              "label": "Option ID",
-              "hint": "Unique within the decision — e.g. A, B, C",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "option",
               "label": "Option Name",
               "hint": "Short name — e.g. Build In-House, Buy Commercial, Open Source + Customize",
@@ -72895,13 +72677,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "decisionId",
-              "label": "Decision ID",
-              "hint": "Unique identifier — e.g. DEC-001, DP-G2-01",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "decisionPoint",
               "label": "Decision Point",
@@ -73576,7 +73351,7 @@
             {
               "name": "patternId",
               "label": "Pattern ID",
-              "hint": "Unique identifier, e.g., pattern-order-detail",
+              "hint": "The symbol the built client carries for this deep-link pattern, e.g. pattern-order-detail",
               "type": "String",
               "required": true
             },
@@ -73590,11 +73365,11 @@
             {
               "name": "targetScreenId",
               "label": "Target Screen ID",
-              "hint": "Screen to open",
+              "hint": "The screen to open — a screen section id (SCREN-ITEM-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "SCREN.screenId"
+                "SCREN.@sectionId"
               ]
             },
             {
@@ -74312,11 +74087,11 @@
             {
               "name": "dependsOn",
               "label": "Depends On",
-              "hint": "Other deliverable IDs this depends on",
+              "hint": "Other deliverables this depends on — deliverable section ids (DLVEN-ITEM-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "DLVEN.deliverableId"
+                "DLVEN.@sectionId"
               ]
             },
             {
@@ -74379,13 +74154,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "deliverableId",
-              "label": "Deliverable ID",
-              "hint": "Unique identifier — e.g. DEL-SOF-001",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "priority",
               "label": "Priority",
@@ -74926,11 +74694,11 @@
             {
               "name": "associatedDocumentation",
               "label": "Associated Documentation",
-              "hint": "Related documentation deliverable IDs",
+              "hint": "Related documentation deliverables — deliverable section ids (DLVEN-ITEM-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "DLVEN.deliverableId"
+                "DLVEN.@sectionId"
               ]
             },
             {
@@ -75000,13 +74768,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "criterionId",
-              "label": "Criterion ID",
-              "hint": "Unique identifier — e.g. AC-001",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "criterion",
               "label": "Criterion Statement",
@@ -75224,21 +74985,21 @@
             {
               "name": "deliverableRef",
               "label": "Deliverable Reference",
-              "hint": "Linked deliverable ID — e.g. DEL-SOF-001",
+              "hint": "The linked deliverable — a deliverable section id (DLVEN-ITEM-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "DLVEN.deliverableId"
+                "DLVEN.@sectionId"
               ]
             },
             {
               "name": "testScenarioRef",
               "label": "Test Scenario Reference",
-              "hint": "UAT scenario ID that validates this criterion",
+              "hint": "The UAT scenario that validates this criterion — a test scenario section id (TSSC-TEST-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "TSSC.scenarioId"
+                "TSSC.@sectionId"
               ]
             }
           ]
@@ -76993,12 +76754,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "dependencyId",
-              "label": "Dependency ID (DEP-NNN)",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Description",
@@ -83420,12 +83175,6 @@
           ],
           "formFields": [
             {
-              "name": "displayId",
-              "label": "Display ID",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "displayType",
               "label": "Display Type — monitor, projector, video wall",
               "type": "String",
@@ -88102,13 +87851,6 @@
           ],
           "formFields": [
             {
-              "name": "ruleId",
-              "label": "Rule ID",
-              "hint": "Unique identifier for this business rule",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "ruleType",
               "label": "Rule Type (Constraint, Calculation, Derivation, Action-Trigger, Authorization, Validation)",
               "hint": "Constraint / Calculation / Derivation / Action-Trigger / Authorization / Validation",
@@ -91809,11 +91551,11 @@
             {
               "name": "businessRule",
               "label": "Business Rule Reference",
-              "hint": "Related business rule ID",
+              "hint": "The related business rule — a business rule section id (BIRU-BUSI-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "BIRU.ruleId"
+                "BIRU.@sectionId"
               ]
             }
           ]
@@ -92932,13 +92674,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "environmentId",
-              "label": "Environment ID",
-              "hint": "Unique code, e.g. ENV-PROD-01",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "environmentType",
               "label": "Environment Type",
@@ -97138,13 +96873,6 @@
           ],
           "formFields": [
             {
-              "name": "criterionId",
-              "label": "Criterion ID",
-              "hint": "Unique identifier, e.g. EC-001",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "criterion",
               "label": "Criterion Name",
               "hint": "Short name, e.g. Vendor Stability",
@@ -97694,7 +97422,7 @@
             {
               "name": "systemId",
               "label": "System ID/Code (internal identifier)",
-              "hint": "Internal catalogue code or CMDB identifier, if any.",
+              "hint": "The catalogue or CMDB code the organisation already uses for this system, if any — owned outside this document",
               "type": "String",
               "required": false
             },
@@ -99271,7 +98999,7 @@
             {
               "name": "mappingId",
               "label": "Mapping ID",
-              "hint": "Unique within export, e.g. FLD-01",
+              "hint": "The identifier this mapping carries in the generated export — unique within the export, e.g. FLD-01",
               "type": "String",
               "required": true
             },
@@ -99975,13 +99703,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "exportId",
-              "label": "Export ID",
-              "hint": "Unique identifier, e.g. EXP-001",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "formatType",
               "label": "Format Type",
@@ -100776,13 +100497,6 @@
           ],
           "formFields": [
             {
-              "name": "templateId",
-              "label": "Template ID",
-              "hint": "Unique identifier, e.g. TPL-001",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "baseFormatType",
               "label": "Base Format Type",
               "hint": "CSV / Excel / PDF / JSON / XML / HTML",
@@ -101171,13 +100885,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "extensionId",
-              "label": "Extension ID (e.g., 3a)",
-              "hint": "Cockburn-style id such as 3a",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "branchPoint",
               "label": "Branch Point — step number",
@@ -102033,13 +101740,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "interfaceId",
-              "label": "Interface ID (e.g., IF-PAY-001)",
-              "hint": "Unique stable identifier for this interface",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "externalSystem",
               "label": "External System Name",
@@ -104192,11 +103892,11 @@
             {
               "name": "componentId",
               "label": "Component ID",
-              "hint": "Identifier of the referenced component",
+              "hint": "The referenced component — a component section id (CMPNT-COMP-…)",
               "type": "String",
               "required": true,
               "refersTo": [
-                "CMPNT.componentId"
+                "CMPNT.@sectionId"
               ]
             },
             {
@@ -104434,21 +104134,21 @@
             {
               "name": "sourceFeatureId",
               "label": "Source Feature ID",
-              "hint": "Feature that has the dependency (the dependent)",
+              "hint": "The feature that has the dependency (the dependent) — a feature section id (FPE-ITEM-…)",
               "type": "String",
               "required": true,
               "refersTo": [
-                "FPE.featureId"
+                "FPE.@sectionId"
               ]
             },
             {
               "name": "targetFeatureId",
               "label": "Target Feature ID",
-              "hint": "Feature that must be delivered first (the prerequisite)",
+              "hint": "The feature that must be delivered first (the prerequisite) — a feature section id (FPE-ITEM-…)",
               "type": "String",
               "required": true,
               "refersTo": [
-                "FPE.featureId"
+                "FPE.@sectionId"
               ]
             },
             {
@@ -105557,13 +105257,6 @@
           ],
           "formFields": [
             {
-              "name": "featureId",
-              "label": "Feature ID",
-              "hint": "Unique identifier — e.g. FEA-001",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "priorityRank",
               "label": "Priority Rank",
               "hint": "Ordinal rank — 1 = highest",
@@ -106101,21 +105794,21 @@
             {
               "name": "dependsOnFeatures",
               "label": "Depends on Features",
-              "hint": "Feature IDs this requires",
+              "hint": "Features this requires — feature section ids (FPE-ITEM-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "FPE.featureId"
+                "FPE.@sectionId"
               ]
             },
             {
               "name": "blocksFeatures",
               "label": "Blocks Features",
-              "hint": "Feature IDs blocked until this completes",
+              "hint": "Features blocked until this completes — feature section ids (FPE-ITEM-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "FPE.featureId"
+                "FPE.@sectionId"
               ]
             },
             {
@@ -106248,21 +105941,21 @@
             {
               "name": "linkedUseCases",
               "label": "Linked Use Cases",
-              "hint": "Use case IDs",
+              "hint": "Interactions this feature covers — interaction section ids (INEN-INTE-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "INEN.interactionId"
+                "INEN.@sectionId"
               ]
             },
             {
               "name": "linkedBusinessProcesses",
               "label": "Linked Business Processes",
-              "hint": "Business process IDs",
+              "hint": "Business processes this feature serves — process section ids (BPREN-PROC-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "PRIDN.processId"
+                "BPREN.@sectionId"
               ]
             },
             {
@@ -106275,11 +105968,11 @@
             {
               "name": "linkedArchitectureDecisions",
               "label": "Linked Architecture Decisions",
-              "hint": "ADR IDs affected by or affecting this feature",
+              "hint": "Architecture decisions affected by or affecting this feature — decision record section ids (ARDE-DECI-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "ARDE.decisionId"
+                "ARDE.@sectionId"
               ]
             }
           ]
@@ -106554,11 +106247,11 @@
             {
               "name": "featureId",
               "label": "Feature ID",
-              "hint": "The feature this entry stages — an id declared by the Feature Priority Register (§13.4.1), e.g. FEA-001",
+              "hint": "The feature this entry stages — a feature section id declared by the Feature Priority Register (FPE-ITEM-…)",
               "type": "String",
               "required": true,
               "refersTo": [
-                "FPE.featureId"
+                "FPE.@sectionId"
               ]
             }
           ]
@@ -106744,11 +106437,11 @@
             {
               "name": "prerequisiteFeatures",
               "label": "Prerequisite Features",
-              "hint": "Feature IDs that must complete first — comma-separated",
+              "hint": "Features that must complete first — feature section ids (FPE-ITEM-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "FPE.featureId"
+                "FPE.@sectionId"
               ]
             },
             {
@@ -107169,13 +106862,6 @@
           ],
           "formFields": [
             {
-              "name": "tourId",
-              "label": "Tour ID",
-              "hint": "Unique identifier for this tour",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "tourDescription",
               "label": "Tour Description",
               "hint": "Short summary of what the tour covers",
@@ -107341,7 +107027,7 @@
             {
               "name": "fieldId",
               "label": "Field ID",
-              "hint": "Unique identifier of the field",
+              "hint": "The input field this help is attached to — the symbol the built screen carries for the field, e.g. fld-customer-name",
               "type": "String",
               "required": true
             },
@@ -108805,7 +108491,7 @@
             {
               "name": "formId",
               "label": "Form ID",
-              "hint": "ID of the form shown on this route",
+              "hint": "The form shown on this route — the symbol the built client carries for the form, e.g. form-order-edit",
               "type": "String",
               "required": true
             },
@@ -109586,13 +109272,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "functionId",
-              "label": "Function ID",
-              "hint": "Unique function identifier",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "description",
               "label": "Description",
@@ -112541,13 +112220,6 @@
           ],
           "formFields": [
             {
-              "name": "dependencyId",
-              "label": "Dependency ID",
-              "hint": "Unique identifier for this dependency",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "dependencyType",
               "label": "Dependency Type (Internal Goal, External Project, Resource, Regulatory, Technical, Organizational)",
               "hint": "e.g., Internal Goal, External Project, Resource, Regulatory",
@@ -112790,13 +112462,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "milestoneId",
-              "label": "Milestone ID",
-              "hint": "Unique identifier for this milestone",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Description",
@@ -113191,13 +112856,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "riskId",
-              "label": "Risk ID",
-              "hint": "Unique identifier for this risk",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Description",
@@ -114248,13 +113906,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "requirementId",
-              "label": "Requirement ID",
-              "hint": "Unique identifier for this requirement",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "requirementType",
               "label": "Requirement Type",
@@ -121049,12 +120700,6 @@
           ],
           "formFields": [
             {
-              "name": "trainingId",
-              "label": "Training ID",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description",
               "type": "String",
@@ -121367,12 +121012,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "deviceId",
-              "label": "Device ID",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "deviceType",
               "label": "Device Type — keyboard, mouse, trackpad, stylus, touchscreen",
@@ -122132,13 +121771,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "constraintId",
-              "label": "Constraint ID",
-              "hint": "Unique identifier, e.g. INT-CON-001",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "constraintDescription",
               "label": "Description",
@@ -123604,13 +123236,6 @@
           ],
           "formFields": [
             {
-              "name": "channelId",
-              "label": "Channel ID",
-              "hint": "Unique identifier for the channel",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "channelType",
               "label": "Channel Type",
               "hint": "Web, Mobile Native, Mobile Hybrid, Desktop, API, CLI, Voice, Kiosk, Embedded, IoT",
@@ -123673,11 +123298,11 @@
             {
               "name": "targetUserCategories",
               "label": "Target User Categories",
-              "hint": "List of user category IDs this channel serves",
+              "hint": "The user categories this channel serves — user category section ids (UCE-USER-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "UCE.categoryId"
+                "UCE.@sectionId"
               ]
             },
             {
@@ -124223,13 +123848,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "interactionId",
-              "label": "Interaction ID (e.g., INT-001)",
-              "hint": "Stable code such as INT-001",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "useCaseName",
               "label": "Use Case Name — active verb goal phrase",
@@ -125055,13 +124673,6 @@
           ],
           "formFields": [
             {
-              "name": "patternId",
-              "label": "Pattern ID",
-              "hint": "Unique identifier",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "patternType",
               "label": "Pattern Type",
               "hint": "Synchronous, Asynchronous, Batch, Scheduled, Event-driven, Workflow, Polling, Streaming",
@@ -125701,11 +125312,11 @@
             {
               "name": "processId",
               "label": "Process ID",
-              "hint": "Identifier of the business process",
+              "hint": "The business process that depends on this interface — a process section id (BPREN-PROC-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "PRIDN.processId"
+                "BPREN.@sectionId"
               ]
             },
             {
@@ -126754,7 +126365,7 @@
             {
               "name": "operationId",
               "label": "Operation ID",
-              "hint": "Unique identifier for the operation",
+              "hint": "The name the built interface exposes for this operation, e.g. createOrder",
               "type": "String",
               "required": true
             },
@@ -128211,13 +127822,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "scenarioId",
-              "label": "Scenario ID",
-              "hint": "Unique identifier for the scenario",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "scenarioType",
               "label": "Type (Happy Path, Error, Edge Case)",
@@ -130593,7 +130197,7 @@
             {
               "name": "standardId",
               "label": "Standard ID",
-              "hint": "Official standard identifier",
+              "hint": "The identifier the issuing body gives this standard, e.g. ISO/IEC 27001 — owned outside this document",
               "type": "String",
               "required": false
             },
@@ -132547,13 +132151,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "keyResultId",
-              "label": "Key Result ID",
-              "hint": "Unique identifier for this key result",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "keyResult",
               "label": "Key Result (measurable outcome)",
@@ -134908,13 +134505,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "transitionId",
-              "label": "Transition ID",
-              "hint": "Unique identifier for this transition",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "fromState",
               "label": "From State",
@@ -139121,13 +138711,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "dependencyId",
-              "label": "Dependency ID",
-              "hint": "Unique identifier, e.g. DEP-M-001",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "version",
               "label": "Current Version",
@@ -145004,13 +144587,6 @@
           ],
           "formFields": [
             {
-              "name": "riskId",
-              "label": "Risk ID",
-              "hint": "Unique identifier (e.g., MIG-RISK-001)",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "riskOwner",
               "label": "Risk Owner",
               "hint": "Accountable for risk management",
@@ -145827,11 +145403,11 @@
             {
               "name": "relatedRisks",
               "label": "Related Risks",
-              "hint": "Risk IDs that are correlated",
+              "hint": "Correlated migration risks — risk section ids (MGRSK-ITEM-… / SYMIRI-RISK-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "MGRSK.riskId"
+                "MGRSK.@sectionId"
               ]
             },
             {
@@ -147444,12 +147020,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "deviceId",
-              "label": "Device ID",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "deviceType",
               "label": "Device Type — smartphone, tablet, rugged device",
@@ -149979,11 +149549,11 @@
             {
               "name": "featureId",
               "label": "Feature ID",
-              "hint": "The feature this entry classifies — an id declared by the Feature Priority Register (§13.4.1), e.g. FEA-001",
+              "hint": "The feature this entry classifies — a feature section id declared by the Feature Priority Register (FPE-ITEM-…)",
               "type": "String",
               "required": true,
               "refersTo": [
-                "FPE.featureId"
+                "FPE.@sectionId"
               ]
             }
           ]
@@ -150242,21 +149812,21 @@
             {
               "name": "linkedUseCases",
               "label": "Linked Use Cases",
-              "hint": "Use case IDs this feature implements",
+              "hint": "Interactions this feature implements — interaction section ids (INEN-INTE-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "INEN.interactionId"
+                "INEN.@sectionId"
               ]
             },
             {
               "name": "dependsOnFeatures",
               "label": "Depends on Features",
-              "hint": "Feature IDs that must be delivered before this one",
+              "hint": "Features that must be delivered before this one — feature section ids (FPE-ITEM-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "FPE.featureId"
+                "FPE.@sectionId"
               ]
             },
             {
@@ -150830,13 +150400,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "criterionId",
-              "label": "Criterion ID",
-              "hint": "Unique identifier (e.g., MP-001)",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "verificationMethod",
               "label": "Verification Method",
@@ -151646,7 +151209,7 @@
             {
               "name": "groupId",
               "label": "Group ID",
-              "hint": "Unique identifier, e.g., nav-grp-sales",
+              "hint": "The symbol the built navigation carries for this group, e.g. nav-grp-sales",
               "type": "String",
               "required": true
             },
@@ -151970,7 +151533,7 @@
             {
               "name": "guardId",
               "label": "Guard ID",
-              "hint": "Unique identifier, e.g., guard-unsaved-changes",
+              "hint": "The symbol the built navigation carries for this guard, e.g. guard-unsaved-changes",
               "type": "String",
               "required": true
             },
@@ -152037,12 +151600,12 @@
             {
               "name": "appliesTo",
               "label": "Applies To",
-              "hint": "Route patterns or screen IDs this guard covers",
+              "hint": "The routes or screens this guard covers — route ids from the Screen Route Map, or screen section ids (SCREN-ITEM-…)",
               "type": "String",
               "required": false,
               "refersTo": [
                 "SCRTEN.routeId",
-                "SCREN.screenId"
+                "SCREN.@sectionId"
               ]
             },
             {
@@ -152458,7 +152021,7 @@
             {
               "name": "itemId",
               "label": "Item ID",
-              "hint": "Unique identifier, e.g., nav-customers",
+              "hint": "The symbol the built navigation carries for this item, e.g. nav-customers",
               "type": "String",
               "required": true
             },
@@ -152602,11 +152165,11 @@
             {
               "name": "targetScreenId",
               "label": "Target Screen ID",
-              "hint": "Reference to Screen Inventory SCR-xxx",
+              "hint": "The screen this item opens — a screen section id (SCREN-ITEM-…) from the Screen Inventory",
               "type": "String",
               "required": false,
               "refersTo": [
-                "SCREN.screenId"
+                "SCREN.@sectionId"
               ]
             },
             {
@@ -153098,21 +152661,21 @@
             {
               "name": "defaultLandingScreen",
               "label": "Default Landing Screen",
-              "hint": "Screen ID the user sees after login",
+              "hint": "The screen the user sees after login — a screen section id (SCREN-ITEM-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "SCREN.screenId"
+                "SCREN.@sectionId"
               ]
             },
             {
               "name": "unauthenticatedLanding",
               "label": "Unauthenticated Landing",
-              "hint": "Screen ID for unauthenticated users",
+              "hint": "The screen unauthenticated users see — a screen section id (SCREN-ITEM-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "SCREN.screenId"
+                "SCREN.@sectionId"
               ]
             },
             {
@@ -155384,13 +154947,6 @@
           ],
           "formFields": [
             {
-              "name": "roleId",
-              "label": "Role ID (e.g., NR-001)",
-              "hint": "Unique identifier for this new role",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "roleFamily",
               "label": "Job Family",
               "hint": "Broader job family or category this role belongs to",
@@ -156468,7 +156024,7 @@
             {
               "name": "channelId",
               "label": "Channel ID",
-              "hint": "Unique identifier for the notification channel",
+              "hint": "The channel name the built system carries — the TomMessageChannel name, e.g. email",
               "type": "String",
               "required": false
             },
@@ -156815,7 +156371,7 @@
             {
               "name": "typeId",
               "label": "Type ID",
-              "hint": "Unique identifier for the notification type",
+              "hint": "The type id the built system carries — the TomNotificationType id, e.g. order.shipped",
               "type": "String",
               "required": false
             },
@@ -158516,12 +158072,6 @@
           ],
           "formFields": [
             {
-              "name": "trainingId",
-              "label": "Training ID",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description",
               "type": "String",
@@ -159806,13 +159356,6 @@
           ],
           "formFields": [
             {
-              "name": "activityId",
-              "label": "Activity ID",
-              "hint": "Stable unique identifier for the activity",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description",
               "hint": "What the activity entails",
@@ -160302,13 +159845,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "changeId",
-              "label": "Change ID (e.g., OC-001)",
-              "hint": "Unique identifier for this structural change",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "changeType",
               "label": "Change Type",
@@ -163840,13 +163376,6 @@
           ],
           "formFields": [
             {
-              "name": "painPointId",
-              "label": "Pain Point ID",
-              "hint": "Unique identifier, e.g. PP-OPE-001",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "painPoint",
               "label": "Pain Point Name",
               "hint": "Concise name for the pain point",
@@ -164579,19 +164108,22 @@
             {
               "name": "painPointId",
               "label": "Pain Point ID",
-              "hint": "Reference to pain point, e.g. PP-OPE-001",
+              "hint": "The pain point this entry correlates — a pain point section id (PAPE-ITEM-…)",
               "type": "String",
               "required": true,
               "refersTo": [
-                "PAPE.painPointId"
+                "PAPE.@sectionId"
               ]
             },
             {
               "name": "gapId",
               "label": "Gap ID",
-              "hint": "Reference to gap entry, e.g. GAP-001",
+              "hint": "The gap this pain point correlates to — a gap section id (GAPE-ITEM-…)",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "GAPE.@sectionId"
+              ]
             },
             {
               "name": "correlationType",
@@ -164668,11 +164200,11 @@
             {
               "name": "relatedPainPoints",
               "label": "Related Pain Points",
-              "hint": "IDs of related pain points",
+              "hint": "Related pain points — pain point section ids (PAPE-ITEM-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "PAPE.painPointId"
+                "PAPE.@sectionId"
               ]
             },
             {
@@ -166472,12 +166004,6 @@
           ],
           "formFields": [
             {
-              "name": "peripheralId",
-              "label": "Peripheral ID",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "peripheralType",
               "label": "Peripheral Type — printer, scanner, webcam, headset, docking station",
               "type": "String",
@@ -167827,13 +167353,6 @@
           ],
           "formFields": [
             {
-              "name": "gateId",
-              "label": "Gate ID",
-              "hint": "Unique gate identifier — e.g. G1, G2, G3",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "stage",
               "label": "Stage",
               "hint": "Stage this gate is associated with",
@@ -168259,11 +167778,11 @@
             {
               "name": "nextGateReference",
               "label": "Next Gate Reference",
-              "hint": "Gate ID of the next gate in sequence",
+              "hint": "The next gate in sequence — a phase gate review section id (PHGREV-ITEM-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "PHGREV.gateId"
+                "PHGREV.@sectionId"
               ]
             }
           ]
@@ -172558,13 +172077,6 @@
           ],
           "formFields": [
             {
-              "name": "adjustmentId",
-              "label": "Adjustment ID",
-              "hint": "Unique identifier, e.g. PRC-ADJ-001",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "standardStepName",
               "label": "Standard Step Name",
               "hint": "Original process step being adjusted",
@@ -173826,13 +173338,6 @@
           ],
           "formFields": [
             {
-              "name": "controlId",
-              "label": "Control ID",
-              "hint": "Unique identifier for the control",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "controlType",
               "label": "Control Type — preventive, detective, corrective",
               "hint": "Classify the control type",
@@ -174336,13 +173841,6 @@
           ],
           "formFields": [
             {
-              "name": "principleId",
-              "label": "Principle ID",
-              "hint": "Unique identifier for the principle",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "category",
               "label": "Category — efficiency, quality, compliance, user experience",
               "hint": "The dimension this principle addresses",
@@ -174613,13 +174111,6 @@
           ],
           "formFields": [
             {
-              "name": "endEventId",
-              "label": "End Event ID",
-              "hint": "Unique identifier for the end event",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "endEventType",
               "label": "End Event Type — success, error, cancellation, timeout",
               "hint": "BPMN end-event type",
@@ -174712,13 +174203,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "exceptionId",
-              "label": "Exception ID",
-              "hint": "Unique identifier for the exception",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "exceptionType",
               "label": "Exception Type — data error, system error, business rule, timeout",
@@ -175168,13 +174652,6 @@
           ],
           "formFields": [
             {
-              "name": "processId",
-              "label": "Process ID (e.g., TOM-001)",
-              "hint": "Unique process identifier",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "processLevel",
               "label": "Process Level — L1 (category), L2 (group), L3 (process), L4 (activity)",
               "hint": "Level in the process hierarchy",
@@ -175441,13 +174918,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "improvementId",
-              "label": "Improvement ID",
-              "hint": "Unique identifier for the improvement",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "category",
               "label": "Category — efficiency, quality, cost, experience",
@@ -175923,13 +175393,6 @@
           ],
           "formFields": [
             {
-              "name": "inputId",
-              "label": "Input ID",
-              "hint": "Unique identifier for the input",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "inputType",
               "label": "Input Type — data, document, authorization, resource",
               "hint": "Kind of input consumed",
@@ -176377,13 +175840,6 @@
           ],
           "formFields": [
             {
-              "name": "kpiId",
-              "label": "KPI ID",
-              "hint": "Unique identifier for the KPI",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "category",
               "label": "Category — time, quality, cost, volume, satisfaction",
               "hint": "Classify the KPI dimension",
@@ -176771,12 +176227,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "metricId",
-              "label": "Metric ID",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "metricCategory",
               "label": "Category (e.g., Efficiency, Quality, Volume, Cost)",
@@ -177461,13 +176911,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "outputId",
-              "label": "Output ID",
-              "hint": "Unique identifier for the output",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "outputType",
               "label": "Output Type — data, document, notification, state change",
@@ -178256,13 +177699,6 @@
           ],
           "formFields": [
             {
-              "name": "relationshipId",
-              "label": "Relationship ID",
-              "hint": "Unique identifier for the relationship",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "sourceProcess",
               "label": "Source Process",
               "hint": "Name the source process",
@@ -178476,13 +177912,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "roleId",
-              "label": "Role ID",
-              "hint": "Unique identifier for the role",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "raciType",
               "label": "RACI Type — Responsible, Accountable, Consulted, Informed",
@@ -179125,13 +178554,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "slaId",
-              "label": "SLA ID",
-              "hint": "Unique identifier for the SLA",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "serviceDescription",
               "label": "Service Description — what is promised",
@@ -179787,13 +179209,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "triggerId",
-              "label": "Trigger ID",
-              "hint": "Unique identifier for the trigger",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "triggerType",
               "label": "Trigger Type — user action, system event, timer, message, signal",
@@ -182336,11 +181751,11 @@
             {
               "name": "featureId",
               "label": "Feature ID",
-              "hint": "Unique identifier for the feature",
+              "hint": "The feature this entry describes — a feature section id (FPE-ITEM-…)",
               "type": "String",
               "required": true,
               "refersTo": [
-                "FPE.featureId"
+                "FPE.@sectionId"
               ]
             },
             {
@@ -182727,13 +182142,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "goalId",
-              "label": "Goal ID",
-              "hint": "Unique identifier for the goal",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "goalDescription",
               "label": "Goal Description",
@@ -183721,13 +183129,6 @@
           ],
           "formFields": [
             {
-              "name": "categoryId",
-              "label": "Category ID",
-              "hint": "Unique identifier (e.g., QC-USER-01)",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "categoryWeight",
               "label": "Category Weight (1-100)",
               "hint": "Relative importance in overall quality",
@@ -184618,13 +184019,6 @@
           ],
           "formFields": [
             {
-              "name": "adjustmentId",
-              "label": "Adjustment ID",
-              "hint": "Unique identifier, e.g. QGA-ADJ-001",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "standardGateName",
               "label": "Standard Gate Name",
               "hint": "Original TomSpecs quality gate being adjusted",
@@ -185214,13 +184608,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "checkId",
-              "label": "Check ID",
-              "hint": "Unique identifier (e.g., QGC-001)",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "checkItem",
               "label": "Check Item",
@@ -185959,13 +185346,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "scenarioId",
-              "label": "Scenario ID",
-              "hint": "Unique identifier for the scenario",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "source",
               "label": "Source (who/what generates the stimulus)",
@@ -187748,13 +187128,6 @@
           ],
           "formFields": [
             {
-              "name": "scenarioId",
-              "label": "Scenario ID",
-              "hint": "Unique identifier for this recovery scenario",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "triggerCondition",
               "label": "Trigger Condition",
               "hint": "What error triggers this scenario",
@@ -187958,7 +187331,7 @@
             {
               "name": "documentId",
               "label": "Document ID (internal reference number)",
-              "hint": "Catalogue or internal reference number, if any.",
+              "hint": "The catalogue or internal reference number this document is filed under, if any — owned outside this document",
               "type": "String",
               "required": false
             },
@@ -189267,9 +188640,12 @@
             {
               "name": "relatedDocumentId",
               "label": "Related Document ID",
-              "hint": "ID of the related referenced document.",
+              "hint": "The related reference document — a reference document section id (RFDOC-DOCU-…)",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "RFDOC.@sectionId"
+              ]
             },
             {
               "name": "relationshipType",
@@ -190514,13 +189890,6 @@
           ],
           "formFields": [
             {
-              "name": "roleId",
-              "label": "Role ID",
-              "hint": "Unique identifier for the role being removed",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "department",
               "label": "Department",
               "hint": "Department the removed role belongs to",
@@ -191320,7 +190689,7 @@
             {
               "name": "chartId",
               "label": "Chart ID",
-              "hint": "Unique within section, e.g. CHT-01",
+              "hint": "The identifier this chart carries in the generated report — unique within the section, e.g. CHT-01",
               "type": "String",
               "required": true
             },
@@ -191742,7 +191111,7 @@
             {
               "name": "columnId",
               "label": "Column ID",
-              "hint": "Unique within section, e.g. COL-01",
+              "hint": "The identifier this column carries in the generated report — unique within the section, e.g. COL-01",
               "type": "String",
               "required": true
             },
@@ -192624,7 +191993,7 @@
             {
               "name": "distributionId",
               "label": "Distribution ID",
-              "hint": "Unique within report, e.g. DST-01",
+              "hint": "The identifier this distribution carries in the running report job — unique within the report, e.g. DST-01",
               "type": "String",
               "required": true
             },
@@ -192961,13 +192330,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "reportId",
-              "label": "Report ID",
-              "hint": "Unique identifier, e.g. RPT-001",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "reportType",
               "label": "Report Type",
@@ -193556,11 +192918,11 @@
             {
               "name": "drillThroughReports",
               "label": "Drill-Through Reports",
-              "hint": "Comma-separated report IDs reachable from this report",
+              "hint": "Reports reachable from this report — report section ids (REPENT-REPO-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "REPENT.reportId"
+                "REPENT.@sectionId"
               ]
             },
             {
@@ -194136,7 +193498,7 @@
             {
               "name": "filterId",
               "label": "Filter ID",
-              "hint": "Unique within report, e.g. FLT-01",
+              "hint": "The identifier this filter carries in the generated report — unique within the report, e.g. FLT-01",
               "type": "String",
               "required": true
             },
@@ -194914,7 +194276,7 @@
             {
               "name": "recipientId",
               "label": "Recipient ID",
-              "hint": "Unique within report, e.g. REC-01",
+              "hint": "The identifier this recipient carries in the running report job — unique within the report, e.g. REC-01",
               "type": "String",
               "required": true
             },
@@ -195212,7 +194574,7 @@
             {
               "name": "scheduleId",
               "label": "Schedule ID",
-              "hint": "Unique within report, e.g. SCH-01",
+              "hint": "The identifier this schedule carries in the running report job — unique within the report, e.g. SCH-01",
               "type": "String",
               "required": true
             },
@@ -195603,7 +194965,7 @@
             {
               "name": "sectionId",
               "label": "Section ID",
-              "hint": "Unique within report, e.g. SEC-01",
+              "hint": "The identifier this section carries in the generated report — unique within the report, e.g. SEC-01",
               "type": "String",
               "required": true
             },
@@ -196223,13 +195585,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "ruleId",
-              "label": "Rule ID",
-              "hint": "Unique identifier for this business rule",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "ruleType",
               "label": "Rule Type (Constraint, Computation, Derivation, Inference, Condition, Action, Workflow, Authorization)",
@@ -196910,7 +196265,7 @@
             {
               "name": "actionId",
               "label": "Action ID",
-              "hint": "Unique identifier for this action",
+              "hint": "The symbol the built screen carries for this action — unique within the screen, e.g. act-save",
               "type": "String",
               "required": true
             },
@@ -197147,13 +196502,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "testCaseId",
-              "label": "Test Case ID",
-              "hint": "Unique identifier for the test case",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "testType",
               "label": "Test Type (Unit, Integration, System, Acceptance, UAT, Regression)",
@@ -197537,27 +196885,27 @@
               "type": "String",
               "required": false,
               "refersTo": [
-                "BGE.goalId"
+                "BGE.@sectionId"
               ]
             },
             {
               "name": "relatedUseCases",
               "label": "Related Use Cases (IDs)",
-              "hint": "IDs of related use cases",
+              "hint": "Related interactions — interaction section ids (INEN-INTE-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "INEN.interactionId"
+                "INEN.@sectionId"
               ]
             },
             {
               "name": "relatedProcesses",
               "label": "Related Business Processes (IDs)",
-              "hint": "IDs of related business processes",
+              "hint": "Related business processes — process section ids (BPREN-PROC-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "PRIDN.processId"
+                "BPREN.@sectionId"
               ]
             },
             {
@@ -197628,12 +196976,12 @@
             {
               "name": "relatedTestCases",
               "label": "Related Test Cases (IDs)",
-              "hint": "IDs of test cases covering this requirement",
+              "hint": "Test cases covering this requirement — test case section ids (RQTSC-TEST-… / TEGOTS-ITEM-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "RQTSC.testCaseId",
-                "TEGOTS.testCaseId"
+                "RQTSC.@sectionId",
+                "TEGOTS.@sectionId"
               ]
             },
             {
@@ -199611,13 +198959,6 @@
           ],
           "formFields": [
             {
-              "name": "responsibilityId",
-              "label": "Responsibility ID",
-              "hint": "Unique identifier for this responsibility",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "responsibility",
               "label": "Responsibility",
               "hint": "Short statement of the duty",
@@ -201021,11 +200362,11 @@
             {
               "name": "screenId",
               "label": "Screen ID",
-              "hint": "Unique identifier of the screen this rule applies to",
+              "hint": "The screen this rule applies to — a screen section id (SCREN-ITEM-…)",
               "type": "String",
               "required": true,
               "refersTo": [
-                "SCREN.screenId"
+                "SCREN.@sectionId"
               ]
             },
             {
@@ -201333,13 +200674,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "policyId",
-              "label": "Policy ID",
-              "hint": "Unique identifier",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "dataCategory",
               "label": "Data Category",
@@ -203056,13 +202390,6 @@
           ],
           "formFields": [
             {
-              "name": "goalId",
-              "label": "Goal ID",
-              "hint": "Unique identifier, e.g. RG-001",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "goal",
               "label": "Reuse Goal",
               "hint": "What should be reused, e.g. Centralize auth via shared login SDK",
@@ -203351,13 +202678,6 @@
               "hint": "What is being evaluated — e.g. All unit tests pass, Security review complete, UX approval obtained",
               "type": "String",
               "required": true
-            },
-            {
-              "name": "criterionId",
-              "label": "Criterion ID",
-              "hint": "Unique identifier — e.g. GRC-01",
-              "type": "String",
-              "required": false
             },
             {
               "name": "description",
@@ -204254,13 +203574,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "riskId",
-              "label": "Risk ID (e.g., RISK-001, TR-001)",
-              "hint": "Unique identifier for this risk",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Description — detailed risk event and potential causes",
@@ -205222,13 +204535,6 @@
           ],
           "formFields": [
             {
-              "name": "adjustmentId",
-              "label": "Adjustment ID",
-              "hint": "Unique identifier, e.g. ROL-ADJ-001",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "standardRoleName",
               "label": "Standard Role Name",
               "hint": "Original TomSpecs role being adjusted",
@@ -206070,13 +205376,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "competencyId",
-              "label": "Competency ID",
-              "hint": "Unique identifier for this competency",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "competencyType",
               "label": "Competency Type — Core, Technical, Leadership",
@@ -208216,13 +207515,6 @@
           ],
           "formFields": [
             {
-              "name": "dependencyId",
-              "label": "Dependency ID",
-              "hint": "Unique identifier, e.g. DEP-R-001",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "version",
               "label": "Required Version",
               "hint": "Version or version range required",
@@ -210319,13 +209611,6 @@
           ],
           "formFields": [
             {
-              "name": "scenarioId",
-              "label": "Scenario ID (e.g., SCE-001)",
-              "hint": "Stable code such as SCE-001",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "scenarioType",
               "label": "Scenario Type — happy path, alternative, exception",
               "hint": "One of happy path, alternative, or exception",
@@ -211465,11 +210750,11 @@
             {
               "name": "targetReports",
               "label": "Target Reports",
-              "hint": "The reports this job produces, where the work is a report run",
+              "hint": "The reports this job produces, where the work is a report run — report section ids (REPENT-REPO-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "REPENT.reportId"
+                "REPENT.@sectionId"
               ]
             }
           ]
@@ -212878,7 +212163,7 @@
             {
               "name": "actionId",
               "label": "Action ID",
-              "hint": "Unique action identifier",
+              "hint": "The symbol the built screen carries for this action — unique within the screen, e.g. act-submit-order",
               "type": "String",
               "required": true
             },
@@ -213295,7 +212580,7 @@
             {
               "name": "behaviorId",
               "label": "Behavior ID",
-              "hint": "Unique identifier for this behavior",
+              "hint": "The symbol the built screen carries for this behaviour — unique within the screen, e.g. bhv-autosave",
               "type": "String",
               "required": true
             },
@@ -213701,11 +212986,11 @@
             {
               "name": "navigateTo",
               "label": "Navigate To",
-              "hint": "Target screen ID or route after action",
+              "hint": "The target after the action — a screen section id (SCREN-ITEM-…), or a route id from the Screen Route Map",
               "type": "String",
               "required": false,
               "refersTo": [
-                "SCREN.screenId",
+                "SCREN.@sectionId",
                 "SCRTEN.routeId"
               ]
             },
@@ -213872,11 +213157,11 @@
             {
               "name": "drillDownTarget",
               "label": "Drill-Down Target",
-              "hint": "Screen ID navigated to on click/tap",
+              "hint": "The screen navigated to on click/tap — a screen section id (SCREN-ITEM-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "SCREN.screenId"
+                "SCREN.@sectionId"
               ]
             }
           ]
@@ -214032,7 +213317,7 @@
             {
               "name": "elementId",
               "label": "Element ID",
-              "hint": "Unique within screen, e.g., btn-submit, fld-customer-name",
+              "hint": "The symbol the built screen carries for this element — unique within the screen, e.g. btn-submit, fld-customer-name",
               "type": "String",
               "required": true
             },
@@ -215342,13 +214627,6 @@
           ],
           "formFields": [
             {
-              "name": "screenId",
-              "label": "Screen ID",
-              "hint": "Unique identifier, e.g., SCR-001",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "purpose",
               "label": "Purpose",
               "hint": "Business purpose — what the user accomplishes here",
@@ -215411,11 +214689,11 @@
             {
               "name": "parentScreenId",
               "label": "Parent Screen ID",
-              "hint": "Parent screen if this is a sub-screen or drill-down",
+              "hint": "The parent screen, if this is a sub-screen or drill-down — a screen section id (SCREN-ITEM-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "SCREN.screenId"
+                "SCREN.@sectionId"
               ]
             },
             {
@@ -215902,7 +215180,7 @@
             {
               "name": "fieldId",
               "label": "Field ID",
-              "hint": "Unique identifier for this field",
+              "hint": "The symbol the built screen carries for this field — unique within the screen, e.g. fld-customer-name",
               "type": "String",
               "required": true
             },
@@ -217091,11 +216369,11 @@
             {
               "name": "screenId",
               "label": "Screen ID",
-              "hint": "ID of the screen (SCREN registry) this route renders",
+              "hint": "The screen this route renders — a screen section id (SCREN-ITEM-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "SCREN.screenId"
+                "SCREN.@sectionId"
               ]
             },
             {
@@ -217399,7 +216677,7 @@
             {
               "name": "sectionId",
               "label": "Section ID",
-              "hint": "Unique within screen, e.g., header, filter-bar, main-content",
+              "hint": "The symbol the built screen carries for this section — unique within the screen, e.g. header, filter-bar, main-content",
               "type": "String",
               "required": true
             },
@@ -218067,12 +217345,12 @@
             {
               "name": "outcomeReference",
               "label": "Outcome Reference",
-              "hint": "For error, the system error code (SYERCO registry); for validationError, the validation message template (VMT registry) — empty for success",
+              "hint": "For error, the system error code (SYERCO registry); for validationError, the validation message template — its section id (VMT-MESS-…). Empty for success",
               "type": "String",
               "required": false,
               "refersTo": [
                 "SYERCO.errorCode",
-                "VMT.messageId"
+                "VMT.@sectionId"
               ]
             }
           ]
@@ -220155,13 +219433,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "controlId",
-              "label": "Control ID",
-              "hint": "Stable unique identifier for the control",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "controlType",
               "label": "Control Type (Preventive, Detective, Corrective, Deterrent, Compensating)",
@@ -230347,13 +229618,6 @@
           ],
           "formFields": [
             {
-              "name": "sloId",
-              "label": "SLO ID",
-              "hint": "Unique SLO identifier",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "sloDescription",
               "label": "SLO Description",
               "hint": "What this SLO covers",
@@ -231263,12 +230527,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "equipmentId",
-              "label": "Equipment ID",
-              "type": "String",
-              "required": false
-            },
             {
               "name": "equipmentType",
               "label": "Equipment Type — barcode scanner, card reader, signature pad",
@@ -233953,13 +233211,6 @@
           ],
           "formFields": [
             {
-              "name": "riskId",
-              "label": "Risk ID",
-              "hint": "Unique identifier — e.g. MIG-R001, MIG-R002",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "riskCategory",
               "label": "Risk Category",
               "hint": "DataLoss / DataCorruption / DowntimeOverrun / SecurityBreach",
@@ -236166,13 +235417,6 @@
           ],
           "formFields": [
             {
-              "name": "criterionId",
-              "label": "Criterion ID",
-              "hint": "Unique identifier — e.g. SC-01, SC-02",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "criterion",
               "label": "Criterion",
               "hint": "Description of the success criterion",
@@ -238334,12 +237578,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "stakeholderId",
-              "label": "Stakeholder ID (STK-NNN)",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "role",
               "label": "Role",
@@ -241285,13 +240523,6 @@
           ],
           "formFields": [
             {
-              "name": "criterionId",
-              "label": "Criterion ID",
-              "hint": "Unique identifier (e.g., SC-001)",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "category",
               "label": "Category",
               "hint": "Business, Technical, User, Compliance, Budget, Timeline",
@@ -241786,7 +241017,7 @@
             {
               "name": "relatedGoals",
               "label": "Related Goals",
-              "hint": "Which business/technical goals this supports",
+              "hint": "Related business goals — business goal section ids (BGE-GOAL-…), comma-separated",
               "type": "String",
               "required": false
             },
@@ -243401,7 +242632,7 @@
             {
               "name": "processId",
               "label": "Process ID",
-              "hint": "Identifier for the process if one exists",
+              "hint": "The code the organisation already uses for this process, if one exists — owned outside this document",
               "type": "String",
               "required": false
             },
@@ -247797,13 +247028,6 @@
           ],
           "formFields": [
             {
-              "name": "riskId",
-              "label": "Risk ID",
-              "hint": "Identifier for the risk",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "riskDescription",
               "label": "Risk Description",
               "hint": "What the risk is",
@@ -250241,13 +249465,6 @@
           ],
           "formFields": [
             {
-              "name": "taskId",
-              "label": "Task ID",
-              "hint": "Unique identifier for this task",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description (what the user does)",
               "hint": "What the user does when performing this task",
@@ -251070,7 +250287,7 @@
             {
               "name": "systemId",
               "label": "System ID (e.g., SYS-CRM-001)",
-              "hint": "Stable identifier for the legacy system being replaced",
+              "hint": "The identifier the organisation already uses for the legacy system being replaced, e.g. SYS-CRM-001 — owned outside this document",
               "type": "String",
               "required": true
             },
@@ -251433,12 +250650,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "trainingId",
-              "label": "Training ID",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "modulesCovered",
               "label": "Modules Covered — system modules in scope",
@@ -252097,18 +251308,18 @@
             {
               "name": "tabBarId",
               "label": "Tab Bar ID",
-              "hint": "Unique identifier, e.g., tabs-customer-detail",
+              "hint": "The symbol the built client carries for this tab bar, e.g. tabs-customer-detail",
               "type": "String",
               "required": true
             },
             {
               "name": "hostScreenId",
               "label": "Host Screen ID",
-              "hint": "Screen that contains this tab bar",
+              "hint": "The screen that contains this tab bar — a screen section id (SCREN-ITEM-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "SCREN.screenId"
+                "SCREN.@sectionId"
               ]
             },
             {
@@ -252383,7 +251594,7 @@
             {
               "name": "tabId",
               "label": "Tab ID",
-              "hint": "Unique within tab bar",
+              "hint": "The symbol the built tab bar carries for this tab — unique within the tab bar, e.g. tab-orders",
               "type": "String",
               "required": true
             },
@@ -252414,11 +251625,11 @@
             {
               "name": "contentScreenId",
               "label": "Content Screen ID",
-              "hint": "Screen/fragment loaded in tab",
+              "hint": "The screen or fragment loaded in the tab — a screen section id (SCREN-ITEM-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "SCREN.screenId"
+                "SCREN.@sectionId"
               ]
             },
             {
@@ -253872,13 +253083,6 @@
           ],
           "formFields": [
             {
-              "name": "constraintId",
-              "label": "Constraint ID",
-              "hint": "Unique identifier for the constraint",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "constraintType",
               "label": "Constraint Type (Technology, Standard, Resource, Compatibility, Budget, Timeline, Regulatory)",
               "hint": "Technology, Standard, Resource, Compatibility, Budget, etc.",
@@ -253971,13 +253175,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "dependencyId",
-              "label": "Dependency ID",
-              "hint": "Unique identifier for the dependency",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "dependencyType",
               "label": "Dependency Type (Infrastructure, API, Library, Service, Hardware, Network, Third-party)",
@@ -255321,13 +254518,6 @@
           ],
           "formFields": [
             {
-              "name": "goalId",
-              "label": "Goal ID (unique identifier, e.g., TG-001)",
-              "hint": "Unique identifier, e.g. TG-001",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description (detailed explanation of the technical objective)",
               "hint": "Detailed explanation of the technical objective",
@@ -255628,13 +254818,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "testCaseId",
-              "label": "Test Case ID",
-              "hint": "Unique identifier for the test case",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "description",
               "label": "Description",
@@ -257354,13 +256537,6 @@
           ],
           "formFields": [
             {
-              "name": "standardId",
-              "label": "Standard ID",
-              "hint": "Unique identifier, e.g. STD-SEC-001, STD-DEV-001",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "standardCategory",
               "label": "Category",
               "hint": "Security, Development, Infrastructure, Integration, Data, DevOps",
@@ -258329,13 +257505,6 @@
           ],
           "formFields": [
             {
-              "name": "scenarioId",
-              "label": "Scenario ID",
-              "hint": "Unique identifier — e.g. UAT-SC-001",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "priority",
               "label": "Priority",
               "hint": "Critical / High / Medium / Low",
@@ -258545,11 +257714,11 @@
             {
               "name": "useCaseRef",
               "label": "Use Case Reference",
-              "hint": "Related use case ID",
+              "hint": "The related interaction — an interaction section id (INEN-INTE-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "INEN.interactionId"
+                "INEN.@sectionId"
               ]
             },
             {
@@ -258636,11 +257805,11 @@
             {
               "name": "dependsOnScenarios",
               "label": "Depends on Scenarios",
-              "hint": "Scenario IDs that must pass before this one",
+              "hint": "Scenarios that must pass before this one — test scenario section ids (TSSC-TEST-…), comma-separated",
               "type": "String",
               "required": false,
               "refersTo": [
-                "TSSC.scenarioId"
+                "TSSC.@sectionId"
               ]
             }
           ]
@@ -261476,13 +260645,6 @@
           ],
           "formFields": [
             {
-              "name": "toolId",
-              "label": "Tool ID",
-              "hint": "Unique identifier, e.g. TOOL-IDE-001",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "notes",
               "label": "Notes",
               "hint": "Additional notes, caveats, or context",
@@ -263610,13 +262772,6 @@
           ],
           "formFields": [
             {
-              "name": "decisionId",
-              "label": "Decision ID",
-              "hint": "Unique identifier (e.g., TRADEOFF-001)",
-              "type": "String",
-              "required": false
-            },
-            {
               "name": "decisionStatus",
               "label": "Status",
               "hint": "Proposed, approved, implemented, reversed",
@@ -265050,13 +264205,6 @@
           ],
           "formFields": [
             {
-              "name": "moduleId",
-              "label": "Module ID",
-              "hint": "Unique identifier for the module",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "targetAudience",
               "label": "Target Audience",
               "hint": "End users, admins, power users",
@@ -266172,13 +265320,6 @@
           ],
           "formFields": [
             {
-              "name": "metricId",
-              "label": "Metric ID",
-              "hint": "A unique identifier for this success metric",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "category",
               "label": "Category — Adoption, Performance, Quality, Satisfaction, Efficiency",
               "hint": "The category of this metric: Adoption, Performance, Quality, Satisfaction, or Efficiency",
@@ -266407,13 +265548,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "milestoneId",
-              "label": "Milestone ID (e.g., MS-01)",
-              "hint": "Unique identifier for the milestone, e.g. MS-01",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "milestoneType",
               "label": "Milestone Type — Decision Gate, Checkpoint, Go-Live, Closure",
@@ -267253,13 +266387,6 @@
           ],
           "formFields": [
             {
-              "name": "phaseId",
-              "label": "Phase ID (e.g., PH-01)",
-              "hint": "Unique identifier for the phase, e.g. PH-01",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "phaseType",
               "label": "Phase Type — Preparation, Pilot, Rollout, Stabilization, Closure",
               "hint": "The kind of phase: Preparation, Pilot, Rollout, Stabilization, or Closure",
@@ -267343,21 +266470,21 @@
             {
               "name": "precedingPhase",
               "label": "Preceding Phase — phase ID",
-              "hint": "The phase ID that must complete before this phase begins",
+              "hint": "The phase that must complete before this one begins — a transition phase section id (TRPHE-PHAS-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "TPIDN.phaseId"
+                "TRPHE.@sectionId"
               ]
             },
             {
               "name": "dependsOnMilestone",
               "label": "Depends on Milestone — milestone ID",
-              "hint": "The milestone ID this phase depends on before it can start",
+              "hint": "The milestone this phase depends on before it can start — a milestone section id (TRMIL-MILE-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "TRMIL.milestoneId"
+                "TRMIL.@sectionId"
               ]
             }
           ]
@@ -267568,13 +266695,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "riskId",
-              "label": "Risk ID",
-              "hint": "A unique identifier for this transition risk",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "riskCategory",
               "label": "Risk Category — Resistance, Capacity, Timing, Resources, Dependencies",
@@ -270406,13 +269526,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "componentId",
-              "label": "Component ID",
-              "hint": "Unique identifier (e.g., CMP-DTT-001)",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "componentFamily",
               "label": "Component Family",
@@ -275538,13 +274651,6 @@
           ],
           "formFields": [
             {
-              "name": "categoryId",
-              "label": "Category ID (unique identifier)",
-              "hint": "Unique stable identifier for cross-referencing this category",
-              "type": "String",
-              "required": true
-            },
-            {
               "name": "description",
               "label": "Description (brief summary of this user type)",
               "hint": "One- or two-sentence summary of this user type",
@@ -279409,7 +278515,7 @@
             {
               "name": "menuItemId",
               "label": "Menu Item ID",
-              "hint": "Unique identifier, e.g., menu-item-logout",
+              "hint": "The symbol the built menu carries for this item, e.g. menu-item-logout",
               "type": "String",
               "required": true
             },
@@ -279751,7 +278857,7 @@
             {
               "name": "utilityId",
               "label": "Utility ID",
-              "hint": "e.g., util-user-menu, util-notifications",
+              "hint": "The symbol the built navigation carries for this utility, e.g. util-user-menu, util-notifications",
               "type": "String",
               "required": true
             },
@@ -279919,11 +279025,11 @@
             {
               "name": "targetScreenId",
               "label": "Target Screen ID",
-              "hint": "Navigation target",
+              "hint": "The navigation target — a screen section id (SCREN-ITEM-…)",
               "type": "String",
               "required": false,
               "refersTo": [
-                "SCREN.screenId"
+                "SCREN.@sectionId"
               ]
             }
           ]
@@ -280623,13 +279729,6 @@
             }
           ],
           "formFields": [
-            {
-              "name": "messageId",
-              "label": "Message ID",
-              "hint": "Unique identifier (e.g., VAL-REQ-001)",
-              "type": "String",
-              "required": true
-            },
             {
               "name": "validationType",
               "label": "Validation Type",
@@ -283500,7 +282599,7 @@
             {
               "name": "criterionId",
               "label": "Criterion ID",
-              "hint": "WCAG SC ID (e.g., 1.4.3)",
+              "hint": "The WCAG success criterion number, e.g. 1.4.3 — owned by the WCAG specification",
               "type": "String",
               "required": true
             },

@@ -37,7 +37,7 @@
       - testing: `InterfaceTesting`
         - content @Form(sandboxAvailable, sandboxUrl, testCredentials, mockAvailable), data, strategy
         - testScenarios: `InterfaceTestScenarioEntry`
-          - content @Form(scenarioId, scenarioType, preconditions, testSteps, expectedResult, automated)
+          - content @Form(scenarioType, preconditions, testSteps, expectedResult, automated)
   - `OutOfScope`
     - scopePhilosophy @text
     - items: `OutOfScopeEntry`
@@ -45,7 +45,7 @@
   - `BoundaryAssumptions`
     - assumptionApproach @text
     - items: `BoundaryAssumptionEntry`
-      - content @Form(assumptionId, assumption, category), validation, risk
+      - content @Form(assumption, category), validation, risk
   - systemInventory: `SystemLandscapeInventory`
     - content
   - interactionPatterns: `BoundaryInteractionPatterns`

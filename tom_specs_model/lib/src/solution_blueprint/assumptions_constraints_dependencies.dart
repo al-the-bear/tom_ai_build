@@ -74,7 +74,6 @@ class AssumptionConstraintDependencyRegister extends DocSpecsSection {
 @SectionId('ASMRE')
 class AssumptionRegisterEntry extends DocSpecsSection {
   @Form([
-    Field('assumptionId', String, 'Assumption ID (ASM-NNN)', required: true),
     Field('description', String, 'Description', required: true),
     Field('impact', String, 'Impact if invalid'),
     Field('validation', String, 'Validation approach'),
@@ -97,7 +96,6 @@ class AssumptionRegisterEntry extends DocSpecsSection {
 @SectionId('CONRE')
 class ConstraintRegisterEntry extends DocSpecsSection {
   @Form([
-    Field('constraintId', String, 'Constraint ID (CON-NNN)', required: true),
     Field('description', String, 'Description', required: true),
     Field('type', String, 'Type (Technical, Regulatory, Budget, Schedule)'),
     Field('source', String, 'Source'),
@@ -123,7 +121,6 @@ class ConstraintRegisterEntry extends DocSpecsSection {
 @SectionId('DEPRE')
 class DependencyRegisterEntry extends DocSpecsSection {
   @Form([
-    Field('dependencyId', String, 'Dependency ID (DEP-NNN)', required: true),
     Field('description', String, 'Description', required: true),
     Field('type', String, 'Type (System, Team, Vendor, Deliverable, Framework)'),
     Field('dependsOn', String, 'Depends on (the external party / artifact)'),

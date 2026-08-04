@@ -255,7 +255,8 @@ class ExistingSystemEntry extends DocSpecsSection {
       'systemId',
       String,
       'System ID/Code (internal identifier)',
-      hint: 'Internal catalogue code or CMDB identifier, if any.',
+      hint: 'The catalogue or CMDB code the organisation already uses for this '
+          'system, if any — owned outside this document',
     ),
     Field(
       'systemVersion',
@@ -2383,7 +2384,15 @@ class WorkflowSummaryEntry extends DocSpecsSection {
 @SectionId('CUWF')
 class CurrentWorkflowEntry extends DocSpecsSection {
   @Form([
-    Field('workflowId', String, 'Workflow ID (internal identifier)'),
+    Field(
+      'workflowId',
+      String,
+      'Workflow ID (internal identifier)',
+      hint:
+          'The code the organisation already uses for this workflow — a '
+          'process catalogue or BPM identifier, if one exists. Owned '
+          'outside this document',
+    ),
     Field(
       'workflowType',
       String,
@@ -3194,7 +3203,6 @@ class ProcessMetricCategory extends DocSpecsSection {
 @SectionId('PME')
 class ProcessMetricEntry extends DocSpecsSection {
   @Form([
-    Field('metricId', String, 'Metric ID'),
     Field(
       'metricCategory',
       String,
@@ -3699,13 +3707,6 @@ integration complexity, and team capability constraints.
 class PainPointEntry extends DocSpecsSection {
   @Form([
     Field(
-      'painPointId',
-      String,
-      'Pain Point ID',
-      hint: 'Unique identifier, e.g. PP-OPE-001',
-      required: true,
-    ),
-    Field(
       'painPoint',
       String,
       'Pain Point Name',
@@ -4012,8 +4013,10 @@ class PainPointRelationships extends DocSpecsSection {
       'relatedPainPoints',
       String,
       'Related Pain Points',
-      hint: 'IDs of related pain points',
-      refersTo: ['PAPE.painPointId'],
+      hint:
+          'Related pain points — pain point section ids (PAPE-ITEM-…), '
+          'comma-separated',
+      refersTo: ['PAPE.@sectionId'],
     ),
     Field(
       'relatedGaps',
@@ -4089,16 +4092,20 @@ class PainPointGapCorrelationEntry extends DocSpecsSection {
       'painPointId',
       String,
       'Pain Point ID',
-      hint: 'Reference to pain point, e.g. PP-OPE-001',
+      hint:
+          'The pain point this entry correlates — a pain point section id '
+          '(PAPE-ITEM-…)',
       required: true,
-      refersTo: ['PAPE.painPointId'],
+      refersTo: ['PAPE.@sectionId'],
     ),
     Field(
       'gapId',
       String,
       'Gap ID',
-      hint: 'Reference to gap entry, e.g. GAP-001',
+      hint: 'The gap this pain point correlates to — a gap section id '
+          '(GAPE-ITEM-…)',
       required: true,
+      refersTo: ['GAPE.@sectionId'],
     ),
     Field(
       'correlationType',
@@ -4538,13 +4545,6 @@ catalog data sources, coverage of the inventory, and any known gaps.
 @SectionId('DASR')
 class DataSourceEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'dataSourceId',
-      String,
-      'Data Source ID',
-      hint: 'Unique identifier, e.g. DS-001',
-      required: true,
-    ),
     Field(
       'dataStoreName',
       String,
@@ -5087,13 +5087,6 @@ methodology, scope, key findings, and overall data quality posture.
 class DataQualityIssueEntry extends DocSpecsSection {
   @Form([
     Field(
-      'issueId',
-      String,
-      'Issue ID',
-      hint: 'Unique identifier, e.g. DQ-001',
-      required: true,
-    ),
-    Field(
       'description',
       String,
       'Detailed Description',
@@ -5228,7 +5221,6 @@ class DataQualityIssueEntry extends DocSpecsSection {
 @SectionId('DQIE')
 class DataQualityInitiativeEntry extends DocSpecsSection {
   @Form([
-    Field('initiativeId', String, 'Initiative ID', hint: 'Unique identifier'),
     Field(
       'description',
       String,
@@ -5381,13 +5373,6 @@ of duplication, its causes, impacts, and any ongoing deduplication efforts.
 @SectionId('DADU')
 class DataDuplicationEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'duplicationId',
-      String,
-      'Duplication ID',
-      hint: 'Unique identifier',
-      required: true,
-    ),
     Field(
       'description',
       String,
@@ -6083,13 +6068,6 @@ policy framework, regulatory drivers, implementation status, and any gaps.
 class RetentionPolicyEntry extends DocSpecsSection {
   @Form([
     Field(
-      'policyId',
-      String,
-      'Policy ID',
-      hint: 'Unique identifier',
-      required: true,
-    ),
-    Field(
       'dataCategory',
       String,
       'Data Category',
@@ -6334,7 +6312,6 @@ framework, organizational structure, policies, and current maturity level.
 @SectionId('DGPE')
 class DataGovernancePolicyEntry extends DocSpecsSection {
   @Form([
-    Field('policyId', String, 'Policy ID', hint: 'Unique identifier'),
     Field(
       'policyArea',
       String,
@@ -6783,13 +6760,6 @@ architecture, major data flows, technologies used, and integration challenges.
 @SectionId('DAIN')
 class DataIntegrationEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'integrationId',
-      String,
-      'Integration ID',
-      hint: 'Unique identifier',
-      required: true,
-    ),
     Field(
       'description',
       String,

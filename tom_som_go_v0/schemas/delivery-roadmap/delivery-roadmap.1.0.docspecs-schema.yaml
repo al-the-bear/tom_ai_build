@@ -1872,9 +1872,9 @@ form-types:
   fedein-form:
     fields:
       - fieldname: dependsOnFeatures
-        description: Feature IDs this requires
+        description: "Features this requires — feature section ids (FPE-ITEM-…), comma-separated"
       - fieldname: blocksFeatures
-        description: Feature IDs blocked until this completes
+        description: "Features blocked until this completes — feature section ids (FPE-ITEM-…), comma-separated"
       - fieldname: externalDependencies
         description: "External systems, APIs, vendors, or approvals"
       - fieldname: dependencyCriticalPath
@@ -1884,13 +1884,13 @@ form-types:
       - fieldname: linkedRequirements
         description: "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
       - fieldname: linkedUseCases
-        description: Use case IDs
+        description: "Interactions this feature covers — interaction section ids (INEN-INTE-…), comma-separated"
       - fieldname: linkedBusinessProcesses
-        description: Business process IDs
+        description: "Business processes this feature serves — process section ids (BPREN-PROC-…), comma-separated"
       - fieldname: linkedUserStories
         description: "Story ids from the delivery backlog — owned by the delivery tooling, not declared in this blueprint"
       - fieldname: linkedArchitectureDecisions
-        description: ADR IDs affected by or affecting this feature
+        description: "Architecture decisions affected by or affecting this feature — decision record section ids (ARDE-DECI-…), comma-separated"
   fs-form:
     fields:
       - fieldname: prioritizationStatus
@@ -1934,9 +1934,9 @@ form-types:
       - fieldname: linkedRequirements
         description: "Requirement ids this feature traces to, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
       - fieldname: linkedUseCases
-        description: Use case IDs this feature implements
+        description: "Interactions this feature implements — interaction section ids (INEN-INTE-…), comma-separated"
       - fieldname: dependsOnFeatures
-        description: Feature IDs that must be delivered before this one
+        description: "Features that must be delivered before this one — feature section ids (FPE-ITEM-…), comma-separated"
       - fieldname: notes
         description: Additional notes or caveats
   fsma-form:
@@ -1960,7 +1960,7 @@ form-types:
   fsmd-form:
     fields:
       - fieldname: prerequisiteFeatures
-        description: Feature IDs that must complete first — comma-separated
+        description: "Features that must complete first — feature section ids (FPE-ITEM-…), comma-separated"
       - fieldname: blockedByExternalDependency
         description: "External systems, vendors, or approvals — None, or description"
       - fieldname: crossStageDependency
@@ -2375,7 +2375,7 @@ form-types:
       - fieldname: followUpActions
         description: Actions assigned during review
       - fieldname: nextGateReference
-        description: Gate ID of the next gate in sequence
+        description: The next gate in sequence — a phase gate review section id (PHGREV-ITEM-…)
   rcea-form:
     fields:
       - fieldname: weight

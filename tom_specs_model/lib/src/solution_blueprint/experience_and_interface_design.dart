@@ -1345,13 +1345,6 @@ Screens generate TomScaffold configurations with:
 class ScreenEntry extends DocSpecsSection {
   @Form([
     Field(
-      'screenId',
-      String,
-      'Screen ID',
-      required: true,
-      hint: 'Unique identifier, e.g., SCR-001',
-    ),
-    Field(
       'purpose',
       String,
       'Purpose',
@@ -1382,8 +1375,10 @@ class ScreenEntry extends DocSpecsSection {
       'parentScreenId',
       String,
       'Parent Screen ID',
-      hint: 'Parent screen if this is a sub-screen or drill-down',
-      refersTo: ['SCREN.screenId'],
+      hint:
+          'The parent screen, if this is a sub-screen or drill-down — a screen '
+          'section id (SCREN-ITEM-…)',
+      refersTo: ['SCREN.@sectionId'],
     ),
     Field(
       'routePattern',
@@ -1651,7 +1646,8 @@ class ScreenSectionEntry extends DocSpecsSection {
       String,
       'Section ID',
       required: true,
-      hint: 'Unique within screen, e.g., header, filter-bar, main-content',
+      hint: 'The symbol the built screen carries for this section — unique '
+          'within the screen, e.g. header, filter-bar, main-content',
     ),
     Field('purpose', String, 'Purpose', hint: 'What this zone contains'),
     Field(
@@ -1782,7 +1778,8 @@ class ScreenElementEntry extends DocSpecsSection {
       String,
       'Element ID',
       required: true,
-      hint: 'Unique within screen, e.g., btn-submit, fld-customer-name',
+      hint: 'The symbol the built screen carries for this element — unique '
+          'within the screen, e.g. btn-submit, fld-customer-name',
     ),
     Field(
       'elementType',
@@ -2127,8 +2124,10 @@ class ScreenElementAction extends DocSpecsSection {
       'navigateTo',
       String,
       'Navigate To',
-      hint: 'Target screen ID or route after action',
-      refersTo: ['SCREN.screenId', 'SCRTEN.routeId'],
+      hint:
+          'The target after the action — a screen section id (SCREN-ITEM-…), '
+          'or a route id from the Screen Route Map',
+      refersTo: ['SCREN.@sectionId', 'SCRTEN.routeId'],
     ),
     Field(
       'navigateParams',
@@ -2510,8 +2509,10 @@ class ScreenElementDataDisplay extends DocSpecsSection {
       'drillDownTarget',
       String,
       'Drill-Down Target',
-      hint: 'Screen ID navigated to on click/tap',
-      refersTo: ['SCREN.screenId'],
+      hint:
+          'The screen navigated to on click/tap — a screen section id '
+          '(SCREN-ITEM-…)',
+      refersTo: ['SCREN.@sectionId'],
     ),
   ])
   @SerializationOrder(1)
@@ -2680,7 +2681,8 @@ class ScreenActionEntry extends DocSpecsSection {
       String,
       'Action ID',
       required: true,
-      hint: 'Unique action identifier',
+      hint: 'The symbol the built screen carries for this action — unique '
+          'within the screen, e.g. act-submit-order',
     ),
     Field(
       'actionType',
@@ -3302,8 +3304,9 @@ class ScreenRouteEntry extends DocSpecsSection {
       'screenId',
       String,
       'Screen ID',
-      hint: 'ID of the screen (SCREN registry) this route renders',
-      refersTo: ['SCREN.screenId'],
+      hint:
+          'The screen this route renders — a screen section id (SCREN-ITEM-…)',
+      refersTo: ['SCREN.@sectionId'],
     ),
     Field(
       'routeParameters',
@@ -3339,7 +3342,9 @@ class FormScreenAssignmentEntry extends DocSpecsSection {
       String,
       'Form ID',
       required: true,
-      hint: 'ID of the form shown on this route',
+      hint:
+          'The form shown on this route — the symbol the built client carries '
+          'for the form, e.g. form-order-edit',
     ),
     Field(
       'routeId',
@@ -3426,10 +3431,11 @@ class ScreenTransitionEntry extends DocSpecsSection {
       'outcomeReference',
       String,
       'Outcome Reference',
-      hint: 'For error, the system error code (SYERCO registry); for '
-          'validationError, the validation message template (VMT registry) — '
-          'empty for success',
-      refersTo: ['SYERCO.errorCode', 'VMT.messageId'],
+      hint:
+          'For error, the system error code (SYERCO registry); for '
+          'validationError, the validation message template — its section id '
+          '(VMT-MESS-…). Empty for success',
+      refersTo: ['SYERCO.errorCode', 'VMT.@sectionId'],
     ),
   ])
   @override
@@ -3548,15 +3554,19 @@ class NavigationOverview extends DocSpecsSection {
       'defaultLandingScreen',
       String,
       'Default Landing Screen',
-      hint: 'Screen ID the user sees after login',
-      refersTo: ['SCREN.screenId'],
+      hint:
+          'The screen the user sees after login — a screen section id '
+          '(SCREN-ITEM-…)',
+      refersTo: ['SCREN.@sectionId'],
     ),
     Field(
       'unauthenticatedLanding',
       String,
       'Unauthenticated Landing',
-      hint: 'Screen ID for unauthenticated users',
-      refersTo: ['SCREN.screenId'],
+      hint:
+          'The screen unauthenticated users see — a screen section id '
+          '(SCREN-ITEM-…)',
+      refersTo: ['SCREN.@sectionId'],
     ),
     Field(
       'navigationPersistence',
@@ -3663,7 +3673,8 @@ class NavigationGroupEntry extends DocSpecsSection {
       String,
       'Group ID',
       required: true,
-      hint: 'Unique identifier, e.g., nav-grp-sales',
+      hint: 'The symbol the built navigation carries for this group, e.g. '
+          'nav-grp-sales',
     ),
     Field(
       'groupLabel',
@@ -3810,7 +3821,8 @@ class NavigationItemEntry extends DocSpecsSection {
       String,
       'Item ID',
       required: true,
-      hint: 'Unique identifier, e.g., nav-customers',
+      hint: 'The symbol the built navigation carries for this item, e.g. '
+          'nav-customers',
     ),
     Field(
       'label',
@@ -3878,8 +3890,10 @@ class NavigationItemEntry extends DocSpecsSection {
       'targetScreenId',
       String,
       'Target Screen ID',
-      hint: 'Reference to Screen Inventory SCR-xxx',
-      refersTo: ['SCREN.screenId'],
+      hint:
+          'The screen this item opens — a screen section id (SCREN-ITEM-…) '
+          'from the Screen Inventory',
+      refersTo: ['SCREN.@sectionId'],
     ),
     Field(
       'targetRouteParams',
@@ -4238,14 +4252,17 @@ class TabBarDefinitionEntry extends DocSpecsSection {
       String,
       'Tab Bar ID',
       required: true,
-      hint: 'Unique identifier, e.g., tabs-customer-detail',
+      hint: 'The symbol the built client carries for this tab bar, e.g. '
+          'tabs-customer-detail',
     ),
     Field(
       'hostScreenId',
       String,
       'Host Screen ID',
-      hint: 'Screen that contains this tab bar',
-      refersTo: ['SCREN.screenId'],
+      hint:
+          'The screen that contains this tab bar — a screen section id '
+          '(SCREN-ITEM-…)',
+      refersTo: ['SCREN.@sectionId'],
     ),
     Field(
       'tabBarStyle',
@@ -4351,7 +4368,8 @@ class TabItemEntry extends DocSpecsSection {
       String,
       'Tab ID',
       required: true,
-      hint: 'Unique within tab bar',
+      hint: 'The symbol the built tab bar carries for this tab — unique within '
+          'the tab bar, e.g. tab-orders',
     ),
     Field(
       'label',
@@ -4367,8 +4385,10 @@ class TabItemEntry extends DocSpecsSection {
       'contentScreenId',
       String,
       'Content Screen ID',
-      hint: 'Screen/fragment loaded in tab',
-      refersTo: ['SCREN.screenId'],
+      hint:
+          'The screen or fragment loaded in the tab — a screen section id '
+          '(SCREN-ITEM-…)',
+      refersTo: ['SCREN.@sectionId'],
     ),
     Field(
       'visibilityCondition',
@@ -4471,7 +4491,8 @@ class UtilityNavigationItemEntry extends DocSpecsSection {
       String,
       'Utility ID',
       required: true,
-      hint: 'e.g., util-user-menu, util-notifications',
+      hint: 'The symbol the built navigation carries for this utility, e.g. '
+          'util-user-menu, util-notifications',
     ),
     Field(
       'icon',
@@ -4551,8 +4572,9 @@ class UtilityNavigationItemEntry extends DocSpecsSection {
       'targetScreenId',
       String,
       'Target Screen ID',
-      hint: 'Navigation target',
-      refersTo: ['SCREN.screenId'],
+      hint:
+          'The navigation target — a screen section id (SCREN-ITEM-…)',
+      refersTo: ['SCREN.@sectionId'],
     ),
   ])
   @SerializationOrder(3)
@@ -4593,7 +4615,8 @@ class UtilityMenuItemEntry extends DocSpecsSection {
       String,
       'Menu Item ID',
       required: true,
-      hint: 'Unique identifier, e.g., menu-item-logout',
+      hint: 'The symbol the built menu carries for this item, e.g. '
+          'menu-item-logout',
     ),
     Field('icon', String, 'Icon Resource', hint: 'Leading icon'),
     Field('displayOrder', int, 'Display Order', hint: 'Position in menu'),
@@ -4874,7 +4897,8 @@ class DeepLinkPatternEntry extends DocSpecsSection {
       String,
       'Pattern ID',
       required: true,
-      hint: 'Unique identifier, e.g., pattern-order-detail',
+      hint: 'The symbol the built client carries for this deep-link pattern, '
+          'e.g. pattern-order-detail',
     ),
     Field(
       'urlPattern',
@@ -4887,8 +4911,9 @@ class DeepLinkPatternEntry extends DocSpecsSection {
       'targetScreenId',
       String,
       'Target Screen ID',
-      hint: 'Screen to open',
-      refersTo: ['SCREN.screenId'],
+      hint:
+          'The screen to open — a screen section id (SCREN-ITEM-…)',
+      refersTo: ['SCREN.@sectionId'],
     ),
     Field(
       'description',
@@ -5005,7 +5030,8 @@ class NavigationGuardEntry extends DocSpecsSection {
       String,
       'Guard ID',
       required: true,
-      hint: 'Unique identifier, e.g., guard-unsaved-changes',
+      hint: 'The symbol the built navigation carries for this guard, e.g. '
+          'guard-unsaved-changes',
     ),
     Field(
       'guardType',
@@ -5040,8 +5066,10 @@ class NavigationGuardEntry extends DocSpecsSection {
       'appliesTo',
       String,
       'Applies To',
-      hint: 'Route patterns or screen IDs this guard covers',
-      refersTo: ['SCRTEN.routeId', 'SCREN.screenId'],
+      hint:
+          'The routes or screens this guard covers — route ids from the Screen '
+          'Route Map, or screen section ids (SCREN-ITEM-…)',
+      refersTo: ['SCRTEN.routeId', 'SCREN.@sectionId'],
     ),
     Field(
       'dialogTitleResource',
@@ -5431,13 +5459,6 @@ class PrintAndExportLayout extends DocSpecsSection {
 class ReportEntry extends DocSpecsSection {
   @Form([
     Field(
-      'reportId',
-      String,
-      'Report ID',
-      hint: 'Unique identifier, e.g. RPT-001',
-      required: true,
-    ),
-    Field(
       'reportType',
       String,
       'Report Type',
@@ -5719,8 +5740,10 @@ class ReportEntry extends DocSpecsSection {
       'drillThroughReports',
       String,
       'Drill-Through Reports',
-      hint: 'Comma-separated report IDs reachable from this report',
-      refersTo: ['REPENT.reportId'],
+      hint:
+          'Reports reachable from this report — report section ids '
+          '(REPENT-REPO-…), comma-separated',
+      refersTo: ['REPENT.@sectionId'],
     ),
     Field(
       'parameterForm',
@@ -5935,7 +5958,8 @@ class ReportSectionEntry extends DocSpecsSection {
       'sectionId',
       String,
       'Section ID',
-      hint: 'Unique within report, e.g. SEC-01',
+      hint: 'The identifier this section carries in the generated report — '
+          'unique within the report, e.g. SEC-01',
       required: true,
     ),
     Field(
@@ -6173,7 +6197,8 @@ class ReportColumnEntry extends DocSpecsSection {
       'columnId',
       String,
       'Column ID',
-      hint: 'Unique within section, e.g. COL-01',
+      hint: 'The identifier this column carries in the generated report — '
+          'unique within the section, e.g. COL-01',
       required: true,
     ),
     Field(
@@ -6505,7 +6530,9 @@ class ReportChartEntry extends DocSpecsSection {
       'chartId',
       String,
       'Chart ID',
-      hint: 'Unique within section, e.g. CHT-01',
+      hint:
+          'The identifier this chart carries in the generated report — unique '
+          'within the section, e.g. CHT-01',
       required: true,
     ),
     Field(
@@ -6782,7 +6809,8 @@ class ReportFilterEntry extends DocSpecsSection {
       'filterId',
       String,
       'Filter ID',
-      hint: 'Unique within report, e.g. FLT-01',
+      hint: 'The identifier this filter carries in the generated report — '
+          'unique within the report, e.g. FLT-01',
       required: true,
     ),
     Field(
@@ -7138,7 +7166,8 @@ class ReportScheduleEntry extends DocSpecsSection {
       'scheduleId',
       String,
       'Schedule ID',
-      hint: 'Unique within report, e.g. SCH-01',
+      hint: 'The identifier this schedule carries in the running report job — '
+          'unique within the report, e.g. SCH-01',
       required: true,
     ),
     Field(
@@ -7337,7 +7366,9 @@ class ReportDistributionEntry extends DocSpecsSection {
       'distributionId',
       String,
       'Distribution ID',
-      hint: 'Unique within report, e.g. DST-01',
+      hint:
+          'The identifier this distribution carries in the running report job '
+          '— unique within the report, e.g. DST-01',
       required: true,
     ),
     Field(
@@ -7529,7 +7560,8 @@ class ReportRecipientEntry extends DocSpecsSection {
       'recipientId',
       String,
       'Recipient ID',
-      hint: 'Unique within report, e.g. REC-01',
+      hint: 'The identifier this recipient carries in the running report job — '
+          'unique within the report, e.g. REC-01',
       required: true,
     ),
     Field(
@@ -7680,13 +7712,6 @@ class ReportRecipientEntry extends DocSpecsSection {
 )
 class ExportFormatEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'exportId',
-      String,
-      'Export ID',
-      hint: 'Unique identifier, e.g. EXP-001',
-      required: true,
-    ),
     Field(
       'formatType',
       String,
@@ -8047,7 +8072,8 @@ class ExportFieldMappingEntry extends DocSpecsSection {
       'mappingId',
       String,
       'Mapping ID',
-      hint: 'Unique within export, e.g. FLD-01',
+      hint: 'The identifier this mapping carries in the generated export — '
+          'unique within the export, e.g. FLD-01',
       required: true,
     ),
     Field(
@@ -8360,13 +8386,6 @@ class ExportFieldMappingEntry extends DocSpecsSection {
 )
 class ExportTemplateEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'templateId',
-      String,
-      'Template ID',
-      hint: 'Unique identifier, e.g. TPL-001',
-      required: true,
-    ),
     Field(
       'baseFormatType',
       String,
@@ -8955,13 +8974,6 @@ class ValidationFeedback extends DocSpecsSection {
 )
 class ValidationMessageTemplate extends DocSpecsSection {
   @Form([
-    Field(
-      'messageId',
-      String,
-      'Message ID',
-      required: true,
-      hint: 'Unique identifier (e.g., VAL-REQ-001)',
-    ),
     Field(
       'validationType',
       String,
@@ -9660,13 +9672,6 @@ class ErrorRecovery extends DocSpecsSection {
 class RecoveryScenarioEntry extends DocSpecsSection {
   @Form([
     Field(
-      'scenarioId',
-      String,
-      'Scenario ID',
-      required: true,
-      hint: 'Unique identifier for this recovery scenario',
-    ),
-    Field(
       'triggerCondition',
       String,
       'Trigger Condition',
@@ -10073,7 +10078,8 @@ class FieldHelpEntry extends DocSpecsSection {
       String,
       'Field ID',
       required: true,
-      hint: 'Unique identifier of the field',
+      hint: 'The input field this help is attached to — the symbol the built '
+          'screen carries for the field, e.g. fld-customer-name',
     ),
     Field('tooltipText', String, 'Tooltip Text', hint: 'Brief tooltip content'),
     Field(
@@ -10345,13 +10351,6 @@ class OnboardingHelp extends DocSpecsSection {
 )
 class FeatureTourEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'tourId',
-      String,
-      'Tour ID',
-      required: true,
-      hint: 'Unique identifier for this tour',
-    ),
     Field(
       'tourDescription',
       String,
@@ -11026,7 +11025,8 @@ class WcagSuccessCriterionEntry extends DocSpecsSection {
       String,
       'Criterion ID',
       required: true,
-      hint: 'WCAG SC ID (e.g., 1.4.3)',
+      hint: 'The WCAG success criterion number, e.g. 1.4.3 — owned by the WCAG '
+          'specification',
     ),
     Field('level', String, 'Level', hint: 'A, AA, AAA'),
     Field(
@@ -11152,13 +11152,6 @@ class AccessibilityChecklist extends DocSpecsSection {
 @SectionId('ACCH')
 class AccessibilityCheckEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'checkId',
-      String,
-      'Check ID',
-      required: true,
-      hint: 'Unique identifier for this check (e.g., ACCH-001)',
-    ),
     Field(
       'checkItem',
       String,
@@ -11494,7 +11487,8 @@ class BreakpointEntry extends DocSpecsSection {
       String,
       'Breakpoint ID',
       required: true,
-      hint: 'Unique identifier (e.g., TOM-MOBILE)',
+      hint: 'The symbol the built layout carries for this breakpoint, e.g. '
+          'TOM-MOBILE',
     ),
     Field(
       'minWidth',
@@ -11789,8 +11783,10 @@ class ResponsiveScreenRuleEntry extends DocSpecsSection {
       String,
       'Screen ID',
       required: true,
-      hint: 'Unique identifier of the screen this rule applies to',
-      refersTo: ['SCREN.screenId'],
+      hint:
+          'The screen this rule applies to — a screen section id '
+          '(SCREN-ITEM-…)',
+      refersTo: ['SCREN.@sectionId'],
     ),
     Field(
       'mobileLayout',
@@ -12395,13 +12391,6 @@ class TypographyStyleEntry extends DocSpecsSection {
 class ComponentFamilyEntry extends DocSpecsSection {
   @Form([
     Field(
-      'familyId',
-      String,
-      'Family ID',
-      required: true,
-      hint: 'Unique identifier (e.g., FAM-BTN)',
-    ),
-    Field(
       'familyDescription',
       String,
       'Family Description',
@@ -12459,8 +12448,9 @@ class FamilyComponentRef extends DocSpecsSection {
       String,
       'Component ID',
       required: true,
-      hint: 'Identifier of the referenced component',
-      refersTo: ['CMPNT.componentId'],
+      hint:
+          'The referenced component — a component section id (CMPNT-COMP-…)',
+      refersTo: ['CMPNT.@sectionId'],
     ),
     Field(
       'familyRole',
@@ -12506,13 +12496,6 @@ class UiComponentEntry extends DocSpecsSection {
   @SectionId('UICOM-IDEN')
   @Form([
     // Identity
-    Field(
-      'componentId',
-      String,
-      'Component ID',
-      required: true,
-      hint: 'Unique identifier (e.g., CMP-DTT-001)',
-    ),
     Field(
       'componentFamily',
       String,
@@ -13254,7 +13237,8 @@ class ComponentStateEntry extends DocSpecsSection {
       String,
       'State ID',
       required: true,
-      hint: 'Unique state identifier',
+      hint: 'The symbol the built component carries for this state, e.g. '
+          'disabled',
     ),
     Field(
       'stateDescription',
@@ -13401,7 +13385,8 @@ class ComponentVariantEntry extends DocSpecsSection {
       String,
       'Variant ID',
       required: true,
-      hint: 'Unique variant identifier',
+      hint: 'The symbol the built component carries for this variant, e.g. '
+          'primary',
     ),
     Field(
       'variantDescription',
@@ -13513,7 +13498,15 @@ class ComponentVariantEntry extends DocSpecsSection {
 @CodeSpecKind([CodeSpecPart.action], note: 'CE-AC — an action and its trigger.')
 class ComponentActionEntry extends DocSpecsSection {
   @Form([
-    Field('actionId', String, 'Action ID', required: true),
+    Field(
+      'actionId',
+      String,
+      'Action ID',
+      required: true,
+      hint:
+          'The symbol the built component carries for this action, e.g. '
+          'onSubmit',
+    ),
     Field(
       'actionTrigger',
       String,
@@ -13628,7 +13621,9 @@ class ComponentSlotEntry extends DocSpecsSection {
       String,
       'Slot ID',
       required: true,
-      hint: 'Unique slot identifier',
+      hint:
+          'The symbol the built component carries for this slot, e.g. '
+          'leading',
     ),
     Field(
       'slotDescription',
@@ -13694,7 +13689,7 @@ class ComponentPropertyEntry extends DocSpecsSection {
       String,
       'Property ID',
       required: true,
-      hint: 'Unique property identifier',
+      hint: 'The name the built component gives this property, e.g. isDense',
     ),
     Field(
       'propertyType',
@@ -14522,13 +14517,6 @@ class TrainingDeliverableRequirements extends DocSpecsSection {
 @SectionId('TME')
 class TrainingModuleEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'moduleId',
-      String,
-      'Module ID',
-      required: true,
-      hint: 'Unique identifier for the module',
-    ),
     Field(
       'targetAudience',
       String,
@@ -15360,13 +15348,6 @@ class PrototypeGoals extends DocSpecsSection {
 class PrototypeGoalEntry extends DocSpecsSection {
   @Form([
     Field(
-      'goalId',
-      String,
-      'Goal ID',
-      required: true,
-      hint: 'Unique identifier for the goal',
-    ),
-    Field(
       'goalDescription',
       String,
       'Goal Description',
@@ -15549,8 +15530,10 @@ class PrototypeFeatureEntry extends DocSpecsSection {
       String,
       'Feature ID',
       required: true,
-      refersTo: ['FPE.featureId'],
-      hint: 'Unique identifier for the feature',
+      refersTo: ['FPE.@sectionId'],
+      hint:
+          'The feature this entry describes — a feature section id '
+          '(FPE-ITEM-…)',
     ),
     Field(
       'inclusionReason',

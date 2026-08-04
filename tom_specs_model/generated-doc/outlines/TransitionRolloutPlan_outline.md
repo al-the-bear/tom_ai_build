@@ -15,7 +15,7 @@
   - trainingDeliverables: `TrainingDeliverableRequirements`
     - trainingContent, trainingNarrative @text
     - trainingModules: `TrainingModuleEntry`
-      - content @Form(moduleId, targetAudience, duration, deliveryMethod, prerequisites, learningObjectives, assessmentMethod)
+      - content @Form(targetAudience, duration, deliveryMethod, prerequisites, learningObjectives, assessmentMethod)
   - `RolloutPlan`
     - content
   - `MigrationPlan`

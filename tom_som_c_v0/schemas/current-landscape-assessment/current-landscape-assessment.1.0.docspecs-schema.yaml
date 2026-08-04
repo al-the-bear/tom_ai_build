@@ -3498,7 +3498,7 @@ form-types:
     fields:
       - fieldname: systemId
         required: true
-        description: Stable identifier for the legacy system being replaced
+        description: "The identifier the organisation already uses for the legacy system being replaced, e.g. SYS-CRM-001 — owned outside this document"
       - fieldname: officialName
         description: "Vendor/product name and edition, if a commercial system"
       - fieldname: systemDescription
@@ -3867,7 +3867,7 @@ form-types:
   mirir1-form:
     fields:
       - fieldname: relatedRisks
-        description: Risk IDs that are correlated
+        description: "Correlated migration risks — risk section ids (MGRSK-ITEM-… / SYMIRI-RISK-…), comma-separated"
       - fieldname: relatedIssues
         description: "Issue ids from the project issue tracker — owned by the tracker, not declared in this blueprint"
       - fieldname: relatedRequirements

@@ -10,57 +10,57 @@
   - designPrinciples: `ProcessDesignPrinciples`
     - overview
     - principles: `ProcessDesignPrincipleEntry`
-      - content @Form(principleId, category, statement, rationale, implications, examples, tradeoffs, priority, applicability)
+      - content @Form(category, statement, rationale, implications, examples, tradeoffs, priority, applicability)
   - `ProcessCatalog`
     - overview, classification
     - [1,] processes: `BusinessProcessEntry`
       - processFlowPreview @mermaid-flow
       - identification: `ProcessIdentification`
-        - content @Form(processId, processLevel), classification, definition, governance
+        - content @Form(processLevel), classification, definition, governance
       - characteristics: `ProcessCharacteristics`
         - content @Form(complexity, frequency, averageDuration, variability), operations, business
       - triggers: `ProcessTriggers`
         - overview
         - triggers: `ProcessTriggerEntry`
-          - content @Form(triggerId, triggerType, triggerSource, triggerCondition, triggerData, priority, validationRules, frequency)
+          - content @Form(triggerType, triggerSource, triggerCondition, triggerData, priority, validationRules, frequency)
         - endEvents: `ProcessEndEventEntry`
-          - content @Form(endEventId, endEventType, outcome, probability, postCondition, notificationAction, followOnAction)
+          - content @Form(endEventType, outcome, probability, postCondition, notificationAction, followOnAction)
       - inputsOutputs: `ProcessInputsOutputs`
         - overview
         - inputs: `ProcessInputEntry`
-          - content @Form(inputId, inputType, source, format, required, validationRules, defaultValue, exampleValue, securityClassification)
+          - content @Form(inputType, source, format, required, validationRules, defaultValue, exampleValue, securityClassification)
         - outputs: `ProcessOutputEntry`
-          - content @Form(outputId, outputType, destination, format, qualityStandard, timingRequirement, retentionPeriod, securityClassification, dependentProcesses)
+          - content @Form(outputType, destination, format, qualityStandard, timingRequirement, retentionPeriod, securityClassification, dependentProcesses)
       - roles: `ProcessRoles`
         - overview
         - roles: `ProcessRoleEntry`
-          - content @Form(roleId, raciType, responsibilities), execution, coordination
+          - content @Form(raciType, responsibilities), execution, coordination
       - performance: `ProcessPerformance`
         - overview
         - kpis: `ProcessKpiEntry`
-          - content @Form(kpiId, category, definition), measurement, operations
+          - content @Form(category, definition), measurement, operations
         - slas: `ProcessSlaEntry`
-          - content @Form(slaId, serviceDescription, targetLevel, measurementMethod, reportingPeriod, penaltyClause, escalationProcedure, exclusions, reviewFrequency)
+          - content @Form(serviceDescription, targetLevel, measurementMethod, reportingPeriod, penaltyClause, escalationProcedure, exclusions, reviewFrequency)
       - controls: `ProcessControls`
         - overview
         - controls: `ProcessControlEntry`
-          - content @Form(controlId, controlType, controlCategory), operation, verification
+          - content @Form(controlType, controlCategory), operation, verification
       - technology: `ProcessTechnology`
         - content @Form(primarySystem, supportingSystems, integrations, automationTools), information, experience
       - exceptions: `ProcessExceptions`
         - overview
         - exceptions: `ProcessExceptionEntry`
-          - content @Form(exceptionId, exceptionType, triggerCondition), assessment, response
+          - content @Form(exceptionType, triggerCondition), assessment, response
   - `ProcessOverviewDiagram`
     - overview, landscapeDiagram @mermaid-flow, hierarchyDiagram @mermaid-flow, valueChainDiagram @mermaid-flow
   - improvementSummary: `ProcessImprovementSummary`
     - overview, businessCase
     - improvements: `ProcessImprovementEntry`
-      - content @Form(improvementId, category, currentState), benefits, delivery
+      - content @Form(category, currentState), benefits, delivery
   - `ProcessRelationships`
     - content
     - relationships: `ProcessRelationshipEntry`
-      - content @Form(relationshipId, sourceProcess, targetProcess, relationshipType, dataExchanged, timingDependency, frequencyOfInteraction, criticality)
+      - content @Form(sourceProcess, targetProcess, relationshipType, dataExchanged, timingDependency, frequencyOfInteraction, criticality)
   - detailedWorkflows: `DetailedProcessWorkflow`
     - content
   - `CrossProcessAnalysis`

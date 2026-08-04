@@ -1370,8 +1370,10 @@ class EntityConstraintEntry extends DocSpecsSection {
       'businessRule',
       String,
       'Business Rule Reference',
-      hint: 'Related business rule ID',
-      refersTo: ['BIRU.ruleId'],
+      hint:
+          'The related business rule — a business rule section id '
+          '(BIRU-BUSI-…)',
+      refersTo: ['BIRU.@sectionId'],
     ),
   ])
   @override
@@ -2027,12 +2029,6 @@ class DataClassificationEntry extends DocSpecsSection {
 class HandlingRequirementEntry extends DocSpecsSection {
   @Form([
     Field(
-      'requirementId',
-      String,
-      'Requirement ID',
-      hint: 'Unique identifier for this requirement',
-    ),
-    Field(
       'requirementType',
       String,
       'Requirement Type',
@@ -2089,12 +2085,6 @@ class HandlingRequirementEntry extends DocSpecsSection {
 @CodeSpecKind([CodeSpecPart.authorization])
 class AccessRestrictionEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'restrictionId',
-      String,
-      'Restriction ID',
-      hint: 'Unique identifier for this restriction',
-    ),
     Field(
       'restrictionType',
       String,
@@ -2674,8 +2664,10 @@ class BusinessRuleReferenceEntry extends DocSpecsSection {
       'ruleId',
       String,
       'Rule ID',
-      hint: 'Reference to the business rule definition',
-      refersTo: ['BIRU.ruleId'],
+      hint:
+          'The business rule this applies — a business rule section id '
+          '(BIRU-BUSI-…)',
+      refersTo: ['BIRU.@sectionId'],
     ),
     Field(
       'ruleType',
@@ -2737,12 +2729,6 @@ class BusinessRuleReferenceEntry extends DocSpecsSection {
         'is deferred to CE-WF.')
 class LifecycleTransitionEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'transitionId',
-      String,
-      'Transition ID',
-      hint: 'Unique identifier for this transition',
-    ),
     Field(
       'fromState',
       String,
@@ -3175,12 +3161,6 @@ class FunctionModel extends DocSpecsSection {
 class FunctionEntry extends DocSpecsSection {
   @Form([
     Field(
-      'functionId',
-      String,
-      'Function ID',
-      hint: 'Unique function identifier',
-    ),
-    Field(
       'description',
       String,
       'Description',
@@ -3385,13 +3365,6 @@ class BusinessRuleEntry extends DocSpecsSection {
   // ---------------------------------------------------------------------------
   @SectionId('BIRU-IDEN')
   @Form([
-    Field(
-      'ruleId',
-      String,
-      'Rule ID',
-      required: true,
-      hint: 'Unique rule identifier (e.g., BR-001)',
-    ),
     Field(
       'ruleVersion',
       String,

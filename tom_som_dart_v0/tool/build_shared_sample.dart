@@ -330,11 +330,21 @@ String _md(String raw) => raw.trim();
 /// All four requirement families are here because none of them keeps its id in
 /// a form field — the stored item section id is the sole slot
 /// (`tom_specs_model_rules.md` §8 rule 4).
+///
+/// The interaction and screen families join them for the same reason. Their
+/// entries name a slot the *name* already occupies — `useCaseName` for an
+/// interaction, the stored headline for a screen — so the entry's UC-nn /
+/// SCR-nn code has nowhere to go but the stored section id. For screens that
+/// is load-bearing rather than merely tidy: `parentScreenId` declares
+/// `refersTo: ['SCREN.@sectionId']`, so a renumbered screen would leave the
+/// sample's parent link dangling.
 const _authoredItemIdLists = {
   'FRE-REQU-LST',
   'TERQ-REQU-LST',
   'SECRQ-REQU-LST',
   'ORRQ-REQU-LST',
+  'INEN-INTE-LST',
+  'SCREN-ITEM-LST',
 };
 
 /// Renumbers every patterned list item's stored section id to the anonymous
@@ -707,10 +717,8 @@ before dispatch across the wholesale and e-commerce channels.''')
     ..userType = 'Internal';
 
   final task = clerk.systemTasks.add();
-  task.$headline = 'Clear the order work list';
-  task.content
-    ..taskId = 'TSK-01'
-    ..description = _p('''
+  task.$headline = 'TSK-01 Clear the order work list';
+  task.content.description = _p('''
 Work the state-filtered order queue from capture through to confirmation,
 handling holds and amendments as they arise.''');
   // Populated shape-6 scalar list: the runtimes derive each item's heading stem
@@ -723,12 +731,14 @@ handling holds and amendments as they arise.''');
       'Release holds, amend lines, or confirm as the order allows.';
 }
 
-/// Fills one acceptance-criterion form (Given/When/Then).
+/// Fills one acceptance-criterion form (Given/When/Then). [id] and [title] are
+/// joined into the stored headline: `AcceptanceCriterionEntry` carries neither
+/// an id nor a name form field, so the headline is the entry's whole human
+/// title (`tom_specs_model_rules.md` §8 rule 4).
 void _acceptance(AcceptanceCriterionEntry ac, String id, String title,
     {required String given, required String when, required String then}) {
-  ac.$headline = title;
+  ac.$headline = '$id — $title';
   ac.content
-    ..criterionId = id
     ..given = given
     ..when = when
     ..then = then
@@ -765,10 +775,12 @@ void _authorActorsAndUseCases(D00SolutionBlueprint sbp) {
   // --- Use cases ---------------------------------------------------------
   final ucs = psai.interactionCatalog.interactions;
 
-  // UC-01 Capture Wholesale Order (EDI).
+  // UC-01 Capture Wholesale Order (EDI). `useCaseName` holds the name, so the
+  // UC-nn code goes to the stored section id — the sole id slot — on the
+  // @SectionIdPattern `INEN-INTE-` stem.
   final uc1 = ucs.add();
+  uc1.$sectionId = 'INEN-INTE-UC-01';
   uc1.identification
-    ..interactionId = 'UC-01'
     ..useCaseName = 'Capture Wholesale Order (EDI)'
     ..processReference = 'BP-Order-Capture'
     ..briefDescription = 'A wholesale EDI purchase order is captured, validated, priced, reserved, and confirmed.'
@@ -815,8 +827,8 @@ transition so the work list and public tracking page stay current.''')
       data: 'Order', rule: 'FR-04 five-minute confirmation');
   // Extension 2a: credit check fails.
   final ex2a = uc1.extensions.extensions.add();
+  ex2a.$headline = '2a Credit limit exceeded';
   ex2a.content
-    ..extensionId = '2a'
     ..branchPoint = 'Step 2'
     ..condition = 'Customer credit limit would be exceeded'
     ..extensionType = 'Exception'
@@ -829,8 +841,8 @@ transition so the work list and public tracking page stay current.''')
       'Order appears in the Hold filter of the work list with reason "Credit exceeded".');
   // Extension 4a: insufficient stock.
   final ex4a = uc1.extensions.extensions.add();
+  ex4a.$headline = '4a Insufficient stock';
   ex4a.content
-    ..extensionId = '4a'
     ..branchPoint = 'Step 4'
     ..condition = 'Insufficient stock for one or more lines'
     ..extensionType = 'Exception'
@@ -844,8 +856,8 @@ transition so the work list and public tracking page stay current.''')
 
   // UC-02 Release Order Hold.
   final uc2 = ucs.add();
+  uc2.$sectionId = 'INEN-INTE-UC-02';
   uc2.identification
-    ..interactionId = 'UC-02'
     ..useCaseName = 'Release Order Hold'
     ..processReference = 'BP-Order-Exception'
     ..briefDescription = 'A supervisor reviews an order on Hold and releases it back into the lifecycle.'
@@ -877,8 +889,8 @@ on Hold — or cancels it, recording a reason in both cases.''')
 
   // UC-03 Amend Order Line before dispatch.
   final uc3 = ucs.add();
+  uc3.$sectionId = 'INEN-INTE-UC-03';
   uc3.identification
-    ..interactionId = 'UC-03'
     ..useCaseName = 'Amend Order Line Before Dispatch'
     ..processReference = 'BP-Order-Amendment'
     ..briefDescription = 'A clerk changes a line quantity before dispatch, re-running pricing and reservation.'
@@ -910,9 +922,8 @@ audit trail.''')
 
   // --- Key end-to-end scenario ------------------------------------------
   final scn = psai.keyScenarios.scenarios.add();
-  scn.$headline = 'Happy-path wholesale order, capture to fulfilment';
+  scn.$headline = 'SCN-01 Happy-path wholesale order, capture to fulfilment';
   scn.identification
-    ..scenarioId = 'SCN-01'
     ..scenarioType = 'End-to-end'
     ..description = 'A clean wholesale order flows from EDI capture through to fulfilment with no holds.'
     ..businessGoal = 'Confirm and fulfil a wholesale order without manual intervention.'
@@ -931,12 +942,14 @@ audit trail.''')
       'Order moves to Fulfilled and the public tracking page updates.');
 }
 
+/// Fills one actor entry. [id] and [name] are joined into the stored headline:
+/// `ActorEntry` has no name form field, so the headline is the entry's whole
+/// human title — code included (`tom_specs_model_rules.md` §8 rule 4).
 void _actor(ActorEntry a, String id, String name, String type, String category,
     String description,
     {required String unit, required String count}) {
-  a.$headline = name;
+  a.$headline = '$id $name';
   a.identification
-    ..actorId = id
     ..actorType = type
     ..category = category
     ..description = description
@@ -1168,12 +1181,16 @@ void _authorScreens(D00SolutionBlueprint sbp) {
   final screens = sbp.experienceAndInterfaceDesign.experienceCodeSpecs.screens
       .screenInventory.items;
 
-  // SCR-01 Order Work List.
+  // SCR-01 Order Work List. The screen's code is its stored section id — the
+  // sole id slot (`tom_specs_model_rules.md` §8 rule 4) — kept on the
+  // @SectionIdPattern `SCREN-ITEM-` stem so it stays schema-valid, and exempt
+  // from renumbering via [_authoredItemIdLists] because `parentScreenId`
+  // resolves against it.
   final wl = screens.add();
+  wl.$sectionId = 'SCREN-ITEM-SCR-01';
   wl.$headline = 'Order Work List';
-  wl.content
-    ..screenId = 'SCR-01'
-    ..purpose = 'The single, state-filtered queue from which clerks work every order.';
+  wl.content.purpose =
+      'The single, state-filtered queue from which clerks work every order.';
   wl.classification
     ..screenCategory = 'List'
     ..routePattern = '/orders';
@@ -1258,13 +1275,13 @@ void _authorScreens(D00SolutionBlueprint sbp) {
 
   // SCR-02 Order Detail / Lifecycle Timeline.
   final detail = screens.add();
+  detail.$sectionId = 'SCREN-ITEM-SCR-02';
   detail.$headline = 'Order Detail';
-  detail.content
-    ..screenId = 'SCR-02'
-    ..purpose = 'The lifecycle timeline and inline actions for a single order.';
+  detail.content.purpose =
+      'The lifecycle timeline and inline actions for a single order.';
   detail.classification
     ..screenCategory = 'Detail'
-    ..parentScreenId = 'SCR-01'
+    ..parentScreenId = 'SCREN-ITEM-SCR-01'
     ..routePattern = '/orders/:orderId';
   detail.access.content
     ..requirementKind = AuthorizationRequirementKind.role

@@ -45,10 +45,8 @@ document:
             SYTS-SYST-LST systemTasks:
               SYTS-SYST-1:
                 headline: |2-
-                  Clear the order work list
+                  TSK-01 Clear the order work list
                 content:
-                  taskId: |2-
-                    TSK-01
                   description: |2-
                     Work the state-filtered order queue from capture through to confirmation, handling holds and amendments as they arise.
                 SYTS-WORK-LST workflowSteps:
@@ -125,10 +123,8 @@ document:
                 ACE-CRIT-LST criteria:
                   ACE-CRIT-1:
                     headline: |2-
-                      EDI order accepted
+                      FR-01-AC-1 — EDI order accepted
                     content:
-                      criterionId: |2-
-                        FR-01-AC-1
                       given: |2-
                         a well-formed EDI 850 purchase order
                       when: |2-
@@ -145,10 +141,8 @@ document:
                         Draft
                   ACE-CRIT-2:
                     headline: |2-
-                      REST order accepted
+                      FR-01-AC-2 — REST order accepted
                     content:
-                      criterionId: |2-
-                        FR-01-AC-2
                       given: |2-
                         a valid REST order payload from an authenticated partner
                       when: |2-
@@ -192,10 +186,8 @@ document:
                 ACE-CRIT-LST criteria:
                   ACE-CRIT-1:
                     headline: |2-
-                      Price snapshotted onto line
+                      FR-02-AC-1 — Price snapshotted onto line
                     content:
-                      criterionId: |2-
-                        FR-02-AC-1
                       given: |2-
                         an order with two lines
                       when: |2-
@@ -236,10 +228,8 @@ document:
                 ACE-CRIT-LST criteria:
                   ACE-CRIT-1:
                     headline: |2-
-                      Stock reserved when available
+                      FR-03-AC-1 — Stock reserved when available
                     content:
-                      criterionId: |2-
-                        FR-03-AC-1
                       given: |2-
                         an order whose lines all have sufficient stock on hand
                       when: |2-
@@ -256,10 +246,8 @@ document:
                         Draft
                   ACE-CRIT-2:
                     headline: |2-
-                      Short line placed on Hold
+                      FR-03-AC-2 — Short line placed on Hold
                     content:
-                      criterionId: |2-
-                        FR-03-AC-2
                       given: |2-
                         an order with one line whose demand exceeds available stock
                       when: |2-
@@ -300,10 +288,8 @@ document:
                 ACE-CRIT-LST criteria:
                   ACE-CRIT-1:
                     headline: |2-
-                      Order confirmed within budget
+                      FR-04-AC-1 — Order confirmed within budget
                     content:
-                      criterionId: |2-
-                        FR-04-AC-1
                       given: |2-
                         a captured order that passes validation, pricing, and reservation
                       when: |2-
@@ -320,10 +306,8 @@ document:
                         Draft
                   ACE-CRIT-2:
                     headline: |2-
-                      Confirmation surfaced to operations and tracking
+                      FR-04-AC-2 — Confirmation surfaced to operations and tracking
                     content:
-                      criterionId: |2-
-                        FR-04-AC-2
                       given: |2-
                         an order that has just reached state Confirmed
                       when: |2-
@@ -364,10 +348,8 @@ document:
                 ACE-CRIT-LST criteria:
                   ACE-CRIT-1:
                     headline: |2-
-                      Amendment re-runs pricing and reservation
+                      FR-05-AC-1 — Amendment re-runs pricing and reservation
                     content:
-                      criterionId: |2-
-                        FR-05-AC-1
                       given: |2-
                         a confirmed order that has not yet dispatched
                       when: |2-
@@ -384,10 +366,8 @@ document:
                         Draft
                   ACE-CRIT-2:
                     headline: |2-
-                      Cancellation blocked after dispatch
+                      FR-05-AC-2 — Cancellation blocked after dispatch
                     content:
-                      criterionId: |2-
-                        FR-05-AC-2
                       given: |2-
                         an order that has already dispatched
                       when: |2-
@@ -428,10 +408,8 @@ document:
                 ACE-CRIT-LST criteria:
                   ACE-CRIT-1:
                     headline: |2-
-                      Supervisor releases hold
+                      FR-06-AC-1 — Supervisor releases hold
                     content:
-                      criterionId: |2-
-                        FR-06-AC-1
                       given: |2-
                         an order in state Hold
                       when: |2-
@@ -712,10 +690,8 @@ document:
           ACEN-ACTO-LST actors:
             ACEN-ACTO-1:
               headline: |2-
-                Order Clerk
+                ACT-01 Order Clerk
               ACID identification:
-                actorId: |2-
-                  ACT-01
                 actorType: |2-
                   Human
                 category: |2-
@@ -730,10 +706,8 @@ document:
                   Single distribution centre
             ACEN-ACTO-2:
               headline: |2-
-                Order Supervisor
+                ACT-02 Order Supervisor
               ACID identification:
-                actorId: |2-
-                  ACT-02
                 actorType: |2-
                   Human
                 category: |2-
@@ -748,10 +722,8 @@ document:
                   Single distribution centre
             ACEN-ACTO-3:
               headline: |2-
-                Pricing Admin
+                ACT-03 Pricing Admin
               ACID identification:
-                actorId: |2-
-                  ACT-03
                 actorType: |2-
                   Human
                 category: |2-
@@ -766,10 +738,8 @@ document:
                   Single distribution centre
             ACEN-ACTO-4:
               headline: |2-
-                EDI Integration Account
+                ACT-04 EDI Integration Account
               ACID identification:
-                actorId: |2-
-                  ACT-04
                 actorType: |2-
                   System
                 category: |2-
@@ -784,10 +754,8 @@ document:
                   Single distribution centre
         INCA interactionCatalog:
           INEN-INTE-LST interactions:
-            INEN-INTE-1:
+            INEN-INTE-UC-01:
               INID identification:
-                interactionId: |2-
-                  UC-01
                 useCaseName: |2-
                   Capture Wholesale Order (EDI)
                 processReference: |2-
@@ -886,9 +854,9 @@ document:
               USCAEX extensions:
                 EXTEN-EXTE-LST extensions:
                   EXTEN-EXTE-1:
+                    headline: |2-
+                      2a Credit limit exceeded
                     content:
-                      extensionId: |2-
-                        2a
                       branchPoint: |2-
                         Step 2
                       condition: |2-
@@ -913,9 +881,9 @@ document:
                           response: |2-
                             Order appears in the Hold filter of the work list with reason "Credit exceeded".
                   EXTEN-EXTE-2:
+                    headline: |2-
+                      4a Insufficient stock
                     content:
-                      extensionId: |2-
-                        4a
                       branchPoint: |2-
                         Step 4
                       condition: |2-
@@ -939,10 +907,8 @@ document:
                             System holds the unsatisfiable line and reserves the rest.
                           response: |2-
                             The order is partially reserved; the held line is flagged for follow-up.
-            INEN-INTE-2:
+            INEN-INTE-UC-02:
               INID identification:
-                interactionId: |2-
-                  UC-02
                 useCaseName: |2-
                   Release Order Hold
                 processReference: |2-
@@ -999,10 +965,8 @@ document:
                         Order
                       businessRuleApplied: |2-
                         FR-06 hold release
-            INEN-INTE-3:
+            INEN-INTE-UC-03:
               INID identification:
-                interactionId: |2-
-                  UC-03
                 useCaseName: |2-
                   Amend Order Line Before Dispatch
                 processReference: |2-
@@ -1063,10 +1027,8 @@ document:
           SCNRY-SCEN-LST scenarios:
             SCNRY-SCEN-1:
               headline: |2-
-                Happy-path wholesale order, capture to fulfilment
+                SCN-01 Happy-path wholesale order, capture to fulfilment
               SCID identification:
-                scenarioId: |2-
-                  SCN-01
                 scenarioType: |2-
                   End-to-end
                 description: |2-
@@ -1700,12 +1662,10 @@ document:
         SCRDZ screens:
           SCRINV screenInventory:
             SCREN-ITEM-LST items:
-              SCREN-ITEM-1:
+              SCREN-ITEM-SCR-01:
                 headline: |2-
                   Order Work List
                 content:
-                  screenId: |2-
-                    SCR-01
                   purpose: |2-
                     The single, state-filtered queue from which clerks work every order.
                 SCECL classification:
@@ -1840,19 +1800,17 @@ document:
                           Clear filter
                         primaryActionTarget: |2-
                           SCR-01-EL-1
-              SCREN-ITEM-2:
+              SCREN-ITEM-SCR-02:
                 headline: |2-
                   Order Detail
                 content:
-                  screenId: |2-
-                    SCR-02
                   purpose: |2-
                     The lifecycle timeline and inline actions for a single order.
                 SCECL classification:
                   screenCategory: |2-
                     Detail
                   parentScreenId: |2-
-                    SCR-01
+                    SCREN-ITEM-SCR-01
                   routePattern: |2-
                     /orders/:orderId
                 AZREQ access:

@@ -209,7 +209,8 @@ class ReferenceDocumentEntry extends DocSpecsSection {
       'documentId',
       String,
       'Document ID (internal reference number)',
-      hint: 'Catalogue or internal reference number, if any.',
+      hint: 'The catalogue or internal reference number this document is filed '
+          'under, if any — owned outside this document',
     ),
     Field(
       'version',
@@ -507,7 +508,9 @@ class RelatedDocumentEntry extends DocSpecsSection {
       String,
       'Related Document ID',
       required: true,
-      hint: 'ID of the related referenced document.',
+      hint: 'The related reference document — a reference document section id '
+          '(RFDOC-DOCU-…)',
+      refersTo: ['RFDOC.@sectionId'],
     ),
     Field(
       'relationshipType',

@@ -2502,12 +2502,6 @@ class SubStageEntry extends DocSpecsSection {
 class StageSuccessCriterionEntry extends DocSpecsSection {
   @Form([
     Field(
-      'criterionId',
-      String,
-      'Criterion ID',
-      hint: 'Unique identifier — e.g. SC-01, SC-02',
-    ),
-    Field(
       'criterion',
       String,
       'Criterion',
@@ -3031,10 +3025,10 @@ class MoscowEntry extends DocSpecsSection {
       String,
       'Feature ID',
       hint:
-          'The feature this entry classifies — an id declared by the Feature '
-          'Priority Register (§13.4.1), e.g. FEA-001',
+          'The feature this entry classifies — a feature section id declared '
+          'by the Feature Priority Register (FPE-ITEM-…)',
       required: true,
-      refersTo: ['FPE.featureId'],
+      refersTo: ['FPE.@sectionId'],
     ),
   ])
   @override
@@ -3166,15 +3160,19 @@ class MoscowEntry extends DocSpecsSection {
       'linkedUseCases',
       String,
       'Linked Use Cases',
-      hint: 'Use case IDs this feature implements',
-      refersTo: ['INEN.interactionId'],
+      hint:
+          'Interactions this feature implements — interaction section ids '
+          '(INEN-INTE-…), comma-separated',
+      refersTo: ['INEN.@sectionId'],
     ),
     Field(
       'dependsOnFeatures',
       String,
       'Depends on Features',
-      hint: 'Feature IDs that must be delivered before this one',
-      refersTo: ['FPE.featureId'],
+      hint:
+          'Features that must be delivered before this one — feature section '
+          'ids (FPE-ITEM-…), comma-separated',
+      refersTo: ['FPE.@sectionId'],
     ),
     Field('notes', String, 'Notes', hint: 'Additional notes or caveats'),
   ])
@@ -3286,10 +3284,10 @@ class FeatureStageMapping extends DocSpecsSection {
       String,
       'Feature ID',
       hint:
-          'The feature this entry stages — an id declared by the Feature '
-          'Priority Register (§13.4.1), e.g. FEA-001',
+          'The feature this entry stages — a feature section id declared by '
+          'the Feature Priority Register (FPE-ITEM-…)',
       required: true,
-      refersTo: ['FPE.featureId'],
+      refersTo: ['FPE.@sectionId'],
     ),
   ])
   @override
@@ -3379,8 +3377,10 @@ class FeatureStageMapping extends DocSpecsSection {
       'prerequisiteFeatures',
       String,
       'Prerequisite Features',
-      hint: 'Feature IDs that must complete first — comma-separated',
-      refersTo: ['FPE.featureId'],
+      hint:
+          'Features that must complete first — feature section ids '
+          '(FPE-ITEM-…), comma-separated',
+      refersTo: ['FPE.@sectionId'],
     ),
     Field(
       'blockedByExternalDependency',
@@ -3501,13 +3501,6 @@ class FeaturePriorityRegister extends DocSpecsSection {
 @SectionId('FPE')
 class FeaturePriorityEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'featureId',
-      String,
-      'Feature ID',
-      hint: 'Unique identifier — e.g. FEA-001',
-      required: true,
-    ),
     Field(
       'priorityRank',
       String,
@@ -3820,15 +3813,19 @@ class FeaturePriorityEntry extends DocSpecsSection {
       'dependsOnFeatures',
       String,
       'Depends on Features',
-      hint: 'Feature IDs this requires',
-      refersTo: ['FPE.featureId'],
+      hint:
+          'Features this requires — feature section ids (FPE-ITEM-…), '
+          'comma-separated',
+      refersTo: ['FPE.@sectionId'],
     ),
     Field(
       'blocksFeatures',
       String,
       'Blocks Features',
-      hint: 'Feature IDs blocked until this completes',
-      refersTo: ['FPE.featureId'],
+      hint:
+          'Features blocked until this completes — feature section ids '
+          '(FPE-ITEM-…), comma-separated',
+      refersTo: ['FPE.@sectionId'],
     ),
     Field(
       'externalDependencies',
@@ -3884,15 +3881,19 @@ class FeaturePriorityEntry extends DocSpecsSection {
       'linkedUseCases',
       String,
       'Linked Use Cases',
-      hint: 'Use case IDs',
-      refersTo: ['INEN.interactionId'],
+      hint:
+          'Interactions this feature covers — interaction section ids '
+          '(INEN-INTE-…), comma-separated',
+      refersTo: ['INEN.@sectionId'],
     ),
     Field(
       'linkedBusinessProcesses',
       String,
       'Linked Business Processes',
-      hint: 'Business process IDs',
-      refersTo: ['PRIDN.processId'],
+      hint:
+          'Business processes this feature serves — process section ids '
+          '(BPREN-PROC-…), comma-separated',
+      refersTo: ['BPREN.@sectionId'],
     ),
     // Why: deliberately no `refersTo` (§6.2 "when not to annotate"). Every
     // other field in this form names a register the blueprint declares; user
@@ -3911,8 +3912,10 @@ class FeaturePriorityEntry extends DocSpecsSection {
       'linkedArchitectureDecisions',
       String,
       'Linked Architecture Decisions',
-      hint: 'ADR IDs affected by or affecting this feature',
-      refersTo: ['ARDE.decisionId'],
+      hint:
+          'Architecture decisions affected by or affecting this feature — '
+          'decision record section ids (ARDE-DECI-…), comma-separated',
+      refersTo: ['ARDE.@sectionId'],
     ),
   ])
   @SerializationOrder(8)
@@ -4123,19 +4126,21 @@ class FeatureDependencyEntry extends DocSpecsSection {
       'sourceFeatureId',
       String,
       'Source Feature ID',
-      hint: 'Feature that has the dependency (the dependent)',
+      hint:
+          'The feature that has the dependency (the dependent) — a feature '
+          'section id (FPE-ITEM-…)',
       required: true,
-      refersTo: ['FPE.featureId'],
+      refersTo: ['FPE.@sectionId'],
     ),
     Field(
       'targetFeatureId',
       String,
       'Target Feature ID',
       hint:
-          'Feature that must be delivered first (the '
-          'prerequisite)',
+          'The feature that must be delivered first (the prerequisite) — a '
+          'feature section id (FPE-ITEM-…)',
       required: true,
-      refersTo: ['FPE.featureId'],
+      refersTo: ['FPE.@sectionId'],
     ),
     Field(
       'dependencyType',
@@ -5737,13 +5742,6 @@ class StageMigrationRisks extends DocSpecsSection {
 class StageMigrationRiskEntry extends DocSpecsSection {
   @Form([
     Field(
-      'riskId',
-      String,
-      'Risk ID',
-      hint: 'Unique identifier — e.g. MIG-R001, MIG-R002',
-      required: true,
-    ),
-    Field(
       'riskCategory',
       String,
       'Risk Category',
@@ -6516,16 +6514,6 @@ class PhaseGateReviews extends DocSpecsSection {
 class PhaseGateReviewEntry extends DocSpecsSection {
   @Form([
     Field(
-      'gateId',
-      String,
-      'Gate ID',
-      // Why: this is the phase-gate registry key — PHGAEX.nextGateReference
-      // resolves against it, and an optional key could not be resolved against
-      // at all (tom_specs_model_rules.md §6.2 rule 4).
-      required: true,
-      hint: 'Unique gate identifier — e.g. G1, G2, G3',
-    ),
-    Field(
       'stage',
       String,
       'Stage',
@@ -6743,8 +6731,10 @@ class PhaseGateReviewEntry extends DocSpecsSection {
       'nextGateReference',
       String,
       'Next Gate Reference',
-      hint: 'Gate ID of the next gate in sequence',
-      refersTo: ['PHGREV.gateId'],
+      hint:
+          'The next gate in sequence — a phase gate review section id '
+          '(PHGREV-ITEM-…)',
+      refersTo: ['PHGREV.@sectionId'],
     ),
   ])
   @SerializationOrder(6)
@@ -6796,12 +6786,6 @@ class ReviewCriterionEntry extends DocSpecsSection {
           'What is being evaluated — e.g. All unit tests pass, '
           'Security review complete, UX approval obtained',
       required: true,
-    ),
-    Field(
-      'criterionId',
-      String,
-      'Criterion ID',
-      hint: 'Unique identifier — e.g. GRC-01',
     ),
     Field(
       'description',
@@ -7024,13 +7008,6 @@ class DecisionPoints extends DocSpecsSection {
 @SectionId('DPE')
 class DecisionPointEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'decisionId',
-      String,
-      'Decision ID',
-      hint: 'Unique identifier — e.g. DEC-001, DP-G2-01',
-      required: true,
-    ),
     Field(
       'decisionPoint',
       String,
@@ -7303,13 +7280,6 @@ class DecisionPointEntryResolution extends DocSpecsSection {
 @SectionId('DOE')
 class DecisionOptionEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'optionId',
-      String,
-      'Option ID',
-      hint: 'Unique within the decision — e.g. A, B, C',
-      required: true,
-    ),
     Field(
       'option',
       String,

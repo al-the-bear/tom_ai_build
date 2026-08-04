@@ -2072,9 +2072,9 @@ form-types:
       - fieldname: requirementRef
         description: "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
       - fieldname: deliverableRef
-        description: Linked deliverable ID — e.g. DEL-SOF-001
+        description: The linked deliverable — a deliverable section id (DLVEN-ITEM-…)
       - fieldname: testScenarioRef
-        description: UAT scenario ID that validates this criterion
+        description: The UAT scenario that validates this criterion — a test scenario section id (TSSC-TEST-…)
   daceow-form:
     fields:
       - fieldname: verifier
@@ -2312,7 +2312,7 @@ form-types:
       - fieldname: requirementRef
         description: "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
       - fieldname: useCaseRef
-        description: Related use case ID
+        description: The related interaction — an interaction section id (INEN-INTE-…)
       - fieldname: acceptanceCriterionRef
         description: Linked criterion ID
       - fieldname: designRef
@@ -2326,7 +2326,7 @@ form-types:
       - fieldname: environmentRequirements
         description: Special environment config
       - fieldname: dependsOnScenarios
-        description: Scenario IDs that must pass before this one
+        description: "Scenarios that must pass before this one — test scenario section ids (TSSC-TEST-…), comma-separated"
   tescex-form:
     fields:
       - fieldname: testStepsSummary

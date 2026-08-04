@@ -31,9 +31,9 @@
     - items: `DataClassificationEntry`
       - identity, storageTransmission, accessControl, retentionDisposal, compliance
       - handlingRequirements: `HandlingRequirementEntry`
-        - content @Form(requirementId, requirementType, requirement, rationale, enforcementMechanism, validationMethod, exceptionProcess)
+        - content @Form(requirementType, requirement, rationale, enforcementMechanism, validationMethod, exceptionProcess)
       - accessRestrictions: `AccessRestrictionEntry`
-        - content @Form(restrictionId, restrictionType, restriction, scope, enforcement, effectiveConditions, overridePolicy)
+        - content @Form(restrictionType, restriction, scope, enforcement, effectiveConditions, overridePolicy)
   - [1,] objectCatalog: `BusinessObjectEntry`
     - identity, domainContext, lifecycleSummary, ownership
     - behaviorRules: `BehaviorRuleEntry`
@@ -48,13 +48,13 @@
       - content @Form(ruleId, ruleType, description, enforcement, triggerCondition, affectedAttributes, consequenceOnViolation),
         ruleRef
     - lifecycleTransitions: `LifecycleTransitionEntry`
-      - content @Form(transitionId, fromState, toState), trigger, conditions, execution
+      - content @Form(fromState, toState), trigger, conditions, execution
     - operations: `ObjectOperationEntry`
       - content @Form(description, operationType), execution, lifecycle, governance
     - invariants: `ObjectInvariantEntry`
       - content @Form(description, expression, scope, enforcementPoint, violationAction, businessJustification)
   - functionDecomposition: `FunctionEntry`
-    - content @Form(functionId, description, parentFunction), classification, operations, implementation
+    - content @Form(description, parentFunction), classification, operations, implementation
     - subFunctions: `SubFunctionEntry`
       - content @Form(description, dataAccess, systemSupport)
   - functionToDataMatrix: `FunctionDataMatrixEntry`

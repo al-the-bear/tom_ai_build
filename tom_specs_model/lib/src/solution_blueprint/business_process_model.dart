@@ -416,13 +416,6 @@ class ProcessDesignPrinciples extends DocSpecsSection {
 class ProcessDesignPrincipleEntry extends DocSpecsSection {
   @Form([
     Field(
-      'principleId',
-      String,
-      'Principle ID',
-      required: true,
-      hint: 'Unique identifier for the principle',
-    ),
-    Field(
       'category',
       String,
       'Category — efficiency, quality, compliance, user experience',
@@ -688,13 +681,6 @@ class BusinessProcessEntry extends DocSpecsSection {
 @SectionId('PRIDN')
 class ProcessIdentification extends DocSpecsSection {
   @Form([
-    Field(
-      'processId',
-      String,
-      'Process ID (e.g., TOM-001)',
-      required: true,
-      hint: 'Unique process identifier',
-    ),
     Field(
       'processLevel',
       String,
@@ -1006,13 +992,6 @@ class ProcessTriggers extends DocSpecsSection {
 class ProcessTriggerEntry extends DocSpecsSection {
   @Form([
     Field(
-      'triggerId',
-      String,
-      'Trigger ID',
-      required: true,
-      hint: 'Unique identifier for the trigger',
-    ),
-    Field(
       'triggerType',
       String,
       'Trigger Type — user action, system event, timer, message, signal',
@@ -1069,13 +1048,6 @@ class ProcessTriggerEntry extends DocSpecsSection {
 @SectionId('PEEVT')
 class ProcessEndEventEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'endEventId',
-      String,
-      'End Event ID',
-      required: true,
-      hint: 'Unique identifier for the end event',
-    ),
     Field(
       'endEventType',
       String,
@@ -1187,13 +1159,6 @@ class ProcessInputsOutputs extends DocSpecsSection {
 class ProcessInputEntry extends DocSpecsSection {
   @Form([
     Field(
-      'inputId',
-      String,
-      'Input ID',
-      required: true,
-      hint: 'Unique identifier for the input',
-    ),
-    Field(
       'inputType',
       String,
       'Input Type — data, document, authorization, resource',
@@ -1256,13 +1221,6 @@ class ProcessInputEntry extends DocSpecsSection {
 @SectionId('PCOUT')
 class ProcessOutputEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'outputId',
-      String,
-      'Output ID',
-      required: true,
-      hint: 'Unique identifier for the output',
-    ),
     Field(
       'outputType',
       String,
@@ -1392,13 +1350,6 @@ class ProcessRoles extends DocSpecsSection {
 @SectionId('PCROL')
 class ProcessRoleEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'roleId',
-      String,
-      'Role ID',
-      required: true,
-      hint: 'Unique identifier for the role',
-    ),
     Field(
       'raciType',
       String,
@@ -1598,13 +1549,6 @@ class ProcessPerformance extends DocSpecsSection {
 class ProcessKpiEntry extends DocSpecsSection {
   @Form([
     Field(
-      'kpiId',
-      String,
-      'KPI ID',
-      required: true,
-      hint: 'Unique identifier for the KPI',
-    ),
-    Field(
       'category',
       String,
       'Category — time, quality, cost, volume, satisfaction',
@@ -1709,13 +1653,6 @@ class ProcessKpiEntry extends DocSpecsSection {
 @SectionId('PCSLA')
 class ProcessSlaEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'slaId',
-      String,
-      'SLA ID',
-      required: true,
-      hint: 'Unique identifier for the SLA',
-    ),
     Field(
       'serviceDescription',
       String,
@@ -1867,13 +1804,6 @@ class ProcessControls extends DocSpecsSection {
 @SectionId('PCCTL')
 class ProcessControlEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'controlId',
-      String,
-      'Control ID',
-      required: true,
-      hint: 'Unique identifier for the control',
-    ),
     Field(
       'controlType',
       String,
@@ -2169,13 +2099,6 @@ class ProcessExceptions extends DocSpecsSection {
 class ProcessExceptionEntry extends DocSpecsSection {
   @Form([
     Field(
-      'exceptionId',
-      String,
-      'Exception ID',
-      required: true,
-      hint: 'Unique identifier for the exception',
-    ),
-    Field(
       'exceptionType',
       String,
       'Exception Type — data error, system error, business rule, timeout',
@@ -2466,13 +2389,6 @@ class ProcessImprovementSummary extends DocSpecsSection {
 class ProcessImprovementEntry extends DocSpecsSection {
   @Form([
     Field(
-      'improvementId',
-      String,
-      'Improvement ID',
-      required: true,
-      hint: 'Unique identifier for the improvement',
-    ),
-    Field(
       'category',
       String,
       'Category — efficiency, quality, cost, experience',
@@ -2613,12 +2529,6 @@ design and identifying optimization opportunities.
 @SectionId('PCRLT')
 class ProcessRelationshipEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'relationshipId',
-      String,
-      'Relationship ID',
-      hint: 'Unique identifier for the relationship',
-    ),
     Field(
       'sourceProcess',
       String,
@@ -3213,13 +3123,6 @@ class ActorEntry extends DocSpecsSection {
     'real-world population.',
   )
   @Form([
-    Field(
-      'actorId',
-      String,
-      'Actor ID (e.g., ACT-001)',
-      required: true,
-      hint: 'Use a stable unique code such as ACT-001',
-    ),
     Field(
       'actorType',
       String,
@@ -3885,13 +3788,6 @@ class InteractionEntry extends DocSpecsSection {
     'header attributes.',
   )
   @Form([
-    Field(
-      'interactionId',
-      String,
-      'Interaction ID (e.g., INT-001)',
-      required: true,
-      hint: 'Stable code such as INT-001',
-    ),
     Field(
       'useCaseName',
       String,
@@ -4633,13 +4529,6 @@ class UseCaseExtensions extends DocSpecsSection {
 class ExtensionEntry extends DocSpecsSection {
   @Form([
     Field(
-      'extensionId',
-      String,
-      'Extension ID (e.g., 3a)',
-      required: true,
-      hint: 'Cockburn-style id such as 3a',
-    ),
-    Field(
       'branchPoint',
       String,
       'Branch Point — step number',
@@ -5059,13 +4948,6 @@ class ScenarioEntry extends DocSpecsSection {
   ], 'Captures the identifying attributes of a single key end-to-end scenario.')
   @Form([
     Field(
-      'scenarioId',
-      String,
-      'Scenario ID (e.g., SCE-001)',
-      required: true,
-      hint: 'Stable code such as SCE-001',
-    ),
-    Field(
       'scenarioType',
       String,
       'Scenario Type — happy path, alternative, exception',
@@ -5479,13 +5361,6 @@ class ScenarioStepEntry extends DocSpecsSection {
 )
 class AlternativeFlowEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'flowId',
-      String,
-      'Flow ID (e.g., AFL-001)',
-      required: true,
-      hint: 'Stable code such as AFL-001',
-    ),
     Field(
       'flowType',
       String,

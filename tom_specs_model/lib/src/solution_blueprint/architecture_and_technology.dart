@@ -3314,13 +3314,6 @@ class DeploymentTopology extends DocSpecsSection {
 class ArchitectureDecisionRecord extends DocSpecsSection {
   @Form([
     Field(
-      'decisionId',
-      String,
-      'Decision ID',
-      required: true,
-      hint: 'Unique identifier (e.g., ADR-001)',
-    ),
-    Field(
       'date',
       String,
       'Date',
@@ -12584,7 +12577,8 @@ class ItStandardComplianceEntry extends DocSpecsSection {
       'standardId',
       String,
       'Standard ID',
-      hint: 'Official standard identifier',
+      hint: 'The identifier the issuing body gives this standard, e.g. ISO/IEC '
+          '27001 — owned outside this document',
     ),
     Field('version', String, 'Version', hint: 'Standard version'),
   ])
@@ -16083,9 +16077,10 @@ declared makes the reference dangle.
       'includedScreens',
       String,
       'Included Screens',
-      refersTo: ['SCREN.screenId'],
-      hint: 'The screens this client comprises, by id. Empty for a client '
-          'with no screens',
+      refersTo: ['SCREN.@sectionId'],
+      hint:
+          'The screens this client comprises — screen section ids '
+          '(SCREN-ITEM-…), comma-separated. Empty for a client with no screens',
     ),
   ])
   @override
@@ -28351,8 +28346,10 @@ Controls (BJME). An entry that repeats the default is a second copy of it.
       'targetReports',
       String,
       'Target Reports',
-      refersTo: ['REPENT.reportId'],
-      hint: 'The reports this job produces, where the work is a report run',
+      refersTo: ['REPENT.@sectionId'],
+      hint:
+          'The reports this job produces, where the work is a report run — '
+          'report section ids (REPENT-REPO-…), comma-separated',
     ),
   ])
   @SerializationOrder(4)
@@ -28909,13 +28906,6 @@ class AlertNotificationChannels extends DocSpecsSection {
 @SectionId('ALERUL')
 class AlertRuleEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'alertId',
-      String,
-      'Alert ID',
-      required: true,
-      hint: 'Unique identifier for this alert rule',
-    ),
     Field(
       'alertDescription',
       String,
@@ -30157,13 +30147,6 @@ class MonitoringDashboards extends DocSpecsSection {
 class DashboardEntry extends DocSpecsSection {
   @Form([
     Field(
-      'dashboardId',
-      String,
-      'Dashboard ID',
-      required: true,
-      hint: 'Unique dashboard identifier',
-    ),
-    Field(
       'dashboardCategory',
       String,
       'Dashboard Category',
@@ -30536,13 +30519,6 @@ class ServiceLevelIndicators extends DocSpecsSection {
 @SectionId('SE')
 class SloEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'sloId',
-      String,
-      'SLO ID',
-      required: true,
-      hint: 'Unique SLO identifier',
-    ),
     Field(
       'sloDescription',
       String,

@@ -800,9 +800,9 @@ form-types:
       - fieldname: relatedGoals
         description: IDs of related business goals
       - fieldname: relatedUseCases
-        description: IDs of related use cases
+        description: "Related interactions — interaction section ids (INEN-INTE-…), comma-separated"
       - fieldname: relatedProcesses
-        description: IDs of related business processes
+        description: "Related business processes — process section ids (BPREN-PROC-…), comma-separated"
       - fieldname: relatedUserStories
         description: "Related user stories, if using Agile"
   retrar-form:
@@ -812,7 +812,7 @@ form-types:
       - fieldname: relatedDataEntities
         description: Data entities related to this requirement
       - fieldname: relatedTestCases
-        description: IDs of test cases covering this requirement
+        description: "Test cases covering this requirement — test case section ids (RQTSC-TEST-… / TEGOTS-ITEM-…), comma-separated"
       - fieldname: relatedDocuments
         description: Related documents or other artifacts
   retrim-form:

@@ -262,13 +262,6 @@ the changes, and how role clarity is maintained despite deviations.
 class RoleAdjustmentEntry extends DocSpecsSection {
   @Form([
     Field(
-      'adjustmentId',
-      String,
-      'Adjustment ID',
-      hint: 'Unique identifier, e.g. ROL-ADJ-001',
-      required: true,
-    ),
-    Field(
       'standardRoleName',
       String,
       'Standard Role Name',
@@ -592,13 +585,6 @@ how quality assurance is maintained despite deviations.
 @SectionId('QGAJE')
 class QualityGateAdjustmentEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'adjustmentId',
-      String,
-      'Adjustment ID',
-      hint: 'Unique identifier, e.g. QGA-ADJ-001',
-      required: true,
-    ),
     Field(
       'standardGateName',
       String,
@@ -945,13 +931,6 @@ and how process integrity is maintained despite deviations.
 @SectionId('PCAJE')
 class ProcessAdjustmentEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'adjustmentId',
-      String,
-      'Adjustment ID',
-      hint: 'Unique identifier, e.g. PRC-ADJ-001',
-      required: true,
-    ),
     Field(
       'standardStepName',
       String,
@@ -1453,13 +1432,6 @@ class Tooling extends DocSpecsSection {
 @SectionId('TOLEN')
 class ToolEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'toolId',
-      String,
-      'Tool ID',
-      hint: 'Unique identifier, e.g. TOOL-IDE-001',
-      required: true,
-    ),
     Field(
       'notes',
       String,
@@ -2622,12 +2594,6 @@ class Environments extends DocSpecsSection {
 @SectionId('ENVEN')
 class EnvironmentEntry extends DocSpecsSection {
   @Form([
-    Field(
-      'environmentId',
-      String,
-      'Environment ID',
-      hint: 'Unique code, e.g. ENV-PROD-01',
-    ),
     Field(
       'environmentType',
       String,

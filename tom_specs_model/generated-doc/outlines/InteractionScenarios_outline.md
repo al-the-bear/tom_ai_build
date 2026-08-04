@@ -32,7 +32,7 @@
       - extensions: `UseCaseExtensions`
         - content @Form(extensionSummary, extensionCount)
         - extensions: `ExtensionEntry`
-          - content @Form(extensionId, branchPoint, condition, extensionType, description, outcome, returnPoint, frequency, severity)
+          - content @Form(branchPoint, condition, extensionType, description, outcome, returnPoint, frequency, severity)
           - steps: `ExtensionStepEntry`
             - content @Form(stepNumber, action, response)
       - variations: `TechnologyDataVariations`
@@ -49,7 +49,7 @@
       - [1,] steps: `ScenarioStepEntry`
         - content @Form(stepNumber, actor, action, systemResponse), context, execution
       - alternativeFlows: `AlternativeFlowEntry`
-        - content @Form(flowId, flowType, branchPoint, triggerCondition, description, outcome, returnPoint, frequency, businessImpact)
+        - content @Form(flowType, branchPoint, triggerCondition, description, outcome, returnPoint, frequency, businessImpact)
         - steps: `AlternativeStepEntry`
           - content @Form(stepNumber, action, response, expectedResult)
   - `ActorRelationshipDiagram`

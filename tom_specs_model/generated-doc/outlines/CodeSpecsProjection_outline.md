@@ -61,9 +61,9 @@
       - items: `DataClassificationEntry`
         - identity, storageTransmission, accessControl, retentionDisposal, compliance
         - handlingRequirements: `HandlingRequirementEntry`
-          - content @Form(requirementId, requirementType, requirement, rationale, enforcementMechanism, validationMethod, exceptionProcess)
+          - content @Form(requirementType, requirement, rationale, enforcementMechanism, validationMethod, exceptionProcess)
         - accessRestrictions: `AccessRestrictionEntry`
-          - content @Form(restrictionId, restrictionType, restriction, scope, enforcement, effectiveConditions, overridePolicy)
+          - content @Form(restrictionType, restriction, scope, enforcement, effectiveConditions, overridePolicy)
     - `DataDictionary`
       - content
     - `ValidationConstraints`
@@ -119,7 +119,7 @@
           - content @Form(topologyType, deploymentModel, cloudProviders), infrastructure, environmentsConfig,
             availability, geography, infrastructureAsCode
         - decisionRecords: `ArchitectureDecisionRecord`
-          - content @Form(decisionId, date, status), contextDetails, outcome, consequences, relations
+          - content @Form(date, status), contextDetails, outcome, consequences, relations
       - `DesignPatternsAndStandards`
         - content, overview @text
         - designPatterns: `DesignPatternEntry`
@@ -562,7 +562,7 @@
           - notificationChannels: `AlertNotificationChannels`
             - content @Form(pagingService, slackIntegration, teamsIntegration), delivery, routing, formatting
           - alertRules: `AlertRuleEntry`
-            - content @Form(alertId, alertDescription, severity, category), trigger, response, ownership
+            - content @Form(alertDescription, severity, category), trigger, response, ownership
           - escalationPolicies: `AlertEscalationPolicies`
             - content @Form(level1Responder, level2Responder, level3Responder), timing, behavior, schedules
           - suppressionRules: `AlertSuppressionRules`
@@ -586,7 +586,7 @@
         - dashboards: `MonitoringDashboards`
           - dashboardOverview, overviewNarrative @text
           - dashboards: `DashboardEntry`
-            - content @Form(dashboardId, dashboardCategory, targetAudience), configuration, operations
+            - content @Form(dashboardCategory, targetAudience), configuration, operations
           - dashboardTemplates: `DashboardTemplates`
             - content @Form(serviceTemplateLayout, serviceTemplateVariables, infraTemplateLayout, k8sTemplateLayout, databaseTemplateLayout, customTemplateProcess, templateVersioning, notes)
         - `SlaAndSloMonitoring`
@@ -594,7 +594,7 @@
           - slis: `ServiceLevelIndicators`
             - content @Form(availabilitySli, availabilityExclusions), performance, quality, measurement
           - slos: `SloEntry`
-            - content @Form(sloId, sloDescription, serviceName), target, operations
+            - content @Form(sloDescription, serviceName), target, operations
           - errorBudget: `ErrorBudgetTracking`
             - content @Form(budgetCalculationMethod, budgetWindow, budgetResetPolicy, budgetBurnRateDashboard),
               monitoring, governance
@@ -948,7 +948,7 @@
   - `ReportDefinitions` ← (locus: server — CE-RP)
     - content @description
     - reports: `ReportEntry`
-      - content @Form(reportId, reportType), identity, dataSource, format, layout, headerFooter, grouping, formatting,
+      - content @Form(reportType), identity, dataSource, format, layout, headerFooter, grouping, formatting,
         interactivity, pagination, security, lifecycle
       - access: `AuthorizationRequirementSpec`
         - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
@@ -1030,7 +1030,7 @@
         - extensions: `UseCaseExtensions`
           - content @Form(extensionSummary, extensionCount)
           - extensions: `ExtensionEntry`
-            - content @Form(extensionId, branchPoint, condition, extensionType, description, outcome, returnPoint, frequency, severity)
+            - content @Form(branchPoint, condition, extensionType, description, outcome, returnPoint, frequency, severity)
             - steps: `ExtensionStepEntry`
               - content @Form(stepNumber, action, response)
         - variations: `TechnologyDataVariations`
@@ -1047,7 +1047,7 @@
         - [1,] steps: `ScenarioStepEntry`
           - content @Form(stepNumber, actor, action, systemResponse), context, execution
         - alternativeFlows: `AlternativeFlowEntry`
-          - content @Form(flowId, flowType, branchPoint, triggerCondition, description, outcome, returnPoint, frequency, businessImpact)
+          - content @Form(flowType, branchPoint, triggerCondition, description, outcome, returnPoint, frequency, businessImpact)
           - steps: `AlternativeStepEntry`
             - content @Form(stepNumber, action, response, expectedResult)
     - `ActorRelationshipDiagram`
@@ -1063,7 +1063,7 @@
       - `ScreenInventory`
         - content, overview @text
         - [1,] items: `ScreenEntry`
-          - content @Form(screenId, purpose), classification, traceability, presentation, designNotes @text
+          - content @Form(purpose), classification, traceability, presentation, designNotes @text
           - access: `AuthorizationRequirementSpec`
             - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
               resourceKeyRequirement, customRequirement
@@ -1213,7 +1213,7 @@
       - `ValidationFeedback`
         - validationDisplayContent, placement, messages, guidance, behavior, validationNarrative @text
         - messageTemplates: `ValidationMessageTemplate`
-          - content @Form(messageId, validationType, fieldTypes, messageTemplate, shortMessage, helpText, exampleCorrection, severity, iconCode, localizationKey)
+          - content @Form(validationType, fieldTypes, messageTemplate, shortMessage, helpText, exampleCorrection, severity, iconCode, localizationKey)
         - fieldValidationRules: `String`
       - `SystemErrorDisplay`
         - systemErrorContent, errorTypes, displayMethods, displayContent, fallback, systemErrorNarrative @text
@@ -1225,7 +1225,7 @@
           sessionHandling, recoveryNarrative @text
         - recoveryFlows: `String`
         - recoveryScenarios: `RecoveryScenarioEntry`
-          - content @Form(scenarioId, triggerCondition, userImpact, recoverySteps, dataAtRisk, preventionMeasures, timeToRecover, supportEscalation),
+          - content @Form(triggerCondition, userImpact, recoverySteps, dataAtRisk, preventionMeasures, timeToRecover, supportEscalation),
             detailedFlow @text
     - `ResponsiveDesign`
       - responsiveOverview, responsiveNarrative @text
@@ -1262,7 +1262,6 @@
         - properties: `ComponentPropertyEntry`
           - content @Form(propertyId, propertyType, defaultValue, allowedValues, propertyDescription, affectsAppearance, affectsBehavior, resourceResolvable, authControlled)
       - componentFamilies: `ComponentFamilyEntry`
-        - content @Form(familyId, familyDescription, componentCount, sharedPatterns, consistencyRules),
-          familyNarrative @text
+        - content @Form(familyDescription, componentCount, sharedPatterns, consistencyRules), familyNarrative @text
         - components: `FamilyComponentRef`
           - content @Form(componentId, familyRole, relationToOthers)

@@ -10,11 +10,11 @@
       - acceptanceCriteria: `RequirementAcceptanceCriteria`
         - content @description
         - criteria: `AcceptanceCriterionEntry`
-          - content @Form(criterionId, given, when, then, and, verificationMethod, testType, priority, status)
+          - content @Form(given, when, then, and, verificationMethod, testType, priority, status)
       - businessRules: `RequirementBusinessRules`
         - content @description
         - rules: `RequirementBusinessRuleEntry`
-          - content @Form(ruleId, ruleType, ruleStatement, source, effectiveDate, expirationDate, exceptions, enforcement, impact)
+          - content @Form(ruleType, ruleStatement, source, effectiveDate, expirationDate, exceptions, enforcement, impact)
       - dataRequirements: `RequirementDataRequirements`
         - content @description
         - entities: `DataEntityReferenceEntry`
@@ -41,7 +41,7 @@
       - testCases: `RequirementTestCases`
         - content @description
         - testCases: `RequirementTestCaseEntry`
-          - content @Form(testCaseId, testType, testCategory, preconditions), execution, automation, relatedCriterion
+          - content @Form(testType, testCategory, preconditions), execution, automation, relatedCriterion
   - `TechnicalRequirements`
     - content, summaryForm
     - requirements: `TechnicalRequirementEntry`
@@ -49,7 +49,7 @@
       - acceptanceCriteria: `RequirementAcceptanceCriteria`
         - content @description
         - criteria: `AcceptanceCriterionEntry`
-          - content @Form(criterionId, given, when, then, and, verificationMethod, testType, priority, status)
+          - content @Form(given, when, then, and, verificationMethod, testType, priority, status)
       - dependencies: `RequirementDependencies`
         - content @description
         - items: `RequirementDependencyEntry`
@@ -63,11 +63,11 @@
       - acceptanceCriteria: `RequirementAcceptanceCriteria`
         - content @description
         - criteria: `AcceptanceCriterionEntry`
-          - content @Form(criterionId, given, when, then, and, verificationMethod, testType, priority, status)
+          - content @Form(given, when, then, and, verificationMethod, testType, priority, status)
       - controls: `SecurityControls`
         - content @description
         - controls: `SecurityControlEntry`
-          - content @Form(controlId, controlType, implementationType), implementation, verification
+          - content @Form(controlType, implementationType), implementation, verification
       - dependencies: `RequirementDependencies`
         - content @description
         - items: `RequirementDependencyEntry`
@@ -81,11 +81,11 @@
       - acceptanceCriteria: `RequirementAcceptanceCriteria`
         - content @description
         - criteria: `AcceptanceCriterionEntry`
-          - content @Form(criterionId, given, when, then, and, verificationMethod, testType, priority, status)
+          - content @Form(given, when, then, and, verificationMethod, testType, priority, status)
       - implementationPlan: `OrgRequirementImplementationPlan`
         - content, planForm
         - activities: `OrgImplementationActivity`
-          - content @Form(activityId, description, owner, startDate, endDate, deliverable, status)
+          - content @Form(description, owner, startDate, endDate, deliverable, status)
       - dependencies: `RequirementDependencies`
         - content @description
         - items: `RequirementDependencyEntry`

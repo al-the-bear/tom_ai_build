@@ -2949,7 +2949,7 @@ form-types:
       - fieldname: screenCategory
         description: List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing
       - fieldname: parentScreenId
-        description: Parent screen if this is a sub-screen or drill-down
+        description: "The parent screen, if this is a sub-screen or drill-down — a screen section id (SCREN-ITEM-…)"
       - fieldname: routePattern
         description: Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map
   azreq-role-form:
@@ -3107,7 +3107,7 @@ form-types:
   sean-form:
     fields:
       - fieldname: navigateTo
-        description: Target screen ID or route after action
+        description: "The target after the action — a screen section id (SCREN-ITEM-…), or a route id from the Screen Route Map"
       - fieldname: navigateParams
         description: Parameters to pass to navigation target
       - fieldname: doubleClickPrevention
@@ -3181,7 +3181,7 @@ form-types:
       - fieldname: refreshMode
         description: Auto/Manual/Interval(seconds)
       - fieldname: drillDownTarget
-        description: Screen ID navigated to on click/tap
+        description: The screen navigated to on click/tap — a screen section id (SCREN-ITEM-…)
   seddo-form:
     fields:
       - fieldname: sortable
@@ -3259,7 +3259,7 @@ form-types:
   nier-form:
     fields:
       - fieldname: targetScreenId
-        description: Reference to Screen Inventory SCR-xxx
+        description: The screen this item opens — a screen section id (SCREN-ITEM-…) from the Screen Inventory
       - fieldname: targetRouteParams
         description: "Default params, e.g., {status: active}"
       - fieldname: displayOrder
@@ -3353,7 +3353,7 @@ form-types:
       - fieldname: interactionType
         description: Navigate/Open-Popup/Open-Drawer/Open-Bottom-Sheet/Open-Dialog
       - fieldname: targetScreenId
-        description: Navigation target
+        description: The navigation target — a screen section id (SCREN-ITEM-…)
   umiea-form:
     fields:
       - fieldname: actionType
@@ -3395,7 +3395,7 @@ form-types:
   naguendi-form:
     fields:
       - fieldname: appliesTo
-        description: Route patterns or screen IDs this guard covers
+        description: "The routes or screens this guard covers — route ids from the Screen Route Map, or screen section ids (SCREN-ITEM-…)"
       - fieldname: dialogTitleResource
         description: Message key (MSGKR registry) for confirmation dialog title
       - fieldname: dialogMessageResource
@@ -3723,7 +3723,7 @@ form-types:
       - fieldname: drillDownTarget
         description: Report or screen navigated to on row click
       - fieldname: drillThroughReports
-        description: Comma-separated report IDs reachable from this report
+        description: "Reports reachable from this report — report section ids (REPENT-REPO-…), comma-separated"
       - fieldname: parameterForm
         description: Description of user input form shown before generation
       - fieldname: emptyDataMessage
@@ -4810,9 +4810,6 @@ form-types:
         description: "Easing curves: ease, easeInOut, custom"
   uicom-iden-form:
     fields:
-      - fieldname: componentId
-        required: true
-        description: "Unique identifier (e.g., CMP-DTT-001)"
       - fieldname: componentFamily
         description: "Button, Input, Table, Navigation, etc."
       - fieldname: baseComponent

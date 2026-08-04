@@ -27351,7 +27351,7 @@ form-types:
       - fieldname: platform
         description: "e.g., Flutter Web, Flutter iOS/Android, REST API"
       - fieldname: targetUserCategories
-        description: List of user category IDs this channel serves
+        description: "The user categories this channel serves — user category section ids (UCE-USER-…), comma-separated"
       - fieldname: description
         description: Purpose and scope of this channel
       - fieldname: channelPriority
@@ -27961,9 +27961,9 @@ form-types:
       - fieldname: relatedGoals
         description: IDs of related business goals
       - fieldname: relatedUseCases
-        description: IDs of related use cases
+        description: "Related interactions — interaction section ids (INEN-INTE-…), comma-separated"
       - fieldname: relatedProcesses
-        description: IDs of related business processes
+        description: "Related business processes — process section ids (BPREN-PROC-…), comma-separated"
       - fieldname: relatedUserStories
         description: "Related user stories, if using Agile"
   retrar-form:
@@ -27973,7 +27973,7 @@ form-types:
       - fieldname: relatedDataEntities
         description: Data entities related to this requirement
       - fieldname: relatedTestCases
-        description: IDs of test cases covering this requirement
+        description: "Test cases covering this requirement — test case section ids (RQTSC-TEST-… / TEGOTS-ITEM-…), comma-separated"
       - fieldname: relatedDocuments
         description: Related documents or other artifacts
   retrim-form:
@@ -28238,7 +28238,7 @@ form-types:
     fields:
       - fieldname: systemId
         required: true
-        description: Stable identifier for the legacy system being replaced
+        description: "The identifier the organisation already uses for the legacy system being replaced, e.g. SYS-CRM-001 — owned outside this document"
       - fieldname: officialName
         description: "Vendor/product name and edition, if a commercial system"
       - fieldname: systemDescription
@@ -28607,7 +28607,7 @@ form-types:
   mirir1-form:
     fields:
       - fieldname: relatedRisks
-        description: Risk IDs that are correlated
+        description: "Correlated migration risks — risk section ids (MGRSK-ITEM-… / SYMIRI-RISK-…), comma-separated"
       - fieldname: relatedIssues
         description: "Issue ids from the project issue tracker — owned by the tracker, not declared in this blueprint"
       - fieldname: relatedRequirements
@@ -28626,9 +28626,6 @@ form-types:
         description: Insights from risk handling
   eie-iden-form:
     fields:
-      - fieldname: interfaceId
-        required: true
-        description: Unique stable identifier for this interface
       - fieldname: externalSystem
         required: true
         description: Name of the external system being integrated
@@ -28839,7 +28836,7 @@ form-types:
       - fieldname: contingencyPlan
         description: Planned response if the assumption is invalidated
       - fieldname: relatedRiskId
-        description: Identifier of the linked risk register entry
+        description: The linked risk register entry — a risk section id (RISENT-KEYR-…)
   oren-orga-form:
     fields:
       - fieldname: organizationName
@@ -31169,9 +31166,9 @@ form-types:
       - fieldname: duration
         description: "Expected duration of the phase, expressed in weeks"
       - fieldname: precedingPhase
-        description: The phase ID that must complete before this phase begins
+        description: The phase that must complete before this one begins — a transition phase section id (TRPHE-PHAS-…)
       - fieldname: dependsOnMilestone
-        description: The milestone ID this phase depends on before it can start
+        description: The milestone this phase depends on before it can start — a milestone section id (TRMIL-MILE-…)
   tpisc-form:
     fields:
       - fieldname: affectedLocations
@@ -31358,9 +31355,6 @@ form-types:
         description: Employment law considerations affecting role changes
   neroid-form:
     fields:
-      - fieldname: roleId
-        required: true
-        description: Unique identifier for this new role
       - fieldname: roleFamily
         description: Broader job family or category this role belongs to
       - fieldname: jobLevel
@@ -32391,9 +32385,6 @@ form-types:
         description: Explain how actor goals map to business goals
   acid-form:
     fields:
-      - fieldname: actorId
-        required: true
-        description: Use a stable unique code such as ACT-001
       - fieldname: actorType
         description: "State whether the actor is a person, system or scheduled job"
       - fieldname: category
@@ -32496,9 +32487,6 @@ form-types:
         description: Reference the TOM-xxx process each interaction realizes
   inid-form:
     fields:
-      - fieldname: interactionId
-        required: true
-        description: Stable code such as INT-001
       - fieldname: useCaseName
         required: true
         description: "Active-verb goal, e.g. \"Place order\""
@@ -32614,9 +32602,6 @@ form-types:
         description: How each scenario traces to TC-xxx test cases
   scid-form:
     fields:
-      - fieldname: scenarioId
-        required: true
-        description: Stable code such as SCE-001
       - fieldname: scenarioType
         description: "One of happy path, alternative, or exception"
       - fieldname: description
@@ -33168,9 +33153,6 @@ form-types:
         description: Summary of data entities accessed with CRUD
   biru-iden-form:
     fields:
-      - fieldname: ruleId
-        required: true
-        description: "Unique rule identifier (e.g., BR-001)"
       - fieldname: ruleVersion
         description: Version number for change tracking
       - fieldname: description
@@ -38957,7 +38939,7 @@ form-types:
       - fieldname: writtenEntities
         description: "The Data Model entities the job writes, including the primary one"
       - fieldname: targetReports
-        description: "The reports this job produces, where the work is a report run"
+        description: "The reports this job produces, where the work is a report run — report section ids (REPENT-REPO-…), comma-separated"
   scjob-fail-form:
     fields:
       - fieldname: maxRetries
@@ -40799,15 +40781,15 @@ form-types:
       - fieldname: reviewFrequency
         description: How often this risk is reassessed
       - fieldname: relatedRisks
-        description: Other risk IDs that correlate or cascade
+        description: "Other component risks that correlate or cascade — risk section ids (CMRS-RISK-…), comma-separated"
       - fieldname: acceptanceCriteria
         description: Under what conditions is this risk formally accepted
   cper-form:
     fields:
       - fieldname: riskRef
-        description: Risk ID this plan addresses
+        description: The component risk this plan addresses — a risk section id (CMRS-RISK-…)
       - fieldname: componentRef
-        description: Component ID this plan covers
+        description: The component this plan covers — a component section id (CMPNT-COMP-…)
   cpea-form:
     fields:
       - fieldname: triggerDetection
@@ -43105,7 +43087,7 @@ form-types:
       - fieldname: screenCategory
         description: List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing
       - fieldname: parentScreenId
-        description: Parent screen if this is a sub-screen or drill-down
+        description: "The parent screen, if this is a sub-screen or drill-down — a screen section id (SCREN-ITEM-…)"
       - fieldname: routePattern
         description: Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map
   scetr-form:
@@ -43203,7 +43185,7 @@ form-types:
   sean-form:
     fields:
       - fieldname: navigateTo
-        description: Target screen ID or route after action
+        description: "The target after the action — a screen section id (SCREN-ITEM-…), or a route id from the Screen Route Map"
       - fieldname: navigateParams
         description: Parameters to pass to navigation target
       - fieldname: doubleClickPrevention
@@ -43277,7 +43259,7 @@ form-types:
       - fieldname: refreshMode
         description: Auto/Manual/Interval(seconds)
       - fieldname: drillDownTarget
-        description: Screen ID navigated to on click/tap
+        description: The screen navigated to on click/tap — a screen section id (SCREN-ITEM-…)
   seddo-form:
     fields:
       - fieldname: sortable
@@ -43355,7 +43337,7 @@ form-types:
   nier-form:
     fields:
       - fieldname: targetScreenId
-        description: Reference to Screen Inventory SCR-xxx
+        description: The screen this item opens — a screen section id (SCREN-ITEM-…) from the Screen Inventory
       - fieldname: targetRouteParams
         description: "Default params, e.g., {status: active}"
       - fieldname: displayOrder
@@ -43449,7 +43431,7 @@ form-types:
       - fieldname: interactionType
         description: Navigate/Open-Popup/Open-Drawer/Open-Bottom-Sheet/Open-Dialog
       - fieldname: targetScreenId
-        description: Navigation target
+        description: The navigation target — a screen section id (SCREN-ITEM-…)
   umiea-form:
     fields:
       - fieldname: actionType
@@ -43491,7 +43473,7 @@ form-types:
   naguendi-form:
     fields:
       - fieldname: appliesTo
-        description: Route patterns or screen IDs this guard covers
+        description: "The routes or screens this guard covers — route ids from the Screen Route Map, or screen section ids (SCREN-ITEM-…)"
       - fieldname: dialogTitleResource
         description: Message key (MSGKR registry) for confirmation dialog title
       - fieldname: dialogMessageResource
@@ -43910,9 +43892,6 @@ form-types:
         description: "Easing curves: ease, easeInOut, custom"
   uicom-iden-form:
     fields:
-      - fieldname: componentId
-        required: true
-        description: "Unique identifier (e.g., CMP-DTT-001)"
       - fieldname: componentFamily
         description: "Button, Input, Table, Navigation, etc."
       - fieldname: baseComponent
@@ -44238,7 +44217,7 @@ form-types:
       - fieldname: drillDownTarget
         description: Report or screen navigated to on row click
       - fieldname: drillThroughReports
-        description: Comma-separated report IDs reachable from this report
+        description: "Reports reachable from this report — report section ids (REPENT-REPO-…), comma-separated"
       - fieldname: parameterForm
         description: Description of user input form shown before generation
       - fieldname: emptyDataMessage
@@ -46339,9 +46318,9 @@ form-types:
       - fieldname: requirementRef
         description: "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
       - fieldname: deliverableRef
-        description: Linked deliverable ID — e.g. DEL-SOF-001
+        description: The linked deliverable — a deliverable section id (DLVEN-ITEM-…)
       - fieldname: testScenarioRef
-        description: UAT scenario ID that validates this criterion
+        description: The UAT scenario that validates this criterion — a test scenario section id (TSSC-TEST-…)
   daceow-form:
     fields:
       - fieldname: verifier
@@ -46413,7 +46392,7 @@ form-types:
   dlvdc-form:
     fields:
       - fieldname: associatedDocumentation
-        description: Related documentation deliverable IDs
+        description: "Related documentation deliverables — deliverable section ids (DLVEN-ITEM-…), comma-separated"
       - fieldname: releaseNotes
         description: Yes / No — whether release notes accompany delivery
       - fieldname: notes
@@ -46643,7 +46622,7 @@ form-types:
       - fieldname: requirementRef
         description: "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
       - fieldname: useCaseRef
-        description: Related use case ID
+        description: The related interaction — an interaction section id (INEN-INTE-…)
       - fieldname: acceptanceCriterionRef
         description: Linked criterion ID
       - fieldname: designRef
@@ -46657,7 +46636,7 @@ form-types:
       - fieldname: environmentRequirements
         description: Special environment config
       - fieldname: dependsOnScenarios
-        description: Scenario IDs that must pass before this one
+        description: "Scenarios that must pass before this one — test scenario section ids (TSSC-TEST-…), comma-separated"
   tescex-form:
     fields:
       - fieldname: testStepsSummary
@@ -47487,9 +47466,9 @@ form-types:
   fedein-form:
     fields:
       - fieldname: dependsOnFeatures
-        description: Feature IDs this requires
+        description: "Features this requires — feature section ids (FPE-ITEM-…), comma-separated"
       - fieldname: blocksFeatures
-        description: Feature IDs blocked until this completes
+        description: "Features blocked until this completes — feature section ids (FPE-ITEM-…), comma-separated"
       - fieldname: externalDependencies
         description: "External systems, APIs, vendors, or approvals"
       - fieldname: dependencyCriticalPath
@@ -47499,13 +47478,13 @@ form-types:
       - fieldname: linkedRequirements
         description: "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
       - fieldname: linkedUseCases
-        description: Use case IDs
+        description: "Interactions this feature covers — interaction section ids (INEN-INTE-…), comma-separated"
       - fieldname: linkedBusinessProcesses
-        description: Business process IDs
+        description: "Business processes this feature serves — process section ids (BPREN-PROC-…), comma-separated"
       - fieldname: linkedUserStories
         description: "Story ids from the delivery backlog — owned by the delivery tooling, not declared in this blueprint"
       - fieldname: linkedArchitectureDecisions
-        description: ADR IDs affected by or affecting this feature
+        description: "Architecture decisions affected by or affecting this feature — decision record section ids (ARDE-DECI-…), comma-separated"
   fs-form:
     fields:
       - fieldname: prioritizationStatus
@@ -47549,9 +47528,9 @@ form-types:
       - fieldname: linkedRequirements
         description: "Requirement ids this feature traces to, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)"
       - fieldname: linkedUseCases
-        description: Use case IDs this feature implements
+        description: "Interactions this feature implements — interaction section ids (INEN-INTE-…), comma-separated"
       - fieldname: dependsOnFeatures
-        description: Feature IDs that must be delivered before this one
+        description: "Features that must be delivered before this one — feature section ids (FPE-ITEM-…), comma-separated"
       - fieldname: notes
         description: Additional notes or caveats
   fsma-form:
@@ -47575,7 +47554,7 @@ form-types:
   fsmd-form:
     fields:
       - fieldname: prerequisiteFeatures
-        description: Feature IDs that must complete first — comma-separated
+        description: "Features that must complete first — feature section ids (FPE-ITEM-…), comma-separated"
       - fieldname: blockedByExternalDependency
         description: "External systems, vendors, or approvals — None, or description"
       - fieldname: crossStageDependency
@@ -48057,7 +48036,7 @@ form-types:
       - fieldname: followUpActions
         description: Actions assigned during review
       - fieldname: nextGateReference
-        description: Gate ID of the next gate in sequence
+        description: The next gate in sequence — a phase gate review section id (PHGREV-ITEM-…)
   rcea-form:
     fields:
       - fieldname: weight

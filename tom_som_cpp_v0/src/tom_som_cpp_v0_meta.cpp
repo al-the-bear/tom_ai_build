@@ -1437,15 +1437,14 @@ void buildAcceptanceCriterionEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"criterionId", "String", "Criterion ID", true, "Unique identifier for this criterion", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"given", "String", "Given (precondition/context)", false, "Precondition or context that holds before the action", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"when", "String", "When (action/trigger)", false, "Action or trigger that occurs", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"then", "String", "Then (expected outcome)", true, "Expected outcome after the action", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"and", "String", "And (additional outcomes)", false, "Any additional expected outcomes", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"verificationMethod", "String", "Verification Method (Manual, Automated, Inspection, Demo)", false, "Manual, Automated, Inspection, or Demo", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"testType", "String", "Test Type (Unit, Integration, System, Acceptance, UAT)", false, "Unit, Integration, System, Acceptance, or UAT", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority (Critical, High, Medium, Low)", false, "Critical, High, Medium, or Low", 7, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Draft, Ready, Passed, Failed, Blocked)", false, "Draft, Ready, Passed, Failed, or Blocked", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"given", "String", "Given (precondition/context)", false, "Precondition or context that holds before the action", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"when", "String", "When (action/trigger)", false, "Action or trigger that occurs", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"then", "String", "Then (expected outcome)", true, "Expected outcome after the action", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"and", "String", "And (additional outcomes)", false, "Any additional expected outcomes", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"verificationMethod", "String", "Verification Method (Manual, Automated, Inspection, Demo)", false, "Manual, Automated, Inspection, or Demo", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"testType", "String", "Test Type (Unit, Integration, System, Acceptance, UAT)", false, "Unit, Integration, System, Acceptance, or UAT", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority (Critical, High, Medium, Low)", false, "Critical, High, Medium, or Low", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Draft, Ready, Passed, Failed, Blocked)", false, "Draft, Ready, Passed, Failed, or Blocked", 7, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -1999,8 +1998,7 @@ void buildAccessLevelEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"levelId", "String", "Level ID", false, "Unique identifier", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"levelRank", "int", "Level Rank", false, "Numeric rank (higher = more permissions)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"levelRank", "int", "Level Rank", false, "Numeric rank (higher = more permissions)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -2138,13 +2136,12 @@ void buildAccessRestrictionEntryChildren(som::SomMetaNode& parent, std::vector<s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"restrictionId", "String", "Restriction ID", false, "Unique identifier for this restriction", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"restrictionType", "String", "Restriction Type", false, "Role | Geographic | Temporal | Contextual | DataBased", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"restriction", "String", "Restriction", true, "The specific access restriction", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"scope", "String", "Scope", false, "What the restriction applies to", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"enforcement", "String", "Enforcement", false, "How restriction is enforced: Policy | Technical | IAM", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"effectiveConditions", "String", "Effective Conditions", false, "When restriction applies (e.g., during business hours)", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"overridePolicy", "String", "Override Policy", false, "How overrides are handled: None | BreakGlass | ApprovalRequired", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"restrictionType", "String", "Restriction Type", false, "Role | Geographic | Temporal | Contextual | DataBased", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"restriction", "String", "Restriction", true, "The specific access restriction", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"scope", "String", "Scope", false, "What the restriction applies to", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"enforcement", "String", "Enforcement", false, "How restriction is enforced: Policy | Technical | IAM", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"effectiveConditions", "String", "Effective Conditions", false, "When restriction applies (e.g., during business hours)", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"overridePolicy", "String", "Override Policy", false, "How overrides are handled: None | BreakGlass | ApprovalRequired", 5, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -2354,10 +2351,9 @@ void buildAccessibilityCheckEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"checkId", "String", "Check ID", true, "Unique identifier for this check (e.g., ACCH-001)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"checkItem", "String", "Check Item", true, "What is being checked", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"checkDescription", "String", "Check Description", false, "Detailed description", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"verificationMethod", "String", "Verification Method", true, "Automated, manual, user testing", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"checkItem", "String", "Check Item", true, "What is being checked", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"checkDescription", "String", "Check Description", false, "Detailed description", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"verificationMethod", "String", "Verification Method", true, "Automated, manual, user testing", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -2781,14 +2777,13 @@ void buildActorEntryChildren(som::SomMetaNode& parent, std::vector<std::string>&
     (*n).serializationOrder = 0;
     (*n).docComment = "Actor identification.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"actorId", "String", "Actor ID (e.g., ACT-001)", true, "Use a stable unique code such as ACT-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"actorType", "String", "Actor Type — human user, system, external system, scheduled", false, "State whether the actor is a person, system or scheduled job", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category — primary, secondary, supporting, offstage", false, "Classify using Cockburn primary/secondary/supporting/offstage", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description — role purpose", false, "Explain the actor’s purpose in one or two sentences", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"realWorldExamples", "String", "Real World Examples — who fills this role", false, "Name concrete job titles or people that fill this role", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"organizationalUnit", "String", "Organizational Unit — department or team", false, "Identify the department or team the actor belongs to", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"estimatedCount", "String", "Estimated Count — how many users in this role", false, "Estimate the number of individuals in this role", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"geographicDistribution", "String", "Geographic Distribution — where actors are located", false, "Note the locations or regions where actors operate", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"actorType", "String", "Actor Type — human user, system, external system, scheduled", false, "State whether the actor is a person, system or scheduled job", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category — primary, secondary, supporting, offstage", false, "Classify using Cockburn primary/secondary/supporting/offstage", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description — role purpose", false, "Explain the actor’s purpose in one or two sentences", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"realWorldExamples", "String", "Real World Examples — who fills this role", false, "Name concrete job titles or people that fill this role", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"organizationalUnit", "String", "Organizational Unit — department or team", false, "Identify the department or team the actor belongs to", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"estimatedCount", "String", "Estimated Count — how many users in this role", false, "Estimate the number of individuals in this role", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"geographicDistribution", "String", "Geographic Distribution — where actors are located", false, "Note the locations or regions where actors operate", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"UML 2.5.1 (ISO/IEC 19505) — use-case actors & relationships\",\"BABOK v3 — stakeholder & actor analysis\"],\"connotation\":\"Uniquely identifies and classifies an actor, capturing type, category and real-world population.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -3627,10 +3622,9 @@ void buildAlertRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"alertId", "String", "Alert ID", true, "Unique identifier for this alert rule", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"alertDescription", "String", "Alert Description", false, "What this alert detects and why it matters", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Severity", false, "Critical, Warning, Info", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Infrastructure, Application, Business, Security", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"alertDescription", "String", "Alert Description", false, "What this alert detects and why it matters", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Severity", false, "Critical, Warning, Info", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Infrastructure, Application, Business, Security", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -3945,15 +3939,14 @@ void buildAlternativeFlowEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"flowId", "String", "Flow ID (e.g., AFL-001)", true, "Stable code such as AFL-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"flowType", "String", "Flow Type — alternative, exception, error", false, "One of alternative, exception, or error", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"branchPoint", "String", "Branch Point — step where flow branches", false, "Main-flow step number where this diverges", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerCondition", "String", "Trigger Condition — when this occurs", false, "Condition that activates this flow", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description — what happens", false, "Narrative of what happens in this flow", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"outcome", "String", "Outcome — how flow ends", false, "The end state this flow reaches", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"returnPoint", "String", "Return Point — step to return to", false, "Main-flow step to resume at, if any", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"frequency", "String", "Frequency — how often this occurs", false, "How often this flow is expected to occur", 7, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"businessImpact", "String", "Business Impact — effect on business", false, "Business consequence of this flow", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"flowType", "String", "Flow Type — alternative, exception, error", false, "One of alternative, exception, or error", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"branchPoint", "String", "Branch Point — step where flow branches", false, "Main-flow step number where this diverges", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerCondition", "String", "Trigger Condition — when this occurs", false, "Condition that activates this flow", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description — what happens", false, "Narrative of what happens in this flow", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"outcome", "String", "Outcome — how flow ends", false, "The end state this flow reaches", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"returnPoint", "String", "Return Point — step to return to", false, "Main-flow step to resume at, if any", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"frequency", "String", "Frequency — how often this occurs", false, "How often this flow is expected to occur", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"businessImpact", "String", "Business Impact — effect on business", false, "Business consequence of this flow", 7, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -4978,9 +4971,8 @@ void buildArchitectureDecisionRecordChildren(som::SomMetaNode& parent, std::vect
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"decisionId", "String", "Decision ID", true, "Unique identifier (e.g., ADR-001)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"date", "String", "Date", true, "When the decision was made", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status", true, "Proposed, Accepted, Deprecated, Superseded", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"date", "String", "Date", true, "When the decision was made", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status", true, "Proposed, Accepted, Deprecated, Superseded", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -5497,11 +5489,10 @@ void buildAssumptionRegisterEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"assumptionId", "String", "Assumption ID (ASM-NNN)", true, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", true, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "String", "Impact if invalid", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"validation", "String", "Validation approach", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Open, Confirmed, Invalidated)", false, "", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", true, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "String", "Impact if invalid", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"validation", "String", "Validation approach", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Open, Confirmed, Invalidated)", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -7952,9 +7943,8 @@ void buildBoundaryAssumptionEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"assumptionId", "String", "Assumption ID", false, "Unique identifier for this assumption", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"assumption", "String", "Assumption Statement", true, "The condition assumed to hold true for the project", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category (Technical, Organizational, External, Data, Resource)", false, "Classification of the assumption", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"assumption", "String", "Assumption Statement", true, "The condition assumed to hold true for the project", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category (Technical, Organizational, External, Data, Resource)", false, "Classification of the assumption", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -7991,7 +7981,7 @@ void buildBoundaryAssumptionEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).form->fields.push_back(som::SomFormFieldMeta{"riskIfWrong", "String", "Risk if Wrong", false, "What happens if the assumption proves false", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"riskImpact", "String", "Impact Level (High, Medium, Low)", false, "Severity of the impact if the assumption fails", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"contingencyPlan", "String", "Contingency Plan", false, "Planned response if the assumption is invalidated", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRiskId", "String", "Related Risk ID", false, "Identifier of the linked risk register entry", 3, std::vector<std::string>{}, std::vector<std::string>{"RIID.riskId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRiskId", "String", "Related Risk ID", false, "The linked risk register entry — a risk section id (RISENT-KEYR-…)", 3, std::vector<std::string>{}, std::vector<std::string>{"RISENT.@sectionId"}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 31000 — risk management (assumption risk)\",\"PMBOK — scope management & assumption log\"],\"connotation\":\"Captures the consequences if an assumption proves false and the contingency plan to address it.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -8203,7 +8193,7 @@ void buildBreakpointEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"breakpointId", "String", "Breakpoint ID", true, "Unique identifier (e.g., TOM-MOBILE)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"breakpointId", "String", "Breakpoint ID", true, "The symbol the built layout carries for this breakpoint, e.g. TOM-MOBILE", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"minWidth", "String", "Min Width", false, "Minimum width in logical pixels", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"maxWidth", "String", "Max Width", false, "Maximum width in logical pixels", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -8863,8 +8853,7 @@ void buildBusinessGoalEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"goalId", "String", "Goal ID (unique identifier, e.g., BG-001)", true, "Unique goal identifier, e.g., BG-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"goalCategory", "String", "Goal Category (Strategic, Tactical, Operational)", true, "Strategic, Tactical, or Operational", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"goalCategory", "String", "Goal Category (Strategic, Tactical, Operational)", true, "Strategic, Tactical, or Operational", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -9973,10 +9962,9 @@ void buildBusinessRuleEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleId", "String", "Rule ID", true, "Unique rule identifier (e.g., BR-001)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleVersion", "String", "Rule Version", false, "Version number for change tracking", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Full statement of the business rule", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"businessStatement", "String", "Business Statement", false, "Natural language statement from business perspective", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleVersion", "String", "Rule Version", false, "Version number for change tracking", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Full statement of the business rule", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"businessStatement", "String", "Business Statement", false, "Natural language statement from business perspective", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -10150,7 +10138,7 @@ void buildBusinessRuleReferenceEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleId", "String", "Rule ID", false, "Reference to the business rule definition", 0, std::vector<std::string>{}, std::vector<std::string>{"BIRU.ruleId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleId", "String", "Rule ID", false, "The business rule this applies — a business rule section id (BIRU-BUSI-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"BIRU.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleType", "String", "Rule Type", false, "Validation | Calculation | Constraint | Authorization | Workflow", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Brief description of the rule", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"enforcement", "String", "Enforcement", false, "Automated | Manual | Hybrid", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -10540,8 +10528,7 @@ void buildCertificationEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"certificationId", "String", "Certification ID", true, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"issuingBody", "String", "Issuing Body — who certifies", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"issuingBody", "String", "Issuing Body — who certifies", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -10724,8 +10711,7 @@ void buildChangeCategoryEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"categoryId", "String", "Category ID", true, "Unique identifier for this category", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What types of changes fall into this category", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What types of changes fall into this category", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -10953,9 +10939,8 @@ void buildChangeImpactCriterionEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"criterionId", "String", "Criterion ID", true, "Unique identifier for this criterion", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"criterion", "String", "Criterion Name", true, "Name of the impact dimension", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Scope / Schedule / Budget / Quality / Risk / Resource", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"criterion", "String", "Criterion Name", true, "Name of the impact dimension", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Scope / Schedule / Budget / Quality / Risk / Resource", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -11682,9 +11667,8 @@ void buildChangedRoleIdentificationChildren(som::SomMetaNode& parent, std::vecto
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"roleId", "String", "Role ID (e.g., CR-001)", true, "Unique identifier for this changed role", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"newRoleTitle", "String", "New Role Title — if title changes", false, "The role title after the change, if it differs", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"changeRationale", "String", "Change Rationale — why this role is changing", false, "The business reason driving this role change", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"newRoleTitle", "String", "New Role Title — if title changes", false, "The role title after the change, if it differs", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"changeRationale", "String", "Change Rationale — why this role is changing", false, "The business reason driving this role change", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -12253,7 +12237,7 @@ void buildClientApplicationEntryChildren(som::SomMetaNode& parent, std::vector<s
     (*n).form->fields.push_back(som::SomFormFieldMeta{"purpose", "String", "Purpose", true, "Who uses this client and what for — the reason it exists separately from the system's other clients", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"platformTargets", "String", "Platform Targets", false, "The platforms this client runs on, by id from the browser, desktop-OS and mobile-platform requirement lists below", 3, std::vector<std::string>{}, std::vector<std::string>{"BROREQ.browserName", "DEOSRE.osName", "MODERE.platform"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"entryRoute", "String", "Entry Route", false, "The route this client opens on, by id from the screen route map. Empty for a client with no routes", 4, std::vector<std::string>{}, std::vector<std::string>{"SCRTEN.routeId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"includedScreens", "String", "Included Screens", false, "The screens this client comprises, by id. Empty for a client with no screens", 5, std::vector<std::string>{}, std::vector<std::string>{"SCREN.screenId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"includedScreens", "String", "Included Screens", false, "The screens this client comprises — screen section ids (SCREN-ITEM-…), comma-separated. Empty for a client with no screens", 5, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}});
     parent.addChild(std::move(n));
   }
 }
@@ -13578,12 +13562,11 @@ void buildCommunicationEventEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"eventId", "String", "Event ID", true, "A unique identifier for this communication event", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"eventType", "String", "Event Type — Announcement, Town Hall, Email, Workshop, Newsletter", false, "The kind of communication event: Announcement, Town Hall, Email, Workshop, Newsletter, etc.", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetAudience", "String", "Target Audience", false, "The stakeholder group or audience this event is intended to reach", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"scheduledDate", "String", "Scheduled Date", false, "The date on which this communication event is scheduled to occur", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"phase", "String", "Phase — which transition phase", false, "The transition phase during which this event takes place", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"keyMessages", "String", "Key Messages — specific to this event", false, "The specific messages this particular event is designed to convey", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"eventType", "String", "Event Type — Announcement, Town Hall, Email, Workshop, Newsletter", false, "The kind of communication event: Announcement, Town Hall, Email, Workshop, Newsletter, etc.", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetAudience", "String", "Target Audience", false, "The stakeholder group or audience this event is intended to reach", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"scheduledDate", "String", "Scheduled Date", false, "The date on which this communication event is scheduled to occur", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"phase", "String", "Phase — which transition phase", false, "The transition phase during which this event takes place", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"keyMessages", "String", "Key Messages — specific to this event", false, "The specific messages this particular event is designed to convey", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -14199,14 +14182,13 @@ void buildCompetencyEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"competencyId", "String", "Competency ID", true, "Unique identifier for this competency", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this competency means in practice", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"behavioralIndicators", "String", "Behavioral Indicators — observable behaviors", false, "Observable behaviors that demonstrate the competency", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"proficiencyLevels", "String", "Proficiency Levels — what each level looks like", false, "What each proficiency level looks like", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"applicableRoles", "String", "Applicable Roles — which roles need this competency", false, "Which roles require this competency", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredLevel", "String", "Required Level — minimum proficiency for the role", false, "Minimum proficiency level required for the role", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"developmentResources", "String", "Development Resources — training, coaching, experiences", false, "Training, coaching, or experiences that build it", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"assessmentTools", "String", "Assessment Tools — tests, interviews, simulations", false, "Tests, interviews, or simulations used to assess it", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this competency means in practice", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"behavioralIndicators", "String", "Behavioral Indicators — observable behaviors", false, "Observable behaviors that demonstrate the competency", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"proficiencyLevels", "String", "Proficiency Levels — what each level looks like", false, "What each proficiency level looks like", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"applicableRoles", "String", "Applicable Roles — which roles need this competency", false, "Which roles require this competency", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredLevel", "String", "Required Level — minimum proficiency for the role", false, "Minimum proficiency level required for the role", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"developmentResources", "String", "Development Resources — training, coaching, experiences", false, "Training, coaching, or experiences that build it", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"assessmentTools", "String", "Assessment Tools — tests, interviews, simulations", false, "Tests, interviews, or simulations used to assess it", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -14660,7 +14642,7 @@ void buildComponentActionEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"actionId", "String", "Action ID", true, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"actionId", "String", "Action ID", true, "The symbol the built component carries for this action, e.g. onSubmit", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actionTrigger", "String", "Action Trigger", false, "User interaction that triggers", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actionPayload", "String", "Action Payload", false, "Data passed with action", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -14732,8 +14714,7 @@ void buildComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"componentId", "String", "Component ID", true, "Unique identifier, e.g. CMP-DB-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Database / Framework / Library / Service / Middleware", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Database / Framework / Library / Service / Middleware", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -14984,11 +14965,10 @@ void buildComponentFamilyEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"familyId", "String", "Family ID", true, "Unique identifier (e.g., FAM-BTN)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"familyDescription", "String", "Family Description", false, "Purpose and scope of the family", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"componentCount", "int", "Component Count", false, "Number of components in the family", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"sharedPatterns", "String", "Shared Patterns", false, "Common patterns across family", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"consistencyRules", "String", "Consistency Rules", false, "Rules for family consistency", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"familyDescription", "String", "Family Description", false, "Purpose and scope of the family", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"componentCount", "int", "Component Count", false, "Number of components in the family", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sharedPatterns", "String", "Shared Patterns", false, "Common patterns across family", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"consistencyRules", "String", "Consistency Rules", false, "Rules for family consistency", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -15616,7 +15596,7 @@ void buildComponentPropertyEntryChildren(som::SomMetaNode& parent, std::vector<s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"propertyId", "String", "Property ID", true, "Unique property identifier", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"propertyId", "String", "Property ID", true, "The name the built component gives this property, e.g. isDense", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"propertyType", "String", "Property Type", false, "bool, String, Color, int", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultValue", "String", "Default Value", false, "Value used when none is set", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"allowedValues", "String", "Allowed Values", false, "Enum values or constraints", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -15872,8 +15852,7 @@ void buildComponentRiskEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskId", "String", "Risk ID", true, "Unique identifier, e.g. CR-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"componentRef", "String", "Component", false, "Component ID this risk applies to", 1, std::vector<std::string>{}, std::vector<std::string>{"CMPNT.componentId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"componentRef", "String", "Component", false, "The component this risk applies to — a component section id (CMPNT-COMP-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"CMPNT.@sectionId"}});
     parent.addChild(std::move(n));
   }
   {
@@ -15959,7 +15938,7 @@ void buildComponentRiskEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"riskOwner", "String", "Risk Owner", false, "Person accountable for managing this risk", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"reviewFrequency", "String", "Review Frequency", false, "How often this risk is reassessed", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRisks", "String", "Related Risks", false, "Other risk IDs that correlate or cascade", 2, std::vector<std::string>{}, std::vector<std::string>{"CMRS.riskId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRisks", "String", "Related Risks", false, "Other component risks that correlate or cascade — risk section ids (CMRS-RISK-…), comma-separated", 2, std::vector<std::string>{}, std::vector<std::string>{"CMRS.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"acceptanceCriteria", "String", "Risk Acceptance Criteria", false, "Under what conditions is this risk formally accepted", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 31000:2018 — the risk management guidelines define principles and a process for identifying, assessing, and treating risk\"],\"connotation\":\"Captures governance and ownership assignments for a component risk, including the risk owner, review frequency, and acceptance criteria.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -15977,7 +15956,7 @@ void buildComponentSlotEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"slotId", "String", "Slot ID", true, "Unique slot identifier", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"slotId", "String", "Slot ID", true, "The symbol the built component carries for this slot, e.g. leading", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"slotDescription", "String", "Slot Description", false, "Purpose of this slot", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"slotRequired", "bool", "Slot Required", false, "Whether content is mandatory", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"acceptedWidgets", "String", "Accepted Widgets", false, "Widget types allowed in slot", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -15999,7 +15978,7 @@ void buildComponentStateEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"stateId", "String", "State ID", true, "Unique state identifier", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stateId", "String", "State ID", true, "The symbol the built component carries for this state, e.g. disabled", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"stateDescription", "String", "State Description", false, "What this state represents", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
@@ -16225,7 +16204,7 @@ void buildComponentVariantEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"variantId", "String", "Variant ID", true, "Unique variant identifier", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"variantId", "String", "Variant ID", true, "The symbol the built component carries for this variant, e.g. primary", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"variantDescription", "String", "Variant Description", false, "What distinguishes this variant", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"visualDifferences", "String", "Visual Differences", false, "How variant looks different", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -16479,10 +16458,9 @@ void buildComputingEquipmentEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"equipmentId", "String", "Equipment ID", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"deviceType", "String", "Device Type — desktop, laptop, workstation, thin client", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"brand", "String", "Brand — manufacturer preference", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"modelSpecification", "String", "Model/Specification — exact model", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deviceType", "String", "Device Type — desktop, laptop, workstation, thin client", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"brand", "String", "Brand — manufacturer preference", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"modelSpecification", "String", "Model/Specification — exact model", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -16914,11 +16892,10 @@ void buildConstraintRegisterEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"constraintId", "String", "Constraint ID (CON-NNN)", true, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", true, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"type", "String", "Type (Technical, Regulatory, Budget, Schedule)", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"source", "String", "Source", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "String", "Impact on the solution", false, "", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", true, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"type", "String", "Type (Technical, Regulatory, Budget, Schedule)", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"source", "String", "Source", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "String", "Impact on the solution", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -17192,8 +17169,7 @@ void buildContingencyPlanEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"contingencyId", "String", "Contingency Plan ID", false, "Unique identifier, e.g. CP-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerCondition", "String", "Trigger Condition", false, "Specific event or threshold that activates this plan", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerCondition", "String", "Trigger Condition", false, "Specific event or threshold that activates this plan", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -17207,8 +17183,8 @@ void buildContingencyPlanEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).serializationOrder = 1;
     (*n).docComment = "Reference links to risk and component.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskRef", "String", "Associated Risk", false, "Risk ID this plan addresses", 0, std::vector<std::string>{}, std::vector<std::string>{"CMRS.riskId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"componentRef", "String", "Component", false, "Component ID this plan covers", 1, std::vector<std::string>{}, std::vector<std::string>{"CMPNT.componentId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskRef", "String", "Associated Risk", false, "The component risk this plan addresses — a risk section id (CMRS-RISK-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"CMRS.@sectionId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"componentRef", "String", "Component", false, "The component this plan covers — a component section id (CMPNT-COMP-…)", 1, std::vector<std::string>{}, std::vector<std::string>{"CMPNT.@sectionId"}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 16085:2021 — the risk management process for systems and software engineering defines risk treatment, contingency, and monitoring activities\"],\"connotation\":\"Holds the reference links tying a contingency plan to its associated risk and component.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -18409,7 +18385,7 @@ void buildCurrentWorkflowEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"workflowId", "String", "Workflow ID (internal identifier)", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"workflowId", "String", "Workflow ID (internal identifier)", false, "The code the organisation already uses for this workflow — a process catalogue or BPM identifier, if one exists. Owned outside this document", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"workflowType", "String", "Type (e.g., Operational, Approval, Exception)", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"frequency", "String", "Execution Frequency", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"averageVolume", "String", "Average Volume per period", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -21990,9 +21966,8 @@ void buildDashboardEntryChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dashboardId", "String", "Dashboard ID", true, "Unique dashboard identifier", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dashboardCategory", "String", "Dashboard Category", false, "Executive, operational, service, infrastructure", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetAudience", "String", "Target Audience", false, "Who uses this dashboard", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dashboardCategory", "String", "Dashboard Category", false, "Executive, operational, service, infrastructure", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetAudience", "String", "Target Audience", false, "Who uses this dashboard", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -22894,9 +22869,8 @@ void buildDataDuplicationEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"duplicationId", "String", "Duplication ID", true, "Unique identifier", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Description of the duplication scenario", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataElement", "String", "Data Element", false, "What data is duplicated", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Description of the duplication scenario", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataElement", "String", "Data Element", false, "What data is duplicated", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -23357,9 +23331,8 @@ void buildDataGovernancePolicyEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"policyId", "String", "Policy ID", false, "Unique identifier", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"policyArea", "String", "Policy Area", false, "DataQuality / DataSecurity / DataPrivacy / DataAccess / MDM", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Brief description of the policy", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"policyArea", "String", "Policy Area", false, "DataQuality / DataSecurity / DataPrivacy / DataAccess / MDM", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Brief description of the policy", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -23497,8 +23470,7 @@ void buildDataIntegrationEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"integrationId", "String", "Integration ID", true, "Unique identifier", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What data is exchanged and why", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What data is exchanged and why", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -24879,12 +24851,11 @@ void buildDataQualityInitiativeEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"initiativeId", "String", "Initiative ID", false, "Unique identifier", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What the initiative aims to achieve", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetIssues", "String", "Target Issues", false, "Quality issues this initiative addresses", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status", false, "Planned / InProgress / Completed / OnHold", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"expectedCompletion", "String", "Expected Completion", false, "Target completion date", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"expectedImprovement", "String", "Expected Improvement", false, "Quantified improvement target", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What the initiative aims to achieve", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetIssues", "String", "Target Issues", false, "Quality issues this initiative addresses", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status", false, "Planned / InProgress / Completed / OnHold", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"expectedCompletion", "String", "Expected Completion", false, "Target completion date", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"expectedImprovement", "String", "Expected Improvement", false, "Quantified improvement target", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -24900,9 +24871,8 @@ void buildDataQualityIssueEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"issueId", "String", "Issue ID", true, "Unique identifier, e.g. DQ-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Detailed Description", false, "Full description of the issue and its manifestation", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"affectedDataSource", "String", "Affected Data Source", false, "Which data source(s) are impacted", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Detailed Description", false, "Full description of the issue and its manifestation", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"affectedDataSource", "String", "Affected Data Source", false, "Which data source(s) are impacted", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -25126,9 +25096,8 @@ void buildDataSourceEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataSourceId", "String", "Data Source ID", true, "Unique identifier, e.g. DS-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataStoreName", "String", "Data Store Name", true, "Name of the data store or source", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"criticality", "String", "Business Criticality", false, "Critical / High / Medium / Low", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataStoreName", "String", "Data Store Name", true, "Name of the data store or source", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"criticality", "String", "Business Criticality", false, "Critical / High / Medium / Low", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -25940,9 +25909,8 @@ void buildDecisionOptionEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"optionId", "String", "Option ID", true, "Unique within the decision — e.g. A, B, C", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"option", "String", "Option Name", true, "Short name — e.g. Build In-House, Buy Commercial, Open Source + Customize", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Detailed description of what this option entails", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"option", "String", "Option Name", true, "Short name — e.g. Build In-House, Buy Commercial, Open Source + Customize", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Detailed description of what this option entails", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -26029,9 +25997,8 @@ void buildDecisionPointEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"decisionId", "String", "Decision ID", true, "Unique identifier — e.g. DEC-001, DP-G2-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"decisionPoint", "String", "Decision Point", true, "Short name — e.g. Go/No-Go for Production, Technology Stack Selection", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"decisionCategory", "String", "Decision Category", true, "GoNoGo / ScopeChange / ResourceReallocation / TechnologySelection / VendorSelection / ArchitectureChange / RiskResponse", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"decisionPoint", "String", "Decision Point", true, "Short name — e.g. Go/No-Go for Production, Technology Stack Selection", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"decisionCategory", "String", "Decision Category", true, "GoNoGo / ScopeChange / ResourceReallocation / TechnologySelection / VendorSelection / ArchitectureChange / RiskResponse", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -26233,9 +26200,9 @@ void buildDeepLinkPatternEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"patternId", "String", "Pattern ID", true, "Unique identifier, e.g., pattern-order-detail", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"patternId", "String", "Pattern ID", true, "The symbol the built client carries for this deep-link pattern, e.g. pattern-order-detail", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"urlPattern", "String", "URL Pattern", true, "Route pattern, e.g., /orders/:orderId", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetScreenId", "String", "Target Screen ID", false, "Screen to open", 2, std::vector<std::string>{}, std::vector<std::string>{"SCREN.screenId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetScreenId", "String", "Target Screen ID", false, "The screen to open — a screen section id (SCREN-ITEM-…)", 2, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "When/why this link is used", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"fallbackRoute", "String", "Fallback Route", false, "Where to go if target is unavailable", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"shareEnabled", "String", "Share Enabled", false, "Yes/No — can users share this link", 5, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -26447,7 +26414,7 @@ void buildDeliverableDependenciesChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOn", "String", "Depends On", false, "Other deliverable IDs this depends on", 0, std::vector<std::string>{}, std::vector<std::string>{"DLVEN.deliverableId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOn", "String", "Depends On", false, "Other deliverables this depends on — deliverable section ids (DLVEN-ITEM-…), comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"DLVEN.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"prerequisiteForDelivery", "String", "Prerequisites", false, "Conditions that must be met before delivery", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
@@ -26463,8 +26430,7 @@ void buildDeliverableEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"deliverableId", "String", "Deliverable ID", true, "Unique identifier — e.g. DEL-SOF-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority", false, "Critical / High / Medium / Low", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority", false, "Critical / High / Medium / Low", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -26609,7 +26575,7 @@ void buildDeliverableEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).serializationOrder = 8;
     (*n).docComment = "Documentation.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"associatedDocumentation", "String", "Associated Documentation", false, "Related documentation deliverable IDs", 0, std::vector<std::string>{}, std::vector<std::string>{"DLVEN.deliverableId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"associatedDocumentation", "String", "Associated Documentation", false, "Related documentation deliverables — deliverable section ids (DLVEN-ITEM-…), comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"DLVEN.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"releaseNotes", "String", "Release Notes Required", false, "Yes / No — whether release notes accompany delivery", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional context or special instructions", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 15289:2019 — the standard for life-cycle information items defines the documentation and information products\",\"ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines software products, delivery, and transition\"],\"connotation\":\"Captures the documentation associated with a deliverable and its release-note requirements.\"}", nullptr)});
@@ -26628,9 +26594,8 @@ void buildDeliveryAcceptanceCriterionEntryChildren(som::SomMetaNode& parent, std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"criterionId", "String", "Criterion ID", true, "Unique identifier — e.g. AC-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"criterion", "String", "Criterion Statement", true, "Clear, measurable statement of what must be true", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Functional / Performance / Security / Usability / Documentation / Training / Operational / Compliance", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"criterion", "String", "Criterion Statement", true, "Clear, measurable statement of what must be true", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Functional / Performance / Security / Usability / Documentation / Training / Operational / Compliance", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -26680,8 +26645,8 @@ void buildDeliveryAcceptanceCriterionEntryChildren(som::SomMetaNode& parent, std
     (*n).docComment = "Traceability links.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"requirementRef", "String", "Requirement Reference", false, "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"deliverableRef", "String", "Deliverable Reference", false, "Linked deliverable ID — e.g. DEL-SOF-001", 1, std::vector<std::string>{}, std::vector<std::string>{"DLVEN.deliverableId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"testScenarioRef", "String", "Test Scenario Reference", false, "UAT scenario ID that validates this criterion", 2, std::vector<std::string>{}, std::vector<std::string>{"TSSC.scenarioId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deliverableRef", "String", "Deliverable Reference", false, "The linked deliverable — a deliverable section id (DLVEN-ITEM-…)", 1, std::vector<std::string>{}, std::vector<std::string>{"DLVEN.@sectionId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"testScenarioRef", "String", "Test Scenario Reference", false, "The UAT scenario that validates this criterion — a test scenario section id (TSSC-TEST-…)", 2, std::vector<std::string>{}, std::vector<std::string>{"TSSC.@sectionId"}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability between test items, requirements, and acceptance criteria\",\"IEEE 829-2008 — the standard for software and system test documentation defines traceability references in acceptance-test documents\"],\"connotation\":\"Captures the requirement, deliverable, and test-scenario references that trace an acceptance criterion.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -27309,12 +27274,11 @@ void buildDependencyRegisterEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyId", "String", "Dependency ID (DEP-NNN)", true, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", true, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"type", "String", "Type (System, Team, Vendor, Deliverable, Framework)", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOn", "String", "Depends on (the external party / artifact)", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"criticality", "String", "Criticality (Low, Medium, High, Blocking)", false, "", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Open, Confirmed, Resolved, At risk)", false, "", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", true, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"type", "String", "Type (System, Team, Vendor, Deliverable, Framework)", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOn", "String", "Depends on (the external party / artifact)", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"criticality", "String", "Criticality (Low, Medium, High, Blocking)", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Open, Confirmed, Resolved, At risk)", false, "", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -29339,10 +29303,9 @@ void buildDisplayEquipmentEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"displayId", "String", "Display ID", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"displayType", "String", "Display Type — monitor, projector, video wall", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"screenSize", "String", "Screen Size — diagonal inches", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"resolution", "String", "Resolution — HD, FHD, QHD, 4K", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"displayType", "String", "Display Type — monitor, projector, video wall", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"screenSize", "String", "Screen Size — diagonal inches", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"resolution", "String", "Resolution — HD, FHD, QHD, 4K", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -30706,9 +30669,8 @@ void buildDomainBusinessRuleEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleId", "String", "Rule ID", true, "Unique identifier for this business rule", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleType", "String", "Rule Type (Constraint, Calculation, Derivation, Action-Trigger, Authorization, Validation)", true, "Constraint / Calculation / Derivation / Action-Trigger / Authorization / Validation", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description (plain language)", true, "Plain-language statement of what this rule requires", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleType", "String", "Rule Type (Constraint, Calculation, Derivation, Action-Trigger, Authorization, Validation)", true, "Constraint / Calculation / Derivation / Action-Trigger / Authorization / Validation", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description (plain language)", true, "Plain-language statement of what this rule requires", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -31833,7 +31795,7 @@ void buildEntityConstraintEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).form->fields.push_back(som::SomFormFieldMeta{"errorMessage", "String", "Error Message", false, "User-friendly message when constraint violated", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"enforcementLevel", "String", "Enforcement Level", false, "Database | Application | Both", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"isDeferred", "String", "Is Deferred", false, "Whether check can be deferred to transaction end: Yes | No", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"businessRule", "String", "Business Rule Reference", false, "Related business rule ID", 5, std::vector<std::string>{}, std::vector<std::string>{"BIRU.ruleId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"businessRule", "String", "Business Rule Reference", false, "The related business rule — a business rule section id (BIRU-BUSI-…)", 5, std::vector<std::string>{}, std::vector<std::string>{"BIRU.@sectionId"}});
     parent.addChild(std::move(n));
   }
 }
@@ -32188,8 +32150,7 @@ void buildEnvironmentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"environmentId", "String", "Environment ID", false, "Unique code, e.g. ENV-PROD-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"environmentType", "String", "Environment Type", false, "Development / Testing / QA / UAT / Staging / Production / DR", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"environmentType", "String", "Environment Type", false, "Development / Testing / QA / UAT / Staging / Production / DR", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -33413,10 +33374,9 @@ void buildEvaluationCriterionEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"criterionId", "String", "Criterion ID", false, "Unique identifier, e.g. EC-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"criterion", "String", "Criterion Name", true, "Short name, e.g. Vendor Stability", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this criterion evaluates", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Technical / Commercial / Operational / Strategic / Compliance", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"criterion", "String", "Criterion Name", true, "Short name, e.g. Vendor Stability", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this criterion evaluates", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Technical / Commercial / Operational / Strategic / Compliance", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -33577,7 +33537,7 @@ void buildExistingSystemEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"systemId", "String", "System ID/Code (internal identifier)", false, "Internal catalogue code or CMDB identifier, if any.", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"systemId", "String", "System ID/Code (internal identifier)", false, "The catalogue or CMDB code the organisation already uses for this system, if any — owned outside this document", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"systemVersion", "String", "Current Version", false, "Release or version currently in production, e.g. \"ECC 6.0\".", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"systemType", "String", "System Type (ERP, CRM, Custom Development, COTS, SaaS, etc.)", false, "Classify the system: ERP, CRM, Custom Development, COTS, SaaS.", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"vendor", "String", "Vendor (if commercial software)", false, "Software publisher, e.g. \"SAP\", \"Salesforce\" — blank if in-house.", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -34224,7 +34184,7 @@ void buildExportFieldMappingEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"mappingId", "String", "Mapping ID", true, "Unique within export, e.g. FLD-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"mappingId", "String", "Mapping ID", true, "The identifier this mapping carries in the generated export — unique within the export, e.g. FLD-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sourceField", "String", "Source Field", true, "Data model field path, e.g. order.customer.name", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"targetFieldName", "String", "Target Field Name", true, "Column/field name in output file", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -34397,8 +34357,7 @@ void buildExportFormatEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"exportId", "String", "Export ID", true, "Unique identifier, e.g. EXP-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"formatType", "String", "Format Type", false, "CSV / Excel / PDF / JSON / XML / HTML / Fixed-Width", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"formatType", "String", "Format Type", false, "CSV / Excel / PDF / JSON / XML / HTML / Fixed-Width", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -34623,8 +34582,7 @@ void buildExportTemplateEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"templateId", "String", "Template ID", true, "Unique identifier, e.g. TPL-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"baseFormatType", "String", "Base Format Type", false, "CSV / Excel / PDF / JSON / XML / HTML", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"baseFormatType", "String", "Base Format Type", false, "CSV / Excel / PDF / JSON / XML / HTML", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -34728,15 +34686,14 @@ void buildExtensionEntryChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"extensionId", "String", "Extension ID (e.g., 3a)", true, "Cockburn-style id such as 3a", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"branchPoint", "String", "Branch Point — step number", false, "Main-scenario step where this branch occurs", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"condition", "String", "Condition — when this extension triggers", false, "Condition under which the branch is taken", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"extensionType", "String", "Extension Type — alternative, exception, error", false, "Classify: alternative, exception or error", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description — what happens", false, "What happens along this extension path", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"outcome", "String", "Outcome — how it ends", false, "Result reached when the branch completes", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"returnPoint", "String", "Return Point — step to return to, or end", false, "Main-scenario step to resume at, or \"end\"", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"frequency", "String", "Frequency — how often this occurs", false, "How often this branch is expected to occur", 7, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Severity — impact level (for exceptions)", false, "Impact level for exception/error branches", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"branchPoint", "String", "Branch Point — step number", false, "Main-scenario step where this branch occurs", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"condition", "String", "Condition — when this extension triggers", false, "Condition under which the branch is taken", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"extensionType", "String", "Extension Type — alternative, exception, error", false, "Classify: alternative, exception or error", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description — what happens", false, "What happens along this extension path", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"outcome", "String", "Outcome — how it ends", false, "Result reached when the branch completes", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"returnPoint", "String", "Return Point — step to return to, or end", false, "Main-scenario step to resume at, or \"end\"", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"frequency", "String", "Frequency — how often this occurs", false, "How often this branch is expected to occur", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Severity — impact level (for exceptions)", false, "Impact level for exception/error branches", 7, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -35036,13 +34993,12 @@ void buildExternalInterfaceEntryChildren(som::SomMetaNode& parent, std::vector<s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"interfaceId", "String", "Interface ID (e.g., IF-PAY-001)", true, "Unique stable identifier for this interface", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"externalSystem", "String", "External System Name", true, "Name of the external system being integrated", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"externalSystemVendor", "String", "Vendor/Provider", false, "Vendor or provider that owns the external system", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"interfaceCategory", "String", "Category (Payment, Identity, Data, Messaging, etc.)", false, "Functional category of the interface", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"integrationPattern", "String", "Pattern (Request-Reply, Fire-and-Forget, Pub-Sub, Event-Driven)", false, "Primary integration pattern used", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority (Critical, High, Medium, Low)", false, "Relative importance of this interface", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Existing, New, To be replaced)", false, "Lifecycle status of the interface", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"externalSystem", "String", "External System Name", true, "Name of the external system being integrated", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"externalSystemVendor", "String", "Vendor/Provider", false, "Vendor or provider that owns the external system", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"interfaceCategory", "String", "Category (Payment, Identity, Data, Messaging, etc.)", false, "Functional category of the interface", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"integrationPattern", "String", "Pattern (Request-Reply, Fire-and-Forget, Pub-Sub, Event-Driven)", false, "Primary integration pattern used", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority (Critical, High, Medium, Low)", false, "Relative importance of this interface", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Existing, New, To be replaced)", false, "Lifecycle status of the interface", 5, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -35742,7 +35698,7 @@ void buildFamilyComponentRefChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"componentId", "String", "Component ID", true, "Identifier of the referenced component", 0, std::vector<std::string>{}, std::vector<std::string>{"CMPNT.componentId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"componentId", "String", "Component ID", true, "The referenced component — a component section id (CMPNT-COMP-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"CMPNT.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"familyRole", "String", "Family Role", false, "Primary, secondary, specialized", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relationToOthers", "String", "Relation to Others", false, "How it relates to other family members", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -35817,8 +35773,8 @@ void buildFeatureDependencyEntryChildren(som::SomMetaNode& parent, std::vector<s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"sourceFeatureId", "String", "Source Feature ID", true, "Feature that has the dependency (the dependent)", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetFeatureId", "String", "Target Feature ID", true, "Feature that must be delivered first (the prerequisite)", 1, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sourceFeatureId", "String", "Source Feature ID", true, "The feature that has the dependency (the dependent) — a feature section id (FPE-ITEM-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.@sectionId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetFeatureId", "String", "Target Feature ID", true, "The feature that must be delivered first (the prerequisite) — a feature section id (FPE-ITEM-…)", 1, std::vector<std::string>{}, std::vector<std::string>{"FPE.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyType", "String", "Dependency Type", true, "FinishToStart / StartToStart / FinishToFinish / Technical / Data / Interface / Regulatory", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyStrength", "String", "Dependency Strength", false, "Hard / Soft — Hard = strict ordering, Soft = preferred but can be broken with workaround", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"impactIfBroken", "String", "Impact if Broken", false, "Consequence if not satisfied — rework, partial functionality, blocking", 4, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -36143,8 +36099,7 @@ void buildFeaturePriorityEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureId", "String", "Feature ID", true, "Unique identifier — e.g. FEA-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"priorityRank", "String", "Priority Rank", true, "Ordinal rank — 1 = highest", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"priorityRank", "String", "Priority Rank", true, "Ordinal rank — 1 = highest", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -36264,8 +36219,8 @@ void buildFeaturePriorityEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).serializationOrder = 6;
     (*n).docComment = "Dependencies.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnFeatures", "String", "Depends on Features", false, "Feature IDs this requires", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"blocksFeatures", "String", "Blocks Features", false, "Feature IDs blocked until this completes", 1, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnFeatures", "String", "Depends on Features", false, "Features this requires — feature section ids (FPE-ITEM-…), comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.@sectionId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"blocksFeatures", "String", "Blocks Features", false, "Features blocked until this completes — feature section ids (FPE-ITEM-…), comma-separated", 1, std::vector<std::string>{}, std::vector<std::string>{"FPE.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"externalDependencies", "String", "External Dependencies", false, "External systems, APIs, vendors, or approvals", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyCriticalPath", "String", "On Dependency Critical Path", false, "Yes / No", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management\",\"ISO 21502:2020 — the guidance on project management defines scope, dependency, and delivery-sequence management\"],\"connotation\":\"Captures which features a priority entry depends on or blocks, its external dependencies, and critical-path membership.\"}", nullptr)});
@@ -36308,10 +36263,10 @@ void buildFeaturePriorityEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).docComment = "Traceability.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedRequirements", "String", "Linked Requirements", false, "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedUseCases", "String", "Linked Use Cases", false, "Use case IDs", 1, std::vector<std::string>{}, std::vector<std::string>{"INEN.interactionId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedBusinessProcesses", "String", "Linked Business Processes", false, "Business process IDs", 2, std::vector<std::string>{}, std::vector<std::string>{"PRIDN.processId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedUseCases", "String", "Linked Use Cases", false, "Interactions this feature covers — interaction section ids (INEN-INTE-…), comma-separated", 1, std::vector<std::string>{}, std::vector<std::string>{"INEN.@sectionId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedBusinessProcesses", "String", "Linked Business Processes", false, "Business processes this feature serves — process section ids (BPREN-PROC-…), comma-separated", 2, std::vector<std::string>{}, std::vector<std::string>{"BPREN.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedUserStories", "String", "Linked User Stories (external)", false, "Story ids from the delivery backlog — owned by the delivery tooling, not declared in this blueprint", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedArchitectureDecisions", "String", "Linked Architecture Decisions", false, "ADR IDs affected by or affecting this feature", 4, std::vector<std::string>{}, std::vector<std::string>{"ARDE.decisionId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedArchitectureDecisions", "String", "Linked Architecture Decisions", false, "Architecture decisions affected by or affecting this feature — decision record section ids (ARDE-DECI-…), comma-separated", 4, std::vector<std::string>{}, std::vector<std::string>{"ARDE.@sectionId"}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition\",\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and dependency management\"],\"connotation\":\"Links a feature priority entry back to its requirements, use cases, business processes, user stories, and architecture decisions.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -36391,7 +36346,7 @@ void buildFeatureStageMappingChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureId", "String", "Feature ID", true, "The feature this entry stages — an id declared by the Feature Priority Register (§13.4.1), e.g. FEA-001", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureId", "String", "Feature ID", true, "The feature this entry stages — a feature section id declared by the Feature Priority Register (FPE-ITEM-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.@sectionId"}});
     parent.addChild(std::move(n));
   }
   {
@@ -36439,7 +36394,7 @@ void buildFeatureStageMappingChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).serializationOrder = 3;
     (*n).docComment = "Dependencies.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"prerequisiteFeatures", "String", "Prerequisite Features", false, "Feature IDs that must complete first — comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"prerequisiteFeatures", "String", "Prerequisite Features", false, "Features that must complete first — feature section ids (FPE-ITEM-…), comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"blockedByExternalDependency", "String", "Blocked by External Dependency", false, "External systems, vendors, or approvals — None, or description", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"crossStageDependency", "String", "Cross-Stage Dependency", false, "Does this feature depend on something from a prior stage — Yes/No, plus which stage", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance covers scope prioritization and delivery sequencing\",\"ISO 21502:2020 — the guidance on project management defines scope, delivery-sequence, and stage management\"],\"connotation\":\"Captures the prerequisite, external, and cross-stage dependencies that constrain when a feature can be delivered.\"}", nullptr)});
@@ -36554,14 +36509,13 @@ void buildFeatureTourEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"tourId", "String", "Tour ID", true, "Unique identifier for this tour", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"tourDescription", "String", "Tour Description", false, "Short summary of what the tour covers", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetAudience", "String", "Target Audience", false, "New users, specific role, all", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerCondition", "String", "Trigger Condition", false, "When tour is shown", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"stepCount", "int", "Step Count", false, "Number of steps in the tour", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"estimatedDuration", "String", "Estimated Duration", false, "Expected time to complete the tour", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"skippable", "bool", "Skippable", false, "Whether users can skip the tour", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"repeatPolicy", "String", "Repeat Policy", false, "Once only, on request, periodic", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tourDescription", "String", "Tour Description", false, "Short summary of what the tour covers", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetAudience", "String", "Target Audience", false, "New users, specific role, all", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerCondition", "String", "Trigger Condition", false, "When tour is shown", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stepCount", "int", "Step Count", false, "Number of steps in the tour", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"estimatedDuration", "String", "Estimated Duration", false, "Expected time to complete the tour", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"skippable", "bool", "Skippable", false, "Whether users can skip the tour", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"repeatPolicy", "String", "Repeat Policy", false, "Once only, on request, periodic", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -36602,7 +36556,7 @@ void buildFieldHelpEntryChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"fieldId", "String", "Field ID", true, "Unique identifier of the field", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fieldId", "String", "Field ID", true, "The input field this help is attached to — the symbol the built screen carries for the field, e.g. fld-customer-name", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"tooltipText", "String", "Tooltip Text", false, "Brief tooltip content", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"inlineHelpText", "String", "Inline Help Text", false, "Longer inline help", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"extendedHelp", "String", "Extended Help", false, "Full help panel content", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -37107,7 +37061,7 @@ void buildFormScreenAssignmentEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"formId", "String", "Form ID", true, "ID of the form shown on this route", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"formId", "String", "Form ID", true, "The form shown on this route — the symbol the built client carries for the form, e.g. form-order-edit", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"routeId", "String", "Route ID", true, "Route ID (SCRTEN registry) that hosts the form", 1, std::vector<std::string>{}, std::vector<std::string>{"SCRTEN.routeId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"presentationMode", "ScreenPresentationMode", "Presentation Mode", true, "replace — the form takes over the screen; popupOverlay — the form is shown over the calling screen, which stays underneath", 2, std::vector<std::string>{"replace", "popupOverlay"}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -37322,9 +37276,8 @@ void buildFunctionEntryChildren(som::SomMetaNode& parent, std::vector<std::strin
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"functionId", "String", "Function ID", false, "Unique function identifier", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this function accomplishes", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"parentFunction", "String", "Parent Function", false, "Parent function in hierarchy", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this function accomplishes", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"parentFunction", "String", "Parent Function", false, "Parent function in hierarchy", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -38269,14 +38222,13 @@ void buildGoalDependencyEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyId", "String", "Dependency ID", true, "Unique identifier for this dependency", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyType", "String", "Dependency Type (Internal Goal, External Project, Resource, Regulatory, Technical, Organizational)", true, "e.g., Internal Goal, External Project, Resource, Regulatory", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Details of the dependency", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"owner", "String", "Owner (who controls this dependency)", false, "Person or party who controls this dependency", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"expectedResolutionDate", "String", "Expected Resolution Date", false, "When the dependency is expected to be resolved", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "String", "Impact (how this affects our goal)", false, "How this dependency affects the goal", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"mitigationStrategy", "String", "Mitigation Strategy (what if dependency is not resolved)", false, "Plan if the dependency is not resolved", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Open, In Progress, Resolved, Blocked)", false, "Open, In Progress, Resolved, or Blocked", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyType", "String", "Dependency Type (Internal Goal, External Project, Resource, Regulatory, Technical, Organizational)", true, "e.g., Internal Goal, External Project, Resource, Regulatory", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Details of the dependency", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"owner", "String", "Owner (who controls this dependency)", false, "Person or party who controls this dependency", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"expectedResolutionDate", "String", "Expected Resolution Date", false, "When the dependency is expected to be resolved", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "String", "Impact (how this affects our goal)", false, "How this dependency affects the goal", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"mitigationStrategy", "String", "Mitigation Strategy (what if dependency is not resolved)", false, "Plan if the dependency is not resolved", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Open, In Progress, Resolved, Blocked)", false, "Open, In Progress, Resolved, or Blocked", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -38344,14 +38296,13 @@ void buildGoalMilestoneEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"milestoneId", "String", "Milestone ID", true, "Unique identifier for this milestone", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this milestone represents", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetDate", "String", "Target Date", true, "Planned date for reaching the milestone", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"completionCriteria", "String", "Completion Criteria", false, "How completion of the milestone is determined", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"deliverables", "String", "Deliverables (outputs of this milestone)", false, "Outputs produced at this milestone", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencies", "String", "Dependencies (what must be done first)", false, "What must be completed before this milestone", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Planned, In Progress, Completed, Delayed)", false, "Planned, In Progress, Completed, or Delayed", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"actualDate", "String", "Actual Completion Date", false, "Date the milestone was actually completed", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this milestone represents", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetDate", "String", "Target Date", true, "Planned date for reaching the milestone", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"completionCriteria", "String", "Completion Criteria", false, "How completion of the milestone is determined", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deliverables", "String", "Deliverables (outputs of this milestone)", false, "Outputs produced at this milestone", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencies", "String", "Dependencies (what must be done first)", false, "What must be completed before this milestone", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Planned, In Progress, Completed, Delayed)", false, "Planned, In Progress, Completed, or Delayed", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"actualDate", "String", "Actual Completion Date", false, "Date the milestone was actually completed", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -38464,9 +38415,8 @@ void buildGoalRiskEntryChildren(som::SomMetaNode& parent, std::vector<std::strin
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskId", "String", "Risk ID", true, "Unique identifier for this risk", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What the risk is and how it could materialize", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskCategory", "String", "Risk Category (Market, Operational, Technical, Resource, Regulatory, External)", false, "e.g., Market, Operational, Technical, Resource, Regulatory", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What the risk is and how it could materialize", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskCategory", "String", "Risk Category (Market, Operational, Technical, Resource, Regulatory, External)", false, "e.g., Market, Operational, Technical, Resource, Regulatory", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -38814,13 +38764,12 @@ void buildHandlingRequirementEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requirementId", "String", "Requirement ID", false, "Unique identifier for this requirement", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requirementType", "String", "Requirement Type", false, "Processing | Storage | Transmission | Display | Disposal", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requirement", "String", "Requirement", true, "The specific handling requirement", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"rationale", "String", "Rationale", false, "Why this requirement exists", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"enforcementMechanism", "String", "Enforcement Mechanism", false, "How this is enforced: Technical | Procedural | Both", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"validationMethod", "String", "Validation Method", false, "How compliance is verified", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"exceptionProcess", "String", "Exception Process", false, "How exceptions are handled", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"requirementType", "String", "Requirement Type", false, "Processing | Storage | Transmission | Display | Disposal", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"requirement", "String", "Requirement", true, "The specific handling requirement", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rationale", "String", "Rationale", false, "Why this requirement exists", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"enforcementMechanism", "String", "Enforcement Mechanism", false, "How this is enforced: Technical | Procedural | Both", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"validationMethod", "String", "Validation Method", false, "How compliance is verified", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"exceptionProcess", "String", "Exception Process", false, "How exceptions are handled", 5, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -40875,8 +40824,7 @@ void buildInitialTrainingEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"trainingId", "String", "Training ID", true, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -40978,14 +40926,13 @@ void buildInputDeviceEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"deviceId", "String", "Device ID", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"deviceType", "String", "Device Type — keyboard, mouse, trackpad, stylus, touchscreen", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"ergonomicDesign", "String", "Ergonomic Design — split keyboard, vertical mouse", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"connectivity", "String", "Connectivity — wired, wireless, Bluetooth", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"specialFeatures", "String", "Special Features — programmable keys, precision", false, "", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"accessibilityFeatures", "String", "Accessibility Features — large keys, one-handed", false, "", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"quantityPerUser", "int", "Quantity Per User", false, "", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"justification", "String", "Justification", false, "", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deviceType", "String", "Device Type — keyboard, mouse, trackpad, stylus, touchscreen", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ergonomicDesign", "String", "Ergonomic Design — split keyboard, vertical mouse", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"connectivity", "String", "Connectivity — wired, wireless, Bluetooth", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"specialFeatures", "String", "Special Features — programmable keys, precision", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"accessibilityFeatures", "String", "Accessibility Features — large keys, one-handed", false, "", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"quantityPerUser", "int", "Quantity Per User", false, "", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"justification", "String", "Justification", false, "", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -41189,8 +41136,7 @@ void buildIntegrationConstraintEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"constraintId", "String", "Constraint ID", true, "Unique identifier, e.g. INT-CON-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"constraintDescription", "String", "Description", false, "Detailed description of the integration constraint", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"constraintDescription", "String", "Description", false, "Detailed description of the integration constraint", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -41586,8 +41532,7 @@ void buildInteractionChannelEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"channelId", "String", "Channel ID", false, "Unique identifier for the channel", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"channelType", "String", "Channel Type", true, "Web, Mobile Native, Mobile Hybrid, Desktop, API, CLI, Voice, Kiosk, Embedded, IoT", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"channelType", "String", "Channel Type", true, "Web, Mobile Native, Mobile Hybrid, Desktop, API, CLI, Voice, Kiosk, Embedded, IoT", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -41602,7 +41547,7 @@ void buildInteractionChannelEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).docComment = "Platform and targeting.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"platform", "String", "Platform/Technology", false, "e.g., Flutter Web, Flutter iOS/Android, REST API", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetUserCategories", "String", "Target User Categories", false, "List of user category IDs this channel serves", 1, std::vector<std::string>{}, std::vector<std::string>{"UCE.categoryId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetUserCategories", "String", "Target User Categories", false, "The user categories this channel serves — user category section ids (UCE-USER-…), comma-separated", 1, std::vector<std::string>{}, std::vector<std::string>{"UCE.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Purpose and scope of this channel", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"channelPriority", "String", "Channel Priority", false, "Primary, Secondary, Tertiary", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-210 — interaction design\",\"ISO/IEC 25010 — usability/operability\"],\"connotation\":\"The platform/technology and target-user details for an access channel.\"}", nullptr)});
@@ -41741,15 +41686,14 @@ void buildInteractionEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).serializationOrder = 0;
     (*n).docComment = "Interaction identification (use case header).";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"interactionId", "String", "Interaction ID (e.g., INT-001)", true, "Stable code such as INT-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"useCaseName", "String", "Use Case Name — active verb goal phrase", true, "Active-verb goal, e.g. \"Place order\"", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"processReference", "String", "Process Reference — TOM-xxx", false, "The TOM-xxx process this use case realizes", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"briefDescription", "String", "Brief Description — one sentence", false, "One-sentence summary of the goal", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"fullDescription", "String", "Full Description — complete explanation", false, "Fuller narrative of what the interaction achieves", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryActor", "String", "Primary Actor — who initiates", false, "The actor with the goal who starts the interaction", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"supportingActors", "String", "Supporting Actors — who else participates", false, "Other actors or systems that contribute", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"goalLevel", "String", "Goal Level — summary (+), user goal (!), subfunction (-)", false, "Cockburn level: + summary, ! user goal, - subfunction", 7, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"designScope", "String", "Design Scope — organization, system, subsystem, component", false, "Boundary in view: organization, system, subsystem, component", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"useCaseName", "String", "Use Case Name — active verb goal phrase", true, "Active-verb goal, e.g. \"Place order\"", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"processReference", "String", "Process Reference — TOM-xxx", false, "The TOM-xxx process this use case realizes", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"briefDescription", "String", "Brief Description — one sentence", false, "One-sentence summary of the goal", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fullDescription", "String", "Full Description — complete explanation", false, "Fuller narrative of what the interaction achieves", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryActor", "String", "Primary Actor — who initiates", false, "The actor with the goal who starts the interaction", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"supportingActors", "String", "Supporting Actors — who else participates", false, "Other actors or systems that contribute", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"goalLevel", "String", "Goal Level — summary (+), user goal (!), subfunction (-)", false, "Cockburn level: + summary, ! user goal, - subfunction", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"designScope", "String", "Design Scope — organization, system, subsystem, component", false, "Boundary in view: organization, system, subsystem, component", 7, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Cockburn — Writing Effective Use Cases: use-case identity & scope\",\"UML 2.5.1 (ISO/IEC 19505) — use cases\"],\"connotation\":\"Identifies a use case by id, name, actors, goal level and design scope — its header attributes.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -42025,8 +41969,7 @@ void buildInteractionPatternEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"patternId", "String", "Pattern ID", false, "Unique identifier", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"patternType", "String", "Pattern Type", true, "Synchronous, Asynchronous, Batch, Scheduled, Event-driven, Workflow, Polling, Streaming", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"patternType", "String", "Pattern Type", true, "Synchronous, Asynchronous, Batch, Scheduled, Event-driven, Workflow, Polling, Streaming", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -42212,7 +42155,7 @@ void buildInterfaceBusinessProcessEntryChildren(som::SomMetaNode& parent, std::v
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"processId", "String", "Process ID", false, "Identifier of the business process", 0, std::vector<std::string>{}, std::vector<std::string>{"PRIDN.processId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"processId", "String", "Process ID", false, "The business process that depends on this interface — a process section id (BPREN-PROC-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"BPREN.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyType", "String", "Dependency (Critical Path, Supporting)", false, "Nature of the dependency on the interface", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"fallbackBehavior", "String", "Fallback if Interface Unavailable", false, "Process behavior when the interface is down", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -42484,7 +42427,7 @@ void buildInterfaceOperationEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"operationId", "String", "Operation ID", true, "Unique identifier for the operation", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"operationId", "String", "Operation ID", true, "The name the built interface exposes for this operation, e.g. createOrder", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"httpMethod", "String", "HTTP Method (GET, POST, PUT, DELETE, etc.)", false, "HTTP verb used by the operation", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"path", "String", "Path/Endpoint", false, "Resource path or endpoint for the operation", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"purpose", "String", "Purpose", false, "What the operation does", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -42863,12 +42806,11 @@ void buildInterfaceTestScenarioEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"scenarioId", "String", "Scenario ID", true, "Unique identifier for the scenario", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"scenarioType", "String", "Type (Happy Path, Error, Edge Case)", false, "Category of the test scenario", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"preconditions", "String", "Preconditions", false, "State required before running the scenario", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"testSteps", "String", "Test Steps", false, "Steps to execute the scenario", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"expectedResult", "String", "Expected Result", false, "Result expected on success", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"automated", "bool", "Automated", false, "Whether the scenario is automated", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"scenarioType", "String", "Type (Happy Path, Error, Edge Case)", false, "Category of the test scenario", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"preconditions", "String", "Preconditions", false, "State required before running the scenario", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"testSteps", "String", "Test Steps", false, "Steps to execute the scenario", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"expectedResult", "String", "Expected Result", false, "Result expected on success", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"automated", "bool", "Automated", false, "Whether the scenario is automated", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -43687,7 +43629,7 @@ void buildItStandardComplianceEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"standardBody", "String", "Standard Body", true, "ISO, IEEE, NIST, OASIS, W3C", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"standardId", "String", "Standard ID", false, "Official standard identifier", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"standardId", "String", "Standard ID", false, "The identifier the issuing body gives this standard, e.g. ISO/IEC 27001 — owned outside this document", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"version", "String", "Version", false, "Standard version", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
@@ -44336,16 +44278,15 @@ void buildKeyResultEntryChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"keyResultId", "String", "Key Result ID", true, "Unique identifier for this key result", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"keyResult", "String", "Key Result (measurable outcome)", true, "The measurable outcome that signals progress", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"metric", "String", "Metric (what is measured)", false, "What quantity is measured", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"baselineValue", "String", "Baseline Value (starting point)", false, "Starting value before work begins", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetValue", "String", "Target Value (desired endpoint)", true, "Desired endpoint value", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"currentValue", "String", "Current Value (latest measurement)", false, "Latest measured value", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"progress", "String", "Progress (percentage toward target)", false, "Percentage of progress toward the target", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"owner", "String", "Owner (responsible person)", false, "Person responsible for this key result", 7, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dueDate", "String", "Due Date", false, "Date the key result is due", 8, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Not Started, In Progress, Achieved, Missed)", false, "Not Started, In Progress, Achieved, or Missed", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"keyResult", "String", "Key Result (measurable outcome)", true, "The measurable outcome that signals progress", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"metric", "String", "Metric (what is measured)", false, "What quantity is measured", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"baselineValue", "String", "Baseline Value (starting point)", false, "Starting value before work begins", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetValue", "String", "Target Value (desired endpoint)", true, "Desired endpoint value", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"currentValue", "String", "Current Value (latest measurement)", false, "Latest measured value", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"progress", "String", "Progress (percentage toward target)", false, "Percentage of progress toward the target", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"owner", "String", "Owner (responsible person)", false, "Person responsible for this key result", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dueDate", "String", "Due Date", false, "Date the key result is due", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Not Started, In Progress, Achieved, Missed)", false, "Not Started, In Progress, Achieved, or Missed", 8, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -45144,9 +45085,8 @@ void buildLifecycleTransitionEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"transitionId", "String", "Transition ID", false, "Unique identifier for this transition", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"fromState", "String", "From State", true, "Source state", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"toState", "String", "To State", true, "Target state", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fromState", "String", "From State", true, "Source state", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"toState", "String", "To State", true, "Target state", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -46317,9 +46257,8 @@ void buildMaintenanceDependencyEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyId", "String", "Dependency ID", false, "Unique identifier, e.g. DEP-M-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"version", "String", "Current Version", false, "Version currently in use", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"versionConstraint", "String", "Version Constraint", false, "Acceptable version range, e.g. >=3.2 <4.0", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"version", "String", "Current Version", false, "Version currently in use", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"versionConstraint", "String", "Version Constraint", false, "Acceptable version range, e.g. >=3.2 <4.0", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -48059,8 +47998,7 @@ void buildMigrationRiskEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskId", "String", "Risk ID", true, "Unique identifier (e.g., MIG-RISK-001)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskOwner", "String", "Risk Owner", true, "Accountable for risk management", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskOwner", "String", "Risk Owner", true, "Accountable for risk management", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -48252,7 +48190,7 @@ void buildMigrationRiskEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).serializationOrder = 9;
     (*n).docComment = "Related items.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRisks", "String", "Related Risks", false, "Risk IDs that are correlated", 0, std::vector<std::string>{}, std::vector<std::string>{"MGRSK.riskId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRisks", "String", "Related Risks", false, "Correlated migration risks — risk section ids (MGRSK-ITEM-… / SYMIRI-RISK-…), comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"MGRSK.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedIssues", "String", "Related Issues (external)", false, "Issue ids from the project issue tracker — owned by the tracker, not declared in this blueprint", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements", false, "Requirements impacted by risk", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDecisions", "String", "Related Decisions", false, "Decisions affecting this risk", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -48719,10 +48657,9 @@ void buildMobileDeviceEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"deviceId", "String", "Device ID", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"deviceType", "String", "Device Type — smartphone, tablet, rugged device", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"operatingSystem", "String", "Operating System — iOS, Android", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"screenSize", "String", "Screen Size", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deviceType", "String", "Device Type — smartphone, tablet, rugged device", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"operatingSystem", "String", "Operating System — iOS, Android", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"screenSize", "String", "Screen Size", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -49585,7 +49522,7 @@ void buildMoscowEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureId", "String", "Feature ID", true, "The feature this entry classifies — an id declared by the Feature Priority Register (§13.4.1), e.g. FEA-001", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureId", "String", "Feature ID", true, "The feature this entry classifies — a feature section id declared by the Feature Priority Register (FPE-ITEM-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.@sectionId"}});
     parent.addChild(std::move(n));
   }
   {
@@ -49650,8 +49587,8 @@ void buildMoscowEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).docComment = "Traceability and notes.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedRequirements", "String", "Linked Requirements", false, "Requirement ids this feature traces to, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedUseCases", "String", "Linked Use Cases", false, "Use case IDs this feature implements", 1, std::vector<std::string>{}, std::vector<std::string>{"INEN.interactionId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnFeatures", "String", "Depends on Features", false, "Feature IDs that must be delivered before this one", 2, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"linkedUseCases", "String", "Linked Use Cases", false, "Interactions this feature implements — interaction section ids (INEN-INTE-…), comma-separated", 1, std::vector<std::string>{}, std::vector<std::string>{"INEN.@sectionId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnFeatures", "String", "Depends on Features", false, "Features that must be delivered before this one — feature section ids (FPE-ITEM-…), comma-separated", 2, std::vector<std::string>{}, std::vector<std::string>{"FPE.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional notes or caveats", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"DSDM Agile Project Framework 2014 — the dynamic systems development method defines the MoSCoW prioritization technique\",\"ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard covers requirements and feature definition\"],\"connotation\":\"Captures the requirement, use-case, and feature-dependency traceability links for a MoSCoW-classified feature.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -49840,8 +49777,7 @@ void buildMustPassCriterionEntryChildren(som::SomMetaNode& parent, std::vector<s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"criterionId", "String", "Criterion ID", false, "Unique identifier (e.g., MP-001)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"verificationMethod", "String", "Verification Method", true, "Test, demonstration, analysis, inspection", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"verificationMethod", "String", "Verification Method", true, "Test, demonstration, analysis, inspection", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -50056,7 +49992,7 @@ void buildNavigationGroupEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"groupId", "String", "Group ID", true, "Unique identifier, e.g., nav-grp-sales", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"groupId", "String", "Group ID", true, "The symbol the built navigation carries for this group, e.g. nav-grp-sales", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"groupLabel", "String", "Label Resource", true, "Message key (MSGKR registry) for display label", 1, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"groupIcon", "String", "Icon Resource", false, "Resource key for group icon", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"groupDescription", "String", "Description Resource", false, "Message key (MSGKR registry) for tooltip/subtitle", 3, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
@@ -50153,7 +50089,7 @@ void buildNavigationGuardEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"guardId", "String", "Guard ID", true, "Unique identifier, e.g., guard-unsaved-changes", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"guardId", "String", "Guard ID", true, "The symbol the built navigation carries for this guard, e.g. guard-unsaved-changes", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"guardType", "String", "Guard Type", false, "Unsaved-Changes/Authentication/Permission/Feature-Flag/Onboarding/Maintenance", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerCondition", "String", "Trigger Condition", false, "When this guard activates, e.g., form.isDirty", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -50169,7 +50105,7 @@ void buildNavigationGuardEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).serializationOrder = 1;
     (*n).docComment = "Covered routes and dialog resources.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"appliesTo", "String", "Applies To", false, "Route patterns or screen IDs this guard covers", 0, std::vector<std::string>{}, std::vector<std::string>{"SCRTEN.routeId", "SCREN.screenId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"appliesTo", "String", "Applies To", false, "The routes or screens this guard covers — route ids from the Screen Route Map, or screen section ids (SCREN-ITEM-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"SCRTEN.routeId", "SCREN.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dialogTitleResource", "String", "Dialog Title Resource", false, "Message key (MSGKR registry) for confirmation dialog title", 1, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dialogMessageResource", "String", "Dialog Message Resource", false, "Message key (MSGKR registry) for confirmation dialog message", 2, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"confirmActionResource", "String", "Confirm Action Resource", false, "Message key (MSGKR registry) for confirm button, e.g., Discard", 3, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
@@ -50309,7 +50245,7 @@ void buildNavigationItemEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"itemId", "String", "Item ID", true, "Unique identifier, e.g., nav-customers", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"itemId", "String", "Item ID", true, "The symbol the built navigation carries for this item, e.g. nav-customers", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"label", "String", "Label Resource", true, "Message key (MSGKR registry) for display label", 1, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"targetRoute", "String", "Target Route", false, "Route path, e.g., /customers", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -50343,7 +50279,7 @@ void buildNavigationItemEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).serializationOrder = 2;
     (*n).docComment = "Routing configuration.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetScreenId", "String", "Target Screen ID", false, "Reference to Screen Inventory SCR-xxx", 0, std::vector<std::string>{}, std::vector<std::string>{"SCREN.screenId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetScreenId", "String", "Target Screen ID", false, "The screen this item opens — a screen section id (SCREN-ITEM-…) from the Screen Inventory", 0, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"targetRouteParams", "String", "Route Parameters", false, "Default params, e.g., {status: active}", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"displayOrder", "int", "Display Order", false, "Position within parent group", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"isDefault", "String", "Is Default", false, "Yes/No — default selected item in group", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -50575,8 +50511,8 @@ void buildNavigationOverviewChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"navigationStrategy", "String", "Navigation Strategy", false, "URL-based/State-based/Hybrid", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"maxNavigationDepth", "int", "Max Navigation Depth", false, "Maximum levels of nesting the user encounters", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultLandingScreen", "String", "Default Landing Screen", false, "Screen ID the user sees after login", 2, std::vector<std::string>{}, std::vector<std::string>{"SCREN.screenId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"unauthenticatedLanding", "String", "Unauthenticated Landing", false, "Screen ID for unauthenticated users", 3, std::vector<std::string>{}, std::vector<std::string>{"SCREN.screenId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultLandingScreen", "String", "Default Landing Screen", false, "The screen the user sees after login — a screen section id (SCREN-ITEM-…)", 2, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"unauthenticatedLanding", "String", "Unauthenticated Landing", false, "The screen unauthenticated users see — a screen section id (SCREN-ITEM-…)", 3, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"navigationPersistence", "String", "Navigation Persistence", false, "Whether navigation state survives app restart: Yes/No/Partial", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"historyManagement", "String", "History Management", false, "Browser-like-stack/Flat/Tab-specific-stacks", 5, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"backBehavior", "String", "Back Button Behavior", false, "System-back/In-app-back/Both", 6, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -51322,13 +51258,12 @@ void buildNewRoleEntryChildren(som::SomMetaNode& parent, std::vector<std::string
     (*n).serializationOrder = 0;
     (*n).docComment = "Role identification and overview.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"roleId", "String", "Role ID (e.g., NR-001)", true, "Unique identifier for this new role", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"roleFamily", "String", "Job Family", false, "Broader job family or category this role belongs to", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"jobLevel", "String", "Job Level/Grade", false, "Seniority level or pay grade", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"rolePurpose", "String", "Role Purpose — why this role exists", false, "Core mission the role fulfils", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"roleJustification", "String", "Role Justification — business case for new role", false, "Why creating this role is needed now", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"effectiveDate", "String", "Effective Date", false, "When the role becomes active", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"roleStatus", "String", "Role Status — draft, approved, posted, filled", false, "Current lifecycle stage of the role", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"roleFamily", "String", "Job Family", false, "Broader job family or category this role belongs to", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"jobLevel", "String", "Job Level/Grade", false, "Seniority level or pay grade", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rolePurpose", "String", "Role Purpose — why this role exists", false, "Core mission the role fulfils", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"roleJustification", "String", "Role Justification — business case for new role", false, "Why creating this role is needed now", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"effectiveDate", "String", "Effective Date", false, "When the role becomes active", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"roleStatus", "String", "Role Status — draft, approved, posted, filled", false, "Current lifecycle stage of the role", 5, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"SHRM — HR best practices (job design, role definition)\",\"O*NET — occupational job analysis (tasks, skills, knowledge)\"],\"connotation\":\"Identifies the new role and records the business case that justifies creating it.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -51622,7 +51557,7 @@ void buildNotificationChannelEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"channelId", "String", "Channel ID", false, "Unique identifier for the notification channel", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"channelId", "String", "Channel ID", false, "The channel name the built system carries — the TomMessageChannel name, e.g. email", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Purpose and scope of this notification channel", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"deliveryMethod", "String", "Delivery Method", false, "Immediate, Batched, Digest", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"retryPolicy", "String", "Retry Policy", false, "Retry attempts and intervals", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -51736,7 +51671,7 @@ void buildNotificationTypeEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notificationType", "String", "Notification Type", true, "e.g., Order Confirmation, Password Reset, System Alert", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"typeId", "String", "Type ID", false, "Unique identifier for the notification type", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"typeId", "String", "Type ID", false, "The type id the built system carries — the TomNotificationType id, e.g. order.shipped", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Transactional, Marketing, System, Security", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"urgency", "String", "Urgency Level", false, "Critical, High, Medium, Low", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultChannels", "String", "Default Channels", false, "Channels used by default", 4, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -52158,9 +52093,8 @@ void buildOngoingTrainingEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"trainingId", "String", "Training ID", true, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetAudience", "String", "Target Audience", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetAudience", "String", "Target Audience", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -52603,13 +52537,12 @@ void buildOrgImplementationActivityChildren(som::SomMetaNode& parent, std::vecto
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"activityId", "String", "Activity ID", true, "Stable unique identifier for the activity", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What the activity entails", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"owner", "String", "Owner", false, "Person or role responsible for the activity", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"startDate", "String", "Start Date", false, "Planned start date", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"endDate", "String", "End Date", false, "Planned completion date", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"deliverable", "String", "Deliverable", false, "Output produced by the activity", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Planned, In Progress, Completed, Delayed)", false, "Planned, In Progress, Completed, or Delayed", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What the activity entails", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"owner", "String", "Owner", false, "Person or role responsible for the activity", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"startDate", "String", "Start Date", false, "Planned start date", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"endDate", "String", "End Date", false, "Planned completion date", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deliverable", "String", "Deliverable", false, "Output produced by the activity", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Planned, In Progress, Completed, Delayed)", false, "Planned, In Progress, Completed, or Delayed", 5, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -52778,8 +52711,7 @@ void buildOrganizationalChangeEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"changeId", "String", "Change ID (e.g., OC-001)", true, "Unique identifier for this structural change", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"changeType", "String", "Change Type", false, "Restructure, Merge, Split, Create, Eliminate, Relocate", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"changeType", "String", "Change Type", false, "Restructure, Merge, Split, Create, Eliminate, Relocate", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -53905,9 +53837,8 @@ void buildPainPointEntryChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"painPointId", "String", "Pain Point ID", true, "Unique identifier, e.g. PP-OPE-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"painPoint", "String", "Pain Point Name", true, "Concise name for the pain point", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Severity", false, "Critical / High / Medium / Low", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"painPoint", "String", "Pain Point Name", true, "Concise name for the pain point", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Severity", false, "Critical / High / Medium / Low", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -54117,8 +54048,8 @@ void buildPainPointGapCorrelationEntryChildren(som::SomMetaNode& parent, std::ve
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"painPointId", "String", "Pain Point ID", true, "Reference to pain point, e.g. PP-OPE-001", 0, std::vector<std::string>{}, std::vector<std::string>{"PAPE.painPointId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"gapId", "String", "Gap ID", true, "Reference to gap entry, e.g. GAP-001", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"painPointId", "String", "Pain Point ID", true, "The pain point this entry correlates — a pain point section id (PAPE-ITEM-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"PAPE.@sectionId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"gapId", "String", "Gap ID", true, "The gap this pain point correlates to — a gap section id (GAPE-ITEM-…)", 1, std::vector<std::string>{}, std::vector<std::string>{"GAPE.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"correlationType", "String", "Correlation Type", false, "CausedBy / ContributesTo / IndicatesGap / Exacerbates", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"correlationStrength", "String", "Correlation Strength", false, "Direct / Strong / Moderate / Weak", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional context on the relationship", 4, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -54137,7 +54068,7 @@ void buildPainPointRelationshipsChildren(som::SomMetaNode& parent, std::vector<s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedPainPoints", "String", "Related Pain Points", false, "IDs of related pain points", 0, std::vector<std::string>{}, std::vector<std::string>{"PAPE.painPointId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedPainPoints", "String", "Related Pain Points", false, "Related pain points — pain point section ids (PAPE-ITEM-…), comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{"PAPE.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedGaps", "String", "Related Gaps", false, "Gap entries that this pain point stems from", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOn", "String", "Depends On", false, "Other pain points that must be resolved first", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -54801,16 +54732,15 @@ void buildPeripheralEquipmentEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"peripheralId", "String", "Peripheral ID", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"peripheralType", "String", "Peripheral Type — printer, scanner, webcam, headset, docking station", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"brand", "String", "Brand", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"model", "String", "Model", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"specifications", "String", "Specifications — key specs", false, "", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"connectivity", "String", "Connectivity — USB, network, Bluetooth", false, "", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"sharedOrPersonal", "String", "Shared/Personal — dedicated or shared device", false, "", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"location", "String", "Location — workstation, print room, etc.", false, "", 7, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"quantityNeeded", "int", "Quantity Needed", false, "", 8, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"justification", "String", "Justification", false, "", 9, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"peripheralType", "String", "Peripheral Type — printer, scanner, webcam, headset, docking station", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"brand", "String", "Brand", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"model", "String", "Model", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"specifications", "String", "Specifications — key specs", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"connectivity", "String", "Connectivity — USB, network, Bluetooth", false, "", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sharedOrPersonal", "String", "Shared/Personal — dedicated or shared device", false, "", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"location", "String", "Location — workstation, print room, etc.", false, "", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"quantityNeeded", "int", "Quantity Needed", false, "", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"justification", "String", "Justification", false, "", 8, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -55225,8 +55155,7 @@ void buildPhaseGateReviewEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"gateId", "String", "Gate ID", true, "Unique gate identifier — e.g. G1, G2, G3", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"stage", "String", "Stage", true, "Stage this gate is associated with", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stage", "String", "Stage", true, "Stage this gate is associated with", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -55330,7 +55259,7 @@ void buildPhaseGateReviewEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).form->fields.push_back(som::SomFormFieldMeta{"outcomeRationale", "String", "Outcome Rationale", false, "Why this decision was made", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"conditionalItems", "String", "Conditional Items", false, "Open items for conditional advancement", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"followUpActions", "String", "Follow-Up Actions", false, "Actions assigned during review", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"nextGateReference", "String", "Next Gate Reference", false, "Gate ID of the next gate in sequence", 6, std::vector<std::string>{}, std::vector<std::string>{"PHGREV.gateId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"nextGateReference", "String", "Next Gate Reference", false, "The next gate in sequence — a phase gate review section id (PHGREV-ITEM-…)", 6, std::vector<std::string>{}, std::vector<std::string>{"PHGREV.@sectionId"}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK Guide 7th edition 2021 — the PMI project life-cycle guidance defines phase gates and phase-review controls\",\"PRINCE2 2017 — the managing successful projects method defines end-stage assessments and stage-boundary gate reviews\"],\"connotation\":\"Captures the exit conditions and outcome of a phase gate including pass thresholds, decision, conditional items, and follow-up actions.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -56547,9 +56476,8 @@ void buildProcessAdjustmentEntryChildren(som::SomMetaNode& parent, std::vector<s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"adjustmentId", "String", "Adjustment ID", true, "Unique identifier, e.g. PRC-ADJ-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"standardStepName", "String", "Standard Step Name", true, "Original process step being adjusted", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"adjustmentType", "String", "Adjustment Type", false, "Skipped / Modified / Reordered / Parallelized / Added", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"standardStepName", "String", "Standard Step Name", true, "Original process step being adjusted", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"adjustmentType", "String", "Adjustment Type", false, "Skipped / Modified / Reordered / Parallelized / Added", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -56887,9 +56815,8 @@ void buildProcessControlEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"controlId", "String", "Control ID", true, "Unique identifier for the control", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"controlType", "String", "Control Type — preventive, detective, corrective", false, "Classify the control type", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"controlCategory", "String", "Control Category — authorization, validation, reconciliation", false, "Classify the control category", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"controlType", "String", "Control Type — preventive, detective, corrective", false, "Classify the control type", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"controlCategory", "String", "Control Category — authorization, validation, reconciliation", false, "Classify the control category", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -57014,15 +56941,14 @@ void buildProcessDesignPrincipleEntryChildren(som::SomMetaNode& parent, std::vec
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"principleId", "String", "Principle ID", true, "Unique identifier for the principle", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category — efficiency, quality, compliance, user experience", false, "The dimension this principle addresses", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"statement", "String", "Statement — the principle statement", false, "The principle expressed as a directive", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"rationale", "String", "Rationale — why this principle matters", false, "Why the principle is important", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"implications", "String", "Implications — what this means for process design", false, "Design consequences of applying it", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"examples", "String", "Examples — how this principle applies", false, "Concrete examples of the principle in use", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"tradeoffs", "String", "Trade-offs — what is sacrificed", false, "What is given up to follow the principle", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority — high, medium, low", false, "Relative importance of the principle", 7, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"applicability", "String", "Applicability — all processes or specific types", false, "Which processes the principle applies to", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category — efficiency, quality, compliance, user experience", false, "The dimension this principle addresses", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"statement", "String", "Statement — the principle statement", false, "The principle expressed as a directive", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rationale", "String", "Rationale — why this principle matters", false, "Why the principle is important", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"implications", "String", "Implications — what this means for process design", false, "Design consequences of applying it", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"examples", "String", "Examples — how this principle applies", false, "Concrete examples of the principle in use", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tradeoffs", "String", "Trade-offs — what is sacrificed", false, "What is given up to follow the principle", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority — high, medium, low", false, "Relative importance of the principle", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"applicability", "String", "Applicability — all processes or specific types", false, "Which processes the principle applies to", 7, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -57084,13 +57010,12 @@ void buildProcessEndEventEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"endEventId", "String", "End Event ID", true, "Unique identifier for the end event", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"endEventType", "String", "End Event Type — success, error, cancellation, timeout", false, "BPMN end-event type", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"outcome", "String", "Outcome — what this end state means", false, "What reaching this end state means", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"probability", "String", "Probability — how often this end occurs", false, "How often this outcome occurs", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"postCondition", "String", "Post-Condition — system state after this end", false, "System state after this end event", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"notificationAction", "String", "Notification Action — who/what is notified", false, "Who or what is notified at this end", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"followOnAction", "String", "Follow-On Action — what happens next", false, "What happens after this end event", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"endEventType", "String", "End Event Type — success, error, cancellation, timeout", false, "BPMN end-event type", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"outcome", "String", "Outcome — what this end state means", false, "What reaching this end state means", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"probability", "String", "Probability — how often this end occurs", false, "How often this outcome occurs", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"postCondition", "String", "Post-Condition — system state after this end", false, "System state after this end event", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notificationAction", "String", "Notification Action — who/what is notified", false, "Who or what is notified at this end", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"followOnAction", "String", "Follow-On Action — what happens next", false, "What happens after this end event", 5, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -57106,9 +57031,8 @@ void buildProcessExceptionEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"exceptionId", "String", "Exception ID", true, "Unique identifier for the exception", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"exceptionType", "String", "Exception Type — data error, system error, business rule, timeout", false, "Classify the exception type", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerCondition", "String", "Trigger Condition — what causes this exception", false, "Describe what triggers the exception", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"exceptionType", "String", "Exception Type — data error, system error, business rule, timeout", false, "Classify the exception type", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerCondition", "String", "Trigger Condition — what causes this exception", false, "Describe what triggers the exception", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -57225,8 +57149,7 @@ void buildProcessIdentificationChildren(som::SomMetaNode& parent, std::vector<st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"processId", "String", "Process ID (e.g., TOM-001)", true, "Unique process identifier", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"processLevel", "String", "Process Level — L1 (category), L2 (group), L3 (process), L4 (activity)", false, "Level in the process hierarchy", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"processLevel", "String", "Process Level — L1 (category), L2 (group), L3 (process), L4 (activity)", false, "Level in the process hierarchy", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -57295,9 +57218,8 @@ void buildProcessImprovementEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"improvementId", "String", "Improvement ID", true, "Unique identifier for the improvement", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category — efficiency, quality, cost, experience", false, "Classify the improvement category", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"currentState", "String", "Current State — baseline measurement", false, "Give the current-state baseline", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category — efficiency, quality, cost, experience", false, "Classify the improvement category", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"currentState", "String", "Current State — baseline measurement", false, "Give the current-state baseline", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -57417,15 +57339,14 @@ void buildProcessInputEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"inputId", "String", "Input ID", true, "Unique identifier for the input", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"inputType", "String", "Input Type — data, document, authorization, resource", false, "Kind of input consumed", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"source", "String", "Source — where input comes from", false, "Where the input originates", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"format", "String", "Format — data format, file type", false, "Data format or file type", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"required", "String", "Required — mandatory or optional", false, "Whether the input is mandatory", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"validationRules", "String", "Validation Rules — input quality checks", false, "Quality checks applied to the input", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultValue", "String", "Default Value — if input not provided", false, "Value used when input is absent", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"exampleValue", "String", "Example Value — sample input", false, "A sample value for the input", 7, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"securityClassification", "String", "Security Classification — sensitivity level", false, "Sensitivity level of the input", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"inputType", "String", "Input Type — data, document, authorization, resource", false, "Kind of input consumed", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"source", "String", "Source — where input comes from", false, "Where the input originates", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"format", "String", "Format — data format, file type", false, "Data format or file type", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"required", "String", "Required — mandatory or optional", false, "Whether the input is mandatory", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"validationRules", "String", "Validation Rules — input quality checks", false, "Quality checks applied to the input", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"defaultValue", "String", "Default Value — if input not provided", false, "Value used when input is absent", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"exampleValue", "String", "Example Value — sample input", false, "A sample value for the input", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"securityClassification", "String", "Security Classification — sensitivity level", false, "Sensitivity level of the input", 7, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -57564,9 +57485,8 @@ void buildProcessKpiEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"kpiId", "String", "KPI ID", true, "Unique identifier for the KPI", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category — time, quality, cost, volume, satisfaction", false, "Classify the KPI dimension", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"definition", "String", "Definition — how KPI is calculated", false, "Describe the calculation formula", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category — time, quality, cost, volume, satisfaction", false, "Classify the KPI dimension", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"definition", "String", "Definition — how KPI is calculated", false, "Describe the calculation formula", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -57672,10 +57592,9 @@ void buildProcessMetricEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"metricId", "String", "Metric ID", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"metricCategory", "String", "Category (e.g., Efficiency, Quality, Volume, Cost)", false, "Only for metrics listed on their own — a metric listed inside a metric category takes that category and leaves this empty", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"currentValue", "String", "Current Value", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"unit", "String", "Unit", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"metricCategory", "String", "Category (e.g., Efficiency, Quality, Volume, Cost)", false, "Only for metrics listed on their own — a metric listed inside a metric category takes that category and leaves this empty", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"currentValue", "String", "Current Value", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"unit", "String", "Unit", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -57949,15 +57868,14 @@ void buildProcessOutputEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"outputId", "String", "Output ID", true, "Unique identifier for the output", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"outputType", "String", "Output Type — data, document, notification, state change", false, "Kind of output produced", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"destination", "String", "Destination — where output goes", false, "Where the output is sent", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"format", "String", "Format — data format, file type", false, "Data format or file type", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"qualityStandard", "String", "Quality Standard — output quality requirements", false, "Quality requirements for the output", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"timingRequirement", "String", "Timing Requirement — when output must be available", false, "When the output must be ready", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"retentionPeriod", "String", "Retention Period — how long output is kept", false, "How long the output is retained", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"securityClassification", "String", "Security Classification — sensitivity level", false, "Sensitivity level of the output", 7, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependentProcesses", "String", "Dependent Processes — processes that need this output", false, "Processes that consume this output", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"outputType", "String", "Output Type — data, document, notification, state change", false, "Kind of output produced", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"destination", "String", "Destination — where output goes", false, "Where the output is sent", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"format", "String", "Format — data format, file type", false, "Data format or file type", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"qualityStandard", "String", "Quality Standard — output quality requirements", false, "Quality requirements for the output", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"timingRequirement", "String", "Timing Requirement — when output must be available", false, "When the output must be ready", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"retentionPeriod", "String", "Retention Period — how long output is kept", false, "How long the output is retained", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"securityClassification", "String", "Security Classification — sensitivity level", false, "Sensitivity level of the output", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependentProcesses", "String", "Dependent Processes — processes that need this output", false, "Processes that consume this output", 7, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -58193,14 +58111,13 @@ void buildProcessRelationshipEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relationshipId", "String", "Relationship ID", false, "Unique identifier for the relationship", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"sourceProcess", "String", "Source Process", false, "Name the source process", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetProcess", "String", "Target Process", false, "Name the target process", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relationshipType", "String", "Relationship Type — triggers, feeds, depends on, parallel with", false, "Classify the relationship type", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataExchanged", "String", "Data Exchanged — what flows between processes", false, "State what data flows between them", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"timingDependency", "String", "Timing Dependency — must complete before, can run parallel", false, "State the timing dependency", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"frequencyOfInteraction", "String", "Frequency of Interaction — how often they interact", false, "State how often they interact", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"criticality", "String", "Criticality — how critical is this relationship", false, "State how critical the relationship is", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sourceProcess", "String", "Source Process", false, "Name the source process", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetProcess", "String", "Target Process", false, "Name the target process", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relationshipType", "String", "Relationship Type — triggers, feeds, depends on, parallel with", false, "Classify the relationship type", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataExchanged", "String", "Data Exchanged — what flows between processes", false, "State what data flows between them", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"timingDependency", "String", "Timing Dependency — must complete before, can run parallel", false, "State the timing dependency", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"frequencyOfInteraction", "String", "Frequency of Interaction — how often they interact", false, "State how often they interact", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"criticality", "String", "Criticality — how critical is this relationship", false, "State how critical the relationship is", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -58256,9 +58173,8 @@ void buildProcessRoleEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"roleId", "String", "Role ID", true, "Unique identifier for the role", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"raciType", "String", "RACI Type — Responsible, Accountable, Consulted, Informed", false, "The RACI assignment for this role", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"responsibilities", "String", "Responsibilities — what this role does", false, "What this role is responsible for", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"raciType", "String", "RACI Type — Responsible, Accountable, Consulted, Informed", false, "The RACI assignment for this role", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"responsibilities", "String", "Responsibilities — what this role does", false, "What this role is responsible for", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -58444,15 +58360,14 @@ void buildProcessSlaEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"slaId", "String", "SLA ID", true, "Unique identifier for the SLA", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"serviceDescription", "String", "Service Description — what is promised", false, "Describe the promised service", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetLevel", "String", "Target Level — commitment", false, "State the committed target level", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"measurementMethod", "String", "Measurement Method — how compliance measured", false, "Describe how compliance is measured", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"reportingPeriod", "String", "Reporting Period — measurement window", false, "Give the measurement window", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"penaltyClause", "String", "Penalty Clause — consequence of breach", false, "State the consequence of a breach", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"escalationProcedure", "String", "Escalation Procedure — when SLA at risk", false, "Describe escalation when at risk", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"exclusions", "String", "Exclusions — what is not covered", false, "List what the SLA excludes", 7, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"reviewFrequency", "String", "Review Frequency — when SLA is reviewed", false, "State how often the SLA is reviewed", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"serviceDescription", "String", "Service Description — what is promised", false, "Describe the promised service", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetLevel", "String", "Target Level — commitment", false, "State the committed target level", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"measurementMethod", "String", "Measurement Method — how compliance measured", false, "Describe how compliance is measured", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"reportingPeriod", "String", "Reporting Period — measurement window", false, "Give the measurement window", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"penaltyClause", "String", "Penalty Clause — consequence of breach", false, "State the consequence of a breach", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"escalationProcedure", "String", "Escalation Procedure — when SLA at risk", false, "Describe escalation when at risk", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"exclusions", "String", "Exclusions — what is not covered", false, "List what the SLA excludes", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"reviewFrequency", "String", "Review Frequency — when SLA is reviewed", false, "State how often the SLA is reviewed", 7, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -58688,14 +58603,13 @@ void buildProcessTriggerEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerId", "String", "Trigger ID", true, "Unique identifier for the trigger", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerType", "String", "Trigger Type — user action, system event, timer, message, signal", false, "BPMN start-event type of the trigger", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerSource", "String", "Trigger Source — where trigger originates", false, "Where the trigger originates", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerCondition", "String", "Trigger Condition — when trigger fires", false, "Condition under which the trigger fires", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerData", "String", "Trigger Data — data provided with trigger", false, "Data carried by the trigger", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority — processing priority", false, "Processing priority of this trigger", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"validationRules", "String", "Validation Rules — checks before process starts", false, "Checks applied before the process starts", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"frequency", "String", "Frequency — expected occurrence rate", false, "Expected occurrence rate of the trigger", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerType", "String", "Trigger Type — user action, system event, timer, message, signal", false, "BPMN start-event type of the trigger", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerSource", "String", "Trigger Source — where trigger originates", false, "Where the trigger originates", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerCondition", "String", "Trigger Condition — when trigger fires", false, "Condition under which the trigger fires", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerData", "String", "Trigger Data — data provided with trigger", false, "Data carried by the trigger", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority — processing priority", false, "Processing priority of this trigger", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"validationRules", "String", "Validation Rules — checks before process starts", false, "Checks applied before the process starts", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"frequency", "String", "Frequency — expected occurrence rate", false, "Expected occurrence rate of the trigger", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -59598,7 +59512,7 @@ void buildPrototypeFeatureEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureId", "String", "Feature ID", true, "Unique identifier for the feature", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureId", "String", "Feature ID", true, "The feature this entry describes — a feature section id (FPE-ITEM-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"inclusionReason", "String", "Inclusion Reason", false, "Why this feature is included", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"fidelityLevel", "String", "Fidelity Level", false, "Low, medium, high", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"completenessLevel", "String", "Completeness Level", false, "Full, partial, stub", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -59711,14 +59625,13 @@ void buildPrototypeGoalEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"goalId", "String", "Goal ID", true, "Unique identifier for the goal", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"goalDescription", "String", "Goal Description", true, "What the goal validates", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"goalCategory", "String", "Goal Category", false, "Usability, technical, business", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"validationMethod", "String", "Validation Method", false, "How goal is validated", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"successMetric", "String", "Success Metric", false, "How success is measured", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority", false, "Must-have, should-have, nice-to-have", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRisks", "String", "Related Risks", false, "Risks this goal addresses", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"stakeholders", "String", "Stakeholders", false, "Stakeholders interested in this goal", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"goalDescription", "String", "Goal Description", true, "What the goal validates", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"goalCategory", "String", "Goal Category", false, "Usability, technical, business", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"validationMethod", "String", "Validation Method", false, "How goal is validated", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"successMetric", "String", "Success Metric", false, "How success is measured", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority", false, "Must-have, should-have, nice-to-have", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRisks", "String", "Related Risks", false, "Risks this goal addresses", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stakeholders", "String", "Stakeholders", false, "Stakeholders interested in this goal", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -60046,8 +59959,7 @@ void buildQualityCategoryEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"categoryId", "String", "Category ID", false, "Unique identifier (e.g., QC-USER-01)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"categoryWeight", "int", "Category Weight (1-100)", false, "Relative importance in overall quality", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"categoryWeight", "int", "Category Weight (1-100)", false, "Relative importance in overall quality", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -60302,9 +60214,8 @@ void buildQualityGateAdjustmentEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"adjustmentId", "String", "Adjustment ID", true, "Unique identifier, e.g. QGA-ADJ-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"standardGateName", "String", "Standard Gate Name", true, "Original TomSpecs quality gate being adjusted", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"adjustmentType", "String", "Adjustment Type", false, "Skipped / Added / Modified / Deferred / Relaxed", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"standardGateName", "String", "Standard Gate Name", true, "Original TomSpecs quality gate being adjusted", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"adjustmentType", "String", "Adjustment Type", false, "Skipped / Added / Modified / Deferred / Relaxed", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -60477,9 +60388,8 @@ void buildQualityGateCheckEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"checkId", "String", "Check ID", false, "Unique identifier (e.g., QGC-001)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"checkItem", "String", "Check Item", true, "What is being checked", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"verificationMethod", "String", "Verification Method", true, "How check is verified", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"checkItem", "String", "Check Item", true, "What is being checked", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"verificationMethod", "String", "Verification Method", true, "How check is verified", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -60706,15 +60616,14 @@ void buildQualityScenarioEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"scenarioId", "String", "Scenario ID", true, "Unique identifier for the scenario", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"source", "String", "Source (who/what generates the stimulus)", true, "Who/what generates the stimulus", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"stimulus", "String", "Stimulus (event or condition that triggers the scenario)", true, "Event or condition that triggers the scenario", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"environment", "String", "Environment (system state when stimulus occurs)", false, "System state when the stimulus occurs", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"artifact", "String", "Artifact (what part of system is affected)", false, "What part of the system is affected", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"response", "String", "Response (how the system should respond)", true, "How the system should respond", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"responseMeasure", "String", "Response Measure (quantifiable success criterion)", true, "Quantifiable success criterion for the response", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority (Core, Important, Nice-to-have)", false, "Core / Important / Nice-to-have", 7, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"testability", "String", "Testability (how easy to test: Automated, Manual, Complex)", false, "How easy to test: Automated, Manual, Complex", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"source", "String", "Source (who/what generates the stimulus)", true, "Who/what generates the stimulus", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"stimulus", "String", "Stimulus (event or condition that triggers the scenario)", true, "Event or condition that triggers the scenario", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"environment", "String", "Environment (system state when stimulus occurs)", false, "System state when the stimulus occurs", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"artifact", "String", "Artifact (what part of system is affected)", false, "What part of the system is affected", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"response", "String", "Response (how the system should respond)", true, "How the system should respond", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"responseMeasure", "String", "Response Measure (quantifiable success criterion)", true, "Quantifiable success criterion for the response", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority (Core, Important, Nice-to-have)", false, "Core / Important / Nice-to-have", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"testability", "String", "Testability (how easy to test: Automated, Manual, Complex)", false, "How easy to test: Automated, Manual, Complex", 7, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -61159,14 +61068,13 @@ void buildRecoveryScenarioEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"scenarioId", "String", "Scenario ID", true, "Unique identifier for this recovery scenario", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerCondition", "String", "Trigger Condition", false, "What error triggers this scenario", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"userImpact", "String", "User Impact", false, "How user is affected", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"recoverySteps", "String", "Recovery Steps", false, "Step-by-step recovery process", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataAtRisk", "String", "Data at Risk", false, "What data might be lost", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"preventionMeasures", "String", "Prevention Measures", false, "How scenario can be prevented", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"timeToRecover", "String", "Time to Recover", false, "Expected recovery duration", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"supportEscalation", "String", "Support Escalation", false, "When to escalate to support", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerCondition", "String", "Trigger Condition", false, "What error triggers this scenario", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"userImpact", "String", "User Impact", false, "How user is affected", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"recoverySteps", "String", "Recovery Steps", false, "Step-by-step recovery process", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataAtRisk", "String", "Data at Risk", false, "What data might be lost", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"preventionMeasures", "String", "Prevention Measures", false, "How scenario can be prevented", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"timeToRecover", "String", "Time to Recover", false, "Expected recovery duration", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"supportEscalation", "String", "Support Escalation", false, "When to escalate to support", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -61221,7 +61129,7 @@ void buildReferenceDocumentEntryChildren(som::SomMetaNode& parent, std::vector<s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"documentId", "String", "Document ID (internal reference number)", false, "Catalogue or internal reference number, if any.", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"documentId", "String", "Document ID (internal reference number)", false, "The catalogue or internal reference number this document is filed under, if any — owned outside this document", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"version", "String", "Version", false, "Version or edition of the referenced document.", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
@@ -61614,7 +61522,7 @@ void buildRelatedDocumentEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDocumentId", "String", "Related Document ID", true, "ID of the related referenced document.", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDocumentId", "String", "Related Document ID", true, "The related reference document — a reference document section id (RFDOC-DOCU-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"RFDOC.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relationshipType", "String", "Relationship Type (Depends On, Referenced By, Supersedes, Complements, Conflicts With, Parent Of, Child Of)", false, "Nature of the link, e.g. Depends On, Supersedes, Complements.", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relationshipDescription", "String", "Relationship Description (explain the connection)", false, "Explain the connection between the two documents.", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -61986,11 +61894,10 @@ void buildRemovedRoleEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"roleId", "String", "Role ID", true, "Unique identifier for the role being removed", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"department", "String", "Department", false, "Department the removed role belongs to", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"removalReason", "String", "Removal Reason — automation, restructuring, outsourcing, redundancy", false, "Why the role is being eliminated", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"effectiveDate", "String", "Effective Date", false, "Date the role removal takes effect", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"incumbentCount", "int", "Incumbent Count — people affected", false, "Number of people currently in the role being removed", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"department", "String", "Department", false, "Department the removed role belongs to", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"removalReason", "String", "Removal Reason — automation, restructuring, outsourcing, redundancy", false, "Why the role is being eliminated", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"effectiveDate", "String", "Effective Date", false, "Date the role removal takes effect", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"incumbentCount", "int", "Incumbent Count — people affected", false, "Number of people currently in the role being removed", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -62184,7 +62091,7 @@ void buildReportChartEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"chartId", "String", "Chart ID", true, "Unique within section, e.g. CHT-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"chartId", "String", "Chart ID", true, "The identifier this chart carries in the generated report — unique within the section, e.g. CHT-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"chartType", "String", "Chart Type", false, "Bar / Line / Pie / Donut / Scatter / Gauge / Heatmap", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
@@ -62297,7 +62204,7 @@ void buildReportColumnEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"columnId", "String", "Column ID", true, "Unique within section, e.g. COL-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"columnId", "String", "Column ID", true, "The identifier this column carries in the generated report — unique within the section, e.g. COL-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"displayLabel", "String", "Display Label", true, "Column header text shown in report", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
@@ -62528,7 +62435,7 @@ void buildReportDistributionEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"distributionId", "String", "Distribution ID", true, "Unique within report, e.g. DST-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"distributionId", "String", "Distribution ID", true, "The identifier this distribution carries in the running report job — unique within the report, e.g. DST-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"channel", "String", "Channel", true, "Email / Dashboard / File-Share / API / Print / Push-Notification / Webhook / SFTP", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Purpose of this distribution channel", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -62604,8 +62511,7 @@ void buildReportEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"reportId", "String", "Report ID", true, "Unique identifier, e.g. RPT-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"reportType", "String", "Report Type", false, "Tabular / Summary / Dashboard / KPI-Card / Chart-Only / Mixed", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"reportType", "String", "Report Type", false, "Tabular / Summary / Dashboard / KPI-Card / Chart-Only / Mixed", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -62747,7 +62653,7 @@ void buildReportEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).docComment = "Interactivity and parameters.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"drillDownTarget", "String", "Drill-Down Target", false, "Report or screen navigated to on row click", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"drillThroughReports", "String", "Drill-Through Reports", false, "Comma-separated report IDs reachable from this report", 1, std::vector<std::string>{}, std::vector<std::string>{"REPENT.reportId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"drillThroughReports", "String", "Drill-Through Reports", false, "Reports reachable from this report — report section ids (REPENT-REPO-…), comma-separated", 1, std::vector<std::string>{}, std::vector<std::string>{"REPENT.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"parameterForm", "String", "Parameter Form", false, "Description of user input form shown before generation", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"emptyDataMessage", "String", "Empty Data Message", false, "Message to display when report has no data", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC 25010:2023 — appropriateness recognisability supports interactive report navigation\",\"ISO 9241-125:2017 — presentation of information enables drill-down exploration of content\"],\"connotation\":\"Interactivity settings covering drill-down targets parameter forms and empty-data handling.\"}", nullptr)});
@@ -62959,7 +62865,7 @@ void buildReportFilterEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"filterId", "String", "Filter ID", true, "Unique within report, e.g. FLT-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"filterId", "String", "Filter ID", true, "The identifier this filter carries in the generated report — unique within the report, e.g. FLT-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"displayLabel", "String", "Display Label", true, "Label shown in parameter form", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
@@ -63142,7 +63048,7 @@ void buildReportRecipientEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"recipientId", "String", "Recipient ID", true, "Unique within report, e.g. REC-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"recipientId", "String", "Recipient ID", true, "The identifier this recipient carries in the running report job — unique within the report, e.g. REC-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"recipientType", "String", "Recipient Type", false, "User / Role / Group / Email / Distribution-List / External-Contact / System-Account", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"recipientReference", "String", "Recipient Reference", false, "User ID, role name, group name, or email address", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -63213,7 +63119,7 @@ void buildReportScheduleEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"scheduleId", "String", "Schedule ID", true, "Unique within report, e.g. SCH-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"scheduleId", "String", "Schedule ID", true, "The identifier this schedule carries in the running report job — unique within the report, e.g. SCH-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"frequency", "String", "Frequency", false, "Daily / Weekly / Bi-weekly / Monthly / Quarterly / Semi-annually / Annually / On-demand / Event-triggered", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
@@ -63304,7 +63210,7 @@ void buildReportSectionEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"sectionId", "String", "Section ID", true, "Unique within report, e.g. SEC-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sectionId", "String", "Section ID", true, "The identifier this section carries in the generated report — unique within the report, e.g. SEC-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sectionType", "String", "Section Type", false, "Table / Chart / Summary / Text / KPI-Card / Mixed", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
@@ -63487,15 +63393,14 @@ void buildRequirementBusinessRuleEntryChildren(som::SomMetaNode& parent, std::ve
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleId", "String", "Rule ID", true, "Unique identifier for this business rule", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleType", "String", "Rule Type (Constraint, Computation, Derivation, Inference, Condition, Action, Workflow, Authorization)", false, "Constraint, Computation, Derivation, Inference, Condition, etc.", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleStatement", "String", "Rule Statement (IF/WHEN condition THEN action)", true, "IF/WHEN condition THEN action statement", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"source", "String", "Source (policy, regulation, expert)", false, "Origin of the rule: policy, regulation, or expert", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"effectiveDate", "String", "Effective Date", false, "Date the rule takes effect", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"expirationDate", "String", "Expiration Date", false, "Date the rule expires, if any", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"exceptions", "String", "Exceptions (when rule does not apply)", false, "Cases in which the rule does not apply", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"enforcement", "String", "Enforcement (Hard = system enforces, Soft = warning only)", false, "Hard (system enforces) or Soft (warning only)", 7, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "String", "Impact (what happens if rule is violated)", false, "What happens if the rule is violated", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleType", "String", "Rule Type (Constraint, Computation, Derivation, Inference, Condition, Action, Workflow, Authorization)", false, "Constraint, Computation, Derivation, Inference, Condition, etc.", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"ruleStatement", "String", "Rule Statement (IF/WHEN condition THEN action)", true, "IF/WHEN condition THEN action statement", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"source", "String", "Source (policy, regulation, expert)", false, "Origin of the rule: policy, regulation, or expert", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"effectiveDate", "String", "Effective Date", false, "Date the rule takes effect", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"expirationDate", "String", "Expiration Date", false, "Date the rule expires, if any", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"exceptions", "String", "Exceptions (when rule does not apply)", false, "Cases in which the rule does not apply", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"enforcement", "String", "Enforcement (Hard = system enforces, Soft = warning only)", false, "Hard (system enforces) or Soft (warning only)", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "String", "Impact (what happens if rule is violated)", false, "What happens if the rule is violated", 7, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -63690,7 +63595,7 @@ void buildRequirementScreenActionEntryChildren(som::SomMetaNode& parent, std::ve
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"actionId", "String", "Action ID", true, "Unique identifier for this action", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"actionId", "String", "Action ID", true, "The symbol the built screen carries for this action — unique within the screen, e.g. act-save", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actionType", "String", "Action Type (Submit, Cancel, Navigate, API Call, Dialog, Download, Print, Delete, Duplicate, Export, Import, Refresh, Save, SaveAndNew, SaveAndClose, Custom)", true, "Submit, Cancel, Navigate, API Call, Dialog, Save, etc.", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"icon", "String", "Icon (Material Icon name or custom)", false, "Material Icon name or custom icon", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"iconPosition", "String", "Icon Position (Left, Right, Only)", false, "Left, Right, or Only", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -63749,10 +63654,9 @@ void buildRequirementTestCaseEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"testCaseId", "String", "Test Case ID", true, "Unique identifier for the test case", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"testType", "String", "Test Type (Unit, Integration, System, Acceptance, UAT, Regression)", false, "Unit, Integration, System, Acceptance, UAT, or Regression", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"testCategory", "String", "Test Category (Positive, Negative, Boundary, Error, Performance)", false, "Positive, Negative, Boundary, Error, or Performance", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"preconditions", "String", "Preconditions", false, "Conditions that must hold before the test runs", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"testType", "String", "Test Type (Unit, Integration, System, Acceptance, UAT, Regression)", false, "Unit, Integration, System, Acceptance, UAT, or Regression", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"testCategory", "String", "Test Category (Positive, Negative, Boundary, Error, Performance)", false, "Positive, Negative, Boundary, Error, or Performance", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"preconditions", "String", "Preconditions", false, "Conditions that must hold before the test runs", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -63867,9 +63771,9 @@ void buildRequirementTraceabilityChildren(som::SomMetaNode& parent, std::vector<
     (*n).serializationOrder = 1;
     (*n).docComment = "Traceability links form.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedGoals", "String", "Related Business Goals (IDs)", false, "IDs of related business goals", 0, std::vector<std::string>{}, std::vector<std::string>{"BGE.goalId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedUseCases", "String", "Related Use Cases (IDs)", false, "IDs of related use cases", 1, std::vector<std::string>{}, std::vector<std::string>{"INEN.interactionId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedProcesses", "String", "Related Business Processes (IDs)", false, "IDs of related business processes", 2, std::vector<std::string>{}, std::vector<std::string>{"PRIDN.processId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedGoals", "String", "Related Business Goals (IDs)", false, "IDs of related business goals", 0, std::vector<std::string>{}, std::vector<std::string>{"BGE.@sectionId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedUseCases", "String", "Related Use Cases (IDs)", false, "Related interactions — interaction section ids (INEN-INTE-…), comma-separated", 1, std::vector<std::string>{}, std::vector<std::string>{"INEN.@sectionId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedProcesses", "String", "Related Business Processes (IDs)", false, "Related business processes — process section ids (BPREN-PROC-…), comma-separated", 2, std::vector<std::string>{}, std::vector<std::string>{"BPREN.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedUserStories", "String", "Related User Stories (if Agile)", false, "Related user stories, if using Agile", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
@@ -63886,7 +63790,7 @@ void buildRequirementTraceabilityChildren(som::SomMetaNode& parent, std::vector<
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedScreens", "String", "Related UI Screens/Views", false, "UI screens or views related to this requirement", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDataEntities", "String", "Related Data Entities", false, "Data entities related to this requirement", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedTestCases", "String", "Related Test Cases (IDs)", false, "IDs of test cases covering this requirement", 2, std::vector<std::string>{}, std::vector<std::string>{"RQTSC.testCaseId", "TEGOTS.testCaseId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedTestCases", "String", "Related Test Cases (IDs)", false, "Test cases covering this requirement — test case section ids (RQTSC-TEST-… / TEGOTS-ITEM-…), comma-separated", 2, std::vector<std::string>{}, std::vector<std::string>{"RQTSC.@sectionId", "TEGOTS.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedDocuments", "String", "Related Documents or Artifacts", false, "Related documents or other artifacts", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148 §5.2.8 — requirements traceability\"],\"connotation\":\"The artifacts a requirement is linked to — UI screens, data entities, test cases, and related documents — for coverage and traceability.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -64577,15 +64481,14 @@ void buildResponsibilityDetailEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"responsibilityId", "String", "Responsibility ID", false, "Unique identifier for this responsibility", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"responsibility", "String", "Responsibility", true, "Short statement of the duty", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description — detailed explanation", false, "Detailed explanation of what is done", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"timeAllocation", "String", "Time Allocation — percentage of time spent", false, "Approximate share of working time", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"frequency", "String", "Frequency — daily, weekly, monthly, ad-hoc", false, "How often the duty is performed", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"deliverables", "String", "Deliverables — outputs expected", false, "Tangible outputs the duty produces", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"qualityStandards", "String", "Quality Standards — success criteria", false, "Criteria that define success", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedProcesses", "String", "Related Processes — business processes involved", false, "Business processes this duty touches", 7, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"toolsUsed", "String", "Tools Used — systems/applications", false, "Systems or applications used", 8, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"responsibility", "String", "Responsibility", true, "Short statement of the duty", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description — detailed explanation", false, "Detailed explanation of what is done", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"timeAllocation", "String", "Time Allocation — percentage of time spent", false, "Approximate share of working time", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"frequency", "String", "Frequency — daily, weekly, monthly, ad-hoc", false, "How often the duty is performed", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deliverables", "String", "Deliverables — outputs expected", false, "Tangible outputs the duty produces", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"qualityStandards", "String", "Quality Standards — success criteria", false, "Criteria that define success", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedProcesses", "String", "Related Processes — business processes involved", false, "Business processes this duty touches", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"toolsUsed", "String", "Tools Used — systems/applications", false, "Systems or applications used", 7, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -64981,7 +64884,7 @@ void buildResponsiveScreenRuleEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"screenId", "String", "Screen ID", true, "Unique identifier of the screen this rule applies to", 0, std::vector<std::string>{}, std::vector<std::string>{"SCREN.screenId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"screenId", "String", "Screen ID", true, "The screen this rule applies to — a screen section id (SCREN-ITEM-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"mobileLayout", "String", "Mobile Layout", false, "How this screen is laid out on mobile", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"tabletLayout", "String", "Tablet Layout", false, "How this screen is laid out on tablet", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"desktopLayout", "String", "Desktop Layout", false, "How this screen is laid out on desktop", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -65063,9 +64966,8 @@ void buildRetentionPolicyEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"policyId", "String", "Policy ID", true, "Unique identifier", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataCategory", "String", "Data Category", true, "Category of data this policy applies to", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"appliesTo", "String", "Applies To", false, "Specific data sources or entities", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dataCategory", "String", "Data Category", true, "Category of data this policy applies to", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"appliesTo", "String", "Applies To", false, "Specific data sources or entities", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -65606,10 +65508,9 @@ void buildReuseGoalEntryChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"goalId", "String", "Goal ID", false, "Unique identifier, e.g. RG-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"goal", "String", "Reuse Goal", true, "What should be reused, e.g. Centralize auth via shared login SDK", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"rationale", "String", "Business Rationale", false, "Why reuse matters here — cost savings, consistency, time-to-market", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Reuse Category", false, "UIComponents / DataLayer / Authentication / Infrastructure / APIs", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"goal", "String", "Reuse Goal", true, "What should be reused, e.g. Centralize auth via shared login SDK", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rationale", "String", "Business Rationale", false, "Why reuse matters here — cost savings, consistency, time-to-market", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Reuse Category", false, "UIComponents / DataLayer / Authentication / Infrastructure / APIs", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -65679,9 +65580,8 @@ void buildReviewCriterionEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"criterion", "String", "Criterion", true, "What is being evaluated — e.g. All unit tests pass, Security review complete, UX approval obtained", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"criterionId", "String", "Criterion ID", false, "Unique identifier — e.g. GRC-01", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Detailed description of what this criterion covers", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Quality / Security / Compliance / Performance / Completeness / Business / Operational", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "Detailed description of what this criterion covers", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Quality / Security / Compliance / Performance / Completeness / Business / Operational", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -65945,10 +65845,9 @@ void buildRiskIdentificationChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskId", "String", "Risk ID (e.g., RISK-001, TR-001)", true, "Unique identifier for this risk", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description — detailed risk event and potential causes", false, "Detailed description of the risk event and its causes", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category — Technical, Schedule, Cost, Resource, External, Legal, Organizational", false, "Top-level risk category", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"subcategory", "String", "Subcategory — more specific categorization", false, "More specific categorization within the category", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description — detailed risk event and potential causes", false, "Detailed description of the risk event and its causes", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category — Technical, Schedule, Cost, Resource, External, Legal, Organizational", false, "Top-level risk category", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"subcategory", "String", "Subcategory — more specific categorization", false, "More specific categorization within the category", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -66180,9 +66079,8 @@ void buildRoleAdjustmentEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"adjustmentId", "String", "Adjustment ID", true, "Unique identifier, e.g. ROL-ADJ-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"standardRoleName", "String", "Standard Role Name", true, "Original TomSpecs role being adjusted", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"adjustmentType", "String", "Adjustment Type", false, "Merged / Split / Modified / Omitted / Added", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"standardRoleName", "String", "Standard Role Name", true, "Original TomSpecs role being adjusted", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"adjustmentType", "String", "Adjustment Type", false, "Merged / Split / Modified / Omitted / Added", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -66411,12 +66309,11 @@ void buildRoleCompetencyEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"competencyId", "String", "Competency ID", false, "Unique identifier for this competency", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"competencyType", "String", "Competency Type — Core, Technical, Leadership", false, "Category such as core, technical or leadership", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredLevel", "String", "Required Level — minimum proficiency", false, "Minimum proficiency that is mandatory", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"preferredLevel", "String", "Preferred Level — ideal proficiency", false, "Ideal proficiency level", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"assessmentMethod", "String", "Assessment Method — how evaluated during hiring", false, "How the competency is evaluated when hiring", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"developmentPriority", "String", "Development Priority — if gap exists", false, "Priority for developing this if a gap exists", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"competencyType", "String", "Competency Type — Core, Technical, Leadership", false, "Category such as core, technical or leadership", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"requiredLevel", "String", "Required Level — minimum proficiency", false, "Minimum proficiency that is mandatory", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"preferredLevel", "String", "Preferred Level — ideal proficiency", false, "Ideal proficiency level", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"assessmentMethod", "String", "Assessment Method — how evaluated during hiring", false, "How the competency is evaluated when hiring", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"developmentPriority", "String", "Development Priority — if gap exists", false, "Priority for developing this if a gap exists", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -67018,9 +66915,8 @@ void buildRuntimeDependencyEntryChildren(som::SomMetaNode& parent, std::vector<s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyId", "String", "Dependency ID", false, "Unique identifier, e.g. DEP-R-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"version", "String", "Required Version", false, "Version or version range required", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyType", "String", "Dependency Type", false, "Runtime / Optional / Peer / Conditional", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"version", "String", "Required Version", false, "Version or version range required", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyType", "String", "Dependency Type", false, "Runtime / Optional / Peer / Conditional", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -67548,14 +67444,13 @@ void buildScenarioEntryChildren(som::SomMetaNode& parent, std::vector<std::strin
     (*n).serializationOrder = 0;
     (*n).docComment = "Scenario identification.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"scenarioId", "String", "Scenario ID (e.g., SCE-001)", true, "Stable code such as SCE-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"scenarioType", "String", "Scenario Type — happy path, alternative, exception", false, "One of happy path, alternative, or exception", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description — narrative summary", false, "One-paragraph narrative of the journey", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"businessGoal", "String", "Business Goal — what is achieved", false, "The outcome the actor is trying to reach", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryActor", "String", "Primary Actor — who performs scenario", false, "The main actor driving the scenario", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"supportingActors", "String", "Supporting Actors — who else", false, "Other actors or systems that participate", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority — critical, high, medium, low", false, "Business priority of this scenario", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"complexity", "String", "Complexity — simple, moderate, complex", false, "Relative implementation/test complexity", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"scenarioType", "String", "Scenario Type — happy path, alternative, exception", false, "One of happy path, alternative, or exception", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description — narrative summary", false, "One-paragraph narrative of the journey", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"businessGoal", "String", "Business Goal — what is achieved", false, "The outcome the actor is trying to reach", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"primaryActor", "String", "Primary Actor — who performs scenario", false, "The main actor driving the scenario", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"supportingActors", "String", "Supporting Actors — who else", false, "Other actors or systems that participate", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority — critical, high, medium, low", false, "Business priority of this scenario", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"complexity", "String", "Complexity — simple, moderate, complex", false, "Relative implementation/test complexity", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"Cockburn — Writing Effective Use Cases: scenarios & scenario identity\",\"ISO/IEC/IEEE 29148 §6 — operational scenarios\"],\"connotation\":\"Captures the identifying attributes of a single key end-to-end scenario.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -67831,7 +67726,7 @@ void buildScheduledJobEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).form->fields.push_back(som::SomFormFieldMeta{"workSummary", "String", "Work Summary", true, "What the job does, step by step, in prose — the intent the work body must realise", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"readEntities", "String", "Read Entities", false, "The Data Model entities the job reads", 1, std::vector<std::string>{}, std::vector<std::string>{"DAENT.entityName"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"writtenEntities", "String", "Written Entities", false, "The Data Model entities the job writes, including the primary one", 2, std::vector<std::string>{}, std::vector<std::string>{"DAENT.entityName"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetReports", "String", "Target Reports", false, "The reports this job produces, where the work is a report run", 3, std::vector<std::string>{}, std::vector<std::string>{"REPENT.reportId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetReports", "String", "Target Reports", false, "The reports this job produces, where the work is a report run — report section ids (REPENT-REPO-…), comma-separated", 3, std::vector<std::string>{}, std::vector<std::string>{"REPENT.@sectionId"}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29148:2018 — requirements specification\",\"DAMA-DMBOK2 — data management body of knowledge\"],\"connotation\":\"What the job does and which entities and reports it acts on.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -68225,7 +68120,7 @@ void buildScreenActionEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"actionId", "String", "Action ID", true, "Unique action identifier", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"actionId", "String", "Action ID", true, "The symbol the built screen carries for this action — unique within the screen, e.g. act-submit-order", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"actionType", "String", "Action Type", false, "Submit/Save/Cancel/Delete/Navigate/Export/Import/Print/Refresh", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
@@ -68336,7 +68231,7 @@ void buildScreenBehaviorEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"behaviorId", "String", "Behavior ID", true, "Unique identifier for this behavior", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"behaviorId", "String", "Behavior ID", true, "The symbol the built screen carries for this behaviour — unique within the screen, e.g. bhv-autosave", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"behaviorType", "String", "Behavior Type (ConditionalVisibility, ConditionalRequired, Calculation, CascadingSelect, AutoPopulate, CrossFieldValidation, DynamicDefault, FieldFormatting, LiveSearch, InlineEdit)", true, "ConditionalVisibility, Calculation, CascadingSelect, etc.", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerEvent", "String", "Trigger Event (OnLoad, OnChange, OnBlur, OnFocus, OnClick, OnSubmit, OnFieldChange)", false, "OnLoad, OnChange, OnBlur, OnFocus, OnClick, OnSubmit, etc.", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"triggerField", "String", "Trigger Field (if field-specific)", false, "Field that triggers the behavior, if field-specific", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -68445,7 +68340,7 @@ void buildScreenElementActionChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).serializationOrder = 2;
     (*n).docComment = "Post-action navigation rules.";
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"navigateTo", "String", "Navigate To", false, "Target screen ID or route after action", 0, std::vector<std::string>{}, std::vector<std::string>{"SCREN.screenId", "SCRTEN.routeId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"navigateTo", "String", "Navigate To", false, "The target after the action — a screen section id (SCREN-ITEM-…), or a route id from the Screen Route Map", 0, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId", "SCRTEN.routeId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"navigateParams", "String", "Navigate Params", false, "Parameters to pass to navigation target", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"doubleClickPrevention", "String", "Double-Click Prevention", false, "Yes/No — disable during execution?", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-151:2008 — navigation between screens following an action\",\"ISO 9241-110:2020 — conformity with user expectations for post-action navigation\"],\"connotation\":\"The navigation rules that determine where the user is taken after an action completes.\"}", nullptr)});
@@ -68482,7 +68377,7 @@ void buildScreenElementDataDisplayChildren(som::SomMetaNode& parent, std::vector
     (*n).docComment = "Refresh and drill-down behavior.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"refreshMode", "String", "Refresh Mode", false, "Auto/Manual/Interval(seconds)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"drillDownTarget", "String", "Drill-Down Target", false, "Screen ID navigated to on click/tap", 1, std::vector<std::string>{}, std::vector<std::string>{"SCREN.screenId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"drillDownTarget", "String", "Drill-Down Target", false, "The screen navigated to on click/tap — a screen section id (SCREN-ITEM-…)", 1, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-112:2017 — presentation of information as it refreshes and updates\",\"ISO 9241-151:2008 — navigation such as drill-down between related views\"],\"connotation\":\"The refresh and drill-down behavior that governs how displayed data updates and navigates deeper.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -68517,7 +68412,7 @@ void buildScreenElementEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"elementId", "String", "Element ID", true, "Unique within screen, e.g., btn-submit, fld-customer-name", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"elementId", "String", "Element ID", true, "The symbol the built screen carries for this element — unique within the screen, e.g. btn-submit, fld-customer-name", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"elementType", "ScreenElementKind", "Element Type", true, "The semantic element kind — selects the facet subsection.", 1, std::vector<std::string>{"actionButton", "link", "textField", "numberField", "dateField", "selectField", "checkbox", "toggle", "dataDisplay", "dataTable", "card", "chart", "statusIndicator", "icon", "label", "image", "badge", "divider", "spacer", "tabBar"}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
@@ -68866,8 +68761,7 @@ void buildScreenEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"screenId", "String", "Screen ID", true, "Unique identifier, e.g., SCR-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"purpose", "String", "Purpose", false, "Business purpose — what the user accomplishes here", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"purpose", "String", "Purpose", false, "Business purpose — what the user accomplishes here", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -68882,7 +68776,7 @@ void buildScreenEntryChildren(som::SomMetaNode& parent, std::vector<std::string>
     (*n).docComment = "Classification and routing metadata.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"screenCategory", "String", "Screen Category", false, "List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"parentScreenId", "String", "Parent Screen ID", false, "Parent screen if this is a sub-screen or drill-down", 1, std::vector<std::string>{}, std::vector<std::string>{"SCREN.screenId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"parentScreenId", "String", "Parent Screen ID", false, "The parent screen, if this is a sub-screen or drill-down — a screen section id (SCREN-ITEM-…)", 1, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"routePattern", "String", "Route Pattern", false, "Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map", 2, std::vector<std::string>{}, std::vector<std::string>{"SCRTEN.routeId"}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-151:2008 — navigation structure and routing within the user interface\",\"ISO 9241-112:2017 — categorisation of information for structured presentation\"],\"connotation\":\"The classification and routing metadata that categorises a screen and locates it in the navigation structure.\"}", nullptr)});
     parent.addChild(std::move(n));
@@ -69087,7 +68981,7 @@ void buildScreenFieldEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"fieldId", "String", "Field ID", true, "Unique identifier for this field", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fieldId", "String", "Field ID", true, "The symbol the built screen carries for this field — unique within the screen, e.g. fld-customer-name", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"fieldType", "ScreenFieldKind", "Field Type", true, "The kind of value the user supplies — selects the type-specific constraint and presentation subsections", 1, std::vector<std::string>{"text", "multilineText", "email", "phone", "url", "password", "integer", "decimal", "currency", "date", "dateTime", "time", "singleSelect", "multiSelect", "file", "boolean"}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
@@ -69431,7 +69325,7 @@ void buildScreenRouteEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"routeId", "String", "Route ID", true, "Stable identifier referenced by every navigation target, e.g., order-edit", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"routePath", "String", "Route Path", false, "URL path pattern, e.g., /orders/:id/edit — presentation only, never used as a reference", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"screenId", "String", "Screen ID", false, "ID of the screen (SCREN registry) this route renders", 2, std::vector<std::string>{}, std::vector<std::string>{"SCREN.screenId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"screenId", "String", "Screen ID", false, "The screen this route renders — a screen section id (SCREN-ITEM-…)", 2, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"routeParameters", "String", "Route Parameters", false, "Comma-separated parameter names carried by the route, e.g., orderId,mode", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
@@ -69549,7 +69443,7 @@ void buildScreenSectionEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"sectionId", "String", "Section ID", true, "Unique within screen, e.g., header, filter-bar, main-content", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sectionId", "String", "Section ID", true, "The symbol the built screen carries for this section — unique within the screen, e.g. header, filter-bar, main-content", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"purpose", "String", "Purpose", false, "What this zone contains", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"sectionType", "String", "Section Type", false, "Header/Toolbar/Filter-Bar/Content-Primary/Content-Secondary/Sidebar/Footer/Tab-Panel/Accordion-Panel/Drawer/Action-Bar/Form-Group", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -69734,7 +69628,7 @@ void buildScreenTransitionEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).form->fields.push_back(som::SomFormFieldMeta{"outcome", "ScreenFlowOutcome", "Outcome", true, "success — the action completed; error — processing failed; validationError — the input was rejected", 2, std::vector<std::string>{"success", "error", "validationError"}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"targetRouteId", "String", "Target Route ID", true, "Route ID (SCRTEN registry) reached for this outcome — name the source route itself when the user stays put", 3, std::vector<std::string>{}, std::vector<std::string>{"SCRTEN.routeId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"presentationMode", "ScreenPresentationMode", "Presentation Mode", true, "replace — the target takes over the screen; popupOverlay — the target is shown over the source screen, which stays underneath", 4, std::vector<std::string>{"replace", "popupOverlay"}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"outcomeReference", "String", "Outcome Reference", false, "For error, the system error code (SYERCO registry); for validationError, the validation message template (VMT registry) — empty for success", 5, std::vector<std::string>{}, std::vector<std::string>{"SYERCO.errorCode", "VMT.messageId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"outcomeReference", "String", "Outcome Reference", false, "For error, the system error code (SYERCO registry); for validationError, the validation message template — its section id (VMT-MESS-…). Empty for success", 5, std::vector<std::string>{}, std::vector<std::string>{"SYERCO.errorCode", "VMT.@sectionId"}});
     parent.addChild(std::move(n));
   }
 }
@@ -70467,9 +70361,8 @@ void buildSecurityControlEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"controlId", "String", "Control ID", true, "Stable unique identifier for the control", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"controlType", "String", "Control Type (Preventive, Detective, Corrective, Deterrent, Compensating)", true, "Preventive, Detective, Corrective, Deterrent, or Compensating", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"implementationType", "String", "Implementation Type (Technical, Administrative, Physical)", false, "Technical, Administrative, or Physical", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"controlType", "String", "Control Type (Preventive, Detective, Corrective, Deterrent, Compensating)", true, "Preventive, Detective, Corrective, Deterrent, or Compensating", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"implementationType", "String", "Implementation Type (Technical, Administrative, Physical)", false, "Technical, Administrative, or Physical", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -73592,9 +73485,8 @@ void buildSloEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"sloId", "String", "SLO ID", true, "Unique SLO identifier", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"sloDescription", "String", "SLO Description", false, "What this SLO covers", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"serviceName", "String", "Service Name", false, "Service the SLO applies to", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sloDescription", "String", "SLO Description", false, "What this SLO covers", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"serviceName", "String", "Service Name", false, "Service the SLO applies to", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -73915,11 +73807,10 @@ void buildSpecializedEquipmentEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"equipmentId", "String", "Equipment ID", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"equipmentType", "String", "Equipment Type — barcode scanner, card reader, signature pad", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"brand", "String", "Brand", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"model", "String", "Model", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"purpose", "String", "Purpose — business function supported", false, "", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"equipmentType", "String", "Equipment Type — barcode scanner, card reader, signature pad", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"brand", "String", "Brand", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"model", "String", "Model", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"purpose", "String", "Purpose — business function supported", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -74755,8 +74646,7 @@ void buildStageMigrationRiskEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskId", "String", "Risk ID", true, "Unique identifier — e.g. MIG-R001, MIG-R002", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskCategory", "String", "Risk Category", true, "DataLoss / DataCorruption / DowntimeOverrun / SecurityBreach", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskCategory", "String", "Risk Category", true, "DataLoss / DataCorruption / DowntimeOverrun / SecurityBreach", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -75350,10 +75240,9 @@ void buildStageSuccessCriterionEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"criterionId", "String", "Criterion ID", false, "Unique identifier — e.g. SC-01, SC-02", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"criterion", "String", "Criterion", true, "Description of the success criterion", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Functional / Performance / Adoption / Quality / Security / Compliance / Operational", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority", false, "MustMeet / ShouldMeet / NiceToHave — importance for stage sign-off", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"criterion", "String", "Criterion", true, "Description of the success criterion", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", false, "Functional / Performance / Adoption / Quality / Security / Compliance / Operational", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority", false, "MustMeet / ShouldMeet / NiceToHave — importance for stage sign-off", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -75977,12 +75866,11 @@ void buildStakeholderRegisterEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"stakeholderId", "String", "Stakeholder ID (STK-NNN)", true, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"role", "String", "Role", true, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"interest", "String", "Interest (what they care about)", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"influence", "String", "Influence (High, Medium, Low)", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"concerns", "String", "Concerns", false, "", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"engagementStrategy", "String", "Engagement Strategy", false, "", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"role", "String", "Role", true, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"interest", "String", "Interest (what they care about)", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"influence", "String", "Influence (High, Medium, Low)", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"concerns", "String", "Concerns", false, "", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"engagementStrategy", "String", "Engagement Strategy", false, "", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -77067,8 +76955,7 @@ void buildSuccessCriterionEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"criterionId", "String", "Criterion ID", true, "Unique identifier (e.g., SC-001)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", true, "Business, Technical, User, Compliance, Budget, Timeline", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category", true, "Business, Technical, User, Compliance, Budget, Timeline", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -77201,7 +77088,7 @@ void buildSuccessCriterionRelationshipsChildren(som::SomMetaNode& parent, std::v
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedGoals", "String", "Related Goals", false, "Which business/technical goals this supports", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedGoals", "String", "Related Goals", false, "Related business goals — business goal section ids (BGE-GOAL-…), comma-separated", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"relatedRequirements", "String", "Related Requirements", false, "Requirement ids that contribute to this criterion, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 1, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencies", "String", "Dependencies", false, "Other criteria this depends on", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"stakeholders", "String", "Key Stakeholders", false, "Who cares most about this criterion", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -77767,7 +77654,7 @@ void buildSystemBusinessProcessEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"processId", "String", "Process ID", false, "Identifier for the process if one exists", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"processId", "String", "Process ID", false, "The code the organisation already uses for this process, if one exists — owned outside this document", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"systemRole", "String", "System Role (Primary, Data Source, etc.)", false, "Role the system plays in the process", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"automationLevel", "String", "Automation Level", false, "Degree to which the process is automated", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"processFrequency", "String", "Execution Frequency", false, "How often the process runs", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -79138,14 +79025,13 @@ void buildSystemMigrationRiskEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskId", "String", "Risk ID", false, "Identifier for the risk", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskDescription", "String", "Risk Description", true, "What the risk is", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"probability", "String", "Probability (High, Medium, Low)", false, "Likelihood the risk occurs", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "String", "Impact (High, Medium, Low)", false, "Severity if the risk occurs", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskScore", "String", "Risk Score", false, "Combined probability/impact score", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"mitigation", "String", "Mitigation Strategy", false, "How the risk will be reduced", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"contingency", "String", "Contingency Plan", false, "Fallback if the risk materializes", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"owner", "String", "Risk Owner", false, "Person accountable for the risk", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskDescription", "String", "Risk Description", true, "What the risk is", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"probability", "String", "Probability (High, Medium, Low)", false, "Likelihood the risk occurs", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "String", "Impact (High, Medium, Low)", false, "Severity if the risk occurs", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskScore", "String", "Risk Score", false, "Combined probability/impact score", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"mitigation", "String", "Mitigation Strategy", false, "How the risk will be reduced", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"contingency", "String", "Contingency Plan", false, "Fallback if the risk materializes", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"owner", "String", "Risk Owner", false, "Person accountable for the risk", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -80326,8 +80212,7 @@ void buildSystemTaskEntryChildren(som::SomMetaNode& parent, std::vector<std::str
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"taskId", "String", "Task ID", true, "Unique identifier for this task", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description (what the user does)", false, "What the user does when performing this task", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description (what the user does)", false, "What the user does when performing this task", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -80542,7 +80427,7 @@ void buildSystemToReplaceEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"systemId", "String", "System ID (e.g., SYS-CRM-001)", true, "Stable identifier for the legacy system being replaced", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"systemId", "String", "System ID (e.g., SYS-CRM-001)", true, "The identifier the organisation already uses for the legacy system being replaced, e.g. SYS-CRM-001 — owned outside this document", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"officialName", "String", "Official/Vendor Name", false, "Vendor/product name and edition, if a commercial system", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"systemDescription", "String", "Description", false, "Brief description of what the system does and who uses it", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -80748,9 +80633,8 @@ void buildSystemTrainingEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"trainingId", "String", "Training ID", true, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"modulesCovered", "String", "Modules Covered — system modules in scope", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"userRoleFocus", "String", "User Role Focus — specific role training", false, "", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"modulesCovered", "String", "Modules Covered — system modules in scope", false, "", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"userRoleFocus", "String", "User Role Focus — specific role training", false, "", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -80959,8 +80843,8 @@ void buildTabBarDefinitionEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"tabBarId", "String", "Tab Bar ID", true, "Unique identifier, e.g., tabs-customer-detail", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"hostScreenId", "String", "Host Screen ID", false, "Screen that contains this tab bar", 1, std::vector<std::string>{}, std::vector<std::string>{"SCREN.screenId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tabBarId", "String", "Tab Bar ID", true, "The symbol the built client carries for this tab bar, e.g. tabs-customer-detail", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"hostScreenId", "String", "Host Screen ID", false, "The screen that contains this tab bar — a screen section id (SCREN-ITEM-…)", 1, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"tabBarStyle", "String", "Style", false, "Material-Tabs/Segmented-Control/Pill-Tabs/Scrollable-Tabs", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
@@ -81038,11 +80922,11 @@ void buildTabItemEntryChildren(som::SomMetaNode& parent, std::vector<std::string
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"tabId", "String", "Tab ID", true, "Unique within tab bar", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"tabId", "String", "Tab ID", true, "The symbol the built tab bar carries for this tab — unique within the tab bar, e.g. tab-orders", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"label", "String", "Label Resource", true, "Message key (MSGKR registry) for tab label", 1, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"icon", "String", "Icon Resource", false, "Tab icon", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"displayOrder", "int", "Display Order", false, "Position in tab bar", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"contentScreenId", "String", "Content Screen ID", false, "Screen/fragment loaded in tab", 4, std::vector<std::string>{}, std::vector<std::string>{"SCREN.screenId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"contentScreenId", "String", "Content Screen ID", false, "The screen or fragment loaded in the tab — a screen section id (SCREN-ITEM-…)", 4, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"visibilityCondition", "String", "Visibility Condition", false, "Business rule for visibility", 5, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"badgeType", "String", "Badge Type", false, "None/Count/Dot", 6, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"badgeSource", "String", "Badge Source", false, "Data source for badge", 7, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -81476,13 +81360,12 @@ void buildTechnicalConstraintEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"constraintId", "String", "Constraint ID", true, "Unique identifier for the constraint", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"constraintType", "String", "Constraint Type (Technology, Standard, Resource, Compatibility, Budget, Timeline, Regulatory)", false, "Technology, Standard, Resource, Compatibility, Budget, etc.", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What the constraint requires", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"source", "String", "Source (who/what imposed this constraint)", false, "Who or what imposed this constraint", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"rationale", "String", "Rationale (why this constraint exists)", false, "Why this constraint exists", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "String", "Impact (how this affects our approach)", false, "How this affects our approach", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"flexibility", "String", "Flexibility (Fixed, Negotiable, Preferred)", false, "Fixed / Negotiable / Preferred", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"constraintType", "String", "Constraint Type (Technology, Standard, Resource, Compatibility, Budget, Timeline, Regulatory)", false, "Technology, Standard, Resource, Compatibility, Budget, etc.", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What the constraint requires", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"source", "String", "Source (who/what imposed this constraint)", false, "Who or what imposed this constraint", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"rationale", "String", "Rationale (why this constraint exists)", false, "Why this constraint exists", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"impact", "String", "Impact (how this affects our approach)", false, "How this affects our approach", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"flexibility", "String", "Flexibility (Fixed, Negotiable, Preferred)", false, "Fixed / Negotiable / Preferred", 5, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -81498,13 +81381,12 @@ void buildTechnicalDependencyEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyId", "String", "Dependency ID", true, "Unique identifier for the dependency", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyType", "String", "Dependency Type (Infrastructure, API, Library, Service, Hardware, Network, Third-party)", false, "Infrastructure, API, Library, Service, Hardware, etc.", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What the dependency provides", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"version", "String", "Version (if applicable)", false, "Required version, if applicable", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"sla", "String", "SLA (if external service)", false, "Service-level agreement for external services", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"fallback", "String", "Fallback (what if unavailable)", false, "What happens if the dependency is unavailable", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Available, Pending, At Risk)", false, "Available / Pending / At Risk", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependencyType", "String", "Dependency Type (Infrastructure, API, Library, Service, Hardware, Network, Third-party)", false, "Infrastructure, API, Library, Service, Hardware, etc.", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What the dependency provides", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"version", "String", "Version (if applicable)", false, "Required version, if applicable", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"sla", "String", "SLA (if external service)", false, "Service-level agreement for external services", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fallback", "String", "Fallback (what if unavailable)", false, "What happens if the dependency is unavailable", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Available, Pending, At Risk)", false, "Available / Pending / At Risk", 5, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -82033,10 +81915,9 @@ void buildTechnicalGoalEntryChildren(som::SomMetaNode& parent, std::vector<std::
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"goalId", "String", "Goal ID (unique identifier, e.g., TG-001)", true, "Unique identifier, e.g. TG-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description (detailed explanation of the technical objective)", false, "Detailed explanation of the technical objective", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"goalCategory", "String", "Goal Category (Performance, Scalability, Reliability, Security, Usability, Accessibility, Maintainability, Portability, Interoperability, Compliance)", true, "Quality attribute category, e.g. Performance, Security", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority (Critical, High, Medium, Low)", true, "Critical / High / Medium / Low", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description (detailed explanation of the technical objective)", false, "Detailed explanation of the technical objective", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"goalCategory", "String", "Goal Category (Performance, Scalability, Reliability, Security, Usability, Accessibility, Maintainability, Portability, Interoperability, Compliance)", true, "Quality attribute category, e.g. Performance, Security", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority (Critical, High, Medium, Low)", true, "Critical / High / Medium / Low", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -82155,12 +82036,11 @@ void buildTechnicalGoalTestCaseEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"testCaseId", "String", "Test Case ID", true, "Unique identifier for the test case", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this test case verifies", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"testProcedure", "String", "Test Procedure", false, "Steps to execute the test", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"expectedResult", "String", "Expected Result", false, "Result expected when the goal is met", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"actualResult", "String", "Actual Result", false, "Result observed when the test was run", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Planned, In Progress, Passed, Failed)", false, "Planned / In Progress / Passed / Failed", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "What this test case verifies", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"testProcedure", "String", "Test Procedure", false, "Steps to execute the test", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"expectedResult", "String", "Expected Result", false, "Result expected when the goal is met", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"actualResult", "String", "Actual Result", false, "Result observed when the test was run", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status (Planned, In Progress, Passed, Failed)", false, "Planned / In Progress / Passed / Failed", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -82723,8 +82603,7 @@ void buildTechnologyStandardEntryChildren(som::SomMetaNode& parent, std::vector<
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"standardId", "String", "Standard ID", true, "Unique identifier, e.g. STD-SEC-001, STD-DEV-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"standardCategory", "String", "Category", false, "Security, Development, Infrastructure, Integration, Data, DevOps", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"standardCategory", "String", "Category", false, "Security, Development, Infrastructure, Integration, Data, DevOps", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -83058,8 +82937,7 @@ void buildTestScenarioEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"scenarioId", "String", "Scenario ID", true, "Unique identifier — e.g. UAT-SC-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority", false, "Critical / High / Medium / Low", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"priority", "String", "Priority", false, "Critical / High / Medium / Low", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -83109,7 +82987,7 @@ void buildTestScenarioEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).docComment = "Traceability.";
     (*n).form = som::SomFormMeta{};
     (*n).form->fields.push_back(som::SomFormFieldMeta{"requirementRef", "String", "Requirement Reference", false, "Requirement ids, comma-separated — each is a requirement section id (FRE-REQU-… / TERQ-REQU-… / SECRQ-REQU-… / ORRQ-REQU-…)", 0, std::vector<std::string>{}, std::vector<std::string>{"FRE.@sectionId", "TERQ.@sectionId", "SECRQ.@sectionId", "ORRQ.@sectionId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"useCaseRef", "String", "Use Case Reference", false, "Related use case ID", 1, std::vector<std::string>{}, std::vector<std::string>{"INEN.interactionId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"useCaseRef", "String", "Use Case Reference", false, "The related interaction — an interaction section id (INEN-INTE-…)", 1, std::vector<std::string>{}, std::vector<std::string>{"INEN.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"acceptanceCriterionRef", "String", "Acceptance Criterion Reference", false, "Linked criterion ID", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"designRef", "String", "Design / Screen Reference", false, "UI screens or mockup references", 3, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29119 2022 — the software testing standard defines traceability of test cases to requirements and acceptance criteria\",\"ISO/IEC/IEEE 12207:2017 — the software life-cycle processes standard defines the validation process linking tests to requirements\"],\"connotation\":\"Links an acceptance test scenario to its requirements, use cases, acceptance criteria, and design references.\"}", nullptr)});
@@ -83129,7 +83007,7 @@ void buildTestScenarioEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).form->fields.push_back(som::SomFormFieldMeta{"preconditions", "String", "Preconditions", false, "System state required before execution", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"testDataRequirements", "String", "Test Data Requirements", false, "Specific data needed", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"environmentRequirements", "String", "Environment Requirements", false, "Special environment config", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnScenarios", "String", "Depends on Scenarios", false, "Scenario IDs that must pass before this one", 3, std::vector<std::string>{}, std::vector<std::string>{"TSSC.scenarioId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnScenarios", "String", "Depends on Scenarios", false, "Scenarios that must pass before this one — test scenario section ids (TSSC-TEST-…), comma-separated", 3, std::vector<std::string>{}, std::vector<std::string>{"TSSC.@sectionId"}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO/IEC/IEEE 29119 2022 — the software testing standard defines preconditions and test-data requirements within a test case\",\"IEEE 829-2008 — the standard for software and system test documentation defines environmental-needs and setup records\"],\"connotation\":\"Captures the preconditions, test-data requirements, and environment setup needed before an acceptance test scenario runs.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -83889,8 +83767,7 @@ void buildToolEntryChildren(som::SomMetaNode& parent, std::vector<std::string>& 
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"toolId", "String", "Tool ID", true, "Unique identifier, e.g. TOOL-IDE-001", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional notes, caveats, or context", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"notes", "String", "Notes", false, "Additional notes, caveats, or context", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -84416,8 +84293,7 @@ void buildTradeOffDecisionEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"decisionId", "String", "Decision ID", false, "Unique identifier (e.g., TRADEOFF-001)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"decisionStatus", "String", "Status", false, "Proposed, approved, implemented, reversed", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"decisionStatus", "String", "Status", false, "Proposed, approved, implemented, reversed", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -84868,13 +84744,12 @@ void buildTrainingModuleEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"moduleId", "String", "Module ID", true, "Unique identifier for the module", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetAudience", "String", "Target Audience", false, "End users, admins, power users", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"duration", "String", "Duration", false, "Expected length (e.g., 2 hours, half day)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"deliveryMethod", "String", "Delivery Method", false, "In-person, virtual, self-paced", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"prerequisites", "String", "Prerequisites", false, "Required prior knowledge or modules", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"learningObjectives", "String", "Learning Objectives", false, "What learners will be able to do", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"assessmentMethod", "String", "Assessment Method", false, "Quiz, exercise, certification", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetAudience", "String", "Target Audience", false, "End users, admins, power users", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"duration", "String", "Duration", false, "Expected length (e.g., 2 hours, half day)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"deliveryMethod", "String", "Delivery Method", false, "In-person, virtual, self-paced", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"prerequisites", "String", "Prerequisites", false, "Required prior knowledge or modules", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"learningObjectives", "String", "Learning Objectives", false, "What learners will be able to do", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"assessmentMethod", "String", "Assessment Method", false, "Quiz, exercise, certification", 5, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
 }
@@ -85245,12 +85120,11 @@ void buildTransitionMetricEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"metricId", "String", "Metric ID", true, "A unique identifier for this success metric", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category — Adoption, Performance, Quality, Satisfaction, Efficiency", false, "The category of this metric: Adoption, Performance, Quality, Satisfaction, or Efficiency", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "A description of what this metric measures and why it matters", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"measurementMethod", "String", "Measurement Method", false, "How this metric is measured, including the data source and calculation", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"baseline", "String", "Baseline Value", false, "The baseline value of this metric before the transition, used as a comparison point", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"target", "String", "Target Value", false, "The target value this metric should reach to indicate success", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"category", "String", "Category — Adoption, Performance, Quality, Satisfaction, Efficiency", false, "The category of this metric: Adoption, Performance, Quality, Satisfaction, or Efficiency", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "A description of what this metric measures and why it matters", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"measurementMethod", "String", "Measurement Method", false, "How this metric is measured, including the data source and calculation", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"baseline", "String", "Baseline Value", false, "The baseline value of this metric before the transition, used as a comparison point", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"target", "String", "Target Value", false, "The target value this metric should reach to indicate success", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -85301,12 +85175,11 @@ void buildTransitionMilestoneEntryChildren(som::SomMetaNode& parent, std::vector
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"milestoneId", "String", "Milestone ID (e.g., MS-01)", true, "Unique identifier for the milestone, e.g. MS-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"milestoneType", "String", "Milestone Type — Decision Gate, Checkpoint, Go-Live, Closure", false, "The kind of milestone: Decision Gate, Checkpoint, Go-Live, or Closure", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetDate", "String", "Target Date", false, "The planned date by which the milestone should be achieved", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"actualDate", "String", "Actual Date — when achieved", false, "The actual date on which the milestone was achieved", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status — Planned, On Track, At Risk, Delayed, Achieved", false, "Current status of the milestone: Planned, On Track, At Risk, Delayed, or Achieved", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "A short description of what the milestone represents", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"milestoneType", "String", "Milestone Type — Decision Gate, Checkpoint, Go-Live, Closure", false, "The kind of milestone: Decision Gate, Checkpoint, Go-Live, or Closure", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetDate", "String", "Target Date", false, "The planned date by which the milestone should be achieved", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"actualDate", "String", "Actual Date — when achieved", false, "The actual date on which the milestone was achieved", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"status", "String", "Status — Planned, On Track, At Risk, Delayed, Achieved", false, "Current status of the milestone: Planned, On Track, At Risk, Delayed, or Achieved", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "A short description of what the milestone represents", 4, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -85536,9 +85409,8 @@ void buildTransitionPhaseIdentificationChildren(som::SomMetaNode& parent, std::v
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"phaseId", "String", "Phase ID (e.g., PH-01)", true, "Unique identifier for the phase, e.g. PH-01", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"phaseType", "String", "Phase Type — Preparation, Pilot, Rollout, Stabilization, Closure", false, "The kind of phase: Preparation, Pilot, Rollout, Stabilization, or Closure", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"phaseOwner", "String", "Phase Owner", false, "The person or role accountable for delivering this phase", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"phaseType", "String", "Phase Type — Preparation, Pilot, Rollout, Stabilization, Closure", false, "The kind of phase: Preparation, Pilot, Rollout, Stabilization, or Closure", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"phaseOwner", "String", "Phase Owner", false, "The person or role accountable for delivering this phase", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -85555,8 +85427,8 @@ void buildTransitionPhaseIdentificationChildren(som::SomMetaNode& parent, std::v
     (*n).form->fields.push_back(som::SomFormFieldMeta{"startDate", "String", "Start Date", false, "The planned start date for this phase", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"endDate", "String", "End Date", false, "The planned end date for this phase", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"duration", "String", "Duration — weeks", false, "Expected duration of the phase, expressed in weeks", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"precedingPhase", "String", "Preceding Phase — phase ID", false, "The phase ID that must complete before this phase begins", 3, std::vector<std::string>{}, std::vector<std::string>{"TPIDN.phaseId"}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnMilestone", "String", "Depends on Milestone — milestone ID", false, "The milestone ID this phase depends on before it can start", 4, std::vector<std::string>{}, std::vector<std::string>{"TRMIL.milestoneId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"precedingPhase", "String", "Preceding Phase — phase ID", false, "The phase that must complete before this one begins — a transition phase section id (TRPHE-PHAS-…)", 3, std::vector<std::string>{}, std::vector<std::string>{"TRPHE.@sectionId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"dependsOnMilestone", "String", "Depends on Milestone — milestone ID", false, "The milestone this phase depends on before it can start — a milestone section id (TRMIL-MILE-…)", 4, std::vector<std::string>{}, std::vector<std::string>{"TRMIL.@sectionId"}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"PMBOK — schedule management\",\"ISO/IEC/IEEE 29148 §6 — transition\"],\"connotation\":\"Captures the start/end dates, duration, and sequencing dependencies that place this phase within the transition timeline.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -85610,9 +85482,8 @@ void buildTransitionRiskEntryChildren(som::SomMetaNode& parent, std::vector<std:
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskId", "String", "Risk ID", true, "A unique identifier for this transition risk", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskCategory", "String", "Risk Category — Resistance, Capacity, Timing, Resources, Dependencies", false, "The category of this risk: Resistance, Capacity, Timing, Resources, or Dependencies", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "A description of the risk, including what could go wrong and its potential consequences", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"riskCategory", "String", "Risk Category — Resistance, Capacity, Timing, Resources, Dependencies", false, "The category of this risk: Resistance, Capacity, Timing, Resources, or Dependencies", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description", false, "A description of the risk, including what could go wrong and its potential consequences", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -86347,9 +86218,8 @@ void buildUiComponentEntryChildren(som::SomMetaNode& parent, std::vector<std::st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"componentId", "String", "Component ID", true, "Unique identifier (e.g., CMP-DTT-001)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"componentFamily", "String", "Component Family", false, "Button, Input, Table, Navigation, etc.", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"baseComponent", "String", "Base Component", false, "Base component of the shared library this one specialises (Data Table, Text Input)", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"componentFamily", "String", "Component Family", false, "Button, Input, Table, Navigation, etc.", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"baseComponent", "String", "Base Component", false, "Base component of the shared library this one specialises (Data Table, Text Input)", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -87917,9 +87787,8 @@ void buildUserCategoryEntryChildren(som::SomMetaNode& parent, std::vector<std::s
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"categoryId", "String", "Category ID (unique identifier)", true, "Unique stable identifier for cross-referencing this category", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description (brief summary of this user type)", true, "One- or two-sentence summary of this user type", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"userType", "String", "User Type (Internal, External, Partner, Customer, Administrator, etc.)", true, "Internal / External / Partner / Customer / Administrator", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"description", "String", "Description (brief summary of this user type)", true, "One- or two-sentence summary of this user type", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"userType", "String", "User Type (Internal, External, Partner, Customer, Administrator, etc.)", true, "Internal / External / Partner / Customer / Administrator", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
   }
   {
@@ -89303,7 +89172,7 @@ void buildUtilityMenuItemEntryChildren(som::SomMetaNode& parent, std::vector<std
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"menuItemId", "String", "Menu Item ID", true, "Unique identifier, e.g., menu-item-logout", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"menuItemId", "String", "Menu Item ID", true, "The symbol the built menu carries for this item, e.g. menu-item-logout", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"icon", "String", "Icon Resource", false, "Leading icon", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"displayOrder", "int", "Display Order", false, "Position in menu", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -89410,7 +89279,7 @@ void buildUtilityNavigationItemEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"utilityId", "String", "Utility ID", true, "e.g., util-user-menu, util-notifications", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"utilityId", "String", "Utility ID", true, "The symbol the built navigation carries for this utility, e.g. util-user-menu, util-notifications", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"icon", "String", "Icon Resource", true, "Primary icon", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"position", "String", "Position", false, "AppBar-Leading/AppBar-Trailing/Drawer-Footer", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
@@ -89462,7 +89331,7 @@ void buildUtilityNavigationItemEntryChildren(som::SomMetaNode& parent, std::vect
     (*n).form->fields.push_back(som::SomFormFieldMeta{"badgeType", "String", "Badge Type", false, "None/Count/Dot", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"badgeSource", "String", "Badge Source", false, "Data binding for badge", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"interactionType", "String", "Interaction Type", false, "Navigate/Open-Popup/Open-Drawer/Open-Bottom-Sheet/Open-Dialog", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetScreenId", "String", "Target Screen ID", false, "Navigation target", 3, std::vector<std::string>{}, std::vector<std::string>{"SCREN.screenId"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"targetScreenId", "String", "Target Screen ID", false, "The navigation target — a screen section id (SCREN-ITEM-…)", 3, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}});
     (*n).extra.push_back(som::SomMetaExtra{"StandardReferences", som::jsonParse("{\"standards\":[\"ISO 9241-14:1997 — menu dialogues define how selecting a utility item opens a menu, drawer, or sheet\",\"ISO/IEC 25010:2023 — appropriateness recognisability lets users read status from a badge before acting\"],\"connotation\":\"The badge display and interaction behavior triggered when a utility navigation item is used.\"}", nullptr)});
     parent.addChild(std::move(n));
   }
@@ -89663,16 +89532,15 @@ void buildValidationMessageTemplateChildren(som::SomMetaNode& parent, std::vecto
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"messageId", "String", "Message ID", true, "Unique identifier (e.g., VAL-REQ-001)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"validationType", "String", "Validation Type", true, "Required, format, range, length, custom", 1, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"fieldTypes", "String", "Applicable Field Types", false, "Text, email, number, date, select", 2, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"messageTemplate", "String", "Message Template", true, "Template with {field}, {value} placeholders. Author the copy once in the CE-TX Message Key Registry (MSGKR) and reference it via localizationKey; this field carries the resolved default copy", 3, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"shortMessage", "String", "Short Message", false, "Brief version for space-constrained contexts", 4, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"helpText", "String", "Help Text", false, "Extended guidance for complex errors", 5, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"exampleCorrection", "String", "Example Correction", false, "Example of valid input", 6, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Severity", false, "Error, warning, info", 7, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"iconCode", "String", "Icon Code", false, "Icon to display with message", 8, std::vector<std::string>{}, std::vector<std::string>{}});
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"localizationKey", "String", "Localization Key", false, "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) — the single author-once home for this validation copy and its locale variants", 9, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"validationType", "String", "Validation Type", true, "Required, format, range, length, custom", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fieldTypes", "String", "Applicable Field Types", false, "Text, email, number, date, select", 1, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"messageTemplate", "String", "Message Template", true, "Template with {field}, {value} placeholders. Author the copy once in the CE-TX Message Key Registry (MSGKR) and reference it via localizationKey; this field carries the resolved default copy", 2, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"shortMessage", "String", "Short Message", false, "Brief version for space-constrained contexts", 3, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"helpText", "String", "Help Text", false, "Extended guidance for complex errors", 4, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"exampleCorrection", "String", "Example Correction", false, "Example of valid input", 5, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"severity", "String", "Severity", false, "Error, warning, info", 6, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"iconCode", "String", "Icon Code", false, "Icon to display with message", 7, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"localizationKey", "String", "Localization Key", false, "MessageKeyEntry.key into the CE-TX Message Key Registry (MSGKR) — the single author-once home for this validation copy and its locale variants", 8, std::vector<std::string>{}, std::vector<std::string>{"MSGKE.key"}});
     parent.addChild(std::move(n));
   }
 }
@@ -90410,7 +90278,7 @@ void buildWcagSuccessCriterionEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"criterionId", "String", "Criterion ID", true, "WCAG SC ID (e.g., 1.4.3)", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"criterionId", "String", "Criterion ID", true, "The WCAG success criterion number, e.g. 1.4.3 — owned by the WCAG specification", 0, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"level", "String", "Level", false, "A, AA, AAA", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"applicability", "String", "Applicability", false, "Where this applies in the app", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"implementation", "String", "Implementation", false, "How we meet this criterion", 3, std::vector<std::string>{}, std::vector<std::string>{}});

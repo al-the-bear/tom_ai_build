@@ -49,7 +49,7 @@
         - content @Form(topologyType, deploymentModel, cloudProviders), infrastructure, environmentsConfig,
           availability, geography, infrastructureAsCode
       - decisionRecords: `ArchitectureDecisionRecord`
-        - content @Form(decisionId, date, status), contextDetails, outcome, consequences, relations
+        - content @Form(date, status), contextDetails, outcome, consequences, relations
     - `DesignPatternsAndStandards`
       - content, overview @text
       - designPatterns: `DesignPatternEntry`
@@ -486,7 +486,7 @@
         - notificationChannels: `AlertNotificationChannels`
           - content @Form(pagingService, slackIntegration, teamsIntegration), delivery, routing, formatting
         - alertRules: `AlertRuleEntry`
-          - content @Form(alertId, alertDescription, severity, category), trigger, response, ownership
+          - content @Form(alertDescription, severity, category), trigger, response, ownership
         - escalationPolicies: `AlertEscalationPolicies`
           - content @Form(level1Responder, level2Responder, level3Responder), timing, behavior, schedules
         - suppressionRules: `AlertSuppressionRules`
@@ -509,7 +509,7 @@
       - dashboards: `MonitoringDashboards`
         - dashboardOverview, overviewNarrative @text
         - dashboards: `DashboardEntry`
-          - content @Form(dashboardId, dashboardCategory, targetAudience), configuration, operations
+          - content @Form(dashboardCategory, targetAudience), configuration, operations
         - dashboardTemplates: `DashboardTemplates`
           - content @Form(serviceTemplateLayout, serviceTemplateVariables, infraTemplateLayout, k8sTemplateLayout, databaseTemplateLayout, customTemplateProcess, templateVersioning, notes)
       - `SlaAndSloMonitoring`
@@ -517,7 +517,7 @@
         - slis: `ServiceLevelIndicators`
           - content @Form(availabilitySli, availabilityExclusions), performance, quality, measurement
         - slos: `SloEntry`
-          - content @Form(sloId, sloDescription, serviceName), target, operations
+          - content @Form(sloDescription, serviceName), target, operations
         - errorBudget: `ErrorBudgetTracking`
           - content @Form(budgetCalculationMethod, budgetWindow, budgetResetPolicy, budgetBurnRateDashboard),
             monitoring, governance
@@ -608,14 +608,14 @@
       - content @Form(buildVsBuyPhilosophy, buildVsBuyThreshold, technologyStackAlignment), vendors, governance,
         portfolio, policies, planning
       - reuseGoals: `ReuseGoalEntry`
-        - content @Form(goalId, goal, rationale, category), measurement, governance, enablement
+        - content @Form(goal, rationale, category), measurement, governance, enablement
       - `EvaluationCriteria`
         - content
         - items: `EvaluationCriterionEntry`
-          - content @Form(criterionId, criterion, description, category), scoring, process, guidelines
+          - content @Form(criterion, description, category), scoring, process, guidelines
     - componentCatalog: `ComponentEntry`
-      - content @Form(componentId, category), vendor, maturity, support, performance, deployment, cost, compliance,
-        risk, usageRights @text
+      - content @Form(category), vendor, maturity, support, performance, deployment, cost, compliance, risk,
+        usageRights @text
       - docs: `ComponentDocs`
         - content @Form(documentationQuality, documentationUrl, approvalStatus, approvedBy)
       - interfaces: `ComponentInterfaceEntry`
@@ -627,19 +627,19 @@
     - `RuntimeDependencies`
       - content
       - items: `RuntimeDependencyEntry`
-        - content @Form(dependencyId, version, dependencyType), classification, startup, resilience, integration, risk
+        - content @Form(version, dependencyType), classification, startup, resilience, integration, risk
     - `MaintenanceDependencies`
       - content
       - items: `MaintenanceDependencyEntry`
-        - content @Form(dependencyId, version, versionConstraint), classification, update, risk
+        - content @Form(version, versionConstraint), classification, update, risk
     - riskAssessment: `ComponentRiskAssessment`
       - content
       - risks: `ComponentRiskEntry`
-        - content @Form(riskId, componentRef), description, assessment, detection, mitigation, governance
+        - content @Form(componentRef), description, assessment, detection, mitigation, governance
       - `ContingencyPlans`
         - content
         - items: `ContingencyPlanEntry`
-          - content @Form(contingencyId, triggerCondition), references, actions, responsibility, communication, testing
+          - content @Form(triggerCondition), references, actions, responsibility, communication, testing
   - `TechnicalEnvironment`
     - technicalOverviewContent, governance, standards, security, existingInfrastructure @text, networkTopology @text,
       standardsOverview @text, integrationOverview @text
@@ -650,8 +650,8 @@
       - observabilityRequirements: `String`
     - datacenters: `String`
     - technologyStandards: `TechnologyStandardEntry`
-      - content @Form(standardId, standardCategory), details, scope, compliance, impact
+      - content @Form(standardCategory), details, scope, compliance, impact
     - integrationConstraints: `IntegrationConstraintEntry`
-      - content @Form(constraintId, constraintDescription), details, scope, mitigation, compliance
+      - content @Form(constraintDescription), details, scope, mitigation, compliance
   - `TranslationRequirements`
     - translationRequirementsContent, rtl, formatting, variants, technical, requirementsNarrative @text

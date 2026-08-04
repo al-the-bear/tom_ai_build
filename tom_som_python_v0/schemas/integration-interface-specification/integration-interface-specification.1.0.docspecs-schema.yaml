@@ -427,9 +427,6 @@ section-types:
 form-types:
   eie-iden-form:
     fields:
-      - fieldname: interfaceId
-        required: true
-        description: Unique stable identifier for this interface
       - fieldname: externalSystem
         required: true
         description: Name of the external system being integrated
@@ -640,7 +637,7 @@ form-types:
       - fieldname: contingencyPlan
         description: Planned response if the assumption is invalidated
       - fieldname: relatedRiskId
-        description: Identifier of the linked risk register entry
+        description: The linked risk register entry — a risk section id (RISENT-KEYR-…)
 document:
   sections:
     dochd:

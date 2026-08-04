@@ -2245,13 +2245,6 @@ class ImpactLevelDefinitions extends DocSpecsSection {
 class ChangeImpactCriterionEntry extends DocSpecsSection {
   @Form([
     Field(
-      'criterionId',
-      String,
-      'Criterion ID',
-      hint: 'Unique identifier for this criterion',
-      required: true,
-    ),
-    Field(
       'criterion',
       String,
       'Criterion Name',
@@ -2605,13 +2598,6 @@ class CcbMemberEntry extends DocSpecsSection {
 class ChangeCategoryEntry extends DocSpecsSection {
   @Form([
     // Identification
-    Field(
-      'categoryId',
-      String,
-      'Category ID',
-      hint: 'Unique identifier for this category',
-      required: true,
-    ),
     Field(
       'description',
       String,

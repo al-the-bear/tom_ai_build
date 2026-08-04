@@ -243,13 +243,6 @@ response times, coverage period, and handover criteria.
 class DeliverableEntry extends DocSpecsSection {
   @Form([
     Field(
-      'deliverableId',
-      String,
-      'Deliverable ID',
-      hint: 'Unique identifier — e.g. DEL-SOF-001',
-      required: true,
-    ),
-    Field(
       'priority',
       String,
       'Priority',
@@ -501,8 +494,10 @@ class DeliverableEntry extends DocSpecsSection {
       'associatedDocumentation',
       String,
       'Associated Documentation',
-      hint: 'Related documentation deliverable IDs',
-      refersTo: ['DLVEN.deliverableId'],
+      hint:
+          'Related documentation deliverables — deliverable section ids '
+          '(DLVEN-ITEM-…), comma-separated',
+      refersTo: ['DLVEN.@sectionId'],
     ),
     Field(
       'releaseNotes',
@@ -536,8 +531,10 @@ class DeliverableDependencies extends DocSpecsSection {
       'dependsOn',
       String,
       'Depends On',
-      hint: 'Other deliverable IDs this depends on',
-      refersTo: ['DLVEN.deliverableId'],
+      hint:
+          'Other deliverables this depends on — deliverable section ids '
+          '(DLVEN-ITEM-…), comma-separated',
+      refersTo: ['DLVEN.@sectionId'],
     ),
     Field(
       'prerequisiteForDelivery',
@@ -660,13 +657,6 @@ Each criterion must be:
 class DeliveryAcceptanceCriterionEntry extends DocSpecsSection {
   @Form([
     Field(
-      'criterionId',
-      String,
-      'Criterion ID',
-      hint: 'Unique identifier — e.g. AC-001',
-      required: true,
-    ),
-    Field(
       'criterion',
       String,
       'Criterion Statement',
@@ -785,15 +775,18 @@ class DeliveryAcceptanceCriterionEntry extends DocSpecsSection {
       'deliverableRef',
       String,
       'Deliverable Reference',
-      hint: 'Linked deliverable ID — e.g. DEL-SOF-001',
-      refersTo: ['DLVEN.deliverableId'],
+      hint:
+          'The linked deliverable — a deliverable section id (DLVEN-ITEM-…)',
+      refersTo: ['DLVEN.@sectionId'],
     ),
     Field(
       'testScenarioRef',
       String,
       'Test Scenario Reference',
-      hint: 'UAT scenario ID that validates this criterion',
-      refersTo: ['TSSC.scenarioId'],
+      hint:
+          'The UAT scenario that validates this criterion — a test scenario '
+          'section id (TSSC-TEST-…)',
+      refersTo: ['TSSC.@sectionId'],
     ),
   ])
   @SerializationOrder(3)
@@ -1855,13 +1848,6 @@ class UatTestCycleEntry extends DocSpecsSection {
 class TestScenarioEntry extends DocSpecsSection {
   @Form([
     Field(
-      'scenarioId',
-      String,
-      'Scenario ID',
-      hint: 'Unique identifier — e.g. UAT-SC-001',
-      required: true,
-    ),
-    Field(
       'priority',
       String,
       'Priority',
@@ -1969,8 +1955,9 @@ class TestScenarioEntry extends DocSpecsSection {
       'useCaseRef',
       String,
       'Use Case Reference',
-      hint: 'Related use case ID',
-      refersTo: ['INEN.interactionId'],
+      hint:
+          'The related interaction — an interaction section id (INEN-INTE-…)',
+      refersTo: ['INEN.@sectionId'],
     ),
     Field(
       'acceptanceCriterionRef',
@@ -2020,8 +2007,10 @@ class TestScenarioEntry extends DocSpecsSection {
       'dependsOnScenarios',
       String,
       'Depends on Scenarios',
-      hint: 'Scenario IDs that must pass before this one',
-      refersTo: ['TSSC.scenarioId'],
+      hint:
+          'Scenarios that must pass before this one — test scenario section '
+          'ids (TSSC-TEST-…), comma-separated',
+      refersTo: ['TSSC.@sectionId'],
     ),
   ])
   @SerializationOrder(4)

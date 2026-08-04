@@ -18224,7 +18224,7 @@ form-types:
       - fieldname: writtenEntities
         description: "The Data Model entities the job writes, including the primary one"
       - fieldname: targetReports
-        description: "The reports this job produces, where the work is a report run"
+        description: "The reports this job produces, where the work is a report run — report section ids (REPENT-REPO-…), comma-separated"
   scjob-fail-form:
     fields:
       - fieldname: maxRetries
@@ -21839,7 +21839,7 @@ form-types:
       - fieldname: drillDownTarget
         description: Report or screen navigated to on row click
       - fieldname: drillThroughReports
-        description: Comma-separated report IDs reachable from this report
+        description: "Reports reachable from this report — report section ids (REPENT-REPO-…), comma-separated"
       - fieldname: parameterForm
         description: Description of user input form shown before generation
       - fieldname: emptyDataMessage
@@ -22341,9 +22341,6 @@ form-types:
         description: Explain how actor goals map to business goals
   acid-form:
     fields:
-      - fieldname: actorId
-        required: true
-        description: Use a stable unique code such as ACT-001
       - fieldname: actorType
         description: "State whether the actor is a person, system or scheduled job"
       - fieldname: category
@@ -22446,9 +22443,6 @@ form-types:
         description: Reference the TOM-xxx process each interaction realizes
   inid-form:
     fields:
-      - fieldname: interactionId
-        required: true
-        description: Stable code such as INT-001
       - fieldname: useCaseName
         required: true
         description: "Active-verb goal, e.g. \"Place order\""
@@ -22564,9 +22558,6 @@ form-types:
         description: How each scenario traces to TC-xxx test cases
   scid-form:
     fields:
-      - fieldname: scenarioId
-        required: true
-        description: Stable code such as SCE-001
       - fieldname: scenarioType
         description: "One of happy path, alternative, or exception"
       - fieldname: description
@@ -22672,7 +22663,7 @@ form-types:
       - fieldname: screenCategory
         description: List/Detail/Form/Dashboard/Settings/Wizard/Dialog/Report/Landing
       - fieldname: parentScreenId
-        description: Parent screen if this is a sub-screen or drill-down
+        description: "The parent screen, if this is a sub-screen or drill-down — a screen section id (SCREN-ITEM-…)"
       - fieldname: routePattern
         description: Route ID (SCRTEN registry) this screen is reached by — the path itself is declared once in the screen route map
   scetr-form:
@@ -22770,7 +22761,7 @@ form-types:
   sean-form:
     fields:
       - fieldname: navigateTo
-        description: Target screen ID or route after action
+        description: "The target after the action — a screen section id (SCREN-ITEM-…), or a route id from the Screen Route Map"
       - fieldname: navigateParams
         description: Parameters to pass to navigation target
       - fieldname: doubleClickPrevention
@@ -22844,7 +22835,7 @@ form-types:
       - fieldname: refreshMode
         description: Auto/Manual/Interval(seconds)
       - fieldname: drillDownTarget
-        description: Screen ID navigated to on click/tap
+        description: The screen navigated to on click/tap — a screen section id (SCREN-ITEM-…)
   seddo-form:
     fields:
       - fieldname: sortable
@@ -22922,7 +22913,7 @@ form-types:
   nier-form:
     fields:
       - fieldname: targetScreenId
-        description: Reference to Screen Inventory SCR-xxx
+        description: The screen this item opens — a screen section id (SCREN-ITEM-…) from the Screen Inventory
       - fieldname: targetRouteParams
         description: "Default params, e.g., {status: active}"
       - fieldname: displayOrder
@@ -23016,7 +23007,7 @@ form-types:
       - fieldname: interactionType
         description: Navigate/Open-Popup/Open-Drawer/Open-Bottom-Sheet/Open-Dialog
       - fieldname: targetScreenId
-        description: Navigation target
+        description: The navigation target — a screen section id (SCREN-ITEM-…)
   umiea-form:
     fields:
       - fieldname: actionType
@@ -23058,7 +23049,7 @@ form-types:
   naguendi-form:
     fields:
       - fieldname: appliesTo
-        description: Route patterns or screen IDs this guard covers
+        description: "The routes or screens this guard covers — route ids from the Screen Route Map, or screen section ids (SCREN-ITEM-…)"
       - fieldname: dialogTitleResource
         description: Message key (MSGKR registry) for confirmation dialog title
       - fieldname: dialogMessageResource
@@ -23477,9 +23468,6 @@ form-types:
         description: "Easing curves: ease, easeInOut, custom"
   uicom-iden-form:
     fields:
-      - fieldname: componentId
-        required: true
-        description: "Unique identifier (e.g., CMP-DTT-001)"
       - fieldname: componentFamily
         description: "Button, Input, Table, Navigation, etc."
       - fieldname: baseComponent

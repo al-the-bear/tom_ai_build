@@ -6,7 +6,7 @@
   - `QualityFramework`
     - frameworkContent, objectives, tradeOffs, verification, qualityObjectivesOverview @text, objectivesBreakdown @text
     - qualityCategories: `QualityCategoryEntry`
-      - content @Form(categoryId, categoryWeight), definition, relationships, governance, metrics, categoryDetails @text
+      - content @Form(categoryWeight), definition, relationships, governance, metrics, categoryDetails @text
     - categoryDependencies: `String`
   - functionalSuitability: `FunctionalSuitabilityCharacteristic`
     - functionalSuitabilityContent, overview @text
@@ -88,28 +88,27 @@
     - `TradeOffDecisions`
       - tradeOffGovernanceContent, tradeOffOverview @text
       - items: `TradeOffDecisionEntry`
-        - content @Form(decisionId, decisionStatus), qualities, rationale, impact, mitigation, approval,
-          detailedAnalysis @text
+        - content @Form(decisionStatus), qualities, rationale, impact, mitigation, approval, detailedAnalysis @text
   - `AcceptanceCriteriaSummary`
     - acceptanceFrameworkContent, acceptanceOverview @text, acceptanceTestSummary @text
     - `MustPassCriteria`
       - mustPassOverviewContent, overview @text
       - items: `MustPassCriterionEntry`
-        - content @Form(criterionId, verificationMethod), definition, verification, governance, status, details @text
+        - content @Form(verificationMethod), definition, verification, governance, status, details @text
     - `QualityGateChecklist`
       - checklistOverviewContent, overview @text
       - items: `QualityGateCheckEntry`
-        - content @Form(checkId, checkItem, verificationMethod), definition, verification, execution, status, blocking
+        - content @Form(checkItem, verificationMethod), definition, verification, execution, status, blocking
     - detailedCriteria: `AcceptanceCriteriaList`
       - content
       - items: `DeliveryAcceptanceCriterionEntry`
-        - content @Form(criterionId, criterion, category), definition, verification, traceability, ownership, status
+        - content @Form(criterion, category), definition, verification, traceability, ownership, status
   - `TestStrategy`
     - content
   - acceptanceCriteria: `AcceptanceCriteriaList`
     - content
     - items: `DeliveryAcceptanceCriterionEntry`
-      - content @Form(criterionId, criterion, category), definition, verification, traceability, ownership, status
+      - content @Form(criterion, category), definition, verification, traceability, ownership, status
   - `AcceptanceProcess`
     - content @Form(processName, processOwner, acceptanceType), overview, participants, timeline, decision, escalation,
       documentation, processNarrative @text
@@ -121,7 +120,7 @@
     - testCycles: `UatTestCycleEntry`
       - content @Form(cycleObjective, plannedStartDate, plannedEndDate), scope, execution
     - testScenarios: `TestScenarioEntry`
-      - content @Form(scenarioId, priority), identification, business, traceability, setup, execution, postExecution
+      - content @Form(priority), identification, business, traceability, setup, execution, postExecution
       - notes: `TestScenarioNotes`
         - content @Form(assumptions, risksAndMitigations, notes)
       - testSteps: `UatTestStepEntry`

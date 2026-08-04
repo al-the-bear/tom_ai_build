@@ -494,9 +494,6 @@ form-types:
         description: Explain how actor goals map to business goals
   acid-form:
     fields:
-      - fieldname: actorId
-        required: true
-        description: Use a stable unique code such as ACT-001
       - fieldname: actorType
         description: "State whether the actor is a person, system or scheduled job"
       - fieldname: category
@@ -599,9 +596,6 @@ form-types:
         description: Reference the TOM-xxx process each interaction realizes
   inid-form:
     fields:
-      - fieldname: interactionId
-        required: true
-        description: Stable code such as INT-001
       - fieldname: useCaseName
         required: true
         description: "Active-verb goal, e.g. \"Place order\""
@@ -717,9 +711,6 @@ form-types:
         description: How each scenario traces to TC-xxx test cases
   scid-form:
     fields:
-      - fieldname: scenarioId
-        required: true
-        description: Stable code such as SCE-001
       - fieldname: scenarioType
         description: "One of happy path, alternative, or exception"
       - fieldname: description

@@ -59,7 +59,7 @@
     - performanceSummary: `ProcessPerformanceSummary` ← (High-level summary of process performance)
       - content @Form(overallMaturity, automationLevel, manualStepsCount, errorProneStepsCount, bottleneckCount, duplicatedEffortAreas, complianceGaps, estimatedAnnualWaste)
       - keyMetrics: `ProcessMetricEntry`
-        - content @Form(metricId, metricCategory, currentValue, unit), measurement, targets
+        - content @Form(metricCategory, currentValue, unit), measurement, targets
         - processReference: `CurrentBusinessProcess` (ref: Process Reference)
     - [1,] processes: `CurrentBusinessProcess`
       - content @Form(processOwner, processCategory, processScope, processMaturity), processContext
@@ -120,30 +120,30 @@
         - efficiencyMetrics: `ProcessMetricCategory` ← (Throughput, cycle times, utilization)
           - content @description
           - metrics: `ProcessMetricEntry`
-            - content @Form(metricId, metricCategory, currentValue, unit), measurement, targets
+            - content @Form(metricCategory, currentValue, unit), measurement, targets
             - processReference: `CurrentBusinessProcess` (ref: Process Reference)
         - qualityMetrics: `ProcessMetricCategory` ← (Error rates, defect rates, rework rates)
           - content @description
           - metrics: `ProcessMetricEntry`
-            - content @Form(metricId, metricCategory, currentValue, unit), measurement, targets
+            - content @Form(metricCategory, currentValue, unit), measurement, targets
             - processReference: `CurrentBusinessProcess` (ref: Process Reference)
         - volumeMetrics: `ProcessMetricCategory` ← (Transaction counts, throughput volumes)
           - content @description
           - metrics: `ProcessMetricEntry`
-            - content @Form(metricId, metricCategory, currentValue, unit), measurement, targets
+            - content @Form(metricCategory, currentValue, unit), measurement, targets
             - processReference: `CurrentBusinessProcess` (ref: Process Reference)
         - costMetrics: `ProcessMetricCategory` ← (Cost per transaction, resource costs)
           - content @description
           - metrics: `ProcessMetricEntry`
-            - content @Form(metricId, metricCategory, currentValue, unit), measurement, targets
+            - content @Form(metricCategory, currentValue, unit), measurement, targets
             - processReference: `CurrentBusinessProcess` (ref: Process Reference)
         - manualInterventionMetrics: `ProcessMetricCategory` ← (Manual steps, human intervention frequency)
           - content @description
           - metrics: `ProcessMetricEntry`
-            - content @Form(metricId, metricCategory, currentValue, unit), measurement, targets
+            - content @Form(metricCategory, currentValue, unit), measurement, targets
             - processReference: `CurrentBusinessProcess` (ref: Process Reference)
         - items: `ProcessMetricEntry`
-          - content @Form(metricId, metricCategory, currentValue, unit), measurement, targets
+          - content @Form(metricCategory, currentValue, unit), measurement, targets
           - processReference: `CurrentBusinessProcess` (ref: Process Reference)
         - baselineTable: `MetricsBaselineTable` ← (Summary table for baseline tracking)
           - content @description
@@ -158,22 +158,19 @@
     - `OperationalPainPoints`
       - content, categorySummary
       - items: `PainPointEntry`
-        - content @Form(painPointId, painPoint, severity), classification, rootCause, impact, evidence, workaround,
-          resolution
+        - content @Form(painPoint, severity), classification, rootCause, impact, evidence, workaround, resolution
         - relationships: `PainPointRelationships`
           - content @Form(relatedPainPoints, relatedGaps, dependsOn)
     - `BusinessPainPoints`
       - content, categorySummary
       - items: `PainPointEntry`
-        - content @Form(painPointId, painPoint, severity), classification, rootCause, impact, evidence, workaround,
-          resolution
+        - content @Form(painPoint, severity), classification, rootCause, impact, evidence, workaround, resolution
         - relationships: `PainPointRelationships`
           - content @Form(relatedPainPoints, relatedGaps, dependsOn)
     - `TechnicalPainPoints`
       - content, categorySummary
       - items: `PainPointEntry`
-        - content @Form(painPointId, painPoint, severity), classification, rootCause, impact, evidence, workaround,
-          resolution
+        - content @Form(painPoint, severity), classification, rootCause, impact, evidence, workaround, resolution
         - relationships: `PainPointRelationships`
           - content @Form(relatedPainPoints, relatedGaps, dependsOn)
     - gaps: `GapEntry`
@@ -187,20 +184,20 @@
     - `DataSourceInventory`
       - content, dataSourceMapDiagram
       - dataSources: `DataSourceEntry`
-        - content @Form(dataSourceId, dataStoreName, criticality), classification, technical, volume, quality,
-          ownership, integration, lifecycle, retentionPolicy
+        - content @Form(dataStoreName, criticality), classification, technical, volume, quality, ownership,
+          integration, lifecycle, retentionPolicy
         - [1,] keyEntities: `DataSourceEntityEntry`
           - content @Form(description, recordCount, primaryKey, relationships, sensitiveFields)
     - `DataQualityAssessment`
       - content, dimensionsSummary, qualityIssuesSeverityChart
       - [1,] qualityIssues: `DataQualityIssueEntry`
-        - content @Form(issueId, description, affectedDataSource), classification, impact, resolution
+        - content @Form(description, affectedDataSource), classification, impact, resolution
       - improvementInitiatives: `DataQualityInitiativeEntry`
-        - content @Form(initiativeId, description, targetIssues, status, expectedCompletion, expectedImprovement)
+        - content @Form(description, targetIssues, status, expectedCompletion, expectedImprovement)
     - `DataDuplicationAnalysis`
       - content, duplicationSummary, duplicationDiagram
       - duplicationInstances: `DataDuplicationEntry`
-        - content @Form(duplicationId, description, dataElement), sources, synchronization, governance
+        - content @Form(description, dataElement), sources, synchronization, governance
     - `DataOwnership`
       - content, ownershipSummary, ownershipMatrixDiagram
       - [1,] ownershipAssignments: `DataOwnershipEntry`
@@ -214,11 +211,11 @@
     - retentionPolicies: `DataRetentionPolicies`
       - content, policySummary
       - [1,] retentionPolicies: `RetentionPolicyEntry`
-        - content @Form(policyId, dataCategory, appliesTo), requirements, lifecycle, governance
+        - content @Form(dataCategory, appliesTo), requirements, lifecycle, governance
     - `DataGovernance`
       - content, governanceMaturity, governanceOrgChart
       - [1,] governancePolicies: `DataGovernancePolicyEntry`
-        - content @Form(policyId, policyArea, description), lifecycle, governance
+        - content @Form(policyArea, description), lifecycle, governance
     - dataClassification: `CurrentDataClassification`
       - content, classificationSummary
       - [1,] classificationLevels: `DataClassificationLevelEntry`
@@ -228,7 +225,7 @@
     - `DataIntegrationPoints`
       - content, integrationSummary, dataFlowDiagram
       - [1,] integrationPoints: `DataIntegrationEntry`
-        - content @Form(integrationId, description), endpoints, transport, reliabilityInfo, ownership
+        - content @Form(description), endpoints, transport, reliabilityInfo, ownership
     - `MasterDataManagement`
       - content, mdmSummary
       - [1,] masterDataDomains: `MasterDataDomainEntry`
@@ -278,7 +275,7 @@
         - content @Form(migrationApproach, dataTransformationNeeds, estimatedEffort, teamSize), execution, cutover,
           rollbackStrategy @text, postMigrationValidation @text
         - risks: `SystemMigrationRiskEntry`
-          - content @Form(riskId, riskDescription, probability, impact, riskScore, mitigation, contingency, owner)
+          - content @Form(riskDescription, probability, impact, riskScore, mitigation, contingency, owner)
       - knowledgeTransfer: `SystemKnowledgeTransfer`
         - content @Form(technicalDocStatus, businessDocStatus, dataDocStatus, primarySme, smeAvailability, smeRiskLevel, backupSme, knowledgeCaptureNeeded, captureApproach, captureDeadline),
           knowledgeTransferPlan @text
@@ -297,8 +294,8 @@
       - monitoringProcedures: `String`
       - responseStrategies: `String`
       - items: `MigrationRiskEntry`
-        - content @Form(riskId, riskOwner), identification, probability, impact, quantification, mitigation,
-          contingency, tracking, related, history, analysisNarrative @text, mitigationDetails @text
+        - content @Form(riskOwner), identification, probability, impact, quantification, mitigation, contingency,
+          tracking, related, history, analysisNarrative @text, mitigationDetails @text
         - indicators: `MigrationRiskIndicators`
           - content @Form(earlyWarningIndicators, riskTriggers, keyRiskIndicators, monitoringFrequency, thresholdValues)
     - milestones: `MigrationMilestoneEntry`
