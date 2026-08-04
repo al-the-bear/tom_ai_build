@@ -36182,18 +36182,6 @@ function _mc_ProjectTeamStaffing(s: Set<string>): SomMetaNode[] {
   ];
 }
 
-function _mc_ProtocolAuthSerialization(s: Set<string>): SomMetaNode[] {
-  return [
-     new SomMetaNode({
-      className: "ProtocolAuthSerialization",
-      memberName: "content",
-      kind: SomMetaKind.FORM,
-      typeName: "String",
-      serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "authenticationMethod", typeName: "String", description: "Authentication Method", hint: "API key, OAuth 2.0, mTLS, JWT", order: 0}), new SomFormFieldMeta({name: "authorizationScheme", typeName: "String", description: "Authorization Scheme", hint: "Bearer token, Basic, custom", order: 1}), new SomFormFieldMeta({name: "messageFormat", typeName: "String", description: "Message Format", hint: "JSON, Protocol Buffers, XML, Avro", order: 2}), new SomFormFieldMeta({name: "encoding", typeName: "String", description: "Encoding", hint: "UTF-8, Base64, binary", order: 3}), new SomFormFieldMeta({name: "compressionSupport", typeName: "String", description: "Compression Support", hint: "gzip, brotli, none", order: 4})])}),
-  ];
-}
-
 function _mc_ProtocolComplianceRequirements(s: Set<string>): SomMetaNode[] {
   return [
      new SomMetaNode({
@@ -36245,42 +36233,6 @@ function _mc_ProtocolEntry(s: Set<string>): SomMetaNode[] {
       typeName: "String",
       serializationOrder: 0,
       form: new SomFormMeta([new SomFormFieldMeta({name: "protocolType", typeName: "String", description: "Protocol Type", hint: "Request-response, streaming, pub-sub, event-driven", order: 0}), new SomFormFieldMeta({name: "protocolVersion", typeName: "String", description: "Protocol Version", hint: "HTTP/2, MQTT 5.0, gRPC 1.x", order: 1}), new SomFormFieldMeta({name: "transportLayer", typeName: "String", description: "Transport Layer", hint: "TCP, UDP, QUIC", order: 2}), new SomFormFieldMeta({name: "directionality", typeName: "String", description: "Directionality", hint: "Client-to-server, bidirectional, server-push", order: 3}), new SomFormFieldMeta({name: "notes", typeName: "String", description: "Notes", hint: "Additional protocol notes", order: 4})])}),
-  ];
-}
-
-function _mc_ProtocolPerformance(s: Set<string>): SomMetaNode[] {
-  return [
-     new SomMetaNode({
-      className: "ProtocolPerformance",
-      memberName: "content",
-      kind: SomMetaKind.FORM,
-      typeName: "String",
-      serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "maxMessageSize", typeName: "String", description: "Max Message Size", hint: "Maximum payload size", order: 0}), new SomFormFieldMeta({name: "connectionPooling", typeName: "bool", description: "Connection Pooling", hint: "Connection reuse strategy", order: 1}), new SomFormFieldMeta({name: "keepAliveInterval", typeName: "String", description: "Keep-Alive Interval", hint: "Heartbeat/keep-alive timing", order: 2}), new SomFormFieldMeta({name: "connectionTimeout", typeName: "String", description: "Connection Timeout", hint: "Connection establishment timeout", order: 3}), new SomFormFieldMeta({name: "requestTimeout", typeName: "String", description: "Request Timeout", hint: "Individual request timeout", order: 4})])}),
-  ];
-}
-
-function _mc_ProtocolReliability(s: Set<string>): SomMetaNode[] {
-  return [
-     new SomMetaNode({
-      className: "ProtocolReliability",
-      memberName: "content",
-      kind: SomMetaKind.FORM,
-      typeName: "String",
-      serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "retryPolicy", typeName: "String", description: "Retry Policy", hint: "Exponential backoff, fixed interval", order: 0}), new SomFormFieldMeta({name: "idempotencySupport", typeName: "bool", description: "Idempotency Support", hint: "Support for idempotent operations", order: 1}), new SomFormFieldMeta({name: "deliveryGuarantee", typeName: "String", description: "Delivery Guarantee", hint: "At-most-once, at-least-once, exactly-once", order: 2})])}),
-  ];
-}
-
-function _mc_ProtocolUsage(s: Set<string>): SomMetaNode[] {
-  return [
-     new SomMetaNode({
-      className: "ProtocolUsage",
-      memberName: "content",
-      kind: SomMetaKind.FORM,
-      typeName: "String",
-      serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "usedBy", typeName: "String", description: "Used By", hint: "Components or services using this protocol", order: 0}), new SomFormFieldMeta({name: "directionality", typeName: "String", description: "Directionality", hint: "Client-to-server, bidirectional, server-push", order: 1}), new SomFormFieldMeta({name: "notes", typeName: "String", description: "Notes", hint: "Additional protocol notes", order: 2})])}),
   ];
 }
 
@@ -38764,18 +38716,6 @@ function _mc_ReportSectionEntry(s: Set<string>): SomMetaNode[] {
   ];
 }
 
-function _mc_Requirement(s: Set<string>): SomMetaNode[] {
-  return [
-     new SomMetaNode({
-      className: "Requirement",
-      memberName: "content",
-      kind: SomMetaKind.FORM,
-      typeName: "String",
-      serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "description", typeName: "String", description: "Short description", order: 0}), new SomFormFieldMeta({name: "priority", typeName: "Priority", description: "Priority level", order: 1, enumValues: ["must", "should", "could", "wontThisTime"]}), new SomFormFieldMeta({name: "source", typeName: "String", description: "Source", order: 2}), new SomFormFieldMeta({name: "rationale", typeName: "String", description: "Rationale", order: 3}), new SomFormFieldMeta({name: "acceptanceCriteria", typeName: "String", description: "Acceptance Criteria", order: 4}), new SomFormFieldMeta({name: "status", typeName: "Status", description: "Current status", order: 5, enumValues: ["draft", "proposed", "approved", "implemented", "verified", "deferred", "rejected"]})])}),
-  ];
-}
-
 function _mc_RequirementAcceptanceCriteria(s: Set<string>): SomMetaNode[] {
   return [
      new SomMetaNode({
@@ -40184,18 +40124,6 @@ function _mc_RevisionEntry(s: Set<string>): SomMetaNode[] {
   ];
 }
 
-function _mc_Risk(s: Set<string>): SomMetaNode[] {
-  return [
-     new SomMetaNode({
-      className: "Risk",
-      memberName: "content",
-      kind: SomMetaKind.FORM,
-      typeName: "String",
-      serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "riskId", typeName: "String", description: "Risk ID (RISK-NNN)", required: true, order: 0}), new SomFormFieldMeta({name: "name", typeName: "String", description: "Name", required: true, order: 1}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Short description", order: 2}), new SomFormFieldMeta({name: "probability", typeName: "Probability", description: "Probability", order: 3, enumValues: ["veryLow", "low", "medium", "high", "veryHigh"]}), new SomFormFieldMeta({name: "impact", typeName: "Impact", description: "Impact assessment", order: 4, enumValues: ["negligible", "minor", "moderate", "major", "critical"]}), new SomFormFieldMeta({name: "mitigation", typeName: "String", description: "Mitigation strategy", order: 5}), new SomFormFieldMeta({name: "riskOwner", typeName: "String", description: "Risk Owner", order: 6}), new SomFormFieldMeta({name: "reviewFrequency", typeName: "String", description: "Review Frequency", order: 7})])}),
-  ];
-}
-
 function _mc_RiskBusinessImpact(s: Set<string>): SomMetaNode[] {
   return [
      new SomMetaNode({
@@ -40781,18 +40709,6 @@ function _mc_RoleReferenceEntry(s: Set<string>): SomMetaNode[] {
       typeName: "String",
       serializationOrder: 0,
       form: new SomFormMeta([new SomFormFieldMeta({name: "roleName", typeName: "String", description: "Role Name", required: true, hint: "Name of an existing authorization role being referenced", order: 0, refersTo: ["AZRO.roleName"]})])}),
-  ];
-}
-
-function _mc_RoleResponsibilityEntry(s: Set<string>): SomMetaNode[] {
-  return [
-     new SomMetaNode({
-      className: "RoleResponsibilityEntry",
-      memberName: "content",
-      kind: SomMetaKind.FORM,
-      typeName: "String",
-      serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "responsibility", typeName: "String", description: "Responsibility", hint: "The responsibility assigned to the role", order: 0}), new SomFormFieldMeta({name: "description", typeName: "String", description: "Short description", hint: "A brief description of the responsibility", order: 1})])}),
   ];
 }
 
@@ -42629,18 +42545,6 @@ function _mc_SecondaryNavigation(s: Set<string>): SomMetaNode[] {
       docComment: "Contains 0+× TabBarDefinition.",
       extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-143:2012 — grouped selectable navigation controls presented as tab bars"], "connotation": "The collection of tab-bar definitions used for in-page secondary navigation."})],
       elementNode: _cx("TabBarDefinitionEntry", s, _mc_TabBarDefinitionEntry, (r, c) => new SomMetaNode({className: "TabBarDefinitionEntry", classSectionId: "TABADE", kind: SomMetaKind.COMPLEX, typeName: "TabBarDefinitionEntry", docComment: "A tab bar definition entry (form).\n\nDefines a tab bar or segmented control on a specific screen.", classDocComment: "A tab bar definition entry (form).\n\nDefines a tab bar or segmented control on a specific screen.", recursive: r, children: c}))}),
-  ];
-}
-
-function _mc_SectionMeta(s: Set<string>): SomMetaNode[] {
-  return [
-     new SomMetaNode({
-      className: "SectionMeta",
-      memberName: "content",
-      kind: SomMetaKind.FORM,
-      typeName: "String",
-      serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "sectionId", typeName: "String", description: "Section Id", order: 0}), new SomFormFieldMeta({name: "type", typeName: "SectionType", description: "Type", order: 1, enumValues: ["description", "form", "code"]}), new SomFormFieldMeta({name: "seeds", typeName: "String", description: "Seeds", order: 2})])}),
   ];
 }
 
@@ -44936,18 +44840,6 @@ function _mc_SingleSignOnPolicy(s: Set<string>): SomMetaNode[] {
       serializationOrder: 5,
       contentType: new SomContentTypeMeta("text", ""),
       docComment: "Additional SSO details (text)."}),
-  ];
-}
-
-function _mc_SkillEntry(s: Set<string>): SomMetaNode[] {
-  return [
-     new SomMetaNode({
-      className: "SkillEntry",
-      memberName: "content",
-      kind: SomMetaKind.FORM,
-      typeName: "String",
-      serializationOrder: 0,
-      form: new SomFormMeta([new SomFormFieldMeta({name: "skillName", typeName: "String", description: "Skill Name", hint: "The name of the required skill", order: 0}), new SomFormFieldMeta({name: "proficiencyLevel", typeName: "String", description: "Proficiency Level", hint: "The proficiency level expected for this skill", order: 1})])}),
   ];
 }
 
@@ -53764,40 +53656,6 @@ function _mc_UserAuthorization(s: Set<string>): SomMetaNode[] {
         classDocComment: "9.4.7. Tenant Isolation.\n\nDescribes how multi-tenant authorization is structured: how tenant context\nis established and propagated, how cross-tenant access is prevented or\ncontrolled, how tenants can customize their authorization model, how tenant\nonboarding/offboarding is handled from an authorization perspective, and\nhow tenant boundaries are enforced at the authorization layer.\nComplements TenantDataIsolationPolicy which covers\ndata-level isolation; this section focuses on authorization-level isolation.",
         recursive: r,
         children: c})),
-  ];
-}
-
-function _mc_UserCategories(s: Set<string>): SomMetaNode[] {
-  return [
-     new SomMetaNode({
-      className: "UserCategories",
-      memberName: "content",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 0,
-      contentType: new SomContentTypeMeta("description", "Overview of user categories and how they relate to the system. Include summary of user population and key differences between categories.")}),
-     new SomMetaNode({
-      className: "UserCategories",
-      memberName: "userCategoryDiagram",
-      kind: SomMetaKind.CONTENT,
-      typeName: "String",
-      serializationOrder: 1,
-      contentType: new SomContentTypeMeta("mermaid-flowchart", "User category hierarchy or relationship diagram showing how different user types relate"),
-      contentHelp: "Create a diagram showing user categories, their relationships, and organizational hierarchy.",
-      docComment: "User category overview diagram."}),
-     new SomMetaNode({
-      className: "UserCategories",
-      memberName: "categories",
-      sectionId: "UCE-CATE-LST",
-      sectionIdPattern: "UCE-CATE-xxx",
-      kind: SomMetaKind.LIST,
-      typeName: "UserCategoryEntry",
-      serializationOrder: 2,
-      min: 1,
-      contentHelp: "Add one entry per distinct user category. Categories should be mutually exclusive where possible, with clear distinguishing characteristics.",
-      docComment: "User category entries — contains 1+× UserCategoryEntry.",
-      extra: [new SomMetaExtra("StandardReferences", {"standards": ["ISO 9241-210 — user characteristics & context of use", "BABOK v3 §10.43 — stakeholder/user analysis"], "connotation": "The set of individual user-category entries defined for this system."})],
-      elementNode: _cx("UserCategoryEntry", s, _mc_UserCategoryEntry, (r, c) => new SomMetaNode({className: "UserCategoryEntry", classSectionId: "UCE", kind: SomMetaKind.COMPLEX, typeName: "UserCategoryEntry", docComment: "A user category entry.\n\nComprehensive user persona definition including demographics, goals,\nfrustrations, technical proficiency, and system interaction patterns.", classDocComment: "A user category entry.\n\nComprehensive user persona definition including demographics, goals,\nfrustrations, technical proficiency, and system interaction patterns.", recursive: r, children: c}))}),
   ];
 }
 
@@ -73704,16 +73562,6 @@ export class ProjectTeamStaffing$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `ProtocolAuthSerialization` (SOM §8). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-export class ProtocolAuthSerialization$Nav extends SomMetaRef {
-  get content(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `ProtocolComplianceRequirements` (SOM §8). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -73741,36 +73589,6 @@ export class ProtocolComplianceRequirements$Nav extends SomMetaRef {
 // metadata node. Past a recursive re-entry `.path` chains remain valid
 // document positions while `.meta` throws (the metadata tree ends there).
 export class ProtocolEntry$Nav extends SomMetaRef {
-  get content(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
-// Dot-notation accessors of `ProtocolPerformance` (SOM §8). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-export class ProtocolPerformance$Nav extends SomMetaRef {
-  get content(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
-// Dot-notation accessors of `ProtocolReliability` (SOM §8). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-export class ProtocolReliability$Nav extends SomMetaRef {
-  get content(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
-// Dot-notation accessors of `ProtocolUsage` (SOM §8). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-export class ProtocolUsage$Nav extends SomMetaRef {
   get content(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
@@ -75022,16 +74840,6 @@ export class ReportSectionEntry$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `Requirement` (SOM §8). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-export class Requirement$Nav extends SomMetaRef {
-  get content(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `RequirementAcceptanceCriteria` (SOM §8). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -75784,16 +75592,6 @@ export class RevisionEntry$Nav extends SomMetaRef {
   }
 }
 
-// Dot-notation accessors of `Risk` (SOM §8). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-export class Risk$Nav extends SomMetaRef {
-  get content(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
 // Dot-notation accessors of `RiskBusinessImpact` (SOM §8). Every getter is one
 // navigable position: `.path` is the absolute document path, `.meta` the
 // metadata node. Past a recursive re-entry `.path` chains remain valid
@@ -76123,16 +75921,6 @@ export class RolePermissionEntry$Nav extends SomMetaRef {
 // metadata node. Past a recursive re-entry `.path` chains remain valid
 // document positions while `.meta` throws (the metadata tree ends there).
 export class RoleReferenceEntry$Nav extends SomMetaRef {
-  get content(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-}
-
-// Dot-notation accessors of `RoleResponsibilityEntry` (SOM §8). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-export class RoleResponsibilityEntry$Nav extends SomMetaRef {
   get content(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/content");
   }
@@ -77055,16 +76843,6 @@ export class SecondaryNavigation$Nav extends SomMetaRef {
 
   get tabBars(): SomListMetaRef<TabBarDefinitionEntry$Nav> {
     return new SomListMetaRef(this.tree, this.path + "/TABADE-TABB-LST", (t: SomMetaTree, p: string) => new TabBarDefinitionEntry$Nav(t, p));
-  }
-}
-
-// Dot-notation accessors of `SectionMeta` (SOM §8). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-export class SectionMeta$Nav extends SomMetaRef {
-  get content(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -78215,16 +77993,6 @@ export class SingleSignOnPolicy$Nav extends SomMetaRef {
 
   get ssoDetails(): SomMetaRef {
     return new SomMetaRef(this.tree, this.path + "/ssoDetails");
-  }
-}
-
-// Dot-notation accessors of `SkillEntry` (SOM §8). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-export class SkillEntry$Nav extends SomMetaRef {
-  get content(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/content");
   }
 }
 
@@ -82523,24 +82291,6 @@ export class UserAuthorization$Nav extends SomMetaRef {
 
   get tenantIsolation(): TenantIsolation$Nav {
     return new TenantIsolation$Nav(this.tree, this.path + "/tenantIsolation");
-  }
-}
-
-// Dot-notation accessors of `UserCategories` (SOM §8). Every getter is one
-// navigable position: `.path` is the absolute document path, `.meta` the
-// metadata node. Past a recursive re-entry `.path` chains remain valid
-// document positions while `.meta` throws (the metadata tree ends there).
-export class UserCategories$Nav extends SomMetaRef {
-  get content(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/content");
-  }
-
-  get userCategoryDiagram(): SomMetaRef {
-    return new SomMetaRef(this.tree, this.path + "/userCategoryDiagram");
-  }
-
-  get categories(): SomListMetaRef<UserCategoryEntry$Nav> {
-    return new SomListMetaRef(this.tree, this.path + "/UCE-CATE-LST", (t: SomMetaTree, p: string) => new UserCategoryEntry$Nav(t, p));
   }
 }
 

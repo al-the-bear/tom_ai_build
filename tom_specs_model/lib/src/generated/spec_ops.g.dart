@@ -14768,15 +14768,6 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ProjectTeamStaffing).content,
   ));
-  SpecRegistry.register(ProtocolAuthSerialization, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as ProtocolAuthSerialization;
-      return ProtocolAuthSerialization()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as ProtocolAuthSerialization).content,
-  ));
   SpecRegistry.register(ProtocolComplianceRequirements, SpecClassOps(
     slots: (o) {
       final n = o as ProtocolComplianceRequirements;
@@ -14804,33 +14795,6 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as ProtocolEntry).content,
-  ));
-  SpecRegistry.register(ProtocolPerformance, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as ProtocolPerformance;
-      return ProtocolPerformance()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as ProtocolPerformance).content,
-  ));
-  SpecRegistry.register(ProtocolReliability, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as ProtocolReliability;
-      return ProtocolReliability()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as ProtocolReliability).content,
-  ));
-  SpecRegistry.register(ProtocolUsage, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as ProtocolUsage;
-      return ProtocolUsage()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as ProtocolUsage).content,
   ));
   SpecRegistry.register(ProtocolsAndStandardsSection, SpecClassOps(
     slots: (o) {
@@ -15843,15 +15807,6 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as ReportSectionEntry).content,
   ));
-  SpecRegistry.register(Requirement, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as Requirement;
-      return Requirement()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as Requirement).content,
-  ));
   SpecRegistry.register(RequirementAcceptanceCriteria, SpecClassOps(
     slots: (o) {
       final n = o as RequirementAcceptanceCriteria;
@@ -16500,15 +16455,6 @@ void registerSpecOps() {
     },
     yamlScalar: (o) => (o as RevisionEntry).content,
   ));
-  SpecRegistry.register(Risk, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as Risk;
-      return Risk()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as Risk).content,
-  ));
   SpecRegistry.register(RiskBusinessImpact, SpecClassOps(
     slots: (o) {
       final n = o as RiskBusinessImpact;
@@ -16803,15 +16749,6 @@ void registerSpecOps() {
         ..content = n.content;
     },
     yamlScalar: (o) => (o as RoleReferenceEntry).content,
-  ));
-  SpecRegistry.register(RoleResponsibilityEntry, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as RoleResponsibilityEntry;
-      return RoleResponsibilityEntry()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as RoleResponsibilityEntry).content,
   ));
   SpecRegistry.register(RollbackStrategy, SpecClassOps(
     slots: (o) {
@@ -18535,15 +18472,6 @@ void registerSpecOps() {
         ..ssoDetails = n.ssoDetails;
     },
     yamlScalar: (o) => (o as SingleSignOnPolicy).content,
-  ));
-  SpecRegistry.register(SkillEntry, SpecClassOps(
-    slots: (o) => const [],
-    cloneShallow: (o) {
-      final n = o as SkillEntry;
-      return SkillEntry()
-        ..content = n.content;
-    },
-    yamlScalar: (o) => (o as SkillEntry).content,
   ));
   SpecRegistry.register(SlaAndSloMonitoring, SpecClassOps(
     slots: (o) {
@@ -21985,23 +21913,6 @@ void registerSpecOps() {
         ..tenantIsolation = n.tenantIsolation;
     },
     yamlScalar: (o) => (o as UserAuthorization).content,
-  ));
-  SpecRegistry.register(UserCategories, SpecClassOps(
-    slots: (o) {
-      final n = o as UserCategories;
-      return [
-        SpecSlot.node(() => n.userCategoryDiagram, (v) => n.userCategoryDiagram = v as DocSpecsSection?, label: 'userCategoryDiagram'),
-        SpecSlot.list(() => n.categories, (v) => n.categories = v.cast<UserCategoryEntry>(), label: 'categories'),
-      ];
-    },
-    cloneShallow: (o) {
-      final n = o as UserCategories;
-      return UserCategories()
-        ..content = n.content
-        ..userCategoryDiagram = n.userCategoryDiagram
-        ..categories = n.categories;
-    },
-    yamlScalar: (o) => (o as UserCategories).content,
   ));
   SpecRegistry.register(UserCategoryDefinition, SpecClassOps(
     slots: (o) => const [],

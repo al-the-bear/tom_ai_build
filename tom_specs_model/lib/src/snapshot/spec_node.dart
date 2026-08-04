@@ -18,8 +18,8 @@
 /// Two ways to supply that contract, resolved per node by [specSlotsOf] /
 /// [cloneShallowOf] / [yamlScalarOf]:
 ///
-///  - **Mix in [SpecNode]** and override the methods directly. Used by the two
-///    real hand-written leaves ([DocumentHeader], [SectionMeta]) and by tests.
+///  - **Mix in [SpecNode]** and override the methods directly. Used by the one
+///    real hand-written leaf ([DocumentHeader]) and by tests.
 ///  - **Register a [SpecClassOps]** in [SpecRegistry] keyed by the concrete
 ///    type. This is how the ~3000 generated model classes adopt the contract
 ///    *without any edit to their source* (OE-2): Dart 3.11 has no augmentation

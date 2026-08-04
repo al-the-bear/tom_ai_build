@@ -10675,12 +10675,6 @@ func metaChildrenProjectTeamStaffing(s map[string]bool) []*som.SomMetaNode {
 	}
 }
 
-func metaChildrenProtocolAuthSerialization(s map[string]bool) []*som.SomMetaNode {
-	return []*som.SomMetaNode{
-		{ClassName: "ProtocolAuthSerialization", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "authenticationMethod", TypeName: "String", Description: "Authentication Method", Hint: "API key, OAuth 2.0, mTLS, JWT", Order: 0}, {Name: "authorizationScheme", TypeName: "String", Description: "Authorization Scheme", Hint: "Bearer token, Basic, custom", Order: 1}, {Name: "messageFormat", TypeName: "String", Description: "Message Format", Hint: "JSON, Protocol Buffers, XML, Avro", Order: 2}, {Name: "encoding", TypeName: "String", Description: "Encoding", Hint: "UTF-8, Base64, binary", Order: 3}, {Name: "compressionSupport", TypeName: "String", Description: "Compression Support", Hint: "gzip, brotli, none", Order: 4}}}},
-	}
-}
-
 func metaChildrenProtocolComplianceRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "ProtocolComplianceRequirements", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "corsPolicy", TypeName: "String", Description: "CORS Policy", Hint: "Allowed origins, methods, headers", Order: 0}, {Name: "contentSecurityPolicy", TypeName: "String", Description: "Content Security Policy", Hint: "CSP header directives", Order: 1}, {Name: "httpSecurityHeaders", TypeName: "String", Description: "HTTP Security Headers", Hint: "X-Frame-Options, X-Content-Type-Options", Order: 2}, {Name: "cookiePolicy", TypeName: "String", Description: "Cookie Policy", Hint: "SameSite, Secure, HttpOnly attributes", Order: 3}}}},
@@ -10693,24 +10687,6 @@ func metaChildrenProtocolComplianceRequirements(s map[string]bool) []*som.SomMet
 func metaChildrenProtocolEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "ProtocolEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "protocolType", TypeName: "String", Description: "Protocol Type", Hint: "Request-response, streaming, pub-sub, event-driven", Order: 0}, {Name: "protocolVersion", TypeName: "String", Description: "Protocol Version", Hint: "HTTP/2, MQTT 5.0, gRPC 1.x", Order: 1}, {Name: "transportLayer", TypeName: "String", Description: "Transport Layer", Hint: "TCP, UDP, QUIC", Order: 2}, {Name: "directionality", TypeName: "String", Description: "Directionality", Hint: "Client-to-server, bidirectional, server-push", Order: 3}, {Name: "notes", TypeName: "String", Description: "Notes", Hint: "Additional protocol notes", Order: 4}}}},
-	}
-}
-
-func metaChildrenProtocolPerformance(s map[string]bool) []*som.SomMetaNode {
-	return []*som.SomMetaNode{
-		{ClassName: "ProtocolPerformance", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "maxMessageSize", TypeName: "String", Description: "Max Message Size", Hint: "Maximum payload size", Order: 0}, {Name: "connectionPooling", TypeName: "bool", Description: "Connection Pooling", Hint: "Connection reuse strategy", Order: 1}, {Name: "keepAliveInterval", TypeName: "String", Description: "Keep-Alive Interval", Hint: "Heartbeat/keep-alive timing", Order: 2}, {Name: "connectionTimeout", TypeName: "String", Description: "Connection Timeout", Hint: "Connection establishment timeout", Order: 3}, {Name: "requestTimeout", TypeName: "String", Description: "Request Timeout", Hint: "Individual request timeout", Order: 4}}}},
-	}
-}
-
-func metaChildrenProtocolReliability(s map[string]bool) []*som.SomMetaNode {
-	return []*som.SomMetaNode{
-		{ClassName: "ProtocolReliability", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "retryPolicy", TypeName: "String", Description: "Retry Policy", Hint: "Exponential backoff, fixed interval", Order: 0}, {Name: "idempotencySupport", TypeName: "bool", Description: "Idempotency Support", Hint: "Support for idempotent operations", Order: 1}, {Name: "deliveryGuarantee", TypeName: "String", Description: "Delivery Guarantee", Hint: "At-most-once, at-least-once, exactly-once", Order: 2}}}},
-	}
-}
-
-func metaChildrenProtocolUsage(s map[string]bool) []*som.SomMetaNode {
-	return []*som.SomMetaNode{
-		{ClassName: "ProtocolUsage", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "usedBy", TypeName: "String", Description: "Used By", Hint: "Components or services using this protocol", Order: 0}, {Name: "directionality", TypeName: "String", Description: "Directionality", Hint: "Client-to-server, bidirectional, server-push", Order: 1}, {Name: "notes", TypeName: "String", Description: "Notes", Hint: "Additional protocol notes", Order: 2}}}},
 	}
 }
 
@@ -11398,12 +11374,6 @@ func metaChildrenReportSectionEntry(s map[string]bool) []*som.SomMetaNode {
 	}
 }
 
-func metaChildrenRequirement(s map[string]bool) []*som.SomMetaNode {
-	return []*som.SomMetaNode{
-		{ClassName: "Requirement", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "description", TypeName: "String", Description: "Short description", Order: 0}, {Name: "priority", TypeName: "Priority", Description: "Priority level", Order: 1, EnumValues: []string{"must", "should", "could", "wontThisTime"}}, {Name: "source", TypeName: "String", Description: "Source", Order: 2}, {Name: "rationale", TypeName: "String", Description: "Rationale", Order: 3}, {Name: "acceptanceCriteria", TypeName: "String", Description: "Acceptance Criteria", Order: 4}, {Name: "status", TypeName: "Status", Description: "Current status", Order: 5, EnumValues: []string{"draft", "proposed", "approved", "implemented", "verified", "deferred", "rejected"}}}}},
-	}
-}
-
 func metaChildrenRequirementAcceptanceCriteria(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "RequirementAcceptanceCriteria", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Overview of acceptance approach and test coverage expectations."}},
@@ -11893,12 +11863,6 @@ func metaChildrenRevisionEntry(s map[string]bool) []*som.SomMetaNode {
 	}
 }
 
-func metaChildrenRisk(s map[string]bool) []*som.SomMetaNode {
-	return []*som.SomMetaNode{
-		{ClassName: "Risk", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "riskId", TypeName: "String", Description: "Risk ID (RISK-NNN)", Required: true, Order: 0}, {Name: "name", TypeName: "String", Description: "Name", Required: true, Order: 1}, {Name: "description", TypeName: "String", Description: "Short description", Order: 2}, {Name: "probability", TypeName: "Probability", Description: "Probability", Order: 3, EnumValues: []string{"veryLow", "low", "medium", "high", "veryHigh"}}, {Name: "impact", TypeName: "Impact", Description: "Impact assessment", Order: 4, EnumValues: []string{"negligible", "minor", "moderate", "major", "critical"}}, {Name: "mitigation", TypeName: "String", Description: "Mitigation strategy", Order: 5}, {Name: "riskOwner", TypeName: "String", Description: "Risk Owner", Order: 6}, {Name: "reviewFrequency", TypeName: "String", Description: "Review Frequency", Order: 7}}}},
-	}
-}
-
 func metaChildrenRiskBusinessImpact(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "RiskBusinessImpact", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "costImpact", TypeName: "String", Description: "Cost Impact — potential cost if risk materializes", Hint: "Potential cost if the risk materializes", Order: 0}, {Name: "scheduleImpact", TypeName: "String", Description: "Schedule Impact — potential delay (days, weeks, phases)", Hint: "Potential schedule delay if the risk occurs", Order: 1}, {Name: "scopeImpact", TypeName: "String", Description: "Scope Impact — impact on deliverables", Hint: "Impact on project scope and deliverables", Order: 2}, {Name: "qualityImpact", TypeName: "String", Description: "Quality Impact", Hint: "Impact on product or deliverable quality", Order: 3}}}},
@@ -12101,12 +12065,6 @@ func metaChildrenRolePermissionEntry(s map[string]bool) []*som.SomMetaNode {
 func metaChildrenRoleReferenceEntry(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
 		{ClassName: "RoleReferenceEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "roleName", TypeName: "String", Description: "Role Name", Required: true, Hint: "Name of an existing authorization role being referenced", Order: 0, RefersTo: []string{"AZRO.roleName"}}}}},
-	}
-}
-
-func metaChildrenRoleResponsibilityEntry(s map[string]bool) []*som.SomMetaNode {
-	return []*som.SomMetaNode{
-		{ClassName: "RoleResponsibilityEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "responsibility", TypeName: "String", Description: "Responsibility", Hint: "The responsibility assigned to the role", Order: 0}, {Name: "description", TypeName: "String", Description: "Short description", Hint: "A brief description of the responsibility", Order: 1}}}},
 	}
 }
 
@@ -12640,12 +12598,6 @@ func metaChildrenSecondaryNavigation(s map[string]bool) []*som.SomMetaNode {
 			})
 			return n
 		}(),
-	}
-}
-
-func metaChildrenSectionMeta(s map[string]bool) []*som.SomMetaNode {
-	return []*som.SomMetaNode{
-		{ClassName: "SectionMeta", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "sectionId", TypeName: "String", Description: "Section Id", Order: 0}, {Name: "type", TypeName: "SectionType", Description: "Type", Order: 1, EnumValues: []string{"description", "form", "code"}}, {Name: "seeds", TypeName: "String", Description: "Seeds", Order: 2}}}},
 	}
 }
 
@@ -13262,12 +13214,6 @@ func metaChildrenSingleSignOnPolicy(s map[string]bool) []*som.SomMetaNode {
 		{ClassName: "SingleSignOnPolicy", MemberName: "access", SectionID: "SSOPA", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Access and consent behavior.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "accountLinkingStrategy", TypeName: "String", Description: "Account Linking Strategy", Hint: "AutomaticByEmail / AutomaticByExternalId / UserInitiated / AdminManaged / None", Order: 0}, {Name: "consentRequirements", TypeName: "String", Description: "Consent Requirements", Hint: "None / FirstLoginOnly / PerApplication / PerScope / Periodic", Order: 1}, {Name: "ssoPortalUrl", TypeName: "String", Description: "SSO Portal URL", Hint: "URL for the central SSO portal or application launcher", Order: 2}, {Name: "ssoBypassRules", TypeName: "String", Description: "SSO Bypass Rules", Hint: "Scenarios where SSO is bypassed, e.g. ServiceAccounts, LocalAdminFallback, BreakGlass", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"NIST SP 800-63C — federation and assertions", "OpenID Connect Core 1.0 — identity layer over OAuth 2.0"}, "connotation": "Defines account linking, consent requirements, and SSO bypass rules for federated access."}}}},
 		{ClassName: "SingleSignOnPolicy", MemberName: "operations", SectionID: "SSOPO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(4), DocComment: "Platform integration and monitoring.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "desktopSsoIntegration", TypeName: "String", Description: "Desktop SSO Integration", Hint: "Kerberos / WindowsIntegrated / None — integration with desktop/OS authentication", Order: 0}, {Name: "mobileSsoStrategy", TypeName: "String", Description: "Mobile SSO Strategy", Hint: "SharedKeychain / AppLinks / BrowserBased / NativeSDK — SSO approach for mobile apps", Order: 1}, {Name: "ssoMonitoring", TypeName: "String", Description: "SSO Monitoring", Hint: "How SSO health and usage is monitored, e.g. IdPHealthCheck, LoginSuccessRate", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"NIST SP 800-63C — federation and assertions", "OpenID Connect Core 1.0 — identity layer over OAuth 2.0"}, "connotation": "Defines platform-specific SSO integration and monitoring for desktop and mobile clients."}}}},
 		{ClassName: "SingleSignOnPolicy", MemberName: "ssoDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(5), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Additional SSO details (text)."},
-	}
-}
-
-func metaChildrenSkillEntry(s map[string]bool) []*som.SomMetaNode {
-	return []*som.SomMetaNode{
-		{ClassName: "SkillEntry", MemberName: "content", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(0), Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "skillName", TypeName: "String", Description: "Skill Name", Hint: "The name of the required skill", Order: 0}, {Name: "proficiencyLevel", TypeName: "String", Description: "Proficiency Level", Hint: "The proficiency level expected for this skill", Order: 1}}}},
 	}
 }
 
@@ -15805,20 +15751,6 @@ func metaChildrenUserAuthorization(s map[string]bool) []*som.SomMetaNode {
 		metaCx("TenantIsolation", s, metaChildrenTenantIsolation, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "TenantIsolation", MemberName: "tenantIsolation", ClassSectionID: "TEIS", Kind: som.SomMetaKindComplex, TypeName: "TenantIsolation", SerializationOrder: metaIntPtr(7), DocComment: "9.4.7. Tenant Isolation.", ClassDocComment: "9.4.7. Tenant Isolation.\n\nDescribes how multi-tenant authorization is structured: how tenant context\nis established and propagated, how cross-tenant access is prevented or\ncontrolled, how tenants can customize their authorization model, how tenant\nonboarding/offboarding is handled from an authorization perspective, and\nhow tenant boundaries are enforced at the authorization layer.\nComplements TenantDataIsolationPolicy which covers\ndata-level isolation; this section focuses on authorization-level isolation.", Recursive: r, Children: c}
 		}),
-	}
-}
-
-func metaChildrenUserCategories(s map[string]bool) []*som.SomMetaNode {
-	return []*som.SomMetaNode{
-		{ClassName: "UserCategories", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Overview of user categories and how they relate to the system. Include summary of user population and key differences between categories."}},
-		{ClassName: "UserCategories", MemberName: "userCategoryDiagram", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "User category hierarchy or relationship diagram showing how different user types relate"}, ContentHelp: "Create a diagram showing user categories, their relationships, and organizational hierarchy.", DocComment: "User category overview diagram."},
-		func() *som.SomMetaNode {
-			n := &som.SomMetaNode{ClassName: "UserCategories", MemberName: "categories", SectionID: "UCE-CATE-LST", SectionIDPattern: "UCE-CATE-xxx", Kind: som.SomMetaKindList, TypeName: "UserCategoryEntry", SerializationOrder: metaIntPtr(2), Min: metaIntPtr(1), ContentHelp: "Add one entry per distinct user category. Categories should be mutually exclusive where possible, with clear distinguishing characteristics.", DocComment: "User category entries — contains 1+× UserCategoryEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210 — user characteristics & context of use", "BABOK v3 §10.43 — stakeholder/user analysis"}, "connotation": "The set of individual user-category entries defined for this system."}}}}
-			n.ElementNode = metaCx("UserCategoryEntry", s, metaChildrenUserCategoryEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
-				return &som.SomMetaNode{ClassName: "UserCategoryEntry", ClassSectionID: "UCE", Kind: som.SomMetaKindComplex, TypeName: "UserCategoryEntry", DocComment: "A user category entry.\n\nComprehensive user persona definition including demographics, goals,\nfrustrations, technical proficiency, and system interaction patterns.", ClassDocComment: "A user category entry.\n\nComprehensive user persona definition including demographics, goals,\nfrustrations, technical proficiency, and system interaction patterns.", Recursive: r, Children: c}
-			})
-			return n
-		}(),
 	}
 }
 
@@ -41403,24 +41335,6 @@ func (x *ProjectTeamStaffingNav) OpenRequirements() *som.SomListMetaRef[*Resourc
 	})
 }
 
-// ProtocolAuthSerializationNav holds the dot-notation accessors of `ProtocolAuthSerialization` (SOM §8).
-// Every method is one navigable position: `.Path` is the absolute document
-// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
-// remain valid document positions while `.Meta()` returns an error (the
-// metadata tree ends there).
-type ProtocolAuthSerializationNav struct {
-	som.SomMetaRef
-}
-
-// newProtocolAuthSerializationNav binds a ProtocolAuthSerializationNav accessor to a tree and a path.
-func newProtocolAuthSerializationNav(tree *som.SomMetaTree, path string) *ProtocolAuthSerializationNav {
-	return &ProtocolAuthSerializationNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
-}
-
-func (x *ProtocolAuthSerializationNav) Content() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
-}
-
 // ProtocolComplianceRequirementsNav holds the dot-notation accessors of `ProtocolComplianceRequirements` (SOM §8).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -41466,60 +41380,6 @@ func newProtocolEntryNav(tree *som.SomMetaTree, path string) *ProtocolEntryNav {
 }
 
 func (x *ProtocolEntryNav) Content() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
-}
-
-// ProtocolPerformanceNav holds the dot-notation accessors of `ProtocolPerformance` (SOM §8).
-// Every method is one navigable position: `.Path` is the absolute document
-// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
-// remain valid document positions while `.Meta()` returns an error (the
-// metadata tree ends there).
-type ProtocolPerformanceNav struct {
-	som.SomMetaRef
-}
-
-// newProtocolPerformanceNav binds a ProtocolPerformanceNav accessor to a tree and a path.
-func newProtocolPerformanceNav(tree *som.SomMetaTree, path string) *ProtocolPerformanceNav {
-	return &ProtocolPerformanceNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
-}
-
-func (x *ProtocolPerformanceNav) Content() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
-}
-
-// ProtocolReliabilityNav holds the dot-notation accessors of `ProtocolReliability` (SOM §8).
-// Every method is one navigable position: `.Path` is the absolute document
-// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
-// remain valid document positions while `.Meta()` returns an error (the
-// metadata tree ends there).
-type ProtocolReliabilityNav struct {
-	som.SomMetaRef
-}
-
-// newProtocolReliabilityNav binds a ProtocolReliabilityNav accessor to a tree and a path.
-func newProtocolReliabilityNav(tree *som.SomMetaTree, path string) *ProtocolReliabilityNav {
-	return &ProtocolReliabilityNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
-}
-
-func (x *ProtocolReliabilityNav) Content() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
-}
-
-// ProtocolUsageNav holds the dot-notation accessors of `ProtocolUsage` (SOM §8).
-// Every method is one navigable position: `.Path` is the absolute document
-// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
-// remain valid document positions while `.Meta()` returns an error (the
-// metadata tree ends there).
-type ProtocolUsageNav struct {
-	som.SomMetaRef
-}
-
-// newProtocolUsageNav binds a ProtocolUsageNav accessor to a tree and a path.
-func newProtocolUsageNav(tree *som.SomMetaTree, path string) *ProtocolUsageNav {
-	return &ProtocolUsageNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
-}
-
-func (x *ProtocolUsageNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
@@ -43255,24 +43115,6 @@ func (x *ReportSectionEntryNav) Charts() *som.SomListMetaRef[*ReportChartEntryNa
 	})
 }
 
-// RequirementNav holds the dot-notation accessors of `Requirement` (SOM §8).
-// Every method is one navigable position: `.Path` is the absolute document
-// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
-// remain valid document positions while `.Meta()` returns an error (the
-// metadata tree ends there).
-type RequirementNav struct {
-	som.SomMetaRef
-}
-
-// newRequirementNav binds a RequirementNav accessor to a tree and a path.
-func newRequirementNav(tree *som.SomMetaTree, path string) *RequirementNav {
-	return &RequirementNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
-}
-
-func (x *RequirementNav) Content() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
-}
-
 // RequirementAcceptanceCriteriaNav holds the dot-notation accessors of `RequirementAcceptanceCriteria` (SOM §8).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -44401,24 +44243,6 @@ func (x *RevisionEntryNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
-// RiskNav holds the dot-notation accessors of `Risk` (SOM §8).
-// Every method is one navigable position: `.Path` is the absolute document
-// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
-// remain valid document positions while `.Meta()` returns an error (the
-// metadata tree ends there).
-type RiskNav struct {
-	som.SomMetaRef
-}
-
-// newRiskNav binds a RiskNav accessor to a tree and a path.
-func newRiskNav(tree *som.SomMetaTree, path string) *RiskNav {
-	return &RiskNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
-}
-
-func (x *RiskNav) Content() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
-}
-
 // RiskBusinessImpactNav holds the dot-notation accessors of `RiskBusinessImpact` (SOM §8).
 // Every method is one navigable position: `.Path` is the absolute document
 // path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
@@ -44930,24 +44754,6 @@ func newRoleReferenceEntryNav(tree *som.SomMetaTree, path string) *RoleReference
 }
 
 func (x *RoleReferenceEntryNav) Content() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
-}
-
-// RoleResponsibilityEntryNav holds the dot-notation accessors of `RoleResponsibilityEntry` (SOM §8).
-// Every method is one navigable position: `.Path` is the absolute document
-// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
-// remain valid document positions while `.Meta()` returns an error (the
-// metadata tree ends there).
-type RoleResponsibilityEntryNav struct {
-	som.SomMetaRef
-}
-
-// newRoleResponsibilityEntryNav binds a RoleResponsibilityEntryNav accessor to a tree and a path.
-func newRoleResponsibilityEntryNav(tree *som.SomMetaTree, path string) *RoleResponsibilityEntryNav {
-	return &RoleResponsibilityEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
-}
-
-func (x *RoleResponsibilityEntryNav) Content() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
@@ -46251,24 +46057,6 @@ func (x *SecondaryNavigationNav) TabBars() *som.SomListMetaRef[*TabBarDefinition
 	return som.NewSomListMetaRef(x.Tree, x.Path+"/TABADE-TABB-LST", func(t *som.SomMetaTree, p string) *TabBarDefinitionEntryNav {
 		return newTabBarDefinitionEntryNav(t, p)
 	})
-}
-
-// SectionMetaNav holds the dot-notation accessors of `SectionMeta` (SOM §8).
-// Every method is one navigable position: `.Path` is the absolute document
-// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
-// remain valid document positions while `.Meta()` returns an error (the
-// metadata tree ends there).
-type SectionMetaNav struct {
-	som.SomMetaRef
-}
-
-// newSectionMetaNav binds a SectionMetaNav accessor to a tree and a path.
-func newSectionMetaNav(tree *som.SomMetaTree, path string) *SectionMetaNav {
-	return &SectionMetaNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
-}
-
-func (x *SectionMetaNav) Content() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
 // SecurityNav holds the dot-notation accessors of `Security` (SOM §8).
@@ -47849,24 +47637,6 @@ func (x *SingleSignOnPolicyNav) Operations() *som.SomMetaRef {
 
 func (x *SingleSignOnPolicyNav) SsoDetails() *som.SomMetaRef {
 	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/ssoDetails"}
-}
-
-// SkillEntryNav holds the dot-notation accessors of `SkillEntry` (SOM §8).
-// Every method is one navigable position: `.Path` is the absolute document
-// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
-// remain valid document positions while `.Meta()` returns an error (the
-// metadata tree ends there).
-type SkillEntryNav struct {
-	som.SomMetaRef
-}
-
-// newSkillEntryNav binds a SkillEntryNav accessor to a tree and a path.
-func newSkillEntryNav(tree *som.SomMetaTree, path string) *SkillEntryNav {
-	return &SkillEntryNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
-}
-
-func (x *SkillEntryNav) Content() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
 }
 
 // SlaAndSloMonitoringNav holds the dot-notation accessors of `SlaAndSloMonitoring` (SOM §8).
@@ -53845,34 +53615,6 @@ func (x *UserAuthorizationNav) RoleHierarchy() *RoleHierarchyNav {
 
 func (x *UserAuthorizationNav) TenantIsolation() *TenantIsolationNav {
 	return newTenantIsolationNav(x.Tree, x.Path+"/tenantIsolation")
-}
-
-// UserCategoriesNav holds the dot-notation accessors of `UserCategories` (SOM §8).
-// Every method is one navigable position: `.Path` is the absolute document
-// path, `.Meta()` the metadata node. Past a recursive re-entry `.Path` chains
-// remain valid document positions while `.Meta()` returns an error (the
-// metadata tree ends there).
-type UserCategoriesNav struct {
-	som.SomMetaRef
-}
-
-// newUserCategoriesNav binds a UserCategoriesNav accessor to a tree and a path.
-func newUserCategoriesNav(tree *som.SomMetaTree, path string) *UserCategoriesNav {
-	return &UserCategoriesNav{SomMetaRef: som.SomMetaRef{Tree: tree, Path: path}}
-}
-
-func (x *UserCategoriesNav) Content() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/content"}
-}
-
-func (x *UserCategoriesNav) UserCategoryDiagram() *som.SomMetaRef {
-	return &som.SomMetaRef{Tree: x.Tree, Path: x.Path + "/userCategoryDiagram"}
-}
-
-func (x *UserCategoriesNav) Categories() *som.SomListMetaRef[*UserCategoryEntryNav] {
-	return som.NewSomListMetaRef(x.Tree, x.Path+"/UCE-CATE-LST", func(t *som.SomMetaTree, p string) *UserCategoryEntryNav {
-		return newUserCategoryEntryNav(t, p)
-	})
 }
 
 // UserCategoryDefinitionNav holds the dot-notation accessors of `UserCategoryDefinition` (SOM §8).

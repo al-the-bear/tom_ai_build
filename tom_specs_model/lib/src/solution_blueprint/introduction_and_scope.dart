@@ -4576,69 +4576,6 @@ class MultiChannelExperience extends DocSpecsSection {
 // 4.1.4 User Categories
 // ---------------------------------------------------------------------------
 
-/// 4.1.4. User Categories.
-///
-/// Container for user category definitions. Each user category describes a
-/// distinct group of users with shared characteristics, access needs, and
-/// system interaction patterns. Based on user persona methodology for
-/// user-centered design.
-@StandardReferences(
-  [
-    'ISO 9241-210 — user characteristics & context of use',
-    'BABOK v3 §10.43 — stakeholder/user analysis',
-  ],
-  'The root of §4.1.4: captures every distinct user category (persona) that '
-  'interacts with the system, with its shared characteristics, access needs, '
-  'and interaction patterns.',
-)
-@ContentHelp(
-  'Define all user categories (personas) that will interact with '
-  'the system. Each category represents a distinct group with shared '
-  'characteristics, needs, and interaction patterns. Use this to drive '
-  'user-centered design decisions.',
-)
-@SectionId('UC1')
-class UserCategories extends DocSpecsSection {
-  @ContentType(
-    'description',
-    'Overview of user categories and how they '
-        'relate to the system. Include summary of user population and '
-        'key differences between categories.',
-  )
-  @override
-  @SerializationOrder(0)
-  String? content;
-
-  /// User category overview diagram.
-  @ContentType(
-    'mermaid-flowchart',
-    'User category hierarchy or relationship '
-        'diagram showing how different user types relate',
-  )
-  @ContentHelp(
-    'Create a diagram showing user categories, their '
-    'relationships, and organizational hierarchy.',
-  )
-  @SerializationOrder(1)
-  DocSpecsSection? userCategoryDiagram;
-
-  /// User category entries — contains 1+× UserCategoryEntry.
-  @StandardReferences([
-    'ISO 9241-210 — user characteristics & context of use',
-    'BABOK v3 §10.43 — stakeholder/user analysis',
-  ], 'The set of individual user-category entries defined for this system.')
-  @SectionId('UCE-CATE-LST')
-  @SectionIdPattern('UCE-CATE-xxx')
-  @Min(1)
-  @ContentHelp(
-    'Add one entry per distinct user category. Categories should '
-    'be mutually exclusive where possible, with clear distinguishing '
-    'characteristics.',
-  )
-  @SerializationOrder(2)
-  List<UserCategoryEntry> categories = [];
-}
-
 /// A user category entry.
 ///
 /// Comprehensive user persona definition including demographics, goals,

@@ -4628,66 +4628,6 @@ class RemovedRoleEntry extends DocSpecsSection {
   DocSpecsSection? continuity;
 }
 
-/// A responsibility entry (form).
-@StandardReferences(
-  [
-    'O*NET — occupational job analysis (tasks)',
-    'RACI — responsibility assignment',
-  ],
-  'A single responsibility of a role, with a short description of what it '
-  'entails.',
-)
-@SectionId('ROREEN')
-class RoleResponsibilityEntry extends DocSpecsSection {
-  @Form([
-    Field(
-      'responsibility',
-      String,
-      'Responsibility',
-      hint: 'The responsibility assigned to the role',
-    ),
-    Field(
-      'description',
-      String,
-      'Short description',
-      hint: 'A brief description of the responsibility',
-    ),
-  ])
-  @override
-  @SerializationOrder(0)
-  String? content;
-}
-
-/// A skill entry (form).
-@StandardReferences(
-  [
-    'O*NET — occupational job analysis (skills)',
-    'CIPD — competency frameworks and people management',
-  ],
-  'A single skill required by a role, together with the proficiency level '
-  'expected.',
-)
-@SectionId('SKEN')
-class SkillEntry extends DocSpecsSection {
-  @Form([
-    Field(
-      'skillName',
-      String,
-      'Skill Name',
-      hint: 'The name of the required skill',
-    ),
-    Field(
-      'proficiencyLevel',
-      String,
-      'Proficiency Level',
-      hint: 'The proficiency level expected for this skill',
-    ),
-  ])
-  @override
-  @SerializationOrder(0)
-  String? content;
-}
-
 // ---------------------------------------------------------------------------
 // 5.3 Workplace Descriptions
 // ---------------------------------------------------------------------------

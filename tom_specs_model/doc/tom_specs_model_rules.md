@@ -1319,6 +1319,17 @@ The validator enforces the following structural invariants (implementation:
     exempt — they have no generated surface, so they have no bearer to reach;
     a deferred part that *acquires* a bearer is a warning that the deferral
     entry has gone stale. A model with no projection root is silent.
+14. **Document reachability** — every class is reachable from at least one
+    `@Document` root. The generator emits the whole class map, so an orphan is
+    translated into all nine languages, registered in `spec_ops.g.dart` and
+    described in nine metas, while no document can ever hold an instance of it.
+    The canonical container root is exempt (it *is* the tree root, so nothing
+    points at it), and a model with no `@Document` roots is silent, which keeps
+    synthetic fixtures unaffected. This invariant exists because the outliner —
+    the tool one would expect to surface an unused class — structurally cannot:
+    it walks *from* the roots, so an orphan is exactly what it never visits.
+    Exported separately as `unreachableClasses()` for callers that want the set
+    rather than the message.
 
 **Deliberately not an invariant:** *"a `@CodeSpecKind`-bearing class must itself
 be reachable from the generation projection."* The model has 65 counterexamples

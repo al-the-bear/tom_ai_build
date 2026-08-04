@@ -11671,12 +11671,6 @@ fn meta_children_project_team_staffing(s: &mut HashSet<String>) -> Vec<Rc<som::S
     ]
 }
 
-fn meta_children_protocol_auth_serialization(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
-    vec![
-        Rc::new(som::SomMetaNode { class_name: "ProtocolAuthSerialization".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "authenticationMethod".to_string(), type_name: "String".to_string(), description: "Authentication Method".to_string(), required: false, hint: "API key, OAuth 2.0, mTLS, JWT".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "authorizationScheme".to_string(), type_name: "String".to_string(), description: "Authorization Scheme".to_string(), required: false, hint: "Bearer token, Basic, custom".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "messageFormat".to_string(), type_name: "String".to_string(), description: "Message Format".to_string(), required: false, hint: "JSON, Protocol Buffers, XML, Avro".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "encoding".to_string(), type_name: "String".to_string(), description: "Encoding".to_string(), required: false, hint: "UTF-8, Base64, binary".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "compressionSupport".to_string(), type_name: "String".to_string(), description: "Compression Support".to_string(), required: false, hint: "gzip, brotli, none".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
-    ]
-}
-
 fn meta_children_protocol_compliance_requirements(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "ProtocolComplianceRequirements".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "corsPolicy".to_string(), type_name: "String".to_string(), description: "CORS Policy".to_string(), required: false, hint: "Allowed origins, methods, headers".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "contentSecurityPolicy".to_string(), type_name: "String".to_string(), description: "Content Security Policy".to_string(), required: false, hint: "CSP header directives".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "httpSecurityHeaders".to_string(), type_name: "String".to_string(), description: "HTTP Security Headers".to_string(), required: false, hint: "X-Frame-Options, X-Content-Type-Options".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "cookiePolicy".to_string(), type_name: "String".to_string(), description: "Cookie Policy".to_string(), required: false, hint: "SameSite, Secure, HttpOnly attributes".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
@@ -11689,24 +11683,6 @@ fn meta_children_protocol_compliance_requirements(_s: &mut HashSet<String>) -> V
 fn meta_children_protocol_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "ProtocolEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "protocolType".to_string(), type_name: "String".to_string(), description: "Protocol Type".to_string(), required: false, hint: "Request-response, streaming, pub-sub, event-driven".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "protocolVersion".to_string(), type_name: "String".to_string(), description: "Protocol Version".to_string(), required: false, hint: "HTTP/2, MQTT 5.0, gRPC 1.x".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "transportLayer".to_string(), type_name: "String".to_string(), description: "Transport Layer".to_string(), required: false, hint: "TCP, UDP, QUIC".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "directionality".to_string(), type_name: "String".to_string(), description: "Directionality".to_string(), required: false, hint: "Client-to-server, bidirectional, server-push".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "notes".to_string(), type_name: "String".to_string(), description: "Notes".to_string(), required: false, hint: "Additional protocol notes".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
-    ]
-}
-
-fn meta_children_protocol_performance(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
-    vec![
-        Rc::new(som::SomMetaNode { class_name: "ProtocolPerformance".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "maxMessageSize".to_string(), type_name: "String".to_string(), description: "Max Message Size".to_string(), required: false, hint: "Maximum payload size".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "connectionPooling".to_string(), type_name: "bool".to_string(), description: "Connection Pooling".to_string(), required: false, hint: "Connection reuse strategy".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "keepAliveInterval".to_string(), type_name: "String".to_string(), description: "Keep-Alive Interval".to_string(), required: false, hint: "Heartbeat/keep-alive timing".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "connectionTimeout".to_string(), type_name: "String".to_string(), description: "Connection Timeout".to_string(), required: false, hint: "Connection establishment timeout".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "requestTimeout".to_string(), type_name: "String".to_string(), description: "Request Timeout".to_string(), required: false, hint: "Individual request timeout".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
-    ]
-}
-
-fn meta_children_protocol_reliability(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
-    vec![
-        Rc::new(som::SomMetaNode { class_name: "ProtocolReliability".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "retryPolicy".to_string(), type_name: "String".to_string(), description: "Retry Policy".to_string(), required: false, hint: "Exponential backoff, fixed interval".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "idempotencySupport".to_string(), type_name: "bool".to_string(), description: "Idempotency Support".to_string(), required: false, hint: "Support for idempotent operations".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "deliveryGuarantee".to_string(), type_name: "String".to_string(), description: "Delivery Guarantee".to_string(), required: false, hint: "At-most-once, at-least-once, exactly-once".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
-    ]
-}
-
-fn meta_children_protocol_usage(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
-    vec![
-        Rc::new(som::SomMetaNode { class_name: "ProtocolUsage".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "usedBy".to_string(), type_name: "String".to_string(), description: "Used By".to_string(), required: false, hint: "Components or services using this protocol".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "directionality".to_string(), type_name: "String".to_string(), description: "Directionality".to_string(), required: false, hint: "Client-to-server, bidirectional, server-push".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "notes".to_string(), type_name: "String".to_string(), description: "Notes".to_string(), required: false, hint: "Additional protocol notes".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -12440,12 +12416,6 @@ fn meta_children_report_section_entry(s: &mut HashSet<String>) -> Vec<Rc<som::So
     ]
 }
 
-fn meta_children_requirement(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
-    vec![
-        Rc::new(som::SomMetaNode { class_name: "Requirement".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "description".to_string(), type_name: "String".to_string(), description: "Short description".to_string(), required: false, hint: "".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "priority".to_string(), type_name: "Priority".to_string(), description: "Priority level".to_string(), required: false, hint: "".to_string(), order: 1, enum_values: vec!["must".to_string(), "should".to_string(), "could".to_string(), "wontThisTime".to_string()], refers_to: vec![] }, som::SomFormFieldMeta { name: "source".to_string(), type_name: "String".to_string(), description: "Source".to_string(), required: false, hint: "".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "rationale".to_string(), type_name: "String".to_string(), description: "Rationale".to_string(), required: false, hint: "".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "acceptanceCriteria".to_string(), type_name: "String".to_string(), description: "Acceptance Criteria".to_string(), required: false, hint: "".to_string(), order: 4, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "status".to_string(), type_name: "Status".to_string(), description: "Current status".to_string(), required: false, hint: "".to_string(), order: 5, enum_values: vec!["draft".to_string(), "proposed".to_string(), "approved".to_string(), "implemented".to_string(), "verified".to_string(), "deferred".to_string(), "rejected".to_string()], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
-    ]
-}
-
 fn meta_children_requirement_acceptance_criteria(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "RequirementAcceptanceCriteria".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Overview of acceptance approach and test coverage expectations.".to_string() }), ..som::SomMetaNode::default() }),
@@ -12972,12 +12942,6 @@ fn meta_children_revision_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMeta
     ]
 }
 
-fn meta_children_risk(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
-    vec![
-        Rc::new(som::SomMetaNode { class_name: "Risk".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "riskId".to_string(), type_name: "String".to_string(), description: "Risk ID (RISK-NNN)".to_string(), required: true, hint: "".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "name".to_string(), type_name: "String".to_string(), description: "Name".to_string(), required: true, hint: "".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "description".to_string(), type_name: "String".to_string(), description: "Short description".to_string(), required: false, hint: "".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "probability".to_string(), type_name: "Probability".to_string(), description: "Probability".to_string(), required: false, hint: "".to_string(), order: 3, enum_values: vec!["veryLow".to_string(), "low".to_string(), "medium".to_string(), "high".to_string(), "veryHigh".to_string()], refers_to: vec![] }, som::SomFormFieldMeta { name: "impact".to_string(), type_name: "Impact".to_string(), description: "Impact assessment".to_string(), required: false, hint: "".to_string(), order: 4, enum_values: vec!["negligible".to_string(), "minor".to_string(), "moderate".to_string(), "major".to_string(), "critical".to_string()], refers_to: vec![] }, som::SomFormFieldMeta { name: "mitigation".to_string(), type_name: "String".to_string(), description: "Mitigation strategy".to_string(), required: false, hint: "".to_string(), order: 5, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "riskOwner".to_string(), type_name: "String".to_string(), description: "Risk Owner".to_string(), required: false, hint: "".to_string(), order: 6, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "reviewFrequency".to_string(), type_name: "String".to_string(), description: "Review Frequency".to_string(), required: false, hint: "".to_string(), order: 7, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
-    ]
-}
-
 fn meta_children_risk_business_impact(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "RiskBusinessImpact".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "costImpact".to_string(), type_name: "String".to_string(), description: "Cost Impact — potential cost if risk materializes".to_string(), required: false, hint: "Potential cost if the risk materializes".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "scheduleImpact".to_string(), type_name: "String".to_string(), description: "Schedule Impact — potential delay (days, weeks, phases)".to_string(), required: false, hint: "Potential schedule delay if the risk occurs".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "scopeImpact".to_string(), type_name: "String".to_string(), description: "Scope Impact — impact on deliverables".to_string(), required: false, hint: "Impact on project scope and deliverables".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "qualityImpact".to_string(), type_name: "String".to_string(), description: "Quality Impact".to_string(), required: false, hint: "Impact on product or deliverable quality".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
@@ -13192,12 +13156,6 @@ fn meta_children_role_permission_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::
 fn meta_children_role_reference_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
     vec![
         Rc::new(som::SomMetaNode { class_name: "RoleReferenceEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "roleName".to_string(), type_name: "String".to_string(), description: "Role Name".to_string(), required: true, hint: "Name of an existing authorization role being referenced".to_string(), order: 0, enum_values: vec![], refers_to: vec!["AZRO.roleName".to_string()] }] }), ..som::SomMetaNode::default() }),
-    ]
-}
-
-fn meta_children_role_responsibility_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
-    vec![
-        Rc::new(som::SomMetaNode { class_name: "RoleResponsibilityEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "responsibility".to_string(), type_name: "String".to_string(), description: "Responsibility".to_string(), required: false, hint: "The responsibility assigned to the role".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "description".to_string(), type_name: "String".to_string(), description: "Short description".to_string(), required: false, hint: "A brief description of the responsibility".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -13765,12 +13723,6 @@ fn meta_children_secondary_navigation(s: &mut HashSet<String>) -> Vec<Rc<som::So
             }));
             Rc::new(n)
         },
-    ]
-}
-
-fn meta_children_section_meta(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
-    vec![
-        Rc::new(som::SomMetaNode { class_name: "SectionMeta".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "sectionId".to_string(), type_name: "String".to_string(), description: "Section Id".to_string(), required: false, hint: "".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "type".to_string(), type_name: "SectionType".to_string(), description: "Type".to_string(), required: false, hint: "".to_string(), order: 1, enum_values: vec!["description".to_string(), "form".to_string(), "code".to_string()], refers_to: vec![] }, som::SomFormFieldMeta { name: "seeds".to_string(), type_name: "String".to_string(), description: "Seeds".to_string(), required: false, hint: "".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -14440,12 +14392,6 @@ fn meta_children_single_sign_on_policy(_s: &mut HashSet<String>) -> Vec<Rc<som::
         Rc::new(som::SomMetaNode { class_name: "SingleSignOnPolicy".to_string(), member_name: "access".to_string(), section_id: "SSOPA".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(3), doc_comment: "Access and consent behavior.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "accountLinkingStrategy".to_string(), type_name: "String".to_string(), description: "Account Linking Strategy".to_string(), required: false, hint: "AutomaticByEmail / AutomaticByExternalId / UserInitiated / AdminManaged / None".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "consentRequirements".to_string(), type_name: "String".to_string(), description: "Consent Requirements".to_string(), required: false, hint: "None / FirstLoginOnly / PerApplication / PerScope / Periodic".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "ssoPortalUrl".to_string(), type_name: "String".to_string(), description: "SSO Portal URL".to_string(), required: false, hint: "URL for the central SSO portal or application launcher".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "ssoBypassRules".to_string(), type_name: "String".to_string(), description: "SSO Bypass Rules".to_string(), required: false, hint: "Scenarios where SSO is bypassed, e.g. ServiceAccounts, LocalAdminFallback, BreakGlass".to_string(), order: 3, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("NIST SP 800-63C — federation and assertions".to_string()), som::Json::Str("OpenID Connect Core 1.0 — identity layer over OAuth 2.0".to_string())])), ("connotation".to_string(), som::Json::Str("Defines account linking, consent requirements, and SSO bypass rules for federated access.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SingleSignOnPolicy".to_string(), member_name: "operations".to_string(), section_id: "SSOPO".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(4), doc_comment: "Platform integration and monitoring.".to_string(), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "desktopSsoIntegration".to_string(), type_name: "String".to_string(), description: "Desktop SSO Integration".to_string(), required: false, hint: "Kerberos / WindowsIntegrated / None — integration with desktop/OS authentication".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "mobileSsoStrategy".to_string(), type_name: "String".to_string(), description: "Mobile SSO Strategy".to_string(), required: false, hint: "SharedKeychain / AppLinks / BrowserBased / NativeSDK — SSO approach for mobile apps".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "ssoMonitoring".to_string(), type_name: "String".to_string(), description: "SSO Monitoring".to_string(), required: false, hint: "How SSO health and usage is monitored, e.g. IdPHealthCheck, LoginSuccessRate".to_string(), order: 2, enum_values: vec![], refers_to: vec![] }] }), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("NIST SP 800-63C — federation and assertions".to_string()), som::Json::Str("OpenID Connect Core 1.0 — identity layer over OAuth 2.0".to_string())])), ("connotation".to_string(), som::Json::Str("Defines platform-specific SSO integration and monitoring for desktop and mobile clients.".to_string()))] }], ..som::SomMetaNode::default() }),
         Rc::new(som::SomMetaNode { class_name: "SingleSignOnPolicy".to_string(), member_name: "ssoDetails".to_string(), kind: som::SOM_META_KIND_SECTION.to_string(), type_name: "String".to_string(), serialization_order: Some(5), content_type: Some(som::SomContentTypeMeta { type_: "text".to_string(), description: "".to_string() }), doc_comment: "Additional SSO details (text).".to_string(), ..som::SomMetaNode::default() }),
-    ]
-}
-
-fn meta_children_skill_entry(_s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
-    vec![
-        Rc::new(som::SomMetaNode { class_name: "SkillEntry".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_FORM.to_string(), type_name: "String".to_string(), serialization_order: Some(0), form: Some(som::SomFormMeta { fields: vec![som::SomFormFieldMeta { name: "skillName".to_string(), type_name: "String".to_string(), description: "Skill Name".to_string(), required: false, hint: "The name of the required skill".to_string(), order: 0, enum_values: vec![], refers_to: vec![] }, som::SomFormFieldMeta { name: "proficiencyLevel".to_string(), type_name: "String".to_string(), description: "Proficiency Level".to_string(), required: false, hint: "The proficiency level expected for this skill".to_string(), order: 1, enum_values: vec![], refers_to: vec![] }] }), ..som::SomMetaNode::default() }),
     ]
 }
 
@@ -17212,21 +17158,6 @@ fn meta_children_user_authorization(s: &mut HashSet<String>) -> Vec<Rc<som::SomM
             class_name: "TenantIsolation".to_string(), member_name: "tenantIsolation".to_string(), class_section_id: "TEIS".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "TenantIsolation".to_string(), serialization_order: Some(7), doc_comment: "9.4.7. Tenant Isolation.".to_string(), class_doc_comment: "9.4.7. Tenant Isolation.\n\nDescribes how multi-tenant authorization is structured: how tenant context\nis established and propagated, how cross-tenant access is prevented or\ncontrolled, how tenants can customize their authorization model, how tenant\nonboarding/offboarding is handled from an authorization perspective, and\nhow tenant boundaries are enforced at the authorization layer.\nComplements TenantDataIsolationPolicy which covers\ndata-level isolation; this section focuses on authorization-level isolation.".to_string(),
             recursive: r, children: c, ..som::SomMetaNode::default()
         }),
-    ]
-}
-
-fn meta_children_user_categories(s: &mut HashSet<String>) -> Vec<Rc<som::SomMetaNode>> {
-    vec![
-        Rc::new(som::SomMetaNode { class_name: "UserCategories".to_string(), member_name: "content".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(0), content_type: Some(som::SomContentTypeMeta { type_: "description".to_string(), description: "Overview of user categories and how they relate to the system. Include summary of user population and key differences between categories.".to_string() }), ..som::SomMetaNode::default() }),
-        Rc::new(som::SomMetaNode { class_name: "UserCategories".to_string(), member_name: "userCategoryDiagram".to_string(), kind: som::SOM_META_KIND_CONTENT.to_string(), type_name: "String".to_string(), serialization_order: Some(1), content_type: Some(som::SomContentTypeMeta { type_: "mermaid-flowchart".to_string(), description: "User category hierarchy or relationship diagram showing how different user types relate".to_string() }), content_help: "Create a diagram showing user categories, their relationships, and organizational hierarchy.".to_string(), doc_comment: "User category overview diagram.".to_string(), ..som::SomMetaNode::default() }),
-        {
-            let mut n = som::SomMetaNode { class_name: "UserCategories".to_string(), member_name: "categories".to_string(), section_id: "UCE-CATE-LST".to_string(), section_id_pattern: "UCE-CATE-xxx".to_string(), kind: som::SOM_META_KIND_LIST.to_string(), type_name: "UserCategoryEntry".to_string(), serialization_order: Some(2), min: Some(1), content_help: "Add one entry per distinct user category. Categories should be mutually exclusive where possible, with clear distinguishing characteristics.".to_string(), doc_comment: "User category entries — contains 1+× UserCategoryEntry.".to_string(), extra: vec![som::SomMetaExtra { annotation: "StandardReferences".to_string(), args: vec![("standards".to_string(), som::Json::Array(vec![som::Json::Str("ISO 9241-210 — user characteristics & context of use".to_string()), som::Json::Str("BABOK v3 §10.43 — stakeholder/user analysis".to_string())])), ("connotation".to_string(), som::Json::Str("The set of individual user-category entries defined for this system.".to_string()))] }], ..som::SomMetaNode::default() };
-            n.element_node = Some(meta_cx("UserCategoryEntry", s, meta_children_user_category_entry, |r, c| som::SomMetaNode {
-                class_name: "UserCategoryEntry".to_string(), class_section_id: "UCE".to_string(), kind: som::SOM_META_KIND_COMPLEX.to_string(), type_name: "UserCategoryEntry".to_string(), doc_comment: "A user category entry.\n\nComprehensive user persona definition including demographics, goals,\nfrustrations, technical proficiency, and system interaction patterns.".to_string(), class_doc_comment: "A user category entry.\n\nComprehensive user persona definition including demographics, goals,\nfrustrations, technical proficiency, and system interaction patterns.".to_string(), recursive: r, children: c,
-                ..som::SomMetaNode::default()
-            }));
-            Rc::new(n)
-        },
     ]
 }
 
@@ -52497,37 +52428,6 @@ impl<'a> ProjectTeamStaffingNav<'a> {
     }
 }
 
-/// ProtocolAuthSerializationNav holds the dot-notation accessors of `ProtocolAuthSerialization` (SOM §8).
-/// Every method is one navigable position: `.path()` is the absolute document
-/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
-/// chains remain valid document positions while `.meta()` returns an error
-/// (the metadata tree ends there).
-pub struct ProtocolAuthSerializationNav<'a> {
-    /// The bound tree/path position of this accessor.
-    pub meta_ref: som::SomMetaRef<'a>,
-}
-
-impl<'a> ProtocolAuthSerializationNav<'a> {
-    /// Binds a ProtocolAuthSerializationNav accessor to a tree and a path.
-    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ProtocolAuthSerializationNav<'a> {
-        ProtocolAuthSerializationNav { meta_ref: som::SomMetaRef::new(tree, path) }
-    }
-
-    /// The absolute document path of this position (SOM §8 path grammar).
-    pub fn path(&self) -> &str {
-        &self.meta_ref.path
-    }
-
-    /// The metadata node at this position (an error past a recursive re-entry).
-    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
-        self.meta_ref.meta()
-    }
-
-    pub fn content(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
-    }
-}
-
 /// ProtocolComplianceRequirementsNav holds the dot-notation accessors of `ProtocolComplianceRequirements` (SOM §8).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -52585,99 +52485,6 @@ impl<'a> ProtocolEntryNav<'a> {
     /// Binds a ProtocolEntryNav accessor to a tree and a path.
     pub fn new(tree: &'a som::SomMetaTree, path: String) -> ProtocolEntryNav<'a> {
         ProtocolEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
-    }
-
-    /// The absolute document path of this position (SOM §8 path grammar).
-    pub fn path(&self) -> &str {
-        &self.meta_ref.path
-    }
-
-    /// The metadata node at this position (an error past a recursive re-entry).
-    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
-        self.meta_ref.meta()
-    }
-
-    pub fn content(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
-    }
-}
-
-/// ProtocolPerformanceNav holds the dot-notation accessors of `ProtocolPerformance` (SOM §8).
-/// Every method is one navigable position: `.path()` is the absolute document
-/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
-/// chains remain valid document positions while `.meta()` returns an error
-/// (the metadata tree ends there).
-pub struct ProtocolPerformanceNav<'a> {
-    /// The bound tree/path position of this accessor.
-    pub meta_ref: som::SomMetaRef<'a>,
-}
-
-impl<'a> ProtocolPerformanceNav<'a> {
-    /// Binds a ProtocolPerformanceNav accessor to a tree and a path.
-    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ProtocolPerformanceNav<'a> {
-        ProtocolPerformanceNav { meta_ref: som::SomMetaRef::new(tree, path) }
-    }
-
-    /// The absolute document path of this position (SOM §8 path grammar).
-    pub fn path(&self) -> &str {
-        &self.meta_ref.path
-    }
-
-    /// The metadata node at this position (an error past a recursive re-entry).
-    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
-        self.meta_ref.meta()
-    }
-
-    pub fn content(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
-    }
-}
-
-/// ProtocolReliabilityNav holds the dot-notation accessors of `ProtocolReliability` (SOM §8).
-/// Every method is one navigable position: `.path()` is the absolute document
-/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
-/// chains remain valid document positions while `.meta()` returns an error
-/// (the metadata tree ends there).
-pub struct ProtocolReliabilityNav<'a> {
-    /// The bound tree/path position of this accessor.
-    pub meta_ref: som::SomMetaRef<'a>,
-}
-
-impl<'a> ProtocolReliabilityNav<'a> {
-    /// Binds a ProtocolReliabilityNav accessor to a tree and a path.
-    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ProtocolReliabilityNav<'a> {
-        ProtocolReliabilityNav { meta_ref: som::SomMetaRef::new(tree, path) }
-    }
-
-    /// The absolute document path of this position (SOM §8 path grammar).
-    pub fn path(&self) -> &str {
-        &self.meta_ref.path
-    }
-
-    /// The metadata node at this position (an error past a recursive re-entry).
-    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
-        self.meta_ref.meta()
-    }
-
-    pub fn content(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
-    }
-}
-
-/// ProtocolUsageNav holds the dot-notation accessors of `ProtocolUsage` (SOM §8).
-/// Every method is one navigable position: `.path()` is the absolute document
-/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
-/// chains remain valid document positions while `.meta()` returns an error
-/// (the metadata tree ends there).
-pub struct ProtocolUsageNav<'a> {
-    /// The bound tree/path position of this accessor.
-    pub meta_ref: som::SomMetaRef<'a>,
-}
-
-impl<'a> ProtocolUsageNav<'a> {
-    /// Binds a ProtocolUsageNav accessor to a tree and a path.
-    pub fn new(tree: &'a som::SomMetaTree, path: String) -> ProtocolUsageNav<'a> {
-        ProtocolUsageNav { meta_ref: som::SomMetaRef::new(tree, path) }
     }
 
     /// The absolute document path of this position (SOM §8 path grammar).
@@ -55096,37 +54903,6 @@ impl<'a> ReportSectionEntryNav<'a> {
     }
 }
 
-/// RequirementNav holds the dot-notation accessors of `Requirement` (SOM §8).
-/// Every method is one navigable position: `.path()` is the absolute document
-/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
-/// chains remain valid document positions while `.meta()` returns an error
-/// (the metadata tree ends there).
-pub struct RequirementNav<'a> {
-    /// The bound tree/path position of this accessor.
-    pub meta_ref: som::SomMetaRef<'a>,
-}
-
-impl<'a> RequirementNav<'a> {
-    /// Binds a RequirementNav accessor to a tree and a path.
-    pub fn new(tree: &'a som::SomMetaTree, path: String) -> RequirementNav<'a> {
-        RequirementNav { meta_ref: som::SomMetaRef::new(tree, path) }
-    }
-
-    /// The absolute document path of this position (SOM §8 path grammar).
-    pub fn path(&self) -> &str {
-        &self.meta_ref.path
-    }
-
-    /// The metadata node at this position (an error past a recursive re-entry).
-    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
-        self.meta_ref.meta()
-    }
-
-    pub fn content(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
-    }
-}
-
 /// RequirementAcceptanceCriteriaNav holds the dot-notation accessors of `RequirementAcceptanceCriteria` (SOM §8).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -56761,37 +56537,6 @@ impl<'a> RevisionEntryNav<'a> {
     }
 }
 
-/// RiskNav holds the dot-notation accessors of `Risk` (SOM §8).
-/// Every method is one navigable position: `.path()` is the absolute document
-/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
-/// chains remain valid document positions while `.meta()` returns an error
-/// (the metadata tree ends there).
-pub struct RiskNav<'a> {
-    /// The bound tree/path position of this accessor.
-    pub meta_ref: som::SomMetaRef<'a>,
-}
-
-impl<'a> RiskNav<'a> {
-    /// Binds a RiskNav accessor to a tree and a path.
-    pub fn new(tree: &'a som::SomMetaTree, path: String) -> RiskNav<'a> {
-        RiskNav { meta_ref: som::SomMetaRef::new(tree, path) }
-    }
-
-    /// The absolute document path of this position (SOM §8 path grammar).
-    pub fn path(&self) -> &str {
-        &self.meta_ref.path
-    }
-
-    /// The metadata node at this position (an error past a recursive re-entry).
-    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
-        self.meta_ref.meta()
-    }
-
-    pub fn content(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
-    }
-}
-
 /// RiskBusinessImpactNav holds the dot-notation accessors of `RiskBusinessImpact` (SOM §8).
 /// Every method is one navigable position: `.path()` is the absolute document
 /// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
@@ -57550,37 +57295,6 @@ impl<'a> RoleReferenceEntryNav<'a> {
     /// Binds a RoleReferenceEntryNav accessor to a tree and a path.
     pub fn new(tree: &'a som::SomMetaTree, path: String) -> RoleReferenceEntryNav<'a> {
         RoleReferenceEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
-    }
-
-    /// The absolute document path of this position (SOM §8 path grammar).
-    pub fn path(&self) -> &str {
-        &self.meta_ref.path
-    }
-
-    /// The metadata node at this position (an error past a recursive re-entry).
-    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
-        self.meta_ref.meta()
-    }
-
-    pub fn content(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
-    }
-}
-
-/// RoleResponsibilityEntryNav holds the dot-notation accessors of `RoleResponsibilityEntry` (SOM §8).
-/// Every method is one navigable position: `.path()` is the absolute document
-/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
-/// chains remain valid document positions while `.meta()` returns an error
-/// (the metadata tree ends there).
-pub struct RoleResponsibilityEntryNav<'a> {
-    /// The bound tree/path position of this accessor.
-    pub meta_ref: som::SomMetaRef<'a>,
-}
-
-impl<'a> RoleResponsibilityEntryNav<'a> {
-    /// Binds a RoleResponsibilityEntryNav accessor to a tree and a path.
-    pub fn new(tree: &'a som::SomMetaTree, path: String) -> RoleResponsibilityEntryNav<'a> {
-        RoleResponsibilityEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
     }
 
     /// The absolute document path of this position (SOM §8 path grammar).
@@ -59397,37 +59111,6 @@ impl<'a> SecondaryNavigationNav<'a> {
 
     pub fn tab_bars(&self) -> som::SomListMetaRef<'a, TabBarDefinitionEntryNav<'a>> {
         som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "TABADE-TABB-LST"), TabBarDefinitionEntryNav::new)
-    }
-}
-
-/// SectionMetaNav holds the dot-notation accessors of `SectionMeta` (SOM §8).
-/// Every method is one navigable position: `.path()` is the absolute document
-/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
-/// chains remain valid document positions while `.meta()` returns an error
-/// (the metadata tree ends there).
-pub struct SectionMetaNav<'a> {
-    /// The bound tree/path position of this accessor.
-    pub meta_ref: som::SomMetaRef<'a>,
-}
-
-impl<'a> SectionMetaNav<'a> {
-    /// Binds a SectionMetaNav accessor to a tree and a path.
-    pub fn new(tree: &'a som::SomMetaTree, path: String) -> SectionMetaNav<'a> {
-        SectionMetaNav { meta_ref: som::SomMetaRef::new(tree, path) }
-    }
-
-    /// The absolute document path of this position (SOM §8 path grammar).
-    pub fn path(&self) -> &str {
-        &self.meta_ref.path
-    }
-
-    /// The metadata node at this position (an error past a recursive re-entry).
-    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
-        self.meta_ref.meta()
-    }
-
-    pub fn content(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
     }
 }
 
@@ -61649,37 +61332,6 @@ impl<'a> SingleSignOnPolicyNav<'a> {
 
     pub fn sso_details(&self) -> som::SomMetaRef<'a> {
         som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "ssoDetails"))
-    }
-}
-
-/// SkillEntryNav holds the dot-notation accessors of `SkillEntry` (SOM §8).
-/// Every method is one navigable position: `.path()` is the absolute document
-/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
-/// chains remain valid document positions while `.meta()` returns an error
-/// (the metadata tree ends there).
-pub struct SkillEntryNav<'a> {
-    /// The bound tree/path position of this accessor.
-    pub meta_ref: som::SomMetaRef<'a>,
-}
-
-impl<'a> SkillEntryNav<'a> {
-    /// Binds a SkillEntryNav accessor to a tree and a path.
-    pub fn new(tree: &'a som::SomMetaTree, path: String) -> SkillEntryNav<'a> {
-        SkillEntryNav { meta_ref: som::SomMetaRef::new(tree, path) }
-    }
-
-    /// The absolute document path of this position (SOM §8 path grammar).
-    pub fn path(&self) -> &str {
-        &self.meta_ref.path
-    }
-
-    /// The metadata node at this position (an error past a recursive re-entry).
-    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
-        self.meta_ref.meta()
-    }
-
-    pub fn content(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
     }
 }
 
@@ -69821,45 +69473,6 @@ impl<'a> UserAuthorizationNav<'a> {
 
     pub fn tenant_isolation(&self) -> TenantIsolationNav<'a> {
         TenantIsolationNav::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "tenantIsolation"))
-    }
-}
-
-/// UserCategoriesNav holds the dot-notation accessors of `UserCategories` (SOM §8).
-/// Every method is one navigable position: `.path()` is the absolute document
-/// path, `.meta()` the metadata node. Past a recursive re-entry `.path()`
-/// chains remain valid document positions while `.meta()` returns an error
-/// (the metadata tree ends there).
-pub struct UserCategoriesNav<'a> {
-    /// The bound tree/path position of this accessor.
-    pub meta_ref: som::SomMetaRef<'a>,
-}
-
-impl<'a> UserCategoriesNav<'a> {
-    /// Binds a UserCategoriesNav accessor to a tree and a path.
-    pub fn new(tree: &'a som::SomMetaTree, path: String) -> UserCategoriesNav<'a> {
-        UserCategoriesNav { meta_ref: som::SomMetaRef::new(tree, path) }
-    }
-
-    /// The absolute document path of this position (SOM §8 path grammar).
-    pub fn path(&self) -> &str {
-        &self.meta_ref.path
-    }
-
-    /// The metadata node at this position (an error past a recursive re-entry).
-    pub fn meta(&self) -> Result<Rc<som::SomMetaNode>, String> {
-        self.meta_ref.meta()
-    }
-
-    pub fn content(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "content"))
-    }
-
-    pub fn user_category_diagram(&self) -> som::SomMetaRef<'a> {
-        som::SomMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "userCategoryDiagram"))
-    }
-
-    pub fn categories(&self) -> som::SomListMetaRef<'a, UserCategoryEntryNav<'a>> {
-        som::SomListMetaRef::new(self.meta_ref.tree, format!("{}/{}", self.meta_ref.path, "UCE-CATE-LST"), UserCategoryEntryNav::new)
     }
 }
 

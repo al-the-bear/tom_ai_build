@@ -67838,39 +67838,6 @@ public final class TomSomV0Meta {
     }
   }
 
-  // ProtocolAuthSerializationNav holds the dot-notation accessors of `ProtocolAuthSerialization` (SOM §8).
-  // Every method is one navigable position: `.path` is the absolute document
-  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
-  // remain valid document positions while `.meta()` throws (the metadata tree
-  // ends there).
-  public static final class ProtocolAuthSerializationNav extends SomMetaRef {
-    public ProtocolAuthSerializationNav(SomMetaTree tree, String path) {
-      super(tree, path);
-    }
-
-    // The metadata children of `ProtocolAuthSerialization` (SOM §7.2), bridge-identical.
-    static List<SomMetaNode> metaChildren(Set<String> s) {
-      List<SomMetaNode> out = new ArrayList<>();
-      {
-        SomMetaNode n = new SomMetaNode("ProtocolAuthSerialization", SomMetaKind.FORM, "String");
-        n.memberName = "content";
-        n.serializationOrder = 0;
-        n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("authenticationMethod", "String", "Authentication Method", false, "API key, OAuth 2.0, mTLS, JWT", 0),
-            new SomFormFieldMeta("authorizationScheme", "String", "Authorization Scheme", false, "Bearer token, Basic, custom", 1),
-            new SomFormFieldMeta("messageFormat", "String", "Message Format", false, "JSON, Protocol Buffers, XML, Avro", 2),
-            new SomFormFieldMeta("encoding", "String", "Encoding", false, "UTF-8, Base64, binary", 3),
-            new SomFormFieldMeta("compressionSupport", "String", "Compression Support", false, "gzip, brotli, none", 4)));
-        out.add(n);
-      }
-      return out;
-    }
-
-    public SomMetaRef content() {
-      return new SomMetaRef(tree, path + "/content");
-    }
-  }
-
   // ProtocolComplianceRequirementsNav holds the dot-notation accessors of `ProtocolComplianceRequirements` (SOM §8).
   // Every method is one navigable position: `.path` is the absolute document
   // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
@@ -67977,101 +67944,6 @@ public final class TomSomV0Meta {
             new SomFormFieldMeta("transportLayer", "String", "Transport Layer", false, "TCP, UDP, QUIC", 2),
             new SomFormFieldMeta("directionality", "String", "Directionality", false, "Client-to-server, bidirectional, server-push", 3),
             new SomFormFieldMeta("notes", "String", "Notes", false, "Additional protocol notes", 4)));
-        out.add(n);
-      }
-      return out;
-    }
-
-    public SomMetaRef content() {
-      return new SomMetaRef(tree, path + "/content");
-    }
-  }
-
-  // ProtocolPerformanceNav holds the dot-notation accessors of `ProtocolPerformance` (SOM §8).
-  // Every method is one navigable position: `.path` is the absolute document
-  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
-  // remain valid document positions while `.meta()` throws (the metadata tree
-  // ends there).
-  public static final class ProtocolPerformanceNav extends SomMetaRef {
-    public ProtocolPerformanceNav(SomMetaTree tree, String path) {
-      super(tree, path);
-    }
-
-    // The metadata children of `ProtocolPerformance` (SOM §7.2), bridge-identical.
-    static List<SomMetaNode> metaChildren(Set<String> s) {
-      List<SomMetaNode> out = new ArrayList<>();
-      {
-        SomMetaNode n = new SomMetaNode("ProtocolPerformance", SomMetaKind.FORM, "String");
-        n.memberName = "content";
-        n.serializationOrder = 0;
-        n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("maxMessageSize", "String", "Max Message Size", false, "Maximum payload size", 0),
-            new SomFormFieldMeta("connectionPooling", "bool", "Connection Pooling", false, "Connection reuse strategy", 1),
-            new SomFormFieldMeta("keepAliveInterval", "String", "Keep-Alive Interval", false, "Heartbeat/keep-alive timing", 2),
-            new SomFormFieldMeta("connectionTimeout", "String", "Connection Timeout", false, "Connection establishment timeout", 3),
-            new SomFormFieldMeta("requestTimeout", "String", "Request Timeout", false, "Individual request timeout", 4)));
-        out.add(n);
-      }
-      return out;
-    }
-
-    public SomMetaRef content() {
-      return new SomMetaRef(tree, path + "/content");
-    }
-  }
-
-  // ProtocolReliabilityNav holds the dot-notation accessors of `ProtocolReliability` (SOM §8).
-  // Every method is one navigable position: `.path` is the absolute document
-  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
-  // remain valid document positions while `.meta()` throws (the metadata tree
-  // ends there).
-  public static final class ProtocolReliabilityNav extends SomMetaRef {
-    public ProtocolReliabilityNav(SomMetaTree tree, String path) {
-      super(tree, path);
-    }
-
-    // The metadata children of `ProtocolReliability` (SOM §7.2), bridge-identical.
-    static List<SomMetaNode> metaChildren(Set<String> s) {
-      List<SomMetaNode> out = new ArrayList<>();
-      {
-        SomMetaNode n = new SomMetaNode("ProtocolReliability", SomMetaKind.FORM, "String");
-        n.memberName = "content";
-        n.serializationOrder = 0;
-        n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("retryPolicy", "String", "Retry Policy", false, "Exponential backoff, fixed interval", 0),
-            new SomFormFieldMeta("idempotencySupport", "bool", "Idempotency Support", false, "Support for idempotent operations", 1),
-            new SomFormFieldMeta("deliveryGuarantee", "String", "Delivery Guarantee", false, "At-most-once, at-least-once, exactly-once", 2)));
-        out.add(n);
-      }
-      return out;
-    }
-
-    public SomMetaRef content() {
-      return new SomMetaRef(tree, path + "/content");
-    }
-  }
-
-  // ProtocolUsageNav holds the dot-notation accessors of `ProtocolUsage` (SOM §8).
-  // Every method is one navigable position: `.path` is the absolute document
-  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
-  // remain valid document positions while `.meta()` throws (the metadata tree
-  // ends there).
-  public static final class ProtocolUsageNav extends SomMetaRef {
-    public ProtocolUsageNav(SomMetaTree tree, String path) {
-      super(tree, path);
-    }
-
-    // The metadata children of `ProtocolUsage` (SOM §7.2), bridge-identical.
-    static List<SomMetaNode> metaChildren(Set<String> s) {
-      List<SomMetaNode> out = new ArrayList<>();
-      {
-        SomMetaNode n = new SomMetaNode("ProtocolUsage", SomMetaKind.FORM, "String");
-        n.memberName = "content";
-        n.serializationOrder = 0;
-        n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("usedBy", "String", "Used By", false, "Components or services using this protocol", 0),
-            new SomFormFieldMeta("directionality", "String", "Directionality", false, "Client-to-server, bidirectional, server-push", 1),
-            new SomFormFieldMeta("notes", "String", "Notes", false, "Additional protocol notes", 2)));
         out.add(n);
       }
       return out;
@@ -72899,40 +72771,6 @@ public final class TomSomV0Meta {
     }
   }
 
-  // RequirementNav holds the dot-notation accessors of `Requirement` (SOM §8).
-  // Every method is one navigable position: `.path` is the absolute document
-  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
-  // remain valid document positions while `.meta()` throws (the metadata tree
-  // ends there).
-  public static final class RequirementNav extends SomMetaRef {
-    public RequirementNav(SomMetaTree tree, String path) {
-      super(tree, path);
-    }
-
-    // The metadata children of `Requirement` (SOM §7.2), bridge-identical.
-    static List<SomMetaNode> metaChildren(Set<String> s) {
-      List<SomMetaNode> out = new ArrayList<>();
-      {
-        SomMetaNode n = new SomMetaNode("Requirement", SomMetaKind.FORM, "String");
-        n.memberName = "content";
-        n.serializationOrder = 0;
-        n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("description", "String", "Short description", false, null, 0),
-            new SomFormFieldMeta("priority", "Priority", "Priority level", false, null, 1, java.util.List.of("must", "should", "could", "wontThisTime")),
-            new SomFormFieldMeta("source", "String", "Source", false, null, 2),
-            new SomFormFieldMeta("rationale", "String", "Rationale", false, null, 3),
-            new SomFormFieldMeta("acceptanceCriteria", "String", "Acceptance Criteria", false, null, 4),
-            new SomFormFieldMeta("status", "Status", "Current status", false, null, 5, java.util.List.of("draft", "proposed", "approved", "implemented", "verified", "deferred", "rejected"))));
-        out.add(n);
-      }
-      return out;
-    }
-
-    public SomMetaRef content() {
-      return new SomMetaRef(tree, path + "/content");
-    }
-  }
-
   // RequirementAcceptanceCriteriaNav holds the dot-notation accessors of `RequirementAcceptanceCriteria` (SOM §8).
   // Every method is one navigable position: `.path` is the absolute document
   // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
@@ -75762,42 +75600,6 @@ public final class TomSomV0Meta {
     }
   }
 
-  // RiskNav holds the dot-notation accessors of `Risk` (SOM §8).
-  // Every method is one navigable position: `.path` is the absolute document
-  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
-  // remain valid document positions while `.meta()` throws (the metadata tree
-  // ends there).
-  public static final class RiskNav extends SomMetaRef {
-    public RiskNav(SomMetaTree tree, String path) {
-      super(tree, path);
-    }
-
-    // The metadata children of `Risk` (SOM §7.2), bridge-identical.
-    static List<SomMetaNode> metaChildren(Set<String> s) {
-      List<SomMetaNode> out = new ArrayList<>();
-      {
-        SomMetaNode n = new SomMetaNode("Risk", SomMetaKind.FORM, "String");
-        n.memberName = "content";
-        n.serializationOrder = 0;
-        n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("riskId", "String", "Risk ID (RISK-NNN)", true, null, 0),
-            new SomFormFieldMeta("name", "String", "Name", true, null, 1),
-            new SomFormFieldMeta("description", "String", "Short description", false, null, 2),
-            new SomFormFieldMeta("probability", "Probability", "Probability", false, null, 3, java.util.List.of("veryLow", "low", "medium", "high", "veryHigh")),
-            new SomFormFieldMeta("impact", "Impact", "Impact assessment", false, null, 4, java.util.List.of("negligible", "minor", "moderate", "major", "critical")),
-            new SomFormFieldMeta("mitigation", "String", "Mitigation strategy", false, null, 5),
-            new SomFormFieldMeta("riskOwner", "String", "Risk Owner", false, null, 6),
-            new SomFormFieldMeta("reviewFrequency", "String", "Review Frequency", false, null, 7)));
-        out.add(n);
-      }
-      return out;
-    }
-
-    public SomMetaRef content() {
-      return new SomMetaRef(tree, path + "/content");
-    }
-  }
-
   // RiskBusinessImpactNav holds the dot-notation accessors of `RiskBusinessImpact` (SOM §8).
   // Every method is one navigable position: `.path` is the absolute document
   // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
@@ -77024,36 +76826,6 @@ public final class TomSomV0Meta {
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
             new SomFormFieldMeta("roleName", "String", "Role Name", true, "Name of an existing authorization role being referenced", 0, java.util.List.of(), java.util.List.of("AZRO.roleName"))));
-        out.add(n);
-      }
-      return out;
-    }
-
-    public SomMetaRef content() {
-      return new SomMetaRef(tree, path + "/content");
-    }
-  }
-
-  // RoleResponsibilityEntryNav holds the dot-notation accessors of `RoleResponsibilityEntry` (SOM §8).
-  // Every method is one navigable position: `.path` is the absolute document
-  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
-  // remain valid document positions while `.meta()` throws (the metadata tree
-  // ends there).
-  public static final class RoleResponsibilityEntryNav extends SomMetaRef {
-    public RoleResponsibilityEntryNav(SomMetaTree tree, String path) {
-      super(tree, path);
-    }
-
-    // The metadata children of `RoleResponsibilityEntry` (SOM §7.2), bridge-identical.
-    static List<SomMetaNode> metaChildren(Set<String> s) {
-      List<SomMetaNode> out = new ArrayList<>();
-      {
-        SomMetaNode n = new SomMetaNode("RoleResponsibilityEntry", SomMetaKind.FORM, "String");
-        n.memberName = "content";
-        n.serializationOrder = 0;
-        n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("responsibility", "String", "Responsibility", false, "The responsibility assigned to the role", 0),
-            new SomFormFieldMeta("description", "String", "Short description", false, "A brief description of the responsibility", 1)));
         out.add(n);
       }
       return out;
@@ -80633,37 +80405,6 @@ public final class TomSomV0Meta {
 
     public SomListMetaRef<TabBarDefinitionEntryNav> tabBars() {
       return new SomListMetaRef<>(tree, path + "/TABADE-TABB-LST", (t, p) -> new TabBarDefinitionEntryNav(t, p));
-    }
-  }
-
-  // SectionMetaNav holds the dot-notation accessors of `SectionMeta` (SOM §8).
-  // Every method is one navigable position: `.path` is the absolute document
-  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
-  // remain valid document positions while `.meta()` throws (the metadata tree
-  // ends there).
-  public static final class SectionMetaNav extends SomMetaRef {
-    public SectionMetaNav(SomMetaTree tree, String path) {
-      super(tree, path);
-    }
-
-    // The metadata children of `SectionMeta` (SOM §7.2), bridge-identical.
-    static List<SomMetaNode> metaChildren(Set<String> s) {
-      List<SomMetaNode> out = new ArrayList<>();
-      {
-        SomMetaNode n = new SomMetaNode("SectionMeta", SomMetaKind.FORM, "String");
-        n.memberName = "content";
-        n.serializationOrder = 0;
-        n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("sectionId", "String", "Section Id", false, null, 0),
-            new SomFormFieldMeta("type", "SectionType", "Type", false, null, 1, java.util.List.of("description", "form", "code")),
-            new SomFormFieldMeta("seeds", "String", "Seeds", false, null, 2)));
-        out.add(n);
-      }
-      return out;
-    }
-
-    public SomMetaRef content() {
-      return new SomMetaRef(tree, path + "/content");
     }
   }
 
@@ -84883,36 +84624,6 @@ public final class TomSomV0Meta {
 
     public SomMetaRef ssoDetails() {
       return new SomMetaRef(tree, path + "/ssoDetails");
-    }
-  }
-
-  // SkillEntryNav holds the dot-notation accessors of `SkillEntry` (SOM §8).
-  // Every method is one navigable position: `.path` is the absolute document
-  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
-  // remain valid document positions while `.meta()` throws (the metadata tree
-  // ends there).
-  public static final class SkillEntryNav extends SomMetaRef {
-    public SkillEntryNav(SomMetaTree tree, String path) {
-      super(tree, path);
-    }
-
-    // The metadata children of `SkillEntry` (SOM §7.2), bridge-identical.
-    static List<SomMetaNode> metaChildren(Set<String> s) {
-      List<SomMetaNode> out = new ArrayList<>();
-      {
-        SomMetaNode n = new SomMetaNode("SkillEntry", SomMetaKind.FORM, "String");
-        n.memberName = "content";
-        n.serializationOrder = 0;
-        n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("skillName", "String", "Skill Name", false, "The name of the required skill", 0),
-            new SomFormFieldMeta("proficiencyLevel", "String", "Proficiency Level", false, "The proficiency level expected for this skill", 1)));
-        out.add(n);
-      }
-      return out;
-    }
-
-    public SomMetaRef content() {
-      return new SomMetaRef(tree, path + "/content");
     }
   }
 
@@ -101620,72 +101331,6 @@ public final class TomSomV0Meta {
 
     public TenantIsolationNav tenantIsolation() {
       return new TenantIsolationNav(tree, path + "/tenantIsolation");
-    }
-  }
-
-  // UserCategoriesNav holds the dot-notation accessors of `UserCategories` (SOM §8).
-  // Every method is one navigable position: `.path` is the absolute document
-  // path, `.meta()` the metadata node. Past a recursive re-entry `.path` chains
-  // remain valid document positions while `.meta()` throws (the metadata tree
-  // ends there).
-  public static final class UserCategoriesNav extends SomMetaRef {
-    public UserCategoriesNav(SomMetaTree tree, String path) {
-      super(tree, path);
-    }
-
-    // The metadata children of `UserCategories` (SOM §7.2), bridge-identical.
-    static List<SomMetaNode> metaChildren(Set<String> s) {
-      List<SomMetaNode> out = new ArrayList<>();
-      {
-        SomMetaNode n = new SomMetaNode("UserCategories", SomMetaKind.CONTENT, "String");
-        n.memberName = "content";
-        n.serializationOrder = 0;
-        n.contentType = new SomContentTypeMeta("description", "Overview of user categories and how they relate to the system. Include summary of user population and key differences between categories.");
-        out.add(n);
-      }
-      {
-        SomMetaNode n = new SomMetaNode("UserCategories", SomMetaKind.CONTENT, "String");
-        n.memberName = "userCategoryDiagram";
-        n.serializationOrder = 1;
-        n.contentType = new SomContentTypeMeta("mermaid-flowchart", "User category hierarchy or relationship diagram showing how different user types relate");
-        n.contentHelp = "Create a diagram showing user categories, their relationships, and organizational hierarchy.";
-        n.docComment = "User category overview diagram.";
-        out.add(n);
-      }
-      {
-        SomMetaNode n = new SomMetaNode("UserCategories", SomMetaKind.LIST, "UserCategoryEntry");
-        n.memberName = "categories";
-        n.sectionId = "UCE-CATE-LST";
-        n.sectionIdPattern = "UCE-CATE-xxx";
-        n.serializationOrder = 2;
-        n.min = 1;
-        n.contentHelp = "Add one entry per distinct user category. Categories should be mutually exclusive where possible, with clear distinguishing characteristics.";
-        n.docComment = "User category entries — contains 1+× UserCategoryEntry.";
-        n.extra = Arrays.asList(new SomMetaExtra("StandardReferences", metaArgs("standards", Arrays.asList("ISO 9241-210 — user characteristics & context of use", "BABOK v3 §10.43 — stakeholder/user analysis"), "connotation", "The set of individual user-category entries defined for this system.")));
-        n.elementNode = metaCx("UserCategoryEntry", s, UserCategoryEntryNav::metaChildren, (r, c) -> {
-          SomMetaNode e = new SomMetaNode("UserCategoryEntry", SomMetaKind.COMPLEX, "UserCategoryEntry");
-          e.classSectionId = "UCE";
-          e.docComment = "A user category entry.\n\nComprehensive user persona definition including demographics, goals,\nfrustrations, technical proficiency, and system interaction patterns.";
-          e.classDocComment = "A user category entry.\n\nComprehensive user persona definition including demographics, goals,\nfrustrations, technical proficiency, and system interaction patterns.";
-          e.recursive = r;
-          e.children = c;
-          return e;
-        });
-        out.add(n);
-      }
-      return out;
-    }
-
-    public SomMetaRef content() {
-      return new SomMetaRef(tree, path + "/content");
-    }
-
-    public SomMetaRef userCategoryDiagram() {
-      return new SomMetaRef(tree, path + "/userCategoryDiagram");
-    }
-
-    public SomListMetaRef<UserCategoryEntryNav> categories() {
-      return new SomListMetaRef<>(tree, path + "/UCE-CATE-LST", (t, p) -> new UserCategoryEntryNav(t, p));
     }
   }
 

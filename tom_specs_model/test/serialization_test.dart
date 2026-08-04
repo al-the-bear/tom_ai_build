@@ -103,11 +103,9 @@ void main() {
       expect((map['section'] as Map)['content'], 'hello');
     });
 
-    test('real model leaves serialize their packed content', () {
+    test('a real model leaf serializes its packed content', () {
       final header = DocumentHeader()..content = 'doc-id: X';
-      final meta = SectionMeta()..content = 'sectionId: Y';
       expect(SpecYaml.toMap(header)['content'], 'doc-id: X');
-      expect(SpecYaml.toMap(meta)['content'], 'sectionId: Y');
     });
   });
 }

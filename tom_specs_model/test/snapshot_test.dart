@@ -3,19 +3,18 @@ import 'package:test/test.dart';
 
 /// A representative container [SpecNode] used to exercise tree-level structural
 /// sharing: a scalar field, two single-child node slots holding real model
-/// leaves ([DocumentHeader]), and a list slot of real model leaves
-/// ([SectionMeta]).
+/// leaves ([DocumentHeader]), and a list slot of the same real model leaf.
 class _Section with SpecNode {
   String? content;
   DocumentHeader headerA = DocumentHeader();
   DocumentHeader headerB = DocumentHeader();
-  List<SectionMeta> metas = [];
+  List<DocumentHeader> metas = [];
 
   @override
   List<SpecSlot> specSlots() => [
         SpecSlot.node(() => headerA, (v) => headerA = v as DocumentHeader),
         SpecSlot.node(() => headerB, (v) => headerB = v as DocumentHeader),
-        SpecSlot.list(() => metas, (v) => metas = v.cast<SectionMeta>()),
+        SpecSlot.list(() => metas, (v) => metas = v.cast<DocumentHeader>()),
       ];
 
   @override
@@ -33,8 +32,8 @@ void main() {
       live.headerA.content = 'A0';
       live.headerB.content = 'B0';
       live.metas = [
-        SectionMeta()..content = 'm0',
-        SectionMeta()..content = 'm1',
+        DocumentHeader()..content = 'm0',
+        DocumentHeader()..content = 'm1',
       ];
 
       // First snapshot: a full independent picture (shares nothing with live).
@@ -96,7 +95,7 @@ void main() {
     test('restore produces an independent editable tree', () {
       final live = _Section()..content = 'root';
       live.headerA.content = 'A0';
-      live.metas = [SectionMeta()..content = 'm0'];
+      live.metas = [DocumentHeader()..content = 'm0'];
 
       final s1 = SpecSnapshotter.snapshot(live) as _Section;
 

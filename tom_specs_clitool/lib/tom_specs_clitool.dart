@@ -144,7 +144,11 @@ export 'src/serialization_order.dart'
         unstampedMembers,
         findUnstampedModelMembers;
 export 'src/validator.dart'
-    show validateModel, validateStructuralInvariants, sectionIdCoverageGaps;
+    show
+        validateModel,
+        validateStructuralInvariants,
+        sectionIdCoverageGaps,
+        unreachableClasses;
 // The codespecs_derivation_contract.md §6 validation pass over an emitted
 // CodeSpecs trio.
 export 'src/codespecs/cs_model.dart';

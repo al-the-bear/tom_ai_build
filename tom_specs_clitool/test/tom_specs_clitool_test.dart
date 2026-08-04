@@ -683,6 +683,61 @@ void main() {
     });
   });
 
+  group('unit: unreachableClasses (invariant 14 — document reachability)', () {
+    Map<String, ModelClass> withOrphan({required bool orphaned}) => {
+          'DocSpecsProject': _cls('DocSpecsProject', const [], [
+            _field('blueprint', 'D00SolutionBlueprint'),
+          ]),
+          'D00SolutionBlueprint': _cls(
+            'D00SolutionBlueprint',
+            [
+              AnnotationData('Document', {'name': 'SBP'}),
+              AnnotationData('SectionId', {'id': 'TST'}),
+            ],
+            [if (!orphaned) _field('stray', 'Stray')],
+          ),
+          'Stray': _cls('Stray', [
+            AnnotationData('SectionId', {'id': 'STR'}),
+          ]),
+        };
+
+    test('reports a class no @Document root reaches', () {
+      expect(unreachableClasses(withOrphan(orphaned: true)), equals(['Stray']));
+    });
+
+    test('is empty once some root points at it', () {
+      expect(unreachableClasses(withOrphan(orphaned: false)), isEmpty);
+    });
+
+    test('the container root is exempt — nothing points at the tree root', () {
+      // DocSpecsProject is unreachable by construction; it must not be flagged.
+      expect(
+        unreachableClasses(withOrphan(orphaned: true)),
+        isNot(contains('DocSpecsProject')),
+      );
+    });
+
+    test('a model with no @Document root is silent, not all-unreachable', () {
+      final classes = {
+        'RootA': _cls('RootA', [
+          AnnotationData('SectionId', {'id': 'A'}),
+        ]),
+        'Loose': _cls('Loose', [
+          AnnotationData('SectionId', {'id': 'L'}),
+        ]),
+      };
+      expect(unreachableClasses(classes), isEmpty);
+    });
+
+    test('the invariant surfaces as a validator error, not only a query', () {
+      final result = validateStructuralInvariants(withOrphan(orphaned: true));
+      expect(
+        result.errors.where((e) => e.contains('document reachability')),
+        hasLength(1),
+      );
+    });
+  });
+
   group('unit: @SectionIdPattern list-coverage check', () {
     test('errors when a complex List<T> field lacks @SectionIdPattern', () {
       final classes = {

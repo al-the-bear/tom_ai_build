@@ -36172,18 +36172,6 @@ def _mc_ProjectTeamStaffing(s):
     ]
 
 
-def _mc_ProtocolAuthSerialization(s):
-    return [
-         SomMetaNode(
-            class_name="ProtocolAuthSerialization",
-            member_name="content",
-            kind=SomMetaKind.FORM,
-            type_name="String",
-            serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="authenticationMethod", type_name="String", description="Authentication Method", hint="API key, OAuth 2.0, mTLS, JWT", order=0), SomFormFieldMeta(name="authorizationScheme", type_name="String", description="Authorization Scheme", hint="Bearer token, Basic, custom", order=1), SomFormFieldMeta(name="messageFormat", type_name="String", description="Message Format", hint="JSON, Protocol Buffers, XML, Avro", order=2), SomFormFieldMeta(name="encoding", type_name="String", description="Encoding", hint="UTF-8, Base64, binary", order=3), SomFormFieldMeta(name="compressionSupport", type_name="String", description="Compression Support", hint="gzip, brotli, none", order=4)])),
-    ]
-
-
 def _mc_ProtocolComplianceRequirements(s):
     return [
          SomMetaNode(
@@ -36235,42 +36223,6 @@ def _mc_ProtocolEntry(s):
             type_name="String",
             serialization_order=0,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="protocolType", type_name="String", description="Protocol Type", hint="Request-response, streaming, pub-sub, event-driven", order=0), SomFormFieldMeta(name="protocolVersion", type_name="String", description="Protocol Version", hint="HTTP/2, MQTT 5.0, gRPC 1.x", order=1), SomFormFieldMeta(name="transportLayer", type_name="String", description="Transport Layer", hint="TCP, UDP, QUIC", order=2), SomFormFieldMeta(name="directionality", type_name="String", description="Directionality", hint="Client-to-server, bidirectional, server-push", order=3), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Additional protocol notes", order=4)])),
-    ]
-
-
-def _mc_ProtocolPerformance(s):
-    return [
-         SomMetaNode(
-            class_name="ProtocolPerformance",
-            member_name="content",
-            kind=SomMetaKind.FORM,
-            type_name="String",
-            serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="maxMessageSize", type_name="String", description="Max Message Size", hint="Maximum payload size", order=0), SomFormFieldMeta(name="connectionPooling", type_name="bool", description="Connection Pooling", hint="Connection reuse strategy", order=1), SomFormFieldMeta(name="keepAliveInterval", type_name="String", description="Keep-Alive Interval", hint="Heartbeat/keep-alive timing", order=2), SomFormFieldMeta(name="connectionTimeout", type_name="String", description="Connection Timeout", hint="Connection establishment timeout", order=3), SomFormFieldMeta(name="requestTimeout", type_name="String", description="Request Timeout", hint="Individual request timeout", order=4)])),
-    ]
-
-
-def _mc_ProtocolReliability(s):
-    return [
-         SomMetaNode(
-            class_name="ProtocolReliability",
-            member_name="content",
-            kind=SomMetaKind.FORM,
-            type_name="String",
-            serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="retryPolicy", type_name="String", description="Retry Policy", hint="Exponential backoff, fixed interval", order=0), SomFormFieldMeta(name="idempotencySupport", type_name="bool", description="Idempotency Support", hint="Support for idempotent operations", order=1), SomFormFieldMeta(name="deliveryGuarantee", type_name="String", description="Delivery Guarantee", hint="At-most-once, at-least-once, exactly-once", order=2)])),
-    ]
-
-
-def _mc_ProtocolUsage(s):
-    return [
-         SomMetaNode(
-            class_name="ProtocolUsage",
-            member_name="content",
-            kind=SomMetaKind.FORM,
-            type_name="String",
-            serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="usedBy", type_name="String", description="Used By", hint="Components or services using this protocol", order=0), SomFormFieldMeta(name="directionality", type_name="String", description="Directionality", hint="Client-to-server, bidirectional, server-push", order=1), SomFormFieldMeta(name="notes", type_name="String", description="Notes", hint="Additional protocol notes", order=2)])),
     ]
 
 
@@ -38754,18 +38706,6 @@ def _mc_ReportSectionEntry(s):
     ]
 
 
-def _mc_Requirement(s):
-    return [
-         SomMetaNode(
-            class_name="Requirement",
-            member_name="content",
-            kind=SomMetaKind.FORM,
-            type_name="String",
-            serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="description", type_name="String", description="Short description", order=0), SomFormFieldMeta(name="priority", type_name="Priority", description="Priority level", order=1, enum_values=["must", "should", "could", "wontThisTime"]), SomFormFieldMeta(name="source", type_name="String", description="Source", order=2), SomFormFieldMeta(name="rationale", type_name="String", description="Rationale", order=3), SomFormFieldMeta(name="acceptanceCriteria", type_name="String", description="Acceptance Criteria", order=4), SomFormFieldMeta(name="status", type_name="Status", description="Current status", order=5, enum_values=["draft", "proposed", "approved", "implemented", "verified", "deferred", "rejected"])])),
-    ]
-
-
 def _mc_RequirementAcceptanceCriteria(s):
     return [
          SomMetaNode(
@@ -40174,18 +40114,6 @@ def _mc_RevisionEntry(s):
     ]
 
 
-def _mc_Risk(s):
-    return [
-         SomMetaNode(
-            class_name="Risk",
-            member_name="content",
-            kind=SomMetaKind.FORM,
-            type_name="String",
-            serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="riskId", type_name="String", description="Risk ID (RISK-NNN)", required=True, order=0), SomFormFieldMeta(name="name", type_name="String", description="Name", required=True, order=1), SomFormFieldMeta(name="description", type_name="String", description="Short description", order=2), SomFormFieldMeta(name="probability", type_name="Probability", description="Probability", order=3, enum_values=["veryLow", "low", "medium", "high", "veryHigh"]), SomFormFieldMeta(name="impact", type_name="Impact", description="Impact assessment", order=4, enum_values=["negligible", "minor", "moderate", "major", "critical"]), SomFormFieldMeta(name="mitigation", type_name="String", description="Mitigation strategy", order=5), SomFormFieldMeta(name="riskOwner", type_name="String", description="Risk Owner", order=6), SomFormFieldMeta(name="reviewFrequency", type_name="String", description="Review Frequency", order=7)])),
-    ]
-
-
 def _mc_RiskBusinessImpact(s):
     return [
          SomMetaNode(
@@ -40771,18 +40699,6 @@ def _mc_RoleReferenceEntry(s):
             type_name="String",
             serialization_order=0,
             form=SomFormMeta(fields=[SomFormFieldMeta(name="roleName", type_name="String", description="Role Name", required=True, hint="Name of an existing authorization role being referenced", order=0, refers_to=["AZRO.roleName"])])),
-    ]
-
-
-def _mc_RoleResponsibilityEntry(s):
-    return [
-         SomMetaNode(
-            class_name="RoleResponsibilityEntry",
-            member_name="content",
-            kind=SomMetaKind.FORM,
-            type_name="String",
-            serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="responsibility", type_name="String", description="Responsibility", hint="The responsibility assigned to the role", order=0), SomFormFieldMeta(name="description", type_name="String", description="Short description", hint="A brief description of the responsibility", order=1)])),
     ]
 
 
@@ -42619,18 +42535,6 @@ def _mc_SecondaryNavigation(s):
             doc_comment="Contains 0+× TabBarDefinition.",
             extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-143:2012 — grouped selectable navigation controls presented as tab bars"], "connotation": "The collection of tab-bar definitions used for in-page secondary navigation."})],
             element_node=_cx("TabBarDefinitionEntry", s, _mc_TabBarDefinitionEntry, lambda r, c: SomMetaNode(class_name="TabBarDefinitionEntry", class_section_id="TABADE", kind=SomMetaKind.COMPLEX, type_name="TabBarDefinitionEntry", doc_comment="A tab bar definition entry (form).\n\nDefines a tab bar or segmented control on a specific screen.", class_doc_comment="A tab bar definition entry (form).\n\nDefines a tab bar or segmented control on a specific screen.", recursive=r, children=c))),
-    ]
-
-
-def _mc_SectionMeta(s):
-    return [
-         SomMetaNode(
-            class_name="SectionMeta",
-            member_name="content",
-            kind=SomMetaKind.FORM,
-            type_name="String",
-            serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="sectionId", type_name="String", description="Section Id", order=0), SomFormFieldMeta(name="type", type_name="SectionType", description="Type", order=1, enum_values=["description", "form", "code"]), SomFormFieldMeta(name="seeds", type_name="String", description="Seeds", order=2)])),
     ]
 
 
@@ -44926,18 +44830,6 @@ def _mc_SingleSignOnPolicy(s):
             serialization_order=5,
             content_type=SomContentTypeMeta(type="text", description=""),
             doc_comment="Additional SSO details (text)."),
-    ]
-
-
-def _mc_SkillEntry(s):
-    return [
-         SomMetaNode(
-            class_name="SkillEntry",
-            member_name="content",
-            kind=SomMetaKind.FORM,
-            type_name="String",
-            serialization_order=0,
-            form=SomFormMeta(fields=[SomFormFieldMeta(name="skillName", type_name="String", description="Skill Name", hint="The name of the required skill", order=0), SomFormFieldMeta(name="proficiencyLevel", type_name="String", description="Proficiency Level", hint="The proficiency level expected for this skill", order=1)])),
     ]
 
 
@@ -53754,40 +53646,6 @@ def _mc_UserAuthorization(s):
                 class_doc_comment="9.4.7. Tenant Isolation.\n\nDescribes how multi-tenant authorization is structured: how tenant context\nis established and propagated, how cross-tenant access is prevented or\ncontrolled, how tenants can customize their authorization model, how tenant\nonboarding/offboarding is handled from an authorization perspective, and\nhow tenant boundaries are enforced at the authorization layer.\nComplements TenantDataIsolationPolicy which covers\ndata-level isolation; this section focuses on authorization-level isolation.",
                 recursive=r,
                 children=c)),
-    ]
-
-
-def _mc_UserCategories(s):
-    return [
-         SomMetaNode(
-            class_name="UserCategories",
-            member_name="content",
-            kind=SomMetaKind.CONTENT,
-            type_name="String",
-            serialization_order=0,
-            content_type=SomContentTypeMeta(type="description", description="Overview of user categories and how they relate to the system. Include summary of user population and key differences between categories.")),
-         SomMetaNode(
-            class_name="UserCategories",
-            member_name="userCategoryDiagram",
-            kind=SomMetaKind.CONTENT,
-            type_name="String",
-            serialization_order=1,
-            content_type=SomContentTypeMeta(type="mermaid-flowchart", description="User category hierarchy or relationship diagram showing how different user types relate"),
-            content_help="Create a diagram showing user categories, their relationships, and organizational hierarchy.",
-            doc_comment="User category overview diagram."),
-         SomMetaNode(
-            class_name="UserCategories",
-            member_name="categories",
-            section_id="UCE-CATE-LST",
-            section_id_pattern="UCE-CATE-xxx",
-            kind=SomMetaKind.LIST,
-            type_name="UserCategoryEntry",
-            serialization_order=2,
-            min=1,
-            content_help="Add one entry per distinct user category. Categories should be mutually exclusive where possible, with clear distinguishing characteristics.",
-            doc_comment="User category entries — contains 1+× UserCategoryEntry.",
-            extra=[SomMetaExtra(annotation="StandardReferences", args={"standards": ["ISO 9241-210 — user characteristics & context of use", "BABOK v3 §10.43 — stakeholder/user analysis"], "connotation": "The set of individual user-category entries defined for this system."})],
-            element_node=_cx("UserCategoryEntry", s, _mc_UserCategoryEntry, lambda r, c: SomMetaNode(class_name="UserCategoryEntry", class_section_id="UCE", kind=SomMetaKind.COMPLEX, type_name="UserCategoryEntry", doc_comment="A user category entry.\n\nComprehensive user persona definition including demographics, goals,\nfrustrations, technical proficiency, and system interaction patterns.", class_doc_comment="A user category entry.\n\nComprehensive user persona definition including demographics, goals,\nfrustrations, technical proficiency, and system interaction patterns.", recursive=r, children=c))),
     ]
 
 
@@ -74492,17 +74350,6 @@ class ProjectTeamStaffingNav(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/RREQE-OPEN-LST", ResourceRequirementEntryNav)
 
 
-class ProtocolAuthSerializationNav(SomMetaRef):
-    """Dot-notation accessors of ``ProtocolAuthSerialization`` (SOM §8). Every getter is
-    one navigable position: ``.path`` is the absolute document path, ``.meta``
-    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
-    document positions while ``.meta`` raises (the metadata tree ends there)."""
-
-    @property
-    def content(self):
-        return SomMetaRef(self.tree, f"{self.path}/content")
-
-
 class ProtocolComplianceRequirementsNav(SomMetaRef):
     """Dot-notation accessors of ``ProtocolComplianceRequirements`` (SOM §8). Every getter is
     one navigable position: ``.path`` is the absolute document path, ``.meta``
@@ -74528,39 +74375,6 @@ class ProtocolComplianceRequirementsNav(SomMetaRef):
 
 class ProtocolEntryNav(SomMetaRef):
     """Dot-notation accessors of ``ProtocolEntry`` (SOM §8). Every getter is
-    one navigable position: ``.path`` is the absolute document path, ``.meta``
-    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
-    document positions while ``.meta`` raises (the metadata tree ends there)."""
-
-    @property
-    def content(self):
-        return SomMetaRef(self.tree, f"{self.path}/content")
-
-
-class ProtocolPerformanceNav(SomMetaRef):
-    """Dot-notation accessors of ``ProtocolPerformance`` (SOM §8). Every getter is
-    one navigable position: ``.path`` is the absolute document path, ``.meta``
-    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
-    document positions while ``.meta`` raises (the metadata tree ends there)."""
-
-    @property
-    def content(self):
-        return SomMetaRef(self.tree, f"{self.path}/content")
-
-
-class ProtocolReliabilityNav(SomMetaRef):
-    """Dot-notation accessors of ``ProtocolReliability`` (SOM §8). Every getter is
-    one navigable position: ``.path`` is the absolute document path, ``.meta``
-    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
-    document positions while ``.meta`` raises (the metadata tree ends there)."""
-
-    @property
-    def content(self):
-        return SomMetaRef(self.tree, f"{self.path}/content")
-
-
-class ProtocolUsageNav(SomMetaRef):
-    """Dot-notation accessors of ``ProtocolUsage`` (SOM §8). Every getter is
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
@@ -75871,17 +75685,6 @@ class ReportSectionEntryNav(SomMetaRef):
         return SomListMetaRef(self.tree, f"{self.path}/REPCHA-CHAR-LST", ReportChartEntryNav)
 
 
-class RequirementNav(SomMetaRef):
-    """Dot-notation accessors of ``Requirement`` (SOM §8). Every getter is
-    one navigable position: ``.path`` is the absolute document path, ``.meta``
-    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
-    document positions while ``.meta`` raises (the metadata tree ends there)."""
-
-    @property
-    def content(self):
-        return SomMetaRef(self.tree, f"{self.path}/content")
-
-
 class RequirementAcceptanceCriteriaNav(SomMetaRef):
     """Dot-notation accessors of ``RequirementAcceptanceCriteria`` (SOM §8). Every getter is
     one navigable position: ``.path`` is the absolute document path, ``.meta``
@@ -76676,17 +76479,6 @@ class RevisionEntryNav(SomMetaRef):
         return SomMetaRef(self.tree, f"{self.path}/content")
 
 
-class RiskNav(SomMetaRef):
-    """Dot-notation accessors of ``Risk`` (SOM §8). Every getter is
-    one navigable position: ``.path`` is the absolute document path, ``.meta``
-    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
-    document positions while ``.meta`` raises (the metadata tree ends there)."""
-
-    @property
-    def content(self):
-        return SomMetaRef(self.tree, f"{self.path}/content")
-
-
 class RiskBusinessImpactNav(SomMetaRef):
     """Dot-notation accessors of ``RiskBusinessImpact`` (SOM §8). Every getter is
     one navigable position: ``.path`` is the absolute document path, ``.meta``
@@ -77033,17 +76825,6 @@ class RolePermissionEntryNav(SomMetaRef):
 
 class RoleReferenceEntryNav(SomMetaRef):
     """Dot-notation accessors of ``RoleReferenceEntry`` (SOM §8). Every getter is
-    one navigable position: ``.path`` is the absolute document path, ``.meta``
-    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
-    document positions while ``.meta`` raises (the metadata tree ends there)."""
-
-    @property
-    def content(self):
-        return SomMetaRef(self.tree, f"{self.path}/content")
-
-
-class RoleResponsibilityEntryNav(SomMetaRef):
-    """Dot-notation accessors of ``RoleResponsibilityEntry`` (SOM §8). Every getter is
     one navigable position: ``.path`` is the absolute document path, ``.meta``
     the metadata node. Past a recursive re-entry ``.path`` chains remain valid
     document positions while ``.meta`` raises (the metadata tree ends there)."""
@@ -78013,17 +77794,6 @@ class SecondaryNavigationNav(SomMetaRef):
     @property
     def tabBars(self):
         return SomListMetaRef(self.tree, f"{self.path}/TABADE-TABB-LST", TabBarDefinitionEntryNav)
-
-
-class SectionMetaNav(SomMetaRef):
-    """Dot-notation accessors of ``SectionMeta`` (SOM §8). Every getter is
-    one navigable position: ``.path`` is the absolute document path, ``.meta``
-    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
-    document positions while ``.meta`` raises (the metadata tree ends there)."""
-
-    @property
-    def content(self):
-        return SomMetaRef(self.tree, f"{self.path}/content")
 
 
 class SecurityNav(SomMetaRef):
@@ -79225,17 +78995,6 @@ class SingleSignOnPolicyNav(SomMetaRef):
     @property
     def ssoDetails(self):
         return SomMetaRef(self.tree, f"{self.path}/ssoDetails")
-
-
-class SkillEntryNav(SomMetaRef):
-    """Dot-notation accessors of ``SkillEntry`` (SOM §8). Every getter is
-    one navigable position: ``.path`` is the absolute document path, ``.meta``
-    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
-    document positions while ``.meta`` raises (the metadata tree ends there)."""
-
-    @property
-    def content(self):
-        return SomMetaRef(self.tree, f"{self.path}/content")
 
 
 class SlaAndSloMonitoringNav(SomMetaRef):
@@ -83717,25 +83476,6 @@ class UserAuthorizationNav(SomMetaRef):
     @property
     def tenantIsolation(self):
         return TenantIsolationNav(self.tree, f"{self.path}/tenantIsolation")
-
-
-class UserCategoriesNav(SomMetaRef):
-    """Dot-notation accessors of ``UserCategories`` (SOM §8). Every getter is
-    one navigable position: ``.path`` is the absolute document path, ``.meta``
-    the metadata node. Past a recursive re-entry ``.path`` chains remain valid
-    document positions while ``.meta`` raises (the metadata tree ends there)."""
-
-    @property
-    def content(self):
-        return SomMetaRef(self.tree, f"{self.path}/content")
-
-    @property
-    def userCategoryDiagram(self):
-        return SomMetaRef(self.tree, f"{self.path}/userCategoryDiagram")
-
-    @property
-    def categories(self):
-        return SomListMetaRef(self.tree, f"{self.path}/UCE-CATE-LST", UserCategoryEntryNav)
 
 
 class UserCategoryDefinitionNav(SomMetaRef):

@@ -380,6 +380,46 @@ List<String> sectionIdCoverageGaps(
   return gaps;
 }
 
+/// Returns the model classes that no `@Document` root can reach — sorted, empty
+/// for a healthy model.
+///
+/// The SOM generator emits **every** class in [classes] into all nine language
+/// packages, but only a class some document root reaches is part of an
+/// authorable surface. A class nothing points at is therefore generated,
+/// registered in `spec_ops.g.dart`, translated nine times and documented in
+/// nine metas, while no document can ever hold an instance of it — dead weight
+/// that also lies to a reader, since it looks like part of the model.
+///
+/// Reachability is walked from every `@Document` root plus the canonical
+/// container root, which is itself exempt: the container is the tree root, so by
+/// construction no field points at it. A model with no `@Document` roots at all
+/// yields the empty list rather than declaring every class unreachable, so
+/// synthetic unit-test fixtures are unaffected.
+///
+/// This is the detector the outliner structurally cannot be: the outliner walks
+/// *from* the roots and renders what it finds, so an orphan is exactly what it
+/// never visits.
+List<String> unreachableClasses(Map<String, ModelClass> classes) {
+  final documentRoots = [
+    for (final entry in classes.entries)
+      if (entry.value.getAnnotation('Document') != null) entry.key,
+  ];
+  if (documentRoots.isEmpty) return const [];
+
+  final reachable = <String>{};
+  for (final root in documentRoots) {
+    reachable.addAll(_findReachableTypes(classes, root));
+  }
+
+  final container = findContainerRoot(classes);
+  final orphans = [
+    for (final name in classes.keys)
+      if (name != container && !reachable.contains(name)) name,
+  ];
+  orphans.sort();
+  return orphans;
+}
+
 // ---------------------------------------------------------------------------
 // `tom_specs_model_rules.md` §10.2 implementation
 // ---------------------------------------------------------------------------
@@ -980,6 +1020,22 @@ void _validateStructuralInvariants(
   // sound.
   _validateCodeSpecKindRouting(
       classes, reachable, documentClasses, errors, warnings);
+
+  // --- 14. Document reachability (no orphan classes) -----------------------
+  //
+  // The SOM generator emits every class in the map, so a class no @Document
+  // root reaches is generated into all nine languages, registered in
+  // spec_ops.g.dart and described in nine metas — while no document can hold an
+  // instance of it. The outliner cannot report this by construction: it walks
+  // *from* the roots, so an orphan is precisely what it never visits.
+  for (final orphan in unreachableClasses(classes)) {
+    errors.add(
+      '$_invariants document reachability: $orphan is not reachable from any '
+      '@Document root — it is generated into all nine languages but no '
+      'document can hold it; give it a referring field or delete it '
+      '(tom_specs_model_rules.md §10.2 invariant 14)',
+    );
+  }
 }
 
 /// The `CodeSpecPart` values with no generated surface — reserved so a section
