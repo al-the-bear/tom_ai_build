@@ -2739,6 +2739,154 @@ void main() {
       expect(refWarnings(classes), isEmpty);
     });
   });
+
+  group('unit: refersTo co-reachability across @Document roots (csre2)', () {
+    // The registry (`RouteEntry`, id `RTEN`) and the referrer (`Linker`) are
+    // held apart so each test can hang them off whichever roots it needs. What
+    // the check asks is only ever "does some root reach both".
+    ModelClass routeEntry() => ModelClass(
+          name: 'RouteEntry',
+          annotations: [AnnotationData('SectionId', {'id': 'RTEN'})],
+          formFields: [
+            FormFieldInfo(name: 'routeId', typeName: 'String', required: true),
+          ],
+        );
+
+    ModelClass linker(List<String> refersTo) => ModelClass(
+          name: 'Linker',
+          annotations: [AnnotationData('SectionId', {'id': 'LNK'})],
+          formFields: [
+            FormFieldInfo(
+              name: 'target',
+              typeName: 'String',
+              refersTo: refersTo,
+            ),
+          ],
+        );
+
+    ModelField routesList() => _listField('routes', 'RouteEntry', [
+          AnnotationData('SectionId', {'id': 'RT-LST'}),
+          AnnotationData('SectionIdPattern', {'pattern': 'RT-xxx'}),
+        ]);
+
+    ModelClass root(String name, String sectionId, List<ModelField> fields) =>
+        ModelClass(
+          name: name,
+          annotations: [
+            AnnotationData('Document', {}),
+            AnnotationData('SectionId', {'id': sectionId}),
+          ],
+          fields: fields,
+        );
+
+    List<String> coReachErrors(Map<String, ModelClass> classes) =>
+        validateStructuralInvariants(classes)
+            .errors
+            .where((e) => e.contains('co-reachability'))
+            .toList();
+
+    test('a root reaching both ends satisfies the rule', () {
+      final classes = {
+        'D00SolutionBlueprint': root(
+          'D00SolutionBlueprint',
+          'SBP00',
+          [routesList(), _field('linker', 'Linker')],
+        ),
+        'RouteEntry': routeEntry(),
+        'Linker': linker(['RTEN.routeId']),
+      };
+      expect(coReachErrors(classes), isEmpty);
+    });
+
+    test('a cross-document reference is legal — one root suffices', () {
+      // The normal shape: a second standalone document reaches the referrer but
+      // not the registry it cites. The instance tier skips there; the rule only
+      // asks that *some* root can still decide it, and D00 can.
+      final classes = {
+        'D00SolutionBlueprint': root(
+          'D00SolutionBlueprint',
+          'SBP00',
+          [routesList(), _field('linker', 'Linker')],
+        ),
+        'D01Standalone': root(
+          'D01Standalone',
+          'STA01',
+          [_field('linker', 'Linker')],
+        ),
+        'RouteEntry': routeEntry(),
+        'Linker': linker(['RTEN.routeId']),
+      };
+      expect(coReachErrors(classes), isEmpty);
+    });
+
+    test('a target no referring root reaches is a dead declaration', () {
+      // The referrer lives only in the standalone document; the registry only
+      // in the blueprint. No document could ever resolve the reference, so the
+      // ids it names would go unverified everywhere.
+      final classes = {
+        'D00SolutionBlueprint': root(
+          'D00SolutionBlueprint',
+          'SBP00',
+          [routesList()],
+        ),
+        'D01Standalone': root(
+          'D01Standalone',
+          'STA01',
+          [_field('linker', 'Linker')],
+        ),
+        'RouteEntry': routeEntry(),
+        'Linker': linker(['RTEN.routeId']),
+      };
+      final errs = coReachErrors(classes);
+      expect(errs, hasLength(1));
+      expect(errs.single, contains('Linker.target'));
+      expect(errs.single, contains('RTEN.routeId'));
+      expect(errs.single, contains('D01Standalone'));
+    });
+
+    test('a referrer no root reaches at all is reported', () {
+      // The case a check confined to the Solution Blueprint subtree could never
+      // see: the referring class hangs off no @Document root whatsoever.
+      final classes = {
+        'D00SolutionBlueprint': root(
+          'D00SolutionBlueprint',
+          'SBP00',
+          [routesList()],
+        ),
+        'RouteEntry': routeEntry(),
+        'Linker': linker(['RTEN.routeId']),
+      };
+      final errs = coReachErrors(classes);
+      expect(errs, hasLength(1));
+      expect(errs.single, contains('reachable from no root at all'));
+    });
+
+    test('a malformed target is left to the grammar check', () {
+      final classes = {
+        'D00SolutionBlueprint': root(
+          'D00SolutionBlueprint',
+          'SBP00',
+          [routesList(), _field('linker', 'Linker')],
+        ),
+        'RouteEntry': routeEntry(),
+        'Linker': linker(['RTEN']),
+      };
+      expect(coReachErrors(classes), isEmpty);
+    });
+
+    test('an unresolvable target is left to the target-exists check', () {
+      final classes = {
+        'D00SolutionBlueprint': root(
+          'D00SolutionBlueprint',
+          'SBP00',
+          [routesList(), _field('linker', 'Linker')],
+        ),
+        'RouteEntry': routeEntry(),
+        'Linker': linker(['GHOST.routeId']),
+      };
+      expect(coReachErrors(classes), isEmpty);
+    });
+  });
 }
 
 /// The reserved slot naming a registry entry's own section id. Mirrors the

@@ -510,4 +510,228 @@ void main() {
       expect(refs(doc), hasLength(1));
     });
   });
+
+  group('refersTo cross-document scope (csre2)', () {
+    // Two document roots over one class graph, the real shape of a Phase 3
+    // projection: the whole-project root reaches both the requirement registry
+    // and the plans that cite it, while the standalone `Plan` root reaches only
+    // the plans. A reference from a plan to a requirement is therefore
+    // resolvable in the project document and *out of scope* in the standalone
+    // one — the case the instance tier must not call an error.
+    SpecModel twoRootModel() => SpecModel.fromJson({
+          'modelVersion': 1,
+          'roots': [
+            {'type': 'Project', 'title': 'Project', 'sectionId': 'PR00'},
+            {'type': 'Plan', 'title': 'Plan', 'sectionId': 'PL00'},
+          ],
+          'classes': {
+            'Project': {
+              'name': 'Project',
+              'sectionId': 'PR00',
+              'annotations': [
+                {'name': 'Document', 'arguments': {'title': 'Project'}},
+              ],
+              'fields': [
+                {
+                  'name': 'requirements',
+                  'kind': 'list',
+                  'sectionId': 'RQ-LST',
+                  'sectionIdPattern': 'RQ-REQU-xxx',
+                  'elementType': 'RequirementEntry',
+                  'elementIsComplex': true,
+                },
+                {
+                  'name': 'plans',
+                  'kind': 'list',
+                  'sectionId': 'PL-LST',
+                  'elementType': 'PlanEntry',
+                  'elementIsComplex': true,
+                },
+              ],
+            },
+            'Plan': {
+              'name': 'Plan',
+              'sectionId': 'PL00',
+              'annotations': [
+                {'name': 'Document', 'arguments': {'title': 'Plan'}},
+              ],
+              'fields': [
+                {
+                  'name': 'plans',
+                  'kind': 'list',
+                  'sectionId': 'PL-LST',
+                  'elementType': 'PlanEntry',
+                  'elementIsComplex': true,
+                },
+              ],
+            },
+            'RequirementEntry': {
+              'name': 'RequirementEntry',
+              'sectionId': 'REQN',
+              'fields': [
+                {
+                  'name': 'content',
+                  'kind': 'form',
+                  'sectionId': 'content',
+                  'formFields': [
+                    {'name': 'title', 'label': 'Title', 'type': 'String'},
+                  ],
+                },
+              ],
+            },
+            'PlanEntry': {
+              'name': 'PlanEntry',
+              'sectionId': 'PLEN',
+              'fields': [
+                {
+                  'name': 'content',
+                  'kind': 'form',
+                  'sectionId': 'content',
+                  'formFields': [
+                    {'name': 'planId', 'label': 'Plan ID', 'type': 'String'},
+                    {
+                      'name': 'requirementRef',
+                      'label': 'Requirement',
+                      'type': 'String',
+                      'refersTo': ['REQN.@sectionId'],
+                    },
+                    {
+                      'name': 'dependsOn',
+                      'label': 'Depends on',
+                      'type': 'String',
+                      'refersTo': ['REQN.@sectionId', 'PLEN.planId'],
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        });
+
+    final m = twoRootModel();
+
+    List<SpecValidationError> refs(SpecDocument doc) => validateDocument(m, doc)
+        .where((e) => e.code == SpecValidationCode.danglingReference)
+        .toList();
+
+    /// A plan entry under [root]'s plan list, returning its form path.
+    String addPlan(SpecDocument doc, String root) =>
+        '${doc.addListItem('$root/PL-LST')}/content';
+
+    test('a reference to an out-of-scope registry is not reported', () {
+      final doc = SpecDocument();
+      final plan = addPlan(doc, 'PL00');
+      doc.setFormField(plan, 'requirementRef', 'RQ-REQU-HA1');
+      expect(refs(doc), isEmpty);
+    });
+
+    test('the same reference is checked when the registry is in scope', () {
+      final doc = SpecDocument();
+      doc.addListItem('PR00/RQ-LST', sectionId: 'RQ-REQU-HA1');
+      final plan = addPlan(doc, 'PR00');
+      doc.setFormField(plan, 'requirementRef', 'RQ-REQU-HA1');
+      expect(refs(doc), isEmpty);
+
+      doc.setFormField(plan, 'requirementRef', 'RQ-REQU-GHOST');
+      final errors = refs(doc);
+      expect(errors, hasLength(1));
+      expect(errors.single.message, contains('RQ-REQU-GHOST'));
+    });
+
+    test('an in-scope registry with no entries still reports a dangling id', () {
+      // Scope is a property of the *model*, not of what the author happened to
+      // fill in: the project root reaches the requirement registry, so an
+      // unresolved id there is a real defect even with the list left empty.
+      final doc = SpecDocument();
+      final plan = addPlan(doc, 'PR00');
+      doc.setFormField(plan, 'requirementRef', 'RQ-REQU-HA1');
+      expect(refs(doc), hasLength(1));
+    });
+
+    test('one out-of-scope target suppresses the whole disjunction', () {
+      // `dependsOn` accepts a requirement id *or* a plan id. From the
+      // standalone plan document only the plan registry is visible, so an id
+      // matching neither cannot be judged — it may well be a requirement id
+      // this document cannot see.
+      final doc = SpecDocument();
+      final plan = addPlan(doc, 'PL00');
+      doc.setFormField(plan, 'planId', 'p-first');
+      doc.setFormField(plan, 'dependsOn', 'x-none');
+      expect(refs(doc), isEmpty);
+    });
+
+    test('the same disjunction is judged from the project root', () {
+      final doc = SpecDocument();
+      doc.addListItem('PR00/RQ-LST', sectionId: 'RQ-REQU-HA1');
+      final plan = addPlan(doc, 'PR00');
+      doc.setFormField(plan, 'planId', 'p-first');
+      doc.setFormField(plan, 'dependsOn', 'x-none');
+      expect(refs(doc), hasLength(1));
+
+      doc.setFormField(plan, 'dependsOn', 'p-first');
+      expect(refs(doc), isEmpty);
+    });
+  });
+
+  group('SpecReflection.reachableClassNames (csre2)', () {
+    final m = SpecModel.fromJson({
+      'modelVersion': 1,
+      'roots': [
+        {'type': 'Root', 'title': 'Root', 'sectionId': 'RT00'},
+      ],
+      'classes': {
+        'Root': {
+          'name': 'Root',
+          'sectionId': 'RT00',
+          'fields': [
+            {'name': 'detail', 'kind': 'complex', 'type': 'Detail'},
+            {
+              'name': 'items',
+              'kind': 'list',
+              'elementType': 'Item',
+              'elementIsComplex': true,
+            },
+            {
+              'name': 'tags',
+              'kind': 'list',
+              'elementType': 'String',
+              'elementIsComplex': false,
+            },
+            {'name': 'ghost', 'kind': 'complex', 'type': 'Absent'},
+          ],
+        },
+        'Detail': {
+          'name': 'Detail',
+          'fields': [
+            {'name': 'nested', 'kind': 'section', 'type': 'Nested'},
+          ],
+        },
+        'Nested': {
+          'name': 'Nested',
+          // Back-edge to the root: the walk must terminate on a cycle.
+          'fields': [
+            {'name': 'up', 'kind': 'complex', 'type': 'Root'},
+          ],
+        },
+        'Item': {'name': 'Item', 'fields': <Object>[]},
+        'Orphan': {'name': 'Orphan', 'fields': <Object>[]},
+      },
+    });
+
+    test('follows complex, section and complex-list edges transitively', () {
+      expect(SpecReflection(m).reachableClassNames('Root'),
+          {'Root', 'Detail', 'Nested', 'Item'});
+    });
+
+    test('excludes unreached classes and unresolvable type names', () {
+      final reachable = SpecReflection(m).reachableClassNames('Root');
+      expect(reachable, isNot(contains('Orphan')));
+      expect(reachable, isNot(contains('Absent')));
+      expect(reachable, isNot(contains('String')));
+    });
+
+    test('an unknown start type reaches nothing at all', () {
+      expect(SpecReflection(m).reachableClassNames('Nope'), isEmpty);
+    });
+  });
 }

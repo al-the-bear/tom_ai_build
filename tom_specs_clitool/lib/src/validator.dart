@@ -957,7 +957,8 @@ void _validateStructuralInvariants(
   // checks the declaration is resolvable; the dangling-id check proper is the
   // instance tier's job (`spec_validator.dart`), which needs document values
   // the class graph cannot see.
-  _validateReferenceTargets(classes, reachable, errors, warnings);
+  _validateReferenceTargets(
+      classes, reachable, documentClasses, errors, warnings);
 }
 
 /// Gathers every `@Form` field of [cls], from the class-level `@Form` and from
@@ -1148,12 +1149,18 @@ void _validateOneOfGroups(
 /// cannot back a registry; only a patterned list enumerates per-item ids.
 /// `@` is a reserved namespace: any other `@`-prefixed slot is an error, so a
 /// future key cannot be mistaken for a form field that simply does not exist.
+///
+/// **Co-reachability (csre2).** A sixth check, (vi), asks whether the
+/// declaration can ever be *run*; see [_validateReferenceCoReachability].
 void _validateReferenceTargets(
   Map<String, ModelClass> classes,
   Set<String> reachable,
+  Set<String> documentClasses,
   List<String> errors,
   List<String> warnings,
 ) {
+  _validateReferenceCoReachability(classes, documentClasses, errors);
+
   // Section id → class name(s). A duplicate section id is already an error of
   // its own (§8.6 global uniqueness); here it only makes the target ambiguous.
   final bySectionId = <String, List<String>>{};
@@ -1327,6 +1334,83 @@ void _validateReferenceTargets(
             'field type is ${formField.typeName} — id references are String-valued',
           );
         }
+      }
+    }
+  }
+}
+
+/// Check (vi) of the `refersTo` contract: every reference declaration must be
+/// *runnable somewhere* (csre2).
+///
+/// The instance tier (`spec_validator.dart`) resolves a reference against the
+/// registries present in **one document**, and a document holds exactly the
+/// classes its `@Document` root reaches. So a reference is decidable from a
+/// root only when that root reaches both the referring class and the target
+/// registry's owner.
+///
+/// Most references are *cross-document* by design — a delivery acceptance
+/// criterion cites a functional requirement, a screen cites an authorization
+/// role — and are undecidable from the standalone document the referrer sits
+/// in. That is legitimate, and the instance tier skips where it cannot decide.
+/// What must never happen is a target reachable from **no** root that reaches
+/// the referrer: such a declaration is dead, because no document could ever
+/// exercise it, and the ids it names would go unverified everywhere. This check
+/// is what turns the instance tier's skip from a silent hole into a bounded
+/// one.
+///
+/// It walks **every** class rather than only the Solution Blueprint subtree,
+/// which is what gives it reach: within that subtree the SBP root reaches both
+/// ends of every reference by construction, so a check confined to it could
+/// never fire. A class no root reaches at all — the case that costs a
+/// declaration its enforcement — is only visible from the full map.
+void _validateReferenceCoReachability(
+  Map<String, ModelClass> classes,
+  Set<String> documentClasses,
+  List<String> errors,
+) {
+  // Per-root reachability, computed once: every reference asks the same
+  // question of the same handful of roots.
+  final reachableByRoot = <String, Set<String>>{
+    for (final root in documentClasses) root: _findReachableTypes(classes, root),
+  };
+
+  // Section id → owning class. A duplicate id is an error of its own, and an
+  // ambiguous target is already reported by check (ii); either way there is no
+  // single owner to ask about here, so such a target is skipped.
+  final ownerBySectionId = <String, String?>{};
+  for (final entry in classes.entries) {
+    final id = entry.value.getAnnotation('SectionId')?.arguments['id'];
+    if (id is! String || id.isEmpty) continue;
+    // A second owner replaces the entry with `null` — "ambiguous".
+    ownerBySectionId[id] =
+        ownerBySectionId.containsKey(id) ? null : entry.key;
+  }
+
+  for (final className in classes.keys.toList()..sort()) {
+    final cls = classes[className]!;
+    final referrerRoots = [
+      for (final entry in reachableByRoot.entries)
+        if (entry.value.contains(className)) entry.key,
+    ]..sort();
+
+    for (final formField in _allFormFields(cls)) {
+      for (final target in formField.refersTo) {
+        final dot = target.indexOf('.');
+        if (dot <= 0) continue; // malformed — check (i) owns it
+        final owner = ownerBySectionId[target.substring(0, dot)];
+        if (owner == null) continue; // unresolvable or ambiguous — (ii) owns it
+
+        if (referrerRoots.any((r) => reachableByRoot[r]!.contains(owner))) {
+          continue;
+        }
+        errors.add(
+          '$_invariants refersTo co-reachability: $className.${formField.name} '
+          'targets "$target" but no @Document root reaches both $className and '
+          '$owner (${referrerRoots.isEmpty ? '$className is reachable from no '
+              'root at all' : '$className is reachable from '
+              '${referrerRoots.join(', ')}'}) — the reference could never be '
+          'resolved in any document',
+        );
       }
     }
   }

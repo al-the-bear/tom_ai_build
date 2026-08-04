@@ -661,6 +661,13 @@ Rules:
    (§7.6): its stored id when it has one, otherwise its positional pattern id.
    `@` is a reserved namespace — any other `@`-prefixed slot is a hard error, so
    a future slot can never be misread as a form field that merely does not exist.
+7. **A target need only be co-reachable with the referrer from *some* `@Document`
+   root.** Most references cross document boundaries by design — a delivery
+   acceptance criterion cites a functional requirement, a screen cites an
+   authorization role — so the standalone document holding the referrer often
+   cannot see the registry at all. That is legal. What is not legal is a target
+   reachable from **no** root that reaches the referring class: such a
+   declaration is dead, since no document could ever exercise it. See §6.2.1.
 
 Both validation tiers read this one declaration. The **static** tier
 (`tom_specs_clitool/lib/src/validator.dart`) checks the class graph: the target
@@ -670,7 +677,43 @@ patterned list's element type. The **instance** tier (`tom_som_dart_runtime`'s
 document validator) checks a concrete document: every id a reference field holds
 is actually declared by some entry of one of the named registries, and reports a
 dangling id otherwise. `refersTo` is carried through the meta into all nine
-language runtimes, so a non-Dart host can run the instance-tier check too.
+language runtimes, so a non-Dart host can run the instance-tier check too — the
+instance-tier reference check itself is currently implemented in the Dart runtime
+only.
+
+#### 6.2.1 Document scope — how a cross-document reference validates
+
+The instance tier resolves an id against the registries present in **one
+document**, and a document holds exactly the classes its `@Document` root
+reaches. A reference is therefore only *decidable* from a root that reaches both
+the referring class and the target registry's owner. Since the majority of
+references cross document boundaries, validating a standalone D02/D08/D10/D12 has
+to have an answer for the undecidable case.
+
+**The instance tier skips what it cannot decide.** A reference whose targets the
+document's own root does not reach is passed over silently, not reported. The
+registry is absent from that document *by construction*, not undeclared, and
+reporting it would fail a specification the author wrote correctly. The skip is
+silent rather than a warning because `SpecValidationError` carries no severity
+axis: a second code would still make `validateDocument(...).isEmpty` false, which
+is the same false-invalid problem in a new colour — and a standalone-document
+author could not act on it anyway. The document's roots are read off the document
+itself (every path begins with its root's segment), so a whole-`DocSpecsProject`
+validation contributes the union of all roots and sees every sibling registry.
+
+**The skip is all-or-nothing per declaration.** Because rule 3 makes the target
+list a disjunction, one absent registry is enough to make "no registry declares
+this id" unsound — the id may legitimately be declared by the registry this
+document cannot see. So a reference is checked only when **every** one of its
+targets is in scope.
+
+**The static tier bounds the hole** (rule 7). Every target must be co-reachable
+with its referrer from at least one `@Document` root, so no declaration ends up
+unverifiable everywhere. The check walks the **whole** class map rather than the
+Solution Blueprint subtree: within that subtree the pure-projection invariant
+makes `D00SolutionBlueprint` reach both ends of every reference by construction,
+so a check confined to it could never fire. The case it exists to catch — a
+referring class reachable from no root at all — is only visible from the full map.
 
 #### When *not* to annotate
 
@@ -1196,6 +1239,12 @@ The validator enforces the following structural invariants (implementation:
    complex section field (`@Reference` edges excluded).
 9. **§5.1 member-shape legality**, `@ContentType` compatibility, and **cycle
    detection**.
+10. **The `refersTo` target contract** (§6.2) — target grammar, existence and
+    unambiguity of the named section id, the required/enumerated form-field slot
+    or the patterned-list element requirement for `@sectionId`, and
+    **co-reachability**: every target must be reachable together with its
+    referring class from at least one `@Document` root (§6.2.1). A non-`String`
+    reference field is a warning; the rest are errors.
 
 **What the validator does *not* check:** the two mnemonics themselves. It
 recomputes a container id's `<elementId>` prefix from the element class (check

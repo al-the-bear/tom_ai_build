@@ -68587,7 +68587,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("featureId", "String", "Feature ID", true, "Unique identifier for the feature", 0),
+            new SomFormFieldMeta("featureId", "String", "Feature ID", true, "Unique identifier for the feature", 0, java.util.List.of(), java.util.List.of("FPE.featureId")),
             new SomFormFieldMeta("featureName", "String", "Feature Name", true, "Name of the feature", 1),
             new SomFormFieldMeta("inclusionReason", "String", "Inclusion Reason", false, "Why this feature is included", 2),
             new SomFormFieldMeta("fidelityLevel", "String", "Fidelity Level", false, "Low, medium, high", 3),

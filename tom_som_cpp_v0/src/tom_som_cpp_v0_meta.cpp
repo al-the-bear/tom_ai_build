@@ -59776,7 +59776,7 @@ void buildPrototypeFeatureEntryChildren(som::SomMetaNode& parent, std::vector<st
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureId", "String", "Feature ID", true, "Unique identifier for the feature", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"featureId", "String", "Feature ID", true, "Unique identifier for the feature", 0, std::vector<std::string>{}, std::vector<std::string>{"FPE.featureId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"featureName", "String", "Feature Name", true, "Name of the feature", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"inclusionReason", "String", "Inclusion Reason", false, "Why this feature is included", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"fidelityLevel", "String", "Fidelity Level", false, "Low, medium, high", 3, std::vector<std::string>{}, std::vector<std::string>{}});

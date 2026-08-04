@@ -112,6 +112,40 @@ class SpecReflection {
   List<SpecAnnotation> fieldAnnotations(String className, String fieldName) =>
       classNamed(className)?.fieldNamed(fieldName)?.annotations ?? const [];
 
+  /// Every class name reachable from [typeName] by following class-bearing
+  /// fields — `complex`/`section` fields through their `type`, complex list
+  /// fields through their `elementType` — including [typeName] itself.
+  ///
+  /// This is the model's notion of **document scope**. A document rooted at a
+  /// given `@Document` class can only ever hold sections of the classes that
+  /// root reaches, so a class outside the set is not merely *unpopulated* in
+  /// such a document — it is absent from it by construction. Any consumer that
+  /// has to tell "the author did not write this" from "this document could not
+  /// hold it in the first place" needs exactly this set.
+  ///
+  /// A name that resolves to no class contributes nothing and is not itself
+  /// included: an unresolved reference is not evidence of a reachable class.
+  Set<String> reachableClassNames(String typeName) {
+    final seen = <String>{};
+    final stack = <String>[typeName];
+    while (stack.isNotEmpty) {
+      final current = stack.removeLast();
+      if (seen.contains(current)) continue;
+      final cls = classNamed(current);
+      if (cls == null) continue;
+      seen.add(current);
+      for (final f in cls.fields) {
+        final child = switch (f.kind) {
+          SpecFieldKind.complex || SpecFieldKind.section => f.type,
+          SpecFieldKind.list => f.elementIsComplex ? f.elementType : null,
+          _ => null,
+        };
+        if (child != null) stack.add(child);
+      }
+    }
+    return seen;
+  }
+
   // --- resolution ---------------------------------------------------------
 
   /// The section segment a root contributes to a path (`@SectionId` ?? type).

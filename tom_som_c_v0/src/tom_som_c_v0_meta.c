@@ -103271,6 +103271,9 @@ static void meta_build_prototype_feature_entry_content(SomMetaNode *n) {
   n->form->fields[0].required = 1;
   n->form->fields[0].hint = som_strdup("Unique identifier for the feature");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("FPE.featureId");
   n->form->fields[1].name = som_strdup("featureName");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Feature Name");

@@ -290,11 +290,24 @@ List<SpecValidationError> _validateOneOfInstances(
 /// An empty value is not a dangling reference — it means "not filled in yet",
 /// which is the schema-completeness concern this validator deliberately leaves
 /// to its caller.
+///
+/// **Cross-document references (csre2).** A reference whose target registry the
+/// document's own root cannot reach is skipped rather than reported. Such a
+/// reference is a *cross-document* one — a delivery acceptance criterion citing
+/// a functional requirement, a screen citing an authorization role — and the
+/// registry it names is absent from the document by construction, not
+/// undeclared. Reporting it would fail a specification the author wrote
+/// correctly. The check therefore runs only where it can actually decide, which
+/// is where every target registry is in scope; see [_registryScope]. Its
+/// counterpart is a static rule (`tom_specs_model_rules.md` §6.2): every target
+/// must be reachable from at least one root that reaches the referring field,
+/// so no declaration ends up unverifiable everywhere.
 List<SpecValidationError> _validateReferenceInstances(
   SpecReflection refl,
   SpecDocument doc,
 ) {
   final errors = <SpecValidationError>[];
+  final scope = _registryScope(refl, doc);
 
   // Resolve every form path once; both sweeps read the same resolutions.
   //
@@ -360,6 +373,14 @@ List<SpecValidationError> _validateReferenceInstances(
       final value = doc.formField(form.path, ff.name);
       if (value == null || value.trim().isEmpty) continue;
 
+      // Every target must be in scope, not merely one of them: a disjunction
+      // says the id may come from any of the listed registries, so one absent
+      // registry is enough to make "no registry declares it" unsound — the id
+      // could legitimately be declared by the one this document cannot see.
+      if (!ff.refersTo.every((t) => scope.contains(_registrySectionId(t)))) {
+        continue;
+      }
+
       for (final segment in value.split(',')) {
         final id = segment.trim();
         if (id.isEmpty) continue;
@@ -378,6 +399,60 @@ List<SpecValidationError> _validateReferenceInstances(
   }
 
   return errors;
+}
+
+/// The section id part of a registry key written `<SECTIONID>.<slot>`. A key
+/// with no dot is malformed — the static tier reports it — and is treated whole
+/// here so it simply fails to match any section id.
+String _registrySectionId(String target) {
+  final dot = target.indexOf('.');
+  return dot <= 0 ? target : target.substring(0, dot);
+}
+
+/// The registry section ids that are **in scope** for [doc]: the `@SectionId`
+/// of every class reachable from a document root the document actually uses
+/// (csre2).
+///
+/// A `refersTo` target names its registry by section id, and a document can
+/// only ever declare entries of registries its own root reaches. Anything
+/// outside this set is absent from the document by construction — which is
+/// precisely the case the dangling-reference check must not call an error.
+///
+/// The roots are read off the document rather than passed in: every path begins
+/// with its root's segment, so the document already says which root(s) it
+/// belongs to and no caller has to know. A document spanning several roots
+/// (the whole-project container) contributes the union, which is what makes a
+/// project-wide validation see every sibling registry.
+Set<String> _registryScope(SpecReflection refl, SpecDocument doc) {
+  final rootTypes = <String>{};
+  void addRootOf(String path) {
+    final slash = path.indexOf('/');
+    final segment = slash < 0 ? path : path.substring(0, slash);
+    final root = refl.rootForSegment(segment);
+    if (root != null) rootTypes.add(root.type);
+  }
+
+  for (final p in doc.contentPaths) {
+    addRootOf(p);
+  }
+  for (final p in doc.formPaths) {
+    addRootOf(p);
+  }
+  for (final p in doc.listPaths) {
+    addRootOf(p);
+  }
+  for (final p in doc.headlinePaths) {
+    addRootOf(p);
+  }
+
+  final ids = <String>{};
+  for (final type in rootTypes) {
+    for (final name in refl.reachableClassNames(type)) {
+      final id = refl.classNamed(name)?.sectionId;
+      if (id != null && id.isNotEmpty) ids.add(id);
+    }
+  }
+  return ids;
 }
 
 SpecValidationError _dangling(String path) => SpecValidationError(

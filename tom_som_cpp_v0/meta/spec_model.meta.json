@@ -183897,7 +183897,10 @@
               "label": "Feature ID",
               "hint": "Unique identifier for the feature",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "FPE.featureId"
+              ]
             },
             {
               "name": "featureName",
