@@ -3,10 +3,21 @@ import 'package:path/path.dart' as p;
 import 'model_version_stamp.dart';
 
 /// The version stamp a `spec_model.json` export is written with.
+///
+/// [version] is the model **major**, and [label] the build it was generated
+/// from. The two are not independent: `version` is by definition the major
+/// component of `label`, so a stamp whose parts disagree describes no model
+/// that ever existed. [from] is the only derivation that can produce a
+/// consistent pair, which is why every committed artifact goes through it.
 class ModelJsonStamp {
   const ModelJsonStamp(this.version, this.label);
 
-  /// The `modelVersion` counter.
+  /// The stamp describing the model build [versioner] was generated from.
+  ModelJsonStamp.from(ModelVersionStamp versioner)
+      : version = versioner.majorVersion,
+        label = versioner.label;
+
+  /// The `modelVersion` counter: the model major.
   final int version;
 
   /// The `modelVersionLabel`, or `null` when the export carries no label.
@@ -16,38 +27,54 @@ class ModelJsonStamp {
   String toString() => label == null ? '$version' : '$version ($label)';
 }
 
-/// A **committed** `spec_model.json` asset, together with the stamp policy that
-/// asset is frozen at.
+/// The model major [label] declares, or `null` when it declares none.
+///
+/// The inverse of the [ModelJsonStamp.from] derivation, used to check a stamp
+/// found on disk against itself: `modelVersion` must be the major of
+/// `modelVersionLabel`.
+int? modelMajorOfLabel(String? label) {
+  if (label == null || label.isEmpty) return null;
+  return int.tryParse(label.split('+').first.split('.').first.trim());
+}
+
+/// A **committed** `spec_model.json` asset.
 ///
 /// `model_json.dart` writes the same class-graph export to two committed
-/// locations that must carry *different* stamps. Nothing used to enforce which
-/// stamp went where, so a regeneration pass that re-exported "both assets" with
-/// one command silently rewrote one of them at the other's version — which is
-/// how the editor's copy ended up at `modelVersion: 0`.
+/// locations. Nothing used to pair a destination with a stamp, so a regeneration
+/// pass that re-exported "both assets" with one command silently rewrote one of
+/// them at the other's version — which is how the editor's copy ended up at
+/// `modelVersion: 0`.
 ///
 /// Naming the target instead of the stamp removes the choice: the caller says
-/// *which asset*, and the stamp follows from that. Ad-hoc exports to any other
-/// path stay freely stampable; only these two paths are governed.
+/// *which asset*, and both the path and the stamp follow from that. Ad-hoc
+/// exports to any other path stay freely stampable; only these two paths are
+/// governed.
+///
+/// Both targets take the **same** stamp, derived from the model's
+/// `version.versioner.dart` — the two assets are one export of one model, so
+/// they can only honestly claim one version. A per-target pin used to exist and
+/// is deliberately gone: it recorded the build *number* in the model *major*
+/// slot, so the asset disagreed with its own label about which model it
+/// described and reported a build it had not been generated from.
 enum ModelJsonTarget {
   /// The spec-authoring app's bundled asset. Refreshed by `bin/build.dart`
-  /// (step 3) and stamped from the model's `version.versioner.dart`, so it
-  /// tracks the same build as the SOM metas and the DocSpecs schemas.
+  /// (step 3), so it tracks the same build as the SOM metas and the DocSpecs
+  /// schemas.
   editor(
     'editor',
     'tom_forge/tom_specs_editor/assets/spec_model.json',
-    null,
   ),
 
-  /// The object-model review app's committed snapshot. Pinned: refreshing it is
-  /// a re-export of the current model, never a renumbering of it, so the stamp
-  /// must not move (see the v0 fixed-version policy).
+  /// The object-model review app's committed snapshot, refreshed periodically.
+  /// Refreshing it is a re-export of the current model, never a renumbering of
+  /// it — which the derived stamp expresses exactly, since the major stays put
+  /// while the label records the build the snapshot was taken from.
   reviewer(
     'reviewer',
     'tom_ai/ai_build/tom_specs_reviewer/assets/spec_model.json',
-    ModelJsonStamp(9, '1.0.0+9'),
   );
 
-  const ModelJsonTarget(this.id, this.containerRelativePath, this.pinnedStamp);
+  const ModelJsonTarget(this.id, this.containerRelativePath);
 
   /// The `--target` value naming this asset.
   final String id;
@@ -55,17 +82,9 @@ enum ModelJsonTarget {
   /// The asset's path relative to the workspace container root, in POSIX form.
   final String containerRelativePath;
 
-  /// The stamp this target is frozen at, or `null` when it takes the stamp
-  /// derived from the model's version stamp.
-  final ModelJsonStamp? pinnedStamp;
-
   /// This target's asset path inside the workspace rooted at [containerRoot].
   String outputPathIn(String containerRoot) => p.normalize(
       p.join(containerRoot, p.joinAll(p.posix.split(containerRelativePath))));
-
-  /// The stamp to write, given the model's parsed [versioner] stamp.
-  ModelJsonStamp stampFrom(ModelVersionStamp versioner) =>
-      pinnedStamp ?? ModelJsonStamp(versioner.majorVersion, versioner.label);
 
   /// The target named [id], or `null` when [id] names no committed asset.
   static ModelJsonTarget? byId(String id) {

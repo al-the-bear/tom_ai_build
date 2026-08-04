@@ -114,8 +114,8 @@ SpecModel _stampedModel({
 }) =>
     SpecModel.fromJson({
       ...json.decode(_sampleJson) as Map<String, dynamic>,
-      'modelVersion': 9,
-      'modelVersionLabel': '1.0.0+9',
+      'modelVersion': 1,
+      'modelVersionLabel': '1.0.0+3.50e0102',
       'generatedAt': generatedAt,
       'metaSchemaVersion': 1,
       'classCount': classCount,
@@ -1408,7 +1408,7 @@ void main() {
           name: 'stamp_ok.yaml', model: _stampedModel(), now: fresh);
 
       expect(find.textContaining('Model 1.0'), findsOneWidget);
-      expect(find.textContaining('(1.0.0+9)'), findsOneWidget);
+      expect(find.textContaining('(1.0.0+3.50e0102)'), findsOneWidget);
       expect(find.textContaining('generated 2026-07-20 08:00 UTC'),
           findsOneWidget);
       expect(find.textContaining('1 day ago'), findsOneWidget);
@@ -1998,9 +1998,14 @@ entries:
     final model = SpecModel.fromJson(stamp);
 
     /// The value cell of the `| \`key\` | value |` row documenting [key].
-    String? documented(String key) => RegExp('`$key`[^|]*\\|\\s*([^|]+?)\\s*\\|')
-        .firstMatch(readme)
-        ?.group(1);
+    ///
+    /// Anchored to the start of a table row, because the same keys are also
+    /// discussed in the surrounding prose — an unanchored match happily read a
+    /// sentence and captured the *next* table's header cell.
+    String? documented(String key) =>
+        RegExp('^\\|\\s*`$key`[^|]*\\|\\s*([^|]+?)\\s*\\|', multiLine: true)
+            .firstMatch(readme)
+            ?.group(1);
 
     test('records the shipped class and root counts', () {
       expect(documented('classCount'), '${stamp['classCount']}');
@@ -2008,18 +2013,32 @@ entries:
       expect(documented('containerRoot'), '`${stamp['containerRoot']}`');
     });
 
-    test('the documented refresh names the target that pins the version', () {
-      // The refresh must re-export the model, never renumber it. That pin now
-      // lives on the named export target rather than in a hand-typed flag —
-      // a hand-typed stamp is exactly what let this asset and the editor's
-      // copy of the same export be written at each other's version. So the
-      // README must teach the target, and the baseline it records must be the
-      // stamp the shipped asset actually carries.
+    test('the documented refresh names the target that derives the version', () {
+      // The refresh must re-export the model, never renumber it — which the
+      // derived stamp expresses on its own, since the major stays put while the
+      // label records the build. So the README must teach the target rather
+      // than a hand-typed flag (a hand-typed stamp is exactly what let this
+      // asset and the editor's copy of the same export claim different
+      // versions), and the baseline it records must be the stamp the shipped
+      // asset actually carries.
       expect(readme, contains('--target reviewer'));
       expect(documented('modelVersion'),
           '`${stamp['modelVersion']}` / `${stamp['modelVersionLabel']}`');
       expect(readme, isNot(contains('--model-version')),
           reason: 'the README must not document a hand-supplied stamp');
+    });
+
+    test('the shipped stamp agrees with its own label', () {
+      // `modelVersion` is the major of `modelVersionLabel` (SOM §4.2), so the
+      // asset can be checked without a second artifact to disagree with it.
+      // This asset once shipped `9` beside the label `1.0.0+9` — the build
+      // *number* in the model *major* slot — and nothing here noticed.
+      final label = stamp['modelVersionLabel'] as String?;
+      expect(label, isNotNull);
+      final major = int.tryParse(label!.split('+').first.split('.').first);
+      expect(stamp['modelVersion'], major,
+          reason: 'the snapshot claims model ${stamp['modelVersion']} beside '
+              'label "$label", which describes model $major');
     });
 
     test('lists every document root the snapshot carries', () {

@@ -22,7 +22,11 @@ export 'src/model_version_stamp.dart'
         modelVersionStampPath,
         readModelVersionStamp;
 export 'src/model_json_target.dart'
-    show ModelJsonStamp, ModelJsonTarget, targetForOutputPath;
+    show
+        ModelJsonStamp,
+        ModelJsonTarget,
+        modelMajorOfLabel,
+        targetForOutputPath;
 // The freshness gate over the committed tom_som_*_v0 packages: fingerprints the
 // model the generator reads, so a model edit without a regeneration fails a test
 // rather than shipping. See _copilot_guidelines/som_regeneration.md.

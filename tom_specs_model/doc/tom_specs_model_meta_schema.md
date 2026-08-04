@@ -26,24 +26,56 @@ changed unreadably. `modelVersion` drives the separate document-vs-model
 compatibility check (same-major newer-edits-older; older rejects newer;
 cross-major read-only).
 
+### `modelVersion` and `modelVersionLabel` are one fact in two forms
+
+They are **not** two independent records, and neither is a revision counter for
+the artifact that carries them:
+
+- `modelVersionLabel` is the model **build** the export was generated from —
+  `<version>+<buildNumber>[.<gitCommit>]`, read from
+  `tom_specs_model/lib/src/version.versioner.dart`.
+- `modelVersion` is the **major** of that label. Nothing else.
+
+So `modelVersion == major(modelVersionLabel)` is an invariant of every stamped
+artifact, checkable in isolation with no second artifact to compare against.
+Only the derivation `ModelJsonStamp.from(ModelVersionStamp)` can produce a
+consistent pair, which is why every committed artifact goes through it; a stamp
+whose parts disagree describes no model that ever existed. The two mistakes the
+invariant catches are a `0` (no derivation ran) and a build *number* written
+into the model *major* slot.
+
+Consumers resolve the pair through `somModelVersionString(int, String?)`, which
+**prefers the label** — it returns `major.minor` from the label's core, falling
+back to `<modelVersion>.0` only when no label is present. The integer therefore
+matters least where a label exists, which is precisely why a wrong one can sit
+unnoticed; the invariant above, not a consumer, is what catches it.
+
+An artifact's own revision history is *not* expressible here. A snapshot that is
+refreshed without the model moving re-exports at the **same** `modelVersion`,
+with the label recording the newer build — refreshing a copy is a re-export of
+the current model, never a renumbering of it.
+
 The document-side counterpart of `modelVersion` lives in each
 `*.docspecs.yaml` under its own `modelVersion` key (beside the on-disk
 `formatVersion`), recording the authoring model `major.minor` of that document.
 
 ## Refreshing the committed assets
 
-Two copies of this export are **tracked in git**, and they carry *different*
-frozen stamps:
+Two copies of this export are **tracked in git**:
 
-| Target | Path | `modelVersion` / `modelVersionLabel` |
-| --- | --- | --- |
-| `editor` | `tom_forge/tom_specs_editor/assets/spec_model.json` | derived from `tom_specs_model/lib/src/version.versioner.dart` |
-| `reviewer` | `tom_ai/ai_build/tom_specs_reviewer/assets/spec_model.json` | pinned `9` / `1.0.0+9` |
+| Target | Path |
+| --- | --- |
+| `editor` | `tom_forge/tom_specs_editor/assets/spec_model.json` |
+| `reviewer` | `tom_ai/ai_build/tom_specs_reviewer/assets/spec_model.json` |
 
-The editor's copy tracks the build, so it must move with the versioner stamp
-alongside the SOM metas and the DocSpecs schemas. The reviewer's copy is a
-snapshot whose refresh is a *re-export of the current model, never a
-renumbering of it*, so its stamp is frozen.
+Both carry the **same** stamp, derived from
+`tom_specs_model/lib/src/version.versioner.dart` — they are one export of one
+model, so they can only honestly claim one version, and their class graphs are
+byte-identical. They differ in refresh *cadence*, not in stamp: the editor's
+copy moves with the build alongside the SOM metas and the DocSpecs schemas,
+while the reviewer's is refreshed periodically. Neither target carries a stamp
+of its own; a per-target pin used to exist and is deliberately gone, because it
+recorded the build *number* in the model *major* slot.
 
 Refresh either one by **naming the target**, from `tom_specs_clitool`:
 
@@ -57,8 +89,10 @@ given wrongly. `--output`, `--model-version` and `--model-label` are rejected
 with `--target`, and an export that names one of the two committed paths via a
 hand-written `--output` is refused. `ModelJsonTarget` in
 `tom_specs_clitool/lib/src/model_json_target.dart` is the machine-readable form
-of the table above; `test/model_json_target_test.dart` checks both assets on
-disk against it, so a wrong-stamp re-export of either fails there.
+of the table above; `test/model_json_target_test.dart` checks both assets and
+the nine SOM metas on disk against it — the derived stamp, the label-agreement
+invariant, and that all eleven carry one build — so a wrong-stamp or
+un-regenerated artifact fails there.
 
 `bin/build.dart` refreshes the editor's copy as step 3 by calling the same
 target. It is not the reviewer's refresh path.
@@ -72,8 +106,8 @@ Ad-hoc exports to any other location stay freely stampable and default to
 | --- | --- | --- | --- |
 | `generatedAt` | `String` (ISO-8601 UTC) | yes | Emission timestamp. |
 | `metaSchemaVersion` | `int` | yes | This file format's version. Currently `1`. |
-| `modelVersion` | `int` | yes | Model-version counter the export was generated against. `0` means an unstamped ad-hoc export and is never valid in a committed asset — see "Refreshing the committed assets" below. |
-| `modelVersionLabel` | `String` | no | Human-readable model build label (e.g. `v0.7`). Omitted when unstamped. |
+| `modelVersion` | `int` | yes | The model **major** the export was generated against — by definition the major of `modelVersionLabel` when one is present. `0` means an unstamped ad-hoc export and is never valid in a committed asset — see "Refreshing the committed assets" below. |
+| `modelVersionLabel` | `String` | no | The model build the export was generated from, `<version>+<buildNumber>[.<gitCommit>]` (e.g. `1.0.0+3.50e0102`). Omitted when unstamped. |
 | `classCount` | `int` | yes | Number of entries in `classes`. |
 | `rootCount` | `int` | yes | Number of entries in `roots`. |
 | `containerRoot` | `String?` | no | Name of the canonical container class (the single true tree root), or `null` for a container-less model. |

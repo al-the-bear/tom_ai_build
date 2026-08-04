@@ -23,12 +23,14 @@ cd ../tom_specs_clitool
 dart run bin/model_json.dart --target reviewer
 ```
 
-Naming the target is what keeps the stamp right. This snapshot is pinned at
-model version **9** because refreshing is a re-export of the current model, not
-a change to it — while the editor's copy of the same export is stamped from the
-build. The target carries that policy, so the stamp cannot be supplied wrongly
-and the two assets cannot be re-exported at each other's version. The full
-procedure for both targets lives in one place:
+Naming the target is what keeps the stamp right: the target owns the output
+path, and the stamp is derived from the model's own `version.versioner.dart`,
+so neither can be supplied wrongly. Refreshing this snapshot is a **re-export
+of the current model, never a renumbering of it** — which the derived stamp
+expresses exactly, since `modelVersion` stays put while `modelVersionLabel`
+records the build the snapshot was taken from. The editor's copy of the same
+export carries the same stamp, because the two assets are one export of one
+model. The full procedure for both targets lives in one place:
 `tom_specs_model/doc/tom_specs_model_meta_schema.md`, "Refreshing the committed
 assets".
 
@@ -36,13 +38,18 @@ Expected stamp after a clean refresh:
 
 | Key | Value |
 | --- | --- |
-| `modelVersion` / `modelVersionLabel` | `9` / `1.0.0+9` |
+| `modelVersion` / `modelVersionLabel` | `1` / `1.0.0+3.50e0102` |
 | `metaSchemaVersion` | `1` |
 | `classCount` | 1262 |
 | `rootCount` | 14 |
 | `containerRoot` | `DocSpecsProject` |
 
-Only `generatedAt` should differ when the model itself has not moved. A change
+`modelVersion` is the **major** of `modelVersionLabel` — the two are one fact
+in two forms, so a snapshot whose counter does not match its own label's major
+describes no model that ever existed.
+
+Only `generatedAt` and the build component of `modelVersionLabel` should differ
+when the model itself has not moved. A change
 in `classCount` or `rootCount` means the model *has* moved — expected after
 model work, and worth a glance at the diff before committing. Note that a
 doc-comment edit in `tom_specs_model` also changes the export, because doc

@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-08-04T01:52:10.595569Z",
+  "generatedAt": "2026-08-04T02:14:19.494966Z",
   "metaSchemaVersion": 1,
-  "modelVersion": 9,
-  "modelVersionLabel": "1.0.0+9",
+  "modelVersion": 1,
+  "modelVersionLabel": "1.0.0+3.50e0102",
   "classCount": 1262,
   "rootCount": 14,
   "containerRoot": "DocSpecsProject",

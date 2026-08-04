@@ -7,11 +7,12 @@ import 'package:tom_specs_clitool/tom_specs_clitool.dart';
 
 /// Exports the tom_specs_model class graph as JSON.
 ///
-/// Two modes, because the two **committed** copies of this export carry
-/// different, frozen version stamps:
+/// Two modes, because a **committed** copy of this export must carry the model's
+/// own version stamp and an ad-hoc one need not:
 ///
 ///   * `--target editor|reviewer` — refreshes a committed asset. The path and
-///     the stamp both follow from the target, so neither can be given wrongly.
+///     the stamp both follow from the target, so neither can be given wrongly;
+///     the stamp is always derived from the model's `version.versioner.dart`.
 ///   * `--package` + `--output` — an ad-hoc export anywhere else, freely
 ///     stampable via `--model-version` / `--model-label`. Pointing it at a
 ///     committed asset is refused: use `--target` for those.
@@ -83,7 +84,7 @@ Future<void> main(List<String> arguments) async {
         p.join(containerRoot, 'tom_ai', 'ai_build', 'tom_specs_model')));
     outputPath = target.outputPathIn(containerRoot);
     try {
-      stamp = target.stampFrom(readModelVersionStamp(packagePath));
+      stamp = ModelJsonStamp.from(readModelVersionStamp(packagePath));
     } on ModelVersionStampException catch (e) {
       _fail(e.message);
     }
