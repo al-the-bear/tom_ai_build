@@ -42,6 +42,35 @@ char *spec_generate_list_item_section_id(const char *pattern, long long month,
 /* Returns today's (month, day) in UTC civil terms (standard library only). */
 void spec_today_month_day(long long *month, long long *day);
 
+/* The reserved `refersTo` slot naming a registry entry's own section id rather
+ * than one of its form fields (`tom_specs_model_rules.md` §6.2).
+ *
+ * A registry key is written `<SECTIONID>.<slot>`; this is the one slot that is
+ * not a form field name. Named because the instance-tier reference check keys
+ * its registries by it, and it must be the same literal the static tier in
+ * `tom_specs_clitool` accepts. */
+#define SPEC_SECTION_ID_SLOT "@sectionId"
+
+/* The id a list item is *identified by* — its `stored_id` when it has one, and
+ * otherwise the positional id derived from `pattern` (YRD3).
+ *
+ * An item acquires a stored id when it is created through the editor (an AA1
+ * generated id) or when a document overrides one (criterion 5). Items authored
+ * without one are **anonymous** and are identified by their 1-based `position` —
+ * the pattern with its `xxx` placeholder replaced (`GOAL-ITEM-xxx` →
+ * `GOAL-ITEM-1`), falling back to `<fallback_stem>-<position>` for a
+ * pattern-less list. A NULL or empty `pattern` counts as absent.
+ *
+ * Named once because two consumers must agree on it exactly: the markdown
+ * writer, which emits it as the heading id, and the instance-tier reference
+ * check, which resolves `@sectionId` references against it. A divergence there
+ * would not be cosmetic — it would red-flag a document whose references are
+ * correct. Owned result. */
+char *spec_effective_list_item_section_id(const char *stored_id,
+                                          const char *pattern,
+                                          long long position,
+                                          const char *fallback_stem);
+
 /* ---- section-id error --------------------------------------------------- */
 
 /* The error kind returned by the section-id write paths. */

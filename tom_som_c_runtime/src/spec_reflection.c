@@ -72,6 +72,44 @@ const SpecRoot *spec_reflection_root_for_segment(const SpecReflection *r,
   return NULL;
 }
 
+void spec_reflection_reachable_class_names(const SpecReflection *r,
+                                           const char *type_name,
+                                           SomStrList *out) {
+  som_strlist_init(out);
+  SomStrList stack;
+  som_strlist_init(&stack);
+  som_strlist_push_copy(&stack, type_name);
+  while (stack.len > 0) {
+    char *current = stack.items[stack.len - 1];
+    stack.len--; /* ownership moves to `current` */
+    if (som_strlist_contains(out, current)) {
+      free(current);
+      continue;
+    }
+    const SpecClass *cls = spec_model_class_named(r->model, current);
+    if (cls == NULL) {
+      free(current);
+      continue;
+    }
+    som_strlist_push(out, current); /* takes ownership */
+    for (size_t i = 0; i < cls->fields_len; i++) {
+      const SpecField *f = &cls->fields[i];
+      const char *child = NULL;
+      if (strcmp(f->kind, SPEC_FIELD_KIND_COMPLEX) == 0 ||
+          strcmp(f->kind, SPEC_FIELD_KIND_SECTION) == 0) {
+        child = f->type;
+      } else if (strcmp(f->kind, SPEC_FIELD_KIND_LIST) == 0 &&
+                 f->element_is_complex) {
+        child = f->element_type;
+      }
+      if (child != NULL && child[0] != '\0') {
+        som_strlist_push_copy(&stack, child);
+      }
+    }
+  }
+  som_strlist_free(&stack);
+}
+
 static const SpecField *match_field(const SpecClass *cls, const char *segment) {
   for (size_t i = 0; i < cls->fields_len; i++) {
     if (strcmp(spec_reflection_field_segment(&cls->fields[i]), segment) == 0) {

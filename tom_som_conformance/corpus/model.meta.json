@@ -3,14 +3,20 @@
   "modelVersion": 1,
   "modelVersionLabel": "demo-1.0",
   "generatedAt": "2026-07-20T08:00:00.000000Z",
-  "classCount": 5,
-  "rootCount": 1,
+  "classCount": 11,
+  "rootCount": 2,
   "roots": [
     {
       "type": "Demo",
       "title": "Demo Document",
       "sectionId": "DEMO",
       "description": "A compact conformance fixture. SYNTHETIC codec-exerciser covering the full field-kind matrix (incl. an int scalar, id-less content leaves, and a dual-content class) — NOT a tom_specs_model convention reference."
+    },
+    {
+      "type": "Sidecar",
+      "title": "Sidecar Document",
+      "sectionId": "SIDE",
+      "description": "A second root reaching no registry — the fixture's cross-document reference scope (csrf3)."
     }
   ],
   "classes": {
@@ -145,6 +151,253 @@
           "name": "control",
           "kind": "complex",
           "type": "Control"
+        },
+        {
+          "name": "registry",
+          "kind": "complex",
+          "sectionId": "REG",
+          "type": "Registry"
+        }
+      ]
+    },
+    "Registry": {
+      "name": "Registry",
+      "sectionId": "REG",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "REG"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "entries",
+          "kind": "list",
+          "sectionId": "RGE-LST",
+          "sectionIdPattern": "RGE-xxx",
+          "elementType": "RegistryEntry",
+          "elementIsComplex": true
+        },
+        {
+          "name": "links",
+          "kind": "list",
+          "sectionId": "RGL-LST",
+          "sectionIdPattern": "RGL-xxx",
+          "elementType": "RegistryLink",
+          "elementIsComplex": true
+        },
+        {
+          "name": "choice",
+          "kind": "complex",
+          "sectionId": "CHO",
+          "type": "Choice"
+        }
+      ]
+    },
+    "RegistryEntry": {
+      "name": "RegistryEntry",
+      "sectionId": "RGE",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "RGE"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "details",
+          "kind": "form",
+          "sectionId": "RGE-DET",
+          "formFields": [
+            {
+              "name": "code",
+              "label": "Code",
+              "type": "String"
+            },
+            {
+              "name": "label",
+              "label": "Label",
+              "type": "String"
+            }
+          ]
+        }
+      ]
+    },
+    "RegistryLink": {
+      "name": "RegistryLink",
+      "sectionId": "RGL",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "RGL"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "details",
+          "kind": "form",
+          "sectionId": "RGL-DET",
+          "formFields": [
+            {
+              "name": "entryCode",
+              "label": "Entry Code",
+              "type": "String",
+              "refersTo": [
+                "RGE.code"
+              ]
+            },
+            {
+              "name": "entryId",
+              "label": "Entry Id",
+              "type": "String",
+              "refersTo": [
+                "RGE.@sectionId"
+              ]
+            },
+            {
+              "name": "anyRefs",
+              "label": "Any Refs",
+              "type": "String",
+              "refersTo": [
+                "RGE.code",
+                "RGE.@sectionId"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "Choice": {
+      "name": "Choice",
+      "sectionId": "CHO",
+      "annotations": [
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "CHO"
+          }
+        },
+        {
+          "name": "OneOf",
+          "arguments": {
+            "discriminator": "kind"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "selector",
+          "kind": "form",
+          "sectionId": "CHO-SEL",
+          "formFields": [
+            {
+              "name": "kind",
+              "label": "Kind",
+              "type": "ChoiceKind",
+              "enumValues": [
+                "alpha",
+                "beta"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "alphaPart",
+          "kind": "complex",
+          "sectionId": "CHO-ALP",
+          "type": "ChoicePart",
+          "annotations": [
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ChoiceKind.alpha"
+              }
+            }
+          ]
+        },
+        {
+          "name": "alphaExtra",
+          "kind": "complex",
+          "sectionId": "CHO-AL2",
+          "type": "ChoicePart",
+          "annotations": [
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ChoiceKind.alpha"
+              }
+            }
+          ]
+        },
+        {
+          "name": "betaPart",
+          "kind": "complex",
+          "sectionId": "CHO-BET",
+          "type": "ChoicePart",
+          "annotations": [
+            {
+              "name": "Case",
+              "arguments": {
+                "value": "ChoiceKind.beta"
+              }
+            }
+          ]
+        },
+        {
+          "name": "commonPart",
+          "kind": "complex",
+          "sectionId": "CHO-COM",
+          "type": "ChoicePart"
+        }
+      ]
+    },
+    "ChoicePart": {
+      "name": "ChoicePart",
+      "fields": [
+        {
+          "name": "note",
+          "kind": "content"
+        }
+      ]
+    },
+    "Sidecar": {
+      "name": "Sidecar",
+      "sectionId": "SIDE",
+      "annotations": [
+        {
+          "name": "Document",
+          "arguments": {
+            "title": "Sidecar Document"
+          }
+        },
+        {
+          "name": "SectionId",
+          "arguments": {
+            "id": "SIDE"
+          }
+        }
+      ],
+      "fields": [
+        {
+          "name": "details",
+          "kind": "form",
+          "sectionId": "SIDE-DET",
+          "formFields": [
+            {
+              "name": "entryCode",
+              "label": "Entry Code",
+              "type": "String",
+              "refersTo": [
+                "RGE.code"
+              ]
+            }
+          ]
         }
       ]
     },

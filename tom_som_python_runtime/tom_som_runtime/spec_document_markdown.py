@@ -53,6 +53,7 @@ from .spec_document import SpecDocument
 from .spec_meta import SomMetaKind, SomMetaNode, SomMetaTree
 from .spec_meta_bridge import build_som_meta_tree
 from .spec_model import SpecModel, SpecRoot
+from .spec_section_id import effective_list_item_section_id
 
 
 class SpecMarkdownRejectReason(Enum):
@@ -522,13 +523,12 @@ class SpecDocumentMarkdown:
             # membership and order from position; other pattern-shaped ids
             # parse back as stored ids. Items sit one level below the
             # container.
-            stored = self.document.item_section_id(item_path)
-            if stored is not None:
-                item_id = stored
-            elif pattern is not None:
-                item_id = pattern.replace("xxx", str(pos))
-            else:
-                item_id = f"{node.member_name or node.segment}-{pos}"
+            item_id = effective_list_item_section_id(
+                stored_id=self.document.item_section_id(item_path),
+                pattern=pattern,
+                position=pos,
+                fallback_stem=node.member_name or node.segment,
+            )
             self._write_heading(
                 b,
                 depth + 1,

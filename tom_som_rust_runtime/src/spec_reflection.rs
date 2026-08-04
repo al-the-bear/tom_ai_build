@@ -121,6 +121,51 @@ impl<'a> SpecReflection<'a> {
         &[]
     }
 
+    /// Returns every class name reachable from `type_name` by following
+    /// class-bearing fields — `complex`/`section` fields through their `type`,
+    /// complex list fields through their `element_type` — including `type_name`
+    /// itself.
+    ///
+    /// This is the model's notion of **document scope**. A document rooted at a
+    /// given `@Document` class can only ever hold sections of the classes that
+    /// root reaches, so a class outside the set is not merely *unpopulated* in
+    /// such a document — it is absent from it by construction. Any consumer that
+    /// has to tell "the author did not write this" from "this document could not
+    /// hold it in the first place" needs exactly this set.
+    ///
+    /// A name that resolves to no class contributes nothing and is not itself
+    /// included: an unresolved reference is not evidence of a reachable class.
+    pub fn reachable_class_names(&self, type_name: &str) -> std::collections::HashSet<String> {
+        let mut seen: std::collections::HashSet<String> = std::collections::HashSet::new();
+        let mut stack: Vec<String> = vec![type_name.to_string()];
+        while let Some(current) = stack.pop() {
+            if seen.contains(&current) {
+                continue;
+            }
+            let cls = match self.class_named(&current) {
+                Some(c) => c,
+                None => continue,
+            };
+            seen.insert(current);
+            for f in &cls.fields {
+                let child: Option<&str> =
+                    if f.kind == SPEC_FIELD_KIND_COMPLEX || f.kind == SPEC_FIELD_KIND_SECTION {
+                        Some(f.type_.as_str())
+                    } else if f.kind == SPEC_FIELD_KIND_LIST && f.element_is_complex {
+                        Some(f.element_type.as_str())
+                    } else {
+                        None
+                    };
+                if let Some(c) = child {
+                    if !c.is_empty() {
+                        stack.push(c.to_string());
+                    }
+                }
+            }
+        }
+        seen
+    }
+
     // --- resolution --------------------------------------------------------
 
     /// Returns the section segment of a root.

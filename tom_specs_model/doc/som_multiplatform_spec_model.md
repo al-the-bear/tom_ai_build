@@ -456,7 +456,7 @@ language mirrors it:
   plus the generation-stamp reader (`SpecModelStampCheck` / `checkStamp`, below).
 - `spec_reflection.dart` — `SpecReflection` value-free enumeration + path
   resolution.
-- `spec_validator.dart` — `validateDocument`.
+- `spec_validator.dart` — `validateDocument`, the **instance tier** (below).
 - `spec_document_yaml.dart` / `spec_document_markdown.dart` — self-contained
   load/save for YAML (§12) and Markdown (§11). The Markdown route
   (`SpecDocumentMarkdown`) is the runtime's own scanner/serializer of the
@@ -477,6 +477,40 @@ graph (`tom_specs_editor_specification.md` §4.4). They stay dependency-free of
 any UI framework like the rest of the runtime, but they are **not part of the
 mirrored surface**: no other language ships them, because no other language has
 a renderer to keep aligned.
+
+### The instance tier
+
+`validateDocument` is the **instance tier**: it checks the values a concrete
+document holds against the model. (The *static* tier — whether the model's own
+annotations are well-formed — is the generator-side validator in
+`tom_specs_clitool`, runs once at generation time, and is deliberately not part
+of the runtime surface.)
+
+**Every check the instance tier makes is nine-language.** There is no
+Dart-only instance check and no tolerated lag: `spec_annotation_display.dart`
+above is the *one* named exception to the mirrored surface, and it is named
+because it is the only one. A check that exists in one runtime and not the
+others would mean the same document validates clean in one language and reports
+errors in another — precisely the divergence §19 exists to prevent, and a
+direct contradiction of the "read, write, **validate**, load, save" completeness
+promised per language in §1/§6.
+
+Concretely, all nine emit the same six codes, in the same five phases, in this
+order — content leaves, form sections, lists, `@OneOf` cases, `refersTo`
+references, each group sorted by path:
+
+| Code | Phase | What it reports |
+| --- | --- | --- |
+| `danglingPath` | 1 | a set path that resolves to no model node |
+| `kindMismatch` | 1 | a value stored at a node whose kind cannot hold one |
+| `unknownFormField` | 2 | a form sub-key naming no field of that form |
+| `minItems` | 3 | a populated list below its `@Min` item count |
+| `oneOfCaseMismatch` | 4 | a populated `@Case` subsection the chosen `@OneOf` discriminator does not select, or two selected-and-populated subsections in one container |
+| `danglingReference` | 5 | a `refersTo` value naming an id no entry of its target registries declares in this document |
+
+Adding a seventh code means adding it in all nine, in the same phase, with the
+same message text. The corpus obligation in §19 is what makes that mechanical
+rather than remembered.
 
 ### The generation stamp
 
@@ -1135,6 +1169,16 @@ every section of it through **both** APIs into a canonical log, and
 `tom_som_conformance` asserts all nine logs are byte-identical. That is the
 standing proof that the nine language APIs yield exactly the same reading of the
 same specification.
+
+**The corpus must exercise every validation code.** `corpus/validation_cases.json`
+is what forces a runtime to implement an instance-tier check: a case expecting a
+code a runtime does not emit fails that runtime's own conformance runner. The
+converse is the trap — a code with *no* case is invisible, so the harness can
+report nine-way parity over a corpus that never asks the question. The Dart
+conformance test therefore derives the covered set from the committed
+`validation_cases.json` and diffs it against `SpecValidationCode.values`, so
+**adding an enum constant is itself the act that demands its corpus case**. A
+tenth code cannot be shipped in one language and skipped in eight.
 
 ### 19.1 Running everything: the two cross-language drivers
 

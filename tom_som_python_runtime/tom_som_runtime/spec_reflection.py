@@ -103,6 +103,43 @@ class SpecReflection:
         f = cls.field_named(field_name)
         return f.annotations if f else []
 
+    def reachable_class_names(self, type_name: str) -> set[str]:
+        """Every class name reachable from *type_name* by following
+        class-bearing fields — ``complex``/``section`` fields through their
+        ``type``, complex list fields through their ``element_type`` —
+        including *type_name* itself.
+
+        This is the model's notion of **document scope**. A document rooted at a
+        given ``@Document`` class can only ever hold sections of the classes that
+        root reaches, so a class outside the set is not merely *unpopulated* in
+        such a document — it is absent from it by construction. Any consumer that
+        has to tell "the author did not write this" from "this document could not
+        hold it in the first place" needs exactly this set.
+
+        A name that resolves to no class contributes nothing and is not itself
+        included: an unresolved reference is not evidence of a reachable class.
+        """
+        seen: set[str] = set()
+        stack: list[str] = [type_name]
+        while stack:
+            current = stack.pop()
+            if current in seen:
+                continue
+            cls = self.class_named(current)
+            if cls is None:
+                continue
+            seen.add(current)
+            for f in cls.fields:
+                if f.kind in (SpecFieldKind.COMPLEX, SpecFieldKind.SECTION):
+                    child = f.type
+                elif f.kind == SpecFieldKind.LIST:
+                    child = f.element_type if f.element_is_complex else None
+                else:
+                    child = None
+                if child is not None:
+                    stack.append(child)
+        return seen
+
     # --- resolution ---------------------------------------------------------
 
     def root_segment(self, root: SpecRoot) -> str:

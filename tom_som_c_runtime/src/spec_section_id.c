@@ -62,6 +62,33 @@ char *spec_generate_list_item_section_id(const char *pattern, long long month,
   return som_buf_take(&b);
 }
 
+char *spec_effective_list_item_section_id(const char *stored_id,
+                                          const char *pattern,
+                                          long long position,
+                                          const char *fallback_stem) {
+  if (stored_id != NULL) {
+    return som_strdup(stored_id);
+  }
+  SomBuf b;
+  som_buf_init(&b);
+  if (pattern != NULL && pattern[0] != '\0') {
+    /* Every `xxx` placeholder is replaced, matching Dart's `replaceAll`. */
+    const char *p = pattern;
+    const char *xxx;
+    while ((xxx = strstr(p, "xxx")) != NULL) {
+      som_buf_putn(&b, p, (size_t)(xxx - p));
+      som_buf_puti(&b, position);
+      p = xxx + 3;
+    }
+    som_buf_puts(&b, p);
+    return som_buf_take(&b);
+  }
+  som_buf_puts(&b, fallback_stem);
+  som_buf_puts(&b, "-");
+  som_buf_puti(&b, position);
+  return som_buf_take(&b);
+}
+
 void spec_today_month_day(long long *month, long long *day) {
   time_t now = time(NULL);
   if (now == (time_t)-1) {

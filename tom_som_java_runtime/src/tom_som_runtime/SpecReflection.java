@@ -1,8 +1,12 @@
 package tom_som_runtime;
 
+import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Generic, value-free traversal of a {@link SpecModel} class graph — a faithful
@@ -51,6 +55,51 @@ public final class SpecReflection {
     }
     SpecField f = cls.fieldNamed(fieldName);
     return f == null ? Collections.emptyList() : f.annotations;
+  }
+
+  /**
+   * Every class name reachable from {@code typeName} by following class-bearing
+   * fields — {@code complex}/{@code section} fields through their {@code type},
+   * complex list fields through their {@code elementType} — including
+   * {@code typeName} itself.
+   *
+   * <p>This is the model's notion of <b>document scope</b>. A document rooted at a
+   * given {@code @Document} class can only ever hold sections of the classes that
+   * root reaches, so a class outside the set is not merely <i>unpopulated</i> in
+   * such a document — it is absent from it by construction. Any consumer that has
+   * to tell "the author did not write this" from "this document could not hold it
+   * in the first place" needs exactly this set.
+   *
+   * <p>A name that resolves to no class contributes nothing and is not itself
+   * included: an unresolved reference is not evidence of a reachable class.
+   */
+  public Set<String> reachableClassNames(String typeName) {
+    Set<String> seen = new LinkedHashSet<>();
+    Deque<String> stack = new ArrayDeque<>();
+    stack.push(typeName);
+    while (!stack.isEmpty()) {
+      String current = stack.pop();
+      if (seen.contains(current)) {
+        continue;
+      }
+      SpecClass cls = classNamed(current);
+      if (cls == null) {
+        continue;
+      }
+      seen.add(current);
+      for (SpecField f : cls.fields) {
+        String child = null;
+        if (f.kind == SpecFieldKind.COMPLEX || f.kind == SpecFieldKind.SECTION) {
+          child = f.type;
+        } else if (f.kind == SpecFieldKind.LIST) {
+          child = f.elementIsComplex ? f.elementType : null;
+        }
+        if (child != null) {
+          stack.push(child);
+        }
+      }
+    }
+    return seen;
   }
 
   // --- resolution ---------------------------------------------------------

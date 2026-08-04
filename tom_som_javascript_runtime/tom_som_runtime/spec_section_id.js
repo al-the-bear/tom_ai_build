@@ -116,7 +116,53 @@ function generateListItemSectionId(pattern, month, day, existingIds) {
   return `${dayPrefix}${maxForDay + 1}`;
 }
 
+/**
+ * The reserved `refersTo` slot naming a registry entry's own section id rather
+ * than one of its form fields (`tom_specs_model_rules.md` §6.2).
+ *
+ * A registry key is written `<SECTIONID>.<slot>`; this is the one slot that is
+ * not a form field name. Named because the instance-tier reference check keys
+ * its registries by it, and it must be the same literal the static tier in
+ * `tom_specs_clitool` accepts.
+ */
+const K_SECTION_ID_SLOT = '@sectionId';
+
+/**
+ * The id a list item is *identified by* — its `storedId` when it has one, and
+ * otherwise the positional id derived from the list's `pattern` (YRD3).
+ *
+ * An item acquires a stored id when it is created through the editor (an AA1
+ * generated id) or when a document overrides one (criterion 5). Items authored
+ * without one are **anonymous** and are identified by their 1-based `position`
+ * — the pattern with its `xxx` placeholder replaced (`GOAL-ITEM-xxx` →
+ * `GOAL-ITEM-1`), falling back to `<fallbackStem>-<position>` for a
+ * pattern-less list.
+ *
+ * Named once because two consumers must agree on it exactly: the markdown
+ * writer, which emits it as the heading id, and the instance-tier reference
+ * check, which resolves `@sectionId` references against it. A divergence there
+ * would not be a cosmetic difference — it would red-flag a document whose
+ * references are correct.
+ *
+ * @param {?string} storedId
+ * @param {?string} pattern
+ * @param {number} position
+ * @param {string} fallbackStem
+ * @returns {string}
+ */
+function effectiveListItemSectionId(storedId, pattern, position, fallbackStem) {
+  if (storedId !== null && storedId !== undefined) {
+    return storedId;
+  }
+  if (pattern !== null && pattern !== undefined) {
+    return pattern.split('xxx').join(String(position));
+  }
+  return `${fallbackStem}-${position}`;
+}
+
 module.exports = {
+  K_SECTION_ID_SLOT,
+  effectiveListItemSectionId,
   encodeTwoLetterDate,
   sectionIdPatternPrefix,
   SpecSectionIdCollision,

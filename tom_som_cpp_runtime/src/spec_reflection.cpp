@@ -52,6 +52,36 @@ const SpecRoot* SpecReflection::rootForSegment(const std::string& segment) const
   return nullptr;
 }
 
+std::set<std::string> SpecReflection::reachableClassNames(
+    const std::string& typeName) const {
+  std::set<std::string> seen;
+  std::vector<std::string> stack{typeName};
+  while (!stack.empty()) {
+    std::string current = stack.back();
+    stack.pop_back();
+    if (seen.count(current) != 0) {
+      continue;
+    }
+    const SpecClass* cls = model_->classNamed(current);
+    if (cls == nullptr) {
+      continue;
+    }
+    seen.insert(current);
+    for (const SpecField& f : cls->fields) {
+      const std::string* child = nullptr;
+      if (f.kind == kSpecFieldKindComplex || f.kind == kSpecFieldKindSection) {
+        child = &f.type;
+      } else if (f.kind == kSpecFieldKindList && f.elementIsComplex) {
+        child = &f.elementType;
+      }
+      if (child != nullptr && !child->empty()) {
+        stack.push_back(*child);
+      }
+    }
+  }
+  return seen;
+}
+
 static const SpecField* matchField(const SpecClass& cls,
                                    const std::string& segment) {
   for (const SpecField& f : cls.fields) {

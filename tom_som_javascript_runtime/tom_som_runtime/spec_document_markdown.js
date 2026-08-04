@@ -45,6 +45,7 @@
 
 const { SomMetaKind } = require('./spec_meta');
 const { buildSomMetaTree } = require('./spec_meta_bridge');
+const { effectiveListItemSectionId } = require('./spec_section_id');
 
 /** Why an imported Markdown block was rejected (SOM §11.7 rejection protocol). */
 const SpecMarkdownRejectReason = Object.freeze({
@@ -558,15 +559,12 @@ class SpecDocumentMarkdown {
       // fall back to the `@SectionIdPattern` resolved with the 1-based
       // position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`), then to `<member>-<pos>`
       // for pattern-less lists. Items sit one level below the container.
-      const storedId = this.document.itemSectionId(itemPath);
-      let itemId;
-      if (storedId !== null) {
-        itemId = storedId;
-      } else if (pattern !== null) {
-        itemId = pattern.split('xxx').join(String(pos));
-      } else {
-        itemId = `${node.memberName || node.segment}-${pos}`;
-      }
+      const itemId = effectiveListItemSectionId(
+        this.document.itemSectionId(itemPath),
+        pattern,
+        pos,
+        node.memberName || node.segment,
+      );
       SpecDocumentMarkdown._writeHeading(
         b,
         depth + 1,

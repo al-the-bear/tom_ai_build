@@ -53,6 +53,8 @@ export type { DocumentJson, ListJson } from './spec_document';
 
 // section-id derivation (AA1 criteria 3–6)
 export {
+  K_SECTION_ID_SLOT,
+  effectiveListItemSectionId,
   encodeTwoLetterDate,
   sectionIdPatternPrefix,
   SpecSectionIdCollision,

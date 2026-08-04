@@ -52,6 +52,29 @@ std::string specGenerateListItemSectionId(
   return dayPrefix + formatI64(maxForDay + 1);
 }
 
+std::string effectiveListItemSectionId(const std::string* storedId,
+                                       const std::string& pattern,
+                                       long long position,
+                                       const std::string& fallbackStem) {
+  if (storedId != nullptr) {
+    return *storedId;
+  }
+  if (!pattern.empty()) {
+    // Every `xxx` placeholder is replaced, matching Dart's `replaceAll`.
+    std::string num = formatI64(position);
+    std::string out;
+    std::size_t p = 0, xxx;
+    while ((xxx = pattern.find("xxx", p)) != std::string::npos) {
+      out.append(pattern, p, xxx - p);
+      out += num;
+      p = xxx + 3;
+    }
+    out.append(pattern, p, std::string::npos);
+    return out;
+  }
+  return fallbackStem + "-" + formatI64(position);
+}
+
 std::pair<long long, long long> specTodayMonthDay() {
   std::time_t now = std::time(nullptr);
   if (now == static_cast<std::time_t>(-1)) {

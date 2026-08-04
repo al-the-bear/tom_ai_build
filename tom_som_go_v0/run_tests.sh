@@ -8,6 +8,10 @@
 # Mirrors the C / C++ v0 runners: exit 0 == all green. Run from anywhere; it
 # cd's to its own directory so the meta-data default path used by sample (c)
 # resolves.
+#
+# `-count=1` disables Go's test cache for the same reason as the runtime's
+# runner: these tests read shared assets from outside the module, which Go does
+# not treat as cache inputs, so a stale `ok (cached)` can hide a real failure.
 set -uo pipefail
 cd "$(dirname "$0")"
 
@@ -16,7 +20,7 @@ go build ./... || rc=1
 go vet ./... || rc=1
 
 echo "== go test ./... =="
-go test ./... || rc=1
+go test ./... -count=1 || rc=1
 
 for sample in a_typed_access b_generic_document c_reflection_metadata; do
   echo "== sample: $sample =="

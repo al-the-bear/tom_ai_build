@@ -23,6 +23,14 @@ inline constexpr const char* kSpecValidationCodeKindMismatch = "kindMismatch";
 inline constexpr const char* kSpecValidationCodeUnknownFormField =
     "unknownFormField";
 inline constexpr const char* kSpecValidationCodeMinItems = "minItems";
+/* A populated `@Case` subsection the chosen `@OneOf` discriminator does not
+ * select, or two selected-and-populated subsections in one container. */
+inline constexpr const char* kSpecValidationCodeOneOfCaseMismatch =
+    "oneOfCaseMismatch";
+/* A `refersTo` form field naming an id no entry of its target registries
+ * declares in this document. */
+inline constexpr const char* kSpecValidationCodeDanglingReference =
+    "danglingReference";
 
 struct SpecValidationError {
   std::string path;
@@ -31,8 +39,9 @@ struct SpecValidationError {
 };
 
 /* Validates `doc` against `model`, returning problems in stable order: content
- * paths, then forms, then lists; each group sorted by path. An empty list means
- * the document is valid. */
+ * paths, then forms, then lists, then `@OneOf` case instances, then `refersTo`
+ * references; each group sorted by path. An empty list means the document is
+ * valid. */
 std::vector<SpecValidationError> validateDocument(const SpecModel& model,
                                                   const SpecDocument& doc);
 

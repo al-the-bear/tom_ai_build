@@ -147,5 +147,209 @@
         "code": "minItems"
       }
     ]
+  },
+  {
+    "name": "referencesResolve",
+    "state": {
+      "forms": {
+        "DEMO/REG/RGE-LST-1/RGE-DET": {
+          "code": "ALPHA",
+          "label": "Alpha"
+        },
+        "DEMO/REG/RGE-LST-2/RGE-DET": {
+          "code": "BETA",
+          "label": "Beta"
+        },
+        "DEMO/REG/RGL-LST-1/RGL-DET": {
+          "entryCode": "ALPHA",
+          "entryId": "RGE-ALPHA",
+          "anyRefs": "BETA, RGE-2"
+        }
+      },
+      "lists": {
+        "DEMO/REG/RGE-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/REG/RGE-LST-1",
+            "DEMO/REG/RGE-LST-2"
+          ],
+          "ids": {
+            "DEMO/REG/RGE-LST-1": "RGE-ALPHA"
+          }
+        },
+        "DEMO/REG/RGL-LST": {
+          "seq": 1,
+          "items": [
+            "DEMO/REG/RGL-LST-1"
+          ]
+        }
+      }
+    },
+    "errors": []
+  },
+  {
+    "name": "danglingReference",
+    "state": {
+      "forms": {
+        "DEMO/REG/RGE-LST-1/RGE-DET": {
+          "code": "ALPHA",
+          "label": "Alpha"
+        },
+        "DEMO/REG/RGE-LST-2/RGE-DET": {
+          "code": "BETA",
+          "label": "Beta"
+        },
+        "DEMO/REG/RGL-LST-1/RGL-DET": {
+          "entryCode": "GAMMA",
+          "entryId": "RGE-9",
+          "anyRefs": "ALPHA, NOPE"
+        }
+      },
+      "lists": {
+        "DEMO/REG/RGE-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/REG/RGE-LST-1",
+            "DEMO/REG/RGE-LST-2"
+          ],
+          "ids": {
+            "DEMO/REG/RGE-LST-1": "RGE-ALPHA"
+          }
+        },
+        "DEMO/REG/RGL-LST": {
+          "seq": 1,
+          "items": [
+            "DEMO/REG/RGL-LST-1"
+          ]
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/REG/RGL-LST-1/RGL-DET",
+        "code": "danglingReference"
+      },
+      {
+        "path": "DEMO/REG/RGL-LST-1/RGL-DET",
+        "code": "danglingReference"
+      },
+      {
+        "path": "DEMO/REG/RGL-LST-1/RGL-DET",
+        "code": "danglingReference"
+      }
+    ]
+  },
+  {
+    "name": "crossDocumentReferenceSkipped",
+    "state": {
+      "forms": {
+        "SIDE/SIDE-DET": {
+          "entryCode": "NOT-A-CODE"
+        }
+      }
+    },
+    "errors": []
+  },
+  {
+    "name": "crossDocumentReferenceInScope",
+    "state": {
+      "forms": {
+        "DEMO/REG/RGE-LST-1/RGE-DET": {
+          "code": "ALPHA",
+          "label": "Alpha"
+        },
+        "DEMO/REG/RGE-LST-2/RGE-DET": {
+          "code": "BETA",
+          "label": "Beta"
+        },
+        "DEMO/REG/RGL-LST-1/RGL-DET": {
+          "entryCode": "ALPHA",
+          "entryId": "RGE-ALPHA",
+          "anyRefs": "ALPHA"
+        },
+        "SIDE/SIDE-DET": {
+          "entryCode": "NOT-A-CODE"
+        }
+      },
+      "lists": {
+        "DEMO/REG/RGE-LST": {
+          "seq": 2,
+          "items": [
+            "DEMO/REG/RGE-LST-1",
+            "DEMO/REG/RGE-LST-2"
+          ],
+          "ids": {
+            "DEMO/REG/RGE-LST-1": "RGE-ALPHA"
+          }
+        },
+        "DEMO/REG/RGL-LST": {
+          "seq": 1,
+          "items": [
+            "DEMO/REG/RGL-LST-1"
+          ]
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "SIDE/SIDE-DET",
+        "code": "danglingReference"
+      }
+    ]
+  },
+  {
+    "name": "oneOfCaseSelected",
+    "state": {
+      "content": {
+        "DEMO/REG/CHO/CHO-ALP/note": "body of CHO-ALP",
+        "DEMO/REG/CHO/CHO-COM/note": "body of CHO-COM"
+      },
+      "forms": {
+        "DEMO/REG/CHO/CHO-SEL": {
+          "kind": "alpha"
+        }
+      }
+    },
+    "errors": []
+  },
+  {
+    "name": "oneOfCaseMismatch",
+    "state": {
+      "content": {
+        "DEMO/REG/CHO/CHO-BET/note": "body of CHO-BET",
+        "DEMO/REG/CHO/CHO-COM/note": "body of CHO-COM"
+      },
+      "forms": {
+        "DEMO/REG/CHO/CHO-SEL": {
+          "kind": "alpha"
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/REG/CHO/CHO-BET",
+        "code": "oneOfCaseMismatch"
+      }
+    ]
+  },
+  {
+    "name": "oneOfCaseAmbiguous",
+    "state": {
+      "content": {
+        "DEMO/REG/CHO/CHO-ALP/note": "body of CHO-ALP",
+        "DEMO/REG/CHO/CHO-AL2/note": "body of CHO-AL2"
+      },
+      "forms": {
+        "DEMO/REG/CHO/CHO-SEL": {
+          "kind": "alpha"
+        }
+      }
+    },
+    "errors": [
+      {
+        "path": "DEMO/REG/CHO",
+        "code": "oneOfCaseMismatch"
+      }
+    ]
   }
 ]

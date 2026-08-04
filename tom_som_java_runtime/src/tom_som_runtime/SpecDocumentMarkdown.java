@@ -459,6 +459,13 @@ public final class SpecDocumentMarkdown {
     if ((pattern == null || pattern.isEmpty()) && element != null) {
       pattern = element.sectionIdPattern;
     }
+    if (pattern != null && pattern.isEmpty()) {
+      pattern = null;
+    }
+    String memberStem = node.memberName;
+    if (memberStem == null || memberStem.isEmpty()) {
+      memberStem = node.segment();
+    }
     for (int i = 0; i < items.size(); i++) {
       String itemPath = items.get(i);
       int pos = i + 1;
@@ -466,19 +473,9 @@ public final class SpecDocumentMarkdown {
       // heading id when present; the `@SectionIdPattern` resolved with the
       // 1-based position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`) and the
       // `<member>-<pos>` fallback are positional derivations for id-less items.
-      String itemId;
-      String storedItemId = document.itemSectionId(itemPath);
-      if (storedItemId != null) {
-        itemId = storedItemId;
-      } else if (pattern != null && !pattern.isEmpty()) {
-        itemId = String.join(String.valueOf(pos), splitAll(pattern, "xxx"));
-      } else {
-        String member = node.memberName;
-        if (member == null || member.isEmpty()) {
-          member = node.segment();
-        }
-        itemId = member + "-" + pos;
-      }
+      String itemId =
+          SpecSectionId.effectiveListItemSectionId(
+              document.itemSectionId(itemPath), pattern, pos, memberStem);
       // Items sit one level below the container. A stored headline overrides
       // the derived `<stem> <pos>` title (YRD3).
       String itemTitle = document.headline(itemPath);

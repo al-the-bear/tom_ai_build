@@ -673,13 +673,13 @@ Both validation tiers read this one declaration. The **static** tier
 (`tom_specs_clitool/lib/src/validator.dart`) checks the class graph: the target
 section id exists, it is reachable, and — for a form-field slot — it really does
 declare that field as required and is enumerated; for `@sectionId`, that it is a
-patterned list's element type. The **instance** tier (`tom_som_dart_runtime`'s
-document validator) checks a concrete document: every id a reference field holds
-is actually declared by some entry of one of the named registries, and reports a
+patterned list's element type. The **instance** tier (the runtimes' document
+validator) checks a concrete document: every id a reference field holds is
+actually declared by some entry of one of the named registries, and reports a
 dangling id otherwise. `refersTo` is carried through the meta into all nine
-language runtimes, so a non-Dart host can run the instance-tier check too — the
-instance-tier reference check itself is currently implemented in the Dart runtime
-only.
+language runtimes, and the instance-tier reference check is implemented in all
+nine — like every other instance-tier check, it is part of the mirrored runtime
+surface, not a Dart extra (`som_multiplatform_spec_model.md` §9).
 
 #### 6.2.1 Document scope — how a cross-document reference validates
 

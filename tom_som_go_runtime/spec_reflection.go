@@ -109,6 +109,51 @@ func (r *SpecReflection) FieldAnnotations(className, fieldName string) []*SpecAn
 	return nil
 }
 
+// ReachableClassNames returns every class name reachable from typeName by
+// following class-bearing fields — complex/section fields through their Type,
+// complex list fields through their ElementType — including typeName itself.
+//
+// This is the model's notion of **document scope**. A document rooted at a given
+// @Document class can only ever hold sections of the classes that root reaches,
+// so a class outside the set is not merely *unpopulated* in such a document — it
+// is absent from it by construction. Any consumer that has to tell "the author
+// did not write this" from "this document could not hold it in the first place"
+// needs exactly this set.
+//
+// A name that resolves to no class contributes nothing and is not itself
+// included: an unresolved reference is not evidence of a reachable class.
+func (r *SpecReflection) ReachableClassNames(typeName string) map[string]bool {
+	seen := map[string]bool{}
+	stack := []string{typeName}
+	for len(stack) > 0 {
+		current := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		if seen[current] {
+			continue
+		}
+		cls := r.ClassNamed(current)
+		if cls == nil {
+			continue
+		}
+		seen[current] = true
+		for _, f := range cls.Fields {
+			child := ""
+			switch f.Kind {
+			case SpecFieldKindComplex, SpecFieldKindSection:
+				child = f.Type
+			case SpecFieldKindList:
+				if f.ElementIsComplex {
+					child = f.ElementType
+				}
+			}
+			if child != "" {
+				stack = append(stack, child)
+			}
+		}
+	}
+	return seen
+}
+
 // --- resolution ------------------------------------------------------------
 
 // RootSegment returns the section segment of a root.

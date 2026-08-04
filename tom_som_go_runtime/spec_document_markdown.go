@@ -596,6 +596,10 @@ func (c *SpecDocumentMarkdown) writeListItems(
 	if pattern == "" && element != nil {
 		pattern = element.SectionIDPattern
 	}
+	memberStem := node.MemberName
+	if memberStem == "" {
+		memberStem = node.Segment()
+	}
 	for i, itemPath := range items {
 		pos := i + 1
 		// YRD3: an item's STORED section id IS its md heading
@@ -603,18 +607,8 @@ func (c *SpecDocumentMarkdown) writeListItems(
 		// fall back to the positional derivation: the `@SectionIdPattern`
 		// resolved with the 1-based position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`),
 		// else `<member>-<pos>` for a pattern-less list.
-		var itemID string
-		if storedID, ok := c.Document.ItemSectionID(itemPath); ok {
-			itemID = storedID
-		} else if pattern != "" {
-			itemID = strings.Join(strings.Split(pattern, "xxx"), itoa(pos))
-		} else {
-			member := node.MemberName
-			if member == "" {
-				member = node.Segment()
-			}
-			itemID = member + "-" + itoa(pos)
-		}
+		storedID, hasStored := c.Document.ItemSectionID(itemPath)
+		itemID := EffectiveListItemSectionID(storedID, hasStored, pattern, pos, memberStem)
 		// Items sit one level below the container. A stored headline overrides
 		// the derived `<stem> <pos>` title (YRD3).
 		itemTitle := c.Document.HeadlineOr(itemPath)

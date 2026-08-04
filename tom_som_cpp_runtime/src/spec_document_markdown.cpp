@@ -22,6 +22,7 @@
 #include "spec_meta_bridge.hpp"
 #include "spec_model.hpp"
 #include "spec_paths.hpp"
+#include "spec_section_id.hpp"
 
 namespace som {
 namespace {
@@ -835,32 +836,20 @@ void writeListItems(MdCodec& c, std::string& b, const SomMetaNode& node,
   if (pattern.empty() && element != nullptr) {
     pattern = element->sectionIdPattern;
   }
+  const std::string memberStem =
+      !node.memberName.empty() ? node.memberName : node.segment();
   for (std::size_t i = 0; i < n; i++) {
     const std::string& itemPath = (*items)[i];
     long long pos = (long long)i + 1;
-    std::string itemId;
     // YRD3: an item's STORED section id IS its md heading
     // id — stored ids round-trip through Markdown too. Only anonymous items
     // fall back to the positional derivation: the `@SectionIdPattern`
     // resolved with the 1-based position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`),
-    // else `<member>-<pos>` for a pattern-less list.
-    const std::string* storedId = doc.itemSectionIdOpt(itemPath);
-    if (storedId != nullptr) {
-      itemId = *storedId;
-    } else if (!pattern.empty()) {
-      std::string num = formatI64(pos);
-      std::size_t p = 0, xxx;
-      while ((xxx = pattern.find("xxx", p)) != std::string::npos) {
-        itemId.append(pattern, p, xxx - p);
-        itemId += num;
-        p = xxx + 3;
-      }
-      itemId.append(pattern, p, std::string::npos);
-    } else {
-      std::string member =
-          !node.memberName.empty() ? node.memberName : node.segment();
-      itemId = member + "-" + formatI64(pos);
-    }
+    // else `<member>-<pos>` for a pattern-less list. Shared with the
+    // instance-tier reference check, which must resolve `@sectionId`
+    // references against exactly this id.
+    std::string itemId = effectiveListItemSectionId(
+        doc.itemSectionIdOpt(itemPath), pattern, pos, memberStem);
     // Items sit one level below the container. A stored headline overrides
     // the derived `<stem> <pos>` title (YRD3).
     std::string title = doc.headline(itemPath);

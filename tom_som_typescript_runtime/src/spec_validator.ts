@@ -11,8 +11,12 @@
  */
 
 import { SpecDocument } from './spec_document';
-import { SpecModel } from './spec_model';
+import { SpecClass, SpecField, SpecFieldKind, SpecModel } from './spec_model';
 import { SpecNodeKind, SpecReflection } from './spec_reflection';
+import {
+  K_SECTION_ID_SLOT,
+  effectiveListItemSectionId,
+} from './spec_section_id';
 
 /** Why a single value in a document is invalid against the model. */
 export const SpecValidationCode = {
@@ -20,6 +24,17 @@ export const SpecValidationCode = {
   KIND_MISMATCH: 'kindMismatch',
   UNKNOWN_FORM_FIELD: 'unknownFormField',
   MIN_ITEMS: 'minItems',
+  /**
+   * A `@OneOf` container carries a case-bound subsection that the chosen
+   * discriminator value does not select, or more than one subsection for the
+   * chosen case (`codespecs_mapping.md` §8.2).
+   */
+  ONE_OF_CASE_MISMATCH: 'oneOfCaseMismatch',
+  /**
+   * A reference form field (`FormFieldSpec.refersTo`) holds an id that no entry
+   * of any of its target registries declares.
+   */
+  DANGLING_REFERENCE: 'danglingReference',
 } as const;
 
 export type SpecValidationCodeValue =
@@ -142,6 +157,357 @@ export function validateDocument(
           `list holds ${count} item(s) but requires at least ${minimum}`,
         ),
       );
+    }
+  }
+
+  // 4. @OneOf discriminated subsection groups (instance tier).
+  //
+  // A concrete `@OneOf` container must carry ONLY the subsections whose `@Case`
+  // matches the chosen discriminator value (plus the common, un-`@Case`d ones),
+  // and at most one case subsection for the chosen case
+  // (`codespecs_mapping.md` §8.2). The static tier has already checked the
+  // annotations are well-formed; here we check a document's *values* against
+  // them.
+  errors.push(..._validateOneOfInstances(refl, doc));
+
+  // 5. Cross-registry id references (instance tier).
+  //
+  // A reference form field holds an id that must already be declared by some
+  // entry of a target registry. The static tier has checked the `refersTo`
+  // targets are resolvable; only here can we see whether the id a document
+  // actually wrote is one the document also declares.
+  errors.push(..._validateReferenceInstances(refl, doc));
+
+  return errors;
+}
+
+/**
+ * The constant part of a qualified `EnumType.constant` `@Case` token (or the
+ * whole string when it is not qualified).
+ */
+function _caseConstant(token: string): string {
+  const dot = token.indexOf('.');
+  return dot >= 0 ? token.substring(dot + 1) : token;
+}
+
+/**
+ * Instance-tier `@OneOf`/`@Case` check: for every `@OneOf` container instance
+ * present in `doc`, verify the populated case subsections match the chosen
+ * discriminator value.
+ */
+function _validateOneOfInstances(
+  refl: SpecReflection,
+  doc: SpecDocument,
+): SpecValidationError[] {
+  const errors: SpecValidationError[] = [];
+
+  // Every section-instance path present in the document: each stored value path
+  // plus all of its ancestor prefixes (a container's own discriminator form
+  // lives at `<container>/<form>`, so the container path is always a prefix of a
+  // populated path).
+  const sectionPaths = new Set<string>();
+  const addPrefixes = (full: string): void => {
+    const segs = full.split('/');
+    let buf = '';
+    for (let i = 0; i < segs.length; i++) {
+      buf = i === 0 ? segs[i] : `${buf}/${segs[i]}`;
+      sectionPaths.add(buf);
+    }
+  };
+  for (const p of doc.contentPaths) addPrefixes(p);
+  for (const p of doc.formPaths) addPrefixes(p);
+  for (const p of doc.listPaths) addPrefixes(p);
+  for (const p of doc.headlinePaths) addPrefixes(p);
+
+  for (const path of _sorted(sectionPaths)) {
+    const res = refl.resolve(path);
+    const cls = res ? res.targetClass : null;
+    if (cls === null) {
+      continue;
+    }
+    const oneOf = cls.annotation('OneOf');
+    if (oneOf === null) {
+      continue;
+    }
+    const discriminator = oneOf.argument('discriminator');
+    if (typeof discriminator !== 'string' || discriminator === '') {
+      continue;
+    }
+
+    // Read the chosen discriminator value from the container's own @Form.
+    let formHolder: SpecField | null = null;
+    for (const f of cls.fields) {
+      if (
+        f.kind === SpecFieldKind.FORM &&
+        f.formFields.some((ff) => ff.name === discriminator)
+      ) {
+        formHolder = f;
+        break;
+      }
+    }
+    if (formHolder === null) {
+      continue; // static tier flagged the mismatch
+    }
+    const chosen = doc.formField(
+      `${path}/${refl.fieldSegment(formHolder)}`,
+      discriminator,
+    );
+    if (chosen === null || chosen === undefined || chosen === '') {
+      continue; // no case chosen yet
+    }
+
+    // Inspect each case-bound subsection: present + not-selected → mismatch.
+    const presentForChosen: string[] = [];
+    for (const f of cls.fields) {
+      const caseConstants = new Set<string>();
+      for (const a of f.annotations) {
+        const value = a.argument('value');
+        if (a.name === 'Case' && typeof value === 'string') {
+          caseConstants.add(_caseConstant(value));
+        }
+      }
+      if (caseConstants.size === 0) {
+        continue; // common subsection — always allowed
+      }
+      const childPath = `${path}/${refl.fieldSegment(f)}`;
+      if (!doc.hasValuesUnder(childPath)) {
+        continue;
+      }
+      if (caseConstants.has(chosen)) {
+        presentForChosen.push(f.name);
+      } else {
+        errors.push(
+          new SpecValidationError(
+            childPath,
+            SpecValidationCode.ONE_OF_CASE_MISMATCH,
+            `subsection "${f.name}" is present but the chosen ` +
+              `${discriminator}="${chosen}" does not select it ` +
+              `(cases: ${_sorted(caseConstants).join(', ')})`,
+          ),
+        );
+      }
+    }
+    if (presentForChosen.length > 1) {
+      presentForChosen.sort();
+      errors.push(
+        new SpecValidationError(
+          path,
+          SpecValidationCode.ONE_OF_CASE_MISMATCH,
+          `chosen ${discriminator}="${chosen}" selects more than one ` +
+            `populated subsection (${presentForChosen.join(', ')}) — at most ` +
+            'one case subsection may be present',
+        ),
+      );
+    }
+  }
+
+  return errors;
+}
+
+/**
+ * The section id part of a registry key written `<SECTIONID>.<slot>`. A key with
+ * no dot is malformed — the static tier reports it — and is treated whole here
+ * so it simply fails to match any section id.
+ */
+function _registrySectionId(target: string): string {
+  const dot = target.indexOf('.');
+  return dot <= 0 ? target : target.substring(0, dot);
+}
+
+/**
+ * The registry section ids that are **in scope** for `doc`: the `@SectionId` of
+ * every class reachable from a document root the document actually uses.
+ *
+ * A `refersTo` target names its registry by section id, and a document can only
+ * ever declare entries of registries its own root reaches. Anything outside this
+ * set is absent from the document by construction — which is precisely the case
+ * the dangling-reference check must not call an error.
+ *
+ * The roots are read off the document rather than passed in: every path begins
+ * with its root's segment, so the document already says which root(s) it belongs
+ * to and no caller has to know. A document spanning several roots (the
+ * whole-project container) contributes the union.
+ */
+function _registryScope(
+  refl: SpecReflection,
+  doc: SpecDocument,
+): Set<string> {
+  const rootTypes = new Set<string>();
+  const addRootOf = (path: string): void => {
+    const slash = path.indexOf('/');
+    const segment = slash < 0 ? path : path.substring(0, slash);
+    const root = refl.rootForSegment(segment);
+    if (root !== null) {
+      rootTypes.add(root.type);
+    }
+  };
+  for (const p of doc.contentPaths) addRootOf(p);
+  for (const p of doc.formPaths) addRootOf(p);
+  for (const p of doc.listPaths) addRootOf(p);
+  for (const p of doc.headlinePaths) addRootOf(p);
+
+  const ids = new Set<string>();
+  for (const type of rootTypes) {
+    for (const name of refl.reachableClassNames(type)) {
+      const cls = refl.classNamed(name);
+      if (cls !== null && cls.sectionId) {
+        ids.add(cls.sectionId);
+      }
+    }
+  }
+  return ids;
+}
+
+/**
+ * Instance-tier cross-registry reference check: every id written into a
+ * `refersTo` form field must be declared by some entry of one of its target
+ * registries *in this document*.
+ *
+ * The pass is two sweeps over the document's form sections, so it costs one
+ * extra walk rather than a resolve per reference:
+ *
+ *  1. **Declare.** Every form instance whose class carries `@SectionId(X)` and
+ *     declares form field `f` contributes its value of `f` to the registry key
+ *     `X.f`. Every item of a list whose element class carries `@SectionId(X)`
+ *     additionally contributes its *effective* section id — stored, else
+ *     positional — to the reserved key `X.@sectionId`. That second half is what
+ *     makes a registry keeping its id nowhere but the section id referenceable
+ *     at all.
+ *  2. **Resolve.** Every form instance holding a `refersTo` field checks its
+ *     value against those sets, comma-segment by comma-segment.
+ *
+ * A value is valid when it resolves in **any** listed registry. An empty value
+ * is not a dangling reference — it means "not filled in yet".
+ *
+ * **Cross-document references.** A reference whose target registry the
+ * document's own root cannot reach is skipped rather than reported; see
+ * {@link _registryScope}.
+ */
+function _validateReferenceInstances(
+  refl: SpecReflection,
+  doc: SpecDocument,
+): SpecValidationError[] {
+  const errors: SpecValidationError[] = [];
+  const scope = _registryScope(refl, doc);
+
+  // Resolve every form path once; both sweeps read the same resolutions.
+  //
+  // A form resolution names the form *field*, not a class — the section id a
+  // registry key is written against belongs to the class the form sits on, so
+  // the owner is resolved from the parent path.
+  const forms: { path: string; cls: SpecClass; field: SpecField }[] = [];
+  for (const path of _sorted(doc.formPaths)) {
+    const res = refl.resolve(path);
+    if (res === null || res.kind !== SpecNodeKind.FORM || res.field === null) {
+      continue;
+    }
+    const slash = path.lastIndexOf('/');
+    if (slash <= 0) {
+      continue;
+    }
+    const owner = refl.resolve(path.substring(0, slash));
+    const cls = owner ? owner.targetClass : null;
+    if (cls === null) {
+      continue;
+    }
+    forms.push({ path, cls, field: res.field });
+  }
+
+  // 1. Declare.
+  const declared = new Map<string, Set<string>>();
+  const declare = (key: string, value: string): void => {
+    let set = declared.get(key);
+    if (set === undefined) {
+      set = new Set<string>();
+      declared.set(key, set);
+    }
+    set.add(value);
+  };
+  for (const form of forms) {
+    const sectionId = form.cls.sectionId;
+    if (!sectionId) {
+      continue;
+    }
+    for (const ff of form.field.formFields) {
+      const value = doc.formField(form.path, ff.name);
+      if (value === null || value === undefined || value.trim() === '') {
+        continue;
+      }
+      declare(`${sectionId}.${ff.name}`, value.trim());
+    }
+  }
+
+  // 1b. Declare the per-item section ids under the reserved `@sectionId` slot.
+  // The key is the *element class's* section id, not the `-LST` container's: a
+  // target names the entry, so `FRE.@sectionId` reads as "an id of some
+  // functional-requirement entry".
+  for (const listPath of _sorted(doc.listPaths)) {
+    const listRes = refl.resolve(listPath);
+    const listField = listRes ? listRes.field : null;
+    const pattern = listField ? listField.sectionIdPattern : null;
+    const stem = listField
+      ? listField.name
+      : (listPath.split('/').pop() as string);
+    const items = doc.listItems(listPath);
+    for (let i = 0; i < items.length; i++) {
+      const itemRes = refl.resolve(items[i]);
+      const elementClass = itemRes ? itemRes.targetClass : null;
+      const sectionId = elementClass ? elementClass.sectionId : null;
+      if (!sectionId) {
+        continue;
+      }
+      declare(
+        `${sectionId}.${K_SECTION_ID_SLOT}`,
+        effectiveListItemSectionId(
+          doc.itemSectionId(items[i]),
+          pattern,
+          i + 1,
+          stem,
+        ),
+      );
+    }
+  }
+
+  // 2. Resolve.
+  for (const form of forms) {
+    for (const ff of form.field.formFields) {
+      if (ff.refersTo.length === 0) {
+        continue;
+      }
+      const value = doc.formField(form.path, ff.name);
+      if (value === null || value === undefined || value.trim() === '') {
+        continue;
+      }
+
+      // Every target must be in scope, not merely one of them: a disjunction
+      // says the id may come from any of the listed registries, so one absent
+      // registry is enough to make "no registry declares it" unsound.
+      if (!ff.refersTo.every((t) => scope.has(_registrySectionId(t)))) {
+        continue;
+      }
+
+      for (const segment of value.split(',')) {
+        const id = segment.trim();
+        if (id === '') {
+          continue;
+        }
+        const resolves = ff.refersTo.some((target) => {
+          const set = declared.get(target);
+          return set !== undefined && set.has(id);
+        });
+        if (resolves) {
+          continue;
+        }
+        errors.push(
+          new SpecValidationError(
+            form.path,
+            SpecValidationCode.DANGLING_REFERENCE,
+            `form field "${ff.name}" references "${id}", which no entry of ` +
+              `${ff.refersTo.length === 1 ? 'registry' : 'registries'} ` +
+              `${ff.refersTo.join(', ')} declares`,
+          ),
+        );
+      }
     }
   }
 

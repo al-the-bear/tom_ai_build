@@ -313,6 +313,35 @@ void main() {
     }
   });
 
+  test('every validation code the reference runtime emits has a corpus case',
+      () {
+    // The recurrence guard (csrf3). `validation_cases.json` is what makes the
+    // other eight runtimes prove they implement a check: a case expecting a
+    // code a runtime does not emit fails that runtime's own conformance
+    // runner. A code with NO case is therefore invisible — which is exactly
+    // how `danglingReference` (csrb3) and `oneOfCaseMismatch` (csmb6) stayed
+    // Dart-only for two rounds while the harness reported nine-way parity.
+    //
+    // Asserting from `SpecValidationCode.values` rather than from a second
+    // hand-kept list is the point: adding an enum constant is the very act
+    // that makes this test demand its corpus case, so the eight ports cannot
+    // be left behind silently again.
+    final covered = <String>{
+      for (final c in (jsonDecode(read('validation_cases.json')) as List)
+          .cast<Map<String, dynamic>>())
+        for (final e in (c['errors'] as List).cast<Map<String, dynamic>>())
+          e['code'] as String,
+    };
+    final uncovered = SpecValidationCode.values
+        .map((c) => c.name)
+        .where((name) => !covered.contains(name))
+        .toList();
+    expect(uncovered, isEmpty,
+        reason: 'validation_cases.json exercises no case producing '
+            '${uncovered.join(', ')} — add one (and implement the check in '
+            'all nine runtimes) rather than shipping a Dart-only code');
+  });
+
   test('operations script replays with the committed results', () {
     final steps = jsonDecode(read('operations_cases.json')) as List;
     final d = SpecDocument();
@@ -540,13 +569,12 @@ Map<String, dynamic> _buildMeta() => {
       // The generation stamp the exporter writes alongside the payload. Fixed
       // rather than `DateTime.now()` so the corpus is byte-stable; the counts
       // are the fixture's real sizes, which is what makes them a self-check.
-      // `containerRoot` is deliberately absent: the fixture is a single
-      // synthetic document with no container class, so declaring one would be
-      // a lie. The present-`containerRoot` path is covered by
-      // `stamp_cases.json` instead.
+      // `containerRoot` is deliberately absent: the fixture has no container
+      // class, so declaring one would be a lie. The present-`containerRoot`
+      // path is covered by `stamp_cases.json` instead.
       'generatedAt': '2026-07-20T08:00:00.000000Z',
-      'classCount': 5,
-      'rootCount': 1,
+      'classCount': 11,
+      'rootCount': 2,
       'roots': [
         {
           'type': 'Demo',
@@ -556,7 +584,23 @@ Map<String, dynamic> _buildMeta() => {
               'exerciser covering the full field-kind matrix (incl. an int '
               'scalar, id-less content leaves, and a dual-content class) — NOT '
               'a tom_specs_model convention reference.',
-        }
+        },
+        {
+          // csrf3: a SECOND root exists so the fixture has two disjoint
+          // reference scopes. The instance-tier reference check skips a
+          // reference whose target registry the document's own root cannot
+          // reach, and with a single root every registry is always reachable —
+          // the skip would be unreachable code in all nine ports. This root
+          // reaches no registry of its own, so a document rooted only here
+          // must stay silent while the same reference fires from `Demo`.
+          // It is deliberately never populated by `_buildDocument`, so the
+          // md/yaml goldens are untouched by its existence.
+          'type': 'Sidecar',
+          'title': 'Sidecar Document',
+          'sectionId': 'SIDE',
+          'description': 'A second root reaching no registry — the fixture\'s '
+              'cross-document reference scope (csrf3).',
+        },
       ],
       'classes': {
         'Demo': {
@@ -680,6 +724,232 @@ Map<String, dynamic> _buildMeta() => {
               'name': 'control',
               'kind': 'complex',
               'type': 'Control'
+            },
+            {
+              // csrf3: the two instance-tier checks — cross-registry
+              // references and `@OneOf`/`@Case` selection — need model
+              // constructs nothing else in this fixture uses. They live under
+              // one member so the rest of the matrix above reads unchanged,
+              // and `_buildDocument` never populates it, so the md/yaml
+              // goldens are unaffected; the validation cases build their own
+              // states.
+              'name': 'registry',
+              'kind': 'complex',
+              'sectionId': 'REG',
+              'type': 'Registry'
+            },
+          ],
+        },
+        // csrf3: the reference/one-of fixture. `RegistryEntry` is the
+        // registry — it declares ids in a form field (`RGE.code`) AND through
+        // its own list-item section ids (the reserved `RGE.@sectionId` slot) —
+        // and `RegistryLink` is the referrer, with one field per target shape:
+        // a plain form-field target, the reserved slot, and a two-registry
+        // disjunction that also carries a comma-separated multi-value.
+        'Registry': {
+          'name': 'Registry',
+          'sectionId': 'REG',
+          'annotations': [
+            {
+              'name': 'SectionId',
+              'arguments': {'id': 'REG'}
+            },
+          ],
+          'fields': [
+            {
+              'name': 'entries',
+              'kind': 'list',
+              'sectionId': 'RGE-LST',
+              'sectionIdPattern': 'RGE-xxx',
+              'elementType': 'RegistryEntry',
+              'elementIsComplex': true,
+            },
+            {
+              'name': 'links',
+              'kind': 'list',
+              'sectionId': 'RGL-LST',
+              'sectionIdPattern': 'RGL-xxx',
+              'elementType': 'RegistryLink',
+              'elementIsComplex': true,
+            },
+            {
+              'name': 'choice',
+              'kind': 'complex',
+              'sectionId': 'CHO',
+              'type': 'Choice'
+            },
+          ],
+        },
+        'RegistryEntry': {
+          'name': 'RegistryEntry',
+          'sectionId': 'RGE',
+          'annotations': [
+            {
+              'name': 'SectionId',
+              'arguments': {'id': 'RGE'}
+            },
+          ],
+          'fields': [
+            {
+              'name': 'details',
+              'kind': 'form',
+              'sectionId': 'RGE-DET',
+              'formFields': [
+                {'name': 'code', 'label': 'Code', 'type': 'String'},
+                {'name': 'label', 'label': 'Label', 'type': 'String'},
+              ],
+            },
+          ],
+        },
+        'RegistryLink': {
+          'name': 'RegistryLink',
+          'sectionId': 'RGL',
+          'annotations': [
+            {
+              'name': 'SectionId',
+              'arguments': {'id': 'RGL'}
+            },
+          ],
+          'fields': [
+            {
+              'name': 'details',
+              'kind': 'form',
+              'sectionId': 'RGL-DET',
+              'formFields': [
+                {
+                  'name': 'entryCode',
+                  'label': 'Entry Code',
+                  'type': 'String',
+                  'refersTo': ['RGE.code'],
+                },
+                {
+                  'name': 'entryId',
+                  'label': 'Entry Id',
+                  'type': 'String',
+                  'refersTo': ['RGE.@sectionId'],
+                },
+                {
+                  // A disjunction: the value may name a `code` OR an item
+                  // section id, and a comma-separated value resolves segment
+                  // by segment.
+                  'name': 'anyRefs',
+                  'label': 'Any Refs',
+                  'type': 'String',
+                  'refersTo': ['RGE.code', 'RGE.@sectionId'],
+                },
+              ],
+            },
+          ],
+        },
+        'Choice': {
+          'name': 'Choice',
+          'sectionId': 'CHO',
+          'annotations': [
+            {
+              'name': 'SectionId',
+              'arguments': {'id': 'CHO'}
+            },
+            {
+              'name': 'OneOf',
+              'arguments': {'discriminator': 'kind'}
+            },
+          ],
+          'fields': [
+            {
+              'name': 'selector',
+              'kind': 'form',
+              'sectionId': 'CHO-SEL',
+              'formFields': [
+                {
+                  'name': 'kind',
+                  'label': 'Kind',
+                  'type': 'ChoiceKind',
+                  'enumValues': ['alpha', 'beta'],
+                },
+              ],
+            },
+            // Two subsections for `alpha` — so the "more than one populated
+            // subsection for the chosen case" branch is reachable — one for
+            // `beta`, and one common subsection carrying no `@Case` at all,
+            // which is legal under every choice.
+            {
+              'name': 'alphaPart',
+              'kind': 'complex',
+              'sectionId': 'CHO-ALP',
+              'type': 'ChoicePart',
+              'annotations': [
+                {
+                  'name': 'Case',
+                  'arguments': {'value': 'ChoiceKind.alpha'}
+                }
+              ],
+            },
+            {
+              'name': 'alphaExtra',
+              'kind': 'complex',
+              'sectionId': 'CHO-AL2',
+              'type': 'ChoicePart',
+              'annotations': [
+                {
+                  'name': 'Case',
+                  'arguments': {'value': 'ChoiceKind.alpha'}
+                }
+              ],
+            },
+            {
+              'name': 'betaPart',
+              'kind': 'complex',
+              'sectionId': 'CHO-BET',
+              'type': 'ChoicePart',
+              'annotations': [
+                {
+                  'name': 'Case',
+                  'arguments': {'value': 'ChoiceKind.beta'}
+                }
+              ],
+            },
+            {
+              'name': 'commonPart',
+              'kind': 'complex',
+              'sectionId': 'CHO-COM',
+              'type': 'ChoicePart'
+            },
+          ],
+        },
+        'ChoicePart': {
+          'name': 'ChoicePart',
+          'fields': [
+            {'name': 'note', 'kind': 'content'},
+          ],
+        },
+        'Sidecar': {
+          'name': 'Sidecar',
+          'sectionId': 'SIDE',
+          'annotations': [
+            {
+              'name': 'Document',
+              'arguments': {'title': 'Sidecar Document'}
+            },
+            {
+              'name': 'SectionId',
+              'arguments': {'id': 'SIDE'}
+            },
+          ],
+          'fields': [
+            {
+              // Refers into `Demo`'s registry, which this root does NOT reach —
+              // the cross-document case the instance tier must pass over.
+              'name': 'details',
+              'kind': 'form',
+              'sectionId': 'SIDE-DET',
+              'formFields': [
+                {
+                  'name': 'entryCode',
+                  'label': 'Entry Code',
+                  'type': 'String',
+                  'refersTo': ['RGE.code'],
+                },
+              ],
             },
           ],
         },
@@ -892,8 +1162,100 @@ List<Map<String, dynamic>> _validationCases(SpecModel model) {
         }
       }
     }),
+    // --- csrf3: the two instance-tier checks ------------------------------
+    //
+    // Every case below is rooted in `DEMO` unless it says otherwise, so the
+    // registry `RGE` is in scope and the reference check actually decides.
+    caseFor('referencesResolve', _registryState(
+      entryCode: 'ALPHA',
+      entryId: 'RGE-ALPHA',
+      anyRefs: 'BETA, RGE-2',
+    )),
+    caseFor('danglingReference', _registryState(
+      // One miss per target shape: an unknown `code`, an unknown item section
+      // id, and a two-segment disjunction whose second segment resolves in
+      // neither registry (the first still does, so exactly one error).
+      entryCode: 'GAMMA',
+      entryId: 'RGE-9',
+      anyRefs: 'ALPHA, NOPE',
+    )),
+    // A reference is skipped, not reported, when the document's own root
+    // cannot reach the target registry: `Sidecar` reaches no registry, so its
+    // unresolvable reference is a cross-document one and stays silent.
+    caseFor('crossDocumentReferenceSkipped', {
+      'forms': {
+        'SIDE/SIDE-DET': {'entryCode': 'NOT-A-CODE'}
+      }
+    }),
+    // …but the skip is about *scope*, not about the field: the same document
+    // that also populates `Demo` brings `RGE` into scope, and then it fires.
+    caseFor('crossDocumentReferenceInScope', () {
+      final state = _registryState(
+        entryCode: 'ALPHA',
+        entryId: 'RGE-ALPHA',
+        anyRefs: 'ALPHA',
+      );
+      (state['forms'] as Map<String, Object?>)['SIDE/SIDE-DET'] = {
+        'entryCode': 'NOT-A-CODE'
+      };
+      return state;
+    }()),
+    caseFor('oneOfCaseSelected', _choiceState('alpha', ['CHO-ALP', 'CHO-COM'])),
+    // `beta` is populated while `alpha` is chosen — the common subsection is
+    // always allowed and must not be reported alongside it.
+    caseFor('oneOfCaseMismatch',
+        _choiceState('alpha', ['CHO-BET', 'CHO-COM'])),
+    // Two subsections bound to the *chosen* case: at most one may be present.
+    caseFor('oneOfCaseAmbiguous',
+        _choiceState('alpha', ['CHO-ALP', 'CHO-AL2'])),
   ];
 }
+
+/// A document state populating the csrf3 registry: two entries (item 1 with a
+/// stored section id, item 2 anonymous so its id is positional) and one link
+/// whose three reference fields carry [entryCode], [entryId] and [anyRefs].
+Map<String, Object?> _registryState({
+  required String entryCode,
+  required String entryId,
+  required String anyRefs,
+}) =>
+    {
+      'forms': {
+        'DEMO/REG/RGE-LST-1/RGE-DET': {'code': 'ALPHA', 'label': 'Alpha'},
+        'DEMO/REG/RGE-LST-2/RGE-DET': {'code': 'BETA', 'label': 'Beta'},
+        'DEMO/REG/RGL-LST-1/RGL-DET': {
+          'entryCode': entryCode,
+          'entryId': entryId,
+          'anyRefs': anyRefs,
+        },
+      },
+      'lists': {
+        'DEMO/REG/RGE-LST': {
+          'seq': 2,
+          'items': ['DEMO/REG/RGE-LST-1', 'DEMO/REG/RGE-LST-2'],
+          // Item 1 declares `RGE-ALPHA`; item 2 has no stored id, so its
+          // effective id is the pattern with the position (`RGE-2`). Both
+          // halves of the reserved `@sectionId` slot are therefore live.
+          'ids': {'DEMO/REG/RGE-LST-1': 'RGE-ALPHA'},
+        },
+        'DEMO/REG/RGL-LST': {
+          'seq': 1,
+          'items': ['DEMO/REG/RGL-LST-1'],
+        },
+      },
+    };
+
+/// A document state choosing [kind] on the `@OneOf` container and populating
+/// the subsections named by [populatedSectionIds].
+Map<String, Object?> _choiceState(String kind, List<String> populatedSectionIds) => {
+      'content': {
+        for (final id in populatedSectionIds)
+          'DEMO/REG/CHO/$id/note': 'body of $id',
+      },
+      'forms': {
+        'DEMO/REG/CHO/CHO-SEL': {'kind': kind}
+      },
+    };
 
 /// A model-free sequence of document mutations with their expected results —
 /// proves empty-clears, monotonic (never-reused) list sequence numbers, purge

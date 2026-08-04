@@ -57,6 +57,26 @@ const char *spec_reflection_field_segment(const SpecField *field);
 const SpecRoot *spec_reflection_root_for_segment(const SpecReflection *r,
                                                  const char *segment);
 
+/* Writes into `*out` every class name reachable from `type_name` by following
+ * class-bearing fields — `complex`/`section` fields through their `type`,
+ * complex list fields through their `element_type` — including `type_name`
+ * itself.
+ *
+ * This is the model's notion of **document scope**. A document rooted at a given
+ * `@Document` class can only ever hold sections of the classes that root
+ * reaches, so a class outside the set is not merely *unpopulated* in such a
+ * document — it is absent from it by construction. Any consumer that has to tell
+ * "the author did not write this" from "this document could not hold it in the
+ * first place" needs exactly this set.
+ *
+ * A name that resolves to no class contributes nothing and is not itself
+ * included: an unresolved reference is not evidence of a reachable class.
+ *
+ * `*out` is initialised by the callee; free it with `som_strlist_free`. */
+void spec_reflection_reachable_class_names(const SpecReflection *r,
+                                           const char *type_name,
+                                           SomStrList *out);
+
 /* Resolves a document path to the model node it addresses. Returns 1 and fills
  * `*out` on success (caller frees with `spec_resolution_free`); returns 0 when
  * the path does not describe a reachable node (and leaves `*out` untouched). */

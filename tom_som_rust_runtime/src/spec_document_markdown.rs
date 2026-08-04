@@ -830,24 +830,23 @@ impl<'a> SpecDocumentMarkdown<'a> {
                 pattern = e.section_id_pattern.clone();
             }
         }
+        let member_stem = if node.member_name.is_empty() {
+            node.segment().to_string()
+        } else {
+            node.member_name.clone()
+        };
         for (i, item_path) in items.iter().enumerate() {
             let pos = i + 1;
             // YRD3: the item's heading id is its STORED
             // `@SectionId` when present; otherwise the resolved
             // `@SectionIdPattern` id (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`);
             // pattern-less lists fall back to `<member>-<pos>`.
-            let item_id = if let Some(stored) = self.document.item_section_id(item_path) {
-                stored.clone()
-            } else if !pattern.is_empty() {
-                pattern.replace("xxx", &pos.to_string())
-            } else {
-                let member = if node.member_name.is_empty() {
-                    node.segment().to_string()
-                } else {
-                    node.member_name.clone()
-                };
-                format!("{}-{}", member, pos)
-            };
+            let item_id = crate::spec_section_id::effective_list_item_section_id(
+                self.document.item_section_id(item_path).map(|s| s.as_str()),
+                &pattern,
+                pos,
+                &member_stem,
+            );
             // Items sit one level below the container. Title: stored headline
             // when present, else the derived `<stem> <pos>` (YRD3).
             let mut item_title = self.document.headline_or(item_path);

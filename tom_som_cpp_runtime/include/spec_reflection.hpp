@@ -12,7 +12,9 @@
 #define SPEC_REFLECTION_HPP
 
 #include <optional>
+#include <set>
 #include <string>
+#include <vector>
 
 #include "spec_model.hpp"
 
@@ -55,6 +57,22 @@ class SpecReflection {
 
   /* Returns the root whose segment matches `segment`, or null. */
   const SpecRoot* rootForSegment(const std::string& segment) const;
+
+  /* Returns every class name reachable from `typeName` by following
+   * class-bearing fields — `complex`/`section` fields through their `type`,
+   * complex list fields through their `elementType` — including `typeName`
+   * itself.
+   *
+   * This is the model's notion of **document scope**. A document rooted at a
+   * given `@Document` class can only ever hold sections of the classes that root
+   * reaches, so a class outside the set is not merely *unpopulated* in such a
+   * document — it is absent from it by construction. Any consumer that has to
+   * tell "the author did not write this" from "this document could not hold it
+   * in the first place" needs exactly this set.
+   *
+   * A name that resolves to no class contributes nothing and is not itself
+   * included: an unresolved reference is not evidence of a reachable class. */
+  std::set<std::string> reachableClassNames(const std::string& typeName) const;
 
   /* Resolves a document path to the model node it addresses. Returns the
    * resolution on success, or std::nullopt when the path does not describe a

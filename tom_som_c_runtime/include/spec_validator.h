@@ -19,6 +19,12 @@
 #define SPEC_VALIDATION_CODE_KIND_MISMATCH "kindMismatch"
 #define SPEC_VALIDATION_CODE_UNKNOWN_FORM_FIELD "unknownFormField"
 #define SPEC_VALIDATION_CODE_MIN_ITEMS "minItems"
+/* A populated `@Case` subsection the chosen `@OneOf` discriminator does not
+ * select, or two selected-and-populated subsections in one container. */
+#define SPEC_VALIDATION_CODE_ONE_OF_CASE_MISMATCH "oneOfCaseMismatch"
+/* A `refersTo` form field naming an id no entry of its target registries
+ * declares in this document. */
+#define SPEC_VALIDATION_CODE_DANGLING_REFERENCE "danglingReference"
 
 typedef struct {
   char *path;    /* owned */
@@ -33,8 +39,9 @@ typedef struct {
 } SpecValidationErrors;
 
 /* Validates `doc` against `model`, writing problems into `out` (initialised by
- * the callee) in stable order: content paths, then forms, then lists; each
- * group sorted by path. An empty list means the document is valid. */
+ * the callee) in stable order: content paths, then forms, then lists, then
+ * `@OneOf` case instances, then `refersTo` references; each group sorted by
+ * path. An empty list means the document is valid. */
 void validate_document(const SpecModel *model, const SpecDocument *doc,
                        SpecValidationErrors *out);
 

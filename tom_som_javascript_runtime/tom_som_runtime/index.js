@@ -41,6 +41,8 @@ const {
   SpecReflection,
 } = require('./spec_reflection');
 const {
+  K_SECTION_ID_SLOT,
+  effectiveListItemSectionId,
   encodeTwoLetterDate,
   sectionIdPatternPrefix,
   SpecSectionIdCollision,
@@ -138,6 +140,8 @@ module.exports = {
   SpecResolution,
   SpecReflection,
   // section-id derivation
+  K_SECTION_ID_SLOT,
+  effectiveListItemSectionId,
   encodeTwoLetterDate,
   sectionIdPatternPrefix,
   SpecSectionIdCollision,

@@ -56,6 +56,45 @@ pub fn section_id_pattern_prefix(pattern: &str) -> String {
     pattern[..i].to_string()
 }
 
+/// The reserved `refersTo` slot naming a registry entry's own section id rather
+/// than one of its form fields (`tom_specs_model_rules.md` §6.2).
+///
+/// A registry key is written `<SECTIONID>.<slot>`; this is the one slot that is
+/// not a form field name. Named because the instance-tier reference check keys
+/// its registries by it, and it must be the same literal the static tier in
+/// `tom_specs_clitool` accepts.
+pub const K_SECTION_ID_SLOT: &str = "@sectionId";
+
+/// The id a list item is *identified by* — its `stored_id` when it has one, and
+/// otherwise the positional id derived from the list's `pattern` (YRD3).
+///
+/// An item acquires a stored id when it is created through the editor (an AA1
+/// generated id) or when a document overrides one (criterion 5). Items authored
+/// without one are **anonymous** and are identified by their 1-based `position`
+/// — the pattern with its `xxx` placeholder replaced (`GOAL-ITEM-xxx` →
+/// `GOAL-ITEM-1`), falling back to `<fallback_stem>-<position>` for a
+/// pattern-less list. An empty `pattern` counts as absent.
+///
+/// Named once because two consumers must agree on it exactly: the markdown
+/// writer, which emits it as the heading id, and the instance-tier reference
+/// check, which resolves `@sectionId` references against it. A divergence there
+/// would not be a cosmetic difference — it would red-flag a document whose
+/// references are correct.
+pub fn effective_list_item_section_id(
+    stored_id: Option<&str>,
+    pattern: &str,
+    position: usize,
+    fallback_stem: &str,
+) -> String {
+    if let Some(stored) = stored_id {
+        return stored.to_string();
+    }
+    if !pattern.is_empty() {
+        return pattern.replace("xxx", &position.to_string());
+    }
+    format!("{}-{}", fallback_stem, position)
+}
+
 /// Returned when a section id would collide with another id in the same list
 /// (criterion 5: overriding an id must keep every id in the list unique).
 #[derive(Debug, Clone, PartialEq)]

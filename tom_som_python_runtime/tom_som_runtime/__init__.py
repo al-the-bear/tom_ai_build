@@ -37,7 +37,9 @@ from .docspecs_validator import (
 )
 from .spec_document import SpecDocument
 from .spec_section_id import (
+    K_SECTION_ID_SLOT,
     SpecSectionIdCollision,
+    effective_list_item_section_id,
     encode_two_letter_date,
     generate_list_item_section_id,
     section_id_pattern_prefix,
@@ -119,6 +121,7 @@ __all__ = [
     "DocSpecsViolationRule",
     "FORMAT_VERSION",
     "FormFieldSpec",
+    "K_SECTION_ID_SLOT",
     "ListItemSegment",
     "MarkdownFenceTracker",
     "SPEC_PATH_SEPARATOR",
@@ -163,6 +166,7 @@ __all__ = [
     "som_meta_node_diff",
     "check_som_model_version",
     "doc_specs_id_transform",
+    "effective_list_item_section_id",
     "encode_two_letter_date",
     "generate_list_item_section_id",
     "list_item_path",

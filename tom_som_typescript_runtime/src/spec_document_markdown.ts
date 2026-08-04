@@ -51,6 +51,7 @@ import {
   SomMetaKindValue,
 } from './spec_meta';
 import { buildSomMetaTree } from './spec_meta_bridge';
+import { effectiveListItemSectionId } from './spec_section_id';
 
 /** Why an imported Markdown block was rejected (SOM §11.7 rejection protocol). */
 export const SpecMarkdownRejectReason = {
@@ -614,15 +615,12 @@ export class SpecDocumentMarkdown {
       // Anonymous items fall back to the `@SectionIdPattern` resolved with the
       // 1-based position (`GOAL-ITEM-xxx` → `GOAL-ITEM-1`); pattern-less lists
       // fall back to `<member>-<pos>`. Items sit one level below the container.
-      const storedId = this.document.itemSectionId(itemPath);
-      let itemId: string;
-      if (storedId !== null) {
-        itemId = storedId;
-      } else if (pattern !== null) {
-        itemId = pattern.split('xxx').join(String(pos));
-      } else {
-        itemId = `${node.memberName || node.segment}-${pos}`;
-      }
+      const itemId = effectiveListItemSectionId(
+        this.document.itemSectionId(itemPath),
+        pattern,
+        pos,
+        node.memberName || node.segment,
+      );
       SpecDocumentMarkdown._writeHeading(
         b,
         depth + 1,

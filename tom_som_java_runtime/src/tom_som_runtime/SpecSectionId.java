@@ -26,6 +26,46 @@ public final class SpecSectionId {
   private SpecSectionId() {}
 
   /**
+   * The reserved {@code refersTo} slot naming a registry entry's own section id
+   * rather than one of its form fields ({@code tom_specs_model_rules.md} §6.2).
+   *
+   * <p>A registry key is written {@code <SECTIONID>.<slot>}; this is the one slot
+   * that is not a form field name. Named because the instance-tier reference
+   * check keys its registries by it, and it must be the same literal the static
+   * tier in {@code tom_specs_clitool} accepts.
+   */
+  public static final String K_SECTION_ID_SLOT = "@sectionId";
+
+  /**
+   * The id a list item is <i>identified by</i> — its {@code storedId} when it has
+   * one, and otherwise the positional id derived from the list's {@code pattern}
+   * (YRD3).
+   *
+   * <p>An item acquires a stored id when it is created through the editor (an AA1
+   * generated id) or when a document overrides one (criterion 5). Items authored
+   * without one are <b>anonymous</b> and are identified by their 1-based
+   * {@code position} — the pattern with its {@code xxx} placeholder replaced
+   * ({@code GOAL-ITEM-xxx} → {@code GOAL-ITEM-1}), falling back to
+   * {@code <fallbackStem>-<position>} for a pattern-less list.
+   *
+   * <p>Named once because two consumers must agree on it exactly: the markdown
+   * writer, which emits it as the heading id, and the instance-tier reference
+   * check, which resolves {@code @sectionId} references against it. A divergence
+   * there would not be a cosmetic difference — it would red-flag a document whose
+   * references are correct.
+   */
+  public static String effectiveListItemSectionId(
+      String storedId, String pattern, int position, String fallbackStem) {
+    if (storedId != null) {
+      return storedId;
+    }
+    if (pattern != null) {
+      return pattern.replace("xxx", String.valueOf(position));
+    }
+    return fallbackStem + "-" + position;
+  }
+
+  /**
    * Encodes a ({@code month}, {@code day}) pair as the two-letter day code used
    * in generated section ids (criterion 4).
    *

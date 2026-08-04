@@ -122,6 +122,49 @@ export class SpecReflection {
     return f ? f.annotations : [];
   }
 
+  /**
+   * Every class name reachable from `typeName` by following class-bearing
+   * fields — `complex`/`section` fields through their `type`, complex list
+   * fields through their `elementType` — including `typeName` itself.
+   *
+   * This is the model's notion of **document scope**. A document rooted at a
+   * given `@Document` class can only ever hold sections of the classes that
+   * root reaches, so a class outside the set is not merely *unpopulated* in
+   * such a document — it is absent from it by construction. Any consumer that
+   * has to tell "the author did not write this" from "this document could not
+   * hold it in the first place" needs exactly this set.
+   *
+   * A name that resolves to no class contributes nothing and is not itself
+   * included: an unresolved reference is not evidence of a reachable class.
+   */
+  reachableClassNames(typeName: string): Set<string> {
+    const seen = new Set<string>();
+    const stack: string[] = [typeName];
+    while (stack.length > 0) {
+      const current = stack.pop() as string;
+      if (seen.has(current)) {
+        continue;
+      }
+      const cls = this.classNamed(current);
+      if (cls === null) {
+        continue;
+      }
+      seen.add(current);
+      for (const f of cls.fields) {
+        let child: string | null | undefined = null;
+        if (f.kind === SpecFieldKind.COMPLEX || f.kind === SpecFieldKind.SECTION) {
+          child = f.type;
+        } else if (f.kind === SpecFieldKind.LIST) {
+          child = f.elementIsComplex ? f.elementType : null;
+        }
+        if (child !== null && child !== undefined) {
+          stack.push(child);
+        }
+      }
+    }
+    return seen;
+  }
+
   // --- resolution ---------------------------------------------------------
 
   rootSegment(root: SpecRoot): string {

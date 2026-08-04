@@ -51,6 +51,35 @@ std::string specGenerateListItemSectionId(const std::string& pattern,
 /* Returns today's (month, day) in UTC civil terms (standard library only). */
 std::pair<long long, long long> specTodayMonthDay();
 
+/* The reserved `refersTo` slot naming a registry entry's own section id rather
+ * than one of its form fields (`tom_specs_model_rules.md` §6.2).
+ *
+ * A registry key is written `<SECTIONID>.<slot>`; this is the one slot that is
+ * not a form field name. Named because the instance-tier reference check keys
+ * its registries by it, and it must be the same literal the static tier in
+ * `tom_specs_clitool` accepts. */
+inline constexpr const char* kSectionIdSlot = "@sectionId";
+
+/* The id a list item is *identified by* — `storedId` when it has one, and
+ * otherwise the positional id derived from `pattern` (YRD3).
+ *
+ * An item acquires a stored id when it is created through the editor (an AA1
+ * generated id) or when a document overrides one (criterion 5). Items authored
+ * without one are **anonymous** and are identified by their 1-based `position` —
+ * the pattern with its `xxx` placeholder replaced (`GOAL-ITEM-xxx` →
+ * `GOAL-ITEM-1`), falling back to `<fallbackStem>-<position>` for a pattern-less
+ * list. An empty `pattern` counts as absent.
+ *
+ * Named once because two consumers must agree on it exactly: the markdown
+ * writer, which emits it as the heading id, and the instance-tier reference
+ * check, which resolves `@sectionId` references against it. A divergence there
+ * would not be cosmetic — it would red-flag a document whose references are
+ * correct. */
+std::string effectiveListItemSectionId(const std::string* storedId,
+                                       const std::string& pattern,
+                                       long long position,
+                                       const std::string& fallbackStem);
+
 /* ---- section-id error --------------------------------------------------- */
 
 /* Thrown by the section-id write paths (criterion 5). */

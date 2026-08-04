@@ -17,6 +17,7 @@
 #include "spec_meta_bridge.h"
 #include "spec_model.h"
 #include "spec_paths.h"
+#include "spec_section_id.h"
 
 /* ---- small helpers ------------------------------------------------------- */
 
@@ -1048,39 +1049,20 @@ static int write_list_items(MdCodec *c, SomBuf *b, const SomMetaNode *node,
   if (pattern[0] == '\0' && element != NULL) {
     pattern = element->section_id_pattern;
   }
+  const char *member_stem = node->member_name[0] != '\0'
+                                ? node->member_name
+                                : som_meta_node_segment(node);
   for (size_t i = 0; i < n; i++) {
     const char *item_path = items->items[i];
     long long pos = (long long)i + 1;
-    char *item_id = NULL;
     /* YRD3: a stored @SectionId IS the item's md heading
-       id; the positional derivation is only the fallback. */
+       id; the positional derivation is only the fallback. Shared with the
+       instance-tier reference check, which must resolve `@sectionId`
+       references against exactly this id. */
     const char *stored_id = spec_document_item_section_id(c->document,
                                                           item_path);
-    if (stored_id != NULL) {
-      item_id = som_strdup(stored_id);
-    } else if (pattern[0] != '\0') {
-      /* pattern with "xxx" → pos */
-      SomBuf ib;
-      som_buf_init(&ib);
-      char *num = itoa_dup(pos);
-      const char *p = pattern;
-      const char *xxx;
-      while ((xxx = strstr(p, "xxx")) != NULL) {
-        som_buf_putn(&ib, p, (size_t)(xxx - p));
-        som_buf_puts(&ib, num);
-        p = xxx + 3;
-      }
-      som_buf_puts(&ib, p);
-      free(num);
-      item_id = som_buf_take(&ib);
-    } else {
-      const char *member =
-          node->member_name[0] != '\0' ? node->member_name
-                                       : som_meta_node_segment(node);
-      char *num = itoa_dup(pos);
-      item_id = vcat3(member, "-", num);
-      free(num);
-    }
+    char *item_id = spec_effective_list_item_section_id(stored_id, pattern, pos,
+                                                        member_stem);
     /* YRD3: a stored per-item headline overrides the derived "stem pos"
        title. */
     const char *item_headline = spec_document_headline(c->document, item_path);

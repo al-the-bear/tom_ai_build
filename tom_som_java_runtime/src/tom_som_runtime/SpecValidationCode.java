@@ -5,7 +5,9 @@ public enum SpecValidationCode {
   DANGLING_PATH("danglingPath"),
   KIND_MISMATCH("kindMismatch"),
   UNKNOWN_FORM_FIELD("unknownFormField"),
-  MIN_ITEMS("minItems");
+  MIN_ITEMS("minItems"),
+  ONE_OF_CASE_MISMATCH("oneOfCaseMismatch"),
+  DANGLING_REFERENCE("danglingReference");
 
   public final String value;
 
