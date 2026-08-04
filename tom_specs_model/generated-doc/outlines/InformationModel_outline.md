@@ -3,69 +3,69 @@
   - content, erDiagram @mermaid-er, objectDiagram @mermaid
   - header: `DocumentHeader`
     - content @Form(documentId, project, version, date, author, status)
-  - [1,] entities: `DataEntityEntry`
+  - [1,] entities: `DataEntityEntry`[]
     - identity, classification, lifecyclePolicy, relationshipSummary
-    - attributes: `DataAttributeEntry`
+    - attributes: `DataAttributeEntry`[]
       - identity, dataTypeSpec, textTypeOptions, numericTypeOptions, temporalTypeOptions, binaryTypeOptions,
         fileReferenceOptions, enumerationTypeOptions, derivation, securityClassification, migrationLineage
-      - constraints: `DataAttributeConstraintEntry`
+      - constraints: `DataAttributeConstraintEntry`[]
         - content @Form(mandatory, nullable, unique, defaultValue, validationRules, constraintExpression, allowedValues, patternRegex)
-      - displayProperties: `DisplayPropertyEntry`
+      - displayProperties: `DisplayPropertyEntry`[]
         - content @Form(displayOrder, displayGroup, helpText)
-    - keyAttributes: `KeyAttributeEntry`
+    - keyAttributes: `KeyAttributeEntry`[]
       - content @Form(keyType, keyColumns, description), generation, reference, governance, referencedEntityRef
-    - indexes: `EntityIndexEntry`
+    - indexes: `EntityIndexEntry`[]
       - content @Form(indexType, columns, includeColumns, isUnique, isClustered, filterCondition, purpose, estimatedSize)
-    - constraints: `EntityConstraintEntry`
+    - constraints: `EntityConstraintEntry`[]
       - content @Form(constraintType, expression, errorMessage, enforcementLevel, isDeferred, businessRule)
   - `EntityRelationships`
     - content
-    - items: `EntityRelationshipEntry`
+    - items: `EntityRelationshipEntry`[]
       - identity, cardinality, referentialIntegrity, navigation, sourceEntityRef, targetEntityRef
-      - participants: `ParticipantEntry`
+      - participants: `ParticipantEntry`[]
         - content @Form(sourceEntityName, sourceRole, targetEntityName, targetRole)
-      - relationshipAttributes: `RelationshipAttributeEntry`
+      - relationshipAttributes: `RelationshipAttributeEntry`[]
         - content @Form(hasRelationshipAttributes, relationshipAttributes, temporalAspects)
   - `DataClassification`
     - overview
-    - items: `DataClassificationEntry`
+    - items: `DataClassificationEntry`[]
       - identity, storageTransmission, accessControl, retentionDisposal, compliance
-      - handlingRequirements: `HandlingRequirementEntry`
+      - handlingRequirements: `HandlingRequirementEntry`[]
         - content @Form(requirementType, requirement, rationale, enforcementMechanism, validationMethod, exceptionProcess)
-      - accessRestrictions: `AccessRestrictionEntry`
+      - accessRestrictions: `AccessRestrictionEntry`[]
         - content @Form(restrictionType, restriction, scope, enforcement, effectiveConditions, overridePolicy)
-  - [1,] objectCatalog: `BusinessObjectEntry`
+  - [1,] objectCatalog: `BusinessObjectEntry`[]
     - identity, domainContext, lifecycleSummary, ownership
-    - behaviorRules: `BehaviorRuleEntry`
+    - behaviorRules: `BehaviorRuleEntry`[]
       - content @Form(keyBusinessRules, invariants, keyOperations, validationRules, calculatedProperties)
-    - integrationPoints: `IntegrationPointEntry`
+    - integrationPoints: `IntegrationPointEntry`[]
       - content @Form(exposedInApis, eventPublished, eventSubscribed, externalSystemMapping)
-    - attributes: `BusinessObjectAttributeEntry`
+    - attributes: `BusinessObjectAttributeEntry`[]
       - content @Form(description, type), definition, validation, governance
-    - keyStates: `ObjectStateEntry`
+    - keyStates: `ObjectStateEntry`[]
       - content @Form(stateCode, description, stateType, entryConditions, exitConditions, allowedOperations, restrictedOperations, slaRequirements, notificationTriggers)
-    - keyBusinessRules: `BusinessRuleReferenceEntry`
+    - keyBusinessRules: `BusinessRuleReferenceEntry`[]
       - content @Form(ruleId, ruleType, description, enforcement, triggerCondition, affectedAttributes, consequenceOnViolation),
         ruleRef
-    - lifecycleTransitions: `LifecycleTransitionEntry`
+    - lifecycleTransitions: `LifecycleTransitionEntry`[]
       - content @Form(fromState, toState), trigger, conditions, execution
-    - operations: `ObjectOperationEntry`
+    - operations: `ObjectOperationEntry`[]
       - content @Form(description, operationType), execution, lifecycle, governance
-    - invariants: `ObjectInvariantEntry`
+    - invariants: `ObjectInvariantEntry`[]
       - content @Form(description, expression, scope, enforcementPoint, violationAction, businessJustification)
-  - functionDecomposition: `FunctionEntry`
+  - functionDecomposition: `FunctionEntry`[]
     - content @Form(description, parentFunction), classification, operations, implementation
-    - subFunctions: `SubFunctionEntry`
+    - subFunctions: `SubFunctionEntry`[]
       - content @Form(description, dataAccess, systemSupport)
-  - functionToDataMatrix: `FunctionDataMatrixEntry`
+  - functionToDataMatrix: `FunctionDataMatrixEntry`[]
     - content @Form(entityName, accessType, accessFrequency, isOwner, accessReason)
-  - [1,] businessRules: `BusinessRuleEntry`
+  - [1,] businessRules: `BusinessRuleEntry`[]
     - identity, classification, ruleLogic, implementation, exceptionHandling, governance
-    - affectedObjects: `AffectedObjectEntry`
+    - affectedObjects: `AffectedObjectEntry`[]
       - content @Form(affectedAttributes, impact, accessType), objectRef
-    - affectedFunctions: `AffectedFunctionEntry`
+    - affectedFunctions: `AffectedFunctionEntry`[]
       - content @Form(triggerPoint, impact, isMandatory), functionRef
-    - examples: `RuleExampleEntry`
+    - examples: `RuleExampleEntry`[]
       - content @Form(scenario, inputData, expectedOutcome, exampleType)
   - `DataDictionary`
     - content
@@ -75,44 +75,44 @@
     - content
   - `DomainEnumRegistry`
     - content
-    - enums: `DomainEnumEntry`
+    - enums: `DomainEnumEntry`[]
       - content @Form(enumName, description, backingType, defaultValue)
-      - [1,] values: `DomainEnumValueEntry`
+      - [1,] values: `DomainEnumValueEntry`[]
         - content @Form(valueId, backingValue, copyKey, description)
   - `ErrorCodeRegistry`
     - content
-    - errorCodes: `ErrorCodeEntry`
+    - errorCodes: `ErrorCodeEntry`[]
       - content @Form(code, category, severity, retryable, httpStatusHint, copyKey)
   - `ResultEnvelope`
     - content @Form(discriminatorField, successArm, errorArm, retryable, severity)
-    - fieldDetails: `ResultFieldDetailEntry`
+    - fieldDetails: `ResultFieldDetailEntry`[]
       - content @Form(fieldPath, errorCodeRef, message)
   - `MessageKeyRegistry`
     - content
-    - messageKeys: `MessageKeyEntry`
+    - messageKeys: `MessageKeyEntry`[]
       - content @Form(key, defaultCopy, placeholders, description)
-      - localeVariants: `MessageLocaleVariantEntry`
+      - localeVariants: `MessageLocaleVariantEntry`[]
         - content @Form(locale, copy)
   - `ServerOperationRegistry`
     - content
-    - operations: `ServerOperationEntry`
+    - operations: `ServerOperationEntry`[]
       - content @Form(purpose, primaryDataEntity, descriptionKey, errorCodes)
       - authorization: `AuthorizationRequirementSpec`
         - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
           resourceKeyRequirement, customRequirement
         - gradedRequirement: `GradedAuthorizationRequirement`
           - content @Form(gradingRationale)
-          - [1,] accessLevels: `GradedAccessLevelEntry`
+          - [1,] accessLevels: `GradedAccessLevelEntry`[]
             - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement, entitlementRequirement,
               resourceKeyRequirement, customRequirement
-      - requestMembers: `ServerOperationMemberEntry`
+      - requestMembers: `ServerOperationMemberEntry`[]
         - content @Form(memberType, multiValued, required, dataEntity, domainEnum, description)
-      - responseMembers: `ServerOperationMemberEntry`
+      - responseMembers: `ServerOperationMemberEntry`[]
         - content @Form(memberType, multiValued, required, dataEntity, domainEnum, description)
   - `SchemaVersioningAndMigration`
     - content @Form(versioningStrategy, forwardOnly, baselineVersion, zeroDowntimeApproach)
-    - migrationTargets: `MigrationTargetEntry`
+    - migrationTargets: `MigrationTargetEntry`[]
       - content @Form(targetName, dataSourceName, schemaName, purpose)
-    - migrationSteps: `SchemaMigrationStepEntry`
+    - migrationSteps: `SchemaMigrationStepEntry`[]
       - content @Form(version, description, artifactKind, migrationTarget, environments), baselineSchema,
         referenceData, schemaChange

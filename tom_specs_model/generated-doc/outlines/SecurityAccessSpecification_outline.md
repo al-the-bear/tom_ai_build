@@ -7,7 +7,7 @@
     - content
     - userCategories: `AccessUserCategories`
       - content
-      - items: `UserCategoryDefinition`
+      - items: `UserCategoryDefinition`[]
         - content @Form(description, accessLevel, estimatedCount)
     - `UserLifecycle`
       - content, overview @text
@@ -25,37 +25,37 @@
         - content, deletionProcessDescription @text
       - transitions: `UserLifecycleTransitions`
         - content, transitionRulesDescription @text, lifecycleStateDiagram @mermaid
-        - items: `UserLifecycleTransitionEntry`
+        - items: `UserLifecycleTransitionEntry`[]
           - content @Form(fromState, toState, trigger, triggerConditions), approval, effects, automation
       - selfService: `SelfServiceAccountManagement`
         - content, selfServiceDescription @text
-      - serviceAccounts: `ServiceAccountLifecycle`
+      - serviceAccounts: `ServiceAccountLifecycle`[]
         - content, serviceAccountDescription @text
     - `UserAttributes`
       - content
-      - items: `UserAttributeEntry`
+      - items: `UserAttributeEntry`[]
         - content @Form(dataType, placement, accessGuard, source, required)
   - `IdentificationAndAuthentication`
     - content
     - `Identification`
       - content @Form(identityModelApproach, identityNamespace, primaryIdentifierType, uniqueIdentifierStrategy, identifierImmutability, identityLifecycleModel, identityTrustModel, maximumIdentitiesPerPerson, identityMergingPolicy, identityDataResidency)
-      - identitySources: `IdentitySourceEntry`
+      - identitySources: `IdentitySourceEntry`[]
         - content @Form(sourceType, sourceProduct), connection, lifecycle, mapping, operations
       - identityVerification: `IdentityVerificationPolicy`
         - content @Form(verificationLevel, nistIalTarget, verificationMode), documents, methods, workflow, lifecycle,
           failure, verificationDetails @text
-      - identityProviders: `IdentityProviderEntry`
+      - identityProviders: `IdentityProviderEntry`[]
         - content @Form(providerType, enabled), mapping, trust, security
-        - details: `IdentityProviderDetails`
+        - details: `IdentityProviderDetails`[]
           - content @Form(providerProduct, protocolVersion, description)
-        - endpoints: `IdentityProviderEndpoints`
+        - endpoints: `IdentityProviderEndpoints`[]
           - content @Form(endpointUrl, metadataUrl, issuerIdentifier, clientId, scopes)
       - singleSignOn: `SingleSignOnPolicy`
         - content @Form(ssoEnabled, ssoScope, ssoProtocol), federation, session, access, operations, ssoDetails @text
       - selfRegistration: `SelfRegistrationPolicy`
         - content @Form(selfRegistrationEnabled, registrationFlowType, requiredFields), fields, botProtection,
           verification, approval, security, registrationDetails @text
-      - attributeMappings: `IdentityAttributeMappingEntry`
+      - attributeMappings: `IdentityAttributeMappingEntry`[]
         - content @Form(sourceAttribute, sourceSystem, targetAttribute, dataType), transformation, synchronization,
           governance
     - `Authentication`
@@ -64,7 +64,7 @@
         - content, overview @text
         - `MfaConfiguration`
           - content
-          - mfaDetails: `String`
+          - mfaDetails: `String`[]
         - `SsoPolicy`
           - content, ssoDetails @text
         - certificateAuthentication: `CertificateAuthenticationPolicy`
@@ -73,7 +73,7 @@
           - content, biometricDetails @text
         - apiKeyManagement: `ApiKeyManagementPolicy`
           - content, apiKeyDetails @text
-        - items: `AuthenticationMethodEntry`
+        - items: `AuthenticationMethodEntry`[]
           - content @Form(methodType, authenticationFactor), security, applicability, enrollment, operations
       - `AuthenticationFlow`
         - content, overview @text, authenticationFlowDiagram @mermaid-sequence
@@ -89,8 +89,8 @@
           - content, errorHandlingDetails @text
         - stepUpAuthentication: `StepUpAuthenticationPolicy`
           - content
-          - stepUpDetails: `String`
-        - loginFlowSteps: `LoginFlowStepEntry`
+          - stepUpDetails: `String`[]
+        - loginFlowSteps: `LoginFlowStepEntry`[]
           - content @Form(stepOrder, stepType, actor), validation, behavior, protocol
       - `PasswordAndCredentialPolicy`
         - content, overview @text
@@ -108,7 +108,7 @@
           - content, compromiseDetectionDetails @text
         - serviceAccountCredentials: `ServiceAccountCredentialPolicy`
           - content, serviceAccountDetails @text
-        - mfaCategoryRequirements: `MfaCategoryRequirementEntry`
+        - mfaCategoryRequirements: `MfaCategoryRequirementEntry`[]
           - content @Form(userCategory, mfaRequired, targetAal), authenticators, timing, operations
       - `SessionManagement`
         - content, overview @text
@@ -182,39 +182,39 @@
         - content, accessConstraintDetails @text
       - permissionEvaluation: `PermissionEvaluationBehavior`
         - content, permissionEvaluationDetails @text
-    - groups: `AuthorizationGroupEntry`
+    - groups: `AuthorizationGroupEntry`[]
       - content @Form(description, membershipCriteria)
-      - containedRoles: `RoleReferenceEntry`
+      - containedRoles: `RoleReferenceEntry`[]
         - content @Form(roleName)
-    - [1,] roleDefinitions: `AuthorizationRoleEntry`
+    - [1,] roleDefinitions: `AuthorizationRoleEntry`[]
       - content @Form(roleName, description, roleCategory), structure, governance, lifecycle, status
-      - responsibilities: `ResponsibilityReferenceEntry`
+      - responsibilities: `ResponsibilityReferenceEntry`[]
         - content @Form(responsibility, description, scope, criticalityLevel)
-      - entitlementReferences: `EntitlementReferenceEntry`
+      - entitlementReferences: `EntitlementReferenceEntry`[]
         - content @Form(entitlementName, grantType, conditions, scope)
-      - directPermissions: `RolePermissionEntry`
+      - directPermissions: `RolePermissionEntry`[]
         - content @Form(permissionKey, accessType, resourceScope, conditions)
-      - dataScopes: `RoleDataScopeEntry`
+      - dataScopes: `RoleDataScopeEntry`[]
         - content @Form(dataCategory, accessLevel, filterCriteria, maskingRules)
-      - mutualExclusions: `RoleExclusionEntry`
+      - mutualExclusions: `RoleExclusionEntry`[]
         - content @Form(excludedRole, reason, exclusionType, severity)
-      - typicalHolders: `RoleHolderEntry`
+      - typicalHolders: `RoleHolderEntry`[]
         - content @Form(holderDescription, department, organizationalUnit, estimatedCount, assignmentBasis)
-    - [1,] entitlements: `EntitlementEntry`
+    - [1,] entitlements: `EntitlementEntry`[]
       - content @Form(entitlementName, description, accessType, conditions)
-      - resourceKeyReferences: `ResourceKeyReferenceEntry`
+      - resourceKeyReferences: `ResourceKeyReferenceEntry`[]
         - content @Form(resourceKey)
-    - resourceKeys: `ResourceKeyEntry`
+    - resourceKeys: `ResourceKeyEntry`[]
       - content @Form(resourceKey, resourceType, description, protectionLevel)
     - `RoleHierarchy`
       - content, roleHierarchyNotes @text
       - hierarchyPolicy: `RoleHierarchyPolicy`
         - content, roleHierarchyPolicyDetails @text
-      - inheritanceRules: `RoleInheritanceRuleEntry`
+      - inheritanceRules: `RoleInheritanceRuleEntry`[]
         - content @Form(parentRole, childRole, inheritanceType, excludedPermissions, additionalConditions, overridable)
-      - combinationConstraints: `RoleCombinationConstraintEntry`
+      - combinationConstraints: `RoleCombinationConstraintEntry`[]
         - content @Form(constraintType, roleA, roleB, enforcement, severity, businessReason, exemptionProcess)
-      - globalExclusions: `GlobalRoleExclusionEntry`
+      - globalExclusions: `GlobalRoleExclusionEntry`[]
         - content @Form(excludedRoleA, excludedRoleB, reason, enforcementLevel, complianceReference)
       - roleCertification: `RoleCertificationPolicy`
         - content, roleCertificationDetails @text
@@ -224,7 +224,7 @@
         - content, tenantContextPolicyDetails @text
       - `CrossTenantAccessPolicy`
         - content, crossTenantAccessPolicyDetails @text
-      - tenantCustomizations: `TenantCustomizationEntry`
+      - tenantCustomizations: `TenantCustomizationEntry`[]
         - content @Form(customizationType, scopingMechanism, customRolesAllowed, customPermissionsAllowed, customPoliciesAllowed, inheritFromGlobal, customizationApproval, customizationAudit, notes)
       - `TenantOnboardingPolicy`
         - content, tenantOnboardingPolicyDetails @text
@@ -236,7 +236,7 @@
       - content, encryptionAtRestNotes @text
       - encryptionPolicy: `EncryptionAtRestPolicy`
         - content, encryptionAtRestPolicyDetails @text
-      - encryptedDataCategories: `EncryptedDataCategoryEntry`
+      - encryptedDataCategories: `EncryptedDataCategoryEntry`[]
         - content @Form(dataClassification, encryptionApproach, algorithmOverride, encryptedFields, tokenizationUsed, dataRetentionDays, notes)
       - databaseEncryption: `DatabaseEncryptionPolicy`
         - content, databaseEncryptionDetails @text
@@ -250,7 +250,7 @@
         - content, tlsProtocolPolicyDetails @text
       - certificateManagement: `CertificateManagementPolicy`
         - content, certificateManagementDetails @text
-      - communicationChannels: `CommunicationChannelEncryptionEntry`
+      - communicationChannels: `CommunicationChannelEncryptionEntry`[]
         - content @Form(channelType, tlsRequired, minimumTlsVersionOverride, mutualTlsRequired, certificatePinning, pinningStrategy, notes)
       - `MutualTlsPolicy`
         - content, mutualTlsPolicyDetails @text
@@ -292,7 +292,7 @@
       - administrativeEvents: `AdministrativeEventPolicy`
         - content @Form(logConfigurationChanges, logUserAdministration, logSystemStartStop, logBackupRestoreOperations, logSecurityPolicyChanges, logAuditLogAccess, logBreakGlassUsage),
           notes @text
-      - customEvents: `SecurityEventEntry`
+      - customEvents: `SecurityEventEntry`[]
         - content @Form(eventCategory, description, severity, triggerCondition, responseAction, complianceMapping)
     - `AuditLogFormat`
       - content, notes @text

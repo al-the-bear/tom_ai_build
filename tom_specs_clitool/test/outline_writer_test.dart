@@ -184,10 +184,10 @@ void main() {
       });
 
       expect(body.split('\n'), [
-        '  - unbounded: `Item`',
-        '  - [1,] atLeastOne: `Item`',
-        '  - [,5] atMostFive: `Item`',
-        '  - [1,5] between: `Item`',
+        '  - unbounded: `Item`[]',
+        '  - [1,] atLeastOne: `Item`[]',
+        '  - [,5] atMostFive: `Item`[]',
+        '  - [1,5] between: `Item`[]',
       ]);
     });
 
@@ -211,9 +211,9 @@ void main() {
       });
 
       expect(body.split('\n'), [
-        '  - preamble: `Item` [first]',
-        '  - items: `Item`',
-        '  - appendices: `Item` [last]',
+        '  - preamble: `Item`[] [first]',
+        '  - items: `Item`[]',
+        '  - appendices: `Item`[] [last]',
       ]);
     });
 
@@ -234,7 +234,7 @@ void main() {
           ),
         ]),
       });
-      expect(body, '  - implementations: `Item` ⟷ PRIDN.processId');
+      expect(body, '  - implementations: `Item`[] ⟷ PRIDN.processId');
     });
 
     test('@Comment appends `← (text)` with no column padding (§11.2.10)', () {
@@ -251,7 +251,7 @@ void main() {
           ),
         ]),
       });
-      expect(body, '  - systems: `Item` ← (seeded)');
+      expect(body, '  - systems: `Item`[] ← (seeded)');
     });
 
     test('@Reference shows both names, is not followed (§11.2.9)', () {
@@ -340,6 +340,120 @@ void main() {
         "    <!-- @AccessKey('systemName') systemName -->",
         '    - content, systemName',
       ]);
+    });
+
+    test('a list is marked `[]`, so it cannot be read as a singular member '
+        '(§11.2.3)', () {
+      // The case the notation used to lose. A singular member whose name does
+      // not match its type, and an unconstrained list of that same type, both
+      // rendered as ``- name: `Entry` `` -- only a plural name hinted at the
+      // difference, and that is a convention, not something a reader can rely
+      // on. §11.2.3 calls the list member name structurally significant (a
+      // section level, each item a subsection) while a singular member is one
+      // section, so this was eliding exactly the distinction it called
+      // significant.
+      final body = render('Root', {
+        'Root': ModelClass(name: 'Root', fields: [
+          ModelField(name: 'header', typeName: 'Entry'),
+          ModelField(
+            name: 'revisionHistory',
+            typeName: 'List<Entry>',
+            isList: true,
+            listElementTypeName: 'Entry',
+            listElementIsComplex: true,
+          ),
+        ]),
+        'Entry': ModelClass(name: 'Entry', fields: [leaf('content')]),
+      });
+
+      expect(body.split('\n'), [
+        '  - header: `Entry`',
+        '    - content',
+        '  - revisionHistory: `Entry`[]',
+        '    - content',
+      ]);
+    });
+
+    test('a list of a leaf type is marked `[]` as well (§11.2.3)', () {
+      // `List<String>` is still a list, and the `[]` is what says so. It is
+      // not followed, so without the marker the line is a bare backticked
+      // type with nothing under it -- readable as a singular member of an
+      // unexpanded class.
+      final body = render('Root', {
+        'Root': ModelClass(name: 'Root', fields: [
+          leaf('content'),
+          ModelField(
+            name: 'relatedPainPoints',
+            typeName: 'List<String>',
+            isList: true,
+            listElementTypeName: 'String',
+          ),
+        ]),
+      });
+
+      expect(body.split('\n'), [
+        '  - content',
+        '  - relatedPainPoints: `String`[]',
+      ]);
+    });
+
+    test('`[]` marks list-ness, `[min,max]` bounds it -- the two are '
+        'independent (§11.2.3)', () {
+      // The `[]` suffix is unconditional, so it does not compete with the
+      // bounds tag for the job of announcing a list. A reader scans for `[]`
+      // to find every list; the bracket tag then says how many, when the
+      // model constrains it.
+      final body = render('Root', {
+        'Root': ModelClass(name: 'Root', fields: [
+          ModelField(
+            name: 'unbounded',
+            typeName: 'List<Item>',
+            isList: true,
+            listElementTypeName: 'Item',
+          ),
+          ModelField(
+            name: 'bounded',
+            typeName: 'List<Item>',
+            isList: true,
+            listElementTypeName: 'Item',
+            annotations: [AnnotationData('Min', {'count': 1})],
+          ),
+        ]),
+      });
+
+      expect(body.split('\n'), [
+        '  - unbounded: `Item`[]',
+        '  - [1,] bounded: `Item`[]',
+      ]);
+    });
+
+    test('`[]` sits on the type, ahead of every trailing annotation '
+        '(§11.2.3)', () {
+      // The marker belongs to the type -- the member is "many Item" -- so it
+      // binds tighter than @Comment/@Position/@ForEach, which describe the
+      // member. Placing it outside the backticks keeps the backticked span
+      // exactly the class name, so a reader (or a grep) can still lift a type
+      // name out of an outline.
+      final body = render('Root', {
+        'Root': ModelClass(name: 'Root', fields: [
+          ModelField(
+            name: 'systems',
+            typeName: 'List<Item>',
+            isList: true,
+            listElementTypeName: 'Item',
+            annotations: [
+              AnnotationData('Comment', {'text': 'seeded'}),
+              AnnotationData('Position', {'position': 'last'}),
+              AnnotationData('ForEach', {
+                'registryType': 'PRIDN',
+                'key': 'processId',
+              }),
+            ],
+          ),
+        ]),
+      });
+
+      expect(body, '  - systems: `Item`[] ← (seeded) [last] ⟷ PRIDN.processId');
     });
 
     test('the name-match rule drops a redundant member name (§11.2.2)', () {

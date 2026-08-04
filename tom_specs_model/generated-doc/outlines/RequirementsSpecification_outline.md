@@ -5,92 +5,92 @@
     - content @Form(documentId, project, version, date, author, status)
   - `FunctionalRequirements`
     - content, summaryForm
-    - [1,] requirements: `FunctionalRequirementEntry`
+    - [1,] requirements: `FunctionalRequirementEntry`[]
       - content @Form(status), details, priority, source, verification, constraints, metadata
       - acceptanceCriteria: `RequirementAcceptanceCriteria`
         - content @description
-        - criteria: `AcceptanceCriterionEntry`
+        - criteria: `AcceptanceCriterionEntry`[]
           - content @Form(given, when, then, and, verificationMethod, testType, priority, status)
       - businessRules: `RequirementBusinessRules`
         - content @description
-        - rules: `RequirementBusinessRuleEntry`
+        - rules: `RequirementBusinessRuleEntry`[]
           - content @Form(ruleType, ruleStatement, source, effectiveDate, expirationDate, exceptions, enforcement, impact)
       - dataRequirements: `RequirementDataRequirements`
         - content @description
-        - entities: `DataEntityReferenceEntry`
+        - entities: `DataEntityReferenceEntry`[]
           - content @Form(crudOperations, attributes, volumeEstimate, dataQualityRules, dataOwner), relatedEntity
       - uiSpecification: `RequirementUiSpecification`
         - content, uiForm, layoutCode, mockupDescription
-        - fields: `ScreenFieldEntry`
+        - fields: `ScreenFieldEntry`[]
           - content @Form(fieldId, fieldType), dataBinding, conditions, validation, textConstraints,
             numericConstraints, temporalConstraints, choiceOptions, fileConstraints, layout
-          - validationRules: `FieldValidationRule`
+          - validationRules: `FieldValidationRule`[]
             - content @Form(ruleType, ruleExpression, errorCode, errorMessage, severity, triggerEvent)
-        - actions: `RequirementScreenActionEntry`
+        - actions: `RequirementScreenActionEntry`[]
           - content @Form(actionId, actionType, icon, iconPosition, buttonStyle, placement, keyboardShortcut, enabled, enabledCondition, visible, visibilityCondition, confirmationRequired, confirmationMessage, successMessage, errorMessage, navigationTarget, apiEndpoint, requiredPermission, auditLogging)
-          - parameters: `ActionParameterEntry`
+          - parameters: `ActionParameterEntry`[]
             - content @Form(sourceType, sourceValue, required)
-        - behaviors: `ScreenBehaviorEntry`
+        - behaviors: `ScreenBehaviorEntry`[]
           - content @Form(behaviorId, behaviorType, triggerEvent, triggerField, condition, affectedFields, action, formula, description)
       - dependencies: `RequirementDependencies`
         - content @description
-        - items: `RequirementDependencyEntry`
+        - items: `RequirementDependencyEntry`[]
           - content @Form(dependencyType, description, impact), relatedRequirement
       - traceability: `RequirementTraceability`
         - content, traceabilityForm, artifacts, implementation
       - testCases: `RequirementTestCases`
         - content @description
-        - testCases: `RequirementTestCaseEntry`
+        - testCases: `RequirementTestCaseEntry`[]
           - content @Form(testType, testCategory, preconditions), execution, automation, relatedCriterion
   - `TechnicalRequirements`
     - content, summaryForm
-    - requirements: `TechnicalRequirementEntry`
+    - requirements: `TechnicalRequirementEntry`[]
       - content @Form(status), details, measurement, verification, impact, constraints
       - acceptanceCriteria: `RequirementAcceptanceCriteria`
         - content @description
-        - criteria: `AcceptanceCriterionEntry`
+        - criteria: `AcceptanceCriterionEntry`[]
           - content @Form(given, when, then, and, verificationMethod, testType, priority, status)
       - dependencies: `RequirementDependencies`
         - content @description
-        - items: `RequirementDependencyEntry`
+        - items: `RequirementDependencyEntry`[]
           - content @Form(dependencyType, description, impact), relatedRequirement
       - traceability: `RequirementTraceability`
         - content, traceabilityForm, artifacts, implementation
   - `SecurityRequirements`
     - content, summaryForm
-    - requirements: `SecurityRequirementEntry`
+    - requirements: `SecurityRequirementEntry`[]
       - content @Form(description), classification, compliance, verification, statusInfo
       - acceptanceCriteria: `RequirementAcceptanceCriteria`
         - content @description
-        - criteria: `AcceptanceCriterionEntry`
+        - criteria: `AcceptanceCriterionEntry`[]
           - content @Form(given, when, then, and, verificationMethod, testType, priority, status)
       - controls: `SecurityControls`
         - content @description
-        - controls: `SecurityControlEntry`
+        - controls: `SecurityControlEntry`[]
           - content @Form(controlType, implementationType), implementation, verification
       - dependencies: `RequirementDependencies`
         - content @description
-        - items: `RequirementDependencyEntry`
+        - items: `RequirementDependencyEntry`[]
           - content @Form(dependencyType, description, impact), relatedRequirement
       - traceability: `RequirementTraceability`
         - content, traceabilityForm, artifacts, implementation
   - `OrganizationalRequirements`
     - content, summaryForm
-    - requirements: `OrganizationalRequirementEntry`
+    - requirements: `OrganizationalRequirementEntry`[]
       - content @Form(description), classification, impact, planning
       - acceptanceCriteria: `RequirementAcceptanceCriteria`
         - content @description
-        - criteria: `AcceptanceCriterionEntry`
+        - criteria: `AcceptanceCriterionEntry`[]
           - content @Form(given, when, then, and, verificationMethod, testType, priority, status)
       - implementationPlan: `OrgRequirementImplementationPlan`
         - content, planForm
-        - activities: `OrgImplementationActivity`
+        - activities: `OrgImplementationActivity`[]
           - content @Form(description, owner, startDate, endDate, deliverable, status)
       - dependencies: `RequirementDependencies`
         - content @description
-        - items: `RequirementDependencyEntry`
+        - items: `RequirementDependencyEntry`[]
           - content @Form(dependencyType, description, impact), relatedRequirement
-  - requirementRelationships: `RequirementRelationships`
+  - requirementRelationships: `RequirementRelationships`[]
     - content
   - `RequirementCoverage`
     - content

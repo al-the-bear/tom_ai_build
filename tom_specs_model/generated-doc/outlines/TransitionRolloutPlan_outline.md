@@ -8,13 +8,13 @@
       workflowDiagram @mermaid-flow
   - `TranslationProcess`
     - translationProcessContent, workflow, quality, terminology, ongoing, translationNarrative @text
-    - vendors: `TranslationVendorEntry`
+    - vendors: `TranslationVendorEntry`[]
       - content @Form(vendorType, languages, specializations, turnaroundTime, qualityRating, contactInfo)
   - userDocumentation: `UserDocumentationRequirements`
     - documentationContent, deliverables, localization, documentationNarrative @text
   - trainingDeliverables: `TrainingDeliverableRequirements`
     - trainingContent, trainingNarrative @text
-    - trainingModules: `TrainingModuleEntry`
+    - trainingModules: `TrainingModuleEntry`[]
       - content @Form(targetAudience, duration, deliveryMethod, prerequisites, learningObjectives, assessmentMethod)
   - `RolloutPlan`
     - content

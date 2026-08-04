@@ -309,7 +309,15 @@ class OutlineWriter {
       cardinalityTag = '';
     }
 
-    final line = StringBuffer('$indent-$cardinalityTag ${field.name}: `$innerType`');
+    // `[]` marks list-ness unconditionally (`tom_specs_model_rules.md`
+    // §11.2.3). Without it an unconstrained list and a name-mismatched
+    // singular member render identically, and the bounds tag cannot stand in
+    // for it: it is present only where the model constrains the count. The
+    // marker sits outside the backticks so the backticked span stays exactly
+    // the class name, and ahead of the trailing annotations because it belongs
+    // to the type rather than to the member.
+    final line =
+        StringBuffer('$indent-$cardinalityTag ${field.name}: `$innerType`[]');
 
     // Trailing annotations
     _appendTrailingAnnotations(line, field, indent.length);

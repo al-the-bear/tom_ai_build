@@ -5,9 +5,9 @@
     - content @Form(documentId, project, version, date, author, status)
   - `QualityFramework`
     - frameworkContent, objectives, tradeOffs, verification, qualityObjectivesOverview @text, objectivesBreakdown @text
-    - qualityCategories: `QualityCategoryEntry`
+    - qualityCategories: `QualityCategoryEntry`[]
       - content @Form(categoryWeight), definition, relationships, governance, metrics, categoryDetails @text
-    - categoryDependencies: `String`
+    - categoryDependencies: `String`[]
   - functionalSuitability: `FunctionalSuitabilityCharacteristic`
     - functionalSuitabilityContent, overview @text
     - `FunctionalCompleteness`
@@ -39,7 +39,7 @@
     - serviceLevelRequirements: `ServiceLevel`
       - content @Form(supportTierStructure, criticalResponseTime, highResponseTime), response, resolution, escalation,
         onCall, restoration, narrative @text
-      - slaEntries: `ServiceLevelAgreementEntry`
+      - slaEntries: `ServiceLevelAgreementEntry`[]
         - content @Form(slaId, slaName, slaDescription, slaMetric, slaTarget, slaMeasurementMethod, slaReportingFrequency, slaPenalty, slaExclusions)
     - monitoringAndPrevention: `OperationalMonitoring`
       - content @Form(scalabilityMonitoringApproach, capacityPlanningProcess, growthProjections), coverage, automation,
@@ -83,47 +83,47 @@
     - prioritizationFrameworkContent, prioritizationOverview @text
     - `WeightedQualityMatrix`
       - matrixConfigContent, matrixNarrative @text, matrixVisualization @mermaid
-      - weights: `QualityWeightEntry`
+      - weights: `QualityWeightEntry`[]
         - content @Form(qualityAttribute, qualityCategory, weight, priority, rationale, stakeholderAgreement, tradeOffImplications)
     - `TradeOffDecisions`
       - tradeOffGovernanceContent, tradeOffOverview @text
-      - items: `TradeOffDecisionEntry`
+      - items: `TradeOffDecisionEntry`[]
         - content @Form(decisionStatus), qualities, rationale, impact, mitigation, approval, detailedAnalysis @text
   - `AcceptanceCriteriaSummary`
     - acceptanceFrameworkContent, acceptanceOverview @text, acceptanceTestSummary @text
     - `MustPassCriteria`
       - mustPassOverviewContent, overview @text
-      - items: `MustPassCriterionEntry`
+      - items: `MustPassCriterionEntry`[]
         - content @Form(verificationMethod), definition, verification, governance, status, details @text
     - `QualityGateChecklist`
       - checklistOverviewContent, overview @text
-      - items: `QualityGateCheckEntry`
+      - items: `QualityGateCheckEntry`[]
         - content @Form(checkItem, verificationMethod), definition, verification, execution, status, blocking
     - detailedCriteria: `AcceptanceCriteriaList`
       - content
-      - items: `DeliveryAcceptanceCriterionEntry`
+      - items: `DeliveryAcceptanceCriterionEntry`[]
         - content @Form(criterion, category), definition, verification, traceability, ownership, status
   - `TestStrategy`
     - content
   - acceptanceCriteria: `AcceptanceCriteriaList`
     - content
-    - items: `DeliveryAcceptanceCriterionEntry`
+    - items: `DeliveryAcceptanceCriterionEntry`[]
       - content @Form(criterion, category), definition, verification, traceability, ownership, status
   - `AcceptanceProcess`
     - content @Form(processName, processOwner, acceptanceType), overview, participants, timeline, decision, escalation,
       documentation, processNarrative @text
-    - steps: `AcceptanceStepEntry`
+    - steps: `AcceptanceStepEntry`[]
       - content @Form(stepNumber, description, responsibleRole), flow, outcome
   - `UserAcceptanceTesting`
     - content @Form(uatObjective, uatApproach, uatLead), scope, environment, testData, governance, schedule, criteria,
       defectManagement, reporting, nonFunctional, signOff, training, uatOverview @text
-    - testCycles: `UatTestCycleEntry`
+    - testCycles: `UatTestCycleEntry`[]
       - content @Form(cycleObjective, plannedStartDate, plannedEndDate), scope, execution
-    - testScenarios: `TestScenarioEntry`
+    - testScenarios: `TestScenarioEntry`[]
       - content @Form(priority), identification, business, traceability, setup, execution, postExecution
-      - notes: `TestScenarioNotes`
+      - notes: `TestScenarioNotes`[]
         - content @Form(assumptions, risksAndMitigations, notes)
-      - testSteps: `UatTestStepEntry`
+      - testSteps: `UatTestStepEntry`[]
         - content @Form(stepNumber, action, inputData, expectedResult, uiScreenRef, passCriteria, notes)
   - `DefectResolution`
     - content @Form(severityScheme, priorityScheme, classificationAuthority), sla, thresholds, process, reporting,
@@ -134,5 +134,5 @@
   - warranty: `WarrantyTerms`
     - content @Form(warrantyDuration, warrantyStartTrigger, warrantyScope), duration, coverage, process, transition,
       financial, warrantyNarrative @text
-    - serviceLevels: `WarrantyServiceLevels`
+    - serviceLevels: `WarrantyServiceLevels`[]
       - content @Form(supportHours, responseTimeSev1, responseTimeSev2, resolutionTimeSev1, resolutionTimeSev2, escalationContacts)

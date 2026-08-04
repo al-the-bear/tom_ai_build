@@ -1505,38 +1505,60 @@ comparison is exact after lowercasing the first character only — `header` vs
 
 If the member is a `@Reference`, both names are always shown (see §11.2.9).
 
+The **absence** of a `[]` suffix is what makes a member singular: a list always
+carries one (§11.2.3), so a line without it is exactly-one or zero-or-one.
+
 #### 11.2.3 List members and count constraints
 
-A member whose type is `List<ComplexType>` (zero-or-many relationship). Both the
-**member name** and the **type name** are always shown, because the member name
-(typically plural) differs from the type name (typically singular). The member
-name is structurally significant — it represents a **section level** in the
-target document, with each list item as a subsection.
+A member whose type is a `List` (zero-or-many relationship), whether of a complex
+type or a leaf one. Both the **member name** and the **type name** are always
+shown, because the member name (typically plural) differs from the type name
+(typically singular). The member name is structurally significant — it represents
+a **section level** in the target document, with each list item as a subsection.
 
-When a list has `@Min` or `@Max` constraints, the bounds are shown as a
-`[min,max]` tag between the bullet and the member name. If there are no
-constraints, no tag is emitted. Omitted values mean "no constraint" (min
-defaults to 0, max defaults to ∞):
+**A `[]` suffix on the type marks every list**, without exception:
+
+```
+- revisionHistory: `RevisionEntry`[]
+```
+
+The suffix sits **outside the backticks**, so the backticked span remains exactly
+the class name and a type can still be lifted out of an outline by eye or by
+grep. It binds to the type rather than to the member — the member is "many
+`RevisionEntry`" — and so precedes every trailing annotation (§11.2.10–§11.2.12).
+
+The marker is unconditional because without it the notation loses the very
+distinction this section calls structurally significant: a name-mismatched
+singular member (§11.2.2) and an unconstrained list render with the same shape,
+``- name: `Type` ``. A plural member name is a convention, not a rule a reader
+can rely on. Lists of leaf types are marked too — ``- relatedPainPoints:
+`String`[] `` — since those are not expanded and would otherwise be a bare
+backticked type with nothing beneath it.
+
+**Count constraints are separate.** When a list has `@Min` or `@Max`, the bounds
+are shown as a `[min,max]` tag between the bullet and the member name. If there
+are no constraints, no tag is emitted. Omitted values mean "no constraint" (min
+defaults to 0, max defaults to ∞). The `[]` says *this is a list*; the bracket
+tag says *how many*, and only where the model constrains it:
 
 | Notation | Meaning |
 |----------|---------|
-| ``- name: `T` `` | Default: 0..∞ (no constraints) |
-| ``- [1,] name: `T` `` | At least 1, no upper limit |
-| ``- [,5] name: `T` `` | At most 5, min 0 |
-| ``- [1,5] name: `T` `` | Between 1 and 5 items |
+| ``- name: `T`[] `` | Default: 0..∞ (no constraints) |
+| ``- [1,] name: `T`[] `` | At least 1, no upper limit |
+| ``- [,5] name: `T`[] `` | At most 5, min 0 |
+| ``- [1,5] name: `T`[] `` | Between 1 and 5 items |
 
 <!-- outline-excerpt: SolutionBlueprint_outline.md -->
 ```
         - stakeholders: `StakeholdersAndBeneficiaries`
           - content @description
-          - [1,] primaryStakeholders: `StakeholderEntry`
+          - [1,] primaryStakeholders: `StakeholderEntry`[]
             - content @Form(stakeholderType, expectedBenefits)
 ```
 
-> **An unconstrained list and a name-mismatched singular member render
-> identically** — both are ``- name: `Type` ``. The notation does not distinguish
-> cardinality in that case; a reader who needs to know consults the model. Only
-> a `@Min`/`@Max` tag makes a list visibly a list.
+`stakeholders` is one section; `primaryStakeholders` is a section whose items are
+subsections, at least one of them. The suffix alone separates the two — the
+bounds tag adds only the count.
 
 #### 11.2.4 Leaf members
 
@@ -1631,6 +1653,7 @@ shown but not followed, so the target's subtree does not appear (§11.3.2).
 Members or classes annotated with `@Comment("text")` display the comment as a
 trailing marker:
 
+<!-- outline-excerpt: SolutionBlueprint_outline.md -->
 ```
     - requirements: `RequirementsOverview` ← (Seeds → RSP)
 ```
@@ -1639,6 +1662,9 @@ The `← (...)` marker follows the line content after a single space. There is
 **no column alignment**: the writer appends trailing markers directly, so a
 marker's position depends on the length of the line it follows.
 
+`requirements` is a singular member, so it carries no `[]` (§11.2.3); on a list
+the comment follows the marker.
+
 #### 11.2.11 Position markers
 
 The default position is **relative** — subsections appear in the order they are
@@ -1646,13 +1672,18 @@ declared in the class. When a member has a non-default `@Position` annotation, i
 is shown as a trailing marker in square brackets:
 
 ```
-  - preamble: `Item` [first]
-  - items: `Item`
-  - appendices: `Item` [last]
+  - preamble: `Item`[] [first]
+  - items: `Item`[]
+  - appendices: `Item`[] [last]
 ```
 
 The `[relative]` marker is never shown, as it is the default. Like comments,
 position markers follow the content directly with no padding.
+
+`@Position` applies to singular members as well as lists; the members above are
+lists, hence the `[]`. Note that the two bracket forms are distinct and sit on
+opposite sides of the member name: `[min,max]` (§11.2.3) precedes it, `[first]` /
+`[last]` trails the type.
 
 #### 11.2.12 ForEach constraints
 
@@ -1660,7 +1691,7 @@ A list member annotated with `@ForEach` has a bidirectional relationship with a
 registry section type. This is shown with a `⟷` marker:
 
 ```
-  - implementations: `Item` ⟷ PRIDN.processId
+  - implementations: `Item`[] ⟷ PRIDN.processId
 ```
 
 This means: for every entry identified by `PRIDN.processId`, there must be a
@@ -1844,21 +1875,21 @@ hand.
     - content
     - header: `DocumentHeader`
       - content @Form(documentId, project, version, date, author, status)
-    - revisionHistory: `RevisionEntry`
+    - revisionHistory: `RevisionEntry`[]
       - content @Form(version, date, author, summary)
-    - approvals: `ApprovalRecord`
+    - approvals: `ApprovalRecord`[]
       - content @Form(role, date, status)
     - `ReferenceDocuments`
       - content @description
-      - documents: `ReferenceDocumentEntry`
+      - documents: `ReferenceDocumentEntry`[]
         - content @Form(documentId, version), metadata, governance, lifecycle
         - relevantSections: `DocumentRelevantSections`
           - content @Form(sectionReference, sectionTitle, relevance, extractSummary)
-          - sections: `RelevantSectionEntry`
+          - sections: `RelevantSectionEntry`[]
             - content @Form(sectionReference, relevance, extractSummary, complianceRequired)
         - relationships: `DocumentRelationships`
           - content @description
-          - relatedDocuments: `RelatedDocumentEntry`
+          - relatedDocuments: `RelatedDocumentEntry`[]
             - content @Form(relatedDocumentId, relationshipType, relationshipDescription)
   - `IntroductionAndScope`
     - content, systemContextDiagram
@@ -1873,6 +1904,10 @@ hand.
 - **Name-match rule** (§11.2.2): `` - `DocumentControl` `` (member name matches
   the type, so it is dropped) against ``- header: `DocumentHeader` `` (it does
   not, so both are shown).
+- **List marker** (§11.2.3): ``- header: `DocumentHeader` `` and
+  ``- revisionHistory: `RevisionEntry`[] `` sit on consecutive lines — one
+  section against a section whose items are subsections. The `[]` is the only
+  thing that separates them.
 - **Leaf bullet** (§11.2.4): `- content, systemContextDiagram` — all scalars of a
   class on one line.
 - **Line wrapping** (§11.2.4): the `SystemSummary` leaf line breaks after

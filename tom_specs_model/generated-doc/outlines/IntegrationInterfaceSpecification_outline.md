@@ -5,58 +5,58 @@
     - content @Form(documentId, project, version, date, author, status)
   - `ExternalInterfaces`
     - integrationSummary @text, architectureApproach @text, governanceModel @text
-    - interfaces: `ExternalInterfaceEntry`
+    - interfaces: `ExternalInterfaceEntry`[]
       - identificationContent
       - businessContext: `InterfaceBusinessContext`
         - content @Form(businessPurpose, businessValue, businessOwner, useCases, businessCriticality, revenueImpact, regulatoryDriver)
-        - dependentProcesses: `InterfaceBusinessProcessEntry`
+        - dependentProcesses: `InterfaceBusinessProcessEntry`[]
           - content @Form(processId, dependencyType, fallbackBehavior)
       - technicalSpec: `InterfaceTechnicalSpec`
         - content @Form(protocol, transportSecurity, messageFormat, encoding), communication, endpoints, webhookSpec
-        - operations: `InterfaceOperationEntry`
+        - operations: `InterfaceOperationEntry`[]
           - content @Form(operationId, httpMethod, path, purpose, idempotent, requestFormat, responseFormat, paginationSupport, filteringSupport)
       - dataSpec: `InterfaceDataSpec`
         - content @Form(dataExchangeSummary, dataDirection, dataSensitivity, dataRetentionExternal, frequency, batchSchedule, volumePerTransaction, dailyVolume, peakVolume, payloadSizeLimit)
-        - dataEntities: `InterfaceDataEntityEntry`
+        - dataEntities: `InterfaceDataEntityEntry`[]
           - content @Form(direction, fieldCount, requiredFields, sensitiveFields, internalMapping, transformationNeeded)
-        - mappingRules: `String`
-        - validationRules: `String`
+        - mappingRules: `String`[]
+        - validationRules: `String`[]
       - security: `InterfaceSecurity`
         - content @Form(authMethod, authDetails, credentialStorage, credentialRotation), authorization, encryption,
           compliance, securityContacts @text
       - operational: `InterfaceOperational`
         - content @Form(availabilitySla, scheduledDowntime, responseTimeSla, throughputSla), rateLimiting, monitoring,
           support
-        - dependencies: `String`
+        - dependencies: `String`[]
       - errorHandling: `InterfaceErrorHandling`
         - content @Form(errorFormat, errorCodes, retryableErrors), retry, fallback, timeout
-        - errorProcedures: `String`
+        - errorProcedures: `String`[]
       - governance: `InterfaceGovernance`
         - content @Form(externalOwner, internalOwner, technicalContact, businessContact), contract, lifecycle,
           changelog @text
       - testing: `InterfaceTesting`
         - content @Form(sandboxAvailable, sandboxUrl, testCredentials, mockAvailable), data, strategy
-        - testScenarios: `InterfaceTestScenarioEntry`
+        - testScenarios: `InterfaceTestScenarioEntry`[]
           - content @Form(scenarioType, preconditions, testSteps, expectedResult, automated)
   - `OutOfScope`
     - scopePhilosophy @text
-    - items: `OutOfScopeEntry`
+    - items: `OutOfScopeEntry`[]
       - content @Form(itemId, item, itemType, rationale), decision, mitigation
   - `BoundaryAssumptions`
     - assumptionApproach @text
-    - items: `BoundaryAssumptionEntry`
+    - items: `BoundaryAssumptionEntry`[]
       - content @Form(assumption, category), validation, risk
   - systemInventory: `SystemLandscapeInventory`
     - content
-  - interactionPatterns: `BoundaryInteractionPatterns`
+  - interactionPatterns: `BoundaryInteractionPatterns`[]
     - content
   - testingStrategy: `InteractionTestingStrategy`
     - content
   - dependencyAnalysis: `InteractionDependencyAnalysis`
     - content
-  - migrationInteractions: `MigrationInteractions`
+  - migrationInteractions: `MigrationInteractions`[]
     - content
-  - operationalConsiderations: `CrossBoundaryOperationalConsiderations`
+  - operationalConsiderations: `CrossBoundaryOperationalConsiderations`[]
     - content
   - `CrossBoundaryErrorHandling`
     - content

@@ -5,64 +5,64 @@
     - content @Form(documentId, project, version, date, author, status)
   - `DomainEnumRegistry` ← (locus: shared — domainEnum (member kind))
     - content
-    - enums: `DomainEnumEntry`
+    - enums: `DomainEnumEntry`[]
       - content @Form(enumName, description, backingType, defaultValue)
-      - [1,] values: `DomainEnumValueEntry`
+      - [1,] values: `DomainEnumValueEntry`[]
         - content @Form(valueId, backingValue, copyKey, description)
   - `ErrorCodeRegistry` ← (locus: shared — CE-ER)
     - content
-    - errorCodes: `ErrorCodeEntry`
+    - errorCodes: `ErrorCodeEntry`[]
       - content @Form(code, category, severity, retryable, httpStatusHint, copyKey)
   - `ResultEnvelope` ← (locus: shared — CE-ER)
     - content @Form(discriminatorField, successArm, errorArm, retryable, severity)
-    - fieldDetails: `ResultFieldDetailEntry`
+    - fieldDetails: `ResultFieldDetailEntry`[]
       - content @Form(fieldPath, errorCodeRef, message)
   - `MessageKeyRegistry` ← (locus: shared — CE-TX)
     - content
-    - messageKeys: `MessageKeyEntry`
+    - messageKeys: `MessageKeyEntry`[]
       - content @Form(key, defaultCopy, placeholders, description)
-      - localeVariants: `MessageLocaleVariantEntry`
+      - localeVariants: `MessageLocaleVariantEntry`[]
         - content @Form(locale, copy)
   - `NotificationModel` ← (locus: shared — CE-NT)
     - content @description
-    - [1,] channels: `NotificationChannelEntry`
+    - [1,] channels: `NotificationChannelEntry`[]
       - content @Form(channelId, description, deliveryMethod, retryPolicy, fallbackChannel, quietHoursSupport, urgencyLevels)
-    - notificationTypes: `NotificationTypeEntry`
+    - notificationTypes: `NotificationTypeEntry`[]
       - content @Form(notificationType, typeId, category, urgency, defaultChannels, userConfigurable, mandatoryChannels, triggerEvent, contentTemplate, localized)
-    - preferences: `UserNotificationPreferences`
+    - preferences: `UserNotificationPreferences`[]
       - content @form
   - `DataModel` ← (locus: server — CE-DB/CE-VA)
     - content
-    - [1,] entities: `DataEntityEntry`
+    - [1,] entities: `DataEntityEntry`[]
       - identity, classification, lifecyclePolicy, relationshipSummary
-      - attributes: `DataAttributeEntry`
+      - attributes: `DataAttributeEntry`[]
         - identity, dataTypeSpec, textTypeOptions, numericTypeOptions, temporalTypeOptions, binaryTypeOptions,
           fileReferenceOptions, enumerationTypeOptions, derivation, securityClassification, migrationLineage
-        - constraints: `DataAttributeConstraintEntry`
+        - constraints: `DataAttributeConstraintEntry`[]
           - content @Form(mandatory, nullable, unique, defaultValue, validationRules, constraintExpression, allowedValues, patternRegex)
-        - displayProperties: `DisplayPropertyEntry`
+        - displayProperties: `DisplayPropertyEntry`[]
           - content @Form(displayOrder, displayGroup, helpText)
-      - keyAttributes: `KeyAttributeEntry`
+      - keyAttributes: `KeyAttributeEntry`[]
         - content @Form(keyType, keyColumns, description), generation, reference, governance, referencedEntityRef
-      - indexes: `EntityIndexEntry`
+      - indexes: `EntityIndexEntry`[]
         - content @Form(indexType, columns, includeColumns, isUnique, isClustered, filterCondition, purpose, estimatedSize)
-      - constraints: `EntityConstraintEntry`
+      - constraints: `EntityConstraintEntry`[]
         - content @Form(constraintType, expression, errorMessage, enforcementLevel, isDeferred, businessRule)
     - `EntityRelationships`
       - content
-      - items: `EntityRelationshipEntry`
+      - items: `EntityRelationshipEntry`[]
         - identity, cardinality, referentialIntegrity, navigation, sourceEntityRef, targetEntityRef
-        - participants: `ParticipantEntry`
+        - participants: `ParticipantEntry`[]
           - content @Form(sourceEntityName, sourceRole, targetEntityName, targetRole)
-        - relationshipAttributes: `RelationshipAttributeEntry`
+        - relationshipAttributes: `RelationshipAttributeEntry`[]
           - content @Form(hasRelationshipAttributes, relationshipAttributes, temporalAspects)
     - `DataClassification`
       - overview
-      - items: `DataClassificationEntry`
+      - items: `DataClassificationEntry`[]
         - identity, storageTransmission, accessControl, retentionDisposal, compliance
-        - handlingRequirements: `HandlingRequirementEntry`
+        - handlingRequirements: `HandlingRequirementEntry`[]
           - content @Form(requirementType, requirement, rationale, enforcementMechanism, validationMethod, exceptionProcess)
-        - accessRestrictions: `AccessRestrictionEntry`
+        - accessRestrictions: `AccessRestrictionEntry`[]
           - content @Form(restrictionType, restriction, scope, enforcement, effectiveConditions, overridePolicy)
     - `DataDictionary`
       - content
@@ -76,15 +76,15 @@
       - content
       - `PlatformAndLanguage`
         - content, overview @text
-        - targetPlatforms: `TargetPlatformEntry`
+        - targetPlatforms: `TargetPlatformEntry`[]
           - content @Form(platformCategory, platformType), version, architecture, requirements, lifecycle
-        - programmingLanguages: `ProgrammingLanguageEntry`
+        - programmingLanguages: `ProgrammingLanguageEntry`[]
           - content @Form(languageVariant, minimumVersion), version, sdk, usage, quality, justification
-        - frameworks: `FrameworkRequirementEntry`
+        - frameworks: `FrameworkRequirementEntry`[]
           - content @Form(frameworkCategory, purpose), identity, version, scope, compatibility, support, justification
-        - buildToolchain: `BuildToolchainEntry`
+        - buildToolchain: `BuildToolchainEntry`[]
           - content @Form(toolCategory, platform), versions, configuration, profiles, integration, outputs, operations
-        - deploymentTargets: `DeploymentTargetEntry`
+        - deploymentTargets: `DeploymentTargetEntry`[]
           - content @Form(targetCategory, targetEnvironment), platform, buildOutput, requirements, process, compliance
         - `DependencyManagement`
           - content @Form(primaryPackageManager, secondaryPackageManagers, registryUrls), versioning, security,
@@ -96,12 +96,12 @@
         - content
         - overview: `ArchitectureOverview`
           - content @Form(primaryStyle, secondaryStyles, styleSummary), drivers, tradeOffs, evolution, compliance
-        - principles: `ArchitecturePrincipleEntry`
+        - principles: `ArchitecturePrincipleEntry`[]
           - content @Form(category, statement), guidance, governance
         - `ComponentOrganization`
           - content @Form(organizationStrategy, boundaryDefinition, modularityApproach), layering, domain, coupling,
             dependencies
-        - components: `ArchitectureComponentEntry`
+        - components: `ArchitectureComponentEntry`[]
           - content @Form(componentType, domain), purpose, boundaries, dependencies, technical, ownership
         - `CommunicationPatterns`
           - content @Form(primaryPattern, secondaryPatterns, syncProtocols), synchronous, asynchronous, dataExchange,
@@ -118,18 +118,18 @@
         - `DeploymentTopology`
           - content @Form(topologyType, deploymentModel, cloudProviders), infrastructure, environmentsConfig,
             availability, geography, infrastructureAsCode
-        - decisionRecords: `ArchitectureDecisionRecord`
+        - decisionRecords: `ArchitectureDecisionRecord`[]
           - content @Form(date, status), contextDetails, outcome, consequences, relations
       - `DesignPatternsAndStandards`
         - content, overview @text
-        - designPatterns: `DesignPatternEntry`
+        - designPatterns: `DesignPatternEntry`[]
           - content @Form(patternCategory, patternSource, purpose), applicability, structure, implementation, context,
             enforcement
-        - codingStandards: `CodingStandardEntry`
+        - codingStandards: `CodingStandardEntry`[]
           - content @Form(standardCategory, applicableLanguage), ruleDetails, naming, formatting, enforcement
-        - developmentConventions: `DevelopmentConventionEntry`
+        - developmentConventions: `DevelopmentConventionEntry`[]
           - content @Form(conventionCategory, description), overview, versionControl, review, automation, enforcement
-        - industryStandards: `IndustryStandardEntry`
+        - industryStandards: `IndustryStandardEntry`[]
           - content @Form(standardBody, version, publicationDate, category, complianceLevel), scope, compliance,
             certification, verification, reference
         - `CodeQualityMetrics`
@@ -148,32 +148,32 @@
       - content
       - `LayeringAndModuleStructure`
         - content, overview @text
-        - softwareLayers: `SoftwareLayerEntry`
+        - softwareLayers: `SoftwareLayerEntry`[]
           - content @Form(layerLevel, layerPattern), responsibilities, components, dependencies, technology
         - `LayerCommunicationRules`
           - content @Form(communicationDirection, dependencyRule, abstractionPrinciple), interfaces, flow, governance
-        - boundedContexts: `BoundedContextEntry`
+        - boundedContexts: `BoundedContextEntry`[]
           - content @Form(domainArea, owningTeam), scope, boundaries, implementation, integration
         - `PackageOrganization`
           - content @Form(namingConvention, prefixStrategy, suffixConventions), structure, types, dependencies,
             documentation
-        - modules: `ModuleEntry`
+        - modules: `ModuleEntry`[]
           - content @Form(moduleType, version), description, dependencies, ownership, configuration, testing
-        - sharedLibraries: `SharedLibraryEntry`
+        - sharedLibraries: `SharedLibraryEntry`[]
           - content @Form(libraryType, version), description, api, lifecycle
         - dependencyInjection: `DependencyInjectionStructure`
           - content @Form(diFramework, registrationPattern, scopeManagement), registration, binding, configuration,
             troubleshooting
         - `CrossCuttingConcerns`
           - content @Form(loggingStrategy, logLevels, logFormat), errors, security, caching, observability, shared
-        - featureModules: `FeatureModuleEntry`
+        - featureModules: `FeatureModuleEntry`[]
           - content @Form(featureArea, boundedContext), description, structure, dependencies, configuration, navigation
         - `ModuleVersioningStrategy`
           - content @Form(versioningScheme, majorVersionPolicy, minorVersionPolicy, patchVersionPolicy), compatibility,
             releaseManagement, dependencies, coordination
       - `DevelopmentEnvironment`
         - content, overview @text
-        - ideRequirements: `IdeRequirementEntry`
+        - ideRequirements: `IdeRequirementEntry`[]
           - content @Form(version, platform), configuration, integration, standardization
         - buildTools: `BuildToolsConfiguration`
           - content @Form(packageManager, packageManagerVersion, lockfileManagement), buildSystemSettings, compilation,
@@ -182,11 +182,11 @@
           - content @Form(vcsSystem, vcsVersion, hostingPlatform), repository, branching, commits, metadata
         - cicdPipeline: `CiCdPipelineConfiguration`
           - content @Form(cicdPlatform, configurationLocation, secretsManagement)
-          - stages: `PipelineStageEntry`
+          - stages: `PipelineStageEntry`[]
             - content @Form(stageOrder, description), trigger, execution, artifacts, failure
-          - jobs: `PipelineJobEntry`
+          - jobs: `PipelineJobEntry`[]
             - content @Form(parentStage, description), environment, steps, dependencies, outputs
-          - environments: `DeploymentEnvironmentEntry`
+          - environments: `DeploymentEnvironmentEntry`[]
             - content @Form(environmentType, url), deployment, protection, configuration, monitoring
         - `CodeReviewProcess`
           - content @Form(prRequired, prTemplate, prNamingConvention, draftPrSupport), requirements, workflow,
@@ -211,15 +211,15 @@
         - principles: `ReusabilityPrinciples`
           - content @Form(reuseFirstPolicy, extractionCriteria, granularityGuidelines), abstraction, quality,
             versioning, ownership
-        - sharedLibraries: `SharedLibraryComponentEntry`
+        - sharedLibraries: `SharedLibraryComponentEntry`[]
           - content @Form(componentType, version), description, technical, quality, ownership
-        - uiComponents: `ReusableUiComponentEntry`
+        - uiComponents: `ReusableUiComponentEntry`[]
           - content @Form(componentCategory, purpose), description, design, interaction, api, implementation
-        - businessComponents: `BusinessComponentEntry`
+        - businessComponents: `BusinessComponentEntry`[]
           - content @Form(componentType, boundedContext), description, interface, dependencies, testing, reuse
-        - infrastructureComponents: `InfrastructureComponentEntry`
+        - infrastructureComponents: `InfrastructureComponentEntry`[]
           - content @Form(componentType, layer), description, configuration, integration, operations, resiliency
-        - thirdPartyLibraries: `ThirdPartyLibraryEntry`
+        - thirdPartyLibraries: `ThirdPartyLibraryEntry`[]
           - content @Form(packageSource, version), evaluation, licenseInfo, risk, usage, monitoring
         - governance: `ComponentGovernance`
           - content @Form(ownershipModel, sharedComponentsTeam, escalationPath), contribution, quality, lifecycle,
@@ -231,21 +231,21 @@
       - content
       - compatibilityRequirements: `CompatibilityRequirementsSection`
         - content, overview @text
-        - osCompatibility: `OsCompatibilityEntry`
+        - osCompatibility: `OsCompatibilityEntry`[]
           - content @Form(osFamily, minVersion, maxVersion), support, requirements, testing, lifecycle
-        - browserCompatibility: `BrowserCompatibilityEntry`
+        - browserCompatibility: `BrowserCompatibilityEntry`[]
           - content @Form(browserEngine, minVersion, maxVersion), support, features, mobile, testing
-        - databaseCompatibility: `DatabaseCompatibilityEntry`
+        - databaseCompatibility: `DatabaseCompatibilityEntry`[]
           - content @Form(databaseType, minVersion, maxVersion), support, features, connection, performance
-        - enterpriseSystemCompatibility: `EnterpriseSystemCompatibilityEntry`
+        - enterpriseSystemCompatibility: `EnterpriseSystemCompatibilityEntry`[]
           - content @Form(systemType, vendor, version), integration, security, requirements, testing
-        - apiCompatibility: `ApiCompatibilityEntry`
+        - apiCompatibility: `ApiCompatibilityEntry`[]
           - content @Form(apiType, version), policy, format, transportDetails, specification
-        - legacyCompatibility: `LegacyCompatibilityEntry`
+        - legacyCompatibility: `LegacyCompatibilityEntry`[]
           - content @Form(systemName, systemAge, technology), integration, constraintsSection, migration, risk
-        - mobileCompatibility: `MobileCompatibilityEntry`
+        - mobileCompatibility: `MobileCompatibilityEntry`[]
           - content @Form(platform, minVersion, maxVersion), devices, hardware, capabilities, distribution
-        - thirdPartyCompatibility: `ThirdPartyCompatibilityEntry`
+        - thirdPartyCompatibility: `ThirdPartyCompatibilityEntry`[]
           - content @Form(softwareName, vendor, category, version), compatibility, integration, testing, support
         - `DataFormatCompatibility`
           - content @Form(defaultEncoding, supportedEncodings, encodingConversion), formats, dateTime, numbers, locale
@@ -257,21 +257,21 @@
             testing, governance
       - standardsCompliance: `StandardsComplianceSection`
         - content, overview @text
-        - itStandards: `ItStandardComplianceEntry`
+        - itStandards: `ItStandardComplianceEntry`[]
           - content @Form(standardBody, standardId, version), scope, requirements, timeline, ownership, evidence
-        - industryProtocols: `IndustryProtocolComplianceEntry`
+        - industryProtocols: `IndustryProtocolComplianceEntry`[]
           - content @Form(category, specificationVersion, specificationUrl), scope, implementation, testing,
             interoperability
-        - interfaceSpecifications: `InterfaceSpecificationEntry`
+        - interfaceSpecifications: `InterfaceSpecificationEntry`[]
           - content @Form(specificationVersion, standardsBody), definition, conventions, documentation, tooling
-        - regulatoryCompliance: `RegulatoryComplianceEntry`
+        - regulatoryCompliance: `RegulatoryComplianceEntry`[]
           - content @Form(regulationName, jurisdiction, regulatoryBody, effectiveDate), applicability, requirements,
             penalties, ownership
-        - securityStandards: `SecurityStandardComplianceEntry`
+        - securityStandards: `SecurityStandardComplianceEntry`[]
           - content @Form(standardType, version, trustServiceCriteria), scope, controls, assessment, status
-        - accessibilityStandards: `AccessibilityStandardEntry`
+        - accessibilityStandards: `AccessibilityStandardEntry`[]
           - content @Form(version, conformanceLevel, jurisdiction), scope, requirements, testing, documentation
-        - qualityStandards: `QualityStandardEntry`
+        - qualityStandards: `QualityStandardEntry`[]
           - content @Form(maturityLevel, version, scope), processes, implementation, certification, maintenance
         - documentationStandards: `DocumentationStandardsSection`
           - content @Form(documentationPolicy, templateStandards, styleGuide, terminology), technical, user, process,
@@ -288,9 +288,9 @@
       - content
       - serverRequirements: `ServerRequirementsSection`
         - content, overview @text
-        - environments: `ServerEnvironmentEntry`
+        - environments: `ServerEnvironmentEntry`[]
           - content @Form(environmentType, environmentCode, purpose), location, scale, access, lifecycle
-        - serverRoles: `ServerRoleEntry`
+        - serverRoles: `ServerRoleEntry`[]
           - content @Form(roleType, roleAbbreviation), software, capacity, storage, networking
         - computeResources: `ComputeResourceRequirements`
           - content @Form(minCpuCores, recommendedCpuCores, cpuArchitecture, cpuGeneration, specIntBenchmark), memory,
@@ -318,14 +318,14 @@
             licensing
       - clientRequirements: `ClientRequirementsSection`
         - content, overview @text
-        - clientApplications: `ClientApplicationEntry`
+        - clientApplications: `ClientApplicationEntry`[]
           - content @Form(clientId, clientKind, purpose, platformTargets, entryRoute, includedScreens)
-        - browserRequirements: `BrowserRequirementEntry`
+        - browserRequirements: `BrowserRequirementEntry`[]
           - content @Form(browserName, browserEngine, minVersion, recommendedVersion), support, features, testing,
             issues
-        - desktopOsRequirements: `DesktopOsRequirementEntry`
+        - desktopOsRequirements: `DesktopOsRequirementEntry`[]
           - content @Form(osName, osFamily, minVersion, recommendedVersion), support, requirements, software, testing
-        - mobileRequirements: `MobileDeviceRequirementEntry`
+        - mobileRequirements: `MobileDeviceRequirementEntry`[]
           - content @Form(platform, minOsVersion, recommendedOsVersion), support, devices, hardware, capabilities
         - `DisplayRequirements`
           - content @Form(minResolution, recommendedResolution, maxResolution), layout, scaling, color, multiDisplay
@@ -348,15 +348,15 @@
             codeProtection
         - `ClientConfiguration`
           - content
-          - settings: `ClientConfigurationSettingEntry`
+          - settings: `ClientConfigurationSettingEntry`[]
             - content @Form(settingKey, client, valueType, defaultValue, overridableBy)
         - `DeviceSettings`
           - content
-          - settings: `DeviceSettingEntry`
+          - settings: `DeviceSettingEntry`[]
             - content @Form(settingKey, valueType, defaultValue)
         - `UserSettings`
           - content
-          - settings: `UserSettingEntry`
+          - settings: `UserSettingEntry`[]
             - content @Form(settingKey, valueType, defaultValue, overridableBy)
       - networkRequirements: `NetworkRequirementsSection`
         - content, overview @text
@@ -375,7 +375,7 @@
         - availabilityRequirements: `NetworkAvailabilityRequirements`
           - content @Form(availabilityTarget, monthlyDowntime, maintenanceWindows), redundancy, failover, recovery,
             testing
-        - vpnRequirements: `VpnRequirementEntry`
+        - vpnRequirements: `VpnRequirementEntry`[]
           - content @Form(vpnType, purpose), endpoints, protocolDetails, performance, availabilityDetails
         - `FirewallRequirements`
           - content @Form(firewallArchitecture, firewallVendor, managementModel), rules, ports, advanced, logging
@@ -396,7 +396,7 @@
         - content, overview @text
         - dataClassification: `BackupDataClassification`
           - content @Form(criticalData, highPriorityData, mediumPriorityData, lowPriorityData), categories, exclusions
-        - backupPolicies: `BackupPolicyEntry`
+        - backupPolicies: `BackupPolicyEntry`[]
           - content @Form(dataScope, priority), backupType, schedule, retention, storage
         - `RpoRtoRequirements`
           - content @Form(overallRpo, overallRto), byTier, systems, degraded
@@ -450,7 +450,7 @@
         - alerting: `AlertingRequirements`
           - content @Form(alertChannels, primaryChannel, secondaryChannel), routing, deduplication, suppression,
             response
-        - alertDefinitions: `AlertDefinitionEntry`
+        - alertDefinitions: `AlertDefinitionEntry`[]
           - content @Form(alertDescription, severity, priority), condition, recovery, notification
         - dashboards: `DashboardRequirements`
           - content @Form(dashboardPlatform, dashboardAsCode, dashboardLocation), standard, access, features, mobile
@@ -467,7 +467,7 @@
         - scheduledMaintenance: `ScheduledMaintenancePolicy`
           - content @Form(maintenancePolicy, zeroDowntimeGoal, maintenanceAgreement), scheduling, duration, notice,
             approval
-        - maintenanceWindows: `MaintenanceWindowEntry`
+        - maintenanceWindows: `MaintenanceWindowEntry`[]
           - content @Form(windowType, priority, description), schedule, scope, impact, rollback
         - emergencyMaintenance: `EmergencyMaintenanceProcedures`
           - content @Form(emergencyTriggers, securityPatchPolicy, severityThresholds), governance, communication,
@@ -483,7 +483,7 @@
       - content
       - protocolsAndStandards: `ProtocolsAndStandardsSection`
         - content, overview @text
-        - protocols: `ProtocolEntry`
+        - protocols: `ProtocolEntry`[]
           - content @Form(protocolType, protocolVersion, transportLayer, directionality, notes)
         - `TlsRequirements`
           - content @Form(minimumTlsVersion, preferredTlsVersion, disabledProtocols), cipherSuites,
@@ -501,9 +501,9 @@
             observability, events
       - externalConnectivity: `ExternalConnectivitySection`
         - content, overview @text
-        - partnerConnections: `ExternalPartnerConnectionEntry`
+        - partnerConnections: `ExternalPartnerConnectionEntry`[]
           - content @Form(partnerType, connectionPurpose), protocol, authentication, network, reliability, dataHandling
-          - operations: `ExternalPartnerOperations`
+          - operations: `ExternalPartnerOperations`[]
             - content @Form(contactPerson, escalationProcess, maintenanceNotification, notes)
         - cloudServices: `CloudServiceIntegrations`
           - content @Form(primaryCloudProvider, secondaryProviders), services, networking, compliance
@@ -527,20 +527,20 @@
           - configurationManagement: `SystemConfigurationManagement`
             - content @Form(configurationSource, configurationFormat, centralConfigService), dynamic, environment,
               governance
-            - settings: `ServerConfigurationSettingEntry`
+            - settings: `ServerConfigurationSettingEntry`[]
               - content @Form(settingKey, valueType, defaultValue, environmentVariable, commandLineOption, secret, overridableBy)
           - userProvisioning: `UserProvisioningTools`
             - content @Form(provisioningMethod, bulkProvisioning, selfServiceRegistration, invitationWorkflow),
               lifecycle, roleManagement, directoryIntegration
           - batchJobs: `BatchJobManagement`
             - content @Form(timeZoneHandling), workloadShape, execution, monitoring
-            - scheduledJobs: `ScheduledJobEntry`
+            - scheduledJobs: `ScheduledJobEntry`[]
               - content @Form(purpose, triggerKind, primaryDataEntity, enabled, environments), cronTrigger,
                 calendarTrigger, eventTrigger, workDefinition, failurePolicy
           - diagnosticTools: `SystemDiagnosticTools`
             - content @Form(remoteDebugging, profiling, threadDumpCapability, heapDumpCapability), tracing, logs,
               selfService
-        - maintenanceProcedures: `String`
+        - maintenanceProcedures: `String`[]
       - `Monitoring`
         - monitoringOverview, overviewNarrative @text
         - healthChecksAndDiagnostics: `HealthChecksAndDiagnosticsSection`
@@ -561,11 +561,11 @@
           - alertingOverview, overviewNarrative @text
           - notificationChannels: `AlertNotificationChannels`
             - content @Form(pagingService, slackIntegration, teamsIntegration), delivery, routing, formatting
-          - alertRules: `AlertRuleEntry`
+          - alertRules: `AlertRuleEntry`[]
             - content @Form(alertDescription, severity, category), trigger, response, ownership
           - escalationPolicies: `AlertEscalationPolicies`
             - content @Form(level1Responder, level2Responder, level3Responder), timing, behavior, schedules
-          - suppressionRules: `AlertSuppressionRules`
+          - suppressionRules: `AlertSuppressionRules`[]
             - content @Form(scheduledMaintenanceWindows, adHocMaintenanceProcess, maintenanceNotification, dependentAlertSuppression, flappingDetection, silenceRules, inhibitRules, suppressionAuditLog, suppressionReview, notes)
           - onCallSchedule: `OnCallScheduleConfig`
             - content @Form(rotationSchedule, scheduleTimezone, primaryOnCallDuties, secondaryOnCallDuties), coverage,
@@ -581,19 +581,19 @@
               operations
           - distributedTracing: `DistributedTracingSpec`
             - content @Form(tracingBackend, tracingProtocol, traceIdFormat), sampling, spans, operations
-          - customMetrics: `CustomMetricEntry`
+          - customMetrics: `CustomMetricEntry`[]
             - content @Form(metricType, metricDescription, unit, labels, source, alertOnMetric, dashboardInclusion, notes)
         - dashboards: `MonitoringDashboards`
           - dashboardOverview, overviewNarrative @text
-          - dashboards: `DashboardEntry`
+          - dashboards: `DashboardEntry`[]
             - content @Form(dashboardCategory, targetAudience), configuration, operations
-          - dashboardTemplates: `DashboardTemplates`
+          - dashboardTemplates: `DashboardTemplates`[]
             - content @Form(serviceTemplateLayout, serviceTemplateVariables, infraTemplateLayout, k8sTemplateLayout, databaseTemplateLayout, customTemplateProcess, templateVersioning, notes)
         - `SlaAndSloMonitoring`
           - slaOverview, overviewNarrative @text
           - slis: `ServiceLevelIndicators`
             - content @Form(availabilitySli, availabilityExclusions), performance, quality, measurement
-          - slos: `SloEntry`
+          - slos: `SloEntry`[]
             - content @Form(sloDescription, serviceName), target, operations
           - errorBudget: `ErrorBudgetTracking`
             - content @Form(budgetCalculationMethod, budgetWindow, budgetResetPolicy, budgetBurnRateDashboard),
@@ -619,7 +619,7 @@
       - content
       - itSecurityStandards: `ItSecurityStandardsSection`
         - content, overview @text
-        - standards: `SecurityStandardEntry`
+        - standards: `SecurityStandardEntry`[]
           - content @Form(standardVersion, standardType, issuingBody), scope, implementation, verification
         - applicationSecurity: `ApplicationSecurityRequirements`
           - content @Form(owaspTop10Compliance, injectionPrevention, authenticationControls), controls, validation, api
@@ -675,7 +675,7 @@
         - `SecurityTestingAutomation`
           - content @Form(sastTool, sastIntegration, sastRuleConfiguration, securityQualityGates), dast, iast, fuzzing,
             scanning, governance
-        - auditEntries: `SecurityAuditEntry`
+        - auditEntries: `SecurityAuditEntry`[]
           - content @Form(auditCategory, auditDescription, frequency), scheduling, execution, followUp
     - systemArchitecture: `SystemArchitectureSpec`
       - content
@@ -685,7 +685,7 @@
       - content
       - userCategories: `AccessUserCategories`
         - content
-        - items: `UserCategoryDefinition`
+        - items: `UserCategoryDefinition`[]
           - content @Form(description, accessLevel, estimatedCount)
       - `UserLifecycle`
         - content, overview @text
@@ -703,37 +703,37 @@
           - content, deletionProcessDescription @text
         - transitions: `UserLifecycleTransitions`
           - content, transitionRulesDescription @text, lifecycleStateDiagram @mermaid
-          - items: `UserLifecycleTransitionEntry`
+          - items: `UserLifecycleTransitionEntry`[]
             - content @Form(fromState, toState, trigger, triggerConditions), approval, effects, automation
         - selfService: `SelfServiceAccountManagement`
           - content, selfServiceDescription @text
-        - serviceAccounts: `ServiceAccountLifecycle`
+        - serviceAccounts: `ServiceAccountLifecycle`[]
           - content, serviceAccountDescription @text
       - `UserAttributes`
         - content
-        - items: `UserAttributeEntry`
+        - items: `UserAttributeEntry`[]
           - content @Form(dataType, placement, accessGuard, source, required)
     - authentication: `IdentificationAndAuthentication`
       - content
       - `Identification`
         - content @Form(identityModelApproach, identityNamespace, primaryIdentifierType, uniqueIdentifierStrategy, identifierImmutability, identityLifecycleModel, identityTrustModel, maximumIdentitiesPerPerson, identityMergingPolicy, identityDataResidency)
-        - identitySources: `IdentitySourceEntry`
+        - identitySources: `IdentitySourceEntry`[]
           - content @Form(sourceType, sourceProduct), connection, lifecycle, mapping, operations
         - identityVerification: `IdentityVerificationPolicy`
           - content @Form(verificationLevel, nistIalTarget, verificationMode), documents, methods, workflow, lifecycle,
             failure, verificationDetails @text
-        - identityProviders: `IdentityProviderEntry`
+        - identityProviders: `IdentityProviderEntry`[]
           - content @Form(providerType, enabled), mapping, trust, security
-          - details: `IdentityProviderDetails`
+          - details: `IdentityProviderDetails`[]
             - content @Form(providerProduct, protocolVersion, description)
-          - endpoints: `IdentityProviderEndpoints`
+          - endpoints: `IdentityProviderEndpoints`[]
             - content @Form(endpointUrl, metadataUrl, issuerIdentifier, clientId, scopes)
         - singleSignOn: `SingleSignOnPolicy`
           - content @Form(ssoEnabled, ssoScope, ssoProtocol), federation, session, access, operations, ssoDetails @text
         - selfRegistration: `SelfRegistrationPolicy`
           - content @Form(selfRegistrationEnabled, registrationFlowType, requiredFields), fields, botProtection,
             verification, approval, security, registrationDetails @text
-        - attributeMappings: `IdentityAttributeMappingEntry`
+        - attributeMappings: `IdentityAttributeMappingEntry`[]
           - content @Form(sourceAttribute, sourceSystem, targetAttribute, dataType), transformation, synchronization,
             governance
       - `Authentication`
@@ -742,7 +742,7 @@
           - content, overview @text
           - `MfaConfiguration`
             - content
-            - mfaDetails: `String`
+            - mfaDetails: `String`[]
           - `SsoPolicy`
             - content, ssoDetails @text
           - certificateAuthentication: `CertificateAuthenticationPolicy`
@@ -751,7 +751,7 @@
             - content, biometricDetails @text
           - apiKeyManagement: `ApiKeyManagementPolicy`
             - content, apiKeyDetails @text
-          - items: `AuthenticationMethodEntry`
+          - items: `AuthenticationMethodEntry`[]
             - content @Form(methodType, authenticationFactor), security, applicability, enrollment, operations
         - `AuthenticationFlow`
           - content, overview @text, authenticationFlowDiagram @mermaid-sequence
@@ -767,8 +767,8 @@
             - content, errorHandlingDetails @text
           - stepUpAuthentication: `StepUpAuthenticationPolicy`
             - content
-            - stepUpDetails: `String`
-          - loginFlowSteps: `LoginFlowStepEntry`
+            - stepUpDetails: `String`[]
+          - loginFlowSteps: `LoginFlowStepEntry`[]
             - content @Form(stepOrder, stepType, actor), validation, behavior, protocol
         - `PasswordAndCredentialPolicy`
           - content, overview @text
@@ -786,7 +786,7 @@
             - content, compromiseDetectionDetails @text
           - serviceAccountCredentials: `ServiceAccountCredentialPolicy`
             - content, serviceAccountDetails @text
-          - mfaCategoryRequirements: `MfaCategoryRequirementEntry`
+          - mfaCategoryRequirements: `MfaCategoryRequirementEntry`[]
             - content @Form(userCategory, mfaRequired, targetAal), authenticators, timing, operations
         - `SessionManagement`
           - content, overview @text
@@ -860,39 +860,39 @@
           - content, accessConstraintDetails @text
         - permissionEvaluation: `PermissionEvaluationBehavior`
           - content, permissionEvaluationDetails @text
-      - groups: `AuthorizationGroupEntry`
+      - groups: `AuthorizationGroupEntry`[]
         - content @Form(description, membershipCriteria)
-        - containedRoles: `RoleReferenceEntry`
+        - containedRoles: `RoleReferenceEntry`[]
           - content @Form(roleName)
-      - [1,] roleDefinitions: `AuthorizationRoleEntry`
+      - [1,] roleDefinitions: `AuthorizationRoleEntry`[]
         - content @Form(roleName, description, roleCategory), structure, governance, lifecycle, status
-        - responsibilities: `ResponsibilityReferenceEntry`
+        - responsibilities: `ResponsibilityReferenceEntry`[]
           - content @Form(responsibility, description, scope, criticalityLevel)
-        - entitlementReferences: `EntitlementReferenceEntry`
+        - entitlementReferences: `EntitlementReferenceEntry`[]
           - content @Form(entitlementName, grantType, conditions, scope)
-        - directPermissions: `RolePermissionEntry`
+        - directPermissions: `RolePermissionEntry`[]
           - content @Form(permissionKey, accessType, resourceScope, conditions)
-        - dataScopes: `RoleDataScopeEntry`
+        - dataScopes: `RoleDataScopeEntry`[]
           - content @Form(dataCategory, accessLevel, filterCriteria, maskingRules)
-        - mutualExclusions: `RoleExclusionEntry`
+        - mutualExclusions: `RoleExclusionEntry`[]
           - content @Form(excludedRole, reason, exclusionType, severity)
-        - typicalHolders: `RoleHolderEntry`
+        - typicalHolders: `RoleHolderEntry`[]
           - content @Form(holderDescription, department, organizationalUnit, estimatedCount, assignmentBasis)
-      - [1,] entitlements: `EntitlementEntry`
+      - [1,] entitlements: `EntitlementEntry`[]
         - content @Form(entitlementName, description, accessType, conditions)
-        - resourceKeyReferences: `ResourceKeyReferenceEntry`
+        - resourceKeyReferences: `ResourceKeyReferenceEntry`[]
           - content @Form(resourceKey)
-      - resourceKeys: `ResourceKeyEntry`
+      - resourceKeys: `ResourceKeyEntry`[]
         - content @Form(resourceKey, resourceType, description, protectionLevel)
       - `RoleHierarchy`
         - content, roleHierarchyNotes @text
         - hierarchyPolicy: `RoleHierarchyPolicy`
           - content, roleHierarchyPolicyDetails @text
-        - inheritanceRules: `RoleInheritanceRuleEntry`
+        - inheritanceRules: `RoleInheritanceRuleEntry`[]
           - content @Form(parentRole, childRole, inheritanceType, excludedPermissions, additionalConditions, overridable)
-        - combinationConstraints: `RoleCombinationConstraintEntry`
+        - combinationConstraints: `RoleCombinationConstraintEntry`[]
           - content @Form(constraintType, roleA, roleB, enforcement, severity, businessReason, exemptionProcess)
-        - globalExclusions: `GlobalRoleExclusionEntry`
+        - globalExclusions: `GlobalRoleExclusionEntry`[]
           - content @Form(excludedRoleA, excludedRoleB, reason, enforcementLevel, complianceReference)
         - roleCertification: `RoleCertificationPolicy`
           - content, roleCertificationDetails @text
@@ -902,7 +902,7 @@
           - content, tenantContextPolicyDetails @text
         - `CrossTenantAccessPolicy`
           - content, crossTenantAccessPolicyDetails @text
-        - tenantCustomizations: `TenantCustomizationEntry`
+        - tenantCustomizations: `TenantCustomizationEntry`[]
           - content @Form(customizationType, scopingMechanism, customRolesAllowed, customPermissionsAllowed, customPoliciesAllowed, inheritFromGlobal, customizationApproval, customizationAudit, notes)
         - `TenantOnboardingPolicy`
           - content, tenantOnboardingPolicyDetails @text
@@ -929,7 +929,7 @@
       - administrativeEvents: `AdministrativeEventPolicy`
         - content @Form(logConfigurationChanges, logUserAdministration, logSystemStartStop, logBackupRestoreOperations, logSecurityPolicyChanges, logAuditLogAccess, logBreakGlassUsage),
           notes @text
-      - customEvents: `SecurityEventEntry`
+      - customEvents: `SecurityEventEntry`[]
         - content @Form(eventCategory, description, severity, triggerCondition, responseAction, complianceMapping)
     - `AuditLogFormat`
       - content, notes @text
@@ -947,7 +947,7 @@
           notes @text
   - `ReportDefinitions` ← (locus: server — CE-RP)
     - content @description
-    - reports: `ReportEntry`
+    - reports: `ReportEntry`[]
       - content @Form(reportType), identity, dataSource, format, layout, headerFooter, grouping, formatting,
         interactivity, pagination, security, lifecycle
       - access: `AuthorizationRequirementSpec`
@@ -955,49 +955,49 @@
           resourceKeyRequirement, customRequirement
         - gradedRequirement: `GradedAuthorizationRequirement`
           - content @Form(gradingRationale)
-          - [1,] accessLevels: `GradedAccessLevelEntry`
+          - [1,] accessLevels: `GradedAccessLevelEntry`[]
             - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement, entitlementRequirement,
               resourceKeyRequirement, customRequirement
-      - sections: `ReportSectionEntry`
+      - sections: `ReportSectionEntry`[]
         - content @Form(sectionId, sectionType), data, layout, sorting, aggregation
-        - columns: `ReportColumnEntry`
+        - columns: `ReportColumnEntry`[]
           - content @Form(columnId, displayLabel), dataSource, formatting, numericFormat, currencyFormat, dateFormat,
             booleanFormat, textFormat, aggregation, interaction, layout
-        - charts: `ReportChartEntry`
+        - charts: `ReportChartEntry`[]
           - content @Form(chartId, chartType), series, display, interaction, layout
-          - axes: `ReportChartAxes`
+          - axes: `ReportChartAxes`[]
             - content @Form(dataSource, xAxisField, xAxisLabel, xAxisFormat, yAxisField, yAxisLabel, yAxisFormat, yAxisMin, yAxisMax, secondaryYAxisField, secondaryYAxisLabel)
-      - filters: `ReportFilterEntry`
+      - filters: `ReportFilterEntry`[]
         - content @Form(filterId, displayLabel), input, textFilterOptions, numericFilterOptions, dateFilterOptions,
           booleanFilterOptions, selectFilterOptions, entityFilterOptions, behavior, presentation
-      - schedules: `ReportScheduleEntry`
+      - schedules: `ReportScheduleEntry`[]
         - content @Form(scheduleId, frequency), timing, retry, notifications, output
-      - distributions: `ReportDistributionEntry`
+      - distributions: `ReportDistributionEntry`[]
         - content @Form(distributionId, channel, description), recipients, contentSettings, delivery
-      - recipients: `ReportRecipientEntry`
+      - recipients: `ReportRecipientEntry`[]
         - content @Form(recipientId, recipientType, recipientReference), context, delivery, lifecycle
   - `SchemaVersioningAndMigration` ← (locus: server — CE-MG)
     - content @Form(versioningStrategy, forwardOnly, baselineVersion, zeroDowntimeApproach)
-    - migrationTargets: `MigrationTargetEntry`
+    - migrationTargets: `MigrationTargetEntry`[]
       - content @Form(targetName, dataSourceName, schemaName, purpose)
-    - migrationSteps: `SchemaMigrationStepEntry`
+    - migrationSteps: `SchemaMigrationStepEntry`[]
       - content @Form(version, description, artifactKind, migrationTarget, environments), baselineSchema,
         referenceData, schemaChange
   - `ServerOperationRegistry` ← (locus: shared(CE-API contract)+server(CE-API operations))
     - content
-    - operations: `ServerOperationEntry`
+    - operations: `ServerOperationEntry`[]
       - content @Form(purpose, primaryDataEntity, descriptionKey, errorCodes)
       - authorization: `AuthorizationRequirementSpec`
         - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
           resourceKeyRequirement, customRequirement
         - gradedRequirement: `GradedAuthorizationRequirement`
           - content @Form(gradingRationale)
-          - [1,] accessLevels: `GradedAccessLevelEntry`
+          - [1,] accessLevels: `GradedAccessLevelEntry`[]
             - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement, entitlementRequirement,
               resourceKeyRequirement, customRequirement
-      - requestMembers: `ServerOperationMemberEntry`
+      - requestMembers: `ServerOperationMemberEntry`[]
         - content @Form(memberType, multiValued, required, dataEntity, domainEnum, description)
-      - responseMembers: `ServerOperationMemberEntry`
+      - responseMembers: `ServerOperationMemberEntry`[]
         - content @Form(memberType, multiValued, required, dataEntity, domainEnum, description)
   - `ProcessStepsAndActorInteractions` ← (locus: server(CE-SU)+client(CE-SC))
     - content
@@ -1005,54 +1005,54 @@
       - content @Form(useCaseScope, primaryActorFocus, interactionCoverage, scenarioCoverage, useCaseNamingConvention, traceabilityApproach, detailLevel, notationStandard)
     - `ActorOverview`
       - content, overview, categorization
-      - [1,] actors: `ActorEntry`
+      - [1,] actors: `ActorEntry`[]
         - identification, technology, interactions
         - characteristics: `ActorCharacteristics`
           - content @Form(domainKnowledge, technicalSkills, trainingRequired, usageFrequency), usage, support
-        - goals: `ActorGoals`
+        - goals: `ActorGoals`[]
           - content @Form(summaryGoals, userGoals, subfunctionGoals, successMeasures, failureConcerns, motivations, painPoints, desiredImprovements)
-        - permissions: `ActorPermissions`
+        - permissions: `ActorPermissions`[]
           - content @Form(securityClearance, roleBasedPermissions, dataAccessScope, functionalPermissions, approvalLimits, delegationRights, temporaryElevation, auditRequirements)
     - `InteractionCatalog`
       - content, overview, prioritization
-      - [1,] interactions: `InteractionEntry`
+      - [1,] interactions: `InteractionEntry`[]
         - identification, scopeContext, performance, security, traceability
-        - stakeholders: `StakeholdersAndInterests`
+        - stakeholders: `StakeholdersAndInterests`[]
           - content @Form(primaryActorInterest, systemOwnerInterest, regulatorInterest, operationsInterest, supportStaffInterest, otherStakeholders)
-        - preconditions: `PreconditionsAndTriggers`
+        - preconditions: `PreconditionsAndTriggers`[]
           - content @Form(precondition, trigger, triggerType, triggerSource, triggerData, frequencyOfTrigger, validationBeforeStart)
-        - postconditions: `PostconditionsAndGuarantees`
+        - postconditions: `PostconditionsAndGuarantees`[]
           - content @Form(minimalGuarantees, successGuarantees, primaryActorPostcondition, systemPostcondition, dataPostcondition, notificationsGenerated, auditTrail)
         - mainScenario: `MainSuccessScenario`
           - content @Form(scenarioSummary, estimatedDuration, stepCount)
-          - [1,] steps: `MainScenarioStepEntry`
+          - [1,] steps: `MainScenarioStepEntry`[]
             - content @Form(stepNumber, actorAction, systemResponse, dataInvolved, businessRuleApplied, uiElementUsed, validationPerformed, expectedDuration)
         - extensions: `UseCaseExtensions`
           - content @Form(extensionSummary, extensionCount)
-          - extensions: `ExtensionEntry`
+          - extensions: `ExtensionEntry`[]
             - content @Form(branchPoint, condition, extensionType, description, outcome, returnPoint, frequency, severity)
-            - steps: `ExtensionStepEntry`
+            - steps: `ExtensionStepEntry`[]
               - content @Form(stepNumber, action, response)
-        - variations: `TechnologyDataVariations`
+        - variations: `TechnologyDataVariations`[]
           - content @Form(dataVariations, technologyVariations, channelVariations, localizationVariations, accessibilityVariations, offlineVariations)
         - uiPreview: `UIRequirementsPreview`
           - content @Form(primaryScreen, screenFlow, keyFormFields, keyActions, keyDisplayElements, feedbackMechanisms, layoutConsiderations, interactionPatterns),
             screenMockup @mermaid-flow
-        - businessRules: `InteractionBusinessRules`
+        - businessRules: `InteractionBusinessRules`[]
           - content @Form(validationRules, calculationRules, authorizationRules, workflowRules, notificationRules, integrationRules)
     - `KeyScenarios`
       - content, overview
-      - [1,] scenarios: `ScenarioEntry`
+      - [1,] scenarios: `ScenarioEntry`[]
         - identification, context, scenarioData, timing, validation
-        - [1,] steps: `ScenarioStepEntry`
+        - [1,] steps: `ScenarioStepEntry`[]
           - content @Form(stepNumber, actor, action, systemResponse), context, execution
-        - alternativeFlows: `AlternativeFlowEntry`
+        - alternativeFlows: `AlternativeFlowEntry`[]
           - content @Form(flowType, branchPoint, triggerCondition, description, outcome, returnPoint, frequency, businessImpact)
-          - steps: `AlternativeStepEntry`
+          - steps: `AlternativeStepEntry`[]
             - content @Form(stepNumber, action, response, expectedResult)
     - `ActorRelationshipDiagram`
       - overview, actorHierarchy @mermaid-flow, actorSystemDiagram @mermaid-flow
-    - endToEndTestScenarios: `EndToEndTestScenario`
+    - endToEndTestScenarios: `EndToEndTestScenario`[]
       - content
     - `UseCaseTraceability`
       - content
@@ -1062,28 +1062,28 @@
       - content
       - `ScreenInventory`
         - content, overview @text
-        - [1,] items: `ScreenEntry`
+        - [1,] items: `ScreenEntry`[]
           - content @Form(purpose), classification, traceability, presentation, designNotes @text
           - access: `AuthorizationRequirementSpec`
             - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
               resourceKeyRequirement, customRequirement
             - gradedRequirement: `GradedAuthorizationRequirement`
               - content @Form(gradingRationale)
-              - [1,] accessLevels: `GradedAccessLevelEntry`
+              - [1,] accessLevels: `GradedAccessLevelEntry`[]
                 - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
                   entitlementRequirement, resourceKeyRequirement, customRequirement
           - sections: `ScreenSections`
             - content
-            - items: `ScreenSectionEntry`
+            - items: `ScreenSectionEntry`[]
               - content @Form(sectionId, purpose, sectionType), layout, behavior
-              - elements: `ScreenElementEntry`
+              - elements: `ScreenElementEntry`[]
                 - content @Form(elementId, elementType), resources, layout, behavior, presentation
                 - access: `AuthorizationRequirementSpec`
                   - content @Form(requirementKind, rationale), roleRequirement, groupRequirement,
                     entitlementRequirement, resourceKeyRequirement, customRequirement
                   - gradedRequirement: `GradedAuthorizationRequirement`
                     - content @Form(gradingRationale)
-                    - [1,] accessLevels: `GradedAccessLevelEntry`
+                    - [1,] accessLevels: `GradedAccessLevelEntry`[]
                       - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
                         entitlementRequirement, resourceKeyRequirement, customRequirement
                 - elementAction: `ScreenElementAction`
@@ -1095,25 +1095,25 @@
                 - dataDisplay: `ScreenElementDataDisplay`
                   - content @Form(dataSource, displayFormat, emptyStateMessageResource, emptyStateIconResource),
                     behavior, options
-                - validationRules: `ElementValidationRuleEntry`
+                - validationRules: `ElementValidationRuleEntry`[]
                   - content @Form(ruleType, ruleExpression, errorCode, errorMessageResource, severity, validateOn)
           - actions: `ScreenActions`
             - content
-            - items: `ScreenActionEntry`
+            - items: `ScreenActionEntry`[]
               - content @Form(actionId, actionType), visual, conditions, behavior
           - states: `ScreenStates`
             - content
-            - items: `ScreenStateEntry`
+            - items: `ScreenStateEntry`[]
               - content @Form(description, messageResource, iconResource, illustrationResource, primaryActionLabel, primaryActionTarget, secondaryActionLabel)
-          - userCategories: `ScreenUserCategoryEntry`
+          - userCategories: `ScreenUserCategoryEntry`[]
             - content @Form(description, contentVariations)
-          - entryPoints: `EntryPointEntry`
+          - entryPoints: `EntryPointEntry`[]
             - content @Form(entryPoint, source, contextPassed)
-          - responsiveRules: `ScreenResponsiveRuleEntry`
+          - responsiveRules: `ScreenResponsiveRuleEntry`[]
             - content @Form(breakpoint, layoutChanges, hiddenElements, collapsedSections, navigationMode)
       - `InformationArchitecture`
         - content, siteMap @text, contentHierarchy @text, navigationStructure @text, architectureDiagram @mermaid-flow
-        - globalEntryPoints: `String`
+        - globalEntryPoints: `String`[]
     - screenFlow: `ScreenFlowStructure`
       - content, screenFlowDiagram @mermaid-flow
       - `NavigationModel`
@@ -1123,145 +1123,145 @@
             designNotes @text
         - hierarchy: `NavigationHierarchy`
           - content, overview @text
-          - groups: `NavigationGroupEntry`
+          - groups: `NavigationGroupEntry`[]
             - content @Form(groupId, groupLabel, groupIcon, groupDescription), display, structure
             - access: `AuthorizationRequirementSpec`
               - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
                 resourceKeyRequirement, customRequirement
               - gradedRequirement: `GradedAuthorizationRequirement`
                 - content @Form(gradingRationale)
-                - [1,] accessLevels: `GradedAccessLevelEntry`
+                - [1,] accessLevels: `GradedAccessLevelEntry`[]
                   - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
                     entitlementRequirement, resourceKeyRequirement, customRequirement
-            - items: `NavigationItemEntry`
+            - items: `NavigationItemEntry`[]
               - content @Form(itemId, label, targetRoute), display, routing, visibility, badge, interaction
               - access: `AuthorizationRequirementSpec`
                 - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
                   resourceKeyRequirement, customRequirement
                 - gradedRequirement: `GradedAuthorizationRequirement`
                   - content @Form(gradingRationale)
-                  - [1,] accessLevels: `GradedAccessLevelEntry`
+                  - [1,] accessLevels: `GradedAccessLevelEntry`[]
                     - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
                       entitlementRequirement, resourceKeyRequirement, customRequirement
         - `PrimaryNavigation`
           - content @Form(mobilePattern, tabletPattern, desktopPattern), drawer, bottomNav, sidebar, designNotes @text
         - `SecondaryNavigation`
           - content, overview @text
-          - tabBars: `TabBarDefinitionEntry`
+          - tabBars: `TabBarDefinitionEntry`[]
             - content @Form(tabBarId, hostScreenId, tabBarStyle), behavior, loading
-            - [1,] tabs: `TabItemEntry`
+            - [1,] tabs: `TabItemEntry`[]
               - content @Form(tabId, label, icon, displayOrder, contentScreenId, visibilityCondition, badgeType, badgeSource)
               - access: `AuthorizationRequirementSpec`
                 - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
                   resourceKeyRequirement, customRequirement
                 - gradedRequirement: `GradedAuthorizationRequirement`
                   - content @Form(gradingRationale)
-                  - [1,] accessLevels: `GradedAccessLevelEntry`
+                  - [1,] accessLevels: `GradedAccessLevelEntry`[]
                     - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
                       entitlementRequirement, resourceKeyRequirement, customRequirement
         - `UtilityNavigation`
           - content
-          - items: `UtilityNavigationItemEntry`
+          - items: `UtilityNavigationItemEntry`[]
             - content @Form(utilityId, icon, position), display, behavior
             - access: `AuthorizationRequirementSpec`
               - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
                 resourceKeyRequirement, customRequirement
               - gradedRequirement: `GradedAuthorizationRequirement`
                 - content @Form(gradingRationale)
-                - [1,] accessLevels: `GradedAccessLevelEntry`
+                - [1,] accessLevels: `GradedAccessLevelEntry`[]
                   - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
                     entitlementRequirement, resourceKeyRequirement, customRequirement
-            - menuItems: `UtilityMenuItemEntry`
+            - menuItems: `UtilityMenuItemEntry`[]
               - content @Form(menuItemId, icon, displayOrder), action, behavior
               - access: `AuthorizationRequirementSpec`
                 - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
                   resourceKeyRequirement, customRequirement
                 - gradedRequirement: `GradedAuthorizationRequirement`
                   - content @Form(gradingRationale)
-                  - [1,] accessLevels: `GradedAccessLevelEntry`
+                  - [1,] accessLevels: `GradedAccessLevelEntry`[]
                     - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
                       entitlementRequirement, resourceKeyRequirement, customRequirement
         - `ContextualNavigation`
           - content, breadcrumbs, backNavigation @text, relatedLinks @text
         - `DeepLinking`
           - content, strategy @text
-          - patterns: `DeepLinkPatternEntry`
+          - patterns: `DeepLinkPatternEntry`[]
             - content @Form(patternId, urlPattern, targetScreenId, description, fallbackRoute, shareEnabled)
             - access: `AuthorizationRequirementSpec`
               - content @Form(requirementKind, rationale), roleRequirement, groupRequirement, entitlementRequirement,
                 resourceKeyRequirement, customRequirement
               - gradedRequirement: `GradedAuthorizationRequirement`
                 - content @Form(gradingRationale)
-                - [1,] accessLevels: `GradedAccessLevelEntry`
+                - [1,] accessLevels: `GradedAccessLevelEntry`[]
                   - content @Form(accessLevel, requirementKind), roleRequirement, groupRequirement,
                     entitlementRequirement, resourceKeyRequirement, customRequirement
         - `NavigationGuards`
           - content, overview @text
-          - guards: `NavigationGuardEntry`
+          - guards: `NavigationGuardEntry`[]
             - content @Form(guardId, guardType, triggerCondition), dialog, routing
       - `ScreenRouteMap`
         - content, overview @text
-        - routes: `ScreenRouteEntry`
+        - routes: `ScreenRouteEntry`[]
           - content @Form(routeId, routePath, screenId, routeParameters)
-        - formPlacement: `FormScreenAssignmentEntry`
+        - formPlacement: `FormScreenAssignmentEntry`[]
           - content @Form(formId, routeId, presentationMode)
-        - transitions: `ScreenTransitionEntry`
+        - transitions: `ScreenTransitionEntry`[]
           - content @Form(sourceRouteId, actionId, outcome, targetRouteId, presentationMode, outcomeReference)
     - `ErrorHandling`
       - errorPhilosophyContent, classification, accessibility, operations, errorHandlingOverview @text,
         errorMessageCatalog @text, errorVisualDesign @text
       - `ValidationFeedback`
         - validationDisplayContent, placement, messages, guidance, behavior, validationNarrative @text
-        - messageTemplates: `ValidationMessageTemplate`
+        - messageTemplates: `ValidationMessageTemplate`[]
           - content @Form(validationType, fieldTypes, messageTemplate, shortMessage, helpText, exampleCorrection, severity, iconCode, localizationKey)
-        - fieldValidationRules: `String`
+        - fieldValidationRules: `String`[]
       - `SystemErrorDisplay`
         - systemErrorContent, errorTypes, displayMethods, displayContent, fallback, systemErrorNarrative @text
-        - errorPageDesigns: `String`
-        - errorCodes: `SystemErrorCodeEntry`
+        - errorPageDesigns: `String`[]
+        - errorCodes: `SystemErrorCodeEntry`[]
           - content @Form(errorCode, httpStatus, errorCategory, userMessage), handling, operations
       - `ErrorRecovery`
         - recoveryMechanismsContent, dataPreservation, retryMechanisms, guidedRecovery, supportContact,
           sessionHandling, recoveryNarrative @text
-        - recoveryFlows: `String`
-        - recoveryScenarios: `RecoveryScenarioEntry`
+        - recoveryFlows: `String`[]
+        - recoveryScenarios: `RecoveryScenarioEntry`[]
           - content @Form(triggerCondition, userImpact, recoverySteps, dataAtRisk, preventionMeasures, timeToRecover, supportEscalation),
             detailedFlow @text
     - `ResponsiveDesign`
       - responsiveOverview, responsiveNarrative @text
       - breakpointConfig: `BreakpointConfiguration`
         - breakpointOverview
-        - breakpoints: `BreakpointEntry`
+        - breakpoints: `BreakpointEntry`[]
           - content @Form(breakpointId, minWidth, maxWidth), layout, scaling
       - `ResponsiveBehavior`
         - layoutAdaptation, navigation, visibility, touch, contentReflow, behaviorNarrative @text
-        - screenRules: `ResponsiveScreenRuleEntry`
+        - screenRules: `ResponsiveScreenRuleEntry`[]
           - content @Form(screenId, mobileLayout, tabletLayout, desktopLayout, specialConsiderations)
     - `UiComponents`
       - componentLibraryOverview, visualLanguage, componentApproach, customization
       - `ComponentLibrary`
         - colors, typography, spacing, borders, visuals, designSystemNarrative @text, designTokenCatalog @text
-        - designFoundations: `DesignFoundationEntry`
+        - designFoundations: `DesignFoundationEntry`[]
           - content @Form(primaryColor, fontFamilyPrimary, spacingScale)
-        - colorPalettes: `ColorPaletteEntry`
+        - colorPalettes: `ColorPaletteEntry`[]
           - content @Form(paletteRole, colorCount, baseColor, lightVariants, darkVariants, onColorDefault, wcagCompliance, usageGuidelines)
-        - typographyStyles: `TypographyStyleEntry`
+        - typographyStyles: `TypographyStyleEntry`[]
           - content @Form(fontFamily, fontSize, fontWeight, lineHeight, letterSpacing, textDecoration, useCase)
-      - componentSpecs: `UiComponentEntry`
+      - componentSpecs: `UiComponentEntry`[]
         - identity, purposeProfile, classification, visualDesign, dimensions, spacing, surface, visualDiagram @mermaid,
           interactiveBehavior, inputBehavior, animation, scroll, responsiveness, accessibility, authorization,
           resourceIntegration, dataBinding, behaviorNarrative @text
-        - states: `ComponentStateEntry`
+        - states: `ComponentStateEntry`[]
           - content @Form(stateId, stateDescription), visual, behavior, transitions, stateMockup @mermaid
-        - variants: `ComponentVariantEntry`
+        - variants: `ComponentVariantEntry`[]
           - content @Form(variantId, variantDescription, visualDifferences), visual, behavior, variantMockup @mermaid
-        - actions: `ComponentActionEntry`
+        - actions: `ComponentActionEntry`[]
           - content @Form(actionId, actionTrigger, actionPayload), governance, execution
-        - slots: `ComponentSlotEntry`
+        - slots: `ComponentSlotEntry`[]
           - content @Form(slotId, slotDescription, slotRequired, acceptedWidgets, defaultContent, sizingBehavior, resourceKey)
-        - properties: `ComponentPropertyEntry`
+        - properties: `ComponentPropertyEntry`[]
           - content @Form(propertyId, propertyType, defaultValue, allowedValues, propertyDescription, affectsAppearance, affectsBehavior, resourceResolvable, authControlled)
-      - componentFamilies: `ComponentFamilyEntry`
+      - componentFamilies: `ComponentFamilyEntry`[]
         - content @Form(familyDescription, componentCount, sharedPatterns, consistencyRules), familyNarrative @text
-        - components: `FamilyComponentRef`
+        - components: `FamilyComponentRef`[]
           - content @Form(componentId, familyRole, relationToOthers)

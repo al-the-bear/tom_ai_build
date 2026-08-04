@@ -5,15 +5,15 @@
     - content @Form(documentId, project, version, date, author, status)
   - `ProcessVision`
     - overview, visionNarrative @text, successCriteria
-    - expectedImprovements: `ExpectedImprovements`
+    - expectedImprovements: `ExpectedImprovements`[]
       - content @Form(efficiencyGains, qualityImprovements, costReduction, automationRate, customerExperience, employeeExperience, complianceImprovement, visibilityGains, flexibilityGains, integrationBenefits)
   - designPrinciples: `ProcessDesignPrinciples`
     - overview
-    - principles: `ProcessDesignPrincipleEntry`
+    - principles: `ProcessDesignPrincipleEntry`[]
       - content @Form(category, statement, rationale, implications, examples, tradeoffs, priority, applicability)
   - `ProcessCatalog`
     - overview, classification
-    - [1,] processes: `BusinessProcessEntry`
+    - [1,] processes: `BusinessProcessEntry`[]
       - processFlowPreview @mermaid-flow
       - identification: `ProcessIdentification`
         - content @Form(processLevel), classification, definition, governance
@@ -21,51 +21,51 @@
         - content @Form(complexity, frequency, averageDuration, variability), operations, business
       - triggers: `ProcessTriggers`
         - overview
-        - triggers: `ProcessTriggerEntry`
+        - triggers: `ProcessTriggerEntry`[]
           - content @Form(triggerType, triggerSource, triggerCondition, triggerData, priority, validationRules, frequency)
-        - endEvents: `ProcessEndEventEntry`
+        - endEvents: `ProcessEndEventEntry`[]
           - content @Form(endEventType, outcome, probability, postCondition, notificationAction, followOnAction)
       - inputsOutputs: `ProcessInputsOutputs`
         - overview
-        - inputs: `ProcessInputEntry`
+        - inputs: `ProcessInputEntry`[]
           - content @Form(inputType, source, format, required, validationRules, defaultValue, exampleValue, securityClassification)
-        - outputs: `ProcessOutputEntry`
+        - outputs: `ProcessOutputEntry`[]
           - content @Form(outputType, destination, format, qualityStandard, timingRequirement, retentionPeriod, securityClassification, dependentProcesses)
       - roles: `ProcessRoles`
         - overview
-        - roles: `ProcessRoleEntry`
+        - roles: `ProcessRoleEntry`[]
           - content @Form(raciType, responsibilities), execution, coordination
       - performance: `ProcessPerformance`
         - overview
-        - kpis: `ProcessKpiEntry`
+        - kpis: `ProcessKpiEntry`[]
           - content @Form(category, definition), measurement, operations
-        - slas: `ProcessSlaEntry`
+        - slas: `ProcessSlaEntry`[]
           - content @Form(serviceDescription, targetLevel, measurementMethod, reportingPeriod, penaltyClause, escalationProcedure, exclusions, reviewFrequency)
       - controls: `ProcessControls`
         - overview
-        - controls: `ProcessControlEntry`
+        - controls: `ProcessControlEntry`[]
           - content @Form(controlType, controlCategory), operation, verification
       - technology: `ProcessTechnology`
         - content @Form(primarySystem, supportingSystems, integrations, automationTools), information, experience
       - exceptions: `ProcessExceptions`
         - overview
-        - exceptions: `ProcessExceptionEntry`
+        - exceptions: `ProcessExceptionEntry`[]
           - content @Form(exceptionType, triggerCondition), assessment, response
   - `ProcessOverviewDiagram`
     - overview, landscapeDiagram @mermaid-flow, hierarchyDiagram @mermaid-flow, valueChainDiagram @mermaid-flow
   - improvementSummary: `ProcessImprovementSummary`
     - overview, businessCase
-    - improvements: `ProcessImprovementEntry`
+    - improvements: `ProcessImprovementEntry`[]
       - content @Form(category, currentState), benefits, delivery
   - `ProcessRelationships`
     - content
-    - relationships: `ProcessRelationshipEntry`
+    - relationships: `ProcessRelationshipEntry`[]
       - content @Form(sourceProcess, targetProcess, relationshipType, dataExchanged, timingDependency, frequencyOfInteraction, criticality)
-  - detailedWorkflows: `DetailedProcessWorkflow`
+  - detailedWorkflows: `DetailedProcessWorkflow`[]
     - content
   - `CrossProcessAnalysis`
     - content
   - exceptionHandling: `ProcessExceptionHandling`
     - content
-  - processMetricsAndKpis: `ProcessMetric`
+  - processMetricsAndKpis: `ProcessMetric`[]
     - content
