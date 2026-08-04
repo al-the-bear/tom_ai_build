@@ -3350,6 +3350,138 @@ void main() {
       );
       expect(nameErrors(classes), isEmpty);
     });
+
+    group('the id half of rule 4 is author-enforced (§8.2)', () {
+      // Rule 4 covers a section's id in the same breath as its headline, but
+      // only the name half is mechanical. An id-shaped field beneath a list
+      // entry has a second honest reading a name never has — the identifier the
+      // *specified system* carries — and the two are written identically. These
+      // tests pin that decision, so the shape test cannot be widened to `Id`
+      // without a deliberate change here.
+      List<String> errorsMentioning(
+        Map<String, ModelClass> classes,
+        String slot,
+      ) =>
+          validateStructuralInvariants(classes)
+              .errors
+              .where((e) => e.contains(slot))
+              .toList();
+
+      test('an id-shaped field restating its own entry is accepted', () {
+        final classes = nameModel(
+          {
+            'RouteEntry': nameEntry(
+              'RouteEntry',
+              [
+                FormFieldInfo(
+                    name: 'routeId', typeName: 'String', required: true),
+              ],
+              sectionId: 'RTEN',
+            ),
+          },
+          rootFields: [patternedList('entries', 'RouteEntry', 'RT')],
+        );
+        expect(errorsMentioning(classes, 'routeId'), isEmpty);
+      });
+
+      test('the name half still fires on the very same entry', () {
+        // The acceptance above is about the *shape* test, not about the entry
+        // falling outside the check's scope.
+        final classes = nameModel(
+          {
+            'RouteEntry': nameEntry(
+              'RouteEntry',
+              [
+                FormFieldInfo(
+                    name: 'routeId', typeName: 'String', required: true),
+                FormFieldInfo(name: 'routeName', typeName: 'String'),
+              ],
+              sectionId: 'RTEN',
+            ),
+          },
+          rootFields: [patternedList('entries', 'RouteEntry', 'RT')],
+        );
+        expect(nameErrors(classes), hasLength(1));
+        expect(nameErrors(classes).single, contains('RouteEntry.routeName'));
+        expect(errorsMentioning(classes, 'routeId'), isEmpty);
+      });
+
+      test('a registry-key id in an extracted identification block is accepted',
+          () {
+        // The model's own case: `ProcessIdentification.processId` beneath
+        // `BusinessProcessEntry`, with references resolving to it. For names
+        // that is exemption (b); for ids it is not an exemption at all, since
+        // `@sectionId` (§6.2 rule 6) makes such a field unnecessary — so the
+        // field is accepted by the shape test alone, and nothing else.
+        final classes = nameModel(
+          {
+            'ProcessEntry': ModelClass(
+              name: 'ProcessEntry',
+              annotations: [AnnotationData('SectionId', {'id': 'BPREN'})],
+              fields: [_field('identification', 'ProcessIdentification')],
+            ),
+            'ProcessIdentification': nameEntry(
+              'ProcessIdentification',
+              [
+                FormFieldInfo(
+                    name: 'processId', typeName: 'String', required: true),
+              ],
+              sectionId: 'PRIDN',
+            ),
+            'Linker': ModelClass(
+              name: 'Linker',
+              annotations: [AnnotationData('SectionId', {'id': 'LNK'})],
+              formFields: [
+                FormFieldInfo(
+                  name: 'target',
+                  typeName: 'String',
+                  refersTo: ['PRIDN.processId'],
+                ),
+              ],
+            ),
+          },
+          rootFields: [
+            patternedList('entries', 'ProcessEntry', 'BP'),
+            _field('linker', 'Linker'),
+          ],
+        );
+        expect(errorsMentioning(classes, 'processId'), isEmpty);
+      });
+
+      test('the two readings of an id are indistinguishable to the model', () {
+        // `assumptionId` holds this document's own serial (ASM-001) and is a
+        // duplicate slot; `elementId` holds a widget key (btn-submit) the built
+        // system carries and is the only slot it has. Same shape, same stem,
+        // same kind of enclosing class — which is precisely why the check
+        // convicts neither.
+        final classes = nameModel(
+          {
+            'AssumptionEntry': nameEntry(
+              'AssumptionEntry',
+              [
+                FormFieldInfo(
+                    name: 'assumptionId', typeName: 'String', required: true),
+              ],
+              sectionId: 'ASMEN',
+            ),
+            'ElementEntry': nameEntry(
+              'ElementEntry',
+              [
+                FormFieldInfo(
+                    name: 'elementId', typeName: 'String', required: true),
+              ],
+              sectionId: 'ELMEN',
+            ),
+          },
+          rootFields: [
+            patternedList('assumptions', 'AssumptionEntry', 'ASM'),
+            patternedList('elements', 'ElementEntry', 'ELM'),
+          ],
+        );
+        expect(errorsMentioning(classes, 'assumptionId'), isEmpty);
+        expect(errorsMentioning(classes, 'elementId'), isEmpty);
+      });
+    });
   });
 }
 

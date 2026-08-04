@@ -1199,6 +1199,17 @@ String _entrySubject(String className) =>
 ///       against, not merely the entry's display title; and
 ///   (c) **the field is itself a reference** — it declares `refersTo`, so it
 ///       names the section it points at, not the one it sits in.
+///
+/// Why: the shape test stops at `Name`/`Title`/`Label` and does **not** extend
+/// to `Id`, even though rule 4 covers a section's id in the same breath. An
+/// id-shaped field beneath a list entry has a second honest reading a name never
+/// has — the identifier the *specified system* carries (`btn-submit`, an enum
+/// constant, `nav-customers`) — and it is written identically to a duplicated
+/// section id, so no structural test separates them. Exemption (b) does not
+/// rescue the id half either: `@sectionId` (§6.2 rule 6) means a referenced id
+/// never *needs* a field, so being a registry key argues against such a field
+/// rather than for it. `tom_specs_model_rules.md` §8.2 carries the full
+/// reasoning; a test pins it so the regex is not widened by accident.
 void _validateEntryNameFields(
   Map<String, ModelClass> classes,
   Set<String> reachable,

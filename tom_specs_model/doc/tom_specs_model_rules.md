@@ -1066,7 +1066,8 @@ Headline storage and rendering are governed by five rules:
    is still **referenceable**: `refersTo: ['FRE.@sectionId']` resolves against
    the stored item id directly (§6.2 rule 6), so the single-slot rule costs no
    enforceability. See §8.1 for what the rule does *not* cover — a name-shaped
-   field is only a violation when the name it holds is the entry's own.
+   field is only a violation when the name it holds is the entry's own — and
+   §8.2 for why only the name half of the rule is checked mechanically.
 5. **Editor strict mode** — headlines and ids are editable only for list-entry
    sections; fixed sections show their stored/default headline read-only.
 
@@ -1123,6 +1124,54 @@ drift out of step with what it describes:
 
 Everything else name-shaped beneath a list entry is a duplicate, and the
 headline carries it.
+
+### 8.2 Why the id half of rule 4 is author-enforced
+
+Rule 4 gives a section's id the same single-slot treatment as its headline, but
+only the **name** half is checked statically (§10.2 invariant 11). The id half
+is left to the author. That is a decision taken on the model's own evidence, not
+an omission: the three discriminators that decide the name half do not transfer,
+and one of them is actively **inverted** here.
+
+**A list entry has one name, but may legitimately have two ids.** Its headline
+is per-instance free text (rule 1), so a name-shaped field whose stem is the
+entry's subject can only be that headline written twice. An id-shaped field has
+a second honest reading — the identifier the **specified system** will carry.
+`DomainEnumValueEntry.valueId` holds the enum constant (the `@Case` token);
+`ScreenElementEntry.elementId` holds `btn-submit`; `NavigationItemEntry.itemId`
+holds `nav-customers`; `TabItemEntry.tabId` is unique *within its tab bar*. None
+of those is this document's numbering of the entry; each is specification
+content the generated code carries.
+
+**The two id namespaces are disjoint by construction**, so the section id cannot
+absorb the domain one. §7.7 rule 3 keeps the pattern prefix on an explicit id
+override, so a stored item id always reads `<PREFIX>-<suffix>` — `btn-submit`
+and `ACTIVE` can never be one. The name half always has a fix available (move
+the value into the heading); the id half has one for only *one* of its two
+readings.
+
+**Shape cannot tell them apart.** `AssumptionRegisterEntry.assumptionId`
+(labelled `ASM-NNN`) and `ScreenElementEntry.elementId` (`btn-submit`) are the
+same field shape beneath the same kind of class, with the same stem-to-subject
+relation. What separates them is the prose of the label and hint — the author's
+intent — not a structural property the validator can read. Binding the check to
+that prose would be a heuristic dressed as an invariant.
+
+**And exemption (b) is inverted for ids.** For names a registry key *must* be a
+real field: there is no reserved slot for a headline, so a `refersTo` matching on
+a name has nowhere else to point. For ids §6.2 rule 6 provides `@sectionId`, so
+a registry key never *needs* a field — a reference that wants the entry's
+document id points at `<SID>.@sectionId` and the field is redundant. "Something
+refers to it" is therefore no evidence that an id field is legitimate: the four
+requirement families are referenced from eight sites through
+`<FAM>.@sectionId` and carry no id form field at all.
+
+**What the author checks instead.** Would the value still mean something if this
+document were thrown away and only the built system remained? If yes, it is the
+system's identifier and the field is its only slot — keep it. If it is a serial
+number for this document's own register (`ASM-001`, `STK-003`, `RISK-001`), it
+is the entry's section id written a second time: it belongs in the heading,
+where §6.2 rule 6 keeps it referenceable.
 
 ---
 
@@ -1300,7 +1349,8 @@ The validator enforces the following structural invariants (implementation:
     field beneath a list-entry class, whose stem is that entry's own subject, is
     an error unless it is a registry key or carries a `refersTo` of its own
     (§8.1). This is the half of rule 4 that source alone cannot show: a
-    self-naming field and a legitimate one are written identically.
+    self-naming field and a legitimate one are written identically. The rule's
+    **id** half is deliberately not checked — see below and §8.2.
 12. **`@CodeSpecKind` / `@FollowUpKind` mutual exclusion** — no class carries
     both. `@FollowUpKind` marks a subtree *root*, and `codespecs_mapping.md`
     §4.3 rules that only a section which must become a generation-projection
@@ -1337,6 +1387,17 @@ across six of its 18 follow-up roots, and `codespecs_mapping.md` §4.3 rules the
 legitimate — enforcing it would forbid a follow-up process from recording which
 part it produces material for. Invariants 12 and 13 are what that rule was
 reaching for, stated so that they hold.
+
+**Deliberately not an invariant:** *"no list entry restates its own section id"*
+— the **id** half of §8 rule 4, the counterpart of invariant 11. Unlike a name,
+an id-shaped field beneath a list entry has two honest readings — the document's
+numbering of the entry, and the identifier the specified system will carry — and
+they are written identically, distinguishable only by the prose of the label and
+hint. Widening invariant 11's `Name|Title|Label` shape test to `Id` would
+therefore convict specification content along with duplication. §8.2 states the
+reasoning in full, including why the registry-key exemption is *inverted* for
+ids rather than merely insufficient. A test pins the decision, so the shape test
+cannot be widened by accident.
 
 **What the validator does *not* check:** the two mnemonics themselves. It
 recomputes a container id's `<elementId>` prefix from the element class (check
