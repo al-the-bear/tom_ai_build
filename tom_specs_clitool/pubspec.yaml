@@ -36,6 +36,11 @@ dependencies:
   # SpecModel and the generated code extends its SomNode/SomList facade base.
   tom_som_dart_runtime:
     path: ../tom_som_dart_runtime
+  # The annotation library the model is written against. The validator reads
+  # `deferredCodeSpecParts` from it (invariant 13's exemption) rather than
+  # restating which CodeSpecs parts have no generated surface.
+  tom_specs_core:
+    path: ../tom_specs_core
 
 dev_dependencies:
   json_schema: ^5.2.2

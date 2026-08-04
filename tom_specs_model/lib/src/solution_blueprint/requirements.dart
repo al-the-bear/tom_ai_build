@@ -60,9 +60,14 @@ class Requirements extends DocSpecsSection {
 ///
 /// Groups the framework-uncovered non-functional requirement sub-areas that are
 /// **follow-up** concerns (documentation, training, localization) rather than
-/// CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole
-/// subtree is generation-owned-out (`codespecs_mapping.md` §8.3), keeping the
-/// parent [Requirements] seed subtree purely CodeSpecs-relevant:
+/// CodeSpecs-generated behaviour. The root carries no `@CodeSpecKind`, so it is
+/// not a generation projection root and nothing under it is reachable from
+/// `D13CodeSpecsProjection` (`codespecs_mapping.md` §8.3), keeping the parent
+/// [Requirements] seed subtree purely CodeSpecs-relevant. The translation and
+/// locale-handling requirements *inside* it are nonetheless tagged CE-TX,
+/// recording which part their material belongs to; that material reaches
+/// generation through the shared `MessageKeyRegistry`, never through this
+/// subtree (`codespecs_mapping.md` §4.3). The sub-areas:
 ///
 ///  * Localization & Translation → [LocalizationTranslationRequirements] (L10N)
 ///  * Information for Use         → [InformationForUseRequirements] (DOC)

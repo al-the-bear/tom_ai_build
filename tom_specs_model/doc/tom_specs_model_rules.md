@@ -1301,6 +1301,31 @@ The validator enforces the following structural invariants (implementation:
     an error unless it is a registry key or carries a `refersTo` of its own
     (§8.1). This is the half of rule 4 that source alone cannot show: a
     self-naming field and a legitimate one are written identically.
+12. **`@CodeSpecKind` / `@FollowUpKind` mutual exclusion** — no class carries
+    both. `@FollowUpKind` marks a subtree *root*, and `codespecs_mapping.md`
+    §4.3 rules that only a section which must become a generation-projection
+    root is hoisted out of a follow-up subtree; so a follow-up root is never
+    itself generated, and a class claiming to be both is the one shape the
+    CodeSpecs / follow-up split cannot express.
+13. **Per-part generation routing** — every *active* `CodeSpecPart` named by any
+    `@CodeSpecKind` has at least one **bearer** reachable from a
+    `@CodeSpecsProjection()` root. This is what makes a `@CodeSpecKind` *inside*
+    a follow-up subtree harmless: the annotation records which part the
+    section's material belongs to, and the material reaches generation through a
+    reachable bearer of that same part (CE-TX help copy under
+    `ExperienceDesignFollowUp` through the shared `MessageKeyRegistry`). A part
+    named only from unreachable sections would be specified and never
+    generated. Parts listed in `deferredCodeSpecParts` (`tom_specs_core`) are
+    exempt — they have no generated surface, so they have no bearer to reach;
+    a deferred part that *acquires* a bearer is a warning that the deferral
+    entry has gone stale. A model with no projection root is silent.
+
+**Deliberately not an invariant:** *"a `@CodeSpecKind`-bearing class must itself
+be reachable from the generation projection."* The model has 65 counterexamples
+across six of its 18 follow-up roots, and `codespecs_mapping.md` §4.3 rules them
+legitimate — enforcing it would forbid a follow-up process from recording which
+part it produces material for. Invariants 12 and 13 are what that rule was
+reaching for, stated so that they hold.
 
 **What the validator does *not* check:** the two mnemonics themselves. It
 recomputes a container id's `<elementId>` prefix from the element class (check

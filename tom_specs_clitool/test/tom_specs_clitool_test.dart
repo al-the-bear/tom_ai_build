@@ -33,6 +33,29 @@ ModelField _listField(
       annotations: annotations,
     );
 
+/// Every class reachable from [root] by complex / complex-list members —
+/// the same traversal the validator's own reachability uses, restated here so a
+/// test can assert *about* reachability without exporting the private helper.
+Set<String> _reachableFrom(Map<String, ModelClass> classes, String root) {
+  final visited = <String>{};
+  final queue = <String>[root];
+  while (queue.isNotEmpty) {
+    final current = queue.removeLast();
+    if (!visited.add(current)) continue;
+    final cls = classes[current];
+    if (cls == null) continue;
+    for (final field in cls.fields) {
+      if (field.isList && field.listElementIsComplex) {
+        final inner = field.listElementTypeName;
+        if (inner != null) queue.add(inner);
+      } else if (field.isComplex) {
+        queue.add(field.typeName.replaceAll('?', ''));
+      }
+    }
+  }
+  return visited;
+}
+
 // ---------------------------------------------------------------------------
 // End-to-end tests against the real tom_specs_model package
 // ---------------------------------------------------------------------------
@@ -356,6 +379,63 @@ void main() {
           result.errors.where((e) => e.contains('entry name:')).toList();
       expect(entryNameErrors, isEmpty,
           reason: entryNameErrors.take(20).join('\n'));
+    });
+
+    test('codespecs_mapping.md §8.3: no section carries both @CodeSpecKind and '
+        '@FollowUpKind', () {
+      // The CodeSpecs / follow-up split is decided by projection membership,
+      // so the two annotations answer different questions — but a follow-up
+      // *root* is never itself generated, and a class carrying both claims it
+      // is.
+      final result = validateStructuralInvariants(classes);
+      final exclusionErrors = result.errors
+          .where((e) => e.contains('CodeSpecs/follow-up exclusion:'))
+          .toList();
+      expect(exclusionErrors, isEmpty,
+          reason: exclusionErrors.take(20).join('\n'));
+    });
+
+    test('codespecs_mapping.md §8.3: every active CodeSpecs part named by a '
+        '@CodeSpecKind has a bearer reachable from D13CodeSpecsProjection', () {
+      // This is what makes the 65 `@CodeSpecKind` sections inside follow-up
+      // subtrees harmless rather than routing gaps: each names a part that IS
+      // borne somewhere the generator reaches (CE-TX help copy → the shared
+      // `MessageKeyRegistry`). A part named only from unreachable sections
+      // would be specified and never generated.
+      final result = validateStructuralInvariants(classes);
+      final routingErrors = result.errors
+          .where((e) => e.contains('CodeSpecs part routing:'))
+          .toList();
+      expect(routingErrors, isEmpty, reason: routingErrors.take(20).join('\n'));
+      // The deferral exemption must still be *needed* — a stale entry would
+      // warn instead of erroring, and would go unnoticed without this.
+      final routingWarnings = result.warnings
+          .where((w) => w.contains('CodeSpecs part routing:'))
+          .toList();
+      expect(routingWarnings, isEmpty,
+          reason: routingWarnings.take(20).join('\n'));
+    });
+
+    test('codespecs_mapping.md §4.3: a @CodeSpecKind section inside a '
+        '@FollowUpKind subtree is legitimate, so the validator does NOT '
+        'require projection reachability', () {
+      // Guards the non-enforcement decision: the rule csre4 proposed — "a
+      // @CodeSpecKind-bearing class must be reachable from D13" — has real
+      // counterexamples, ruled legitimate by §4.3. If a future pass adds that
+      // rule, this test says why it must not.
+      final d13Reachable = _reachableFrom(classes, 'D13CodeSpecsProjection');
+      final sbpReachable = _reachableFrom(classes, 'D00SolutionBlueprint');
+      final taggedButUnreachable = sbpReachable
+          .where((c) =>
+              classes[c]?.getAnnotation('CodeSpecKind') != null &&
+              !d13Reachable.contains(c))
+          .toList();
+      expect(taggedButUnreachable, isNotEmpty,
+          reason: 'the counterexamples are the reason the rule is not enforced');
+      // `UserAssistance` is the section csre4 was raised against — CE-TX help
+      // copy authored in the DOC follow-up subtree, generated via the shared
+      // message-key registry.
+      expect(taggedButUnreachable, contains('UserAssistance'));
     });
   });
 
@@ -1060,6 +1140,127 @@ void main() {
           .where((e) => e.contains('tom_specs_model_rules.md §10.2 pure-projection'))
           .toList();
       expect(pureProjectionErrors, isEmpty);
+    });
+  });
+
+  group('unit: CodeSpecs / follow-up routing (codespecs_mapping.md §8.3, '
+      'csre4)', () {
+    // A minimal model with the real shape: a blueprint holding one CodeSpecs
+    // subtree (reached by the generation projection) and one follow-up subtree
+    // (not reached), where a section inside the follow-up subtree names the
+    // same part the CodeSpecs subtree bears.
+    Map<String, ModelClass> model({
+      List<String> registryKinds = const ['CodeSpecPart.text'],
+      List<String> followUpSectionKinds = const ['CodeSpecPart.text'],
+      List<AnnotationData> extraOnFollowUpRoot = const [],
+    }) =>
+        {
+          'D00SolutionBlueprint': _cls(
+            'D00SolutionBlueprint',
+            [AnnotationData('SectionId', {'id': 'TST'})],
+            [
+              _field('registry', 'MessageRegistry'),
+              _field('followUp', 'DesignFollowUp'),
+            ],
+          ),
+          'MessageRegistry': _cls('MessageRegistry', [
+            AnnotationData('SectionId', {'id': 'TST-REG'}),
+            AnnotationData('CodeSpecKind', {'kinds': registryKinds}),
+          ]),
+          'DesignFollowUp': _cls('DesignFollowUp', [
+            AnnotationData('SectionId', {'id': 'TST-FU'}),
+            AnnotationData('FollowUpKind', {
+              'processes': ['FollowUpProcess.doc']
+            }),
+            ...extraOnFollowUpRoot,
+          ], [
+            _field('help', 'HelpCopy'),
+          ]),
+          'HelpCopy': _cls('HelpCopy', [
+            AnnotationData('SectionId', {'id': 'TST-HLP'}),
+            AnnotationData('CodeSpecKind', {'kinds': followUpSectionKinds}),
+          ]),
+          'CGP': _cls('CGP', [
+            AnnotationData('Document', {'name': 'CodeSpecs Projection'}),
+            AnnotationData('CodeSpecsProjection', const {}),
+            AnnotationData('SectionId', {'id': 'CGP'}),
+          ], [
+            _field('registry', 'MessageRegistry'),
+          ]),
+        };
+
+    List<String> routingErrors(Map<String, ModelClass> classes) =>
+        validateStructuralInvariants(classes)
+            .errors
+            .where((e) => e.contains('CodeSpecs part routing:'))
+            .toList();
+
+    test('a @CodeSpecKind inside a follow-up subtree passes when the part has '
+        'a projection-reachable bearer', () {
+      // §4.3: only a section that must become a projection *root* is hoisted
+      // out. The help copy is authored in the follow-up subtree and generated
+      // through the registry, which the projection does reach.
+      expect(routingErrors(model()), isEmpty);
+    });
+
+    test('errors when a part is named only from outside the projection', () {
+      // The registry bears CE-TX; the follow-up section names CE-FM, which
+      // nothing reachable bears — its material would be specified and never
+      // generated.
+      final errors = routingErrors(
+        model(followUpSectionKinds: const ['CodeSpecPart.form']),
+      );
+      expect(errors, hasLength(1));
+      expect(errors.single, contains('CodeSpecPart.form'));
+      expect(errors.single, contains('HelpCopy'));
+    });
+
+    test('a deferred part is exempt — it has no generated surface to reach',
+        () {
+      final errors = routingErrors(
+        model(followUpSectionKinds: const ['CodeSpecPart.workflow']),
+      );
+      expect(errors, isEmpty);
+    });
+
+    test('a deferred part that acquires a bearer warns that the exemption is '
+        'stale', () {
+      final result = validateStructuralInvariants(
+        model(registryKinds: const ['CodeSpecPart.workflow']),
+      );
+      expect(
+        result.warnings.any((w) =>
+            w.contains('CodeSpecs part routing:') &&
+            w.contains('CodeSpecPart.workflow')),
+        isTrue,
+        reason: result.warnings.join('\n'),
+      );
+    });
+
+    test('errors when one class carries both @CodeSpecKind and @FollowUpKind',
+        () {
+      final result = validateStructuralInvariants(model(
+        extraOnFollowUpRoot: [
+          AnnotationData('CodeSpecKind', {
+            'kinds': ['CodeSpecPart.text']
+          }),
+        ],
+      ));
+      expect(
+        result.errors.any((e) =>
+            e.contains('CodeSpecs/follow-up exclusion:') &&
+            e.contains('DesignFollowUp')),
+        isTrue,
+        reason: result.errors.join('\n'),
+      );
+    });
+
+    test('a model with no generation projection reports no routing gaps', () {
+      // Before D13 existed — and in every synthetic model that does not
+      // declare one — there is nothing to route to, so silence beats
+      // reporting every part as a gap.
+      final classes = model()..remove('CGP');
+      expect(routingErrors(classes), isEmpty);
     });
   });
 

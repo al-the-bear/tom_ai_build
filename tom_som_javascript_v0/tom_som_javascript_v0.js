@@ -2423,8 +2423,10 @@ class AuthenticationMethods extends SomNode {
 //
 // Groups the UI authorization-compliance concern (how the interface adapts to
 // roles and permissions as a compliance obligation), a **follow-up** (CMP)
-// rather than CodeSpecs-generated UI (`codespecs_mapping.md` §8.3).
-// Carries no `@CodeSpecKind` — the whole subtree is generation-owned-out.
+// rather than CodeSpecs-generated UI (`codespecs_mapping.md` §8.3). The root
+// carries no `@CodeSpecKind`, so it is not a generation projection root and
+// nothing under it is reachable from `D13CodeSpecsProjection` — and here no
+// section inside it carries one either.
 class AuthorizationComplianceFollowUp extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -14616,9 +14618,15 @@ class ExperienceCodeSpecs extends SomNode {
 // Groups the design / documentation concerns that are **follow-up** (design
 // vision, print & export layout, user assistance, accessibility, prototype,
 // wireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`
-// §8.3). Carries no `@CodeSpecKind` — the whole subtree is
-// generation-owned-out. Accessibility's operational (OPS) facet is a secondary
-// concern refined by the follow-up taxonomy pass.
+// §8.3). The root carries no `@CodeSpecKind`, so it is not a generation
+// projection root and nothing under it is reachable from
+// `D13CodeSpecsProjection`. Sections *inside* it may still carry one —
+// `UserAssistance` and its `ContextualHelp` are tagged CE-TX — recording which
+// part their material belongs to; that material reaches generation through a
+// D13-reachable bearer of the same part (for CE-TX, the shared
+// `MessageKeyRegistry`), never through this subtree (`codespecs_mapping.md`
+// §4.3). Accessibility's operational (OPS) facet is a secondary concern
+// refined by the follow-up taxonomy pass.
 class ExperienceDesignFollowUp extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -14673,8 +14681,13 @@ class ExperienceDesignFollowUp extends SomNode {
 // SBP.13 Experience & Interface Design — localization L10N follow-up subtree.
 //
 // Groups the internationalization concern, a **follow-up** (L10N) rather than
-// CodeSpecs-generated UI (`codespecs_mapping.md` §8.3). Carries no
-// `@CodeSpecKind` — the whole subtree is generation-owned-out.
+// CodeSpecs-generated UI (`codespecs_mapping.md` §8.3). The root carries no
+// `@CodeSpecKind`, so it is not a generation projection root and nothing under
+// it is reachable from `D13CodeSpecsProjection`. `MultiLanguageSupport` inside
+// it is nonetheless tagged CE-TX, recording which part its material belongs
+// to; that material reaches generation through the shared
+// `MessageKeyRegistry`, never through this subtree (`codespecs_mapping.md`
+// §4.3).
 class ExperienceLocalizationFollowUp extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -22589,6 +22602,13 @@ class OrgRequirementImplementationPlan extends SomNode {
 // generation: the target organizational structure/roles
 // ([OrganizationalFramework]) and the business-process narrative
 // ([BusinessProcessDescriptions], which seeds the TOM document).
+//
+// The root carries no `@CodeSpecKind`, so it is not a generation projection
+// root and nothing under it is reachable from `D13CodeSpecsProjection`. One
+// section inside it — [DetailedProcessWorkflow] — is nonetheless tagged CE-WF,
+// recording which part its material *would* belong to; CE-WF is the one
+// permanently deferred part (`codespecs_mapping.md` §4.3), so it has no
+// generated surface and therefore no D13-reachable bearer either.
 class OrganizationAndProcessConcept extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -27487,9 +27507,14 @@ class Requirements extends SomNode {
 //
 // Groups the framework-uncovered non-functional requirement sub-areas that are
 // **follow-up** concerns (documentation, training, localization) rather than
-// CodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole
-// subtree is generation-owned-out (`codespecs_mapping.md` §8.3), keeping the
-// parent [Requirements] seed subtree purely CodeSpecs-relevant:
+// CodeSpecs-generated behaviour. The root carries no `@CodeSpecKind`, so it is
+// not a generation projection root and nothing under it is reachable from
+// `D13CodeSpecsProjection` (`codespecs_mapping.md` §8.3), keeping the parent
+// [Requirements] seed subtree purely CodeSpecs-relevant. The translation and
+// locale-handling requirements *inside* it are nonetheless tagged CE-TX,
+// recording which part their material belongs to; that material reaches
+// generation through the shared `MessageKeyRegistry`, never through this
+// subtree (`codespecs_mapping.md` §4.3). The sub-areas:
 //
 //  * Localization & Translation → [LocalizationTranslationRequirements] (L10N)
 //  * Information for Use         → [InformationForUseRequirements] (DOC)
@@ -30325,8 +30350,9 @@ class SecurityCodeReviewPolicy extends SomNode {
 //
 // Groups the compliance-framework concern, a **follow-up** (compliance
 // governance) rather than CodeSpecs-generated behaviour
-// (`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole
-// subtree is generation-owned-out.
+// (`codespecs_mapping.md` §8.3). The root carries no `@CodeSpecKind`, so it is
+// not a generation projection root and nothing under it is reachable from
+// `D13CodeSpecsProjection` — and here no section inside it carries one either.
 class SecurityComplianceFollowUp extends SomNode {
   constructor(doc, path) {
     super(doc, path);
@@ -30513,8 +30539,14 @@ class SecurityEventsDefinition extends SomNode {
 //
 // Groups the operational security concerns that are **follow-up** (key
 // management and the routines run *against* the audit log), not
-// CodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). Carries no
-// `@CodeSpecKind` — the whole subtree is generation-owned-out.
+// CodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). The root
+// carries no `@CodeSpecKind`, so it is not a generation projection root and
+// nothing under it is reachable from `D13CodeSpecsProjection`. The encryption
+// policies *inside* it are nonetheless tagged CE-CF, recording which part
+// their material belongs to; that material reaches generation through the
+// D13-reachable CE-CF bearers (`TechnicalFrameworkConcept`,
+// `AuditAndLogging`), never through this subtree (`codespecs_mapping.md`
+// §4.3).
 //
 // The audit log's *declarations* are not here: which events are auditable and
 // how the sink is configured are the CE-LG / CE-CF bands, which live in the
@@ -31973,10 +32005,12 @@ class SolutionArchitectureAndTechnology extends SomNode {
 //
 // Groups the descriptive-architecture concern that is **not** CodeSpecs-
 // generated: the component-reuse rationale (component catalogue, third-party
-// and dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is
-// generation-owned-out (`codespecs_mapping.md` §8.3), keeping the
-// sibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing
-// CodeSpecs subtree.
+// and dependency strategy). The root carries no `@CodeSpecKind`, so it is not
+// a generation projection root and nothing under it is reachable from
+// `D13CodeSpecsProjection` (`codespecs_mapping.md` §8.3) — and here no section
+// inside it carries one either, keeping the sibling
+// [TechnicalFrameworkConcept] as the CE-CF configuration-bearing CodeSpecs
+// subtree.
 class SolutionArchitectureFollowUp extends SomNode {
   constructor(doc, path) {
     super(doc, path);

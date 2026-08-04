@@ -113,8 +113,14 @@ class AccessControlModel extends DocSpecsSection {
 ///
 /// Groups the operational security concerns that are **follow-up** (key
 /// management and the routines run *against* the audit log), not
-/// CodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). Carries no
-/// `@CodeSpecKind` — the whole subtree is generation-owned-out.
+/// CodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). The root
+/// carries no `@CodeSpecKind`, so it is not a generation projection root and
+/// nothing under it is reachable from `D13CodeSpecsProjection`. The encryption
+/// policies *inside* it are nonetheless tagged CE-CF, recording which part
+/// their material belongs to; that material reaches generation through the
+/// D13-reachable CE-CF bearers (`TechnicalFrameworkConcept`,
+/// `AuditAndLogging`), never through this subtree (`codespecs_mapping.md`
+/// §4.3).
 ///
 /// The audit log's *declarations* are not here: which events are auditable and
 /// how the sink is configured are the CE-LG / CE-CF bands, which live in the
@@ -153,8 +159,9 @@ class SecurityOperationsFollowUp extends DocSpecsSection {
 ///
 /// Groups the compliance-framework concern, a **follow-up** (compliance
 /// governance) rather than CodeSpecs-generated behaviour
-/// (`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole
-/// subtree is generation-owned-out.
+/// (`codespecs_mapping.md` §8.3). The root carries no `@CodeSpecKind`, so it is
+/// not a generation projection root and nothing under it is reachable from
+/// `D13CodeSpecsProjection` — and here no section inside it carries one either.
 @StandardReferences(
   [
     'ISO/IEC 27001:2022 — information security management',

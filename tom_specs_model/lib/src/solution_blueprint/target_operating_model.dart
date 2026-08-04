@@ -58,6 +58,13 @@ class TargetOperatingModel extends DocSpecsSection {
 /// generation: the target organizational structure/roles
 /// ([OrganizationalFramework]) and the business-process narrative
 /// ([BusinessProcessDescriptions], which seeds the TOM document).
+///
+/// The root carries no `@CodeSpecKind`, so it is not a generation projection
+/// root and nothing under it is reachable from `D13CodeSpecsProjection`. One
+/// section inside it — [DetailedProcessWorkflow] — is nonetheless tagged CE-WF,
+/// recording which part its material *would* belong to; CE-WF is the one
+/// permanently deferred part (`codespecs_mapping.md` §4.3), so it has no
+/// generated surface and therefore no D13-reachable bearer either.
 @StandardReferences(
   ['BABOK v3 — future-state analysis'],
   'The organizational and process-narrative facets of the future-state '

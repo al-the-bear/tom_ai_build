@@ -1,3 +1,5 @@
+import 'package:tom_specs_core/tom_specs_core.dart';
+
 import 'model_reader.dart';
 
 /// The document section every structural-invariant tag cites.
@@ -967,6 +969,121 @@ void _validateStructuralInvariants(
   // storage slot for one value — the thing rule 4 forbids. The two exemptions
   // are structural, so nothing has to be remembered or annotated.
   _validateEntryNameFields(classes, reachable, errors);
+
+  // --- 11. CodeSpecs / follow-up routing (`codespecs_mapping.md` §8.3) ------
+  //
+  // The CodeSpecs / follow-up split is decided by membership of the generation
+  // projection, not by the presence of a `@CodeSpecKind`. A section inside a
+  // follow-up subtree may carry one — it records which part its *material*
+  // belongs to, and the material reaches generation through a
+  // projection-reachable bearer of that same part. Two invariants keep that
+  // sound.
+  _validateCodeSpecKindRouting(
+      classes, reachable, documentClasses, errors, warnings);
+}
+
+/// The `CodeSpecPart` values with no generated surface — reserved so a section
+/// can name them, never emitted (`codespecs_mapping.md` §4.3). Read from
+/// `tom_specs_core` rather than restated, so the deferral is declared once.
+final Set<String> _deferredParts =
+    deferredCodeSpecParts.map((p) => p.toString()).toSet();
+
+/// Invariants 12 + 13 — the CodeSpecs / follow-up routing pair
+/// (`tom_specs_model_rules.md` §10.2, `codespecs_mapping.md` §8.3).
+///
+/// **12 — mutual exclusion.** No section carries both `@CodeSpecKind` and
+/// `@FollowUpKind`. `@FollowUpKind` marks a subtree *root*;
+/// `codespecs_mapping.md` §4.3 rules that only a section which must become a
+/// projection root has to be hoisted out of a follow-up subtree, so a follow-up
+/// root is never itself generated. A class carrying both claims to be both,
+/// which is the one shape the split cannot express.
+///
+/// **13 — per-part coverage.** Every *active* part named by any `@CodeSpecKind`
+/// has at least one bearer reachable from the CodeSpecs generation projection.
+/// This is what makes a `@CodeSpecKind` inside a follow-up subtree harmless
+/// rather than a routing gap: CE-TX help copy is legitimately tagged under
+/// `ExperienceDesignFollowUp` *because* the shared `MessageKeyRegistry`, which
+/// the projection does reach, bears CE-TX. A part named only from unreachable
+/// sections has no such bearer — its material would be specified and never
+/// generated. Deferred parts are exempt by construction ([_deferredParts]).
+///
+/// Deliberately **not** enforced: "a `@CodeSpecKind`-bearing class must itself
+/// be reachable from the projection". The model has 65 counterexamples and
+/// `codespecs_mapping.md` §4.3 rules them legitimate — that rule would forbid
+/// the follow-up processes from recording what they produce material for.
+void _validateCodeSpecKindRouting(
+  Map<String, ModelClass> classes,
+  Set<String> reachable,
+  Set<String> documentClasses,
+  List<String> errors,
+  List<String> warnings,
+) {
+  // --- 12. Mutual exclusion ------------------------------------------------
+  for (final className in reachable) {
+    final cls = classes[className];
+    if (cls == null) continue;
+    if (cls.getAnnotation('CodeSpecKind') == null) continue;
+    if (cls.getAnnotation('FollowUpKind') == null) continue;
+    errors.add(
+      '$_invariants CodeSpecs/follow-up exclusion: $className carries both '
+      '@CodeSpecKind and @FollowUpKind — a follow-up subtree root is never '
+      'itself generated (codespecs_mapping.md §8.3)',
+    );
+  }
+
+  // --- 13. Per-part coverage from the generation projection ----------------
+  //
+  // The projection roots are the `@Document` classes marked
+  // `@CodeSpecsProjection()`. A model with none (a synthetic test model, or the
+  // model before D13 existed) has nothing to route to, so the check stays
+  // silent rather than reporting every part as a gap.
+  final projectionRoots = documentClasses
+      .where((d) => classes[d]?.getAnnotation('CodeSpecsProjection') != null)
+      .toList()
+    ..sort();
+  if (projectionRoots.isEmpty) return;
+
+  final generated = <String>{};
+  for (final root in projectionRoots) {
+    generated.addAll(_findReachableTypes(classes, root));
+  }
+
+  final borne = <String>{}; // parts with at least one generated bearer
+  final namedBy = <String, String>{}; // part → first class naming it
+  for (final className in reachable) {
+    final anno = classes[className]?.getAnnotation('CodeSpecKind');
+    if (anno == null) continue;
+    final kinds = anno.arguments['kinds'];
+    if (kinds is! List) continue;
+    for (final kind in kinds.whereType<String>()) {
+      namedBy.putIfAbsent(kind, () => className);
+      if (generated.contains(className)) borne.add(kind);
+    }
+  }
+
+  for (final part in namedBy.keys.toList()..sort()) {
+    if (borne.contains(part)) continue;
+    if (_deferredParts.contains(part)) continue;
+    errors.add(
+      '$_invariants CodeSpecs part routing: $part is named by @CodeSpecKind '
+      '(first on ${namedBy[part]}) but no bearer of it is reachable from '
+      '${projectionRoots.join(", ")} — the part\'s material would be specified '
+      'and never generated (codespecs_mapping.md §8.3)',
+    );
+  }
+
+  // A deferred part that *has* acquired a generated bearer is a promotion the
+  // exemption list has not caught up with — harmless for generation, but the
+  // exemption is then stale, so say so rather than let it rot silently.
+  for (final part in _deferredParts) {
+    if (!borne.contains(part)) continue;
+    warnings.add(
+      '$_invariants CodeSpecs part routing: $part is listed in '
+      'deferredCodeSpecParts (tom_specs_core) but now has a bearer reachable '
+      'from ${projectionRoots.join(", ")} — the part looks promoted; remove it '
+      'from the deferral set',
+    );
+  }
 }
 
 /// The direct element types of `@SectionIdPattern`-bearing complex lists — the

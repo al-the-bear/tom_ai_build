@@ -51,10 +51,12 @@ class SolutionArchitectureAndTechnology extends DocSpecsSection {
 ///
 /// Groups the descriptive-architecture concern that is **not** CodeSpecs-
 /// generated: the component-reuse rationale (component catalogue, third-party
-/// and dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is
-/// generation-owned-out (`codespecs_mapping.md` §8.3), keeping the
-/// sibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing
-/// CodeSpecs subtree.
+/// and dependency strategy). The root carries no `@CodeSpecKind`, so it is not
+/// a generation projection root and nothing under it is reachable from
+/// `D13CodeSpecsProjection` (`codespecs_mapping.md` §8.3) — and here no section
+/// inside it carries one either, keeping the sibling
+/// [TechnicalFrameworkConcept] as the CE-CF configuration-bearing CodeSpecs
+/// subtree.
 @StandardReferences(
   ['ISO/IEC/IEEE 42010:2011 — architecture description'],
   'The descriptive-architecture follow-up: component-reuse rationale (component '

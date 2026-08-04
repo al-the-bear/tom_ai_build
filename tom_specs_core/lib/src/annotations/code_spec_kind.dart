@@ -269,3 +269,16 @@ enum CodeSpecPart {
   /// [serverConfiguration].
   reporting,
 }
+
+/// The [CodeSpecPart] values that are **deferred**: reserved so a SOM section
+/// can carry `@CodeSpecKind` today, but with no `@Cs*` annotation, no built-on
+/// `tom_core` class and no generated code (`codespecs_mapping.md` §4.3).
+///
+/// Machine-readable rather than prose-only, because the generation-routing
+/// invariant (`tom_specs_model_rules.md` §10.2, invariant 13) needs it: every
+/// **active** part named by a `@CodeSpecKind` must have a bearer reachable from
+/// the CodeSpecs generation projection, or the part is a routing gap. A
+/// deferred part has no generated surface at all, so it has no bearer to reach
+/// and is exempt by construction — an exemption the validator reads from here
+/// instead of restating.
+const Set<CodeSpecPart> deferredCodeSpecParts = {CodeSpecPart.workflow};

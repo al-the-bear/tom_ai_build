@@ -33906,7 +33906,7 @@ void buildExperienceAndInterfaceDesignChildren(som::SomMetaNode& parent, std::ve
         n.hasSerializationOrder = true;
         n.serializationOrder = 3;
         n.docComment = "10.3. Experience Design — DOC follow-up subtree.";
-        n.classDocComment = "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`\n§8.3). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out. Accessibility's operational (OPS) facet is a secondary\nconcern refined by the follow-up taxonomy pass.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — design DOC follow-up subtree.\n\nGroups the design / documentation concerns that are **follow-up** (design\nvision, print & export layout, user assistance, accessibility, prototype,\nwireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`\n§8.3). The root carries no `@CodeSpecKind`, so it is not a generation\nprojection root and nothing under it is reachable from\n`D13CodeSpecsProjection`. Sections *inside* it may still carry one —\n`UserAssistance` and its `ContextualHelp` are tagged CE-TX — recording which\npart their material belongs to; that material reaches generation through a\nD13-reachable bearer of the same part (for CE-TX, the shared\n`MessageKeyRegistry`), never through this subtree (`codespecs_mapping.md`\n§4.3). Accessibility's operational (OPS) facet is a secondary concern\nrefined by the follow-up taxonomy pass.";
       },
       buildExperienceDesignFollowUpChildren);
     parent.addChild(std::move(n));
@@ -33922,7 +33922,7 @@ void buildExperienceAndInterfaceDesignChildren(som::SomMetaNode& parent, std::ve
         n.hasSerializationOrder = true;
         n.serializationOrder = 4;
         n.docComment = "10.4. Experience Localization — L10N follow-up subtree.";
-        n.classDocComment = "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (`codespecs_mapping.md` §8.3). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — localization L10N follow-up subtree.\n\nGroups the internationalization concern, a **follow-up** (L10N) rather than\nCodeSpecs-generated UI (`codespecs_mapping.md` §8.3). The root carries no\n`@CodeSpecKind`, so it is not a generation projection root and nothing under\nit is reachable from `D13CodeSpecsProjection`. `MultiLanguageSupport` inside\nit is nonetheless tagged CE-TX, recording which part its material belongs\nto; that material reaches generation through the shared\n`MessageKeyRegistry`, never through this subtree (`codespecs_mapping.md`\n§4.3).";
       },
       buildExperienceLocalizationFollowUpChildren);
     parent.addChild(std::move(n));
@@ -33938,7 +33938,7 @@ void buildExperienceAndInterfaceDesignChildren(som::SomMetaNode& parent, std::ve
         n.hasSerializationOrder = true;
         n.serializationOrder = 5;
         n.docComment = "10.5. Authorization Compliance — CMP follow-up subtree.";
-        n.classDocComment = "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (`codespecs_mapping.md` §8.3).\nCarries no `@CodeSpecKind` — the whole subtree is generation-owned-out.";
+        n.classDocComment = "SBP.13 Experience & Interface Design — authorization-compliance CMP\nfollow-up subtree.\n\nGroups the UI authorization-compliance concern (how the interface adapts to\nroles and permissions as a compliance obligation), a **follow-up** (CMP)\nrather than CodeSpecs-generated UI (`codespecs_mapping.md` §8.3). The root\ncarries no `@CodeSpecKind`, so it is not a generation projection root and\nnothing under it is reachable from `D13CodeSpecsProjection` — and here no\nsection inside it carries one either.";
       },
       buildAuthorizationComplianceFollowUpChildren);
     parent.addChild(std::move(n));
@@ -64067,7 +64067,7 @@ void buildRequirementsChildren(som::SomMetaNode& parent, std::vector<std::string
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "Follow-up (non-generated) NFR sub-areas grouped out of the seed subtree.";
-        n.classDocComment = "SBP.9 Requirements — follow-up NFR sub-areas.\n\nGroups the framework-uncovered non-functional requirement sub-areas that are\n**follow-up** concerns (documentation, training, localization) rather than\nCodeSpecs-generated behaviour. Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out (`codespecs_mapping.md` §8.3), keeping the\nparent [Requirements] seed subtree purely CodeSpecs-relevant:\n\n * Localization & Translation → [LocalizationTranslationRequirements] (L10N)\n * Information for Use         → [InformationForUseRequirements] (DOC)\n * Training & Enablement       → [TrainingEnablementRequirements] (TRN)";
+        n.classDocComment = "SBP.9 Requirements — follow-up NFR sub-areas.\n\nGroups the framework-uncovered non-functional requirement sub-areas that are\n**follow-up** concerns (documentation, training, localization) rather than\nCodeSpecs-generated behaviour. The root carries no `@CodeSpecKind`, so it is\nnot a generation projection root and nothing under it is reachable from\n`D13CodeSpecsProjection` (`codespecs_mapping.md` §8.3), keeping the parent\n[Requirements] seed subtree purely CodeSpecs-relevant. The translation and\nlocale-handling requirements *inside* it are nonetheless tagged CE-TX,\nrecording which part their material belongs to; that material reaches\ngeneration through the shared `MessageKeyRegistry`, never through this\nsubtree (`codespecs_mapping.md` §4.3). The sub-areas:\n\n * Localization & Translation → [LocalizationTranslationRequirements] (L10N)\n * Information for Use         → [InformationForUseRequirements] (DOC)\n * Training & Enablement       → [TrainingEnablementRequirements] (TRN)";
       },
       buildRequirementsFollowUpChildren);
     parent.addChild(std::move(n));
@@ -69965,7 +69965,7 @@ void buildSecurityAndAccessModelChildren(som::SomMetaNode& parent, std::vector<s
         n.hasSerializationOrder = true;
         n.serializationOrder = 3;
         n.docComment = "9.3. Security Operations — OPS follow-up subtree.";
-        n.classDocComment = "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and the routines run *against* the audit log), not\nCodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). Carries no\n`@CodeSpecKind` — the whole subtree is generation-owned-out.\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What remains operational is\n`ComplianceReporting` — periodic access review, privilege-usage reporting,\nanomaly detection and regulatory audit support are processes people run, not\ncode a generator emits.";
+        n.classDocComment = "SBP.12 Security & Access — Security Operations (OPS follow-up subtree).\n\nGroups the operational security concerns that are **follow-up** (key\nmanagement and the routines run *against* the audit log), not\nCodeSpecs-generated behaviour (`codespecs_mapping.md` §8.3). The root\ncarries no `@CodeSpecKind`, so it is not a generation projection root and\nnothing under it is reachable from `D13CodeSpecsProjection`. The encryption\npolicies *inside* it are nonetheless tagged CE-CF, recording which part\ntheir material belongs to; that material reaches generation through the\nD13-reachable CE-CF bearers (`TechnicalFrameworkConcept`,\n`AuditAndLogging`), never through this subtree (`codespecs_mapping.md`\n§4.3).\n\nThe audit log's *declarations* are not here: which events are auditable and\nhow the sink is configured are the CE-LG / CE-CF bands, which live in the\nsibling `AuditAndLogging` CodeSpecs subtree. What remains operational is\n`ComplianceReporting` — periodic access review, privilege-usage reporting,\nanomaly detection and regulatory audit support are processes people run, not\ncode a generator emits.";
       },
       buildSecurityOperationsFollowUpChildren);
     parent.addChild(std::move(n));
@@ -69981,7 +69981,7 @@ void buildSecurityAndAccessModelChildren(som::SomMetaNode& parent, std::vector<s
         n.hasSerializationOrder = true;
         n.serializationOrder = 4;
         n.docComment = "9.4. Compliance — CMP follow-up subtree.";
-        n.classDocComment = "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). Carries no `@CodeSpecKind` — the whole\nsubtree is generation-owned-out.";
+        n.classDocComment = "SBP.12 Security & Access — Compliance (CMP follow-up subtree).\n\nGroups the compliance-framework concern, a **follow-up** (compliance\ngovernance) rather than CodeSpecs-generated behaviour\n(`codespecs_mapping.md` §8.3). The root carries no `@CodeSpecKind`, so it is\nnot a generation projection root and nothing under it is reachable from\n`D13CodeSpecsProjection` — and here no section inside it carries one either.";
       },
       buildSecurityComplianceFollowUpChildren);
     parent.addChild(std::move(n));
@@ -73865,7 +73865,7 @@ void buildSolutionArchitectureAndTechnologyChildren(som::SomMetaNode& parent, st
         n.hasSerializationOrder = true;
         n.serializationOrder = 2;
         n.docComment = "Architecture / component-reuse DOC follow-up subtree.";
-        n.classDocComment = "SBP.11 Solution Architecture & Technology — DOC follow-up subtree.\n\nGroups the descriptive-architecture concern that is **not** CodeSpecs-\ngenerated: the component-reuse rationale (component catalogue, third-party\nand dependency strategy). Carries no `@CodeSpecKind` — the whole subtree is\ngeneration-owned-out (`codespecs_mapping.md` §8.3), keeping the\nsibling [TechnicalFrameworkConcept] as the CE-CF configuration-bearing\nCodeSpecs subtree.";
+        n.classDocComment = "SBP.11 Solution Architecture & Technology — DOC follow-up subtree.\n\nGroups the descriptive-architecture concern that is **not** CodeSpecs-\ngenerated: the component-reuse rationale (component catalogue, third-party\nand dependency strategy). The root carries no `@CodeSpecKind`, so it is not\na generation projection root and nothing under it is reachable from\n`D13CodeSpecsProjection` (`codespecs_mapping.md` §8.3) — and here no section\ninside it carries one either, keeping the sibling\n[TechnicalFrameworkConcept] as the CE-CF configuration-bearing CodeSpecs\nsubtree.";
       },
       buildSolutionArchitectureFollowUpChildren);
     parent.addChild(std::move(n));
@@ -81090,7 +81090,7 @@ void buildTargetOperatingModelChildren(som::SomMetaNode& parent, std::vector<std
         n.hasSerializationOrder = true;
         n.serializationOrder = 1;
         n.docComment = "ORG/OPS follow-up subtree: target organization + process narrative.";
-        n.classDocComment = "SBP.7.1 Organization & Process Concept — ORG/OPS follow-up subtree.\n\nGroups the two purely-follow-up facets of the Target Operating Model into a\nsingle branch that is routed to organizational-change (ORG) and\noperational-routine (OPS) follow-up processes rather than to code\ngeneration: the target organizational structure/roles\n([OrganizationalFramework]) and the business-process narrative\n([BusinessProcessDescriptions], which seeds the TOM document).";
+        n.classDocComment = "SBP.7.1 Organization & Process Concept — ORG/OPS follow-up subtree.\n\nGroups the two purely-follow-up facets of the Target Operating Model into a\nsingle branch that is routed to organizational-change (ORG) and\noperational-routine (OPS) follow-up processes rather than to code\ngeneration: the target organizational structure/roles\n([OrganizationalFramework]) and the business-process narrative\n([BusinessProcessDescriptions], which seeds the TOM document).\n\nThe root carries no `@CodeSpecKind`, so it is not a generation projection\nroot and nothing under it is reachable from `D13CodeSpecsProjection`. One\nsection inside it — [DetailedProcessWorkflow] — is nonetheless tagged CE-WF,\nrecording which part its material *would* belong to; CE-WF is the one\npermanently deferred part (`codespecs_mapping.md` §4.3), so it has no\ngenerated surface and therefore no D13-reachable bearer either.";
       },
       buildOrganizationAndProcessConceptChildren);
     parent.addChild(std::move(n));

@@ -345,9 +345,15 @@ class ExperienceCodeSpecs extends DocSpecsSection {
 /// Groups the design / documentation concerns that are **follow-up** (design
 /// vision, print & export layout, user assistance, accessibility, prototype,
 /// wireframes & mockups), not CodeSpecs-generated UI (`codespecs_mapping.md`
-/// §8.3). Carries no `@CodeSpecKind` — the whole subtree is
-/// generation-owned-out. Accessibility's operational (OPS) facet is a secondary
-/// concern refined by the follow-up taxonomy pass.
+/// §8.3). The root carries no `@CodeSpecKind`, so it is not a generation
+/// projection root and nothing under it is reachable from
+/// `D13CodeSpecsProjection`. Sections *inside* it may still carry one —
+/// `UserAssistance` and its `ContextualHelp` are tagged CE-TX — recording which
+/// part their material belongs to; that material reaches generation through a
+/// D13-reachable bearer of the same part (for CE-TX, the shared
+/// `MessageKeyRegistry`), never through this subtree (`codespecs_mapping.md`
+/// §4.3). Accessibility's operational (OPS) facet is a secondary concern
+/// refined by the follow-up taxonomy pass.
 @StandardReferences(
   [
     'ISO 9241-210:2019 — human-centred design for interactive systems',
@@ -397,8 +403,13 @@ class ExperienceDesignFollowUp extends DocSpecsSection {
 /// SBP.13 Experience & Interface Design — localization L10N follow-up subtree.
 ///
 /// Groups the internationalization concern, a **follow-up** (L10N) rather than
-/// CodeSpecs-generated UI (`codespecs_mapping.md` §8.3). Carries no
-/// `@CodeSpecKind` — the whole subtree is generation-owned-out.
+/// CodeSpecs-generated UI (`codespecs_mapping.md` §8.3). The root carries no
+/// `@CodeSpecKind`, so it is not a generation projection root and nothing under
+/// it is reachable from `D13CodeSpecsProjection`. `MultiLanguageSupport` inside
+/// it is nonetheless tagged CE-TX, recording which part its material belongs
+/// to; that material reaches generation through the shared
+/// `MessageKeyRegistry`, never through this subtree (`codespecs_mapping.md`
+/// §4.3).
 @StandardReferences(
   [
     'ISO/IEC 25010:2023 — portability / adaptability',
@@ -426,8 +437,10 @@ class ExperienceLocalizationFollowUp extends DocSpecsSection {
 ///
 /// Groups the UI authorization-compliance concern (how the interface adapts to
 /// roles and permissions as a compliance obligation), a **follow-up** (CMP)
-/// rather than CodeSpecs-generated UI (`codespecs_mapping.md` §8.3).
-/// Carries no `@CodeSpecKind` — the whole subtree is generation-owned-out.
+/// rather than CodeSpecs-generated UI (`codespecs_mapping.md` §8.3). The root
+/// carries no `@CodeSpecKind`, so it is not a generation projection root and
+/// nothing under it is reachable from `D13CodeSpecsProjection` — and here no
+/// section inside it carries one either.
 @StandardReferences(
   [
     'ISO/IEC 27001:2022 — information security management',
@@ -1470,8 +1483,9 @@ class ScreenEntry extends DocSpecsSection {
     ),
     // Why: deliberately no `refersTo` (§6.2 "when not to annotate"). Help
     // content is a DOC follow-up — `UserAssistance` sits under
-    // `ExperienceDesignFollowUp`, which is generation-owned-out — so the topic
-    // catalogue belongs to the documentation process, not to the blueprint.
+    // `ExperienceDesignFollowUp`, which is not a generation projection root —
+    // so the topic catalogue belongs to the documentation process, not to the
+    // blueprint.
     // Modelling a topic register here would also cross the CodeSpecs/follow-up
     // boundary: this screen is reachable from the CodeSpecs generation
     // projection (D13) while the follow-up subtree deliberately is not, so

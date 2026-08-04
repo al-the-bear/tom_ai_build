@@ -4477,6 +4477,30 @@ point**. The model is therefore divided as high up as possible into
 - **purely-follow-up subtrees** — every reachable section is delivered by a
   non-generation process.
 
+**The split is decided by projection membership, not by the presence of a
+`@CodeSpecKind`.** A subtree is CodeSpecs iff it is reachable from
+`D13CodeSpecsProjection`; the follow-up roots are the ones that are not. Inside
+a follow-up subtree, individual sections **may still carry a `@CodeSpecKind`** —
+that annotation records which part the section's *material* belongs to, and is
+how the follow-up process knows what it is producing material for. It does not
+make the section generated: the material reaches generation through a
+D13-reachable **bearer** of the same part (CE-TX help copy through the shared
+`MessageKeyRegistry`, CE-CF encryption policy through `TechnicalFrameworkConcept`
+/ `AuditAndLogging`), never through the follow-up subtree itself. This is §4.3's
+ruling stated structurally — only a section that must become a *projection root*
+has to be hoisted out — and it holds at scale: 65 of the model's
+`@CodeSpecKind`-bearing sections sit inside a follow-up subtree, across six of
+the 18 follow-up roots.
+
+What must hold instead is the pair of invariants the validator enforces
+(`tom_specs_model_rules.md` §10.2, invariants 12 and 13): **no section carries
+both `@CodeSpecKind` and `@FollowUpKind`** — a follow-up root is never itself
+generated — and **every active part named by any `@CodeSpecKind` has at least
+one bearer reachable from D13**, so a part named from inside a follow-up subtree
+is never a routing gap. The single permanently deferred part, CE-WF, is exempt
+from the second by construction: it has no generated surface, so it has no
+bearer to reach.
+
 **Top-level verdict.** `D00SolutionBlueprint` has 15 top-level sections
 (SBP.1–SBP.9, SBP.11–SBP.15; SBP.10 is unused). **Eight split cleanly at the top**
 as whole follow-up subtrees: `documentControl`, `introductionAndScope`,
