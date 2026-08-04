@@ -109,6 +109,29 @@ sample call that exercises the new column with real values — `FORMAT 9`
 introduced its third `metaForm` call on `SCTREN-TRAN-LST` for exactly that
 reason: four reference fields, one of them naming two registries.
 
+#### The nine validators move together too — and the corpus is what enforces it
+
+Same rule, different mechanism. Every instance-tier validation check is
+nine-language (`som_multiplatform_spec_model.md` §9), and what *forces* a
+runtime to implement one is a case in `corpus/validation_cases.json`: a case
+expecting a code a runtime does not emit fails that runtime's own conformance
+runner.
+
+The converse is the trap, and it is not obvious. A code with **no** case is not
+weakly covered — it is **invisible**, and nine runners then agree byte-for-byte
+about a question none of them was ever asked. That is not hypothetical: two
+codes stayed Dart-only for two rounds while this harness reported nine-way
+parity, because the corpus carried no `refersTo` declaration and no `@OneOf`
+group to exercise them with.
+
+So the corpus must exercise **every** `SpecValidationCode`. The Dart conformance
+test derives the covered set from the committed `validation_cases.json` and
+diffs it against `SpecValidationCode.values`, which makes adding an enum
+constant the very act that demands its corpus case. Adding a check is therefore
+one indivisible change, exactly like a format bump: implement it in all nine
+runtimes in the same phase with the same message text, and add the case that
+proves it.
+
 #### TypeScript step — build the runtime `dist/` first (CS4-D6)
 
 The TypeScript golden generator (and the `tom_som_typescript_v0` facade in
