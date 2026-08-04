@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-04T08:24:58.455471Z",
+  "generatedAt": "2026-08-04T09:13:32.243953Z",
   "metaSchemaVersion": 1,
   "modelVersion": 1,
   "modelVersionLabel": "1.0.0+3.50e0102",
@@ -107027,9 +107027,12 @@
             {
               "name": "fieldId",
               "label": "Field ID",
-              "hint": "The input field this help is attached to — the symbol the built screen carries for the field, e.g. fld-customer-name",
+              "hint": "Element ID (SCREL registry) of the input element this help is attached to, e.g. fld-customer-name",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "SCREL.elementId"
+              ]
             },
             {
               "name": "tooltipText",
@@ -108491,9 +108494,12 @@
             {
               "name": "formId",
               "label": "Form ID",
-              "hint": "The form shown on this route — the symbol the built client carries for the form, e.g. form-order-edit",
+              "hint": "The form shown on this route — a screen section id (SCREN-ITEM-…) whose screen category is Form",
               "type": "String",
-              "required": true
+              "required": true,
+              "refersTo": [
+                "SCREN.@sectionId"
+              ]
             },
             {
               "name": "routeId",

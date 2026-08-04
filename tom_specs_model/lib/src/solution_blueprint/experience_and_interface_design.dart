@@ -3342,9 +3342,9 @@ class FormScreenAssignmentEntry extends DocSpecsSection {
       String,
       'Form ID',
       required: true,
-      hint:
-          'The form shown on this route — the symbol the built client carries '
-          'for the form, e.g. form-order-edit',
+      hint: 'The form shown on this route — a screen section id '
+          '(SCREN-ITEM-…) whose screen category is Form',
+      refersTo: ['SCREN.@sectionId'],
     ),
     Field(
       'routeId',
@@ -10078,8 +10078,9 @@ class FieldHelpEntry extends DocSpecsSection {
       String,
       'Field ID',
       required: true,
-      hint: 'The input field this help is attached to — the symbol the built '
-          'screen carries for the field, e.g. fld-customer-name',
+      hint: 'Element ID (SCREL registry) of the input element this help is '
+          'attached to, e.g. fld-customer-name',
+      refersTo: ['SCREL.elementId'],
     ),
     Field('tooltipText', String, 'Tooltip Text', hint: 'Brief tooltip content'),
     Field(

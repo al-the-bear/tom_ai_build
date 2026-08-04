@@ -40972,7 +40972,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("fieldId", "String", "Field ID", true, "The input field this help is attached to — the symbol the built screen carries for the field, e.g. fld-customer-name", 0),
+            new SomFormFieldMeta("fieldId", "String", "Field ID", true, "Element ID (SCREL registry) of the input element this help is attached to, e.g. fld-customer-name", 0, java.util.List.of(), java.util.List.of("SCREL.elementId")),
             new SomFormFieldMeta("tooltipText", "String", "Tooltip Text", false, "Brief tooltip content", 1),
             new SomFormFieldMeta("inlineHelpText", "String", "Inline Help Text", false, "Longer inline help", 2),
             new SomFormFieldMeta("extendedHelp", "String", "Extended Help", false, "Full help panel content", 3),
@@ -41601,7 +41601,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.form = new SomFormMeta(Arrays.asList(
-            new SomFormFieldMeta("formId", "String", "Form ID", true, "The form shown on this route — the symbol the built client carries for the form, e.g. form-order-edit", 0),
+            new SomFormFieldMeta("formId", "String", "Form ID", true, "The form shown on this route — a screen section id (SCREN-ITEM-…) whose screen category is Form", 0, java.util.List.of(), java.util.List.of("SCREN.@sectionId")),
             new SomFormFieldMeta("routeId", "String", "Route ID", true, "Route ID (SCRTEN registry) that hosts the form", 1, java.util.List.of(), java.util.List.of("SCRTEN.routeId")),
             new SomFormFieldMeta("presentationMode", "ScreenPresentationMode", "Presentation Mode", true, "replace — the form takes over the screen; popupOverlay — the form is shown over the calling screen, which stays underneath", 2, java.util.List.of("replace", "popupOverlay"))));
         out.add(n);

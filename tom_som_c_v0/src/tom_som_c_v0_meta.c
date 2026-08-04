@@ -64830,8 +64830,11 @@ static void meta_build_field_help_entry_content(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Field ID");
   n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("The input field this help is attached to — the symbol the built screen carries for the field, e.g. fld-customer-name");
+  n->form->fields[0].hint = som_strdup("Element ID (SCREL registry) of the input element this help is attached to, e.g. fld-customer-name");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("SCREL.elementId");
   n->form->fields[1].name = som_strdup("tooltipText");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Tooltip Text");
@@ -65501,8 +65504,11 @@ static void meta_build_form_screen_assignment_entry_content(SomMetaNode *n) {
   n->form->fields[0].type_name = som_strdup("String");
   n->form->fields[0].description = som_strdup("Form ID");
   n->form->fields[0].required = 1;
-  n->form->fields[0].hint = som_strdup("The form shown on this route — the symbol the built client carries for the form, e.g. form-order-edit");
+  n->form->fields[0].hint = som_strdup("The form shown on this route — a screen section id (SCREN-ITEM-…) whose screen category is Form");
   n->form->fields[0].order = 0;
+  n->form->fields[0].refers_to_len = 1;
+  n->form->fields[0].refers_to = (char **)calloc(1, sizeof(char *));
+  n->form->fields[0].refers_to[0] = som_strdup("SCREN.@sectionId");
   n->form->fields[1].name = som_strdup("routeId");
   n->form->fields[1].type_name = som_strdup("String");
   n->form->fields[1].description = som_strdup("Route ID");

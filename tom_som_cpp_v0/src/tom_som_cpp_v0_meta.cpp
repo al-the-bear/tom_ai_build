@@ -36556,7 +36556,7 @@ void buildFieldHelpEntryChildren(som::SomMetaNode& parent, std::vector<std::stri
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"fieldId", "String", "Field ID", true, "The input field this help is attached to — the symbol the built screen carries for the field, e.g. fld-customer-name", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"fieldId", "String", "Field ID", true, "Element ID (SCREL registry) of the input element this help is attached to, e.g. fld-customer-name", 0, std::vector<std::string>{}, std::vector<std::string>{"SCREL.elementId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"tooltipText", "String", "Tooltip Text", false, "Brief tooltip content", 1, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"inlineHelpText", "String", "Inline Help Text", false, "Longer inline help", 2, std::vector<std::string>{}, std::vector<std::string>{}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"extendedHelp", "String", "Extended Help", false, "Full help panel content", 3, std::vector<std::string>{}, std::vector<std::string>{}});
@@ -37061,7 +37061,7 @@ void buildFormScreenAssignmentEntryChildren(som::SomMetaNode& parent, std::vecto
     (*n).hasSerializationOrder = true;
     (*n).serializationOrder = 0;
     (*n).form = som::SomFormMeta{};
-    (*n).form->fields.push_back(som::SomFormFieldMeta{"formId", "String", "Form ID", true, "The form shown on this route — the symbol the built client carries for the form, e.g. form-order-edit", 0, std::vector<std::string>{}, std::vector<std::string>{}});
+    (*n).form->fields.push_back(som::SomFormFieldMeta{"formId", "String", "Form ID", true, "The form shown on this route — a screen section id (SCREN-ITEM-…) whose screen category is Form", 0, std::vector<std::string>{}, std::vector<std::string>{"SCREN.@sectionId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"routeId", "String", "Route ID", true, "Route ID (SCRTEN registry) that hosts the form", 1, std::vector<std::string>{}, std::vector<std::string>{"SCRTEN.routeId"}});
     (*n).form->fields.push_back(som::SomFormFieldMeta{"presentationMode", "ScreenPresentationMode", "Presentation Mode", true, "replace — the form takes over the screen; popupOverlay — the form is shown over the calling screen, which stays underneath", 2, std::vector<std::string>{"replace", "popupOverlay"}, std::vector<std::string>{}});
     parent.addChild(std::move(n));
