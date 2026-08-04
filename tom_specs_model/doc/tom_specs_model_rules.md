@@ -1452,98 +1452,123 @@ is easy to scan and validate.
   [`../generated-doc/outlines/index.md`](../generated-doc/outlines/index.md) for
   the committed set and the batch regeneration script.
 
+**Options.** Besides `--package` (mandatory) and `--root-type`:
+
+| Option | Effect |
+|--------|--------|
+| `--output` / `-o` | Override the output path (defaults as above) |
+| `--max-line-length` | Leaf-line wrap width, default `120` |
+| `--show-schema-annotations` | Emit schema-only annotations inline (§11.2.14) |
+| `--stop-at-detailed-in` / `-c` | Compact mode: do not expand `@DetailedIn` subtrees (§11.3.3) |
+
 ### 11.2 Notation
 
-#### 11.2.1 Indentation
+The outline is **markdown**: every model member is a list item, so an outline
+renders as a nested bullet list in any markdown viewer while staying readable as
+plain text. This section is the specification of that notation; it describes
+only what `OutlineWriter` emits today, and each rule below is pinned by a case
+in `tom_specs_clitool/test/outline_writer_test.dart`.
 
-Each nesting level adds **4 spaces** of indentation.
+#### 11.2.1 Lines and indentation
 
-#### 11.2.2 Singular complex fields (`->`)
+Every structural line is a markdown list item — `- ` — and each nesting level
+adds **2 spaces** of indentation. The root class contributes no line of its own;
+its members start at one level in (2 spaces), under the `# <Title> Outline`
+heading.
 
-A field whose type is a single complex object (zero-or-one / exactly-one
-relationship).
+The only non-bullet lines are the optional schema-annotation comments of
+§11.2.14, and those are HTML comments, so they too disappear in a rendered
+view.
 
-**Name-match rule:** if the field name matches the type name (equal except for
-the first character being lowercase), only the **type name** is shown — the field
-name would be redundant. If they do **not** match, both are shown as
-`fieldName:TypeName`:
+#### 11.2.2 Singular complex members
+
+A member whose type is a single complex object (zero-or-one / exactly-one
+relationship). The type name is rendered in backticks, so it stands out from the
+member name:
 
 ```
--> ExistingSystemsLandscape
-    -> content, currentArchitecture
-    -> DependenciesAndIntegrations
-        ...
--> header:DocumentHeader
-    -> content, documentId, project, version, date, author, status
+- header: `DocumentHeader`
 ```
 
-In the first line, the field name `existingSystemsLandscape` matches type
-`ExistingSystemsLandscape` → only the type is shown. In the last line, the field
-name `header` does not match type `DocumentHeader` → both are shown.
+**Name-match rule:** if the member name equals the type name with its first
+character lowercased, only the **type name** is shown — the member name would be
+redundant:
 
-If the field is a `@Reference`, both field name and type name are always shown
-(see §11.2.9).
+```
+- `DocumentControl`
+```
 
-#### 11.2.3 List fields (`-:`) and count constraints
+Here the member name is `documentControl`, which matches `DocumentControl`, so it
+is dropped. `header` does not match `DocumentHeader`, so both are shown. The
+comparison is exact after lowercasing the first character only — `header` vs
+`DocumentHeader` differ, and no fuzzy or case-insensitive matching applies.
 
-A field whose type is `List<ComplexType>` (zero-or-many relationship). Both the
-**field name** and the **type name** are always shown as `fieldName:TypeName`,
-because the field name (typically plural) differs from the type name (typically
-singular). The field name is structurally significant — it represents a **section
-level** in the target document, with each list item as a subsection.
+If the member is a `@Reference`, both names are always shown (see §11.2.9).
+
+#### 11.2.3 List members and count constraints
+
+A member whose type is `List<ComplexType>` (zero-or-many relationship). Both the
+**member name** and the **type name** are always shown, because the member name
+(typically plural) differs from the type name (typically singular). The member
+name is structurally significant — it represents a **section level** in the
+target document, with each list item as a subsection.
 
 When a list has `@Min` or `@Max` constraints, the bounds are shown as a
-`(min,max)` prefix before the `-:`. If there are no constraints, just `-:` is
-used. Omitted values mean "no constraint" (min defaults to 0, max defaults to ∞):
+`[min,max]` tag between the bullet and the member name. If there are no
+constraints, no tag is emitted. Omitted values mean "no constraint" (min
+defaults to 0, max defaults to ∞):
 
 | Notation | Meaning |
 |----------|---------|
-| `-:` | Default: 0..∞ (no constraints) |
-| `(1,)-:` | At least 1, no upper limit |
-| `(,5)-:` | At most 5, min 0 |
-| `(1,5)-:` | Between 1 and 5 items |
+| ``- name: `T` `` | Default: 0..∞ (no constraints) |
+| ``- [1,] name: `T` `` | At least 1, no upper limit |
+| ``- [,5] name: `T` `` | At most 5, min 0 |
+| ``- [1,5] name: `T` `` | Between 1 and 5 items |
+
+<!-- outline-excerpt: SolutionBlueprint_outline.md -->
+```
+        - stakeholders: `StakeholdersAndBeneficiaries`
+          - content @description
+          - [1,] primaryStakeholders: `StakeholderEntry`
+            - content @Form(stakeholderType, expectedBenefits)
+```
+
+> **An unconstrained list and a name-mismatched singular member render
+> identically** — both are ``- name: `Type` ``. The notation does not distinguish
+> cardinality in that case; a reader who needs to know consults the model. Only
+> a `@Min`/`@Max` tag makes a list visibly a list.
+
+#### 11.2.4 Leaf members
+
+All scalar members (`String?`, `String`, enum types) of a class share a
+**single bullet**, comma-separated:
 
 ```
--: systems:ExistingSystemEntry
-    -> content, systemName, technology, purpose
-    (1,)-: knownLimitations:LimitationEntry
-        -> content, limitation, impact
-```
-
-#### 11.2.4 Leaf fields
-
-All scalar fields (`String?`, `String`, enum types) of a class are collected on a
-**single line**, comma-separated, prefixed with `->`:
-
-```
--> content, systemName, technology, purpose
+  - content, systemName, technology, purpose
 ```
 
 **Line wrapping:** if the leaf line exceeds the configured max line length
 (default **120 characters**, including indentation), it wraps to continuation
-lines indented **one level deeper** than the original:
+lines indented **one level deeper** than the bullet. The comma stays at the end
+of the broken line, and the continuation carries no bullet:
 
 ```
--> content, systemName, technology, purpose, activeUsers,
-    dataVolume, operationalSince, supportStatus
+      - content @Form(systemName, systemAcronym, systemVersion, projectCodeName), classification, scale, status,
+        complexity
 ```
+
+A class with exactly one leaf member never wraps, however long the line.
 
 Shape-(3) `DocSpecsSection` members render here too: they report `String` at the
 meta boundary (§5.2), so the outline is unaffected by the object typing.
 
-#### 11.2.5 Enum fields
+#### 11.2.5 Enum members
 
-Enums are shown inline with their values in parentheses:
-
-```
--> Priority (must, should, could, wontThisTime)
-```
-
-If an enum field is among other leaf fields on the same line, it appears in-place
-with the field name as prefix:
+An enum member is shown in place among the other leaf members, with its values
+inline:
 
 ```
--> content, priority: Priority (must, should, could, wontThisTime), status
+  - content, priority: Priority (must, should, could), status
 ```
 
 Enum values are shown at **every occurrence** — this keeps the outline
@@ -1575,75 +1600,67 @@ fields without opening the class:
 — a `@Form` section's content type is `Form` by definition, so naming it again
 would be redundant.
 
-#### 11.2.7 Nullable vs non-nullable
+#### 11.2.7 Nullability is not shown
 
-The outliner distinguishes `String?` from `String` and `Type?` from `Type`. The
-types (or field names) are simply suffixed with a question mark, just as they are
-in Dart.
+The outline does **not** distinguish `String?` from `String`, or `Type?` from
+`Type`. A leaf member renders as its bare name, and a complex member's type name
+has any `?` stripped before it is printed. Nullability is a model fact, read
+from the source or from the generated meta — the outline is a structural map,
+not a type signature.
 
-#### 11.2.8 Field ordering
+#### 11.2.8 Member ordering
 
-Fields are listed in **declaration order** as they appear in the source class.
+Members are listed in **declaration order** as they appear in the source class.
+Within a class the leaf bullet comes first, then the complex and list members in
+their declared order.
 
 #### 11.2.9 References
 
-Fields annotated with `@Reference` are shown with both field name and type name,
-plus reference information:
-
-**Singular reference:**
+A member annotated with `@Reference` shows both names — the name-match rule of
+§11.2.2 does not apply — followed by the reference description in parentheses:
 
 ```
--> fieldName:TypeName:<reference-path>
+  - basedOn: `Requirement` (ref: Source System)
 ```
 
-**List reference:**
-
-```
--: fieldName:TypeName:<reference-path>
-```
-
-The reference path uses `-` to separate 1:1 relationships and `:` to separate 1:n
-(List) relationships:
-
-```
--> basedOnRequirement:FunctionalRequirementEntry:SolutionBlueprint-SystemOverview-RequirementsOverview:functionalRequirements
-```
+The referenced type is **not expanded**: the annotation says the link should be
+shown but not followed, so the target's subtree does not appear (§11.3.2).
 
 #### 11.2.10 Inline comments
 
-Fields or classes annotated with `@Comment("text")` display the comment as a
-trailing annotation:
+Members or classes annotated with `@Comment("text")` display the comment as a
+trailing marker:
 
 ```
--: systems:ExistingSystemEntry          ← (text from @Comment)
+    - requirements: `RequirementsOverview` ← (Seeds → RSP)
 ```
 
-**Comment placement:** the `← (...)` marker starts at column **50** of the line
-(counting from the beginning PLUS indentation), or immediately after the line
-content plus one space if the content is longer than 50 characters.
+The `← (...)` marker follows the line content after a single space. There is
+**no column alignment**: the writer appends trailing markers directly, so a
+marker's position depends on the length of the line it follows.
 
 #### 11.2.11 Position markers
 
 The default position is **relative** — subsections appear in the order they are
-declared in the class. When a field has a non-default `@Position` annotation, it
+declared in the class. When a member has a non-default `@Position` annotation, it
 is shown as a trailing marker in square brackets:
 
 ```
--: preamble:PreambleEntry                [first]
--: items:ItemEntry                       [any]
--: appendices:AppendixEntry              [last]
+  - preamble: `Item` [first]
+  - items: `Item`
+  - appendices: `Item` [last]
 ```
 
-Position markers are aligned at column 50 (same as comments). The `[relative]`
-marker is never shown as it is the default.
+The `[relative]` marker is never shown, as it is the default. Like comments,
+position markers follow the content directly with no padding.
 
 #### 11.2.12 ForEach constraints
 
-A list field annotated with `@ForEach` has a bidirectional relationship with a
+A list member annotated with `@ForEach` has a bidirectional relationship with a
 registry section type. This is shown with a `⟷` marker:
 
 ```
--: implementations:ImplementationEntry   ⟷ PRIDN.processId
+  - implementations: `Item` ⟷ PRIDN.processId
 ```
 
 This means: for every entry identified by `PRIDN.processId`, there must be a
@@ -1659,16 +1676,18 @@ generation and validation but not shown in the outline):
 
 | Annotation | Visible | Outline rendering |
 |------------|---------|-------------------|
-| `@Min`, `@Max` | Yes | `(min,max)-:` prefix on list lines |
-| `@Position` | Yes | `[first]`, `[last]`, `[any]` marker (non-default only) |
-| `@ForEach` | Yes | `⟷ Type.key` marker |
-| `@TextRequired` | Yes | `!` suffix on `content` field |
-| `@ContentType` | Yes | `@type` suffix on content |
-| `@Unused` | Yes | Marks content as unused (no section text expected) |
-| `@Comment` | Yes | `← (text)` marker |
-| `@Reference` | Yes | Reference path notation (see §11.2.9) |
-| `@SectionId` | Yes | Can be shown alongside type name |
-| `@SectionIdPattern` | Yes | Can be shown alongside list field |
+| `@Min`, `@Max` | Yes | `[min,max]` tag before the member name (§11.2.3) |
+| `@Position` | Yes | `[first]` / `[last]` marker, non-default only (§11.2.11) |
+| `@ForEach` | Yes | `⟷ Type.key` marker (§11.2.12) |
+| `@TextRequired` | Yes | `!` suffix on the `content` member (`content!`) |
+| `@ContentType` | Yes | `@type` suffix on content (§11.2.6) |
+| `@Form` | Yes | `@Form(names…)` suffix on content (§11.2.6) |
+| `@Comment` | Yes | `← (text)` marker (§11.2.10) |
+| `@Reference` | Yes | `(ref: description)` suffix, target not expanded (§11.2.9) |
+| `@DetailedIn` | Compact only | `→ DocId` suffix under `-c` (§11.3.3); nothing otherwise |
+| `@Unused` | No | Not rendered |
+| `@SectionId` | No | Not rendered |
+| `@SectionIdPattern` | No | Not rendered |
 | `@Prefix` | No | Schema constraint only |
 | `@PatternCheckId` | No | Schema constraint only |
 | `@PatternCheck` | No | Schema constraint only |
@@ -1682,55 +1701,80 @@ generation and validation but not shown in the outline):
 | `@Document` | No | Schema constraint only (document root metadata) |
 | `@Headline` | No | Meta-data only (default headline) |
 | `@SerializationOrder` | No | Meta-data only (member emission order) |
-| `@MapsTo`, `@DetailedIn` | No | Meta-data only (Solution Blueprint → Phase 3 traceability) |
+| `@MapsTo` | No | Meta-data only (Solution Blueprint → Phase 3 traceability) |
 | `@StandardReferences` | No | Meta-data only (standard provenance + connotation) |
 | `@CodeSpecKind`, `@FollowUpKind`, `@CodeSpecsProjection` | No | Meta-data only (CodeSpecs / follow-up mapping) |
 
 #### 11.2.14 Inline schema annotations (`--show-schema-annotations`)
 
-When the `--show-schema-annotations` flag is set, schema-only annotations (those
-marked "No" in §11.2.13) are shown **inline** in the tree, directly above the
-line they annotate. Each annotation appears on its own line, at the same
-indentation as the annotated line, prefixed with `#` to distinguish it from
-structural lines.
+When the `--show-schema-annotations` flag is set, schema-only annotations are
+shown **inline** in the tree as **HTML comments** — `<!-- @Annotation(args) -->`.
+The HTML-comment form is what keeps the output valid markdown: the annotation
+lines are invisible in a rendered view, so an outline stays a clean bullet list
+while carrying the schema detail in its source.
 
 Without the flag, schema annotations are omitted.
 
-**Class-level annotations** appear above the class/type line:
+**Not every "No" row in §11.2.13 is shown by the flag.** The flag covers the
+nine schema *constraint* annotations only:
+
+`@Prefix`, `@PatternCheckId`, `@PatternCheck`, `@MaxDepth`, `@AllowedTags`,
+`@ValidationPrompt`, `@AccessKey`, `@MinLength`, `@MaxLength`.
+
+The meta-data annotations (`@Headline`, `@SerializationOrder`, `@MapsTo`,
+`@SeedFor`, `@ContentHelp`, `@Document`, `@StandardReferences`,
+`@CodeSpecKind`, …) are never emitted, with or without the flag.
+
+**Class-level annotations** appear **after** the class line and **before** the
+class's members, indented to the same level as the class line — so they sit one
+level *out* from the members below them, which is what makes them read as
+belonging to the class rather than to its first member:
 
 ```
-        -> ExistingSystemsLandscape
-            # @Prefix("CSA-SYS")
-            # @PatternCheckId(r'^CSA-SYS-\d{2}$', "Must be CSA-SYS-NN")
-            # @MaxDepth(2)
-            -> content!, currentArchitecture
-            -: systems:ExistingSystemEntry
+  - general: `Settings`
+  <!-- @Prefix('CSA-SYS') -->
+  <!-- @MaxDepth(2) -->
+    - content
 ```
 
-**Field-level annotations** appear above the field they annotate. For leaf fields
-on a comma-separated `->` line, the annotation is placed above the entire leaf
-line:
+**Member-level annotations** appear before the line they annotate, with the
+member name after the annotation to identify the target — necessary because leaf
+members share one bullet, so the annotation cannot be positioned against an
+individual member:
 
 ```
-            -: systems:ExistingSystemEntry
-                # @MinLength(50) content
-                # @PatternCheck(r'^[A-Z]\w+$') systemName
-                # @AccessKey("systemName") systemName
-                -> content, systemName, technology, purpose
+  - record: `Entry`
+    <!-- @MinLength(50) content -->
+    <!-- @AccessKey('systemName') systemName -->
+    - content, systemName
 ```
 
 **Rules:**
 
-- Only classes/fields that **have** schema-only annotations get `#` lines — no
-  clutter when no schema annotations exist.
-- Annotation lines use a `#` prefix to visually separate them from structural
-  `->` and `-:` lines.
-- Class-level annotations appear after the class type line, before the class's
-  children.
-- Field-level annotations appear before the leaf/child line they belong to, with
-  the field name after the annotation to identify the target.
+- Only classes/members that **have** one of the nine constraint annotations get
+  comment lines — no clutter when none exist.
 - When a class appears multiple times (inline expansion), its schema annotations
   are shown at **every** occurrence for self-containedness.
+
+#### 11.2.15 Notation the current model does not exercise
+
+Several rules above have no instance in the committed outline set, because the
+model does not currently use the annotation that triggers them. They are
+specified and tested, but a reader will not find an example by grepping
+`generated-doc/outlines/`:
+
+| Notation | Why absent |
+|----------|------------|
+| Enum members (§11.2.5) | The model declares enums but no class holds an enum *member* |
+| `content!` (§11.2.13) | `@TextRequired` is used nowhere in the model |
+| `[,5]` / `[1,5]` (§11.2.3) | `@Max` is used nowhere; only `@Min(1)` occurs, so `[1,]` is the only tag emitted |
+| `[first]` / `[last]` (§11.2.11) | `@Position` is used nowhere |
+| `⟷` (§11.2.12) | `@ForEach` is used nowhere |
+
+Each is pinned by a hand-built fixture in
+`tom_specs_clitool/test/outline_writer_test.dart` rather than by a generated
+sample — deliberately, so the notation stays specified after the model moves on,
+and so these rules cannot rot unobserved the way they once did.
 
 ### 11.3 Type expansion
 
@@ -1743,175 +1787,108 @@ jumping around.
 
 #### 11.3.2 Cycle detection
 
-Cycles **must not exist** in the model (§5.7). If a cycle is detected during tree
-walking, the generator **fails with a clear error message** naming the types
-involved. There is no soft handling (no `[circular — see above]`).
+Cycles **must not exist** in the model (§5.7). **Detecting and reporting them is
+the validator's job**, not the writer's — `tom_specs_clitool/lib/src/validator.dart`
+fails with a message naming the types involved, and the outliner runs it before
+emitting (§11.5).
+
+The writer itself carries only a **safety net**: it tracks the ancestors on the
+current path and stops descending when it meets one again, so a cycle that
+somehow reached it truncates the branch rather than looping forever. That
+silence is deliberate — it is a backstop, not a diagnostic. A cycle should
+never get this far, and if one does the validator is where the error belongs.
+
 `@Reference`-marked links are not considered cycles: the annotation indicates
 that the link should be shown, but not followed in traversal.
 
+#### 11.3.3 Compact mode (`--stop-at-detailed-in`)
+
+With `-c`, the walk **stops at every `@DetailedIn` boundary**: the section's own
+line is emitted with a `→ <DocId>` suffix naming the document that details it,
+and its subtree is not expanded. `<DocId>` is the `@SectionId` of the document
+class named in the `@DetailedIn` annotation.
+
+<!-- outline-excerpt: SolutionBlueprint_compact_outline.md -->
+```
+    - requirements: `RequirementsOverview` ← (Seeds → RSP)
+      - content, requirementsForm, traceabilityMatrix
+      - `FunctionalRequirements` → RSP
+      - `TechnicalRequirements` → RSP
+      - `SecurityRequirements` → RSP
+```
+
+This is what makes a Solution Blueprint outline readable at a glance: the SBP is
+mostly a set of seeds for the Phase 3 documents, so expanding every detailed
+subtree buries the blueprint's own structure. The committed
+`SolutionBlueprint_compact_outline.md` is generated this way.
+
 ### 11.4 Output example
 
-The example below shows the `tom_specs_model` tree with all notation features.
-Hypothetical annotations are included to demonstrate the notation — they are not
-all applied to the model.
+The block below is a **verbatim cut** of the head of
+[`../generated-doc/outlines/SolutionBlueprint_outline.md`](../generated-doc/outlines/SolutionBlueprint_outline.md),
+the outline of the `D00SolutionBlueprint` root. It is not a hand-written
+illustration: the `<!-- outline-excerpt: ... -->` marker above it binds it to
+that generated file, and `outline_writer_test.dart` asserts the block is a
+contiguous substring of it. If the outliner's output changes, this example goes
+red rather than quietly becoming a lie — which is exactly what it did before.
 
+To refresh it, regenerate the outlines and re-cut the block; do not edit it by
+hand.
+
+<!-- outline-excerpt: SolutionBlueprint_outline.md -->
 ```
 # Solution Blueprint Outline
 
-SolutionBlueprint
-    -> header:DocumentHeader
-        -> content, documentId, project, version,
-            date @date, author, status
-    -> CurrentStateAnalysis
-        -> content
-        -> ExistingSystemsLandscape
-            -> content!, currentArchitecture
-            -: systems:ExistingSystemEntry
-                -> content, systemName, technology, purpose,
-                    activeUsers @int, dataVolume,
-                    operationalSince @date, supportStatus
-                (1,)-: knownLimitations:LimitationEntry
-                    -> content, limitation, impact
-            -> DependenciesAndIntegrations
-                -> content
-                -: items:SystemDependencyEntry
-                    -> content, sourceSystem, targetSystem,
-                        dependencyType, protocol, dataExchanged,
-                        criticality
-        -> CurrentBusinessProcesses
-            -> content
-            (1,)-: workflows:CurrentWorkflowEntry
-                -> content, processName, trigger, output,
-                    cycleTime
-                (1,)-: steps:WorkflowStepEntry
-                    -> content, stepName, description
-                -: actors:WorkflowActorEntry
-                    -> content, actorName, role
-                -: manualSteps:WorkflowStepEntry
-                    -> content, stepName, description
-                -: errorProneSteps:WorkflowStepEntry
-                    -> content, stepName, description
-            -> ProcessMetrics
-                -> content
-                -: items:ProcessMetricEntry
-                    -> content, metricName, processReference,
-                        currentValue, unit, measurementMethod,
-                        frequency
-        -> PainPointsAndGaps
-            -> content
-            -> OperationalPainPoints
-                -> content
-                (1,)-: items:PainPointEntry
-                    -> content, painPoint, description, impact,
-                        affectedProcess, severity, workaround
-            -> BusinessPainPoints
-                -> content
-                -: items:PainPointEntry
-                    -> content, painPoint, description, impact,
-                        affectedProcess, severity, workaround
-            -> TechnicalPainPoints
-                -> content
-                -: items:PainPointEntry
-                    -> content, painPoint, description, impact,
-                        affectedProcess, severity, workaround
-        -> CurrentDataLandscape
-            -> content, dataQualityAssessment
-            -: dataSources:DataSourceEntry
-                -> content, dataStoreName, storeType, technology,
-                    dataFormat, estimatedVolume, growthRate,
-                    qualityLevel, owner, retentionPolicy
-    -> projectOrganizationProcess:ProjectOrganizationAndProcess
-        ...
-    -> Administrative
-        ...
-    -> SystemOverview
-        -> content
-        -> SystemDescription
-            -> content!, systemPurpose, systemContext, taskArea
-            (1,)-: userCategories:UserCategoryEntry
-                -> content, categoryName, description,
-                    typicalTasks, accessLevel, estimatedCount @int
-            -> UserInteractionModel
-                -> content, sessionModel, concurrencyModel
-                -: channels:InteractionChannelEntry
-                    -> content, channelName, description
-                -: interactionPatterns:InteractionPatternEntry
-                    -> content, patternName, description
-        -> Goals
-            -> content
-            (1,)-: businessGoals:BusinessGoalEntry
-                -> content, goalId, goalName, description,
-                    measurableTarget, targetDate @date
-            (1,)-: projectGoals:ProjectGoalEntry
-                -> content, goalId, goalName, description,
-                    successCriteria
-        -> requirements:RequirementsOverview  ← (Seeds → RC)
-            -> content
-            (1,)-: functionalRequirements:FunctionalRequirementEntry
-                -> content, description,
-                    priority: Priority (must, should, could, wontThisTime),
-                    source, rationale, acceptanceCriteria,
-                    status: Status (draft, proposed, approved,
-                        implemented, verified, deferred, rejected),
-                    relatedUseCase, relatedBusinessProcess,
-                    affectedDataEntities
-            -: nonFunctionalRequirements:NonFunctionalRequirementEntry
-                -> content, description,
-                    priority: Priority (must, should, could, wontThisTime),
-                    source, rationale, acceptanceCriteria,
-                    status: Status (draft, proposed, approved,
-                        implemented, verified, deferred, rejected),
-                    qualityAttribute, measurableTarget
-        -> systemsToReplace:SystemsToReplace  ← (Seeds → CS)
-            ...
-        -> SystemBoundaries
-            ...
-        -> FrameworkConditions
-            ...
-        -> RisksAndAssumptions
-            ...
-    -> OrganizationalFramework
-        ...
-    -> targetBusinessProcess:TargetBusinessProcessModel
-        ...
-    -> businessDataModel:BusinessObjectAndDataModel
-        ...
-    -> technicalFramework:TechnicalFrameworkConcept
-        ...
-    -> accessAuthorization:AccessAndAuthorizationConcept
-        ...
-    -> UserInterfaceDesign
-        ...
-    -> SystemQualityGoals
-        ...
-    -> ComponentsToUse
-        ...
-    -> SystemStagePlan
-        ...
-    -> deliveryAcceptance:DeliveryScopeAndAcceptance
-        ...                                      [last]
+  - content
+  - `DocumentControl`
+    - content
+    - header: `DocumentHeader`
+      - content @Form(documentId, project, version, date, author, status)
+    - revisionHistory: `RevisionEntry`
+      - content @Form(version, date, author, summary)
+    - approvals: `ApprovalRecord`
+      - content @Form(role, date, status)
+    - `ReferenceDocuments`
+      - content @description
+      - documents: `ReferenceDocumentEntry`
+        - content @Form(documentId, version), metadata, governance, lifecycle
+        - relevantSections: `DocumentRelevantSections`
+          - content @Form(sectionReference, sectionTitle, relevance, extractSummary)
+          - sections: `RelevantSectionEntry`
+            - content @Form(sectionReference, relevance, extractSummary, complianceRequired)
+        - relationships: `DocumentRelationships`
+          - content @description
+          - relatedDocuments: `RelatedDocumentEntry`
+            - content @Form(relatedDocumentId, relationshipType, relationshipDescription)
+  - `IntroductionAndScope`
+    - content, systemContextDiagram
+    - summary: `SystemSummary`
+      - content @Form(systemName, systemAcronym, systemVersion, projectCodeName), classification, scale, status,
+        complexity
+    - `SystemDescription`
 ```
 
-**Features demonstrated:**
+**What the excerpt shows:**
 
-- **Name-match rule**: `CurrentStateAnalysis` (field matches type) vs
-  `header:DocumentHeader` (field ≠ type).
-- **Enum inline values**: `priority: Priority (must, should, could, wontThisTime)`.
-- **`@Comment`**: `← (Seeds → RC)` on the requirements section.
-- **`@Min`/`@Max` count constraints**: `(1,)-:` on lists requiring at least one
-  item (`knownLimitations`, `workflows`, `steps`, `businessGoals`,
-  `functionalRequirements`, …).
-- **`@TextRequired`**: `content!` suffix on `ExistingSystemsLandscape` and
-  `SystemDescription`.
-- **`@Position`**: `[last]` on `deliveryAcceptance` (must appear after all other
-  sibling sections).
-- **Line wrapping**: long leaf lines wrap at 120 chars, continuation indented one
-  level deeper.
-- **Inline expansion**: `PainPointEntry` is expanded identically under all three
-  pain-point subsections.
-- **List fields**: always `fieldName:TypeName` (e.g. `-: items:SystemDependencyEntry`).
-- **Mismatched section names**: `projectOrganizationProcess:ProjectOrganizationAndProcess`,
-  `targetBusinessProcess:TargetBusinessProcessModel`, ….
+- **Name-match rule** (§11.2.2): `` - `DocumentControl` `` (member name matches
+  the type, so it is dropped) against ``- header: `DocumentHeader` `` (it does
+  not, so both are shown).
+- **Leaf bullet** (§11.2.4): `- content, systemContextDiagram` — all scalars of a
+  class on one line.
+- **Line wrapping** (§11.2.4): the `SystemSummary` leaf line breaks after
+  `status,` and continues with `complexity` one level deeper.
+- **Content shape** (§11.2.6): `@Form(documentId, project, …)` naming the form
+  members, and `@description` where a plain prose content type is declared.
+- **Mixed content line**: `- content @Form(documentId, version), metadata,
+  governance, lifecycle` — the form marker binds to `content` only; the rest are
+  ordinary leaf members.
+- **Inline expansion** (§11.3.1): `DocumentRelevantSections` and
+  `DocumentRelationships` are expanded in place under `ReferenceDocumentEntry`.
+- **2-space indentation** (§11.2.1) and backticked type names throughout.
+
+For the count-constraint tag see the excerpt in §11.2.3, and for the compact
+`→ DocId` form see §11.3.3. The notation forms no committed outline exercises are
+listed in §11.2.15.
 
 ### 11.5 Generator implementation notes
 
@@ -1932,24 +1909,33 @@ SolutionBlueprint
    model classes in the package are scanned — no marker annotation is required.
    The full annotation catalogue and the section base types are documented in
    [`tom_specs_core/README.md`](../../tom_specs_core/README.md).
-4. **Tree walk:** start from the root type, recursively visiting each field:
-   - `String` / `String?` → collect as leaf.
-   - enum → format with values inline.
-   - `List<T>` → emit `(min,max)-: fieldName:TypeName` (with constraints from
-     `@Min`/`@Max`) and recurse into `T`.
-   - complex type → emit `-> TypeName` and recurse.
-   - `@Reference` → emit with reference notation.
+4. **Tree walk:** start from the root type, recursively visiting each member.
+   Within a class, leaf members are emitted first as one bullet, then complex and
+   list members in declaration order:
+   - `String` / `String?` / enum / section type → collect onto the leaf bullet.
+   - `List<T>` → emit ``- [min,max] name: `T` `` (tag only when `@Min`/`@Max`
+     are present) and recurse into `T`.
+   - complex type → emit ``- name: `T` `` (or ``- `T` `` under the name-match
+     rule) and recurse.
+   - `@Reference` → emit with `(ref: …)` and **do not** recurse.
 5. **Validation pass** (before output): run the full rule set of §5 and §10.2 —
    member shapes, type constraints, naming, class style, content type, section-id
    invariants, cycle detection. Fail on the first error with a clear message.
+   Cycle *reporting* lives here, not in the writer (§11.3.2).
 6. **Line wrapping:** track current line length. When a leaf line exceeds the max
    (default 120), wrap at a comma boundary and indent the continuation one level
-   deeper.
-7. **Comment alignment:** pad `← (...)` annotations to start at column 50, or one
-   space after content if content exceeds 50 chars.
+   deeper than the bullet. A single-member leaf line is never wrapped.
+7. **Trailing markers:** `← (comment)`, `[position]` and `⟷ registry.key` are
+   appended directly after the line content, separated by one space. There is no
+   column alignment.
 8. **Inline schema annotations:** when `--show-schema-annotations` is set, emit
-   `# @Annotation(...)` lines inline during the tree walk — class-level after the
-   type line, field-level before the field line (§11.2.14).
+   `<!-- @Annotation(...) -->` lines inline during the tree walk — class-level
+   after the class line at the class's own indent, member-level before the leaf
+   bullet with the member name inside the comment (§11.2.14). Only the nine
+   constraint annotations are emitted.
+9. **Tests:** `tom_specs_clitool/test/outline_writer_test.dart` pins the notation
+   — both the rules the model exercises (via excerpts cut from the committed
+   outlines) and those it does not (via hand-built fixtures, §11.2.15).
 
 ---
 
