@@ -405,7 +405,8 @@ def _mc_AccessConstraintPolicies(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the constraints layered on top of assignments — separation of duties, time windows, network or device conditions, risk signals — and what triggers each."),
          SomMetaNode(
             class_name="AccessConstraintPolicies",
             member_name="accessConstraintDetails",
@@ -502,7 +503,8 @@ def _mc_AccessControlModelSelection(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="State the model chosen and the alternatives rejected, with the reasoning. This choice constrains everything below it, so record what would have to change to revisit it."),
          SomMetaNode(
             class_name="AccessControlModelSelection",
             member_name="accessControlModelDetails",
@@ -893,7 +895,8 @@ def _mc_AccountActivationPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the path from pending to active: who or what verifies, who approves, and what is provisioned on activation. Say what happens to accounts that are never activated."),
          SomMetaNode(
             class_name="AccountActivationPolicy",
             member_name="activationFlowDescription",
@@ -913,7 +916,8 @@ def _mc_AccountDeactivationPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Distinguish suspension from deactivation in plain terms: what each does to sessions, data and integrations, and how each is reversed."),
          SomMetaNode(
             class_name="AccountDeactivationPolicy",
             member_name="deactivationProcessDescription",
@@ -933,7 +937,8 @@ def _mc_AccountDeletionPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe what deletion actually removes and what is retained, and cite the retention obligation behind each exception. Right-to-be-forgotten requests are answered from this text."),
          SomMetaNode(
             class_name="AccountDeletionPolicy",
             member_name="deletionProcessDescription",
@@ -953,7 +958,8 @@ def _mc_AccountLockoutPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the throttling and lockout behaviour and how a locked-out user gets back in. Weigh it explicitly against a third party locking a known account on purpose."),
          SomMetaNode(
             class_name="AccountLockoutPolicy",
             member_name="accountLockoutDetails",
@@ -973,7 +979,8 @@ def _mc_AccountModificationPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe which attribute changes are self-service, which need an administrator, and which trigger re-verification. Note the attributes that must never change once set."),
          SomMetaNode(
             class_name="AccountModificationPolicy",
             member_name="modificationRulesDescription",
@@ -1809,7 +1816,8 @@ def _mc_ApiAbuseProtection(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the abuse this API is likely to attract — enumeration, scraping, brute force, business-flow abuse — and the control for each. Keep it distinct from ordinary rate limiting."),
          SomMetaNode(
             class_name="ApiAbuseProtection",
             member_name="abuseProtectionDetails",
@@ -1829,7 +1837,8 @@ def _mc_ApiAuthenticationPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe how each class of API consumer proves identity — end users, partner systems, internal services, webhooks — and why the mechanism suits that consumer."),
          SomMetaNode(
             class_name="ApiAuthenticationPolicy",
             member_name="apiAuthenticationDetails",
@@ -1849,7 +1858,8 @@ def _mc_ApiAuthorizationPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe how the system decides a caller may touch a specific object, not merely a specific endpoint. Object-level authorization is OWASP API1; say where it is enforced."),
          SomMetaNode(
             class_name="ApiAuthorizationPolicy",
             member_name="apiAuthorizationDetails",
@@ -1921,7 +1931,8 @@ def _mc_ApiCorsSecurity(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="State which origins are permitted and why, and whether credentials cross the origin boundary. A wildcard origin needs an explicit justification here."),
          SomMetaNode(
             class_name="ApiCorsSecurity",
             member_name="corsSecurityDetails",
@@ -1941,7 +1952,8 @@ def _mc_ApiKeyManagementPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe how API keys are issued, scoped, rotated and revoked, and who owns each key. Say how a leaked key is detected and how quickly it can be killed."),
          SomMetaNode(
             class_name="ApiKeyManagementPolicy",
             member_name="apiKeyDetails",
@@ -1961,7 +1973,8 @@ def _mc_ApiRequestValidationPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe how request bodies and parameters are validated, and whether validation is allow-list or deny-list. Say what a rejected request receives back."),
          SomMetaNode(
             class_name="ApiRequestValidationPolicy",
             member_name="requestValidationDetails",
@@ -2074,7 +2087,8 @@ def _mc_ApiSecurityMonitoring(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe what API telemetry is collected and which patterns raise an alert. Cover endpoint inventory too: OWASP API9 is about the endpoints nobody remembers deploying."),
          SomMetaNode(
             class_name="ApiSecurityMonitoring",
             member_name="apiSecurityMonitoringDetails",
@@ -3013,7 +3027,8 @@ def _mc_AuthenticationErrorHandling(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe what the user sees on each class of failure and what the system records. The rule to state explicitly is how much the message may reveal about why authentication failed."),
          SomMetaNode(
             class_name="AuthenticationErrorHandling",
             member_name="errorHandlingDetails",
@@ -3907,7 +3922,8 @@ def _mc_BackupEncryptionPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe how backups are encrypted and where those keys live — a backup encrypted with a key stored beside it is not encrypted. Say how restore is tested."),
          SomMetaNode(
             class_name="BackupEncryptionPolicy",
             member_name="backupEncryptionDetails",
@@ -4295,7 +4311,8 @@ def _mc_BiometricAuthenticationPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe where biometrics are used and what they unlock — under NIST SP 800-63B they activate an authenticator rather than authenticate on their own. Record the non-biometric alternative."),
          SomMetaNode(
             class_name="BiometricAuthenticationPolicy",
             member_name="biometricDetails",
@@ -5872,7 +5889,8 @@ def _mc_CertificateAuthenticationPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe where certificate authentication applies and how certificates reach their holders. Cover revocation checking and what the system does when the check cannot complete."),
          SomMetaNode(
             class_name="CertificateAuthenticationPolicy",
             member_name="certificateDetails",
@@ -5944,7 +5962,8 @@ def _mc_CertificateManagementPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe how certificates are obtained, renewed and monitored for expiry. An expired certificate is a self-inflicted outage, so say what automation prevents it."),
          SomMetaNode(
             class_name="CertificateManagementPolicy",
             member_name="certificateManagementDetails",
@@ -7725,7 +7744,8 @@ def _mc_ColumnLevelSecurityPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Name the columns that are restricted, who may see each, and what a denied reader gets instead — absent, null or masked. Tie each restriction to a classification or regulation."),
          SomMetaNode(
             class_name="ColumnLevelSecurityPolicy",
             member_name="columnLevelSecurityDetails",
@@ -9602,7 +9622,8 @@ def _mc_ConcurrentSessionPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe what happens when the same account signs in again elsewhere: allowed, limited, or the older session ended. Say whether the user is notified."),
          SomMetaNode(
             class_name="ConcurrentSessionPolicy",
             member_name="concurrentSessionDetails",
@@ -9836,7 +9857,8 @@ def _mc_ContentScanningPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe what uploaded content is scanned for, when the scan happens relative to acceptance, and what a positive result does. Say how quarantined content is reviewed."),
          SomMetaNode(
             class_name="ContentScanningPolicy",
             member_name="contentScanningDetails",
@@ -10145,7 +10167,8 @@ def _mc_CredentialCompromiseDetectionPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the signals monitored — breach corpora, credential stuffing patterns, impossible travel — and the automated response to each. Say what the affected user is told."),
          SomMetaNode(
             class_name="CredentialCompromiseDetectionPolicy",
             member_name="compromiseDetectionDetails",
@@ -10165,7 +10188,8 @@ def _mc_CredentialRecoveryPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe each recovery path and how identity is re-established on it. Recovery is often the weakest link, so state why each path is no weaker than normal authentication."),
          SomMetaNode(
             class_name="CredentialRecoveryPolicy",
             member_name="credentialRecoveryDetails",
@@ -10286,7 +10310,8 @@ def _mc_CrossTenantAccessPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="State whether cross-tenant access exists at all, and if so what authorizes it and who sees the audit trail. If it does not exist, say that plainly — it is a strong guarantee."),
          SomMetaNode(
             class_name="CrossTenantAccessPolicy",
             member_name="crossTenantAccessPolicyDetails",
@@ -10306,7 +10331,8 @@ def _mc_CurrentArchitecture(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the architecture as it stands today, not as it was designed: deployment topology, integration patterns, shared services and data stores. Note where the running system has drifted from its documentation."),
          SomMetaNode(
             class_name="CurrentArchitecture",
             member_name="architectureDiagram",
@@ -10418,7 +10444,8 @@ def _mc_CurrentBusinessProcesses(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the processes the project will impact, replace or enhance, and say how they were established — workshops, observation, existing documentation. One subsection per process follows below."),
          SomMetaNode(
             class_name="CurrentBusinessProcesses",
             member_name="processLandscapeDiagram",
@@ -13498,7 +13525,8 @@ def _mc_DataAccessAuditPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe which data accesses are audited, what the record contains, and who reviews it. State the retention period and the compliance requirement it satisfies."),
          SomMetaNode(
             class_name="DataAccessAuditPolicy",
             member_name="dataAccessAuditDetails",
@@ -14477,7 +14505,8 @@ def _mc_DataMaskingPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe what is masked, where, and by which technique, keeping static (copied data) and dynamic (runtime) masking apart. Say whether masked data must stay referentially consistent."),
          SomMetaNode(
             class_name="DataMaskingPolicy",
             member_name="dataMaskingDetails",
@@ -15603,7 +15632,8 @@ def _mc_DatabaseAccessPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe which principals reach the database and with what privileges, and how application credentials differ from administrative ones. Justify every privilege beyond least privilege."),
          SomMetaNode(
             class_name="DatabaseAccessPolicy",
             member_name="databaseAccessDetails",
@@ -15675,7 +15705,8 @@ def _mc_DatabaseEncryptionPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe what database encryption covers and what it costs: encrypted columns cannot be indexed or searched normally, so say how queries against them work."),
          SomMetaNode(
             class_name="DatabaseEncryptionPolicy",
             member_name="databaseEncryptionDetails",
@@ -16412,7 +16443,8 @@ def _mc_DependenciesAndIntegrations(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Name each dependency between current systems, on external services and on shared infrastructure, and say which of them are fragile. A fragile integration point is a migration risk, so record why it is fragile, not just that it is."),
          SomMetaNode(
             class_name="DependenciesAndIntegrations",
             member_name="dependencyDiagram",
@@ -18905,7 +18937,8 @@ def _mc_DomainBoundaries(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Draw the bounded context: what belongs to this domain, what belongs to neighbouring ones, and what the shared language is at each seam."),
          SomMetaNode(
             class_name="DomainBoundaries",
             member_name="contextMap",
@@ -19123,7 +19156,8 @@ def _mc_DomainOverview(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the business domain in its own vocabulary: what it is responsible for, where it sits in the business, and who owns it. Avoid solution language here."),
          SomMetaNode(
             class_name="DomainOverview",
             member_name="domainDetails",
@@ -19183,7 +19217,8 @@ def _mc_DomainProcesses(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the domain's main workflows at a level a business reader recognises. The detail belongs in the business process model; here, show how the activities fit together."),
          SomMetaNode(
             class_name="DomainProcesses",
             member_name="processOverviewDiagram",
@@ -19451,7 +19486,8 @@ def _mc_EncryptionAtRestPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="State the default algorithm and key length and the layer encryption is applied at. Explain what this protects against — an at-rest scheme does not protect a running system."),
          SomMetaNode(
             class_name="EncryptionAtRestPolicy",
             member_name="encryptionAtRestPolicyDetails",
@@ -22610,7 +22646,8 @@ def _mc_FileAccessControlPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe who may read, change, share and delete files, and how the decision is enforced on every access path — including direct storage URLs."),
          SomMetaNode(
             class_name="FileAccessControlPolicy",
             member_name="fileAccessControlDetails",
@@ -22723,7 +22760,8 @@ def _mc_FileDownloadSecurityPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe how downloads are authorized and throttled, and which content-disposition and security headers are set. Cover hot-linking and shared-link expiry."),
          SomMetaNode(
             class_name="FileDownloadSecurityPolicy",
             member_name="downloadSecurityDetails",
@@ -22743,7 +22781,8 @@ def _mc_FileStorageEncryptionPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe how file and blob storage is encrypted and how signed URLs interact with it. Cover local copies on devices, which are usually the weakest point."),
          SomMetaNode(
             class_name="FileStorageEncryptionPolicy",
             member_name="fileStorageEncryptionDetails",
@@ -22763,7 +22802,8 @@ def _mc_FileUploadValidationPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the validation layers an upload passes and the order they run in. Extension checks alone are not validation — state how the file's actual content is confirmed."),
          SomMetaNode(
             class_name="FileUploadValidationPolicy",
             member_name="uploadValidationDetails",
@@ -23368,7 +23408,8 @@ def _mc_FunctionalRequirements(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the functional requirement set and how it is organised. Individual requirements go in the subsections below; use this text for scope, conventions and how completeness was judged."),
          SomMetaNode(
             class_name="FunctionalRequirements",
             member_name="summaryForm",
@@ -23746,7 +23787,8 @@ def _mc_GoalResources(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="List what achieving the goal needs — people, budget, systems, external parties — and say which of them are not yet secured."),
          SomMetaNode(
             class_name="GoalResources",
             member_name="resourcesForm",
@@ -23835,7 +23877,8 @@ def _mc_Goals(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the goal set and the methodology behind it, OKR or otherwise. Each goal gets its own subsection below; use this text for how the goals were agreed and how progress is reviewed."),
          SomMetaNode(
             class_name="Goals",
             member_name="goalHierarchyDiagram",
@@ -27267,7 +27310,8 @@ def _mc_KeyConcepts(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Define the core concepts and entities of the domain with their attributes and relationships — a conceptual model, not a data model. Use the terms the business actually uses."),
          SomMetaNode(
             class_name="KeyConcepts",
             member_name="conceptualModelDiagram",
@@ -28402,7 +28446,8 @@ def _mc_LoginFlowConfiguration(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Walk through the login flow step by step, including pre-authentication checks and post-authentication actions. Name the entry points and say which ones behave differently."),
          SomMetaNode(
             class_name="LoginFlowConfiguration",
             member_name="loginFlowDetails",
@@ -29332,7 +29377,8 @@ def _mc_MfaConfiguration(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe which users and operations require MFA, which factors are offered, and the AAL targeted. Record the fallback path when a factor is unavailable and why it is safe."),
          SomMetaNode(
             class_name="MfaConfiguration",
             member_name="mfaDetails",
@@ -30927,7 +30973,8 @@ def _mc_MutualTlsPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe where mTLS applies, how client certificates are issued and revoked, and what happens when validation fails. State whether any fallback exists."),
          SomMetaNode(
             class_name="MutualTlsPolicy",
             member_name="mutualTlsPolicyDetails",
@@ -32584,7 +32631,8 @@ def _mc_OpportunityStatement(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe what becomes possible that is not possible today — new capabilities, new markets, better economics. Keep it distinct from the problem statement: this is upside, not pain."),
          SomMetaNode(
             class_name="OpportunityStatement",
             member_name="opportunityDetails",
@@ -32628,7 +32676,8 @@ def _mc_OrgRequirementImplementationPlan(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Set out how this organizational change is actually made: sequence, owner, timing, and what has to be true before it can start."),
          SomMetaNode(
             class_name="OrgRequirementImplementationPlan",
             member_name="planForm",
@@ -33112,7 +33161,8 @@ def _mc_OrganizationalRequirements(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the changes the organization itself must make for the system to succeed — process, roles, training, support. These fail projects more often than technical requirements do."),
          SomMetaNode(
             class_name="OrganizationalRequirements",
             member_name="summaryForm",
@@ -33822,7 +33872,8 @@ def _mc_PasswordLifecyclePolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe when a password change is required and when it is not. NIST SP 800-63B advises against periodic expiry — if the project forces it anyway, record the reason here."),
          SomMetaNode(
             class_name="PasswordLifecyclePolicy",
             member_name="passwordLifecycleDetails",
@@ -33842,7 +33893,8 @@ def _mc_PasswordRequirementsPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="State the password rules and the guidance shown while a user chooses one. NIST SP 800-63B favours length and breach screening over composition rules — record any deviation and why."),
          SomMetaNode(
             class_name="PasswordRequirementsPolicy",
             member_name="passwordRequirementsDetails",
@@ -33862,7 +33914,8 @@ def _mc_PasswordStoragePolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the hashing scheme, its parameters, and how they will be re-tuned over time. Say how existing hashes are upgraded when the parameters change."),
          SomMetaNode(
             class_name="PasswordStoragePolicy",
             member_name="passwordStorageDetails",
@@ -34040,7 +34093,8 @@ def _mc_PermissionCompositionStrategy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe how permissions from roles, groups and attributes combine, and the rule when they conflict. State whether deny overrides allow and give a worked example."),
          SomMetaNode(
             class_name="PermissionCompositionStrategy",
             member_name="permissionCompositionDetails",
@@ -34060,7 +34114,8 @@ def _mc_PermissionEvaluationBehavior(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe when and where a permission check runs, what is cached and for how long, and what happens when the decision point is unreachable. Fail-closed or fail-open is the decision to record."),
          SomMetaNode(
             class_name="PermissionEvaluationBehavior",
             member_name="permissionEvaluationDetails",
@@ -34080,7 +34135,8 @@ def _mc_PermissionGranularityPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="State how fine permissions go and where the project deliberately stops. Over-fine granularity is unmanageable, so name the practical unit of permission here."),
          SomMetaNode(
             class_name="PermissionGranularityPolicy",
             member_name="permissionGranularityDetails",
@@ -35025,7 +35081,8 @@ def _mc_ProblemStatement(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the problem concretely: who suffers it, how often, and what it costs today. Quantify the impact where you can, and say how urgent a fix is."),
          SomMetaNode(
             class_name="ProblemStatement",
             member_name="problemDetails",
@@ -35660,7 +35717,8 @@ def _mc_ProcessInterdependencyMatrix(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Show which processes trigger, feed or block each other; a table or matrix reads better than prose here. Call out the couplings that constrain migration sequencing."),
          SomMetaNode(
             class_name="ProcessInterdependencyMatrix",
             member_name="dependencyDiagram",
@@ -38009,7 +38067,8 @@ def _mc_RedirectHandlingPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe how return URLs and callbacks are validated. Open redirects are the risk to write about here: state the allow-list rule and the behaviour on a rejected target."),
          SomMetaNode(
             class_name="RedirectHandlingPolicy",
             member_name="redirectDetails",
@@ -38489,7 +38548,8 @@ def _mc_RememberMePolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe what persistent login grants and what it does not: which operations still re-prompt, how the device is trusted, and how the user revokes it from elsewhere."),
          SomMetaNode(
             class_name="RememberMePolicy",
             member_name="rememberMeDetails",
@@ -39582,7 +39642,8 @@ def _mc_RequirementTraceability(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Link this requirement upward to goals and business drivers and downward to use cases, processes and tests. A requirement that traces to nothing is a requirement nobody asked for."),
          SomMetaNode(
             class_name="RequirementTraceability",
             member_name="traceabilityForm",
@@ -39623,7 +39684,8 @@ def _mc_RequirementUiSpecification(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the screens, forms and interactions this requirement needs, in Tom UI terms: what the user sees, what they can do, and what feedback the system gives."),
          SomMetaNode(
             class_name="RequirementUiSpecification",
             member_name="uiForm",
@@ -39771,7 +39833,8 @@ def _mc_RequirementsOverview(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the requirements set: how requirements were gathered, how they are identified, and how they will be carried into the RSP. Note the standard followed — IEEE 830, ISO 29148, Volere."),
          SomMetaNode(
             class_name="RequirementsOverview",
             member_name="requirementsForm",
@@ -41144,7 +41207,8 @@ def _mc_RoleCertificationPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the review cycle: who certifies which assignments, how often, and what happens to an assignment nobody re-certifies. Privilege creep is what this section prevents."),
          SomMetaNode(
             class_name="RoleCertificationPolicy",
             member_name="roleCertificationDetails",
@@ -41293,7 +41357,8 @@ def _mc_RoleHierarchyPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the shape of the role hierarchy and what inheritance means in it. State the depth limit and why — deep hierarchies make effective permissions unpredictable."),
          SomMetaNode(
             class_name="RoleHierarchyPolicy",
             member_name="roleHierarchyPolicyDetails",
@@ -41462,7 +41527,8 @@ def _mc_RowLevelSecurityPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the predicate that decides row visibility and where it is enforced — database, ORM or application. Say what happens if the enforcing layer is bypassed."),
          SomMetaNode(
             class_name="RowLevelSecurityPolicy",
             member_name="rowLevelSecurityDetails",
@@ -42198,7 +42264,8 @@ def _mc_ScopeBoundaries(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="State explicitly what is in scope and — more importantly — what is out. Out-of-scope items are the ones that prevent scope creep, so name them even when they seem obvious."),
          SomMetaNode(
             class_name="ScopeBoundaries",
             member_name="inScopeItems",
@@ -44012,7 +44079,8 @@ def _mc_SecurityRequirements(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the security requirement set and the frameworks it follows, such as OWASP and ISO 27001. Record the threat model or risk assessment the requirements were derived from."),
          SomMetaNode(
             class_name="SecurityRequirements",
             member_name="summaryForm",
@@ -44271,7 +44339,8 @@ def _mc_SelfServiceAccountManagement(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Say what users may do to their own accounts unaided and where the line to administrator involvement is drawn. Explain the reasoning — that line is a risk decision."),
          SomMetaNode(
             class_name="SelfServiceAccountManagement",
             member_name="selfServiceDescription",
@@ -44786,7 +44855,8 @@ def _mc_ServiceAccountCredentialPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe how machine credentials are issued, stored and rotated without human intervention, and where the root of trust sits. Name the owner for each credential class."),
          SomMetaNode(
             class_name="ServiceAccountCredentialPolicy",
             member_name="serviceAccountDetails",
@@ -44806,7 +44876,8 @@ def _mc_ServiceAccountLifecycle(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe how non-human accounts differ from human ones here: ownership, review, rotation and decommissioning. An unowned service account is the usual failure."),
          SomMetaNode(
             class_name="ServiceAccountLifecycle",
             member_name="serviceAccountDescription",
@@ -44994,7 +45065,8 @@ def _mc_SessionCreationPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe what a session is bound to — device, address, client — and what properties it carries from the moment of creation. Say what happens when a binding no longer matches."),
          SomMetaNode(
             class_name="SessionCreationPolicy",
             member_name="sessionCreationDetails",
@@ -45014,7 +45086,8 @@ def _mc_SessionLifecycleMonitoring(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe which session events are logged, what each record contains, and who reviews them. Say how long session logs are kept and how the personal data in them is handled."),
          SomMetaNode(
             class_name="SessionLifecycleMonitoring",
             member_name="sessionLifecycleDetails",
@@ -45169,7 +45242,8 @@ def _mc_SessionRevocationPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe every way a session ends other than timing out — logout, administrative termination, privilege change, credential change — and how fast each takes effect."),
          SomMetaNode(
             class_name="SessionRevocationPolicy",
             member_name="sessionRevocationDetails",
@@ -45189,7 +45263,8 @@ def _mc_SessionSecurityPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the hardening measures — fixation defence, binding, anomaly detection, cache control — and what each protects against. State the response when an anomaly fires."),
          SomMetaNode(
             class_name="SessionSecurityPolicy",
             member_name="sessionSecurityDetails",
@@ -45209,7 +45284,8 @@ def _mc_SessionTimeoutPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Justify the idle and absolute timeouts against the data a session can reach, and describe the warning and renewal experience. Note where per-AAL differentiation applies."),
          SomMetaNode(
             class_name="SessionTimeoutPolicy",
             member_name="sessionTimeoutDetails",
@@ -45890,7 +45966,8 @@ def _mc_SsoPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the federation topology: which identity providers, which protocol, and what happens to users outside SSO. State how attributes and group memberships map into this system."),
          SomMetaNode(
             class_name="SsoPolicy",
             member_name="ssoDetails",
@@ -47421,7 +47498,8 @@ def _mc_StepUpAuthenticationPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe which operations demand a higher assurance level and what signals trigger an adaptive challenge. Say how long an elevated level lasts."),
          SomMetaNode(
             class_name="StepUpAuthenticationPolicy",
             member_name="stepUpDetails",
@@ -47444,7 +47522,8 @@ def _mc_StorageEncryptionPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe what is encrypted where, and who holds the keys for each storage tier. Say whether the storage provider can read the data and whether that is acceptable."),
          SomMetaNode(
             class_name="StorageEncryptionPolicy",
             member_name="storageEncryptionDetails",
@@ -47464,7 +47543,8 @@ def _mc_StorageLifecyclePolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe how long files live, when they move to cheaper tiers, and how they are destroyed. Say what secure deletion means here and how it is verified."),
          SomMetaNode(
             class_name="StorageLifecyclePolicy",
             member_name="storageLifecycleDetails",
@@ -47484,7 +47564,8 @@ def _mc_StrategicAlignment(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Name the organizational strategies, goals or initiatives this system serves and show the link to each. If it also competes with an initiative for the same resources, say so."),
          SomMetaNode(
             class_name="StrategicAlignment",
             member_name="alignmentDetails",
@@ -49117,7 +49198,8 @@ def _mc_SystemPurpose(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="State in a few sentences why the system exists and who benefits. Keep it readable by someone outside the project — the problem, opportunity and value subsections below carry the detail."),
          SomMetaNode(
             class_name="SystemPurpose",
             member_name="visionStatement",
@@ -51318,7 +51400,8 @@ def _mc_TechnicalRequirements(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the technical requirement set — the constraints on how the system is built. Say which are externally imposed and which are choices, since only the choices are negotiable."),
          SomMetaNode(
             class_name="TechnicalRequirements",
             member_name="summaryForm",
@@ -51464,7 +51547,8 @@ def _mc_TenantBoundaryEnforcementPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe where the tenant boundary is enforced and how a request that crosses it is stopped. Cover shared services and users who legitimately belong to several tenants."),
          SomMetaNode(
             class_name="TenantBoundaryEnforcementPolicy",
             member_name="boundaryEnforcementDetails",
@@ -51484,7 +51568,8 @@ def _mc_TenantContextPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe how tenant context is determined on each request and how it travels between services. State the behaviour when context is absent or ambiguous — it must not default."),
          SomMetaNode(
             class_name="TenantContextPolicy",
             member_name="tenantContextPolicyDetails",
@@ -51516,7 +51601,8 @@ def _mc_TenantDataIsolationPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the isolation model and the single mechanism that guarantees it. Say how the guarantee is tested; an untested isolation claim is the classic multi-tenant failure."),
          SomMetaNode(
             class_name="TenantDataIsolationPolicy",
             member_name="tenantDataIsolationDetails",
@@ -51617,7 +51703,8 @@ def _mc_TenantOnboardingPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe what authorization state a new tenant starts with and who its first administrator is. Cover offboarding with equal care: what is deleted, what is retained, and for how long."),
          SomMetaNode(
             class_name="TenantOnboardingPolicy",
             member_name="tenantOnboardingPolicyDetails",
@@ -52055,7 +52142,8 @@ def _mc_TlsProtocolPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="State the minimum protocol version and cipher suites, and when the policy is next reviewed. Record any legacy client that forces an exception and the date it is retired."),
          SomMetaNode(
             class_name="TlsProtocolPolicy",
             member_name="tlsProtocolPolicyDetails",
@@ -52127,7 +52215,8 @@ def _mc_TokenManagementPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the token types in use, what each carries, where it is stored and how it is revoked. Justify the lifetimes — they are the main security-versus-usability trade-off here."),
          SomMetaNode(
             class_name="TokenManagementPolicy",
             member_name="tokenManagementDetails",
@@ -53441,7 +53530,8 @@ def _mc_TransportSecurityPolicy(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe HSTS settings, HTTP-to-HTTPS behaviour, cookie flags and cache rules for sensitive responses. Note that HSTS preloading is hard to reverse."),
          SomMetaNode(
             class_name="TransportSecurityPolicy",
             member_name="transportSecurityPolicyDetails",
@@ -54212,7 +54302,8 @@ def _mc_UserAccessPermissions(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="State what this user category may see and do, and what it must never be able to do. Record the reasoning — the access model later has to justify each grant."),
          SomMetaNode(
             class_name="UserAccessPermissions",
             member_name="permissionsForm",
@@ -54265,7 +54356,8 @@ def _mc_UserAccessibilityNeeds(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Record the accessibility requirements this category actually has — vision, motor, cognitive, situational — and the accommodations that follow. Name the WCAG level committed to."),
          SomMetaNode(
             class_name="UserAccessibilityNeeds",
             member_name="accessibilityForm",
@@ -54286,7 +54378,8 @@ def _mc_UserAccountStatesDefinition(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe each account state in words and what a user in it can and cannot do. The form captures the state names; the content is where the semantics live, including any project-specific states."),
          SomMetaNode(
             class_name="UserAccountStatesDefinition",
             member_name="stateTransitionDiagram",
@@ -54876,7 +54969,8 @@ def _mc_UserJourney(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Map this category's touchpoints end to end, including what happens before and after they use the system. Mark the moments where the experience currently breaks."),
          SomMetaNode(
             class_name="UserJourney",
             member_name="journeyDiagram",
@@ -55112,7 +55206,8 @@ def _mc_UserLifecycleTransitions(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Describe the permitted state transitions as a flow, naming who can trigger each and what approval it needs. The transitions you deliberately forbid are worth stating too."),
          SomMetaNode(
             class_name="UserLifecycleTransitions",
             member_name="transitionRulesDescription",
@@ -55227,7 +55322,8 @@ def _mc_UserPersonaDetails(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Sketch the person, not the role: working context, technical confidence, goals and frustrations. A persona is only useful if a designer can picture them."),
          SomMetaNode(
             class_name="UserPersonaDetails",
             member_name="personaForm",
@@ -55374,7 +55470,8 @@ def _mc_UserRegistrationProcess(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Walk through registration from the user's first action to a usable account, per registration method. Record why the chosen identity-proofing level is sufficient for this system's risk."),
          SomMetaNode(
             class_name="UserRegistrationProcess",
             member_name="registrationFlowDescription",
@@ -55439,7 +55536,8 @@ def _mc_UserTrainingRequirements(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Say what this category must learn before it can work with the system, how the training is delivered, and how much of it is ongoing rather than one-off."),
          SomMetaNode(
             class_name="UserTrainingRequirements",
             member_name="trainingForm",
@@ -55715,7 +55813,8 @@ def _mc_ValueProposition(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Articulate the value in the terms the funding decision uses: quantified benefits, cost avoided, and the return-on-investment argument. State the assumptions the numbers rest on."),
          SomMetaNode(
             class_name="ValueProposition",
             member_name="valueDetails",
@@ -56277,7 +56376,8 @@ def _mc_WorkflowDescriptions(s):
             kind=SomMetaKind.CONTENT,
             type_name="String",
             serialization_order=0,
-            content_type=SomContentTypeMeta(type="text", description="")),
+            content_type=SomContentTypeMeta(type="text", description=""),
+            content_help="Introduce the workflows of this business process and add one subsection per workflow relevant to the project. Say which workflows are in scope for change and which are recorded only as context."),
          SomMetaNode(
             class_name="WorkflowDescriptions",
             member_name="workflowOverviewDiagram",

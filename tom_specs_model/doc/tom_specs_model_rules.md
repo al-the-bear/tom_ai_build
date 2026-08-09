@@ -461,6 +461,7 @@ Walking a class in serialization order, each member is exactly one of:
 | **No primitive non-String scalars** | error | Form/scalar leaf values are `String`, `String?`, or an enum. No `int`, `double`, `bool`, `num`, `DateTime`. Dates and numbers are `String?` with a type hint on the `@Form` field. |
 | **No `List<primitive>`** | error | A repeated section is `List<SectionClass>` or `List<DocSpecsSection>` (shapes 5/6), never a list of raw scalars. |
 | **`content: String?` required** | error | Every section class carries a `content: String?` override (§5.2) — the section text between the headline and the next headline. The only exemption is the container root (T1), which is a structural node rather than a section. |
+| **`content` documented** | error | That override carries one of the four §5.6 annotations. Same single exemption: the container root has no `content` to document. |
 
 ### 5.5 Class style and naming
 
@@ -477,13 +478,23 @@ Walking a class in serialization order, each member is exactly one of:
 
 ### 5.6 Content documentation rules
 
-Every `String? content` field must be documented:
+Every `String? content` field must be documented, by an annotation **on the
+field itself**. Four annotations discharge the rule, and exactly one of them
+must be present:
 
-| Class type | Documentation source |
-|------------|---------------------|
-| `*Section` class (`TextSection`, `DiagramSection`, …) | `@ContentType` on the `content` field inside the section class declares the format; the human-readable description is the doc-comment on the **using field**. |
-| Regular class with `String? content` | `@ContentType(type, 'description')` on the `content` field (mandatory description). |
-| Container class (content unused) | `@Unused()` on the `content` field — no narrative text expected. |
+| Annotation on `content` | Says |
+|-------------------------|------|
+| `@ContentHelp('…')` | What an author should write here. This is the field's user-facing help — the editor shows it beside the input — so it names the decisions the prose has to record, not the section's own title. |
+| `@ContentType(type, 'description')` | What shape the text has (`Form`, `DDL`, `SQL`, `Dart`, `ER-Diagram`, `Mermaid`, …) plus a mandatory description. For a `*Section` class (`TextSection`, `DiagramSection`, …) the format is declared here and the human-readable description is the doc-comment on the **using field**. |
+| `@Form([Field(…)])` | The content *is* a packed form; the `Field` labels and hints are the documentation. |
+| `@Unused()` | The class is a pure structural container and owns no prose at all. |
+
+A class-level `@Form` does **not** discharge the rule: it documents the class's
+form fields, not the section text wrapped around them. Most form sections
+therefore carry a class-level `@Form` *and* a `@ContentHelp` on `content`.
+
+`@Unused()` is the right answer for a container that genuinely expects no
+narrative — it is a statement, not a way to skip writing help.
 
 ContentType constraints:
 

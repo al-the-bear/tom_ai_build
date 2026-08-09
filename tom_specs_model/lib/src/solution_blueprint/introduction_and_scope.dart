@@ -484,6 +484,9 @@ that all stakeholders can refer to.
 )
 @SectionId('SYPUP')
 class SystemPurpose extends DocSpecsSection {
+  @ContentHelp('State in a few sentences why the system exists and who '
+      'benefits. Keep it readable by someone outside the project — the '
+      'problem, opportunity and value subsections below carry the detail.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -545,6 +548,9 @@ class SystemPurpose extends DocSpecsSection {
 )
 @SectionId('PS')
 class ProblemStatement extends DocSpecsSection {
+  @ContentHelp('Describe the problem concretely: who suffers it, how often, '
+      'and what it costs today. Quantify the impact where you can, and say how '
+      'urgent a fix is.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -651,6 +657,9 @@ class ProblemStatement extends DocSpecsSection {
 )
 @SectionId('OPPST')
 class OpportunityStatement extends DocSpecsSection {
+  @ContentHelp('Describe what becomes possible that is not possible today — '
+      'new capabilities, new markets, better economics. Keep it distinct from '
+      'the problem statement: this is upside, not pain.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -831,6 +840,9 @@ class StakeholderEntry extends DocSpecsSection {
 )
 @SectionId('VALPX')
 class ValueProposition extends DocSpecsSection {
+  @ContentHelp('Articulate the value in the terms the funding decision uses: '
+      'quantified benefits, cost avoided, and the return-on-investment '
+      'argument. State the assumptions the numbers rest on.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -964,6 +976,9 @@ class ValueProposition extends DocSpecsSection {
 )
 @SectionId('STRAL')
 class StrategicAlignment extends DocSpecsSection {
+  @ContentHelp('Name the organizational strategies, goals or initiatives this '
+      'system serves and show the link to each. If it also competes with an '
+      'initiative for the same resources, say so.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -1048,6 +1063,9 @@ class StrategicAlignment extends DocSpecsSection {
 )
 @SectionId('SCBND')
 class ScopeBoundaries extends DocSpecsSection {
+  @ContentHelp('State explicitly what is in scope and — more importantly — '
+      'what is out. Out-of-scope items are the ones that prevent scope creep, '
+      'so name them even when they seem obvious.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -2275,6 +2293,9 @@ class BusinessDomain extends DocSpecsSection {
 )
 @SectionId('DO')
 class DomainOverview extends DocSpecsSection {
+  @ContentHelp('Describe the business domain in its own vocabulary: what it is '
+      'responsible for, where it sits in the business, and who owns it. Avoid '
+      'solution language here.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -2474,6 +2495,9 @@ class DomainTermEntry extends DocSpecsSection {
 )
 @SectionId('KC')
 class KeyConcepts extends DocSpecsSection {
+  @ContentHelp('Define the core concepts and entities of the domain with their '
+      'attributes and relationships — a conceptual model, not a data model. '
+      'Use the terms the business actually uses.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -2607,6 +2631,9 @@ class KeyConceptEntry extends DocSpecsSection {
 )
 @SectionId('DB')
 class DomainBoundaries extends DocSpecsSection {
+  @ContentHelp('Draw the bounded context: what belongs to this domain, what '
+      'belongs to neighbouring ones, and what the shared language is at each '
+      'seam.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -2899,6 +2926,9 @@ class DomainBusinessRuleEntry extends DocSpecsSection {
 )
 @SectionId('DP')
 class DomainProcesses extends DocSpecsSection {
+  @ContentHelp('Describe the domain\'s main workflows at a level a business '
+      'reader recognises. The detail belongs in the business process model; '
+      'here, show how the activities fit together.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -4795,6 +4825,9 @@ class UserCategoryEntry extends DocSpecsSection {
 )
 @SectionId('UPD')
 class UserPersonaDetails extends DocSpecsSection {
+  @ContentHelp('Sketch the person, not the role: working context, technical '
+      'confidence, goals and frustrations. A persona is only useful if a '
+      'designer can picture them.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -5136,6 +5169,9 @@ class SystemTaskEntry extends DocSpecsSection {
 )
 @SectionId('UAP')
 class UserAccessPermissions extends DocSpecsSection {
+  @ContentHelp('State what this user category may see and do, and what it must '
+      'never be able to do. Record the reasoning — the access model later has '
+      'to justify each grant.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -5312,6 +5348,9 @@ class PermissionMatrixEntry extends DocSpecsSection {
 @SectionId('USTRRE')
 @ContentHelp('Define the training and support needs for this user category.')
 class UserTrainingRequirements extends DocSpecsSection {
+  @ContentHelp('Say what this category must learn before it can work with the '
+      'system, how the training is delivered, and how much of it is ongoing '
+      'rather than one-off.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -5451,6 +5490,9 @@ class TrainingTopicEntry extends DocSpecsSection {
 )
 @SectionId('UAN')
 class UserAccessibilityNeeds extends DocSpecsSection {
+  @ContentHelp('Record the accessibility requirements this category actually '
+      'has — vision, motor, cognitive, situational — and the accommodations '
+      'that follow. Name the WCAG level committed to.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -5528,6 +5570,9 @@ class UserAccessibilityNeeds extends DocSpecsSection {
 )
 @SectionId('UJ')
 class UserJourney extends DocSpecsSection {
+  @ContentHelp('Map this category\'s touchpoints end to end, including what '
+      'happens before and after they use the system. Mark the moments where '
+      'the experience currently breaks.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -5689,6 +5734,9 @@ class JourneyStageEntry extends DocSpecsSection {
 @Headline('Goals & Objectives')
 @SectionId('GOALS')
 class Goals extends DocSpecsSection {
+  @ContentHelp('Introduce the goal set and the methodology behind it, OKR or '
+      'otherwise. Each goal gets its own subsection below; use this text for '
+      'how the goals were agreed and how progress is reviewed.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -6423,6 +6471,8 @@ class GoalRiskEntry extends DocSpecsSection {
 @SectionId('GORE')
 @ContentHelp('Define resources (people, budget, tools) needed for this goal.')
 class GoalResources extends DocSpecsSection {
+  @ContentHelp('List what achieving the goal needs — people, budget, systems, '
+      'external parties — and say which of them are not yet secured.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -7863,6 +7913,9 @@ class SuccessCriterionRelationships extends DocSpecsSection {
 )
 @SectionId('RO')
 class RequirementsOverview extends DocSpecsSection {
+  @ContentHelp('Introduce the requirements set: how requirements were '
+      'gathered, how they are identified, and how they will be carried into '
+      'the RSP. Note the standard followed — IEEE 830, ISO 29148, Volere.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -8000,6 +8053,9 @@ class RequirementsOverview extends DocSpecsSection {
 )
 @SectionId('FR')
 class FunctionalRequirements extends DocSpecsSection {
+  @ContentHelp('Introduce the functional requirement set and how it is '
+      'organised. Individual requirements go in the subsections below; use '
+      'this text for scope, conventions and how completeness was judged.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -8683,6 +8739,9 @@ class DataEntityReferenceEntry extends DocSpecsSection {
 )
 @SectionId('RUS')
 class RequirementUiSpecification extends DocSpecsSection {
+  @ContentHelp('Describe the screens, forms and interactions this requirement '
+      'needs, in Tom UI terms: what the user sees, what they can do, and what '
+      'feedback the system gives.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -9606,6 +9665,9 @@ class RequirementDependencyEntry extends DocSpecsSection {
 )
 @SectionId('RT')
 class RequirementTraceability extends DocSpecsSection {
+  @ContentHelp('Link this requirement upward to goals and business drivers and '
+      'downward to use cases, processes and tests. A requirement that traces '
+      'to nothing is a requirement nobody asked for.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -9884,6 +9946,9 @@ class RequirementTestCaseEntry extends DocSpecsSection {
 )
 @SectionId('TR1')
 class TechnicalRequirements extends DocSpecsSection {
+  @ContentHelp('Introduce the technical requirement set — the constraints on '
+      'how the system is built. Say which are externally imposed and which are '
+      'choices, since only the choices are negotiable.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -10225,6 +10290,9 @@ class TechnicalRequirementEntry extends DocSpecsSection {
 )
 @SectionId('SR1')
 class SecurityRequirements extends DocSpecsSection {
+  @ContentHelp('Introduce the security requirement set and the frameworks it '
+      'follows, such as OWASP and ISO 27001. Record the threat model or risk '
+      'assessment the requirements were derived from.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -10696,6 +10764,9 @@ class SecurityControlEntry extends DocSpecsSection {
 )
 @SectionId('OR')
 class OrganizationalRequirements extends DocSpecsSection {
+  @ContentHelp('Introduce the changes the organization itself must make for '
+      'the system to succeed — process, roles, training, support. These fail '
+      'projects more often than technical requirements do.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -10987,6 +11058,8 @@ class OrganizationalRequirementEntry extends DocSpecsSection {
 )
 @SectionId('ORIP')
 class OrgRequirementImplementationPlan extends DocSpecsSection {
+  @ContentHelp('Set out how this organizational change is actually made: '
+      'sequence, owner, timing, and what has to be true before it can start.')
   @override
   @SerializationOrder(0)
   String? content;

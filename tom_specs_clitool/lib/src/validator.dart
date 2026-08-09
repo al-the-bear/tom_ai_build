@@ -161,6 +161,25 @@ const String _sectionIdSlot = '@sectionId';
           );
         }
       }
+
+      // `tom_specs_model_rules.md` §5.6 — every `content` field is documented.
+      // One of four annotations says what an author puts there: `@ContentHelp`
+      // (authoring guidance), `@ContentType` (the text's format plus its
+      // mandatory description), `@Form` (the content is a packed form), or
+      // `@Unused` (the class is a pure container and owns no prose). Without
+      // one, the editor shows a section whose only guidance is its headline.
+      final documentsContent = contentTypeAnno != null ||
+          contentField.getAnnotation('ContentHelp') != null ||
+          contentField.getAnnotation('Unused') != null ||
+          contentField.getAnnotation('Form') != null ||
+          contentField.formFields.isNotEmpty;
+      if (!documentsContent) {
+        errors.add(
+          '$className.content: undocumented — a `content` field must carry '
+          '@ContentHelp, @ContentType, @Form or @Unused '
+          '(`tom_specs_model_rules.md` §5.6)',
+        );
+      }
     }
   }
 

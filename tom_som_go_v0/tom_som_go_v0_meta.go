@@ -146,7 +146,7 @@ func metaChildrenAccessChannels(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenAccessConstraintPolicies(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "AccessConstraintPolicies", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "AccessConstraintPolicies", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the constraints layered on top of assignments — separation of duties, time windows, network or device conditions, risk signals — and what triggers each."},
 		{ClassName: "AccessConstraintPolicies", MemberName: "accessConstraintDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Access Constraint Details (text)."},
 	}
 }
@@ -174,7 +174,7 @@ func metaChildrenAccessControlModel(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenAccessControlModelSelection(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "AccessControlModelSelection", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "AccessControlModelSelection", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "State the model chosen and the alternatives rejected, with the reasoning. This choice constrains everything below it, so record what would have to change to revisit it."},
 		{ClassName: "AccessControlModelSelection", MemberName: "accessControlModelDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Access Control Model Details (text)."},
 	}
 }
@@ -278,35 +278,35 @@ func metaChildrenAccessibilityStandardEntry(s map[string]bool) []*som.SomMetaNod
 
 func metaChildrenAccountActivationPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "AccountActivationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "AccountActivationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the path from pending to active: who or what verifies, who approves, and what is provisioned on activation. Say what happens to accounts that are never activated."},
 		{ClassName: "AccountActivationPolicy", MemberName: "activationFlowDescription", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Activation Flow Description (text)."},
 	}
 }
 
 func metaChildrenAccountDeactivationPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "AccountDeactivationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "AccountDeactivationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Distinguish suspension from deactivation in plain terms: what each does to sessions, data and integrations, and how each is reversed."},
 		{ClassName: "AccountDeactivationPolicy", MemberName: "deactivationProcessDescription", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Deactivation Process Description (text)."},
 	}
 }
 
 func metaChildrenAccountDeletionPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "AccountDeletionPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "AccountDeletionPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe what deletion actually removes and what is retained, and cite the retention obligation behind each exception. Right-to-be-forgotten requests are answered from this text."},
 		{ClassName: "AccountDeletionPolicy", MemberName: "deletionProcessDescription", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Deletion Process Description (text)."},
 	}
 }
 
 func metaChildrenAccountLockoutPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "AccountLockoutPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "AccountLockoutPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the throttling and lockout behaviour and how a locked-out user gets back in. Weigh it explicitly against a third party locking a known account on purpose."},
 		{ClassName: "AccountLockoutPolicy", MemberName: "accountLockoutDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Account Lockout Details (text)."},
 	}
 }
 
 func metaChildrenAccountModificationPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "AccountModificationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "AccountModificationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe which attribute changes are self-service, which need an administrator, and which trigger re-verification. Note the attributes that must never change once set."},
 		{ClassName: "AccountModificationPolicy", MemberName: "modificationRulesDescription", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Modification Rules Description (text)."},
 	}
 }
@@ -557,21 +557,21 @@ func metaChildrenAnomalyDetectionPolicy(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenApiAbuseProtection(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ApiAbuseProtection", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "ApiAbuseProtection", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the abuse this API is likely to attract — enumeration, scraping, brute force, business-flow abuse — and the control for each. Keep it distinct from ordinary rate limiting."},
 		{ClassName: "ApiAbuseProtection", MemberName: "abuseProtectionDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Abuse Protection Details (text)."},
 	}
 }
 
 func metaChildrenApiAuthenticationPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ApiAuthenticationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "ApiAuthenticationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe how each class of API consumer proves identity — end users, partner systems, internal services, webhooks — and why the mechanism suits that consumer."},
 		{ClassName: "ApiAuthenticationPolicy", MemberName: "apiAuthenticationDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "API Authentication Details (text)."},
 	}
 }
 
 func metaChildrenApiAuthorizationPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ApiAuthorizationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "ApiAuthorizationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe how the system decides a caller may touch a specific object, not merely a specific endpoint. Object-level authorization is OWASP API1; say where it is enforced."},
 		{ClassName: "ApiAuthorizationPolicy", MemberName: "apiAuthorizationDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "API Authorization Details (text)."},
 	}
 }
@@ -588,21 +588,21 @@ func metaChildrenApiCompatibilityEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenApiCorsSecurity(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ApiCorsSecurity", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "ApiCorsSecurity", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "State which origins are permitted and why, and whether credentials cross the origin boundary. A wildcard origin needs an explicit justification here."},
 		{ClassName: "ApiCorsSecurity", MemberName: "corsSecurityDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "CORS Security Details (text)."},
 	}
 }
 
 func metaChildrenApiKeyManagementPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ApiKeyManagementPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "ApiKeyManagementPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe how API keys are issued, scoped, rotated and revoked, and who owns each key. Say how a leaked key is detected and how quickly it can be killed."},
 		{ClassName: "ApiKeyManagementPolicy", MemberName: "apiKeyDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "API Key Management Details (text)."},
 	}
 }
 
 func metaChildrenApiRequestValidationPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ApiRequestValidationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "ApiRequestValidationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe how request bodies and parameters are validated, and whether validation is allow-list or deny-list. Say what a rejected request receives back."},
 		{ClassName: "ApiRequestValidationPolicy", MemberName: "requestValidationDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Request Validation Details (text)."},
 	}
 }
@@ -634,7 +634,7 @@ func metaChildrenApiSecurity(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenApiSecurityMonitoring(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ApiSecurityMonitoring", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "ApiSecurityMonitoring", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe what API telemetry is collected and which patterns raise an alert. Cover endpoint inventory too: OWASP API9 is about the endpoints nobody remembers deploying."},
 		{ClassName: "ApiSecurityMonitoring", MemberName: "apiSecurityMonitoringDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "API Security Monitoring Details (text)."},
 	}
 }
@@ -919,7 +919,7 @@ func metaChildrenAuthentication(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenAuthenticationErrorHandling(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "AuthenticationErrorHandling", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "AuthenticationErrorHandling", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe what the user sees on each class of failure and what the system records. The rule to state explicitly is how much the message may reveal about why authentication failed."},
 		{ClassName: "AuthenticationErrorHandling", MemberName: "errorHandlingDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Error Handling Details (text)."},
 	}
 }
@@ -1183,7 +1183,7 @@ func metaChildrenBackupDataClassification(s map[string]bool) []*som.SomMetaNode 
 
 func metaChildrenBackupEncryptionPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "BackupEncryptionPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "BackupEncryptionPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe how backups are encrypted and where those keys live — a backup encrypted with a key stored beside it is not encrypted. Say how restore is tested."},
 		{ClassName: "BackupEncryptionPolicy", MemberName: "backupEncryptionDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Backup Encryption Details (text)."},
 	}
 }
@@ -1276,7 +1276,7 @@ func metaChildrenBehaviorRuleEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenBiometricAuthenticationPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "BiometricAuthenticationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "BiometricAuthenticationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe where biometrics are used and what they unlock — under NIST SP 800-63B they activate an authenticator rather than authenticate on their own. Record the non-biometric alternative."},
 		{ClassName: "BiometricAuthenticationPolicy", MemberName: "biometricDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Biometric Implementation Details (text)."},
 	}
 }
@@ -1732,7 +1732,7 @@ func metaChildrenCcbMemberEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenCertificateAuthenticationPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "CertificateAuthenticationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "CertificateAuthenticationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe where certificate authentication applies and how certificates reach their holders. Cover revocation checking and what the system does when the check cannot complete."},
 		{ClassName: "CertificateAuthenticationPolicy", MemberName: "certificateDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Certificate Authentication Details (text)."},
 	}
 }
@@ -1749,7 +1749,7 @@ func metaChildrenCertificateManagement(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenCertificateManagementPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "CertificateManagementPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "CertificateManagementPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe how certificates are obtained, renewed and monitored for expiry. An expired certificate is a self-inflicted outage, so say what automation prevents it."},
 		{ClassName: "CertificateManagementPolicy", MemberName: "certificateManagementDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Certificate Management Details (text)."},
 	}
 }
@@ -2269,7 +2269,7 @@ func metaChildrenColorPaletteEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenColumnLevelSecurityPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ColumnLevelSecurityPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "ColumnLevelSecurityPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Name the columns that are restricted, who may see each, and what a denied reader gets instead — absent, null or masked. Tie each restriction to a classification or regulation."},
 		{ClassName: "ColumnLevelSecurityPolicy", MemberName: "columnLevelSecurityDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Column-Level Security Details (text)."},
 	}
 }
@@ -2827,7 +2827,7 @@ func metaChildrenComputingEquipmentEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenConcurrentSessionPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ConcurrentSessionPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "ConcurrentSessionPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe what happens when the same account signs in again elsewhere: allowed, limited, or the older session ended. Say whether the user is notified."},
 		{ClassName: "ConcurrentSessionPolicy", MemberName: "concurrentSessionDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Concurrent Session Details (text)."},
 	}
 }
@@ -2890,7 +2890,7 @@ func metaChildrenConstraintRegisterEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenContentScanningPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ContentScanningPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "ContentScanningPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe what uploaded content is scanned for, when the scan happens relative to acceptance, and what a positive result does. Say how quarantined content is reviewed."},
 		{ClassName: "ContentScanningPolicy", MemberName: "contentScanningDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Content Scanning Details (text)."},
 	}
 }
@@ -2967,14 +2967,14 @@ func metaChildrenCorrectness(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenCredentialCompromiseDetectionPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "CredentialCompromiseDetectionPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "CredentialCompromiseDetectionPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the signals monitored — breach corpora, credential stuffing patterns, impossible travel — and the automated response to each. Say what the affected user is told."},
 		{ClassName: "CredentialCompromiseDetectionPolicy", MemberName: "compromiseDetectionDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Compromise Detection Details (text)."},
 	}
 }
 
 func metaChildrenCredentialRecoveryPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "CredentialRecoveryPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "CredentialRecoveryPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe each recovery path and how identity is re-established on it. Recovery is often the weakest link, so state why each path is no weaker than normal authentication."},
 		{ClassName: "CredentialRecoveryPolicy", MemberName: "credentialRecoveryDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Credential Recovery Details (text)."},
 	}
 }
@@ -3010,14 +3010,14 @@ func metaChildrenCrossProcessAnalysis(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenCrossTenantAccessPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "CrossTenantAccessPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "CrossTenantAccessPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "State whether cross-tenant access exists at all, and if so what authorizes it and who sees the audit trail. If it does not exist, say that plainly — it is a strong guarantee."},
 		{ClassName: "CrossTenantAccessPolicy", MemberName: "crossTenantAccessPolicyDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Cross-Tenant Access Policy Details (text)."},
 	}
 }
 
 func metaChildrenCurrentArchitecture(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "CurrentArchitecture", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "CurrentArchitecture", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the architecture as it stands today, not as it was designed: deployment topology, integration patterns, shared services and data stores. Note where the running system has drifted from its documentation."},
 		{ClassName: "CurrentArchitecture", MemberName: "architectureDiagram", SectionID: "CARCH-ARCH", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Architecture overview diagram showing systems, their connections, and data flows"}, ContentHelp: "Provide a Mermaid flowchart showing the current architecture. Include all major systems, their connections, and data flow directions.", DocComment: "Architecture overview diagram."},
 		{ClassName: "CurrentArchitecture", MemberName: "deploymentTopology", SectionID: "CARCH-DEPL", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Description of how systems are deployed across infrastructure"}, DocComment: "Deployment topology description."},
 		{ClassName: "CurrentArchitecture", MemberName: "integrationPatterns", SectionID: "CARCH-INTE-LST", SectionIDPattern: "CARCH-INTE-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentHelp: "Add one entry per integration pattern in use (e.g. point-to-point, hub-and-spoke, pub/sub, ESB, API gateway). Note where each pattern is applied and why.", DocComment: "Integration patterns used.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (integration patterns)"}, "connotation": "The set of integration patterns the current architecture relies on to connect its systems."}}}},
@@ -3043,7 +3043,7 @@ func metaChildrenCurrentBusinessProcess(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenCurrentBusinessProcesses(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "CurrentBusinessProcesses", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "CurrentBusinessProcesses", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Introduce the processes the project will impact, replace or enhance, and say how they were established — workshops, observation, existing documentation. One subsection per process follows below."},
 		{ClassName: "CurrentBusinessProcesses", MemberName: "processLandscapeDiagram", SectionID: "CUBUPR-PROC", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Visual map of business processes showing hierarchy, relationships, and data flows between processes"}, ContentHelp: "Create a Mermaid flowchart showing the process landscape. Group processes by category (Core, Support, Management). Show handoffs and data flows between processes.", DocComment: "Process landscape diagram."},
 		metaCx("ProcessScopeSummary", s, metaChildrenProcessScopeSummary, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ProcessScopeSummary", MemberName: "scopeSummary", ClassSectionID: "PRSCSU", Kind: som.SomMetaKindComplex, TypeName: "ProcessScopeSummary", SerializationOrder: metaIntPtr(2), Comment: "Defines which processes are in/out of scope", DocComment: "Process scope summary.", ClassDocComment: "Process scope summary defining in-scope and out-of-scope processes.", Recursive: r, Children: c}
@@ -3936,7 +3936,7 @@ func metaChildrenDashboardTemplates(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenDataAccessAuditPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "DataAccessAuditPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "DataAccessAuditPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe which data accesses are audited, what the record contains, and who reviews it. State the retention period and the compliance requirement it satisfies."},
 		{ClassName: "DataAccessAuditPolicy", MemberName: "dataAccessAuditDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Data Access Audit Details (text)."},
 	}
 }
@@ -4223,7 +4223,7 @@ func metaChildrenDataLevelSecurity(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenDataMaskingPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "DataMaskingPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "DataMaskingPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe what is masked, where, and by which technique, keeping static (copied data) and dynamic (runtime) masking apart. Say whether masked data must stay referentially consistent."},
 		{ClassName: "DataMaskingPolicy", MemberName: "dataMaskingDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Data Masking Details (text)."},
 	}
 }
@@ -4538,7 +4538,7 @@ func metaChildrenDataVolumesAndGrowth(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenDatabaseAccessPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "DatabaseAccessPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "DatabaseAccessPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe which principals reach the database and with what privileges, and how application credentials differ from administrative ones. Justify every privilege beyond least privilege."},
 		{ClassName: "DatabaseAccessPolicy", MemberName: "databaseAccessDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Database Access Policy Details (text)."},
 	}
 }
@@ -4555,7 +4555,7 @@ func metaChildrenDatabaseCompatibilityEntry(s map[string]bool) []*som.SomMetaNod
 
 func metaChildrenDatabaseEncryptionPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "DatabaseEncryptionPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "DatabaseEncryptionPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe what database encryption covers and what it costs: encrypted columns cannot be indexed or searched normally, so say how queries against them work."},
 		{ClassName: "DatabaseEncryptionPolicy", MemberName: "databaseEncryptionDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Database Encryption Details (text)."},
 	}
 }
@@ -4758,7 +4758,7 @@ func metaChildrenDeliveryTransitionAndRollout(s map[string]bool) []*som.SomMetaN
 
 func metaChildrenDependenciesAndIntegrations(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "DependenciesAndIntegrations", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "DependenciesAndIntegrations", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Name each dependency between current systems, on external services and on shared infrastructure, and say which of them are fragile. A fragile integration point is a migration risk, so record why it is fragile, not just that it is."},
 		{ClassName: "DependenciesAndIntegrations", MemberName: "dependencyDiagram", SectionID: "DEPNT-DEPE", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Visual representation of system dependencies showing data flows and coupling strength"}, ContentHelp: "Create a Mermaid flowchart showing dependencies between systems. Use line styles to indicate coupling strength: solid for tight coupling, dashed for loose coupling. Add labels for data types.", DocComment: "Dependency matrix diagram."},
 		metaCx("InternalDependencies", s, metaChildrenInternalDependencies, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "InternalDependencies", MemberName: "internalDependencies", ClassSectionID: "INTDP", Kind: som.SomMetaKindComplex, TypeName: "InternalDependencies", SerializationOrder: metaIntPtr(2), Comment: "Dependencies between internal systems", DocComment: "1.1.3.1. Internal Dependencies.", ClassDocComment: "1.1.3.1. Internal Dependencies.\n\nDependencies between systems owned and operated internally.", Recursive: r, Children: c}
@@ -5433,7 +5433,7 @@ func metaChildrenDocumentationStandardsSection(s map[string]bool) []*som.SomMeta
 
 func metaChildrenDomainBoundaries(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "DomainBoundaries", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "DomainBoundaries", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Draw the bounded context: what belongs to this domain, what belongs to neighbouring ones, and what the shared language is at each seam."},
 		{ClassName: "DomainBoundaries", MemberName: "contextMap", SectionID: "DB-CONT", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Context map showing this domain and its relationships to adjacent domains"}, ContentHelp: "Create a context map showing this domain (bounded context) and how it relates to other domains/contexts.", DocComment: "Context map showing domain boundaries."},
 		{ClassName: "DomainBoundaries", MemberName: "withinScope", SectionID: "DB-WITH", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Concepts, processes, and responsibilities that are within this domain's scope."}, DocComment: "Within-scope items."},
 		{ClassName: "DomainBoundaries", MemberName: "outsideScope", SectionID: "DB-OUTS", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Concepts and responsibilities that belong to other domains and are outside this domain's scope."}, DocComment: "Outside-scope items."},
@@ -5527,7 +5527,7 @@ func metaChildrenDomainInterfaceEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenDomainOverview(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "DomainOverview", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "DomainOverview", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the business domain in its own vocabulary: what it is responsible for, where it sits in the business, and who owns it. Avoid solution language here."},
 		{ClassName: "DomainOverview", MemberName: "domainDetails", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Domain Overview Details (form).", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "domainName", TypeName: "String", Description: "Domain Name", Required: true, Hint: "Name of the business domain this section describes", Order: 0}, {Name: "domainDescription", TypeName: "String", Description: "Domain Description (what this domain encompasses)", Hint: "What business activities and concepts this domain covers", Order: 1}, {Name: "businessImportance", TypeName: "String", Description: "Business Importance (why this domain matters to the organization)", Hint: "Why this domain is important to the organization", Order: 2}, {Name: "industryContext", TypeName: "String", Description: "Industry Context (how this domain fits in the industry)", Hint: "How this domain fits within the broader industry", Order: 3}, {Name: "relatedDomains", TypeName: "String", Description: "Related Domains (other business domains this interacts with)", Hint: "Other business domains this one interacts with", Order: 4}, {Name: "domainOwner", TypeName: "String", Description: "Domain Owner (business unit or person responsible)", Hint: "Business unit or person responsible for this domain", Order: 5}, {Name: "keyStakeholders", TypeName: "String", Description: "Key Stakeholders (who has interest in this domain)", Hint: "Who has a stake or interest in this domain", Order: 6}, {Name: "domainMaturity", TypeName: "String", Description: "Domain Maturity (Emerging, Established, Mature, Legacy)", Hint: "Emerging / Established / Mature / Legacy", Order: 7}, {Name: "changeFrequency", TypeName: "String", Description: "Change Frequency (how often this domain changes)", Hint: "How often this domain is expected to change", Order: 8}}}},
 	}
 }
@@ -5543,7 +5543,7 @@ func metaChildrenDomainProcessEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenDomainProcesses(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "DomainProcesses", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "DomainProcesses", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the domain's main workflows at a level a business reader recognises. The detail belongs in the business process model; here, show how the activities fit together."},
 		{ClassName: "DomainProcesses", MemberName: "processOverviewDiagram", SectionID: "DP-PROC", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "High-level process map showing main processes and their relationships"}, ContentHelp: "Create a process map showing the main business processes and how they interact.", DocComment: "Process overview diagram."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "DomainProcesses", MemberName: "processes", SectionID: "DOPREN-PROC-LST", SectionIDPattern: "DOPREN-PROC-xxx", Kind: som.SomMetaKindList, TypeName: "DomainProcessEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per major business process in this domain.", DocComment: "Domain process entries — contains 0+× DomainProcessEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10.35 — process modelling", "ISO/IEC/IEEE 29148 §6 — business process context"}, "connotation": "The set of individual domain-process entries."}}}}
@@ -5633,7 +5633,7 @@ func metaChildrenEncryptionAtRest(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenEncryptionAtRestPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "EncryptionAtRestPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "EncryptionAtRestPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "State the default algorithm and key length and the layer encryption is applied at. Explain what this protects against — an at-rest scheme does not protect a running system."},
 		{ClassName: "EncryptionAtRestPolicy", MemberName: "encryptionAtRestPolicyDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Encryption At Rest Policy Details (text)."},
 	}
 }
@@ -6551,7 +6551,7 @@ func metaChildrenFieldValidationRule(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenFileAccessControlPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "FileAccessControlPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "FileAccessControlPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe who may read, change, share and delete files, and how the decision is enforced on every access path — including direct storage URLs."},
 		{ClassName: "FileAccessControlPolicy", MemberName: "fileAccessControlDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "File Access Control Details (text)."},
 	}
 }
@@ -6583,21 +6583,21 @@ func metaChildrenFileAndStorageSecurity(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenFileDownloadSecurityPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "FileDownloadSecurityPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "FileDownloadSecurityPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe how downloads are authorized and throttled, and which content-disposition and security headers are set. Cover hot-linking and shared-link expiry."},
 		{ClassName: "FileDownloadSecurityPolicy", MemberName: "downloadSecurityDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Download Security Details (text)."},
 	}
 }
 
 func metaChildrenFileStorageEncryptionPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "FileStorageEncryptionPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "FileStorageEncryptionPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe how file and blob storage is encrypted and how signed URLs interact with it. Cover local copies on devices, which are usually the weakest point."},
 		{ClassName: "FileStorageEncryptionPolicy", MemberName: "fileStorageEncryptionDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "File Storage Encryption Details (text)."},
 	}
 }
 
 func metaChildrenFileUploadValidationPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "FileUploadValidationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "FileUploadValidationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the validation layers an upload passes and the order they run in. Extension checks alone are not validation — state how the file's actual content is confirmed."},
 		{ClassName: "FileUploadValidationPolicy", MemberName: "uploadValidationDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Upload Validation Details (text)."},
 	}
 }
@@ -6763,7 +6763,7 @@ func metaChildrenFunctionalRequirementEntry(s map[string]bool) []*som.SomMetaNod
 
 func metaChildrenFunctionalRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "FunctionalRequirements", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "FunctionalRequirements", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Introduce the functional requirement set and how it is organised. Individual requirements go in the subsections below; use this text for scope, conventions and how completeness was judged."},
 		{ClassName: "FunctionalRequirements", MemberName: "summaryForm", SectionID: "FR-SUMM", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Functional requirements summary form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalFunctionalRequirements", TypeName: "String", Description: "Total Functional Requirements", Hint: "Total count of functional requirements", Order: 0}, {Name: "mustHaveFunctional", TypeName: "String", Description: "Must-Have (count)", Hint: "Count of Must-Have functional requirements", Order: 1}, {Name: "shouldHaveFunctional", TypeName: "String", Description: "Should-Have (count)", Hint: "Count of Should-Have functional requirements", Order: 2}, {Name: "couldHaveFunctional", TypeName: "String", Description: "Could-Have (count)", Hint: "Count of Could-Have functional requirements", Order: 3}, {Name: "wontHaveThisTimeFunctional", TypeName: "String", Description: "Won't-Have-This-Time (count)", Hint: "Count of Won't-Have-This-Time functional requirements", Order: 4}, {Name: "coverageNote", TypeName: "String", Description: "Coverage Notes", Hint: "Notes on coverage and any gaps in the requirement set", Order: 5}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "FunctionalRequirements", MemberName: "requirements", SectionID: "FRE-REQU-LST", SectionIDPattern: "FRE-REQU-xxx", Kind: som.SomMetaKindList, TypeName: "FunctionalRequirementEntry", SerializationOrder: metaIntPtr(2), Min: metaIntPtr(1), ContentHelp: "Add one entry per functional requirement. Group related requirements together. Each requirement should be atomic, testable, and have clear acceptance criteria.", DocComment: "Functional requirements list — contains 1+× Functional Requirement.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §9.5 — functional requirements", "BABOK v3 §10 — functional requirements"}, "connotation": "The list of individual functional requirement entries, each atomic, testable, and accompanied by clear acceptance criteria."}}}}
@@ -6902,7 +6902,7 @@ func metaChildrenGoalMilestones(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenGoalResources(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "GoalResources", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "GoalResources", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "List what achieving the goal needs — people, budget, systems, external parties — and say which of them are not yet secured."},
 		{ClassName: "GoalResources", MemberName: "resourcesForm", SectionID: "GORE-RESO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Resource requirement form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalBudget", TypeName: "String", Description: "Total Budget (estimated or allocated)", Hint: "Estimated or allocated total budget", Order: 0}, {Name: "fteRequired", TypeName: "String", Description: "FTE Required (full-time equivalent staff)", Hint: "Number of full-time-equivalent staff needed", Order: 1}, {Name: "keySkills", TypeName: "String", Description: "Key Skills Required", Hint: "Critical skills needed to achieve the goal", Order: 2}, {Name: "toolsRequired", TypeName: "String", Description: "Tools or Systems Required", Hint: "Tools or systems needed", Order: 3}, {Name: "externalSupport", TypeName: "String", Description: "External Support (consultants, vendors)", Hint: "Consultants or vendors required", Order: 4}, {Name: "trainingNeeds", TypeName: "String", Description: "Training Needs", Hint: "Training the team needs to acquire", Order: 5}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "GoalResources", MemberName: "items", SectionID: "REARS-ITEM-LST", SectionIDPattern: "REARS-ITEM-xxx", Kind: som.SomMetaKindList, TypeName: "ResourceAllocationEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per allocated resource (personnel, budget, tool).", DocComment: "Resource allocation entries — contains 0+× ResourceAllocationEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"PMBOK — resource management", "ISO 21500 — resources"}, "connotation": "The set of individual resource allocation entries for a business goal."}}}}
@@ -6937,7 +6937,7 @@ func metaChildrenGoalRisks(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenGoals(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "Goals", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "Goals", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Introduce the goal set and the methodology behind it, OKR or otherwise. Each goal gets its own subsection below; use this text for how the goals were agreed and how progress is reviewed."},
 		{ClassName: "Goals", MemberName: "goalHierarchyDiagram", SectionID: "GOALS-GOAL", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Goal hierarchy and dependency diagram showing relationships between business and technical goals"}, ContentHelp: "Create a diagram showing goal categories, dependencies, and alignment to strategic objectives.", DocComment: "Goal hierarchy diagram."},
 		metaCx("BusinessGoals", s, metaChildrenBusinessGoals, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "BusinessGoals", MemberName: "businessGoals", ClassSectionID: "BG", Kind: som.SomMetaKindComplex, TypeName: "BusinessGoals", SerializationOrder: metaIntPtr(2), Headline: "Business Goals & Value", DocComment: "4.2.1. Business Goals.", ClassDocComment: "4.2.1. Business Goals.\n\nContainer for business goal definitions. Business goals define what the\norganization wants to achieve through this project in terms of business\noutcomes, value delivery, and strategic advancement.", Recursive: r, Children: c}
@@ -7915,7 +7915,7 @@ func metaChildrenKeyConceptEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenKeyConcepts(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "KeyConcepts", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "KeyConcepts", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Define the core concepts and entities of the domain with their attributes and relationships — a conceptual model, not a data model. Use the terms the business actually uses."},
 		{ClassName: "KeyConcepts", MemberName: "conceptualModelDiagram", SectionID: "KC-CONC", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-classDiagram", Description: "Conceptual domain model showing key entities and their relationships"}, ContentHelp: "Create a Mermaid class diagram showing the main domain concepts and their relationships. Focus on business concepts, not technical implementation.", DocComment: "Conceptual domain model diagram."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "KeyConcepts", MemberName: "concepts", SectionID: "KECON-CONC-LST", SectionIDPattern: "KECON-CONC-xxx", Kind: som.SomMetaKindList, TypeName: "KeyConceptEntry", SerializationOrder: metaIntPtr(2), Min: metaIntPtr(1), ContentHelp: "Add one entry per key business concept or entity.", DocComment: "Key concept entries — contains 1+× KeyConceptEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"Domain-Driven Design — domain model concepts", "BABOK v3 §10 — concept modelling"}, "connotation": "The set of individual key-concept entries for the domain."}}}}
@@ -8245,7 +8245,7 @@ func metaChildrenLogStoragePolicy(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenLoginFlowConfiguration(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "LoginFlowConfiguration", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "LoginFlowConfiguration", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Walk through the login flow step by step, including pre-authentication checks and post-authentication actions. Name the entry points and say which ones behave differently."},
 		{ClassName: "LoginFlowConfiguration", MemberName: "loginFlowDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Login Flow Details (text)."},
 	}
 }
@@ -8518,7 +8518,7 @@ func metaChildrenMfaCategoryRequirementEntry(s map[string]bool) []*som.SomMetaNo
 
 func metaChildrenMfaConfiguration(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "MfaConfiguration", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "MfaConfiguration", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe which users and operations require MFA, which factors are offered, and the AAL targeted. Record the fallback path when a factor is unavailable and why it is safe."},
 		{ClassName: "MfaConfiguration", MemberName: "mfaDetails", SectionID: "MC-MFAD-LST", SectionIDPattern: "MC-MFAD-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per MFA method definition.", DocComment: "MFA Implementation Details (text).", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"NIST SP 800-63B — authentication and authenticator lifecycle", "FIDO2 / W3C WebAuthn — phishing-resistant authentication"}, "connotation": "The catalog of multi-factor authentication method definitions."}}}},
 	}
 }
@@ -8939,7 +8939,7 @@ func metaChildrenMustPassCriterionEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenMutualTlsPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "MutualTlsPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "MutualTlsPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe where mTLS applies, how client certificates are issued and revoked, and what happens when validation fails. State whether any fallback exists."},
 		{ClassName: "MutualTlsPolicy", MemberName: "mutualTlsPolicyDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Mutual TLS Policy Details (text)."},
 	}
 }
@@ -9389,7 +9389,7 @@ func metaChildrenOperationsRequirements(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenOpportunityStatement(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "OpportunityStatement", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "OpportunityStatement", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe what becomes possible that is not possible today — new capabilities, new markets, better economics. Keep it distinct from the problem statement: this is upside, not pain."},
 		{ClassName: "OpportunityStatement", MemberName: "opportunityDetails", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Opportunity Details Form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "opportunitySummary", TypeName: "String", Description: "Opportunity Summary (one sentence)", Required: true, Hint: "State the core opportunity in a single concise sentence", Order: 0}, {Name: "futureState", TypeName: "String", Description: "Future State (describe the TO-BE situation after implementation)", Hint: "Describe the TO-BE situation after implementation", Order: 1}, {Name: "newCapabilities", TypeName: "String", Description: "New Capabilities (what becomes possible that wasn't before)", Hint: "What becomes possible that was not possible before", Order: 2}, {Name: "improvements", TypeName: "String", Description: "Improvements (quantitative and qualitative improvements expected)", Hint: "Quantitative and qualitative improvements expected", Order: 3}, {Name: "competitiveAdvantage", TypeName: "String", Description: "Competitive Advantage (market positioning benefits)", Hint: "Market positioning benefits the system provides", Order: 4}, {Name: "innovationAspects", TypeName: "String", Description: "Innovation Aspects (novel or differentiating features)", Hint: "Novel or differentiating features", Order: 5}, {Name: "growthEnablement", TypeName: "String", Description: "Growth Enablement (how this supports business growth)", Hint: "How the system supports business growth", Order: 6}, {Name: "efficiencyGains", TypeName: "String", Description: "Efficiency Gains (productivity and cost improvements)", Hint: "Productivity and cost improvements expected", Order: 7}, {Name: "timeToValue", TypeName: "String", Description: "Time to Value (when benefits will start being realized)", Hint: "When benefits will start being realized", Order: 8}}}},
 	}
 }
@@ -9408,7 +9408,7 @@ func metaChildrenOrgImplementationActivity(s map[string]bool) []*som.SomMetaNode
 
 func metaChildrenOrgRequirementImplementationPlan(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "OrgRequirementImplementationPlan", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "OrgRequirementImplementationPlan", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Set out how this organizational change is actually made: sequence, owner, timing, and what has to be true before it can start."},
 		{ClassName: "OrgRequirementImplementationPlan", MemberName: "planForm", SectionID: "ORIP-PLAN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Implementation plan form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "approach", TypeName: "String", Description: "Approach (Big Bang, Phased, Pilot, Parallel)", Hint: "Big Bang, Phased, Pilot, or Parallel rollout", Order: 0}, {Name: "phases", TypeName: "String", Description: "Phases (if phased rollout)", Hint: "Sequence of phases, if phased", Order: 1}, {Name: "pilotGroup", TypeName: "String", Description: "Pilot Group (if pilot approach)", Hint: "Group used for the pilot, if piloting", Order: 2}, {Name: "trainingApproach", TypeName: "String", Description: "Training Approach", Hint: "How affected people are trained", Order: 3}, {Name: "communicationPlan", TypeName: "String", Description: "Communication Plan", Hint: "How the change is communicated to stakeholders", Order: 4}, {Name: "supportPlan", TypeName: "String", Description: "Support Plan", Hint: "Support provided during and after the change", Order: 5}, {Name: "rollbackPlan", TypeName: "String", Description: "Rollback Plan", Hint: "How to revert if the change fails", Order: 6}, {Name: "resourcesNeeded", TypeName: "String", Description: "Resources Needed", Hint: "People, tools, or budget required", Order: 7}, {Name: "budget", TypeName: "String", Description: "Budget", Hint: "Estimated cost of the implementation", Order: 8}, {Name: "timeline", TypeName: "String", Description: "Timeline", Hint: "Schedule for the implementation", Order: 9}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "OrgRequirementImplementationPlan", MemberName: "activities", SectionID: "ORGIM-ACTI-LST", SectionIDPattern: "ORGIM-ACTI-xxx", Kind: som.SomMetaKindList, TypeName: "OrgImplementationActivity", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per implementation activity for this organizational change.", DocComment: "Implementation activities — contains 0+× OrgImplementationActivity.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 21500 — implementation activities", "PMBOK — change/implementation management"}, "connotation": "The set of individual implementation activities that carry out the organizational change."}}}}
@@ -9544,7 +9544,7 @@ func metaChildrenOrganizationalRequirementEntry(s map[string]bool) []*som.SomMet
 
 func metaChildrenOrganizationalRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "OrganizationalRequirements", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "OrganizationalRequirements", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Introduce the changes the organization itself must make for the system to succeed — process, roles, training, support. These fail projects more often than technical requirements do."},
 		{ClassName: "OrganizationalRequirements", MemberName: "summaryForm", SectionID: "OR-SUMM", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Organizational requirements summary form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalOrgRequirements", TypeName: "String", Description: "Total Organizational Requirements", Hint: "Total count of organizational requirements captured", Order: 0}, {Name: "trainingRequirements", TypeName: "String", Description: "Training Requirements (count)", Hint: "Number of training-related requirements", Order: 1}, {Name: "processChangeRequirements", TypeName: "String", Description: "Process Change (count)", Hint: "Number of process-change requirements", Order: 2}, {Name: "roleChangeRequirements", TypeName: "String", Description: "Role Change (count)", Hint: "Number of role-change requirements", Order: 3}, {Name: "supportRequirements", TypeName: "String", Description: "Support Requirements (count)", Hint: "Number of support-structure requirements", Order: 4}, {Name: "communicationRequirements", TypeName: "String", Description: "Communication (count)", Hint: "Number of communication requirements", Order: 5}, {Name: "changeReadinessScore", TypeName: "String", Description: "Organizational Change Readiness Score", Hint: "Assessed readiness of the organization to adopt the change", Order: 6}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "OrganizationalRequirements", MemberName: "requirements", SectionID: "ORRQ-REQU-LST", SectionIDPattern: "ORRQ-REQU-xxx", Kind: som.SomMetaKindList, TypeName: "OrganizationalRequirementEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per organizational requirement.", DocComment: "Organizational requirements list — contains 0+× Organizational Requirement.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 21500 — organizational project management", "BABOK v3 §10 — organizational readiness", "ISO/IEC/IEEE 29148 §9 — organizational requirements"}, "connotation": "The set of individual organizational requirement entries — the non-technical changes needed for the system to succeed."}}}}
@@ -9768,21 +9768,21 @@ func metaChildrenPasswordAndCredentialPolicy(s map[string]bool) []*som.SomMetaNo
 
 func metaChildrenPasswordLifecyclePolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "PasswordLifecyclePolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "PasswordLifecyclePolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe when a password change is required and when it is not. NIST SP 800-63B advises against periodic expiry — if the project forces it anyway, record the reason here."},
 		{ClassName: "PasswordLifecyclePolicy", MemberName: "passwordLifecycleDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Password Lifecycle Details (text)."},
 	}
 }
 
 func metaChildrenPasswordRequirementsPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "PasswordRequirementsPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "PasswordRequirementsPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "State the password rules and the guidance shown while a user chooses one. NIST SP 800-63B favours length and breach screening over composition rules — record any deviation and why."},
 		{ClassName: "PasswordRequirementsPolicy", MemberName: "passwordRequirementsDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Password Requirements Details (text)."},
 	}
 }
 
 func metaChildrenPasswordStoragePolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "PasswordStoragePolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "PasswordStoragePolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the hashing scheme, its parameters, and how they will be re-tuned over time. Say how existing hashes are upgraded when the parameters change."},
 		{ClassName: "PasswordStoragePolicy", MemberName: "passwordStorageDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Password Storage Details (text)."},
 	}
 }
@@ -9831,21 +9831,21 @@ func metaChildrenPeripheralEquipmentEntry(s map[string]bool) []*som.SomMetaNode 
 
 func metaChildrenPermissionCompositionStrategy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "PermissionCompositionStrategy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "PermissionCompositionStrategy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe how permissions from roles, groups and attributes combine, and the rule when they conflict. State whether deny overrides allow and give a worked example."},
 		{ClassName: "PermissionCompositionStrategy", MemberName: "permissionCompositionDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Permission Composition Details (text)."},
 	}
 }
 
 func metaChildrenPermissionEvaluationBehavior(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "PermissionEvaluationBehavior", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "PermissionEvaluationBehavior", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe when and where a permission check runs, what is cached and for how long, and what happens when the decision point is unreachable. Fail-closed or fail-open is the decision to record."},
 		{ClassName: "PermissionEvaluationBehavior", MemberName: "permissionEvaluationDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Permission Evaluation Details (text)."},
 	}
 }
 
 func metaChildrenPermissionGranularityPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "PermissionGranularityPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "PermissionGranularityPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "State how fine permissions go and where the project deliberately stops. Over-fine granularity is unmanageable, so name the practical unit of permission here."},
 		{ClassName: "PermissionGranularityPolicy", MemberName: "permissionGranularityDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Permission Granularity Details (text)."},
 	}
 }
@@ -10139,7 +10139,7 @@ func metaChildrenPrivilegeUsageReporting(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenProblemStatement(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ProblemStatement", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "ProblemStatement", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the problem concretely: who suffers it, how often, and what it costs today. Quantify the impact where you can, and say how urgent a fix is."},
 		{ClassName: "ProblemStatement", MemberName: "problemDetails", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Problem Description Form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "problemSummary", TypeName: "String", Description: "Problem Summary (one sentence)", Required: true, Hint: "State the core problem in a single concise sentence", Order: 0}, {Name: "currentState", TypeName: "String", Description: "Current State (describe the AS-IS situation that is problematic)", Hint: "Describe the current AS-IS situation that is problematic", Order: 1}, {Name: "affectedParties", TypeName: "String", Description: "Affected Parties (who suffers from this problem)", Hint: "Who suffers from this problem and in what way", Order: 2}, {Name: "impactDescription", TypeName: "String", Description: "Impact Description (business, financial, operational impacts)", Hint: "Business, financial, and operational impacts of the problem", Order: 3}, {Name: "impactSeverity", TypeName: "String", Description: "Impact Severity (Critical, High, Medium, Low)", Hint: "Critical / High / Medium / Low", Order: 4}, {Name: "impactMetrics", TypeName: "String", Description: "Impact Metrics (quantifiable measures of the problem's cost)", Hint: "Quantifiable measures of the problem's cost", Order: 5}, {Name: "rootCauses", TypeName: "String", Description: "Root Causes (underlying reasons for problem)", Hint: "Underlying reasons that cause the problem", Order: 6}, {Name: "urgency", TypeName: "String", Description: "Urgency (Immediate, Short-term, Medium-term, Long-term)", Hint: "Immediate / Short-term / Medium-term / Long-term", Order: 7}, {Name: "urgencyJustification", TypeName: "String", Description: "Urgency Justification (why this timeline is critical)", Hint: "Why the stated timeline is critical", Order: 8}, {Name: "consequencesOfInaction", TypeName: "String", Description: "Consequences of Inaction (what happens if not addressed)", Hint: "What happens if the problem is not addressed", Order: 9}}}},
 		{ClassName: "ProblemStatement", MemberName: "relatedPainPoints", SectionID: "PS-RELA-LST", SectionIDPattern: "PS-RELA-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per related pain point identified in the Current State Analysis that this problem statement connects to.", DocComment: "Related pain points from Current State Analysis.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — problem space"}, "connotation": "The set of related pain points drawn from the Current State Analysis that this problem connects to."}}}},
 	}
@@ -10350,7 +10350,7 @@ func metaChildrenProcessInputsOutputs(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenProcessInterdependencyMatrix(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ProcessInterdependencyMatrix", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "ProcessInterdependencyMatrix", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Show which processes trigger, feed or block each other; a table or matrix reads better than prose here. Call out the couplings that constrain migration sequencing."},
 		{ClassName: "ProcessInterdependencyMatrix", MemberName: "dependencyDiagram", SectionID: "PRINMA-DEPE", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Visual matrix of process dependencies"}, ContentHelp: "Create a Mermaid flowchart showing process dependencies. Use edge labels to describe the data/artifact exchanged.", DocComment: "Interdependency diagram."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "ProcessInterdependencyMatrix", MemberName: "dependencies", SectionID: "PRDEEN-DEPE-LST", SectionIDPattern: "PRDEEN-DEPE-xxx", Kind: som.SomMetaKindList, TypeName: "ProcessDependencyEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per source→target process dependency, capturing the artifact exchanged, coupling, timing, and failure impact.", DocComment: "Individual process dependencies.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — current-state analysis (process dependency)"}, "connotation": "The set of individual dependencies between processes."}}}}
@@ -11087,7 +11087,7 @@ func metaChildrenRecoveryScenarioEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenRedirectHandlingPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "RedirectHandlingPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "RedirectHandlingPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe how return URLs and callbacks are validated. Open redirects are the risk to write about here: state the allow-list rule and the behaviour on a rejected target."},
 		{ClassName: "RedirectHandlingPolicy", MemberName: "redirectDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Redirect Handling Details (text)."},
 	}
 }
@@ -11237,7 +11237,7 @@ func metaChildrenReliabilityCharacteristic(s map[string]bool) []*som.SomMetaNode
 
 func metaChildrenRememberMePolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "RememberMePolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "RememberMePolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe what persistent login grants and what it does not: which operations still re-prompt, how the device is trusted, and how the user revokes it from elsewhere."},
 		{ClassName: "RememberMePolicy", MemberName: "rememberMeDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Remember-Me Policy Details (text)."},
 	}
 }
@@ -11566,7 +11566,7 @@ func metaChildrenRequirementTestCases(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenRequirementTraceability(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "RequirementTraceability", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "RequirementTraceability", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Link this requirement upward to goals and business drivers and downward to use cases, processes and tests. A requirement that traces to nothing is a requirement nobody asked for."},
 		{ClassName: "RequirementTraceability", MemberName: "traceabilityForm", SectionID: "RT-TRAC", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Traceability links form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "relatedGoals", TypeName: "String", Description: "Related Business Goals (IDs)", Hint: "IDs of related business goals", Order: 0, RefersTo: []string{"BGE.@sectionId"}}, {Name: "relatedUseCases", TypeName: "String", Description: "Related Use Cases (IDs)", Hint: "Related interactions — interaction section ids (INEN-INTE-…), comma-separated", Order: 1, RefersTo: []string{"INEN.@sectionId"}}, {Name: "relatedProcesses", TypeName: "String", Description: "Related Business Processes (IDs)", Hint: "Related business processes — process section ids (BPREN-PROC-…), comma-separated", Order: 2, RefersTo: []string{"BPREN.@sectionId"}}, {Name: "relatedUserStories", TypeName: "String", Description: "Related User Stories (if Agile)", Hint: "Related user stories, if using Agile", Order: 3}}}},
 		{ClassName: "RequirementTraceability", MemberName: "artifacts", SectionID: "RETRAR", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Linked artifacts and test coverage references.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "relatedScreens", TypeName: "String", Description: "Related UI Screens/Views", Hint: "UI screens or views related to this requirement", Order: 0}, {Name: "relatedDataEntities", TypeName: "String", Description: "Related Data Entities", Hint: "Data entities related to this requirement", Order: 1}, {Name: "relatedTestCases", TypeName: "String", Description: "Related Test Cases (IDs)", Hint: "Test cases covering this requirement — test case section ids (RQTSC-TEST-… / TEGOTS-ITEM-…), comma-separated", Order: 2, RefersTo: []string{"RQTSC.@sectionId", "TEGOTS.@sectionId"}}, {Name: "relatedDocuments", TypeName: "String", Description: "Related Documents or Artifacts", Hint: "Related documents or other artifacts", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §5.2.8 — requirements traceability"}, "connotation": "The artifacts a requirement is linked to — UI screens, data entities, test cases, and related documents — for coverage and traceability."}}}},
 		{ClassName: "RequirementTraceability", MemberName: "implementation", SectionID: "RETRIM", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Implementation and deployment tracking.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "implementationComponent", TypeName: "String", Description: "Implementation Component (module, service)", Hint: "Module or service that implements the requirement", Order: 0}, {Name: "implementationStatus", TypeName: "String", Description: "Implementation Status (Not Started, In Progress, Done)", Hint: "Not Started, In Progress, or Done", Order: 1}, {Name: "deploymentVersion", TypeName: "String", Description: "Deployment Version (first release)", Hint: "Version in which the requirement first ships", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §5.2.8 — requirements traceability"}, "connotation": "How a requirement is realised — the implementing component, its implementation status, and the deployment version that first delivers it."}}}},
@@ -11575,7 +11575,7 @@ func metaChildrenRequirementTraceability(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenRequirementUiSpecification(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "RequirementUiSpecification", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "RequirementUiSpecification", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the screens, forms and interactions this requirement needs, in Tom UI terms: what the user sees, what they can do, and what feedback the system gives."},
 		{ClassName: "RequirementUiSpecification", MemberName: "uiForm", SectionID: "RUS-UIFO", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "UI specification form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "screenName", TypeName: "String", Description: "Screen/View Name", Hint: "Name of the screen or view", Order: 0}, {Name: "screenType", TypeName: "String", Description: "Screen Type (List, Detail, Form, Dashboard, Dialog, Wizard)", Hint: "List, Detail, Form, Dashboard, Dialog, or Wizard", Order: 1}, {Name: "navigationPath", TypeName: "String", Description: "Navigation Path (how user reaches this)", Hint: "How the user navigates to reach this screen", Order: 2}, {Name: "userRoles", TypeName: "String", Description: "Allowed User Roles", Hint: "Roles allowed to access this screen", Order: 3}, {Name: "responsiveBreakpoints", TypeName: "String", Description: "Responsive Breakpoints (mobile, tablet, desktop)", Hint: "Responsive breakpoints: mobile, tablet, desktop", Order: 4}}}},
 		{ClassName: "RequirementUiSpecification", MemberName: "layoutCode", SectionID: "RUS-LAYO", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "code-dart", Description: "Flutter/D4rt code specifying the UI layout using tom_flutter_ui components."}, ContentHelp: "Provide D4rt Flutter code for the UI layout, using tom_flutter_ui components. This can be rendered in documentation.", DocComment: "UI layout specification (D4rt Flutter code)."},
 		{ClassName: "RequirementUiSpecification", MemberName: "mockupDescription", SectionID: "RUS-MOCK", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(3), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "ASCII or text description of UI mockup if D4rt code is not available."}, DocComment: "UI mockup diagram (fallback if code not available)."},
@@ -11629,7 +11629,7 @@ func metaChildrenRequirementsFollowUp(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenRequirementsOverview(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "RequirementsOverview", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "RequirementsOverview", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Introduce the requirements set: how requirements were gathered, how they are identified, and how they will be carried into the RSP. Note the standard followed — IEEE 830, ISO 29148, Volere."},
 		{ClassName: "RequirementsOverview", MemberName: "requirementsForm", SectionID: "RO-REQU", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Requirements overview form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "requirementsProcess", TypeName: "String", Description: "Requirements Process (how requirements are elicited and managed)", Hint: "How requirements are elicited, analysed, and managed", Order: 0}, {Name: "traceabilityApproach", TypeName: "String", Description: "Traceability Approach (how requirements are linked to goals, tests, code)", Hint: "How requirements are linked to goals, tests, and code", Order: 1}, {Name: "changeControlProcess", TypeName: "String", Description: "Change Control Process (how requirement changes are handled)", Hint: "How requirement changes are proposed, reviewed, and approved", Order: 2}, {Name: "prioritizationMethod", TypeName: "String", Description: "Prioritization Method (MoSCoW, Weighted, etc.)", Hint: "MoSCoW, weighted scoring, or other prioritisation scheme", Order: 3}, {Name: "totalRequirements", TypeName: "String", Description: "Total Requirements Expected (estimated count)", Hint: "Estimated total number of requirements", Order: 4}, {Name: "mustHaveCount", TypeName: "String", Description: "Must-Have Requirements (estimated)", Hint: "Estimated count of Must-Have requirements", Order: 5}, {Name: "shouldHaveCount", TypeName: "String", Description: "Should-Have Requirements (estimated)", Hint: "Estimated count of Should-Have requirements", Order: 6}, {Name: "couldHaveCount", TypeName: "String", Description: "Could-Have Requirements (estimated)", Hint: "Estimated count of Could-Have requirements", Order: 7}}}},
 		{ClassName: "RequirementsOverview", MemberName: "traceabilityMatrix", SectionID: "RO-TRAC", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "Summary of traceability matrix showing connections between requirements, goals, use cases, and tests."}, ContentHelp: "Provide a high-level view of requirement traceability.", DocComment: "Traceability matrix overview."},
 		metaCx("FunctionalRequirements", s, metaChildrenFunctionalRequirements, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -12051,7 +12051,7 @@ func metaChildrenRoleAdjustments(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenRoleCertificationPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "RoleCertificationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "RoleCertificationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the review cycle: who certifies which assignments, how often, and what happens to an assignment nobody re-certifies. Privilege creep is what this section prevents."},
 		{ClassName: "RoleCertificationPolicy", MemberName: "roleCertificationDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Role Certification Details (text)."},
 	}
 }
@@ -12116,7 +12116,7 @@ func metaChildrenRoleHierarchy(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenRoleHierarchyPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "RoleHierarchyPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "RoleHierarchyPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the shape of the role hierarchy and what inheritance means in it. State the depth limit and why — deep hierarchies make effective permissions unpredictable."},
 		{ClassName: "RoleHierarchyPolicy", MemberName: "roleHierarchyPolicyDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Role Hierarchy Policy Details (text)."},
 	}
 }
@@ -12176,7 +12176,7 @@ func metaChildrenRolloutTrainingMaterial(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenRowLevelSecurityPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "RowLevelSecurityPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "RowLevelSecurityPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the predicate that decides row visibility and where it is enforced — database, ORM or application. Say what happens if the enforcing layer is bypassed."},
 		{ClassName: "RowLevelSecurityPolicy", MemberName: "rowLevelSecurityDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Row-Level Security Details (text)."},
 	}
 }
@@ -12350,7 +12350,7 @@ func metaChildrenSchemaVersioningAndMigration(s map[string]bool) []*som.SomMetaN
 
 func metaChildrenScopeBoundaries(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ScopeBoundaries", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "ScopeBoundaries", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "State explicitly what is in scope and — more importantly — what is out. Out-of-scope items are the ones that prevent scope creep, so name them even when they seem obvious."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "ScopeBoundaries", MemberName: "inScopeItems", SectionID: "SIE-INSC-LST", SectionIDPattern: "SIE-INSC-xxx", Kind: som.SomMetaKindList, TypeName: "ScopeItemEntry", SerializationOrder: metaIntPtr(1), Min: metaIntPtr(1), ContentHelp: "List all items that are explicitly in scope for this project. Be specific about features, processes, user groups, and systems.", DocComment: "In-Scope Items — contains 1+× ScopeItem.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §6 — system scope & boundaries"}, "connotation": "The set of items explicitly included within the scope of this project."}}}}
 			n.ElementNode = metaCx("ScopeItemEntry", s, metaChildrenScopeItemEntry, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
@@ -12904,7 +12904,7 @@ func metaChildrenSecurityRequirementEntry(s map[string]bool) []*som.SomMetaNode 
 
 func metaChildrenSecurityRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SecurityRequirements", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "SecurityRequirements", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Introduce the security requirement set and the frameworks it follows, such as OWASP and ISO 27001. Record the threat model or risk assessment the requirements were derived from."},
 		{ClassName: "SecurityRequirements", MemberName: "summaryForm", SectionID: "SR1-SUMM", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Security requirements summary form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalSecurityRequirements", TypeName: "String", Description: "Total Security Requirements", Hint: "Total count of security requirements captured", Order: 0}, {Name: "criticalCount", TypeName: "String", Description: "Critical (count)", Hint: "Number of requirements at Critical priority", Order: 1}, {Name: "highCount", TypeName: "String", Description: "High (count)", Hint: "Number of requirements at High priority", Order: 2}, {Name: "mediumCount", TypeName: "String", Description: "Medium (count)", Hint: "Number of requirements at Medium priority", Order: 3}, {Name: "securityFramework", TypeName: "String", Description: "Security Framework (OWASP, NIST, ISO 27001, CIS, etc.)", Hint: "Primary framework guiding the requirements", Order: 4}, {Name: "complianceRequirements", TypeName: "String", Description: "Compliance Requirements (GDPR, HIPAA, PCI-DSS, SOX, etc.)", Hint: "Regulations the system must comply with", Order: 5}, {Name: "threatCategories", TypeName: "String", Description: "Threat Categories Addressed (Injection, XSS, CSRF, etc.)", Hint: "Classes of attack the requirements mitigate", Order: 6}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "SecurityRequirements", MemberName: "requirements", SectionID: "SECRQ-REQU-LST", SectionIDPattern: "SECRQ-REQU-xxx", Kind: som.SomMetaKindList, TypeName: "SecurityRequirementEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per security requirement.", DocComment: "Security requirements list — contains 0+× Security Requirement.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001 Annex A — security controls", "ISO/IEC/IEEE 29148 §9 — security requirements"}, "connotation": "The set of individual security requirement entries protecting the confidentiality, integrity, and availability of information."}}}}
@@ -12960,7 +12960,7 @@ func metaChildrenSelfRegistrationPolicy(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenSelfServiceAccountManagement(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SelfServiceAccountManagement", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "SelfServiceAccountManagement", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Say what users may do to their own accounts unaided and where the line to administrator involvement is drawn. Explain the reasoning — that line is a risk decision."},
 		{ClassName: "SelfServiceAccountManagement", MemberName: "selfServiceDescription", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Self-Service Capabilities Description (text)."},
 	}
 }
@@ -13115,14 +13115,14 @@ func metaChildrenServerStorageRequirements(s map[string]bool) []*som.SomMetaNode
 
 func metaChildrenServiceAccountCredentialPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ServiceAccountCredentialPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "ServiceAccountCredentialPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe how machine credentials are issued, stored and rotated without human intervention, and where the root of trust sits. Name the owner for each credential class."},
 		{ClassName: "ServiceAccountCredentialPolicy", MemberName: "serviceAccountDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Service Account Credential Details (text)."},
 	}
 }
 
 func metaChildrenServiceAccountLifecycle(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ServiceAccountLifecycle", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "ServiceAccountLifecycle", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe how non-human accounts differ from human ones here: ownership, review, rotation and decommissioning. An unowned service account is the usual failure."},
 		{ClassName: "ServiceAccountLifecycle", MemberName: "serviceAccountDescription", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Service Account Management Description (text)."},
 	}
 }
@@ -13171,14 +13171,14 @@ func metaChildrenServiceMeshAndGateway(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenSessionCreationPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SessionCreationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "SessionCreationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe what a session is bound to — device, address, client — and what properties it carries from the moment of creation. Say what happens when a binding no longer matches."},
 		{ClassName: "SessionCreationPolicy", MemberName: "sessionCreationDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Session Creation Details (text)."},
 	}
 }
 
 func metaChildrenSessionLifecycleMonitoring(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SessionLifecycleMonitoring", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "SessionLifecycleMonitoring", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe which session events are logged, what each record contains, and who reviews them. Say how long session logs are kept and how the personal data in them is handled."},
 		{ClassName: "SessionLifecycleMonitoring", MemberName: "sessionLifecycleDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Session Lifecycle Monitoring Details (text)."},
 	}
 }
@@ -13219,21 +13219,21 @@ func metaChildrenSessionModel(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenSessionRevocationPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SessionRevocationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "SessionRevocationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe every way a session ends other than timing out — logout, administrative termination, privilege change, credential change — and how fast each takes effect."},
 		{ClassName: "SessionRevocationPolicy", MemberName: "sessionRevocationDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Session Revocation Details (text)."},
 	}
 }
 
 func metaChildrenSessionSecurityPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SessionSecurityPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "SessionSecurityPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the hardening measures — fixation defence, binding, anomaly detection, cache control — and what each protects against. State the response when an anomaly fires."},
 		{ClassName: "SessionSecurityPolicy", MemberName: "sessionSecurityDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Session Security Details (text)."},
 	}
 }
 
 func metaChildrenSessionTimeoutPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SessionTimeoutPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "SessionTimeoutPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Justify the idle and absolute timeouts against the data a session can reach, and describe the warning and renewal experience. Note where per-AAL differentiation applies."},
 		{ClassName: "SessionTimeoutPolicy", MemberName: "sessionTimeoutDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Session Timeout Details (text)."},
 	}
 }
@@ -13410,7 +13410,7 @@ func metaChildrenSpecializedEquipmentEntry(s map[string]bool) []*som.SomMetaNode
 
 func metaChildrenSsoPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SsoPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "SsoPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the federation topology: which identity providers, which protocol, and what happens to users outside SSO. State how attributes and group memberships map into this system."},
 		{ClassName: "SsoPolicy", MemberName: "ssoDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "SSO Implementation Details (text)."},
 	}
 }
@@ -13863,28 +13863,28 @@ func metaChildrenSteeringCommittee(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenStepUpAuthenticationPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "StepUpAuthenticationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "StepUpAuthenticationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe which operations demand a higher assurance level and what signals trigger an adaptive challenge. Say how long an elevated level lasts."},
 		{ClassName: "StepUpAuthenticationPolicy", MemberName: "stepUpDetails", SectionID: "SUAP-STEP-LST", SectionIDPattern: "SUAP-STEP-xxx", Kind: som.SomMetaKindList, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentHelp: "Add one entry per step-up authentication step.", DocComment: "Step-Up Authentication Details (text).", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"NIST SP 800-63B — authentication and authenticator lifecycle", "OWASP ASVS V2 — authentication verification requirements"}, "connotation": "The catalog of step-up authentication detail entries."}}}},
 	}
 }
 
 func metaChildrenStorageEncryptionPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "StorageEncryptionPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "StorageEncryptionPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe what is encrypted where, and who holds the keys for each storage tier. Say whether the storage provider can read the data and whether that is acceptable."},
 		{ClassName: "StorageEncryptionPolicy", MemberName: "storageEncryptionDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Storage Encryption Details (text)."},
 	}
 }
 
 func metaChildrenStorageLifecyclePolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "StorageLifecyclePolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "StorageLifecyclePolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe how long files live, when they move to cheaper tiers, and how they are destroyed. Say what secure deletion means here and how it is verified."},
 		{ClassName: "StorageLifecyclePolicy", MemberName: "storageLifecycleDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Storage Lifecycle Details (text)."},
 	}
 }
 
 func metaChildrenStrategicAlignment(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "StrategicAlignment", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "StrategicAlignment", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Name the organizational strategies, goals or initiatives this system serves and show the link to each. If it also competes with an initiative for the same resources, say so."},
 		{ClassName: "StrategicAlignment", MemberName: "alignmentDetails", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Strategic Alignment Details (form).", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "alignedCorporateGoals", TypeName: "String", Description: "Aligned Corporate Goals (which company goals this supports)", Hint: "Which company goals this initiative supports", Order: 0}, {Name: "alignedBusinessObjectives", TypeName: "String", Description: "Aligned Business Objectives (specific objectives this serves)", Hint: "Specific business objectives this serves", Order: 1}, {Name: "alignedItStrategy", TypeName: "String", Description: "Aligned IT Strategy (how this fits in the IT roadmap)", Hint: "How this fits within the IT roadmap", Order: 2}, {Name: "relatedInitiatives", TypeName: "String", Description: "Related Initiatives (other projects or programs this connects to)", Hint: "Other projects or programs this connects to", Order: 3}, {Name: "digitizationContribution", TypeName: "String", Description: "Digitization Contribution (how this advances digital transformation)", Hint: "How this advances digital transformation", Order: 4}, {Name: "innovationContribution", TypeName: "String", Description: "Innovation Contribution (how this supports innovation goals)", Hint: "How this supports innovation goals", Order: 5}, {Name: "complianceContribution", TypeName: "String", Description: "Compliance Contribution (regulatory or policy requirements met)", Hint: "Regulatory or policy requirements met", Order: 6}, {Name: "marketPositioning", TypeName: "String", Description: "Market Positioning (how this affects competitive position)", Hint: "How this affects competitive market position", Order: 7}, {Name: "strategicTimingRationale", TypeName: "String", Description: "Strategic Timing (why this is the right time for this initiative)", Hint: "Why now is the right time for this initiative", Order: 8}}}},
 	}
 }
@@ -14331,7 +14331,7 @@ func metaChildrenSystemOperationAndMonitoring(s map[string]bool) []*som.SomMetaN
 
 func metaChildrenSystemPurpose(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "SystemPurpose", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "SystemPurpose", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "State in a few sentences why the system exists and who benefits. Keep it readable by someone outside the project — the problem, opportunity and value subsections below carry the detail."},
 		{ClassName: "SystemPurpose", MemberName: "visionStatement", SectionID: "SYPUP-VISI", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "description", Description: "A concise, memorable statement (1-3 sentences) that captures the essence of what the system will achieve."}, ContentHelp: "Write a clear and inspiring vision statement that describes what success looks like when this system is fully operational.", DocComment: "Vision Statement."},
 		metaCx("ProblemStatement", s, metaChildrenProblemStatement, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "ProblemStatement", MemberName: "problemStatement", ClassSectionID: "PS", Kind: som.SomMetaKindComplex, TypeName: "ProblemStatement", SerializationOrder: metaIntPtr(2), DocComment: "4.1.1.1. Problem Statement.", ClassDocComment: "4.1.1.1. Problem Statement.\n\nDetailed description of the problem or pain point that this system will\naddress. Includes impact analysis and urgency assessment.", Recursive: r, Children: c}
@@ -14927,7 +14927,7 @@ func metaChildrenTechnicalRequirementEntry(s map[string]bool) []*som.SomMetaNode
 
 func metaChildrenTechnicalRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "TechnicalRequirements", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "TechnicalRequirements", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Introduce the technical requirement set — the constraints on how the system is built. Say which are externally imposed and which are choices, since only the choices are negotiable."},
 		{ClassName: "TechnicalRequirements", MemberName: "summaryForm", SectionID: "TR1-SUMM", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Technical requirements summary form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "totalTechnicalRequirements", TypeName: "String", Description: "Total Technical Requirements", Hint: "Total count of technical requirements captured", Order: 0}, {Name: "criticalCount", TypeName: "String", Description: "Critical (count)", Hint: "Number of requirements at Critical priority", Order: 1}, {Name: "highCount", TypeName: "String", Description: "High (count)", Hint: "Number of requirements at High priority", Order: 2}, {Name: "mediumCount", TypeName: "String", Description: "Medium (count)", Hint: "Number of requirements at Medium priority", Order: 3}, {Name: "lowCount", TypeName: "String", Description: "Low (count)", Hint: "Number of requirements at Low priority", Order: 4}, {Name: "architectureDrivers", TypeName: "String", Description: "Architecture Drivers (top constraints shaping design)", Hint: "e.g., 99.99% availability, sub-100ms latency, 10k concurrent users", Order: 5}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "TechnicalRequirements", MemberName: "requirements", SectionID: "TERQ-REQU-LST", SectionIDPattern: "TERQ-REQU-xxx", Kind: som.SomMetaKindList, TypeName: "TechnicalRequirementEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Add one entry per technical requirement.", DocComment: "Technical requirements list — contains 0+× Technical Requirement.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 29148 §9.6 — performance & quality requirements", "ISO/IEC 25010 — product quality"}, "connotation": "The set of individual technical requirement entries that constrain how the system is built."}}}}
@@ -14972,14 +14972,14 @@ func metaChildrenTechnologyStandardEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenTenantBoundaryEnforcementPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "TenantBoundaryEnforcementPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "TenantBoundaryEnforcementPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe where the tenant boundary is enforced and how a request that crosses it is stopped. Cover shared services and users who legitimately belong to several tenants."},
 		{ClassName: "TenantBoundaryEnforcementPolicy", MemberName: "boundaryEnforcementDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Tenant Boundary Enforcement Details (text)."},
 	}
 }
 
 func metaChildrenTenantContextPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "TenantContextPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "TenantContextPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe how tenant context is determined on each request and how it travels between services. State the behaviour when context is absent or ambiguous — it must not default."},
 		{ClassName: "TenantContextPolicy", MemberName: "tenantContextPolicyDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Tenant Context Policy Details (text)."},
 	}
 }
@@ -14992,7 +14992,7 @@ func metaChildrenTenantCustomizationEntry(s map[string]bool) []*som.SomMetaNode 
 
 func metaChildrenTenantDataIsolationPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "TenantDataIsolationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "TenantDataIsolationPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the isolation model and the single mechanism that guarantees it. Say how the guarantee is tested; an untested isolation claim is the classic multi-tenant failure."},
 		{ClassName: "TenantDataIsolationPolicy", MemberName: "tenantDataIsolationDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Tenant Data Isolation Details (text)."},
 	}
 }
@@ -15025,7 +15025,7 @@ func metaChildrenTenantIsolation(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenTenantOnboardingPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "TenantOnboardingPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "TenantOnboardingPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe what authorization state a new tenant starts with and who its first administrator is. Cover offboarding with equal care: what is deleted, what is retained, and for how long."},
 		{ClassName: "TenantOnboardingPolicy", MemberName: "tenantOnboardingPolicyDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Tenant Onboarding Policy Details (text)."},
 	}
 }
@@ -15124,7 +15124,7 @@ func metaChildrenThrowawayPrototype(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenTlsProtocolPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "TlsProtocolPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "TlsProtocolPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "State the minimum protocol version and cipher suites, and when the policy is next reviewed. Record any legacy client that forces an exception and the date it is retired."},
 		{ClassName: "TlsProtocolPolicy", MemberName: "tlsProtocolPolicyDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "TLS Protocol Policy Details (text)."},
 	}
 }
@@ -15141,7 +15141,7 @@ func metaChildrenTlsRequirements(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenTokenManagementPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "TokenManagementPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "TokenManagementPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the token types in use, what each carries, where it is stored and how it is revoked. Justify the lifetimes — they are the main security-versus-usability trade-off here."},
 		{ClassName: "TokenManagementPolicy", MemberName: "tokenManagementDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Token Management Details (text)."},
 	}
 }
@@ -15537,7 +15537,7 @@ func metaChildrenTranslationVendorEntry(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenTransportSecurityPolicy(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "TransportSecurityPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "TransportSecurityPolicy", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe HSTS settings, HTTP-to-HTTPS behaviour, cookie flags and cache rules for sensitive responses. Note that HSTS preloading is hard to reverse."},
 		{ClassName: "TransportSecurityPolicy", MemberName: "transportSecurityPolicyDetails", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Transport Security Policy Details (text)."},
 	}
 }
@@ -15754,7 +15754,7 @@ func metaChildrenUserAcceptanceTesting(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenUserAccessPermissions(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "UserAccessPermissions", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "UserAccessPermissions", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "State what this user category may see and do, and what it must never be able to do. Record the reasoning — the access model later has to justify each grant."},
 		{ClassName: "UserAccessPermissions", MemberName: "permissionsForm", SectionID: "UAP-PERM", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Access Permissions Form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "accessLevel", TypeName: "String", Description: "Access Level (Guest, User, Power User, Administrator, Super Admin)", Required: true, Hint: "Guest / User / Power User / Administrator / Super Admin", Order: 0}, {Name: "authenticationMethod", TypeName: "String", Description: "Authentication Method (Password, SSO, MFA, Certificate, etc.)", Required: true, Hint: "Password / SSO / MFA / Certificate", Order: 1}, {Name: "authorizationRoles", TypeName: "String", Description: "Authorization Roles (system roles assigned to this category)", Hint: "System roles assigned to this user category", Order: 2}, {Name: "dataAccessScope", TypeName: "String", Description: "Data Access Scope (all, department, team, own records)", Hint: "all / department / team / own records", Order: 3}}}},
 		{ClassName: "UserAccessPermissions", MemberName: "restrictionsProfile", SectionID: "UAPR", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Functional and environmental restrictions.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "functionalAccess", TypeName: "String", Description: "Functional Access (what features they can use)", Hint: "Features and functions this category can use", Order: 0}, {Name: "restrictions", TypeName: "String", Description: "Restrictions (what they cannot access or do)", Hint: "What this category cannot access or do", Order: 1}, {Name: "timeRestrictions", TypeName: "String", Description: "Time Restrictions (business hours, specific times)", Hint: "Business hours or specific times access is allowed", Order: 2}, {Name: "locationRestrictions", TypeName: "String", Description: "Location Restrictions (office only, VPN required, etc.)", Hint: "Office only / VPN required / geographic limits", Order: 3}, {Name: "deviceRestrictions", TypeName: "String", Description: "Device Restrictions (managed devices only, etc.)", Hint: "Managed devices only / device type limits", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001 Annex A.9 — access control", "NIST RBAC — permissions"}, "connotation": "Captures the functional and environmental restrictions on this user category — what they cannot do, and time/location/device constraints."}}}},
 		{ClassName: "UserAccessPermissions", MemberName: "governance", SectionID: "UAPG", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Session and audit controls.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "sessionTimeout", TypeName: "String", Description: "Session Timeout (inactivity timeout duration)", Hint: "Inactivity timeout duration before re-authentication", Order: 0}, {Name: "auditRequirements", TypeName: "String", Description: "Audit Requirements (what actions are logged)", Hint: "Which actions must be logged for audit", Order: 1}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC 27001 Annex A.9 — access control", "NIST RBAC — permissions"}, "connotation": "Captures the session and audit governance for this user category — timeout behaviour and audit-logging requirements."}}}},
@@ -15770,14 +15770,14 @@ func metaChildrenUserAccessPermissions(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenUserAccessibilityNeeds(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "UserAccessibilityNeeds", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "UserAccessibilityNeeds", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Record the accessibility requirements this category actually has — vision, motor, cognitive, situational — and the accommodations that follow. Name the WCAG level committed to."},
 		{ClassName: "UserAccessibilityNeeds", MemberName: "accessibilityForm", SectionID: "UAN-ACCE", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Accessibility Needs Form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "visualRequirements", TypeName: "String", Description: "Visual Requirements (screen reader, high contrast, magnification)", Hint: "Screen reader / high contrast / magnification needs", Order: 0}, {Name: "auditoryRequirements", TypeName: "String", Description: "Auditory Requirements (captions, visual alerts)", Hint: "Captions / visual alerts for auditory content", Order: 1}, {Name: "motorRequirements", TypeName: "String", Description: "Motor Requirements (keyboard navigation, voice control)", Hint: "Keyboard navigation / voice control needs", Order: 2}, {Name: "cognitiveRequirements", TypeName: "String", Description: "Cognitive Requirements (simple language, clear navigation)", Hint: "Simple language / clear navigation needs", Order: 3}, {Name: "languageRequirements", TypeName: "String", Description: "Language Requirements (multiple languages, reading level)", Hint: "Multiple languages / reading level needs", Order: 4}, {Name: "deviceAccommodations", TypeName: "String", Description: "Device Accommodations (large buttons, touch targets)", Hint: "Large buttons / touch target sizing needs", Order: 5}, {Name: "wcagLevel", TypeName: "String", Description: "WCAG Conformance Level Required (A, AA, AAA)", Hint: "A / AA / AAA", Order: 6}, {Name: "additionalStandards", TypeName: "String", Description: "Additional Standards (Section 508, EN 301 549, etc.)", Hint: "Section 508 / EN 301 549 / other accessibility standards", Order: 7}}}},
 	}
 }
 
 func metaChildrenUserAccountStatesDefinition(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "UserAccountStatesDefinition", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "UserAccountStatesDefinition", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe each account state in words and what a user in it can and cannot do. The form captures the state names; the content is where the semantics live, including any project-specific states."},
 		{ClassName: "UserAccountStatesDefinition", MemberName: "stateTransitionDiagram", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: ""}, DocComment: "State Transition Diagram (mermaid)."},
 	}
 }
@@ -15961,7 +15961,7 @@ func metaChildrenUserInteractionModelSummary(s map[string]bool) []*som.SomMetaNo
 
 func metaChildrenUserJourney(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "UserJourney", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "UserJourney", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Map this category's touchpoints end to end, including what happens before and after they use the system. Mark the moments where the experience currently breaks."},
 		{ClassName: "UserJourney", MemberName: "journeyDiagram", SectionID: "UJ-JOUR", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "User journey map showing stages, touchpoints, and emotional peaks/valleys"}, ContentHelp: "Create a journey map showing the user's experience from first contact through regular use.", DocComment: "User journey diagram."},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "UserJourney", MemberName: "stages", SectionID: "JRNST-STAG-LST", SectionIDPattern: "JRNST-STAG-xxx", Kind: som.SomMetaKindList, TypeName: "JourneyStageEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Define each stage of the user journey.", DocComment: "Journey stage entries — contains 0+× JourneyStageEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210 — user journey & experience", "BABOK v3 §10 — customer journey mapping"}, "connotation": "The ordered set of stages that make up this user journey."}}}}
@@ -16025,7 +16025,7 @@ func metaChildrenUserLifecycleTransitionEntry(s map[string]bool) []*som.SomMetaN
 
 func metaChildrenUserLifecycleTransitions(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "UserLifecycleTransitions", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "UserLifecycleTransitions", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Describe the permitted state transitions as a flow, naming who can trigger each and what approval it needs. The transitions you deliberately forbid are worth stating too."},
 		{ClassName: "UserLifecycleTransitions", MemberName: "transitionRulesDescription", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Transition Rules Description (text)."},
 		{ClassName: "UserLifecycleTransitions", MemberName: "lifecycleStateDiagram", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid", Description: ""}, DocComment: "Lifecycle State Transition Diagram (mermaid)."},
 		func() *som.SomMetaNode {
@@ -16067,7 +16067,7 @@ func metaChildrenUserNotificationPreferences(s map[string]bool) []*som.SomMetaNo
 
 func metaChildrenUserPersonaDetails(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "UserPersonaDetails", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "UserPersonaDetails", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Sketch the person, not the role: working context, technical confidence, goals and frustrations. A persona is only useful if a designer can picture them."},
 		{ClassName: "UserPersonaDetails", MemberName: "personaForm", SectionID: "UPD-PERS", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Persona Details Form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "representativeName", TypeName: "String", Description: "Representative Name (fictional name for this persona)", Hint: "A memorable fictional name to humanize the persona", Order: 0}, {Name: "ageRange", TypeName: "String", Description: "Age Range", Hint: "Typical age range for this persona", Order: 1}, {Name: "educationLevel", TypeName: "String", Description: "Education Level", Hint: "Highest education level typical for this persona", Order: 2}, {Name: "jobTitle", TypeName: "String", Description: "Job Title / Position", Hint: "Typical job title or position", Order: 3}}}},
 		{ClassName: "UserPersonaDetails", MemberName: "contextDetails", SectionID: "UPDC", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Experience and work context.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "yearsOfExperience", TypeName: "String", Description: "Years of Experience (in this role)", Hint: "Years of experience in this role", Order: 0}, {Name: "workEnvironment", TypeName: "String", Description: "Work Environment (office, remote, field, etc.)", Hint: "Office / remote / field / hybrid", Order: 1}, {Name: "typicalWorkday", TypeName: "String", Description: "Typical Workday (relevant aspects of daily routine)", Hint: "Relevant aspects of the persona's daily routine", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210 — personas & context of use", "BABOK v3 §10.43 — personas"}, "connotation": "Captures the persona's working context — experience, environment, and typical workday."}}}},
 		{ClassName: "UserPersonaDetails", MemberName: "goals", SectionID: "UPDG", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "Goals and drivers.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "primaryGoals", TypeName: "String", Description: "Primary Goals (what they want to achieve with the system)", Hint: "What this persona most wants to achieve with the system", Order: 0}, {Name: "secondaryGoals", TypeName: "String", Description: "Secondary Goals", Hint: "Less critical goals this persona also has", Order: 1}, {Name: "frustrations", TypeName: "String", Description: "Frustrations (pain points with current solutions)", Hint: "Pain points with current solutions or workflows", Order: 2}, {Name: "motivations", TypeName: "String", Description: "Motivations (what drives them)", Hint: "What drives and motivates this persona", Order: 3}, {Name: "fears", TypeName: "String", Description: "Fears (concerns about new systems)", Hint: "Concerns or anxieties about adopting a new system", Order: 4}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO 9241-210 — personas & context of use", "BABOK v3 §10.43 — personas"}, "connotation": "Captures what drives this persona — goals, frustrations, motivations, and fears."}}}},
@@ -16102,7 +16102,7 @@ func metaChildrenUserProvisioningTools(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenUserRegistrationProcess(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "UserRegistrationProcess", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "UserRegistrationProcess", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Walk through registration from the user's first action to a usable account, per registration method. Record why the chosen identity-proofing level is sufficient for this system's risk."},
 		{ClassName: "UserRegistrationProcess", MemberName: "registrationFlowDescription", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, DocComment: "Registration Flow Description (text)."},
 		{ClassName: "UserRegistrationProcess", MemberName: "registrationFlowDiagram", Kind: som.SomMetaKindSection, TypeName: "String", SerializationOrder: metaIntPtr(2), ContentType: &som.SomContentTypeMeta{Type: "mermaid-sequence", Description: ""}, DocComment: "Registration Flow Diagram (mermaid-sequence)."},
 	}
@@ -16129,7 +16129,7 @@ func metaChildrenUserSettings(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenUserTrainingRequirements(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "UserTrainingRequirements", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "UserTrainingRequirements", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Say what this category must learn before it can work with the system, how the training is delivered, and how much of it is ongoing rather than one-off."},
 		{ClassName: "UserTrainingRequirements", MemberName: "trainingForm", SectionID: "USTRRE-TRAI", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Training Requirements Form.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "initialTrainingRequired", TypeName: "bool", Description: "Initial Training Required (is formal training needed)", Hint: "Whether formal up-front training is needed", Order: 0}, {Name: "trainingFormat", TypeName: "String", Description: "Training Format (In-person, Online, Self-paced, On-the-job)", Hint: "In-person / Online / Self-paced / On-the-job", Order: 1}, {Name: "estimatedTrainingDuration", TypeName: "String", Description: "Estimated Training Duration", Hint: "Estimated time required to complete training", Order: 2}, {Name: "certificationRequired", TypeName: "bool", Description: "Certification Required (must pass assessment)", Hint: "Whether users must pass an assessment to be certified", Order: 3}, {Name: "refresherFrequency", TypeName: "String", Description: "Refresher Frequency (how often retraining is needed)", Hint: "How often retraining or refresher courses are needed", Order: 4}, {Name: "supportLevel", TypeName: "String", Description: "Support Level Expected (Self-service, Help desk, Dedicated)", Hint: "Self-service / Help desk / Dedicated", Order: 5}, {Name: "documentationNeeds", TypeName: "String", Description: "Documentation Needs (User guide, Quick reference, Video tutorials)", Hint: "User guide / Quick reference / Video tutorials", Order: 6}, {Name: "onboardingProcess", TypeName: "String", Description: "Onboarding Process (steps to get started)", Hint: "Steps needed to get a new user started", Order: 7}, {Name: "mentoringRequired", TypeName: "bool", Description: "Mentoring Required (paired with experienced user)", Hint: "Whether new users are paired with an experienced mentor", Order: 8}}}},
 		func() *som.SomMetaNode {
 			n := &som.SomMetaNode{ClassName: "UserTrainingRequirements", MemberName: "trainingTopics", SectionID: "TRTP-TRAI-LST", SectionIDPattern: "TRTP-TRAI-xxx", Kind: som.SomMetaKindList, TypeName: "TrainingTopicEntry", SerializationOrder: metaIntPtr(2), ContentHelp: "Define specific training topics for this user category.", DocComment: "Training topics — contains 0+× TrainingTopicEntry.", Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"ISO/IEC/IEEE 12207 — training/support processes", "ISO 9241-210 — user support"}, "connotation": "The set of specific training topics for this user category."}}}}
@@ -16217,7 +16217,7 @@ func metaChildrenValidationMessageTemplate(s map[string]bool) []*som.SomMetaNode
 
 func metaChildrenValueProposition(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "ValueProposition", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "ValueProposition", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Articulate the value in the terms the funding decision uses: quantified benefits, cost avoided, and the return-on-investment argument. State the assumptions the numbers rest on."},
 		{ClassName: "ValueProposition", MemberName: "valueDetails", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(1), DocComment: "Value Proposition Details (form).", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "valueStatement", TypeName: "String", Description: "Value Statement (concise statement of value delivered)", Required: true, Hint: "Concise statement of the value the system delivers", Order: 0}, {Name: "primaryBenefits", TypeName: "String", Description: "Primary Benefits (top 3-5 benefits in priority order)", Hint: "Top 3-5 benefits in priority order", Order: 1}, {Name: "quantifiableBenefits", TypeName: "String", Description: "Quantifiable Benefits (measurable improvements with targets)", Hint: "Measurable improvements with concrete targets", Order: 2}, {Name: "qualitativeBenefits", TypeName: "String", Description: "Qualitative Benefits (non-quantifiable but important benefits)", Hint: "Non-quantifiable but important benefits", Order: 3}}}},
 		{ClassName: "ValueProposition", MemberName: "benefits", SectionID: "VALBN", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(2), DocComment: "Financial and efficiency benefits.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "costSavings", TypeName: "String", Description: "Cost Savings (expected cost reductions and where)", Hint: "Expected cost reductions and where they occur", Order: 0}, {Name: "revenueImpact", TypeName: "String", Description: "Revenue Impact (how system affects revenue generation)", Hint: "How the system affects revenue generation", Order: 1}, {Name: "productivityGains", TypeName: "String", Description: "Productivity Gains (efficiency improvements expected)", Hint: "Efficiency improvements expected from the system", Order: 2}, {Name: "riskReduction", TypeName: "String", Description: "Risk Reduction (operational, compliance, security risks mitigated)", Hint: "Operational, compliance, and security risks mitigated", Order: 3}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — business value"}, "connotation": "The financial and efficiency benefits of the system — cost savings, revenue impact, productivity gains, and risk reduction."}}}},
 		{ClassName: "ValueProposition", MemberName: "returnProfile", SectionID: "VALRP", Kind: som.SomMetaKindForm, TypeName: "String", SerializationOrder: metaIntPtr(3), DocComment: "ROI and realization timeline.", Form: &som.SomFormMeta{Fields: []*som.SomFormFieldMeta{{Name: "estimatedRoi", TypeName: "String", Description: "Estimated ROI (return on investment calculation or estimate)", Hint: "Return-on-investment calculation or estimate", Order: 0}, {Name: "paybackPeriod", TypeName: "String", Description: "Payback Period (time until investment is recovered)", Hint: "Time until the investment is recovered", Order: 1}, {Name: "valueRealizationTimeline", TypeName: "String", Description: "Value Realization Timeline (when benefits start accruing)", Hint: "When benefits start accruing after delivery", Order: 2}}}, Extra: []*som.SomMetaExtra{{Annotation: "StandardReferences", Args: map[string]interface{}{"standards": []interface{}{"BABOK v3 §10 — business value"}, "connotation": "The return profile of the system — estimated ROI, payback period, and the timeline over which value is realized."}}}},
@@ -16374,7 +16374,7 @@ func metaChildrenWorkflowDecisionPoint(s map[string]bool) []*som.SomMetaNode {
 
 func metaChildrenWorkflowDescriptions(s map[string]bool) []*som.SomMetaNode {
 	return []*som.SomMetaNode{
-		{ClassName: "WorkflowDescriptions", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}},
+		{ClassName: "WorkflowDescriptions", MemberName: "content", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(0), ContentType: &som.SomContentTypeMeta{Type: "text", Description: ""}, ContentHelp: "Introduce the workflows of this business process and add one subsection per workflow relevant to the project. Say which workflows are in scope for change and which are recorded only as context."},
 		{ClassName: "WorkflowDescriptions", MemberName: "workflowOverviewDiagram", SectionID: "WODE-WORK", Kind: som.SomMetaKindContent, TypeName: "String", SerializationOrder: metaIntPtr(1), ContentType: &som.SomContentTypeMeta{Type: "mermaid-flowchart", Description: "Visual overview of all workflows in this process showing relationships and handoffs"}, ContentHelp: "Create a Mermaid flowchart showing how workflows within this process interact. Show the primary happy-path and exception branches. Include decision points and actor swim-lanes if helpful.", DocComment: "Workflow overview diagram."},
 		metaCx("WorkflowSummaryTable", s, metaChildrenWorkflowSummaryTable, func(r bool, c []*som.SomMetaNode) *som.SomMetaNode {
 			return &som.SomMetaNode{ClassName: "WorkflowSummaryTable", MemberName: "summaryTable", ClassSectionID: "WOSUTA", Kind: som.SomMetaKindComplex, TypeName: "WorkflowSummaryTable", SerializationOrder: metaIntPtr(2), Comment: "Quick reference summary of all workflows", DocComment: "Workflow summary table.", ClassDocComment: "Summary table of all workflows for quick reference.", Recursive: r, Children: c}

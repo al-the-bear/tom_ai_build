@@ -720,6 +720,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the constraints layered on top of assignments — separation of duties, time windows, network or device conditions, risk signals — and what triggers each.";
         out.add(n);
       }
       {
@@ -868,6 +869,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "State the model chosen and the alternatives rejected, with the reasoning. This choice constrains everything below it, so record what would have to change to revisit it.";
         out.add(n);
       }
       {
@@ -1604,6 +1606,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the path from pending to active: who or what verifies, who approves, and what is provisioned on activation. Say what happens to accounts that are never activated.";
         out.add(n);
       }
       {
@@ -1644,6 +1647,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Distinguish suspension from deactivation in plain terms: what each does to sessions, data and integrations, and how each is reversed.";
         out.add(n);
       }
       {
@@ -1684,6 +1688,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe what deletion actually removes and what is retained, and cite the retention obligation behind each exception. Right-to-be-forgotten requests are answered from this text.";
         out.add(n);
       }
       {
@@ -1724,6 +1729,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the throttling and lockout behaviour and how a locked-out user gets back in. Weigh it explicitly against a third party locking a known account on purpose.";
         out.add(n);
       }
       {
@@ -1764,6 +1770,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe which attribute changes are self-service, which need an administrator, and which trigger re-verification. Note the attributes that must never change once set.";
         out.add(n);
       }
       {
@@ -3464,6 +3471,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the abuse this API is likely to attract — enumeration, scraping, brute force, business-flow abuse — and the control for each. Keep it distinct from ordinary rate limiting.";
         out.add(n);
       }
       {
@@ -3504,6 +3512,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe how each class of API consumer proves identity — end users, partner systems, internal services, webhooks — and why the mechanism suits that consumer.";
         out.add(n);
       }
       {
@@ -3544,6 +3553,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe how the system decides a caller may touch a specific object, not merely a specific endpoint. Object-level authorization is OWASP API1; say where it is enforced.";
         out.add(n);
       }
       {
@@ -3683,6 +3693,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "State which origins are permitted and why, and whether credentials cross the origin boundary. A wildcard origin needs an explicit justification here.";
         out.add(n);
       }
       {
@@ -3723,6 +3734,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe how API keys are issued, scoped, rotated and revoked, and who owns each key. Say how a leaked key is detected and how quickly it can be killed.";
         out.add(n);
       }
       {
@@ -3763,6 +3775,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe how request bodies and parameters are validated, and whether validation is allow-list or deny-list. Say what a rejected request receives back.";
         out.add(n);
       }
       {
@@ -3934,6 +3947,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe what API telemetry is collected and which patterns raise an alert. Cover endpoint inventory too: OWASP API9 is about the endpoints nobody remembers deploying.";
         out.add(n);
       }
       {
@@ -5697,6 +5711,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe what the user sees on each class of failure and what the system records. The rule to state explicitly is how much the message may reveal about why authentication failed.";
         out.add(n);
       }
       {
@@ -7254,6 +7269,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe how backups are encrypted and where those keys live — a backup encrypted with a key stored beside it is not encrypted. Say how restore is tested.";
         out.add(n);
       }
       {
@@ -8003,6 +8019,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe where biometrics are used and what they unlock — under NIST SP 800-63B they activate an authenticator rather than authenticate on their own. Record the non-biometric alternative.";
         out.add(n);
       }
       {
@@ -10842,6 +10859,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe where certificate authentication applies and how certificates reach their holders. Cover revocation checking and what the system does when the check cannot complete.";
         out.add(n);
       }
       {
@@ -10982,6 +11000,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe how certificates are obtained, renewed and monitored for expiry. An expired certificate is a self-inflicted outage, so say what automation prevents it.";
         out.add(n);
       }
       {
@@ -14421,6 +14440,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Name the columns that are restricted, who may see each, and what a denied reader gets instead — absent, null or masked. Tie each restriction to a classification or regulation.";
         out.add(n);
       }
       {
@@ -18087,6 +18107,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe what happens when the same account signs in again elsewhere: allowed, limited, or the older session ended. Say whether the user is notified.";
         out.add(n);
       }
       {
@@ -18563,6 +18584,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe what uploaded content is scanned for, when the scan happens relative to acceptance, and what a positive result does. Say how quarantined content is reviewed.";
         out.add(n);
       }
       {
@@ -19150,6 +19172,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the signals monitored — breach corpora, credential stuffing patterns, impossible travel — and the automated response to each. Say what the affected user is told.";
         out.add(n);
       }
       {
@@ -19190,6 +19213,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe each recovery path and how identity is re-established on it. Recovery is often the weakest link, so state why each path is no weaker than normal authentication.";
         out.add(n);
       }
       {
@@ -19433,6 +19457,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "State whether cross-tenant access exists at all, and if so what authorizes it and who sees the audit trail. If it does not exist, say that plainly — it is a strong guarantee.";
         out.add(n);
       }
       {
@@ -19473,6 +19498,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the architecture as it stands today, not as it was designed: deployment topology, integration patterns, shared services and data stores. Note where the running system has drifted from its documentation.";
         out.add(n);
       }
       {
@@ -19656,6 +19682,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Introduce the processes the project will impact, replace or enhance, and say how they were established — workshops, observation, existing documentation. One subsection per process follows below.";
         out.add(n);
       }
       {
@@ -24173,6 +24200,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe which data accesses are audited, what the record contains, and who reviews it. State the retention period and the compliance requirement it satisfies.";
         out.add(n);
       }
       {
@@ -26120,6 +26148,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe what is masked, where, and by which technique, keeping static (copied data) and dynamic (runtime) masking apart. Say whether masked data must stay referentially consistent.";
         out.add(n);
       }
       {
@@ -28231,6 +28260,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe which principals reach the database and with what privileges, and how application credentials differ from administrative ones. Justify every privilege beyond least privilege.";
         out.add(n);
       }
       {
@@ -28370,6 +28400,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe what database encryption covers and what it costs: encrypted columns cannot be indexed or searched normally, so say how queries against them work.";
         out.add(n);
       }
       {
@@ -29767,6 +29798,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Name each dependency between current systems, on external services and on shared infrastructure, and say which of them are fragile. A fragile integration point is a migration risk, so record why it is fragile, not just that it is.";
         out.add(n);
       }
       {
@@ -34303,6 +34335,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Draw the bounded context: what belongs to this domain, what belongs to neighbouring ones, and what the shared language is at each seam.";
         out.add(n);
       }
       {
@@ -34779,6 +34812,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the business domain in its own vocabulary: what it is responsible for, where it sits in the business, and who owns it. Avoid solution language here.";
         out.add(n);
       }
       {
@@ -34907,6 +34941,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the domain's main workflows at a level a business reader recognises. The detail belongs in the business process model; here, show how the activities fit together.";
         out.add(n);
       }
       {
@@ -35436,6 +35471,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "State the default algorithm and key length and the layer encryption is applied at. Explain what this protects against — an at-rest scheme does not protect a running system.";
         out.add(n);
       }
       {
@@ -41425,6 +41461,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe who may read, change, share and delete files, and how the decision is enforced on every access path — including direct storage URLs.";
         out.add(n);
       }
       {
@@ -41596,6 +41633,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe how downloads are authorized and throttled, and which content-disposition and security headers are set. Cover hot-linking and shared-link expiry.";
         out.add(n);
       }
       {
@@ -41636,6 +41674,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe how file and blob storage is encrypted and how signed URLs interact with it. Cover local copies on devices, which are usually the weakest point.";
         out.add(n);
       }
       {
@@ -41676,6 +41715,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the validation layers an upload passes and the order they run in. Extension checks alone are not validation — state how the file's actual content is confirmed.";
         out.add(n);
       }
       {
@@ -42788,6 +42828,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Introduce the functional requirement set and how it is organised. Individual requirements go in the subsections below; use this text for scope, conventions and how completeness was judged.";
         out.add(n);
       }
       {
@@ -43578,6 +43619,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "List what achieving the goal needs — people, budget, systems, external parties — and say which of them are not yet secured.";
         out.add(n);
       }
       {
@@ -43767,6 +43809,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Introduce the goal set and the methodology behind it, OKR or otherwise. Each goal gets its own subsection below; use this text for how the goals were agreed and how progress is reviewed.";
         out.add(n);
       }
       {
@@ -50334,6 +50377,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Define the core concepts and entities of the domain with their attributes and relationships — a conceptual model, not a data model. Use the terms the business actually uses.";
         out.add(n);
       }
       {
@@ -52475,6 +52519,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Walk through the login flow step by step, including pre-authentication checks and post-authentication actions. Name the entry points and say which ones behave differently.";
         out.add(n);
       }
       {
@@ -54290,6 +54335,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe which users and operations require MFA, which factors are offered, and the AAL targeted. Record the fallback path when a factor is unavailable and why it is safe.";
         out.add(n);
       }
       {
@@ -57337,6 +57383,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe where mTLS applies, how client certificates are issued and revoked, and what happens when validation fails. State whether any fallback exists.";
         out.add(n);
       }
       {
@@ -60401,6 +60448,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe what becomes possible that is not possible today — new capabilities, new markets, better economics. Keep it distinct from the problem statement: this is upside, not pain.";
         out.add(n);
       }
       {
@@ -60515,6 +60563,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Set out how this organizational change is actually made: sequence, owner, timing, and what has to be true before it can start.";
         out.add(n);
       }
       {
@@ -61385,6 +61434,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Introduce the changes the organization itself must make for the system to succeed — process, roles, training, support. These fail projects more often than technical requirements do.";
         out.add(n);
       }
       {
@@ -62702,6 +62752,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe when a password change is required and when it is not. NIST SP 800-63B advises against periodic expiry — if the project forces it anyway, record the reason here.";
         out.add(n);
       }
       {
@@ -62742,6 +62793,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "State the password rules and the guidance shown while a user chooses one. NIST SP 800-63B favours length and breach screening over composition rules — record any deviation and why.";
         out.add(n);
       }
       {
@@ -62782,6 +62834,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the hashing scheme, its parameters, and how they will be re-tuned over time. Say how existing hashes are upgraded when the parameters change.";
         out.add(n);
       }
       {
@@ -63150,6 +63203,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe how permissions from roles, groups and attributes combine, and the rule when they conflict. State whether deny overrides allow and give a worked example.";
         out.add(n);
       }
       {
@@ -63190,6 +63244,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe when and where a permission check runs, what is cached and for how long, and what happens when the decision point is unreachable. Fail-closed or fail-open is the decision to record.";
         out.add(n);
       }
       {
@@ -63230,6 +63285,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "State how fine permissions go and where the project deliberately stops. Over-fine granularity is unmanageable, so name the practical unit of permission here.";
         out.add(n);
       }
       {
@@ -65141,6 +65197,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the problem concretely: who suffers it, how often, and what it costs today. Quantify the impact where you can, and say how urgent a fix is.";
         out.add(n);
       }
       {
@@ -66498,6 +66555,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Show which processes trigger, feed or block each other; a table or matrix reads better than prose here. Call out the couplings that constrain migration sequencing.";
         out.add(n);
       }
       {
@@ -71005,6 +71063,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe how return URLs and callbacks are validated. Open redirects are the risk to write about here: state the allow-list rule and the behaviour on a rejected target.";
         out.add(n);
       }
       {
@@ -71957,6 +72016,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe what persistent login grants and what it does not: which operations still re-prompt, how the device is trusted, and how the user revokes it from elsewhere.";
         out.add(n);
       }
       {
@@ -74178,6 +74238,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Link this requirement upward to goals and business drivers and downward to use cases, processes and tests. A requirement that traces to nothing is a requirement nobody asked for.";
         out.add(n);
       }
       {
@@ -74258,6 +74319,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the screens, forms and interactions this requirement needs, in Tom UI terms: what the user sees, what they can do, and what feedback the system gives.";
         out.add(n);
       }
       {
@@ -74519,6 +74581,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Introduce the requirements set: how requirements were gathered, how they are identified, and how they will be carried into the RSP. Note the standard followed — IEEE 830, ISO 29148, Volere.";
         out.add(n);
       }
       {
@@ -77235,6 +77298,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the review cycle: who certifies which assignments, how often, and what happens to an assignment nobody re-certifies. Privilege creep is what this section prevents.";
         out.add(n);
       }
       {
@@ -77550,6 +77614,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the shape of the role hierarchy and what inheritance means in it. State the depth limit and why — deep hierarchies make effective permissions unpredictable.";
         out.add(n);
       }
       {
@@ -77921,6 +77986,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the predicate that decides row visibility and where it is enforced — database, ORM or application. Say what happens if the enforcing layer is bypassed.";
         out.add(n);
       }
       {
@@ -79359,6 +79425,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "State explicitly what is in scope and — more importantly — what is out. Out-of-scope items are the ones that prevent scope creep, so name them even when they seem obvious.";
         out.add(n);
       }
       {
@@ -82715,6 +82782,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Introduce the security requirement set and the frameworks it follows, such as OWASP and ISO 27001. Record the threat model or risk assessment the requirements were derived from.";
         out.add(n);
       }
       {
@@ -83218,6 +83286,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Say what users may do to their own accounts unaided and where the line to administrator involvement is drawn. Explain the reasoning — that line is a risk decision.";
         out.add(n);
       }
       {
@@ -84157,6 +84226,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe how machine credentials are issued, stored and rotated without human intervention, and where the root of trust sits. Name the owner for each credential class.";
         out.add(n);
       }
       {
@@ -84197,6 +84267,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe how non-human accounts differ from human ones here: ownership, review, rotation and decommissioning. An unowned service account is the usual failure.";
         out.add(n);
       }
       {
@@ -84576,6 +84647,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe what a session is bound to — device, address, client — and what properties it carries from the moment of creation. Say what happens when a binding no longer matches.";
         out.add(n);
       }
       {
@@ -84616,6 +84688,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe which session events are logged, what each record contains, and who reviews them. Say how long session logs are kept and how the personal data in them is handled.";
         out.add(n);
       }
       {
@@ -84869,6 +84942,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe every way a session ends other than timing out — logout, administrative termination, privilege change, credential change — and how fast each takes effect.";
         out.add(n);
       }
       {
@@ -84909,6 +84983,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the hardening measures — fixation defence, binding, anomaly detection, cache control — and what each protects against. State the response when an anomaly fires.";
         out.add(n);
       }
       {
@@ -84949,6 +85024,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Justify the idle and absolute timeouts against the data a session can reach, and describe the warning and renewal experience. Note where per-AAL differentiation applies.";
         out.add(n);
       }
       {
@@ -86235,6 +86311,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the federation topology: which identity providers, which protocol, and what happens to users outside SSO. State how attributes and group memberships map into this system.";
         out.add(n);
       }
       {
@@ -89225,6 +89302,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe which operations demand a higher assurance level and what signals trigger an adaptive challenge. Say how long an elevated level lasts.";
         out.add(n);
       }
       {
@@ -89268,6 +89346,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe what is encrypted where, and who holds the keys for each storage tier. Say whether the storage provider can read the data and whether that is acceptable.";
         out.add(n);
       }
       {
@@ -89308,6 +89387,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe how long files live, when they move to cheaper tiers, and how they are destroyed. Say what secure deletion means here and how it is verified.";
         out.add(n);
       }
       {
@@ -89348,6 +89428,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Name the organizational strategies, goals or initiatives this system serves and show the link to each. If it also competes with an initiative for the same resources, say so.";
         out.add(n);
       }
       {
@@ -92352,6 +92433,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "State in a few sentences why the system exists and who benefits. Keep it readable by someone outside the project — the problem, opportunity and value subsections below carry the detail.";
         out.add(n);
       }
       {
@@ -96124,6 +96206,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Introduce the technical requirement set — the constraints on how the system is built. Say which are externally imposed and which are choices, since only the choices are negotiable.";
         out.add(n);
       }
       {
@@ -96403,6 +96486,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe where the tenant boundary is enforced and how a request that crosses it is stopped. Cover shared services and users who legitimately belong to several tenants.";
         out.add(n);
       }
       {
@@ -96443,6 +96527,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe how tenant context is determined on each request and how it travels between services. State the behaviour when context is absent or ambiguous — it must not default.";
         out.add(n);
       }
       {
@@ -96520,6 +96605,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the isolation model and the single mechanism that guarantees it. Say how the guarantee is tested; an untested isolation claim is the classic multi-tenant failure.";
         out.add(n);
       }
       {
@@ -96685,6 +96771,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe what authorization state a new tenant starts with and who its first administrator is. Cover offboarding with equal care: what is deleted, what is retained, and for how long.";
         out.add(n);
       }
       {
@@ -97528,6 +97615,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "State the minimum protocol version and cipher suites, and when the policy is next reviewed. Record any legacy client that forces an exception and the date it is retired.";
         out.add(n);
       }
       {
@@ -97668,6 +97756,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the token types in use, what each carries, where it is stored and how it is revoked. Justify the lifetimes — they are the main security-versus-usability trade-off here.";
         out.add(n);
       }
       {
@@ -100396,6 +100485,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe HSTS settings, HTTP-to-HTTPS behaviour, cookie flags and cache rules for sensitive responses. Note that HSTS preloading is hard to reverse.";
         out.add(n);
       }
       {
@@ -101940,6 +102030,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "State what this user category may see and do, and what it must never be able to do. Record the reasoning — the access model later has to justify each grant.";
         out.add(n);
       }
       {
@@ -102044,6 +102135,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Record the accessibility requirements this category actually has — vision, motor, cognitive, situational — and the accommodations that follow. Name the WCAG level committed to.";
         out.add(n);
       }
       {
@@ -102093,6 +102185,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe each account state in words and what a user in it can and cannot do. The form captures the state names; the content is where the semantics live, including any project-specific states.";
         out.add(n);
       }
       {
@@ -103133,6 +103226,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Map this category's touchpoints end to end, including what happens before and after they use the system. Mark the moments where the experience currently breaks.";
         out.add(n);
       }
       {
@@ -103510,6 +103604,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Describe the permitted state transitions as a flow, naming who can trigger each and what approval it needs. The transitions you deliberately forbid are worth stating too.";
         out.add(n);
       }
       {
@@ -103718,6 +103813,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Sketch the person, not the role: working context, technical confidence, goals and frustrations. A persona is only useful if a designer can picture them.";
         out.add(n);
       }
       {
@@ -103996,6 +104092,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Walk through registration from the user's first action to a usable account, per registration method. Record why the chosen identity-proofing level is sufficient for this system's risk.";
         out.add(n);
       }
       {
@@ -104133,6 +104230,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Say what this category must learn before it can work with the system, how the training is delivered, and how much of it is ongoing rather than one-off.";
         out.add(n);
       }
       {
@@ -104679,6 +104777,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Articulate the value in the terms the funding decision uses: quantified benefits, cost avoided, and the return-on-investment argument. State the assumptions the numbers rest on.";
         out.add(n);
       }
       {
@@ -105825,6 +105924,7 @@ public final class TomSomV0Meta {
         n.memberName = "content";
         n.serializationOrder = 0;
         n.contentType = new SomContentTypeMeta("text", "");
+        n.contentHelp = "Introduce the workflows of this business process and add one subsection per workflow relevant to the project. Say which workflows are in scope for change and which are recorded only as context.";
         out.add(n);
       }
       {

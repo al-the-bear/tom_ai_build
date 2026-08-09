@@ -378,7 +378,8 @@ List<SomMetaNode> _mc$AccessConstraintPolicies(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the constraints layered on top of assignments — separation of duties, time windows, network or device conditions, risk signals — and what triggers each.'),
        SomMetaNode(
           className: 'AccessConstraintPolicies',
           memberName: 'accessConstraintDetails',
@@ -466,7 +467,8 @@ List<SomMetaNode> _mc$AccessControlModelSelection(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'State the model chosen and the alternatives rejected, with the reasoning. This choice constrains everything below it, so record what would have to change to revisit it.'),
        SomMetaNode(
           className: 'AccessControlModelSelection',
           memberName: 'accessControlModelDetails',
@@ -837,7 +839,8 @@ List<SomMetaNode> _mc$AccountActivationPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the path from pending to active: who or what verifies, who approves, and what is provisioned on activation. Say what happens to accounts that are never activated.'),
        SomMetaNode(
           className: 'AccountActivationPolicy',
           memberName: 'activationFlowDescription',
@@ -855,7 +858,8 @@ List<SomMetaNode> _mc$AccountDeactivationPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Distinguish suspension from deactivation in plain terms: what each does to sessions, data and integrations, and how each is reversed.'),
        SomMetaNode(
           className: 'AccountDeactivationPolicy',
           memberName: 'deactivationProcessDescription',
@@ -873,7 +877,8 @@ List<SomMetaNode> _mc$AccountDeletionPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe what deletion actually removes and what is retained, and cite the retention obligation behind each exception. Right-to-be-forgotten requests are answered from this text.'),
        SomMetaNode(
           className: 'AccountDeletionPolicy',
           memberName: 'deletionProcessDescription',
@@ -891,7 +896,8 @@ List<SomMetaNode> _mc$AccountLockoutPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the throttling and lockout behaviour and how a locked-out user gets back in. Weigh it explicitly against a third party locking a known account on purpose.'),
        SomMetaNode(
           className: 'AccountLockoutPolicy',
           memberName: 'accountLockoutDetails',
@@ -909,7 +915,8 @@ List<SomMetaNode> _mc$AccountModificationPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe which attribute changes are self-service, which need an administrator, and which trigger re-verification. Note the attributes that must never change once set.'),
        SomMetaNode(
           className: 'AccountModificationPolicy',
           memberName: 'modificationRulesDescription',
@@ -1688,7 +1695,8 @@ List<SomMetaNode> _mc$ApiAbuseProtection(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the abuse this API is likely to attract — enumeration, scraping, brute force, business-flow abuse — and the control for each. Keep it distinct from ordinary rate limiting.'),
        SomMetaNode(
           className: 'ApiAbuseProtection',
           memberName: 'abuseProtectionDetails',
@@ -1706,7 +1714,8 @@ List<SomMetaNode> _mc$ApiAuthenticationPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe how each class of API consumer proves identity — end users, partner systems, internal services, webhooks — and why the mechanism suits that consumer.'),
        SomMetaNode(
           className: 'ApiAuthenticationPolicy',
           memberName: 'apiAuthenticationDetails',
@@ -1724,7 +1733,8 @@ List<SomMetaNode> _mc$ApiAuthorizationPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe how the system decides a caller may touch a specific object, not merely a specific endpoint. Object-level authorization is OWASP API1; say where it is enforced.'),
        SomMetaNode(
           className: 'ApiAuthorizationPolicy',
           memberName: 'apiAuthorizationDetails',
@@ -1792,7 +1802,8 @@ List<SomMetaNode> _mc$ApiCorsSecurity(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'State which origins are permitted and why, and whether credentials cross the origin boundary. A wildcard origin needs an explicit justification here.'),
        SomMetaNode(
           className: 'ApiCorsSecurity',
           memberName: 'corsSecurityDetails',
@@ -1810,7 +1821,8 @@ List<SomMetaNode> _mc$ApiKeyManagementPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe how API keys are issued, scoped, rotated and revoked, and who owns each key. Say how a leaked key is detected and how quickly it can be killed.'),
        SomMetaNode(
           className: 'ApiKeyManagementPolicy',
           memberName: 'apiKeyDetails',
@@ -1828,7 +1840,8 @@ List<SomMetaNode> _mc$ApiRequestValidationPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe how request bodies and parameters are validated, and whether validation is allow-list or deny-list. Say what a rejected request receives back.'),
        SomMetaNode(
           className: 'ApiRequestValidationPolicy',
           memberName: 'requestValidationDetails',
@@ -1931,7 +1944,8 @@ List<SomMetaNode> _mc$ApiSecurityMonitoring(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe what API telemetry is collected and which patterns raise an alert. Cover endpoint inventory too: OWASP API9 is about the endpoints nobody remembers deploying.'),
        SomMetaNode(
           className: 'ApiSecurityMonitoring',
           memberName: 'apiSecurityMonitoringDetails',
@@ -2805,7 +2819,8 @@ List<SomMetaNode> _mc$AuthenticationErrorHandling(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe what the user sees on each class of failure and what the system records. The rule to state explicitly is how much the message may reveal about why authentication failed.'),
        SomMetaNode(
           className: 'AuthenticationErrorHandling',
           memberName: 'errorHandlingDetails',
@@ -3645,7 +3660,8 @@ List<SomMetaNode> _mc$BackupEncryptionPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe how backups are encrypted and where those keys live — a backup encrypted with a key stored beside it is not encrypted. Say how restore is tested.'),
        SomMetaNode(
           className: 'BackupEncryptionPolicy',
           memberName: 'backupEncryptionDetails',
@@ -4012,7 +4028,8 @@ List<SomMetaNode> _mc$BiometricAuthenticationPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe where biometrics are used and what they unlock — under NIST SP 800-63B they activate an authenticator rather than authenticate on their own. Record the non-biometric alternative.'),
        SomMetaNode(
           className: 'BiometricAuthenticationPolicy',
           memberName: 'biometricDetails',
@@ -5500,7 +5517,8 @@ List<SomMetaNode> _mc$CertificateAuthenticationPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe where certificate authentication applies and how certificates reach their holders. Cover revocation checking and what the system does when the check cannot complete.'),
        SomMetaNode(
           className: 'CertificateAuthenticationPolicy',
           memberName: 'certificateDetails',
@@ -5568,7 +5586,8 @@ List<SomMetaNode> _mc$CertificateManagementPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe how certificates are obtained, renewed and monitored for expiry. An expired certificate is a self-inflicted outage, so say what automation prevents it.'),
        SomMetaNode(
           className: 'CertificateManagementPolicy',
           memberName: 'certificateManagementDetails',
@@ -7258,7 +7277,8 @@ List<SomMetaNode> _mc$ColumnLevelSecurityPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Name the columns that are restricted, who may see each, and what a denied reader gets instead — absent, null or masked. Tie each restriction to a classification or regulation.'),
        SomMetaNode(
           className: 'ColumnLevelSecurityPolicy',
           memberName: 'columnLevelSecurityDetails',
@@ -9033,7 +9053,8 @@ List<SomMetaNode> _mc$ConcurrentSessionPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe what happens when the same account signs in again elsewhere: allowed, limited, or the older session ended. Say whether the user is notified.'),
        SomMetaNode(
           className: 'ConcurrentSessionPolicy',
           memberName: 'concurrentSessionDetails',
@@ -9253,7 +9274,8 @@ List<SomMetaNode> _mc$ContentScanningPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe what uploaded content is scanned for, when the scan happens relative to acceptance, and what a positive result does. Say how quarantined content is reviewed.'),
        SomMetaNode(
           className: 'ContentScanningPolicy',
           memberName: 'contentScanningDetails',
@@ -9548,7 +9570,8 @@ List<SomMetaNode> _mc$CredentialCompromiseDetectionPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the signals monitored — breach corpora, credential stuffing patterns, impossible travel — and the automated response to each. Say what the affected user is told.'),
        SomMetaNode(
           className: 'CredentialCompromiseDetectionPolicy',
           memberName: 'compromiseDetectionDetails',
@@ -9566,7 +9589,8 @@ List<SomMetaNode> _mc$CredentialRecoveryPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe each recovery path and how identity is re-established on it. Recovery is often the weakest link, so state why each path is no weaker than normal authentication.'),
        SomMetaNode(
           className: 'CredentialRecoveryPolicy',
           memberName: 'credentialRecoveryDetails',
@@ -9677,7 +9701,8 @@ List<SomMetaNode> _mc$CrossTenantAccessPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'State whether cross-tenant access exists at all, and if so what authorizes it and who sees the audit trail. If it does not exist, say that plainly — it is a strong guarantee.'),
        SomMetaNode(
           className: 'CrossTenantAccessPolicy',
           memberName: 'crossTenantAccessPolicyDetails',
@@ -9695,7 +9720,8 @@ List<SomMetaNode> _mc$CurrentArchitecture(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the architecture as it stands today, not as it was designed: deployment topology, integration patterns, shared services and data stores. Note where the running system has drifted from its documentation.'),
        SomMetaNode(
           className: 'CurrentArchitecture',
           memberName: 'architectureDiagram',
@@ -9800,7 +9826,8 @@ List<SomMetaNode> _mc$CurrentBusinessProcesses(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Introduce the processes the project will impact, replace or enhance, and say how they were established — workshops, observation, existing documentation. One subsection per process follows below.'),
        SomMetaNode(
           className: 'CurrentBusinessProcesses',
           memberName: 'processLandscapeDiagram',
@@ -12646,7 +12673,8 @@ List<SomMetaNode> _mc$DataAccessAuditPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe which data accesses are audited, what the record contains, and who reviews it. State the retention period and the compliance requirement it satisfies.'),
        SomMetaNode(
           className: 'DataAccessAuditPolicy',
           memberName: 'dataAccessAuditDetails',
@@ -13575,7 +13603,8 @@ List<SomMetaNode> _mc$DataMaskingPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe what is masked, where, and by which technique, keeping static (copied data) and dynamic (runtime) masking apart. Say whether masked data must stay referentially consistent.'),
        SomMetaNode(
           className: 'DataMaskingPolicy',
           memberName: 'dataMaskingDetails',
@@ -14644,7 +14673,8 @@ List<SomMetaNode> _mc$DatabaseAccessPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe which principals reach the database and with what privileges, and how application credentials differ from administrative ones. Justify every privilege beyond least privilege.'),
        SomMetaNode(
           className: 'DatabaseAccessPolicy',
           memberName: 'databaseAccessDetails',
@@ -14712,7 +14742,8 @@ List<SomMetaNode> _mc$DatabaseEncryptionPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe what database encryption covers and what it costs: encrypted columns cannot be indexed or searched normally, so say how queries against them work.'),
        SomMetaNode(
           className: 'DatabaseEncryptionPolicy',
           memberName: 'databaseEncryptionDetails',
@@ -15402,7 +15433,8 @@ List<SomMetaNode> _mc$DependenciesAndIntegrations(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Name each dependency between current systems, on external services and on shared infrastructure, and say which of them are fragile. A fragile integration point is a migration risk, so record why it is fragile, not just that it is.'),
        SomMetaNode(
           className: 'DependenciesAndIntegrations',
           memberName: 'dependencyDiagram',
@@ -17741,7 +17773,8 @@ List<SomMetaNode> _mc$DomainBoundaries(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Draw the bounded context: what belongs to this domain, what belongs to neighbouring ones, and what the shared language is at each seam.'),
        SomMetaNode(
           className: 'DomainBoundaries',
           memberName: 'contextMap',
@@ -17941,7 +17974,8 @@ List<SomMetaNode> _mc$DomainOverview(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the business domain in its own vocabulary: what it is responsible for, where it sits in the business, and who owns it. Avoid solution language here.'),
        SomMetaNode(
           className: 'DomainOverview',
           memberName: 'domainDetails',
@@ -17997,7 +18031,8 @@ List<SomMetaNode> _mc$DomainProcesses(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the domain\'s main workflows at a level a business reader recognises. The detail belongs in the business process model; here, show how the activities fit together.'),
        SomMetaNode(
           className: 'DomainProcesses',
           memberName: 'processOverviewDiagram',
@@ -18245,7 +18280,8 @@ List<SomMetaNode> _mc$EncryptionAtRestPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'State the default algorithm and key length and the layer encryption is applied at. Explain what this protects against — an at-rest scheme does not protect a running system.'),
        SomMetaNode(
           className: 'EncryptionAtRestPolicy',
           memberName: 'encryptionAtRestPolicyDetails',
@@ -21226,7 +21262,8 @@ List<SomMetaNode> _mc$FileAccessControlPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe who may read, change, share and delete files, and how the decision is enforced on every access path — including direct storage URLs.'),
        SomMetaNode(
           className: 'FileAccessControlPolicy',
           memberName: 'fileAccessControlDetails',
@@ -21329,7 +21366,8 @@ List<SomMetaNode> _mc$FileDownloadSecurityPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe how downloads are authorized and throttled, and which content-disposition and security headers are set. Cover hot-linking and shared-link expiry.'),
        SomMetaNode(
           className: 'FileDownloadSecurityPolicy',
           memberName: 'downloadSecurityDetails',
@@ -21347,7 +21385,8 @@ List<SomMetaNode> _mc$FileStorageEncryptionPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe how file and blob storage is encrypted and how signed URLs interact with it. Cover local copies on devices, which are usually the weakest point.'),
        SomMetaNode(
           className: 'FileStorageEncryptionPolicy',
           memberName: 'fileStorageEncryptionDetails',
@@ -21365,7 +21404,8 @@ List<SomMetaNode> _mc$FileUploadValidationPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the validation layers an upload passes and the order they run in. Extension checks alone are not validation — state how the file\'s actual content is confirmed.'),
        SomMetaNode(
           className: 'FileUploadValidationPolicy',
           memberName: 'uploadValidationDetails',
@@ -21936,7 +21976,8 @@ List<SomMetaNode> _mc$FunctionalRequirements(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Introduce the functional requirement set and how it is organised. Individual requirements go in the subsections below; use this text for scope, conventions and how completeness was judged.'),
        SomMetaNode(
           className: 'FunctionalRequirements',
           memberName: 'summaryForm',
@@ -22286,7 +22327,8 @@ List<SomMetaNode> _mc$GoalResources(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'List what achieving the goal needs — people, budget, systems, external parties — and say which of them are not yet secured.'),
        SomMetaNode(
           className: 'GoalResources',
           memberName: 'resourcesForm',
@@ -22369,7 +22411,8 @@ List<SomMetaNode> _mc$Goals(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Introduce the goal set and the methodology behind it, OKR or otherwise. Each goal gets its own subsection below; use this text for how the goals were agreed and how progress is reviewed.'),
        SomMetaNode(
           className: 'Goals',
           memberName: 'goalHierarchyDiagram',
@@ -25595,7 +25638,8 @@ List<SomMetaNode> _mc$KeyConcepts(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Define the core concepts and entities of the domain with their attributes and relationships — a conceptual model, not a data model. Use the terms the business actually uses.'),
        SomMetaNode(
           className: 'KeyConcepts',
           memberName: 'conceptualModelDiagram',
@@ -26655,7 +26699,8 @@ List<SomMetaNode> _mc$LoginFlowConfiguration(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Walk through the login flow step by step, including pre-authentication checks and post-authentication actions. Name the entry points and say which ones behave differently.'),
        SomMetaNode(
           className: 'LoginFlowConfiguration',
           memberName: 'loginFlowDetails',
@@ -27527,7 +27572,8 @@ List<SomMetaNode> _mc$MfaConfiguration(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe which users and operations require MFA, which factors are offered, and the AAL targeted. Record the fallback path when a factor is unavailable and why it is safe.'),
        SomMetaNode(
           className: 'MfaConfiguration',
           memberName: 'mfaDetails',
@@ -29039,7 +29085,8 @@ List<SomMetaNode> _mc$MutualTlsPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe where mTLS applies, how client certificates are issued and revoked, and what happens when validation fails. State whether any fallback exists.'),
        SomMetaNode(
           className: 'MutualTlsPolicy',
           memberName: 'mutualTlsPolicyDetails',
@@ -30599,7 +30646,8 @@ List<SomMetaNode> _mc$OpportunityStatement(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe what becomes possible that is not possible today — new capabilities, new markets, better economics. Keep it distinct from the problem statement: this is upside, not pain.'),
        SomMetaNode(
           className: 'OpportunityStatement',
           memberName: 'opportunityDetails',
@@ -30637,7 +30685,8 @@ List<SomMetaNode> _mc$OrgRequirementImplementationPlan(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Set out how this organizational change is actually made: sequence, owner, timing, and what has to be true before it can start.'),
        SomMetaNode(
           className: 'OrgRequirementImplementationPlan',
           memberName: 'planForm',
@@ -31097,7 +31146,8 @@ List<SomMetaNode> _mc$OrganizationalRequirements(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Introduce the changes the organization itself must make for the system to succeed — process, roles, training, support. These fail projects more often than technical requirements do.'),
        SomMetaNode(
           className: 'OrganizationalRequirements',
           memberName: 'summaryForm',
@@ -31761,7 +31811,8 @@ List<SomMetaNode> _mc$PasswordLifecyclePolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe when a password change is required and when it is not. NIST SP 800-63B advises against periodic expiry — if the project forces it anyway, record the reason here.'),
        SomMetaNode(
           className: 'PasswordLifecyclePolicy',
           memberName: 'passwordLifecycleDetails',
@@ -31779,7 +31830,8 @@ List<SomMetaNode> _mc$PasswordRequirementsPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'State the password rules and the guidance shown while a user chooses one. NIST SP 800-63B favours length and breach screening over composition rules — record any deviation and why.'),
        SomMetaNode(
           className: 'PasswordRequirementsPolicy',
           memberName: 'passwordRequirementsDetails',
@@ -31797,7 +31849,8 @@ List<SomMetaNode> _mc$PasswordStoragePolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the hashing scheme, its parameters, and how they will be re-tuned over time. Say how existing hashes are upgraded when the parameters change.'),
        SomMetaNode(
           className: 'PasswordStoragePolicy',
           memberName: 'passwordStorageDetails',
@@ -31962,7 +32015,8 @@ List<SomMetaNode> _mc$PermissionCompositionStrategy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe how permissions from roles, groups and attributes combine, and the rule when they conflict. State whether deny overrides allow and give a worked example.'),
        SomMetaNode(
           className: 'PermissionCompositionStrategy',
           memberName: 'permissionCompositionDetails',
@@ -31980,7 +32034,8 @@ List<SomMetaNode> _mc$PermissionEvaluationBehavior(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe when and where a permission check runs, what is cached and for how long, and what happens when the decision point is unreachable. Fail-closed or fail-open is the decision to record.'),
        SomMetaNode(
           className: 'PermissionEvaluationBehavior',
           memberName: 'permissionEvaluationDetails',
@@ -31998,7 +32053,8 @@ List<SomMetaNode> _mc$PermissionGranularityPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'State how fine permissions go and where the project deliberately stops. Over-fine granularity is unmanageable, so name the practical unit of permission here.'),
        SomMetaNode(
           className: 'PermissionGranularityPolicy',
           memberName: 'permissionGranularityDetails',
@@ -32888,7 +32944,8 @@ List<SomMetaNode> _mc$ProblemStatement(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the problem concretely: who suffers it, how often, and what it costs today. Quantify the impact where you can, and say how urgent a fix is.'),
        SomMetaNode(
           className: 'ProblemStatement',
           memberName: 'problemDetails',
@@ -33483,7 +33540,8 @@ List<SomMetaNode> _mc$ProcessInterdependencyMatrix(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Show which processes trigger, feed or block each other; a table or matrix reads better than prose here. Call out the couplings that constrain migration sequencing.'),
        SomMetaNode(
           className: 'ProcessInterdependencyMatrix',
           memberName: 'dependencyDiagram',
@@ -35687,7 +35745,8 @@ List<SomMetaNode> _mc$RedirectHandlingPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe how return URLs and callbacks are validated. Open redirects are the risk to write about here: state the allow-list rule and the behaviour on a rejected target.'),
        SomMetaNode(
           className: 'RedirectHandlingPolicy',
           memberName: 'redirectDetails',
@@ -36133,7 +36192,8 @@ List<SomMetaNode> _mc$RememberMePolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe what persistent login grants and what it does not: which operations still re-prompt, how the device is trusted, and how the user revokes it from elsewhere.'),
        SomMetaNode(
           className: 'RememberMePolicy',
           memberName: 'rememberMeDetails',
@@ -37173,7 +37233,8 @@ List<SomMetaNode> _mc$RequirementTraceability(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Link this requirement upward to goals and business drivers and downward to use cases, processes and tests. A requirement that traces to nothing is a requirement nobody asked for.'),
        SomMetaNode(
           className: 'RequirementTraceability',
           memberName: 'traceabilityForm',
@@ -37212,7 +37273,8 @@ List<SomMetaNode> _mc$RequirementUiSpecification(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the screens, forms and interactions this requirement needs, in Tom UI terms: what the user sees, what they can do, and what feedback the system gives.'),
        SomMetaNode(
           className: 'RequirementUiSpecification',
           memberName: 'uiForm',
@@ -37350,7 +37412,8 @@ List<SomMetaNode> _mc$RequirementsOverview(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Introduce the requirements set: how requirements were gathered, how they are identified, and how they will be carried into the RSP. Note the standard followed — IEEE 830, ISO 29148, Volere.'),
        SomMetaNode(
           className: 'RequirementsOverview',
           memberName: 'requirementsForm',
@@ -38634,7 +38697,8 @@ List<SomMetaNode> _mc$RoleCertificationPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the review cycle: who certifies which assignments, how often, and what happens to an assignment nobody re-certifies. Privilege creep is what this section prevents.'),
        SomMetaNode(
           className: 'RoleCertificationPolicy',
           memberName: 'roleCertificationDetails',
@@ -38769,7 +38833,8 @@ List<SomMetaNode> _mc$RoleHierarchyPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the shape of the role hierarchy and what inheritance means in it. State the depth limit and why — deep hierarchies make effective permissions unpredictable.'),
        SomMetaNode(
           className: 'RoleHierarchyPolicy',
           memberName: 'roleHierarchyPolicyDetails',
@@ -38920,7 +38985,8 @@ List<SomMetaNode> _mc$RowLevelSecurityPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the predicate that decides row visibility and where it is enforced — database, ORM or application. Say what happens if the enforcing layer is bypassed.'),
        SomMetaNode(
           className: 'RowLevelSecurityPolicy',
           memberName: 'rowLevelSecurityDetails',
@@ -39626,7 +39692,8 @@ List<SomMetaNode> _mc$ScopeBoundaries(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'State explicitly what is in scope and — more importantly — what is out. Out-of-scope items are the ones that prevent scope creep, so name them even when they seem obvious.'),
        SomMetaNode(
           className: 'ScopeBoundaries',
           memberName: 'inScopeItems',
@@ -41324,7 +41391,8 @@ List<SomMetaNode> _mc$SecurityRequirements(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Introduce the security requirement set and the frameworks it follows, such as OWASP and ISO 27001. Record the threat model or risk assessment the requirements were derived from.'),
        SomMetaNode(
           className: 'SecurityRequirements',
           memberName: 'summaryForm',
@@ -41573,7 +41641,8 @@ List<SomMetaNode> _mc$SelfServiceAccountManagement(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Say what users may do to their own accounts unaided and where the line to administrator involvement is drawn. Explain the reasoning — that line is a risk decision.'),
        SomMetaNode(
           className: 'SelfServiceAccountManagement',
           memberName: 'selfServiceDescription',
@@ -42054,7 +42123,8 @@ List<SomMetaNode> _mc$ServiceAccountCredentialPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe how machine credentials are issued, stored and rotated without human intervention, and where the root of trust sits. Name the owner for each credential class.'),
        SomMetaNode(
           className: 'ServiceAccountCredentialPolicy',
           memberName: 'serviceAccountDetails',
@@ -42072,7 +42142,8 @@ List<SomMetaNode> _mc$ServiceAccountLifecycle(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe how non-human accounts differ from human ones here: ownership, review, rotation and decommissioning. An unowned service account is the usual failure.'),
        SomMetaNode(
           className: 'ServiceAccountLifecycle',
           memberName: 'serviceAccountDescription',
@@ -42250,7 +42321,8 @@ List<SomMetaNode> _mc$SessionCreationPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe what a session is bound to — device, address, client — and what properties it carries from the moment of creation. Say what happens when a binding no longer matches.'),
        SomMetaNode(
           className: 'SessionCreationPolicy',
           memberName: 'sessionCreationDetails',
@@ -42268,7 +42340,8 @@ List<SomMetaNode> _mc$SessionLifecycleMonitoring(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe which session events are logged, what each record contains, and who reviews them. Say how long session logs are kept and how the personal data in them is handled.'),
        SomMetaNode(
           className: 'SessionLifecycleMonitoring',
           memberName: 'sessionLifecycleDetails',
@@ -42411,7 +42484,8 @@ List<SomMetaNode> _mc$SessionRevocationPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe every way a session ends other than timing out — logout, administrative termination, privilege change, credential change — and how fast each takes effect.'),
        SomMetaNode(
           className: 'SessionRevocationPolicy',
           memberName: 'sessionRevocationDetails',
@@ -42429,7 +42503,8 @@ List<SomMetaNode> _mc$SessionSecurityPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the hardening measures — fixation defence, binding, anomaly detection, cache control — and what each protects against. State the response when an anomaly fires.'),
        SomMetaNode(
           className: 'SessionSecurityPolicy',
           memberName: 'sessionSecurityDetails',
@@ -42447,7 +42522,8 @@ List<SomMetaNode> _mc$SessionTimeoutPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Justify the idle and absolute timeouts against the data a session can reach, and describe the warning and renewal experience. Note where per-AAL differentiation applies.'),
        SomMetaNode(
           className: 'SessionTimeoutPolicy',
           memberName: 'sessionTimeoutDetails',
@@ -43088,7 +43164,8 @@ List<SomMetaNode> _mc$SsoPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the federation topology: which identity providers, which protocol, and what happens to users outside SSO. State how attributes and group memberships map into this system.'),
        SomMetaNode(
           className: 'SsoPolicy',
           memberName: 'ssoDetails',
@@ -44547,7 +44624,8 @@ List<SomMetaNode> _mc$StepUpAuthenticationPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe which operations demand a higher assurance level and what signals trigger an adaptive challenge. Say how long an elevated level lasts.'),
        SomMetaNode(
           className: 'StepUpAuthenticationPolicy',
           memberName: 'stepUpDetails',
@@ -44568,7 +44646,8 @@ List<SomMetaNode> _mc$StorageEncryptionPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe what is encrypted where, and who holds the keys for each storage tier. Say whether the storage provider can read the data and whether that is acceptable.'),
        SomMetaNode(
           className: 'StorageEncryptionPolicy',
           memberName: 'storageEncryptionDetails',
@@ -44586,7 +44665,8 @@ List<SomMetaNode> _mc$StorageLifecyclePolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe how long files live, when they move to cheaper tiers, and how they are destroyed. Say what secure deletion means here and how it is verified.'),
        SomMetaNode(
           className: 'StorageLifecyclePolicy',
           memberName: 'storageLifecycleDetails',
@@ -44604,7 +44684,8 @@ List<SomMetaNode> _mc$StrategicAlignment(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Name the organizational strategies, goals or initiatives this system serves and show the link to each. If it also competes with an initiative for the same resources, say so.'),
        SomMetaNode(
           className: 'StrategicAlignment',
           memberName: 'alignmentDetails',
@@ -46145,7 +46226,8 @@ List<SomMetaNode> _mc$SystemPurpose(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'State in a few sentences why the system exists and who benefits. Keep it readable by someone outside the project — the problem, opportunity and value subsections below carry the detail.'),
        SomMetaNode(
           className: 'SystemPurpose',
           memberName: 'visionStatement',
@@ -48208,7 +48290,8 @@ List<SomMetaNode> _mc$TechnicalRequirements(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Introduce the technical requirement set — the constraints on how the system is built. Say which are externally imposed and which are choices, since only the choices are negotiable.'),
        SomMetaNode(
           className: 'TechnicalRequirements',
           memberName: 'summaryForm',
@@ -48343,7 +48426,8 @@ List<SomMetaNode> _mc$TenantBoundaryEnforcementPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe where the tenant boundary is enforced and how a request that crosses it is stopped. Cover shared services and users who legitimately belong to several tenants.'),
        SomMetaNode(
           className: 'TenantBoundaryEnforcementPolicy',
           memberName: 'boundaryEnforcementDetails',
@@ -48361,7 +48445,8 @@ List<SomMetaNode> _mc$TenantContextPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe how tenant context is determined on each request and how it travels between services. State the behaviour when context is absent or ambiguous — it must not default.'),
        SomMetaNode(
           className: 'TenantContextPolicy',
           memberName: 'tenantContextPolicyDetails',
@@ -48389,7 +48474,8 @@ List<SomMetaNode> _mc$TenantDataIsolationPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the isolation model and the single mechanism that guarantees it. Say how the guarantee is tested; an untested isolation claim is the classic multi-tenant failure.'),
        SomMetaNode(
           className: 'TenantDataIsolationPolicy',
           memberName: 'tenantDataIsolationDetails',
@@ -48482,7 +48568,8 @@ List<SomMetaNode> _mc$TenantOnboardingPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe what authorization state a new tenant starts with and who its first administrator is. Cover offboarding with equal care: what is deleted, what is retained, and for how long.'),
        SomMetaNode(
           className: 'TenantOnboardingPolicy',
           memberName: 'tenantOnboardingPolicyDetails',
@@ -48902,7 +48989,8 @@ List<SomMetaNode> _mc$TlsProtocolPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'State the minimum protocol version and cipher suites, and when the policy is next reviewed. Record any legacy client that forces an exception and the date it is retired.'),
        SomMetaNode(
           className: 'TlsProtocolPolicy',
           memberName: 'tlsProtocolPolicyDetails',
@@ -48970,7 +49058,8 @@ List<SomMetaNode> _mc$TokenManagementPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the token types in use, what each carries, where it is stored and how it is revoked. Justify the lifetimes — they are the main security-versus-usability trade-off here.'),
        SomMetaNode(
           className: 'TokenManagementPolicy',
           memberName: 'tokenManagementDetails',
@@ -50212,7 +50301,8 @@ List<SomMetaNode> _mc$TransportSecurityPolicy(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe HSTS settings, HTTP-to-HTTPS behaviour, cookie flags and cache rules for sensitive responses. Note that HSTS preloading is hard to reverse.'),
        SomMetaNode(
           className: 'TransportSecurityPolicy',
           memberName: 'transportSecurityPolicyDetails',
@@ -50952,7 +51042,8 @@ List<SomMetaNode> _mc$UserAccessPermissions(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'State what this user category may see and do, and what it must never be able to do. Record the reasoning — the access model later has to justify each grant.'),
        SomMetaNode(
           className: 'UserAccessPermissions',
           memberName: 'permissionsForm',
@@ -51003,7 +51094,8 @@ List<SomMetaNode> _mc$UserAccessibilityNeeds(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Record the accessibility requirements this category actually has — vision, motor, cognitive, situational — and the accommodations that follow. Name the WCAG level committed to.'),
        SomMetaNode(
           className: 'UserAccessibilityNeeds',
           memberName: 'accessibilityForm',
@@ -51022,7 +51114,8 @@ List<SomMetaNode> _mc$UserAccountStatesDefinition(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe each account state in words and what a user in it can and cannot do. The form captures the state names; the content is where the semantics live, including any project-specific states.'),
        SomMetaNode(
           className: 'UserAccountStatesDefinition',
           memberName: 'stateTransitionDiagram',
@@ -51570,7 +51663,8 @@ List<SomMetaNode> _mc$UserJourney(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Map this category\'s touchpoints end to end, including what happens before and after they use the system. Mark the moments where the experience currently breaks.'),
        SomMetaNode(
           className: 'UserJourney',
           memberName: 'journeyDiagram',
@@ -51792,7 +51886,8 @@ List<SomMetaNode> _mc$UserLifecycleTransitions(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Describe the permitted state transitions as a flow, naming who can trigger each and what approval it needs. The transitions you deliberately forbid are worth stating too.'),
        SomMetaNode(
           className: 'UserLifecycleTransitions',
           memberName: 'transitionRulesDescription',
@@ -51896,7 +51991,8 @@ List<SomMetaNode> _mc$UserPersonaDetails(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Sketch the person, not the role: working context, technical confidence, goals and frustrations. A persona is only useful if a designer can picture them.'),
        SomMetaNode(
           className: 'UserPersonaDetails',
           memberName: 'personaForm',
@@ -52037,7 +52133,8 @@ List<SomMetaNode> _mc$UserRegistrationProcess(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Walk through registration from the user\'s first action to a usable account, per registration method. Record why the chosen identity-proofing level is sufficient for this system\'s risk.'),
        SomMetaNode(
           className: 'UserRegistrationProcess',
           memberName: 'registrationFlowDescription',
@@ -52096,7 +52193,8 @@ List<SomMetaNode> _mc$UserTrainingRequirements(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Say what this category must learn before it can work with the system, how the training is delivered, and how much of it is ongoing rather than one-off.'),
        SomMetaNode(
           className: 'UserTrainingRequirements',
           memberName: 'trainingForm',
@@ -52356,7 +52454,8 @@ List<SomMetaNode> _mc$ValueProposition(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Articulate the value in the terms the funding decision uses: quantified benefits, cost avoided, and the return-on-investment argument. State the assumptions the numbers rest on.'),
        SomMetaNode(
           className: 'ValueProposition',
           memberName: 'valueDetails',
@@ -52886,7 +52985,8 @@ List<SomMetaNode> _mc$WorkflowDescriptions(Set<String> s) => [
           kind: SomMetaKind.content,
           typeName: 'String',
           serializationOrder: 0,
-          contentType: SomContentTypeMeta(type: 'text', description: '')),
+          contentType: SomContentTypeMeta(type: 'text', description: ''),
+          contentHelp: 'Introduce the workflows of this business process and add one subsection per workflow relevant to the project. Say which workflows are in scope for change and which are recorded only as context.'),
        SomMetaNode(
           className: 'WorkflowDescriptions',
           memberName: 'workflowOverviewDiagram',

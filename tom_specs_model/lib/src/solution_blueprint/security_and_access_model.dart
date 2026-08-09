@@ -488,6 +488,9 @@ and compliance with data retention requirements.
 @SectionId('UACST')
 @CodeSpecKind([CodeSpecPart.identity])
 class UserAccountStatesDefinition extends DocSpecsSection {
+  @ContentHelp('Describe each account state in words and what a user in it can '
+      'and cannot do. The form captures the state names; the content is where '
+      'the semantics live, including any project-specific states.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -619,6 +622,9 @@ class UserAccountStatesDefinition extends DocSpecsSection {
 @SectionId('URREG')
 @CodeSpecKind([CodeSpecPart.identity])
 class UserRegistrationProcess extends DocSpecsSection {
+  @ContentHelp('Walk through registration from the user\'s first action to a '
+      'usable account, per registration method. Record why the chosen '
+      'identity-proofing level is sufficient for this system\'s risk.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -720,6 +726,9 @@ class UserRegistrationProcess extends DocSpecsSection {
 @SectionId('ACACT')
 @CodeSpecKind([CodeSpecPart.identity])
 class AccountActivationPolicy extends DocSpecsSection {
+  @ContentHelp('Describe the path from pending to active: who or what '
+      'verifies, who approves, and what is provisioned on activation. Say what '
+      'happens to accounts that are never activated.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -835,6 +844,9 @@ class AccountActivationPolicy extends DocSpecsSection {
 @SectionId('ACMOD')
 @CodeSpecKind([CodeSpecPart.identity])
 class AccountModificationPolicy extends DocSpecsSection {
+  @ContentHelp('Describe which attribute changes are self-service, which need '
+      'an administrator, and which trigger re-verification. Note the '
+      'attributes that must never change once set.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -952,6 +964,8 @@ class AccountModificationPolicy extends DocSpecsSection {
 @SectionId('ACDEA')
 @CodeSpecKind([CodeSpecPart.identity])
 class AccountDeactivationPolicy extends DocSpecsSection {
+  @ContentHelp('Distinguish suspension from deactivation in plain terms: what '
+      'each does to sessions, data and integrations, and how each is reversed.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -1080,6 +1094,9 @@ class AccountDeactivationPolicy extends DocSpecsSection {
 @SectionId('ACDEL')
 @CodeSpecKind([CodeSpecPart.identity])
 class AccountDeletionPolicy extends DocSpecsSection {
+  @ContentHelp('Describe what deletion actually removes and what is retained, '
+      'and cite the retention obligation behind each exception. '
+      'Right-to-be-forgotten requests are answered from this text.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -1162,6 +1179,9 @@ class AccountDeletionPolicy extends DocSpecsSection {
 @SectionId('ULTRS')
 @CodeSpecKind([CodeSpecPart.identity])
 class UserLifecycleTransitions extends DocSpecsSection {
+  @ContentHelp('Describe the permitted state transitions as a flow, naming who '
+      'can trigger each and what approval it needs. The transitions you '
+      'deliberately forbid are worth stating too.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -1430,6 +1450,9 @@ class UserLifecycleTransitionEntry extends DocSpecsSection {
 @SectionId('SSACM')
 @CodeSpecKind([CodeSpecPart.identity])
 class SelfServiceAccountManagement extends DocSpecsSection {
+  @ContentHelp('Say what users may do to their own accounts unaided and where '
+      'the line to administrator involvement is drawn. Explain the reasoning — '
+      'that line is a risk decision.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -1551,6 +1574,9 @@ class SelfServiceAccountManagement extends DocSpecsSection {
 @SectionId('SACLC')
 @CodeSpecKind([CodeSpecPart.identity])
 class ServiceAccountLifecycle extends DocSpecsSection {
+  @ContentHelp('Describe how non-human accounts differ from human ones here: '
+      'ownership, review, rotation and decommissioning. An unowned service '
+      'account is the usual failure.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -3341,6 +3367,9 @@ applicability to different user categories and use cases.
 @SectionId('MC')
 @CodeSpecKind([CodeSpecPart.authentication])
 class MfaConfiguration extends DocSpecsSection {
+  @ContentHelp('Describe which users and operations require MFA, which factors '
+      'are offered, and the AAL targeted. Record the fallback path when a '
+      'factor is unavailable and why it is safe.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -3451,6 +3480,9 @@ class MfaConfiguration extends DocSpecsSection {
 @SectionId('SP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class SsoPolicy extends DocSpecsSection {
+  @ContentHelp('Describe the federation topology: which identity providers, '
+      'which protocol, and what happens to users outside SSO. State how '
+      'attributes and group memberships map into this system.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -3550,6 +3582,9 @@ class SsoPolicy extends DocSpecsSection {
 @SectionId('CAP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class CertificateAuthenticationPolicy extends DocSpecsSection {
+  @ContentHelp('Describe where certificate authentication applies and how '
+      'certificates reach their holders. Cover revocation checking and what '
+      'the system does when the check cannot complete.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -3656,6 +3691,9 @@ class CertificateAuthenticationPolicy extends DocSpecsSection {
 @SectionId('BAP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class BiometricAuthenticationPolicy extends DocSpecsSection {
+  @ContentHelp('Describe where biometrics are used and what they unlock — '
+      'under NIST SP 800-63B they activate an authenticator rather than '
+      'authenticate on their own. Record the non-biometric alternative.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -3770,6 +3808,9 @@ class BiometricAuthenticationPolicy extends DocSpecsSection {
 @SectionId('AKMP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class ApiKeyManagementPolicy extends DocSpecsSection {
+  @ContentHelp('Describe how API keys are issued, scoped, rotated and revoked, '
+      'and who owns each key. Say how a leaked key is detected and how quickly '
+      'it can be killed.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -4190,6 +4231,9 @@ established session. Include sequence diagrams for clarity.
 @SectionId('LFC')
 @CodeSpecKind([CodeSpecPart.authentication])
 class LoginFlowConfiguration extends DocSpecsSection {
+  @ContentHelp('Walk through the login flow step by step, including '
+      'pre-authentication checks and post-authentication actions. Name the '
+      'entry points and say which ones behave differently.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -4318,6 +4362,9 @@ class LoginFlowConfiguration extends DocSpecsSection {
 @SectionId('TMP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class TokenManagementPolicy extends DocSpecsSection {
+  @ContentHelp('Describe the token types in use, what each carries, where it '
+      'is stored and how it is revoked. Justify the lifetimes — they are the '
+      'main security-versus-usability trade-off here.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -4429,6 +4476,9 @@ class TokenManagementPolicy extends DocSpecsSection {
 @SectionId('SCP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class SessionCreationPolicy extends DocSpecsSection {
+  @ContentHelp('Describe what a session is bound to — device, address, client '
+      '— and what properties it carries from the moment of creation. Say what '
+      'happens when a binding no longer matches.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -4534,6 +4584,9 @@ class SessionCreationPolicy extends DocSpecsSection {
 @SectionId('RHP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class RedirectHandlingPolicy extends DocSpecsSection {
+  @ContentHelp('Describe how return URLs and callbacks are validated. Open '
+      'redirects are the risk to write about here: state the allow-list rule '
+      'and the behaviour on a rejected target.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -4633,6 +4686,9 @@ class RedirectHandlingPolicy extends DocSpecsSection {
 @SectionId('AEH')
 @CodeSpecKind([CodeSpecPart.authentication])
 class AuthenticationErrorHandling extends DocSpecsSection {
+  @ContentHelp('Describe what the user sees on each class of failure and what '
+      'the system records. The rule to state explicitly is how much the '
+      'message may reveal about why authentication failed.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -4739,6 +4795,9 @@ class AuthenticationErrorHandling extends DocSpecsSection {
 @SectionId('SUAP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class StepUpAuthenticationPolicy extends DocSpecsSection {
+  @ContentHelp('Describe which operations demand a higher assurance level and '
+      'what signals trigger an adaptive challenge. Say how long an elevated '
+      'level lasts.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -5120,6 +5179,9 @@ revision) emphasizes length over complexity and discourages forced rotation.
 @SectionId('PRP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class PasswordRequirementsPolicy extends DocSpecsSection {
+  @ContentHelp('State the password rules and the guidance shown while a user '
+      'chooses one. NIST SP 800-63B favours length and breach screening over '
+      'composition rules — record any deviation and why.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -5225,6 +5287,9 @@ class PasswordRequirementsPolicy extends DocSpecsSection {
 @SectionId('PSP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class PasswordStoragePolicy extends DocSpecsSection {
+  @ContentHelp('Describe the hashing scheme, its parameters, and how they will '
+      'be re-tuned over time. Say how existing hashes are upgraded when the '
+      'parameters change.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -5333,6 +5398,9 @@ class PasswordStoragePolicy extends DocSpecsSection {
 @SectionId('PLP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class PasswordLifecyclePolicy extends DocSpecsSection {
+  @ContentHelp('Describe when a password change is required and when it is '
+      'not. NIST SP 800-63B advises against periodic expiry — if the project '
+      'forces it anyway, record the reason here.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -5446,6 +5514,9 @@ class PasswordLifecyclePolicy extends DocSpecsSection {
 @SectionId('ALP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class AccountLockoutPolicy extends DocSpecsSection {
+  @ContentHelp('Describe the throttling and lockout behaviour and how a '
+      'locked-out user gets back in. Weigh it explicitly against a third party '
+      'locking a known account on purpose.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -5556,6 +5627,9 @@ class AccountLockoutPolicy extends DocSpecsSection {
 @SectionId('CRP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class CredentialRecoveryPolicy extends DocSpecsSection {
+  @ContentHelp('Describe each recovery path and how identity is re-established '
+      'on it. Recovery is often the weakest link, so state why each path is no '
+      'weaker than normal authentication.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -5651,6 +5725,9 @@ class CredentialRecoveryPolicy extends DocSpecsSection {
 @SectionId('CCDP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class CredentialCompromiseDetectionPolicy extends DocSpecsSection {
+  @ContentHelp('Describe the signals monitored — breach corpora, credential '
+      'stuffing patterns, impossible travel — and the automated response to '
+      'each. Say what the affected user is told.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -5743,6 +5820,9 @@ class CredentialCompromiseDetectionPolicy extends DocSpecsSection {
 @SectionId('SACP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class ServiceAccountCredentialPolicy extends DocSpecsSection {
+  @ContentHelp('Describe how machine credentials are issued, stored and '
+      'rotated without human intervention, and where the root of trust sits. '
+      'Name the owner for each credential class.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -6112,6 +6192,9 @@ Define session management policies that balance security with user experience.
 @SectionId('STP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class SessionTimeoutPolicy extends DocSpecsSection {
+  @ContentHelp('Justify the idle and absolute timeouts against the data a '
+      'session can reach, and describe the warning and renewal experience. '
+      'Note where per-AAL differentiation applies.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -6213,6 +6296,9 @@ class SessionTimeoutPolicy extends DocSpecsSection {
 @SectionId('CSP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class ConcurrentSessionPolicy extends DocSpecsSection {
+  @ContentHelp('Describe what happens when the same account signs in again '
+      'elsewhere: allowed, limited, or the older session ended. Say whether '
+      'the user is notified.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -6327,6 +6413,9 @@ class ConcurrentSessionPolicy extends DocSpecsSection {
 @SectionId('SRP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class SessionRevocationPolicy extends DocSpecsSection {
+  @ContentHelp('Describe every way a session ends other than timing out — '
+      'logout, administrative termination, privilege change, credential change '
+      '— and how fast each takes effect.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -6439,6 +6528,9 @@ class SessionRevocationPolicy extends DocSpecsSection {
 @SectionId('RMP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class RememberMePolicy extends DocSpecsSection {
+  @ContentHelp('Describe what persistent login grants and what it does not: '
+      'which operations still re-prompt, how the device is trusted, and how '
+      'the user revokes it from elsewhere.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -6549,6 +6641,9 @@ class RememberMePolicy extends DocSpecsSection {
 @SectionId('SSP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class SessionSecurityPolicy extends DocSpecsSection {
+  @ContentHelp('Describe the hardening measures — fixation defence, binding, '
+      'anomaly detection, cache control — and what each protects against. '
+      'State the response when an anomaly fires.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -6654,6 +6749,9 @@ class SessionSecurityPolicy extends DocSpecsSection {
 @SectionId('SLM')
 @CodeSpecKind([CodeSpecPart.auditLog])
 class SessionLifecycleMonitoring extends DocSpecsSection {
+  @ContentHelp('Describe which session events are logged, what each record '
+      'contains, and who reviews them. Say how long session logs are kept and '
+      'how the personal data in them is handled.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -6919,6 +7017,9 @@ within databases and data stores.
 @SectionId('DAP')
 @CodeSpecKind([CodeSpecPart.authorization])
 class DatabaseAccessPolicy extends DocSpecsSection {
+  @ContentHelp('Describe which principals reach the database and with what '
+      'privileges, and how application credentials differ from administrative '
+      'ones. Justify every privilege beyond least privilege.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -7021,6 +7122,9 @@ class DatabaseAccessPolicy extends DocSpecsSection {
 @SectionId('RLSP')
 @CodeSpecKind([CodeSpecPart.authorization])
 class RowLevelSecurityPolicy extends DocSpecsSection {
+  @ContentHelp('Describe the predicate that decides row visibility and where '
+      'it is enforced — database, ORM or application. Say what happens if the '
+      'enforcing layer is bypassed.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -7109,6 +7213,9 @@ class RowLevelSecurityPolicy extends DocSpecsSection {
 @SectionId('CLSP')
 @CodeSpecKind([CodeSpecPart.authorization])
 class ColumnLevelSecurityPolicy extends DocSpecsSection {
+  @ContentHelp('Name the columns that are restricted, who may see each, and '
+      'what a denied reader gets instead — absent, null or masked. Tie each '
+      'restriction to a classification or regulation.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -7210,6 +7317,9 @@ class ColumnLevelSecurityPolicy extends DocSpecsSection {
 @SectionId('TDIP')
 @CodeSpecKind([CodeSpecPart.authorization])
 class TenantDataIsolationPolicy extends DocSpecsSection {
+  @ContentHelp('Describe the isolation model and the single mechanism that '
+      'guarantees it. Say how the guarantee is tested; an untested isolation '
+      'claim is the classic multi-tenant failure.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -7332,6 +7442,9 @@ class TenantDataIsolationPolicy extends DocSpecsSection {
 @SectionId('DMP')
 @CodeSpecKind([CodeSpecPart.authorization])
 class DataMaskingPolicy extends DocSpecsSection {
+  @ContentHelp('Describe what is masked, where, and by which technique, '
+      'keeping static (copied data) and dynamic (runtime) masking apart. Say '
+      'whether masked data must stay referentially consistent.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -7439,6 +7552,9 @@ class DataMaskingPolicy extends DocSpecsSection {
 @SectionId('DAAP')
 @CodeSpecKind([CodeSpecPart.auditLog])
 class DataAccessAuditPolicy extends DocSpecsSection {
+  @ContentHelp('Describe which data accesses are audited, what the record '
+      'contains, and who reviews it. State the retention period and the '
+      'compliance requirement it satisfies.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -7689,6 +7805,9 @@ public-facing APIs, internal microservices, and webhooks.
 @SectionId('AAP')
 @CodeSpecKind([CodeSpecPart.authentication])
 class ApiAuthenticationPolicy extends DocSpecsSection {
+  @ContentHelp('Describe how each class of API consumer proves identity — end '
+      'users, partner systems, internal services, webhooks — and why the '
+      'mechanism suits that consumer.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -7822,6 +7941,9 @@ class ApiAuthenticationPolicy extends DocSpecsSection {
 @SectionId('APAUPO')
 @CodeSpecKind([CodeSpecPart.authorization])
 class ApiAuthorizationPolicy extends DocSpecsSection {
+  @ContentHelp('Describe how the system decides a caller may touch a specific '
+      'object, not merely a specific endpoint. Object-level authorization is '
+      'OWASP API1; say where it is enforced.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -7961,6 +8083,9 @@ class ApiAuthorizationPolicy extends DocSpecsSection {
 @SectionId('ARVP')
 @CodeSpecKind([CodeSpecPart.validation])
 class ApiRequestValidationPolicy extends DocSpecsSection {
+  @ContentHelp('Describe how request bodies and parameters are validated, and '
+      'whether validation is allow-list or deny-list. Say what a rejected '
+      'request receives back.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -8073,6 +8198,9 @@ class ApiRequestValidationPolicy extends DocSpecsSection {
 @SectionId('APCOSE')
 @CodeSpecKind([CodeSpecPart.serverConfiguration])
 class ApiCorsSecurity extends DocSpecsSection {
+  @ContentHelp('State which origins are permitted and why, and whether '
+      'credentials cross the origin boundary. A wildcard origin needs an '
+      'explicit justification here.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -8197,6 +8325,9 @@ class ApiCorsSecurity extends DocSpecsSection {
 @SectionId('APABPR')
 @CodeSpecKind([CodeSpecPart.serverConfiguration])
 class ApiAbuseProtection extends DocSpecsSection {
+  @ContentHelp('Describe the abuse this API is likely to attract — '
+      'enumeration, scraping, brute force, business-flow abuse — and the '
+      'control for each. Keep it distinct from ordinary rate limiting.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -8328,6 +8459,9 @@ class ApiAbuseProtection extends DocSpecsSection {
 @SectionId('APSEMO')
 @CodeSpecKind([CodeSpecPart.auditLog])
 class ApiSecurityMonitoring extends DocSpecsSection {
+  @ContentHelp('Describe what API telemetry is collected and which patterns '
+      'raise an alert. Cover endpoint inventory too: OWASP API9 is about the '
+      'endpoints nobody remembers deploying.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -8597,6 +8731,9 @@ and all stored media.
 @SectionId('FUVP')
 @CodeSpecKind([CodeSpecPart.serverConfiguration])
 class FileUploadValidationPolicy extends DocSpecsSection {
+  @ContentHelp('Describe the validation layers an upload passes and the order '
+      'they run in. Extension checks alone are not validation — state how the '
+      'file\'s actual content is confirmed.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -8712,6 +8849,9 @@ class FileUploadValidationPolicy extends DocSpecsSection {
 @SectionId('STENPO')
 @CodeSpecKind([CodeSpecPart.serverConfiguration])
 class StorageEncryptionPolicy extends DocSpecsSection {
+  @ContentHelp('Describe what is encrypted where, and who holds the keys for '
+      'each storage tier. Say whether the storage provider can read the data '
+      'and whether that is acceptable.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -8859,6 +8999,9 @@ class StorageEncryptionPolicy extends DocSpecsSection {
 @SectionId('FACP')
 @CodeSpecKind([CodeSpecPart.authorization])
 class FileAccessControlPolicy extends DocSpecsSection {
+  @ContentHelp('Describe who may read, change, share and delete files, and how '
+      'the decision is enforced on every access path — including direct '
+      'storage URLs.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -8990,6 +9133,9 @@ class FileAccessControlPolicy extends DocSpecsSection {
 @SectionId('COSCPO')
 @CodeSpecKind([CodeSpecPart.serverConfiguration])
 class ContentScanningPolicy extends DocSpecsSection {
+  @ContentHelp('Describe what uploaded content is scanned for, when the scan '
+      'happens relative to acceptance, and what a positive result does. Say '
+      'how quarantined content is reviewed.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -9101,6 +9247,9 @@ class ContentScanningPolicy extends DocSpecsSection {
 @SectionId('FDSP')
 @CodeSpecKind([CodeSpecPart.serverConfiguration])
 class FileDownloadSecurityPolicy extends DocSpecsSection {
+  @ContentHelp('Describe how downloads are authorized and throttled, and which '
+      'content-disposition and security headers are set. Cover hot-linking and '
+      'shared-link expiry.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -9247,6 +9396,9 @@ class FileDownloadSecurityPolicy extends DocSpecsSection {
 @SectionId('STLIPO')
 @CodeSpecKind([CodeSpecPart.serverConfiguration])
 class StorageLifecyclePolicy extends DocSpecsSection {
+  @ContentHelp('Describe how long files live, when they move to cheaper tiers, '
+      'and how they are destroyed. Say what secure deletion means here and how '
+      'it is verified.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -9453,6 +9605,9 @@ Define the authorization model that governs who can do what in the system.
 @SectionId('ACMS')
 @CodeSpecKind([CodeSpecPart.authorization])
 class AccessControlModelSelection extends DocSpecsSection {
+  @ContentHelp('State the model chosen and the alternatives rejected, with the '
+      'reasoning. This choice constrains everything below it, so record what '
+      'would have to change to revisit it.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -9556,6 +9711,9 @@ class AccessControlModelSelection extends DocSpecsSection {
 @SectionId('PEGRPO')
 @CodeSpecKind([CodeSpecPart.authorization])
 class PermissionGranularityPolicy extends DocSpecsSection {
+  @ContentHelp('State how fine permissions go and where the project '
+      'deliberately stops. Over-fine granularity is unmanageable, so name the '
+      'practical unit of permission here.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -9661,6 +9819,9 @@ class PermissionGranularityPolicy extends DocSpecsSection {
 @SectionId('PECOST')
 @CodeSpecKind([CodeSpecPart.authorization])
 class PermissionCompositionStrategy extends DocSpecsSection {
+  @ContentHelp('Describe how permissions from roles, groups and attributes '
+      'combine, and the rule when they conflict. State whether deny overrides '
+      'allow and give a worked example.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -9770,6 +9931,9 @@ class PermissionCompositionStrategy extends DocSpecsSection {
 @SectionId('ACCOPO')
 @CodeSpecKind([CodeSpecPart.authorization])
 class AccessConstraintPolicies extends DocSpecsSection {
+  @ContentHelp('Describe the constraints layered on top of assignments — '
+      'separation of duties, time windows, network or device conditions, risk '
+      'signals — and what triggers each.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -9880,6 +10044,9 @@ class AccessConstraintPolicies extends DocSpecsSection {
 @SectionId('PEEVBE')
 @CodeSpecKind([CodeSpecPart.authorization])
 class PermissionEvaluationBehavior extends DocSpecsSection {
+  @ContentHelp('Describe when and where a permission check runs, what is '
+      'cached and for how long, and what happens when the decision point is '
+      'unreachable. Fail-closed or fail-open is the decision to record.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -10192,6 +10359,9 @@ simplifies administration and ensures consistent access control.
 @SectionId('ROHIPO')
 @CodeSpecKind([CodeSpecPart.authorization])
 class RoleHierarchyPolicy extends DocSpecsSection {
+  @ContentHelp('Describe the shape of the role hierarchy and what inheritance '
+      'means in it. State the depth limit and why — deep hierarchies make '
+      'effective permissions unpredictable.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -10478,6 +10648,9 @@ class GlobalRoleExclusionEntry extends DocSpecsSection {
 @SectionId('ROCEPO')
 @CodeSpecKind([CodeSpecPart.authorization])
 class RoleCertificationPolicy extends DocSpecsSection {
+  @ContentHelp('Describe the review cycle: who certifies which assignments, '
+      'how often, and what happens to an assignment nobody re-certifies. '
+      'Privilege creep is what this section prevents.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -10656,6 +10829,9 @@ Complements data-level tenant isolation.
 @SectionId('TECOPO')
 @CodeSpecKind([CodeSpecPart.authorization])
 class TenantContextPolicy extends DocSpecsSection {
+  @ContentHelp('Describe how tenant context is determined on each request and '
+      'how it travels between services. State the behaviour when context is '
+      'absent or ambiguous — it must not default.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -10747,6 +10923,9 @@ class TenantContextPolicy extends DocSpecsSection {
 @SectionId('CTAP')
 @CodeSpecKind([CodeSpecPart.authorization])
 class CrossTenantAccessPolicy extends DocSpecsSection {
+  @ContentHelp('State whether cross-tenant access exists at all, and if so '
+      'what authorizes it and who sees the audit trail. If it does not exist, '
+      'say that plainly — it is a strong guarantee.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -10940,6 +11119,9 @@ class TenantCustomizationEntry extends DocSpecsSection {
 @SectionId('TEONPO')
 @CodeSpecKind([CodeSpecPart.authorization])
 class TenantOnboardingPolicy extends DocSpecsSection {
+  @ContentHelp('Describe what authorization state a new tenant starts with and '
+      'who its first administrator is. Cover offboarding with equal care: what '
+      'is deleted, what is retained, and for how long.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -11041,6 +11223,9 @@ class TenantOnboardingPolicy extends DocSpecsSection {
 @SectionId('TBEP')
 @CodeSpecKind([CodeSpecPart.authorization])
 class TenantBoundaryEnforcementPolicy extends DocSpecsSection {
+  @ContentHelp('Describe where the tenant boundary is enforced and how a '
+      'request that crosses it is stopped. Cover shared services and users who '
+      'legitimately belong to several tenants.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -12031,6 +12216,9 @@ data breaches, and physical media theft.
 @SectionId('EARP')
 @CodeSpecKind([CodeSpecPart.serverConfiguration])
 class EncryptionAtRestPolicy extends DocSpecsSection {
+  @ContentHelp('State the default algorithm and key length and the layer '
+      'encryption is applied at. Explain what this protects against — an '
+      'at-rest scheme does not protect a running system.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -12192,6 +12380,9 @@ class EncryptedDataCategoryEntry extends DocSpecsSection {
 @SectionId('DAENPO')
 @CodeSpecKind([CodeSpecPart.serverConfiguration])
 class DatabaseEncryptionPolicy extends DocSpecsSection {
+  @ContentHelp('Describe what database encryption covers and what it costs: '
+      'encrypted columns cannot be indexed or searched normally, so say how '
+      'queries against them work.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -12273,6 +12464,9 @@ class DatabaseEncryptionPolicy extends DocSpecsSection {
 @SectionId('FSEP')
 @CodeSpecKind([CodeSpecPart.serverConfiguration])
 class FileStorageEncryptionPolicy extends DocSpecsSection {
+  @ContentHelp('Describe how file and blob storage is encrypted and how signed '
+      'URLs interact with it. Cover local copies on devices, which are usually '
+      'the weakest point.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -12351,6 +12545,9 @@ class FileStorageEncryptionPolicy extends DocSpecsSection {
 @SectionId('BAENPO')
 @CodeSpecKind([CodeSpecPart.serverConfiguration])
 class BackupEncryptionPolicy extends DocSpecsSection {
+  @ContentHelp('Describe how backups are encrypted and where those keys live — '
+      'a backup encrypted with a key stored beside it is not encrypted. Say '
+      'how restore is tested.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -12540,6 +12737,9 @@ Define how data is protected while moving over networks, both externally
 @SectionId('TLPRPO')
 @CodeSpecKind([CodeSpecPart.serverConfiguration])
 class TlsProtocolPolicy extends DocSpecsSection {
+  @ContentHelp('State the minimum protocol version and cipher suites, and when '
+      'the policy is next reviewed. Record any legacy client that forces an '
+      'exception and the date it is retired.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -12656,6 +12856,9 @@ class TlsProtocolPolicy extends DocSpecsSection {
 @SectionId('CEMAPO')
 @CodeSpecKind([CodeSpecPart.serverConfiguration])
 class CertificateManagementPolicy extends DocSpecsSection {
+  @ContentHelp('Describe how certificates are obtained, renewed and monitored '
+      'for expiry. An expired certificate is a self-inflicted outage, so say '
+      'what automation prevents it.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -12816,6 +13019,9 @@ class CommunicationChannelEncryptionEntry extends DocSpecsSection {
 @SectionId('MUTLPO')
 @CodeSpecKind([CodeSpecPart.serverConfiguration])
 class MutualTlsPolicy extends DocSpecsSection {
+  @ContentHelp('Describe where mTLS applies, how client certificates are '
+      'issued and revoked, and what happens when validation fails. State '
+      'whether any fallback exists.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -12915,6 +13121,9 @@ class MutualTlsPolicy extends DocSpecsSection {
 @SectionId('TRSEPO')
 @CodeSpecKind([CodeSpecPart.serverConfiguration])
 class TransportSecurityPolicy extends DocSpecsSection {
+  @ContentHelp('Describe HSTS settings, HTTP-to-HTTPS behaviour, cookie flags '
+      'and cache rules for sensitive responses. Note that HSTS preloading is '
+      'hard to reverse.')
   @override
   @SerializationOrder(0)
   String? content;

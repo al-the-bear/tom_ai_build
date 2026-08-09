@@ -173,6 +173,10 @@ class SystemInventory extends DocSpecsSection {
 )
 @SectionId('CARCH')
 class CurrentArchitecture extends DocSpecsSection {
+  @ContentHelp('Describe the architecture as it stands today, not as it was '
+      'designed: deployment topology, integration patterns, shared services '
+      'and data stores. Note where the running system has drifted from its '
+      'documentation.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -771,6 +775,10 @@ class LimitationEntry extends DocSpecsSection {
 )
 @SectionId('DEPNT')
 class DependenciesAndIntegrations extends DocSpecsSection {
+  @ContentHelp('Name each dependency between current systems, on external '
+      'services and on shared infrastructure, and say which of them are '
+      'fragile. A fragile integration point is a migration risk, so record why '
+      'it is fragile, not just that it is.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -1802,6 +1810,9 @@ class SystemIntegrationEntry extends DocSpecsSection {
 @SectionId('CUBUPR')
 @DetailedIn(D01CurrentLandscapeAssessment)
 class CurrentBusinessProcesses extends DocSpecsSection {
+  @ContentHelp('Introduce the processes the project will impact, replace or '
+      'enhance, and say how they were established — workshops, observation, '
+      'existing documentation. One subsection per process follows below.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -1951,6 +1962,9 @@ class ProcessScopeEntry extends DocSpecsSection {
 )
 @SectionId('PRINMA')
 class ProcessInterdependencyMatrix extends DocSpecsSection {
+  @ContentHelp('Show which processes trigger, feed or block each other; a '
+      'table or matrix reads better than prose here. Call out the couplings '
+      'that constrain migration sequencing.')
   @override
   @SerializationOrder(0)
   String? content;
@@ -2260,6 +2274,9 @@ class CurrentProcessImprovementEntry extends DocSpecsSection {
 )
 @SectionId('WODE')
 class WorkflowDescriptions extends DocSpecsSection {
+  @ContentHelp('Introduce the workflows of this business process and add one '
+      'subsection per workflow relevant to the project. Say which workflows '
+      'are in scope for change and which are recorded only as context.')
   @override
   @SerializationOrder(0)
   String? content;

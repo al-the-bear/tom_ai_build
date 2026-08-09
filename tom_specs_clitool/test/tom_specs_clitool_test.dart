@@ -2409,6 +2409,48 @@ void main() {
       expect(adopted.errors.where((e) => e.contains('YRD5')), isEmpty);
     });
 
+    test(
+        'tom_specs_model_rules.md §5.6: `content` must carry one of the four '
+        'documenting annotations, and a class-level @Form is not one of them',
+        () {
+      ModelClass docWith(
+        List<AnnotationData> contentAnnotations, {
+        List<AnnotationData> classAnnotations = const [],
+      }) =>
+          _cls('Doc', [
+            AnnotationData('SectionId', {'id': 'DC00'}),
+            ...classAnnotations,
+          ], [
+            ModelField(
+              name: 'content',
+              typeName: 'String?',
+              isNullable: true,
+              annotations: contentAnnotations,
+            ),
+          ]);
+
+      bool flags(ModelClass cls) => validateModel({'Doc': cls}, 'Doc')
+          .errors
+          .any((e) => e.contains('Doc.content') && e.contains('undocumented'));
+
+      expect(flags(docWith(const [])), isTrue,
+          reason: 'a bare `content` is undocumented');
+
+      // A class-level @Form documents the form fields, not the prose that
+      // wraps them — it must not silence the check (the security-and-access
+      // sections are all form-bearing and all needed their own help).
+      expect(
+        flags(docWith(const [], classAnnotations: [AnnotationData('Form')])),
+        isTrue,
+        reason: 'a class-level @Form does not document the content field',
+      );
+
+      for (final ann in ['ContentHelp', 'ContentType', 'Form', 'Unused']) {
+        expect(flags(docWith([AnnotationData(ann)])), isFalse,
+            reason: '@$ann on the content field discharges §5.6');
+      }
+    });
+
     test('SpecOpsGenerator slots DocSpecsSection members as child nodes', () {
       final classes = <String, ModelClass>{
         'Doc': _cls('Doc', [
