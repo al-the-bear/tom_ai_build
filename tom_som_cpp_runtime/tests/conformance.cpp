@@ -13,7 +13,8 @@
  *   - the Markdown route lands the fixture in the same memory as the YAML route;
  *   - reflection resolution cases;
  *   - validation cases;
- *   - the imperative operations script.
+ *   - the imperative operations script;
+ *   - the SOM §14 DocSpecs tier (one case per violation rule).
  *
  * The corpus directory is argv[1], defaulting to
  * "../tom_som_conformance/corpus" relative to the runner's cwd. Exit 0 == all
@@ -22,6 +23,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <fstream>
+#include <set>
 #include <sstream>
 #include <string>
 #include <vector>
@@ -680,6 +682,68 @@ static void test_serialization_order(Checker& c) {
           join(gotFields) + " != " + join(expectedFormOrder));
 }
 
+/* The SOM §14 DocSpecs tier: one shared schema, one case per violation rule.
+ *
+ * The corpus carries the rule/sectionId/line triples the Dart reference
+ * produces; matching them is what proves this port implements each rule at all,
+ * rather than merely declaring its name. `jsonStrOr` yields "" for the corpus's
+ * JSON null, which is exactly this port's absent-section-id value. */
+static void test_docspecs(Checker& c) {
+  std::string err;
+  auto schema =
+      som::docspecsSchemaFromYamlText(read_corpus("docspecs_schema.yaml"), &err);
+  if (!schema.has_value()) {
+    std::fprintf(stderr, "docspecs schema: %s\n", err.c_str());
+    std::exit(2);
+  }
+  c.check("docspecs.schemaWarnings", schema->warnings.empty(),
+          join(schema->warnings));
+  c.check("docspecs.rootSectionId", schema->rootSectionId() == "D00",
+          schema->rootSectionId());
+
+  som::DocSpecsValidator validator(*schema);
+  som::JsonPtr cases = read_json("docspecs_cases.json");
+  std::set<std::string> covered;
+  std::size_t n = som::jsonArrayLen(cases);
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef cc = som::jsonArrayAt(cases, i);
+    std::string name = som::jsonStrOr(cc, "name");
+
+    std::vector<som::DocSpecsViolation> violations;
+    validator.validateMarkdown(som::jsonStrOr(cc, "markdown"), violations);
+    // "rule|sectionId|line" joined by '/' — one string per side, so a length
+    // mismatch is as visible as a value mismatch.
+    std::string got_s;
+    for (std::size_t k = 0; k < violations.size(); k++) {
+      if (k > 0) got_s.push_back('/');
+      got_s += violations[k].rule + "|" + violations[k].sectionId + "|" +
+               std::to_string(violations[k].line);
+    }
+
+    std::string want_s;
+    som::JsonRef warr = som::jsonGet(cc, "violations");
+    std::size_t wlen = som::jsonArrayLen(warr);
+    for (std::size_t k = 0; k < wlen; k++) {
+      som::JsonRef wv = som::jsonArrayAt(warr, k);
+      std::string rule = som::jsonStrOr(wv, "rule");
+      covered.insert(rule);
+      long long line = som::jsonAsI64(som::jsonGet(wv, "line")).value_or(-1);
+      if (k > 0) want_s.push_back('/');
+      want_s += rule + "|" + som::jsonStrOr(wv, "sectionId") + "|" +
+                std::to_string(line);
+    }
+
+    c.check("docspecs[" + name + "]", got_s == want_s, got_s + " != " + want_s);
+  }
+
+  std::vector<std::string> uncovered;
+  for (const char* rule : som::kDocSpecsAllRules) {
+    if (covered.count(rule) == 0) uncovered.emplace_back(rule);
+  }
+  c.check("docspecs.ruleCoverage", uncovered.empty(),
+          "uncovered: " + join(uncovered));
+}
+
 int main(int argc, char** argv) {
   if (argc > 1) {
     g_corpus_dir = argv[1];
@@ -707,6 +771,7 @@ int main(int argc, char** argv) {
   test_operations(c);
   test_section_id(c);
   test_serialization_order(c);
+  test_docspecs(c);
 
   return c.finish();
 }

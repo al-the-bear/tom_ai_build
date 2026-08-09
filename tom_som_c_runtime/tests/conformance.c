@@ -13,7 +13,8 @@
  *   - the Markdown route lands the fixture in the same memory as the YAML route;
  *   - reflection resolution cases;
  *   - validation cases;
- *   - the imperative operations script.
+ *   - the imperative operations script;
+ *   - the SOM §14 DocSpecs tier (one case per violation rule).
  *
  * The corpus directory is argv[1], defaulting to
  * "../tom_som_conformance/corpus" relative to the runner's cwd. Exit 0 == all
@@ -937,6 +938,103 @@ static void test_serialization_order(Checker *c) {
   som_json_free(cases);
 }
 
+/* The SOM §14 DocSpecs tier: one shared schema, one case per violation rule.
+ *
+ * The corpus carries the rule/sectionId/line triples the Dart reference
+ * produces; matching them is what proves this port implements each rule at all,
+ * rather than merely declaring its name. `som_json_str_or` yields "" for the
+ * corpus's JSON null, which is exactly this port's absent-section-id value. */
+static void test_docspecs(Checker *c) {
+  char *yaml = read_corpus("docspecs_schema.yaml");
+  DocSpecsSchema *schema = NULL;
+  char *serr = NULL;
+  if (!docspecs_schema_from_yaml_text(yaml, &schema, &serr)) {
+    fprintf(stderr, "docspecs schema: %s\n", serr ? serr : "(no message)");
+    exit(2);
+  }
+  free(yaml);
+  check(c, "docspecs.schemaWarnings", schema->warnings.len == 0, "");
+  char *root_id = docspecs_schema_root_section_id(schema);
+  check(c, "docspecs.rootSectionId", strcmp(root_id, "D00") == 0, root_id);
+  free(root_id);
+
+  DocSpecsValidator val = docspecs_validator_new(schema);
+  SomJson *cases = read_json("docspecs_cases.json");
+  int covered[DOCSPECS_ALL_RULES_COUNT] = {0};
+  size_t n = som_json_array_len(cases);
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *cc = som_json_array_at(cases, i);
+    const char *name = som_json_str_or(cc, "name");
+
+    DocSpecsViolationList got_list;
+    docspecs_violation_list_init(&got_list);
+    docspecs_validator_validate_markdown(&val, som_json_str_or(cc, "markdown"),
+                                         &got_list);
+    /* "rule|sectionId|line" joined by '/' — one string per side, so a length
+     * mismatch is as visible as a value mismatch. */
+    SomBuf got;
+    som_buf_init(&got);
+    for (size_t k = 0; k < got_list.len; k++) {
+      if (k > 0) som_buf_putc(&got, '/');
+      char *line = som_format_i64(got_list.items[k].line);
+      som_buf_puts(&got, got_list.items[k].rule);
+      som_buf_putc(&got, '|');
+      som_buf_puts(&got, got_list.items[k].section_id);
+      som_buf_putc(&got, '|');
+      som_buf_puts(&got, line);
+      free(line);
+    }
+    char *got_s = som_buf_take(&got);
+    docspecs_violation_list_free(&got_list);
+
+    SomBuf want;
+    som_buf_init(&want);
+    const SomJson *warr = som_json_get(cc, "violations");
+    size_t wlen = som_json_array_len(warr);
+    for (size_t k = 0; k < wlen; k++) {
+      const SomJson *wv = som_json_array_at(warr, k);
+      const char *rule = som_json_str_or(wv, "rule");
+      for (size_t r = 0; r < DOCSPECS_ALL_RULES_COUNT; r++) {
+        if (strcmp(rule, DOCSPECS_ALL_RULES[r]) == 0) covered[r] = 1;
+      }
+      long long line_no = 0;
+      som_json_as_i64(som_json_get(wv, "line"), &line_no);
+      char *line = som_format_i64(line_no);
+      if (k > 0) som_buf_putc(&want, '/');
+      som_buf_puts(&want, rule);
+      som_buf_putc(&want, '|');
+      som_buf_puts(&want, som_json_str_or(wv, "sectionId"));
+      som_buf_putc(&want, '|');
+      som_buf_puts(&want, line);
+      free(line);
+    }
+    char *want_s = som_buf_take(&want);
+
+    char tag[512], detail[4096];
+    snprintf(tag, sizeof(tag), "docspecs[%s]", name);
+    snprintf(detail, sizeof(detail), "%s != %s", got_s, want_s);
+    check(c, tag, strcmp(got_s, want_s) == 0, detail);
+    free(got_s);
+    free(want_s);
+  }
+
+  SomBuf uncovered;
+  som_buf_init(&uncovered);
+  for (size_t r = 0; r < DOCSPECS_ALL_RULES_COUNT; r++) {
+    if (covered[r]) continue;
+    if (uncovered.len > 0) som_buf_putc(&uncovered, ',');
+    som_buf_puts(&uncovered, DOCSPECS_ALL_RULES[r]);
+  }
+  char *uncovered_s = som_buf_take(&uncovered);
+  char cov_detail[1024];
+  snprintf(cov_detail, sizeof(cov_detail), "uncovered: %s", uncovered_s);
+  check(c, "docspecs.ruleCoverage", uncovered_s[0] == '\0', cov_detail);
+  free(uncovered_s);
+
+  som_json_free(cases);
+  docspecs_schema_free(schema);
+}
+
 int main(int argc, char **argv) {
   if (argc > 1) {
     snprintf(g_corpus_dir, sizeof(g_corpus_dir), "%s", argv[1]);
@@ -967,6 +1065,7 @@ int main(int argc, char **argv) {
   test_operations(&c);
   test_section_id(&c);
   test_serialization_order(&c);
+  test_docspecs(&c);
 
   int rc = checker_finish(&c);
   som_meta_tree_free(tree);

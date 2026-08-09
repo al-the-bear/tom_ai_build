@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import tom_som_runtime.DocSpecsSchema;
+import tom_som_runtime.DocSpecsValidator;
+import tom_som_runtime.DocSpecsViolation;
 import tom_som_runtime.Json;
 import tom_som_runtime.SomMetaBridge;
 import tom_som_runtime.SomMetaTree;
@@ -615,6 +618,47 @@ public final class ConformanceRunner {
         gotFields + " != " + wantFields);
   }
 
+  /**
+   * The SOM §14 DocSpecs tier: one shared schema, one case per violation rule.
+   *
+   * <p>The corpus carries the rule/sectionId/line triples the Dart reference
+   * produces; matching them is what proves this port implements each rule at
+   * all, rather than merely declaring its name.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testDocSpecs() throws IOException {
+    DocSpecsSchema schema = DocSpecsSchema.fromYamlText(read("docspecs_schema.yaml"));
+    check("docspecs.schemaWarnings", schema.warnings.isEmpty(), String.valueOf(schema.warnings));
+    check("docspecs.rootSectionId", "D00".equals(schema.rootSectionId()), schema.rootSectionId());
+
+    DocSpecsValidator validator = new DocSpecsValidator(schema);
+    List<String> covered = new ArrayList<>();
+    for (Object caseObj : readJsonArray("docspecs_cases.json")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = (String) c.get("name");
+      List<String> got = new ArrayList<>();
+      for (DocSpecsViolation v : validator.validateMarkdown((String) c.get("markdown"))) {
+        got.add(v.rule + "|" + v.sectionId + "|" + v.line);
+      }
+      List<String> want = new ArrayList<>();
+      for (Object vObj : (List<Object>) c.get("violations")) {
+        Map<String, Object> v = (Map<String, Object>) vObj;
+        String rule = (String) v.get("rule");
+        want.add(rule + "|" + v.get("sectionId") + "|" + ((Number) v.get("line")).intValue());
+        covered.add(rule);
+      }
+      check("docspecs[" + name + "]", got.equals(want), got + " != " + want);
+    }
+
+    List<String> uncovered = new ArrayList<>();
+    for (String rule : DocSpecsViolation.ALL_RULES) {
+      if (!covered.contains(rule)) {
+        uncovered.add(rule);
+      }
+    }
+    check("docspecs.ruleCoverage", uncovered.isEmpty(), "uncovered: " + uncovered);
+  }
+
   public static void main(String[] args) throws IOException {
     String corpusArg =
         args.length > 0 ? args[0] : "../tom_som_conformance/corpus";
@@ -639,6 +683,7 @@ public final class ConformanceRunner {
     testOperations();
     testSectionId();
     testSerializationOrder();
+    testDocSpecs();
 
     int total = passed + failed.size();
     if (!failed.isEmpty()) {

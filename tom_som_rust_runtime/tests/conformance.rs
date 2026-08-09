@@ -15,7 +15,8 @@
 //!     md.land.*);
 //!   - reflection resolution cases;
 //!   - validation cases;
-//!   - the imperative operations script.
+//!   - the imperative operations script;
+//!   - the SOM §14 DocSpecs tier (one case per violation rule).
 //!
 //! `cargo test` is the native runner; exit 0 == all green.
 
@@ -36,6 +37,7 @@ use tom_som_rust_runtime::spec_section_id::{
 };
 use tom_som_rust_runtime::spec_serialization_order::SpecSerializationOrder;
 use tom_som_rust_runtime::spec_validator::validate_document;
+use tom_som_rust_runtime::{DocSpecsSchema, DocSpecsValidator, DOCSPECS_ALL_RULES};
 
 const MODEL_VERSION: &str = "1.0";
 
@@ -146,6 +148,7 @@ fn conformance() {
     test_operations(&mut c);
     test_section_id(&mut c);
     test_serialization_order(&mut c);
+    test_docspecs(&mut c);
 
     c.finish();
 }
@@ -506,6 +509,67 @@ fn test_validation(c: &mut Checker, model: &SpecModel) {
             &format!("{:?} != {:?}", got, want),
         );
     }
+}
+
+/// The SOM §14 DocSpecs tier: one shared schema, one case per violation rule.
+///
+/// The corpus carries the rule/sectionId/line triples the Dart reference
+/// produces; matching them is what proves this port implements each rule at
+/// all, rather than merely declaring its name. `str_or` yields `""` for the
+/// corpus's JSON null, which is exactly this port's absent-section-id value.
+fn test_docspecs(c: &mut Checker) {
+    let schema = DocSpecsSchema::from_yaml_text(&read_corpus("docspecs_schema.yaml"))
+        .expect("docspecs schema");
+    c.check(
+        "docspecs.schemaWarnings",
+        schema.warnings.is_empty(),
+        &format!("{:?}", schema.warnings),
+    );
+    c.check(
+        "docspecs.rootSectionId",
+        schema.root_section_id() == "D00",
+        &schema.root_section_id(),
+    );
+
+    let validator = DocSpecsValidator::new(schema);
+    let cases = read_json("docspecs_cases.json");
+    let mut covered: Vec<String> = Vec::new();
+    for cc in cases.as_array().unwrap() {
+        let name = cc.str_or("name");
+        let got: Vec<(String, String, i64)> = validator
+            .validate_markdown(&cc.str_or("markdown"))
+            .iter()
+            .map(|v| (v.rule.clone(), v.section_id.clone(), v.line as i64))
+            .collect();
+        let mut want: Vec<(String, String, i64)> = Vec::new();
+        if let Some(arr) = cc.get("violations").and_then(|v| v.as_array()) {
+            for v in arr {
+                let rule = v.str_or("rule");
+                covered.push(rule.clone());
+                want.push((
+                    rule,
+                    v.str_or("sectionId"),
+                    v.get("line").and_then(|l| l.as_i64()).unwrap_or(-1),
+                ));
+            }
+        }
+        c.check(
+            &format!("docspecs[{}]", name),
+            got == want,
+            &format!("{:?} != {:?}", got, want),
+        );
+    }
+
+    let uncovered: Vec<&str> = DOCSPECS_ALL_RULES
+        .iter()
+        .copied()
+        .filter(|r| !covered.iter().any(|got| got == r))
+        .collect();
+    c.check(
+        "docspecs.ruleCoverage",
+        uncovered.is_empty(),
+        &format!("uncovered: {:?}", uncovered),
+    );
 }
 
 fn test_operations(c: &mut Checker) {

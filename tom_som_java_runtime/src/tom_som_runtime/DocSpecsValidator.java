@@ -164,6 +164,9 @@ public final class DocSpecsValidator {
       counts.merge(childType.name, 1, Integer::sum);
       validateSection(child, childType, v);
     }
+    // The offending section is the CONTAINER, not the absent child: a
+    // cardinality breach has no child occurrence to point at, and `subKey` is a
+    // schema type name, not a section id. Dart is the golden reference here.
     for (Map.Entry<String, DocSpecsSubsectionRule> entry : t.subsectionTypes.entrySet()) {
       String subKey = entry.getKey();
       DocSpecsSubsectionRule rule = entry.getValue();
@@ -175,7 +178,7 @@ public final class DocSpecsValidator {
                   DocSpecsViolation.RULE_MISSING_REQUIRED_SECTION,
                   section.line,
                   "required subsection \"" + subKey + "\" of \"" + t.name + "\" is missing",
-                  subKey));
+                  section.id));
         } else {
           v.add(
               new DocSpecsViolation(
@@ -187,7 +190,7 @@ public final class DocSpecsValidator {
                       + count
                       + " time(s), minimum is "
                       + rule.minCount,
-                  subKey));
+                  section.id));
         }
       }
       if (rule.maxCount != null && count > rule.maxCount) {
@@ -201,7 +204,7 @@ public final class DocSpecsValidator {
                     + count
                     + " time(s), maximum is "
                     + rule.maxCount,
-                subKey));
+                section.id));
       }
     }
   }

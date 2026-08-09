@@ -1180,6 +1180,24 @@ conformance test therefore derives the covered set from the committed
 **adding an enum constant is itself the act that demands its corpus case**. A
 tenth code cannot be shipped in one language and skipped in eight.
 
+**The same holds for the §14 DocSpecs tier**, whose eleven
+`DocSpecsViolationRule` constants are a *separate* vocabulary from
+`SpecValidationCode`. `corpus/docspecs_schema.yaml` is the shared schema input —
+one schema whose features exist to provoke all eleven rules — and
+`corpus/docspecs_cases.json` carries one case per rule: the invalid markdown
+plus the `rule` / `sectionId` / `line` triples the Dart reference produces. Two
+consequences of §14 naming Dart as the golden reference: the expectations are
+**computed** by that reference rather than hand-transcribed, and `message` is
+deliberately **not** pinned — it is prose, and fixing it across nine languages
+would make a reword a nine-package change for no contractual gain. Each
+runtime's coverage gate reads its own rule vocabulary (an enum where the
+language has one, an enumerable `…AllRules` declaration in the runtime where it
+does not), never a hand-kept list in the test.
+
+The golden's `docspecs` section validates a **valid** sample, so it can never
+substitute for this table: it reports a root id and two zeroes, which nine
+runtimes will agree on whatever their rule implementations do or do not do.
+
 ### 19.1 Running everything: the two cross-language drivers
 
 The golden logs are only one of the two cross-language checks, and each has a

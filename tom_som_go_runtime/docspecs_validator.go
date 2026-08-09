@@ -42,6 +42,24 @@ const (
 	DocSpecsRuleMalformedHeading       = "malformedHeading"
 )
 
+// DocSpecsAllRules is the complete §14 vocabulary, in declaration order — the
+// enumerable form of what Dart gets for free from its enum. The conformance
+// runner diffs it against the rules the shared corpus exercises, so a rule
+// added here without a corpus case fails the suite instead of going unnoticed.
+var DocSpecsAllRules = []string{
+	DocSpecsRuleUnknownSection,
+	DocSpecsRuleMissingRequiredSection,
+	DocSpecsRuleIDPatternMismatch,
+	DocSpecsRuleTooFewItems,
+	DocSpecsRuleTooManyItems,
+	DocSpecsRuleMissingRequiredField,
+	DocSpecsRuleFieldPatternMismatch,
+	DocSpecsRuleTextRequired,
+	DocSpecsRuleTextLengthOut,
+	DocSpecsRuleFormatMismatch,
+	DocSpecsRuleMalformedHeading,
+}
+
 // DocSpecsViolation is one validation finding.
 type DocSpecsViolation struct {
 	Rule      string
@@ -660,6 +678,9 @@ func (val *DocSpecsValidator) validateSection(
 		counts[childType.Name]++
 		v = val.validateSection(child, childType, v)
 	}
+	// The offending section is the CONTAINER, not the absent child: a
+	// cardinality breach has no child occurrence to point at, and `subKey` is a
+	// schema type name, not a section id. Dart is the golden reference here.
 	for _, subKey := range t.subsectionOrder {
 		rule := t.SubsectionTypes[subKey]
 		count := counts[subKey]
@@ -670,7 +691,7 @@ func (val *DocSpecsValidator) validateSection(
 					Line: section.Line,
 					Message: "required subsection \"" + subKey + "\" of \"" +
 						t.Name + "\" is missing",
-					SectionID: subKey,
+					SectionID: section.ID,
 				})
 			} else {
 				v = append(v, &DocSpecsViolation{
@@ -678,7 +699,7 @@ func (val *DocSpecsValidator) validateSection(
 					Line: section.Line,
 					Message: "subsection \"" + subKey + "\" occurs " + itoa(count) +
 						" time(s), minimum is " + itoa(rule.MinCount),
-					SectionID: subKey,
+					SectionID: section.ID,
 				})
 			}
 		}
@@ -688,7 +709,7 @@ func (val *DocSpecsValidator) validateSection(
 				Line: section.Line,
 				Message: "subsection \"" + subKey + "\" occurs " + itoa(count) +
 					" time(s), maximum is " + itoa(*rule.MaxCount),
-				SectionID: subKey,
+				SectionID: section.ID,
 			})
 		}
 	}

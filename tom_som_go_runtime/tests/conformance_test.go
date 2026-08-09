@@ -13,7 +13,8 @@
 //     preserves the stamp;
 //   - reflection resolution cases;
 //   - validation cases;
-//   - the imperative operations script.
+//   - the imperative operations script;
+//   - the SOM §14 DocSpecs tier (one case per violation rule).
 //
 // `go test ./tests/` is the native runner; exit 0 == all green.
 package tests
@@ -196,6 +197,7 @@ func TestConformance(t *testing.T) {
 	testOperations(c, t)
 	testSectionId(c, t)
 	testSerializationOrder(c, t)
+	testDocSpecs(c, t)
 
 	c.finish()
 }
@@ -523,6 +525,62 @@ func testValidation(c *checker, t *testing.T, model *som.SpecModel) {
 	}
 }
 
+// --- DocSpecs-tier conformance (SOM §14) ------------------------------------
+
+type docSpecsViolationCase struct {
+	Rule string `json:"rule"`
+	// SectionID is null in the corpus when the violation has no section to
+	// point at; Go's zero value "" is this port's stand-in for that null, which
+	// is what the runtime itself emits.
+	SectionID string `json:"sectionId"`
+	Line      int    `json:"line"`
+}
+
+type docSpecsCase struct {
+	Name       string                  `json:"name"`
+	Markdown   string                  `json:"markdown"`
+	Violations []docSpecsViolationCase `json:"violations"`
+}
+
+// testDocSpecs replays the shared DocSpecs corpus: one schema, one case per
+// §14 rule. Matching the Dart reference's rule/sectionId/line triples is what
+// proves this port *implements* each rule rather than merely declaring its
+// name — a rule with no case is invisible, not weakly covered.
+func testDocSpecs(c *checker, t *testing.T) {
+	schema, err := som.DocSpecsSchemaFromYamlText(readCorpus(t, "docspecs_schema.yaml"))
+	if err != nil {
+		t.Fatalf("docspecs schema: %v", err)
+	}
+	c.check("docspecs.schemaWarnings", len(schema.Warnings) == 0, join(schema.Warnings))
+	c.check("docspecs.rootSectionId", schema.RootSectionID() == "D00", schema.RootSectionID())
+
+	validator := som.NewDocSpecsValidator(schema)
+	var cases []docSpecsCase
+	readJSON(t, "docspecs_cases.json", &cases)
+	covered := map[string]bool{}
+	for _, cc := range cases {
+		var got [][3]string
+		for _, v := range validator.ValidateMarkdown(cc.Markdown) {
+			got = append(got, [3]string{v.Rule, v.SectionID, itoa(v.Line)})
+		}
+		var want [][3]string
+		for _, v := range cc.Violations {
+			want = append(want, [3]string{v.Rule, v.SectionID, itoa(v.Line)})
+			covered[v.Rule] = true
+		}
+		c.check("docspecs["+cc.Name+"]", triplesEq(got, want),
+			canonJSON(t, got)+" != "+canonJSON(t, want))
+	}
+
+	var uncovered []string
+	for _, rule := range som.DocSpecsAllRules {
+		if !covered[rule] {
+			uncovered = append(uncovered, rule)
+		}
+	}
+	c.check("docspecs.ruleCoverage", len(uncovered) == 0, "uncovered: "+join(uncovered))
+}
+
 type opCase struct {
 	Op       string          `json:"op"`
 	Expect   json.RawMessage `json:"expect"`
@@ -743,6 +801,18 @@ func sliceEq(a, b []string) bool {
 }
 
 func pairsEq(a, b [][2]string) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	for i := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+	return true
+}
+
+func triplesEq(a, b [][3]string) bool {
 	if len(a) != len(b) {
 		return false
 	}

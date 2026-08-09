@@ -23,6 +23,26 @@ public final class DocSpecsViolation {
   public static final String RULE_FORMAT_MISMATCH = "formatMismatch";
   public static final String RULE_MALFORMED_HEADING = "malformedHeading";
 
+  /**
+   * The complete §14 vocabulary, in declaration order — the enumerable form of
+   * what Dart gets for free from its enum. The conformance runner diffs it
+   * against the rules the shared corpus exercises, so a rule added here without
+   * a corpus case fails the suite instead of going unnoticed.
+   */
+  public static final String[] ALL_RULES = {
+    RULE_UNKNOWN_SECTION,
+    RULE_MISSING_REQUIRED_SECTION,
+    RULE_ID_PATTERN_MISMATCH,
+    RULE_TOO_FEW_ITEMS,
+    RULE_TOO_MANY_ITEMS,
+    RULE_MISSING_REQUIRED_FIELD,
+    RULE_FIELD_PATTERN_MISMATCH,
+    RULE_TEXT_REQUIRED,
+    RULE_TEXT_LENGTH_OUT,
+    RULE_FORMAT_MISMATCH,
+    RULE_MALFORMED_HEADING,
+  };
+
   public final String rule;
   public final int line;
   public final String message;

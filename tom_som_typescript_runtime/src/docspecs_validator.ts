@@ -708,6 +708,9 @@ export class DocSpecsValidator {
       counts[childType.name] = (counts[childType.name] || 0) + 1;
       this._validateSection(child, childType, v);
     }
+    // The offending section is the CONTAINER, not the absent child: a
+    // cardinality breach has no child occurrence to point at, and `subKey` is
+    // a schema type name, not a section id. Dart is the golden reference here.
     for (const [subKey, rule] of Object.entries(type.subsectionTypes)) {
       const count = counts[subKey] || 0;
       if (count < rule.minCount) {
@@ -717,7 +720,7 @@ export class DocSpecsValidator {
               DocSpecsViolationRule.MISSING_REQUIRED_SECTION,
               section.line,
               `required subsection "${subKey}" of "${type.name}" is missing`,
-              subKey,
+              section.id,
             ),
           );
         } else {
@@ -726,7 +729,7 @@ export class DocSpecsValidator {
               DocSpecsViolationRule.TOO_FEW_ITEMS,
               section.line,
               `subsection "${subKey}" occurs ${count} time(s), minimum is ${rule.minCount}`,
-              subKey,
+              section.id,
             ),
           );
         }
@@ -737,7 +740,7 @@ export class DocSpecsValidator {
             DocSpecsViolationRule.TOO_MANY_ITEMS,
             section.line,
             `subsection "${subKey}" occurs ${count} time(s), maximum is ${rule.maxCount}`,
-            subKey,
+            section.id,
           ),
         );
       }

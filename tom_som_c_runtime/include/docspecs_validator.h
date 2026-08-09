@@ -46,6 +46,13 @@
 #define DOCSPECS_RULE_FORMAT_MISMATCH "formatMismatch"
 #define DOCSPECS_RULE_MALFORMED_HEADING "malformedHeading"
 
+/* The complete §14 vocabulary, in declaration order — the enumerable form of
+ * what Dart gets for free from its enum. The conformance runner diffs it
+ * against the rules the shared corpus exercises, so a rule added here without a
+ * corpus case fails the suite instead of going unnoticed. */
+#define DOCSPECS_ALL_RULES_COUNT 11
+extern const char *const DOCSPECS_ALL_RULES[DOCSPECS_ALL_RULES_COUNT];
+
 /* ---- violation ----------------------------------------------------------- */
 
 /* DocSpecsViolation is one validation finding. `section_id` / `path` are ""

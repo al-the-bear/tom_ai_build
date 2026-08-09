@@ -57,6 +57,24 @@ pub const DOCSPECS_RULE_FORMAT_MISMATCH: &str = "formatMismatch";
 /// A heading without a `<!--[SECTION-ID]-->` headline comment.
 pub const DOCSPECS_RULE_MALFORMED_HEADING: &str = "malformedHeading";
 
+/// The complete §14 vocabulary, in declaration order — the enumerable form of
+/// what Dart gets for free from its enum. The conformance runner diffs it
+/// against the rules the shared corpus exercises, so a rule added here without
+/// a corpus case fails the suite instead of going unnoticed.
+pub const DOCSPECS_ALL_RULES: [&str; 11] = [
+    DOCSPECS_RULE_UNKNOWN_SECTION,
+    DOCSPECS_RULE_MISSING_REQUIRED_SECTION,
+    DOCSPECS_RULE_ID_PATTERN_MISMATCH,
+    DOCSPECS_RULE_TOO_FEW_ITEMS,
+    DOCSPECS_RULE_TOO_MANY_ITEMS,
+    DOCSPECS_RULE_MISSING_REQUIRED_FIELD,
+    DOCSPECS_RULE_FIELD_PATTERN_MISMATCH,
+    DOCSPECS_RULE_TEXT_REQUIRED,
+    DOCSPECS_RULE_TEXT_LENGTH_OUT,
+    DOCSPECS_RULE_FORMAT_MISMATCH,
+    DOCSPECS_RULE_MALFORMED_HEADING,
+];
+
 /// One validation finding.
 #[derive(Debug, Clone)]
 pub struct DocSpecsViolation {
@@ -826,6 +844,9 @@ impl DocSpecsValidator {
             *counts.entry(child_type.name.clone()).or_insert(0) += 1;
             self.validate_section(child, child_type, v);
         }
+        // The offending section is the CONTAINER, not the absent child: a
+        // cardinality breach has no child occurrence to point at, and `sub_key`
+        // is a schema type name, not a section id. Dart is the golden reference.
         for (sub_key, rule) in &t.subsection_types {
             let count = counts.get(sub_key).copied().unwrap_or(0);
             if count < rule.min_count {
@@ -837,7 +858,7 @@ impl DocSpecsValidator {
                             "required subsection \"{}\" of \"{}\" is missing",
                             sub_key, t.name
                         ),
-                        section_id: sub_key.clone(),
+                        section_id: section.id.clone(),
                         path: String::new(),
                     });
                 } else {
@@ -848,7 +869,7 @@ impl DocSpecsValidator {
                             "subsection \"{}\" occurs {} time(s), minimum is {}",
                             sub_key, count, rule.min_count
                         ),
-                        section_id: sub_key.clone(),
+                        section_id: section.id.clone(),
                         path: String::new(),
                     });
                 }
@@ -862,7 +883,7 @@ impl DocSpecsValidator {
                             "subsection \"{}\" occurs {} time(s), maximum is {}",
                             sub_key, count, max
                         ),
-                        section_id: sub_key.clone(),
+                        section_id: section.id.clone(),
                         path: String::new(),
                     });
                 }

@@ -17,7 +17,8 @@
  *     lands the same memory as `state.json`;
  *   * reflection resolution cases;
  *   * validation cases;
- *   * the imperative operations script.
+ *   * the imperative operations script;
+ *   * the SOM §14 DocSpecs tier (schema load + one violation case per rule).
  *
  * Run with: `node tests/conformance_runner.js`. Exit code 0 == all green.
  */
@@ -33,6 +34,9 @@ const _CORPUS = path.normalize(
 
 const {
   DEFAULT_MAX_SNAPSHOT_AGE_MS,
+  DocSpecsSchema,
+  DocSpecsValidator,
+  DocSpecsViolationRule,
   SpecDocument,
   SpecDocumentMarkdown,
   SpecModel,
@@ -497,6 +501,38 @@ function testSerializationOrder() {
   );
 }
 
+/**
+ * The SOM §14 DocSpecs tier: one shared schema, one case per rule.
+ *
+ * The corpus carries the rule/sectionId/line triples the Dart reference
+ * produces; matching them is what proves this port implements each rule at
+ * all, rather than merely declaring its name.
+ */
+function testDocSpecs() {
+  const schema = DocSpecsSchema.fromYamlText(_read('docspecs_schema.yaml'));
+  _check('docspecs.schemaWarnings', schema.warnings.length === 0,
+    String(schema.warnings));
+  _check('docspecs.rootSectionId', schema.rootSectionId === 'D00');
+  const validator = new DocSpecsValidator(schema);
+  const covered = new Set();
+  for (const c of _readJson('docspecs_cases.json')) {
+    const got = validator
+      .validateMarkdown(c.markdown)
+      .map((v) => [v.rule, v.sectionId, v.line]);
+    const want = c.violations.map((v) => [v.rule, v.sectionId, v.line]);
+    _check(`docspecs[${c.name}]`, _deepEqual(got, want),
+      `${JSON.stringify(got)} != ${JSON.stringify(want)}`);
+    for (const v of c.violations) {
+      covered.add(v.rule);
+    }
+  }
+  const uncovered = Object.values(DocSpecsViolationRule)
+    .filter((r) => !covered.has(r))
+    .sort();
+  _check('docspecs.ruleCoverage', uncovered.length === 0,
+    `uncovered: ${uncovered}`);
+}
+
 function main() {
   if (!fs.existsSync(_CORPUS) || !fs.statSync(_CORPUS).isDirectory()) {
     process.stderr.write(`corpus not found at ${_CORPUS}\n`);
@@ -517,6 +553,7 @@ function main() {
   testOperations();
   testSectionId();
   testSerializationOrder();
+  testDocSpecs();
 
   const total = _passed + _failed.length;
   if (_failed.length > 0) {

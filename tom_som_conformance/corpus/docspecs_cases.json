@@ -1,0 +1,182 @@
+[
+  {
+    "name": "valid",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": []
+  },
+  {
+    "name": "unknownSection-unresolvableId",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[XYZ-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "unknownSection",
+        "sectionId": "XYZ-2",
+        "line": 21
+      }
+    ]
+  },
+  {
+    "name": "unknownSection-disallowedPosition",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[DIAG]--> Diagram\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "unknownSection",
+        "sectionId": "DIAG",
+        "line": 21
+      }
+    ]
+  },
+  {
+    "name": "missingRequiredSection-documentSlot",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "missingRequiredSection",
+        "sectionId": "d00-ovr",
+        "line": 2
+      }
+    ]
+  },
+  {
+    "name": "missingRequiredSection-subsection",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\nGoals prose but no goal items.\n",
+    "violations": [
+      {
+        "rule": "missingRequiredSection",
+        "sectionId": "GOALS",
+        "line": 15
+      }
+    ]
+  },
+  {
+    "name": "idPatternMismatch",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-B]--> Goal 2\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "idPatternMismatch",
+        "sectionId": "GOAL-ITEM-B",
+        "line": 21
+      }
+    ]
+  },
+  {
+    "name": "tooFewItems",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[STEPS]--> Steps\n\n### <!--[STEP-1]--> Step one\n\nOnly one step.\n",
+    "violations": [
+      {
+        "rule": "tooFewItems",
+        "sectionId": "STEPS",
+        "line": 25
+      }
+    ]
+  },
+  {
+    "name": "tooManyItems",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n### <!--[GSUM]--> Summary\n\nOne.\n\n### <!--[GSUM]--> Summary\n\nTwo.\n",
+    "violations": [
+      {
+        "rule": "tooManyItems",
+        "sectionId": "GOALS",
+        "line": 15
+      }
+    ]
+  },
+  {
+    "name": "missingRequiredField",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "missingRequiredField",
+        "sectionId": "D00-HDR",
+        "line": 10
+      }
+    ]
+  },
+  {
+    "name": "fieldPatternMismatch",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "fieldPatternMismatch",
+        "sectionId": "D00-HDR",
+        "line": 13
+      }
+    ]
+  },
+  {
+    "name": "textRequired",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "textRequired",
+        "sectionId": "D00-OVR",
+        "line": 6
+      }
+    ]
+  },
+  {
+    "name": "textLengthOut",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n### <!--[GSUM]--> Summary\n\nA goals summary far longer than the twenty characters allowed.\n",
+    "violations": [
+      {
+        "rule": "textLengthOut",
+        "sectionId": "GSUM",
+        "line": 25
+      }
+    ]
+  },
+  {
+    "name": "formatMismatch-rootId",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D99]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "formatMismatch",
+        "sectionId": "D99",
+        "line": 2
+      }
+    ]
+  },
+  {
+    "name": "formatMismatch-missingFence",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## <!--[DIAG]--> Diagram\n\nno fence here\n",
+    "violations": [
+      {
+        "rule": "formatMismatch",
+        "sectionId": "DIAG",
+        "line": 25
+      }
+    ]
+  },
+  {
+    "name": "malformedHeading",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nAuthor: Alice\nReviewer: Bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n\n## Plain Heading With No Comment\n\nBody.\n",
+    "violations": [
+      {
+        "rule": "malformedHeading",
+        "sectionId": null,
+        "line": 25
+      }
+    ]
+  },
+  {
+    "name": "multipleViolations-neverFailFast",
+    "markdown": "<!-- docspec: demo-document/1.0 -->\n# <!--[D00]--> Demo Document\n\nIntro text.\n\n## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n## <!--[D00-HDR]--> Header\n\nReviewer: bob\n\n## <!--[GOALS]--> Goals\n\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n\n### <!--[GOAL-ITEM-B]--> Goal 2\n\nSecond goal.\n",
+    "violations": [
+      {
+        "rule": "missingRequiredField",
+        "sectionId": "D00-HDR",
+        "line": 10
+      },
+      {
+        "rule": "fieldPatternMismatch",
+        "sectionId": "D00-HDR",
+        "line": 12
+      },
+      {
+        "rule": "idPatternMismatch",
+        "sectionId": "GOAL-ITEM-B",
+        "line": 20
+      }
+    ]
+  }
+]

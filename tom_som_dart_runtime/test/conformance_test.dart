@@ -44,6 +44,7 @@ void main() {
   final sectionIdCases = _sectionIdCases();
   final serializationOrderCase = _serializationOrderCase();
   final stampCases = _stampCases();
+  final docSpecsCases = _docSpecsCases();
 
   setUpAll(() {
     if (!update) return;
@@ -63,6 +64,8 @@ void main() {
     write('serialization_order_cases.json',
         '${enc.convert(serializationOrderCase)}\n');
     write('stamp_cases.json', '${enc.convert(stampCases)}\n');
+    write('docspecs_schema.yaml', _docSpecsSchemaYaml);
+    write('docspecs_cases.json', '${enc.convert(docSpecsCases)}\n');
   });
 
   String read(String name) =>
@@ -522,6 +525,72 @@ void main() {
         order.orderFormFields(
             c['formPath'] as String, (c['formFields'] as List).cast<String>()),
         (c['expectedFormOrder'] as List).cast<String>());
+  });
+
+  group('docspecs_cases.json (the SOM §14 DocSpecs tier)', () {
+    DocSpecsValidator committedValidator() =>
+        DocSpecsValidator(DocSpecsSchema.fromYamlText(
+            read('docspecs_schema.yaml')));
+
+    List<Map<String, dynamic>> committedCases() =>
+        (jsonDecode(read('docspecs_cases.json')) as List)
+            .cast<Map<String, dynamic>>();
+
+    test('the committed schema loads with no unsupported features', () {
+      // The schema is a corpus *input*: if a port's loader drops a feature the
+      // cases depend on, the case expectations below would pass vacuously. So
+      // pin the load itself — root id, warning-freedom, and the four features
+      // the cases exercise beyond the plain section tree.
+      final schema =
+          DocSpecsSchema.fromYamlText(read('docspecs_schema.yaml'));
+      expect(schema.warnings, isEmpty);
+      expect(schema.rootSectionId, 'D00');
+      expect(schema.sectionTypesByName['gsum']!.maxTextLength, 20);
+      expect(schema.sectionTypesByName['d00-ovr']!.textRequired, isTrue);
+      expect(schema.sectionTypesByName['steps']!.subsectionTypes['step']!
+          .minCount, 2);
+      expect(schema.formTypes['header-form']!.fields.first.required, isTrue);
+    });
+
+    test('cases match the committed rule/sectionId/line expectations', () {
+      final validator = committedValidator();
+      for (final c in committedCases()) {
+        final got = validator
+            .validateMarkdown(c['markdown'] as String)
+            .map((v) => {
+                  'rule': v.rule.name,
+                  'sectionId': v.sectionId,
+                  'line': v.line,
+                })
+            .toList();
+        expect(got, c['violations'], reason: 'docspecs ${c['name']}');
+      }
+    });
+
+    test('every DocSpecs rule the reference runtime declares has a corpus case',
+        () {
+      // The same recurrence guard the instance tier carries (see the
+      // validation-code test above), one tier up. Before this table existed
+      // the §14 golden read three lines off a *valid* sample — root id,
+      // 0 warnings, 0 violations — so all eleven rules were unexercised and
+      // the nine goldens agreed byte-for-byte about a question none of them
+      // had been asked. Deriving the covered set from
+      // `DocSpecsViolationRule.values` makes adding a rule the very act that
+      // demands its case, in all nine runtimes at once.
+      final covered = <String>{
+        for (final c in committedCases())
+          for (final v in (c['violations'] as List).cast<Map<String, dynamic>>())
+            v['rule'] as String,
+      };
+      final uncovered = DocSpecsViolationRule.values
+          .map((r) => r.name)
+          .where((name) => !covered.contains(name))
+          .toList();
+      expect(uncovered, isEmpty,
+          reason: 'docspecs_cases.json exercises no case producing '
+              '${uncovered.join(', ')} — add one (and implement the rule in '
+              'all nine runtimes) rather than shipping a Dart-only rule');
+    });
   });
 }
 
@@ -1862,4 +1931,199 @@ Map<String, dynamic> _serializationOrderCase() {
     'formFields': formFields,
     'expectedFormOrder': order.orderFormFields('DEMO/HEAD', formFields),
   };
+}
+
+// --- The SOM §14 DocSpecs tier ----------------------------------------------
+
+/// The corpus schema for the DocSpecs tier — hand-authored in the
+/// schema-generator output shape (SOM §13), deliberately small and shaped so a
+/// single schema can provoke every one of the eleven §14 rules.
+///
+/// It is a *fixture input*, not a golden: the ports load this exact YAML and
+/// must reach the same verdicts on the same markdown. The `pattern-check-id`
+/// here uses `[0-9]+`, stricter than the `.+` stem check the generator emits,
+/// because the cases exercise the regex *mechanism* — the validator is
+/// regex-agnostic and any authored pattern is legal in a schema.
+///
+/// What each feature is here for: `text-required` (textRequired),
+/// `max-text-length` (textLengthOut), `pattern-check-id` (idPatternMismatch),
+/// `subsection-types` cardinality — `goals`/`goal-item` min 1 for
+/// missingRequiredSection, `steps`/`step` min 2 for tooFewItems, `gsum` max 1
+/// for tooManyItems — a form-type with a required field and a field
+/// pattern-check (missingRequiredField, fieldPatternMismatch), and a non-form
+/// `format` (formatMismatch, alongside the `title-format` root-id check).
+const _docSpecsSchemaYaml = '''
+title-format: "# <!--[D00]--> Demo Document"
+section-types:
+  goal-item:
+    prefix: GOAL_ITEM_
+    pattern-check-id:
+      pattern: "^GOAL-ITEM-[0-9]+\$"
+      error-message: IDs of this section must match GOAL-ITEM-xxx
+  d00-ovr:
+    prefix: D00_OVR
+    text-required: true
+  d00-hdr:
+    prefix: D00_HDR
+    format: header-form
+  gsum:
+    prefix: GSUM
+    max-text-length: 20
+  diag:
+    prefix: DIAG
+    format: mermaid
+  step:
+    prefix: STEP_
+  steps:
+    prefix: STEPS
+    subsection-types:
+      step:
+        min-count: 2
+        max-count: infinite
+  goals:
+    prefix: GOALS
+    subsection-types:
+      goal-item:
+        min-count: 1
+        max-count: infinite
+      gsum:
+        max-count: 1
+form-types:
+  header-form:
+    fields:
+      - fieldname: author
+        required: true
+      - fieldname: reviewer
+        pattern-check:
+          pattern: "^[A-Z]"
+          error-message: Reviewer must start with an uppercase letter
+document:
+  sections:
+    d00-ovr:
+      section-type: d00-ovr
+    d00-hdr:
+      section-type: d00-hdr
+      optional: true
+    goals:
+      section-type: goals
+      optional: true
+    steps:
+      section-type: steps
+      optional: true
+    diag:
+      section-type: diag
+      optional: true
+''';
+
+/// The clean document every violation case is a minimal edit of. Keeping one
+/// base means each case's expected line numbers stay legible: the edit and the
+/// reported line are visibly the same place.
+const _docSpecsValidDoc = '''
+<!-- docspec: demo-document/1.0 -->
+# <!--[D00]--> Demo Document
+
+Intro text.
+
+## <!--[D00-OVR]--> Overview
+
+Some overview text.
+
+## <!--[D00-HDR]--> Header
+
+Author: Alice
+Reviewer: Bob
+
+## <!--[GOALS]--> Goals
+
+### <!--[GOAL-ITEM-1]--> Goal 1
+
+First goal.
+
+### <!--[GOAL-ITEM-2]--> Goal 2
+
+Second goal.
+''';
+
+/// The hand-authored markdown inputs, one per named case. Every one of the
+/// eleven §14 rules is provoked by at least one of these; the final case
+/// provokes three at once, pinning the "never fail-fast" contract as a
+/// cross-language obligation rather than a Dart-only unit test.
+List<Map<String, String>> _docSpecsMarkdownCases() {
+  Map<String, String> c(String name, String markdown) =>
+      {'name': name, 'markdown': markdown};
+  return [
+    c('valid', _docSpecsValidDoc),
+    c(
+        'unknownSection-unresolvableId',
+        _docSpecsValidDoc.replaceFirst(
+            '### <!--[GOAL-ITEM-2]--> Goal 2', '### <!--[XYZ-2]--> Goal 2')),
+    c(
+        'unknownSection-disallowedPosition',
+        _docSpecsValidDoc.replaceFirst(
+            '### <!--[GOAL-ITEM-2]--> Goal 2', '### <!--[DIAG]--> Diagram')),
+    c(
+        'missingRequiredSection-documentSlot',
+        _docSpecsValidDoc.replaceFirst(
+            '## <!--[D00-OVR]--> Overview\n\nSome overview text.\n\n', '')),
+    c(
+        'missingRequiredSection-subsection',
+        _docSpecsValidDoc.replaceFirst(
+            '\n### <!--[GOAL-ITEM-1]--> Goal 1\n\nFirst goal.\n'
+            '\n### <!--[GOAL-ITEM-2]--> Goal 2\n\nSecond goal.\n',
+            '\nGoals prose but no goal items.\n')),
+    c('idPatternMismatch',
+        _docSpecsValidDoc.replaceFirst('GOAL-ITEM-2', 'GOAL-ITEM-B')),
+    c('tooFewItems',
+        '$_docSpecsValidDoc\n## <!--[STEPS]--> Steps\n\n'
+            '### <!--[STEP-1]--> Step one\n\nOnly one step.\n'),
+    c(
+        'tooManyItems',
+        '$_docSpecsValidDoc\n### <!--[GSUM]--> Summary\n\nOne.\n'
+            '\n### <!--[GSUM]--> Summary\n\nTwo.\n'),
+    c('missingRequiredField',
+        _docSpecsValidDoc.replaceFirst('Author: Alice\n', '')),
+    c('fieldPatternMismatch',
+        _docSpecsValidDoc.replaceFirst('Reviewer: Bob', 'Reviewer: bob')),
+    c('textRequired',
+        _docSpecsValidDoc.replaceFirst('Some overview text.\n\n', '')),
+    c(
+        'textLengthOut',
+        '$_docSpecsValidDoc\n### <!--[GSUM]--> Summary\n\n'
+            'A goals summary far longer than the twenty characters allowed.\n'),
+    c('formatMismatch-rootId',
+        _docSpecsValidDoc.replaceFirst('# <!--[D00]-->', '# <!--[D99]-->')),
+    c('formatMismatch-missingFence',
+        '$_docSpecsValidDoc\n## <!--[DIAG]--> Diagram\n\nno fence here\n'),
+    c('malformedHeading',
+        '$_docSpecsValidDoc\n## Plain Heading With No Comment\n\nBody.\n'),
+    c(
+        'multipleViolations-neverFailFast',
+        _docSpecsValidDoc
+            .replaceFirst('Author: Alice\n', '')
+            .replaceFirst('Reviewer: Bob', 'Reviewer: bob')
+            .replaceFirst('GOAL-ITEM-2', 'GOAL-ITEM-B')),
+  ];
+}
+
+/// The DocSpecs corpus table: the hand-authored markdown plus the violation
+/// list the *reference* implementation produces for it. SOM §14 names the Dart
+/// rule/sectionId/line triples as the golden reference, so the expectations are
+/// computed rather than transcribed — a hand-typed line number would only be a
+/// second, drift-prone source of truth. The message text is deliberately not
+/// carried: it is prose, and pinning it across nine languages would make
+/// rewording a nine-package change for no contractual gain.
+List<Map<String, Object?>> _docSpecsCases() {
+  final validator =
+      DocSpecsValidator(DocSpecsSchema.fromYamlText(_docSpecsSchemaYaml));
+  return [
+    for (final c in _docSpecsMarkdownCases())
+      {
+        'name': c['name'],
+        'markdown': c['markdown'],
+        'violations': [
+          for (final v in validator.validateMarkdown(c['markdown']!))
+            {'rule': v.rule.name, 'sectionId': v.sectionId, 'line': v.line},
+        ],
+      },
+  ];
 }

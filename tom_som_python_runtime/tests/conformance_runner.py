@@ -14,7 +14,8 @@ golden byte-for-byte and matches every behavioural case:
   * Markdown parse → memory → export is clean + byte-stable;
   * reflection resolution cases;
   * validation cases;
-  * the imperative operations script.
+  * the imperative operations script;
+  * the SOM §14 DocSpecs tier (schema load + one violation case per rule).
 
 Run with: ``python3 tests/conformance_runner.py``. Exit code 0 == all green.
 """
@@ -36,6 +37,9 @@ sys.path.insert(0, _PKG_ROOT)
 
 from tom_som_runtime import (  # noqa: E402
     DEFAULT_MAX_SNAPSHOT_AGE,
+    DocSpecsSchema,
+    DocSpecsValidator,
+    DocSpecsViolationRule,
     SpecDocument,
     SpecDocumentMarkdown,
     SpecModel,
@@ -436,6 +440,33 @@ def test_stamp(model: SpecModel) -> None:
         )
 
 
+def test_docspecs() -> None:
+    """The SOM §14 DocSpecs tier: one shared schema, one case per rule.
+
+    The corpus carries the rule/sectionId/line triples the Dart reference
+    produces; matching them is what proves this port implements each rule at
+    all, rather than merely declaring its name.
+    """
+    schema = DocSpecsSchema.from_yaml_text(_read("docspecs_schema.yaml"))
+    _check("docspecs.schemaWarnings", schema.warnings == [], str(schema.warnings))
+    _check("docspecs.rootSectionId", schema.root_section_id == "D00")
+    validator = DocSpecsValidator(schema)
+    covered: set[str] = set()
+    for case in _read_json("docspecs_cases.json"):
+        name = case["name"]
+        got = [
+            (v.rule.value, v.section_id, v.line)
+            for v in validator.validate_markdown(case["markdown"])
+        ]
+        want = [(v["rule"], v["sectionId"], v["line"]) for v in case["violations"]]
+        _check(f"docspecs[{name}]", got == want, f"{got} != {want}")
+        covered.update(v["rule"] for v in case["violations"])
+    uncovered = sorted(
+        r.value for r in DocSpecsViolationRule if r.value not in covered
+    )
+    _check("docspecs.ruleCoverage", not uncovered, f"uncovered: {uncovered}")
+
+
 def main() -> int:
     if not os.path.isdir(_CORPUS):
         print(f"corpus not found at {_CORPUS}", file=sys.stderr)
@@ -455,6 +486,7 @@ def main() -> int:
     test_operations()
     test_section_id()
     test_serialization_order()
+    test_docspecs()
 
     total = _passed + len(_failed)
     if _failed:

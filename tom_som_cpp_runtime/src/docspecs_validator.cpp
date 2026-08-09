@@ -1071,6 +1071,9 @@ void validateSection(const DocSpecsSchema& schema, const DocSpecsSection& sectio
     counts.inc(childType->name);
     validateSection(schema, child, *childType, v);
   }
+  // The offending section is the CONTAINER, not the absent child: a cardinality
+  // breach has no child occurrence to point at, and `subKey` is a schema type
+  // name, not a section id. Dart is the golden reference here.
   for (const auto& rule : t.subsectionTypes) {
     const std::string& subKey = rule.name;
     int count = counts.get(subKey);
@@ -1079,19 +1082,19 @@ void validateSection(const DocSpecsSchema& schema, const DocSpecsSection& sectio
         dvPush(v, kDocSpecsRuleMissingRequiredSection, section.line,
                "required subsection \"" + subKey + "\" of \"" + t.name +
                    "\" is missing",
-               subKey, "");
+               section.id, "");
       } else {
         dvPush(v, kDocSpecsRuleTooFewItems, section.line,
                "subsection \"" + subKey + "\" occurs " + itoa(count) +
                    " time(s), minimum is " + itoa(rule.minCount),
-               subKey, "");
+               section.id, "");
       }
     }
     if (rule.hasMax && count > rule.maxCount) {
       dvPush(v, kDocSpecsRuleTooManyItems, section.line,
              "subsection \"" + subKey + "\" occurs " + itoa(count) +
                  " time(s), maximum is " + itoa(rule.maxCount),
-             subKey, "");
+             section.id, "");
     }
   }
 }

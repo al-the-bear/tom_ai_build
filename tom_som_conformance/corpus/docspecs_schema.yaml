@@ -1,0 +1,60 @@
+title-format: "# <!--[D00]--> Demo Document"
+section-types:
+  goal-item:
+    prefix: GOAL_ITEM_
+    pattern-check-id:
+      pattern: "^GOAL-ITEM-[0-9]+$"
+      error-message: IDs of this section must match GOAL-ITEM-xxx
+  d00-ovr:
+    prefix: D00_OVR
+    text-required: true
+  d00-hdr:
+    prefix: D00_HDR
+    format: header-form
+  gsum:
+    prefix: GSUM
+    max-text-length: 20
+  diag:
+    prefix: DIAG
+    format: mermaid
+  step:
+    prefix: STEP_
+  steps:
+    prefix: STEPS
+    subsection-types:
+      step:
+        min-count: 2
+        max-count: infinite
+  goals:
+    prefix: GOALS
+    subsection-types:
+      goal-item:
+        min-count: 1
+        max-count: infinite
+      gsum:
+        max-count: 1
+form-types:
+  header-form:
+    fields:
+      - fieldname: author
+        required: true
+      - fieldname: reviewer
+        pattern-check:
+          pattern: "^[A-Z]"
+          error-message: Reviewer must start with an uppercase letter
+document:
+  sections:
+    d00-ovr:
+      section-type: d00-ovr
+    d00-hdr:
+      section-type: d00-hdr
+      optional: true
+    goals:
+      section-type: goals
+      optional: true
+    steps:
+      section-type: steps
+      optional: true
+    diag:
+      section-type: diag
+      optional: true

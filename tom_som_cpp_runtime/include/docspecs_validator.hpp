@@ -53,6 +53,24 @@ inline constexpr const char* kDocSpecsRuleTextLengthOut = "textLengthOut";
 inline constexpr const char* kDocSpecsRuleFormatMismatch = "formatMismatch";
 inline constexpr const char* kDocSpecsRuleMalformedHeading = "malformedHeading";
 
+/* The complete §14 vocabulary, in declaration order — the enumerable form of
+ * what Dart gets for free from its enum. The conformance runner diffs it
+ * against the rules the shared corpus exercises, so a rule added here without a
+ * corpus case fails the suite instead of going unnoticed. */
+inline constexpr const char* kDocSpecsAllRules[] = {
+    kDocSpecsRuleUnknownSection,
+    kDocSpecsRuleMissingRequiredSection,
+    kDocSpecsRuleIdPatternMismatch,
+    kDocSpecsRuleTooFewItems,
+    kDocSpecsRuleTooManyItems,
+    kDocSpecsRuleMissingRequiredField,
+    kDocSpecsRuleFieldPatternMismatch,
+    kDocSpecsRuleTextRequired,
+    kDocSpecsRuleTextLengthOut,
+    kDocSpecsRuleFormatMismatch,
+    kDocSpecsRuleMalformedHeading,
+};
+
 /* ---- violation ----------------------------------------------------------- */
 
 /* One validation finding. `sectionId` / `path` are "" when absent. */

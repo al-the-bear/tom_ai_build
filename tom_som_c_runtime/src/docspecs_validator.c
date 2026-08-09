@@ -8,6 +8,20 @@
 
 #include "spec_document_markdown.h"
 
+const char *const DOCSPECS_ALL_RULES[DOCSPECS_ALL_RULES_COUNT] = {
+    DOCSPECS_RULE_UNKNOWN_SECTION,
+    DOCSPECS_RULE_MISSING_REQUIRED_SECTION,
+    DOCSPECS_RULE_ID_PATTERN_MISMATCH,
+    DOCSPECS_RULE_TOO_FEW_ITEMS,
+    DOCSPECS_RULE_TOO_MANY_ITEMS,
+    DOCSPECS_RULE_MISSING_REQUIRED_FIELD,
+    DOCSPECS_RULE_FIELD_PATTERN_MISMATCH,
+    DOCSPECS_RULE_TEXT_REQUIRED,
+    DOCSPECS_RULE_TEXT_LENGTH_OUT,
+    DOCSPECS_RULE_FORMAT_MISMATCH,
+    DOCSPECS_RULE_MALFORMED_HEADING,
+};
+
 /* ---- small helpers ------------------------------------------------------- */
 
 /* vcat — concatenates a NULL-terminated argument list of strings. Owned. */
@@ -1416,6 +1430,9 @@ static void validate_section(const DocSpecsValidator *val,
     count_map_inc(&counts, child_type->name);
     validate_section(val, child, child_type, v);
   }
+  /* The offending section is the CONTAINER, not the absent child: a cardinality
+   * breach has no child occurrence to point at, and `sub_key` is a schema type
+   * name, not a section id. Dart is the golden reference here. */
   for (size_t i = 0; i < t->subsection_types_len; i++) {
     const DocSpecsSubsectionRule *rule = &t->subsection_types[i];
     const char *sub_key = rule->name;
@@ -1425,14 +1442,14 @@ static void validate_section(const DocSpecsValidator *val,
         dv_push(v, DOCSPECS_RULE_MISSING_REQUIRED_SECTION, section->line,
                 vcat("required subsection \"", sub_key, "\" of \"", t->name,
                      "\" is missing", NULL),
-                sub_key, "");
+                section->id, "");
       } else {
         char *cnt = dv_itoa(count);
         char *min = dv_itoa(rule->min_count);
         dv_push(v, DOCSPECS_RULE_TOO_FEW_ITEMS, section->line,
                 vcat("subsection \"", sub_key, "\" occurs ", cnt,
                      " time(s), minimum is ", min, NULL),
-                sub_key, "");
+                section->id, "");
         free(cnt);
         free(min);
       }
@@ -1443,7 +1460,7 @@ static void validate_section(const DocSpecsValidator *val,
       dv_push(v, DOCSPECS_RULE_TOO_MANY_ITEMS, section->line,
               vcat("subsection \"", sub_key, "\" occurs ", cnt,
                    " time(s), maximum is ", max, NULL),
-              sub_key, "");
+              section->id, "");
       free(cnt);
       free(max);
     }

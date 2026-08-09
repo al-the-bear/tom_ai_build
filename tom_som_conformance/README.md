@@ -10,7 +10,7 @@ nine language APIs agree.
 | Path | Purpose |
 | ---- | ------- |
 | `samples/` | The shared specification sample (`meridian_order_management.docspecs.yaml` + `.md`), authored once through the Dart typed facade and loaded by every language. See `samples/README.md`. |
-| `corpus/` | Language-agnostic case tables (section-id, operations, validation, reflection, serialization-order, generation stamp) plus their expected outputs, consumed by each runtime's conformance runner. |
+| `corpus/` | Language-agnostic case tables (section-id, operations, validation, reflection, serialization-order, generation stamp, DocSpecs tier) plus their expected outputs, consumed by each runtime's conformance runner. |
 | `golden/` | Per-language golden logs (`<lang>.log`) written by the nine golden generators. **Git-ignored** — regenerated on demand (see below). |
 | `tool/` | The two cross-language drivers: `regenerate_golden.sh` + `compare_golden.dart` (the golden harness) and `run_all_suites.sh` (the eighteen test suites). |
 
@@ -131,6 +131,40 @@ constant the very act that demands its corpus case. Adding a check is therefore
 one indivisible change, exactly like a format bump: implement it in all nine
 runtimes in the same phase with the same message text, and add the case that
 proves it.
+
+#### …and so does the DocSpecs tier (SOM §14)
+
+The §14 DocSpecs tier is a **second, separate** rule vocabulary — the eleven
+`DocSpecsViolationRule` constants, not the instance tier's
+`SpecValidationCode` — and it is nine-language for the same reason. Its corpus
+is a pair:
+
+| File | Role |
+| ---- | ---- |
+| `corpus/docspecs_schema.yaml` | The shared schema **input** — one schema whose features exist to provoke all eleven rules (a `max-text-length`, a `min-count: 2` container, a required form field with a pattern check, …). |
+| `corpus/docspecs_cases.json` | One case per rule: the invalid markdown plus the `rule` / `sectionId` / `line` triples the reference produces. |
+
+Three things about the table are deliberate:
+
+- **The expectations are computed, not transcribed.** SOM §14 names the Dart
+  triples as the golden reference, so `UPDATE_CORPUS=1` runs the reference
+  validator to produce them. A hand-typed line number would be a second,
+  drift-prone source of truth.
+- **`message` is not carried.** It is prose; pinning it across nine languages
+  would make a reword a nine-package change for no contractual gain.
+- **Each runtime's coverage gate reads its own vocabulary**, never a hand-kept
+  list — Dart and Python from their enum, JavaScript and TypeScript from the
+  frozen rule object, and the constant-based ports from an enumerable
+  declaration in the runtime itself (`DocSpecsAllRules`, `ALL_RULES`,
+  `DOCSPECS_ALL_RULES`, `kDocSpecsAllRules`). Adding a rule is then the very act
+  that demands its case.
+
+The golden's `docspecs` section reads a **valid** sample, so it cannot cover
+this: before the table existed, all eleven rules were unexercised and the nine
+logs agreed byte-for-byte about a question none of them had been asked. Wiring
+the table immediately found three ports (JavaScript, TypeScript, Go) reporting
+the schema *type name* instead of the containing section's id on the three
+cardinality rules.
 
 #### TypeScript step — build the runtime `dist/` first (CS4-D6)
 
