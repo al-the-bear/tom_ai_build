@@ -237,39 +237,135 @@ so each kind's attributes are **separate optional arguments**, and a validator
 asserts that only the slots belonging to the declared kind are non-null. This is
 the annotation-level rendering of §8.2's `@OneOf`/`@Case` closed-choice design.
 
-### 2.4 Stub bodies — skeletal, not executable
+### 2.4 Bodies — skeletal, not executable
 
-Phase 4 output **compiles and does not execute**. Per §4.1.1's coding-form
-spectrum:
+Phase 4 output **compiles and does not execute**. Per `codespecs_mapping.md`
+§4.1.1's coding-form spectrum:
 
 - **Forms 1 and 2** (framework subclass/instantiation, plain annotated model
   class) emit **no bodies at all**. Fields are declarations; a non-nullable field
   with no authored default is `late final`.
-- **Form 3** (compilable pseudo-code) emits, as the *entire* body of every
-  method:
-
-  ```dart
-  throw UnsupportedError('<explication>');
-  ```
-
-  `<explication>` is the contributing SOM section's description text,
-  whitespace-collapsed to one line with `'` and `$` escaped. It is the **same
-  text** the method's doc comment carries, in its one-line rendering (§2.8 P3).
-  **An empty description is a generation error** — a body with no explication is
-  an empty spec, and emitting one would let a hollow method pass as a specified
-  one.
+- **Form 3** (compilable pseudo-code) emits a body. It has **two shapes**,
+  **3a** and **3b**, defined below; every §3 entry that emits a body names which
+  one it uses.
 - **Form 4** (annotation-only modifier) emits no declaration of its own.
 
-Three invariants make "compiles but does not execute" checkable rather than
-aspirational:
+`UnsupportedError` — not `UnimplementedError` — is the thrown type throughout.
+The Phase-4 artifact is a specification, and *executing* it is not an operation
+it supports; `UnimplementedError` would read as a body someone forgot to write
+rather than one that is deliberately not there yet.
+
+#### Form 3a — declared, not implemented
+
+The entire body of the method is:
+
+```dart
+throw UnsupportedError('<explication>');
+```
+
+`<explication>` is the contributing SOM section's description text,
+whitespace-collapsed to one line with `'` and `$` escaped. It is the **same
+text** the method's doc comment carries, in its one-line rendering (§2.8 P3).
+**An empty description is a generation error** — a body with no explication is
+an empty spec, and emitting one would let a hollow method pass as a specified
+one.
+
+#### Form 3b — pseudo-implementation
+
+3b is the form `codespecs_mapping.md` §3 describes when it grants CodeSpecs a
+"first level of implementation": real Dart method bodies expressing the intended
+behaviour, calling into an **abstract collaborator** whose methods are
+implemented in Phase 6. Its body is a statement sequence, not a throw.
+
+**Which form an entry uses is structural, not a judgement call.** An entry emits
+3b when the SOM section its point 1 names carries an **ordered step list** (or
+another structured behaviour surface the entry names explicitly); it emits 3a
+otherwise. Prose alone — a `purpose`, a `description` — is never enough to
+derive statements from, so a prose-only input is always 3a.
+
+**Fallback.** An entry that names 3b emits 3a instead when its step source is
+empty for the instance being generated: there are no statements to derive, so
+the description carries the specification. An empty step source *and* an empty
+description remains the generation error above.
+
+**Permitted statements.** A 3b body admits exactly five kinds of statement, and
+nothing else:
+
+1. A **call on the abstract collaborator** the entry names.
+2. A **call on the `tom_core`-family substrate the entry's own point 2 names** —
+   `TomQueryBuilder` for §3.3.4. Never an unnamed framework class: if point 2
+   does not name it, the body may not call it.
+3. A `final` **local binding** of (1)'s or (2)'s result, named per N2/N3 from the
+   step's designated name field.
+4. **Control flow** — `if` / `for` / `switch` — derived from a condition the spec
+   states. A condition the spec does not state may not be invented.
+5. A **`return`** of a value produced by (1)–(3).
+
+Excluded, therefore: a literal used as a value, arithmetic, string building, a
+`try`/`catch` the spec does not state, and in-body comments (§2.8 C6 rules those
+out and says where the narrative goes instead — on the collaborator method's
+doc comment).
+
+**Why 3b still does not execute.** A 3b body contains nothing of its own — only
+calls and the control flow between them — so it cannot succeed by itself. Where
+the calls go to the abstract collaborator, they have no Phase-4 binding: the body
+type-checks, so the project compiles, and the first attempt to run it fails on
+the unbound collaborator.
+
+The **substrate-only** case is the exception that proves the shape rather than
+breaking it. §3.3.4's query bodies call `TomQueryBuilder` and no collaborator, so
+they do run — but all they do is build the declarative query object the spec
+states, which is the whole of what the CodeSpec has to say about that query. No
+behaviour is being executed that Phase 6 was going to author. Where an entry
+permits a substrate call under statement kind 2, its point 2 must name a
+substrate for which that holds.
+
+**The collaborator is generated, not assumed.** A 3b body may only call methods
+that exist in the emitted trio, so where an entry names a collaborator it is part
+of what the generator emits — an abstract class whose methods carry the behaviour narrative
+on their doc comments (§2.8 P3) and no implementation. A 3b body that calls a
+class the generator did not emit is a generation error, not a forward
+declaration. Slice order constrains where it may sit: §4.4's no-forward-reference
+rule applies to the collaborator exactly as to any other emitted declaration.
+
+#### Frames
+
+An entry may state that a body is emitted inside a **frame** — a call on a named
+`tom_core`-family substrate that establishes an ambient scope around whatever the
+body turns out to be. §3.7.1's unconditional
+`TomTransactionManager.runInTransactionScope` wrap is the one such case today.
+
+A frame is **not** a statement of either form. It comes from the entry, not from
+the spec text; it is identical for every instance the entry generates; and it
+neither produces nor consumes a value. So a framed 3a body is still 3a — the
+`throw` is still the whole of what the body *says*, and it still propagates out
+through the frame. A frame that an entry's point 2 does not name may not be
+emitted.
+
+#### Invariants
+
+Four invariants make "compiles but does not execute" checkable rather than
+aspirational. They hold for both shapes unless stated:
 
 1. **Real signatures.** Return types, parameter types and generics are the
    specified ones. Nothing is `dynamic` because the generator did not know.
-2. **No fabricated values.** A stub never `return`s — no `null`, no `''`, no
-   `const []`. The only exit is the `throw`.
+2. **No fabricated values.** No value in a body is one the generator invented —
+   no `null`, no `''`, no `const []`, no literal standing in for a result. A 3a
+   body's only exit is the `throw`; a 3b body may `return`, but only a value
+   that came out of a collaborator or substrate call. The test is *could the
+   generator have made this value up?*, not *does the body return?*.
 3. **Async is declared, not faked.** An asynchronous operation declares
-   `Future<T>` / `Stream<T>` and still throws; it is never `async` with a
-   synthetic completed future.
+   `Future<T>` / `Stream<T>`. A 3a body still throws; a 3b body `await`s its
+   collaborator calls. Neither is ever `async` with a synthetic completed
+   future.
+4. **Nothing runs to a specified result.** A 3a body throws on entry. A 3b body
+   over an abstract collaborator reaches an unimplemented method before it can
+   complete. The one 3b body that has no collaborator — §3.3.4's query
+   composition — is complete by construction, because the whole of what it does
+   is compose a declarative query object out of stated predicates; producing that
+   object *is* the specification, and the framework repository it sits on runs
+   it. No generated body invents behaviour a Phase-6 author would otherwise have
+   written.
 
 CE-ST observable fields are the sole exception to (1)–(2)'s "no initialiser"
 reading: `final TomString name = TomString('');` *is* the declaration — the
@@ -412,7 +508,7 @@ Either half may be absent; a section with neither yields no comment. What is
 |---|----------|------------|----------------|-----------------------|
 | **P1** | Declaration doc | Every top-level declaration — class, enum, catalogue holder | The section named first in the entry's point 1 | No comment (C3 covers the holder that has no section) |
 | **P2** | Member doc | Every generated member that has a contributing section of its own | That member's section(s), in N8 order | No comment |
-| **P3** | Method doc | Every method of a form-3 declaration, and every method of the abstract collaborator such a body calls | The section — or promoted step subsection — whose behaviour the method states | **Generation error** |
+| **P3** | Method doc | Every method of a form-3a or form-3b declaration, and every method of the abstract collaborator a 3b body calls | The section — or promoted step subsection — whose behaviour the method states | **Generation error** |
 | **P4** | In-body comment | Nothing — see C6 | — | — |
 
 **P2 turns on the same test as `@DocSpec`, not on a judgement.** §2.5 rule 5
@@ -428,16 +524,18 @@ domain enum, because N8 order plus the constant's own P2 comment already
 identifies each `DMEVA`. That is a decision about the *back-link*, taken because
 the comment is present — it does not license withholding the comment.
 
-**P3 shares its text with the stub body.** §2.4 emits `throw
-UnsupportedError('<explication>')` as the whole body of a form-3 method; the
+**P3 shares its text with a form-3a body.** §2.4 emits `throw
+UnsupportedError('<explication>')` as the whole body of a form-3a method; the
 explication is *this same text*, whitespace-collapsed to one line with `'` and
 `$` escaped. One source, two renderings — which is why an empty description is
 fatal here and merely silent everywhere else: a method with no behaviour text
 has neither a doc comment nor an explication, and would pass as specified while
-saying nothing. `codespecs_mapping.md` §3 and §5.29 require the abstract
-collaborator's methods to carry detailed behaviour doc-comments; P3 is where that
-requirement is discharged, from the collaborator method's own contributing
-section.
+saying nothing. A form-3b method has no explication to share — its statements
+are the specification — but P3 still applies to it and to every collaborator
+method it calls, and is still fatal when absent. `codespecs_mapping.md` §3
+requires the abstract collaborator's methods to carry detailed behaviour
+doc-comments; P3 is where that requirement is discharged, from the collaborator
+method's own contributing section.
 
 **C3 — declarations that have no section.** A holder the generator creates by
 *grouping* — a catalogue file (N7), a per-client config holder — has no section
@@ -491,8 +589,8 @@ is a **call to a named method on the abstract collaborator**, and the narrative
 lives on that method's P3 doc comment — a declaration the compiler and the
 validator can both see, rather than a comment neither can. This is the rule
 `codespecs_mapping.md` §3's first-level-implementation latitude needs: it is what
-keeps a pseudo-implementation body a specification rather than an essay, and it
-is why a body has exactly two possible shapes — code, or §2.4's `throw`.
+keeps a form-3b body a specification rather than an essay, and it is why a body
+has exactly the two shapes §2.4 defines — 3b's statements, or 3a's `throw`.
 
 ---
 
@@ -587,7 +685,7 @@ Cites slice 1 only.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `ElementValidationRuleEntry` (`ELVARU`) whose rule is **not** one of the ten standard rules. Consumed: the rule's description (which becomes the stub explication) and its error key. |
-| **2 Output** | A standalone `Validator<T>` — `FutureOr<ValidationResult> Function(T)` (`tom_flutter_ui`) — as a **form-3** compilable pseudo-code function whose entire body is `throw UnsupportedError('<description>')` (§2.4), or a registered entry in `TomValidatorRegistry`. The typed value in / `ValidationResult` out signature is what makes it composable into a declaration string. |
+| **2 Output** | A standalone `Validator<T>` — `FutureOr<ValidationResult> Function(T)` (`tom_flutter_ui`) — as a **form-3a** function whose entire body is `throw UnsupportedError('<description>')` (§2.4) — the rule's input is prose, so there are no steps to derive statements from — or a registered entry in `TomValidatorRegistry`. The typed value in / `ValidationResult` out signature is what makes it composable into a declaration string. |
 | **3 Arguments** | `errorKey` (**required**) ← the SOM rule's error key, resolved to a `CsMessageKey` const by N9. Rule kind and rule arguments are **not** arguments — the function signature and body are the rule (test **a**). "Async/slow" is marked N in §5.19 and is read off the declared `Future` return type. |
 | **4 Naming** | camelCase of `ELVARU`'s name field, suffixed `Rule` where N6 would otherwise collide with the field it validates. |
 | **5 Locus** | Follows §3.2.2 — `shared` when it constrains a shared DTO, else `client`. |
@@ -599,7 +697,7 @@ Cites slice 1 only.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `ElementValidationRuleEntry` (`ELVARU`) naming **two or more** fields — the discriminator against §3.2.3. Consumed: the involved fields, the rule description, the cross-field error key. |
-| **2 Output** | A **method on the `TomForm` subclass** (`tom_flutter_ui`) returning `FormValidationError?`, form 3: body `throw UnsupportedError('<description>')`. It is deliberately not expressible in the per-field declaration string — the grammar cannot name a second field — which is why the rule is authored on the form. |
+| **2 Output** | A **method on the `TomForm` subclass** (`tom_flutter_ui`) returning `FormValidationError?`, **form 3a**: body `throw UnsupportedError('<description>')` — like §3.2.3, the input is prose. It is deliberately not expressible in the per-field declaration string — the grammar cannot name a second field — which is why the rule is authored on the form. |
 | **3 Arguments** | `errorKey` (**required**) ← the cross-field error key as a `CsMessageKey`. Involved fields are **not** an argument: the method reads them, so the declaration carries them (test **a**). Per-field error keys are marked N in §5.19 — they are derived from `FormValidationError.fieldErrorKeys` at implementation time. |
 | **4 Naming** | camelCase of `ELVARU`'s name field, prefixed `validate` when the name is not already a verb phrase — determined by N2 producing a leading token that is not in the closed verb set `{validate, check, ensure, require}`. |
 | **5 Locus** | `client` — a form rule lives on the form. |
@@ -751,7 +849,7 @@ its own optional column as a bare `DateTime? updatedAt`.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `DataEntityEntry` (`DAENT`) for the entity and key type; the named queries come from the operations that read the entity (`SVOPE`, matched by `primaryDataEntity` and by the members typed by the entity). Consumed (§5.13 repository level): entity + key type, named queries, predicates, sort, row cap, distinct, transaction scope. |
-| **2 Output** | A repository over the `tom_core_server` CRUD / MariaDB repositories, form 1, with one **form-3 method per named query** — a real signature and `throw UnsupportedError('<query description>')`. Query composition uses `TomQueryBuilder`; the §5.13 predicate vocabulary (`eq`, `like`, `between`, `isIn`, `and`, `or`), sort, row cap and distinct are that builder's own surface (test **b**), not annotation arguments. |
+| **2 Output** | A repository over the `tom_core_server` CRUD / MariaDB repositories, form 1, with one method per named query. Each is **form 3b**, and its structured behaviour surface is the query itself: `TomQueryBuilder` is the named substrate (§2.4 statement kind 2), and the §5.13 predicate vocabulary (`eq`, `like`, `between`, `isIn`, `and`, `or`), sort, row cap and distinct are that builder's own surface (test **b**), not annotation arguments — so the body composes the builder and returns its result. A query stated as description only, with no predicates, sort or cap, falls back to **form 3a** (`throw UnsupportedError('<query description>')`). This entry emits no abstract collaborator: `TomQueryBuilder` is the whole vocabulary its bodies need. |
 | **3 Arguments** | None; `@CsRepository({String? note})` unchanged. Entity and key type are the class's generics (test **a**); transaction scope is **ambient** rather than threaded through the call — `TomTransactionManager` holds the current transaction in a `Zone` value, and the flow the repository runs in is what opens it: `@TomTransactional` on the calling CE-API endpoint, or the `runInTransactionScope` wrap CE-JB emits around a job body (§3.7.1). A declared unit of work therefore adds no parameter here (test **b**; `codespecs_mapping.md` §5.13). |
 | **4 Naming** | PascalCase of the entity name + `Repository`. |
 | **5 Locus** | `server`. |
@@ -885,7 +983,7 @@ emits here too, but authors no marked declaration, so it has no entry of its own
 | Point | Contract |
 |-------|----------|
 | **1 Input** | The same `ServerOperationEntry` (`SVOPE`) as §3.2.1 — one section, two loci. Consumed here: `purpose` (the operation's behaviour, which becomes the stub explication), `primaryDataEntity` (which service unit the handler lands on, §5.17) and `errorCodes` (the `CsErrorCode` cross-refs below). |
-| **2 Output** | A **handler method on the §3.4.1 service unit**, form 3: real signature `Future<TomResult<T>> <op>(<Request> request)`, body `throw UnsupportedError('<behaviour description>')`. Routed by `TomEndpoint` / `TomEndpointHandler` / `TomEndpointRouting` / `TomServer` (`tom_core_server`). All operations are POST and only 5xx are transport errors (§7); a generator emitting a non-POST verb or a 4xx contract has violated it. |
+| **2 Output** | A **handler method on the §3.4.1 service unit**, **form 3a**: real signature `Future<TomResult<T>> <op>(<Request> request)`, body `throw UnsupportedError('<behaviour description>')`. 3a and not 3b because `SVOPE.purpose` is prose — the operation states *what* it does, and the SOM gives no ordered steps for *how*; the flow that reaches this handler is authored in ISC, on the client side (§3.5.5, §3.5.7). Routed by `TomEndpoint` / `TomEndpointHandler` / `TomEndpointRouting` / `TomServer` (`tom_core_server`). All operations are POST and only 5xx are transport errors (§7); a generator emitting a non-POST verb or a 4xx contract has violated it. |
 | **3 Arguments** | `operation` — first positional, required, **the identical verbatim string** as the shared half's `CsOperationRef` (§3.2.1). A validator asserts the two match; they are one operation named once. |
 | **4 Naming** | Method = camelCase of the operation name's last dotted segment (`customer.save` → `save`) — the unit already supplies the `customer` half, and repeating it would give `CustomerService.customerSave`. |
 | **5 Locus** | `server` (§4.2: handlers). |
@@ -909,7 +1007,7 @@ emits here too, but authors no marked declaration, so it has no entry of its own
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `LoginFlowStepEntry` (`LGFLS`) for the flow; `UserAttributeEntry` (`USATE`) for which attributes are populated into which token half; `UserLifecycleTransitionEntry` (`ULTRE`) for the account state transitions; `MfaConfiguration` (`MC`) for the second-factor policy. |
-| **2 Output** | The app's `TomAuthenticationService` bound into `TomAuthenticationServer`, issuing `TomServerJwtToken` (`tom_core_server`), form 1 + form 3 — one method per `LGFLS` step, each `throw UnsupportedError('<step description>')`. The **CE-ID population** is part of this flow: it projects the §3.2.5 identity declaration into the public (`TomUser.attributes`) and encrypted (`TomPrincipal.currentContext`) halves, per each attribute's `placement`. CE-AU consumes CE-ID; it never redeclares it.<br>**`MC` emits a second marked declaration**: the deployment's `Tom2FAPolicy` binding, as a `TomRole2FAPolicy` instantiation. `mfaRequired` + `mfaEnforcementScope` become `requirementByRole` / `defaultRequirement` over `Tom2FARequirement {disabled, optional, required}`; `defaultSecondFactor` + `allowedSecondFactors` become the ordered `mechanisms` list, the default first; `enrollmentGracePeriod` becomes `graceLogins`. Form 1 — the constructor call is the whole declaration, so there is no stub body. `mfaRequired: No` emits no policy declaration at all: the framework default is `TomPrincipalFlag2FAPolicy`. |
+| **2 Output** | The app's `TomAuthenticationService` bound into `TomAuthenticationServer`, issuing `TomServerJwtToken` (`tom_core_server`), **form 1 + form 3b** — `LGFLS` is an ordered step list, which is 3b's trigger (§2.4): the flow method's body is a statement sequence over those steps, one call per step in `LGFLS` order, branching only on a condition a step states. A flow whose `LGFLS` is empty falls back to form 3a. The **CE-ID population** is part of this flow: it projects the §3.2.5 identity declaration into the public (`TomUser.attributes`) and encrypted (`TomPrincipal.currentContext`) halves, per each attribute's `placement`. CE-AU consumes CE-ID; it never redeclares it.<br>**`MC` emits a second marked declaration**: the deployment's `Tom2FAPolicy` binding, as a `TomRole2FAPolicy` instantiation. `mfaRequired` + `mfaEnforcementScope` become `requirementByRole` / `defaultRequirement` over `Tom2FARequirement {disabled, optional, required}`; `defaultSecondFactor` + `allowedSecondFactors` become the ordered `mechanisms` list, the default first; `enrollmentGracePeriod` becomes `graceLogins`. Form 1 — the constructor call is the whole declaration, so there is no stub body. `mfaRequired: No` emits no policy declaration at all: the framework default is `TomPrincipalFlag2FAPolicy`. |
 | **3 Arguments** | None — `@CsAuth` stays note-only, on a different §2.3 ground per group. The **method/flow set** is test **a**: one marked declaration each, so the set of declarations *is* the enabled set. The **second-factor policy** is test **b**: requirement level, mechanism preference order and grace count are `TomRole2FAPolicy`'s own constructor parameters, which is why `MC` emits a further declaration rather than arguments on the first. Whether declining an enrolment offer is allowed is authorable **nowhere**: `TomAuthenticationServer` derives `twoFactorEnrolmentSkippable` as *optional-or-on-grace*, so a spec-authored flag would be recomputed and overwritten. |
 | **4 Naming** | PascalCase of `ATME`'s name field + `AuthenticationService`; the policy declaration is the app name + `TwoFactorPolicy`. |
 | **5 Locus** | `server`. |
@@ -928,7 +1026,7 @@ unit, which is why they share a slice rather than an order.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `ScreenStateEntry` (`SCRST`), `ScreenElementDataDisplay` (`SEDD`), `ComponentStateEntry` (`COMSTA`), plus `BusinessObjectAttributeEntry` (`BIOBAT`, itself `@CodeSpecKind([viewState])`) with its detail `BOAED` for the attribute a field mirrors. Consumed (§5.4): the fields as `(name, T, kind)`, their derivation, their binding, the lifecycle scope, and `BOAED.mandatory` for the field's requirement level. |
-| **2 Output** | A view-model class holding `TomObservable` / `TomObject<T>` members — `TomString`, `TomInt`, `TomDouble`, `TomBool`, `TomClass`, `TomList`, `TomMap` (`tom_core_kernel`) — bound in the UI by `TomObservingWidget` / `ValueListenableObserver` (`tom_core_flutter`). Form 1. **An optional field emits the nullable arm of the same family** — `TomNString`, `TomNInt`, `TomNDouble`, `TomNBool`, `TomNDateTime`, initialised to `null` — keyed on `BOAED.mandatory` (`Optional` / `ConditionallyRequired` → nullable, `Required` → the non-nullable type). **Not** on CE-DB's `DATAA.nullable`: what a screen may leave blank is a requirement level, and a field over an attribute the table happens to store as `NULL` may still be mandatory to fill in. **Observable fields are initialised declarations** (`final TomString name = TomString('');`, `final TomNString note = TomNString(null);`) — §2.4's sole exception, because an uninitialised observable would not compile at its use sites. Derived fields are form-3 getters that throw. |
+| **2 Output** | A view-model class holding `TomObservable` / `TomObject<T>` members — `TomString`, `TomInt`, `TomDouble`, `TomBool`, `TomClass`, `TomList`, `TomMap` (`tom_core_kernel`) — bound in the UI by `TomObservingWidget` / `ValueListenableObserver` (`tom_core_flutter`). Form 1. **An optional field emits the nullable arm of the same family** — `TomNString`, `TomNInt`, `TomNDouble`, `TomNBool`, `TomNDateTime`, initialised to `null` — keyed on `BOAED.mandatory` (`Optional` / `ConditionallyRequired` → nullable, `Required` → the non-nullable type). **Not** on CE-DB's `DATAA.nullable`: what a screen may leave blank is a requirement level, and a field over an attribute the table happens to store as `NULL` may still be mandatory to fill in. **Observable fields are initialised declarations** (`final TomString name = TomString('');`, `final TomNString note = TomNString(null);`) — §2.4's sole exception, because an uninitialised observable would not compile at its use sites. Derived fields are **form-3a** getters that throw — a derivation is stated as prose, so there are no steps to sequence. |
 | **3 Arguments** | `scope` ← the lifecycle scope, enum-mapped onto `CsLifecycleScope {screen, route, app}`, default `screen` — the narrowest arm, so widening a view model's lifetime is a deliberate act. Fields, their types and their binding are the declaration (test **a**); binding to a widget is `TomObservingWidget`'s own surface (test **b**). |
 | **4 Naming** | PascalCase of `SCRST`'s name field + `ViewModel`; members camelCase of their own name field. |
 | **5 Locus** | `client`. |
@@ -976,7 +1074,7 @@ unit, which is why they share a slice rather than an order.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `ScreenActionEntry` (`SCRAC`), `ScreenElementAction` (`SCELAC`), and the ISC step entries `MNSST` / `ALST` / `EXTST` / `SCNST`. Consumed (§5.20): action id, owning controller, context requirement `TContext`. |
-| **2 Output** | A `TomAction` on a `TomActionController`, with `TomActionTransaction` / `TomActionContext` as needed (`tom_flutter_ui`), form 1. Declared as a named member, since N9 makes the **declaration name** the action's identity. |
+| **2 Output** | A `TomAction` on a `TomActionController`, with `TomActionTransaction` / `TomActionContext` as needed (`tom_flutter_ui`) — **form 1 for the declaration, form 3b for `perform`**. The ISC step entries in point 1 are an ordered step list, so `perform`'s body is a statement sequence over them: one call per step in scenario order, `ALST` / `EXTST` steps becoming branches on the condition their step states (§2.4). An action with no contributing ISC step falls back to **form 3a** over `SCRAC`'s description. Declared as a named member, since N9 makes the **declaration name** the action's identity. |
 | **3 Arguments** | None; `@CsAction({String? note})` unchanged. The action id is the declaration name (test **a**, and what `CsActionRef` resolves against); the owning controller is the declaration site; `TContext` is the generic. §5.20 marks undoable/`TUndo`, transaction grouping, authorization, copy and the server-bound edge as **N** — the first three are `TomAction`'s own surface, copy is CE-TX, and the server edge is derived from the trigger. |
 | **4 Naming** | camelCase of `SCRAC`'s action-id field. |
 | **5 Locus** | `client`. |
@@ -1000,7 +1098,7 @@ unit, which is why they share a slice rather than an order.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | The ISC step entries `MNSST` / `ALST` / `EXTST` / `SCNST`. Consumed (§5.3): the operation called, request assembly, response handling, error handling, call options. |
-| **2 Output** | A `TomServerEndpoint<T, R>` call over `TomServerCallSpecs` / `TomServerChannel` (`tom_core_kernel`), form 1 + form 3 — request assembly, response handling and error handling are methods that `throw UnsupportedError('<step description>')`. This is the middle hop of §5.3's chain: `@CsAction ──triggers──▶ @CsServerCall ──operation──▶ @CsEndpoint` (client / client / shared). |
+| **2 Output** | A `TomServerEndpoint<T, R>` call over `TomServerCallSpecs` / `TomServerChannel` (`tom_core_kernel`), **form 1 + form 3b** — request assembly, response handling and error handling are methods whose bodies are statement sequences over the ISC steps that state them, one call per step in order (§2.4). A handling method with no contributing step falls back to **form 3a**. This is the middle hop of §5.3's chain: `@CsAction ──triggers──▶ @CsServerCall ──operation──▶ @CsEndpoint` (client / client / shared). |
 | **3 Arguments** | `operation` — **first positional, required** ← the `CsOperationRef` const of the shared operation it calls. It is the one edge the code cannot carry itself: the call site is client, the operation is shared, and nothing in the Dart declaration names the link. Call options are `TomServerCallSpecs`'s own surface (test **b**); the three handling steps are the methods (test **a**). |
 | **4 Naming** | camelCase of the operation name's last segment + `Call`. |
 | **5 Locus** | `client`. |
@@ -1036,7 +1134,7 @@ unit, which is why they share a slice rather than an order.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | `LoginFlowStepEntry` (`LGFLS`), read **per client** — §5.25 makes the login flow a per-client decision, so one client's flow is not another's. `MfaConfiguration` (`MC`) where the client must run a second factor. |
-| **2 Output** | The client's login flow over the `TomServerEndpoint<TomAuthenticationMessage, TomAuthenticationResult>` triple (`tom_core_kernel`), form 3 — one method per step, each `throw UnsupportedError('<step description>')`.<br>Where `MC` enables a second factor, a **`Tom2FAFlowController` implementation** (`tom_core_flutter`) is emitted beside it, form 3 — its five moves (choose, confirm, skip, answer, cancel) over the client's own auth calls. The panel itself is not emitted: `Tom2FAFlowPanel` owns the chooser, attempt counter, error line and skip affordance invariantly, and the skip affordance renders off `twoFactorEnrolmentSkippable` rather than off anything the spec declares. Per-mechanism UI is one `Tom2FAClientMechanism` registration each, emitted only for a mechanism `allowedSecondFactors` names that the framework does not already ship (`TomTotp2FAClientMechanism` is shipped). |
+| **2 Output** | The client's login flow over the `TomServerEndpoint<TomAuthenticationMessage, TomAuthenticationResult>` triple (`tom_core_kernel`), **form 3b** — `LGFLS` is an ordered step list, so the flow body is a statement sequence over this client's steps, in order, branching only on a condition a step states (§2.4). A client whose `LGFLS` is empty falls back to **form 3a**.<br>Where `MC` enables a second factor, a **`Tom2FAFlowController` implementation** (`tom_core_flutter`) is emitted beside it, **form 3a** — its five moves (choose, confirm, skip, answer, cancel) over the client's own auth calls. 3a and not 3b: `MC` is a policy, not a step list, so the moves are declared and their behaviour stated, not sequenced. The panel itself is not emitted: `Tom2FAFlowPanel` owns the chooser, attempt counter, error line and skip affordance invariantly, and the skip affordance renders off `twoFactorEnrolmentSkippable` rather than off anything the spec declares. Per-mechanism UI is one `Tom2FAClientMechanism` registration each, emitted only for a mechanism `allowedSecondFactors` names that the framework does not already ship (`TomTotp2FAClientMechanism` is shipped). |
 | **3 Arguments** | None (as §3.2.7 and §3.4.4). The controller carries no marker arguments either: its five moves are its method signatures (test **a**), and which mechanisms it may offer arrives on the wire in `availableTwoFactorMethods` rather than being authored a second time here. |
 | **4 Naming** | PascalCase of the client name + `LoginFlow`; the controller is the client name + `TwoFactorFlowController`. |
 | **5 Locus** | `client`. |
@@ -1117,7 +1215,7 @@ of this slice, contracted with its client shape at §3.6.5.
 | Point | Contract |
 |-------|----------|
 | **1 Input** | One `ScheduledJobEntry` (`SCJOB`) from the per-job declaration list under `BatchJobManagement` (`BAJOMA`). Consumed (§5.29): the head form (`jobName`, `purpose`, `triggerKind`, `primaryDataEntity`, `enabled`, `environments`); the promoted trigger case subsection — `SCJOB-CRON`, `SCJOB-CAL` or `SCJOB-EVNT`; `SCJOB-WORK` (work intent, read/written entities, target reports); `SCJOB-FAIL` (the per-job overrides of the `BJME` defaults). `BAJOMA`'s own policy sections supply the **defaults** an entry may override, never a job. |
-| **2 Output** | A `TomJobDeclaration` (`tom_core_codespecs` **narrow gap class** — the deployment-and-ownership envelope only) on a class that also extends `tom_core_kernel`'s `TomJobBase`, whose work body is **form-3 compilable pseudo-code over a later-injected abstract service class**, dispatched by `TomJobDispatcher` on the `TomCommand` / `TomExecutor` / `TomWorker` isolate-pooling substrate. `TomJobDeclaration` carries `enabled` (opt-out), `environments` (empty = every environment), `serviceUnitId` and its entity targets — `readEntities` / `writtenEntities` as `List<Type>`, with `targetEntities` the deduplicated union — on its constructor (test **b**); everything a job needs to *run* is reused from `tom_core_kernel` `tombase/scheduling/` (`codespecs_mapping.md` §5.29). The work body is wrapped in `TomTransactionManager.runInTransactionScope` (`tom_core_server`), **unconditionally** — a job runs off the request path, so nothing opens a transaction scope for it the way `TomServer` does per request, and under `TomInlineJobDispatcher` two concurrent job bodies would otherwise share the process-wide fallback scope (`codespecs_mapping.md` §5.13). It is not conditioned on a declared unit of work: the body reaches persistence through a later-injected abstract service, so the spec cannot see which runs open a transaction. |
+| **2 Output** | A `TomJobDeclaration` (`tom_core_codespecs` **narrow gap class** — the deployment-and-ownership envelope only) on a class that also extends `tom_core_kernel`'s `TomJobBase`, whose work body is **form 3a**, dispatched by `TomJobDispatcher` on the `TomCommand` / `TomExecutor` / `TomWorker` isolate-pooling substrate. `TomJobDeclaration` carries `enabled` (opt-out), `environments` (empty = every environment), `serviceUnitId` and its entity targets — `readEntities` / `writtenEntities` as `List<Type>`, with `targetEntities` the deduplicated union — on its constructor (test **b**); everything a job needs to *run* is reused from `tom_core_kernel` `tombase/scheduling/` (`codespecs_mapping.md` §5.29). The work body is wrapped in `TomTransactionManager.runInTransactionScope` (`tom_core_server`), **unconditionally** — a job runs off the request path, so nothing opens a transaction scope for it the way `TomServer` does per request, and under `TomInlineJobDispatcher` two concurrent job bodies would otherwise share the process-wide fallback scope (`codespecs_mapping.md` §5.13). It is a §2.4 **frame**, not a statement, so it wraps the 3a body unchanged. It is not conditioned on a declared unit of work: the work is stated as intent rather than as persistence calls, so the spec cannot see which runs open a transaction.<br>**Why 3a and not 3b:** `SCJOB-WORK` states the work in one prose field, `workSummary` — "what the job does, step by step, in prose". Prose is not an ordered step list, and §2.4's selector is structural precisely so that no generator invents a sequence out of a sentence. A job's work therefore reaches code as a specified signature plus its intent, and the sequence is written in Phase 6. |
 | **3 Arguments** | `trigger` (**required**) ← `SCJOB.triggerKind` (`ScheduledJobTrigger`) onto `CsJobTrigger {cron, calendar, event}`, §5.29's three trigger kinds; required because a job with no declared trigger is a job that never runs. Per-kind slots (§2.3): `cron` ← `SCJOB-CRON.cronExpression`, `calendar` ← `SCJOB-CAL.calendarRule`, `event` ← `SCJOB-EVNT.eventName` — each a verbatim authored string, and each meaningless for the other two kinds; the SOM guarantees only one is present by promoting exactly the `@Case` subsection the discriminator selects. Policy ← `SCJOB-FAIL`, falling back to the `BJME` / `BJMM` defaults where the entry is silent: `maxRetries` (default `0` — a job retries only when the spec says so), `backoff` and `timeout` as `Duration` consts, `failureAlert` ← `SCJOB-FAIL.failureAlertMessage` as a `CsMessageKey`. `targetReports` ← `SCJOB-WORK.targetReports` as `CsReportRef` consts (default `const []` — most jobs produce no report); the CE-DB half of the same SOM form goes to the declaration, not here, since entities are `Type` literals and need no ref const (§5.23). Each lowers onto a reused `tom_core_kernel` class: the trigger onto the matching `TomSchedule` (`TomCronSchedule` / `TomCalendarSchedule` / `TomEventSchedule`) on `TomJobDefinition.schedule`, the policy onto `TomRetryPolicy` + `TomJobDefinition.timeout`, and `failureAlert` onto the message `TomJobAlert` carries to the deployment's `TomScheduler.onAlert` sink. The trigger is a **wired** schedule, not a name. |
 | **4 Naming** | PascalCase of `SCJOB.jobName` + `Job` (N1). |
 | **5 Locus** | `server` — work that runs *off* the request thread is the axis separating CE-JB from CE-API. |
@@ -1407,8 +1505,8 @@ validation pass over the resolved annotation for **all** twenty-two.
 | 2 | Every `Cs*Ref` string resolves to a generated declaration | §2.1 N9 |
 | 3 | A missing designated name field / headline **fails**, naming the section | §2.1 N1 |
 | 4 | A missing authored key (message key, error code, setting key, operation name, route id) **fails** | §2.1 N5 |
-| 5 | A form-3 body with an empty SOM description **fails** | §2.4 |
-| 6 | No generated stub returns a fabricated value | §2.4 |
+| 5 | A form-3a body with an empty SOM description **fails** | §2.4 |
+| 6 | No generated body returns a fabricated value — a 3b `return` is admissible only where the returned value came out of a collaborator or substrate call | §2.4 invariant 2 |
 | 7 | `@CodeSpec.source` equals the `@DocSpec` section-id set | §2.5 rule 4 |
 | 8 | Only the slots of a marker's declared kind are non-null (`@CsTrigger`, `@CsAuthorize`, `@CsJob`) | §2.3 |
 | 9 | Every mirrored enum matches its `tom_core` counterpart value-for-value | §5.3 |
