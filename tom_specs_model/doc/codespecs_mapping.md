@@ -215,7 +215,7 @@ first-level body either compiles against its abstract collaborator or throws.
 
 The taxonomy has **26 active parts** spanning client, shared contract, server,
 and database. The Note column states
-how each part is planned to be realised: which `tom_core`-family classes it is
+how each part is realised: which `tom_core`-family classes it is
 built on, whether it is a pure annotation over existing classes, and where
 `tom_core` has no class of its own — such a gap is filled by a concrete class in
 `tom_core_codespecs`, whose eight source files cover the eight parts that need
@@ -416,7 +416,7 @@ their part authors is already carried by the annotated declaration itself or by
 a `tom_core` substrate constructor. Which attributes become constructor
 parameters and which stay on the declaration is decided by
 [codespecs_derivation_contract.md](codespecs_derivation_contract.md) §2.3's
-three tests, and its §5.1–§5.3 give the resulting constructor shape of every
+three tests, and its §5.1–§5.3 (not this document's) give the resulting constructor shape of every
 marker, the 15 that stay note-only, and the closed catalogues the arguments
 select from. Every example in this document is a **call that compiles**.
 
@@ -440,9 +440,9 @@ resulting position second.
 
 | Part ID | Part Description | Mapping to CodeSpecs | Gap analysis `tom_core` | Gap analysis `tom_code_specs` |
 |---------|------------------|----------------------|-------------------------|-------------------------------|
-| **CE-EL** ScreenElement | A single visible/interactive element of a screen. Closed **11-kind catalogue** (§5.18): form-member kinds *TextInput, Number, Toggle, DateInput, Choice, MultiChoice, FileInput*; standalone kinds *Label, Button, MenuEntry, FormHost*. | **Built on:** `TomScreenElementsProvider` + the `Tom*` widget family (`tom_flutter_ui`) — TextInput → `TomFormStringField`, Number → `TomFormIntField`/`TomFormDoubleField`, Toggle → `TomFormBoolField` (`TomFormNullableBoolField` when `tristate`), DateInput → `TomFormDateField`/`TomFormTimeField`, FileInput → `TomFormFileUpload`/`TomFormFileDropzone`/`TomFormFileThumbnail`, Label → `TomText`/`TomLabelBase`, FormHost → the CE-FM `TomForm` host. Form-member elements are coded as CE-FM field members; standalone elements as provider-created widgets.<br>**Annotations:** `@CsElement(kind: …)` on the field/member; `@CsWidget` on a standalone widget CodeSpec.<br>**Example:** `@CsElement(kind: CsElementKind.textInput) late final TomString email;` inside the `@CsForm` class — the kind is the annotation's argument; label key and grade ride the field's own `tom_flutter_ui` declaration. | None — the closed catalogue maps 1:1 onto shipped `tom_flutter_ui` widgets and needs no new base class: the `TomFormNullableBoolField` family carries `tristate`, the `minItems`/`maxItems` field rules carry the MultiChoice selection bounds, and FileInput reuses the shipped `TomFormFileField` family, all three `presentation` values included (§4.1.2). **A per-value option label is bundle-resolved like every other label**: the widgets render `SelectableItem.label` verbatim (`forms/fields/tom_form_enum_object_fields.dart`), so the label's provenance is the source class's concern, and the shipped `TomEnumSelectableSource<E>` / `TomEnumNameSelectableSource<E>` pair (`forms/selection/tom_enum_selectable_source.dart`) resolves each option through `TomObservableEnum.resolveText` under `<scope path>.<enumType>.<value>` and re-emits on a bundle change. A *Choice* / *MultiChoice* therefore emits one of those rather than a literal `TomSelectableSource` (§5.18), and §5.21's promise holds at emission too. **The text-controller write path is guarded throughout**: `_setControllerText` is the class's only write to the controller and it suppresses the input listener around it (`forms/tom_form.dart:1161`), `set()` routes through it (`:1245`), and `reset()` carries no override at all — `TomField.reset` resets through the virtual `set` (`:775`). A programmatic write is therefore never judged by the input validators, which exist to judge keystrokes. | `@CsElement` carries the one thing code cannot state: the element **kind**, since the declared Dart type does not fix *TextInput* vs *Choice*. It is required — no kind is a sensible default, and the kind selects both the per-kind attribute set and the default widget. Label/hint **message keys** and display/read-only **grade** defaults are *not* arguments: each maps onto a named `tom_flutter_ui` widget property, so they ride the field's own declaration rather than being repeated here (§2.3 test **b**). `@CsWidget` stays note-only for the same reason — it marks the widget instantiation, which already carries the per-kind extras. |
-| **CE-FM** Form | A user-facing form: typed field collection, lifecycle (load/edit/submit), per-field grades. | **Built on:** subclass of `TomForm<T extends TomClass>` (`tom_flutter_ui/lib/src/forms/tom_form.dart`); fields as `TomField<T>` members; nesting via `TomFormChildContainer`.<br>**Annotations:** `@CsForm()` on the class, with `@CodeSpec` carrying its id; fields carry `@CsElement` + `@CsValidation`.<br>**Example:** `@CsForm() @CodeSpec('customer_edit') class CustomerEditForm extends TomForm<Customer> { … }` | None — full reuse, and nothing is inherited from CE-EL either. The form's load path writes each field through `TomField.set()`, which on a text field is the guarded controller write named there, so loading a form is not processed as a burst of keystrokes. | `@CsForm` stays note-only. Each of the three things it might have carried already has a carrier: the bound view-model link is the `TomForm<T>` **generic** (§2.3 test **a**), the submit target is **derived from the `@CsTrigger`** that fires the submitting action rather than authored a second time, and form-level grade defaults ride the field declarations. The form's id is `@CodeSpec`'s. |
-| **CE-LO** Layout | Two-layer **id-addressed** layout: container tree (rows/containers) + component placement; delta overrides via the closed **5-op grammar** (§5.22): *reparent, set-container-prop, set-slot-hint, insert-container, remove-container*. | **Built on:** `AclRow` / `AclContainer` / `AclComponent` (`tom_flutter_ui/src/advanced_container_layout/acl_container.dart`), rendered via `TomObservingWidget`. The layout CodeSpec itself is a **plain annotated model class** describing the node tree.<br>**Annotations:** `@CsLayout` on the node-model class.<br>**Example:** a layout class whose members declare container nodes with stable ids and component slots, each slot naming its CE-EL element. | **Gap filled in `tom_core_codespecs`** — the id-addressed **node model** (stable node ids over the `Acl*` tree + the 5-op delta grammar) has no `tom_core` class, so `layout_node.dart` carries `TomLayoutModel` over the sealed `TomLayoutNode` (`TomLayoutContainerNode` / `TomLayoutSlotNode`) plus `TomLayoutOverrideDelta` over `TomLayoutContainerKind` + `TomLayoutDeltaOp` (§5.2, §5.12). The runtime `Acl*` classes themselves are ready. | `@CsLayout` carries the node **id** as its required first positional argument — the one thing the `Acl*` substrate genuinely lacks, and what the whole §5.22 delta grammar addresses nodes by. **Slot hints** are `AclComponent` properties and **container kind** is which `Acl*` class is instantiated, so neither is an argument (§2.3 test **b**). A delta targets a node *within the same layout declaration*, so addressing it by id string is a local coordinate, not a §5.23 cross-part reference. |
+| **CE-EL** ScreenElement | A single visible/interactive element of a screen. Closed **11-kind catalogue** (§5.18): form-member kinds *TextInput, Number, Toggle, DateInput, Choice, MultiChoice, FileInput*; standalone kinds *Label, Button, MenuEntry, FormHost*. | **Built on:** `TomScreenElementsProvider` + the `Tom*` widget family (`tom_flutter_ui`) — TextInput → `TomFormStringField`, Number → `TomFormIntField`/`TomFormDoubleField`, Toggle → `TomFormBoolField` (`TomFormNullableBoolField` when `tristate`), DateInput → `TomFormDateField`/`TomFormTimeField`, FileInput → `TomFormFileUpload`/`TomFormFileDropzone`/`TomFormFileThumbnail`, Label → `TomText`/`TomLabelBase`, FormHost → the CE-FM `TomForm` host. Form-member elements are coded as CE-FM field members; standalone elements as provider-created widgets.<br>**Annotations:** `@CsElement(kind: …)` on the field/member; `@CsWidget` on a standalone widget CodeSpec.<br>**Example:** `@CsElement(kind: CsElementKind.textInput) late final TomString email;` inside the `@CsForm` class — the kind is the annotation's argument; label key and grade ride the field's own `tom_flutter_ui` declaration. | None — the closed catalogue maps 1:1 onto shipped `tom_flutter_ui` widgets and needs no new base class: the `TomFormNullableBoolField` family carries `tristate`, the `minItems`/`maxItems` field rules carry the MultiChoice selection bounds, and FileInput reuses the shipped `TomFormFileField` family, all three `presentation` values included (§4.1.2). **A per-value option label is bundle-resolved like every other label**: the widgets render `SelectableItem.label` verbatim (`forms/fields/tom_form_enum_object_fields.dart`), so the label's provenance is the source class's concern, and the shipped `TomEnumSelectableSource<E>` / `TomEnumNameSelectableSource<E>` pair (`forms/selection/tom_enum_selectable_source.dart`) resolves each option through `TomObservableEnum.resolveText` under `<scope path>.<enumType>.<value>` and re-emits on a bundle change. A *Choice* / *MultiChoice* therefore emits one of those rather than a literal `TomSelectableSource` (§5.18), and §5.21's promise holds at emission too. **The text-controller write path is guarded throughout**: `_setControllerText` is the class's only write to the controller and it suppresses the input listener around it (`forms/tom_form.dart:1161`), `set()` routes through it (`:1245`), and `reset()` carries no override at all — `TomField.reset` resets through the virtual `set` (`:775`). A programmatic write is therefore never judged by the input validators, which exist to judge keystrokes. | `@CsElement` carries the one thing code cannot state: the element **kind**, since the declared Dart type does not fix *TextInput* vs *Choice*. It is required — no kind is a sensible default, and the kind selects both the per-kind attribute set and the default widget. Label/hint **message keys** and display/read-only **grade** defaults are *not* arguments: each maps onto a named `tom_flutter_ui` widget property, so they ride the field's own declaration rather than being repeated here (`codespecs_derivation_contract.md` §2.3 test **b**). `@CsWidget` stays note-only for the same reason — it marks the widget instantiation, which already carries the per-kind extras. |
+| **CE-FM** Form | A user-facing form: typed field collection, lifecycle (load/edit/submit), per-field grades. | **Built on:** subclass of `TomForm<T extends TomClass>` (`tom_flutter_ui/lib/src/forms/tom_form.dart`); fields as `TomField<T>` members; nesting via `TomFormChildContainer`.<br>**Annotations:** `@CsForm()` on the class, with `@CodeSpec` carrying its id; fields carry `@CsElement` + `@CsValidation`.<br>**Example:** `@CsForm() @CodeSpec('customer_edit') class CustomerEditForm extends TomForm<Customer> { … }` | None — full reuse, and nothing is inherited from CE-EL either. The form's load path writes each field through `TomField.set()`, which on a text field is the guarded controller write named there, so loading a form is not processed as a burst of keystrokes. | `@CsForm` stays note-only. Each of the three things it might have carried already has a carrier: the bound view-model link is the `TomForm<T>` **generic** (`codespecs_derivation_contract.md` §2.3 test **a**), the submit target is **derived from the `@CsTrigger`** that fires the submitting action rather than authored a second time, and form-level grade defaults ride the field declarations. The form's id is `@CodeSpec`'s. |
+| **CE-LO** Layout | Two-layer **id-addressed** layout: container tree (rows/containers) + component placement; delta overrides via the closed **5-op grammar** (§5.22): *reparent, set-container-prop, set-slot-hint, insert-container, remove-container*. | **Built on:** `AclRow` / `AclContainer` / `AclComponent` (`tom_flutter_ui/src/advanced_container_layout/acl_container.dart`), rendered via `TomObservingWidget`. The layout CodeSpec itself is a **plain annotated model class** describing the node tree.<br>**Annotations:** `@CsLayout` on the node-model class.<br>**Example:** a layout class whose members declare container nodes with stable ids and component slots, each slot naming its CE-EL element. | **Gap filled in `tom_core_codespecs`** — the id-addressed **node model** (stable node ids over the `Acl*` tree + the 5-op delta grammar) has no `tom_core` class, so `layout_node.dart` carries `TomLayoutModel` over the sealed `TomLayoutNode` (`TomLayoutContainerNode` / `TomLayoutSlotNode`) plus `TomLayoutOverrideDelta` over `TomLayoutContainerKind` + `TomLayoutDeltaOp` (§5.2, §5.12). The runtime `Acl*` classes themselves are ready. | `@CsLayout` carries the node **id** as its required first positional argument — the one thing the `Acl*` substrate genuinely lacks, and what the whole §5.22 delta grammar addresses nodes by. **Slot hints** are `AclComponent` properties and **container kind** is which `Acl*` class is instantiated, so neither is an argument (`codespecs_derivation_contract.md` §2.3 test **b**). A delta targets a node *within the same layout declaration*, so addressing it by id string is a local coordinate, not a §5.23 cross-part reference. |
 | **CE-TX** Text | User-visible text: message/i18n **keys** (shared), per-client **copy**. | **Built on:** `TomTextResourceProvider` (`tom_core_kernel`, `tombase/resources/tom_resource_provider.dart`) resolves keys; copy is basePath-derived client-side.<br>**Annotations:** `@CsText` on each **member** of a message-key catalogue class in the shared project; keys as §5.23 `CsMessageKey` consts.<br>**Example:** `class Messages { @CsText(baseCopy: 'Customer name') static const custNameLabel = CsMessageKey('customer.name.label'); }` | **Gap filled in `tom_core_codespecs`** — the typed **message-key registry** model (the catalogue of keys, SOM home MSGKR) has no core class, so `message_key.dart` carries `TomMessageKeyRegistry` over `TomMessageKey` + `TomMessageRole` / `TomMessageCategory` (§5.8, §5.21). | `@CsText` carries the **base-language copy** (required — a key with no copy is a key with no message), the **role** the copy plays and which catalogue **half** it belongs to. The **key** is not an argument: it is the `CsMessageKey` const the member already holds. Nor are the message **parameters**: §5.21 derives them from the copy's placeholders, so a second parameter list would be a source that could disagree with the copy it describes. A validator asserts `role == error ⇒ category == errorCopy`. |
 | **CE-VA** Validation | Field + form validation; closed **10-rule catalogue**: *required, email, minLength, maxLength, pattern, min, max, minItems, maxItems, compose*. | **Built on:** `Validators` static catalogue + `TomValidatorRegistry` declaration strings (`'required, minLength:8, pattern:^[A-Z]'`) + the sealed `ValidationResult` family and `FormValidationError` (`tom_flutter_ui/lib/src/forms/validation/`). Coded as **Dart validation methods** on the form or standalone validator classes (the §3 first-level-implementation latitude); cross-field form rules as **compilable pseudo-code** methods.<br>**Annotations:** `@CsValidation` on the method/field.<br>**Example:** `@CsValidation(rules: 'required, maxLength:80') late final TomString name;` | None — the 10-rule catalogue is shipped 1:1 in `Validators`. | All three markers are authored. `@CsFieldRule` and `@CsFormRule` mark the two rule *shapes* — a standalone `Validator<T>` versus a cross-field method on the form — because they differ in signature, not merely in scope, and `@CsValidation` alone cannot tell them apart. The **standard** rules need no marker of their own: they are the `rules` declaration string on the field, so only project-specific rules get a marker, each naming its error text as a `CsMessageKey`. `rules` is named rather than positional because Dart forbids one signature carrying both optional-positional and named parameters, and every marker keeps a named `note`. |
 | **CE-AC** Action | A user-triggerable action with undo/transaction support; closed **5-kind trigger taxonomy**: *user-gesture, in-form event, lifecycle, server-event, condition*. | **Built on:** subclass of `TomAction<TContext, TUndo>`, registered on `TomActionController`, wired by `TomActionTrigger` (the single authoring home of the element→action edge), with `TomActionTransaction` / `TomActionContext` (`tom_flutter_ui/lib/src/actions/`). CodeSpecs-phase bodies are **pseudo-code**.<br>**Annotations:** `@CsAction` on the class; `@CsTrigger(kind: …, action: …)` on the trigger declaration.<br>**Example:** `@CsAction() @CodeSpec('save_customer') class SaveCustomerAction extends TomAction<…> { @override perform(ctx) => throw UnsupportedError('persist via CustomerService.save'); }`, triggered by `@CsTrigger(kind: CsTriggerKind.userGesture, action: CsActionRef('saveCustomer'), element: CsElementRef('save', form: 'customerEdit'), gesture: CsGesture.tap)`. | None — the full action implementation is reused. | `@CsTrigger` carries the trigger **kind** plus that kind's slots — Dart annotations have no sum types, so each kind's payload is a separate optional argument and a validator asserts only the declared kind's are non-null. `@CsAction` stays note-only: the action id is its declaration name, the owning controller its declaration site, `TContext` its generic, and the two-hop CE-AC → CE-SC → CE-API edge is **derived from the trigger**, never authored twice. |
@@ -450,8 +450,8 @@ resulting position second.
 | **CE-API** ServerApi | A server-side operation endpoint under the §7 contract: POST-only, `TomResult`/`TomErrorResult` envelope, 5xx = transport only. | **Built on:** `TomApi` / `TomApiEndpoint<ReturnType, RequestType>` / `TomRemoteApis` (`tom_core_kernel`) + `TomEndpointHandler` / `TomEndpointRouting` / `TomApiEndpointImplementation` / `TomServer` (`tom_core_server`). Request/response types are **plain annotated model classes** in the shared project.<br>**Annotations:** `@CsEndpoint(operation)` + the `@CsAuthorize` modifier (CE-AZ).<br>**Example:** `@CsEndpoint('customer.save') @CsAuthorize(requirement: CsAuthRequirement.role, roles: [CsRoleRef('sales')])` on the operation; its `CustomerSaveRequest` members carrying field-constraint annotations. | None. | The request/response **members** carry their field-level constraints as `@CsValidation` declaration strings — maximum length, format restriction, required-ness — plus `CsErrorCode` refs (§5.23) enumerating which CE-ER codes the operation can return. |
 | **CE-SU** ServiceUnit | A functional-group *closure* of the server API (§5.1 boundary: owned-aggregate primary, process cohesion, bounded context); id `<RootAggregate>Service`; membership **derived, not listed**. | **Built on:** ordinary **(abstract) classes** carrying the `tom_core_server` mapping annotations (`@tomService` / `TomApiImplementation`, discovered via `scanClasses` / `TomComponentReference`); methods are the operations, CodeSpecs-phase bodies **pseudo-code** / `UnsupportedError`.<br>**Annotations:** `@CsServiceUnit(rootAggregate: …, boundedContext: …)`.<br>**Example:** `@CsServiceUnit(rootAggregate: Customer, boundedContext: 'sales') abstract class CustomerService { Future<CustomerDto> save(CustomerSaveRequest r); }` | None. | `@CsServiceUnit` carries the **boundary criterion** as its two required arguments — the owned root aggregate (a bare `Type`, since entities are already Dart types) and the bounded context it sits in. Cross-unit references use `CsServiceUnitRef` (§5.23). |
 | **CE-DB** DataAccess | Persistence: entities/tables, columns, repositories, queries (server-only placement; §5.13 three-level attribute surface). | **Built on:** the `tom_core_server` persistence model — CRUD/MariaDB repositories, query builder, persistence annotations. Entities are **plain annotated model classes**; query intents are **pseudo-code** repository methods in the CodeSpecs phase.<br>**Annotations:** `@CsTable('customer')` on the entity, `@CsColumn(…)` per attribute, `@CsRepository` on the repository class.<br>**Example:** `@CsTable('customer') class Customer { @CsColumn(length: 80) late String name; }` | None — the aggregation grammar is carried by `tom_core_server`'s `object_persistence/grouped_query.dart`: `TomAggregateFunction` (`count` / `sum` / `avg` / `min` / `max`, `distinct`-capable), `groupBy` key columns and a `having` group predicate, compiled through the query builder and sentence compiler and surfaced on the CRUD repository. Aggregate query specs are realisable over the query model, for **active CE-DB** as well as for **CE-RP**, whose dimensions and measures compile onto it (§5.28). **A repository's declared transaction scope has a per-flow substrate**: `TomTransactionManager` holds the current transaction in a **`Zone` value** (`tom_core_server` `transactions/transaction_manager.dart:219`), and `TomServer` forks a scope per request (`tomserver/server/server.dart:150`), so two concurrently served requests each run in their own unit of work. The scope is **ambient**, not threaded through a call, which is why `@CsRepository` carries nothing for it. Work that runs outside a request opens its own scope: CE-JB's emitted job body is wrapped in `runInTransactionScope` (§5.13, §5.29). An **optional** attribute emits a **plain nullable Dart field** (`String?`), keyed on `DATAA.nullable` — never a `TomN*` observable, which the shipped repository can read but not write (§5.13). | `@CsColumn` expresses what Dart types cannot: the physical **column name and type**, the **max length**, and the column-level access guard (`accessKey`, §5.13) — plus the `CsFileReference` facet whose presence *is* the column kind. `@CsRepository` stays note-only: entity and key type are the class's generics, and the named-query intent is one form-3 method each. |
-| **CE-ST** ViewState | Observable client view-model state. | **Built on:** `TomObservable` / `TomObject<T>` / `TomString` / `TomInt` / `TomBool` / `TomClass` / `TomList` / `TomMap` (`tom_core_kernel` observable) + `TomObservingWidget` / `ValueListenableObserver` (`tom_core_flutter`). The view-model is a `TomClass` subclass with observable members.<br>**Annotations:** `@CsViewModel`.<br>**Example:** `@CsViewModel(scope: CsLifecycleScope.route) class CustomerListState extends TomClass { final customers = TomList<…>(…); }` | No class gap — the observable family is shipped, **including a nullable arm** (`TomNString` / `TomNInt` / `TomNDouble` / `TomNBool` / `TomNDateTime`, `tom_core_kernel` `tombase/observable/tom_observable_objects.dart:432`–`:477`). An **optional** field emits that nullable arm, initialised to `null`, keyed on the attribute's `mandatory` level. The rule stops at CE-ST: CE-DB's `@CsColumn` emits a **plain nullable field** instead, because the persistence write path cannot bind an observable (§5.13). | `@CsViewModel` carries the state's **lifecycle scope**, defaulting to the narrowest arm (`screen`) so widening a view model's lifetime is a deliberate authored act. The fields, their types and their binding are the declaration itself, and binding to a widget is `TomObservingWidget`'s own surface (§2.3 tests **a**/**b**). |
-| **CE-NV** Navigation | Routes + **screen flow**: screen↔form assignment as *replace* / *popup overlay*; action-triggered, conditional targets. | **Built on:** `TomPageRoute<T>` + `TomNavigationDestination`/Rail/Bar/Drawer (`tom_flutter_ui`) for shell chrome. The route registry is a **plain annotated constants class**.<br>**Annotations:** `@CsRoute()` per route; `@CsScreenFlow()` on flow declarations.<br>**Example:** `@CsRoute() static const customerEditRoute = TomRouteDefinition(routeId: 'customer/edit', …);` | **Gap filled in `tom_core_codespecs`** — `tom_core` has no route-id registry or screen-flow model, so `route_flow.dart` carries `TomRouteRegistry` / `TomRouteDefinition` / `TomFormScreenAssignment` / `TomScreenFlowEdge` over `TomScreenPresentation` + `TomFlowOutcome` (§5.11); the SOM authoring home is the **screen route map** (`SCRTMP`) under D09 XDS `ScreenFlowStructure`. | Both markers stay note-only: the **transition kind** (*replace* vs *popup overlay*), the outcome and the `CsRouteRef` / `CsActionRef` edges all ride `TomRouteDefinition` / `TomFormScreenAssignment` / `TomScreenFlowEdge`'s own constructors, so repeating them as marker arguments would create the second, disagreeing source §2.3 exists to prevent. |
+| **CE-ST** ViewState | Observable client view-model state. | **Built on:** `TomObservable` / `TomObject<T>` / `TomString` / `TomInt` / `TomBool` / `TomClass` / `TomList` / `TomMap` (`tom_core_kernel` observable) + `TomObservingWidget` / `ValueListenableObserver` (`tom_core_flutter`). The view-model is a `TomClass` subclass with observable members.<br>**Annotations:** `@CsViewModel`.<br>**Example:** `@CsViewModel(scope: CsLifecycleScope.route) class CustomerListState extends TomClass { final customers = TomList<…>(…); }` | No class gap — the observable family is shipped, **including a nullable arm** (`TomNString` / `TomNInt` / `TomNDouble` / `TomNBool` / `TomNDateTime`, `tom_core_kernel` `tombase/observable/tom_observable_objects.dart:432`–`:477`). An **optional** field emits that nullable arm, initialised to `null`, keyed on the attribute's `mandatory` level. The rule stops at CE-ST: CE-DB's `@CsColumn` emits a **plain nullable field** instead, because the persistence write path cannot bind an observable (§5.13). | `@CsViewModel` carries the state's **lifecycle scope**, defaulting to the narrowest arm (`screen`) so widening a view model's lifetime is a deliberate authored act. The fields, their types and their binding are the declaration itself, and binding to a widget is `TomObservingWidget`'s own surface (`codespecs_derivation_contract.md` §2.3 tests **a**/**b**). |
+| **CE-NV** Navigation | Routes + **screen flow**: screen↔form assignment as *replace* / *popup overlay*; action-triggered, conditional targets. | **Built on:** `TomPageRoute<T>` + `TomNavigationDestination`/Rail/Bar/Drawer (`tom_flutter_ui`) for shell chrome. The route registry is a **plain annotated constants class**.<br>**Annotations:** `@CsRoute()` per route; `@CsScreenFlow()` on flow declarations.<br>**Example:** `@CsRoute() static const customerEditRoute = TomRouteDefinition(routeId: 'customer/edit', …);` | **Gap filled in `tom_core_codespecs`** — `tom_core` has no route-id registry or screen-flow model, so `route_flow.dart` carries `TomRouteRegistry` / `TomRouteDefinition` / `TomFormScreenAssignment` / `TomScreenFlowEdge` over `TomScreenPresentation` + `TomFlowOutcome` (§5.11); the SOM authoring home is the **screen route map** (`SCRTMP`) under D09 XDS `ScreenFlowStructure`. | Both markers stay note-only: the **transition kind** (*replace* vs *popup overlay*), the outcome and the `CsRouteRef` / `CsActionRef` edges all ride `TomRouteDefinition` / `TomFormScreenAssignment` / `TomScreenFlowEdge`'s own constructors, so repeating them as marker arguments would create the second, disagreeing source `codespecs_derivation_contract.md` §2.3 exists to prevent. |
 | **CE-AZ** Authorization | Access control on operations/resources; presets (`TomNoAccess` / `TomPublicAccess` / `TomAuthenticatedAccess` / `TomGuestAccess`) + **six configurable kinds**. | **Built on:** the `TomAccessControl` family (`tom_core_kernel`, `tombase/security/access_controls.dart`) — `TomRoleAccess`, `TomGroupAccess`, `TomEntitlementAccess`, `TomResourceKeyAccess`, `TomCustomAccess`, `TomGradedAccess` — evaluated via `checkAccessibility(TomPrincipal?)` + `resolveAuthState` against `TomPrincipal`.<br>**Annotations:** applied as the `@CsAuthorize` **modifier** on the owning `@CsEndpoint` (annotation-only form — no class of its own).<br>**Example:** `@CsEndpoint('customer.save') @CsAuthorize(requirement: CsAuthRequirement.role, roles: [CsRoleRef('sales')])` | None — `TomServerPrincipal` holds the ambient server principal and both evaluation entry points apply the `min(user, server)` meet (§5.26). | `@CsAuthorize` takes `CsRoleRef` / `CsResourceKeyRef` typed refs (§5.23) rather than raw strings, and the graded arm's three-slot tree as a `CsGradedAccess` whose slots are themselves `@CsAuthorize` values — the recursion §5.15 defines. `requirement` has **no default**: defaulting it is the exact failure §5.16's fail-safe rule prevents. |
 | **CE-ER** ErrorResult | The shared error/result envelope + the error-code catalogue. | **Built on:** `TomResult<T>` / `TomErrorResult` / `TomFieldError` / `TomErrorSeverity` (`tom_core_kernel`, `tombase/result/result.dart`). The error catalogue is a **plain annotated constants class** in the shared project; texts keyed via CE-TX.<br>**Annotations:** `@CsError` per code.<br>**Example:** `@CsError(severity: CsErrorSeverity.error) static const custNotFound = CsErrorCode('CUST-404');` | None. | `@CsError` carries the **severity**, mirrored onto `TomErrorSeverity`. It carries no message key: §5.21 keys error copy *by the error code*, so the key is derived, not authored. The codes themselves are §5.23 `CsErrorCode` consts. |
 | **CE-CF** ServerConfiguration | Server/system-scope configuration; precedence config-tree → env → `.env` → cmdline; secret marking. | **Built on:** subclass of `TomBaseServerConfiguration` + `TomServerConfigResourceProvider` (`tom_core_server`). A **plain typed config class**; config keys stay strings (§5.23 exemption).<br>**Annotations:** `@CsServerConfig(key)` per setting member.<br>**Example:** `class AppServerConfig extends TomBaseServerConfiguration { @CsServerConfig('smtp.password', envAlias: 'SMTP_PASSWORD') late String smtpPassword; }` | None. | `@CsServerConfig` carries the setting **key** and its env / cmdline **aliases** — all three verbatim, being §5.23 exemption 1 — plus the required `overridableBy` scope opt-in (§5.16) and the `secret` flag. Type and default are the member declaration and its initialiser; precedence is not an argument, because §5.16 fixes it for every setting and a per-setting override would be a second, disagreeing rule. The SMTP settings (`smtpHost`, `smtpPort`, `smtpSecurity`, `smtpUsername`, `smtpPassword`, `smtpFrom*`, `smtpClientName`) are the live exemplar: declared on `TomBaseServerConfiguration`, with `smtpPassword` secret-bearing — its *declaration* authored, its *value* supplied only through the precedence chain. |
@@ -459,7 +459,7 @@ resulting position second.
 | **CE-UP** UserSettings | User-scope, **server-persisted** settings — follows the user (§11). Single-moded: there is no persistence argument, because the scope key alone decides where a value lives. | **Built on:** `TomUserPreferences` (`tom_core_server`, `tomserver/preferences/user_preferences_service.dart`) over a `TomUserPreferenceRepository`, reached from a client through the kernel's `tomUserPreferencesApi` (`tombase/preferences/user_preferences_contract.dart`) — four authenticated endpoints carrying `TomUserPreferenceDto` — implemented server-side by `TomUserPreferencesServer` and called client-side by `TomUserPreferencesClient` (`tom_core_flutter`). Pure reuse.<br>**Annotations:** `@CsUserSetting(key)` per field.<br>**Example:** `@CsUserSetting('user.preferredLanguage') String preferredLanguage = 'de';` — the default is the member initialiser. | None — the round trip ships end to end: the kernel declares the contract and the codec, `TomUserPreferences` persists per user through the repository, `TomUserPreferencesServer` implements the four endpoints, and `TomUserPreferencesClient` calls them. The **user is bound from the request zone, not passed as an argument**, so a generated `@CsUserSetting` accessor has no principal parameter to get wrong; the persisted-value → default order is the store's own (`getOr`). Both ends resolve their URIs from the one `TomApi` declaration, so client and server cannot address different paths. | `@CsUserSetting` carries the setting **key** and its required `overridableBy` scope opt-in (§5.16) — type and default are the member. Single-moded for the §11 reason: a setting that must stay on the machine is `@CsDeviceSetting`, not this marker with a flag. Both halves of the declaration use the same key and the same member names, so the wire mapping is identity. |
 | **CE-DS** DeviceSettings | (user, device) scope, device-persisted (§11). | **Built on:** the `tom_core` property/settings classes (§5.16).<br>**Annotations:** `@CsDeviceSetting(key)` per field.<br>**Example:** `@CsDeviceSetting('device.lastOpenedTab') int lastOpenedTab = 0;` | **A `@CsDeviceSetting` emits onto `TomDevicePreferences`** (`tom_core_flutter` `tomclient/preferences/device_preferences.dart:160`) — the typed device store, resolved as a bean, implemented by `TomStoredDevicePreferences` over a `TomDevicePreferenceStore` chosen per platform by dependency injection, so the call site never branches on the platform. The **user dimension is the application's, supplied by the store's `location`**: the API carries no principal, a store is one flat key space, and an install on which more than one account signs in gives each its own location. CE-DS is therefore CE-CC's substrate at a different address (§5.16, §11). | `@CsDeviceSetting` carries the setting **key** and nothing else — CE-DS is the lattice's narrowest scope, so unlike CE-UP it carries no `overridableBy` counterpart (§5.16), and for the same §11 reason there is no persistence-mode argument on either. |
 | **CE-CL** Client | A client application of the system: which screens it comprises, its platform targets, its entry route. SOM home CLIAPP (the client-application list under `ClientRequirementsSection` CLRESE, D06 ATS). | **Built on:** `TomClientApplication` (`tom_core_codespecs`, `client_application.dart`) — `clientId` / `displayName` / `platforms` / `entryRoute` / `screenIds` / `serverBaseUrl`. The CodeSpec is a subclass carrying the marker.<br>**Annotations:** `@CsClient` on the descriptor.<br>**Example:** `@CsClient('backoffice', kind: CsClientKind.flutterApp) class BackofficeClient extends TomClientApplication { … }`, its members naming platform targets and its entry route (`CsRouteRef`). | **Gap filled in `tom_core_codespecs`** — the four original `tom_core` packages have no client-application *descriptor*: `TomAuthenticationData` carries a client id string and `TomClientRemoteContext` models a live connection, but neither names the client application as a first-class, spec-authorable unit. `client_application.dart` carries that unit. | `@CsClient` carries the client **id** and its **kind**, the latter required because the kind decides which other parts the client may carry — a CLI has no CE-EL — so defaulting it would silently admit impossible combinations. The kind is the one attribute with **no descriptor member**: platform targets, entry route and screen set are all `TomClientApplication`'s own. The client's **configuration** is not among them either — a CE-CC setting names its owning client (§11), so a client-side list would be the second source the two would disagree through. |
-| **CE-AU** Authentication | Login, token issuance/refresh; optional 2FA. | **Built on:** `TomAuthenticationServer` + the app's `TomAuthenticationService` (`tom_core_server`); wire/token types `TomBearerAuthentication` / `TomClientJwtToken` / `TomAuthenticationMessage` / `TomAuthenticationResult` / `TomServerJwtToken` (`tom_core_kernel` / `tom_core_server`). Pure reuse; the login endpoint triple is client-side.<br>**Annotations:** `@CsAuth` marks the app's auth service + client flow. | None — the second-factor round trip is complete in all three loci, so CE-AU stays pure reuse. **Server:** pass 1 issues a `Tom2FAChallenge` interim token carrying the access-control payload it already resolved, `authenticatePass2` verifies it statelessly through the `Tom2FARegistry` adaptor, and the challenge's `validity` plus its attempt allowance bound the chain; whether a factor is owed and which mechanisms may answer it is `Tom2FAPolicy.decideFor` → `Tom2FADecision` (requirement level, mechanisms in preference order, grace count), with `TomRole2FAPolicy` shipped and `TomPrincipalFlag2FAPolicy` the const fallback; enrolment is `Tom2FAEnrolmentSupport` (`beginEnrolment` / `confirmEnrolment`), implemented by `TomTotp2FAService` with secret generation and the `otpauth://` provisioning URI, persisted through `Tom2FAEnrolmentStore`. **Wire:** `TomAuthenticationResult` carries `requires2FAEnrolment`, `availableTwoFactorMethods` and `twoFactorEnrolmentSkippable` beside the unchanged `requires2FA` / `twoFactorType`. **Client:** `Tom2FAFlowPanel` over the app's `Tom2FAFlowController` owns the chooser, attempt counter and skip affordance, with `Tom2FAClientMechanism` per mechanism (`tom_core_flutter`). See §5.25. | `@CsAuth` stays note-only, on a different §2.3 ground per group. The **set of enabled methods and flows** is test **a**: there is one marked declaration per enabled method/flow, so the set of declarations *is* the enabled set, and a flow-kind argument would invent a closed method catalogue the SOM does not have. The **second-factor policy** — requirement level, mechanism preference order, grace count — is test **b**: those are `TomRole2FAPolicy`'s own constructor parameters (`requirementByRole`, `defaultRequirement`, `mechanisms`, `graceLogins`), so `MfaConfiguration` (`MC`) emits a *further marked declaration*, the deployment's `Tom2FAPolicy` binding, rather than arguments on the first. Whether declining an enrolment offer is allowed is **not authorable at all**: the server derives it as *optional-or-on-grace* (§5.25). Token lifetime, refresh policy and credential policy are values on the `@CsServerConfig` holder. |
+| **CE-AU** Authentication | Login, token issuance/refresh; optional 2FA. | **Built on:** `TomAuthenticationServer` + the app's `TomAuthenticationService` (`tom_core_server`); wire/token types `TomBearerAuthentication` / `TomClientJwtToken` / `TomAuthenticationMessage` / `TomAuthenticationResult` / `TomServerJwtToken` (`tom_core_kernel` / `tom_core_server`). Pure reuse; the login endpoint triple is client-side.<br>**Annotations:** `@CsAuth` marks the app's auth service + client flow. | None — the second-factor round trip is complete in all three loci, so CE-AU stays pure reuse. **Server:** pass 1 issues a `Tom2FAChallenge` interim token carrying the access-control payload it already resolved, `authenticatePass2` verifies it statelessly through the `Tom2FARegistry` adaptor, and the challenge's `validity` plus its attempt allowance bound the chain; whether a factor is owed and which mechanisms may answer it is `Tom2FAPolicy.decideFor` → `Tom2FADecision` (requirement level, mechanisms in preference order, grace count), with `TomRole2FAPolicy` shipped and `TomPrincipalFlag2FAPolicy` the const fallback; enrolment is `Tom2FAEnrolmentSupport` (`beginEnrolment` / `confirmEnrolment`), implemented by `TomTotp2FAService` with secret generation and the `otpauth://` provisioning URI, persisted through `Tom2FAEnrolmentStore`. **Wire:** `TomAuthenticationResult` carries `requires2FAEnrolment`, `availableTwoFactorMethods` and `twoFactorEnrolmentSkippable` beside the unchanged `requires2FA` / `twoFactorType`. **Client:** `Tom2FAFlowPanel` over the app's `Tom2FAFlowController` owns the chooser, attempt counter and skip affordance, with `Tom2FAClientMechanism` per mechanism (`tom_core_flutter`). See §5.25. | `@CsAuth` stays note-only, on a different `codespecs_derivation_contract.md` §2.3 ground per group. The **set of enabled methods and flows** is test **a**: there is one marked declaration per enabled method/flow, so the set of declarations *is* the enabled set, and a flow-kind argument would invent a closed method catalogue the SOM does not have. The **second-factor policy** — requirement level, mechanism preference order, grace count — is test **b**: those are `TomRole2FAPolicy`'s own constructor parameters (`requirementByRole`, `defaultRequirement`, `mechanisms`, `graceLogins`), so `MfaConfiguration` (`MC`) emits a *further marked declaration*, the deployment's `Tom2FAPolicy` binding, rather than arguments on the first. Whether declining an enrolment offer is allowed is **not authorable at all**: the server derives it as *optional-or-on-grace* (§5.25). Token lifetime, refresh policy and credential policy are values on the `@CsServerConfig` holder. |
 | **CE-ID** Identity | User identity + the app-specific profile extension; per-attribute **public vs encrypted** placement. | **Built on:** `TomUser` / `TomPrincipal` (`tom_core_kernel`, `tombase/security/user_principal_aci.dart`). The profile extension is an **ordinary class carried as JSON via reflection** — public carrier `TomUser.attributes`, encrypted carrier `TomPrincipal.currentContext` via `convertPrincipalToTokenPayload` (§5.24).<br>**Annotations:** `@CsIdentity` on the extension class; `@CsIdentityAttribute(placement: CsIdentityAttributePlacement.public)` / `…encrypted` per field — `placement` is a **required** named argument of the closed `CsIdentityAttributePlacement` enum, never defaulted, because §5.16's fail-safe rule forbids choosing a token-payload arm by omission.<br>**Example:** `@CsIdentity() class EmployeeProfile { @CsIdentityAttribute(placement: CsIdentityAttributePlacement.encrypted, systemOfRecord: 'hr') String? costCenter; }` | None — reuse; both carriers exist. | `@CsIdentityAttribute` carries the **placement**, the field-level access guard (`CsResourceKeyRef`), the **system of record** and whether the attribute is **required** — identity attributes are the prime example of annotation-borne restrictions the code alone cannot state. The attribute's type stays on the member; `@CsIdentity` stays note-only. |
 | **CE-MG** SchemaMigration | The SQL migration chain; filename grammar `[<version>]-<description>[@<env>].<ext>`. | **Built on:** `TomDbMigrations` / `TomDbMigrator` / `TomMigrationFileName` / `@TomDbMigrationAdaptor` / `MariadbMigrationAdaptor` (`tom_core_server`, `tomserver/db_migration/`). Migration files are SQL assets; the CodeSpec is the registration class.<br>**Annotations:** `@CsMigration` on the migrations class. Migration **filenames stay strings** (§5.23 exemption). | None — execution substrate is pure reuse, and the **schema-diff engine** proving cumulative migration DDL ≡ the `@CsTable`/`@CsColumn` entity model (the §5.27 named validator check) ships alongside it as `schema_model.dart` / `schema_ddl_reader.dart` / `schema_convergence.dart`. That check is the **only integrity guard** available over the string-exempt migration filenames, so it is the one every CE-MG spec relies on. | `@CsMigration` carries the **datasource**, the **schema** and the artifact **kind** — all three required: datasource + schema *are* the artifact directory path, and generating an initial DDL where an iteration was meant would rewrite a live schema. Artifact **filenames** stay strings (§5.23 exemption 3), which is exactly why the convergence obligation against the `@CsTable` / `@CsColumn` model is a named generation-time validator check rather than a compile-time edge. |
 | **CE-JB** BackgroundJob | Scheduled / queued background work. | **Built on:** `tom_core_kernel`'s `tombase/scheduling/` module — `TomJobDefinition`, the `TomSchedule` family, `TomScheduler`, `TomJobStore`, `TomLeaseLock`, `TomJobDispatcher` — over the `TomCommand` / `TomExecutor` / `TomWorker` isolate-pooling substrate. A job pairs a `TomJobDeclaration` (the gap: deployment/ownership envelope) with its own `TomJobDefinition`, whose work body is **compilable pseudo-code** over a later-injected abstract service (§3, §5.29).<br>**Annotations:** `@CsJob`.<br>**Example:** `@CsJob(trigger: CsJobTrigger.cron, cron: '0 3 * * *', maxRetries: 2) class NightlyCleanupJob { final declaration = TomJobDeclaration(jobId: 'nightly_cleanup', serviceUnitId: 'sessions'); ... }` | None — the runtime is reused wholesale from `tom_core_kernel`'s `scheduling` module (scheduler, durable job store, multi-node lease), and the deployment/ownership envelope `tom_core` has no place for is carried by `tom_core_codespecs`'s `TomJobDeclaration` (`jobId` / `displayName` / `enabled` / `environments` / `serviceUnitId` / `readEntities` / `writtenEntities` as `Type` literals, with `targetEntities` and `runsIn(environment)`). Gating is **opt-out** and an empty `environments` list means *every* environment, so a spec states only the exceptions. | `@CsJob` carries the **trigger** plus that trigger's schedule slot (`cron` / `calendar` / `event`), the **retry / backoff / timeout / failure-alert** policy — each lowered onto the reused `TomSchedule` / `TomRetryPolicy` / `TomJobAlert` surface — and the job's **CE-RP targets** as `CsReportRef` consts. A `TomSchedule` is not a const, which is why the annotation carries per-kind strings rather than an instance. |
@@ -1347,10 +1347,11 @@ CE-SC/client.
    view-model it updates and/or the CE-NV navigation it triggers (cited by its
    `CsRouteRef`, §5.23).
 4. **error handling** — the structured error path: a `TomServerCallError` maps to the
-   canonical CE-ER `Result`/`ErrorResult` envelope (§7.3); error **codes** resolve to
-   copy through the CE-TX message-key registry (MSGKR, §5.21) — client copy and server
-   error codes share one source (§7.4). 5xx are transport failures, never application
-   outcomes (§7.2).
+   canonical CE-ER `Result`/`ErrorResult` envelope; error **codes** resolve to copy
+   through the CE-TX message-key registry (MSGKR, §5.21), so client copy and server
+   error codes share one source; and 5xx are transport failures, never application
+   outcomes. All three are §7's server-contract decisions, which CE-SC obeys rather
+   than restates.
 5. **call options** — the `TomServerCallSpecs` knobs that are spec-authorable:
    `includeBearerAuthentication` (CE-AU), extra headers, timeout/redirect policy.
    Channel selection is deployment config (CE-CC), not per-call.
@@ -1383,7 +1384,7 @@ CE-AC @CsAction ──triggers──▶ CE-SC @CsServerCall ──operation─�
   operation's DTOs are **mirrored in the shared project** and the CE-SC call site is
   authored exactly like the internal case.
 
-**Directionality & why by-reference.** References point client→shared (§1.1b:
+**Directionality & why by-reference.** References point client→shared (§1.1 pillar (b):
 dependency arrows point at the shared contract). The client `@CsServerCall` depends on
 the shared CE-API operation; CE-API never depends back on any client. Modelling both
 hops as typed const references (§5.23, not containment) means an action, its server call, and the
@@ -1391,17 +1392,32 @@ operation each have exactly one authoring home and can be reused (several action
 call; several calls → one operation) without duplication — the "author once, reference
 everywhere" invariant CE-TX/CE-ER and domain enums already follow.
 
-**SOM feed.** CE-SC is derived from **D05 ISC** (scenario steps whose
-`systemResponse` is a server interaction) + **D02 TOM** (process steps that cross the
-client/server boundary), per §8. The SOM models UI actions
-(`ScreenActionEntry` SCRAC, `ScreenElementAction` SCELAC, `ComponentActionEntry` CMAC)
-and scenario steps (`MainScenarioStepEntry.systemResponse`, `ScenarioStepEntry`) but
-carries **no** server-call section and **no** explicit action→operation reference yet —
-a planned D05 ISC / D02 TOM SOM extension adds the action / serverCall / navigation
-sections that carry the reference-by-id fields, applying
-`@CodeSpecKind([CodeSpecPart.serverCall])` on the server-call section and
-`CodeSpecPart.action` on the action section (both enum values exist, currently
-unused — SOM-completeness open question §10.3).
+**SOM feed.** CE-SC is derived from the four **D05 ISC step entries** —
+`MainScenarioStepEntry` MNSST, `AlternativeStepEntry` ALST, `ExtensionStepEntry`
+EXTST and `ScenarioStepEntry` SCNST — each carrying
+`@CodeSpecKind([CodeSpecPart.action, CodeSpecPart.serverCall, CodeSpecPart.navigation])`.
+The three kinds sit on **one** section rather than on three because an interaction
+step *is* at once the actor action, the call it issues and the transition it
+causes; splitting them would ask an author to write the same step three times.
+All four are reachable from `D13CodeSpecsProjection`, so they are the generation
+input and not merely an authoring home (§8.5). UI actions
+(`ScreenActionEntry` SCRAC, `ScreenElementAction` SCELAC, `ComponentActionEntry`
+CMAC) carry `action` alone — they are the CE-AC trigger side of hop 1, and a
+screen action that reaches the server does so through the step entry that
+describes the interaction. The **outbound** case is authored outside the
+projection: `InterfaceOperationEntry` IOE and `IntegrationPointEntry` INTEG carry
+`serverCall` alone and describe a **foreign** contract, which is mirrored rather
+than generated from (§8.5, CE-API row).
+
+**The operation edge is resolved, not authored.** A step names what the system
+does in prose — MNSST's `systemResponse` and its siblings' equivalents — and no
+SOM member cites `ServerOperationEntry.operationName`. Hop 2's `CsOperationRef`
+is therefore resolved during derivation against the SVOPR registry, which is why
+`codespecs_derivation_contract.md` §3.5.7 makes `operation` the one **required**
+argument of `@CsServerCall`: it is the single edge in the chain that the emitted
+Dart cannot carry itself. The CE-NV edge beside it *is* an authored member —
+`ScreenActionEntry.behavior.navigateTo` cites `SCRTEN.routeId` — which is what an
+authored operation edge would look like.
 
 ### 5.4 CE-ST view-model model over TomObservable/TomObject
 
@@ -1488,15 +1504,23 @@ shape and the client-side bindings around it.
   view-model fields (§5.3 attr 2). CE-ST is the client state the server call reads
   from and writes to.
 
-**SOM feed.** CE-ST is derived from **D03 IMO** (the information model —
-which entity fields a screen exposes) crossed with **D06 XDS / screen definitions**
-(which fields a screen holds as editable/derived view state), per §8. The SOM
-carries `CodeSpecPart.viewState` markers on the business-object family
-(`BusinessObjectModel`, `BusinessObjectEntry`, `BusinessObjectAttributeEntry`) and
-on `DisplayPropertyEntry` but **no** dedicated view-model section with
-a typed-field tree yet — a planned D03/D06 SOM extension adds the view-model section
-(typed field tree + binding references), applying
-`@CodeSpecKind([CodeSpecPart.viewState])` on that section (the enum value exists).
+**SOM feed.** CE-ST is derived from **D09 XDS** — `ScreenStateEntry` SCRST,
+`ScreenElementDataDisplay` SEDD and `ComponentStateEntry` COMSTA, the three
+`viewState`-marked screen sections — crossed with **D03 IMO** for the shape of
+each field: `DisplayPropertyEntry` DISPL (how an attribute is presented) and
+`BusinessObjectAttributeEntry` BIOBAT with its `BOAED` detail, whose `mandatory`
+level chooses the nullable arm of attribute 1. All five are reachable from
+`D13CodeSpecsProjection`. The IMO business-object catalogue above BIOBAT
+(`BusinessObjectModel` BJOMD, `BusinessObjectEntry` BJOEN) carries the marker too
+but stays **outside** the projection: it is the domain catalogue the fields are
+read from, not a screen's state.
+
+**There is no single "view-model" section, and that is the design.** A view model
+is assembled from the screen sections that name its states and its data-bound
+displays, plus the attribute entries that give each field its type and its
+requirement level; the typed field tree is the *output* of that crossing rather
+than a shape an author restates. `codespecs_derivation_contract.md` §3.5.1 fixes
+the crossing, down to which section each field's `@DocSpec` back-link names.
 
 ### 5.5 CE-CF server-configuration model + system-vs-user config scoping
 
@@ -1595,13 +1619,38 @@ and user configuration are not unified into one type because they have different
 owners, lifetimes, and persistence loci; they are unified at the *concept* level
 and kept separate at the *realisation* level.
 
-**SOM feed.** CE-CF is derived from **D06 ATS** (architecture / deployment
-topology — what the server needs configured) + **D08 SAS** (security — which
-config carries keys/secrets), per §8. The cross-scope source **precedence** —
-which source wins when the same logical key is expressible at more than one
-scope — is §5.16. A planned D06 ATS SOM extension isolates the CE-CF
-configuration section, applying `@CodeSpecKind([CodeSpecPart.serverConfiguration])`
-on that section (the enum value exists).
+**SOM feed.** CE-CF is derived from **42** `serverConfiguration`-marked sections,
+across **D06 ATS** (what the server needs configured), **D08 SAS** (which config
+carries keys and secrets) and **D09 XDS** (the print/export renderer settings).
+They split by **who owns the setting's key**, and the split is what decides how
+much of a setting is authorable at all:
+
+- **Declared — the application owns the key.** `SystemConfigurationManagement`
+  SYCOMA carries the marker over its open list `ServerConfigurationSettingEntry`
+  SCSET: the author invents the key, so every property of the setting is
+  authored, including the secret mark, which is expressible here and nowhere
+  else. This is the **single** declared section.
+- **Fixed — the model owns the key.** The other **41** are policy and layout
+  bands whose form fields each name one setting the SOM already knows exists —
+  `ConfigurationManagement` CM and the release-management feature-flag band under
+  D06 ATS, the SAS encryption / key-management / API- and storage-security /
+  audit-sink bands, and D09's `PrintAndExportLayout` PRLA with its export-format
+  and template entries. The author supplies the value only, so nothing per-setting
+  is authorable.
+
+`codespecs_derivation_contract.md` §3.3.6 states the two paths as one contract:
+both emit members of a single `TomBaseServerConfiguration` holder, because the
+discriminator is about authoring, not about runtime. The cross-scope source
+**precedence** — which source wins when the same logical key is expressible at
+more than one scope — is §5.16.
+
+**18 of the 42 are inside `D13CodeSpecsProjection`** — the declared section and
+17 of the fixed bands (CM, the ATS feature-flag band, and the SAS API-security,
+file-and-storage-security and audit-sink families). The other 24 — the SAS
+encryption (13) and key-management (6) families and D09's PRLA band (5) — are
+authorable but unprojected, so generation does not read them. That split cuts
+across bands of one character rather than along the declared/fixed line, and
+resolving it is `tscompb10` (§10).
 
 ### 5.6 CE-API / CE-SU / CE-AZ server API, service-unit & authorization model
 
@@ -1634,18 +1683,18 @@ surveyed classes; every one is a `tom_core`-family class per §1.1:
 is verb-general (defaults to `GET`, arbitrary URIs, exceptions → 500). `@CsEndpoint`
 **narrows** it to the §7 contract without changing the runtime:
 
-1. **operation name, not verb+path.** Every `@CsEndpoint` is **POST** (§7.1); its
-   identity is a first-class **operation name** (the intent carrier), not the HTTP
-   verb or a REST-shaped path. The name is the stable id CE-SC references (§5.3
-   hop 2) and the CE-SU grouping key.
+1. **operation name, not verb+path.** Every `@CsEndpoint` is **POST** per §7's
+   first decision; its identity is a first-class **operation name** (the intent
+   carrier), not the HTTP verb or a REST-shaped path. The name is the stable id
+   CE-SC references (§5.3 hop 2) and the CE-SU grouping key.
 2. **typed request/response.** Each operation names a request DTO `T` and response
    DTO `R` (the `TomApiEndpoint<R,T>` type args), both authored in the **shared**
    project so client (CE-SC) and server (CE-API handler) compile against one type.
 3. **structured result, transport-clean.** The success payload is `R` inside the
-   CE-ER `Result` envelope (§7.3); application errors are `ErrorResult` in a **2xx**
-   transport response; only 5xx is a transport failure (§7.2). Error **codes**
-   resolve to copy via the CE-TX message-key registry (§5.21), so no `@CsEndpoint`
-   embeds error text.
+   CE-ER `Result` envelope; application errors are `ErrorResult` in a **2xx**
+   transport response; only 5xx is a transport failure. Both are §7's third and
+   second decisions. Error **codes** resolve to copy via the CE-TX message-key
+   registry (§5.21), so no `@CsEndpoint` embeds error text.
 
 `@CsEndpoint` therefore adds **no** new transport type — it constrains
 `TomEndpoint`/`TomApiEndpoint` to (POST + operation-name + typed `T`/`R` + Result
@@ -1718,7 +1767,7 @@ CE-SU service-unit attribute set — §5.17.
 **Decision.** The two **client-side** UI-structure
 parts: `@CsElement` + `@CsWidget` (CE-EL, the semantic element and its concrete
 widget binding) and `@CsForm` (CE-FM, the field group / form). Both are *reuse*
-parts whose substrate is **`tom_flutter_ui`** (§1.1b).
+parts whose substrate is **`tom_flutter_ui`** (§1.1 pillar (b)).
 Both live in the **client** project (`<app>_codespec_client`, §4.2). **No new
 class:** CE-EL introduces no `tom_core_codespecs` type — it is fully covered by
 `TomScreenElementsProvider` + the existing `Tom*` `tom_flutter_ui` element/widget
@@ -1864,7 +1913,7 @@ by CE-ER codes) is §5.21.
 **Decision.** The CE-VA validation parts are a
 **reuse** family: a `@CsValidation` umbrella plus the two-way
 **field-rule vs form-rule** split — `@CsFieldRule` (single-field) and `@CsFormRule`
-(cross-field / form-level). The substrate is **`tom_flutter_ui`** (§1.1b). **No new
+(cross-field / form-level). The substrate is **`tom_flutter_ui`** (§1.1 pillar (b)). **No new
 class:** CE-VA is **provided as Dart code** — standalone validator classes with
 validation methods, or validation methods on the `TomForm` subclass — exercising
 the §3 first-level-implementation latitude (a CodeSpec need not be purely
@@ -1913,7 +1962,7 @@ keys resolve against the CE-VA/CE-ER/CE-TX error-code spine (§5.8, §7).
 **Decision.** `@CsAction` (CE-AC) is a **reuse** part over the surveyed
 `tom_flutter_ui` action substrate, plus a `@CsTrigger` marker and the CodeSpecs-only
 **trigger taxonomy** (how an action is invoked). The substrate is
-**`tom_flutter_ui`** (§1.1b). CE-AC lives in the **client** project (§4.2). **No new
+**`tom_flutter_ui`** (§1.1 pillar (b)). CE-AC lives in the **client** project (§4.2). **No new
 class:** Actions have a **full implementation in `tom_flutter_ui`**
 (`TomAction` / `TomActionController` / `TomActionTrigger`, decision (g)); the formal
 **trigger taxonomy** is a **documented classification over those reused classes**,
@@ -1972,7 +2021,7 @@ edge a triggered action drives is §5.3.
 **Decision.** `@CsRoute` (CE-NV) is a **reuse** part over the `tom_flutter_ui`
 routing substrate, plus the CodeSpecs-only **route-id model** (stable route
 identifiers) and a **screen-flow model** (`@CsScreenFlow`). The substrate is
-**`tom_flutter_ui`** (a CodeSpecs code basis, §1.1b). CE-NV lives in the **client**
+**`tom_flutter_ui`** (a CodeSpecs code basis, §1.1 pillar (b)). CE-NV lives in the **client**
 project (§4.2). The CodeSpecs-only additions — the **route-id model** and the
 **screen-flow model** — live in **`tom_core_codespecs`** as `TomRouteRegistry` /
 `TomRouteDefinition` / `TomFormScreenAssignment` / `TomScreenFlowEdge`
@@ -2052,7 +2101,7 @@ substrate + the `tom_core_flutter` observation binding. §5.2 fixes the design
 (generated base + override delta layer; container node + slot node; stable node
 ids; non-destructive override survival); this section fixes *which surveyed classes
 realise each node kind* and where the CodeSpecs-only structure lives (the
-`tom_flutter_ui` basis per §1.1b). The override-separable node model lives in
+`tom_flutter_ui` basis per §1.1 pillar (b)). The override-separable node model lives in
 **`tom_core_codespecs`** as `TomLayoutModel` over the sealed `TomLayoutNode`
 (`layout_node.dart`; a concrete class, **not** an abstract `Cs*` base; §4.1
 no-base-classes rule). CE-LO lives in the **client** project (§4.2).
@@ -2085,7 +2134,7 @@ free of the CodeSpecs-only build-time structure. It emits an ACL tree at render 
 > **Substrate location note.** `TomObservingWidget` lives in
 > **`tom_core_flutter`**, not `tom_flutter_ui`; the CE-LO code basis groups it
 > with the ACL classes under the "tom_flutter_ui" substrate heading. This is a precision on
-> the survey — both are tom_core-family packages (§1.1b).
+> the survey — both are tom_core-family packages (§1.1 pillar (b)).
 
 **SOM feed.** CE-LO base structure ← **D09 XDS** screen/form layout (+ **D05 ISC**
 screen naming); the override layer is authored, not derived; join key `@SectionId`
@@ -2404,7 +2453,7 @@ values so the choice is exhaustive): `TomNoAccess` (deny), `TomPublicAccess` (al
 `TomAuthenticatedAccess` (any signed-in user), `TomGuestAccess`. These carry no
 spec-authorable attributes — the kind *is* the whole requirement, so they get **no
 `@Case` arm at all** and are listed in the group's `@OneOf(noCase: [...])`, which
-is how the §10.2 validator tells this shape from a case nobody has written yet.
+is how the `tom_specs_model_rules.md` §10.2 validator tells this shape from a case nobody has written yet.
 
 **The SOM sections.** The choice is authored **once**, in
 `tom_specs_model/lib/src/common/authorization_requirement.dart`, and every modifier
@@ -2813,7 +2862,7 @@ attribute here.
 
 **Decision.** The **CE-EL** screen-element attribute surface — the catalogue
 *contents* over the two-step shape and `tom_core_codespecs` placement of §5.7.1
-(on the `tom_flutter_ui` code basis, §1.1b). Three things are fixed: the **field-base** spec-authorable set, the **closed
+(on the `tom_flutter_ui` code basis, §1.1 pillar (b)). Three things are fixed: the **field-base** spec-authorable set, the **closed
 semantic-kind catalogue** (each kind's default widget + per-kind extras), and the
 **semantic→widget** two-step contents.
 
@@ -3675,7 +3724,7 @@ not separate parts.
    the requirement is `optional`, or when a `required` obligation still has grace
    left (`authentication_server.dart:786`). A spec that authored a skip flag
    beside the policy would be authoring a value the server recomputes and
-   overwrites — the second, disagreeing source §2.3 exists to prevent.
+   overwrites — the second, disagreeing source `codespecs_derivation_contract.md` §2.3 exists to prevent.
 3. **Per-client login flow.** Each client's login sequence and its
    `TomServerEndpoint<TomAuthenticationMessage, TomAuthenticationResult>`
    endpoint triple (guest / pass1 / pass2).
@@ -3856,9 +3905,9 @@ The pair is authored once per target in the `SCHMG` migration-target list
 `dataSourceName` and `schemaName` that form the directory path. Each artifact
 then names its target through `SCMST.migrationTarget`
 (`refersTo: MIGTG.targetName`) instead of repeating the pair, which is what
-keeps the two path segments un-defaultable per artifact (§3.3.5 of
-`codespecs_derivation_contract.md`) without duplicating them across an entire
-chain.
+keeps the two path segments un-defaultable per artifact
+(`codespecs_derivation_contract.md` §3.3.5) without duplicating them across an
+entire chain.
 
 **Immutability — applied migrations are append-only.** The migrator records
 each applied version and, on re-encounter, **verifies** (description/checksum)
@@ -4637,15 +4686,15 @@ A part is **COVERED** only when both hold.
 | CE-TX | `text` | `MessageKeyEntry` MSGKE (the `MessageKeyRegistry` projection root) · `ValidationMessageTemplate` VMT | COVERED |
 | CE-VA | `validation` | `ElementValidationRuleEntry` ELVARU · `DataAttributeConstraintEntry` DATAA · `IntegrityConstraints` INCO | COVERED |
 | CE-AC | `action` | `ScreenActionEntry` SCRAC · `ScreenElementAction` SCELAC · the ISC step entries MNSST/ALST/EXTST/SCNST | COVERED |
-| CE-SC | `serverCall` | the ISC step entries MNSST/ALST/EXTST/SCNST (under `ProcessStepsAndActorInteractions`) | COVERED |
+| CE-SC | `serverCall` | the ISC step entries MNSST/ALST/EXTST/SCNST, each under its own flow container (`MainSuccessScenario` MASUSC · `AlternativeFlowEntry` ALFL · `ExtensionEntry` EXTEN · `ScenarioEntry` SCNRY). All four step entries carry `action`+`serverCall`+`navigation` together, since one step is at once all three. The operation the call targets is **resolved at derivation** against SVOPR, not authored (§5.3) | COVERED |
 | CE-API | `serverApi` | `ServerOperationEntry` SVOPE · `ServerOperationMemberEntry` SVOPM, under the `ServerOperationRegistry` SVOPR projection root (`operationName` · `primaryDataEntity` · `authorization` → the AZREQ closed choice (§5.15) · `descriptionKey` · `errorCodes` · request/response members). The external-interface inventory `InterfaceOperationEntry` IOE and `IntegrationPointEntry` INTEG describe **foreign** contracts and carry `serverCall` only | COVERED |
 | CE-SU | `serviceUnit` | `ArchitectureComponentEntry` ARCM (identity · `boundaries.dataOwnership` · `content.domain` · `purpose.responsibilities`) | COVERED (weak — the aggregate root is free text, not a typed entity reference) |
 | CE-DB | `dataAccess` | `DataEntityEntry` DAENT · `DataAttributeEntry` DAATT · `EntityRelationshipEntry` ENRLE (the `DataModel` projection root) | COVERED |
-| CE-ST | `viewState` | `ScreenStateEntry` SCRST · `ScreenElementDataDisplay` SEDD · `ComponentStateEntry` COMSTA | COVERED |
+| CE-ST | `viewState` | `ScreenStateEntry` SCRST · `ScreenElementDataDisplay` SEDD · `ComponentStateEntry` COMSTA (D09 XDS, the states and data-bound displays) · `DisplayPropertyEntry` DISPL · `BusinessObjectAttributeEntry` BIOBAT with its `BOAED` detail (D03 IMO, the per-field shape and requirement level). The IMO business-object catalogue above BIOBAT — `BusinessObjectModel` BJOMD, `BusinessObjectEntry` BJOEN — carries the kind but is **unprojected**: it is the domain catalogue fields are read from, not a screen's state | COVERED |
 | CE-NV | `navigation` | `ScreenRouteEntry` SCRTEN · `FormScreenAssignmentEntry` FMSCAS · `ScreenTransitionEntry` SCTREN, under `ScreenRouteMap` SCRTMP | COVERED (screen-flow half verified) |
 | CE-AZ | `authorization` | The requirement itself is `AuthorizationRequirementSpec` AZREQ → `GradedAuthorizationRequirement` AZGRD → `GradedAccessLevelEntry` AZLVL — one reusable closed choice covering all ten §5.15 arms, embedded at each modifier site (`SVOPE.authorization`; the XDS `access` members on screen, screen element, navigation group/item, tab, utility navigation/menu, deep link, report, export format/template). The **catalogues** it cites stay `RoleMatrix` ROMA · `RolePermissionEntry` ROLPER · `EntitlementEntry` ENT (46 sections, all projected) | COVERED |
 | CE-ER | `errorResult` | `ErrorCodeEntry` ERCEN (the `ErrorCodeRegistry` root) · `ResultEnvelope` RSLTE | COVERED |
-| CE-CF | `serverConfiguration` | `ServerConfigurationSettingEntry` SCSET — the declaration list under `SystemConfigurationManagement` SYCOMA (`settingKey` · `valueType` · `defaultValue` · `environmentVariable` · `commandLineOption` · `secret` · `overridableBy`). The surrounding SYCOMA / `ConfigurationManagement` CM forms and the audit-sink band under `AuditLogFormat` AULOFO stay what they are — **operational policy** and fixed-name sink settings | COVERED |
+| CE-CF | `serverConfiguration` | 42 marked sections in two shapes (§5.5). **Declared** (1): `SystemConfigurationManagement` SYCOMA over its open list `ServerConfigurationSettingEntry` SCSET (`settingKey` · `valueType` · `defaultValue` · `environmentVariable` · `commandLineOption` · `secret` · `overridableBy`) — the only place a key is invented and the only place a secret is declarable, and both authorable and projected. **Fixed** (41): the bands whose form fields each name one setting the model already knows. 17 of those are projected — `ConfigurationManagement` CM, the ATS feature-flag band, and the SAS API-security / file-and-storage-security / audit-sink families; the remaining 24 (the SAS encryption and key-management families, and D09's `PrintAndExportLayout` PRLA band) are authorable but sit outside the projection | COVERED (the declared path is generable; 24 fixed bands are authorable-only) |
 | CE-CC | `clientConfiguration` | `ClientConfigurationSettingEntry` CCSET — the declaration list under `ClientConfiguration` CLICON (`settingKey` · `valueType` · `defaultValue` · `overridableBy`) | COVERED |
 | CE-DS | `deviceSettings` | `DeviceSettingEntry` DSSET — the declaration list under `DeviceSettings` DEVSET (`settingKey` · `valueType` · `defaultValue`; no `overridableBy` — CE-DS is the narrowest scope, so it has nothing below it to open) | COVERED |
 | CE-UP | `userSettings` | `UserSettingEntry` USSET — the declaration list under `UserSettings` USRSET (`settingKey` · `valueType` · `defaultValue` · `overridableBy`). `LanguageCountrySelection` LACOSE stays the language/country **picker UX** and carries no `@CodeSpecKind`: the preference it edits is declared in USRSET | COVERED |
@@ -4762,18 +4811,23 @@ traceability and gap analysis become set operations in both directions.
 
 Anything outstanding against this document is tracked as a **quest todo** in
 `_ai/quests/tom_specs/todos.tom_specs.todo.yaml` — `csrb` and `csre` for the
-CodeSpecs follow-up series, `qr` for findings raised by a quest-refresh pass and
-`qrc` for the work one of those findings opened. Each todo is self-contained, so
-this section is an index rather than a specification.
+CodeSpecs follow-up series, `qr` for findings raised by a quest-refresh pass,
+`qrc` for the work one of those findings opened, and `tscomp`/`tscompb` for a
+completeness pass and its follow-ups. Each todo is self-contained, so this
+section is an index rather than a specification.
 
-**The index is currently empty.** Every part passes §4.4.4's readiness gate in
-all four modes: no emission is blocked, none is lossy, no skeleton compiles into
-an application that cannot run, and no named validator check is unable to run.
-Nothing here waits on a `tom_core` capability, so no mapping-side position is
-stated against a plan rather than against shipped source.
+Every part passes §4.4.4's readiness gate in all four modes: no emission is
+blocked, none is lossy, no skeleton compiles into an application that cannot
+run, and no named validator check is unable to run. Nothing here waits on a
+`tom_core` capability, so no mapping-side position is stated against a plan
+rather than against shipped source.
 
-SOM coverage is **not** an open item either: **§8.5** carries the standing
-per-part verdict, and it records every active part COVERED.
+**§8.5** carries the standing per-part coverage verdict, and it records every
+active part COVERED. One entry is open against it:
+
+| Todo | Subject |
+|------|---------|
+| `tscompb10` | **CE-CF projection membership.** 42 sections carry `serverConfiguration`; 18 are reachable from `D13CodeSpecsProjection` and 24 are not, and the split does not follow §5.5's declared/fixed line. The SAS encryption and key-management bands sit outside while the SAS API-security and audit-sink bands — fixed-key policy bands of the same character — sit inside. Either the projection gains them, or §5.5 states the exclusion ground the way the CE-API row states its own. §8.5's CE-CF verdict carries the split as a parenthetical until then. |
 
 An open todo in those series whose subject is **not** a mapping question does
 not belong here even when the index is non-empty — a SOM validator capability
