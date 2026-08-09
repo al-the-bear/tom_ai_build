@@ -1,8 +1,12 @@
-/// Marks a field as the key used for registry access and for-each matching.
+/// The key a section is reached by in the DocSpecs access API.
 ///
-/// Applied to `String?` fields. When a class participates in a `@ForEach`
-/// relationship, this annotation identifies which field provides the key value
-/// for matching against registry entries.
+/// Applied to a section field. Without it a section is addressed by its
+/// section-type name; with it, by [key] — which is also the value a
+/// [ForEach] on the corresponding registry matches against.
+///
+/// Emitted as `access-key` on the section's `document: sections:` entry. Only
+/// top-level sections have such an entry, so an access key on a deeper
+/// section has no DocSpecs representation.
 class AccessKey {
   final String key;
 

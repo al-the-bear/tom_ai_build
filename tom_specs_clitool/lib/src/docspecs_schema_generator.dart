@@ -25,11 +25,16 @@ import 'model_reader.dart';
 ///   `@SectionIdPattern` stem (`daent-enti` from `DAENT-ENTI-xxx`);
 /// - `prefix:` is the exact section id / pattern stem, transformed `-` → `_`
 ///   because the DocSpecs prefix grammar (`^[a-zA-Z0-9_]+$`) forbids the
-///   dashes TomSpecs ids use (case is preserved);
+///   dashes TomSpecs ids use (case is preserved); a class-level `@Prefix`
+///   replaces the id-derived base and is transformed and uniquified on the
+///   same terms;
 /// - `pattern-check-id:` (list-element types only) is the exact
 ///   `@SectionIdPattern` with `xxx` compiled to `.+` (`^DAENT-ENTI-.+$`) —
 ///   a stem check, since YRD3 renders stored item ids in md; SOM §13 keeps the
-///   untransformed id here;
+///   untransformed id here. An explicit `@PatternCheckId` is the author's own
+///   rule and overrides the derived stem check;
+/// - `max-subsection-levels:` from `@MaxDepth`; `allowed-tags:` from
+///   `@AllowedTags`;
 /// - `subsection-types:` lists the nearest section-bearing descendants with
 ///   `min-count` from the child's `@Min` and `max-count` `1` for singleton
 ///   children / `infinite` for list elements (bounded by `@Max`);
@@ -49,10 +54,25 @@ import 'model_reader.dart';
 ///   regex annotation to map from (`tom_specs_model_rules.md` §9.4);
 /// - `@Unused` nodes are omitted entirely, subtree included;
 /// - the `document:` structure lists the root's top-level sections with
-///   `optional: true` unless the child carries `@Min` ≥ 1; the SOM §13 title
-///   format rides as the top-level custom tag `title-format:` (the
-///   `tom_doc_specs` [DocumentStructure] has no such property, but custom
-///   tags round-trip through [DocSpecSchema.customTags]).
+///   `optional: true` unless the child carries `@Min` ≥ 1; `access-key:` from
+///   `@AccessKey` and `for-each:` from `@ForEach` ride there too, because
+///   DocSpecs declares both on the document's section entries rather than on
+///   the section type. A `@ForEach` naming a registry the root does not
+///   contain is a [StateError] — a dangling registry link would validate
+///   nothing;
+/// - `subsection-declarations:` carries `position:` from `@Position`, one
+///   block per document section. DocSpecs keys these blocks by
+///   document-section name, so a position binds one level below the root;
+///   deeper ordering stays declaration order;
+/// - the SOM §13 title format rides as the top-level custom tag
+///   `title-format:` (the `tom_doc_specs` [DocumentStructure] has no such
+///   property, but custom tags round-trip through
+///   [DocSpecSchema.customTags]).
+///
+/// Which annotation feeds which key is declared once, in
+/// `docspecs_annotation_mapping.dart`, and checked from both sides: an
+/// annotation `tom_specs_core` declares must name a destination, and a
+/// destination named there must actually be emitted here.
 ///
 /// Versioning (S2, CS2-D7): [generateAll]/[generateFor] take the integer model
 /// stamp `modelVersion` and the optional full build `modelLabel` (the
@@ -133,16 +153,54 @@ class DocSpecsSchemaGenerator {
 
     // Document structure: the root's nearest section-bearing children become
     // its top-level sections; @Min >= 1 makes a slot required (SOM §13 rule 4).
+    // `access-key` and `for-each` ride here because DocSpecs declares them on
+    // the document's section entries, not on the section type.
+    final sectionTypes = builder.orderedSectionTypes();
     final sections = <String, SectionDef>{};
     for (final ref in topLevel) {
       final required = (ref.minCount ?? 0) >= 1;
+      final forEach = builder.forEachFor(ref.typeName);
+      if (forEach != null && !sectionTypes.containsKey(forEach.sectionType)) {
+        throw StateError(
+          "@ForEach on section '${ref.typeName}' names registry section type "
+          "'${forEach.sectionType}', which document root '$rootName' does not "
+          'contain. A for-each can only bind a registry reachable from the '
+          'same document.',
+        );
+      }
       sections.putIfAbsent(
         ref.typeName,
         () => SectionDef(
           sectionType: ref.typeName,
+          accessKey: builder.accessKeyFor(ref.typeName),
           optional: required ? null : true,
+          forEach: forEach,
         ),
       );
+    }
+
+    // `subsection-declarations`: one top-level block per document section that
+    // has @Position-constrained children. DocSpecs keys these blocks by
+    // document-section name, so a position is only expressible one level down
+    // — deeper ordering stays declaration order.
+    final subsectionDeclarations = <String, Map<String, SubsectionDef>>{};
+    for (final sectionName in sections.keys) {
+      final childConstraints = sectionTypes[sectionName]?.subsectionTypes;
+      if (childConstraints == null) continue;
+      final declarations = <String, SubsectionDef>{};
+      for (final childType in childConstraints.keys) {
+        final position = builder.positionFor(childType);
+        if (position == null) continue;
+        final constraint = childConstraints[childType]!;
+        declarations[childType] = SubsectionDef(
+          sectionType: childType,
+          required: (constraint.minCount ?? 0) >= 1 ? true : null,
+          position: position,
+        );
+      }
+      if (declarations.isNotEmpty) {
+        subsectionDeclarations[sectionName] = declarations;
+      }
     }
 
     // SOM §13 rule 4 title format: `# <!--[<ROOT-ID>]--> <name>`, carried as a
@@ -163,9 +221,11 @@ class DocSpecsSchemaGenerator {
       // minor from `modelLabel` is preserved; unstamped falls back to
       // `<modelVersion>.0`.
       version: somModelVersionString(modelVersion, modelLabel),
-      sectionTypes: builder.orderedSectionTypes(),
+      sectionTypes: sectionTypes,
       formTypes: builder.formTypes.isEmpty ? null : builder.formTypes,
       document: DocumentStructure(sections: sections),
+      subsectionDeclarations:
+          subsectionDeclarations.isEmpty ? null : subsectionDeclarations,
       customTags: customTags,
     );
   }
@@ -364,6 +424,57 @@ class _SchemaBuilder {
 
   final Set<String> _usedPrefixes = {};
 
+  /// section-type name → `@AccessKey`, the key the section is reached by in
+  /// the DocSpecs access API.
+  final Map<String, String> _accessKeys = {};
+
+  /// section-type name → `@ForEach(registryType, key)`, the registry the
+  /// section's entries must mirror 1:1.
+  final Map<String, ForEachDef> _forEach = {};
+
+  /// section-type name → `@Position`, the ordering constraint on the section
+  /// within its parent.
+  final Map<String, String> _positions = {};
+
+  /// The `@AccessKey` recorded for [typeName], if any.
+  String? accessKeyFor(String typeName) => _accessKeys[typeName];
+
+  /// The `@ForEach` recorded for [typeName], if any.
+  ForEachDef? forEachFor(String typeName) => _forEach[typeName];
+
+  /// The `@Position` recorded for [typeName], if any.
+  String? positionFor(String typeName) => _positions[typeName];
+
+  /// Captures the annotations that belong to a section's *placement* rather
+  /// than to its type — they land on `document: sections:` / the
+  /// `subsection-declarations` block, both of which are assembled after the
+  /// whole tree has been walked.
+  ///
+  /// Keyed by section-type name rather than by tree position because a
+  /// section type's access key, registry link and ordering are properties of
+  /// the type wherever it occurs; a model that wanted two different ones for
+  /// the same type would be declaring two types.
+  void _recordPlacement(String typeName, MetaNode node) {
+    final accessKey = _extraString(node, 'AccessKey', 'key');
+    if (accessKey != null) _accessKeys[typeName] = accessKey;
+
+    final position = _extraString(node, 'Position', 'position');
+    if (position != null) _positions[typeName] = position;
+
+    for (final extra in node.extra) {
+      if (extra.name != 'ForEach') continue;
+      final registryType = extra.arguments['registryType'] as String?;
+      final key = extra.arguments['key'] as String?;
+      if (registryType == null || key == null) continue;
+      _forEach[typeName] = ForEachDef(
+        // The annotation names the registry by section id (the model's own
+        // vocabulary); section types are named by the lower-cased id.
+        sectionType: registryType.toLowerCase(),
+        key: key,
+      );
+    }
+  }
+
   /// Visits [node] and returns the section-type refs it contributes to its
   /// nearest section-bearing ancestor. `@Unused` nodes vanish entirely; nodes
   /// without a section identity bubble their descendants' refs upward.
@@ -466,7 +577,10 @@ class _SchemaBuilder {
     int? itemMaxCount,
   }) {
     final existing = _sectionTypes[typeName];
-    final prefix = existing?.prefix ?? _prefixFor(exactId);
+    final prefix = existing?.prefix ?? _prefixFor(exactId, node: node);
+    // The list field's own annotations describe the container, which is what
+    // the parent (and the document structure) references.
+    _recordPlacement(typeName, node);
     final description = node.contentHelp ??
         _firstLine(node.docComment) ??
         existing?.description;
@@ -521,7 +635,9 @@ class _SchemaBuilder {
     Map<String, SubsectionConstraint> subsections = const {},
   }) {
     final existing = _sectionTypes[typeName];
-    final prefix = existing?.prefix ?? _prefixFor(exactId);
+    final prefix = existing?.prefix ?? _prefixFor(exactId, node: node);
+    _recordPlacement(typeName, node);
+    if (listNode != null) _recordPlacement(typeName, listNode);
 
     // format: @Form → <type-name>-form; code/diagram @ContentType → the
     // content type (a `format` makes the validator demand a fenced code
@@ -552,6 +668,12 @@ class _SchemaBuilder {
       ...subsections,
     };
 
+    // An explicit @PatternCheckId is the author's own id-format rule and wins
+    // over the stem check derived from @SectionIdPattern: the derived form is
+    // a fallback for lists that only declare their pattern.
+    final explicitPatternCheckId = _explicitPatternCheckId(node) ??
+        (listNode == null ? null : _explicitPatternCheckId(listNode));
+
     _sectionTypes[typeName] = SectionTypeDef(
       name: typeName,
       prefix: prefix,
@@ -562,11 +684,31 @@ class _SchemaBuilder {
           _extraInt(node, 'MinLength', 'length') ?? existing?.minTextLength,
       maxTextLength:
           _extraInt(node, 'MaxLength', 'length') ?? existing?.maxTextLength,
+      maxSubsectionLevels: _extraInt(node, 'MaxDepth', 'levels') ??
+          existing?.maxSubsectionLevels,
+      allowedTags: _extraStringList(node, 'AllowedTags', 'tags') ??
+          existing?.allowedTags,
       validationPrompt: _extraString(node, 'ValidationPrompt', 'prompt') ??
           existing?.validationPrompt,
-      patternCheckId: patternCheckId ?? existing?.patternCheckId,
+      patternCheckId:
+          explicitPatternCheckId ?? patternCheckId ?? existing?.patternCheckId,
       subsectionTypes: merged.isEmpty ? null : merged,
     );
+  }
+
+  /// The `pattern-check-id` from an explicit class-level `@PatternCheckId`.
+  static PatternCheckDef? _explicitPatternCheckId(MetaNode node) {
+    for (final extra in node.extra) {
+      if (extra.name != 'PatternCheckId') continue;
+      final pattern = extra.arguments['pattern'] as String?;
+      if (pattern == null) continue;
+      return PatternCheckDef(
+        pattern: pattern,
+        errorMessage: (extra.arguments['errorMessage'] as String?) ??
+            'IDs of this section must match $pattern',
+      );
+    }
+    return null;
   }
 
   /// Registers the `form-types` entry for a `@Form` node and returns its name
@@ -647,8 +789,16 @@ class _SchemaBuilder {
   /// A unique, DocSpecs-legal prefix for a section id: the exact id with the
   /// TomSpecs dashes transformed to `_` (the prefix grammar `^[a-zA-Z0-9_]+$`
   /// forbids `-`); case is preserved.
-  String _prefixFor(String exactId) {
-    var base = exactId.replaceAll(RegExp(r'[^a-zA-Z0-9_]+'), '_');
+  ///
+  /// A class-level `@Prefix` on [node] replaces the id-derived base — the
+  /// annotation exists precisely to let a section type be resolved by a
+  /// heading prefix that is not its section id. It is transformed and
+  /// uniquified on the same terms, so an author cannot write a prefix the
+  /// DocSpecs grammar rejects or one that shadows a sibling.
+  String _prefixFor(String exactId, {MetaNode? node}) {
+    final declared =
+        node == null ? null : _extraString(node, 'Prefix', 'prefix');
+    var base = (declared ?? exactId).replaceAll(RegExp(r'[^a-zA-Z0-9_]+'), '_');
     if (base.isEmpty) base = 'SEC';
     var candidate = base;
     var n = 2;
@@ -673,6 +823,20 @@ class _SchemaBuilder {
   static String? _extraString(MetaNode node, String name, String arg) {
     for (final e in node.extra) {
       if (e.name == name) return e.arguments[arg] as String?;
+    }
+    return null;
+  }
+
+  static List<String>? _extraStringList(
+    MetaNode node,
+    String name,
+    String arg,
+  ) {
+    for (final e in node.extra) {
+      if (e.name != name) continue;
+      final value = e.arguments[arg];
+      if (value is! Iterable) continue;
+      return [for (final item in value) '$item'];
     }
     return null;
   }

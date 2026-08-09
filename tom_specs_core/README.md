@@ -90,6 +90,13 @@ Subtypes `@override` the `content` field only to change the baked-in
 Annotations group by concern. Each row lists the constructor signature and the
 target (class `C` / member `M`).
 
+This catalogue is a **live surface**, and that is checked rather than asserted:
+every class under `lib/src/annotations/` must name a destination in
+`tom_specs_clitool`'s `docspecs_annotation_mapping.dart` — either the DocSpecs
+schema key it produces or an explicit model-only reason — and every declared
+schema key must actually be emitted by the schema generator. Adding an
+annotation here without deciding where it lands fails a test.
+
 ### Identity & structure
 
 | Annotation | Signature | Target | Purpose |
@@ -121,7 +128,7 @@ target (class `C` / member `M`).
 | `@Min` / `@Max` | `Min(int count)` / `Max(int count)` | M | Min/max cardinality of a `List<T>` field. |
 | `@MinLength` / `@MaxLength` | `MinLength(int length)` / `MaxLength(int length)` | M | Min/max content length. |
 | `@MaxDepth` | `MaxDepth(int levels)` | C | Maximum subsection nesting (`0` for leaf/entry classes). |
-| `@AllowedTags` | `AllowedTags(List<String> tags)` | M | The inline tags a text section may contain. |
+| `@AllowedTags` | `AllowedTags(List<String> tags)` | C | The inline tags a text section may contain. |
 | `@PatternCheckId` | `PatternCheckId(String pattern, {String? errorMessage})` | C | Validates the full section-ID format of children. |
 | `@PatternCheck` | `PatternCheck(String pattern, {String? errorMessage})` | M | Validates a field value against a regex. |
 | `@ValidationPrompt` | `ValidationPrompt(String prompt)` | C, M | AI-assisted validation prompt. |
@@ -133,13 +140,12 @@ target (class `C` / member `M`).
 | Annotation | Signature | Target | Purpose |
 | --- | --- | --- | --- |
 | `@Reference` | `Reference(String description)` | M | A typed field pointing at another section class (the field type is the target). Not recursed into by the outliner; used for cross-reference validation. |
-| `@AccessKey` | `AccessKey(String key)` | M | Names the field that identifies an entry for lookups / `@ForEach` matching. |
-| `@ForEach` | `ForEach(String registryType, String key)` | M | A list that must correspond 1:1 to entries in another registry. |
-| `@SeedFor` | `SeedFor(Type documentRootClass)` | M | Compile-time link from a section to the single Phase 3 document it seeds. |
+| `@AccessKey` | `AccessKey(String key)` | M | The key a section is reached by in the DocSpecs access API, overriding its section-type name; also the value a `@ForEach` on the matching registry keys against. Top-level sections only. |
+| `@ForEach` | `ForEach(String registryType, String key)` | M | A list that must correspond 1:1 to entries in another registry, named by its **section id**. The registry must be reachable from the same document root. Top-level sections only. |
 
 ### Traceability (Solution Blueprint → Phase 3 DocSpecs)
 
-These four annotations encode how the `D00SolutionBlueprint` master model maps
+These three annotations encode how the `D00SolutionBlueprint` master model maps
 into the twelve Phase 3 DocSpec documents. Their rules are enforced by the
 `tom_specs_model_rules.md` §10.2 structural invariants in
 [`tom_specs_clitool/lib/src/validator.dart`](../tom_specs_clitool/lib/src/validator.dart).
@@ -178,6 +184,10 @@ in `tom_code_specs`.
 - **`ModelJsonExporter`** serialises the resolved graph — including the lossless
   per-class / per-field `annotations` block — into `spec_model.meta.json`, which
   every `tom_som_<lang>_runtime` loads for the reflection access path.
+- **`docspecs_schema_generator.dart`** maps the schema-bound annotations onto
+  DocSpecs schema keys; `docspecs_annotation_mapping.dart` declares which key
+  each one produces and gates the correspondence in both directions
+  (`tom_specs_model_rules.md` §9.5).
 - **`outliner.dart`** renders the class tree; `tom_specs_model_rules.md`
   §11.2.13 lists which annotations are *visible* in the outline vs
   *schema-only*.

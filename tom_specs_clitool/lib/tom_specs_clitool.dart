@@ -133,6 +133,20 @@ export 'src/som_cpp_generator.dart'
     show generateSomCppProject, writeSomCppProject, SomCppGenerationResult;
 export 'src/spec_ops_generator.dart' show SpecOpsGenerator;
 export 'src/docspecs_schema_generator.dart' show DocSpecsSchemaGenerator;
+// The both-directions gate between tom_specs_core's annotation catalogue and
+// the DocSpecs schema surface: an annotation cannot be declared without a
+// destination, and a declared destination must actually be emitted.
+export 'src/docspecs_annotation_mapping.dart'
+    show
+        DocSpecsAnnotationBinding,
+        DocSpecsOwner,
+        ModelOnlyReason,
+        AnnotationCatalogueCorrespondence,
+        docSpecsAnnotationBindings,
+        docSpecsAnnotationBindingsByName,
+        boundDocSpecsSchemaKeys,
+        readDeclaredAnnotationClasses,
+        checkAnnotationCatalogue;
 export 'src/docspecs_yaml_schema_generator.dart'
     show DocspecsYamlSchemaGenerator;
 export 'src/outline_writer.dart' show OutlineWriter;

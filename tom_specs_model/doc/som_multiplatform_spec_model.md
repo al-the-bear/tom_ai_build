@@ -253,7 +253,7 @@ curated subset. This includes `@SectionId`, `@SectionIdPattern`, `@Document`,
 `@OneOf`, `@Case`, `@CodeSpecKind`, `@FollowUpKind`, `@CodeSpecsProjection`,
 `@Min`, `@Max`, `@MinLength`, `@MaxLength`, `@PatternCheck`, `@PatternCheckId`,
 `@AllowedTags`, `@Position`, `@Prefix`, `@Reference`, `@AccessKey`, `@ForEach`,
-`@MaxDepth`, `@SeedFor`, `@TextRequired`, `@ValidationPrompt`, `@Comment`,
+`@MaxDepth`, `@TextRequired`, `@ValidationPrompt`, `@Comment`,
 `@Unused`, and `@SerializationOrder`. The file is stamped with `modelVersion`,
 `modelVersionLabel`, `containerRoot`, `classCount`, `rootCount`, and
 `metaSchemaVersion: 1`.

@@ -1202,7 +1202,7 @@ reach for each, and states the mapping semantics of each.
 **Cardinality & ordering:** `@Min`, `@Max`, `@Position`, `@ForEach`,
 `@AccessKey`.
 
-**Traceability:** `@MapsTo`, `@DetailedIn`, `@SeedFor`, `@StandardReferences`.
+**Traceability:** `@MapsTo`, `@DetailedIn`, `@StandardReferences`.
 
 **CodeSpecs link:** `@CodeSpecKind(List<CodeSpecPart>)` — the general,
 type-level DocSpecs→CodeSpecs mapping on a SOM section class; and
@@ -1243,8 +1243,7 @@ Two authoring notes with model-wide consequences:
 | `@MapsTo(Type)` | class | Seed node of a Phase 3 DocSpec in the master model — the whole subtree flows to that document. |
 | `@DetailedIn(Type)` | class | Promoted to a top-level entry of a Phase 3 DocSpec; must have a `@MapsTo` ancestor (§10.2). |
 | `@StandardReferences(standards, connotation)` | class or field | Public-standard provenance + meaning; carried in the meta-data. |
-| `@SeedFor(Type)` | class or field | Compile-time link for a single-target `Seeds → XX`. |
-| `@Prefix`, `@PatternCheckId`, `@PatternCheck`, `@TextRequired`, `@MinLength`, `@MaxLength`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Position`, `@ForEach`, `@AccessKey` | various | Validation/schema constraints; captured into the meta tree's generic `extra` list and mapped by the schema generator where relevant. |
+| `@Prefix`, `@PatternCheckId`, `@PatternCheck`, `@TextRequired`, `@MinLength`, `@MaxLength`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Position`, `@ForEach`, `@AccessKey` | various | Validation/schema constraints; captured into the meta tree's generic `extra` list and mapped by the schema generator (§9.5). |
 
 ### 9.3 Visible vs schema-only
 
@@ -1276,14 +1275,57 @@ The wider point: the whole **validation & authoring guidance** group is
 currently *available* rather than *exercised* — `tom_specs_model` has no call
 site for any of `@Prefix`, `@PatternCheckId`, `@PatternCheck`, `@TextRequired`,
 `@MinLength`, `@MaxLength`, `@MaxDepth`, `@AllowedTags` or `@ValidationPrompt`.
-The generator maps the ones it can so that a model which *does* reach for them
-gets a schema that enforces them, but the documents themselves lean entirely on
-structure. An annotation added to close the `pattern-check-text` gap would
-therefore have no call site at all, and an annotation with no call site is
-speculative (see `clean_code_principles.md`). Should a document ever have a real
-text-body pattern to enforce, the annotation is a small addition — declare it in
-`tom_specs_core` beside `@PatternCheck`, and map it in the schema generator from
-the meta tree's `extra` capture, exactly as `@PatternCheck` is mapped today.
+Every one of them is nonetheless mapped end-to-end by the schema generator and
+covered by a test (§9.5), so a model that *does* reach for one gets a schema
+that enforces it — availability here is a wired surface, not an intention. But
+the documents themselves lean entirely on structure. An annotation added to
+close the `pattern-check-text` gap would have no call site at all, and an
+annotation with no call site is speculative (see `clean_code_principles.md`).
+Should a document ever have a real text-body pattern to enforce, the annotation
+is a small addition — declare it in `tom_specs_core` beside `@PatternCheck`, map
+it in the schema generator from the meta tree's `extra` capture exactly as
+`@PatternCheck` is mapped today, and give it a binding in the §9.5 table.
+
+### 9.5 Every annotation has a declared destination
+
+The vocabulary is not open-ended: an annotation exists to reach the DocSpecs
+schema, or it exists to serve the model's own machinery. Which of the two, and
+for the first kind *which schema key*, is declared once — in
+`tom_specs_clitool/lib/src/docspecs_annotation_mapping.dart` — and checked
+mechanically from both ends:
+
+- **Totality** — every class declared under `tom_specs_core/lib/src/annotations/`
+  names a destination. Adding an annotation without deciding where it lands
+  fails the test rather than shipping a construct that does nothing.
+- **Realisation** — every declared `schemaKey` is actually emitted by
+  `docspecs_schema_generator.dart` into a generated schema. A claim that is only
+  a claim fails too.
+
+This matters because §9.4's "available but not exercised" state is exactly the
+state in which an unwired annotation is invisible: with no call site there is no
+generated output to diff, so nothing else in the toolchain can notice that a
+documented construct does nothing. The two-sided gate is the substitute for that
+missing diff.
+
+A *model-only* binding is a decision, not an omission, and carries its reason:
+`traceability` (the master model's own cross-links — `@MapsTo`, `@DetailedIn`,
+`@StandardReferences`, `@Reference`, `@CodeSpecKind`, `@FollowUpKind`),
+`generation` (drives emission, not document content — `@SerializationOrder`,
+`@Comment`, `@OneOf`, `@Case`, `@CodeSpecsProjection`), or `structural`
+(`@Unused`).
+
+Three schema-bound annotations are constrained by DocSpecs' own shape rather
+than by the model: `access-key` and `for-each` live on `document: sections:`
+entries and `position` in `subsection-declarations`, both keyed by
+document-section name. So `@AccessKey` and `@ForEach` are only expressible on a
+*top-level* section, and `@Position` only one level below the root; deeper
+ordering stays declaration order.
+
+Annotations reach the nine language runtimes through the meta tree, which
+carries them whether or not they occupy a named slot: `MetaTreeBuilder`'s
+slotted set gets a field, and everything else rides `MetaNode.extra` with its
+full argument map. An editor built on any runtime therefore sees the whole
+vocabulary, not the schema-bound part of it.
 
 ---
 
@@ -1788,7 +1830,6 @@ generation and validation but not shown in the outline):
 | `@ValidationPrompt` | No | Schema constraint only |
 | `@AccessKey` | No | Schema constraint only |
 | `@MinLength`, `@MaxLength` | No | Schema constraint only |
-| `@SeedFor` | No | Schema constraint only (compile-time document link) |
 | `@ContentHelp` | No | Schema constraint only (content authoring guidance) |
 | `@Document` | No | Schema constraint only (document root metadata) |
 | `@Headline` | No | Meta-data only (default headline) |
@@ -1814,8 +1855,8 @@ nine schema *constraint* annotations only:
 `@ValidationPrompt`, `@AccessKey`, `@MinLength`, `@MaxLength`.
 
 The meta-data annotations (`@Headline`, `@SerializationOrder`, `@MapsTo`,
-`@SeedFor`, `@ContentHelp`, `@Document`, `@StandardReferences`,
-`@CodeSpecKind`, …) are never emitted, with or without the flag.
+`@ContentHelp`, `@Document`, `@StandardReferences`, `@CodeSpecKind`, …) are
+never emitted, with or without the flag.
 
 **Class-level annotations** appear **after** the class line and **before** the
 class's members, indented to the same level as the class line — so they sit one
@@ -2000,7 +2041,7 @@ listed in §11.2.15.
    `@Comment`, `@ContentType`, `@Form`, `@Unused`, `@Prefix`, `@PatternCheckId`,
    `@TextRequired`, `@MaxDepth`, `@AllowedTags`, `@ValidationPrompt`, `@Min`,
    `@Max`, `@Position`, `@ForEach`, `@AccessKey`, `@PatternCheck`, `@MinLength`,
-   `@MaxLength`, `@SeedFor`, `@SerializationOrder`, `@Headline`, `@MapsTo`,
+   `@MaxLength`, `@SerializationOrder`, `@Headline`, `@MapsTo`,
    `@DetailedIn`, `@StandardReferences` from the analyzer's element model. All
    model classes in the package are scanned — no marker annotation is required.
    The full annotation catalogue and the section base types are documented in
