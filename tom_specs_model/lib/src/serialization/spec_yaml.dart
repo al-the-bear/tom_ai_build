@@ -24,6 +24,17 @@
 ///    means an individual write always reflects current SBP content, and a
 ///    section that is **null in SBP is null in the projection too** (N12).
 ///
+/// ## Keys
+///
+/// A child is written under `<sectionId> <memberName>`, the same key the nine
+/// SOM runtimes emit (SOM §12.2). The id is the member's own `@SectionId`, or —
+/// for a single section/complex child that declares none — the target class's
+/// id; a slot with no id either way keys on the bare member name. The id is the
+/// stable, language-neutral name the runtimes, the DocSpecs schemas and the
+/// markdown round-trip all agree on, so keying on it is what keeps a document
+/// written here readable by a runtime that has never seen a Dart identifier.
+/// [SpecSlot.key] holds the rule; the codegen fills [SpecSlot.sectionId].
+///
 /// ## Why this shape
 ///
 /// Like the snapshot engine, this walks the model through the reflection-free
@@ -95,7 +106,7 @@ abstract final class SpecYaml {
 
   /// A structured view of [node]'s serialization: the node's own scalar under
   /// `content` (when present) plus one entry per child slot (single child →
-  /// nested map or `null`; list → list of maps), keyed by the slot label.
+  /// nested map or `null`; list → list of maps), keyed by [_keyOf].
   ///
   /// Useful for tests and for callers that want the tree as data rather than
   /// formatted YAML.
@@ -107,7 +118,7 @@ abstract final class SpecYaml {
     final slots = specSlotsOf(node);
     for (var i = 0; i < slots.length; i++) {
       final slot = slots[i];
-      final key = slot.label ?? (slot.isList ? 'list$i' : 'node$i');
+      final key = _keyOf(slot, i);
       if (slot.isList) {
         map[key] = [for (final child in slot.list) toMap(child)];
       } else {
@@ -120,6 +131,16 @@ abstract final class SpecYaml {
 
   // --- YAML emitter -------------------------------------------------------
 
+  /// The mapping key slot [i] of a node is written under.
+  ///
+  /// [SpecSlot.key] applies the SOM §12.2 rule — `<sectionId> <memberName>`,
+  /// or the bare member name when the slot carries no id. The positional
+  /// `node<i>`/`list<i>` fallback covers a slot declared without a label at
+  /// all: such slots exist only to be walked structurally, so the index keeps
+  /// the emitted map total rather than silently dropping the subtree.
+  static String _keyOf(SpecSlot slot, int i) =>
+      slot.key ?? (slot.isList ? 'list$i' : 'node$i');
+
   static void _emit(Object node, int indent, StringBuffer out) {
     final pad = '  ' * indent;
     final scalar = yamlScalarOf(node);
@@ -129,7 +150,7 @@ abstract final class SpecYaml {
     final slots = specSlotsOf(node);
     for (var i = 0; i < slots.length; i++) {
       final slot = slots[i];
-      final key = slot.label ?? (slot.isList ? 'list$i' : 'node$i');
+      final key = _keyOf(slot, i);
       if (slot.isList) {
         final list = slot.list;
         if (list.isEmpty) {

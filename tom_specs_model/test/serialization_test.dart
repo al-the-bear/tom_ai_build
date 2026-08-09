@@ -108,4 +108,74 @@ void main() {
       expect(SpecYaml.toMap(header)['content'], 'doc-id: X');
     });
   });
+
+  group('SpecYaml — section-id keys (SOM §12.2)', () {
+    test('a slot with a section id keys on "<id> <member>"', () {
+      final root = _KeyedRoot()..keyed = (_SbpSection()..content = 'x');
+      expect(SpecYaml.toMap(root).keys, contains('SEC keyed'));
+      expect(SpecYaml.toYaml(root), contains('SEC keyed:'));
+    });
+
+    test('a slot without a section id keys on the bare member name', () {
+      // A value holder beneath a section is not a section, so it has no
+      // language-neutral name to be keyed by — the member name stands.
+      final root = _KeyedRoot()..unkeyed = (_SbpSection()..content = 'y');
+      expect(SpecYaml.toMap(root).keys, contains('unkeyed'));
+      expect(SpecYaml.toMap(root).keys, isNot(contains('null unkeyed')));
+    });
+
+    test('a list slot keys on its own id, not its elements\' ', () {
+      final root = _KeyedRoot()..entries = [_SbpSection()..content = 'e'];
+      final yaml = SpecYaml.toYaml(root);
+      expect(yaml, contains('ENT-LST entries:'));
+    });
+
+    test('an unlabelled slot falls back to its positional key', () {
+      // Structural-only slots are still emitted; the index keeps the map total
+      // rather than dropping the subtree.
+      final root = _UnlabelledRoot()..child = (_SbpSection()..content = 'z');
+      expect(SpecYaml.toMap(root).keys, contains('node0'));
+    });
+
+    test('an empty id-bearing list still emits under its keyed name', () {
+      final root = _KeyedRoot()..entries = [];
+      expect(SpecYaml.toYaml(root), contains('ENT-LST entries: []'));
+    });
+  });
+}
+
+/// Exercises all three key shapes on one node: an id-bearing child, an id-less
+/// child, and an id-bearing list.
+class _KeyedRoot with SpecNode {
+  _SbpSection? keyed;
+  _SbpSection? unkeyed;
+  List<_SbpSection> entries = [];
+
+  @override
+  List<SpecSlot> specSlots() => [
+        SpecSlot.node(() => keyed, (v) => keyed = v as _SbpSection?,
+            label: 'keyed', sectionId: 'SEC'),
+        SpecSlot.node(() => unkeyed, (v) => unkeyed = v as _SbpSection?,
+            label: 'unkeyed'),
+        SpecSlot.list(() => entries, (v) => entries = v.cast<_SbpSection>(),
+            label: 'entries', sectionId: 'ENT-LST'),
+      ];
+
+  @override
+  _KeyedRoot cloneShallow() => _KeyedRoot()
+    ..keyed = keyed
+    ..unkeyed = unkeyed
+    ..entries = entries;
+}
+
+/// A node whose slot carries no label at all — walked structurally only.
+class _UnlabelledRoot with SpecNode {
+  _SbpSection? child;
+
+  @override
+  List<SpecSlot> specSlots() =>
+      [SpecSlot.node(() => child, (v) => child = v as _SbpSection?)];
+
+  @override
+  _UnlabelledRoot cloneShallow() => _UnlabelledRoot()..child = child;
 }

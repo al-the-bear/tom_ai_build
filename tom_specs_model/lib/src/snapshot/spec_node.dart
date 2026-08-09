@@ -184,9 +184,20 @@ void markCleanNode(Object node) => _dirtySinceSnapshot[node] = false;
 class SpecSlot {
   final bool isList;
 
-  /// Stable serialization key for this slot (the model field name), or `null`
-  /// when the slot is only walked structurally (snapshotting ignores labels).
+  /// The model member name this slot reads and writes, or `null` when the slot
+  /// is only walked structurally (snapshotting ignores labels).
+  ///
+  /// This is the *Dart identifier*, not the serialization key — see [key].
   final String? label;
+
+  /// The child's effective section id, or `null` when neither the member nor
+  /// its target class carries one.
+  ///
+  /// Populated by the spec-ops codegen from `@SectionId`: the member-level id
+  /// when present, otherwise — for a single section/complex child only — the
+  /// target class's own id. List slots and value slots keep the member-level id
+  /// with no class fallback (SOM §12.2).
+  final String? sectionId;
 
   final Object? Function() _getNode;
   final void Function(Object?) _setNode;
@@ -195,7 +206,7 @@ class SpecSlot {
 
   /// A slot for a single (possibly null) child node.
   SpecSlot.node(Object? Function() get, void Function(Object?) set,
-      {this.label})
+      {this.label, this.sectionId})
       : isList = false,
         _getNode = get,
         _setNode = set,
@@ -206,12 +217,29 @@ class SpecSlot {
   /// `List<Object>` and is responsible for narrowing it back to the field's
   /// concrete element type (e.g. `(v) => goals = v.cast<BusinessGoalEntry>()`).
   SpecSlot.list(List<Object> Function() get, void Function(List<Object>) set,
-      {this.label})
+      {this.label, this.sectionId})
       : isList = true,
         _getList = get,
         _setList = set,
         _getNode = _nullNode,
         _setNode = _ignoreNode;
+
+  /// The mapping key this slot's child is written under (SOM §12.2): its
+  /// [sectionId], one space, then the member name — or the bare member name
+  /// when the slot carries no id.
+  ///
+  /// `null` when the slot has no [label] at all, which means it is walked
+  /// structurally and never serialized. An id-less slot keys on its member name
+  /// rather than on a synthesized id: a value holder beneath a section is not a
+  /// section, so it has nothing language-neutral to be named by, and inventing
+  /// one would put a name in the file that no schema and no other runtime
+  /// knows.
+  String? get key {
+    final name = label;
+    if (name == null) return null;
+    final id = sectionId;
+    return id == null ? name : '$id $name';
+  }
 
   Object? get node => _getNode();
   set node(Object? value) => _setNode(value);

@@ -2012,6 +2012,40 @@ void main() {
       expect(src, contains('..beta = n.beta'));
     });
 
+    test('stamps each slot with the section id SpecYaml keys it on (SOM §12.2)',
+        () {
+      final classes = <String, ModelClass>{
+        'Doc': _cls('Doc', const [], [
+          // Member-level id wins outright.
+          _field('own', 'Plain', [
+            AnnotationData('SectionId', const {'id': 'OWN'}),
+          ]),
+          // No member id → the target class's own id names the child. This is
+          // the common shape in the real model.
+          _field('viaClass', 'Titled'),
+          // Neither → the slot carries no id and keys on the member name.
+          _field('plain', 'Plain'),
+          // A list keeps only its member-level id...
+          _listField('entries', 'Titled', [
+            AnnotationData('SectionId', const {'id': 'ENT-LST'}),
+          ]),
+          // ...and an unannotated list takes no id from its element class.
+          _listField('bare', 'Titled'),
+        ]),
+        'Plain': _cls('Plain', const []),
+        'Titled': _cls('Titled', [
+          AnnotationData('SectionId', const {'id': 'TTL'}),
+        ]),
+      };
+      final src = SpecOpsGenerator(classes).generate();
+
+      expect(src, contains("label: 'own', sectionId: 'OWN')"));
+      expect(src, contains("label: 'viaClass', sectionId: 'TTL')"));
+      expect(src, contains("label: 'plain')"));
+      expect(src, contains("label: 'entries', sectionId: 'ENT-LST')"));
+      expect(src, contains("label: 'bare')"));
+    });
+
     test('skips the two hand-written SpecNode mixin leaves', () {
       final classes = <String, ModelClass>{
         'DocumentHeader': _cls('DocumentHeader', const []),

@@ -23,7 +23,10 @@ import 'model_reader.dart';
 ///
 ///  - **Child node slots** — recursed into by the snapshotter and serializer:
 ///    a single complex/section field → `SpecSlot.node`; a `List<Complex>` →
-///    `SpecSlot.list` (narrowed back with `.cast<Element>()`).
+///    `SpecSlot.list` (narrowed back with `.cast<Element>()`). Each slot also
+///    carries the child's `@SectionId` (see [_slotSectionId]), which is what
+///    `SpecYaml` keys the child on — the member name is the Dart identifier,
+///    the section id is the name the other eight runtimes share.
 ///  - **Scalars** — `String`/enum/primitive fields: copied by value in
 ///    `cloneShallow`; the canonical `content` scalar (or the lone scalar) is
 ///    returned by `yamlScalar`. Multi-scalar classes serialize only `content`
@@ -174,15 +177,36 @@ class SpecOpsGenerator {
   }
 
   String _slotExpr(ModelField f) {
+    final id = _slotSectionId(f);
+    final idArg = id == null ? '' : ", sectionId: '$id'";
     if (f.isList && (f.listElementIsComplex || f.listElementIsContentSection)) {
       final elem = f.listElementTypeName;
       return 'SpecSlot.list(() => n.${f.name}, '
-          "(v) => n.${f.name} = v.cast<$elem>(), label: '${f.name}'),";
+          "(v) => n.${f.name} = v.cast<$elem>(), label: '${f.name}'$idArg),";
     }
     final base = f.typeName.replaceAll('?', '');
     final cast = f.isNullable ? '$base?' : base;
     return 'SpecSlot.node(() => n.${f.name}, '
-        "(v) => n.${f.name} = v as $cast, label: '${f.name}'),";
+        "(v) => n.${f.name} = v as $cast, label: '${f.name}'$idArg),";
+  }
+
+  /// The effective section id of [f]'s child, which `SpecYaml` keys the child
+  /// on (SOM §12.2): the member's own `@SectionId`, else — for a **single**
+  /// section/complex child only — the target class's `@SectionId`.
+  ///
+  /// The class fallback is the load-bearing path: most complex members declare
+  /// no id of their own and are named by the id of the class they hold (a
+  /// transparent section keys on its class id while pathing on its member
+  /// name). A list keeps only its member-level id — its `@SectionId('…-LST')`
+  /// names the list, and its elements are named by the paired
+  /// `@SectionIdPattern`, so falling back to the element class's id would key
+  /// the list under its element's name.
+  String? _slotSectionId(ModelField f) {
+    final own = f.getAnnotation('SectionId')?.arguments['id'] as String?;
+    if (own != null || f.isList) return own;
+    final target = f.typeName.replaceAll('?', '');
+    return classes[target]?.getAnnotation('SectionId')?.arguments['id']
+        as String?;
   }
 
   bool _isChildNode(ModelField f) {
