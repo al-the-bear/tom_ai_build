@@ -23,6 +23,8 @@
 #include "spec_meta_bridge.hpp"
 #include "spec_meta_diff.hpp"
 #include "spec_document.hpp"
+#include "spec_typed_values.hpp"
+#include "spec_editor.hpp"
 #include "spec_validator.hpp"
 #include "yaml.hpp"
 #include "spec_document_yaml.hpp"

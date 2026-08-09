@@ -14,6 +14,7 @@
  *   - reflection resolution cases;
  *   - validation cases;
  *   - the imperative operations script;
+ *   - the YRD7 generic editor script (typed values, enum domains, structure);
  *   - the SOM §14 DocSpecs tier (one case per violation rule).
  *
  * The corpus directory is argv[1], defaulting to
@@ -529,6 +530,173 @@ static void test_operations(Checker& c) {
   }
 }
 
+/* ---- generic editor conformance (YRD7) ---------------------------------- */
+
+/* Defined below, alongside the other corpus-list helpers. */
+static std::vector<std::string> json_str_list(const som::JsonRef& arr);
+static std::string join(const std::vector<std::string>& v);
+
+/* A corpus JSON node as a SomValue, keeping the distinctions the typed contract
+ * rests on: the integer 2 is not the double 2.0, and true is not "true". A
+ * missing key (nullptr) is the same "no value" as an explicit JSON null. */
+static som::SomValue json_value(const som::JsonRef& v) {
+  if (v == nullptr) {
+    return som::SomValue::null();
+  }
+  switch (v->type) {
+    case som::JsonType::Bool:
+      return som::SomValue::ofBool(v->boolean);
+    case som::JsonType::Int:
+      return som::SomValue::ofInt(v->integer);
+    case som::JsonType::Float:
+      return som::SomValue::ofDouble(v->real);
+    case som::JsonType::Str:
+      return som::SomValue::ofString(v->str);
+    default:
+      return som::SomValue::null();
+  }
+}
+
+/* Runs `fn` and passes only when it rejects the operation. The editor's write
+ * side signals every rejection by throwing (std::invalid_argument for a wrong
+ * type / out-of-domain enum / dangling or wrong-kind path, SomSectionIdError
+ * for an id clash), so the check is "did it refuse", not "which type". */
+template <typename Fn>
+static void expect_throws(Checker& c, const std::string& tag, Fn fn) {
+  try {
+    fn();
+  } catch (const std::exception&) {
+    c.check(tag, true, "");
+    return;
+  }
+  c.check(tag, false, "did not throw");
+}
+
+/* YRD7: the generic, meta-validated modification API (SpecEditor) — typed
+ * value/form-field round-trips through the shared boundary helpers, enum domain
+ * validation, and structural create/clear ops.
+ *
+ * The corpus script is stateful and ordered: one document, each step building on
+ * the last, so every language replays the identical sequence. */
+static void test_editor(Checker& c, const som::SpecModel& model) {
+  som::SpecDocument doc;
+  som::SpecEditor ed(doc, model);
+  som::JsonPtr steps = read_json("editor_cases.json");
+  std::size_t n = som::jsonArrayLen(steps);
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef s = som::jsonArrayAt(steps, i);
+    std::string op = som::jsonStrOr(s, "op");
+    std::string path = som::jsonStrOr(s, "path");
+    std::string field = som::jsonStrOr(s, "field");
+    std::string tag = "editor[" + std::to_string(i) + "]." + op;
+
+    if (op == "setValue") {
+      ed.setValue(path, json_value(som::jsonGet(s, "value")));
+    } else if (op == "value") {
+      som::SomValue got = ed.value(path);
+      som::SomValue want = json_value(som::jsonGet(s, "expect"));
+      c.check(tag + " " + path, got == want,
+              got.debug() + " != " + want.debug());
+    } else if (op == "setValueThrows") {
+      som::SomValue v = json_value(som::jsonGet(s, "value"));
+      expect_throws(c, tag + " " + path, [&] { ed.setValue(path, v); });
+    } else if (op == "setContent") {
+      // raw store write (bypasses the typed boundary)
+      doc.setContent(path, som::jsonStrOr(s, "value"));
+    } else if (op == "rawContent") {
+      const std::string* got = doc.contentOpt(path);
+      const std::string* want = som::jsonAsStr(som::jsonGet(s, "expect"));
+      if (want == nullptr) {
+        c.check(tag + " " + path, got == nullptr,
+                got != nullptr ? *got : std::string());
+      } else {
+        c.check(tag + " " + path, got != nullptr && *got == *want,
+                got != nullptr ? *got : "(unset)");
+      }
+    } else if (op == "setFormValue") {
+      ed.setFormValue(path, field, json_value(som::jsonGet(s, "value")));
+    } else if (op == "formValue") {
+      som::SomValue got = ed.formValue(path, field);
+      som::SomValue want = json_value(som::jsonGet(s, "expect"));
+      c.check(tag + " " + path + "#" + field, got == want,
+              got.debug() + " != " + want.debug());
+    } else if (op == "setFormValueThrows") {
+      som::SomValue v = json_value(som::jsonGet(s, "value"));
+      expect_throws(c, tag + " " + path + "#" + field,
+                    [&] { ed.setFormValue(path, field, v); });
+    } else if (op == "rawFormField") {
+      const std::string* got = doc.formFieldOpt(path, field);
+      const std::string* want = som::jsonAsStr(som::jsonGet(s, "expect"));
+      if (want == nullptr) {
+        c.check(tag + " " + path + "#" + field, got == nullptr,
+                got != nullptr ? *got : std::string());
+      } else {
+        c.check(tag + " " + path + "#" + field, got != nullptr && *got == *want,
+                got != nullptr ? *got : "(unset)");
+      }
+    } else if (op == "formFieldNames") {
+      std::vector<std::string> got;
+      for (const som::FormFieldSpec& ff : ed.formFields(path)) {
+        got.push_back(ff.name);
+      }
+      std::vector<std::string> want = json_str_list(som::jsonGet(s, "expect"));
+      c.check(tag + " " + path, got == want, join(got) + " != " + join(want));
+    } else if (op == "formFieldNamesThrows") {
+      expect_throws(c, tag + " " + path, [&] { ed.formFields(path); });
+    } else if (op == "setHeadline") {
+      ed.setHeadline(path, som::jsonStrOr(s, "value"));
+    } else if (op == "headline") {
+      std::optional<std::string> got = ed.headline(path);
+      const std::string* want = som::jsonAsStr(som::jsonGet(s, "expect"));
+      if (want == nullptr) {
+        c.check(tag + " " + path, !got.has_value(), got.value_or(""));
+      } else {
+        c.check(tag + " " + path, got.has_value() && *got == *want,
+                got.value_or("(unset)"));
+      }
+    } else if (op == "headlineThrows") {
+      expect_throws(c, tag + " " + path, [&] { ed.headline(path); });
+    } else if (op == "itemSectionId") {
+      std::string itemPath = som::jsonStrOr(s, "itemPath");
+      std::string got = doc.itemSectionId(itemPath);
+      std::string want = som::jsonStrOr(s, "expect");
+      c.check(tag + " " + itemPath, got == want, got + " != " + want);
+    } else if (op == "addListItem" || op == "addListItemThrows") {
+      std::string listPath = som::jsonStrOr(s, "listPath");
+      long long month = som::jsonAsI64(som::jsonGet(s, "month")).value_or(1);
+      long long day = som::jsonAsI64(som::jsonGet(s, "day")).value_or(1);
+      if (op == "addListItemThrows") {
+        expect_throws(c, tag + " " + listPath,
+                      [&] { ed.addListItem(listPath, "", month, day); });
+      } else {
+        std::string got = ed.addListItem(listPath, "", month, day);
+        std::string want = som::jsonStrOr(s, "expectPath");
+        c.check(tag + " " + listPath, got == want, got + " != " + want);
+        const std::string* wantId = som::jsonAsStr(som::jsonGet(s, "expectId"));
+        if (wantId != nullptr) {
+          std::string gotId = doc.itemSectionId(got);
+          c.check(tag + " id " + listPath, gotId == *wantId,
+                  gotId + " != " + *wantId);
+        }
+      }
+    } else if (op == "removeListItem") {
+      std::string itemPath = som::jsonStrOr(s, "itemPath");
+      c.check(tag + " " + itemPath,
+              ed.removeListItem(itemPath) == som::jsonBoolOr(s, "expect"), "");
+    } else if (op == "clearSection") {
+      ed.clearSection(path);
+    } else if (op == "clearSectionThrows") {
+      expect_throws(c, tag + " " + path, [&] { ed.clearSection(path); });
+    } else if (op == "hasValuesUnder") {
+      std::string prefix = som::jsonStrOr(s, "prefix");
+      c.check(tag + " " + prefix,
+              doc.hasValuesUnder(prefix) == som::jsonBoolOr(s, "expect"), "");
+    } else {
+      c.check(tag + ".unknown", false, op);
+    }
+  }
+}
+
 /* A JSON string array as a vector; non-string / missing entries drop out. */
 static std::vector<std::string> json_str_list(const som::JsonRef& arr) {
   std::vector<std::string> out;
@@ -769,6 +937,7 @@ int main(int argc, char** argv) {
   test_reflection(c, *model);
   test_validation(c, *model);
   test_operations(c);
+  test_editor(c, *model);
   test_section_id(c);
   test_serialization_order(c);
   test_docspecs(c);

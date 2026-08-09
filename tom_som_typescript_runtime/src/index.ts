@@ -64,6 +64,24 @@ export {
 // serialization order (AA1 criterion 7)
 export { SpecSerializationOrder } from './spec_serialization_order';
 
+// typed-value store boundary (YRD7)
+export {
+  somParseInt,
+  somFormatInt,
+  somParseDouble,
+  somFormatDouble,
+  somParseNum,
+  somFormatNum,
+  somParseBool,
+  somFormatBool,
+  somParseEnumName,
+  somFormatEnumName,
+} from './spec_typed_values';
+
+// generic modification API (YRD7)
+export { SpecEditor } from './spec_editor';
+export type { SomValue } from './spec_editor';
+
 // validator
 export {
   SpecValidationCode,

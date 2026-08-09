@@ -18,6 +18,8 @@ provide:
 | `spec_model.c` | The meta-data loader — the exported class graph (`SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`, …). |
 | `spec_reflection.c` | Value-free enumeration + path resolution (`SpecReflection`, `SpecResolution`, node-kind constants). |
 | `spec_document.c` | A sparse in-memory document — values keyed by section path. |
+| `spec_typed_values.c` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided; also the tagged `SomValue` typed positions travel as. |
+| `spec_editor.c` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
 | `spec_validator.c` | Validates a document's values against the model. |
 | `spec_document_yaml.c` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown.c` | Meta-data-driven Markdown import/export codec. |
@@ -80,8 +82,9 @@ make unit            # builds + runs the standalone unit tests
 The conformance harness (`tests/conformance.c`) loads the language-agnostic
 corpus (`../tom_som_conformance/corpus`) and reproduces the same checks as every
 other port — model meta, `state.json` round-trip, YAML encode/decode, Markdown
-export/parse/landing, reflection, validation, and the imperative operations
-script. Exit 0 == all green; it prints `OK: N checks passed`.
+export/parse/landing, reflection, validation, the imperative operations script,
+and the generic editing script (`SpecEditor`). Exit 0 == all green; it prints
+`OK: N checks passed`.
 
 The corpus directory can be overridden:
 

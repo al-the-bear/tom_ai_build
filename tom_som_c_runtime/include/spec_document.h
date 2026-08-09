@@ -183,6 +183,19 @@ void spec_document_code_spec_paths(const SpecDocument *d, SomStrList *out);
 int spec_document_is_empty(const SpecDocument *d);
 int spec_document_has_values_under(const SpecDocument *d, const char *prefix);
 
+/* Removes every value at `prefix` and beneath it — content, form entries, list
+ * items (with their nested values, assigned section ids and sequence counters),
+ * stored headlines and stored codeSpecs — returning the subtree to the
+ * untouched "empty = no value" state (D4).
+ *
+ * "Beneath" is the same containment `spec_document_has_values_under` tests:
+ * `key == prefix`, or `key` starts with `prefix/` (a nested member) or
+ * `prefix-` (a list item of it). This is the write-side companion to that
+ * predicate, and what `spec_editor_clear_section` clears a section with.
+ * Removing the values does NOT remove the node: structure lives in the model,
+ * not in the document, so the path stays addressable. */
+void spec_document_remove_values_under(SpecDocument *d, const char *prefix);
+
 /* Enumerations (all byte-sorted) written into `out` (initialised by callee). */
 void spec_document_content_paths(const SpecDocument *d, SomStrList *out);
 void spec_document_form_paths(const SpecDocument *d, SomStrList *out);

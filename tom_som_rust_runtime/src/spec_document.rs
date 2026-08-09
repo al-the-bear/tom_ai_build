@@ -568,6 +568,19 @@ impl SpecDocument {
         true
     }
 
+    /// Drops every value at `prefix` or nested beneath it — content, form
+    /// entries, list items (with their nested values, ids and sequence
+    /// counters), and stored headlines (YRD7 generic modification API: "clear
+    /// section").
+    ///
+    /// The predicate is the same one [`has_values_under`](Self::has_values_under)
+    /// uses, so after this call `has_values_under(prefix)` is `false`. Note this
+    /// clears *values under a section path*; removing a single list item from its
+    /// owning list is [`remove_list_item`](Self::remove_list_item).
+    pub fn remove_values_under(&mut self, prefix: &str) {
+        self.purge_under(prefix);
+    }
+
     fn purge_under(&mut self, prefix: &str) {
         self.content.retain(|k, _| !is_under(k, prefix));
         self.form.retain(|k, _| !is_under(k, prefix));

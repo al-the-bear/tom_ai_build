@@ -14,6 +14,7 @@ import java.util.Objects;
 import tom_som_runtime.DocSpecsSchema;
 import tom_som_runtime.DocSpecsValidator;
 import tom_som_runtime.DocSpecsViolation;
+import tom_som_runtime.FormFieldSpec;
 import tom_som_runtime.Json;
 import tom_som_runtime.SomMetaBridge;
 import tom_som_runtime.SomMetaTree;
@@ -21,6 +22,7 @@ import tom_som_runtime.SpecClass;
 import tom_som_runtime.SpecDocument;
 import tom_som_runtime.SpecDocumentMarkdown;
 import tom_som_runtime.SpecDocumentYaml;
+import tom_som_runtime.SpecEditor;
 import tom_som_runtime.SpecField;
 import tom_som_runtime.SpecMarkdownRejection;
 import tom_som_runtime.SpecMarkdownResult;
@@ -473,6 +475,177 @@ public final class ConformanceRunner {
     }
   }
 
+  /**
+   * YRD7: the generic, meta-validated modification API ({@link SpecEditor}) —
+   * typed value/form-field round-trips through the shared boundary helpers, enum
+   * domain validation, and structural create/clear ops.
+   *
+   * <p>The script is stateful and ordered: it is replayed start to finish
+   * against one document, so every language's generic editor reaches the
+   * identical store state step by step.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testEditor(SpecModel model) throws IOException {
+    SpecDocument doc = new SpecDocument();
+    SpecEditor ed = SpecEditor.forModel(doc, model);
+    List<Object> steps = readJsonArray("editor_cases.json");
+    for (int n = 0; n < steps.size(); n++) {
+      Map<String, Object> s = (Map<String, Object>) steps.get(n);
+      String kind = (String) s.get("op");
+      String path = (String) s.get("path");
+      String field = (String) s.get("field");
+      String at = "editor[" + n + "]." + kind + " ";
+      switch (kind) {
+        case "setValue":
+          ed.setValue(path, s.get("value"));
+          break;
+        case "value": {
+          Object got = ed.value(path);
+          check(at + path, sameValue(got, s.get("expect")), String.valueOf(got));
+          break;
+        }
+        case "setValueThrows":
+          check(at + path, raisesArgument(() -> ed.setValue(path, s.get("value"))), "");
+          break;
+        case "setContent": // raw store write (bypasses the typed boundary)
+          doc.setContent(path, (String) s.get("value"));
+          break;
+        case "rawContent":
+          check(
+              at + path,
+              Objects.equals(doc.content(path), s.get("expect")),
+              String.valueOf(doc.content(path)));
+          break;
+        case "setFormValue":
+          ed.setFormValue(path, field, s.get("value"));
+          break;
+        case "formValue": {
+          Object got = ed.formValue(path, field);
+          check(at + path + "#" + field, sameValue(got, s.get("expect")), String.valueOf(got));
+          break;
+        }
+        case "setFormValueThrows":
+          check(
+              at + path + "#" + field,
+              raisesArgument(() -> ed.setFormValue(path, field, s.get("value"))),
+              "");
+          break;
+        case "rawFormField":
+          check(
+              at + path + "#" + field,
+              Objects.equals(doc.formField(path, field), s.get("expect")),
+              String.valueOf(doc.formField(path, field)));
+          break;
+        case "formFieldNames": {
+          List<String> got = new ArrayList<>();
+          for (FormFieldSpec ff : ed.formFields(path)) {
+            got.add(ff.name);
+          }
+          List<String> want = stringList(s.get("expect"));
+          check(at + path, got.equals(want), got + " != " + want);
+          break;
+        }
+        case "formFieldNamesThrows":
+          check(at + path, raisesArgument(() -> ed.formFields(path)), "");
+          break;
+        case "setHeadline":
+          ed.setHeadline(path, (String) s.get("value"));
+          break;
+        case "headline":
+          check(
+              at + path,
+              Objects.equals(ed.headline(path), s.get("expect")),
+              String.valueOf(ed.headline(path)));
+          break;
+        case "headlineThrows":
+          check(at + path, raisesArgument(() -> ed.headline(path)), "");
+          break;
+        case "itemSectionId": {
+          String itemPath = (String) s.get("itemPath");
+          check(
+              at + itemPath,
+              Objects.equals(doc.itemSectionId(itemPath), s.get("expect")),
+              String.valueOf(doc.itemSectionId(itemPath)));
+          break;
+        }
+        case "addListItem": {
+          String listPath = (String) s.get("listPath");
+          String itemPath =
+              ed.addListItem(listPath, null, intAt(s, "month"), intAt(s, "day"));
+          check(at + listPath, itemPath.equals(s.get("expectPath")), itemPath);
+          if (s.containsKey("expectId")) {
+            check(
+                at + listPath + " generated id",
+                Objects.equals(doc.itemSectionId(itemPath), s.get("expectId")),
+                String.valueOf(doc.itemSectionId(itemPath)));
+          }
+          break;
+        }
+        case "addListItemThrows": {
+          String listPath = (String) s.get("listPath");
+          int month = intAt(s, "month");
+          int day = intAt(s, "day");
+          check(
+              at + listPath,
+              raisesArgument(() -> ed.addListItem(listPath, null, month, day)),
+              "");
+          break;
+        }
+        case "removeListItem": {
+          String itemPath = (String) s.get("itemPath");
+          check(
+              at + itemPath,
+              ed.removeListItem(itemPath) == Boolean.TRUE.equals(s.get("expect")),
+              "");
+          break;
+        }
+        case "clearSection":
+          ed.clearSection(path);
+          break;
+        case "clearSectionThrows":
+          check(at + path, raisesArgument(() -> ed.clearSection(path)), "");
+          break;
+        case "hasValuesUnder": {
+          String prefix = (String) s.get("prefix");
+          check(
+              at + prefix,
+              doc.hasValuesUnder(prefix) == Boolean.TRUE.equals(s.get("expect")),
+              "");
+          break;
+        }
+        default:
+          check("editor[" + n + "].unknown", false, kind);
+      }
+    }
+  }
+
+  /**
+   * Whether {@code fn} raises {@link IllegalArgumentException} — the caller-error
+   * signal the editor's strict-write contract uses (the corpus's {@code *Throws}
+   * ops only require that the operation fails).
+   */
+  private static boolean raisesArgument(Runnable fn) {
+    try {
+      fn.run();
+      return false;
+    } catch (IllegalArgumentException e) {
+      return true;
+    }
+  }
+
+  /**
+   * Corpus-value equality for a typed read. Numbers compare by value, because
+   * the corpus's JSON types an integral literal as {@link Integer} while a
+   * {@code double} field legitimately reads back as {@link Double} ({@code 2} vs
+   * {@code 2.0}) — the same {@code ==} the Dart and Python runners apply.
+   */
+  private static boolean sameValue(Object got, Object expect) {
+    if (got instanceof Number && expect instanceof Number) {
+      return ((Number) got).doubleValue() == ((Number) expect).doubleValue();
+    }
+    return Objects.equals(got, expect);
+  }
+
   @SuppressWarnings("unchecked")
   private static List<String> stringList(Object array) {
     List<String> out = new ArrayList<>();
@@ -681,6 +854,7 @@ public final class ConformanceRunner {
     testReflection(model);
     testValidation(model);
     testOperations();
+    testEditor(model);
     testSectionId();
     testSerializationOrder();
     testDocSpecs();

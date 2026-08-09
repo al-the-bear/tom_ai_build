@@ -750,6 +750,10 @@ static void purge_under(SpecDocument *d, const char *prefix) {
   }
 }
 
+void spec_document_remove_values_under(SpecDocument *d, const char *prefix) {
+  purge_under(d, prefix);
+}
+
 int spec_document_remove_list_item(SpecDocument *d, const char *item_path) {
   size_t owning = d->list_items_len;
   for (size_t i = 0; i < d->list_items_len && owning == d->list_items_len; i++) {

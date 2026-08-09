@@ -15,6 +15,7 @@ golden byte-for-byte and matches every behavioural case:
   * reflection resolution cases;
   * validation cases;
   * the imperative operations script;
+  * the YRD7 generic editor script (typed values, enum domains, structure);
   * the SOM §14 DocSpecs tier (schema load + one violation case per rule).
 
 Run with: ``python3 tests/conformance_runner.py``. Exit code 0 == all green.
@@ -42,6 +43,7 @@ from tom_som_runtime import (  # noqa: E402
     DocSpecsViolationRule,
     SpecDocument,
     SpecDocumentMarkdown,
+    SpecEditor,
     SpecModel,
     SpecReflection,
     SpecSectionIdCollision,
@@ -238,6 +240,103 @@ def test_validation(model: SpecModel) -> None:
         got = [(e.path, e.code.value) for e in errors]
         want = [(e["path"], e["code"]) for e in case["errors"]]
         _check(f"validate[{name}]", got == want, f"{got} != {want}")
+
+
+def _expect_raises(name: str, fn) -> None:
+    try:
+        fn()
+    except (ValueError, TypeError):
+        _check(name, True)
+        return
+    _check(name, False, "did not raise")
+
+
+def test_editor(model: SpecModel) -> None:
+    """YRD7: the generic, meta-validated modification API (SpecEditor) — typed
+    value/form-field round-trips through the shared boundary helpers, enum
+    domain validation, and structural create/clear ops.
+
+    Executed against the corpus model, so every language's generic editor
+    replays the identical script.
+    """
+    doc = SpecDocument()
+    ed = SpecEditor.for_model(doc, model)
+    for n, s in enumerate(_read_json("editor_cases.json")):
+        kind = s["op"]
+        if kind == "setValue":
+            ed.set_value(s["path"], s["value"])
+        elif kind == "value":
+            _check(f"editor[{n}].value {s['path']}",
+                   ed.value(s["path"]) == s["expect"], str(ed.value(s["path"])))
+        elif kind == "setValueThrows":
+            _expect_raises(f"editor[{n}].setValueThrows {s['path']}",
+                           lambda s=s: ed.set_value(s["path"], s["value"]))
+        elif kind == "setContent":  # raw store write (bypasses the boundary)
+            doc.set_content(s["path"], s["value"])
+        elif kind == "rawContent":
+            _check(f"editor[{n}].rawContent {s['path']}",
+                   doc.content(s["path"]) == s["expect"],
+                   str(doc.content(s["path"])))
+        elif kind == "setFormValue":
+            ed.set_form_value(s["path"], s["field"], s["value"])
+        elif kind == "formValue":
+            got = ed.form_value(s["path"], s["field"])
+            _check(f"editor[{n}].formValue {s['path']}#{s['field']}",
+                   got == s["expect"], str(got))
+        elif kind == "setFormValueThrows":
+            _expect_raises(
+                f"editor[{n}].setFormValueThrows {s['path']}#{s['field']}",
+                lambda s=s: ed.set_form_value(s["path"], s["field"], s["value"]))
+        elif kind == "rawFormField":
+            got = doc.form_field(s["path"], s["field"])
+            _check(f"editor[{n}].rawFormField {s['path']}#{s['field']}",
+                   got == s["expect"], str(got))
+        elif kind == "formFieldNames":
+            got = [f.name for f in ed.form_fields(s["path"])]
+            _check(f"editor[{n}].formFieldNames {s['path']}",
+                   got == s["expect"], str(got))
+        elif kind == "formFieldNamesThrows":
+            _expect_raises(f"editor[{n}].formFieldNamesThrows {s['path']}",
+                           lambda s=s: ed.form_fields(s["path"]))
+        elif kind == "setHeadline":
+            ed.set_headline(s["path"], s["value"])
+        elif kind == "headline":
+            _check(f"editor[{n}].headline {s['path']}",
+                   ed.headline(s["path"]) == s.get("expect"),
+                   str(ed.headline(s["path"])))
+        elif kind == "headlineThrows":
+            _expect_raises(f"editor[{n}].headlineThrows {s['path']}",
+                           lambda s=s: ed.headline(s["path"]))
+        elif kind == "itemSectionId":
+            _check(f"editor[{n}].itemSectionId {s['itemPath']}",
+                   doc.item_section_id(s["itemPath"]) == s["expect"],
+                   str(doc.item_section_id(s["itemPath"])))
+        elif kind == "addListItem":
+            p = ed.add_list_item(s["listPath"], month=s["month"], day=s["day"])
+            _check(f"editor[{n}].addListItem {s['listPath']}",
+                   p == s["expectPath"], p)
+            if "expectId" in s:
+                _check(f"editor[{n}].addListItem id {s['listPath']}",
+                       doc.item_section_id(p) == s["expectId"],
+                       str(doc.item_section_id(p)))
+        elif kind == "addListItemThrows":
+            _expect_raises(
+                f"editor[{n}].addListItemThrows {s['listPath']}",
+                lambda s=s: ed.add_list_item(
+                    s["listPath"], month=s["month"], day=s["day"]))
+        elif kind == "removeListItem":
+            _check(f"editor[{n}].removeListItem {s['itemPath']}",
+                   ed.remove_list_item(s["itemPath"]) == s["expect"])
+        elif kind == "clearSection":
+            ed.clear_section(s["path"])
+        elif kind == "clearSectionThrows":
+            _expect_raises(f"editor[{n}].clearSectionThrows {s['path']}",
+                           lambda s=s: ed.clear_section(s["path"]))
+        elif kind == "hasValuesUnder":
+            _check(f"editor[{n}].hasValuesUnder {s['prefix']}",
+                   doc.has_values_under(s["prefix"]) == s["expect"])
+        else:  # pragma: no cover
+            _check(f"editor[{n}].unknown", False, kind)
 
 
 def test_operations() -> None:
@@ -484,6 +583,7 @@ def main() -> int:
     test_reflection(model)
     test_validation(model)
     test_operations()
+    test_editor(model)
     test_section_id()
     test_serialization_order()
     test_docspecs()

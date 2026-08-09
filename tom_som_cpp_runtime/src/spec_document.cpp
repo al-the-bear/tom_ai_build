@@ -538,6 +538,10 @@ std::vector<std::string> SpecDocument::codeSpecPaths() const {
   return out;
 }
 
+void SpecDocument::removeValuesUnder(const std::string& prefix) {
+  purgeUnder(prefix);
+}
+
 void SpecDocument::purgeUnder(const std::string& prefix) {
   for (auto it = content_.begin(); it != content_.end();) {
     if (isUnder(it->first, prefix)) {

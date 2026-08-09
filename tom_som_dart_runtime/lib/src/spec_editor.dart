@@ -8,15 +8,24 @@
 /// `spec_typed_values.dart` helpers the generated accessors call — so a typed
 /// facade is provably a thin layer over exactly this API.
 ///
-/// Typed contract (mirrored by all nine runtimes):
+/// Typed contract:
 ///   * `int` / `double` / `num` / `bool` values are native on both sides;
 ///   * enum values travel as validated **constant-name strings** at this
 ///     generic layer (`'high'`), because the generic API has no generated enum
 ///     types — only the facade layer converts to native constants;
+///   * a `String` passes through **verbatim** even into a typed field, so
+///     writing `'12'` to an `int` leaf stores `'12'` and reads back `12`;
 ///   * `null` (or `''`) clears a value (D4);
 ///   * reads are forgiving (unparsable stored text reads as `null`), writes
 ///     are strict ([ArgumentError] for a wrong type or an out-of-domain enum
 ///     name).
+///
+/// This contract is **mirrored by all nine runtimes**, and the parity is
+/// enforced rather than merely stated:
+/// `tom_som_conformance/corpus/editor_cases.json` is a stateful op script
+/// replayed by every language's conformance runner, so a port that diverges —
+/// most easily on the integral double, which must format as `2.0` and never
+/// `2` — fails its own suite.
 library;
 
 import 'spec_document.dart';

@@ -39,6 +39,8 @@ runtime modules:
 | `spec_model.go` | The meta-data loader — the exported class graph (`SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`, …). |
 | `spec_reflection.go` | Value-free enumeration + path resolution (`SpecReflection`, `SpecResolution`, `SpecNodeKind*`). |
 | `spec_document.go` | A sparse in-memory document — values keyed by section path. |
+| `spec_typed_values.go` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
+| `spec_editor.go` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
 | `spec_validator.go` | Validates a document's values against the model. |
 | `spec_document_yaml.go` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown.go` | Meta-data-driven Markdown import/export codec. |

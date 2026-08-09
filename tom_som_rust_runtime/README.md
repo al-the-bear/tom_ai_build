@@ -40,6 +40,8 @@ plus a hand-rolled JSON reader that the Rust standard library does not provide:
 | `spec_model.rs` | The meta-data loader — the exported class graph (`SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`, …). |
 | `spec_reflection.rs` | Value-free enumeration + path resolution (`SpecReflection`, `SpecResolution`, node-kind constants). |
 | `spec_document.rs` | A sparse in-memory document — values keyed by section path. |
+| `spec_typed_values.rs` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
+| `spec_editor.rs` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
 | `spec_validator.rs` | Validates a document's values against the model. |
 | `spec_document_yaml.rs` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown.rs` | Meta-data-driven Markdown import/export codec. |

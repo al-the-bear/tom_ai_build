@@ -466,6 +466,17 @@ language mirrors it:
 - `spec_paths.dart` — path handling.
 - `som_facade.dart` — `SomNode` / `SomList` / `SomScalar` / `checkSomModelVersion`,
   the editing support the typed facade extends.
+- `spec_typed_values.dart` — the ten parse/format helpers (`int`, `double`,
+  `num`, `bool`, enum-name) that convert between a native value and the raw text
+  a document stores. They are the *only* place the text form of a typed value is
+  decided, so the nine runtimes serialize identically — notably an integral
+  double formats as `2.0`, never `2`.
+- `spec_editor.dart` — `SpecEditor`, the generic meta-model-driven modification
+  API (YRD7): typed `value`/`setValue`, form field access, headline, list-item
+  add/remove and section clearing, over any path. Reads are forgiving
+  (unparsable text → no value), writes are strict (a wrong-typed value or an
+  out-of-domain enum name is an error), and enums travel as validated constant
+  *names* rather than enum values.
 - `spec_query.dart` — the query facility (§15).
 - `spec_node_creation.dart` — the constrained-creation gate (§15).
 

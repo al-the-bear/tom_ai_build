@@ -25,7 +25,7 @@ TomSpecs model version).
 
 ## What it is
 
-The package `tom_som_runtime` mirrors the eight portable runtime modules:
+The package `tom_som_runtime` mirrors the portable runtime modules:
 
 | Type(s) | Responsibility |
 | ------- | -------------- |
@@ -33,6 +33,8 @@ The package `tom_som_runtime` mirrors the eight portable runtime modules:
 | `SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`, … | The meta-data loader — the exported class graph. |
 | `SpecReflection`, `SpecResolution`, `SpecNodeKind` | Value-free enumeration + path resolution. |
 | `SpecDocument` | A sparse in-memory document — values keyed by section path. |
+| `SpecTypedValues` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
+| `SpecEditor` | The generic meta-model-driven modification API (YRD7) — typed edits over any path, without a generated facade. |
 | `SpecValidator` | Validates a document's values against the model. |
 | `SpecDocumentYaml` | Byte-stable `*.docspecs.yaml` codec. |
 | `SpecDocumentMarkdown` | Meta-data-driven Markdown import/export codec. |

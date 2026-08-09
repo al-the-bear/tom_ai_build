@@ -16,6 +16,7 @@
  *   * reflection resolution cases;
  *   * validation cases;
  *   * the imperative operations script;
+ *   * the YRD7 generic editor script (typed values, enum domains, structure);
  *   * the SOM §14 DocSpecs tier (schema load + one violation case per rule).
  *
  * Build with `tsc`, then run `node dist/tests/conformance_runner.js`. Exit code
@@ -34,6 +35,7 @@ import {
   SomMetaTree,
   SpecDocument,
   SpecDocumentMarkdown,
+  SpecEditor,
   SpecModel,
   buildSomMetaTree,
   SpecReflection,
@@ -499,6 +501,134 @@ function testOperations(): void {
   }
 }
 
+/** Asserts `fn` fails — the corpus's `*Throws` ops only require *that* it does. */
+function _expectThrows(name: string, fn: () => unknown): void {
+  try {
+    fn();
+  } catch {
+    _check(name, true);
+    return;
+  }
+  _check(name, false, 'expected an error, none thrown');
+}
+
+/**
+ * YRD7: the generic, meta-validated modification API (SpecEditor) — typed
+ * value/form-field round-trips through the shared boundary helpers, enum domain
+ * validation, and structural create/clear ops.
+ *
+ * Replayed against the corpus model, so every language's generic editor runs
+ * the identical script. The script is stateful and ordered: one document, start
+ * to finish.
+ */
+function testEditor(model: SpecModel): void {
+  const doc = new SpecDocument();
+  const ed = SpecEditor.forModel(doc, model);
+  const script = _readJson('editor_cases.json');
+  for (let n = 0; n < script.length; n++) {
+    const s = script[n];
+    const kind = s.op;
+    if (kind === 'setValue') {
+      ed.setValue(s.path, s.value);
+    } else if (kind === 'value') {
+      const got = ed.value(s.path);
+      _check(`editor[${n}].value ${s.path}`, got === s.expect, String(got));
+    } else if (kind === 'setValueThrows') {
+      _expectThrows(`editor[${n}].setValueThrows ${s.path}`, () =>
+        ed.setValue(s.path, s.value),
+      );
+    } else if (kind === 'setContent') {
+      // Raw store write: bypasses the typed boundary on purpose.
+      doc.setContent(s.path, s.value);
+    } else if (kind === 'rawContent') {
+      const got = doc.content(s.path);
+      _check(`editor[${n}].rawContent ${s.path}`, got === s.expect, String(got));
+    } else if (kind === 'setFormValue') {
+      ed.setFormValue(s.path, s.field, s.value);
+    } else if (kind === 'formValue') {
+      const got = ed.formValue(s.path, s.field);
+      _check(
+        `editor[${n}].formValue ${s.path}#${s.field}`,
+        got === s.expect,
+        String(got),
+      );
+    } else if (kind === 'setFormValueThrows') {
+      _expectThrows(
+        `editor[${n}].setFormValueThrows ${s.path}#${s.field}`,
+        () => ed.setFormValue(s.path, s.field, s.value),
+      );
+    } else if (kind === 'rawFormField') {
+      const got = doc.formField(s.path, s.field);
+      _check(
+        `editor[${n}].rawFormField ${s.path}#${s.field}`,
+        got === s.expect,
+        String(got),
+      );
+    } else if (kind === 'formFieldNames') {
+      const got = ed.formFields(s.path).map((f) => f.name);
+      _check(
+        `editor[${n}].formFieldNames ${s.path}`,
+        _deepEqual(got, s.expect),
+        String(got),
+      );
+    } else if (kind === 'formFieldNamesThrows') {
+      _expectThrows(`editor[${n}].formFieldNamesThrows ${s.path}`, () =>
+        ed.formFields(s.path),
+      );
+    } else if (kind === 'setHeadline') {
+      ed.setHeadline(s.path, s.value);
+    } else if (kind === 'headline') {
+      const expect = s.expect === undefined ? null : s.expect;
+      const got = ed.headline(s.path);
+      _check(`editor[${n}].headline ${s.path}`, got === expect, String(got));
+    } else if (kind === 'headlineThrows') {
+      _expectThrows(`editor[${n}].headlineThrows ${s.path}`, () =>
+        ed.headline(s.path),
+      );
+    } else if (kind === 'itemSectionId') {
+      const got = doc.itemSectionId(s.itemPath);
+      _check(
+        `editor[${n}].itemSectionId ${s.itemPath}`,
+        got === s.expect,
+        String(got),
+      );
+    } else if (kind === 'addListItem') {
+      const p = ed.addListItem(s.listPath, null, s.month, s.day);
+      _check(`editor[${n}].addListItem ${s.listPath}`, p === s.expectPath, p);
+      if (s.expectId !== undefined) {
+        const gotId = doc.itemSectionId(p);
+        _check(
+          `editor[${n}].addListItem id ${s.listPath}`,
+          gotId === s.expectId,
+          String(gotId),
+        );
+      }
+    } else if (kind === 'addListItemThrows') {
+      _expectThrows(`editor[${n}].addListItemThrows ${s.listPath}`, () =>
+        ed.addListItem(s.listPath, null, s.month, s.day),
+      );
+    } else if (kind === 'removeListItem') {
+      _check(
+        `editor[${n}].removeListItem ${s.itemPath}`,
+        ed.removeListItem(s.itemPath) === s.expect,
+      );
+    } else if (kind === 'clearSection') {
+      ed.clearSection(s.path);
+    } else if (kind === 'clearSectionThrows') {
+      _expectThrows(`editor[${n}].clearSectionThrows ${s.path}`, () =>
+        ed.clearSection(s.path),
+      );
+    } else if (kind === 'hasValuesUnder') {
+      _check(
+        `editor[${n}].hasValuesUnder ${s.prefix}`,
+        doc.hasValuesUnder(s.prefix) === s.expect,
+      );
+    } else {
+      _check(`editor[${n}].unknown`, false, kind);
+    }
+  }
+}
+
 function _raisesCollision(fn: () => void): boolean {
   try {
     fn();
@@ -680,6 +810,7 @@ export function main(): number {
   testReflection(model);
   testValidation(model);
   testOperations();
+  testEditor(model);
   testSectionId();
   testSerializationOrder();
   testDocSpecs();

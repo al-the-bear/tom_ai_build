@@ -21,6 +21,8 @@ codecs rely on it).
 | `spec_model.cpp` | The meta-data loader — the exported class graph (`SpecModel`, `SpecRoot`, `SpecClass`, `SpecField`, …). |
 | `spec_reflection.cpp` | Value-free enumeration + path resolution (`SpecReflection`, `SpecResolution`, node-kind constants). |
 | `spec_document.cpp` | A sparse in-memory document — values keyed by section path. |
+| `spec_typed_values.cpp` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
+| `spec_editor.cpp` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
 | `spec_validator.cpp` | Validates a document's values against the model. |
 | `spec_document_yaml.cpp` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown.cpp` | Meta-data-driven Markdown import/export codec (SOM §8 DocScanner route). |

@@ -424,6 +424,20 @@ public final class SpecDocument {
     codeSpec.keySet().removeIf(k -> isUnder(k, prefix));
   }
 
+  /**
+   * Drops every value at {@code prefix} or nested beneath it — content, form
+   * entries, list items (with their nested values, ids and counters), and stored
+   * headlines (YRD7 generic modification API: "clear section").
+   *
+   * <p>The predicate is the same one {@link #hasValuesUnder} uses, so after this
+   * call {@code hasValuesUnder(prefix)} is {@code false}. Note this clears
+   * <i>values under a section path</i>; removing a single list item from its
+   * owning list is {@link #removeListItem}.
+   */
+  public void removeValuesUnder(String prefix) {
+    purgeUnder(prefix);
+  }
+
   // --- queries ------------------------------------------------------------
 
   public boolean isEmpty() {

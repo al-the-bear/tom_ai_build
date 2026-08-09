@@ -400,11 +400,22 @@ void main() {
           expect(d.formField(s['path'] as String, s['field'] as String),
               s['expect'],
               reason: 'rawFormField ${s['path']}#${s['field']}');
+        case 'formFieldNames':
+          expect(
+              ed.formFields(s['path'] as String).map((f) => f.name).toList(),
+              s['expect'],
+              reason: 'formFieldNames ${s['path']}');
+        case 'formFieldNamesThrows':
+          expect(() => ed.formFields(s['path'] as String), throwsArgumentError,
+              reason: 'formFieldNamesThrows ${s['path']}');
         case 'setHeadline':
           ed.setHeadline(s['path'] as String, s['value'] as String?);
         case 'headline':
           expect(ed.headline(s['path'] as String), s['expect'],
               reason: 'headline ${s['path']}');
+        case 'headlineThrows':
+          expect(() => ed.headline(s['path'] as String), throwsArgumentError,
+              reason: 'headlineThrows ${s['path']}');
         case 'itemSectionId':
           expect(d.itemSectionId(s['itemPath'] as String), s['expect'],
               reason: 'itemSectionId ${s['itemPath']}');
@@ -416,11 +427,20 @@ void main() {
             expect(d.itemSectionId(p), s['expectId'],
                 reason: 'addListItem generated id ${s['listPath']}');
           }
+        case 'addListItemThrows':
+          final now = DateTime(2026, s['month'] as int, s['day'] as int);
+          expect(() => ed.addListItem(s['listPath'] as String, now: now),
+              throwsArgumentError,
+              reason: 'addListItemThrows ${s['listPath']}');
         case 'removeListItem':
           expect(ed.removeListItem(s['itemPath'] as String), s['expect'],
               reason: 'removeListItem ${s['itemPath']}');
         case 'clearSection':
           ed.clearSection(s['path'] as String);
+        case 'clearSectionThrows':
+          expect(() => ed.clearSection(s['path'] as String),
+              throwsArgumentError,
+              reason: 'clearSectionThrows ${s['path']}');
         case 'hasValuesUnder':
           expect(d.hasValuesUnder(s['prefix'] as String), s['expect'],
               reason: 'hasValuesUnder ${s['prefix']}');

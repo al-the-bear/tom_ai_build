@@ -19,6 +19,7 @@ pub mod som_facade;
 pub mod spec_document;
 pub mod spec_document_markdown;
 pub mod spec_document_yaml;
+pub mod spec_editor;
 pub mod spec_meta;
 pub mod spec_meta_bridge;
 pub mod spec_meta_diff;
@@ -27,6 +28,7 @@ pub mod spec_paths;
 pub mod spec_reflection;
 pub mod spec_section_id;
 pub mod spec_serialization_order;
+pub mod spec_typed_values;
 pub mod spec_validator;
 pub mod yaml;
 
@@ -62,6 +64,7 @@ pub use spec_document_yaml::{
     decode_yaml, dedup_empty_lines, encode_yaml, js_json_string, node_key, plain_key,
     SpecYamlContents, SpecYamlError, SpecYamlFormatException, FORMAT_VERSION,
 };
+pub use spec_editor::{SomValue, SpecEditor};
 pub use spec_meta::{
     SomContentTypeMeta, SomDocMeta, SomFormFieldMeta, SomFormMeta, SomListMetaRef, SomMetaExtra,
     SomMetaNode, SomMetaRef, SomMetaTree, SOM_META_KIND_COMPLEX,
@@ -85,4 +88,8 @@ pub use spec_section_id::{
     today_month_day, SpecSectionIdCollision, SpecSectionIdError,
 };
 pub use spec_serialization_order::{SpecSerializationOrder, SERIALIZATION_UNORDERED_FALLBACK};
+pub use spec_typed_values::{
+    som_format_bool, som_format_double, som_format_enum_name, som_format_int, som_format_num,
+    som_parse_bool, som_parse_double, som_parse_enum_name, som_parse_int, som_parse_num, SomNum,
+};
 pub use spec_validator::{validate_document, SpecValidationError};

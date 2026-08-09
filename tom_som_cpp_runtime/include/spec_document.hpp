@@ -180,6 +180,18 @@ class SpecDocument {
   bool isEmpty() const;
   bool hasValuesUnder(const std::string& prefix) const;
 
+  /* Removes every value at `prefix` and beneath it — content leaves, form
+   * entries, list items (with their nested values, assigned section ids and
+   * sequence counters) and stored headlines — for every key that is `prefix`
+   * itself or nested under it (`prefix/...` or `prefix-...`).
+   *
+   * The public face of the purge the removal paths already use internally; the
+   * generic SpecEditor::clearSection is built on it, so "clear this subtree"
+   * is one operation rather than a store-by-store walk at the call site. The
+   * structure itself is untouched: it lives in the model, not the document, so
+   * the node stays addressable and simply holds no value again (D4). */
+  void removeValuesUnder(const std::string& prefix);
+
   // enumerations (all byte-sorted)
   std::vector<std::string> contentPaths() const;
   std::vector<std::string> formPaths() const;

@@ -8,16 +8,24 @@
 /// the **same** functions, so a facade is provably a thin layer over the
 /// generic API (they cannot disagree on a conversion).
 ///
-/// Conventions (the typed contract, mirrored by all nine runtimes):
+/// Conventions (the typed contract):
 ///   * absent / empty string ⇒ `null` on read; `null` on write ⇒ clear (D4);
 ///   * `int` — decimal integer, `somParseInt` returns `null` for non-numeric;
 ///   * `double` — accepts any Dart-parsable floating literal (also plain
-///     integers); formatting uses the value's shortest `toString()`;
+///     integers); formatting uses the value's shortest `toString()`, which
+///     **keeps the decimal point on an integral value** (`2.0`, never `2`).
+///     That is the whole reason this is a shared boundary rather than each
+///     language's default number-to-string: a runtime with one numeric type
+///     writes `2` and silently diverges in every serialized document;
 ///   * `bool` — stored as `true` / `false`; parsing accepts exactly those
 ///     (case-sensitive), anything else reads as `null`;
 ///   * enums — stored as the constant **name** (e.g. `high`); the generic
 ///     layer validates against the field's `enumValues` domain, the generated
 ///     facade converts name ⇄ native constant.
+///
+/// All nine runtimes carry these helpers, and the conventions above are
+/// replayed against each of them by
+/// `tom_som_conformance/corpus/editor_cases.json`.
 library;
 
 /// Parses a stored string as `int`, or `null` when absent/unparsable.

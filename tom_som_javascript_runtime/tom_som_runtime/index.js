@@ -40,6 +40,19 @@ const {
   SpecResolution,
   SpecReflection,
 } = require('./spec_reflection');
+const { SpecEditor } = require('./spec_editor');
+const {
+  somFormatBool,
+  somFormatDouble,
+  somFormatEnumName,
+  somFormatInt,
+  somFormatNum,
+  somParseBool,
+  somParseDouble,
+  somParseEnumName,
+  somParseInt,
+  somParseNum,
+} = require('./spec_typed_values');
 const {
   K_SECTION_ID_SLOT,
   effectiveListItemSectionId,
@@ -139,6 +152,19 @@ module.exports = {
   SpecNodeKind,
   SpecResolution,
   SpecReflection,
+  // generic modification API (YRD7)
+  SpecEditor,
+  // typed-value store boundary
+  somParseInt,
+  somFormatInt,
+  somParseDouble,
+  somFormatDouble,
+  somParseNum,
+  somFormatNum,
+  somParseBool,
+  somFormatBool,
+  somParseEnumName,
+  somFormatEnumName,
   // section-id derivation
   K_SECTION_ID_SLOT,
   effectiveListItemSectionId,

@@ -14,6 +14,7 @@
 //   - reflection resolution cases;
 //   - validation cases;
 //   - the imperative operations script;
+//   - the generic editor script (YRD7);
 //   - the SOM §14 DocSpecs tier (one case per violation rule).
 //
 // `go test ./tests/` is the native runner; exit 0 == all green.
@@ -195,6 +196,7 @@ func TestConformance(t *testing.T) {
 	testReflection(c, t, model)
 	testValidation(c, t, model)
 	testOperations(c, t)
+	testEditor(c, t, model)
 	testSectionId(c, t)
 	testSerializationOrder(c, t)
 	testDocSpecs(c, t)
@@ -659,6 +661,211 @@ func testOperations(c *checker, t *testing.T) {
 			c.check(tag, doc.RemoveListItem(op.ItemPath) == exp, "")
 		default:
 			c.check(tag+".unknown", false, op.Op)
+		}
+	}
+}
+
+// --- generic editor conformance (YRD7) --------------------------------------
+
+type editorCase struct {
+	Op         string          `json:"op"`
+	Path       string          `json:"path"`
+	Field      string          `json:"field"`
+	ListPath   string          `json:"listPath"`
+	ItemPath   string          `json:"itemPath"`
+	Prefix     string          `json:"prefix"`
+	Month      int             `json:"month"`
+	Day        int             `json:"day"`
+	ExpectPath string          `json:"expectPath"`
+	ExpectID   *string         `json:"expectId"`
+	Value      json.RawMessage `json:"value"`
+	Expect     json.RawMessage `json:"expect"`
+}
+
+// jsonAny decodes a corpus value/expectation into the dynamic shape the editor
+// speaks. An absent key and a JSON null both land as nil (the "unset" value).
+func jsonAny(t *testing.T, raw json.RawMessage) any {
+	if len(raw) == 0 {
+		return nil
+	}
+	var v any
+	if err := json.Unmarshal(raw, &v); err != nil {
+		t.Fatalf("decode editor value %s: %v", string(raw), err)
+	}
+	return v
+}
+
+func jsonString(t *testing.T, raw json.RawMessage) string {
+	var s string
+	if len(raw) == 0 {
+		return ""
+	}
+	if err := json.Unmarshal(raw, &s); err != nil {
+		t.Fatalf("decode editor string %s: %v", string(raw), err)
+	}
+	return s
+}
+
+func jsonStringPtr(t *testing.T, raw json.RawMessage) *string {
+	if len(raw) == 0 {
+		return nil
+	}
+	var s *string
+	if err := json.Unmarshal(raw, &s); err != nil {
+		t.Fatalf("decode editor string %s: %v", string(raw), err)
+	}
+	return s
+}
+
+// valueEq compares an editor value against a corpus expectation.
+//
+// encoding/json lands every JSON number in a float64 when the target is `any`,
+// while the editor returns the model's own type (an int for an `int` leaf), so
+// numbers are compared numerically rather than by dynamic type — the corpus
+// pins the *value*, and the store text it produced is pinned separately by the
+// rawContent / rawFormField expectations.
+func valueEq(got, want any) bool {
+	if got == nil || want == nil {
+		return got == nil && want == nil
+	}
+	if gf, ok := asFloat64(got); ok {
+		wf, ok := asFloat64(want)
+		return ok && gf == wf
+	}
+	return got == want
+}
+
+func asFloat64(v any) (float64, bool) {
+	switch n := v.(type) {
+	case int:
+		return float64(n), true
+	case int64:
+		return float64(n), true
+	case float64:
+		return n, true
+	}
+	return 0, false
+}
+
+func str(v any) string {
+	b, _ := json.Marshal(v)
+	return string(b)
+}
+
+// testEditor replays the shared editor script: YRD7's generic, meta-validated
+// modification API (SpecEditor) — typed value/form-field round-trips through
+// the shared boundary helpers, enum domain validation, and the structural
+// create/clear ops.
+//
+// The script is stateful and ordered, so it runs start to finish against one
+// document; a `*Throws` step only has to fail, and the steps after it are what
+// prove it left the document alone.
+func testEditor(c *checker, t *testing.T, model *som.SpecModel) {
+	doc := som.NewSpecDocument()
+	ed := som.NewSpecEditorForModel(doc, model)
+	var cases []editorCase
+	readJSON(t, "editor_cases.json", &cases)
+	for n, s := range cases {
+		tag := "editor[" + itoa(n) + "]." + s.Op
+		switch s.Op {
+		case "setValue":
+			if err := ed.SetValue(s.Path, jsonAny(t, s.Value)); err != nil {
+				c.check(tag+" "+s.Path, false, err.Error())
+			}
+		case "value":
+			got, err := ed.Value(s.Path)
+			c.check(tag+" "+s.Path, err == nil && valueEq(got, jsonAny(t, s.Expect)),
+				str(got))
+		case "setValueThrows":
+			c.check(tag+" "+s.Path, ed.SetValue(s.Path, jsonAny(t, s.Value)) != nil,
+				"expected an error")
+		case "setContent": // raw store write (bypasses the typed boundary)
+			doc.SetContent(s.Path, jsonString(t, s.Value))
+		case "rawContent":
+			val, ok := doc.Content(s.Path)
+			exp := jsonStringPtr(t, s.Expect)
+			if exp == nil {
+				c.check(tag+" "+s.Path, !ok, "expected unset")
+			} else {
+				c.check(tag+" "+s.Path, ok && val == *exp, val)
+			}
+		case "setFormValue":
+			if err := ed.SetFormValue(s.Path, s.Field, jsonAny(t, s.Value)); err != nil {
+				c.check(tag+" "+s.Path+"#"+s.Field, false, err.Error())
+			}
+		case "formValue":
+			got, err := ed.FormValue(s.Path, s.Field)
+			c.check(tag+" "+s.Path+"#"+s.Field,
+				err == nil && valueEq(got, jsonAny(t, s.Expect)), str(got))
+		case "setFormValueThrows":
+			c.check(tag+" "+s.Path+"#"+s.Field,
+				ed.SetFormValue(s.Path, s.Field, jsonAny(t, s.Value)) != nil,
+				"expected an error")
+		case "rawFormField":
+			val, ok := doc.FormField(s.Path, s.Field)
+			exp := jsonStringPtr(t, s.Expect)
+			if exp == nil {
+				c.check(tag+" "+s.Path+"#"+s.Field, !ok, "expected unset")
+			} else {
+				c.check(tag+" "+s.Path+"#"+s.Field, ok && val == *exp, val)
+			}
+		case "formFieldNames":
+			fields, err := ed.FormFields(s.Path)
+			var names []string
+			for _, ff := range fields {
+				names = append(names, ff.Name)
+			}
+			var exp []string
+			json.Unmarshal(s.Expect, &exp)
+			c.check(tag+" "+s.Path, err == nil && sliceEq(names, exp), join(names))
+		case "formFieldNamesThrows":
+			_, err := ed.FormFields(s.Path)
+			c.check(tag+" "+s.Path, err != nil, "expected an error")
+		case "setHeadline":
+			if err := ed.SetHeadline(s.Path, jsonString(t, s.Value)); err != nil {
+				c.check(tag+" "+s.Path, false, err.Error())
+			}
+		case "headline":
+			got, err := ed.Headline(s.Path)
+			c.check(tag+" "+s.Path, err == nil && optEq(got, jsonStringPtr(t, s.Expect)),
+				optName(got))
+		case "headlineThrows":
+			_, err := ed.Headline(s.Path)
+			c.check(tag+" "+s.Path, err != nil, "expected an error")
+		case "itemSectionId":
+			got := doc.ItemSectionIDOr(s.ItemPath)
+			c.check(tag+" "+s.ItemPath, optEq(got, jsonStringPtr(t, s.Expect)),
+				optName(got))
+		case "addListItem":
+			p, err := ed.AddListItem(s.ListPath, "", s.Month, s.Day)
+			if err != nil {
+				c.check(tag+" "+s.ListPath, false, err.Error())
+				break
+			}
+			c.check(tag+" "+s.ListPath, p == s.ExpectPath, p+" != "+s.ExpectPath)
+			if s.ExpectID != nil {
+				got := doc.ItemSectionIDOr(p)
+				c.check(tag+" id "+s.ListPath, got == *s.ExpectID, got+" != "+*s.ExpectID)
+			}
+		case "addListItemThrows":
+			_, err := ed.AddListItem(s.ListPath, "", s.Month, s.Day)
+			c.check(tag+" "+s.ListPath, err != nil, "expected an error")
+		case "removeListItem":
+			var exp bool
+			json.Unmarshal(s.Expect, &exp)
+			c.check(tag+" "+s.ItemPath, ed.RemoveListItem(s.ItemPath) == exp, "")
+		case "clearSection":
+			if err := ed.ClearSection(s.Path); err != nil {
+				c.check(tag+" "+s.Path, false, err.Error())
+			}
+		case "clearSectionThrows":
+			c.check(tag+" "+s.Path, ed.ClearSection(s.Path) != nil, "expected an error")
+		case "hasValuesUnder":
+			var exp bool
+			json.Unmarshal(s.Expect, &exp)
+			c.check(tag+" "+s.Prefix, doc.HasValuesUnder(s.Prefix) == exp, "")
+		default:
+			c.check(tag+".unknown", false, s.Op)
 		}
 	}
 }

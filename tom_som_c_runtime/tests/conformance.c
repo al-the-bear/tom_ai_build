@@ -14,6 +14,7 @@
  *   - reflection resolution cases;
  *   - validation cases;
  *   - the imperative operations script;
+ *   - the generic editing script (SpecEditor, YRD7);
  *   - the SOM §14 DocSpecs tier (one case per violation rule).
  *
  * The corpus directory is argv[1], defaulting to
@@ -646,6 +647,260 @@ static void test_validation(Checker *c, const SpecModel *model) {
   som_json_free(cases);
 }
 
+/* ---- the generic editing API (YRD7) ------------------------------------- */
+
+/* The corpus's typed value positions as a `SomValue`. The distinctions the
+ * typed contract rests on live in the JSON types themselves — the integer `2`
+ * is not the float `2.5` is not the string `"12"`, `true` is not
+ * `"not-a-bool"` — so they are carried across, not flattened to text. */
+static SomValue json_som_value(const SomJson *v) {
+  if (v == NULL) {
+    return som_value_none();
+  }
+  switch (v->type) {
+    case SOM_JSON_BOOL:
+      return som_value_bool(v->as.boolean);
+    case SOM_JSON_INT:
+      return som_value_int(v->as.integer);
+    case SOM_JSON_FLOAT:
+      return som_value_double(v->as.real);
+    case SOM_JSON_STR:
+      return som_value_str(v->as.str);
+    default:
+      return som_value_none();
+  }
+}
+
+/* Asserts `got` equals the JSON expectation under `key`, reporting the actual
+ * value on a mismatch. Consumes nothing; the caller still owns `got`. */
+static void check_value(Checker *c, const char *tag, const SomValue *got,
+                        const SomJson *step, const char *key) {
+  SomValue want = json_som_value(som_json_get(step, key));
+  char *shown = som_value_debug(got);
+  char *wanted = som_value_debug(&want);
+  char detail[512];
+  snprintf(detail, sizeof(detail), "%s != %s", shown, wanted);
+  check(c, tag, som_value_equals(got, &want), detail);
+  free(shown);
+  free(wanted);
+  som_value_free(&want);
+}
+
+/* Asserts an optional string reads as the JSON expectation under `key` (a JSON
+ * null / absent key means "unset"). */
+static void check_opt_str(Checker *c, const char *tag, const char *got,
+                          const SomJson *step, const char *key) {
+  const char *want = som_json_as_str(som_json_get(step, key));
+  if (want == NULL) {
+    check(c, tag, got == NULL, got != NULL ? got : "");
+  } else {
+    check(c, tag, got != NULL && strcmp(got, want) == 0, got != NULL ? got : "");
+  }
+}
+
+/* Asserts a fallible editor call failed, and releases the message it produced.
+ * The strict-write half of the typed contract: every `*Throws` op must be
+ * rejected, not silently absorbed. */
+static void check_rejected(Checker *c, const char *tag, int ok, char *err) {
+  check(c, tag, !ok, "did not fail");
+  free(err);
+}
+
+/* YRD7: the generic, meta-validated modification API (SpecEditor) — typed
+ * value/form-field round-trips through the shared boundary helpers, enum domain
+ * validation, and structural create/clear ops.
+ *
+ * A stateful, ordered script: one document, each step building on the last.
+ * Executed against the corpus model, so every language's generic editor replays
+ * the identical sequence. */
+static void test_editor(Checker *c, const SpecModel *model) {
+  SpecDocument doc;
+  spec_document_init(&doc);
+  SpecEditor ed = spec_editor_for_model(&doc, model);
+  SomJson *steps = read_json("editor_cases.json");
+  size_t n = som_json_array_len(steps);
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *s = som_json_array_at(steps, i);
+    const char *op = som_json_str_or(s, "op");
+    const char *path = som_json_str_or(s, "path");
+    const char *field = som_json_str_or(s, "field");
+    char tag[640];
+    char *err = NULL;
+
+    if (strcmp(op, "setValue") == 0) {
+      snprintf(tag, sizeof(tag), "editor[%zu].setValue %s", i, path);
+      SomValue v = json_som_value(som_json_get(s, "value"));
+      int ok = spec_editor_set_value(&ed, path, &v, &err);
+      check(c, tag, ok, err != NULL ? err : "");
+      free(err);
+      som_value_free(&v);
+    } else if (strcmp(op, "value") == 0) {
+      snprintf(tag, sizeof(tag), "editor[%zu].value %s", i, path);
+      SomValue got = som_value_none();
+      if (!spec_editor_value(&ed, path, &got, &err)) {
+        check(c, tag, 0, err != NULL ? err : "");
+        free(err);
+      } else {
+        check_value(c, tag, &got, s, "expect");
+      }
+      som_value_free(&got);
+    } else if (strcmp(op, "setValueThrows") == 0) {
+      snprintf(tag, sizeof(tag), "editor[%zu].setValueThrows %s", i, path);
+      SomValue v = json_som_value(som_json_get(s, "value"));
+      check_rejected(c, tag, spec_editor_set_value(&ed, path, &v, &err), err);
+      som_value_free(&v);
+    } else if (strcmp(op, "setContent") == 0) {
+      /* raw store write — deliberately bypasses the typed boundary */
+      spec_document_set_content(&doc, path, som_json_str_or(s, "value"));
+    } else if (strcmp(op, "rawContent") == 0) {
+      snprintf(tag, sizeof(tag), "editor[%zu].rawContent %s", i, path);
+      check_opt_str(c, tag, spec_document_content(&doc, path), s, "expect");
+    } else if (strcmp(op, "setFormValue") == 0) {
+      snprintf(tag, sizeof(tag), "editor[%zu].setFormValue %s#%s", i, path,
+               field);
+      SomValue v = json_som_value(som_json_get(s, "value"));
+      int ok = spec_editor_set_form_value(&ed, path, field, &v, &err);
+      check(c, tag, ok, err != NULL ? err : "");
+      free(err);
+      som_value_free(&v);
+    } else if (strcmp(op, "formValue") == 0) {
+      snprintf(tag, sizeof(tag), "editor[%zu].formValue %s#%s", i, path, field);
+      SomValue got = som_value_none();
+      if (!spec_editor_form_value(&ed, path, field, &got, &err)) {
+        check(c, tag, 0, err != NULL ? err : "");
+        free(err);
+      } else {
+        check_value(c, tag, &got, s, "expect");
+      }
+      som_value_free(&got);
+    } else if (strcmp(op, "setFormValueThrows") == 0) {
+      snprintf(tag, sizeof(tag), "editor[%zu].setFormValueThrows %s#%s", i, path,
+               field);
+      SomValue v = json_som_value(som_json_get(s, "value"));
+      check_rejected(c, tag,
+                     spec_editor_set_form_value(&ed, path, field, &v, &err),
+                     err);
+      som_value_free(&v);
+    } else if (strcmp(op, "rawFormField") == 0) {
+      snprintf(tag, sizeof(tag), "editor[%zu].rawFormField %s#%s", i, path,
+               field);
+      check_opt_str(c, tag, spec_document_form_field(&doc, path, field), s,
+                    "expect");
+    } else if (strcmp(op, "formFieldNames") == 0) {
+      snprintf(tag, sizeof(tag), "editor[%zu].formFieldNames %s", i, path);
+      const FormFieldSpec *ffs = NULL;
+      size_t ffs_len = 0;
+      if (!spec_editor_form_fields(&ed, path, &ffs, &ffs_len, &err)) {
+        check(c, tag, 0, err != NULL ? err : "");
+        free(err);
+      } else {
+        SomStrList got;
+        som_strlist_init(&got);
+        for (size_t k = 0; k < ffs_len; k++) {
+          som_strlist_push_copy(&got, ffs[k].name);
+        }
+        SomStrList want;
+        json_str_list(som_json_get(s, "expect"), &want);
+        char *gj = som_strlist_join(&got, ",");
+        check(c, tag, strlist_eq(&got, &want), gj);
+        free(gj);
+        som_strlist_free(&got);
+        som_strlist_free(&want);
+      }
+    } else if (strcmp(op, "formFieldNamesThrows") == 0) {
+      snprintf(tag, sizeof(tag), "editor[%zu].formFieldNamesThrows %s", i, path);
+      check_rejected(c, tag,
+                     spec_editor_form_fields(&ed, path, NULL, NULL, &err), err);
+    } else if (strcmp(op, "setHeadline") == 0) {
+      snprintf(tag, sizeof(tag), "editor[%zu].setHeadline %s", i, path);
+      int ok = spec_editor_set_headline(
+          &ed, path, som_json_as_str(som_json_get(s, "value")), &err);
+      check(c, tag, ok, err != NULL ? err : "");
+      free(err);
+    } else if (strcmp(op, "headline") == 0) {
+      snprintf(tag, sizeof(tag), "editor[%zu].headline %s", i, path);
+      const char *got = NULL;
+      if (!spec_editor_headline(&ed, path, &got, &err)) {
+        check(c, tag, 0, err != NULL ? err : "");
+        free(err);
+      } else {
+        check_opt_str(c, tag, got, s, "expect");
+      }
+    } else if (strcmp(op, "headlineThrows") == 0) {
+      snprintf(tag, sizeof(tag), "editor[%zu].headlineThrows %s", i, path);
+      check_rejected(c, tag, spec_editor_headline(&ed, path, NULL, &err), err);
+    } else if (strcmp(op, "itemSectionId") == 0) {
+      const char *item_path = som_json_str_or(s, "itemPath");
+      snprintf(tag, sizeof(tag), "editor[%zu].itemSectionId %s", i, item_path);
+      check_opt_str(c, tag, spec_document_item_section_id(&doc, item_path), s,
+                    "expect");
+    } else if (strcmp(op, "addListItem") == 0 ||
+               strcmp(op, "addListItemThrows") == 0) {
+      const char *list_path = som_json_str_or(s, "listPath");
+      long long month = 0, day = 0;
+      som_json_as_i64(som_json_get(s, "month"), &month);
+      som_json_as_i64(som_json_get(s, "day"), &day);
+      char *item_path = NULL;
+      SpecSectionIdError id_err;
+      spec_section_id_error_init(&id_err);
+      int ok = spec_editor_add_list_item(&ed, list_path, NULL, month, day,
+                                         &item_path, &id_err, &err);
+      spec_section_id_error_free(&id_err);
+      if (strcmp(op, "addListItemThrows") == 0) {
+        snprintf(tag, sizeof(tag), "editor[%zu].addListItemThrows %s", i,
+                 list_path);
+        check_rejected(c, tag, ok, err);
+        free(item_path);
+        continue;
+      }
+      snprintf(tag, sizeof(tag), "editor[%zu].addListItem %s", i, list_path);
+      if (!ok) {
+        check(c, tag, 0, err != NULL ? err : "");
+        free(err);
+        continue;
+      }
+      const char *expect_path = som_json_str_or(s, "expectPath");
+      char detail[1024];
+      snprintf(detail, sizeof(detail), "%s != %s", item_path, expect_path);
+      check(c, tag, strcmp(item_path, expect_path) == 0, detail);
+      if (som_json_get(s, "expectId") != NULL) {
+        char idtag[672];
+        snprintf(idtag, sizeof(idtag), "%s id", tag);
+        check_opt_str(c, idtag, spec_document_item_section_id(&doc, item_path),
+                      s, "expectId");
+      }
+      free(item_path);
+    } else if (strcmp(op, "removeListItem") == 0) {
+      const char *item_path = som_json_str_or(s, "itemPath");
+      snprintf(tag, sizeof(tag), "editor[%zu].removeListItem %s", i, item_path);
+      check(c, tag,
+            spec_editor_remove_list_item(&ed, item_path) ==
+                som_json_bool_or(s, "expect"),
+            "");
+    } else if (strcmp(op, "clearSection") == 0) {
+      snprintf(tag, sizeof(tag), "editor[%zu].clearSection %s", i, path);
+      int ok = spec_editor_clear_section(&ed, path, &err);
+      check(c, tag, ok, err != NULL ? err : "");
+      free(err);
+    } else if (strcmp(op, "clearSectionThrows") == 0) {
+      snprintf(tag, sizeof(tag), "editor[%zu].clearSectionThrows %s", i, path);
+      check_rejected(c, tag, spec_editor_clear_section(&ed, path, &err), err);
+    } else if (strcmp(op, "hasValuesUnder") == 0) {
+      const char *prefix = som_json_str_or(s, "prefix");
+      snprintf(tag, sizeof(tag), "editor[%zu].hasValuesUnder %s", i, prefix);
+      check(c, tag,
+            spec_document_has_values_under(&doc, prefix) ==
+                som_json_bool_or(s, "expect"),
+            "");
+    } else {
+      snprintf(tag, sizeof(tag), "editor[%zu].unknown", i);
+      check(c, tag, 0, op);
+    }
+  }
+  som_json_free(steps);
+  spec_document_free(&doc);
+}
+
 static void test_operations(Checker *c) {
   SpecDocument doc;
   spec_document_init(&doc);
@@ -1063,6 +1318,7 @@ int main(int argc, char **argv) {
   test_reflection(&c, model);
   test_validation(&c, model);
   test_operations(&c);
+  test_editor(&c, model);
   test_section_id(&c);
   test_serialization_order(&c);
   test_docspecs(&c);

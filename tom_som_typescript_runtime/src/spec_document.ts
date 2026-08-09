@@ -422,6 +422,20 @@ export class SpecDocument {
     }
   }
 
+  /**
+   * Drops every value at `prefix` or nested beneath it — content, form entries,
+   * list items (with their nested values, ids and counters), and stored
+   * headlines (YRD7 generic modification API: "clear section").
+   *
+   * The predicate is the same one {@link hasValuesUnder} uses, so after this
+   * call `hasValuesUnder(prefix)` is `false`. Note this clears *values under a
+   * section path*; removing a single list item from its owning list is
+   * {@link removeListItem}.
+   */
+  removeValuesUnder(prefix: string): void {
+    this._purgeUnder(prefix);
+  }
+
   // --- queries ------------------------------------------------------------
 
   get isEmpty(): boolean {

@@ -329,6 +329,18 @@ class SpecDocument:
             for key in [k for k in store if is_under(k)]:
                 store.pop(key, None)
 
+    def remove_values_under(self, prefix: str) -> None:
+        """Drops every value at *prefix* or nested beneath it — content, form
+        entries, list items (with their nested values, ids and counters), and
+        stored headlines (YRD7 generic modification API: "clear section").
+
+        The predicate is the same one :meth:`has_values_under` uses, so after
+        this call ``has_values_under(prefix)`` is ``False``. Note this clears
+        *values under a section path*; removing a single list item from its
+        owning list is :meth:`remove_list_item`.
+        """
+        self._purge_under(prefix)
+
     # --- queries ------------------------------------------------------------
 
     @property

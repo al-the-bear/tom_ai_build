@@ -16,6 +16,7 @@
 //!   - reflection resolution cases;
 //!   - validation cases;
 //!   - the imperative operations script;
+//!   - the generic typed editing script (YRD7 `SpecEditor`);
 //!   - the SOM §14 DocSpecs tier (one case per violation rule).
 //!
 //! `cargo test` is the native runner; exit 0 == all green.
@@ -26,6 +27,7 @@ use tom_som_rust_runtime::json::Json;
 use tom_som_rust_runtime::spec_document::{DocumentJson, SpecDocument};
 use tom_som_rust_runtime::spec_document_markdown::{SpecDocumentMarkdown, SpecMarkdownResult};
 use tom_som_rust_runtime::spec_document_yaml::{decode_yaml, encode_yaml};
+use tom_som_rust_runtime::spec_editor::{SomValue, SpecEditor};
 use tom_som_rust_runtime::spec_meta::SomMetaTree;
 use tom_som_rust_runtime::spec_meta_bridge::build_som_meta_tree;
 use tom_som_rust_runtime::spec_model::{
@@ -146,6 +148,7 @@ fn conformance() {
     test_reflection(&mut c, &model);
     test_validation(&mut c, &model);
     test_operations(&mut c);
+    test_editor(&mut c, &model);
     test_section_id(&mut c);
     test_serialization_order(&mut c);
     test_docspecs(&mut c);
@@ -652,6 +655,232 @@ fn test_operations(c: &mut Checker) {
                         c.check(&tag, val.as_deref() == Some(exp.as_str()), &val.unwrap_or_default());
                     }
                 }
+            }
+            other => c.check(&format!("{}.unknown", tag), false, other),
+        }
+    }
+}
+
+// --- generic typed editing conformance (YRD7) ------------------------------
+
+/// Converts a corpus JSON value into the editor's boundary value.
+///
+/// The corpus deliberately distinguishes the integer `2` from the float `2.5`
+/// and from the string `"12"`, and `true` from `"not-a-bool"`; the hand-rolled
+/// [`Json`] parser keeps `Int` and `Float` apart, so that distinction survives
+/// into [`SomValue`] instead of collapsing into one numeric type.
+fn som_value_of(v: Option<&Json>) -> Option<SomValue> {
+    match v {
+        None | Some(Json::Null) => None,
+        Some(Json::Int(n)) => Some(SomValue::Int(*n)),
+        Some(Json::Float(f)) => Some(SomValue::Double(*f)),
+        Some(Json::Bool(b)) => Some(SomValue::Bool(*b)),
+        Some(Json::Str(s)) => Some(SomValue::Str(s.clone())),
+        Some(other) => panic!("editor corpus value is not a scalar: {:?}", other),
+    }
+}
+
+/// Compares a read-back typed value against the corpus expectation, variant and
+/// all — an `Int` never satisfies a `Float` expectation and vice versa.
+fn value_matches(got: &Option<SomValue>, expect: Option<&Json>) -> bool {
+    *got == som_value_of(expect)
+}
+
+/// Compares a raw store string (`rawContent` / `rawFormField` / `headline` /
+/// `itemSectionId`) against the corpus expectation, where JSON `null` means the
+/// key is absent — the D4 "empty = no value" state.
+fn raw_matches(got: Option<&String>, expect: Option<&Json>) -> bool {
+    match expect {
+        None | Some(Json::Null) => got.is_none(),
+        Some(Json::Str(s)) => got.map(|g| g == s).unwrap_or(false),
+        Some(other) => panic!("editor corpus raw expectation is not a string: {:?}", other),
+    }
+}
+
+/// YRD7: the generic, meta-validated modification API ([`SpecEditor`]) — typed
+/// value/form-field round-trips through the shared boundary helpers, enum domain
+/// validation, and structural create/clear ops.
+///
+/// The script is **stateful and ordered**: every step mutates one shared
+/// document and later steps depend on earlier ones, so it is replayed in corpus
+/// order against a single document — exactly as the Dart and Python runners do.
+fn test_editor(c: &mut Checker, model: &SpecModel) {
+    let cases = read_json("editor_cases.json");
+    let mut doc = SpecDocument::new();
+    let mut ed = SpecEditor::for_model(&mut doc, model);
+    for (n, s) in cases.as_array().unwrap().iter().enumerate() {
+        let op = s.str_or("op");
+        let path = s.str_or("path");
+        let field = s.str_or("field");
+        let expect = s.get("expect");
+        let tag = format!("editor[{}].{}", n, op);
+        match op.as_str() {
+            "setValue" => {
+                if let Err(e) = ed.set_value(&path, som_value_of(s.get("value"))) {
+                    c.check(&format!("{} {}", tag, path), false, &e);
+                }
+            }
+            "value" => {
+                let got = ed.value(&path);
+                match got {
+                    Ok(got) => c.check(
+                        &format!("{} {}", tag, path),
+                        value_matches(&got, expect),
+                        &format!("{:?}", got),
+                    ),
+                    Err(e) => c.check(&format!("{} {}", tag, path), false, &e),
+                }
+            }
+            "setValueThrows" => c.check(
+                &format!("{} {}", tag, path),
+                ed.set_value(&path, som_value_of(s.get("value"))).is_err(),
+                "did not error",
+            ),
+            // Raw store write, bypassing the typed boundary.
+            "setContent" => ed.document.set_content(&path, &s.str_or("value")),
+            "rawContent" => {
+                let got = ed.document.content(&path);
+                c.check(
+                    &format!("{} {}", tag, path),
+                    raw_matches(got, expect),
+                    &format!("{:?}", got),
+                );
+            }
+            "setFormValue" => {
+                if let Err(e) = ed.set_form_value(&path, &field, som_value_of(s.get("value"))) {
+                    c.check(&format!("{} {}#{}", tag, path, field), false, &e);
+                }
+            }
+            "formValue" => {
+                let got = ed.form_value(&path, &field);
+                match got {
+                    Ok(got) => c.check(
+                        &format!("{} {}#{}", tag, path, field),
+                        value_matches(&got, expect),
+                        &format!("{:?}", got),
+                    ),
+                    Err(e) => c.check(&format!("{} {}#{}", tag, path, field), false, &e),
+                }
+            }
+            "setFormValueThrows" => c.check(
+                &format!("{} {}#{}", tag, path, field),
+                ed.set_form_value(&path, &field, som_value_of(s.get("value")))
+                    .is_err(),
+                "did not error",
+            ),
+            "rawFormField" => {
+                let got = ed.document.form_field(&path, &field);
+                c.check(
+                    &format!("{} {}#{}", tag, path, field),
+                    raw_matches(got, expect),
+                    &format!("{:?}", got),
+                );
+            }
+            "formFieldNames" => match ed.form_fields(&path) {
+                Ok(specs) => {
+                    let got: Vec<String> = specs.iter().map(|f| f.name.clone()).collect();
+                    let want = str_list(expect);
+                    c.check(
+                        &format!("{} {}", tag, path),
+                        got == want,
+                        &format!("{} != {}", got.join(","), want.join(",")),
+                    );
+                }
+                Err(e) => c.check(&format!("{} {}", tag, path), false, &e),
+            },
+            "formFieldNamesThrows" => c.check(
+                &format!("{} {}", tag, path),
+                ed.form_fields(&path).is_err(),
+                "did not error",
+            ),
+            "setHeadline" => {
+                if let Err(e) = ed.set_headline(&path, s.get("value").and_then(|v| v.as_str())) {
+                    c.check(&format!("{} {}", tag, path), false, &e);
+                }
+            }
+            "headline" => match ed.headline(&path) {
+                Ok(got) => c.check(
+                    &format!("{} {}", tag, path),
+                    raw_matches(got.as_ref(), expect),
+                    &format!("{:?}", got),
+                ),
+                Err(e) => c.check(&format!("{} {}", tag, path), false, &e),
+            },
+            "headlineThrows" => c.check(
+                &format!("{} {}", tag, path),
+                ed.headline(&path).is_err(),
+                "did not error",
+            ),
+            "itemSectionId" => {
+                let item_path = s.str_or("itemPath");
+                let got = ed.document.item_section_id(&item_path);
+                c.check(
+                    &format!("{} {}", tag, item_path),
+                    raw_matches(got, expect),
+                    &format!("{:?}", got),
+                );
+            }
+            "addListItem" => {
+                let list_path = s.str_or("listPath");
+                let month = s.get("month").and_then(|v| v.as_i64()).unwrap_or(0);
+                let day = s.get("day").and_then(|v| v.as_i64()).unwrap_or(0);
+                match ed.add_list_item_on(&list_path, month, day) {
+                    Ok(p) => {
+                        let want_path = s.str_or("expectPath");
+                        c.check(
+                            &format!("{} {}", tag, list_path),
+                            p == want_path,
+                            &format!("{} != {}", p, want_path),
+                        );
+                        if s.get("expectId").is_some() {
+                            let got = ed.document.item_section_id(&p);
+                            c.check(
+                                &format!("{} id {}", tag, list_path),
+                                raw_matches(got, s.get("expectId")),
+                                &format!("{:?}", got),
+                            );
+                        }
+                    }
+                    Err(e) => c.check(&format!("{} {}", tag, list_path), false, &e),
+                }
+            }
+            "addListItemThrows" => {
+                let list_path = s.str_or("listPath");
+                let month = s.get("month").and_then(|v| v.as_i64()).unwrap_or(0);
+                let day = s.get("day").and_then(|v| v.as_i64()).unwrap_or(0);
+                c.check(
+                    &format!("{} {}", tag, list_path),
+                    ed.add_list_item_on(&list_path, month, day).is_err(),
+                    "did not error",
+                );
+            }
+            "removeListItem" => {
+                let item_path = s.str_or("itemPath");
+                let want = expect.and_then(|v| v.as_bool()).unwrap_or(false);
+                c.check(
+                    &format!("{} {}", tag, item_path),
+                    ed.remove_list_item(&item_path) == want,
+                    "",
+                );
+            }
+            "clearSection" => {
+                if let Err(e) = ed.clear_section(&path) {
+                    c.check(&format!("{} {}", tag, path), false, &e);
+                }
+            }
+            "clearSectionThrows" => c.check(
+                &format!("{} {}", tag, path),
+                ed.clear_section(&path).is_err(),
+                "did not error",
+            ),
+            "hasValuesUnder" => {
+                let prefix = s.str_or("prefix");
+                let want = expect.and_then(|v| v.as_bool()).unwrap_or(false);
+                c.check(
+                    &format!("{} {}", tag, prefix),
+                    ed.document.has_values_under(&prefix) == want,
+                    "",
+                );
             }
             other => c.check(&format!("{}.unknown", tag), false, other),
         }

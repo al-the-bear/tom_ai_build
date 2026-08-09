@@ -32,6 +32,8 @@ The package `tom_som_runtime` mirrors the seven portable Dart modules:
 | `spec_model` | The meta-data loader — the exported class graph (`SpecModel`). |
 | `spec_reflection` | Value-free enumeration + path resolution (`SpecReflection`). |
 | `spec_document` | A sparse in-memory document — values keyed by section path. |
+| `spec_typed_values` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
+| `spec_editor` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
 | `spec_validator` | Validates a document's values against the model. |
 | `spec_document_yaml` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown` | Meta-data-driven Markdown import/export codec. |

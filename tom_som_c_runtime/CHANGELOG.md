@@ -3,9 +3,11 @@
 ## 1.0.0
 
 - Generic TomSpecs object-model runtime for C: section-path grammar, meta-data
-  model loader, reflection/resolution, sparse document, validator, and the
-  YAML/Markdown codecs, plus a hand-rolled JSON reader/encoder and a small C
-  utility module (growable buffer / list / byte-sorted map).
+  model loader, reflection/resolution, sparse document, validator, the typed
+  store boundary (`spec_typed_values`), the generic meta-driven editing API
+  (`spec_editor`), and the YAML/Markdown codecs, plus a hand-rolled JSON
+  reader/encoder and a small C utility module (growable buffer / list /
+  byte-sorted map).
 - Zero external dependencies (C standard library only); validated against the
   shared language-agnostic conformance corpus.
 - Packaged with a `Makefile` that builds a static (`.a`) and a shared (`.so`)

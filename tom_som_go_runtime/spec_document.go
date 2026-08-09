@@ -480,6 +480,15 @@ func (d *SpecDocument) purgeUnder(prefix string) {
 	}
 }
 
+// RemoveValuesUnder drops every value at prefix or nested beneath it — content,
+// form entries, list items (with their nested values, ids and counters), and
+// stored headlines (YRD7 generic modification API: "clear section").
+//
+// The predicate is the same one HasValuesUnder uses, so after this call
+// HasValuesUnder(prefix) is false. Note this clears *values under a section
+// path*; removing a single list item from its owning list is RemoveListItem.
+func (d *SpecDocument) RemoveValuesUnder(prefix string) { d.purgeUnder(prefix) }
+
 // errNotLiveItem describes an attempt to set a section id on a path that is not
 // a live list item.
 func errNotLiveItem(itemPath string) error {

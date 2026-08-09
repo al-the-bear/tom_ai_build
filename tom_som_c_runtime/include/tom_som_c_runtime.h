@@ -22,6 +22,8 @@
 #include "spec_section_id.h"
 #include "spec_serialization_order.h"
 #include "spec_document.h"
+#include "spec_typed_values.h"
+#include "spec_editor.h"
 #include "spec_validator.h"
 #include "yaml.h"
 #include "spec_document_yaml.h"

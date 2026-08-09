@@ -10,7 +10,7 @@ nine language APIs agree.
 | Path | Purpose |
 | ---- | ------- |
 | `samples/` | The shared specification sample (`meridian_order_management.docspecs.yaml` + `.md`), authored once through the Dart typed facade and loaded by every language. See `samples/README.md`. |
-| `corpus/` | Language-agnostic case tables (section-id, operations, validation, reflection, serialization-order, generation stamp, DocSpecs tier) plus their expected outputs, consumed by each runtime's conformance runner. What keeps these tables *complete* is the enum-coverage guard — see below before adding a check to any runtime. |
+| `corpus/` | Language-agnostic case tables (section-id, operations, validation, reflection, serialization-order, generation stamp, DocSpecs tier, editor tier) plus their expected outputs, consumed by each runtime's conformance runner. What keeps these tables *complete* is the enum-coverage guard — see below before adding a check to any runtime. |
 | `golden/` | Per-language golden logs (`<lang>.log`) written by the nine golden generators. **Git-ignored** — regenerated on demand (see below). |
 | `tool/` | The two cross-language drivers: `regenerate_golden.sh` + `compare_golden.dart` (the golden harness) and `run_all_suites.sh` (the eighteen test suites). |
 
@@ -165,6 +165,70 @@ logs agreed byte-for-byte about a question none of them had been asked. Wiring
 the table immediately found three ports (JavaScript, TypeScript, Go) reporting
 the schema *type name* instead of the containing section's id on the three
 cardinality rules.
+
+#### …and so does the editor tier (SOM §9)
+
+`SpecEditor` and the `spec_typed_values` helpers are nine-language for the third
+time over, and `corpus/editor_cases.json` is what forces it. Unlike the two
+tables above it is **not** a set of independent cases: it is a single stateful,
+ordered script. Each step mutates one shared document built from
+`corpus/model.meta.json`, and later steps read what earlier steps wrote — so a
+runner must execute it start to finish against one document, and a case may not
+be reordered or run in isolation.
+
+The script's twenty-one ops divide into three groups: assertions
+(`value`, `rawContent`, `formValue`, `rawFormField`, `formFieldNames`,
+`headline`, `itemSectionId`, `hasValuesUnder`), mutations (`setValue`,
+`setContent`, `setFormValue`, `setHeadline`, `addListItem`, `removeListItem`,
+`clearSection`), and the `…Throws` variants that pin **which** inputs a runtime
+must reject rather than silently coerce. The distinction between the two write
+modes is the contract's core: reads are forgiving, writes are strict.
+
+Two properties of the script exist to catch a specific class of port bug, and
+both were written deliberately rather than discovered:
+
+- **The integral double.** `setFormValue weight 2` must leave the raw text
+  `"2.0"`, never `"2"`. Languages with a single numeric type (JavaScript,
+  TypeScript, Go's `interface{}` decode) will store `"2"` unless the port
+  handles it, and every downstream serialization then diverges from Dart by one
+  character in a place no golden reads.
+- **Verbatim string passthrough.** Writing the *string* `"12"` into an `int`
+  field stores `"12"` and reads back `12`; writing `"not-a-bool"` into a `bool`
+  field stores it verbatim and reads back nothing. A port that eagerly
+  canonicalises on write passes every other case and fails these.
+
+The trap has a second form here, worth stating because the enum-coverage guard
+cannot catch it: a table that exists but is **loaded by one runner** is no better
+than a table that does not exist. The editor surface shipped Dart-only for two
+rounds while a doc-comment, the golden harness and `run_all_suites.sh` all
+reported nine-way parity, because `editor_cases.json` resolved at exactly one
+site in the repo. A corpus binds only the runners that read it — so wiring a new
+table into all nine runners is part of adding it, not a follow-up.
+
+#### Proving a table is load-bearing: `tool/parity_gate.sh`
+
+Nine green suites do not show that nine runners read a table, and check counts
+cannot settle it either — each runner's base count differs (Dart/Python/JS/Rust
+509, C++ 511, TS 516, C 534 at the time of writing), so two matching numbers are
+a coincidence, not evidence. The only decisive test is to **break the corpus and
+require every suite to notice**:
+
+```sh
+tool/parity_gate.sh --corpus editor_cases.json \
+  --from '"expect": "2\.0"' --to '"expect": "2"'
+```
+
+It mutates one expectation, runs the named suites (default: the nine
+`*_runtime`), and passes only when **all** of them go red; any suite that stays
+green is not reading the table. The corpus is restored unconditionally on exit,
+and the mutation must match exactly once — a pattern that hits twice, or not at
+all, is not a controlled experiment, so the script refuses to run rather than
+report a result it cannot justify.
+
+Pick a mutation the reference genuinely produces and a plausible port genuinely
+gets wrong. The integral double above is the model case: it is the default wrong
+answer for every single-numeric-type language. Run this when a new corpus table
+is added, and again after wiring it into the last runner.
 
 #### TypeScript step — build the runtime `dist/` first (CS4-D6)
 

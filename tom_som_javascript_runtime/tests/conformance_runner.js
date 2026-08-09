@@ -18,6 +18,7 @@
  *   * reflection resolution cases;
  *   * validation cases;
  *   * the imperative operations script;
+ *   * the generic editor (YRD7) script;
  *   * the SOM §14 DocSpecs tier (schema load + one violation case per rule).
  *
  * Run with: `node tests/conformance_runner.js`. Exit code 0 == all green.
@@ -39,6 +40,7 @@ const {
   DocSpecsViolationRule,
   SpecDocument,
   SpecDocumentMarkdown,
+  SpecEditor,
   SpecModel,
   buildSomMetaTree,
   SpecReflection,
@@ -363,6 +365,126 @@ function testValidation(model) {
   }
 }
 
+/** Whether `fn` throws at all (the corpus's `*Throws` ops only require that). */
+function _throws(fn) {
+  try {
+    fn();
+    return false;
+  } catch {
+    return true;
+  }
+}
+
+/**
+ * YRD7: the generic, meta-validated modification API (SpecEditor) — typed
+ * value/form-field round-trips through the shared boundary helpers, enum domain
+ * validation, and structural create/clear ops.
+ *
+ * Executed against the corpus model, so every language's generic editor replays
+ * the identical script. The script is stateful and ordered: one document, start
+ * to finish.
+ *
+ * @param {SpecModel} model
+ */
+function testEditor(model) {
+  const doc = new SpecDocument();
+  const ed = SpecEditor.forModel(doc, model);
+  const cases = _readJson('editor_cases.json');
+  for (let n = 0; n < cases.length; n++) {
+    const s = cases[n];
+    const kind = s.op;
+    if (kind === 'setValue') {
+      ed.setValue(s.path, s.value);
+    } else if (kind === 'value') {
+      const got = ed.value(s.path);
+      _check(`editor[${n}].value ${s.path}`, got === s.expect, String(got));
+    } else if (kind === 'setValueThrows') {
+      _check(
+        `editor[${n}].setValueThrows ${s.path}`,
+        _throws(() => ed.setValue(s.path, s.value)),
+        '',
+      );
+    } else if (kind === 'setContent') {
+      // raw store write (bypasses the typed boundary)
+      doc.setContent(s.path, s.value);
+    } else if (kind === 'rawContent') {
+      const got = doc.content(s.path);
+      _check(`editor[${n}].rawContent ${s.path}`, got === s.expect, String(got));
+    } else if (kind === 'setFormValue') {
+      ed.setFormValue(s.path, s.field, s.value);
+    } else if (kind === 'formValue') {
+      const got = ed.formValue(s.path, s.field);
+      _check(`editor[${n}].formValue ${s.path}#${s.field}`, got === s.expect, String(got));
+    } else if (kind === 'setFormValueThrows') {
+      _check(
+        `editor[${n}].setFormValueThrows ${s.path}#${s.field}`,
+        _throws(() => ed.setFormValue(s.path, s.field, s.value)),
+        '',
+      );
+    } else if (kind === 'rawFormField') {
+      const got = doc.formField(s.path, s.field);
+      _check(`editor[${n}].rawFormField ${s.path}#${s.field}`, got === s.expect, String(got));
+    } else if (kind === 'formFieldNames') {
+      const got = ed.formFields(s.path).map((f) => f.name);
+      _check(`editor[${n}].formFieldNames ${s.path}`, _deepEqual(got, s.expect), String(got));
+    } else if (kind === 'formFieldNamesThrows') {
+      _check(
+        `editor[${n}].formFieldNamesThrows ${s.path}`,
+        _throws(() => ed.formFields(s.path)),
+        '',
+      );
+    } else if (kind === 'setHeadline') {
+      ed.setHeadline(s.path, s.value);
+    } else if (kind === 'headline') {
+      const expect = s.expect === undefined ? null : s.expect;
+      const got = ed.headline(s.path);
+      _check(`editor[${n}].headline ${s.path}`, got === expect, String(got));
+    } else if (kind === 'headlineThrows') {
+      _check(
+        `editor[${n}].headlineThrows ${s.path}`,
+        _throws(() => ed.headline(s.path)),
+        '',
+      );
+    } else if (kind === 'itemSectionId') {
+      const got = doc.itemSectionId(s.itemPath);
+      _check(`editor[${n}].itemSectionId ${s.itemPath}`, got === s.expect, String(got));
+    } else if (kind === 'addListItem') {
+      const p = ed.addListItem(s.listPath, { month: s.month, day: s.day });
+      _check(`editor[${n}].addListItem ${s.listPath}`, p === s.expectPath, p);
+      if (s.expectId !== undefined) {
+        const got = doc.itemSectionId(p);
+        _check(`editor[${n}].addListItem id ${s.listPath}`, got === s.expectId, String(got));
+      }
+    } else if (kind === 'addListItemThrows') {
+      _check(
+        `editor[${n}].addListItemThrows ${s.listPath}`,
+        _throws(() => ed.addListItem(s.listPath, { month: s.month, day: s.day })),
+        '',
+      );
+    } else if (kind === 'removeListItem') {
+      _check(
+        `editor[${n}].removeListItem ${s.itemPath}`,
+        ed.removeListItem(s.itemPath) === s.expect,
+      );
+    } else if (kind === 'clearSection') {
+      ed.clearSection(s.path);
+    } else if (kind === 'clearSectionThrows') {
+      _check(
+        `editor[${n}].clearSectionThrows ${s.path}`,
+        _throws(() => ed.clearSection(s.path)),
+        '',
+      );
+    } else if (kind === 'hasValuesUnder') {
+      _check(
+        `editor[${n}].hasValuesUnder ${s.prefix}`,
+        doc.hasValuesUnder(s.prefix) === s.expect,
+      );
+    } else {
+      _check(`editor[${n}].unknown`, false, kind);
+    }
+  }
+}
+
 function testOperations() {
   const doc = new SpecDocument();
   const cases = _readJson('operations_cases.json');
@@ -550,6 +672,7 @@ function main() {
   testMarkdownMemoryLanding(model);
   testReflection(model);
   testValidation(model);
+  testEditor(model);
   testOperations();
   testSectionId();
   testSerializationOrder();
