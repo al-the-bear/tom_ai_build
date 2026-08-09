@@ -253,9 +253,11 @@ spectrum:
   ```
 
   `<explication>` is the contributing SOM section's description text,
-  whitespace-collapsed to one line with `'` and `$` escaped. **An empty
-  description is a generation error** — a body with no explication is an empty
-  spec, and emitting one would let a hollow method pass as a specified one.
+  whitespace-collapsed to one line with `'` and `$` escaped. It is the **same
+  text** the method's doc comment carries, in its one-line rendering (§2.8 P3).
+  **An empty description is a generation error** — a body with no explication is
+  an empty spec, and emitting one would let a hollow method pass as a specified
+  one.
 - **Form 4** (annotation-only modifier) emits no declaration of its own.
 
 Three invariants make "compiles but does not execute" checkable rather than
@@ -346,16 +348,151 @@ static const login = CsOperationRef('login');
 
 Every emitted file has the same five-part shape, in this order:
 
-1. A generated-file banner naming the generator, the source document and the
-   spec-model version — and **no timestamp** (a timestamp would defeat N8's
-   byte-identical regeneration).
-2. `library;` where the file needs a library-level doc comment.
-3. Imports: `package:tom_code_specs/tom_code_specs.dart`, the `tom_core`-family
+1. A generated-file banner — three `//` lines naming the generator, the source
+   document and the spec-model version, and **no timestamp** (a timestamp would
+   defeat N8's byte-identical regeneration). This is the **only** `//` comment in
+   the file; §2.8 C6 rules out every other one.
+2. Imports: `package:tom_code_specs/tom_code_specs.dart`, the `tom_core`-family
    packages the declarations are built on, and — in client/server projects only —
    `<app>_codespec_shared`.
+3. The declaration's **doc comment** (§2.8 P1), derived from the contributing
+   SOM section.
 4. The declaration, annotated `@CodeSpec` then `@DocSpec` then its `Cs*` marker,
-   in that order (§9.5's placement, outermost-provenance-first).
+   in that order (§9.5's placement, outermost-provenance-first) — its members
+   each preceded by their own doc comment (§2.8 P2) and its methods by theirs
+   (§2.8 P3).
 5. Nothing else. One top-level declaration per file (N7).
+
+**No file carries a `library;` directive.** A library-level doc comment would be
+a second rendering of the same SOM text the file's one declaration already
+carries — N7 puts exactly one top-level declaration in a file, so there is never
+a second thing for a library comment to describe, and two comments from one
+source is §2.3 test (a) applied to prose.
+
+### 2.8 Comments — which SOM text becomes which comment
+
+A specification reaches code three ways: as **constructs** (each entry's point
+2), as **annotation arguments** (§2.3), and as **comments**. The third is as much
+a derivation as the other two. A comment a generator composes for itself is prose
+no author wrote and no `@DocSpec` back-link covers — it reads like specification
+and is not, which is worse than no comment at all. So the rules below are
+universal, and an entry may name *which* SOM field is a comment's source, exactly
+as it names a designated name field for N1 — never *whether* a comment is emitted
+or how it is shaped.
+
+**C1 — the source text.** A comment's text comes from the **contributing SOM
+section**, in dartdoc's own two-part shape:
+
+| Part | Source |
+|------|--------|
+| **Summary** — the first paragraph | The section's **designated description field**: the form field that says what the thing *is* — `DataEntityEntry.description`, `DataAttributeEntry.description`, `ClientApplicationEntry.purpose`. Where it is not obvious, an entry names it in point 1 beside the designated name field. |
+| **Body** — the paragraphs below | The section's own `content` (`tom_specs_model_rules.md` §5.2). For a `@Form` section that is the prose *before* the field lines, which is the only part of a form section's content that is not already an argument. |
+
+Either half may be absent; a section with neither yields no comment. What is
+**never** a source:
+
+- **`@ContentHelp` text and `@Form` field hints.** They tell an *author* what to
+  write in a slot; they describe the slot, not the specified thing
+  (`tom_specs_model_rules.md` §5.6). A generator reaching for them ships
+  authoring instructions as documentation. `codespecs_mapping.md` §8's document
+  map does list them as a CE-TX source — that is model-authored *copy* feeding a
+  message key, a different consumer, and it is not licence to read them here.
+- **A form's field lines.** They are already the declaration and the annotation
+  arguments — §2.3 test (a), applied to prose.
+- **Non-`Form` `@ContentType` content** (`DDL`, `SQL`, `Dart`, `Mermaid`, …).
+  That content is an artifact, not a description of one; where an entry consumes
+  it, its point 1 says what it becomes.
+- **Anything the generator composes.** No summarising, no rephrasing, no
+  sentence assembled from field values, no model. C3's one template is the only
+  generated prose in the entire output.
+
+**C2 — the four positions.**
+
+| # | Position | Emitted on | Source section | If the text is absent |
+|---|----------|------------|----------------|-----------------------|
+| **P1** | Declaration doc | Every top-level declaration — class, enum, catalogue holder | The section named first in the entry's point 1 | No comment (C3 covers the holder that has no section) |
+| **P2** | Member doc | Every generated member that has a contributing section of its own | That member's section(s), in N8 order | No comment |
+| **P3** | Method doc | Every method of a form-3 declaration, and every method of the abstract collaborator such a body calls | The section — or promoted step subsection — whose behaviour the method states | **Generation error** |
+| **P4** | In-body comment | Nothing — see C6 | — | — |
+
+**P2 turns on the same test as `@DocSpec`, not on a judgement.** §2.5 rule 5
+withholds a back-link from a member that adds no section of its own — a derived
+back-reference, a materialised ownership list — and P2 withholds the comment from
+exactly those members, for the same reason: there is no author text to render.
+The two are one statement in two audiences, `@DocSpec` for the tool and `///` for
+the reader.
+
+They part company **only where an entry says so and names what carries the trace
+instead**. There is one such case: §3.1.1 emits no per-constant `@DocSpec` on a
+domain enum, because N8 order plus the constant's own P2 comment already
+identifies each `DMEVA`. That is a decision about the *back-link*, taken because
+the comment is present — it does not license withholding the comment.
+
+**P3 shares its text with the stub body.** §2.4 emits `throw
+UnsupportedError('<explication>')` as the whole body of a form-3 method; the
+explication is *this same text*, whitespace-collapsed to one line with `'` and
+`$` escaped. One source, two renderings — which is why an empty description is
+fatal here and merely silent everywhere else: a method with no behaviour text
+has neither a doc comment nor an explication, and would pass as specified while
+saying nothing. `codespecs_mapping.md` §3 and §5.29 require the abstract
+collaborator's methods to carry detailed behaviour doc-comments; P3 is where that
+requirement is discharged, from the collaborator method's own contributing
+section.
+
+**C3 — declarations that have no section.** A holder the generator creates by
+*grouping* — a catalogue file (N7), a per-client config holder — has no section
+of its own only when the grouping key is not itself a section. Usually it is:
+the list container is a real section with its own id and content
+(`tom_specs_model_rules.md` §7.5), so C1 applies to the holder unchanged. Where
+it genuinely is not, and only there, P1 emits the single permitted template:
+
+```
+/// <Part name, from `codespecs_mapping.md` §4.1> for <document root name>.
+```
+
+— `/// Error codes for Ordering.` No other generated sentence exists anywhere in
+the output.
+
+**C4 — shape and escaping.**
+
+1. Each line of the source text becomes one comment line: `/// ` plus the line,
+   or `///` alone where the line is empty. No emitted line carries trailing
+   whitespace.
+2. **No re-wrapping and no truncation.** The source's line structure is preserved
+   exactly. A wrap width would be a generator constant, and the first time anyone
+   tuned it every file in the tree would re-diff with no spec change; worse, a
+   naive wrap destroys the markdown the text is written in — lists, tables and
+   fenced blocks do not survive it.
+3. Summary and body are separated by exactly one `///` line. The block's last
+   line sits immediately above the first annotation, with no blank line between.
+4. The text is markdown and stays markdown — dartdoc renders it. Exactly two
+   constructs are escaped, because dartdoc reinterprets them:
+   - `[` → `\[` and `]` → `\]`. Dartdoc reads `[Name]` as a code reference; the
+     SOM is technology-neutral (`codespecs_mapping.md` §1.2) and names no Dart
+     element, so a bracketed word in a description is always text.
+   - `<` → `&lt;`. Dartdoc passes inline HTML straight through.
+
+   Escaping is **skipped inside fenced code blocks**: a line whose first
+   non-space characters are ```` ``` ```` toggles the fence, and lines inside one
+   are copied verbatim. Escaping a fence's contents would show the escape.
+5. Nothing else is normalised — no capitalisation, no added full stop, no ASCII
+   folding. N2 folds because an identifier must be an identifier; a comment is
+   text, and silently editing an author's sentence is invisible authorship.
+
+**C5 — determinism.** A comment block is a pure function of the SOM text, on the
+same footing as N1–N3: no clock, no counter, no wrap width, no dictionary, no
+summariser. Regenerating over an unchanged document reproduces every comment
+byte-for-byte, so N8's guarantee covers the comments as well as the code and a
+diff in a generated tree still means the spec moved.
+
+**C6 — in-body comments: none.** The only `//` in a generated file is §2.7's
+banner; every other comment is a `///` at P1, P2 or P3. A step worth explaining
+is a **call to a named method on the abstract collaborator**, and the narrative
+lives on that method's P3 doc comment — a declaration the compiler and the
+validator can both see, rather than a comment neither can. This is the rule
+`codespecs_mapping.md` §3's first-level-implementation latitude needs: it is what
+keeps a pseudo-implementation body a specification rather than an essay, and it
+is why a body has exactly two possible shapes — code, or §2.4's `throw`.
 
 ---
 
@@ -385,8 +522,8 @@ this slice.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | `DomainEnumEntry` (`DMENE`) under `DOMEN`, with its child `DomainEnumValueEntry` (`DMEVA`) list. Consumed: the enum's designated name field, its description, and each value's name + description. **Value *labels* are not consumed here** — display copy for a domain-enum value is CE-TX, resolved through `TomTextResourceProvider` like every other label (`codespecs_mapping.md` §1.2 consequence 1). It is of §5.21's **derived** shape, not the catalogued one: the key `<scope path>.<enumType>.<value>` is computable from the value, so it gets no message-key entry and no `@CsText` (§3.1.3), exactly as element-slot copy gets none. The carrier is the **option source** the consuming element emits (§3.5.2), so the label reaches code there and not through this entry. |
-| **2 Output** | A **plain Dart `enum`** — no superclass, no `tom_core` basis; §4.1 records `domainEnum` as a *member kind*, so there is nothing to build on. Doc comments carry the descriptions. **No enhanced-enum members are emitted**: the constant's identifier *is* the value token, the display label is bundle-resolved copy (see point 1) and a default belongs to the enum-typed member, so the enum has no field to hold (`codespecs_mapping.md` §4.1). Emitted only into `shared` **iff** a shared contract type references it (§4.1); otherwise into the single project that does. |
+| **1 Input** | `DomainEnumEntry` (`DMENE`) under `DOMEN`, with its child `DomainEnumValueEntry` (`DMEVA`) list. Consumed: the enum's designated name field, its description (the §2.8 P1 summary source), and each value's name + description (P2). **Value *labels* are not consumed here** — display copy for a domain-enum value is CE-TX, resolved through `TomTextResourceProvider` like every other label (`codespecs_mapping.md` §1.2 consequence 1). It is of §5.21's **derived** shape, not the catalogued one: the key `<scope path>.<enumType>.<value>` is computable from the value, so it gets no message-key entry and no `@CsText` (§3.1.3), exactly as element-slot copy gets none. The carrier is the **option source** the consuming element emits (§3.5.2), so the label reaches code there and not through this entry. |
+| **2 Output** | A **plain Dart `enum`** — no superclass, no `tom_core` basis; §4.1 records `domainEnum` as a *member kind*, so there is nothing to build on. Doc comments carry the descriptions per §2.8 — the enum's at P1, each constant's at P2. **No enhanced-enum members are emitted**: the constant's identifier *is* the value token, the display label is bundle-resolved copy (see point 1) and a default belongs to the enum-typed member, so the enum has no field to hold (`codespecs_mapping.md` §4.1). Emitted only into `shared` **iff** a shared contract type references it (§4.1); otherwise into the single project that does. |
 | **3 Arguments** | None. `@CsEnum({String? note})` is unchanged: the enum's name and its complete value list are the declaration (test **a**). |
 | **4 Naming** | Enum type = PascalCase of `DMENE`'s name field; each constant = camelCase of `DMEVA`'s name field. N6 applies per constant (`default` → `defaultDomainEnum`). |
 | **5 Locus** | `shared` when any shared contract type (CE-API DTO, CE-ER, CE-RP envelope) names it; otherwise the referencing project. A domain enum referenced from **both** client and server is shared by that rule, never duplicated. |
@@ -926,7 +1063,7 @@ Cites slice 5 (and 1). Nothing here is referenced by an earlier slice.
 
 | Point | Contract |
 |-------|----------|
-| **1 Input** | One `ClientApplicationEntry` **CLIAPP** — an entry of the client-application list under `ClientRequirementsSection` CLRESE (D06 ATS). `clientId` and `clientName` give the identity, `clientKind` the kind, `platformTargets` / `entryRoute` / `includedScreens` the three reference-by-id sets. `purpose` is the reason the client exists and is emitted as the class doc comment, not as a member. |
+| **1 Input** | One `ClientApplicationEntry` **CLIAPP** — an entry of the client-application list under `ClientRequirementsSection` CLRESE (D06 ATS). `clientId` and `clientName` give the identity, `clientKind` the kind, `platformTargets` / `entryRoute` / `includedScreens` the three reference-by-id sets. `purpose` is the reason the client exists: it is CLIAPP's designated description field, so it is the §2.8 P1 summary and not a member. |
 | **2 Output** | A **client descriptor** — a class extending `TomClientApplication` (`tom_core_codespecs`, `client_application.dart`), setting `clientId` / `displayName` / `platforms` / `entryRoute` / `screenIds` in its constructor. `serverBaseUrl` is **not** emitted: the descriptor's own doc records it as wired by CE-CC at runtime, so a generated literal would be a second, staler source. |
 | **3 Arguments** | `clientId` ← CLIAPP `clientId`, **first positional, required**, verbatim (N5). `kind` (**required**) ← CLIAPP `clientKind`, mapped arm-for-arm onto `CsClientKind`: `graphicalApplication → flutterApp`, `commandLine → cli`, `server → server`. The names differ **by design** — the SOM keeps §1.2's neutral vocabulary and names no framework, and the technology choice is exactly the deeper CodeSpecs level the mapping adds. Required because the kind decides which other parts the client can carry (a CLI has no CE-EL) and defaulting it would silently admit impossible combinations. Platforms, entry route and screens are members of the descriptor (test **a**). |
 | **4 Naming** | PascalCase of the client id + `Client`. |
@@ -994,8 +1131,8 @@ of this slice, contracted with its client shape at §3.6.5.
 The acceptance illustration for §2 and §3.3: a CE-DB entity, chosen because
 §5.13 has the most fully verified attribute surface of any part and exercises
 every universal rule at once — designated name fields, verbatim keys, member
-markers, a facet value, a `Cs*Ref`, both back-link annotations and the
-no-fabricated-values stub rule.
+markers, a facet value, a `Cs*Ref`, both back-link annotations, both comment
+positions a declarative part can carry, and the no-fabricated-values stub rule.
 
 ### 4.1 The input
 
@@ -1009,6 +1146,8 @@ DataEntityEntry <!--[IMO-014]--> Customer
   datasource ......... "core"
   schema ............. null            → deployment default
   description ........ "A person or organisation that places orders."
+  content ............ "Customers are never deleted — a closed account keeps
+                        its orders."
 
   DataAttributeEntry <!--[IMO-014-a]--> Customer name
     attributeName .... "name"
@@ -1017,6 +1156,7 @@ DataEntityEntry <!--[IMO-014]--> Customer
     columnType ....... "VARCHAR"
     accessKey ........ "customer.pii"        → a CE-AZ resource key
     kind ............. value
+    description ...... "The name the customer trades under."
     → DataAttributeConstraintEntry [DATAA] maxLength = 80
 
   DataAttributeEntry <!--[IMO-014-b]--> Signed contract
@@ -1024,6 +1164,7 @@ DataEntityEntry <!--[IMO-014]--> Customer
     column ........... "signed_contract"
     valueType ........ String
     kind ............. fileReference
+    description ...... null                  → no member doc comment
     → fileReferenceOptions [DAATT-DTFR]
         keyPrefix .......... "contracts"
         cascadeDelete ...... true
@@ -1043,6 +1184,10 @@ DataEntityEntry <!--[IMO-014]--> Customer
 | `accessKey` | §2.6 | `CsResourceKeyRef`, resolved by N9 against the shared CE-AZ catalogue |
 | File facet | §3.3.3 | its **presence** is the column kind; `store` and `defaultMediaType` omitted → deployment defaults |
 | `@CodeSpec.source` | §2.5 rule 4 | must equal the `@DocSpec` section-id set: `{IMO-014, IMO-014-a, IMO-014-b, DAATT-DTFR}` |
+| Class doc comment | §2.8 P1 + C1 | `description` becomes the summary, `content` the body, separated by one `///` line — and the `—` stays as authored (C4 rule 5 normalises nothing) |
+| `name`'s doc comment | §2.8 P2 | `IMO-014-a` has a `description`, so the member gets one |
+| `signedContract`'s doc comment | §2.8 P2 | `IMO-014-b` has none, so the member gets none — the `@DocSpec` is still emitted, because the section *was* consumed |
+| No `//` in the body | §2.8 C6 | the three banner lines are the file's only `//` |
 | Locus | §3.3.1 point 5 | `<app>_codespec_server` — CE-DB is server-only |
 
 ### 4.3 The output
@@ -1060,6 +1205,8 @@ import 'package:tom_core_server/tom_core_server.dart';
 import '../authorization/resource_keys.dart';
 
 /// A person or organisation that places orders.
+///
+/// Customers are never deleted — a closed account keeps its orders.
 @CodeSpec(
   'dataAccess.Customer',
   source: ['IMO-014', 'IMO-014-a', 'IMO-014-b', 'DAATT-DTFR'],
@@ -1069,6 +1216,7 @@ import '../authorization/resource_keys.dart';
 ])
 @CsTable('customer', datasource: 'core')
 class Customer {
+  /// The name the customer trades under.
   @DocSpec([
     DocRef('IMO-014-a', 'supplies the stored attribute, its column and its storage type'),
     DocRef('DATAA', 'supplies the maximum length'),
@@ -1111,6 +1259,11 @@ class Customer {
 - **Both back-links agree.** `@CodeSpec.source` is exactly the union of the
   `@DocSpec` section ids across the class and its members — the invariant §2.5
   rule 4 makes a validator check.
+- **Every comment is derived.** The three `//` banner lines are §2.7 part 1; the
+  class doc comment is §2.8 P1 over `IMO-014`'s `description` + `content`;
+  `name`'s is P2 over `IMO-014-a`'s `description`. `signedContract` has no
+  comment because its section supplies no text, and the body has none because C6
+  allows none. Nothing here was written by the generator.
 - **The one ref const.** `ResourceKeys.customerPii` is a `CsResourceKeyRef`
   imported from shared. A rename in the CE-AZ catalogue is a compile break here,
   which is the entire point of §5.23's typed references.

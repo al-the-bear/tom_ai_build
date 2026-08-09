@@ -35,7 +35,8 @@ one frame.
 
 **(a) `tom_code_specs` holds the CodeSpecs *annotations* — nothing else.**
 `tom_code_specs` (in the `tom_ai/ai_build` repo) owns the `Cs*` annotation family
-and the §9 link annotations (`@DocSpec`/`DocRef`), plus any helper code/tools. It
+and the §9 link annotations (`@CodeSpec`, `@DocSpec`/`DocRef`), plus any helper
+code/tools. It
 carries **no base classes** — CodeSpecs has no `Cs*`/abstract scaffolding. All
 annotations use the **`Cs*` prefix**. The general
 type-level link annotation `@CodeSpecKind` and its `CodeSpecPart` enum live one
@@ -330,9 +331,9 @@ surface — pillar (a)/(b)):
   CodeSpec is built on the "Built on" `tom_core` class, marked by its `Cs*`
   annotation(s). A `gap` there is a **concrete** `tom_core_codespecs` class.
 - **Traceability is not in the catalogue.** Traceability rides on *every*
-  element via the §9 link — the section's `codeSpec` member forward,
-  `@DocSpec`/`DocRef` back. Its sole home is **§9**; no SOM section type maps
-  to it. The **`CE-TR`** token remains the stable registry key naming
+  element via the §9 link — the section's `codeSpec` member and the code's
+  `@CodeSpec` forward, `@DocSpec`/`DocRef` back. Its sole home is **§9**; no SOM
+  section type maps to it. The **`CE-TR`** token remains the stable registry key naming
   that cross-cutting mechanism (registry keys are never reused or renamed).
 - **Domain enums are member kinds, not parts.** A domain enum is a **member
   declaration of the part that introduces it** — a CE-DB entity column, a
@@ -4404,9 +4405,9 @@ document order, in slice 3.
 | **Deferred (§4.3)** | per the §4.3 "SOM home section" column | **Mapping-only**: the SOM section carries `@CodeSpecKind` with the reserved kind; no CodeSpecs code until promoted. |
 
 **Derivation principle:** the SOM's stable `@SectionId` is the join key — each
-generated element's `@DocSpec([DocRef(sectionId, …), …])` back-link (§9.3) cites
-the SOM section IDs it came from, making gap analysis a set-difference over
-section IDs.
+generated element's `@CodeSpec(source: [...])` cites the SOM section IDs it came
+from as a flat set (§9.3), making gap analysis a set-difference over section IDs,
+and its `@DocSpec([DocRef(sectionId, …), …])` says what it took from each.
 
 ### 8.1 The CodeSpecs surface is bounded
 
@@ -4778,7 +4779,9 @@ the *wider* scope only, which is why `DSSET` (the narrowest scope) has none.
 ## 9. Bidirectional DocSpecs ↔ CodeSpecs linking
 
 The link between a Phase-3 DocSpecs section (typed by the SOM) and the Phase-4
-CodeSpec code is **bidirectional**, at two resolutions plus a code-side back-trace.
+CodeSpec code is **bidirectional**: two resolutions on the doc side (§9.1 by
+section *type*, §9.2 by section *instance*) and two annotations on the code side
+(§9.3 — identity and back-trace).
 
 ### 9.1 General mapping — section *type* → CodeSpec *kind(s)* (SOM annotation)
 
@@ -4813,21 +4816,33 @@ location(s) a concrete section maps to.
 
 - This is the **concrete half of the forward link**.
 
-### 9.3 Concrete backward mapping — code → section(s) (DocSpec annotation)
+### 9.3 The code side — identity and back-trace (`@CodeSpec` + `@DocSpec`)
 
-A **`@DocSpec` annotation on the CodeSpecs code** traces each code element back to
-the DocSpecs document. It holds a **list of `(sectionId, description)` tuples**.
+Generated code carries **two** annotations, and they answer different questions.
+Both are emitted on every top-level declaration and on every member that came
+from a section of its own (`codespecs_derivation_contract.md` §2.5).
 
-- **`@DocSpec([DocRef(sectionId, description), …])`** on a CodeSpec class or member.
-  `sectionId` is the SOM `@SectionId`; `description` explains what the code takes
-  from that section and how.
-- This is the **reverse link**.
+- **`@CodeSpec('<id>', source: [<sectionIds>], requirements: [<ids>])`** — the
+  element's **identity**: a stable CodeSpec id, the **flat set** of section ids
+  that fed it, and the requirement ids it satisfies. Because `source` is a set,
+  §8's gap analysis is a set-difference over section ids, computable without
+  reading a single description.
+- **`@DocSpec([DocRef(sectionId, description), …])`** — the **back-trace**: one
+  tuple per contributing section, each saying what the code took from that
+  section and how. `sectionId` is the SOM `@SectionId`; the description states
+  the *edge*, not the section.
+
+They are kept separate because a set is what a tool reads and a sentence is what
+a human reads, and merging them would force the gap analysis to parse prose.
+`@CodeSpec.source` must equal the set of `sectionId`s in `@DocSpec` — the
+derivation contract makes that a validator check, since drift between them is
+otherwise undetectable and silently corrupts the set-difference.
 
 ### 9.4 Why both directions
 
 `@CodeSpecKind` (type) + the `codeSpec` field (instance) give **doc → code**;
-`@DocSpec` gives **code → doc**. With `@SectionId` as the shared join key,
-traceability and gap analysis become set operations in both directions.
+`@CodeSpec` + `@DocSpec` give **code → doc**. With `@SectionId` as the shared
+join key, traceability and gap analysis become set operations in both directions.
 
 ### 9.5 Annotation placement
 
@@ -4836,7 +4851,8 @@ traceability and gap analysis become set operations in both directions.
 | `@CodeSpecKind(List<CodeSpecPart>, {note})` (§9.1) | **`tom_specs_core`** | Annotates SOM *model* classes; sits with `@MapsTo`/`@DetailedIn`. The model never depends on the CodeSpecs framework. |
 | `CodeSpecPart` enum (§4.1) | **`tom_specs_core`** | The shared kind vocabulary; zero-dependency. |
 | `codeSpec` `List<String>` member (§9.2) | **`tom_specs_model`** | A member on `DocSpecsSection`; mutating the SOM triggers the 9-runtime regeneration cascade. |
-| `@DocSpec([DocRef…])` / `DocRef` (§9.3) | **`tom_code_specs`** | Annotates CodeSpecs *code*. |
+| `@CodeSpec(id, {source, requirements})` (§9.3) | **`tom_code_specs`** | Annotates CodeSpecs *code*; the identity + flat source set. |
+| `@DocSpec([DocRef…])` / `DocRef` (§9.3) | **`tom_code_specs`** | Annotates CodeSpecs *code*; the per-section back-trace. |
 | `Cs*` annotation family (§4.1) | **`tom_code_specs`** | The framework — **annotations only, no base classes**. |
 | `Cs*Ref` typed-reference family (§5.23) | **`tom_code_specs`** | Annotation *parameter* vocabulary for those markers — the same role `DocRef` plays for `@DocSpec`. |
 | Concrete gap classes (`gap` in §4.1) | **`tom_core_codespecs`** | The concrete classes `tom_core` lacks — never abstract `Cs*` bases. |
