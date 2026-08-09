@@ -22,7 +22,8 @@ This document is the **grounding reference** for the CodeSpecs derivation. It:
 3. defines the three-project output structure (§4.2),
 4. compares the taxonomy against existing coverage and flags gaps (§5–§6),
 5. records the server-contract and configuration/settings decisions (§7, §11),
-6. sketches the **SOM → CodeSpecs** derivation map (§8),
+6. maps **SOM → CodeSpecs** — per part, which documents its sections live in,
+   where the walk enters and where the walk itself is stated (§8, §8.5),
 7. defines the **bidirectional DocSpecs ↔ CodeSpecs link** (§9), and
 8. records the `code_spec` architecture principles (§12).
 
@@ -329,8 +330,9 @@ surface — pillar (a)/(b)):
   CodeSpec is built on the "Built on" `tom_core` class, marked by its `Cs*`
   annotation(s). A `gap` there is a **concrete** `tom_core_codespecs` class.
 - **Traceability is not in the catalogue.** Traceability rides on *every*
-  element via `@CodeSpec`/`@DocSpec` — its sole home is **§9**; no SOM section
-  type maps to it. The **`CE-TR`** token remains the stable registry key naming
+  element via the §9 link — the section's `codeSpec` member forward,
+  `@DocSpec`/`DocRef` back. Its sole home is **§9**; no SOM section type maps
+  to it. The **`CE-TR`** token remains the stable registry key naming
   that cross-cutting mechanism (registry keys are never reused or renamed).
 - **Domain enums are member kinds, not parts.** A domain enum is a **member
   declaration of the part that introduces it** — a CE-DB entity column, a
@@ -4359,7 +4361,32 @@ Design constraints to encode in the CE-API / CE-ER derivation:
 4. **Error texts are keyed by the structured error codes** (CE-TX ↔ CE-ER), so
    client copy and server error codes share one source.
 
-## 8. SOM → CodeSpecs derivation map (sketch)
+## 8. SOM → CodeSpecs derivation map
+
+Generating an area of CodeSpecs code means **walking a SOM subtree**. Four
+questions have to be answerable before the first line is emitted, and each has
+exactly one home:
+
+| Question | Answered in |
+|----------|-------------|
+| Which SOM documents does the part's specification live in? | the **document map** below |
+| Where does the walk **enter** — which projection root, registry or declaration list? | **§8.5**, the "Authoring home" column |
+| Which **repeating entry class** is iterated, and which of its fields and subsections are consumed? | `codespecs_derivation_contract.md` §3, point 1 (**Input**) of each entry named in **§8.5**'s "Derivation entries" column |
+| In what **order**? | *Within* a part: `codespecs_derivation_contract.md` §2.1 rule **N8** — SOM document order, depth-first, so a regeneration over an unchanged spec is byte-identical. *Across* parts: **§4.4.3**'s seven topologically ordered slices |
+
+The map is therefore two-layered. This section places each part in the document
+landscape and names, per part, where its walk is written down; the walk itself is
+stated once — in the derivation contract — and is not restated here. Where the
+two appear to disagree about emitted code, the derivation contract wins.
+
+Worked: *"I want to generate CE-DB."* → **D03 IMO** (the document map below) →
+enter at the `DataModel` projection root (§8.5) → iterate `DataEntityEntry`
+`DAENT`, with `DataAttributeEntry` `DAATT` and `EntityRelationshipEntry` `ENRLE`
+supplying columns, consuming the fields each entry's Input row lists
+(`@CsTable`, `@CsColumn`, the `CsFileReference` facet, `@CsRepository`) → in SOM
+document order, in slice 3.
+
+**Document map.**
 
 | CodeSpec element | Primary SOM source document(s) | Notes |
 |------------------|-------------------------------|-------|
@@ -4377,8 +4404,9 @@ Design constraints to encode in the CE-API / CE-ER derivation:
 | **Deferred (§4.3)** | per the §4.3 "SOM home section" column | **Mapping-only**: the SOM section carries `@CodeSpecKind` with the reserved kind; no CodeSpecs code until promoted. |
 
 **Derivation principle:** the SOM's stable `@SectionId` is the join key — each
-generated element's `@CodeSpec(source: [...])` cites the SOM section IDs it came
-from, making gap analysis a set-difference over section IDs.
+generated element's `@DocSpec([DocRef(sectionId, …), …])` back-link (§9.3) cites
+the SOM section IDs it came from, making gap analysis a set-difference over
+section IDs.
 
 ### 8.1 The CodeSpecs surface is bounded
 
@@ -4678,36 +4706,45 @@ ways:
 
 A part is **COVERED** only when both hold.
 
-| CE | Kind | Authoring home (SOM class · section id) | Verdict |
-|----|------|------------------------------------------|---------|
-| CE-EL | `screenElement` | `ScreenElementEntry` SCREL · `UiComponentEntry` UICOM · `ComponentVariantEntry` CVE | COVERED |
-| CE-FM | `form` | `ScreenElementFieldSpec` SEFS (per-field surface) inside `ScreenElementEntry`; the form container is the screen section | COVERED |
-| CE-LO | `layout` | `ScreenSectionEntry` SCRSC · `ScreenResponsiveRuleEntry` SCRERU · `ComponentSlotEntry` CMSL | COVERED |
-| CE-TX | `text` | `MessageKeyEntry` MSGKE (the `MessageKeyRegistry` projection root) · `ValidationMessageTemplate` VMT | COVERED |
-| CE-VA | `validation` | `ElementValidationRuleEntry` ELVARU · `DataAttributeConstraintEntry` DATAA · `IntegrityConstraints` INCO | COVERED |
-| CE-AC | `action` | `ScreenActionEntry` SCRAC · `ScreenElementAction` SCELAC · the ISC step entries MNSST/ALST/EXTST/SCNST | COVERED |
-| CE-SC | `serverCall` | the ISC step entries MNSST/ALST/EXTST/SCNST, each under its own flow container (`MainSuccessScenario` MASUSC · `AlternativeFlowEntry` ALFL · `ExtensionEntry` EXTEN · `ScenarioEntry` SCNRY). All four step entries carry `action`+`serverCall`+`navigation` together, since one step is at once all three. The operation the call targets is **resolved at derivation** against SVOPR, not authored (§5.3) | COVERED |
-| CE-API | `serverApi` | `ServerOperationEntry` SVOPE · `ServerOperationMemberEntry` SVOPM, under the `ServerOperationRegistry` SVOPR projection root (`operationName` · `primaryDataEntity` · `authorization` → the AZREQ closed choice (§5.15) · `descriptionKey` · `errorCodes` · request/response members). The external-interface inventory `InterfaceOperationEntry` IOE and `IntegrationPointEntry` INTEG describe **foreign** contracts and carry `serverCall` only | COVERED |
-| CE-SU | `serviceUnit` | `ArchitectureComponentEntry` ARCM (identity · `boundaries.dataOwnership` · `content.domain` · `purpose.responsibilities`) | COVERED (weak — the aggregate root is free text, not a typed entity reference) |
-| CE-DB | `dataAccess` | `DataEntityEntry` DAENT · `DataAttributeEntry` DAATT · `EntityRelationshipEntry` ENRLE (the `DataModel` projection root) | COVERED |
-| CE-ST | `viewState` | `ScreenStateEntry` SCRST · `ScreenElementDataDisplay` SEDD · `ComponentStateEntry` COMSTA (D09 XDS, the states and data-bound displays) · `DisplayPropertyEntry` DISPL · `BusinessObjectAttributeEntry` BIOBAT with its `BOAED` detail (D03 IMO, the per-field shape and requirement level). The IMO business-object catalogue above BIOBAT — `BusinessObjectModel` BJOMD, `BusinessObjectEntry` BJOEN — carries the kind but is **unprojected**: it is the domain catalogue fields are read from, not a screen's state | COVERED |
-| CE-NV | `navigation` | `ScreenRouteEntry` SCRTEN · `FormScreenAssignmentEntry` FMSCAS · `ScreenTransitionEntry` SCTREN, under `ScreenRouteMap` SCRTMP | COVERED (screen-flow half verified) |
-| CE-AZ | `authorization` | The requirement itself is `AuthorizationRequirementSpec` AZREQ → `GradedAuthorizationRequirement` AZGRD → `GradedAccessLevelEntry` AZLVL — one reusable closed choice covering all ten §5.15 arms, embedded at each modifier site (`SVOPE.authorization`; the XDS `access` members on screen, screen element, navigation group/item, tab, utility navigation/menu, deep link, report, export format/template). The **catalogues** it cites stay `RoleMatrix` ROMA · `RolePermissionEntry` ROLPER · `EntitlementEntry` ENT (46 sections, all projected) | COVERED |
-| CE-ER | `errorResult` | `ErrorCodeEntry` ERCEN (the `ErrorCodeRegistry` root) · `ResultEnvelope` RSLTE | COVERED |
-| CE-CF | `serverConfiguration` | 42 marked sections in two shapes (§5.5). **Declared** (1): `SystemConfigurationManagement` SYCOMA over its open list `ServerConfigurationSettingEntry` SCSET (`settingKey` · `valueType` · `defaultValue` · `environmentVariable` · `commandLineOption` · `secret` · `overridableBy`) — the only place a key is invented and the only place a secret is declarable, and both authorable and projected. **Fixed** (41): the bands whose form fields each name one setting the model already knows. 17 of those are projected — `ConfigurationManagement` CM, the ATS feature-flag band, and the SAS API-security / file-and-storage-security / audit-sink families; the remaining 24 (the SAS encryption and key-management families, and D09's `PrintAndExportLayout` PRLA band) are authorable but sit outside the projection | COVERED (the declared path is generable; 24 fixed bands are authorable-only) |
-| CE-CC | `clientConfiguration` | `ClientConfigurationSettingEntry` CCSET — the declaration list under `ClientConfiguration` CLICON (`settingKey` · `valueType` · `defaultValue` · `overridableBy`) | COVERED |
-| CE-DS | `deviceSettings` | `DeviceSettingEntry` DSSET — the declaration list under `DeviceSettings` DEVSET (`settingKey` · `valueType` · `defaultValue`; no `overridableBy` — CE-DS is the narrowest scope, so it has nothing below it to open) | COVERED |
-| CE-UP | `userSettings` | `UserSettingEntry` USSET — the declaration list under `UserSettings` USRSET (`settingKey` · `valueType` · `defaultValue` · `overridableBy`). `LanguageCountrySelection` LACOSE stays the language/country **picker UX** and carries no `@CodeSpecKind`: the preference it edits is declared in USRSET | COVERED |
-| CE-CL | `client` | `ClientApplicationEntry` CLIAPP — the client-application list under `ClientRequirementsSection` CLRESE (`clientId` · `clientName` · `clientKind` · `purpose` · `platformTargets` · `entryRoute` · `includedScreens`), which keeps the minimum browser/OS/device requirements a client entry references | COVERED |
-| CE-AU | `authentication` | `AuthenticationMethodEntry` ATME · `LoginFlowStepEntry` LGFLS · `MfaConfiguration` MC (the second-factor policy) · the 42-section policy set | COVERED |
-| CE-ID | `identity` | `UserAttributeEntry` USATE · `UserLifecycleTransitionEntry` ULTRE · `UserCategoryDefinition` USCDF | COVERED |
-| CE-MG | `schemaMigration` | `SchemaVersioningAndMigration` SCHMG (projected into D03 IFM and into `D13CodeSpecsProjection` at the server locus) + `MigrationTargetEntry` MIGTG (datasource/schema placement) + `SchemaMigrationStepEntry` SCMST, a `@OneOf` over the three §5.27 artifact kinds, carrying the environment tag | COVERED |
-| CE-JB | `backgroundJob` | `ScheduledJobEntry` SCJOB — the per-job declaration list under `BatchJobManagement` BAJOMA, which keeps the system-wide policy defaults | COVERED |
-| CE-LG | `auditLog` | `SecurityEventsDefinition` SEEVDE with its five policy forms and `SecurityEventEntry` SEVT (the `AuditAndLogging` AUANLO root) · `SessionLifecycleMonitoring` · `DataAccessAuditPolicy` · `ApiSecurityMonitoring` (under `AccessControlModel`) — 11 sections, all projected | COVERED |
-| CE-NT | `notification` | `NotificationModel` NM → `NotificationChannelEntry` NTFCH · `NotificationTypeEntry` NTFTY · `UserNotificationPreferences` UNP | COVERED |
-| CE-RP | `reporting` | `ReportEntry` REPENT · `ReportColumnEntry` REPCOL · `ReportChartEntry` REPCHA, under the `ReportDefinitions` REDF projection root | COVERED |
-| — | `domainEnum` *(member kind)* | `DomainEnumEntry` DMENE + `DomainEnumValueEntry` DMEVA, under the `DomainEnumRegistry` DOMEN projection root; `ObjectStateEntry` OBST cites the registry rather than being a second home (§4.1) | COVERED |
-| CE-WF | `workflow` *(deferred)* | `DetailedProcessWorkflow` DEPRWO — unprojected, as a deferred part should be | N/A (deferred, §4.3) |
+**The table is also the per-part walk index (§8).** "Authoring home" is where the
+walk **enters**; "Derivation entries" names the `codespecs_derivation_contract.md`
+§3 entries whose point 1 (**Input**) states the repeating entry class and the
+fields and subsections consumed. Entries are cited by **marker name**, which is
+globally unique in that document, so `@CsTable` resolves without a section
+number. Order is not per part and so is not a column: within a part it is SOM
+document order (`codespecs_derivation_contract.md` §2.1 rule **N8**), across
+parts §4.4.3's slices.
+
+| CE | Kind | Authoring home (SOM class · section id) | Derivation entries (`codespecs_derivation_contract.md` §3) | Verdict |
+|----|------|------------------------------------------|---------------------|---------|
+| CE-EL | `screenElement` | `ScreenElementEntry` SCREL · `UiComponentEntry` UICOM · `ComponentVariantEntry` CVE | `@CsElement` · `@CsWidget` | COVERED |
+| CE-FM | `form` | `ScreenElementFieldSpec` SEFS (per-field surface) inside `ScreenElementEntry`; the form container is the screen section | `@CsForm` | COVERED |
+| CE-LO | `layout` | `ScreenSectionEntry` SCRSC · `ScreenResponsiveRuleEntry` SCRERU · `ComponentSlotEntry` CMSL | `@CsLayout` | COVERED |
+| CE-TX | `text` | `MessageKeyEntry` MSGKE (the `MessageKeyRegistry` projection root) · `ValidationMessageTemplate` VMT | `@CsText` | COVERED |
+| CE-VA | `validation` | `ElementValidationRuleEntry` ELVARU · `DataAttributeConstraintEntry` DATAA · `IntegrityConstraints` INCO | `@CsValidation` · `@CsFieldRule` · `@CsFormRule` | COVERED |
+| CE-AC | `action` | `ScreenActionEntry` SCRAC · `ScreenElementAction` SCELAC · the ISC step entries MNSST/ALST/EXTST/SCNST | `@CsAction` · `@CsTrigger` | COVERED |
+| CE-SC | `serverCall` | the ISC step entries MNSST/ALST/EXTST/SCNST, each under its own flow container (`MainSuccessScenario` MASUSC · `AlternativeFlowEntry` ALFL · `ExtensionEntry` EXTEN · `ScenarioEntry` SCNRY). All four step entries carry `action`+`serverCall`+`navigation` together, since one step is at once all three. The operation the call targets is **resolved at derivation** against SVOPR, not authored (§5.3) | `@CsServerCall` | COVERED |
+| CE-API | `serverApi` | `ServerOperationEntry` SVOPE · `ServerOperationMemberEntry` SVOPM, under the `ServerOperationRegistry` SVOPR projection root (`operationName` · `primaryDataEntity` · `authorization` → the AZREQ closed choice (§5.15) · `descriptionKey` · `errorCodes` · request/response members). The external-interface inventory `InterfaceOperationEntry` IOE and `IntegrationPointEntry` INTEG describe **foreign** contracts and carry `serverCall` only | `@CsEndpoint` (shared and server halves) | COVERED |
+| CE-SU | `serviceUnit` | `ArchitectureComponentEntry` ARCM (identity · `boundaries.dataOwnership` · `content.domain` · `purpose.responsibilities`) | `@CsServiceUnit` | COVERED (weak — the aggregate root is free text, not a typed entity reference) |
+| CE-DB | `dataAccess` | `DataEntityEntry` DAENT · `DataAttributeEntry` DAATT · `EntityRelationshipEntry` ENRLE (the `DataModel` projection root) | `@CsTable` · `@CsColumn` · `CsFileReference` · `@CsRepository` | COVERED |
+| CE-ST | `viewState` | `ScreenStateEntry` SCRST · `ScreenElementDataDisplay` SEDD · `ComponentStateEntry` COMSTA (D09 XDS, the states and data-bound displays) · `DisplayPropertyEntry` DISPL · `BusinessObjectAttributeEntry` BIOBAT with its `BOAED` detail (D03 IMO, the per-field shape and requirement level). The IMO business-object catalogue above BIOBAT — `BusinessObjectModel` BJOMD, `BusinessObjectEntry` BJOEN — carries the kind but is **unprojected**: it is the domain catalogue fields are read from, not a screen's state | `@CsViewModel` | COVERED |
+| CE-NV | `navigation` | `ScreenRouteEntry` SCRTEN · `FormScreenAssignmentEntry` FMSCAS · `ScreenTransitionEntry` SCTREN, under `ScreenRouteMap` SCRTMP | `@CsRoute` · `@CsScreenFlow` | COVERED (screen-flow half verified) |
+| CE-AZ | `authorization` | The requirement itself is `AuthorizationRequirementSpec` AZREQ → `GradedAuthorizationRequirement` AZGRD → `GradedAccessLevelEntry` AZLVL — one reusable closed choice covering all ten §5.15 arms, embedded at each modifier site (`SVOPE.authorization`; the XDS `access` members on screen, screen element, navigation group/item, tab, utility navigation/menu, deep link, report, export format/template). The **catalogues** it cites stay `RoleMatrix` ROMA · `RolePermissionEntry` ROLPER · `EntitlementEntry` ENT (46 sections, all projected) | `@CsAuthorize` (the `CsGradedAccess` facet is filled within it, not by an entry of its own) | COVERED |
+| CE-ER | `errorResult` | `ErrorCodeEntry` ERCEN (the `ErrorCodeRegistry` root) · `ResultEnvelope` RSLTE | `@CsError` | COVERED |
+| CE-CF | `serverConfiguration` | 42 marked sections in two shapes (§5.5). **Declared** (1): `SystemConfigurationManagement` SYCOMA over its open list `ServerConfigurationSettingEntry` SCSET (`settingKey` · `valueType` · `defaultValue` · `environmentVariable` · `commandLineOption` · `secret` · `overridableBy`) — the only place a key is invented and the only place a secret is declarable, and both authorable and projected. **Fixed** (41): the bands whose form fields each name one setting the model already knows. 17 of those are projected — `ConfigurationManagement` CM, the ATS feature-flag band, and the SAS API-security / file-and-storage-security / audit-sink families; the remaining 24 (the SAS encryption and key-management families, and D09's `PrintAndExportLayout` PRLA band) are authorable but sit outside the projection | `@CsServerConfig` | COVERED (the declared path is generable; 24 fixed bands are authorable-only) |
+| CE-CC | `clientConfiguration` | `ClientConfigurationSettingEntry` CCSET — the declaration list under `ClientConfiguration` CLICON (`settingKey` · `valueType` · `defaultValue` · `overridableBy`) | `@CsClientConfig` | COVERED |
+| CE-DS | `deviceSettings` | `DeviceSettingEntry` DSSET — the declaration list under `DeviceSettings` DEVSET (`settingKey` · `valueType` · `defaultValue`; no `overridableBy` — CE-DS is the narrowest scope, so it has nothing below it to open) | `@CsDeviceSetting` | COVERED |
+| CE-UP | `userSettings` | `UserSettingEntry` USSET — the declaration list under `UserSettings` USRSET (`settingKey` · `valueType` · `defaultValue` · `overridableBy`). `LanguageCountrySelection` LACOSE stays the language/country **picker UX** and carries no `@CodeSpecKind`: the preference it edits is declared in USRSET | `@CsUserSetting` | COVERED |
+| CE-CL | `client` | `ClientApplicationEntry` CLIAPP — the client-application list under `ClientRequirementsSection` CLRESE (`clientId` · `clientName` · `clientKind` · `purpose` · `platformTargets` · `entryRoute` · `includedScreens`), which keeps the minimum browser/OS/device requirements a client entry references | `@CsClient` | COVERED |
+| CE-AU | `authentication` | `AuthenticationMethodEntry` ATME · `LoginFlowStepEntry` LGFLS · `MfaConfiguration` MC (the second-factor policy) · the 42-section policy set | `@CsAuth` (shared, server and client halves) | COVERED |
+| CE-ID | `identity` | `UserAttributeEntry` USATE · `UserLifecycleTransitionEntry` ULTRE · `UserCategoryDefinition` USCDF | `@CsIdentity` · `@CsIdentityAttribute` | COVERED |
+| CE-MG | `schemaMigration` | `SchemaVersioningAndMigration` SCHMG (projected into D03 IFM and into `D13CodeSpecsProjection` at the server locus) + `MigrationTargetEntry` MIGTG (datasource/schema placement) + `SchemaMigrationStepEntry` SCMST, a `@OneOf` over the three §5.27 artifact kinds, carrying the environment tag | `@CsMigration` | COVERED |
+| CE-JB | `backgroundJob` | `ScheduledJobEntry` SCJOB — the per-job declaration list under `BatchJobManagement` BAJOMA, which keeps the system-wide policy defaults | `@CsJob` | COVERED |
+| CE-LG | `auditLog` | `SecurityEventsDefinition` SEEVDE with its five policy forms and `SecurityEventEntry` SEVT (the `AuditAndLogging` AUANLO root) · `SessionLifecycleMonitoring` · `DataAccessAuditPolicy` · `ApiSecurityMonitoring` (under `AccessControlModel`) — 11 sections, all projected | `@CsAudited` | COVERED |
+| CE-NT | `notification` | `NotificationModel` NM → `NotificationChannelEntry` NTFCH · `NotificationTypeEntry` NTFTY · `UserNotificationPreferences` UNP | `@CsNotification` · `@CsNotificationChannel` | COVERED |
+| CE-RP | `reporting` | `ReportEntry` REPENT · `ReportColumnEntry` REPCOL · `ReportChartEntry` REPCHA, under the `ReportDefinitions` REDF projection root | `@CsReport` · `@CsReportColumn` · `@CsReportChart` · `@CsReportParameter` | COVERED |
+| — | `domainEnum` *(member kind)* | `DomainEnumEntry` DMENE + `DomainEnumValueEntry` DMEVA, under the `DomainEnumRegistry` DOMEN projection root; `ObjectStateEntry` OBST cites the registry rather than being a second home (§4.1) | `@CsEnum` | COVERED |
+| CE-WF | `workflow` *(deferred)* | `DetailedProcessWorkflow` DEPRWO — unprojected, as a deferred part should be | — *(deferred: no marker, so no entry)* | N/A (deferred, §4.3) |
 
 **Neutral-vocabulary check (§1.1 pillar (c)).** The check applies to sections
 that *carry* `@CodeSpecKind` — not to D06 ATS, whose job is technology
