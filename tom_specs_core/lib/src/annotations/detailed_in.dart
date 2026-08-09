@@ -8,9 +8,9 @@
 ///   top-level entry in the target document, the seed class itself carries
 ///   `@DetailedIn` (alongside `@MapsTo`).
 /// - **Seed flattened one level.** When the seed's direct children are
-///   promoted to individual top-level entries (to fit the target's 7–15
-///   section budget), each child carries `@DetailedIn`; the seed keeps
-///   `@MapsTo`.
+///   promoted to individual top-level entries — because the target document
+///   reads better with them as peers than nested beneath one heading — each
+///   child carries `@DetailedIn`; the seed keeps `@MapsTo`.
 ///
 /// The `tom_specs_model_rules.md` §10.2 structural invariants in
 /// `tom_specs_clitool/lib/src/validator.dart` enforce the full rule set.

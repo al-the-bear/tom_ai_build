@@ -2403,8 +2403,8 @@ handler registrations**, not Dart declarations — they stay strings under the
 values so the choice is exhaustive): `TomNoAccess` (deny), `TomPublicAccess` (allow),
 `TomAuthenticatedAccess` (any signed-in user), `TomGuestAccess`. These carry no
 spec-authorable attributes — the kind *is* the whole requirement, so they get **no
-`@Case` arm at all**; the §10.2 validator accepts an uncovered discriminator constant
-as a legal WARN precisely for this shape.
+`@Case` arm at all** and are listed in the group's `@OneOf(noCase: [...])`, which
+is how the §10.2 validator tells this shape from a case nobody has written yet.
 
 **The SOM sections.** The choice is authored **once**, in
 `tom_specs_model/lib/src/common/authorization_requirement.dart`, and every modifier
@@ -4400,10 +4400,13 @@ the class graph, not documents):
 - **Static** (`tom_specs_clitool/lib/src/validator.dart`, the "`tom_specs_model_rules.md` §10.2 one-of"
   invariant): (i) the `@OneOf` discriminator resolves to a `@Form` field whose
   type is a model enum; (ii) every `@Case` value is a constant of that enum;
-  (iii) the `@Case` values across the group **cover** the enum — an uncovered
-  case is a *warning*, not an error (a kind with no attributes yet is legal);
-  (iv) the group's alternative fields are all complex subsections of the same
-  container.
+  (iii) the `@Case` values across the group **cover** the enum, minus the
+  constants the group declares `@OneOf(noCase: [...])` — an uncovered,
+  undeclared case is a *warning*, not an error (a kind whose case has not been
+  written yet still generates); (iv) the group's alternative fields are all
+  complex subsections of the same container; (v) every `noCase` entry is a
+  constant of the discriminator enum; (vi) no constant is both `noCase` and
+  `@Case`-bound.
 - **Instance** (DocSpecs document validator + editor strict mode): a concrete
   section instance carries **only** the subsections whose `@Case` matches the
   chosen discriminator value (plus the un-`@Case`d common ones), and **at most
@@ -4449,16 +4452,19 @@ Site 3 is also the case that proves the discriminator need not sit on `content`:
 of the `dataTypeSpec` subsection. Both the static validator (`_allFormFields`)
 and the instance-tier check resolve a discriminator in either position.
 
-A kind that carries no extra attributes binds no case; the static validator
-reports the uncovered constants as a **warning**, which is the expected steady
-state for e.g. `DataAttributeKind.boolean`/`uuid`/`json` and
-`ScreenFieldKind.boolean`/`file`. An uncovered constant is only a steady state
-once its reason is *written at the constant* — the warning list is an inventory
-of unexamined kinds, and two catalogue gaps (the file kind, §5.13.1, and the
-CE-EL colour, §5.18) were found by working through it. The enumerated attribute
-kind was the third: its *value set* is declared in the domain enum register, but
-nothing named **which** enum the attribute draws from, so it now binds
-`enumerationTypeOptions` (`DAATT-DTEN`, §5.13).
+A kind that carries no extra attributes binds no case, and the group says so in
+`@OneOf(noCase: [...])` — e.g. `DataAttributeKind.boolean`/`uuid`/`json`, the
+four `AuthorizationRequirementKind` presets, and `ScreenFieldKind.boolean`. The
+declaration is what makes the coverage warning meaningful: it separates a kind
+that was *examined and found attribute-free* from one whose case simply has not
+been written, so the remaining warnings are an inventory of unexamined kinds
+rather than a permanent background hum every reader has to re-derive as benign.
+The reason still belongs *at the constant* — the `noCase` list records the
+verdict, the doc comment records why. Working through that inventory is what
+found three catalogue gaps: the file kind (§5.13.1), the CE-EL colour (§5.18),
+and the enumerated attribute kind — whose *value set* is declared in the domain
+enum register, but nothing named **which** enum the attribute draws from, so it
+now binds `enumerationTypeOptions` (`DAATT-DTEN`, §5.13).
 
 **Ruled out after inspection:** `ObjectStateEntry.stateType` (`ObjectLifecycleKind`,
 D03 IMO) — its discriminator gates **common** attributes (entry/exit conditions,

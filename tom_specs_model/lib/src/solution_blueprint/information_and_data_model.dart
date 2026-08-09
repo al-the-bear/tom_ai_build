@@ -707,6 +707,11 @@ class DataEntityEntry extends DocSpecsSection {
 @SectionId('DAATT')
 @OneOf(
   discriminator: 'dataType',
+  noCase: [
+    DataAttributeKind.boolean,
+    DataAttributeKind.uuid,
+    DataAttributeKind.json,
+  ],
   note:
       'Attribute data-type closed choice (csra4): the logical type selects its '
       'promoted options subsection (text / numeric / temporal / binary / file '

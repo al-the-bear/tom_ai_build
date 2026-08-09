@@ -1762,9 +1762,15 @@ class ScreenSectionEntry extends DocSpecsSection {
 @SectionId('SCREL')
 @OneOf(
   discriminator: 'elementType',
+  noCase: [
+    ScreenElementKind.divider,
+    ScreenElementKind.spacer,
+    ScreenElementKind.tabBar,
+  ],
   note:
       'CE-EL closed choice: the element kind selects its facet subsection '
-      '(action / input / display); structural kinds carry only common ones.',
+      '(action / input / display); the three structural kinds carry only the '
+      'common subsections and so bind no case.',
 )
 @CodeSpecKind(
   [CodeSpecPart.screenElement],
@@ -2159,6 +2165,10 @@ class ScreenElementAction extends DocSpecsSection {
 @SectionId('SEFS')
 @OneOf(
   discriminator: 'dataType',
+  noCase: [
+    ScreenElementFieldKind.boolean,
+    ScreenElementFieldKind.color,
+  ],
   note:
       'CE-EL field kind closed choice: the data type selects its promoted '
       'options subsection (number / date / select / text / file). Two kinds '

@@ -138,6 +138,12 @@ enum BasicAuthorizationRequirementKind {
 )
 @OneOf(
   discriminator: 'requirementKind',
+  noCase: [
+    AuthorizationRequirementKind.denied,
+    AuthorizationRequirementKind.public,
+    AuthorizationRequirementKind.authenticated,
+    AuthorizationRequirementKind.guest,
+  ],
   note:
       'Authorization requirement closed choice: the kind selects its payload '
       'subsection — a role list, a group list, entitlement patterns, a resource '
@@ -375,6 +381,12 @@ not restate that here; author only *who* reaches each state.
 )
 @OneOf(
   discriminator: 'requirementKind',
+  noCase: [
+    BasicAuthorizationRequirementKind.denied,
+    BasicAuthorizationRequirementKind.public,
+    BasicAuthorizationRequirementKind.authenticated,
+    BasicAuthorizationRequirementKind.guest,
+  ],
   note:
       'Non-graded authorization requirement closed choice: the same mechanism '
       'as AZREQ with the graded arm removed, which is what bounds the graded '

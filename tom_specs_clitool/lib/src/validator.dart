@@ -55,6 +55,12 @@ const String _sectionIdSlot = '@sectionId';
   // `tom_specs_model_rules.md` §5.7 — find reachable types from root
   final reachable = _findReachableTypes(classes, rootTypeName);
 
+  // --- §10.2 invariant 8: member-shape legality, @ContentType compatibility,
+  // cycle detection. The one §10.2 invariant enforced here rather than in
+  // [validateStructuralInvariants]: it is a per-class shape rule that needs no
+  // SBP tree, so it runs for every root the generator is pointed at, including
+  // the synthetic fixtures that have no `D00SolutionBlueprint`.
+  //
   // The canonical container (V2, N9) is the structural tree root, not a content
   // section: it owns no `content` and carries no `@SectionId`. Exempt it from
   // the `tom_specs_model_rules.md` §5 per-class content/field checks when it
@@ -465,7 +471,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- 1. @SectionIdPattern coverage collection ----------------------------
+  // --- Step 1 (collection): @SectionIdPattern coverage ---------------------
   //
   // Under the field-suffixed ID scheme, every list field carries a container
   // ID `<E>-<FIELDSUFFIX>-LST` and a matching pattern `<E>-<FIELDSUFFIX>-xxx`.
@@ -518,7 +524,8 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- 2. @SectionId uniqueness + coverage; collect traceability data ------
+  // --- Step 2 — §10.2 invariants 1, 2, 4: @SectionId uniqueness/length,
+  // per-class + pattern consistency, coverage; collect traceability data ----
 
   final sectionIdSeen = <String, String>{}; // id → className
   final mapsToByClass = <String, Set<String>>{}; // className → {docTypeName}
@@ -593,7 +600,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- 2b. Field-level @SectionId ("-LST") checks --------------------------
+  // --- Step 2b — §10.2 invariant 2: field-level @SectionId ("-LST") --------
   //
   // Container IDs follow `<elementId>-<FIELDSUFFIX>-LST`. Enforced invariants:
   //   (i)   type-consistency  — a container ID maps to exactly one element type.
@@ -703,7 +710,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- 2c. @SectionIdPattern list-coverage check ---------------------------
+  // --- Step 2c — §10.2 invariant 3: @SectionIdPattern list coverage --------
   //
   // Every reachable `List<T>` field of section elements — a complex `T` or the
   // untyped `DocSpecsSection` — must carry @SectionIdPattern so its elements
@@ -732,7 +739,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- 3. @DetailedIn → ancestor @MapsTo check ----------------------------
+  // --- Step 3 — §10.2 invariant 5: @DetailedIn ⇒ ancestor @MapsTo ----------
 
   // Build a reverse-adjacency (parent) map for the SBP-reachable subgraph.
   // childType → set of parent class names that own a field of that type.
@@ -784,7 +791,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- 4. Detail-count per @Document class (warn if 0) --------------------
+  // --- Step 4 — §10.2 invariant 6: per-@Document detail presence -----------
 
   for (final docClassName in documentClasses) {
     if (docClassName == sbpRoot) continue; // SBP is the root, not a target
@@ -809,7 +816,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- 5. Pure-projection invariant (T2, N12) ------------------------------
+  // --- Step 5 — §10.2 invariant 14: pure projection (T2, N12) --------------
   //
   // The twelve Phase 3 roots are `@Document(basedOn: [D00SolutionBlueprint])`
   // *projections*: they aggregate SBP00 sections and own no content of their own
@@ -839,7 +846,7 @@ void _validateStructuralInvariants(
     }
   }
 
-  // --- 6. Collapsible-wrapper detection ------------------------------------
+  // --- Step 6 — §10.2 invariant 15: collapsible-wrapper detection ----------
   // `tom_specs_model_rules.md` §5.8 / TSMA4–TSMA5.
   //
   // The dual of the TSMA1/TSMA2 leaf collapse: a *single-subsection wrapper*
@@ -943,7 +950,7 @@ void _validateStructuralInvariants(
     );
   }
 
-  // --- 7. Root-independent section-id resolution (dsa4) --------------------
+  // --- Step 7 — §10.2 invariant 7: root-independent id resolution (dsa4) ---
   //
   // A class reachable from more than one @Document root must resolve to the
   // SAME section id from every root. Both id mechanisms are root-independent by
@@ -998,7 +1005,7 @@ void _validateStructuralInvariants(
     );
   }
 
-  // --- 8. @OneOf / @Case discriminated subsection groups -------------------
+  // --- Step 8 — §10.2 invariant 16: @OneOf / @Case subsection groups --------
   //
   // A container section that resolves to exactly one of a closed set of typed
   // alternatives carries `@OneOf(discriminator: '<formField>')`; each
@@ -1008,13 +1015,15 @@ void _validateStructuralInvariants(
   //   (i)   the discriminator resolves to a `@Form` field of the container
   //         whose type is a model enum;
   //   (ii)  every `@Case` value is a constant of that discriminator enum;
-  //   (iii) the cases *cover* the enum (an uncovered constant is a WARNING — a
-  //         kind with no attributes yet is legal);
+  //   (iii) the cases *cover* the enum, minus the constants the group declares
+  //         `noCase` (an uncovered, undeclared constant is a WARNING);
   //   (iv)  every `@Case`-bound field is a complex subsection of the same
-  //         container; and a `@Case` outside any `@OneOf` container is rejected.
+  //         container; and a `@Case` outside any `@OneOf` container is rejected;
+  //   (v)   every `noCase` entry is a constant of the discriminator enum;
+  //   (vi)  no constant is both `noCase` and `@Case`-bound.
   _validateOneOfGroups(classes, reachable, errors, warnings);
 
-  // --- 9. Cross-registry id references (`Field.refersTo`) -------------------
+  // --- Step 9 — §10.2 invariant 9: cross-registry ids (`Field.refersTo`) ---
   //
   // A form field whose String value is an *id declared elsewhere* names its
   // target registry key(s) as `<SECTIONID>.<formFieldName>`. The static tier
@@ -1024,7 +1033,7 @@ void _validateStructuralInvariants(
   _validateReferenceTargets(
       classes, reachable, documentClasses, errors, warnings);
 
-  // --- 10. A list entry must not restate its own heading (§8 rule 4) --------
+  // --- Step 10 — §10.2 invariant 10: no entry restates its heading ---------
   //
   // A list-entry section's headline is per-instance free text (§8 rule 1), so
   // it is the entry's name. A form field holding that same name is a second
@@ -1032,7 +1041,7 @@ void _validateStructuralInvariants(
   // are structural, so nothing has to be remembered or annotated.
   _validateEntryNameFields(classes, reachable, errors);
 
-  // --- 11. CodeSpecs / follow-up routing (`codespecs_mapping.md` §8.3) ------
+  // --- Step 11 — §10.2 invariants 11 + 12: CodeSpecs / follow-up routing ---
   //
   // The CodeSpecs / follow-up split is decided by membership of the generation
   // projection, not by the presence of a `@CodeSpecKind`. A section inside a
@@ -1043,7 +1052,7 @@ void _validateStructuralInvariants(
   _validateCodeSpecKindRouting(
       classes, reachable, documentClasses, errors, warnings);
 
-  // --- 14. Document reachability (no orphan classes) -----------------------
+  // --- Step 12 — §10.2 invariant 13: document reachability -----------------
   //
   // The SOM generator emits every class in the map, so a class no @Document
   // root reaches is generated into all nine languages, registered in
@@ -1096,7 +1105,7 @@ void _validateCodeSpecKindRouting(
   List<String> errors,
   List<String> warnings,
 ) {
-  // --- 12. Mutual exclusion ------------------------------------------------
+  // --- Step 11a — §10.2 invariant 11: mutual exclusion ---------------------
   for (final className in reachable) {
     final cls = classes[className];
     if (cls == null) continue;
@@ -1109,7 +1118,7 @@ void _validateCodeSpecKindRouting(
     );
   }
 
-  // --- 13. Per-part coverage from the generation projection ----------------
+  // --- Step 11b — §10.2 invariant 12: per-part coverage --------------------
   //
   // The projection roots are the `@Document` classes marked
   // `@CodeSpecsProjection()`. A model with none (a synthetic test model, or the
@@ -1413,6 +1422,33 @@ void _validateOneOfGroups(
     final enumType = discField.typeName;
     final enumConstants = discField.enumValues.toSet();
 
+    // (v) The `noCase` declaration — the constants that deliberately bind no
+    // case. Each must be a qualified constant of the discriminator enum, so a
+    // renamed constant cannot leave a silent hole in the coverage check.
+    final declaredNoCase = <String>{};
+    final rawNoCase = oneOf.arguments['noCase'];
+    if (rawNoCase is List) {
+      for (final entry in rawNoCase) {
+        final token = _splitEnumToken(entry);
+        if (token == null || token.enumType != enumType) {
+          errors.add(
+            '$_invariants one-of: $className @OneOf noCase entry "$entry" is not a '
+            'qualified constant of the discriminator enum "$enumType"',
+          );
+          continue;
+        }
+        if (!enumConstants.contains(token.constant)) {
+          errors.add(
+            '$_invariants one-of: $className @OneOf noCase names '
+            '"$enumType.${token.constant}", which is not a constant of '
+            '"$enumType"',
+          );
+          continue;
+        }
+        declaredNoCase.add(token.constant);
+      }
+    }
+
     final coveredConstants = <String>{};
     for (final field in cls.fields) {
       final caseAnnos =
@@ -1456,14 +1492,33 @@ void _validateOneOfGroups(
       }
     }
 
-    // (iii) Cases should cover the enum — uncovered constants are a WARNING.
-    final uncovered = enumConstants.difference(coveredConstants).toList()
+    // (vi) A constant declared `noCase` must not also be case-bound — the two
+    // statements contradict each other, and the stale one is unknowable.
+    final contradicted = declaredNoCase.intersection(coveredConstants).toList()
+      ..sort();
+    for (final constant in contradicted) {
+      errors.add(
+        '$_invariants one-of: $className @OneOf declares '
+        '"$enumType.$constant" in noCase but a @Case binds it — a constant '
+        'either has a per-kind subsection or it does not',
+      );
+    }
+
+    // (iii) Cases must cover the enum, minus the constants declared `noCase`.
+    // Uncovered-and-undeclared is a WARNING: it is a completeness signal, and a
+    // kind whose case has not been written yet still generates.
+    final uncovered = enumConstants
+        .difference(coveredConstants)
+        .difference(declaredNoCase)
+        .toList()
       ..sort();
     if (uncovered.isNotEmpty) {
       warnings.add(
         '$_invariants one-of: $className @OneOf on "$discriminator" leaves '
         '${uncovered.length} enum constant(s) uncovered by any @Case '
-        '(${uncovered.join(', ')}) — legal for kinds with no extra attributes',
+        '(${uncovered.join(', ')}) — bind a @Case subsection, or list the '
+        'constant in the @OneOf noCase declaration if it carries no per-kind '
+        'attributes',
       );
     }
   }

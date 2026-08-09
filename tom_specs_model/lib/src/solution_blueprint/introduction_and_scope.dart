@@ -8859,11 +8859,13 @@ class RequirementUiSpecification extends DocSpecsSection {
 @SectionId('SFE')
 @OneOf(
   discriminator: 'fieldType',
+  noCase: [ScreenFieldKind.boolean],
   note:
       'Screen field type closed choice (csra4): the field type selects its '
       'type-specific constraint and presentation subsections, so a Date field '
       'no longer carries a regex pattern and a Text field no longer carries a '
-      'dropdown source.',
+      'dropdown source. Boolean binds no case: a truth value has nothing to '
+      'constrain.',
 )
 @CodeSpecKind(
   [CodeSpecPart.form],

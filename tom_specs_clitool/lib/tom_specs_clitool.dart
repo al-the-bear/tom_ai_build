@@ -149,6 +149,18 @@ export 'src/validator.dart'
         validateStructuralInvariants,
         sectionIdCoverageGaps,
         unreachableClasses;
+// The both-directions gate between §10.2's numbered invariant list and the
+// validator's checks: neither side can grow an entry the other does not know
+// about. See tom_specs_model_rules.md §10.2.
+export 'src/invariant_correspondence.dart'
+    show
+        InvariantTag,
+        InvariantEntry,
+        InvariantCorrespondence,
+        parseInvariantTags,
+        parseInvariantEntries,
+        compareInvariants,
+        checkInvariantCorrespondence;
 // The codespecs_derivation_contract.md §6 validation pass over an emitted
 // CodeSpecs trio.
 export 'src/codespecs/cs_model.dart';

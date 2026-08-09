@@ -25,9 +25,9 @@
 ///
 ///  * **Static** (`tom_specs_clitool/lib/src/validator.dart`): the discriminator
 ///    resolves to a model-enum `@Form` field; every `@Case` value is a constant
-///    of that enum; the cases *cover* the enum (uncovered → warning, a kind with
-///    no attributes yet is legal); every `@Case`-bound field is a complex
-///    subsection of the same container.
+///    of that enum; the cases *cover* the enum, except for the constants
+///    declared in [noCase]; every `@Case`-bound field is a complex subsection of
+///    the same container.
 ///  * **Instance** (the runtime DocSpecs document validator + editor strict
 ///    mode): a concrete section carries **only** the subsections whose `@Case`
 ///    matches the chosen discriminator value (plus the common, un-`@Case`d
@@ -35,7 +35,14 @@
 ///
 /// Example:
 /// ```dart
-/// @OneOf(discriminator: 'elementType')
+/// @OneOf(
+///   discriminator: 'elementType',
+///   noCase: [
+///     ScreenElementKind.divider,
+///     ScreenElementKind.spacer,
+///     ScreenElementKind.tabBar,
+///   ],
+/// )
 /// class ScreenElementEntry extends DocSpecsSection {
 ///   @Form([Field('elementType', ScreenElementKind, 'Element Type')])
 ///   @override
@@ -52,8 +59,29 @@ class OneOf {
   /// active alternative.
   final String discriminator;
 
+  /// The discriminator constants that **deliberately bind no case** — kinds
+  /// whose whole surface is the common subsections, so there is no per-kind
+  /// payload to promote.
+  ///
+  /// Without this, an attribute-free kind and a kind whose case was simply
+  /// forgotten are indistinguishable, and the static validator's coverage check
+  /// has to warn about both. Listing the constant turns the decision from prose
+  /// beside the enum into something the validator reads: an uncovered constant
+  /// that is *not* listed here still warns, and a constant listed here that a
+  /// `@Case` does cover is an error, so the list cannot quietly go stale.
+  ///
+  /// Declared as `List<Object>` for the same reason [Case.value] is `Object` —
+  /// one annotation type must accept whichever model enum the container
+  /// discriminates on. Each entry is carried losslessly as its qualified
+  /// `EnumType.constant` token.
+  final List<Object> noCase;
+
   /// Optional explanation of the closed choice this group models.
   final String? note;
 
-  const OneOf({required this.discriminator, this.note});
+  const OneOf({
+    required this.discriminator,
+    this.noCase = const [],
+    this.note,
+  });
 }

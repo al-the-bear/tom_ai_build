@@ -8,21 +8,26 @@ import 'package:test/test.dart';
 /// reflection-free engine (`SpecSnapshotter` / `SpecYaml`) can snapshot, clone
 /// and serialize every model class through `SpecRegistry` even though none of
 /// them mixes in `SpecNode`.
+
+/// Every class `registerSpecOps()` binds: the reflected model classes, minus
+/// the two hand-written `SpecNode` leaves (`DocumentHeader`, `SectionMeta`)
+/// that adopt the contract through the mixin fast-path rather than the
+/// registry, plus the `tom_specs_core` section content leaves.
+///
+/// Asserted **exactly**, not as a floor. A `>=` bound only catches a class
+/// vanishing from the registry; it is silent when one is added, which is the
+/// direction the model actually moves in — and a silently-registered class is
+/// a class that reached all nine generated languages without anyone looking at
+/// it. When a model change moves this number, the number moves with it in the
+/// same commit; that edit is the record that the growth was intended.
+const int expectedRegisteredSpecClasses = 1262;
+
 void main() {
   group('registry-backed engine on the real model (OE-2)', () {
     test('registerSpecOps registers ops for the whole model + section leaves',
         () {
       DocSpecsProject(); // idempotent registration
-      // 1218 reflected model classes after TSMA4's single-subsection wrapper
-      // collapse (TSMA1 folded 1813 single-field leaves into field-level
-      // content/form fields, 3080 → 1267; TSMA2 collapsed 45 pure-content
-      // list-element leaf classes into inline `List<String>` sub-section lists,
-      // 1267 → 1222; TSMA4 promoted 4 single-subsection wrapper classes'
-      // subsections onto the parent field, 1222 → 1218), minus the two
-      // hand-written `SpecNode` leaves (DocumentHeader, SectionMeta) that adopt
-      // the contract via the mixin fast-path, plus the 10 tom_specs_core section
-      // content leaves — SpecRegistry.length == 1226.
-      expect(SpecRegistry.length, greaterThanOrEqualTo(1218 - 2 + 10));
+      expect(SpecRegistry.length, expectedRegisteredSpecClasses);
       // A representative deep model class resolves to real ops.
       expect(SpecRegistry.opsFor(CurrentLandscape), isNotNull);
     });

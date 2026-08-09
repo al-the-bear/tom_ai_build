@@ -1123,7 +1123,11 @@ void main() {
             expect(find.text('case:$value'), findsOneWidget);
           }
         }
-        expect(find.textContaining('case:'), findsNWidgets(cases));
+        // Anchored, because a chip's label *is* the whole string `case:<value>`
+        // while a group's `note` is prose that may well contain the word "case"
+        // followed by a colon. An unanchored substring match conflates the two
+        // and turns a totality check into a check on how the note is worded.
+        expect(find.textContaining(RegExp(r'^case:')), findsNWidgets(cases));
 
         if (file.existsSync()) file.deleteSync();
       });

@@ -16369,6 +16369,12 @@
           "name": "OneOf",
           "arguments": {
             "discriminator": "requirementKind",
+            "noCase": [
+              "AuthorizationRequirementKind.denied",
+              "AuthorizationRequirementKind.public",
+              "AuthorizationRequirementKind.authenticated",
+              "AuthorizationRequirementKind.guest"
+            ],
             "note": "Authorization requirement closed choice: the kind selects its payload subsection — a role list, a group list, entitlement patterns, a resource key, a custom handler, or a graded level set. The four presets (Denied, Public, Authenticated, Guest) bind no case because the kind is the whole requirement; a document authoring one of them carries no subsection here."
           }
         },
@@ -60879,6 +60885,11 @@
           "name": "OneOf",
           "arguments": {
             "discriminator": "dataType",
+            "noCase": [
+              "DataAttributeKind.boolean",
+              "DataAttributeKind.uuid",
+              "DataAttributeKind.json"
+            ],
             "note": "Attribute data-type closed choice (csra4): the logical type selects its promoted options subsection (text / numeric / temporal / binary / file reference / enumeration); boolean, uuid and json carry only the common type and constraint subsections, each for the reason stated at its constant."
           }
         },
@@ -99845,6 +99856,7 @@
           "name": "OneOf",
           "arguments": {
             "discriminator": "dataType",
+            "noCase": [],
             "note": "Export-field value-type closed choice (csra4): the field data type selects its promoted output subsection (numeric / temporal / boolean / enumeration / text), so a single `formatPattern` no longer has to mean both \"dd.MM.yyyy\" and \"#,##0.00\" depending on a free-text type."
           }
         },
@@ -114486,6 +114498,12 @@
           "name": "OneOf",
           "arguments": {
             "discriminator": "requirementKind",
+            "noCase": [
+              "BasicAuthorizationRequirementKind.denied",
+              "BasicAuthorizationRequirementKind.public",
+              "BasicAuthorizationRequirementKind.authenticated",
+              "BasicAuthorizationRequirementKind.guest"
+            ],
             "note": "Non-graded authorization requirement closed choice: the same mechanism as AZREQ with the graded arm removed, which is what bounds the graded recursion. The four presets bind no case."
           }
         },
@@ -193139,6 +193157,7 @@
           "name": "OneOf",
           "arguments": {
             "discriminator": "dataType",
+            "noCase": [],
             "note": "Report-column value-type closed choice (csra4): the column data type selects its promoted formatting subsection (numeric / currency / date / boolean / text), so a Date column no longer carries booleanTrueDisplay and an Integer column no longer carries currencyCode."
           }
         },
@@ -195526,6 +195545,7 @@
           "name": "OneOf",
           "arguments": {
             "discriminator": "dataType",
+            "noCase": [],
             "note": "Report-filter value-type closed choice (csra4): the filter value type selects both its input control and its value bounds (text / numeric / date / boolean / select / entity-reference). This replaces the former unconstrained `dataType` + `inputType` free-text pair, in which a Date filter could be given a Multi-Select control."
           }
         },
@@ -212641,6 +212661,7 @@
           "name": "OneOf",
           "arguments": {
             "discriminator": "triggerKind",
+            "noCase": [],
             "note": "Job trigger closed choice: the kind selects its promoted trigger subsection — a recurring clock expression, a calendar date rule, or a named system event. Each kind is started by a different thing and states a different rule, so every kind binds a case."
           }
         }
@@ -213465,6 +213486,7 @@
           "name": "OneOf",
           "arguments": {
             "discriminator": "artifactKind",
+            "noCase": [],
             "note": "Migration artifact-kind closed choice: the kind selects its promoted definition subsection — a baseline schema definition, a reference-data definition, or a schema change. Each kind authors a different thing, so every kind binds a case."
           }
         }
@@ -215520,7 +215542,12 @@
           "name": "OneOf",
           "arguments": {
             "discriminator": "elementType",
-            "note": "CE-EL closed choice: the element kind selects its facet subsection (action / input / display); structural kinds carry only common ones."
+            "noCase": [
+              "ScreenElementKind.divider",
+              "ScreenElementKind.spacer",
+              "ScreenElementKind.tabBar"
+            ],
+            "note": "CE-EL closed choice: the element kind selects its facet subsection (action / input / display); the three structural kinds carry only the common subsections and so bind no case."
           }
         },
         {
@@ -216146,6 +216173,10 @@
           "name": "OneOf",
           "arguments": {
             "discriminator": "dataType",
+            "noCase": [
+              "ScreenElementFieldKind.boolean",
+              "ScreenElementFieldKind.color"
+            ],
             "note": "CE-EL field kind closed choice: the data type selects its promoted options subsection (number / date / select / text / file). Two kinds carry only the common formatting + validation subsections, for different reasons: boolean has no kind-specific attributes at all, while color desugars onto the text or single-choice arm (codespecs_mapping.md §5.18) and so is configured by whichever arm it lowers to."
           }
         },
@@ -217383,7 +217414,10 @@
           "name": "OneOf",
           "arguments": {
             "discriminator": "fieldType",
-            "note": "Screen field type closed choice (csra4): the field type selects its type-specific constraint and presentation subsections, so a Date field no longer carries a regex pattern and a Text field no longer carries a dropdown source."
+            "noCase": [
+              "ScreenFieldKind.boolean"
+            ],
+            "note": "Screen field type closed choice (csra4): the field type selects its type-specific constraint and presentation subsections, so a Date field no longer carries a regex pattern and a Text field no longer carries a dropdown source. Boolean binds no case: a truth value has nothing to constrain."
           }
         },
         {

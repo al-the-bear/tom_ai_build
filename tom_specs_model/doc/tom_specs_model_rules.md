@@ -1316,8 +1316,18 @@ Two meta-rules govern this section:
   today, not aspirations for what it should enforce.
 
 The validator enforces the following structural invariants (implementation:
-`tom_specs_clitool/lib/src/validator.dart`, exported as
-`validateStructuralInvariants()`):
+`tom_specs_clitool/lib/src/validator.dart`). All but one are in
+`validateStructuralInvariants()`; **invariant 8 is enforced in
+`validateModel()`** instead, because it is a per-class shape rule that needs no
+SBP tree and so must also run for the synthetic fixtures that have no
+`D00SolutionBlueprint`.
+
+Each check in the validator is tagged with the invariant it implements
+(`// --- Step N — §10.2 invariant M: … ---`), and a test
+(`validator_correspondence_test.dart`) reads both this list and those tags and
+fails if either side names something the other does not. So the two cannot drift
+apart in either direction — which is what makes the second meta-rule above
+enforceable rather than aspirational.
 
 1. `@SectionId` **global uniqueness** (class-level namespace) and **length** —
    a class-level id is capped at 6 letters (§7.1). Container ids are exempt:
@@ -1333,7 +1343,13 @@ The validator enforces the following structural invariants (implementation:
    completeness signal, so a model with a gap still validates. Every other
    invariant in this list is an error.
 5. **`@DetailedIn` ⇒ ancestor `@MapsTo`**.
-6. **Per-`@Document` detail-count budget** (7–15 top-level entries).
+6. **Per-`@Document` detail presence** — a target document reached by no
+   `@DetailedIn` at all has nothing to project, so its root is an empty
+   document. Reported as a **warning**: an in-progress root with its entries
+   not yet wired up still generates. There is deliberately **no upper or lower
+   bound on the count** beyond zero — the twelve Phase 3 roots range from 5 to
+   19 entries, because how many top-level sections a document wants is a
+   property of its subject matter, not of the model's structure.
    `@CodeSpecsProjection()` roots are exempt from *this check only* (§2.5).
 7. **Root-independent section-id resolution** — a class reachable from more than
    one `@Document` root must resolve to the same id from every root. Both id
@@ -1345,7 +1361,8 @@ The validator enforces the following structural invariants (implementation:
    both as the direct element of a `@SectionIdPattern` list *and* as a standalone
    complex section field (`@Reference` edges excluded).
 8. **§5.1 member-shape legality**, `@ContentType` compatibility, and **cycle
-   detection**.
+   detection**. The one invariant enforced in `validateModel()` rather than
+   `validateStructuralInvariants()` — see the note above the list.
 9. **The `refersTo` target contract** (§6.2) — target grammar, existence and
    unambiguity of the named section id, the required/enumerated form-field slot
    or the patterned-list element requirement for `@sectionId`, and
@@ -1387,6 +1404,43 @@ The validator enforces the following structural invariants (implementation:
     it walks *from* the roots, so an orphan is exactly what it never visits.
     Exported separately as `unreachableClasses()` for callers that want the set
     rather than the message.
+14. **Pure projection** (T2, N12) — every type a `@Document` root other than
+    `D00SolutionBlueprint` reaches is also reachable from `D00SolutionBlueprint`.
+    The twelve Phase 3 roots and the generation projection are *views* over the
+    single SBP tree, so a type only they reach is projection-local content with
+    no source. The single-tree model depends on this: the global `toYaml` emits
+    each section exactly once, and the connect pass
+    (`tom_specs_editor_specification.md` §15.1) re-points a projection onto the
+    live SBP instance — content with no SBP counterpart would have to be
+    invented or dropped. The projection root class itself is excluded (it is the
+    view, not content in it), as is the unannotated container root.
+15. **No collapsible wrapper** (§5.8 / TSMA4–TSMA5) — the dual of the TSMA1 /
+    TSMA2 leaf collapse. A class that is referenced by exactly one complex field
+    (never as a list element), has exactly one subsection field, whose every
+    other field is a bare `content` leaf, and which carries no `@Form`, no
+    substantive `@ContentHelp` / `@StandardReferences` / non-Form `@ContentType`
+    and no named scalar, is pure indirection: it adds a heading level that means
+    nothing. Reported as a **warning** — it is a design smell and generation
+    still proceeds. The keep-a-level cases of §5.8 (a form-bearing, a
+    meaningful-content, or a shared wrapper) are canonical §5.1 shape (4)/(5)
+    sections and are not flagged. The model yields zero of these and a test
+    holds it there, so the wrapper-collapse decision stays enforced rather than
+    periodically re-surveyed.
+16. **`@OneOf` / `@Case` closed-choice groups** (`codespecs_mapping.md` §8.2) —
+    the discriminator named by `@OneOf` resolves to a `@Form` field of the
+    container whose type is a model enum; every `@Case` value is a constant of
+    that enum; every `@Case`-bound field is a complex subsection of the same
+    container; a `@Case` outside any `@OneOf` container is rejected; and the
+    cases **cover** the enum. Coverage admits one declared exception: a kind
+    whose whole surface is the common subsections carries no per-kind payload to
+    promote, and the group lists it in `@OneOf(noCase: [...])`. An uncovered
+    constant that is *not* listed there is a **warning** (a case not yet
+    written still generates); a `noCase` entry that is not a constant of the
+    discriminator enum, or that a `@Case` does cover, is an **error** — so the
+    declaration cannot go stale under a rename or a later-added case. Without
+    `noCase`, an attribute-free kind and a forgotten one are indistinguishable
+    and the coverage warning has to fire for both, which is how the model came
+    to carry six standing warnings that every reader had to re-derive as benign.
 
 **Deliberately not an invariant:** *"a `@CodeSpecKind`-bearing class must itself
 be reachable from the generation projection."* The model has 65 counterexamples
