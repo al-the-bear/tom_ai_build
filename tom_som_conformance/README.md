@@ -10,7 +10,7 @@ nine language APIs agree.
 | Path | Purpose |
 | ---- | ------- |
 | `samples/` | The shared specification sample (`meridian_order_management.docspecs.yaml` + `.md`), authored once through the Dart typed facade and loaded by every language. See `samples/README.md`. |
-| `corpus/` | Language-agnostic case tables (section-id, operations, validation, reflection, serialization-order, generation stamp, DocSpecs tier) plus their expected outputs, consumed by each runtime's conformance runner. |
+| `corpus/` | Language-agnostic case tables (section-id, operations, validation, reflection, serialization-order, generation stamp, DocSpecs tier) plus their expected outputs, consumed by each runtime's conformance runner. What keeps these tables *complete* is the enum-coverage guard — see below before adding a check to any runtime. |
 | `golden/` | Per-language golden logs (`<lang>.log`) written by the nine golden generators. **Git-ignored** — regenerated on demand (see below). |
 | `tool/` | The two cross-language drivers: `regenerate_golden.sh` + `compare_golden.dart` (the golden harness) and `run_all_suites.sh` (the eighteen test suites). |
 
@@ -176,6 +176,84 @@ runtime must be built before the facade. `regenerate_golden.sh` already does
 this explicitly for the TypeScript step, and the facade's `npm run build` has a
 `prebuild` script that builds the runtime first — so both paths work without a
 manual pre-step. See `tom_som_typescript_v0/README.md`.
+
+## Corpus completeness — the enum-coverage guard
+
+**Read this before adding a check, a rule, or a code to any runtime.**
+
+A corpus table is what makes the eight ports *prove* they implement something: a
+committed case expecting a result a runtime does not produce fails that
+runtime's own conformance runner. The corollary is the trap — a constant with
+**no** case is not weakly covered, it is **invisible**. The suites stay green and
+the goldens stay byte-identical because all nine agree about a question none of
+them was asked.
+
+This has cost two rounds. `danglingReference` and `oneOfCaseMismatch` shipped
+Dart-only; later, all eleven `DocSpecsViolationRule` rules were unexercised while
+the §14 golden read three lines off a *valid* sample — and once a table existed,
+two of the five ports that had the rules turned out to be wrong.
+
+So the rule is:
+
+> **Every enumeration that is part of the nine-language contract must be diffed
+> against a corpus table, and adding a constant must be the act that demands its
+> case.**
+
+The mechanism is `tom_som_dart_runtime/test/enum_coverage_test.dart`, in the
+reference runtime's default `dart test` run. It has two halves:
+
+- **Realisation** — every registered enum's constants must appear in its corpus
+  table (ECG2), and every token a table exercises must name a real constant
+  (ECG5, which catches an extractor reading the wrong key — otherwise that
+  misreads as missing coverage and points at the enum instead of the extractor).
+- **Totality** — *every* enum declared in `tom_som_dart_runtime/lib/` must be
+  either registered or explicitly exempt (ECG1), found by parsing the source
+  rather than by reflection, so an enum nobody remembered to register fails the
+  run. This is the half that makes registration mechanical instead of a
+  convention.
+
+### Adding a guarded enumeration
+
+One entry in the `_guarded` list:
+
+```dart
+CorpusGuardedEnum(
+  enumName: 'DocSpecsViolationRule',
+  declared: _wire(DocSpecsViolationRule.values),
+  corpusFile: 'docspecs_cases.json',
+  exercised: (c) => { /* pull the tokens out of the decoded table */ },
+  why: 'a §14 DocSpecs rule that eight runtimes need not implement',
+),
+```
+
+`exercised` is a function, not a `listKey`/`memberKey` pair, because the tables
+genuinely differ in shape — a list of cases each holding a list of errors, a list
+of cases each holding one scalar kind, a map of classes each holding a list of
+fields. It is always **per-enum-per-file** and never a global token scan:
+`malformedHeading` is a constant of both `DocSpecsViolationRule` and
+`SpecMarkdownRejectReason`, in different tiers, so a bare-token scan would credit
+one enum with the other's coverage.
+
+`_wire` maps constant names to the tokens the corpus writes. Pass an alias only
+where they differ — `SpecFieldKind.enumValue` serializes as `enum`.
+
+### Waivers and exemptions
+
+Two escape hatches, both narrow and both self-expiring:
+
+| | Scope | Requirement |
+| --- | --- | --- |
+| **Waiver** | One constant of a registered enum | Names the todo that closes the gap. ECG3 fails the moment the corpus starts exercising it, so it cannot outlive its cause. |
+| **Exemption** | A whole enum, absent from the registry | Names an `ExemptionReason`. If that reason `isTemporary` (`noCorpusYet`, `dartOnly`) the note must name the todo that ends it — ECG6 enforces this. |
+
+The two permanent reasons are `mirrors` (the enum is a second spelling of a
+registered one; ECG4 pins them constant-for-constant, which is stronger than a
+corpus diff) and `presentation` (app display semantics, deliberately outside the
+nine-language contract).
+
+A waiver is a **tracked exception, not a suppression**. Prefer registering an
+enum with one waived constant over exempting the whole enum: the rest of its
+constants stay guarded, so a *new* constant still fails the run.
 
 ## Packaging (SOM §17)
 

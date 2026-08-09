@@ -316,34 +316,10 @@ void main() {
     }
   });
 
-  test('every validation code the reference runtime emits has a corpus case',
-      () {
-    // The recurrence guard (csrf3). `validation_cases.json` is what makes the
-    // other eight runtimes prove they implement a check: a case expecting a
-    // code a runtime does not emit fails that runtime's own conformance
-    // runner. A code with NO case is therefore invisible — which is exactly
-    // how `danglingReference` (csrb3) and `oneOfCaseMismatch` (csmb6) stayed
-    // Dart-only for two rounds while the harness reported nine-way parity.
-    //
-    // Asserting from `SpecValidationCode.values` rather than from a second
-    // hand-kept list is the point: adding an enum constant is the very act
-    // that makes this test demand its corpus case, so the eight ports cannot
-    // be left behind silently again.
-    final covered = <String>{
-      for (final c in (jsonDecode(read('validation_cases.json')) as List)
-          .cast<Map<String, dynamic>>())
-        for (final e in (c['errors'] as List).cast<Map<String, dynamic>>())
-          e['code'] as String,
-    };
-    final uncovered = SpecValidationCode.values
-        .map((c) => c.name)
-        .where((name) => !covered.contains(name))
-        .toList();
-    expect(uncovered, isEmpty,
-        reason: 'validation_cases.json exercises no case producing '
-            '${uncovered.join(', ')} — add one (and implement the check in '
-            'all nine runtimes) rather than shipping a Dart-only code');
-  });
+  // The guard that every `SpecValidationCode` has a case here — and the same
+  // guard for every other nine-language enumeration — lives in
+  // `enum_coverage_test.dart`. It used to be written out at this spot, was
+  // copied once for the DocSpecs tier, and is now one shared mechanism.
 
   test('operations script replays with the committed results', () {
     final steps = jsonDecode(read('operations_cases.json')) as List;
@@ -567,30 +543,12 @@ void main() {
       }
     });
 
-    test('every DocSpecs rule the reference runtime declares has a corpus case',
-        () {
-      // The same recurrence guard the instance tier carries (see the
-      // validation-code test above), one tier up. Before this table existed
-      // the §14 golden read three lines off a *valid* sample — root id,
-      // 0 warnings, 0 violations — so all eleven rules were unexercised and
-      // the nine goldens agreed byte-for-byte about a question none of them
-      // had been asked. Deriving the covered set from
-      // `DocSpecsViolationRule.values` makes adding a rule the very act that
-      // demands its case, in all nine runtimes at once.
-      final covered = <String>{
-        for (final c in committedCases())
-          for (final v in (c['violations'] as List).cast<Map<String, dynamic>>())
-            v['rule'] as String,
-      };
-      final uncovered = DocSpecsViolationRule.values
-          .map((r) => r.name)
-          .where((name) => !covered.contains(name))
-          .toList();
-      expect(uncovered, isEmpty,
-          reason: 'docspecs_cases.json exercises no case producing '
-              '${uncovered.join(', ')} — add one (and implement the rule in '
-              'all nine runtimes) rather than shipping a Dart-only rule');
-    });
+    // Before this table existed the §14 golden read three lines off a *valid*
+    // sample — root id, 0 warnings, 0 violations — so all eleven rules were
+    // unexercised and the nine goldens agreed byte-for-byte about a question
+    // none of them had been asked. That every rule now has a case is enforced
+    // by `enum_coverage_test.dart`, together with every other nine-language
+    // enumeration.
   });
 }
 
