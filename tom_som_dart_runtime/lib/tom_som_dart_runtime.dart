@@ -31,8 +31,12 @@
 ///     operations — the layer the generated typed facades are a thin veneer
 ///     over;
 ///   * [SpecQueryEngine] / [SpecQueryCursor] — the lexical/structural grep-like
-///     query facility (find by text/regex, kind, class, id/path,
+///     query facility (find by text/pattern, kind, class, id/path,
 ///     `@MapsTo`/`@DetailedIn`, state) with lazy, edit-stable cursor iteration;
+///   * [SomTextPattern] — the portable pattern subset the `text` dimension
+///     matches with, transcribed into all nine runtimes rather than delegated
+///     to each language's regex engine, so `matchSpans` is identical by
+///     construction (two runtimes have no regex to delegate to at all);
 ///   * [validateDocument] — checks a document's values against the model;
 ///   * [DocSpecsDocument] / [DocSpecsSchema] / [DocSpecsValidator] — the
 ///     consolidated SOM §14 DocSpecs module: schema-free markdown parse,
@@ -67,5 +71,6 @@ export 'src/spec_query.dart';
 export 'src/spec_section_id.dart';
 export 'src/spec_reflection.dart';
 export 'src/spec_serialization_order.dart';
+export 'src/spec_text_pattern.dart';
 export 'src/spec_typed_values.dart';
 export 'src/spec_validator.dart';

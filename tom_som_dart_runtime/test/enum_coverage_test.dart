@@ -117,7 +117,15 @@ enum ExemptionReason {
 
   /// App display semantics, deliberately outside the SOM contract. No port
   /// should ever implement it, so it will never be corpus-guarded.
-  presentation;
+  presentation,
+
+  /// Private to its library: never serialized, never returned across the API
+  /// boundary, so no corpus token could name one of its constants even in
+  /// principle. What such an enum drives is behaviour, and the behaviour is
+  /// guarded by the table of the surface that uses it — the entry must say
+  /// which. Adding a constant to one is an internal refactor, not a change to
+  /// the nine-language vocabulary.
+  internal;
 
   /// Whether this exemption describes a **gap** (which must name the todo that
   /// ends it) rather than a **decision** (which is the permanent right answer).
@@ -127,7 +135,10 @@ enum ExemptionReason {
   /// reason's own description.
   bool get isTemporary => switch (this) {
         ExemptionReason.noCorpusYet || ExemptionReason.dartOnly => true,
-        ExemptionReason.mirrors || ExemptionReason.presentation => false,
+        ExemptionReason.mirrors ||
+        ExemptionReason.presentation ||
+        ExemptionReason.internal =>
+          false,
       };
 }
 
@@ -212,6 +223,33 @@ final List<CorpusGuardedEnum> _guarded = [
         'decoders could disagree about it undetected',
   ),
   CorpusGuardedEnum(
+    enumName: 'SpecStateFilter',
+    declared: _wire(SpecStateFilter.values),
+    corpusFile: 'query_cases.json',
+    // The dimension is optional, so most cases omit it; only the cases that
+    // set it count as exercising a constant.
+    exercised: (c) => {
+      for (final k in (c as List).cast<Map<String, dynamic>>())
+        if ((k['query'] as Map)['state'] != null)
+          (k['query'] as Map)['state'] as String,
+    },
+    why: 'a value-presence filter eight query engines could implement '
+        'backwards — `empty` and `nonEmpty` are each other\'s negation, so a '
+        'port that swaps them passes every query that omits the dimension',
+  ),
+  CorpusGuardedEnum(
+    enumName: 'SpecCreationCode',
+    declared: _wire(SpecCreationCode.values),
+    corpusFile: 'node_creation_cases.json',
+    exercised: (c) => {
+      for (final k in (c as List).cast<Map<String, dynamic>>())
+        if (k['code'] != null) k['code'] as String,
+    },
+    why: 'a structural rule the creation gate must refuse on — an unexercised '
+        'code is a port that silently *accepts* the add, corrupting the '
+        'document rather than merely reporting the wrong reason',
+  ),
+  CorpusGuardedEnum(
     enumName: 'SpecNodeKind',
     declared: _wire(SpecNodeKind.values),
     corpusFile: 'reflection_cases.json',
@@ -234,6 +272,22 @@ final List<CorpusGuardedEnum> _guarded = [
 /// above, so the list doubles as the standing answer to "which parts of the
 /// runtime vocabulary are outside the shared corpus, and on whose authority".
 final List<ExemptEnum> _exempt = [
+  ExemptEnum(
+    enumName: '_AtomKind',
+    reason: ExemptionReason.internal,
+    note: 'The portable pattern matcher\'s atom taxonomy (literal / any / '
+        'anchor / class), private to spec_text_pattern.dart. A pattern is '
+        'compiled and matched entirely within the library; only the resulting '
+        'spans leave it, and those are what query_cases.json pins across all '
+        'nine runtimes. A port is free to represent atoms differently — a C '
+        'tagged union, a Rust enum with payload — so long as the spans agree.',
+  ),
+  ExemptEnum(
+    enumName: '_Repeat',
+    reason: ExemptionReason.internal,
+    note: 'The same matcher\'s quantifier taxonomy, private for the same '
+        'reason and pinned by the same spans in query_cases.json.',
+  ),
   ExemptEnum(
     enumName: 'SomMetaKind',
     reason: ExemptionReason.mirrors,
@@ -261,20 +315,6 @@ final List<ExemptEnum> _exempt = [
         'and exercised by nothing — expected.md is an export golden, and the '
         'corpus holds no import-rejection table. Closed by '
         'tscompb6_ahiu-markdown-rejection-protocol-has-no-corpus.',
-  ),
-  ExemptEnum(
-    enumName: 'SpecStateFilter',
-    reason: ExemptionReason.dartOnly,
-    note: 'The `state` dimension of spec_query, which no port implements — a '
-        'shared table would hold one language to itself. Registered when '
-        'tscomp11_ahio-spec-query-and-node-creation-are-dart-only ports it.',
-  ),
-  ExemptEnum(
-    enumName: 'SpecCreationCode',
-    reason: ExemptionReason.dartOnly,
-    note: 'The node-creation gate\'s rejection vocabulary, Dart-only for the '
-        'same reason and closed by the same todo, '
-        'tscomp11_ahio-spec-query-and-node-creation-are-dart-only.',
   ),
   ExemptEnum(
     enumName: 'SpecChipRole',

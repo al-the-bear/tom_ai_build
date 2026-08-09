@@ -1,13 +1,15 @@
 /// Lexical/structural query + lazy cursor over a live [SpecDocument]
 /// (`llm_and_d4rt_tools.md` §6, `som_multiplatform_spec_model.md` §15).
 ///
-/// This is the **grep-like** facility the downstream D4rt scripting layer and the
-/// editor's search tools reuse. It is **embedding-free** — exact substring/regex
-/// plus structural filters — so it is always current and needs no model calls.
+/// This is the **grep-like** facility the downstream D4rt scripting layer and
+/// the editor's search tools reuse. It is **embedding-free** — exact substring
+/// or [SomTextPattern] match plus structural filters — so it is always current
+/// and needs no model calls.
 ///
 /// A [SpecQuery] composes (AND-combined) over five dimensions:
-///   * **text** — substring or regex over content + form-field values and over
-///     a node's doc-comment headline (optionally case-insensitive);
+///   * **text** — substring or [SomTextPattern] over content + form-field
+///     values and over a node's headline, stored or doc-comment (optionally
+///     case-insensitive);
 ///   * **kind** — one or more [SpecNodeKind]s;
 ///   * **class** — the model class a node *is* (by class name);
 ///   * **id / path** — exact `@SectionId`, `@SectionId` prefix, path glob, or a
@@ -26,6 +28,7 @@ import 'spec_document.dart';
 import 'spec_model.dart';
 import 'spec_paths.dart';
 import 'spec_reflection.dart';
+import 'spec_text_pattern.dart';
 
 /// Whether a node currently holds a value, used by the `state` dimension.
 enum SpecStateFilter {
@@ -36,34 +39,12 @@ enum SpecStateFilter {
   nonEmpty,
 }
 
-/// A `[start, end)` half-open span within a matched string (the offsets the
-/// `text` pattern hit), surfaced on [SpecQueryMatch.matchSpans].
-class SpecMatchSpan {
-  /// Inclusive start offset into the matched string.
-  final int start;
-
-  /// Exclusive end offset into the matched string.
-  final int end;
-
-  const SpecMatchSpan(this.start, this.end);
-
-  @override
-  bool operator ==(Object other) =>
-      other is SpecMatchSpan && other.start == start && other.end == end;
-
-  @override
-  int get hashCode => Object.hash(start, end);
-
-  @override
-  String toString() => 'SpecMatchSpan($start, $end)';
-}
-
 /// A flat, value-bearing projection of one document node — everything the
 /// tier-1 structural/lexical index (`llm_and_d4rt_tools.md` §9.2) needs to
 /// index a section **without re-walking the model itself**: its path, kind,
 /// class, the structural facets (section id, `@MapsTo` / `@DetailedIn`), the
-/// doc-comment headline, the searchable strings (stored values + headline),
-/// and whether it currently holds a value.
+/// headline, the searchable strings (stored values + headline), and whether it
+/// currently holds a value.
 ///
 /// Produced by [SpecQueryEngine.projectNodes] / [SpecQueryEngine.projectNode],
 /// which reuse the same structural-closure walk and value-extraction the live
@@ -89,7 +70,8 @@ class SpecNodeProjection {
   /// The `@DetailedIn` target on the node's class, `null` when none.
   final String? detailedIn;
 
-  /// The node's doc-comment / label headline, `null` when none.
+  /// The node's headline — the stored one when the author set it, else the
+  /// model's doc comment. `null` when neither exists.
   final String? headline;
 
   /// The strings a text search indexes for this node: stored values (content,
@@ -130,7 +112,8 @@ class SpecQueryMatch {
   /// containers).
   final String? classId;
 
-  /// The node's doc-comment / label headline (`null` when none).
+  /// The node's headline — stored if the author set one, else the model's doc
+  /// comment (`null` when neither exists).
   final String? headline;
 
   /// The matched text, when the query carried a `text` dimension (`null`
@@ -158,10 +141,15 @@ class SpecQueryMatch {
 /// supplied dimension must hold for a node to match; an all-`null` query
 /// matches every node in the document's structural closure.
 class SpecQuery {
-  /// Substring (or [regex]) to find in content + form values and the headline.
+  /// Substring (or [regex] pattern) to find in content + form values and the
+  /// headline.
   final String? text;
 
-  /// Treat [text] as a regular expression instead of a literal substring.
+  /// Treat [text] as a [SomTextPattern] — the portable pattern subset (`.`,
+  /// `*`, `+`, `?`, `[…]`, `^`, `$`) — instead of a literal substring. Named
+  /// `regex` because that is what a caller reaches for it expecting; the
+  /// grammar is deliberately narrower than a full regex, and
+  /// [SomPatternError] says so rather than silently reinterpreting.
   final bool regex;
 
   /// Match [text] case-insensitively.
@@ -224,7 +212,14 @@ class SpecQueryEngine {
   /// Builds a cursor over the nodes matching [query]. The structural candidate
   /// set is computed now (document order); value-dependent filters and path
   /// liveness are re-checked as the cursor advances.
+  ///
+  /// Throws [SomPatternError] when `query.regex` is set and `query.text` is not
+  /// in the portable subset. The pattern is compiled **here**, not on first
+  /// use, for two reasons: a malformed pattern is the caller's mistake and
+  /// should surface at the call that made it, and a cursor that happens to
+  /// visit no candidate would otherwise swallow the error entirely.
   SpecQueryCursor query(SpecQuery query) {
+    final pattern = query.text == null ? null : _patternFor(query);
     final candidates = <String>[];
     for (final path in _enumeratePaths()) {
       final resolution = _reflection.resolve(path);
@@ -234,6 +229,7 @@ class SpecQueryEngine {
     return SpecQueryCursor._(
       engine: this,
       query: query,
+      pattern: pattern,
       candidatePaths: candidates,
     );
   }
@@ -366,7 +362,8 @@ class SpecQueryEngine {
   /// The value-reading dimensions (text / state), re-evaluated against the live
   /// document. Returns the built match (with snippet/spans) or `null` when the
   /// node no longer satisfies the query. Assumes the path is structurally valid.
-  SpecQueryMatch? _evaluateLive(SpecQuery query, String path) {
+  SpecQueryMatch? _evaluateLive(
+      SpecQuery query, SomTextPattern? pattern, String path) {
     if (!_isLivePath(path)) return null;
     final resolution = _reflection.resolve(path);
     if (resolution == null) return null;
@@ -379,8 +376,8 @@ class SpecQueryEngine {
 
     String? snippet;
     var spans = const <SpecMatchSpan>[];
-    if (query.text != null) {
-      final hit = _matchText(query, resolution);
+    if (pattern != null) {
+      final hit = _matchText(pattern, resolution);
       if (hit == null) return null;
       snippet = hit.snippet;
       spans = hit.spans;
@@ -397,10 +394,9 @@ class SpecQueryEngine {
   }
 
   ({String snippet, List<SpecMatchSpan> spans})? _matchText(
-    SpecQuery query,
+    SomTextPattern pattern,
     SpecResolution resolution,
   ) {
-    final pattern = _patternFor(query);
     // Search each candidate string in turn; the first that hits wins, so the
     // snippet is the actual text the pattern matched.
     for (final text in _searchableStrings(resolution)) {
@@ -412,7 +408,7 @@ class SpecQueryEngine {
 
   /// The strings a `text` query searches at [resolution]: stored values first
   /// (content leaf, scalar list item, every form field), then the node's
-  /// doc-comment headline.
+  /// headline.
   Iterable<String> _searchableStrings(SpecResolution resolution) sync* {
     final path = resolution.path;
     switch (resolution.kind) {
@@ -438,15 +434,14 @@ class SpecQueryEngine {
     if (headline != null) yield headline;
   }
 
-  RegExp _patternFor(SpecQuery query) {
-    final source = query.regex ? query.text! : RegExp.escape(query.text!);
-    return RegExp(source, caseSensitive: !query.caseInsensitive);
-  }
+  SomTextPattern _patternFor(SpecQuery query) => query.regex
+      ? SomTextPattern.compile(query.text!,
+          caseInsensitive: query.caseInsensitive)
+      : SomTextPattern.literal(query.text!,
+          caseInsensitive: query.caseInsensitive);
 
-  List<SpecMatchSpan> _spansIn(RegExp pattern, String text) => pattern
-      .allMatches(text)
-      .map((m) => SpecMatchSpan(m.start, m.end))
-      .toList(growable: false);
+  List<SpecMatchSpan> _spansIn(SomTextPattern pattern, String text) =>
+      pattern.allMatches(text);
 
   // --- path liveness (cursor stability) -----------------------------------
 
@@ -479,32 +474,63 @@ class SpecQueryEngine {
       resolution.targetClass?.sectionId ??
       resolution.root.sectionId;
 
+  /// The headline a node actually shows: the document's **stored** headline
+  /// when the author set one, otherwise the model's doc comment.
+  ///
+  /// The stored value comes first because it is the one a reader sees and the
+  /// one an author would search for. Consulting only the doc comment made
+  /// renamed sections unfindable — `setHeadline('DEMO/SUM', 'Executive
+  /// Summary')` stored text that no query could reach and that never entered
+  /// the search index built from [projectNodes].
   String? _headlineOf(SpecResolution resolution) =>
+      document.headline(resolution.path) ??
       resolution.field?.doc ??
       resolution.targetClass?.doc ??
       (resolution.kind == SpecNodeKind.root ? resolution.root.description : null);
 
-  /// Glob match: `**` spans `/`, a single `*` stays within one segment, every
-  /// other character is literal.
-  bool _globMatches(String glob, String path) {
-    final buffer = StringBuffer('^');
-    for (var i = 0; i < glob.length; i++) {
-      final ch = glob[i];
-      if (ch == '*') {
-        if (i + 1 < glob.length && glob[i + 1] == '*') {
-          buffer.write('.*');
-          i++;
-        } else {
-          buffer.write('[^/]*');
-        }
-      } else {
-        buffer.write(RegExp.escape(ch));
+  /// Glob match over a whole path: `**` spans `/`, a single `*` stays within
+  /// one segment, every other character is literal.
+  ///
+  /// Matched directly rather than compiled to a regex, because two of the nine
+  /// runtimes have no regex engine and because a wildcard walk is a smaller,
+  /// more obviously identical thing to transcribe than an escaping rule plus
+  /// somebody else's matcher (see [SomTextPattern]).
+  bool _globMatches(String glob, String path) =>
+      _globAt(glob.codeUnits, 0, path.codeUnits, 0);
+
+  /// Greedy wildcard walk with backtracking: at a `*`/`**` try the longest
+  /// remaining span first and give characters back until the tail fits.
+  bool _globAt(List<int> glob, int g, List<int> path, int p) {
+    while (g < glob.length) {
+      if (glob[g] != _kAsterisk) {
+        if (p >= path.length || path[p] != glob[g]) return false;
+        g++;
+        p++;
+        continue;
       }
+      final crossesSegments = g + 1 < glob.length && glob[g + 1] == _kAsterisk;
+      final afterWildcard = g + (crossesSegments ? 2 : 1);
+      // Longest first, so `*` behaves greedily exactly as the regex did.
+      var limit = path.length;
+      if (!crossesSegments) {
+        for (var i = p; i < path.length; i++) {
+          if (path[i] == _kSlash) {
+            limit = i;
+            break;
+          }
+        }
+      }
+      for (var take = limit; take >= p; take--) {
+        if (_globAt(glob, afterWildcard, path, take)) return true;
+      }
+      return false;
     }
-    buffer.write(r'$');
-    return RegExp(buffer.toString()).hasMatch(path);
+    return p == path.length;
   }
 }
+
+const int _kAsterisk = 0x2A; // *
+const int _kSlash = 0x2F; // /
 
 /// A lazy, forward-only cursor over the nodes matching a [SpecQuery]
 /// (llm_and_d4rt_tools.md §6).
@@ -517,15 +543,21 @@ class SpecQueryEngine {
 class SpecQueryCursor {
   final SpecQueryEngine _engine;
   final SpecQuery _query;
+
+  /// The query's `text` dimension, compiled once when the cursor was built.
+  /// `null` when the query has no text dimension at all.
+  final SomTextPattern? _pattern;
   final List<String> _candidatePaths;
   int _position = 0;
 
   SpecQueryCursor._({
     required SpecQueryEngine engine,
     required SpecQuery query,
+    required SomTextPattern? pattern,
     required List<String> candidatePaths,
   })  : _engine = engine,
         _query = query,
+        _pattern = pattern,
         _candidatePaths = candidatePaths;
 
   /// The next matching node, or `null` when the cursor is exhausted. Skips
@@ -533,7 +565,7 @@ class SpecQueryCursor {
   SpecQueryMatch? next() {
     while (_position < _candidatePaths.length) {
       final path = _candidatePaths[_position++];
-      final match = _engine._evaluateLive(_query, path);
+      final match = _engine._evaluateLive(_query, _pattern, path);
       if (match != null) return match;
     }
     return null;
@@ -566,7 +598,7 @@ class SpecQueryCursor {
   int get count {
     var remaining = 0;
     for (var i = _position; i < _candidatePaths.length; i++) {
-      if (_engine._evaluateLive(_query, _candidatePaths[i]) != null) {
+      if (_engine._evaluateLive(_query, _pattern, _candidatePaths[i]) != null) {
         remaining++;
       }
     }

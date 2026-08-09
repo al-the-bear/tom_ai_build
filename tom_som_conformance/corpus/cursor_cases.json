@@ -1,0 +1,51 @@
+[
+  {
+    "op": "open",
+    "query": {
+      "sectionIdPrefix": "REF"
+    }
+  },
+  {
+    "op": "count",
+    "expect": 3
+  },
+  {
+    "op": "take",
+    "n": 1,
+    "expect": [
+      "DEMO/REF-LST"
+    ]
+  },
+  {
+    "op": "count",
+    "expect": 2
+  },
+  {
+    "op": "next",
+    "expect": "DEMO/REF-LST-1"
+  },
+  {
+    "op": "next",
+    "expect": "DEMO/REF-LST-2"
+  },
+  {
+    "op": "toList",
+    "expect": []
+  },
+  {
+    "op": "open",
+    "query": {
+      "pathGlob": "DEMO/items-*"
+    }
+  },
+  {
+    "op": "removeListItem",
+    "itemPath": "DEMO/items-1"
+  },
+  {
+    "op": "toList",
+    "expect": [
+      "DEMO/items-2"
+    ]
+  }
+]

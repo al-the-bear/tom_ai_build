@@ -1,0 +1,564 @@
+[
+  {
+    "path": "DEMO",
+    "kind": "root",
+    "classId": "Demo",
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": "A compact conformance fixture. SYNTHETIC codec-exerciser covering the full field-kind matrix (incl. an int scalar, id-less content leaves, and a dual-content class) — NOT a tom_specs_model convention reference.",
+    "searchableStrings": [
+      "A compact conformance fixture. SYNTHETIC codec-exerciser covering the full field-kind matrix (incl. an int scalar, id-less content leaves, and a dual-content class) — NOT a tom_specs_model convention reference."
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/TTL",
+    "kind": "content",
+    "classId": null,
+    "sectionId": "TTL",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "Hello"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/SUM",
+    "kind": "content",
+    "classId": null,
+    "sectionId": "SUM",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": "Executive Summary",
+    "searchableStrings": [
+      "Line one\nLine two\n\nLine four",
+      "Executive Summary"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/PRI",
+    "kind": "enumValue",
+    "classId": null,
+    "sectionId": "PRI",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "high"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/CNT",
+    "kind": "scalar",
+    "classId": null,
+    "sectionId": "CNT",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "3"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/DET",
+    "kind": "form",
+    "classId": null,
+    "sectionId": "DET",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": "Details & Contacts",
+    "searchableStrings": [
+      "Bob",
+      "bob@example.com",
+      "8",
+      "2.5",
+      "true",
+      "high",
+      "Details & Contacts"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/items",
+    "kind": "list",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": "Work Items",
+    "searchableStrings": [
+      "Work Items"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/items-1",
+    "kind": "listItemComplex",
+    "classId": "Item",
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/items-1/label",
+    "kind": "content",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "First"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/items-1/STS",
+    "kind": "enumValue",
+    "classId": null,
+    "sectionId": "STS",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "open"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/items-2",
+    "kind": "listItemComplex",
+    "classId": "Item",
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/items-2/label",
+    "kind": "content",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "Second line A\nwith ```triple``` ticks"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/items-2/STS",
+    "kind": "enumValue",
+    "classId": null,
+    "sectionId": "STS",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "done"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/REF-LST",
+    "kind": "list",
+    "classId": null,
+    "sectionId": "REF-LST",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/REF-LST-1",
+    "kind": "listItemScalar",
+    "classId": null,
+    "sectionId": "REF-LST",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": "Reference to the Spec",
+    "searchableStrings": [
+      "spec §1.2",
+      "Reference to the Spec"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/REF-LST-2",
+    "kind": "listItemScalar",
+    "classId": null,
+    "sectionId": "REF-LST",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "ADR7"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/CARD-LST",
+    "kind": "list",
+    "classId": null,
+    "sectionId": "CARD-LST",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/CARD-LST-1",
+    "kind": "listItemComplex",
+    "classId": "Card",
+    "sectionId": "CARD-LST",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": "Alpha Card",
+    "searchableStrings": [
+      "Alpha Card"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/CARD-LST-1/content",
+    "kind": "form",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "first card"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/CARD-LST-2",
+    "kind": "listItemComplex",
+    "classId": "Card",
+    "sectionId": "CARD-LST",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/CARD-LST-2/content",
+    "kind": "form",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "second card"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/META",
+    "kind": "complex",
+    "classId": "Meta",
+    "sectionId": "META",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/META/OWNR",
+    "kind": "content",
+    "classId": null,
+    "sectionId": "OWNR",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "alice"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/META/tags",
+    "kind": "list",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/META/tags-1",
+    "kind": "listItemScalar",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "on"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/META/tags-2",
+    "kind": "listItemScalar",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "no"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/META/tags-3",
+    "kind": "listItemScalar",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "1:30"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/META/tags-4",
+    "kind": "listItemScalar",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "plain"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/control",
+    "kind": "complex",
+    "classId": "Control",
+    "sectionId": "CTRL",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/control/CTRL-SUM",
+    "kind": "content",
+    "classId": null,
+    "sectionId": "CTRL-SUM",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "Controlled summary"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/control/owner",
+    "kind": "content",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [
+      "ctrl-owner"
+    ],
+    "hasValue": true
+  },
+  {
+    "path": "DEMO/REG",
+    "kind": "complex",
+    "classId": "Registry",
+    "sectionId": "REG",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
+    "path": "DEMO/REG/RGE-LST",
+    "kind": "list",
+    "classId": null,
+    "sectionId": "RGE-LST",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
+    "path": "DEMO/REG/RGL-LST",
+    "kind": "list",
+    "classId": null,
+    "sectionId": "RGL-LST",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
+    "path": "DEMO/REG/CHO",
+    "kind": "complex",
+    "classId": "Choice",
+    "sectionId": "CHO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
+    "path": "DEMO/REG/CHO/CHO-SEL",
+    "kind": "form",
+    "classId": null,
+    "sectionId": "CHO-SEL",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
+    "path": "DEMO/REG/CHO/CHO-ALP",
+    "kind": "complex",
+    "classId": "ChoicePart",
+    "sectionId": "CHO-ALP",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
+    "path": "DEMO/REG/CHO/CHO-ALP/note",
+    "kind": "content",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
+    "path": "DEMO/REG/CHO/CHO-AL2",
+    "kind": "complex",
+    "classId": "ChoicePart",
+    "sectionId": "CHO-AL2",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
+    "path": "DEMO/REG/CHO/CHO-AL2/note",
+    "kind": "content",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
+    "path": "DEMO/REG/CHO/CHO-BET",
+    "kind": "complex",
+    "classId": "ChoicePart",
+    "sectionId": "CHO-BET",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
+    "path": "DEMO/REG/CHO/CHO-BET/note",
+    "kind": "content",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
+    "path": "DEMO/REG/CHO/CHO-COM",
+    "kind": "complex",
+    "classId": "ChoicePart",
+    "sectionId": "CHO-COM",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
+    "path": "DEMO/REG/CHO/CHO-COM/note",
+    "kind": "content",
+    "classId": null,
+    "sectionId": "DEMO",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  },
+  {
+    "path": "SIDE",
+    "kind": "root",
+    "classId": "Sidecar",
+    "sectionId": "SIDE",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": "A second root reaching no registry — the fixture's cross-document reference scope (csrf3).",
+    "searchableStrings": [
+      "A second root reaching no registry — the fixture's cross-document reference scope (csrf3)."
+    ],
+    "hasValue": false
+  },
+  {
+    "path": "SIDE/SIDE-DET",
+    "kind": "form",
+    "classId": null,
+    "sectionId": "SIDE-DET",
+    "mapsTo": null,
+    "detailedIn": null,
+    "headline": null,
+    "searchableStrings": [],
+    "hasValue": false
+  }
+]

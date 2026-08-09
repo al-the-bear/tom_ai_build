@@ -1,0 +1,1910 @@
+[
+  {
+    "name": "text substring in a content leaf",
+    "query": {
+      "text": "Hello"
+    },
+    "matches": [
+      {
+        "path": "DEMO/TTL",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": "Hello",
+        "spans": [
+          [
+            0,
+            5
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "name": "text substring spanning several nodes",
+    "query": {
+      "text": "Line"
+    },
+    "matches": [
+      {
+        "path": "DEMO/SUM",
+        "kind": "content",
+        "classId": null,
+        "headline": "Executive Summary",
+        "snippet": "Line one\nLine two\n\nLine four",
+        "spans": [
+          [
+            0,
+            4
+          ],
+          [
+            9,
+            13
+          ],
+          [
+            19,
+            23
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "name": "text substring in a form field",
+    "query": {
+      "text": "bob@"
+    },
+    "matches": [
+      {
+        "path": "DEMO/DET",
+        "kind": "form",
+        "classId": null,
+        "headline": "Details & Contacts",
+        "snippet": "bob@example.com",
+        "spans": [
+          [
+            0,
+            4
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "name": "text substring in a stored headline",
+    "query": {
+      "text": "Executive"
+    },
+    "matches": [
+      {
+        "path": "DEMO/SUM",
+        "kind": "content",
+        "classId": null,
+        "headline": "Executive Summary",
+        "snippet": "Executive Summary",
+        "spans": [
+          [
+            0,
+            9
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "name": "text matching nothing",
+    "query": {
+      "text": "no-such-text"
+    },
+    "matches": []
+  },
+  {
+    "name": "text is case-sensitive by default",
+    "query": {
+      "text": "HELLO"
+    },
+    "matches": []
+  },
+  {
+    "name": "text case-insensitive",
+    "query": {
+      "text": "HELLO",
+      "caseInsensitive": true
+    },
+    "matches": [
+      {
+        "path": "DEMO/TTL",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": "Hello",
+        "spans": [
+          [
+            0,
+            5
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "name": "text with several spans in one value",
+    "query": {
+      "text": "card"
+    },
+    "matches": [
+      {
+        "path": "DEMO/CARD-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": "first card",
+        "spans": [
+          [
+            6,
+            10
+          ]
+        ]
+      },
+      {
+        "path": "DEMO/CARD-LST-2/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": "second card",
+        "spans": [
+          [
+            7,
+            11
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "name": "regex over content",
+    "query": {
+      "text": "Line [a-z]+",
+      "regex": true
+    },
+    "matches": [
+      {
+        "path": "DEMO/SUM",
+        "kind": "content",
+        "classId": null,
+        "headline": "Executive Summary",
+        "snippet": "Line one\nLine two\n\nLine four",
+        "spans": [
+          [
+            0,
+            8
+          ],
+          [
+            9,
+            17
+          ],
+          [
+            19,
+            28
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "name": "regex anchored to the whole value",
+    "query": {
+      "text": "^Hello$",
+      "regex": true
+    },
+    "matches": [
+      {
+        "path": "DEMO/TTL",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": "Hello",
+        "spans": [
+          [
+            0,
+            5
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "name": "regex case-insensitive",
+    "query": {
+      "text": "[A-Z]lice",
+      "regex": true,
+      "caseInsensitive": true
+    },
+    "matches": [
+      {
+        "path": "DEMO/META/OWNR",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": "alice",
+        "spans": [
+          [
+            0,
+            5
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "name": "kinds filter",
+    "query": {
+      "kinds": [
+        "form"
+      ]
+    },
+    "matches": [
+      {
+        "path": "DEMO/DET",
+        "kind": "form",
+        "classId": null,
+        "headline": "Details & Contacts",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-2/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-SEL",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "SIDE/SIDE-DET",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  },
+  {
+    "name": "kinds filter admitting several kinds",
+    "query": {
+      "kinds": [
+        "list",
+        "root"
+      ]
+    },
+    "matches": [
+      {
+        "path": "DEMO",
+        "kind": "root",
+        "classId": "Demo",
+        "headline": "A compact conformance fixture. SYNTHETIC codec-exerciser covering the full field-kind matrix (incl. an int scalar, id-less content leaves, and a dual-content class) — NOT a tom_specs_model convention reference.",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items",
+        "kind": "list",
+        "classId": null,
+        "headline": "Work Items",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REF-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/tags",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/RGE-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/RGL-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "SIDE",
+        "kind": "root",
+        "classId": "Sidecar",
+        "headline": "A second root reaching no registry — the fixture's cross-document reference scope (csrf3).",
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  },
+  {
+    "name": "className filter",
+    "query": {
+      "className": "Item"
+    },
+    "matches": [
+      {
+        "path": "DEMO/items-1",
+        "kind": "listItemComplex",
+        "classId": "Item",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-2",
+        "kind": "listItemComplex",
+        "classId": "Item",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  },
+  {
+    "name": "sectionIdExact filter",
+    "query": {
+      "sectionIdExact": "TTL"
+    },
+    "matches": [
+      {
+        "path": "DEMO/TTL",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  },
+  {
+    "name": "sectionIdPrefix filter",
+    "query": {
+      "sectionIdPrefix": "CARD"
+    },
+    "matches": [
+      {
+        "path": "DEMO/CARD-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-1",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": "Alpha Card",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-2",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  },
+  {
+    "name": "pathGlob within one segment",
+    "query": {
+      "pathGlob": "DEMO/*"
+    },
+    "matches": [
+      {
+        "path": "DEMO/TTL",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/SUM",
+        "kind": "content",
+        "classId": null,
+        "headline": "Executive Summary",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/PRI",
+        "kind": "enumValue",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CNT",
+        "kind": "scalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DET",
+        "kind": "form",
+        "classId": null,
+        "headline": "Details & Contacts",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items",
+        "kind": "list",
+        "classId": null,
+        "headline": "Work Items",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-1",
+        "kind": "listItemComplex",
+        "classId": "Item",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-2",
+        "kind": "listItemComplex",
+        "classId": "Item",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REF-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REF-LST-1",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": "Reference to the Spec",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REF-LST-2",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-1",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": "Alpha Card",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-2",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META",
+        "kind": "complex",
+        "classId": "Meta",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/control",
+        "kind": "complex",
+        "classId": "Control",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG",
+        "kind": "complex",
+        "classId": "Registry",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  },
+  {
+    "name": "pathGlob crossing segments",
+    "query": {
+      "pathGlob": "DEMO/**"
+    },
+    "matches": [
+      {
+        "path": "DEMO/TTL",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/SUM",
+        "kind": "content",
+        "classId": null,
+        "headline": "Executive Summary",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/PRI",
+        "kind": "enumValue",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CNT",
+        "kind": "scalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DET",
+        "kind": "form",
+        "classId": null,
+        "headline": "Details & Contacts",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items",
+        "kind": "list",
+        "classId": null,
+        "headline": "Work Items",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-1",
+        "kind": "listItemComplex",
+        "classId": "Item",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-1/label",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-1/STS",
+        "kind": "enumValue",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-2",
+        "kind": "listItemComplex",
+        "classId": "Item",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-2/label",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-2/STS",
+        "kind": "enumValue",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REF-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REF-LST-1",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": "Reference to the Spec",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REF-LST-2",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-1",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": "Alpha Card",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-2",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-2/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META",
+        "kind": "complex",
+        "classId": "Meta",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/OWNR",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/tags",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/tags-1",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/tags-2",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/tags-3",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/tags-4",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/control",
+        "kind": "complex",
+        "classId": "Control",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/control/CTRL-SUM",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/control/owner",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG",
+        "kind": "complex",
+        "classId": "Registry",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/RGE-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/RGL-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO",
+        "kind": "complex",
+        "classId": "Choice",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-SEL",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-ALP",
+        "kind": "complex",
+        "classId": "ChoicePart",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-ALP/note",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-AL2",
+        "kind": "complex",
+        "classId": "ChoicePart",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-AL2/note",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-BET",
+        "kind": "complex",
+        "classId": "ChoicePart",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-BET/note",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-COM",
+        "kind": "complex",
+        "classId": "ChoicePart",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-COM/note",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  },
+  {
+    "name": "pathGlob with a literal tail",
+    "query": {
+      "pathGlob": "**/label"
+    },
+    "matches": [
+      {
+        "path": "DEMO/items-1/label",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-2/label",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  },
+  {
+    "name": "pathGlob matching nothing",
+    "query": {
+      "pathGlob": "NOPE/*"
+    },
+    "matches": []
+  },
+  {
+    "name": "state nonEmpty",
+    "query": {
+      "state": "nonEmpty"
+    },
+    "matches": [
+      {
+        "path": "DEMO",
+        "kind": "root",
+        "classId": "Demo",
+        "headline": "A compact conformance fixture. SYNTHETIC codec-exerciser covering the full field-kind matrix (incl. an int scalar, id-less content leaves, and a dual-content class) — NOT a tom_specs_model convention reference.",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/TTL",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/SUM",
+        "kind": "content",
+        "classId": null,
+        "headline": "Executive Summary",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/PRI",
+        "kind": "enumValue",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CNT",
+        "kind": "scalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DET",
+        "kind": "form",
+        "classId": null,
+        "headline": "Details & Contacts",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items",
+        "kind": "list",
+        "classId": null,
+        "headline": "Work Items",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-1",
+        "kind": "listItemComplex",
+        "classId": "Item",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-1/label",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-1/STS",
+        "kind": "enumValue",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-2",
+        "kind": "listItemComplex",
+        "classId": "Item",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-2/label",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-2/STS",
+        "kind": "enumValue",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REF-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REF-LST-1",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": "Reference to the Spec",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REF-LST-2",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-1",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": "Alpha Card",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-2",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-2/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META",
+        "kind": "complex",
+        "classId": "Meta",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/OWNR",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/tags",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/tags-1",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/tags-2",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/tags-3",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/tags-4",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/control",
+        "kind": "complex",
+        "classId": "Control",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/control/CTRL-SUM",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/control/owner",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  },
+  {
+    "name": "state empty",
+    "query": {
+      "state": "empty"
+    },
+    "matches": [
+      {
+        "path": "DEMO/REG",
+        "kind": "complex",
+        "classId": "Registry",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/RGE-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/RGL-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO",
+        "kind": "complex",
+        "classId": "Choice",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-SEL",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-ALP",
+        "kind": "complex",
+        "classId": "ChoicePart",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-ALP/note",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-AL2",
+        "kind": "complex",
+        "classId": "ChoicePart",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-AL2/note",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-BET",
+        "kind": "complex",
+        "classId": "ChoicePart",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-BET/note",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-COM",
+        "kind": "complex",
+        "classId": "ChoicePart",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-COM/note",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "SIDE",
+        "kind": "root",
+        "classId": "Sidecar",
+        "headline": "A second root reaching no registry — the fixture's cross-document reference scope (csrf3).",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "SIDE/SIDE-DET",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  },
+  {
+    "name": "state empty within one subtree",
+    "query": {
+      "state": "empty",
+      "pathGlob": "DEMO/REG/**"
+    },
+    "matches": [
+      {
+        "path": "DEMO/REG/RGE-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/RGL-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO",
+        "kind": "complex",
+        "classId": "Choice",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-SEL",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-ALP",
+        "kind": "complex",
+        "classId": "ChoicePart",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-ALP/note",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-AL2",
+        "kind": "complex",
+        "classId": "ChoicePart",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-AL2/note",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-BET",
+        "kind": "complex",
+        "classId": "ChoicePart",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-BET/note",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-COM",
+        "kind": "complex",
+        "classId": "ChoicePart",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-COM/note",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  },
+  {
+    "name": "mapsTo filter matches nothing in this fixture",
+    "query": {
+      "mapsTo": "SomeTarget"
+    },
+    "matches": []
+  },
+  {
+    "name": "detailedIn filter matches nothing in this fixture",
+    "query": {
+      "detailedIn": "SomeDoc"
+    },
+    "matches": []
+  },
+  {
+    "name": "text and kind together",
+    "query": {
+      "text": "card",
+      "kinds": [
+        "form"
+      ]
+    },
+    "matches": [
+      {
+        "path": "DEMO/CARD-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": "first card",
+        "spans": [
+          [
+            6,
+            10
+          ]
+        ]
+      },
+      {
+        "path": "DEMO/CARD-LST-2/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": "second card",
+        "spans": [
+          [
+            7,
+            11
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "name": "prefix and state together",
+    "query": {
+      "sectionIdPrefix": "CARD",
+      "state": "nonEmpty"
+    },
+    "matches": [
+      {
+        "path": "DEMO/CARD-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-1",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": "Alpha Card",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-2",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  },
+  {
+    "name": "every dimension unset returns the whole document in order",
+    "query": {},
+    "matches": [
+      {
+        "path": "DEMO",
+        "kind": "root",
+        "classId": "Demo",
+        "headline": "A compact conformance fixture. SYNTHETIC codec-exerciser covering the full field-kind matrix (incl. an int scalar, id-less content leaves, and a dual-content class) — NOT a tom_specs_model convention reference.",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/TTL",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/SUM",
+        "kind": "content",
+        "classId": null,
+        "headline": "Executive Summary",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/PRI",
+        "kind": "enumValue",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CNT",
+        "kind": "scalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/DET",
+        "kind": "form",
+        "classId": null,
+        "headline": "Details & Contacts",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items",
+        "kind": "list",
+        "classId": null,
+        "headline": "Work Items",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-1",
+        "kind": "listItemComplex",
+        "classId": "Item",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-1/label",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-1/STS",
+        "kind": "enumValue",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-2",
+        "kind": "listItemComplex",
+        "classId": "Item",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-2/label",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/items-2/STS",
+        "kind": "enumValue",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REF-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REF-LST-1",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": "Reference to the Spec",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REF-LST-2",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-1",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": "Alpha Card",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-1/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-2",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-2/content",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META",
+        "kind": "complex",
+        "classId": "Meta",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/OWNR",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/tags",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/tags-1",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/tags-2",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/tags-3",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/META/tags-4",
+        "kind": "listItemScalar",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/control",
+        "kind": "complex",
+        "classId": "Control",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/control/CTRL-SUM",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/control/owner",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG",
+        "kind": "complex",
+        "classId": "Registry",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/RGE-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/RGL-LST",
+        "kind": "list",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO",
+        "kind": "complex",
+        "classId": "Choice",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-SEL",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-ALP",
+        "kind": "complex",
+        "classId": "ChoicePart",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-ALP/note",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-AL2",
+        "kind": "complex",
+        "classId": "ChoicePart",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-AL2/note",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-BET",
+        "kind": "complex",
+        "classId": "ChoicePart",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-BET/note",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-COM",
+        "kind": "complex",
+        "classId": "ChoicePart",
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/REG/CHO/CHO-COM/note",
+        "kind": "content",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "SIDE",
+        "kind": "root",
+        "classId": "Sidecar",
+        "headline": "A second root reaching no registry — the fixture's cross-document reference scope (csrf3).",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "SIDE/SIDE-DET",
+        "kind": "form",
+        "classId": null,
+        "headline": null,
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  }
+]

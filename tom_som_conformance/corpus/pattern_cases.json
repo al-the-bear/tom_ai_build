@@ -1,0 +1,477 @@
+[
+  {
+    "pattern": "a.c",
+    "regex": false,
+    "caseInsensitive": false,
+    "text": "a.c abc",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "pattern": "aa",
+    "regex": false,
+    "caseInsensitive": false,
+    "text": "aaaa",
+    "spans": [
+      [
+        0,
+        2
+      ],
+      [
+        2,
+        4
+      ]
+    ]
+  },
+  {
+    "pattern": "aba",
+    "regex": false,
+    "caseInsensitive": false,
+    "text": "ababa",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "pattern": "",
+    "regex": false,
+    "caseInsensitive": false,
+    "text": "ab",
+    "spans": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        2
+      ]
+    ]
+  },
+  {
+    "pattern": "[x]",
+    "regex": false,
+    "caseInsensitive": false,
+    "text": "a[x]b",
+    "spans": [
+      [
+        1,
+        4
+      ]
+    ]
+  },
+  {
+    "pattern": "a.c",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "abc adc a c",
+    "spans": [
+      [
+        0,
+        3
+      ],
+      [
+        4,
+        7
+      ],
+      [
+        8,
+        11
+      ]
+    ]
+  },
+  {
+    "pattern": "a.*c",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "abcxxc",
+    "spans": [
+      [
+        0,
+        6
+      ]
+    ]
+  },
+  {
+    "pattern": "a.*",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "abc",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "pattern": "ab+",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "a ab abb",
+    "spans": [
+      [
+        2,
+        4
+      ],
+      [
+        5,
+        8
+      ]
+    ]
+  },
+  {
+    "pattern": "ab?c",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "ac abc",
+    "spans": [
+      [
+        0,
+        2
+      ],
+      [
+        3,
+        6
+      ]
+    ]
+  },
+  {
+    "pattern": "a*",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "aaa b",
+    "spans": [
+      [
+        0,
+        3
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        4
+      ],
+      [
+        5,
+        5
+      ]
+    ]
+  },
+  {
+    "pattern": "[a-c1]x",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "ax bx cx dx 1x",
+    "spans": [
+      [
+        0,
+        2
+      ],
+      [
+        3,
+        5
+      ],
+      [
+        6,
+        8
+      ],
+      [
+        12,
+        14
+      ]
+    ]
+  },
+  {
+    "pattern": "[^abc]",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "abcd",
+    "spans": [
+      [
+        3,
+        4
+      ]
+    ]
+  },
+  {
+    "pattern": "[]a]",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "]a",
+    "spans": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ]
+    ]
+  },
+  {
+    "pattern": "[a-]",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "a-",
+    "spans": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ]
+    ]
+  },
+  {
+    "pattern": "^a",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "aa",
+    "spans": [
+      [
+        0,
+        1
+      ]
+    ]
+  },
+  {
+    "pattern": "a$",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "aa",
+    "spans": [
+      [
+        1,
+        2
+      ]
+    ]
+  },
+  {
+    "pattern": "^ab$",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "ab",
+    "spans": [
+      [
+        0,
+        2
+      ]
+    ]
+  },
+  {
+    "pattern": "^a$",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "a\na",
+    "spans": []
+  },
+  {
+    "pattern": "a\\.c",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "a.c abc",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "pattern": "\\(a\\)",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "(a)",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "pattern": "a|b",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "a|b",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "pattern": "(a)",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "(a)",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "pattern": ".*",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "",
+    "spans": [
+      [
+        0,
+        0
+      ]
+    ]
+  },
+  {
+    "pattern": "abc",
+    "regex": true,
+    "caseInsensitive": true,
+    "text": "ABC",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "pattern": "ABC",
+    "regex": true,
+    "caseInsensitive": true,
+    "text": "abc",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "pattern": "[a-z]+",
+    "regex": true,
+    "caseInsensitive": true,
+    "text": "ABC",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "pattern": "[A-Z]+",
+    "regex": true,
+    "caseInsensitive": true,
+    "text": "abc",
+    "spans": [
+      [
+        0,
+        3
+      ]
+    ]
+  },
+  {
+    "pattern": "ä",
+    "regex": true,
+    "caseInsensitive": true,
+    "text": "Ä",
+    "spans": []
+  },
+  {
+    "pattern": "Hello",
+    "regex": false,
+    "caseInsensitive": true,
+    "text": "hello",
+    "spans": [
+      [
+        0,
+        5
+      ]
+    ]
+  },
+  {
+    "pattern": "*a",
+    "regex": true,
+    "error": true
+  },
+  {
+    "pattern": "^*",
+    "regex": true,
+    "error": true
+  },
+  {
+    "pattern": "$?",
+    "regex": true,
+    "error": true
+  },
+  {
+    "pattern": "a+*",
+    "regex": true,
+    "error": true
+  },
+  {
+    "pattern": "[abc",
+    "regex": true,
+    "error": true
+  },
+  {
+    "pattern": "[z-a]",
+    "regex": true,
+    "error": true
+  },
+  {
+    "pattern": "ab\\",
+    "regex": true,
+    "error": true
+  },
+  {
+    "pattern": "[a\\",
+    "regex": true,
+    "error": true
+  },
+  {
+    "pattern": "\\w",
+    "regex": true,
+    "error": true
+  },
+  {
+    "pattern": "\\d",
+    "regex": true,
+    "error": true
+  },
+  {
+    "pattern": "\\s",
+    "regex": true,
+    "error": true
+  },
+  {
+    "pattern": "\\1",
+    "regex": true,
+    "error": true
+  },
+  {
+    "pattern": "slip\\w+",
+    "regex": true,
+    "error": true
+  }
+]

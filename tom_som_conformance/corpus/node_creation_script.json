@@ -1,0 +1,156 @@
+[
+  {
+    "op": "add",
+    "parentPath": "DEMO",
+    "childSegment": "items",
+    "month": 3,
+    "day": 4,
+    "expectPath": "DEMO/items-3",
+    "expectId": null
+  },
+  {
+    "op": "add",
+    "parentPath": "DEMO",
+    "childSegment": "REF-LST",
+    "month": 3,
+    "day": 4,
+    "expectPath": "DEMO/REF-LST-3",
+    "expectId": "REF-CD1"
+  },
+  {
+    "op": "add",
+    "parentPath": "DEMO",
+    "childSegment": "CARD-LST",
+    "itemId": "CARD-BETA",
+    "month": 3,
+    "day": 4,
+    "expectPath": "DEMO/CARD-LST-3",
+    "expectId": "CARD-BETA"
+  },
+  {
+    "op": "add",
+    "parentPath": "DEMO/META",
+    "childSegment": "tags",
+    "month": 3,
+    "day": 4,
+    "expectPath": "DEMO/META/tags-5",
+    "expectId": null
+  },
+  {
+    "op": "addThrows",
+    "parentPath": "DEMO/TTL",
+    "childSegment": "anything",
+    "expectCode": "notAContainer"
+  },
+  {
+    "op": "addThrows",
+    "parentPath": "DEMO",
+    "childSegment": "nope",
+    "expectCode": "unknownChild"
+  },
+  {
+    "op": "addThrows",
+    "parentPath": "DEMO",
+    "childSegment": "REF-LST",
+    "itemId": "XXX-1",
+    "expectCode": "patternMismatch"
+  },
+  {
+    "op": "addThrows",
+    "parentPath": "DEMO",
+    "childSegment": "CARD-LST",
+    "itemId": "CARD-ALPHA",
+    "expectCode": "duplicateSectionId"
+  },
+  {
+    "op": "finalState",
+    "expect": {
+      "content": {
+        "DEMO/CNT": "3",
+        "DEMO/META/OWNR": "alice",
+        "DEMO/META/tags-1": "on",
+        "DEMO/META/tags-2": "no",
+        "DEMO/META/tags-3": "1:30",
+        "DEMO/META/tags-4": "plain",
+        "DEMO/PRI": "high",
+        "DEMO/REF-LST-1": "spec §1.2",
+        "DEMO/REF-LST-2": "ADR7",
+        "DEMO/SUM": "Line one\nLine two\n\nLine four",
+        "DEMO/TTL": "Hello",
+        "DEMO/control/CTRL-SUM": "Controlled summary",
+        "DEMO/control/owner": "ctrl-owner",
+        "DEMO/items-1/STS": "open",
+        "DEMO/items-1/label": "First",
+        "DEMO/items-2/STS": "done",
+        "DEMO/items-2/label": "Second line A\nwith ```triple``` ticks"
+      },
+      "forms": {
+        "DEMO/CARD-LST-1/content": {
+          "note": "first card"
+        },
+        "DEMO/CARD-LST-2/content": {
+          "note": "second card"
+        },
+        "DEMO/DET": {
+          "active": "true",
+          "contact": "bob@example.com",
+          "estimate": "8",
+          "owner": "Bob",
+          "priority": "high",
+          "weight": "2.5"
+        }
+      },
+      "lists": {
+        "DEMO/CARD-LST": {
+          "seq": 3,
+          "items": [
+            "DEMO/CARD-LST-1",
+            "DEMO/CARD-LST-2",
+            "DEMO/CARD-LST-3"
+          ],
+          "ids": {
+            "DEMO/CARD-LST-1": "CARD-ALPHA",
+            "DEMO/CARD-LST-3": "CARD-BETA"
+          }
+        },
+        "DEMO/META/tags": {
+          "seq": 5,
+          "items": [
+            "DEMO/META/tags-1",
+            "DEMO/META/tags-2",
+            "DEMO/META/tags-3",
+            "DEMO/META/tags-4",
+            "DEMO/META/tags-5"
+          ]
+        },
+        "DEMO/REF-LST": {
+          "seq": 3,
+          "items": [
+            "DEMO/REF-LST-1",
+            "DEMO/REF-LST-2",
+            "DEMO/REF-LST-3"
+          ],
+          "ids": {
+            "DEMO/REF-LST-1": "REF-SPEC",
+            "DEMO/REF-LST-3": "REF-CD1"
+          }
+        },
+        "DEMO/items": {
+          "seq": 3,
+          "items": [
+            "DEMO/items-1",
+            "DEMO/items-2",
+            "DEMO/items-3"
+          ]
+        }
+      },
+      "headlines": {
+        "DEMO/CARD-LST-1": "Alpha Card",
+        "DEMO/DET": "Details & Contacts",
+        "DEMO/REF-LST-1": "Reference to the Spec",
+        "DEMO/SUM": "Executive Summary",
+        "DEMO/items": "Work Items"
+      }
+    }
+  }
+]

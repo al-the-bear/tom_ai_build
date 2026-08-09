@@ -45,6 +45,12 @@ void main() {
   final serializationOrderCase = _serializationOrderCase();
   final stampCases = _stampCases();
   final docSpecsCases = _docSpecsCases();
+  final patternCases = _patternCases();
+  final queryCases = _queryCases(model, doc);
+  final projectionCases = _projectionCases(model, doc);
+  final cursorScript = _cursorScript(model);
+  final nodeCreationCases = _nodeCreationCases(model);
+  final nodeCreationScript = _nodeCreationScript(model);
 
   setUpAll(() {
     if (!update) return;
@@ -66,6 +72,13 @@ void main() {
     write('stamp_cases.json', '${enc.convert(stampCases)}\n');
     write('docspecs_schema.yaml', _docSpecsSchemaYaml);
     write('docspecs_cases.json', '${enc.convert(docSpecsCases)}\n');
+    write('pattern_cases.json', '${enc.convert(patternCases)}\n');
+    write('query_cases.json', '${enc.convert(queryCases)}\n');
+    write('projection_cases.json', '${enc.convert(projectionCases)}\n');
+    write('cursor_cases.json', '${enc.convert(cursorScript)}\n');
+    write('node_creation_cases.json', '${enc.convert(nodeCreationCases)}\n');
+    write('node_creation_script.json',
+        '${enc.convert(nodeCreationScript)}\n');
   });
 
   String read(String name) =>
@@ -570,7 +583,213 @@ void main() {
     // by `enum_coverage_test.dart`, together with every other nine-language
     // enumeration.
   });
+
+  // -------------------------------------------------------------------------
+  // spec_text_pattern / spec_query / spec_node_creation (SOM §9)
+  // -------------------------------------------------------------------------
+
+  group('pattern_cases.json (the portable pattern subset)', () {
+    test('every committed case reproduces', () {
+      final cases = (jsonDecode(read('pattern_cases.json')) as List)
+          .cast<Map<String, dynamic>>();
+      for (final c in cases) {
+        final source = c['pattern'] as String;
+        final regex = c['regex'] as bool;
+        final ci = c['caseInsensitive'] as bool? ?? false;
+        if (c['error'] == true) {
+          expect(() => SomTextPattern.compile(source),
+              throwsA(isA<SomPatternError>()),
+              reason: 'pattern "$source" must be rejected');
+          continue;
+        }
+        final p = regex
+            ? SomTextPattern.compile(source, caseInsensitive: ci)
+            : SomTextPattern.literal(source, caseInsensitive: ci);
+        final got = [
+          for (final s in p.allMatches(c['text'] as String)) [s.start, s.end],
+        ];
+        expect(got, c['spans'],
+            reason: 'pattern "$source" over "${c['text']}"');
+      }
+    });
+
+    test('the table exercises both compile outcomes', () {
+      // A table of matches alone would let a port accept everything; a table of
+      // rejections alone would let one reject everything.
+      final cases = (jsonDecode(read('pattern_cases.json')) as List)
+          .cast<Map<String, dynamic>>();
+      expect(cases.where((c) => c['error'] == true), isNotEmpty);
+      expect(cases.where((c) => c['error'] != true), isNotEmpty);
+    });
+  });
+
+  group('query_cases.json (the spec_query surface)', () {
+    test('every committed query reproduces its match list in order', () {
+      final engine = SpecQueryEngine(model: model, document: doc);
+      final cases = (jsonDecode(read('query_cases.json')) as List)
+          .cast<Map<String, dynamic>>();
+      for (final c in cases) {
+        final cursor = engine.query(_queryFromJson(
+            (c['query'] as Map).cast<String, dynamic>()));
+        final got = [
+          for (final m in cursor.toList())
+            {
+              'path': m.path,
+              'kind': m.kind.name,
+              'classId': m.classId,
+              'headline': m.headline,
+              'snippet': m.snippet,
+              'spans': [
+                for (final s in m.matchSpans) [s.start, s.end],
+              ],
+            },
+        ];
+        expect(got, c['matches'], reason: 'query ${c['name']}');
+      }
+    });
+
+    test('count agrees with the committed match list', () {
+      // The same fact from the other side: a port that implements `toList` by
+      // draining but `count` by returning the candidate count passes the test
+      // above and fails this one.
+      final engine = SpecQueryEngine(model: model, document: doc);
+      final cases = (jsonDecode(read('query_cases.json')) as List)
+          .cast<Map<String, dynamic>>();
+      for (final c in cases) {
+        final cursor = engine.query(_queryFromJson(
+            (c['query'] as Map).cast<String, dynamic>()));
+        expect(cursor.count, (c['matches'] as List).length,
+            reason: 'count for ${c['name']}');
+      }
+    });
+  });
+
+  test('projection_cases.json reproduces the structural walk', () {
+    final engine = SpecQueryEngine(model: model, document: doc);
+    final got = [
+      for (final p in engine.projectNodes())
+        {
+          'path': p.path,
+          'kind': p.kind.name,
+          'classId': p.classId,
+          'sectionId': p.sectionId,
+          'mapsTo': p.mapsTo,
+          'detailedIn': p.detailedIn,
+          'headline': p.headline,
+          'searchableStrings': p.searchableStrings,
+          'hasValue': p.hasValue,
+        },
+    ];
+    expect(got, jsonDecode(read('projection_cases.json')));
+  });
+
+  test('cursor script replays with the committed results', () {
+    final steps = (jsonDecode(read('cursor_cases.json')) as List)
+        .cast<Map<String, dynamic>>();
+    final d = _buildDocument();
+    final engine = SpecQueryEngine(model: model, document: d);
+    SpecQueryCursor? cursor;
+    for (final s in steps) {
+      switch (s['op']) {
+        case 'open':
+          cursor = engine.query(
+              _queryFromJson((s['query'] as Map).cast<String, dynamic>()));
+        case 'count':
+          expect(cursor!.count, s['expect'], reason: 'cursor count');
+        case 'take':
+          expect(cursor!.take(s['n'] as int).map((m) => m.path).toList(),
+              s['expect'],
+              reason: 'cursor take ${s['n']}');
+        case 'next':
+          expect(cursor!.next()?.path, s['expect'], reason: 'cursor next');
+        case 'toList':
+          expect(cursor!.toList().map((m) => m.path).toList(), s['expect'],
+              reason: 'cursor toList');
+        case 'removeListItem':
+          d.removeListItem(s['itemPath'] as String);
+        default:
+          fail('unknown cursor op ${s['op']}');
+      }
+    }
+  });
+
+  test('node_creation_cases.json reproduces every gate decision', () {
+    final cases = (jsonDecode(read('node_creation_cases.json')) as List)
+        .cast<Map<String, dynamic>>();
+    for (final c in cases) {
+      final d = _buildDocument();
+      final err = checkAddNode(model, d, c['parentPath'] as String,
+          c['childSegment'] as String,
+          itemId: c['itemId'] as String?);
+      expect(err == null, c['accepted'], reason: 'accepted ${c['name']}');
+      if (err != null) {
+        expect(err.code.name, c['code'], reason: 'code ${c['name']}');
+        expect(err.message, c['message'], reason: 'message ${c['name']}');
+        expect(err.parentPath, c['parentPath']);
+        expect(err.childSegment, c['childSegment']);
+      }
+    }
+  });
+
+  test('node-creation script replays with the committed results', () {
+    final steps = (jsonDecode(read('node_creation_script.json')) as List)
+        .cast<Map<String, dynamic>>();
+    final d = _buildDocument();
+    final creator = SpecNodeCreator(model, d);
+    for (final s in steps) {
+      switch (s['op']) {
+        case 'add':
+          final path = creator.add(
+              s['parentPath'] as String, s['childSegment'] as String,
+              itemId: s['itemId'] as String?,
+              date: DateTime(2026, s['month'] as int, s['day'] as int));
+          expect(path, s['expectPath'],
+              reason: 'add ${s['parentPath']}/${s['childSegment']}');
+          expect(d.itemSectionId(path), s['expectId'],
+              reason: 'add id ${s['parentPath']}/${s['childSegment']}');
+        case 'addThrows':
+          expect(
+              () => creator.add(
+                  s['parentPath'] as String, s['childSegment'] as String,
+                  itemId: s['itemId'] as String?, date: DateTime(2026, 3, 4)),
+              throwsA(isA<SpecCreationError>()
+                  .having((e) => e.code.name, 'code', s['expectCode'])),
+              reason: 'addThrows ${s['parentPath']}/${s['childSegment']}');
+        case 'finalState':
+          expect(d.toJson(), s['expect'], reason: 'final document state');
+        default:
+          fail('unknown node-creation op ${s['op']}');
+      }
+    }
+  });
 }
+
+/// Rebuilds a [SpecQuery] from its corpus wire form.
+///
+/// Every port needs this same decode, so its shape *is* part of the contract:
+/// an absent key means "dimension unset", never a default that happens to
+/// match. Kept beside the replay tests rather than in `lib/` because it belongs
+/// to the corpus format, not to the runtime API.
+SpecQuery _queryFromJson(Map<String, dynamic> j) => SpecQuery(
+      text: j['text'] as String?,
+      regex: j['regex'] as bool? ?? false,
+      caseInsensitive: j['caseInsensitive'] as bool? ?? false,
+      kinds: j['kinds'] == null
+          ? null
+          : {
+              for (final k in (j['kinds'] as List).cast<String>())
+                SpecNodeKind.values.firstWhere((v) => v.name == k),
+            },
+      className: j['className'] as String?,
+      sectionIdExact: j['sectionIdExact'] as String?,
+      sectionIdPrefix: j['sectionIdPrefix'] as String?,
+      pathGlob: j['pathGlob'] as String?,
+      mapsTo: j['mapsTo'] as String?,
+      detailedIn: j['detailedIn'] as String?,
+      state: j['state'] == null
+          ? null
+          : SpecStateFilter.values.firstWhere((v) => v.name == j['state']),
+    );
 
 // --- Fixture construction (the reference data the corpus is generated from) --
 
@@ -1366,6 +1585,11 @@ List<Map<String, dynamic>> _editorScript() => [
       {'op': 'setValue', 'path': 'DEMO/CNT', 'value': null},
       {'op': 'value', 'path': 'DEMO/CNT', 'expect': null},
       {'op': 'rawContent', 'path': 'DEMO/CNT', 'expect': null},
+      {'op': 'setValue', 'path': 'DEMO/CNT', 'value': '12'},
+      {'op': 'value', 'path': 'DEMO/CNT', 'expect': 12},
+      {'op': 'rawContent', 'path': 'DEMO/CNT', 'expect': '12'},
+      {'op': 'setValueThrows', 'path': 'DEMO/CNT', 'value': true},
+      {'op': 'value', 'path': 'DEMO/CNT', 'expect': 12},
       // Forgiving read: raw garbage in the store reads as null, not an error.
       {'op': 'setContent', 'path': 'DEMO/CNT', 'value': 'abc'},
       {'op': 'value', 'path': 'DEMO/CNT', 'expect': null},
@@ -1375,16 +1599,34 @@ List<Map<String, dynamic>> _editorScript() => [
       {'op': 'value', 'path': 'DEMO/PRI', 'expect': 'high'},
       {'op': 'rawContent', 'path': 'DEMO/PRI', 'expect': 'high'},
       {'op': 'setValueThrows', 'path': 'DEMO/PRI', 'value': 'urgent'},
+      {'op': 'setValueThrows', 'path': 'DEMO/PRI', 'value': 5},
       {'op': 'value', 'path': 'DEMO/PRI', 'expect': 'high'},
+      {'op': 'setValue', 'path': 'DEMO/PRI', 'value': null},
+      {'op': 'value', 'path': 'DEMO/PRI', 'expect': null},
+      {'op': 'setContent', 'path': 'DEMO/PRI', 'value': 'urgent'},
+      {'op': 'value', 'path': 'DEMO/PRI', 'expect': null},
+      {'op': 'setContent', 'path': 'DEMO/PRI', 'value': ''},
       // Plain content leaf.
       {'op': 'setValue', 'path': 'DEMO/TTL', 'value': 'Hello'},
       {'op': 'value', 'path': 'DEMO/TTL', 'expect': 'Hello'},
+      {'op': 'setValue', 'path': 'DEMO/TTL', 'value': ''},
+      {'op': 'value', 'path': 'DEMO/TTL', 'expect': null},
+      {'op': 'rawContent', 'path': 'DEMO/TTL', 'expect': null},
       // Strict resolution: dangling and non-leaf paths are rejected.
       {'op': 'setValueThrows', 'path': 'DEMO/ghost', 'value': 'x'},
       {'op': 'setValueThrows', 'path': 'DEMO/items', 'value': 'x'},
+      {'op': 'setValueThrows', 'path': 'DEMO/META', 'value': 'x'},
+      {'op': 'setValueThrows', 'path': 'DEMO/DET', 'value': 'x'},
+      {'op': 'formFieldNames', 'path': 'DEMO/DET',
+        'expect': ['owner', 'contact', 'estimate', 'weight', 'active', 'priority']},
+      {'op': 'formFieldNamesThrows', 'path': 'DEMO/CNT'},
       // --- typed form fields (int / double / bool / enum) --------------------
       {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'owner',
         'value': 'Bob'},
+      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'owner',
+        'expect': 'Bob'},
+      {'op': 'setFormValueThrows', 'path': 'DEMO/DET', 'field': 'owner',
+        'value': 5},
       {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'owner',
         'expect': 'Bob'},
       {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'estimate',
@@ -1393,18 +1635,36 @@ List<Map<String, dynamic>> _editorScript() => [
         'expect': 8},
       {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'estimate',
         'expect': '8'},
+      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'estimate',
+        'value': '12'},
+      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'estimate',
+        'expect': 12},
+      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'estimate',
+        'expect': '12'},
+      {'op': 'setFormValueThrows', 'path': 'DEMO/DET', 'field': 'estimate',
+        'value': true},
       {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'weight',
         'value': 2.5},
       {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'weight',
         'expect': 2.5},
       {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'weight',
         'expect': '2.5'},
+      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'weight', 'value': 2},
+      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'weight', 'expect': 2.0},
+      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'weight',
+        'expect': '2.0'},
       {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'active',
         'value': true},
       {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'active',
         'expect': true},
       {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'active',
         'expect': 'true'},
+      {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'active',
+        'value': false},
+      {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'active',
+        'expect': false},
+      {'op': 'rawFormField', 'path': 'DEMO/DET', 'field': 'active',
+        'expect': 'false'},
       {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'priority',
         'value': 'high'},
       {'op': 'formValue', 'path': 'DEMO/DET', 'field': 'priority',
@@ -1415,6 +1675,8 @@ List<Map<String, dynamic>> _editorScript() => [
       {'op': 'setFormValueThrows', 'path': 'DEMO/DET', 'field': 'priority',
         'value': 'urgent'},
       {'op': 'setFormValueThrows', 'path': 'DEMO/DET', 'field': 'bogus',
+        'value': 'x'},
+      {'op': 'setFormValueThrows', 'path': 'DEMO/ghost', 'field': 'owner',
         'value': 'x'},
       {'op': 'setFormValue', 'path': 'DEMO/DET', 'field': 'estimate',
         'value': null},
@@ -1432,8 +1694,11 @@ List<Map<String, dynamic>> _editorScript() => [
       // --- structural ops: pattern id generation, clear ---------------------
       {'op': 'addListItem', 'listPath': 'DEMO/REF-LST', 'month': 3, 'day': 4,
         'expectPath': 'DEMO/REF-LST-1', 'expectId': 'REF-CD1'},
+      {'op': 'itemSectionId', 'itemPath': 'DEMO/REF-LST-1',
+        'expect': 'REF-CD1'},
       {'op': 'setValue', 'path': 'DEMO/REF-LST-1', 'value': 'spec §1.2'},
       {'op': 'value', 'path': 'DEMO/REF-LST-1', 'expect': 'spec §1.2'},
+      {'op': 'addListItemThrows', 'listPath': 'DEMO/CNT', 'month': 3, 'day': 4},
       {'op': 'addListItem', 'listPath': 'DEMO/CARD-LST', 'month': 3, 'day': 4,
         'expectPath': 'DEMO/CARD-LST-1', 'expectId': 'CARD-CD1'},
       {'op': 'setFormValue', 'path': 'DEMO/CARD-LST-1/content',
@@ -1441,9 +1706,13 @@ List<Map<String, dynamic>> _editorScript() => [
       // clearSection drops every value under a subtree; removeListItem drops
       // one item.
       {'op': 'setValue', 'path': 'DEMO/META/OWNR', 'value': 'alice'},
+      {'op': 'setHeadline', 'path': 'DEMO/META', 'value': 'Metadata'},
       {'op': 'hasValuesUnder', 'prefix': 'DEMO/META', 'expect': true},
       {'op': 'clearSection', 'path': 'DEMO/META'},
       {'op': 'hasValuesUnder', 'prefix': 'DEMO/META', 'expect': false},
+      {'op': 'rawContent', 'path': 'DEMO/META/OWNR', 'expect': null},
+      {'op': 'headline', 'path': 'DEMO/META', 'expect': null},
+      {'op': 'clearSectionThrows', 'path': 'DEMO/ghost'},
       {'op': 'hasValuesUnder', 'prefix': 'DEMO/CARD-LST-1', 'expect': true},
       {'op': 'removeListItem', 'itemPath': 'DEMO/CARD-LST-1', 'expect': true},
       {'op': 'hasValuesUnder', 'prefix': 'DEMO/CARD-LST-1', 'expect': false},
@@ -1453,6 +1722,7 @@ List<Map<String, dynamic>> _editorScript() => [
       {'op': 'headline', 'path': 'DEMO/SUM', 'expect': 'Exec Summary'},
       {'op': 'setHeadline', 'path': 'DEMO/SUM', 'value': ''},
       {'op': 'headline', 'path': 'DEMO/SUM', 'expect': null},
+      {'op': 'headlineThrows', 'path': 'DEMO/ghost'},
     ];
 
 int? _secondsToMillis(int? seconds) => seconds == null ? null : seconds * 1000;
@@ -2104,4 +2374,410 @@ List<Map<String, Object?>> _docSpecsCases() {
         ],
       },
   ];
+}
+
+// ---------------------------------------------------------------------------
+// spec_text_pattern / spec_query / spec_node_creation corpus builders
+// ---------------------------------------------------------------------------
+
+/// The portable pattern subset's own table.
+///
+/// Separate from [_queryCases] on purpose. The query table only exercises the
+/// handful of patterns the fixture's text happens to make interesting, while
+/// the matcher is nine hand-written transcriptions of a backtracking algorithm
+/// — the place a port is *most* likely to differ. Greedy give-back, the
+/// empty-match advance rule, class parsing corners and every compile rejection
+/// are pinned here so a divergence names the pattern that broke rather than
+/// showing up as a missing query hit three layers up.
+///
+/// Each case is either a match case (`spans`) or a rejection (`error: true`).
+List<Map<String, dynamic>> _patternCases() {
+  final cases = <Map<String, dynamic>>[];
+
+  void match(String pattern, String text,
+      {bool regex = true, bool caseInsensitive = false}) {
+    final p = regex
+        ? SomTextPattern.compile(pattern, caseInsensitive: caseInsensitive)
+        : SomTextPattern.literal(pattern, caseInsensitive: caseInsensitive);
+    cases.add({
+      'pattern': pattern,
+      'regex': regex,
+      'caseInsensitive': caseInsensitive,
+      'text': text,
+      'spans': [
+        for (final s in p.allMatches(text)) [s.start, s.end],
+      ],
+    });
+  }
+
+  void rejects(String pattern) {
+    // Computed, never asserted by hand: if compile stops rejecting, the
+    // generator throws here under UPDATE_CORPUS instead of quietly writing a
+    // case that says nothing.
+    try {
+      SomTextPattern.compile(pattern);
+      throw StateError('pattern "$pattern" was expected to be rejected');
+    } on SomPatternError {
+      cases.add({'pattern': pattern, 'regex': true, 'error': true});
+    }
+  }
+
+  // -- literals are wholly uninterpreted --
+  match('a.c', 'a.c abc', regex: false);
+  match('aa', 'aaaa', regex: false);
+  match('aba', 'ababa', regex: false); // overlaps are not both reported
+  match('', 'ab', regex: false); // empty match advances one character
+  match('[x]', 'a[x]b', regex: false);
+
+  // -- the grammar --
+  match('a.c', 'abc adc a c');
+  match('a.*c', 'abcxxc'); // greedy, then gives back until the tail fits
+  match('a.*', 'abc');
+  match('ab+', 'a ab abb');
+  match('ab?c', 'ac abc');
+  match('a*', 'aaa b'); // zero-width matches around a non-member
+  match('[a-c1]x', 'ax bx cx dx 1x');
+  match('[^abc]', 'abcd');
+  match('[]a]', ']a'); // POSIX: `]` right after `[` is a member
+  match('[a-]', 'a-'); // trailing `-` is a literal
+  match('^a', 'aa');
+  match(r'a$', 'aa');
+  match(r'^ab$', 'ab');
+  match(r'^a$', 'a\na'); // anchors bind to the text, not to a line
+  match(r'a\.c', 'a.c abc');
+  match(r'\(a\)', '(a)');
+  match('a|b', 'a|b'); // outside the grammar, so an ordinary literal
+  match('(a)', '(a)');
+  match('.*', ''); // the empty text still offers one start position
+
+  // -- ASCII-only case folding --
+  match('abc', 'ABC', caseInsensitive: true);
+  match('ABC', 'abc', caseInsensitive: true);
+  match('[a-z]+', 'ABC', caseInsensitive: true);
+  match('[A-Z]+', 'abc', caseInsensitive: true);
+  match('ä', 'Ä', caseInsensitive: true); // non-ASCII is deliberately not folded
+  match('Hello', 'hello', regex: false, caseInsensitive: true);
+
+  // -- compile rejections --
+  rejects('*a');
+  rejects('^*');
+  rejects(r'$?');
+  rejects('a+*');
+  rejects('[abc');
+  rejects('[z-a]');
+  rejects('ab\\');
+  rejects('[a\\');
+  rejects(r'\w');
+  rejects(r'\d');
+  rejects(r'\s');
+  rejects(r'\1');
+  rejects(r'slip\w+');
+
+  return cases;
+}
+
+/// The `spec_query` surface over the corpus fixture (SOM §9).
+///
+/// One case per query, holding the query in its wire form plus the full match
+/// list in document order. Because the list is ordered and complete, replaying
+/// it also pins the cursor: `toList()` must produce exactly this, and `count`
+/// must equal its length. `take` is pinned by [_cursorCases], which needs a
+/// script rather than a table.
+///
+/// Three dimensions the fixture cannot reach — `mapsTo`, `detailedIn` and a
+/// `headline` sourced from a class/field doc comment — are covered by
+/// negative cases only (a filter that must match nothing), because no class or
+/// field in `model.meta.json` carries those annotations. Making them positive
+/// needs a fixture change, which is tracked separately.
+List<Map<String, dynamic>> _queryCases(SpecModel model, SpecDocument doc) {
+  final engine = SpecQueryEngine(model: model, document: doc);
+  final cases = <Map<String, dynamic>>[];
+
+  void run(String name, SpecQuery q, Map<String, dynamic> wire) {
+    final matches = engine.query(q).toList();
+    cases.add({
+      'name': name,
+      'query': wire,
+      'matches': [
+        for (final m in matches)
+          {
+            'path': m.path,
+            'kind': m.kind.name,
+            'classId': m.classId,
+            'headline': m.headline,
+            'snippet': m.snippet,
+            'spans': [
+              for (final s in m.matchSpans) [s.start, s.end],
+            ],
+          },
+      ],
+    });
+  }
+
+  // -- text dimension --
+  run('text substring in a content leaf', const SpecQuery(text: 'Hello'),
+      {'text': 'Hello'});
+  run('text substring spanning several nodes', const SpecQuery(text: 'Line'),
+      {'text': 'Line'});
+  run('text substring in a form field', const SpecQuery(text: 'bob@'),
+      {'text': 'bob@'});
+  run('text substring in a stored headline',
+      const SpecQuery(text: 'Executive'), {'text': 'Executive'});
+  run('text matching nothing', const SpecQuery(text: 'no-such-text'),
+      {'text': 'no-such-text'});
+  run('text is case-sensitive by default', const SpecQuery(text: 'HELLO'),
+      {'text': 'HELLO'});
+  run('text case-insensitive',
+      const SpecQuery(text: 'HELLO', caseInsensitive: true),
+      {'text': 'HELLO', 'caseInsensitive': true});
+  run('text with several spans in one value', const SpecQuery(text: 'card'),
+      {'text': 'card'});
+  run('regex over content', const SpecQuery(text: 'Line [a-z]+', regex: true),
+      {'text': 'Line [a-z]+', 'regex': true});
+  run('regex anchored to the whole value',
+      const SpecQuery(text: r'^Hello$', regex: true),
+      {'text': r'^Hello$', 'regex': true});
+  run('regex case-insensitive',
+      const SpecQuery(text: '[A-Z]lice', regex: true, caseInsensitive: true),
+      {'text': '[A-Z]lice', 'regex': true, 'caseInsensitive': true});
+
+  // -- structural dimensions --
+  run('kinds filter', const SpecQuery(kinds: {SpecNodeKind.form}),
+      {'kinds': ['form']});
+  run('kinds filter admitting several kinds',
+      const SpecQuery(kinds: {SpecNodeKind.list, SpecNodeKind.root}),
+      {'kinds': ['list', 'root']});
+  run('className filter', const SpecQuery(className: 'Item'),
+      {'className': 'Item'});
+  run('sectionIdExact filter', const SpecQuery(sectionIdExact: 'TTL'),
+      {'sectionIdExact': 'TTL'});
+  run('sectionIdPrefix filter', const SpecQuery(sectionIdPrefix: 'CARD'),
+      {'sectionIdPrefix': 'CARD'});
+  run('pathGlob within one segment', const SpecQuery(pathGlob: 'DEMO/*'),
+      {'pathGlob': 'DEMO/*'});
+  run('pathGlob crossing segments', const SpecQuery(pathGlob: 'DEMO/**'),
+      {'pathGlob': 'DEMO/**'});
+  run('pathGlob with a literal tail', const SpecQuery(pathGlob: '**/label'),
+      {'pathGlob': '**/label'});
+  run('pathGlob matching nothing', const SpecQuery(pathGlob: 'NOPE/*'),
+      {'pathGlob': 'NOPE/*'});
+
+  // -- state dimension (SpecStateFilter — both constants) --
+  run('state nonEmpty', const SpecQuery(state: SpecStateFilter.nonEmpty),
+      {'state': 'nonEmpty'});
+  run('state empty', const SpecQuery(state: SpecStateFilter.empty),
+      {'state': 'empty'});
+  run('state empty within one subtree',
+      const SpecQuery(state: SpecStateFilter.empty, pathGlob: 'DEMO/REG/**'),
+      {'state': 'empty', 'pathGlob': 'DEMO/REG/**'});
+
+  // -- annotation dimensions: negative only, see the doc comment --
+  run('mapsTo filter matches nothing in this fixture',
+      const SpecQuery(mapsTo: 'SomeTarget'), {'mapsTo': 'SomeTarget'});
+  run('detailedIn filter matches nothing in this fixture',
+      const SpecQuery(detailedIn: 'SomeDoc'), {'detailedIn': 'SomeDoc'});
+
+  // -- combinations: the filters are conjunctive --
+  run('text and kind together',
+      const SpecQuery(text: 'card', kinds: {SpecNodeKind.form}),
+      {'text': 'card', 'kinds': ['form']});
+  run('prefix and state together',
+      const SpecQuery(
+          sectionIdPrefix: 'CARD', state: SpecStateFilter.nonEmpty),
+      {'sectionIdPrefix': 'CARD', 'state': 'nonEmpty'});
+  run('every dimension unset returns the whole document in order',
+      const SpecQuery(), const <String, dynamic>{});
+
+  return cases;
+}
+
+/// The node projection surface (`SpecQueryEngine.projectNodes`), which the
+/// search index is built from. Ordered, so it pins the structural walk itself —
+/// the same walk the query's candidate set comes from.
+List<Map<String, dynamic>> _projectionCases(SpecModel model, SpecDocument doc) {
+  final engine = SpecQueryEngine(model: model, document: doc);
+  return [
+    for (final p in engine.projectNodes())
+      {
+        'path': p.path,
+        'kind': p.kind.name,
+        'classId': p.classId,
+        'sectionId': p.sectionId,
+        'mapsTo': p.mapsTo,
+        'detailedIn': p.detailedIn,
+        'headline': p.headline,
+        'searchableStrings': p.searchableStrings,
+        'hasValue': p.hasValue,
+      },
+  ];
+}
+
+/// Cursor semantics that a result *table* cannot express: partial consumption
+/// via `take`, `count` reporting only what remains, and the edit-stability rule
+/// — a candidate whose list item was removed after the cursor was built is
+/// skipped rather than resolved against a stale path.
+///
+/// A script rather than a table because each step depends on the cursor
+/// position the previous step left behind.
+List<Map<String, dynamic>> _cursorScript(SpecModel model) {
+  final doc = _buildDocument();
+  final engine = SpecQueryEngine(model: model, document: doc);
+  final steps = <Map<String, dynamic>>[];
+
+  // A query with several hits, consumed in pieces.
+  const q = {'sectionIdPrefix': 'REF'};
+  final cursor = engine.query(const SpecQuery(sectionIdPrefix: 'REF'));
+  steps.add({'op': 'open', 'query': q});
+  steps.add({
+    'op': 'count',
+    'expect': cursor.count,
+  });
+  steps.add({
+    'op': 'take',
+    'n': 1,
+    'expect': cursor.take(1).map((m) => m.path).toList(),
+  });
+  steps.add({
+    'op': 'count',
+    'expect': cursor.count, // one fewer: count is "remaining", not "total"
+  });
+  steps.add({
+    'op': 'next',
+    'expect': cursor.next()?.path,
+  });
+  steps.add({'op': 'next', 'expect': cursor.next()?.path});
+  steps.add({'op': 'toList', 'expect': cursor.toList().map((m) => m.path).toList()});
+
+  // Edit stability: build a cursor over the item list, then delete an item
+  // before draining it. The stale candidate must be skipped silently.
+  final live = engine.query(const SpecQuery(pathGlob: 'DEMO/items-*'));
+  steps.add({'op': 'open', 'query': {'pathGlob': 'DEMO/items-*'}});
+  steps.add({'op': 'removeListItem', 'itemPath': 'DEMO/items-1'});
+  doc.removeListItem('DEMO/items-1');
+  steps.add({
+    'op': 'toList',
+    'expect': live.toList().map((m) => m.path).toList(),
+  });
+
+  return steps;
+}
+
+/// The `spec_node_creation` gate (`checkAddNode`) and the creator built on it.
+///
+/// Every [SpecCreationCode] constant is exercised by a rejection case, and the
+/// accepting cases pin what a successful add produces — the child path and, for
+/// a pattern-bearing list, the generated section id.
+List<Map<String, dynamic>> _nodeCreationCases(SpecModel model) {
+  final cases = <Map<String, dynamic>>[];
+
+  /// A `checkAddNode` probe against a freshly built document, so cases are
+  /// order-independent and can be replayed in any sequence.
+  void check(String name, String parentPath, String childSegment,
+      {String? itemId, SpecDocument? against}) {
+    final doc = against ?? _buildDocument();
+    final err = checkAddNode(model, doc, parentPath, childSegment,
+        itemId: itemId);
+    cases.add({
+      'name': name,
+      'parentPath': parentPath,
+      'childSegment': childSegment,
+      if (itemId != null) 'itemId': itemId,
+      'accepted': err == null,
+      if (err != null) 'code': err.code.name,
+      if (err != null) 'message': err.message,
+    });
+  }
+
+  // -- accepted --
+  check('add an item to an unpatterned list', 'DEMO', 'items');
+  check('add an item to a patterned list with an explicit id', 'DEMO',
+      'REF-LST', itemId: 'REF-9');
+  check('add a card to the card list', 'DEMO', 'CARD-LST',
+      itemId: 'CARD-NEW');
+  check('add a nested list item', 'DEMO/META', 'tags');
+
+  // -- notAContainer --
+  check('a content leaf accepts no child', 'DEMO/TTL', 'anything');
+  check('a form section accepts no child', 'DEMO/DET', 'owner');
+
+  // -- unknownChild --
+  check('a segment naming no field of the parent class', 'DEMO', 'nope');
+  check('a field of a different class is still unknown here', 'DEMO/META',
+      'items');
+
+  // -- patternMismatch --
+  check('an id not matching the list pattern', 'DEMO', 'REF-LST',
+      itemId: 'XXX-1');
+  check('an id matching a different list pattern', 'DEMO', 'CARD-LST',
+      itemId: 'REF-1');
+
+  // -- duplicateSectionId --
+  check('an id already taken by a sibling item', 'DEMO', 'REF-LST',
+      itemId: 'REF-SPEC');
+  check('an id already taken in the card list', 'DEMO', 'CARD-LST',
+      itemId: 'CARD-ALPHA');
+
+  // -- cardinalityExceeded --
+  check('a second instance of a single-valued complex field', 'DEMO', 'META');
+  check('a second instance of a single-valued form field', 'DEMO', 'DET');
+
+  return cases;
+}
+
+/// The creator's own script: `SpecNodeCreator.add` applied in sequence, so each
+/// step sees the document the previous one produced. Pins the generated paths
+/// and ids, which the stateless [_nodeCreationCases] probes cannot.
+List<Map<String, dynamic>> _nodeCreationScript(SpecModel model) {
+  final doc = _buildDocument();
+  final creator = SpecNodeCreator(model, doc);
+  final steps = <Map<String, dynamic>>[];
+
+  void add(String parentPath, String childSegment,
+      {String? itemId, int month = 3, int day = 4}) {
+    final path = creator.add(parentPath, childSegment,
+        itemId: itemId, date: DateTime(2026, month, day));
+    steps.add({
+      'op': 'add',
+      'parentPath': parentPath,
+      'childSegment': childSegment,
+      if (itemId != null) 'itemId': itemId,
+      'month': month,
+      'day': day,
+      'expectPath': path,
+      'expectId': doc.itemSectionId(path),
+    });
+  }
+
+  void rejects(String parentPath, String childSegment, {String? itemId}) {
+    // Computed, not asserted: if `add` stops throwing, the generator fails
+    // under UPDATE_CORPUS rather than writing a vacuous case.
+    try {
+      creator.add(parentPath, childSegment,
+          itemId: itemId, date: DateTime(2026, 3, 4));
+      throw StateError('add($parentPath, $childSegment) should have thrown');
+    } on SpecCreationError catch (e) {
+      steps.add({
+        'op': 'addThrows',
+        'parentPath': parentPath,
+        'childSegment': childSegment,
+        if (itemId != null) 'itemId': itemId,
+        // `add` throws the gate's own typed error, so the script pins the code
+        // as well as the refusal — a port that rejects for the wrong reason
+        // fails here rather than passing on the strength of any throw at all.
+        'expectCode': e.code.name,
+      });
+    }
+  }
+
+  add('DEMO', 'items');
+  add('DEMO', 'REF-LST');
+  add('DEMO', 'CARD-LST', itemId: 'CARD-BETA');
+  add('DEMO/META', 'tags');
+  rejects('DEMO/TTL', 'anything');
+  rejects('DEMO', 'nope');
+  rejects('DEMO', 'REF-LST', itemId: 'XXX-1');
+  rejects('DEMO', 'CARD-LST', itemId: 'CARD-ALPHA');
+  steps.add({'op': 'finalState', 'expect': doc.toJson()});
+
+  return steps;
 }

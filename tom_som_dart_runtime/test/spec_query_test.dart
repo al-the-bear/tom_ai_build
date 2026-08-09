@@ -139,8 +139,16 @@ void main() {
 
     test('regex over content', () {
       final hits = paths(
-          engine.query(const SpecQuery(text: r'slip\w+', regex: true)));
+          engine.query(const SpecQuery(text: 'slip[a-z]+', regex: true)));
       expect(hits, contains('PD00/PD00-RSK-2/title'));
+    });
+
+    test('a pattern outside the portable subset is refused, not guessed', () {
+      // `regex: true` compiles with [SomTextPattern], which has no `\w`; the
+      // caller hears about it instead of silently matching nothing.
+      expect(
+          () => engine.query(const SpecQuery(text: r'slip\w+', regex: true)),
+          throwsA(isA<SomPatternError>()));
     });
 
     test('case-insensitive substring', () {
