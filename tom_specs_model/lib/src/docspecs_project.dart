@@ -44,10 +44,10 @@ import 'package:tom_specs_core/tom_specs_core.dart';
 /// shared underlying Solution Blueprint sections
 /// (`tom_specs_editor_specification.md` §14).
 ///
-/// This class is the structural anchor only. The global `toYaml` save
-/// (Solution-Blueprint-only, `tom_specs_editor_specification.md` §15.1) and the
-/// projection connect pass (N11) are added in a later step; here the container
-/// simply wires the fourteen roots onto one tree.
+/// The container owns both save paths: [toYaml] is the global
+/// Solution-Blueprint-only save (`tom_specs_editor_specification.md` §15.1),
+/// and [toYamlForRoot] is the per-root write that runs the projection connect
+/// pass first (N11).
 class DocSpecsProject extends DocSpecsSection {
   /// Constructs the container and ensures the generated snapshot/serialization
   /// ops are registered (idempotent), so [toYaml] / [toYamlForRoot] and the
@@ -135,13 +135,13 @@ class DocSpecsProject extends DocSpecsSection {
   /// Per-root save. For [solutionBlueprint] this is the global [toYaml]; for a
   /// projection root it runs the connect pass first — re-pointing the
   /// projection's references onto the live Solution Blueprint sections
-  /// (`tom_specs_editor_specification.md` §15.2) — when a connect binding is
-  /// registered for that root, then serializes it.
+  /// (`tom_specs_editor_specification.md` §15.2) — then serializes it.
   ///
-  /// The twelve per-root `connect` bindings are not yet generated (they require
-  /// resolving each projection's `@MapsTo` / `@DetailedIn` links onto Solution
-  /// Blueprint field paths); until then a projection serializes whatever
-  /// references it already holds. See the OE-2 questions note.
+  /// All thirteen projection roots carry a generated `connect` binding, so a
+  /// per-root write always reflects current Solution Blueprint content (N11).
+  /// The one child a binding deliberately leaves alone is the document
+  /// [DocumentHeader]: each of the fourteen entry points is a document in its
+  /// own right, with its own id, version and author.
   String toYamlForRoot(Object root) {
     if (identical(root, solutionBlueprint)) return toYaml();
     return SpecYaml.toYamlForProjection(root, solutionBlueprint);

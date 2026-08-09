@@ -1,5 +1,20 @@
 import 'model_reader.dart';
 
+/// One field reachable from the Solution Blueprint root by a static member
+/// chain: its dotted [path], its own [member] name (the tie-breaker when a type
+/// occurs more than once), the Dart [expr]ession that reads it from the local
+/// `b`, and whether that expression can yield null.
+class SbpPath {
+  final String path;
+  final String expr;
+  final bool nullable;
+
+  const SbpPath(this.path, this.expr, this.nullable);
+
+  /// The last segment of [path] — the field's own member name.
+  String get member => path.substring(path.lastIndexOf('.') + 1);
+}
+
 /// Emits the `spec_ops.g.dart` registry that adopts the snapshot/serialization
 /// contract across every TomSpecs model class **without editing their source**
 /// (OE-2).
@@ -35,12 +50,38 @@ import 'model_reader.dart';
 /// The two hand-written `SpecNode` leaves (`DocumentHeader`, `SectionMeta`) are
 /// skipped: they adopt the contract via the mixin fast-path, which the resolver
 /// checks before the registry.
+///
+/// ## Projection connect bindings (N11, N12)
+///
+/// A spec is **one document with fourteen entry points**: the
+/// `D00SolutionBlueprint` master plus thirteen `@Document(basedOn:
+/// [D00SolutionBlueprint])` *projection* roots that are views over the same SBP
+/// sections. A projection root default-constructs its own children, so before
+/// its individual file is written those references must be re-pointed onto the
+/// live SBP sections. That is `SpecClassOps.connect`, and this generator emits
+/// one for **every** projection root (see [_writeConnect] for the derivation
+/// and [_documentLocalTypes] / [_sourceRoot] for the two decisions it encodes).
 class SpecOpsGenerator {
   final Map<String, ModelClass> classes;
 
   /// Leaves that already mix in `SpecNode` — excluded from the registry because
   /// the resolver's `is SpecNode` fast-path serves them directly.
   static const _mixinLeaves = {'DocumentHeader', 'SectionMeta'};
+
+  /// The Solution Blueprint master: the source of truth every projection root
+  /// binds against (`tom_specs_editor_specification.md` §14).
+  static const _sourceRoot = 'D00SolutionBlueprint';
+
+  /// Child types that stay **document-local** and are therefore never bound to
+  /// an SBP section.
+  ///
+  /// `DocumentHeader` is document *front matter* — id, project, version, date,
+  /// author, status. Each of the fourteen entry points is a document in its own
+  /// right with its own identity, so a projection's header must not be
+  /// re-pointed at the SBP's. It resolves structurally (there is exactly one
+  /// `DocumentHeader` under the SBP, at `documentControl.header`), which is why
+  /// the exclusion has to be stated rather than derived.
+  static const _documentLocalTypes = {'DocumentHeader'};
 
   /// Section content leaves defined in `tom_specs_core` (outside the scanned
   /// model package). Each is a `String? content` leaf; registered by hand here
@@ -173,8 +214,165 @@ class SpecOpsGenerator {
       b.writeln('    yamlScalar: (o) => (o as $name).$scalar,');
     }
 
+    // connect — projection roots only.
+    _writeConnect(b, cls);
+
     b.writeln('  ));');
   }
+
+  // --- Projection connect bindings (N11, N12) -------------------------------
+
+  /// Emits `connect:` when [cls] is a projection root, binding each of its
+  /// children onto the Solution Blueprint section it projects.
+  ///
+  /// **Every** projection root gets a binding, `D13CodeSpecsProjection`
+  /// included: it is a `@Document(basedOn: [D00SolutionBlueprint])` view over
+  /// SBP sections exactly like the twelve Phase-3 roots, and its
+  /// `@CodeSpecsProjection()` marker only exempts it from the validator's
+  /// detail-count check — it says nothing about how the root is serialized.
+  /// Every one of its children resolves to a unique SBP path, so exempting it
+  /// would leave the Phase-4 generation input serializing unresolved
+  /// default-constructed sections.
+  void _writeConnect(StringBuffer b, ModelClass cls) {
+    if (!_isProjectionRoot(cls)) return;
+    final bindings = bindingsFor(cls);
+    if (bindings.isEmpty) return;
+
+    b.writeln('    connect: (o, s) {');
+    b.writeln('      final n = o as ${cls.name};');
+    b.writeln('      final b = s as $_sourceRoot;');
+    var guard = 0;
+    for (final entry in bindings.entries) {
+      final field = entry.key;
+      final path = entry.value;
+      if (path.nullable && !field.isNullable) {
+        // The projection slot cannot hold null, so a null SBP section leaves
+        // the default-constructed instance in place (it serializes empty).
+        final tmp = 'v${guard++}';
+        b.writeln('      final $tmp = ${path.expr};');
+        b.writeln('      if ($tmp != null) n.${field.name} = $tmp;');
+      } else {
+        b.writeln('      n.${field.name} = ${path.expr};');
+      }
+    }
+    b.writeln('    },');
+  }
+
+  bool _isProjectionRoot(ModelClass cls) {
+    if (cls.name == _sourceRoot) return false;
+    final basedOn = cls.getAnnotation('Document')?.arguments['basedOn'];
+    return basedOn is List && basedOn.contains(_sourceRoot);
+  }
+
+  /// The projection roots, sorted by name — the thirteen
+  /// `@Document(basedOn: [D00SolutionBlueprint])` views over the master.
+  List<ModelClass> projectionRoots() =>
+      classes.values.where(_isProjectionRoot).toList()
+        ..sort((a, b) => a.name.compareTo(b.name));
+
+  /// The child fields of projection root [cls] that a connect binding must
+  /// cover: its child nodes minus the [_documentLocalTypes].
+  List<ModelField> bindableFields(ModelClass cls) => cls.fields
+      .where(_isChildNode)
+      .where((f) => !_documentLocalTypes.contains(_baseType(f)))
+      .toList();
+
+  /// Resolves each bindable field of projection root [cls] to the Solution
+  /// Blueprint path it projects, by **type first, then member name**.
+  ///
+  /// Type identity carries most of the work: a section class is declared once
+  /// and appears in exactly one place in the master, so a projection child of
+  /// type `T` binds to the single SBP field of type `T`. That resolves without
+  /// depending on the `@MapsTo` / `@DetailedIn` seed/promotion pair being kept
+  /// in step with the roots by hand.
+  ///
+  /// Type alone is not always enough, for two different reasons, and the member
+  /// name settles both:
+  ///
+  ///  - The shared **content-leaf section types** from `tom_specs_core`
+  ///    (`DiagramSection` and its siblings) are not per-section classes — the
+  ///    SBP holds fourteen `DiagramSection`s. A projection carries the section
+  ///    over under the same member name, so
+  ///    `D03InformationModel.objectDiagram` binds to the one SBP
+  ///    `DiagramSection` also called `objectDiagram`.
+  ///  - A **flattened** projection can pull in a class that also appears nested
+  ///    under one of its own siblings. `D10QualityAcceptancePlan` holds both an
+  ///    `acceptanceCriteriaSummary` and the flattened `acceptanceCriteria`, and
+  ///    the summary contains an `AcceptanceCriteriaList` of its own; the name
+  ///    picks the flattened acceptance-plan list rather than the nested detail.
+  ///
+  /// A field left unresolved is omitted from the emitted binding — and caught
+  /// by the coverage test rather than shipped as a silent gap.
+  Map<ModelField, SbpPath> bindingsFor(ModelClass cls) {
+    final resolved = <ModelField, SbpPath>{};
+    for (final f in bindableFields(cls)) {
+      final candidates = _sbpPaths[_typeKey(f)] ?? const <SbpPath>[];
+      final match = candidates.length == 1
+          ? candidates.single
+          : _singleWhereMember(candidates, f.name);
+      if (match != null) resolved[f] = match;
+    }
+    // Emit in declaration order so the generated binding reads like the root.
+    return {
+      for (final f in bindableFields(cls))
+        if (resolved.containsKey(f)) f: resolved[f]!,
+    };
+  }
+
+  /// The one candidate whose own member name is [member], or `null` when none
+  /// or several are.
+  SbpPath? _singleWhereMember(List<SbpPath> candidates, String member) {
+    final named = [
+      for (final c in candidates)
+        if (c.member == member) c,
+    ];
+    return named.length == 1 ? named.single : null;
+  }
+
+  /// Every field reachable from [_sourceRoot] by a **static** member chain,
+  /// indexed by type key. List fields are indexed but not descended into —
+  /// there is no stable field path through a list element.
+  late final Map<String, List<SbpPath>> _sbpPaths = _indexSbpPaths();
+
+  Map<String, List<SbpPath>> _indexSbpPaths() {
+    final index = <String, List<SbpPath>>{};
+
+    void walk(
+      ModelClass cls,
+      String path,
+      String expr,
+      bool nullable,
+      Set<String> seen,
+    ) {
+      for (final f in cls.fields.where(_isChildNode)) {
+        final childPath = path.isEmpty ? f.name : '$path.${f.name}';
+        final childExpr = '$expr${nullable ? '?' : ''}.${f.name}';
+        final childNullable = nullable || f.isNullable;
+        index
+            .putIfAbsent(_typeKey(f), () => [])
+            .add(SbpPath(childPath, childExpr, childNullable));
+        if (f.isList) continue;
+        final target = _baseType(f);
+        final targetClass = classes[target];
+        if (targetClass == null || seen.contains(target)) continue;
+        walk(targetClass, childPath, childExpr, childNullable, {
+          ...seen,
+          target,
+        });
+      }
+    }
+
+    final root = classes[_sourceRoot];
+    if (root != null) walk(root, '', 'b', false, {_sourceRoot});
+    return index;
+  }
+
+  /// The key a field is matched on: its element type for a list, else its own
+  /// type with the nullable suffix stripped.
+  String _typeKey(ModelField f) =>
+      f.isList ? 'List<${f.listElementTypeName}>' : _baseType(f);
+
+  String _baseType(ModelField f) => f.typeName.replaceAll('?', '');
 
   String _slotExpr(ModelField f) {
     final id = _slotSectionId(f);

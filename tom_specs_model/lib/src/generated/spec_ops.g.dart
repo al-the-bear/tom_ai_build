@@ -4702,6 +4702,18 @@ void registerSpecOps() {
         ..migrationConsiderations = n.migrationConsiderations;
     },
     yamlScalar: (o) => (o as D01CurrentLandscapeAssessment).content,
+    connect: (o, s) {
+      final n = o as D01CurrentLandscapeAssessment;
+      final b = s as D00SolutionBlueprint;
+      n.existingSystemsLandscape = b.currentLandscape.existingSystemsLandscape;
+      n.currentBusinessProcesses = b.currentLandscape.currentBusinessProcesses;
+      n.painPointsAndGaps = b.currentLandscape.painPointsAndGaps;
+      n.currentDataLandscape = b.currentLandscape.currentDataLandscape;
+      n.operationalMetrics = b.currentLandscape.operationalMetrics;
+      n.currentStateRisks = b.currentLandscape.currentStateRisks;
+      n.replacementInventory = b.introductionAndScope.systemsToReplace.replacementInventory;
+      n.migrationConsiderations = b.introductionAndScope.systemsToReplace.migrationConsiderations;
+    },
   ));
   SpecRegistry.register(D02TargetOperatingModel, SpecClassOps(
     slots: (o) {
@@ -4737,6 +4749,20 @@ void registerSpecOps() {
         ..processMetricsAndKpis = n.processMetricsAndKpis;
     },
     yamlScalar: (o) => (o as D02TargetOperatingModel).content,
+    connect: (o, s) {
+      final n = o as D02TargetOperatingModel;
+      final b = s as D00SolutionBlueprint;
+      n.processVision = b.targetOperatingModelConcept.organizationAndProcess.businessProcessDescriptions.processVision;
+      n.designPrinciples = b.targetOperatingModelConcept.organizationAndProcess.businessProcessDescriptions.designPrinciples;
+      n.processCatalog = b.targetOperatingModelConcept.organizationAndProcess.businessProcessDescriptions.processCatalog;
+      n.processOverviewDiagram = b.targetOperatingModelConcept.organizationAndProcess.businessProcessDescriptions.processOverviewDiagram;
+      n.improvementSummary = b.targetOperatingModelConcept.organizationAndProcess.businessProcessDescriptions.improvementSummary;
+      n.processRelationships = b.targetOperatingModelConcept.organizationAndProcess.businessProcessDescriptions.processRelationships;
+      n.detailedWorkflows = b.targetOperatingModelConcept.organizationAndProcess.businessProcessDescriptions.detailedWorkflows;
+      n.crossProcessAnalysis = b.targetOperatingModelConcept.organizationAndProcess.businessProcessDescriptions.crossProcessAnalysis;
+      n.exceptionHandling = b.targetOperatingModelConcept.organizationAndProcess.businessProcessDescriptions.exceptionHandling;
+      n.processMetricsAndKpis = b.targetOperatingModelConcept.organizationAndProcess.businessProcessDescriptions.processMetricsAndKpis;
+    },
   ));
   SpecRegistry.register(D03InformationModel, SpecClassOps(
     slots: (o) {
@@ -4788,6 +4814,28 @@ void registerSpecOps() {
         ..schemaVersioningAndMigration = n.schemaVersioningAndMigration;
     },
     yamlScalar: (o) => (o as D03InformationModel).content,
+    connect: (o, s) {
+      final n = o as D03InformationModel;
+      final b = s as D00SolutionBlueprint;
+      n.entities = b.informationAndDataModel.dataModel.entities;
+      n.entityRelationships = b.informationAndDataModel.dataModel.entityRelationships;
+      n.erDiagram = b.informationAndDataModel.dataModelFollowUp.erDiagram;
+      n.dataClassification = b.informationAndDataModel.dataModel.dataClassification;
+      n.objectCatalog = b.informationAndDataModel.businessObjectModel.objects;
+      n.objectDiagram = b.informationAndDataModel.businessObjectModel.objectDiagram;
+      n.functionDecomposition = b.informationAndDataModel.functionModel.functions;
+      n.functionToDataMatrix = b.informationAndDataModel.functionModel.matrixEntries;
+      n.businessRules = b.informationAndDataModel.functionModel.businessRules;
+      n.dataDictionary = b.informationAndDataModel.dataModel.dataDictionary;
+      n.validationConstraints = b.informationAndDataModel.dataModel.validationConstraints;
+      n.integrityConstraints = b.informationAndDataModel.dataModel.integrityConstraints;
+      n.domainEnumRegistry = b.informationAndDataModel.domainEnumRegistry;
+      n.errorCodeRegistry = b.informationAndDataModel.errorCodeRegistry;
+      n.resultEnvelope = b.informationAndDataModel.resultEnvelope;
+      n.messageKeyRegistry = b.informationAndDataModel.messageKeyRegistry;
+      n.serverOperationRegistry = b.informationAndDataModel.serverOperationRegistry;
+      n.schemaVersioningAndMigration = b.informationAndDataModel.schemaVersioningAndMigration;
+    },
   ));
   SpecRegistry.register(D04RequirementsSpecification, SpecClassOps(
     slots: (o) {
@@ -4817,6 +4865,17 @@ void registerSpecOps() {
         ..requirementCoverage = n.requirementCoverage;
     },
     yamlScalar: (o) => (o as D04RequirementsSpecification).content,
+    connect: (o, s) {
+      final n = o as D04RequirementsSpecification;
+      final b = s as D00SolutionBlueprint;
+      n.functionalRequirements = b.introductionAndScope.requirements.functionalRequirements;
+      n.technicalRequirements = b.introductionAndScope.requirements.technicalRequirements;
+      n.securityRequirements = b.introductionAndScope.requirements.securityRequirements;
+      n.organizationalRequirements = b.introductionAndScope.requirements.organizationalRequirements;
+      n.traceabilityMatrix = b.introductionAndScope.requirements.traceabilityMatrix;
+      n.requirementRelationships = b.introductionAndScope.requirements.requirementRelationships;
+      n.requirementCoverage = b.introductionAndScope.requirements.requirementCoverage;
+    },
   ));
   SpecRegistry.register(D05InteractionScenarios, SpecClassOps(
     slots: (o) {
@@ -4846,6 +4905,17 @@ void registerSpecOps() {
         ..useCaseTraceability = n.useCaseTraceability;
     },
     yamlScalar: (o) => (o as D05InteractionScenarios).content,
+    connect: (o, s) {
+      final n = o as D05InteractionScenarios;
+      final b = s as D00SolutionBlueprint;
+      n.processStepsOverview = b.targetOperatingModelConcept.processStepsAndActorInteractions.overview;
+      n.actorOverview = b.targetOperatingModelConcept.processStepsAndActorInteractions.actorOverview;
+      n.interactionCatalog = b.targetOperatingModelConcept.processStepsAndActorInteractions.interactionCatalog;
+      n.keyScenarios = b.targetOperatingModelConcept.processStepsAndActorInteractions.keyScenarios;
+      n.actorRelationshipDiagram = b.targetOperatingModelConcept.processStepsAndActorInteractions.actorRelationshipDiagram;
+      n.endToEndTestScenarios = b.targetOperatingModelConcept.processStepsAndActorInteractions.endToEndTestScenarios;
+      n.useCaseTraceability = b.targetOperatingModelConcept.processStepsAndActorInteractions.useCaseTraceability;
+    },
   ));
   SpecRegistry.register(D06ArchitectureTechnologySpecification, SpecClassOps(
     slots: (o) {
@@ -4885,6 +4955,22 @@ void registerSpecOps() {
         ..translationRequirements = n.translationRequirements;
     },
     yamlScalar: (o) => (o as D06ArchitectureTechnologySpecification).content,
+    connect: (o, s) {
+      final n = o as D06ArchitectureTechnologySpecification;
+      final b = s as D00SolutionBlueprint;
+      n.basicTechnicalRequirements = b.solutionArchitectureAndTechnology.technicalFramework.basicRequirements;
+      n.softwareDesignRequirements = b.solutionArchitectureAndTechnology.technicalFramework.softwareDesign;
+      n.standardSoftwareRequirements = b.solutionArchitectureAndTechnology.technicalFramework.standardSoftware;
+      n.hardwareRequirements = b.solutionArchitectureAndTechnology.technicalFramework.hardware;
+      n.operationsRequirements = b.solutionArchitectureAndTechnology.technicalFramework.operations;
+      n.communicationRequirements = b.solutionArchitectureAndTechnology.technicalFramework.communication;
+      n.systemOperationAndMonitoring = b.solutionArchitectureAndTechnology.technicalFramework.systemOperation;
+      n.technicalSecurityRequirements = b.solutionArchitectureAndTechnology.technicalFramework.security;
+      n.systemArchitecture = b.solutionArchitectureAndTechnology.technicalFramework.systemArchitecture;
+      n.componentsToUse = b.solutionArchitectureAndTechnology.architectureFollowUp.componentsToUse;
+      n.technicalEnvironment = b.introductionAndScope.operatingEnvironment.technicalEnvironment;
+      n.translationRequirements = b.requirements.requirementsFollowUp.localizationTranslation.translationRequirements;
+    },
   ));
   SpecRegistry.register(D07IntegrationInterfaceSpecification, SpecClassOps(
     slots: (o) {
@@ -4920,6 +5006,20 @@ void registerSpecOps() {
         ..crossBoundaryErrorHandling = n.crossBoundaryErrorHandling;
     },
     yamlScalar: (o) => (o as D07IntegrationInterfaceSpecification).content,
+    connect: (o, s) {
+      final n = o as D07IntegrationInterfaceSpecification;
+      final b = s as D00SolutionBlueprint;
+      n.externalInterfaces = b.introductionAndScope.systemBoundaries.externalInterfaces;
+      n.outOfScope = b.introductionAndScope.systemBoundaries.outOfScope;
+      n.boundaryAssumptions = b.introductionAndScope.systemBoundaries.assumptions;
+      n.systemInventory = b.introductionAndScope.systemBoundaries.systemLandscapeInventory;
+      n.interactionPatterns = b.introductionAndScope.systemBoundaries.boundaryInteractionPatterns;
+      n.testingStrategy = b.introductionAndScope.systemBoundaries.interactionTestingStrategy;
+      n.dependencyAnalysis = b.introductionAndScope.systemBoundaries.interactionDependencyAnalysis;
+      n.migrationInteractions = b.introductionAndScope.systemBoundaries.migrationInteractions;
+      n.operationalConsiderations = b.introductionAndScope.systemBoundaries.operationalConsiderations;
+      n.crossBoundaryErrorHandling = b.introductionAndScope.systemBoundaries.crossBoundaryErrorHandling;
+    },
   ));
   SpecRegistry.register(D08SecurityAccessSpecification, SpecClassOps(
     slots: (o) {
@@ -4953,6 +5053,19 @@ void registerSpecOps() {
         ..complianceReporting = n.complianceReporting;
     },
     yamlScalar: (o) => (o as D08SecurityAccessSpecification).content,
+    connect: (o, s) {
+      final n = o as D08SecurityAccessSpecification;
+      final b = s as D00SolutionBlueprint;
+      n.userManagement = b.securityAndAccessModel.accessControl.userManagement;
+      n.identificationAndAuthentication = b.securityAndAccessModel.accessControl.authentication;
+      n.resourceProtection = b.securityAndAccessModel.accessControl.resourceProtection;
+      n.userAuthorization = b.securityAndAccessModel.accessControl.authorization;
+      n.sensitiveDataEncryption = b.securityAndAccessModel.securityOperations.encryption;
+      n.auditAndLogging = b.securityAndAccessModel.auditAndLogging;
+      n.roleMatrix = b.securityAndAccessModel.accessControl.roleMatrix;
+      n.complianceFramework = b.securityAndAccessModel.compliance.complianceFramework;
+      n.complianceReporting = b.securityAndAccessModel.securityOperations.complianceReporting;
+    },
   ));
   SpecRegistry.register(D09ExperienceDesignSpecification, SpecClassOps(
     slots: (o) {
@@ -4994,6 +5107,23 @@ void registerSpecOps() {
         ..wireframesAndMockups = n.wireframesAndMockups;
     },
     yamlScalar: (o) => (o as D09ExperienceDesignSpecification).content,
+    connect: (o, s) {
+      final n = o as D09ExperienceDesignSpecification;
+      final b = s as D00SolutionBlueprint;
+      n.designVision = b.experienceAndInterfaceDesign.designFollowUp.designVision;
+      n.screens = b.experienceAndInterfaceDesign.experienceCodeSpecs.screens;
+      n.screenFlow = b.experienceAndInterfaceDesign.experienceCodeSpecs.screenFlow;
+      n.printLayout = b.experienceAndInterfaceDesign.designFollowUp.printLayout;
+      n.reportDefinitions = b.experienceAndInterfaceDesign.reportDefinitions;
+      n.errorHandling = b.experienceAndInterfaceDesign.experienceCodeSpecs.errorHandling;
+      n.userAssistance = b.experienceAndInterfaceDesign.designFollowUp.userAssistance;
+      n.accessibility = b.experienceAndInterfaceDesign.designFollowUp.accessibility;
+      n.responsiveDesign = b.experienceAndInterfaceDesign.experienceCodeSpecs.responsiveDesign;
+      n.uiComponents = b.experienceAndInterfaceDesign.experienceCodeSpecs.uiComponents;
+      n.languageCountrySelection = b.experienceAndInterfaceDesign.localizationFollowUp.multiLanguageSupport.languageCountrySelection;
+      n.prototype = b.experienceAndInterfaceDesign.designFollowUp.prototype;
+      n.wireframesAndMockups = b.experienceAndInterfaceDesign.designFollowUp.wireframesAndMockups;
+    },
   ));
   SpecRegistry.register(D10QualityAcceptancePlan, SpecClassOps(
     slots: (o) {
@@ -5047,6 +5177,29 @@ void registerSpecOps() {
         ..warranty = n.warranty;
     },
     yamlScalar: (o) => (o as D10QualityAcceptancePlan).content,
+    connect: (o, s) {
+      final n = o as D10QualityAcceptancePlan;
+      final b = s as D00SolutionBlueprint;
+      n.qualityFramework = b.qualityAndAcceptanceModel.systemQualityGoals.framework;
+      n.functionalSuitability = b.qualityAndAcceptanceModel.systemQualityGoals.functionalSuitability;
+      n.performanceEfficiency = b.qualityAndAcceptanceModel.systemQualityGoals.performanceEfficiency;
+      n.compatibility = b.qualityAndAcceptanceModel.systemQualityGoals.compatibility;
+      n.interactionCapability = b.qualityAndAcceptanceModel.systemQualityGoals.interactionCapability;
+      n.reliability = b.qualityAndAcceptanceModel.systemQualityGoals.reliability;
+      n.security = b.qualityAndAcceptanceModel.systemQualityGoals.security;
+      n.maintainability = b.qualityAndAcceptanceModel.systemQualityGoals.maintainability;
+      n.flexibility = b.qualityAndAcceptanceModel.systemQualityGoals.flexibility;
+      n.documentationQualityCriteria = b.qualityAndAcceptanceModel.systemQualityGoals.documentationQuality;
+      n.qualityPrioritization = b.qualityAndAcceptanceModel.systemQualityGoals.prioritization;
+      n.acceptanceCriteriaSummary = b.qualityAndAcceptanceModel.systemQualityGoals.acceptanceCriteria;
+      n.testStrategy = b.qualityAndAcceptanceModel.systemQualityGoals.testStrategy;
+      n.acceptanceCriteria = b.qualityAndAcceptanceModel.deliveryAcceptance.acceptancePlan.acceptanceCriteria;
+      n.acceptanceProcess = b.qualityAndAcceptanceModel.deliveryAcceptance.acceptancePlan.acceptanceProcess;
+      n.userAcceptanceTesting = b.qualityAndAcceptanceModel.deliveryAcceptance.acceptancePlan.userAcceptanceTesting;
+      n.defectResolution = b.qualityAndAcceptanceModel.deliveryAcceptance.acceptancePlan.defectResolution;
+      n.signOffProcess = b.qualityAndAcceptanceModel.deliveryAcceptance.acceptancePlan.signOffProcess;
+      n.warranty = b.qualityAndAcceptanceModel.deliveryAcceptance.acceptancePlan.warranty;
+    },
   ));
   SpecRegistry.register(D11DeliveryRoadmap, SpecClassOps(
     slots: (o) {
@@ -5080,6 +5233,19 @@ void registerSpecOps() {
         ..upgradeCycleFramework = n.upgradeCycleFramework;
     },
     yamlScalar: (o) => (o as D11DeliveryRoadmap).content,
+    connect: (o, s) {
+      final n = o as D11DeliveryRoadmap;
+      final b = s as D00SolutionBlueprint;
+      n.stagingStrategy = b.deliveryTransitionAndRollout.systemStagePlan.strategy;
+      n.stageOverview = b.deliveryTransitionAndRollout.systemStagePlan.stageOverview;
+      n.stages = b.deliveryTransitionAndRollout.systemStagePlan.stages;
+      n.featurePrioritization = b.deliveryTransitionAndRollout.systemStagePlan.featurePrioritization;
+      n.dataMigrationStrategy = b.deliveryTransitionAndRollout.systemStagePlan.dataMigration;
+      n.gateCriteria = b.deliveryTransitionAndRollout.systemStagePlan.governance.phaseGateReviews;
+      n.decisionProcesses = b.deliveryTransitionAndRollout.systemStagePlan.governance.decisionPoints;
+      n.initialDevelopmentFlow = b.deliveryTransitionAndRollout.systemStagePlan.initialDevelopmentFlow;
+      n.upgradeCycleFramework = b.deliveryTransitionAndRollout.systemStagePlan.upgradeCycleFramework;
+    },
   ));
   SpecRegistry.register(D12TransitionRolloutPlan, SpecClassOps(
     slots: (o) {
@@ -5119,6 +5285,22 @@ void registerSpecOps() {
         ..warrantyAndSupport = n.warrantyAndSupport;
     },
     yamlScalar: (o) => (o as D12TransitionRolloutPlan).content,
+    connect: (o, s) {
+      final n = o as D12TransitionRolloutPlan;
+      final b = s as D00SolutionBlueprint;
+      n.localizationProcess = b.deliveryTransitionAndRollout.localizationTranslationProcess.localizationProcess;
+      n.translationProcess = b.deliveryTransitionAndRollout.localizationTranslationProcess.translationProcess;
+      n.userDocumentation = b.requirements.requirementsFollowUp.informationForUse.userDocumentation;
+      n.trainingDeliverables = b.requirements.requirementsFollowUp.trainingEnablement.trainingDeliverables;
+      n.rolloutPlan = b.deliveryTransitionAndRollout.systemRollout.rolloutPlan;
+      n.migrationPlan = b.deliveryTransitionAndRollout.systemRollout.migrationPlan;
+      n.userManuals = b.deliveryTransitionAndRollout.systemRollout.userManuals;
+      n.trainingMaterials = b.deliveryTransitionAndRollout.systemRollout.trainingMaterials;
+      n.pilotPlan = b.deliveryTransitionAndRollout.systemRollout.pilotPlan;
+      n.cutoverProcedures = b.deliveryTransitionAndRollout.systemRollout.cutoverProcedures;
+      n.knowledgeTransfer = b.deliveryTransitionAndRollout.systemRollout.knowledgeTransfer;
+      n.warrantyAndSupport = b.deliveryTransitionAndRollout.systemRollout.warrantyAndSupport;
+    },
   ));
   SpecRegistry.register(D13CodeSpecsProjection, SpecClassOps(
     slots: (o) {
@@ -5162,6 +5344,24 @@ void registerSpecOps() {
         ..experienceCodeSpecs = n.experienceCodeSpecs;
     },
     yamlScalar: (o) => (o as D13CodeSpecsProjection).content,
+    connect: (o, s) {
+      final n = o as D13CodeSpecsProjection;
+      final b = s as D00SolutionBlueprint;
+      n.domainEnumRegistry = b.informationAndDataModel.domainEnumRegistry;
+      n.errorCodeRegistry = b.informationAndDataModel.errorCodeRegistry;
+      n.resultEnvelope = b.informationAndDataModel.resultEnvelope;
+      n.messageKeyRegistry = b.informationAndDataModel.messageKeyRegistry;
+      n.notificationModel = b.introductionAndScope.systemDescription.userInteractionModel.notificationModel;
+      n.dataModel = b.informationAndDataModel.dataModel;
+      n.technicalFramework = b.solutionArchitectureAndTechnology.technicalFramework;
+      n.accessControl = b.securityAndAccessModel.accessControl;
+      n.auditAndLogging = b.securityAndAccessModel.auditAndLogging;
+      n.reportDefinitions = b.experienceAndInterfaceDesign.reportDefinitions;
+      n.schemaVersioningAndMigration = b.informationAndDataModel.schemaVersioningAndMigration;
+      n.serverOperationRegistry = b.informationAndDataModel.serverOperationRegistry;
+      n.processStepsAndActorInteractions = b.targetOperatingModelConcept.processStepsAndActorInteractions;
+      n.experienceCodeSpecs = b.experienceAndInterfaceDesign.experienceCodeSpecs;
+    },
   ));
   SpecRegistry.register(DashboardEntry, SpecClassOps(
     slots: (o) {
