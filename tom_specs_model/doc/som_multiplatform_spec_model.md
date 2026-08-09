@@ -477,6 +477,9 @@ language mirrors it:
   (unparsable text → no value), writes are strict (a wrong-typed value or an
   out-of-domain enum name is an error), and enums travel as validated constant
   *names* rather than enum values.
+- `spec_text_pattern.dart` — `SomTextPattern`, the **portable pattern subset**
+  the query facility matches with (below). Hand-written in each language rather
+  than delegated to the platform regex engine.
 - `spec_query.dart` — the query facility (§15).
 - `spec_node_creation.dart` — the constrained-creation gate (§15).
 
@@ -488,6 +491,54 @@ graph (`tom_specs_editor_specification.md` §4.4). They stay dependency-free of
 any UI framework like the rest of the runtime, but they are **not part of the
 mirrored surface**: no other language ships them, because no other language has
 a renderer to keep aligned.
+
+### The query tier
+
+The query surface (§15) reports **spans** — `matchSpans`, offsets into a
+snippet — and a projection order, so it is not enough for nine runtimes to agree
+on *which* nodes match. Four rules make the reported detail identical too, and
+each exists because the obvious per-language implementation diverges.
+
+**Patterns are a portable subset, not the platform regex.** `regex: true`
+compiles with `SomTextPattern`, a hand-written matcher transcribed into all nine
+runtimes: literals, `.`, `*`, `+`, `?`, `[...]` classes with ranges and negation,
+`^`/`$` anchors over the whole text (never per line), and `\` escaping a
+metacharacter. Greedy quantifiers give back until the tail fits. Delegating to
+the platform engine was rejected on two independent grounds: Go's RE2 is
+leftmost-**longest** where every other candidate backtracks leftmost-**first**,
+so the same pattern legitimately yields different spans; and the Rust and C
+runtimes are charter-bound to std-only / dependency-free, which rules out a
+shared engine even if one existed.
+
+Anything outside the subset is **rejected at compile** with a `SomPatternError`
+naming the pattern and the reason — including `\w`, `\d`, `\s`, `\b`, `\n` and
+backreferences. Reading `\w` as a literal `w` is the trap this rule exists for:
+`slip\w+` would then match nothing, report nothing, and look like a clean run.
+Escaping a non-alphanumeric (`\.`, `\(`) still writes it literally, which is the
+only escape a portable pattern needs.
+
+**Offsets are UTF-16 code units.** The reference indexes natively in code units,
+so every port converts to them explicitly rather than iterating its own string
+unit — code points in Python, Go and Rust, bytes in C. All the plausible
+alternatives agree with code units across ASCII and part company above it, which
+makes this precisely the kind of difference that passes every ASCII test and is
+wrong in production. It follows that `.` consumes one code *unit*: against a
+lone surrogate pair it matches twice, once per half.
+
+**Headline resolution is a fixed fallback chain**: the stored headline, then the
+field's doc comment, then the class's, then the root description. A runtime that
+stops at the first two answers identically on every populated document and
+differently on an empty one.
+
+**Form fields project in model declaration order.** The order is observable — it
+decides which string a text query reports as its snippet — so it has to be a
+property of the model, which all nine runtimes hold identically. Storage order is
+not: the same document reaches memory field-by-field when authored but
+alphabetically when loaded from a saved state, which would make the projection
+depend on how the document arrived. A field the document holds but the model
+does not declare is still projected (dropping a stored value from a text search
+would hide it) but **last and sorted**, so an undeclared field cannot make the
+order arbitrary either.
 
 ### The instance tier
 
@@ -1038,6 +1089,15 @@ golden reference.
 The generic runtime carries the surface a sandboxed scripting layer needs: query,
 constrained creation, and (Dart) D4rt bridging.
 
+Query and constrained creation are **nine-language**, like everything else in §9
+that is not explicitly marked Dart-only; the four rules that make their reported
+detail identical across languages — the portable pattern subset, UTF-16 offsets,
+headline resolution and form-field order — are in §9's query tier. Three corpus
+tables hold them to it: `pattern_cases.json` (the matcher alone),
+`query_cases.json` + `projection_cases.json` + `cursor_cases.json` (the query
+facility) and `node_creation_cases.json` + `node_creation_script.json` (the
+creation gate).
+
 - **Query / grep.** `spec_query.dart` provides a lexical/structural query over a
   document: `SpecQuery` (AND-combined text/regex/case-insensitive match over
   content + form fields + headlines, kind set, class name, `@SectionId`
@@ -1045,7 +1105,9 @@ constrained creation, and (Dart) D4rt bridging.
   state), `SpecQueryEngine.query()`, and a lazy `SpecQueryCursor`
   (`next`/`take`/`count`/`toList`). The cursor snapshots structure at creation and
   re-validates value + path liveness on each step, so it is stable against
-  concurrent edits. It is exact and embedding-free (no model calls).
+  concurrent edits. It is exact and embedding-free (no model calls). A `regex`
+  query compiles eagerly, so a pattern outside the portable subset is refused at
+  `query()` rather than silently matching nothing.
 - **Meta-model-constrained node creation.** `spec_node_creation.dart` provides
   `checkAddNode(model, document, parentPath, childSegment, {itemId})` plus
   `SpecNodeCreator.add(...)` (applies the check, mutates only on success). Only

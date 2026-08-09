@@ -82,6 +82,33 @@ export {
 export { SpecEditor } from './spec_editor';
 export type { SomValue } from './spec_editor';
 
+// portable text pattern (regex-free matcher, SOM §9)
+export {
+  SpecMatchSpan,
+  SomPatternError,
+  SomTextPattern,
+} from './spec_text_pattern';
+
+// lexical/structural query engine (SOM §9)
+export {
+  SpecStateFilter,
+  SpecNodeProjection,
+  SpecQueryMatch,
+  SpecQuery,
+  SpecQueryEngine,
+  SpecQueryCursor,
+} from './spec_query';
+export type { SpecStateFilterValue, SpecQueryInit } from './spec_query';
+
+// constrained node creation (SOM §9)
+export {
+  SpecCreationCode,
+  SpecCreationError,
+  checkAddNode,
+  SpecNodeCreator,
+} from './spec_node_creation';
+export type { SpecCreationCodeValue } from './spec_node_creation';
+
 // validator
 export {
   SpecValidationCode,

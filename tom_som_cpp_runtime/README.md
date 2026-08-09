@@ -24,6 +24,9 @@ codecs rely on it).
 | `spec_typed_values.cpp` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
 | `spec_editor.cpp` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
 | `spec_validator.cpp` | Validates a document's values against the model. |
+| `spec_text_pattern.cpp` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (`std::regex` is a different grammar with locale-sensitive folding). |
+| `spec_query.cpp` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
+| `spec_node_creation.cpp` | The constrained node-creation gate (`checkAddNode`, `SpecNodeCreator::add`) — a document may only grow in ways the model permits. |
 | `spec_document_yaml.cpp` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown.cpp` | Meta-data-driven Markdown import/export codec (SOM §8 DocScanner route). |
 | `som_facade.cpp` | Editing-facade base types (`SomNode`, `SomList`, `joinPath`, `checkSomModelVersion`) for the generated `tom_som_cpp_v0`. |

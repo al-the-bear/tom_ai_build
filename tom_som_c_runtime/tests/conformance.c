@@ -15,7 +15,10 @@
  *   - validation cases;
  *   - the imperative operations script;
  *   - the generic editing script (SpecEditor, YRD7);
- *   - the SOM §14 DocSpecs tier (one case per violation rule).
+ *   - the SOM §14 DocSpecs tier (one case per violation rule);
+ *   - the portable text-pattern subset (SOM §9);
+ *   - the lexical/structural query, its cursor and the node projection;
+ *   - the meta-model-validated node-creation gate and its creator.
  *
  * The corpus directory is argv[1], defaulting to
  * "../tom_som_conformance/corpus" relative to the runner's cwd. Exit 0 == all
@@ -1290,6 +1293,665 @@ static void test_docspecs(Checker *c) {
   docspecs_schema_free(schema);
 }
 
+/* ---- the query surfaces (llm_and_d4rt_tools.md §5–6, SOM §9/§15) -------- */
+
+/* The fixture document every query/creation group starts from — the same one
+ * the Dart reference's `_buildDocument()` produces, which is exactly what
+ * `state.json` records (list sequence counters included), so re-loading it is a
+ * genuinely fresh build and not a replay of an earlier group's mutations.
+ * `spec_document_load_json` copies, so the JSON behind it is released here. */
+static void fresh_document(SpecDocument *doc) {
+  SomJson *sj = read_json("state.json");
+  DocumentJson state;
+  document_json_from_json(sj, &state);
+  doc_from_state(doc, &state);
+  document_json_free(&state);
+  som_json_free(sj);
+}
+
+/* Null and the empty string are different answers here — an absent headline is
+ * not a blank one — so they must not both render as "". This port spells the
+ * other ports' `null` as `""`, so the marker stands in for both. */
+static const char *const K_NULL_TEXT = "<null>";
+
+static const char *opt_text(const char *v) {
+  return (v == NULL || v[0] == '\0') ? K_NULL_TEXT : v;
+}
+
+static const char *json_opt_text(const SomJson *v) {
+  const char *s = som_json_as_str(v);
+  return s == NULL ? K_NULL_TEXT : s;
+}
+
+/* `start-end,start-end, …` — one string per side, so an extra, missing or
+ * reordered span is as visible as a wrong offset. Owned result. */
+static char *spans_text(const SpecMatchSpanList *spans) {
+  SomBuf b;
+  som_buf_init(&b);
+  for (size_t i = 0; i < spans->len; i++) {
+    if (i > 0) som_buf_putc(&b, ',');
+    char *s = som_format_i64(spans->items[i].start);
+    char *e = som_format_i64(spans->items[i].end);
+    som_buf_puts(&b, s);
+    som_buf_putc(&b, '-');
+    som_buf_puts(&b, e);
+    free(s);
+    free(e);
+  }
+  return som_buf_take(&b);
+}
+
+/* The corpus writes spans as `[[start, end], …]`. */
+static char *json_spans_text(const SomJson *arr) {
+  SomBuf b;
+  som_buf_init(&b);
+  size_t n = som_json_array_len(arr);
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *pair = som_json_array_at(arr, i);
+    long long s = -1, e = -1;
+    som_json_as_i64(som_json_array_at(pair, 0), &s);
+    som_json_as_i64(som_json_array_at(pair, 1), &e);
+    if (i > 0) som_buf_putc(&b, ',');
+    char *ss = som_format_i64(s);
+    char *es = som_format_i64(e);
+    som_buf_puts(&b, ss);
+    som_buf_putc(&b, '-');
+    som_buf_puts(&b, es);
+    free(ss);
+    free(es);
+  }
+  return som_buf_take(&b);
+}
+
+/* SOM §9's portable pattern subset: every match case's spans, and every
+ * rejection case's refusal to compile at all. `regex: false` exercises the
+ * literal constructor, where `.` `*` `[` are plain characters. */
+static void test_text_pattern(Checker *c) {
+  SomJson *cases = read_json("pattern_cases.json");
+  size_t n = som_json_array_len(cases);
+  size_t match_cases = 0, rejection_cases = 0, literal_cases = 0;
+
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *k = som_json_array_at(cases, i);
+    const char *source = som_json_str_or(k, "pattern");
+    int regex = som_json_bool_or(k, "regex");
+    int case_insensitive = som_json_bool_or(k, "caseInsensitive");
+    char *shown = som_json_encode_str(source);
+    char tag[1024];
+    snprintf(tag, sizeof(tag), "pattern[%zu] %s", i, shown);
+    free(shown);
+
+    SomPatternError perr;
+    som_pattern_error_init(&perr);
+    SomTextPattern pattern;
+
+    if (som_json_bool_or(k, "error")) {
+      rejection_cases++;
+      /* A malformed pattern must fail *at compile*, not match nothing later. */
+      char t[1100];
+      snprintf(t, sizeof(t), "%s.rejected", tag);
+      if (spec_text_pattern_compile(&pattern, source, case_insensitive, &perr)) {
+        check(c, t, 0, "compiled without error");
+        spec_text_pattern_free(&pattern);
+      } else {
+        check(c, t, perr.pattern != NULL && strcmp(perr.pattern, source) == 0,
+              perr.pattern != NULL ? perr.pattern : "(no pattern)");
+      }
+      som_pattern_error_free(&perr);
+      continue;
+    }
+
+    match_cases++;
+    if (regex) {
+      char t[1100];
+      snprintf(t, sizeof(t), "%s.compiles", tag);
+      if (!spec_text_pattern_compile(&pattern, source, case_insensitive,
+                                     &perr)) {
+        check(c, t, 0, perr.message != NULL ? perr.message : "(no message)");
+        som_pattern_error_free(&perr);
+        continue;
+      }
+    } else {
+      literal_cases++;
+      spec_text_pattern_literal(&pattern, source, case_insensitive);
+    }
+    som_pattern_error_free(&perr);
+
+    const char *text = som_json_str_or(k, "text");
+    SpecMatchSpanList spans;
+    spec_match_span_list_init(&spans);
+    spec_text_pattern_all_matches(&pattern, text, &spans);
+    char *got = spans_text(&spans);
+    char *want = json_spans_text(som_json_get(k, "spans"));
+    char t[1100], detail[2048];
+    snprintf(t, sizeof(t), "%s.spans", tag);
+    snprintf(detail, sizeof(detail), "%s != %s", got, want);
+    check(c, t, strcmp(got, want) == 0, detail);
+    snprintf(t, sizeof(t), "%s.hasMatch", tag);
+    check(c, t, spec_text_pattern_has_match(&pattern, text) == (want[0] != '\0'),
+          "");
+    free(got);
+    free(want);
+    spec_match_span_list_free(&spans);
+    spec_text_pattern_free(&pattern);
+  }
+
+  /* A table of only-matches (or only-rejections) would leave half the contract
+   * unexercised while still reporting green. */
+  char detail[64];
+  snprintf(detail, sizeof(detail), "%zu", match_cases);
+  check(c, "pattern.hasMatchCases", match_cases > 0, detail);
+  snprintf(detail, sizeof(detail), "%zu", rejection_cases);
+  check(c, "pattern.hasRejectionCases", rejection_cases > 0, detail);
+  snprintf(detail, sizeof(detail), "%zu", literal_cases);
+  check(c, "pattern.hasLiteralCases", literal_cases > 0, detail);
+
+  som_json_free(cases);
+}
+
+/* Decodes one corpus query. An **absent** key leaves the dimension unset — it
+ * must never become a default that happens to match, which is why every string
+ * dimension is read through `som_json_as_str(som_json_get(...))` (NULL when
+ * absent) rather than through `som_json_str_or` (which would yield `""`, a
+ * meaningful "set to empty").
+ *
+ * The query *borrows*: its strings point into the parsed corpus JSON and its
+ * `kinds` at the caller-owned `*kinds` (always initialised, so the caller frees
+ * it unconditionally). Both must outlive every cursor built from `*out`. */
+static void query_from_json(const SomJson *q, SpecQuery *out,
+                            SomStrList *kinds) {
+  spec_query_init(out);
+  som_strlist_init(kinds);
+  if (q == NULL) {
+    return;
+  }
+  out->text = som_json_as_str(som_json_get(q, "text"));
+  out->regex = som_json_bool_or(q, "regex");
+  out->case_insensitive = som_json_bool_or(q, "caseInsensitive");
+  const SomJson *ks = som_json_get(q, "kinds");
+  if (ks != NULL && ks->type == SOM_JSON_ARRAY) {
+    json_str_list(ks, kinds);
+    out->kinds = kinds;
+  }
+  out->class_name = som_json_as_str(som_json_get(q, "className"));
+  out->section_id_exact = som_json_as_str(som_json_get(q, "sectionIdExact"));
+  out->section_id_prefix = som_json_as_str(som_json_get(q, "sectionIdPrefix"));
+  out->path_glob = som_json_as_str(som_json_get(q, "pathGlob"));
+  out->maps_to = som_json_as_str(som_json_get(q, "mapsTo"));
+  out->detailed_in = som_json_as_str(som_json_get(q, "detailedIn"));
+  const char *state = som_json_as_str(som_json_get(q, "state"));
+  if (state != NULL) {
+    if (!spec_state_filter_parse(state, &out->state)) {
+      fprintf(stderr, "corpus query: unknown state filter \"%s\"\n", state);
+      exit(2);
+    }
+    out->has_state = 1;
+  }
+}
+
+/* One match rendered as a single line, so an extra/missing/reordered match is
+ * as visible as a wrong field. Owned result. */
+static char *match_text(const SpecQueryMatch *m) {
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puts(&b, m->path);
+  som_buf_putc(&b, '|');
+  som_buf_puts(&b, m->kind);
+  som_buf_putc(&b, '|');
+  som_buf_puts(&b, opt_text(m->class_id));
+  som_buf_putc(&b, '|');
+  som_buf_puts(&b, opt_text(m->headline));
+  som_buf_putc(&b, '|');
+  som_buf_puts(&b, opt_text(m->snippet));
+  som_buf_putc(&b, '|');
+  char *sp = spans_text(&m->spans);
+  som_buf_puts(&b, sp);
+  free(sp);
+  return som_buf_take(&b);
+}
+
+static char *json_match_text(const SomJson *m) {
+  SomBuf b;
+  som_buf_init(&b);
+  som_buf_puts(&b, som_json_str_or(m, "path"));
+  som_buf_putc(&b, '|');
+  som_buf_puts(&b, som_json_str_or(m, "kind"));
+  som_buf_putc(&b, '|');
+  som_buf_puts(&b, json_opt_text(som_json_get(m, "classId")));
+  som_buf_putc(&b, '|');
+  som_buf_puts(&b, json_opt_text(som_json_get(m, "headline")));
+  som_buf_putc(&b, '|');
+  som_buf_puts(&b, json_opt_text(som_json_get(m, "snippet")));
+  som_buf_putc(&b, '|');
+  char *sp = json_spans_text(som_json_get(m, "spans"));
+  som_buf_puts(&b, sp);
+  free(sp);
+  return som_buf_take(&b);
+}
+
+/* Drains `cur` into `out` (initialised by the callee) as one line per match. */
+static void drain_match_lines(SpecQueryCursor *cur, SomStrList *out) {
+  som_strlist_init(out);
+  SpecQueryMatchList matches;
+  spec_query_match_list_init(&matches);
+  spec_query_cursor_to_list(cur, &matches);
+  for (size_t i = 0; i < matches.len; i++) {
+    char *line = match_text(&matches.items[i]);
+    som_strlist_push_copy(out, line);
+    free(line);
+  }
+  spec_query_match_list_free(&matches);
+}
+
+/* The AND-combined query surface: every dimension, alone and in combination,
+ * replayed against a freshly-built fixture. Match **order** is part of the
+ * contract (document order), so the drained cursor is compared as an ordered
+ * list. `count` is asserted separately on a second cursor: it must agree with
+ * the number of committed matches while consuming nothing. */
+static void test_query(Checker *c, const SpecModel *model) {
+  SpecDocument doc;
+  fresh_document(&doc);
+  SpecQueryEngine engine = spec_query_engine_make(model, &doc);
+  SomJson *cases = read_json("query_cases.json");
+  size_t n = som_json_array_len(cases);
+
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *k = som_json_array_at(cases, i);
+    char tag[512];
+    snprintf(tag, sizeof(tag), "query[%s]", som_json_str_or(k, "name"));
+
+    SpecQuery q;
+    SomStrList kinds;
+    query_from_json(som_json_get(k, "query"), &q, &kinds);
+
+    SomPatternError perr;
+    som_pattern_error_init(&perr);
+    SpecQueryCursor cur;
+    if (!spec_query_engine_query(&engine, &q, &cur, &perr)) {
+      check(c, tag, 0, perr.message != NULL ? perr.message : "pattern refused");
+      som_pattern_error_free(&perr);
+      som_strlist_free(&kinds);
+      continue;
+    }
+    som_pattern_error_free(&perr);
+
+    SomStrList got;
+    drain_match_lines(&cur, &got);
+    spec_query_cursor_free(&cur);
+
+    SomStrList want;
+    som_strlist_init(&want);
+    const SomJson *arr = som_json_get(k, "matches");
+    size_t wn = som_json_array_len(arr);
+    for (size_t j = 0; j < wn; j++) {
+      char *line = json_match_text(som_json_array_at(arr, j));
+      som_strlist_push_copy(&want, line);
+      free(line);
+    }
+
+    char *gj = som_strlist_join(&got, " ~ ");
+    char *wj = som_strlist_join(&want, " ~ ");
+    char detail[4096];
+    snprintf(detail, sizeof(detail), "%s != %s", gj, wj);
+    check(c, tag, strlist_eq(&got, &want), detail);
+    free(gj);
+    free(wj);
+
+    /* A fresh cursor: count must see the same matches without consuming them. */
+    if (spec_query_engine_query(&engine, &q, &cur, NULL)) {
+      size_t cnt = spec_query_cursor_count(&cur);
+      char ctag[544], cdetail[128];
+      snprintf(ctag, sizeof(ctag), "%s.count", tag);
+      snprintf(cdetail, sizeof(cdetail), "%zu != %zu", cnt, want.len);
+      check(c, ctag, cnt == want.len, cdetail);
+      spec_query_cursor_free(&cur);
+    }
+
+    som_strlist_free(&got);
+    som_strlist_free(&want);
+    som_strlist_free(&kinds);
+  }
+
+  som_json_free(cases);
+  spec_document_free(&doc);
+}
+
+/* The tier-1 index source: the full project-nodes walk in document order. */
+static void test_projection(Checker *c, const SpecModel *model) {
+  SpecDocument doc;
+  fresh_document(&doc);
+  SpecQueryEngine engine = spec_query_engine_make(model, &doc);
+  SomJson *cases = read_json("projection_cases.json");
+  size_t n = som_json_array_len(cases);
+
+  SpecNodeProjectionList got;
+  spec_query_engine_project_nodes(&engine, &got);
+  char cdetail[64];
+  snprintf(cdetail, sizeof(cdetail), "%zu != %zu", got.len, n);
+  check(c, "projection.count", got.len == n, cdetail);
+
+  size_t limit = got.len < n ? got.len : n;
+  for (size_t i = 0; i < limit; i++) {
+    const SomJson *w = som_json_array_at(cases, i);
+    const SpecNodeProjection *p = &got.items[i];
+    char tag[640], t[704], detail[2048];
+    snprintf(tag, sizeof(tag), "projection[%zu] %s", i, p->path);
+
+    struct {
+      const char *field;
+      const char *got;
+      const char *want;
+    } strs[] = {
+        {"path", p->path, som_json_str_or(w, "path")},
+        {"kind", p->kind, som_json_str_or(w, "kind")},
+        {"classId", opt_text(p->class_id),
+         json_opt_text(som_json_get(w, "classId"))},
+        {"sectionId", opt_text(p->section_id),
+         json_opt_text(som_json_get(w, "sectionId"))},
+        {"mapsTo", opt_text(p->maps_to),
+         json_opt_text(som_json_get(w, "mapsTo"))},
+        {"detailedIn", opt_text(p->detailed_in),
+         json_opt_text(som_json_get(w, "detailedIn"))},
+        {"headline", opt_text(p->headline),
+         json_opt_text(som_json_get(w, "headline"))},
+    };
+    for (size_t f = 0; f < sizeof(strs) / sizeof(strs[0]); f++) {
+      snprintf(t, sizeof(t), "%s.%s", tag, strs[f].field);
+      snprintf(detail, sizeof(detail), "%s != %s", strs[f].got, strs[f].want);
+      check(c, t, strcmp(strs[f].got, strs[f].want) == 0, detail);
+    }
+
+    SomStrList want_strings;
+    json_str_list(som_json_get(w, "searchableStrings"), &want_strings);
+    char *gj = som_strlist_join(&p->searchable_strings, " ~ ");
+    char *wj = som_strlist_join(&want_strings, " ~ ");
+    snprintf(t, sizeof(t), "%s.searchableStrings", tag);
+    snprintf(detail, sizeof(detail), "%s != %s", gj, wj);
+    check(c, t, strlist_eq(&p->searchable_strings, &want_strings), detail);
+    free(gj);
+    free(wj);
+    som_strlist_free(&want_strings);
+
+    snprintf(t, sizeof(t), "%s.hasValue", tag);
+    check(c, t, p->has_value == som_json_bool_or(w, "hasValue"),
+          p->has_value ? "true" : "false");
+  }
+
+  /* project-node must agree with the walk for every path it visited. */
+  for (size_t i = 0; i < got.len; i++) {
+    const SpecNodeProjection *p = &got.items[i];
+    SpecNodeProjection one;
+    int ok = spec_query_engine_project_node(&engine, p->path, &one);
+    char tag[640];
+    snprintf(tag, sizeof(tag), "projection.single %s", p->path);
+    check(c, tag,
+          ok && strcmp(one.kind, p->kind) == 0 &&
+              strlist_eq(&one.searchable_strings, &p->searchable_strings),
+          p->path);
+    if (ok) {
+      spec_node_projection_free(&one);
+    }
+  }
+
+  spec_node_projection_list_free(&got);
+  som_json_free(cases);
+  spec_document_free(&doc);
+}
+
+/* The cursor's laziness and its view of a **mutating** document: the script
+ * removes a list item between opening a cursor and draining it, and the removed
+ * item must not surface. */
+static void test_cursor(Checker *c, const SpecModel *model) {
+  SpecDocument doc;
+  fresh_document(&doc);
+  SpecQueryEngine engine = spec_query_engine_make(model, &doc);
+  SomJson *steps = read_json("cursor_cases.json");
+  size_t n = som_json_array_len(steps);
+
+  /* The open cursor and the state it borrows: the query's strings point into
+   * `steps`, its kinds at `kinds`, so both outlive every cursor here. */
+  SpecQuery q;
+  SomStrList kinds;
+  som_strlist_init(&kinds);
+  SpecQueryCursor cur;
+  int open = 0;
+
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *s = som_json_array_at(steps, i);
+    const char *op = som_json_str_or(s, "op");
+    char tag[512], detail[2048];
+    snprintf(tag, sizeof(tag), "cursor[%zu].%s", i, op);
+
+    if (strcmp(op, "open") == 0) {
+      if (open) {
+        spec_query_cursor_free(&cur);
+        open = 0;
+      }
+      som_strlist_free(&kinds);
+      query_from_json(som_json_get(s, "query"), &q, &kinds);
+      SomPatternError perr;
+      som_pattern_error_init(&perr);
+      open = spec_query_engine_query(&engine, &q, &cur, &perr);
+      check(c, tag, open,
+            perr.message != NULL ? perr.message : "pattern refused");
+      som_pattern_error_free(&perr);
+    } else if (strcmp(op, "count") == 0) {
+      long long want = -1;
+      som_json_as_i64(som_json_get(s, "expect"), &want);
+      long long gotc = open ? (long long)spec_query_cursor_count(&cur) : -1;
+      snprintf(detail, sizeof(detail), "%lld != %lld", gotc, want);
+      check(c, tag, gotc == want, detail);
+    } else if (strcmp(op, "take") == 0 || strcmp(op, "toList") == 0) {
+      SpecQueryMatchList matches;
+      spec_query_match_list_init(&matches);
+      if (open) {
+        if (strcmp(op, "take") == 0) {
+          long long take = 0;
+          som_json_as_i64(som_json_get(s, "n"), &take);
+          spec_query_cursor_take(&cur, take < 0 ? 0 : (size_t)take, &matches);
+        } else {
+          spec_query_cursor_to_list(&cur, &matches);
+        }
+      }
+      SomStrList gotp;
+      som_strlist_init(&gotp);
+      for (size_t j = 0; j < matches.len; j++) {
+        som_strlist_push_copy(&gotp, matches.items[j].path);
+      }
+      spec_query_match_list_free(&matches);
+      SomStrList wantp;
+      json_str_list(som_json_get(s, "expect"), &wantp);
+      char *gj = som_strlist_join(&gotp, ",");
+      char *wj = som_strlist_join(&wantp, ",");
+      snprintf(detail, sizeof(detail), "%s != %s", gj, wj);
+      check(c, tag, strlist_eq(&gotp, &wantp), detail);
+      free(gj);
+      free(wj);
+      som_strlist_free(&gotp);
+      som_strlist_free(&wantp);
+    } else if (strcmp(op, "next") == 0) {
+      SpecQueryMatch m;
+      int has = open ? spec_query_cursor_next(&cur, &m) : 0;
+      const char *gotp = has ? m.path : K_NULL_TEXT;
+      const char *wantp = json_opt_text(som_json_get(s, "expect"));
+      snprintf(detail, sizeof(detail), "%s != %s", gotp, wantp);
+      check(c, tag, strcmp(gotp, wantp) == 0, detail);
+      if (has) {
+        spec_query_match_free(&m);
+      }
+    } else if (strcmp(op, "removeListItem") == 0) {
+      const char *item_path = som_json_str_or(s, "itemPath");
+      char t[544];
+      snprintf(t, sizeof(t), "%s %s", tag, item_path);
+      check(c, t, spec_document_remove_list_item(&doc, item_path), item_path);
+    } else {
+      char t2[544];
+      snprintf(t2, sizeof(t2), "%s.unknown", tag);
+      check(c, t2, 0, op);
+    }
+  }
+
+  if (open) {
+    spec_query_cursor_free(&cur);
+  }
+  som_strlist_free(&kinds);
+  som_json_free(steps);
+  spec_document_free(&doc);
+}
+
+/* llm_and_d4rt_tools.md §5: the stateless rule check. Every probe runs against a
+ * *freshly built* document, so an accepted add in one case cannot change the
+ * verdict of the next. A rejection is asserted on its code and the pair it names
+ * — not on the message text, which is prose and not part of the contract. */
+static void test_node_creation_cases(Checker *c, const SpecModel *model) {
+  SomJson *cases = read_json("node_creation_cases.json");
+  size_t n = som_json_array_len(cases);
+  int covered[SPEC_CREATION_ALL_CODES_COUNT] = {0};
+
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *k = som_json_array_at(cases, i);
+    const char *name = som_json_str_or(k, "name");
+    const char *parent_path = som_json_str_or(k, "parentPath");
+    const char *child_segment = som_json_str_or(k, "childSegment");
+    /* An absent `itemId` is "no id proposed", not the empty id. */
+    const char *item_id = som_json_as_str(som_json_get(k, "itemId"));
+
+    SpecDocument doc;
+    fresh_document(&doc);
+    SpecCreationError err;
+    spec_check_add_node(model, &doc, parent_path, child_segment, item_id, &err);
+    spec_document_free(&doc);
+
+    int accepted = som_json_bool_or(k, "accepted");
+    int ok = spec_creation_error_is_ok(&err);
+    char tag[512], detail[1024];
+    char *shown = ok ? som_strdup("accepted") : spec_creation_error_string(&err);
+    snprintf(tag, sizeof(tag), "nodeCreation[%s].accepted", name);
+    check(c, tag, ok == accepted, shown);
+    free(shown);
+    if (accepted || ok) {
+      spec_creation_error_free(&err);
+      continue;
+    }
+
+    const char *want_code = som_json_str_or(k, "code");
+    const char *got_code = spec_creation_code_name(err.code);
+    for (size_t r = 0; r < SPEC_CREATION_ALL_CODES_COUNT; r++) {
+      if (strcmp(spec_creation_code_name(SPEC_CREATION_ALL_CODES[r]),
+                 want_code) == 0) {
+        covered[r] = 1;
+      }
+    }
+    snprintf(tag, sizeof(tag), "nodeCreation[%s].code", name);
+    snprintf(detail, sizeof(detail), "%s != %s", got_code, want_code);
+    check(c, tag, strcmp(got_code, want_code) == 0, detail);
+    snprintf(tag, sizeof(tag), "nodeCreation[%s].parentPath", name);
+    check(c, tag,
+          err.parent_path != NULL && strcmp(err.parent_path, parent_path) == 0,
+          err.parent_path != NULL ? err.parent_path : "");
+    snprintf(tag, sizeof(tag), "nodeCreation[%s].childSegment", name);
+    check(c, tag,
+          err.child_segment != NULL &&
+              strcmp(err.child_segment, child_segment) == 0,
+          err.child_segment != NULL ? err.child_segment : "");
+    spec_creation_error_free(&err);
+  }
+
+  SomBuf uncovered;
+  som_buf_init(&uncovered);
+  for (size_t r = 0; r < SPEC_CREATION_ALL_CODES_COUNT; r++) {
+    if (covered[r]) continue;
+    if (uncovered.len > 0) som_buf_putc(&uncovered, ',');
+    som_buf_puts(&uncovered, spec_creation_code_name(SPEC_CREATION_ALL_CODES[r]));
+  }
+  char *uncovered_s = som_buf_take(&uncovered);
+  char cov_detail[512];
+  snprintf(cov_detail, sizeof(cov_detail), "uncovered: %s", uncovered_s);
+  check(c, "nodeCreation.codeCoverage", uncovered_s[0] == '\0', cov_detail);
+  free(uncovered_s);
+
+  som_json_free(cases);
+}
+
+/* The stateful companion: one document, each add building on the last, then the
+ * whole document state compared as canonical JSON. */
+static void test_node_creation_script(Checker *c, const SpecModel *model) {
+  SpecDocument doc;
+  fresh_document(&doc);
+  SpecNodeCreator creator = spec_node_creator_make(model, &doc);
+  SomJson *steps = read_json("node_creation_script.json");
+  size_t n = som_json_array_len(steps);
+
+  for (size_t i = 0; i < n; i++) {
+    const SomJson *s = som_json_array_at(steps, i);
+    const char *op = som_json_str_or(s, "op");
+    char tag[512], detail[2048];
+    snprintf(tag, sizeof(tag), "nodeScript[%zu].%s", i, op);
+
+    if (strcmp(op, "add") == 0 || strcmp(op, "addThrows") == 0) {
+      const char *parent_path = som_json_str_or(s, "parentPath");
+      const char *child_segment = som_json_str_or(s, "childSegment");
+      const char *item_id = som_json_as_str(som_json_get(s, "itemId"));
+      /* `addThrows` names no date: the gate rejects before an id is minted, so
+       * any valid date does — the corpus's own 2026-03-04. */
+      long long month = 3, day = 4;
+      som_json_as_i64(som_json_get(s, "month"), &month);
+      som_json_as_i64(som_json_get(s, "day"), &day);
+
+      char *path = NULL;
+      SpecCreationError err;
+      spec_creation_error_init(&err);
+      int ok = spec_node_creator_add(&creator, parent_path, child_segment,
+                                     item_id, month, day, &path, &err);
+
+      if (strcmp(op, "addThrows") == 0) {
+        const char *want_code = som_json_str_or(s, "expectCode");
+        const char *got_code = spec_creation_code_name(err.code);
+        snprintf(detail, sizeof(detail), "%s != %s",
+                 ok ? "(accepted)" : got_code, want_code);
+        check(c, tag, !ok && strcmp(got_code, want_code) == 0, detail);
+      } else {
+        char t[544];
+        snprintf(t, sizeof(t), "%s.path", tag);
+        const char *want_path = som_json_str_or(s, "expectPath");
+        snprintf(detail, sizeof(detail), "%s != %s",
+                 path != NULL ? path : "(rejected)", want_path);
+        check(c, t, ok && path != NULL && strcmp(path, want_path) == 0, detail);
+        if (ok && path != NULL) {
+          snprintf(t, sizeof(t), "%s.id", tag);
+          const char *got_id = opt_text(spec_document_item_section_id(&doc, path));
+          const char *want_id = json_opt_text(som_json_get(s, "expectId"));
+          snprintf(detail, sizeof(detail), "%s != %s", got_id, want_id);
+          check(c, t, strcmp(got_id, want_id) == 0, detail);
+        }
+      }
+      free(path);
+      spec_creation_error_free(&err);
+    } else if (strcmp(op, "finalState") == 0) {
+      DocumentJson dj;
+      spec_document_to_json(&doc, &dj);
+      char *got = document_json_to_canonical_json(&dj);
+      DocumentJson want_state;
+      document_json_from_json(som_json_get(s, "expect"), &want_state);
+      char *want = document_json_to_canonical_json(&want_state);
+      char *diff = byte_diff("finalState", got, want);
+      check(c, tag, strcmp(got, want) == 0, diff);
+      free(diff);
+      free(got);
+      free(want);
+      document_json_free(&dj);
+      document_json_free(&want_state);
+    } else {
+      char t2[544];
+      snprintf(t2, sizeof(t2), "%s.unknown", tag);
+      check(c, t2, 0, op);
+    }
+  }
+
+  som_json_free(steps);
+  spec_document_free(&doc);
+}
+
 int main(int argc, char **argv) {
   if (argc > 1) {
     snprintf(g_corpus_dir, sizeof(g_corpus_dir), "%s", argv[1]);
@@ -1322,6 +1984,12 @@ int main(int argc, char **argv) {
   test_section_id(&c);
   test_serialization_order(&c);
   test_docspecs(&c);
+  test_text_pattern(&c);
+  test_query(&c, model);
+  test_projection(&c, model);
+  test_cursor(&c, model);
+  test_node_creation_cases(&c, model);
+  test_node_creation_script(&c, model);
 
   int rc = checker_finish(&c);
   som_meta_tree_free(tree);

@@ -15,7 +15,10 @@
 //   - validation cases;
 //   - the imperative operations script;
 //   - the generic editor script (YRD7);
-//   - the SOM §14 DocSpecs tier (one case per violation rule).
+//   - the SOM §14 DocSpecs tier (one case per violation rule);
+//   - the portable text-pattern subset (match spans + compile rejections);
+//   - the query surface (match lists, cursor laziness, the projection walk);
+//   - the constrained node-creation gate (per-code rejections + the script).
 //
 // `go test ./tests/` is the native runner; exit 0 == all green.
 package tests
@@ -200,6 +203,12 @@ func TestConformance(t *testing.T) {
 	testSectionId(c, t)
 	testSerializationOrder(c, t)
 	testDocSpecs(c, t)
+	testPattern(c, t)
+	testQuery(c, t, model)
+	testProjection(c, t, model)
+	testCursor(c, t, model)
+	testNodeCreation(c, t, model)
+	testNodeCreationScript(c, t, model)
 
 	c.finish()
 }
@@ -991,6 +1000,436 @@ func testSerializationOrder(c *checker, t *testing.T) {
 	gotFields := order.OrderFormFields(cases.FormPath, cases.FormFields)
 	c.check("serialOrder.orderFormFields", sliceEq(gotFields, cases.ExpectedFormOrder),
 		join(gotFields)+" != "+join(cases.ExpectedFormOrder))
+}
+
+// --- portable text pattern / query / node creation (SOM §9) -----------------
+
+// freshDoc rebuilds the shared fixture document from state.json. The stateful
+// scripts below each mutate their document, so every one of them starts from
+// its own copy — the Go equivalent of the reference's `_buildDocument()`.
+func freshDoc(t *testing.T) *som.SpecDocument {
+	var state som.DocumentJson
+	readJSON(t, "state.json", &state)
+	return docFromState(&state)
+}
+
+// nullable renders this port's "" (its stand-in for the reference's null) back
+// as a JSON null, so the record maps below compare against the corpus verbatim.
+func nullable(s string) any {
+	if s == "" {
+		return nil
+	}
+	return s
+}
+
+// spanPairs renders match spans as the corpus's [start, end] pairs. Always a
+// non-nil slice, so a spanless match encodes as `[]` and not `null`.
+func spanPairs(spans []som.SpecMatchSpan) [][2]int {
+	out := [][2]int{}
+	for _, s := range spans {
+		out = append(out, [2]int{s.Start, s.End})
+	}
+	return out
+}
+
+type patternCase struct {
+	Pattern         string  `json:"pattern"`
+	Regex           bool    `json:"regex"`
+	CaseInsensitive bool    `json:"caseInsensitive"`
+	Error           bool    `json:"error"`
+	Text            string  `json:"text"`
+	Spans           [][]int `json:"spans"`
+}
+
+// testPattern replays the portable pattern subset: the spans every runtime must
+// report for a match case, and the compile rejection every runtime must raise
+// for an out-of-subset source.
+//
+// Go's `regexp` cannot stand in here: RE2 is leftmost-longest where the
+// reference is leftmost-first with backtracking, and the spans *are* the
+// contract — hence the hand-written matcher this table is pointed at.
+func testPattern(c *checker, t *testing.T) {
+	var cases []patternCase
+	readJSON(t, "pattern_cases.json", &cases)
+	rejections, accepts := 0, 0
+	for _, cc := range cases {
+		tag := "pattern[" + quote(cc.Pattern) + "]"
+		if cc.Error {
+			rejections++
+			_, err := som.CompileSomTextPattern(cc.Pattern, cc.CaseInsensitive)
+			var pErr *som.SomPatternError
+			c.check(tag+".rejected", errors.As(err, &pErr),
+				"expected a SomPatternError")
+			continue
+		}
+		accepts++
+		var p *som.SomTextPattern
+		if cc.Regex {
+			compiled, err := som.CompileSomTextPattern(cc.Pattern, cc.CaseInsensitive)
+			if err != nil {
+				c.check(tag+".compile", false, err.Error())
+				continue
+			}
+			p = compiled
+		} else {
+			p = som.NewSomTextPatternLiteral(cc.Pattern, cc.CaseInsensitive)
+		}
+		got := canonJSON(t, spanPairs(p.AllMatches(cc.Text)))
+		want := canonJSON(t, cc.Spans)
+		c.check(tag+" over "+quote(cc.Text), got == want, got+" != "+want)
+		c.check(tag+".hasMatch", p.HasMatch(cc.Text) == (len(cc.Spans) > 0), "")
+	}
+	// A table of matches alone would let a port accept everything; a table of
+	// rejections alone would let one reject everything.
+	c.check("pattern.table.rejections", rejections > 0, "no rejection case")
+	c.check("pattern.table.matches", accepts > 0, "no match case")
+}
+
+// queryWire is a SpecQuery in its corpus form. Every pointer is nil when the key
+// is absent, which is what makes "dimension unset" distinguishable from
+// "dimension set to the zero value" — `{"caseInsensitive": false}` and `{}` are
+// the same query only because the reference defaults that flag to false, while
+// `{"kinds": []}` (admit nothing) and `{}` (admit everything) are not.
+//
+// Kept in the test rather than in the runtime: the decode belongs to the corpus
+// format, not to the API (the reference keeps its `_queryFromJson` here too).
+type queryWire struct {
+	Text            *string   `json:"text"`
+	Regex           *bool     `json:"regex"`
+	CaseInsensitive *bool     `json:"caseInsensitive"`
+	Kinds           *[]string `json:"kinds"`
+	ClassName       *string   `json:"className"`
+	SectionIDExact  *string   `json:"sectionIdExact"`
+	SectionIDPrefix *string   `json:"sectionIdPrefix"`
+	PathGlob        *string   `json:"pathGlob"`
+	MapsTo          *string   `json:"mapsTo"`
+	DetailedIn      *string   `json:"detailedIn"`
+	State           *string   `json:"state"`
+}
+
+func queryFromJSON(t *testing.T, raw json.RawMessage) som.SpecQuery {
+	var w queryWire
+	if len(raw) > 0 {
+		if err := json.Unmarshal(raw, &w); err != nil {
+			t.Fatalf("decode query %s: %v", string(raw), err)
+		}
+	}
+	q := som.SpecQuery{
+		Text:            w.Text,
+		ClassName:       w.ClassName,
+		SectionIDExact:  w.SectionIDExact,
+		SectionIDPrefix: w.SectionIDPrefix,
+		PathGlob:        w.PathGlob,
+		MapsTo:          w.MapsTo,
+		DetailedIn:      w.DetailedIn,
+		State:           w.State,
+	}
+	if w.Regex != nil {
+		q.Regex = *w.Regex
+	}
+	if w.CaseInsensitive != nil {
+		q.CaseInsensitive = *w.CaseInsensitive
+	}
+	if w.Kinds != nil {
+		// A non-nil (even empty) slice is the "kinds dimension supplied" signal;
+		// leaving it nil is what admits every kind.
+		kinds := []string{}
+		kinds = append(kinds, *w.Kinds...)
+		q.Kinds = kinds
+	}
+	return q
+}
+
+func matchRecord(m som.SpecQueryMatch) map[string]any {
+	return map[string]any{
+		"path":     m.Path,
+		"kind":     m.Kind,
+		"classId":  nullable(m.ClassID),
+		"headline": nullable(m.Headline),
+		"snippet":  nullable(m.Snippet),
+		"spans":    spanPairs(m.MatchSpans),
+	}
+}
+
+type queryCase struct {
+	Name    string          `json:"name"`
+	Query   json.RawMessage `json:"query"`
+	Matches json.RawMessage `json:"matches"`
+}
+
+// testQuery replays the query surface twice over: once draining each cursor (the
+// match list, in order) and once asking only for Count. The second pass is the
+// same fact from the other side — a port that implements ToList by draining but
+// Count by returning the candidate count passes the first and fails the second.
+func testQuery(c *checker, t *testing.T, model *som.SpecModel) {
+	var cases []queryCase
+	readJSON(t, "query_cases.json", &cases)
+	doc := freshDoc(t)
+	engine := som.NewSpecQueryEngine(model, doc)
+	for _, cc := range cases {
+		cursor, err := engine.Query(queryFromJSON(t, cc.Query))
+		if err != nil {
+			c.check("query["+cc.Name+"]", false, err.Error())
+			continue
+		}
+		got := []map[string]any{}
+		for _, m := range cursor.ToList() {
+			got = append(got, matchRecord(m))
+		}
+		var want []map[string]any
+		if err := json.Unmarshal(cc.Matches, &want); err != nil {
+			t.Fatalf("decode matches for %s: %v", cc.Name, err)
+		}
+		if want == nil {
+			want = []map[string]any{}
+		}
+		gotJSON, wantJSON := canonJSON(t, got), canonJSON(t, want)
+		c.check("query["+cc.Name+"]", gotJSON == wantJSON, gotJSON+" != "+wantJSON)
+
+		counted, err := engine.Query(queryFromJSON(t, cc.Query))
+		if err != nil {
+			c.check("query["+cc.Name+"].count", false, err.Error())
+			continue
+		}
+		c.check("query["+cc.Name+"].count", counted.Count() == len(want),
+			itoa(counted.Count())+" != "+itoa(len(want)))
+	}
+}
+
+// testProjection replays the full tier-1 index walk: every node of the
+// structural closure, in document order, with its facets and searchable strings.
+func testProjection(c *checker, t *testing.T, model *som.SpecModel) {
+	doc := freshDoc(t)
+	engine := som.NewSpecQueryEngine(model, doc)
+	got := []map[string]any{}
+	for _, p := range engine.ProjectNodes() {
+		strings := p.SearchableStrings
+		if strings == nil {
+			strings = []string{}
+		}
+		got = append(got, map[string]any{
+			"path":              p.Path,
+			"kind":              p.Kind,
+			"classId":           nullable(p.ClassID),
+			"sectionId":         nullable(p.SectionID),
+			"mapsTo":            nullable(p.MapsTo),
+			"detailedIn":        nullable(p.DetailedIn),
+			"headline":          nullable(p.Headline),
+			"searchableStrings": strings,
+			"hasValue":          p.HasValue,
+		})
+	}
+	var want []map[string]any
+	readJSON(t, "projection_cases.json", &want)
+	gotJSON, wantJSON := canonJSON(t, got), canonJSON(t, want)
+	c.check("projection.walk", gotJSON == wantJSON, gotJSON+" != "+wantJSON)
+
+	// ProjectNode is the incremental-refresh entry point the walk is built from;
+	// re-projecting one path must reproduce that path's committed record.
+	if len(want) > 0 {
+		path, _ := want[0]["path"].(string)
+		single := engine.ProjectNode(path)
+		c.check("projection.single["+path+"]",
+			single != nil && single.Path == path && single.Kind == want[0]["kind"], "")
+		c.check("projection.single.dangling",
+			engine.ProjectNode("NOPE/nope") == nil, "expected nil for a dangling path")
+	}
+}
+
+type cursorStep struct {
+	Op       string          `json:"op"`
+	Query    json.RawMessage `json:"query"`
+	N        int             `json:"n"`
+	ItemPath string          `json:"itemPath"`
+	Expect   json.RawMessage `json:"expect"`
+}
+
+// testCursor replays the cursor script: laziness (Count does not consume, Take
+// does) and the per-step re-validation against the live document — a list item
+// removed after the cursor opened is skipped, not returned as a stale path.
+func testCursor(c *checker, t *testing.T, model *som.SpecModel) {
+	var steps []cursorStep
+	readJSON(t, "cursor_cases.json", &steps)
+	doc := freshDoc(t)
+	engine := som.NewSpecQueryEngine(model, doc)
+	var cursor *som.SpecQueryCursor
+	for n, s := range steps {
+		tag := "cursor[" + itoa(n) + "]." + s.Op
+		switch s.Op {
+		case "open":
+			opened, err := engine.Query(queryFromJSON(t, s.Query))
+			if err != nil {
+				c.check(tag, false, err.Error())
+				continue
+			}
+			cursor = opened
+		case "count":
+			var exp int
+			json.Unmarshal(s.Expect, &exp)
+			c.check(tag, cursor != nil && cursor.Count() == exp, itoa(cursor.Count()))
+		case "take":
+			got := []string{}
+			for _, m := range cursor.Take(s.N) {
+				got = append(got, m.Path)
+			}
+			var exp []string
+			json.Unmarshal(s.Expect, &exp)
+			c.check(tag+" "+itoa(s.N), sliceEq(got, exp), join(got)+" != "+join(exp))
+		case "next":
+			var exp *string
+			json.Unmarshal(s.Expect, &exp)
+			m := cursor.Next()
+			if exp == nil {
+				c.check(tag, m == nil, "expected the cursor to be exhausted")
+			} else {
+				c.check(tag, m != nil && m.Path == *exp, optName(matchPath(m)))
+			}
+		case "toList":
+			got := []string{}
+			for _, m := range cursor.ToList() {
+				got = append(got, m.Path)
+			}
+			var exp []string
+			json.Unmarshal(s.Expect, &exp)
+			c.check(tag, sliceEq(got, exp), join(got)+" != "+join(exp))
+		case "removeListItem":
+			doc.RemoveListItem(s.ItemPath)
+		default:
+			c.check(tag+".unknown", false, s.Op)
+		}
+	}
+}
+
+func matchPath(m *som.SpecQueryMatch) string {
+	if m == nil {
+		return ""
+	}
+	return m.Path
+}
+
+type nodeCreationCase struct {
+	Name         string  `json:"name"`
+	ParentPath   string  `json:"parentPath"`
+	ChildSegment string  `json:"childSegment"`
+	ItemID       *string `json:"itemId"`
+	Accepted     bool    `json:"accepted"`
+	Code         *string `json:"code"`
+}
+
+// testNodeCreation replays the stateless creation gate: each probe runs against
+// a freshly built document, so the cases are order-independent. A rejection is
+// asserted on its code and the parent/child it names — never on message prose,
+// which is a port's own wording.
+func testNodeCreation(c *checker, t *testing.T, model *som.SpecModel) {
+	var cases []nodeCreationCase
+	readJSON(t, "node_creation_cases.json", &cases)
+	covered := map[string]bool{}
+	for _, cc := range cases {
+		doc := freshDoc(t)
+		itemID := ""
+		if cc.ItemID != nil {
+			itemID = *cc.ItemID
+		}
+		err := som.CheckAddNode(model, doc, cc.ParentPath, cc.ChildSegment, itemID)
+		c.check("nodeCreate["+cc.Name+"].accepted", (err == nil) == cc.Accepted,
+			"expected accepted="+boolStr(cc.Accepted))
+		if err == nil {
+			continue
+		}
+		covered[err.Code] = true
+		c.check("nodeCreate["+cc.Name+"].code", optEq(err.Code, cc.Code),
+			err.Code+" != "+optStr(cc.Code))
+		c.check("nodeCreate["+cc.Name+"].parentPath", err.ParentPath == cc.ParentPath,
+			err.ParentPath)
+		c.check("nodeCreate["+cc.Name+"].childSegment",
+			err.ChildSegment == cc.ChildSegment, err.ChildSegment)
+	}
+
+	// A code with no case is invisible, not weakly covered.
+	var uncovered []string
+	for _, code := range som.SpecCreationAllCodes {
+		if !covered[code] {
+			uncovered = append(uncovered, code)
+		}
+	}
+	c.check("nodeCreate.codeCoverage", len(uncovered) == 0, "uncovered: "+join(uncovered))
+}
+
+type nodeCreationStep struct {
+	Op           string          `json:"op"`
+	ParentPath   string          `json:"parentPath"`
+	ChildSegment string          `json:"childSegment"`
+	ItemID       *string         `json:"itemId"`
+	Month        int             `json:"month"`
+	Day          int             `json:"day"`
+	ExpectPath   string          `json:"expectPath"`
+	ExpectID     *string         `json:"expectId"`
+	ExpectCode   string          `json:"expectCode"`
+	Expect       json.RawMessage `json:"expect"`
+}
+
+// testNodeCreationScript replays the stateful creation script against one
+// document: the generated ids and item paths of the accepted adds, the code of
+// each rejected one, and the final document state — which is what proves a
+// rejected add left the tree untouched.
+//
+// The reference dates every step `DateTime(2026, month, day)`; the two-letter
+// day code only reads the month and day, so this port passes those two through
+// (the SpecEditor.AddListItem convention) and the year never enters the id.
+func testNodeCreationScript(c *checker, t *testing.T, model *som.SpecModel) {
+	var steps []nodeCreationStep
+	readJSON(t, "node_creation_script.json", &steps)
+	doc := freshDoc(t)
+	creator := som.NewSpecNodeCreator(model, doc)
+	for n, s := range steps {
+		tag := "nodeScript[" + itoa(n) + "]." + s.Op
+		itemID := ""
+		if s.ItemID != nil {
+			itemID = *s.ItemID
+		}
+		switch s.Op {
+		case "add":
+			path, err := creator.Add(s.ParentPath, s.ChildSegment, itemID, s.Month, s.Day)
+			if err != nil {
+				c.check(tag+" "+s.ParentPath+"/"+s.ChildSegment, false, err.Error())
+				continue
+			}
+			c.check(tag+" "+s.ParentPath+"/"+s.ChildSegment, path == s.ExpectPath,
+				path+" != "+s.ExpectPath)
+			got := doc.ItemSectionIDOr(path)
+			c.check(tag+" id "+s.ParentPath+"/"+s.ChildSegment, optEq(got, s.ExpectID),
+				optName(got)+" != "+optStr(s.ExpectID))
+		case "addThrows":
+			// The reference dates this step 2026-03-04; the add is rejected before
+			// any id is generated, so the date never reaches the generator.
+			_, err := creator.Add(s.ParentPath, s.ChildSegment, itemID, 3, 4)
+			var cErr *som.SpecCreationError
+			if !errors.As(err, &cErr) {
+				c.check(tag+" "+s.ParentPath+"/"+s.ChildSegment, false,
+					"expected a SpecCreationError")
+				continue
+			}
+			c.check(tag+" "+s.ParentPath+"/"+s.ChildSegment,
+				cErr.Code == s.ExpectCode, cErr.Code+" != "+s.ExpectCode)
+		case "finalState":
+			var want som.DocumentJson
+			if err := json.Unmarshal(s.Expect, &want); err != nil {
+				t.Fatalf("decode final state: %v", err)
+			}
+			got := canonJSON(t, doc.ToJSON())
+			expected := canonJSON(t, &want)
+			c.check(tag, got == expected, got+" != "+expected)
+		default:
+			c.check(tag+".unknown", false, s.Op)
+		}
+	}
+}
+
+func boolStr(b bool) string {
+	if b {
+		return "true"
+	}
+	return "false"
 }
 
 // --- small helpers ---------------------------------------------------------

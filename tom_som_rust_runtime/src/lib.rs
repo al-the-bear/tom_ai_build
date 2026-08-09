@@ -24,10 +24,13 @@ pub mod spec_meta;
 pub mod spec_meta_bridge;
 pub mod spec_meta_diff;
 pub mod spec_model;
+pub mod spec_node_creation;
 pub mod spec_paths;
+pub mod spec_query;
 pub mod spec_reflection;
 pub mod spec_section_id;
 pub mod spec_serialization_order;
+pub mod spec_text_pattern;
 pub mod spec_typed_values;
 pub mod spec_validator;
 pub mod yaml;
@@ -78,9 +81,16 @@ pub use spec_model::{
     SpecAnnotation, SpecClass, SpecField, SpecModel, SpecModelStampCheck, SpecRoot,
     DEFAULT_MAX_SNAPSHOT_AGE_SECONDS, SECONDS_PER_DAY,
 };
+pub use spec_node_creation::{
+    check_add_node, SpecCreationCode, SpecCreationError, SpecNodeCreator,
+};
 pub use spec_paths::{
     list_item_path, spec_parent_path, spec_path_join, spec_path_segments, split_list_item_segment,
     ListItemSegment,
+};
+pub use spec_query::{
+    glob_matches, SpecNodeProjection, SpecQuery, SpecQueryCursor, SpecQueryEngine, SpecQueryMatch,
+    SpecStateFilter,
 };
 pub use spec_reflection::{SpecReflection, SpecResolution};
 pub use spec_section_id::{
@@ -88,6 +98,7 @@ pub use spec_section_id::{
     today_month_day, SpecSectionIdCollision, SpecSectionIdError,
 };
 pub use spec_serialization_order::{SpecSerializationOrder, SERIALIZATION_UNORDERED_FALLBACK};
+pub use spec_text_pattern::{SomPatternError, SomTextPattern, SpecMatchSpan};
 pub use spec_typed_values::{
     som_format_bool, som_format_double, som_format_enum_name, som_format_int, som_format_num,
     som_parse_bool, som_parse_double, som_parse_enum_name, som_parse_int, som_parse_num, SomNum,

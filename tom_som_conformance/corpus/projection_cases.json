@@ -59,9 +59,10 @@
     "sectionId": "CNT",
     "mapsTo": null,
     "detailedIn": null,
-    "headline": null,
+    "headline": "How many items are tracked.",
     "searchableStrings": [
-      "3"
+      "3",
+      "How many items are tracked."
     ],
     "hasValue": true
   },
@@ -225,8 +226,8 @@
     "kind": "listItemComplex",
     "classId": "Card",
     "sectionId": "CARD-LST",
-    "mapsTo": null,
-    "detailedIn": null,
+    "mapsTo": "CS00-CARD",
+    "detailedIn": "BP00-CARDS",
     "headline": "Alpha Card",
     "searchableStrings": [
       "Alpha Card"
@@ -251,10 +252,12 @@
     "kind": "listItemComplex",
     "classId": "Card",
     "sectionId": "CARD-LST",
-    "mapsTo": null,
-    "detailedIn": null,
-    "headline": null,
-    "searchableStrings": [],
+    "mapsTo": "CS00-CARD",
+    "detailedIn": "BP00-CARDS",
+    "headline": "A card entry.",
+    "searchableStrings": [
+      "A card entry."
+    ],
     "hasValue": true
   },
   {

@@ -42,6 +42,9 @@ runtime modules:
 | `spec_typed_values.go` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
 | `spec_editor.go` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
 | `spec_validator.go` | Validates a document's values against the model. |
+| `spec_text_pattern.go` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (Go's RE2-based `regexp` is leftmost-longest and would not). |
+| `spec_query.go` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
+| `spec_node_creation.go` | The constrained node-creation gate (`CheckAddNode`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
 | `spec_document_yaml.go` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown.go` | Meta-data-driven Markdown import/export codec. |
 | `som_facade.go` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList[T]`) for the generated `tom_som_go_v0`. |

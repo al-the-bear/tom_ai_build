@@ -410,6 +410,46 @@
     ]
   },
   {
+    "pattern": "x",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "äöü-x",
+    "spans": [
+      [
+        4,
+        5
+      ]
+    ]
+  },
+  {
+    "pattern": "x",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "𝄞-x",
+    "spans": [
+      [
+        3,
+        4
+      ]
+    ]
+  },
+  {
+    "pattern": ".",
+    "regex": true,
+    "caseInsensitive": false,
+    "text": "𝄞",
+    "spans": [
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        2
+      ]
+    ]
+  },
+  {
     "pattern": "*a",
     "regex": true,
     "error": true

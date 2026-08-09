@@ -7,9 +7,11 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import tom_som_runtime.DocSpecsSchema;
 import tom_som_runtime.DocSpecsValidator;
@@ -18,7 +20,11 @@ import tom_som_runtime.FormFieldSpec;
 import tom_som_runtime.Json;
 import tom_som_runtime.SomMetaBridge;
 import tom_som_runtime.SomMetaTree;
+import tom_som_runtime.SomPatternError;
+import tom_som_runtime.SomTextPattern;
 import tom_som_runtime.SpecClass;
+import tom_som_runtime.SpecCreationCode;
+import tom_som_runtime.SpecCreationError;
 import tom_som_runtime.SpecDocument;
 import tom_som_runtime.SpecDocumentMarkdown;
 import tom_som_runtime.SpecDocumentYaml;
@@ -26,14 +32,23 @@ import tom_som_runtime.SpecEditor;
 import tom_som_runtime.SpecField;
 import tom_som_runtime.SpecMarkdownRejection;
 import tom_som_runtime.SpecMarkdownResult;
+import tom_som_runtime.SpecMatchSpan;
 import tom_som_runtime.SpecModel;
 import tom_som_runtime.SpecModelStampCheck;
+import tom_som_runtime.SpecNodeCreator;
+import tom_som_runtime.SpecNodeKind;
+import tom_som_runtime.SpecNodeProjection;
+import tom_som_runtime.SpecQuery;
+import tom_som_runtime.SpecQueryCursor;
+import tom_som_runtime.SpecQueryEngine;
+import tom_som_runtime.SpecQueryMatch;
 import tom_som_runtime.SpecReflection;
 import tom_som_runtime.SpecResolution;
 import tom_som_runtime.SpecRoot;
 import tom_som_runtime.SpecSectionId;
 import tom_som_runtime.SpecSectionIdCollision;
 import tom_som_runtime.SpecSerializationOrder;
+import tom_som_runtime.SpecStateFilter;
 import tom_som_runtime.SpecValidationError;
 import tom_som_runtime.SpecValidator;
 import tom_som_runtime.SpecYamlContents;
@@ -832,6 +847,432 @@ public final class ConformanceRunner {
     check("docspecs.ruleCoverage", uncovered.isEmpty(), "uncovered: " + uncovered);
   }
 
+  // --- SOM §9: text pattern / query / node creation -------------------------
+
+  /**
+   * The reference fixture document, rebuilt exactly as the Dart conformance
+   * test's {@code _buildDocument()} does.
+   *
+   * <p>Deliberately <b>not</b> loaded from {@code state.json}: {@code toJson}
+   * sorts each form's fields, so a state round-trip would hand the projection
+   * walk {@code DEMO/DET}'s fields alphabetically while the committed
+   * {@code searchableStrings} carry them in <i>authoring</i> order. The §9 tables
+   * were generated against the freshly built document, so the runner has to
+   * build one too. {@link #testFixtureDocument} pins the two views together.
+   */
+  private static SpecDocument buildDocument() {
+    SpecDocument d = new SpecDocument();
+    d.setContent("DEMO/TTL", "Hello");
+    d.setContent("DEMO/SUM", "Line one\nLine two\n\nLine four");
+    d.setContent("DEMO/PRI", "high");
+    d.setContent("DEMO/CNT", "3");
+    d.setFormField("DEMO/DET", "owner", "Bob");
+    d.setFormField("DEMO/DET", "contact", "bob@example.com");
+    d.setFormField("DEMO/DET", "estimate", "8");
+    d.setFormField("DEMO/DET", "weight", "2.5");
+    d.setFormField("DEMO/DET", "active", "true");
+    d.setFormField("DEMO/DET", "priority", "high");
+    String i1 = d.addListItem("DEMO/items");
+    d.setContent(i1 + "/label", "First");
+    d.setContent(i1 + "/STS", "open");
+    String i2 = d.addListItem("DEMO/items");
+    d.setContent(i2 + "/label", "Second line A\nwith ```triple``` ticks");
+    d.setContent(i2 + "/STS", "done");
+    for (String ref : List.of("spec \u00a71.2", "ADR7")) {
+      d.setContent(d.addListItem("DEMO/REF-LST"), ref);
+    }
+    d.setHeadline("DEMO/SUM", "Executive Summary");
+    d.setHeadline("DEMO/DET", "Details & Contacts");
+    d.setHeadline("DEMO/items", "Work Items");
+    d.setItemSectionId("DEMO/REF-LST-1", "REF-SPEC");
+    d.setHeadline("DEMO/REF-LST-1", "Reference to the Spec");
+    String c1 = d.addListItem("DEMO/CARD-LST");
+    d.setItemSectionId(c1, "CARD-ALPHA");
+    d.setHeadline(c1, "Alpha Card");
+    d.setFormField(c1 + "/content", "note", "first card");
+    String c2 = d.addListItem("DEMO/CARD-LST");
+    d.setFormField(c2 + "/content", "note", "second card");
+    d.setContent("DEMO/META/OWNR", "alice");
+    for (String tag : List.of("on", "no", "1:30", "plain")) {
+      d.setContent(d.addListItem("DEMO/META/tags"), tag);
+    }
+    d.setContent("DEMO/control/CTRL-SUM", "Controlled summary");
+    d.setContent("DEMO/control/owner", "ctrl-owner");
+    return d;
+  }
+
+  /**
+   * The hand-built fixture is the same document {@code state.json} was written
+   * from — so the §9 tables and every other table describe one document, not two
+   * that happen to look alike.
+   */
+  private static void testFixtureDocument() throws IOException {
+    Map<String, Object> state = readJsonObject("state.json");
+    Map<String, Object> built = buildDocument().toJson();
+    check("fixture.matchesState", built.equals(state), jsonMismatch(built, state));
+  }
+
+  /**
+   * SOM §9: the portable pattern subset ({@link SomTextPattern}). Hand-rolled on
+   * purpose — {@code java.util.regex} is leftmost-first but Unicode-case-folding
+   * and would put this port's {@code matchSpans} outside the nine-language
+   * contract the moment a case left the corpus.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testPatterns() throws IOException {
+    List<Object> cases = readJsonArray("pattern_cases.json");
+    int rejections = 0;
+    int matchTables = 0;
+    for (int n = 0; n < cases.size(); n++) {
+      Map<String, Object> c = (Map<String, Object>) cases.get(n);
+      String source = (String) c.get("pattern");
+      boolean regex = Boolean.TRUE.equals(c.get("regex"));
+      boolean ci = Boolean.TRUE.equals(c.get("caseInsensitive"));
+      String at = "pattern[" + n + "] " + repr(source);
+      if (Boolean.TRUE.equals(c.get("error"))) {
+        rejections++;
+        check(at + " rejected", rejectsPattern(source), "compiled without error");
+        continue;
+      }
+      matchTables++;
+      SomTextPattern p =
+          regex ? SomTextPattern.compile(source, ci) : SomTextPattern.literal(source, ci);
+      List<String> got = new ArrayList<>();
+      for (SpecMatchSpan s : p.allMatches((String) c.get("text"))) {
+        got.add(s.start + "-" + s.end);
+      }
+      List<String> want = spanList(c.get("spans"));
+      check(at + " over " + repr((String) c.get("text")), got.equals(want), got + " != " + want);
+    }
+    // A table of matches alone would let a port accept everything; a table of
+    // rejections alone would let one reject everything.
+    check("pattern.tableHasRejections", rejections > 0, "no error case in the table");
+    check("pattern.tableHasMatches", matchTables > 0, "no match case in the table");
+  }
+
+  /** Whether compiling {@code source} raises {@link SomPatternError}. */
+  private static boolean rejectsPattern(String source) {
+    try {
+      SomTextPattern.compile(source);
+      return false;
+    } catch (SomPatternError e) {
+      return true;
+    }
+  }
+
+  /** The corpus's {@code [[start, end], …]} spans as comparable {@code "start-end"} keys. */
+  @SuppressWarnings("unchecked")
+  private static List<String> spanList(Object array) {
+    List<String> out = new ArrayList<>();
+    for (Object o : (List<Object>) array) {
+      List<Object> pair = (List<Object>) o;
+      out.add(((Number) pair.get(0)).intValue() + "-" + ((Number) pair.get(1)).intValue());
+    }
+    return out;
+  }
+
+  /**
+   * Rebuilds a {@link SpecQuery} from its corpus wire form.
+   *
+   * <p>Every port needs this same decode, so its shape <i>is</i> part of the
+   * contract: an absent key means "dimension unset", never a default that happens
+   * to match.
+   */
+  @SuppressWarnings("unchecked")
+  private static SpecQuery queryFromJson(Map<String, Object> j) {
+    Set<SpecNodeKind> kinds = null;
+    Object rawKinds = j.get("kinds");
+    if (rawKinds != null) {
+      kinds = new LinkedHashSet<>();
+      for (String k : stringList(rawKinds)) {
+        kinds.add(nodeKindNamed(k));
+      }
+    }
+    Object state = j.get("state");
+    return new SpecQuery(
+        (String) j.get("text"),
+        Boolean.TRUE.equals(j.get("regex")),
+        Boolean.TRUE.equals(j.get("caseInsensitive")),
+        kinds,
+        (String) j.get("className"),
+        (String) j.get("sectionIdExact"),
+        (String) j.get("sectionIdPrefix"),
+        (String) j.get("pathGlob"),
+        (String) j.get("mapsTo"),
+        (String) j.get("detailedIn"),
+        state == null ? null : SpecStateFilter.parse((String) state));
+  }
+
+  private static SpecNodeKind nodeKindNamed(String raw) {
+    for (SpecNodeKind k : SpecNodeKind.values()) {
+      if (k.value.equals(raw)) {
+        return k;
+      }
+    }
+    throw new IllegalArgumentException("\"" + raw + "\" is not a node kind");
+  }
+
+  @SuppressWarnings("unchecked")
+  private static Map<String, Object> queryOf(Map<String, Object> c) {
+    return (Map<String, Object>) c.get("query");
+  }
+
+  /** One cursor match in the corpus's record shape, for exact list comparison. */
+  private static Map<String, Object> matchRecord(SpecQueryMatch m) {
+    Map<String, Object> o = new LinkedHashMap<>();
+    o.put("path", m.path);
+    o.put("kind", m.kind.value);
+    o.put("classId", m.classId);
+    o.put("headline", m.headline);
+    o.put("snippet", m.snippet);
+    List<Object> spans = new ArrayList<>();
+    for (SpecMatchSpan s : m.matchSpans) {
+      spans.add(s.start + "-" + s.end);
+    }
+    o.put("spans", spans);
+    return o;
+  }
+
+  /** The same record, read off the committed table. */
+  private static Map<String, Object> expectedMatchRecord(Map<String, Object> c) {
+    Map<String, Object> o = new LinkedHashMap<>();
+    o.put("path", c.get("path"));
+    o.put("kind", c.get("kind"));
+    o.put("classId", c.get("classId"));
+    o.put("headline", c.get("headline"));
+    o.put("snippet", c.get("snippet"));
+    o.put("spans", new ArrayList<Object>(spanList(c.get("spans"))));
+    return o;
+  }
+
+  /**
+   * SOM §9: the {@link SpecQueryEngine} surface — every committed query
+   * reproduces its match list <b>in order</b>, and (separately) {@code count}
+   * agrees with that list's length.
+   *
+   * <p>The second assertion is not the first one restated: a port that drains for
+   * {@code toList} but returns the raw candidate count for {@code count} passes
+   * the first and fails this one.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testQueries(SpecModel model) throws IOException {
+    SpecQueryEngine engine = new SpecQueryEngine(model, buildDocument());
+    for (Object caseObj : readJsonArray("query_cases.json")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = (String) c.get("name");
+      List<Object> want = new ArrayList<>();
+      for (Object mObj : (List<Object>) c.get("matches")) {
+        want.add(expectedMatchRecord((Map<String, Object>) mObj));
+      }
+      List<Object> got = new ArrayList<>();
+      for (SpecQueryMatch m : engine.query(queryFromJson(queryOf(c))).toList()) {
+        got.add(matchRecord(m));
+      }
+      check("query[" + name + "]", got.equals(want), jsonMismatch(got, want));
+
+      int count = engine.query(queryFromJson(queryOf(c))).count();
+      check(
+          "query[" + name + "].count",
+          count == want.size(),
+          count + " != " + want.size());
+    }
+  }
+
+  /** SOM §9: the full {@code projectNodes()} walk, in document order. */
+  private static void testProjection(SpecModel model) throws IOException {
+    SpecQueryEngine engine = new SpecQueryEngine(model, buildDocument());
+    List<Object> got = new ArrayList<>();
+    for (SpecNodeProjection p : engine.projectNodes()) {
+      Map<String, Object> o = new LinkedHashMap<>();
+      o.put("path", p.path);
+      o.put("kind", p.kind.value);
+      o.put("classId", p.classId);
+      o.put("sectionId", p.sectionId);
+      o.put("mapsTo", p.mapsTo);
+      o.put("detailedIn", p.detailedIn);
+      o.put("headline", p.headline);
+      o.put("searchableStrings", new ArrayList<Object>(p.searchableStrings));
+      o.put("hasValue", p.hasValue);
+      got.add(o);
+    }
+    List<Object> want = readJsonArray("projection_cases.json");
+    check("projection.count", got.size() == want.size(), got.size() + " != " + want.size());
+    for (int i = 0; i < Math.min(got.size(), want.size()); i++) {
+      check(
+          "projection[" + i + "]",
+          got.get(i).equals(want.get(i)),
+          jsonMismatch(got.get(i), want.get(i)));
+    }
+  }
+
+  /**
+   * SOM §9: a scripted cursor session over a freshly built document. The
+   * {@code removeListItem} step mutates the document mid-iteration — the cursor
+   * must skip the now-dead candidate rather than return it, which is the whole
+   * point of re-validating each step against the live document.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testCursorScript(SpecModel model) throws IOException {
+    SpecDocument d = buildDocument();
+    SpecQueryEngine engine = new SpecQueryEngine(model, d);
+    SpecQueryCursor cursor = null;
+    List<Object> steps = readJsonArray("cursor_cases.json");
+    for (int n = 0; n < steps.size(); n++) {
+      Map<String, Object> s = (Map<String, Object>) steps.get(n);
+      String kind = (String) s.get("op");
+      String at = "cursor[" + n + "]." + kind;
+      switch (kind) {
+        case "open":
+          cursor = engine.query(queryFromJson(queryOf(s)));
+          break;
+        case "count": {
+          int got = cursor.count();
+          check(at, got == ((Number) s.get("expect")).intValue(), String.valueOf(got));
+          break;
+        }
+        case "take": {
+          List<String> got = new ArrayList<>();
+          for (SpecQueryMatch m : cursor.take(intAt(s, "n"))) {
+            got.add(m.path);
+          }
+          List<String> want = stringList(s.get("expect"));
+          check(at, got.equals(want), got + " != " + want);
+          break;
+        }
+        case "next": {
+          SpecQueryMatch m = cursor.next();
+          String got = m == null ? null : m.path;
+          check(at, Objects.equals(got, s.get("expect")), String.valueOf(got));
+          break;
+        }
+        case "toList": {
+          List<String> got = new ArrayList<>();
+          for (SpecQueryMatch m : cursor.toList()) {
+            got.add(m.path);
+          }
+          List<String> want = stringList(s.get("expect"));
+          check(at, got.equals(want), got + " != " + want);
+          break;
+        }
+        case "removeListItem":
+          d.removeListItem((String) s.get("itemPath"));
+          break;
+        default:
+          check("cursor[" + n + "].unknown", false, kind);
+      }
+    }
+  }
+
+  /**
+   * SOM §9: the stateless {@code checkAddNode} gate. Each probe runs against a
+   * <b>fresh</b> document, so the table is order-independent.
+   *
+   * <p>Only the {@link SpecCreationCode} is asserted, never the message: the code
+   * is the contract, the message is prose, and pinning prose across nine
+   * languages would make rewording a nine-package change. The table exercises
+   * every code, which {@link #testNodeCreationCoverage} enforces.
+   */
+  @SuppressWarnings("unchecked")
+  private static void testNodeCreationCases(SpecModel model) throws IOException {
+    for (Object caseObj : readJsonArray("node_creation_cases.json")) {
+      Map<String, Object> c = (Map<String, Object>) caseObj;
+      String name = (String) c.get("name");
+      SpecDocument d = buildDocument();
+      String parentPath = (String) c.get("parentPath");
+      String childSegment = (String) c.get("childSegment");
+      SpecCreationError err =
+          SpecNodeCreator.checkAddNode(
+              model, d, parentPath, childSegment, (String) c.get("itemId"));
+      boolean accepted = err == null;
+      check(
+          "nodeCreation[" + name + "].accepted",
+          accepted == Boolean.TRUE.equals(c.get("accepted")),
+          accepted ? "accepted" : String.valueOf(err));
+      if (err != null) {
+        check("nodeCreation[" + name + "].code", err.code.value.equals(c.get("code")), err.code.value);
+        check("nodeCreation[" + name + "].parentPath", err.parentPath.equals(parentPath), err.parentPath);
+        check(
+            "nodeCreation[" + name + "].childSegment",
+            err.childSegment.equals(childSegment),
+            err.childSegment);
+      }
+    }
+  }
+
+  /** Every {@link SpecCreationCode} is exercised by the table (nothing is declared-only). */
+  @SuppressWarnings("unchecked")
+  private static void testNodeCreationCoverage() throws IOException {
+    List<String> covered = new ArrayList<>();
+    for (Object caseObj : readJsonArray("node_creation_cases.json")) {
+      Object code = ((Map<String, Object>) caseObj).get("code");
+      if (code != null) {
+        covered.add((String) code);
+      }
+    }
+    List<String> uncovered = new ArrayList<>();
+    for (SpecCreationCode code : SpecCreationCode.values()) {
+      if (!covered.contains(code.value)) {
+        uncovered.add(code.value);
+      }
+    }
+    check("nodeCreation.codeCoverage", uncovered.isEmpty(), "uncovered: " + uncovered);
+  }
+
+  /**
+   * SOM §9: the sequential {@link SpecNodeCreator} script — one document, so each
+   * step sees what the previous produced (generated ids, item numbering).
+   */
+  @SuppressWarnings("unchecked")
+  private static void testNodeCreationScript(SpecModel model) throws IOException {
+    SpecDocument d = buildDocument();
+    SpecNodeCreator creator = new SpecNodeCreator(model, d);
+    List<Object> steps = readJsonArray("node_creation_script.json");
+    for (int n = 0; n < steps.size(); n++) {
+      Map<String, Object> s = (Map<String, Object>) steps.get(n);
+      String kind = (String) s.get("op");
+      String at = "nodeScript[" + n + "]." + kind;
+      switch (kind) {
+        case "add": {
+          String path =
+              creator.add(
+                  (String) s.get("parentPath"),
+                  (String) s.get("childSegment"),
+                  (String) s.get("itemId"),
+                  intAt(s, "month"),
+                  intAt(s, "day"));
+          check(at, path.equals(s.get("expectPath")), path);
+          check(
+              at + " id",
+              Objects.equals(d.itemSectionId(path), s.get("expectId")),
+              String.valueOf(d.itemSectionId(path)));
+          break;
+        }
+        case "addThrows": {
+          // The date is irrelevant to a rejected add, but must be supplied:
+          // 2026-03-04, the same instant the Dart reference uses.
+          String code = null;
+          try {
+            creator.add(
+                (String) s.get("parentPath"),
+                (String) s.get("childSegment"),
+                (String) s.get("itemId"),
+                3,
+                4);
+          } catch (SpecCreationError e) {
+            code = e.code.value;
+          }
+          check(at, Objects.equals(code, s.get("expectCode")), String.valueOf(code));
+          break;
+        }
+        case "finalState":
+          check(at, d.toJson().equals(s.get("expect")), jsonMismatch(d.toJson(), s.get("expect")));
+          break;
+        default:
+          check("nodeScript[" + n + "].unknown", false, kind);
+      }
+    }
+  }
+
   public static void main(String[] args) throws IOException {
     String corpusArg =
         args.length > 0 ? args[0] : "../tom_som_conformance/corpus";
@@ -858,6 +1299,14 @@ public final class ConformanceRunner {
     testSectionId();
     testSerializationOrder();
     testDocSpecs();
+    testFixtureDocument();
+    testPatterns();
+    testQueries(model);
+    testProjection(model);
+    testCursorScript(model);
+    testNodeCreationCases(model);
+    testNodeCreationCoverage();
+    testNodeCreationScript(model);
 
     int total = passed + failed.size();
     if (!failed.isEmpty()) {

@@ -36,6 +36,9 @@ The package `tom_som_runtime` mirrors the portable runtime modules:
 | `SpecTypedValues` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
 | `SpecEditor` | The generic meta-model-driven modification API (YRD7) — typed edits over any path, without a generated facade. |
 | `SpecValidator` | Validates a document's values against the model. |
+| `SomTextPattern`, `SomPatternError` | The portable pattern subset — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (`java.util.regex` is a different grammar, and its case folding is Unicode-wide where the contract stops at ASCII). |
+| `SpecQuery`, `SpecQueryEngine`, `SpecQueryCursor`, `SpecQueryMatch` | The lexical/structural query surface plus the flat tier-1 node projection. |
+| `SpecNodeCreator`, `SpecCreationError`, `SpecCreationCode` | The constrained node-creation gate (`checkAddNode`, `add`) — a document may only grow in ways the model permits. |
 | `SpecDocumentYaml` | Byte-stable `*.docspecs.yaml` codec. |
 | `SpecDocumentMarkdown` | Meta-data-driven Markdown import/export codec. |
 | `SomNode`, `SomScalar`, `SomList`, `SomFacade` | Editing-facade base types for the generated `tom_som_java_v0`. |

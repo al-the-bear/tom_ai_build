@@ -21,6 +21,9 @@ provide:
 | `spec_typed_values.c` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided; also the tagged `SomValue` typed positions travel as. |
 | `spec_editor.c` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
 | `spec_validator.c` | Validates a document's values against the model. |
+| `spec_text_pattern.c` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (standard C has no regex at all, and POSIX `regex.h` would be both a dependency and a different grammar). |
+| `spec_query.c` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
+| `spec_node_creation.c` | The constrained node-creation gate (`spec_check_add_node`, `spec_node_creator_add`) — a document may only grow in ways the model permits. |
 | `spec_document_yaml.c` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown.c` | Meta-data-driven Markdown import/export codec. |
 | `som_facade.c` | Editing-facade base types (`SomNode`, `SomScalar`, `SomList`) for the generated `tom_som_c_v0`. |

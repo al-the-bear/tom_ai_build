@@ -6,8 +6,15 @@ Model (SOM). It is the language-independent core shared by every generated typed
 (`tom_specs_editor`) and the model reviewer (`tom_specs_reviewer`): the
 path-keyed in-memory document representation, the meta-model ("reflection")
 classes that load the exported spec-model meta-data, the markdown /
-DocSpecs-YAML readers and writers, and the document validator. Pure Dart, no
-Flutter dependency.
+DocSpecs-YAML readers and writers, the document validator, and the scripting
+surface a sandboxed layer needs — the lexical/structural query facility
+(`SpecQueryEngine`, matching over the portable `SomTextPattern` subset) and the
+model-constrained node-creation gate (`SpecNodeCreator`). Pure Dart, no Flutter
+dependency.
+
+This package is the **reference** for the other eight SOM runtimes: everything
+they mirror, they mirror from here (SOM §9), and the shared corpus in
+`tom_som_conformance` is computed from this runtime rather than hand-written.
 
 Because it is the shared layer, **readers for the spec model belong here rather
 than in either app** — an accessor added here is inherited by both, whereas one

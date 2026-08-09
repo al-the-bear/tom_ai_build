@@ -40,6 +40,9 @@ The package `tom_som_runtime` mirrors the eight portable runtime modules:
 | `spec_typed_values.js` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
 | `spec_editor.js` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
 | `spec_validator.js` | Validates a document's values against the model. |
+| `spec_text_pattern.js` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime (`RegExp` is the ECMAScript grammar, which accepts far more than the subset and would let a pattern that only works here into the corpus). |
+| `spec_query.js` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
+| `spec_node_creation.js` | The constrained node-creation gate (`checkAddNode`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
 | `spec_document_yaml.js` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown.js` | DocSpecs-conform Markdown import/export codec (SOM §11). |
 | `docspecs_validator.js` | Schema-free DocSpecs parse, schema loader, and never-fail-fast validator (SOM §14). |

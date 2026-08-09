@@ -19,6 +19,9 @@
  *   * validation cases;
  *   * the imperative operations script;
  *   * the generic editor (YRD7) script;
+ *   * the SOM §9 query tier — the portable text-pattern subset, the query /
+ *     projection tables, the scripted cursor session, and the constrained
+ *     node-creation gate (probe table + stateful script);
  *   * the SOM §14 DocSpecs tier (schema load + one violation case per rule).
  *
  * Run with: `node tests/conformance_runner.js`. Exit code 0 == all green.
@@ -38,14 +41,23 @@ const {
   DocSpecsSchema,
   DocSpecsValidator,
   DocSpecsViolationRule,
+  SomPatternError,
+  SomTextPattern,
+  SpecCreationError,
   SpecDocument,
   SpecDocumentMarkdown,
   SpecEditor,
   SpecModel,
+  SpecNodeCreator,
+  SpecNodeKind,
+  SpecQuery,
+  SpecQueryEngine,
   buildSomMetaTree,
+  checkAddNode,
   SpecReflection,
   SpecSectionIdCollision,
   SpecSerializationOrder,
+  SpecStateFilter,
   encodeTwoLetterDate,
   generateListItemSectionId,
   validateDocument,
@@ -655,6 +667,359 @@ function testDocSpecs() {
     `uncovered: ${uncovered}`);
 }
 
+// ---------------------------------------------------------------------------
+// SOM §9: spec_text_pattern / spec_query / spec_node_creation
+// ---------------------------------------------------------------------------
+
+/**
+ * The corpus fixture document, built the way the Dart reference's
+ * `_buildDocument()` builds it.
+ *
+ * Rebuilt rather than loaded from `state.json` on purpose: `toJson()` **sorts**
+ * every store, and the query surface's `searchableStrings` follow a form's
+ * *insertion* order (`Bob`, `bob@example.com`, … for `DEMO/DET`). A document
+ * loaded from the sorted golden would search the same values in a different
+ * order and pick a different snippet, so `projection_cases.json` would not
+ * reproduce. Ordering aside the two are the same document — which
+ * {@link testFixtureDocument} asserts.
+ *
+ * @returns {SpecDocument}
+ */
+function _buildFixtureDocument() {
+  const d = new SpecDocument();
+  d.setContent('DEMO/TTL', 'Hello');
+  d.setContent('DEMO/SUM', 'Line one\nLine two\n\nLine four');
+  d.setContent('DEMO/PRI', 'high');
+  d.setContent('DEMO/CNT', '3');
+  d.setFormField('DEMO/DET', 'owner', 'Bob');
+  d.setFormField('DEMO/DET', 'contact', 'bob@example.com');
+  // YRD7: typed form-field values in their canonical plain-text store form.
+  d.setFormField('DEMO/DET', 'estimate', '8');
+  d.setFormField('DEMO/DET', 'weight', '2.5');
+  d.setFormField('DEMO/DET', 'active', 'true');
+  d.setFormField('DEMO/DET', 'priority', 'high');
+  const i1 = d.addListItem('DEMO/items');
+  d.setContent(`${i1}/label`, 'First');
+  d.setContent(`${i1}/STS`, 'open');
+  const i2 = d.addListItem('DEMO/items');
+  d.setContent(`${i2}/label`, 'Second line A\nwith ```triple``` ticks');
+  d.setContent(`${i2}/STS`, 'done');
+  // A genuine `*-LST` list (id `REF-LST`, pattern `REF-xxx`).
+  for (const ref of ['spec §1.2', 'ADR7']) {
+    const r = d.addListItem('DEMO/REF-LST');
+    d.setContent(r, ref);
+  }
+  // YRD3 fixtures: stored headlines + a stored (pattern-shaped, non-numeric)
+  // item section id.
+  d.setHeadline('DEMO/SUM', 'Executive Summary');
+  d.setHeadline('DEMO/DET', 'Details & Contacts');
+  d.setHeadline('DEMO/items', 'Work Items');
+  d.setItemSectionId('DEMO/REF-LST-1', 'REF-SPEC');
+  d.setHeadline('DEMO/REF-LST-1', 'Reference to the Spec');
+  // Card 1 gets a stored item section id and headline; card 2 keeps both
+  // defaults. The ordinary `note` field lands in the form store.
+  const c1 = d.addListItem('DEMO/CARD-LST');
+  d.setItemSectionId(c1, 'CARD-ALPHA');
+  d.setHeadline(c1, 'Alpha Card');
+  d.setFormField(`${c1}/content`, 'note', 'first card');
+  const c2 = d.addListItem('DEMO/CARD-LST');
+  d.setFormField(`${c2}/content`, 'note', 'second card');
+  d.setContent('DEMO/META/OWNR', 'alice');
+  // Scalar list exercising the YAML 1.1-special quoting rule (SOM §12.5).
+  for (const tag of ['on', 'no', '1:30', 'plain']) {
+    const t = d.addListItem('DEMO/META/tags');
+    d.setContent(t, tag);
+  }
+  // A class-level-only section (`Control`, id `CTRL`).
+  d.setContent('DEMO/control/CTRL-SUM', 'Controlled summary');
+  d.setContent('DEMO/control/owner', 'ctrl-owner');
+  return d;
+}
+
+/** The rebuilt fixture must hold exactly the values `state.json` records. */
+function testFixtureDocument() {
+  const got = _buildFixtureDocument().toJson();
+  const want = _readJson('state.json');
+  _check('fixture.matchesState', _deepEqual(got, want), _jsonMismatch(got, want));
+}
+
+/**
+ * Rebuilds a {@link SpecQuery} from its corpus wire form.
+ *
+ * Every port needs this same decode, so its shape *is* part of the contract: an
+ * absent key means "dimension unset", never a default that happens to match.
+ * Kept beside the replay tests rather than in `tom_som_runtime/` because it
+ * belongs to the corpus format, not to the runtime API.
+ *
+ * @param {Object} j
+ * @returns {SpecQuery}
+ */
+function _queryFromJson(j) {
+  const opt = (key) => (Object.prototype.hasOwnProperty.call(j, key) ? j[key] : null);
+  const kindNames = opt('kinds');
+  let kinds = null;
+  if (kindNames !== null) {
+    const known = new Set(Object.values(SpecNodeKind));
+    kinds = new Set();
+    for (const k of kindNames) {
+      if (!known.has(k)) {
+        throw new Error(`unknown node kind "${k}" in query wire form`);
+      }
+      kinds.add(k);
+    }
+  }
+  const stateName = opt('state');
+  let state = null;
+  if (stateName !== null) {
+    if (!Object.values(SpecStateFilter).includes(stateName)) {
+      throw new Error(`unknown state filter "${stateName}" in query wire form`);
+    }
+    state = stateName;
+  }
+  return new SpecQuery({
+    text: opt('text'),
+    regex: opt('regex') === null ? false : j.regex,
+    caseInsensitive: opt('caseInsensitive') === null ? false : j.caseInsensitive,
+    kinds,
+    className: opt('className'),
+    sectionIdExact: opt('sectionIdExact'),
+    sectionIdPrefix: opt('sectionIdPrefix'),
+    pathGlob: opt('pathGlob'),
+    mapsTo: opt('mapsTo'),
+    detailedIn: opt('detailedIn'),
+    state,
+  });
+}
+
+/**
+ * The portable pattern subset (SOM §9): every committed match table plus every
+ * committed compile rejection.
+ *
+ * `RegExp` is deliberately not used by the implementation — the spans are the
+ * nine-language contract and the host engines disagree about them.
+ */
+function testPatterns() {
+  const cases = _readJson('pattern_cases.json');
+  for (const c of cases) {
+    const source = c.pattern;
+    if (c.error === true) {
+      let rejected = false;
+      try {
+        SomTextPattern.compile(source);
+      } catch (e) {
+        rejected = e instanceof SomPatternError;
+      }
+      _check(`pattern[${source}].rejected`, rejected, 'must be rejected as SomPatternError');
+      continue;
+    }
+    const ci = c.caseInsensitive === undefined ? false : c.caseInsensitive;
+    const p = c.regex
+      ? SomTextPattern.compile(source, { caseInsensitive: ci })
+      : SomTextPattern.literal(source, { caseInsensitive: ci });
+    const got = p.allMatches(c.text).map((s) => [s.start, s.end]);
+    _check(
+      `pattern[${source}] over "${c.text}"`,
+      _deepEqual(got, c.spans),
+      `${JSON.stringify(got)} != ${JSON.stringify(c.spans)}`,
+    );
+    // `hasMatch` is the same fact stated as a boolean; a port that special-cased
+    // it would otherwise go unchecked.
+    _check(`pattern[${source}].hasMatch`, p.hasMatch(c.text) === (c.spans.length > 0));
+  }
+
+  // A table of matches alone would let a port accept everything; a table of
+  // rejections alone would let one reject everything.
+  _check('pattern.table.hasRejections', cases.some((c) => c.error === true));
+  _check('pattern.table.hasMatches', cases.some((c) => c.error !== true));
+}
+
+/**
+ * The `spec_query` surface: each committed query reproduces its match list, in
+ * order — and, separately, `count` agrees with that list's length (a port that
+ * drains for `toList` but returns the raw candidate count for `count` passes the
+ * first assertion and fails the second).
+ *
+ * @param {SpecModel} model
+ * @param {SpecDocument} doc
+ */
+function testQueries(model, doc) {
+  const engine = new SpecQueryEngine({ model, document: doc });
+  for (const c of _readJson('query_cases.json')) {
+    const got = engine
+      .query(_queryFromJson(c.query))
+      .toList()
+      .map((m) => ({
+        path: m.path,
+        kind: m.kind,
+        classId: m.classId,
+        headline: m.headline,
+        snippet: m.snippet,
+        spans: m.matchSpans.map((s) => [s.start, s.end]),
+      }));
+    _check(
+      `query[${c.name}]`,
+      _deepEqual(got, c.matches),
+      `${JSON.stringify(got)} != ${JSON.stringify(c.matches)}`,
+    );
+    const count = engine.query(_queryFromJson(c.query)).count;
+    _check(
+      `query[${c.name}].count`,
+      count === c.matches.length,
+      `${count} != ${c.matches.length}`,
+    );
+  }
+}
+
+/**
+ * The flat `projectNodes()` walk in document order — the tier-1 index source.
+ *
+ * @param {SpecModel} model
+ * @param {SpecDocument} doc
+ */
+function testProjection(model, doc) {
+  const engine = new SpecQueryEngine({ model, document: doc });
+  const got = [];
+  for (const p of engine.projectNodes()) {
+    got.push({
+      path: p.path,
+      kind: p.kind,
+      classId: p.classId,
+      sectionId: p.sectionId,
+      mapsTo: p.mapsTo,
+      detailedIn: p.detailedIn,
+      headline: p.headline,
+      searchableStrings: p.searchableStrings,
+      hasValue: p.hasValue,
+    });
+  }
+  const want = _readJson('projection_cases.json');
+  _check('projection.walk', _deepEqual(got, want), _jsonMismatch(got, want));
+}
+
+/**
+ * The scripted cursor session: laziness (`take`/`next`/`toList` consume,
+ * `count` peeks) plus stability — an item removed *after* the cursor was opened
+ * is skipped, not returned.
+ *
+ * @param {SpecModel} model
+ */
+function testCursorScript(model) {
+  const d = _buildFixtureDocument();
+  const engine = new SpecQueryEngine({ model, document: d });
+  let cursor = null;
+  const steps = _readJson('cursor_cases.json');
+  for (let n = 0; n < steps.length; n++) {
+    const s = steps[n];
+    switch (s.op) {
+      case 'open':
+        cursor = engine.query(_queryFromJson(s.query));
+        break;
+      case 'count':
+        _check(`cursor[${n}].count`, cursor.count === s.expect, `${cursor.count} != ${s.expect}`);
+        break;
+      case 'take': {
+        const got = cursor.take(s.n).map((m) => m.path);
+        _check(`cursor[${n}].take`, _deepEqual(got, s.expect), `${got} != ${s.expect}`);
+        break;
+      }
+      case 'next': {
+        const m = cursor.next();
+        const got = m === null ? null : m.path;
+        _check(`cursor[${n}].next`, got === s.expect, `${got} != ${s.expect}`);
+        break;
+      }
+      case 'toList': {
+        const got = cursor.toList().map((m) => m.path);
+        _check(`cursor[${n}].toList`, _deepEqual(got, s.expect), `${got} != ${s.expect}`);
+        break;
+      }
+      case 'removeListItem':
+        d.removeListItem(s.itemPath);
+        break;
+      default:
+        _check(`cursor[${n}].unknown`, false, s.op);
+    }
+  }
+}
+
+/**
+ * The stateless `checkAddNode` probes — each against a **freshly built**
+ * document, so they are order-independent. The corpus pins the
+ * {@link SpecCreationCode} name, never the message: the code is the contract,
+ * the message is prose, and pinning prose across nine languages would make
+ * rewording a nine-package change.
+ *
+ * @param {SpecModel} model
+ */
+function testNodeCreation(model) {
+  for (const c of _readJson('node_creation_cases.json')) {
+    const d = _buildFixtureDocument();
+    const itemId = c.itemId === undefined ? null : c.itemId;
+    const err = checkAddNode(model, d, c.parentPath, c.childSegment, { itemId });
+    _check(`nodeCreate[${c.name}].accepted`, (err === null) === c.accepted, String(err));
+    if (err !== null) {
+      _check(`nodeCreate[${c.name}].code`, err.code === c.code, `${err.code} != ${c.code}`);
+      _check(`nodeCreate[${c.name}].parentPath`, err.parentPath === c.parentPath);
+      _check(`nodeCreate[${c.name}].childSegment`, err.childSegment === c.childSegment);
+    }
+  }
+}
+
+/**
+ * The stateful node-creation script: nine sequential steps against one
+ * document, so each step sees what the previous produced (sequence numbers and
+ * generated ids, which the stateless probes cannot exercise).
+ *
+ * @param {SpecModel} model
+ */
+function testNodeCreationScript(model) {
+  const d = _buildFixtureDocument();
+  const creator = new SpecNodeCreator(model, d);
+  const steps = _readJson('node_creation_script.json');
+  for (let n = 0; n < steps.length; n++) {
+    const s = steps[n];
+    const itemId = s.itemId === undefined ? null : s.itemId;
+    switch (s.op) {
+      case 'add': {
+        const p = creator.add(s.parentPath, s.childSegment, {
+          itemId,
+          month: s.month,
+          day: s.day,
+        });
+        _check(`nodeScript[${n}].add`, p === s.expectPath, `${p} != ${s.expectPath}`);
+        const id = d.itemSectionId(p);
+        _check(`nodeScript[${n}].addId`, id === s.expectId, `${id} != ${s.expectId}`);
+        break;
+      }
+      case 'addThrows': {
+        let code = null;
+        try {
+          // The reference dates every `addThrows` probe 2026-03-04; the add must
+          // be rejected before the date is ever consulted.
+          creator.add(s.parentPath, s.childSegment, { itemId, month: 3, day: 4 });
+        } catch (e) {
+          code = e instanceof SpecCreationError ? e.code : `<${e}>`;
+        }
+        _check(
+          `nodeScript[${n}].addThrows`,
+          code === s.expectCode,
+          `${code} != ${s.expectCode}`,
+        );
+        break;
+      }
+      case 'finalState':
+        _check(
+          `nodeScript[${n}].finalState`,
+          _deepEqual(d.toJson(), s.expect),
+          _jsonMismatch(d.toJson(), s.expect),
+        );
+        break;
+      default:
+        _check(`nodeScript[${n}].unknown`, false, s.op);
+    }
+  }
+}
+
 function main() {
   if (!fs.existsSync(_CORPUS) || !fs.statSync(_CORPUS).isDirectory()) {
     process.stderr.write(`corpus not found at ${_CORPUS}\n`);
@@ -676,6 +1041,15 @@ function main() {
   testOperations();
   testSectionId();
   testSerializationOrder();
+  // SOM §9 query tier — over the rebuilt fixture (see `_buildFixtureDocument`).
+  const fixture = _buildFixtureDocument();
+  testFixtureDocument();
+  testPatterns();
+  testQueries(model, fixture);
+  testProjection(model, fixture);
+  testCursorScript(model);
+  testNodeCreation(model);
+  testNodeCreationScript(model);
   testDocSpecs();
 
   const total = _passed + _failed.length;

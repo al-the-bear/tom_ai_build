@@ -17,6 +17,9 @@
 //!   - validation cases;
 //!   - the imperative operations script;
 //!   - the generic typed editing script (YRD7 `SpecEditor`);
+//!   - the SOM §9 search tier: the portable text-pattern subset, the query /
+//!     projection surfaces, the lazy cursor over a mutating document, and the
+//!     meta-model-validated node-creation gate;
 //!   - the SOM §14 DocSpecs tier (one case per violation rule).
 //!
 //! `cargo test` is the native runner; exit 0 == all green.
@@ -33,11 +36,16 @@ use tom_som_rust_runtime::spec_meta_bridge::build_som_meta_tree;
 use tom_som_rust_runtime::spec_model::{
     SpecModel, DEFAULT_MAX_SNAPSHOT_AGE_SECONDS, SECONDS_PER_DAY,
 };
+use tom_som_rust_runtime::spec_node_creation::{check_add_node, SpecNodeCreator};
+use tom_som_rust_runtime::spec_query::{
+    SpecQuery, SpecQueryCursor, SpecQueryEngine, SpecQueryMatch, SpecStateFilter,
+};
 use tom_som_rust_runtime::spec_reflection::SpecReflection;
 use tom_som_rust_runtime::spec_section_id::{
     encode_two_letter_date, generate_list_item_section_id, is_collision,
 };
 use tom_som_rust_runtime::spec_serialization_order::SpecSerializationOrder;
+use tom_som_rust_runtime::spec_text_pattern::SomTextPattern;
 use tom_som_rust_runtime::spec_validator::validate_document;
 use tom_som_rust_runtime::{DocSpecsSchema, DocSpecsValidator, DOCSPECS_ALL_RULES};
 
@@ -151,6 +159,12 @@ fn conformance() {
     test_editor(&mut c, &model);
     test_section_id(&mut c);
     test_serialization_order(&mut c);
+    test_text_pattern(&mut c);
+    test_query(&mut c, &model);
+    test_projection(&mut c, &model);
+    test_cursor_script(&mut c, &model);
+    test_node_creation_cases(&mut c, &model);
+    test_node_creation_script(&mut c, &model);
     test_docspecs(&mut c);
 
     c.finish();
@@ -1017,6 +1031,487 @@ fn test_serialization_order(c: &mut Checker) {
         got_fields == expected_form_order,
         &format!("{} != {}", got_fields.join(","), expected_form_order.join(",")),
     );
+}
+
+// --- search tier: text pattern / query / projection / creation (SOM §9) ----
+
+/// The portable pattern subset: every committed match list, and every committed
+/// compile rejection.
+///
+/// Spans are **UTF-16 code-unit offsets** (the corpus deliberately carries
+/// non-ASCII text), so this port measures in `str::encode_utf16` units rather
+/// than Rust byte or `char` indices.
+fn test_text_pattern(c: &mut Checker) {
+    let cases_json = read_json("pattern_cases.json");
+    let cases = cases_json.as_array().expect("pattern_cases.json is a list");
+
+    let mut rejections = 0usize;
+    let mut matches = 0usize;
+    for (n, tc) in cases.iter().enumerate() {
+        let source = tc.str_or("pattern");
+        let regex = tc.get("regex").and_then(|v| v.as_bool()).unwrap_or(false);
+        let ci = tc
+            .get("caseInsensitive")
+            .and_then(|v| v.as_bool())
+            .unwrap_or(false);
+        let tag = format!("pattern[{}] {:?}", n, source);
+
+        if tc.get("error").and_then(|v| v.as_bool()) == Some(true) {
+            rejections += 1;
+            // The Dart reference compiles rejections with the default (case
+            // sensitive) flag; the flag cannot affect a parse decision.
+            match SomTextPattern::compile(&source, false) {
+                Ok(_) => c.check(&tag, false, "must be rejected but compiled"),
+                Err(_) => c.check(&tag, true, ""),
+            }
+            continue;
+        }
+        matches += 1;
+
+        let pattern = if regex {
+            match SomTextPattern::compile(&source, ci) {
+                Ok(p) => p,
+                Err(e) => {
+                    c.check(&tag, false, &format!("unexpected rejection: {}", e));
+                    continue;
+                }
+            }
+        } else {
+            SomTextPattern::literal(&source, ci)
+        };
+
+        let text = tc.str_or("text");
+        let got: Vec<(usize, usize)> = pattern
+            .all_matches(&text)
+            .iter()
+            .map(|s| (s.start, s.end))
+            .collect();
+        let want = spans_of(tc.get("spans"));
+        c.check(
+            &tag,
+            got == want,
+            &format!("over {:?}: {:?} != {:?}", text, got, want),
+        );
+    }
+
+    // A table of matches alone would let a port accept everything; a table of
+    // rejections alone would let one reject everything.
+    c.check("pattern.table.hasRejections", rejections > 0, "");
+    c.check("pattern.table.hasMatches", matches > 0, "");
+}
+
+/// The query surface: every committed query reproduces its match list **in
+/// order**, and `count` independently agrees with that list's length.
+///
+/// The second assertion is deliberately separate: a port that implements
+/// `to_list` by draining but `count` by returning the candidate count passes the
+/// first and fails this one.
+fn test_query(c: &mut Checker, model: &SpecModel) {
+    let state = DocumentJson::from_json(&read_json("state.json"));
+    let doc = doc_from_state(&state);
+    let engine = SpecQueryEngine::for_model(&doc, model);
+    let cases_json = read_json("query_cases.json");
+    let cases = cases_json.as_array().expect("query_cases.json is a list");
+
+    for tc in cases {
+        let name = tc.str_or("name");
+        let query = query_from_json(tc.get("query").expect("case has a query"));
+        let want = tc
+            .get("matches")
+            .and_then(|v| v.as_array())
+            .expect("case has a match list");
+
+        let mut cursor = match engine.query(query.clone()) {
+            Ok(cur) => cur,
+            Err(e) => {
+                c.check(&format!("query[{}]", name), false, &e.to_string());
+                continue;
+            }
+        };
+        let got = cursor.to_list(&engine);
+        c.check(
+            &format!("query[{}].len", name),
+            got.len() == want.len(),
+            &format!("{} != {}", got.len(), want.len()),
+        );
+        for (i, expected) in want.iter().enumerate() {
+            let Some(m) = got.get(i) else { break };
+            check_query_match(c, &format!("query[{}][{}]", name, i), m, expected);
+        }
+
+        // `count` re-validates the *remaining* candidates without consuming, so
+        // it is taken from a fresh cursor over the same query.
+        let counted = match engine.query(query) {
+            Ok(cur) => cur.count(&engine),
+            Err(e) => {
+                c.check(&format!("query[{}].count", name), false, &e.to_string());
+                continue;
+            }
+        };
+        c.check(
+            &format!("query[{}].count", name),
+            counted == want.len(),
+            &format!("{} != {}", counted, want.len()),
+        );
+    }
+}
+
+/// Compares one materialised match against its corpus entry, field by field.
+fn check_query_match(c: &mut Checker, tag: &str, got: &SpecQueryMatch, want: &Json) {
+    c.check(
+        &format!("{}.path", tag),
+        got.path == want.str_or("path"),
+        &format!("{} != {}", got.path, want.str_or("path")),
+    );
+    c.check(
+        &format!("{}.kind", tag),
+        got.kind == want.str_or("kind"),
+        &format!("{} != {}", got.kind, want.str_or("kind")),
+    );
+    c.check(
+        &format!("{}.classId", tag),
+        got.class_id == opt_str(want.get("classId")),
+        &format!("{:?}", got.class_id),
+    );
+    c.check(
+        &format!("{}.headline", tag),
+        got.headline == opt_str(want.get("headline")),
+        &format!("{:?}", got.headline),
+    );
+    c.check(
+        &format!("{}.snippet", tag),
+        got.snippet == opt_str(want.get("snippet")),
+        &format!("{:?}", got.snippet),
+    );
+    let spans: Vec<(usize, usize)> = got.match_spans.iter().map(|s| (s.start, s.end)).collect();
+    let want_spans = spans_of(want.get("spans"));
+    c.check(
+        &format!("{}.spans", tag),
+        spans == want_spans,
+        &format!("{:?} != {:?}", spans, want_spans),
+    );
+}
+
+/// The full structural walk in document order — the projection every UI/agent
+/// surface reads before it queries anything.
+fn test_projection(c: &mut Checker, model: &SpecModel) {
+    let state = DocumentJson::from_json(&read_json("state.json"));
+    let doc = doc_from_state(&state);
+    let engine = SpecQueryEngine::for_model(&doc, model);
+    let cases_json = read_json("projection_cases.json");
+    let want = cases_json
+        .as_array()
+        .expect("projection_cases.json is a list");
+    let got = engine.project_nodes();
+
+    c.check(
+        "projection.len",
+        got.len() == want.len(),
+        &format!("{} != {}", got.len(), want.len()),
+    );
+    for (i, expected) in want.iter().enumerate() {
+        let Some(p) = got.get(i) else { break };
+        let tag = format!("projection[{}] {}", i, expected.str_or("path"));
+        c.check(
+            &format!("{}.path", tag),
+            p.path == expected.str_or("path"),
+            &p.path,
+        );
+        c.check(
+            &format!("{}.kind", tag),
+            p.kind == expected.str_or("kind"),
+            &p.kind,
+        );
+        c.check(
+            &format!("{}.classId", tag),
+            p.class_id == opt_str(expected.get("classId")),
+            &format!("{:?}", p.class_id),
+        );
+        c.check(
+            &format!("{}.sectionId", tag),
+            p.section_id == opt_str(expected.get("sectionId")),
+            &format!("{:?}", p.section_id),
+        );
+        c.check(
+            &format!("{}.mapsTo", tag),
+            p.maps_to == opt_str(expected.get("mapsTo")),
+            &format!("{:?}", p.maps_to),
+        );
+        c.check(
+            &format!("{}.detailedIn", tag),
+            p.detailed_in == opt_str(expected.get("detailedIn")),
+            &format!("{:?}", p.detailed_in),
+        );
+        c.check(
+            &format!("{}.headline", tag),
+            p.headline == opt_str(expected.get("headline")),
+            &format!("{:?}", p.headline),
+        );
+        let want_strings = str_list(expected.get("searchableStrings"));
+        c.check(
+            &format!("{}.searchableStrings", tag),
+            p.searchable_strings == want_strings,
+            &format!("{:?} != {:?}", p.searchable_strings, want_strings),
+        );
+        c.check(
+            &format!("{}.hasValue", tag),
+            Some(p.has_value) == expected.get("hasValue").and_then(|v| v.as_bool()),
+            &p.has_value.to_string(),
+        );
+    }
+}
+
+/// The lazy cursor replayed against a **mutating** document.
+///
+/// A cursor is a query plus a position, not a snapshot: it re-validates each
+/// candidate against the live document as it steps, so an item removed after the
+/// cursor was opened is skipped. Rust cannot hold a shared borrow of the
+/// document across a mutation, so [`SpecQueryEngine`] is rebuilt per step (it is
+/// a borrow pair, not state) and the cursor carries no engine reference.
+fn test_cursor_script(c: &mut Checker, model: &SpecModel) {
+    let state = DocumentJson::from_json(&read_json("state.json"));
+    let mut doc = doc_from_state(&state);
+    let steps_json = read_json("cursor_cases.json");
+    let steps = steps_json.as_array().expect("cursor_cases.json is a list");
+    let mut cursor: Option<SpecQueryCursor> = None;
+
+    for (n, s) in steps.iter().enumerate() {
+        let op = s.str_or("op");
+        let tag = format!("cursor[{}].{}", n, op);
+        match op.as_str() {
+            "open" => {
+                let engine = SpecQueryEngine::for_model(&doc, model);
+                let query = query_from_json(s.get("query").expect("open has a query"));
+                match engine.query(query) {
+                    Ok(cur) => cursor = Some(cur),
+                    Err(e) => c.check(&tag, false, &e.to_string()),
+                }
+            }
+            "count" => {
+                let engine = SpecQueryEngine::for_model(&doc, model);
+                let want = s.get("expect").and_then(|v| v.as_i64()).unwrap_or(-1) as usize;
+                let got = cursor.as_ref().expect("cursor is open").count(&engine);
+                c.check(&tag, got == want, &format!("{} != {}", got, want));
+            }
+            "take" => {
+                let engine = SpecQueryEngine::for_model(&doc, model);
+                let n_take = s.get("n").and_then(|v| v.as_i64()).unwrap_or(0) as usize;
+                let got: Vec<String> = cursor
+                    .as_mut()
+                    .expect("cursor is open")
+                    .take(&engine, n_take)
+                    .into_iter()
+                    .map(|m| m.path)
+                    .collect();
+                let want = str_list(s.get("expect"));
+                c.check(&tag, got == want, &format!("{:?} != {:?}", got, want));
+            }
+            "next" => {
+                let engine = SpecQueryEngine::for_model(&doc, model);
+                let got = cursor
+                    .as_mut()
+                    .expect("cursor is open")
+                    .next(&engine)
+                    .map(|m| m.path);
+                let want = opt_str(s.get("expect"));
+                c.check(&tag, got == want, &format!("{:?} != {:?}", got, want));
+            }
+            "toList" => {
+                let engine = SpecQueryEngine::for_model(&doc, model);
+                let got: Vec<String> = cursor
+                    .as_mut()
+                    .expect("cursor is open")
+                    .to_list(&engine)
+                    .into_iter()
+                    .map(|m| m.path)
+                    .collect();
+                let want = str_list(s.get("expect"));
+                c.check(&tag, got == want, &format!("{:?} != {:?}", got, want));
+            }
+            "removeListItem" => {
+                doc.remove_list_item(&s.str_or("itemPath"));
+            }
+            other => c.check(&format!("{}.unknown", tag), false, other),
+        }
+    }
+}
+
+/// The creation gate's decision table: every probe is stateless, so each runs
+/// against a freshly loaded fixture document.
+///
+/// Rejections are asserted on the machine-readable triple (code / parentPath /
+/// childSegment), never on the message prose.
+fn test_node_creation_cases(c: &mut Checker, model: &SpecModel) {
+    let state = DocumentJson::from_json(&read_json("state.json"));
+    let cases_json = read_json("node_creation_cases.json");
+    let cases = cases_json
+        .as_array()
+        .expect("node_creation_cases.json is a list");
+
+    for tc in cases {
+        let name = tc.str_or("name");
+        let parent_path = tc.str_or("parentPath");
+        let child_segment = tc.str_or("childSegment");
+        let item_id = opt_str(tc.get("itemId"));
+        let accepted = tc.get("accepted").and_then(|v| v.as_bool()).unwrap_or(false);
+
+        let doc = doc_from_state(&state);
+        let err = check_add_node(
+            model,
+            &doc,
+            &parent_path,
+            &child_segment,
+            item_id.as_deref(),
+        );
+        c.check(
+            &format!("create[{}].accepted", name),
+            err.is_none() == accepted,
+            &format!("{:?}", err.as_ref().map(|e| e.to_string())),
+        );
+        if let Some(e) = err {
+            let want_code = tc.str_or("code");
+            c.check(
+                &format!("create[{}].code", name),
+                e.code.name() == want_code,
+                &format!("{} != {}", e.code.name(), want_code),
+            );
+            c.check(
+                &format!("create[{}].parentPath", name),
+                e.parent_path == parent_path,
+                &e.parent_path,
+            );
+            c.check(
+                &format!("create[{}].childSegment", name),
+                e.child_segment == child_segment,
+                &e.child_segment,
+            );
+        }
+    }
+}
+
+/// The creation script: **stateful and ordered**, replayed against a single
+/// document, ending in a full document-state comparison.
+///
+/// The corpus dates every generated section id in the year 2026; only
+/// `(month, day)` reach the two-letter-date encoder, so this port passes those
+/// two directly (`today_month_day` has the same shape).
+fn test_node_creation_script(c: &mut Checker, model: &SpecModel) {
+    let state = DocumentJson::from_json(&read_json("state.json"));
+    let mut doc = doc_from_state(&state);
+    let steps_json = read_json("node_creation_script.json");
+    let steps = steps_json
+        .as_array()
+        .expect("node_creation_script.json is a list");
+
+    for (n, s) in steps.iter().enumerate() {
+        let op = s.str_or("op");
+        let tag = format!("createScript[{}].{}", n, op);
+        match op.as_str() {
+            "add" => {
+                let parent_path = s.str_or("parentPath");
+                let child_segment = s.str_or("childSegment");
+                let item_id = opt_str(s.get("itemId"));
+                let month = s.get("month").and_then(|v| v.as_i64()).unwrap_or(1);
+                let day = s.get("day").and_then(|v| v.as_i64()).unwrap_or(1);
+                let mut creator = SpecNodeCreator::for_model(&mut doc, model);
+                let result = match &item_id {
+                    Some(id) => creator.add_with_id(&parent_path, &child_segment, id),
+                    None => creator.add_on(&parent_path, &child_segment, month, day),
+                };
+                match result {
+                    Ok(path) => {
+                        let want_path = s.str_or("expectPath");
+                        c.check(
+                            &format!("{}.path", tag),
+                            path == want_path,
+                            &format!("{} != {}", path, want_path),
+                        );
+                        c.check(
+                            &format!("{}.id", tag),
+                            raw_matches(doc.item_section_id(&path), s.get("expectId")),
+                            &format!("{:?}", doc.item_section_id(&path)),
+                        );
+                    }
+                    Err(e) => c.check(&tag, false, &format!("unexpected rejection: {}", e)),
+                }
+            }
+            "addThrows" => {
+                let parent_path = s.str_or("parentPath");
+                let child_segment = s.str_or("childSegment");
+                let item_id = opt_str(s.get("itemId"));
+                let want_code = s.str_or("expectCode");
+                let mut creator = SpecNodeCreator::for_model(&mut doc, model);
+                // The reference dates every rejection probe 2026-03-04; the date
+                // is unreachable because the gate rejects before it is used.
+                let result = match &item_id {
+                    Some(id) => creator.add_with_id(&parent_path, &child_segment, id),
+                    None => creator.add_on(&parent_path, &child_segment, 3, 4),
+                };
+                match result {
+                    Ok(path) => c.check(&tag, false, &format!("unexpectedly added {}", path)),
+                    Err(e) => c.check(
+                        &tag,
+                        e.code.name() == want_code,
+                        &format!("{} != {}", e.code.name(), want_code),
+                    ),
+                }
+            }
+            "finalState" => {
+                let want = DocumentJson::from_json(s.get("expect").expect("finalState.expect"))
+                    .to_canonical_json();
+                let got = doc.to_json().to_canonical_json();
+                c.check(&tag, got == want, &format!("got {} want {}", got, want));
+            }
+            other => c.check(&format!("{}.unknown", tag), false, other),
+        }
+    }
+}
+
+/// Rebuilds a [`SpecQuery`] from its corpus wire form.
+///
+/// Every port needs this same decode, so its shape *is* part of the contract: an
+/// absent key means "dimension unset", never a default that happens to match.
+/// Kept beside the replay tests rather than in `src/` because it belongs to the
+/// corpus format, not to the runtime API.
+fn query_from_json(j: &Json) -> SpecQuery {
+    SpecQuery {
+        text: opt_str(j.get("text")),
+        regex: j.get("regex").and_then(|v| v.as_bool()).unwrap_or(false),
+        case_insensitive: j
+            .get("caseInsensitive")
+            .and_then(|v| v.as_bool())
+            .unwrap_or(false),
+        kinds: j
+            .get("kinds")
+            .and_then(|v| v.as_array())
+            .map(|a| a.iter().filter_map(|k| k.as_str().map(String::from)).collect()),
+        class_name: opt_str(j.get("className")),
+        section_id_exact: opt_str(j.get("sectionIdExact")),
+        section_id_prefix: opt_str(j.get("sectionIdPrefix")),
+        path_glob: opt_str(j.get("pathGlob")),
+        maps_to: opt_str(j.get("mapsTo")),
+        detailed_in: opt_str(j.get("detailedIn")),
+        state: j.get("state").and_then(|v| v.as_str()).map(|s| {
+            SpecStateFilter::from_name(s).unwrap_or_else(|| panic!("unknown state filter {:?}", s))
+        }),
+    }
+}
+
+/// Decodes a corpus `[[start, end], …]` span list.
+fn spans_of(v: Option<&Json>) -> Vec<(usize, usize)> {
+    v.and_then(|j| j.as_array())
+        .map(|a| {
+            a.iter()
+                .map(|pair| {
+                    let p = pair.as_array().expect("a span is a two-element list");
+                    (
+                        p[0].as_i64().unwrap_or(0) as usize,
+                        p[1].as_i64().unwrap_or(0) as usize,
+                    )
+                })
+                .collect()
+        })
+        .unwrap_or_default()
 }
 
 // --- small helpers ---------------------------------------------------------

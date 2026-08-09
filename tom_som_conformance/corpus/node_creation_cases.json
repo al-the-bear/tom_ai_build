@@ -30,32 +30,28 @@
     "parentPath": "DEMO/TTL",
     "childSegment": "anything",
     "accepted": false,
-    "code": "notAContainer",
-    "message": "parent path is a content and cannot own child nodes"
+    "code": "notAContainer"
   },
   {
     "name": "a form section accepts no child",
     "parentPath": "DEMO/DET",
     "childSegment": "owner",
     "accepted": false,
-    "code": "notAContainer",
-    "message": "parent path is a form and cannot own child nodes"
+    "code": "notAContainer"
   },
   {
     "name": "a segment naming no field of the parent class",
     "parentPath": "DEMO",
     "childSegment": "nope",
     "accepted": false,
-    "code": "unknownChild",
-    "message": "\"nope\" is not a child of Demo"
+    "code": "unknownChild"
   },
   {
     "name": "a field of a different class is still unknown here",
     "parentPath": "DEMO/META",
     "childSegment": "items",
     "accepted": false,
-    "code": "unknownChild",
-    "message": "\"items\" is not a child of Meta"
+    "code": "unknownChild"
   },
   {
     "name": "an id not matching the list pattern",
@@ -63,8 +59,7 @@
     "childSegment": "REF-LST",
     "itemId": "XXX-1",
     "accepted": false,
-    "code": "patternMismatch",
-    "message": "item id \"XXX-1\" does not keep the pattern prefix \"REF-\""
+    "code": "patternMismatch"
   },
   {
     "name": "an id matching a different list pattern",
@@ -72,8 +67,7 @@
     "childSegment": "CARD-LST",
     "itemId": "REF-1",
     "accepted": false,
-    "code": "patternMismatch",
-    "message": "item id \"REF-1\" does not keep the pattern prefix \"CARD-\""
+    "code": "patternMismatch"
   },
   {
     "name": "an id already taken by a sibling item",
@@ -81,8 +75,7 @@
     "childSegment": "REF-LST",
     "itemId": "REF-SPEC",
     "accepted": false,
-    "code": "duplicateSectionId",
-    "message": "item id \"REF-SPEC\" is already used in list \"DEMO/REF-LST\""
+    "code": "duplicateSectionId"
   },
   {
     "name": "an id already taken in the card list",
@@ -90,23 +83,20 @@
     "childSegment": "CARD-LST",
     "itemId": "CARD-ALPHA",
     "accepted": false,
-    "code": "duplicateSectionId",
-    "message": "item id \"CARD-ALPHA\" is already used in list \"DEMO/CARD-LST\""
+    "code": "duplicateSectionId"
   },
   {
     "name": "a second instance of a single-valued complex field",
     "parentPath": "DEMO",
     "childSegment": "META",
     "accepted": false,
-    "code": "cardinalityExceeded",
-    "message": "a complex child already exists at \"DEMO/META\""
+    "code": "cardinalityExceeded"
   },
   {
     "name": "a second instance of a single-valued form field",
     "parentPath": "DEMO",
     "childSegment": "DET",
     "accepted": false,
-    "code": "cardinalityExceeded",
-    "message": "a form child already exists at \"DEMO/DET\""
+    "code": "cardinalityExceeded"
   }
 ]

@@ -270,6 +270,32 @@ void main() {
     });
   });
 
+  group('form-field order is the model\'s, not the document\'s', () {
+    // The order is observable — it decides the snippet a text query reports,
+    // and `projection_cases.json` pins it verbatim across nine runtimes. Taking
+    // it from the document would make it depend on how the document arrived:
+    // authored field-by-field it is insertion order, loaded from `state.json`
+    // it is alphabetical. Only the model is the same everywhere.
+    test('a form populated in reverse still projects in declaration order', () {
+      final reversed = SpecDocument();
+      reversed.setFormField('PD00/PD00-OWN', 'role', 'Product Owner');
+      reversed.setFormField('PD00/PD00-OWN', 'name', 'Ada Lovelace');
+      final projection = SpecQueryEngine(model: model, document: reversed)
+          .projectNode('PD00/PD00-OWN')!;
+      expect(projection.searchableStrings.take(2),
+          ['Ada Lovelace', 'Product Owner']);
+    });
+
+    test('a stored field the model does not declare is kept, last and sorted',
+        () {
+      doc.setFormField('PD00/PD00-OWN', 'zeta', 'Z value');
+      doc.setFormField('PD00/PD00-OWN', 'alpha', 'A value');
+      final projection = engine.projectNode('PD00/PD00-OWN')!;
+      expect(projection.searchableStrings.take(4),
+          ['Ada Lovelace', 'Product Owner', 'A value', 'Z value']);
+    });
+  });
+
   group('cursor laziness & iteration', () {
     test('count reports remaining matches and next/take advance it', () {
       final cursor = engine.query(const SpecQuery(kinds: {SpecNodeKind.content}));

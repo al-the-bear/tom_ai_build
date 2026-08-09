@@ -66,7 +66,8 @@
           "name": "count",
           "kind": "scalar",
           "sectionId": "CNT",
-          "type": "int"
+          "type": "int",
+          "doc": "How many items are tracked."
         },
         {
           "name": "details",
@@ -446,6 +447,9 @@
     },
     "Card": {
       "name": "Card",
+      "mapsTo": "CS00-CARD",
+      "detailedIn": "BP00-CARDS",
+      "doc": "A card entry.",
       "fields": [
         {
           "name": "content",

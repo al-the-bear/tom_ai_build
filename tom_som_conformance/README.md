@@ -205,6 +205,47 @@ reported nine-way parity, because `editor_cases.json` resolved at exactly one
 site in the repo. A corpus binds only the runners that read it — so wiring a new
 table into all nine runners is part of adding it, not a follow-up.
 
+#### …and so does the scripting tier (SOM §15)
+
+The query facility and the constrained-creation gate are nine-language for the
+fourth time over, and they came with **six** tables at once — because the same
+trap that hid the editor surface had hidden these: both were Dart-only while the
+spec listed them unqualified in the mirrored surface, and neither absence had
+ever failed a run, because neither had a table.
+
+| File | What it pins |
+| ---- | ------------ |
+| `pattern_cases.json` | The portable matcher (`SomTextPattern`) on its own: spans per pattern/text pair, plus the patterns that must be **rejected at compile**. |
+| `query_cases.json` | Every query dimension and their AND-composition — matched paths in order, with each hit's snippet and spans. |
+| `projection_cases.json` | What one node projects to: kind, class, section id, headline, and the searchable strings **in order**. |
+| `cursor_cases.json` | Cursor laziness and stability — the `next`/`take`/`count` interleaving, and re-validation against an edit made mid-iteration. |
+| `node_creation_cases.json` | Independent `checkAddNode` verdicts: the accepted additions and the four `SpecCreationCode` rejections. |
+| `node_creation_script.json` | An ordered, stateful `SpecNodeCreator.add` script, so cardinality and id-sequencing are exercised against a document that is actually growing. |
+
+Four properties of these tables are deliberate:
+
+- **The pattern table is separate from the query table.** A span disagreement
+  that surfaces only through `query_cases.json` arrives wrapped in projection and
+  filtering; `pattern_cases.json` puts the matcher on trial by itself, so the
+  failure names the matcher.
+- **Rejection is an expectation, not an omission.** A pattern outside the subset
+  must raise, and the table says so. A port that reads `\w` as a literal `w`
+  otherwise passes every positive case and quietly matches nothing.
+- **Non-ASCII text is what discriminates the offsets.** UTF-16 code units, UTF-8
+  bytes, code points and graphemes all agree across ASCII, so an ASCII-only table
+  says nothing about how a port indexes text. The three cases that put a match
+  *after* non-ASCII text — and the one that matches `.` against a lone surrogate
+  pair — are what caught the Python port indexing by code point.
+- **Every annotation filter has a positive case.** `mapsTo`/`detailedIn` were
+  first written as "matches nothing" cases only, which a runtime that never
+  implemented the filter satisfies exactly as well as one that did. The fixture's
+  `Card` class now carries both annotations so the filters can be pinned by what
+  they *select*.
+
+`node_creation_cases.json` deliberately drops the rejection `message` and keeps
+only the `code`, for the same reason §14 drops it: it is prose, and pinning it
+would make a reword a nine-package change.
+
 #### Proving a table is load-bearing: `tool/parity_gate.sh`
 
 Nine green suites do not show that nine runners read a table, and check counts
@@ -229,6 +270,14 @@ Pick a mutation the reference genuinely produces and a plausible port genuinely
 gets wrong. The integral double above is the model case: it is the default wrong
 answer for every single-numeric-type language. Run this when a new corpus table
 is added, and again after wiring it into the last runner.
+
+**Mutate an expectation, never an input.** A table's inputs and its expected
+results sit in the same file, and it is easy to reach for the nearest unique
+string. But corrupting an input just asks the nine runners a *different* question
+— they compute the new answer, agree on it, and stay green, which is the correct
+outcome and proves nothing about whether they read the table. The gate reporting
+"all suites stayed green" on such a mutation is the script working, not the
+corpus failing.
 
 #### TypeScript step — build the runtime `dist/` first (CS4-D6)
 

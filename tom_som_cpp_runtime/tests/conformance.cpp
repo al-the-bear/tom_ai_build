@@ -15,7 +15,10 @@
  *   - validation cases;
  *   - the imperative operations script;
  *   - the YRD7 generic editor script (typed values, enum domains, structure);
- *   - the SOM §14 DocSpecs tier (one case per violation rule).
+ *   - the SOM §14 DocSpecs tier (one case per violation rule);
+ *   - the SOM §9 text-pattern subset (match spans + compile rejections);
+ *   - the SOM §9 query surface, flat node projection and lazy cursor;
+ *   - llm_and_d4rt_tools.md §5 constrained node creation (checks + script).
  *
  * The corpus directory is argv[1], defaulting to
  * "../tom_som_conformance/corpus" relative to the runner's cwd. Exit 0 == all
@@ -912,6 +915,404 @@ static void test_docspecs(Checker& c) {
           "uncovered: " + join(uncovered));
 }
 
+/* ---- SOM §9 text pattern / query / node creation ------------------------ */
+
+/* The fixture document every §9 group starts from — the same one the Dart
+ * reference's `_buildDocument()` produces, which is exactly what `state.json`
+ * records (list sequence counters included), so re-loading it is a genuinely
+ * fresh build and not a replay of an earlier group's mutations. */
+static som::SpecDocument fresh_document() {
+  return doc_from_state(som::documentJsonFromJson(read_json("state.json")));
+}
+
+/* Null and the empty string are different answers here — an absent headline is
+ * not a blank one — so they must not both render as "". */
+static const char* kNullText = "<null>";
+
+static std::string opt_text(const std::optional<std::string>& v) {
+  return v.has_value() ? *v : std::string(kNullText);
+}
+
+static std::string json_opt_text(const som::JsonRef& v) {
+  const std::string* s = som::jsonAsStr(v);
+  return s != nullptr ? *s : std::string(kNullText);
+}
+
+static std::string spans_text(const std::vector<som::SpecMatchSpan>& spans) {
+  std::string s;
+  for (std::size_t i = 0; i < spans.size(); i++) {
+    if (i > 0) s.push_back(',');
+    s += std::to_string(spans[i].start) + "-" + std::to_string(spans[i].end);
+  }
+  return s;
+}
+
+/* The corpus writes spans as `[[start, end], …]`. */
+static std::string json_spans_text(const som::JsonRef& arr) {
+  std::string s;
+  std::size_t n = som::jsonArrayLen(arr);
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef pair = som::jsonArrayAt(arr, i);
+    if (i > 0) s.push_back(',');
+    s += std::to_string(
+             som::jsonAsI64(som::jsonArrayAt(pair, 0)).value_or(-1)) +
+         "-" +
+         std::to_string(som::jsonAsI64(som::jsonArrayAt(pair, 1)).value_or(-1));
+  }
+  return s;
+}
+
+/* SOM §9's portable pattern subset: every match case's spans, and every
+ * rejection case's refusal to compile at all. `regex: false` exercises the
+ * literal constructor, where `.` `*` `[` are plain characters. */
+static void test_text_pattern(Checker& c) {
+  som::JsonPtr cases = read_json("pattern_cases.json");
+  std::size_t n = som::jsonArrayLen(cases);
+  std::size_t matchCases = 0, rejectionCases = 0, literalCases = 0;
+
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef k = som::jsonArrayAt(cases, i);
+    std::string source = som::jsonStrOr(k, "pattern");
+    bool regex = som::jsonBoolOr(k, "regex");
+    bool caseInsensitive = som::jsonBoolOr(k, "caseInsensitive");
+    std::string tag = "pattern[" + std::to_string(i) + "] " +
+                      som::jsonEncodeStr(source);
+
+    if (som::jsonBoolOr(k, "error")) {
+      rejectionCases++;
+      // A malformed pattern must fail *at compile*, not match nothing later.
+      try {
+        som::SomTextPattern::compile(source, caseInsensitive);
+        c.check(tag + ".rejected", false, "compiled without error");
+      } catch (const som::SomPatternError& e) {
+        c.check(tag + ".rejected", e.pattern() == source, e.pattern());
+      }
+      continue;
+    }
+
+    matchCases++;
+    if (!regex) literalCases++;
+    som::SomTextPattern pattern =
+        regex ? som::SomTextPattern::compile(source, caseInsensitive)
+              : som::SomTextPattern::literal(source, caseInsensitive);
+    std::string text = som::jsonStrOr(k, "text");
+    std::string got = spans_text(pattern.allMatches(text));
+    std::string want = json_spans_text(som::jsonGet(k, "spans"));
+    c.check(tag + ".spans", got == want, got + " != " + want);
+    c.check(tag + ".hasMatch", pattern.hasMatch(text) == !want.empty(), "");
+  }
+
+  // A table of only-matches (or only-rejections) would leave half the contract
+  // unexercised while still reporting green.
+  c.check("pattern.hasMatchCases", matchCases > 0,
+          std::to_string(matchCases));
+  c.check("pattern.hasRejectionCases", rejectionCases > 0,
+          std::to_string(rejectionCases));
+  c.check("pattern.hasLiteralCases", literalCases > 0,
+          std::to_string(literalCases));
+}
+
+/* Decodes one corpus query. An **absent** key leaves the dimension unset — it
+ * must never become a default that happens to match, which is why every
+ * dimension is read through jsonGet and tested for null rather than through
+ * jsonStrOr. */
+static som::SpecQuery query_from_json(const som::JsonRef& q) {
+  som::SpecQuery out;
+  auto str = [&](const char* key) -> std::optional<std::string> {
+    const std::string* s = som::jsonAsStr(som::jsonGet(q, key));
+    if (s == nullptr) return std::nullopt;
+    return *s;
+  };
+  out.text = str("text");
+  out.regex = som::jsonBoolOr(q, "regex");
+  out.caseInsensitive = som::jsonBoolOr(q, "caseInsensitive");
+  som::JsonRef kinds = som::jsonGet(q, "kinds");
+  if (kinds != nullptr && kinds->type == som::JsonType::Array) {
+    std::set<std::string> set;
+    std::size_t n = som::jsonArrayLen(kinds);
+    for (std::size_t i = 0; i < n; i++) {
+      const std::string* s = som::jsonAsStr(som::jsonArrayAt(kinds, i));
+      if (s != nullptr) set.insert(*s);
+    }
+    out.kinds = set;
+  }
+  out.className = str("className");
+  out.sectionIdExact = str("sectionIdExact");
+  out.sectionIdPrefix = str("sectionIdPrefix");
+  out.pathGlob = str("pathGlob");
+  out.mapsTo = str("mapsTo");
+  out.detailedIn = str("detailedIn");
+  std::optional<std::string> state = str("state");
+  if (state.has_value()) {
+    out.state = *state == "empty" ? som::SpecStateFilter::Empty
+                                  : som::SpecStateFilter::NonEmpty;
+  }
+  return out;
+}
+
+/* One match rendered as a single line, so an extra/missing/reordered match is
+ * as visible as a wrong field. */
+static std::string match_text(const som::SpecQueryMatch& m) {
+  return m.path + "|" + m.kind + "|" + opt_text(m.classId) + "|" +
+         opt_text(m.headline) + "|" + opt_text(m.snippet) + "|" +
+         spans_text(m.matchSpans);
+}
+
+static std::string json_match_text(const som::JsonRef& m) {
+  return som::jsonStrOr(m, "path") + "|" + som::jsonStrOr(m, "kind") + "|" +
+         json_opt_text(som::jsonGet(m, "classId")) + "|" +
+         json_opt_text(som::jsonGet(m, "headline")) + "|" +
+         json_opt_text(som::jsonGet(m, "snippet")) + "|" +
+         json_spans_text(som::jsonGet(m, "spans"));
+}
+
+/* The AND-combined query surface: every dimension, alone and in combination,
+ * replayed against a freshly-built fixture. Match **order** is part of the
+ * contract (document order), so the drained cursor is compared as an ordered
+ * list. `count` is asserted separately on a second cursor: it must agree with
+ * the number of committed matches while consuming nothing. */
+static void test_query(Checker& c, const som::SpecModel& model) {
+  som::SpecDocument doc = fresh_document();
+  som::SpecQueryEngine engine(model, doc);
+  som::JsonPtr cases = read_json("query_cases.json");
+  std::size_t n = som::jsonArrayLen(cases);
+
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef k = som::jsonArrayAt(cases, i);
+    std::string name = som::jsonStrOr(k, "name");
+    som::SpecQuery q = query_from_json(som::jsonGet(k, "query"));
+
+    std::vector<std::string> got;
+    for (const som::SpecQueryMatch& m : engine.query(q).toList()) {
+      got.push_back(match_text(m));
+    }
+    std::vector<std::string> want;
+    som::JsonRef arr = som::jsonGet(k, "matches");
+    std::size_t wn = som::jsonArrayLen(arr);
+    for (std::size_t j = 0; j < wn; j++) {
+      want.push_back(json_match_text(som::jsonArrayAt(arr, j)));
+    }
+    c.check("query[" + name + "]", got == want,
+            join(got) + " != " + join(want));
+
+    // A fresh cursor: count must see the same matches without consuming them.
+    som::SpecQueryCursor counting = engine.query(q);
+    long long count = counting.count();
+    c.check("query[" + name + "].count",
+            count == static_cast<long long>(want.size()),
+            std::to_string(count) + " != " + std::to_string(want.size()));
+  }
+}
+
+/* The tier-1 index source: the full projectNodes() walk in document order. */
+static void test_projection(Checker& c, const som::SpecModel& model) {
+  som::SpecDocument doc = fresh_document();
+  som::SpecQueryEngine engine(model, doc);
+  som::JsonPtr cases = read_json("projection_cases.json");
+  std::size_t n = som::jsonArrayLen(cases);
+
+  std::vector<som::SpecNodeProjection> got = engine.projectNodes();
+  c.check("projection.count", got.size() == n,
+          std::to_string(got.size()) + " != " + std::to_string(n));
+
+  std::size_t limit = got.size() < n ? got.size() : n;
+  for (std::size_t i = 0; i < limit; i++) {
+    som::JsonRef w = som::jsonArrayAt(cases, i);
+    const som::SpecNodeProjection& p = got[i];
+    std::string tag = "projection[" + std::to_string(i) + "] " + p.path;
+
+    c.check(tag + ".path", p.path == som::jsonStrOr(w, "path"),
+            p.path + " != " + som::jsonStrOr(w, "path"));
+    c.check(tag + ".kind", p.kind == som::jsonStrOr(w, "kind"), p.kind);
+    c.check(tag + ".classId",
+            opt_text(p.classId) == json_opt_text(som::jsonGet(w, "classId")),
+            opt_text(p.classId));
+    c.check(tag + ".sectionId",
+            opt_text(p.sectionId) ==
+                json_opt_text(som::jsonGet(w, "sectionId")),
+            opt_text(p.sectionId));
+    c.check(tag + ".mapsTo",
+            opt_text(p.mapsTo) == json_opt_text(som::jsonGet(w, "mapsTo")),
+            opt_text(p.mapsTo));
+    c.check(tag + ".detailedIn",
+            opt_text(p.detailedIn) ==
+                json_opt_text(som::jsonGet(w, "detailedIn")),
+            opt_text(p.detailedIn));
+    c.check(tag + ".headline",
+            opt_text(p.headline) == json_opt_text(som::jsonGet(w, "headline")),
+            opt_text(p.headline));
+    std::vector<std::string> wantStrings =
+        json_str_list(som::jsonGet(w, "searchableStrings"));
+    c.check(tag + ".searchableStrings", p.searchableStrings == wantStrings,
+            join(p.searchableStrings) + " != " + join(wantStrings));
+    c.check(tag + ".hasValue", p.hasValue == som::jsonBoolOr(w, "hasValue"),
+            p.hasValue ? "true" : "false");
+  }
+
+  // projectNode() must agree with the walk for every path it visited.
+  for (const som::SpecNodeProjection& p : got) {
+    std::optional<som::SpecNodeProjection> one = engine.projectNode(p.path);
+    c.check("projection.single " + p.path,
+            one.has_value() && one->kind == p.kind &&
+                one->searchableStrings == p.searchableStrings,
+            p.path);
+  }
+}
+
+/* The cursor's laziness and its view of a **mutating** document: the script
+ * removes a list item between opening a cursor and draining it, and the removed
+ * item must not surface. */
+static void test_cursor(Checker& c, const som::SpecModel& model) {
+  som::SpecDocument doc = fresh_document();
+  som::SpecQueryEngine engine(model, doc);
+  som::JsonPtr steps = read_json("cursor_cases.json");
+  std::size_t n = som::jsonArrayLen(steps);
+  std::optional<som::SpecQueryCursor> cursor;
+
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef s = som::jsonArrayAt(steps, i);
+    std::string op = som::jsonStrOr(s, "op");
+    std::string tag = "cursor[" + std::to_string(i) + "]." + op;
+
+    if (op == "open") {
+      cursor = engine.query(query_from_json(som::jsonGet(s, "query")));
+    } else if (op == "count") {
+      long long want = som::jsonAsI64(som::jsonGet(s, "expect")).value_or(-1);
+      long long got = cursor.has_value() ? cursor->count() : -1;
+      c.check(tag, got == want,
+              std::to_string(got) + " != " + std::to_string(want));
+    } else if (op == "take") {
+      long long take = som::jsonAsI64(som::jsonGet(s, "n")).value_or(0);
+      std::vector<std::string> got;
+      if (cursor.has_value()) {
+        for (const som::SpecQueryMatch& m : cursor->take(take)) {
+          got.push_back(m.path);
+        }
+      }
+      std::vector<std::string> want =
+          json_str_list(som::jsonGet(s, "expect"));
+      c.check(tag, got == want, join(got) + " != " + join(want));
+    } else if (op == "next") {
+      std::optional<som::SpecQueryMatch> m =
+          cursor.has_value() ? cursor->next() : std::nullopt;
+      std::string got = m.has_value() ? m->path : std::string(kNullText);
+      std::string want = json_opt_text(som::jsonGet(s, "expect"));
+      c.check(tag, got == want, got + " != " + want);
+    } else if (op == "toList") {
+      std::vector<std::string> got;
+      if (cursor.has_value()) {
+        for (const som::SpecQueryMatch& m : cursor->toList()) {
+          got.push_back(m.path);
+        }
+      }
+      std::vector<std::string> want =
+          json_str_list(som::jsonGet(s, "expect"));
+      c.check(tag, got == want, join(got) + " != " + join(want));
+    } else if (op == "removeListItem") {
+      std::string itemPath = som::jsonStrOr(s, "itemPath");
+      c.check(tag + " " + itemPath, doc.removeListItem(itemPath), itemPath);
+    } else {
+      c.check(tag + ".unknown", false, op);
+    }
+  }
+}
+
+/* llm_and_d4rt_tools.md §5: the stateless rule check. Every probe runs against a
+ * *freshly built* document, so an accepted add in one case cannot change the
+ * verdict of the next. A rejection is asserted on its code and the pair it names
+ * — not on the message text, which is prose and not part of the contract. */
+static void test_node_creation_cases(Checker& c, const som::SpecModel& model) {
+  som::JsonPtr cases = read_json("node_creation_cases.json");
+  std::size_t n = som::jsonArrayLen(cases);
+  std::set<std::string> coveredCodes;
+
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef k = som::jsonArrayAt(cases, i);
+    std::string name = som::jsonStrOr(k, "name");
+    som::SpecDocument doc = fresh_document();
+    std::optional<som::SpecCreationError> error = som::checkAddNode(
+        model, doc, som::jsonStrOr(k, "parentPath"),
+        som::jsonStrOr(k, "childSegment"), som::jsonStrOr(k, "itemId"));
+
+    bool accepted = som::jsonBoolOr(k, "accepted");
+    c.check("nodeCreation[" + name + "].accepted", !error.has_value() == accepted,
+            error.has_value() ? error->what() : "accepted");
+    if (accepted || !error.has_value()) {
+      continue;
+    }
+    std::string wantCode = som::jsonStrOr(k, "code");
+    coveredCodes.insert(wantCode);
+    c.check("nodeCreation[" + name + "].code",
+            som::specCreationCodeName(error->code()) == wantCode,
+            std::string(som::specCreationCodeName(error->code())) + " != " +
+                wantCode);
+    c.check("nodeCreation[" + name + "].parentPath",
+            error->parentPath() == som::jsonStrOr(k, "parentPath"),
+            error->parentPath());
+    c.check("nodeCreation[" + name + "].childSegment",
+            error->childSegment() == som::jsonStrOr(k, "childSegment"),
+            error->childSegment());
+  }
+
+  std::vector<std::string> uncovered;
+  for (som::SpecCreationCode code : som::kSpecCreationCodeAll) {
+    if (coveredCodes.count(som::specCreationCodeName(code)) == 0) {
+      uncovered.emplace_back(som::specCreationCodeName(code));
+    }
+  }
+  c.check("nodeCreation.codeCoverage", uncovered.empty(),
+          "uncovered: " + join(uncovered));
+}
+
+/* The stateful companion: one document, each add building on the last, then the
+ * whole document state compared as canonical JSON. */
+static void test_node_creation_script(Checker& c, const som::SpecModel& model) {
+  som::SpecDocument doc = fresh_document();
+  som::SpecNodeCreator creator(model, doc);
+  som::JsonPtr steps = read_json("node_creation_script.json");
+  std::size_t n = som::jsonArrayLen(steps);
+
+  for (std::size_t i = 0; i < n; i++) {
+    som::JsonRef s = som::jsonArrayAt(steps, i);
+    std::string op = som::jsonStrOr(s, "op");
+    std::string tag = "nodeScript[" + std::to_string(i) + "]." + op;
+
+    if (op == "add") {
+      std::string path = creator.add(som::jsonStrOr(s, "parentPath"),
+                                     som::jsonStrOr(s, "childSegment"),
+                                     som::jsonStrOr(s, "itemId"),
+                                     som::jsonAsI64(som::jsonGet(s, "month")),
+                                     som::jsonAsI64(som::jsonGet(s, "day")));
+      std::string wantPath = som::jsonStrOr(s, "expectPath");
+      c.check(tag + ".path", path == wantPath, path + " != " + wantPath);
+      std::string gotId = doc.itemSectionId(path);
+      std::string wantId = json_opt_text(som::jsonGet(s, "expectId"));
+      c.check(tag + ".id",
+              (gotId.empty() ? std::string(kNullText) : gotId) == wantId,
+              gotId + " != " + wantId);
+    } else if (op == "addThrows") {
+      std::string wantCode = som::jsonStrOr(s, "expectCode");
+      try {
+        creator.add(som::jsonStrOr(s, "parentPath"),
+                    som::jsonStrOr(s, "childSegment"),
+                    som::jsonStrOr(s, "itemId"), 3, 4);
+        c.check(tag, false, "did not throw");
+      } catch (const som::SpecCreationError& e) {
+        c.check(tag, som::specCreationCodeName(e.code()) == wantCode,
+                std::string(som::specCreationCodeName(e.code())) + " != " +
+                    wantCode);
+      }
+    } else if (op == "finalState") {
+      std::string got = som::documentJsonToCanonicalJson(doc.toJson());
+      std::string want = som::documentJsonToCanonicalJson(
+          som::documentJsonFromJson(som::jsonGet(s, "expect")));
+      c.check(tag, got == want, byte_diff("finalState", got, want));
+    } else {
+      c.check(tag + ".unknown", false, op);
+    }
+  }
+}
+
 int main(int argc, char** argv) {
   if (argc > 1) {
     g_corpus_dir = argv[1];
@@ -941,6 +1342,12 @@ int main(int argc, char** argv) {
   test_section_id(c);
   test_serialization_order(c);
   test_docspecs(c);
+  test_text_pattern(c);
+  test_query(c, *model);
+  test_projection(c, *model);
+  test_cursor(c, *model);
+  test_node_creation_cases(c, *model);
+  test_node_creation_script(c, *model);
 
   return c.finish();
 }

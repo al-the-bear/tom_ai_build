@@ -35,6 +35,9 @@ The package `tom_som_runtime` mirrors the seven portable Dart modules:
 | `spec_typed_values` | Parse/format at the store boundary — the one place the text form of an `int` / `double` / `num` / `bool` / enum-name is decided. |
 | `spec_editor` | The generic meta-model-driven modification API (`SpecEditor`, YRD7) — typed edits over any path, without a generated facade. |
 | `spec_validator` | Validates a document's values against the model. |
+| `spec_text_pattern` | The portable pattern subset (`SomTextPattern`) — a hand-written leftmost-first backtracker over UTF-16 code units, so match spans agree with every other runtime. `re` is not used, and this module converts to code units explicitly (`utf16_units`) rather than iterating characters: a Python string is a sequence of *code points*, which agrees with code units throughout the BMP and diverges above it. |
+| `spec_query` | The lexical/structural query surface (`SpecQueryEngine`, `SpecQuery`, `SpecQueryCursor`) plus the flat tier-1 node projection (`SpecNodeProjection`). |
+| `spec_node_creation` | The constrained node-creation gate (`check_add_node`, `SpecNodeCreator`) — a document may only grow in ways the model permits. |
 | `spec_document_yaml` | Byte-stable `*.docspecs.yaml` codec. |
 | `spec_document_markdown` | Meta-data-driven Markdown import/export codec. |
 

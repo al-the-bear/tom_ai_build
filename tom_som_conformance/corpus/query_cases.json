@@ -147,6 +147,19 @@
         ]
       },
       {
+        "path": "DEMO/CARD-LST-2",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": "A card entry.",
+        "snippet": "A card entry.",
+        "spans": [
+          [
+            2,
+            6
+          ]
+        ]
+      },
+      {
         "path": "DEMO/CARD-LST-2/content",
         "kind": "form",
         "classId": null,
@@ -427,7 +440,7 @@
         "path": "DEMO/CARD-LST-2",
         "kind": "listItemComplex",
         "classId": "Card",
-        "headline": null,
+        "headline": "A card entry.",
         "snippet": null,
         "spans": []
       }
@@ -467,7 +480,7 @@
         "path": "DEMO/CNT",
         "kind": "scalar",
         "classId": null,
-        "headline": null,
+        "headline": "How many items are tracked.",
         "snippet": null,
         "spans": []
       },
@@ -547,7 +560,7 @@
         "path": "DEMO/CARD-LST-2",
         "kind": "listItemComplex",
         "classId": "Card",
-        "headline": null,
+        "headline": "A card entry.",
         "snippet": null,
         "spans": []
       },
@@ -611,7 +624,7 @@
         "path": "DEMO/CNT",
         "kind": "scalar",
         "classId": null,
-        "headline": null,
+        "headline": "How many items are tracked.",
         "snippet": null,
         "spans": []
       },
@@ -731,7 +744,7 @@
         "path": "DEMO/CARD-LST-2",
         "kind": "listItemComplex",
         "classId": "Card",
-        "headline": null,
+        "headline": "A card entry.",
         "snippet": null,
         "spans": []
       },
@@ -1002,7 +1015,7 @@
         "path": "DEMO/CNT",
         "kind": "scalar",
         "classId": null,
-        "headline": null,
+        "headline": "How many items are tracked.",
         "snippet": null,
         "spans": []
       },
@@ -1122,7 +1135,7 @@
         "path": "DEMO/CARD-LST-2",
         "kind": "listItemComplex",
         "classId": "Card",
-        "headline": null,
+        "headline": "A card entry.",
         "snippet": null,
         "spans": []
       },
@@ -1450,14 +1463,62 @@
     ]
   },
   {
-    "name": "mapsTo filter matches nothing in this fixture",
+    "name": "mapsTo filter selects the annotated class's nodes",
+    "query": {
+      "mapsTo": "CS00-CARD"
+    },
+    "matches": [
+      {
+        "path": "DEMO/CARD-LST-1",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": "Alpha Card",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-2",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": "A card entry.",
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  },
+  {
+    "name": "detailedIn filter selects the annotated class's nodes",
+    "query": {
+      "detailedIn": "BP00-CARDS"
+    },
+    "matches": [
+      {
+        "path": "DEMO/CARD-LST-1",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": "Alpha Card",
+        "snippet": null,
+        "spans": []
+      },
+      {
+        "path": "DEMO/CARD-LST-2",
+        "kind": "listItemComplex",
+        "classId": "Card",
+        "headline": "A card entry.",
+        "snippet": null,
+        "spans": []
+      }
+    ]
+  },
+  {
+    "name": "mapsTo filter matches nothing when the target is unknown",
     "query": {
       "mapsTo": "SomeTarget"
     },
     "matches": []
   },
   {
-    "name": "detailedIn filter matches nothing in this fixture",
+    "name": "detailedIn filter matches nothing when the target is unknown",
     "query": {
       "detailedIn": "SomeDoc"
     },
@@ -1527,7 +1588,7 @@
         "path": "DEMO/CARD-LST-2",
         "kind": "listItemComplex",
         "classId": "Card",
-        "headline": null,
+        "headline": "A card entry.",
         "snippet": null,
         "spans": []
       }
@@ -1573,7 +1634,7 @@
         "path": "DEMO/CNT",
         "kind": "scalar",
         "classId": null,
-        "headline": null,
+        "headline": "How many items are tracked.",
         "snippet": null,
         "spans": []
       },
@@ -1693,7 +1754,7 @@
         "path": "DEMO/CARD-LST-2",
         "kind": "listItemComplex",
         "classId": "Card",
-        "headline": null,
+        "headline": "A card entry.",
         "snippet": null,
         "spans": []
       },

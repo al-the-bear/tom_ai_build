@@ -42,6 +42,25 @@ const {
 } = require('./spec_reflection');
 const { SpecEditor } = require('./spec_editor');
 const {
+  SpecMatchSpan,
+  SomPatternError,
+  SomTextPattern,
+} = require('./spec_text_pattern');
+const {
+  SpecStateFilter,
+  SpecNodeProjection,
+  SpecQueryMatch,
+  SpecQuery,
+  SpecQueryEngine,
+  SpecQueryCursor,
+} = require('./spec_query');
+const {
+  SpecCreationCode,
+  SpecCreationError,
+  checkAddNode,
+  SpecNodeCreator,
+} = require('./spec_node_creation');
+const {
   somFormatBool,
   somFormatDouble,
   somFormatEnumName,
@@ -154,6 +173,22 @@ module.exports = {
   SpecReflection,
   // generic modification API (YRD7)
   SpecEditor,
+  // portable text-pattern subset (SOM §9)
+  SpecMatchSpan,
+  SomPatternError,
+  SomTextPattern,
+  // lexical/structural query + lazy cursor (SOM §9)
+  SpecStateFilter,
+  SpecNodeProjection,
+  SpecQueryMatch,
+  SpecQuery,
+  SpecQueryEngine,
+  SpecQueryCursor,
+  // constrained node creation (SOM §9)
+  SpecCreationCode,
+  SpecCreationError,
+  checkAddNode,
+  SpecNodeCreator,
   // typed-value store boundary
   somParseInt,
   somFormatInt,

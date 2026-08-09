@@ -167,6 +167,40 @@ void main() {
     });
   });
 
+  group('STP5: offsets are UTF-16 code units [2026-08-09]', () {
+    // Spans are contract, so what they count has to be too. Every plausible
+    // alternative — UTF-8 bytes, code points, grapheme clusters — agrees with
+    // code units across ASCII and disagrees somewhere past it, so only
+    // non-ASCII text can tell them apart.
+    test('a multi-byte BMP character counts as one unit, not its bytes', () {
+      expect(spans('x', 'äöü-x'), [
+        [4, 5]
+      ]); // byte indexing would say 7
+    });
+
+    test('an astral character counts as two units, not one code point', () {
+      expect(spans('x', '𝄞-x'), [
+        [3, 4]
+      ]); // code-point indexing would say 2
+    });
+
+    test('. matches one code unit, so a surrogate pair matches twice', () {
+      // Unlovely but forced: if offsets are code units then so is the unit `.`
+      // consumes. Pinned because walking characters is the natural reading in
+      // several of the ported languages.
+      expect(spans('.', '𝄞'), [
+        [0, 1],
+        [1, 2]
+      ]);
+    });
+
+    test('an astral literal in the pattern matches its own surrogate pair', () {
+      expect(spans('𝄞', 'a𝄞b'), [
+        [1, 3]
+      ]);
+    });
+  });
+
   group('STP4: a malformed pattern is rejected at compile [2026-08-09]', () {
     void rejects(String pattern) {
       expect(() => SomTextPattern.compile(pattern),

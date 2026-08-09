@@ -104,12 +104,15 @@ static void typed_code_spec(SpecDocument *doc, const SomNode *node) {
   free(typed);
 }
 
-/* Boundary canonicalisation for typed non-String form fields (FORMAT 7): an
- * int renders as its decimal string, a bool as "true"/"false". Returns an owned
- * buffer the caller frees. The sample values are always present, matching the
- * Dart reference which emits the raw stored string for these fields. */
-static char *som_format_int(long v) { return fmt("%ld", v); }
-static char *som_format_bool(int v) { return fmt("%s", v ? "true" : "false"); }
+/* Boundary canonicalisation for typed non-String form fields (FORMAT 7) — an
+ * int renders as its decimal string, a bool as "true"/"false" — comes from
+ * `som_format_int` / `som_format_bool` in <spec_typed_values.h>, used directly.
+ *
+ * This file used to define static copies under those same names. They shadowed
+ * the library's declarations and stopped the tool compiling once the header
+ * declared them; and a private duplicate of a store-canonicalisation rule is
+ * the wrong shape regardless, because the golden has to be canonicalised by
+ * exactly the rule the store uses, not by a second copy of it. */
 
 /* Asserts the canonical typed value equals the generic form-store read at
  * <form_path>.<field>, appends the `TF` line, and frees `canonical` (owned). */

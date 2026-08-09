@@ -16,7 +16,12 @@ golden byte-for-byte and matches every behavioural case:
   * validation cases;
   * the imperative operations script;
   * the YRD7 generic editor script (typed values, enum domains, structure);
-  * the SOM §14 DocSpecs tier (schema load + one violation case per rule).
+  * the SOM §14 DocSpecs tier (schema load + one violation case per rule);
+  * the SOM §9 portable text-pattern subset (match spans + compile rejections);
+  * the spec_query surface (queries, cursor count, the flat node projection,
+    and a scripted cursor session that mutates the document mid-iteration);
+  * constrained node creation (the stateless gate probes and a mutation
+    script).
 
 Run with: ``python3 tests/conformance_runner.py``. Exit code 0 == all green.
 """
@@ -41,14 +46,24 @@ from tom_som_runtime import (  # noqa: E402
     DocSpecsSchema,
     DocSpecsValidator,
     DocSpecsViolationRule,
+    SomPatternError,
+    SomTextPattern,
+    SpecCreationCode,
+    SpecCreationError,
     SpecDocument,
     SpecDocumentMarkdown,
     SpecEditor,
     SpecModel,
+    SpecNodeCreator,
+    SpecNodeKind,
+    SpecQuery,
+    SpecQueryEngine,
     SpecReflection,
     SpecSectionIdCollision,
     SpecSerializationOrder,
+    SpecStateFilter,
     build_som_meta_tree,
+    check_add_node,
     encode_two_letter_date,
     generate_list_item_section_id,
     validate_document,
@@ -105,6 +120,79 @@ def _document_from_state(state: dict) -> SpecDocument:
     doc = SpecDocument()
     doc.load_json(state)
     return doc
+
+
+def _build_document() -> SpecDocument:
+    """The populated fixture the SOM §9 tables were generated from — a port of
+    the Dart harness's ``_buildDocument()``.
+
+    Built through the public mutation API rather than loaded from
+    ``state.json``, because the two agree as *stores* but not as *orders*: a
+    reloaded document iterates each form's fields in the file's sorted key
+    order, whereas the built one keeps the author's insertion order — and both
+    ``SpecNodeProjection.searchable_strings`` and the snippet a text query
+    reports are order-sensitive. ``test_build_document_matches_state`` pins the
+    two together so this transcription cannot drift from the corpus.
+    """
+    d = SpecDocument()
+    d.set_content("DEMO/TTL", "Hello")
+    d.set_content("DEMO/SUM", "Line one\nLine two\n\nLine four")
+    d.set_content("DEMO/PRI", "high")
+    d.set_content("DEMO/CNT", "3")
+    d.set_form_field("DEMO/DET", "owner", "Bob")
+    d.set_form_field("DEMO/DET", "contact", "bob@example.com")
+    # YRD7: typed form-field values in their canonical plain-text store form.
+    d.set_form_field("DEMO/DET", "estimate", "8")
+    d.set_form_field("DEMO/DET", "weight", "2.5")
+    d.set_form_field("DEMO/DET", "active", "true")
+    d.set_form_field("DEMO/DET", "priority", "high")
+    i1 = d.add_list_item("DEMO/items")
+    d.set_content(f"{i1}/label", "First")
+    d.set_content(f"{i1}/STS", "open")
+    i2 = d.add_list_item("DEMO/items")
+    d.set_content(f"{i2}/label", "Second line A\nwith ```triple``` ticks")
+    d.set_content(f"{i2}/STS", "done")
+    # A genuine `*-LST` list (id `REF-LST`, pattern `REF-xxx`).
+    for ref in ("spec §1.2", "ADR7"):
+        r = d.add_list_item("DEMO/REF-LST")
+        d.set_content(r, ref)
+    # YRD3 fixtures: stored headlines + a stored (pattern-shaped, non-numeric)
+    # item section id.
+    d.set_headline("DEMO/SUM", "Executive Summary")
+    d.set_headline("DEMO/DET", "Details & Contacts")
+    d.set_headline("DEMO/items", "Work Items")
+    d.set_item_section_id("DEMO/REF-LST-1", "REF-SPEC")
+    d.set_headline("DEMO/REF-LST-1", "Reference to the Spec")
+    # Card 1 gets a stored item section id and a stored headline; card 2 keeps
+    # both defaults. The ordinary `note` field lands in the form store.
+    c1 = d.add_list_item("DEMO/CARD-LST")
+    d.set_item_section_id(c1, "CARD-ALPHA")
+    d.set_headline(c1, "Alpha Card")
+    d.set_form_field(f"{c1}/content", "note", "first card")
+    c2 = d.add_list_item("DEMO/CARD-LST")
+    d.set_form_field(f"{c2}/content", "note", "second card")
+    d.set_content("DEMO/META/OWNR", "alice")
+    # Scalar list exercising the YAML 1.1-special quoting rule (SOM §12.5).
+    for tag in ("on", "no", "1:30", "plain"):
+        t = d.add_list_item("DEMO/META/tags")
+        d.set_content(t, tag)
+    # A class-level-only section (`Control`, id `CTRL`).
+    d.set_content("DEMO/control/CTRL-SUM", "Controlled summary")
+    d.set_content("DEMO/control/owner", "ctrl-owner")
+    return d
+
+
+def test_build_document_matches_state() -> None:
+    """The locally-built fixture is the same document ``state.json`` records.
+
+    Without this the SOM §9 tables would be replayed against a transcription
+    nothing checks: a typo in :func:`_build_document` would silently move every
+    expectation rather than fail.
+    """
+    built = _build_document().to_json()
+    canonical = _read_json("state.json")
+    _check("buildDocument.matchesState", built == canonical,
+           _json_mismatch(built, canonical))
 
 
 def test_model_meta(model: SpecModel) -> None:
@@ -566,6 +654,252 @@ def test_docspecs() -> None:
     _check("docspecs.ruleCoverage", not uncovered, f"uncovered: {uncovered}")
 
 
+# ---------------------------------------------------------------------------
+# spec_text_pattern / spec_query / spec_node_creation (SOM §9)
+# ---------------------------------------------------------------------------
+
+
+def test_pattern() -> None:
+    """The portable text-pattern subset: every committed span, and every
+    committed compile rejection.
+
+    ``regex: false`` means the pattern was built with the ``literal``
+    constructor (every character taken verbatim); ``error: true`` means
+    :meth:`SomTextPattern.compile` must raise :class:`SomPatternError` rather
+    than quietly matching nothing.
+    """
+    cases = _read_json("pattern_cases.json")
+    for n, c in enumerate(cases):
+        source = c["pattern"]
+        ci = c.get("caseInsensitive", False)
+        if c.get("error") is True:
+            _check(
+                f"pattern[{n}].rejects {source!r}",
+                _raises_pattern_error(source),
+                "compiled without raising SomPatternError",
+            )
+            continue
+        p = (
+            SomTextPattern.compile(source, ci)
+            if c["regex"]
+            else SomTextPattern.literal(source, ci)
+        )
+        got = [[s.start, s.end] for s in p.all_matches(c["text"])]
+        _check(f"pattern[{n}].spans {source!r}", got == c["spans"],
+               f"{got} != {c['spans']} over {c['text']!r}")
+        _check(f"pattern[{n}].hasMatch {source!r}",
+               p.has_match(c["text"]) == bool(c["spans"]))
+
+    # A table of matches alone would let a port accept everything; a table of
+    # rejections alone would let one reject everything.
+    _check("pattern.tableHasRejections",
+           any(c.get("error") is True for c in cases))
+    _check("pattern.tableHasMatches",
+           any(c.get("error") is not True for c in cases))
+
+
+def _raises_pattern_error(source: str) -> bool:
+    try:
+        SomTextPattern.compile(source)
+        return False
+    except SomPatternError:
+        return True
+
+
+def _query_from_json(j: dict) -> SpecQuery:
+    """Rebuilds a :class:`SpecQuery` from its corpus wire form.
+
+    Every port needs this same decode, so its shape *is* part of the contract:
+    an absent key means "dimension unset", never a default that happens to
+    match. Kept beside the replay rather than in the package because it belongs
+    to the corpus format, not to the runtime API.
+    """
+    kinds = j.get("kinds")
+    state = j.get("state")
+    return SpecQuery(
+        text=j.get("text"),
+        regex=j.get("regex", False),
+        case_insensitive=j.get("caseInsensitive", False),
+        kinds=None if kinds is None else {SpecNodeKind(k) for k in kinds},
+        class_name=j.get("className"),
+        section_id_exact=j.get("sectionIdExact"),
+        section_id_prefix=j.get("sectionIdPrefix"),
+        path_glob=j.get("pathGlob"),
+        maps_to=j.get("mapsTo"),
+        detailed_in=j.get("detailedIn"),
+        state=None if state is None else SpecStateFilter(state),
+    )
+
+
+def test_query(model: SpecModel) -> None:
+    """Every committed query reproduces its match list *in order*, and the
+    cursor's ``count`` agrees with that list.
+
+    The two assertions are the same fact from opposite sides: a port that
+    implements ``to_list`` by draining but ``count`` by returning the raw
+    candidate count passes the first and fails the second.
+    """
+    engine = SpecQueryEngine(model=model, document=_build_document())
+    for case in _read_json("query_cases.json"):
+        name = case["name"]
+        cursor = engine.query(_query_from_json(case["query"]))
+        got = [
+            {
+                "path": m.path,
+                "kind": m.kind.value,
+                "classId": m.class_id,
+                "headline": m.headline,
+                "snippet": m.snippet,
+                "spans": [[s.start, s.end] for s in m.match_spans],
+            }
+            for m in cursor.to_list()
+        ]
+        _check(f"query[{name}]", got == case["matches"],
+               _json_mismatch(got, case["matches"]))
+
+        counted = engine.query(_query_from_json(case["query"])).count
+        _check(f"query[{name}].count", counted == len(case["matches"]),
+               f"{counted} != {len(case['matches'])}")
+
+
+def test_projection(model: SpecModel) -> None:
+    """The flat tier-1 projection of the whole structural closure, in document
+    order — the index source that must agree with the live query on what a node
+    is and what text it carries."""
+    engine = SpecQueryEngine(model=model, document=_build_document())
+    got = [
+        {
+            "path": p.path,
+            "kind": p.kind.value,
+            "classId": p.class_id,
+            "sectionId": p.section_id,
+            "mapsTo": p.maps_to,
+            "detailedIn": p.detailed_in,
+            "headline": p.headline,
+            "searchableStrings": p.searchable_strings,
+            "hasValue": p.has_value,
+        }
+        for p in engine.project_nodes()
+    ]
+    want = _read_json("projection_cases.json")
+    _check("projection.walk", got == want, _json_mismatch(got, want))
+
+
+def test_cursor(model: SpecModel) -> None:
+    """A scripted cursor session over a freshly built document.
+
+    ``removeListItem`` mutates the document *while a cursor is open*: the
+    candidate set was captured at ``open``, so reproducing the committed
+    ``toList`` proves each step re-validates its path against the live document
+    instead of trusting the snapshot.
+    """
+    d = _build_document()
+    engine = SpecQueryEngine(model=model, document=d)
+    cursor = None
+    for n, s in enumerate(_read_json("cursor_cases.json")):
+        op = s["op"]
+        if op == "open":
+            cursor = engine.query(_query_from_json(s["query"]))
+        elif op == "count":
+            _check(f"cursor[{n}].count", cursor.count == s["expect"],
+                   f"{cursor.count} != {s['expect']}")
+        elif op == "take":
+            got = [m.path for m in cursor.take(s["n"])]
+            _check(f"cursor[{n}].take {s['n']}", got == s["expect"],
+                   f"{got} != {s['expect']}")
+        elif op == "next":
+            m = cursor.next()
+            got = None if m is None else m.path
+            _check(f"cursor[{n}].next", got == s["expect"],
+                   f"{got} != {s['expect']}")
+        elif op == "toList":
+            got = [m.path for m in cursor.to_list()]
+            _check(f"cursor[{n}].toList", got == s["expect"],
+                   f"{got} != {s['expect']}")
+        elif op == "removeListItem":
+            d.remove_list_item(s["itemPath"])
+        else:  # pragma: no cover
+            _check(f"cursor[{n}].unknown", False, op)
+
+
+def test_node_creation(model: SpecModel) -> None:
+    """The stateless gate probes: each runs against a **freshly built**
+    document, so they are order-independent.
+
+    Only the rejection *code* is pinned, never the message: the code is the
+    contract, the message is prose, and pinning prose across nine languages
+    would make a reword a nine-package change.
+    """
+    cases = _read_json("node_creation_cases.json")
+    covered: set[str] = set()
+    for case in cases:
+        name = case["name"]
+        d = _build_document()
+        err = check_add_node(
+            model, d, case["parentPath"], case["childSegment"],
+            item_id=case.get("itemId"),
+        )
+        _check(f"nodeCreation[{name}].accepted",
+               (err is None) == case["accepted"],
+               f"{err is None} != {case['accepted']}")
+        if err is not None:
+            covered.add(err.code.value)
+            _check(f"nodeCreation[{name}].code",
+                   err.code.value == case.get("code"),
+                   f"{err.code.value} != {case.get('code')}")
+            _check(f"nodeCreation[{name}].parentPath",
+                   err.parent_path == case["parentPath"], err.parent_path)
+            _check(f"nodeCreation[{name}].childSegment",
+                   err.child_segment == case["childSegment"], err.child_segment)
+    uncovered = sorted(c.value for c in SpecCreationCode if c.value not in covered)
+    _check("nodeCreation.codeCoverage", not uncovered, f"uncovered: {uncovered}")
+
+
+def test_node_creation_script(model: SpecModel) -> None:
+    """The sequential script: one document, so each step sees what the previous
+    produced (fresh sequence numbers, generated ids, the accumulated state)."""
+    d = _build_document()
+    creator = SpecNodeCreator(model, d)
+    for n, s in enumerate(_read_json("node_creation_script.json")):
+        op = s["op"]
+        if op == "add":
+            path = creator.add(
+                s["parentPath"], s["childSegment"],
+                item_id=s.get("itemId"), month=s["month"], day=s["day"],
+            )
+            _check(f"nodeScript[{n}].path", path == s["expectPath"],
+                   f"{path} != {s['expectPath']}")
+            got_id = d.item_section_id(path)
+            _check(f"nodeScript[{n}].id", got_id == s["expectId"],
+                   f"{got_id} != {s['expectId']}")
+        elif op == "addThrows":
+            code = _creation_error_code(
+                creator, s["parentPath"], s["childSegment"], s.get("itemId"))
+            _check(f"nodeScript[{n}].throws", code == s["expectCode"],
+                   f"{code} != {s['expectCode']}")
+        elif op == "finalState":
+            _check(f"nodeScript[{n}].finalState", d.to_json() == s["expect"],
+                   _json_mismatch(d.to_json(), s["expect"]))
+        else:  # pragma: no cover
+            _check(f"nodeScript[{n}].unknown", False, op)
+
+
+def _creation_error_code(
+    creator: SpecNodeCreator,
+    parent_path: str,
+    child_segment: str,
+    item_id,
+):
+    """The code of the :class:`SpecCreationError` an illegal add raises, or
+    ``None`` when it wrongly succeeded. The date is the script's fixed
+    2026-03-04, matching the Dart reference."""
+    try:
+        creator.add(parent_path, child_segment, item_id=item_id, month=3, day=4)
+        return None
+    except SpecCreationError as e:
+        return e.code.value
+
+
 def main() -> int:
     if not os.path.isdir(_CORPUS):
         print(f"corpus not found at {_CORPUS}", file=sys.stderr)
@@ -587,6 +921,13 @@ def main() -> int:
     test_section_id()
     test_serialization_order()
     test_docspecs()
+    test_build_document_matches_state()
+    test_pattern()
+    test_query(model)
+    test_projection(model)
+    test_cursor(model)
+    test_node_creation(model)
+    test_node_creation_script(model)
 
     total = _passed + len(_failed)
     if _failed:

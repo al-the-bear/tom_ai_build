@@ -409,6 +409,20 @@ class SpecQueryEngine {
   /// The strings a `text` query searches at [resolution]: stored values first
   /// (content leaf, scalar list item, every form field), then the node's
   /// headline.
+  ///
+  /// Form fields are yielded in **model declaration order**, never in the
+  /// document's storage order. The order is observable — it decides which
+  /// string a `text` query reports as its snippet, and it is pinned verbatim by
+  /// `projection_cases.json` — so it has to be a property of the model, which
+  /// all nine runtimes hold identically. Storage order is not: the same
+  /// document reaches memory field-by-field when it is authored but
+  /// alphabetically when it is loaded from `state.json`, which would make the
+  /// projection depend on how the document arrived.
+  ///
+  /// A field the document holds but the model does not declare is still
+  /// yielded — dropping a stored value from a text search would hide it — but
+  /// last and sorted, so an undeclared field cannot make the order arbitrary
+  /// either.
   Iterable<String> _searchableStrings(SpecResolution resolution) sync* {
     final path = resolution.path;
     switch (resolution.kind) {
@@ -419,7 +433,7 @@ class SpecQueryEngine {
         final value = document.content(path);
         if (value != null) yield value;
       case SpecNodeKind.form:
-        for (final name in document.formFieldNames(path)) {
+        for (final name in _formFieldOrder(resolution)) {
           final value = document.formField(path, name);
           if (value != null) yield value;
         }
@@ -432,6 +446,25 @@ class SpecQueryEngine {
     }
     final headline = _headlineOf(resolution);
     if (headline != null) yield headline;
+  }
+
+  /// The form-field names at [resolution], model-declared ones first in
+  /// declaration order, then any the document holds but the model does not
+  /// declare, sorted. See [_searchableStrings] for why the order is fixed here
+  /// rather than taken from the document.
+  Iterable<String> _formFieldOrder(SpecResolution resolution) sync* {
+    final declared = resolution.field?.formFields ?? const <FormFieldSpec>[];
+    final seen = <String>{};
+    for (final ff in declared) {
+      seen.add(ff.name);
+      yield ff.name;
+    }
+    final extra = document
+        .formFieldNames(resolution.path)
+        .where((n) => !seen.contains(n))
+        .toList()
+      ..sort();
+    yield* extra;
   }
 
   SomTextPattern _patternFor(SpecQuery query) => query.regex

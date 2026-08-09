@@ -724,7 +724,6 @@ void main() {
       expect(err == null, c['accepted'], reason: 'accepted ${c['name']}');
       if (err != null) {
         expect(err.code.name, c['code'], reason: 'code ${c['name']}');
-        expect(err.message, c['message'], reason: 'message ${c['name']}');
         expect(err.parentPath, c['parentPath']);
         expect(err.childSegment, c['childSegment']);
       }
@@ -908,7 +907,18 @@ Map<String, dynamic> _buildMeta() => {
               'enumType': 'Priority',
               'enumValues': ['low', 'high'],
             },
-            {'name': 'count', 'kind': 'scalar', 'sectionId': 'CNT', 'type': 'int'},
+            {
+              'name': 'count',
+              'kind': 'scalar',
+              'sectionId': 'CNT',
+              'type': 'int',
+              // The fixture's one *field* doc comment. Headline resolution
+              // falls back stored -> field doc -> class doc -> root
+              // description, and with no field carrying a doc the second step
+              // was unreachable. CNT has no stored headline, so this is what
+              // its headline resolves to.
+              'doc': 'How many items are tracked.',
+            },
             {
               'name': 'details',
               'kind': 'form',
@@ -1254,6 +1264,18 @@ Map<String, dynamic> _buildMeta() => {
         },
         'Card': {
           'name': 'Card',
+          // The fixture's one carrier of the traceability annotations and of a
+          // class doc comment. Without them the `mapsTo`/`detailedIn` query
+          // filters could only ever be pinned as "matches nothing", which a
+          // runtime that never implemented them satisfies just as well as one
+          // that did, and the doc-comment branch of headline resolution would
+          // never be reached. Card is the right carrier: nothing else reads
+          // these three (no md, docspecs or reflection golden mentions them),
+          // so they discriminate the query surface without moving anything
+          // else.
+          'mapsTo': 'CS00-CARD',
+          'detailedIn': 'BP00-CARDS',
+          'doc': 'A card entry.',
           'fields': [
             {
               // The section's OWN form (transparent, id-less `content` member).
@@ -2458,6 +2480,24 @@ List<Map<String, dynamic>> _patternCases() {
   match('ä', 'Ä', caseInsensitive: true); // non-ASCII is deliberately not folded
   match('Hello', 'hello', regex: false, caseInsensitive: true);
 
+  // -- offsets are UTF-16 code units, not bytes and not code points --
+  // The folding case above yields no spans, so on its own it says nothing
+  // about how a port indexes text. These do: each puts a match *after*
+  // non-ASCII text, so the reported start differs under every plausible
+  // indexing. In "äöü-x" the `x` starts at code unit 4, but at byte 7 in
+  // UTF-8; in "𝄞-x" (a non-BMP clef, one code point, a surrogate pair) it
+  // starts at code unit 4 but at code point 3 — which is what separates a
+  // UTF-16 port from one indexing by code point, the two that agree
+  // everywhere in the BMP.
+  match('x', 'äöü-x'); // `x` at unit 4 — it would be byte 7 in UTF-8
+  match('x', '𝄞-x'); // `x` at unit 3 — it would be code point 2
+  // And `.` is one code *unit*, not one character: against a lone surrogate
+  // pair it matches twice, each half. Unlovely, but it is the contract the
+  // offsets already imply, and pinning it stops a port whose `.` walks
+  // characters (the natural reading in Python, Go and Rust) from quietly
+  // reporting one span where the reference reports two.
+  match('.', '𝄞');
+
   // -- compile rejections --
   rejects('*a');
   rejects('^*');
@@ -2571,10 +2611,16 @@ List<Map<String, dynamic>> _queryCases(SpecModel model, SpecDocument doc) {
       const SpecQuery(state: SpecStateFilter.empty, pathGlob: 'DEMO/REG/**'),
       {'state': 'empty', 'pathGlob': 'DEMO/REG/**'});
 
-  // -- annotation dimensions: negative only, see the doc comment --
-  run('mapsTo filter matches nothing in this fixture',
+  // -- annotation dimensions (Card carries both; see its meta entry) --
+  // Positive first: a negative case alone is satisfied just as well by a
+  // runtime that never implemented the filter, so it pins nothing on its own.
+  run('mapsTo filter selects the annotated class\'s nodes',
+      const SpecQuery(mapsTo: 'CS00-CARD'), {'mapsTo': 'CS00-CARD'});
+  run('detailedIn filter selects the annotated class\'s nodes',
+      const SpecQuery(detailedIn: 'BP00-CARDS'), {'detailedIn': 'BP00-CARDS'});
+  run('mapsTo filter matches nothing when the target is unknown',
       const SpecQuery(mapsTo: 'SomeTarget'), {'mapsTo': 'SomeTarget'});
-  run('detailedIn filter matches nothing in this fixture',
+  run('detailedIn filter matches nothing when the target is unknown',
       const SpecQuery(detailedIn: 'SomeDoc'), {'detailedIn': 'SomeDoc'});
 
   // -- combinations: the filters are conjunctive --
@@ -2683,8 +2729,10 @@ List<Map<String, dynamic>> _nodeCreationCases(SpecModel model) {
       'childSegment': childSegment,
       if (itemId != null) 'itemId': itemId,
       'accepted': err == null,
+      // The `code`, not the message: the code is the contract, the message is
+      // prose. Pinning prose across nine languages makes rewording a
+      // nine-package change and guarantees nothing the code does not already.
       if (err != null) 'code': err.code.name,
-      if (err != null) 'message': err.message,
     });
   }
 
